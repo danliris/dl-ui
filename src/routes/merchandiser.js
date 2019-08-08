@@ -99,7 +99,7 @@ module.exports = [
         name: 'ro-garment-validation',
         moduleId: './modules/merchandiser/ro-garment-validation/index',
         nav: true,
-        title: 'Validasi RO Garment',
+        title: 'Validasi RO PPIC',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -112,7 +112,7 @@ module.exports = [
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
-        title: 'Sales Contract - Garment',
+        title: 'Sales Contract Per RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -139,6 +139,19 @@ module.exports = [
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
         title: 'Approve PR Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/ro-sample-validation',
+        name: 'ro-sample-validation',
+        moduleId: './modules/merchandiser/ro-sample-validation/index',
+        nav: true,
+        title: 'Validasi RO Sample',
         auth: true,
         settings: {
             group: "merchandiser",

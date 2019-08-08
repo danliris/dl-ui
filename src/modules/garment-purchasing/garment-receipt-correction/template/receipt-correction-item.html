@@ -3,7 +3,7 @@
         <td>
             <au-checkbox 
                 value.bind="data.IsSave"
-                disabled.bind="readOnly"
+                disabled.bind="readOnly || data.isDO"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -71,7 +71,7 @@
                 value.bind="data.CorrectionConversion"
                 error.bind="error.CorrectionConversion"
                 change.delegate="conversionChanged($event)"
-				read-only.bind="readOnly"
+				read-only.bind="readOnly || data.isDO"
 				show.bind="!options.Qty"
                 options.bind="controlOptions">
             </au-textbox>

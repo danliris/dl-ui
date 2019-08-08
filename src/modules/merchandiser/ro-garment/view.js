@@ -14,11 +14,13 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
-        // if(this.data.CostCalculationGarment){
-        //     this.data.CostCalculationGarment=await this.service.getCostCalculationGarmentById(this.data.CostCalculationGarment.Id);
-        //     console.log(this.data);
-        // }
+
+        if(this.data.CostCalculationGarment){
+            if(this.data.CostCalculationGarment.IsValidatedROSample) {
+                this.editCallback = null;
+                this.deleteCallback = null;
+            }
+        }
     }
 
     list() {

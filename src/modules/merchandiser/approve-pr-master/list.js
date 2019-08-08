@@ -22,7 +22,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "IsValidated", title: "Status",
+        { field: "IsValidate", title: "Status",
           formatter: function (value,row,index){
               return value ? "APPROVED" : "NOT APPROVE";
           }},
@@ -41,7 +41,7 @@ export class List {
           order[info.sort] = info.order;
         }
         let filter = {};
-        filter["IsPosted == true && PRType == \"MASTER\" || PRType == \"SAMPLE\""] = true;
+        filter["IsPosted == true && (PRType == \"MASTER\" || PRType == \"SAMPLE\")"] = true;
         let arg = {
           page: parseInt(info.offset / info.limit, 10) + 1,
           size: info.limit,
@@ -50,7 +50,6 @@ export class List {
           order: order,
           filter: JSON.stringify(filter)
         }
-
         return this.service.search(arg)
         .then(result => {
             result.data.forEach(data => {

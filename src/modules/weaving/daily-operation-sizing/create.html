@@ -48,6 +48,13 @@
             read-only.bind="readOnly">
           </au-textbox>
         </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-numeric placeholder="Ne Real" value.bind="NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
+          </au-numeric>
+        </div>
       </div>
 
       <div class="row" style="white-space: nowrap;">
@@ -72,7 +79,7 @@
           <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-datepicker value.bind="data.Details.PreparationDate" error.bind="error.EntryDate">
+          <au-datepicker value.bind="data.SizingDetails.PreparationDate" error.bind="error.EntryDate">
           </au-datepicker>
         </div>
       </div>
@@ -95,17 +102,10 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="Total Helai Benang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Counter Awal" value.bind="data.Counter.Start" error.bind="error.Counter.Start"
-            read-only.bind="readOnly"></au-textbox>
-        </div>
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Total Berat Bersih (Netto)" read-only="true" style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-4">
-          <au-textbox placeholder="Berat Bersih (Netto)" value.bind="Netto" error.bind="error.Netto"
+          <au-textbox placeholder="Total Helai Benang" value.bind="YarnStrands" error.bind="error.YarnStrands"
             read-only.bind="true"></au-textbox>
         </div>
       </div>
