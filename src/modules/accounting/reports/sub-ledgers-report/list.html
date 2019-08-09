@@ -33,17 +33,15 @@
                 <!--Table head-->
                 <thead>
                     <tr style="background-color: white; color: black">
-                        <td style="border-right: none" class="text-right" colspan="8">Saldo Awal: </td>
+                        <td style="border-right: none" class="text-right" colspan="5">Saldo Awal: </td>
                         <td style="border-left: none" class="text-right" colspan="2">${initialBalance}</td>
                     </tr>
                     <tr>
-                        <th>Tgl. BP</th>
-                        <th>Keterangan</th>
-                        <th>Supplier</th>
-                        <th>No. BP.</th>
-                        <th>No. NI/SPB</th>
-                        <th>Keterangan Rek.</th>
-                        <th>No. Rek</th>
+                        <th>Tanggal</th>
+                        <th>No. Bukti</th>
+                        <th>Bank</th>
+                        <th>CEK/BG</th>
+                        <th>Perkiraan</th>
                         <th>DEBIT</th>
                         <th>KREDIT</th>
                     </tr>
@@ -64,18 +62,16 @@
                         </td>
                     </tr> -->
                     <tr show.bind="others.length == 0">
-                        <td colspan="9">
+                        <td colspan="7">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
                     </tr>
                     <tr repeat.for="datum of others">
                         <td>${datum.Date}</td>
+                        <td>${datum.No}</td>
+                        <td>${datum.BankName}</td>
+                        <td>${datum.BGCheck}</td>
                         <td>${datum.Remark}</td>
-                        <td>${datum.Supplier}</td>
-                        <td>${datum.URNNo}</td>
-                        <td>${datum.UPONo}</td>
-                        <td>${datum.COAName}</td>
-                        <td>${datum.COACode}</td>
                         <td>${datum.Debit}</td>
                         <td>${datum.Credit}</td>
                     </tr>
@@ -164,7 +160,7 @@
                         <td>${datum.Credit}</td>
                     </tr> -->
                     <tr style="background-color: white; color: black">
-                        <td style="border-right: none" class="text-right" colspan="8">Saldo Akhir: </td>
+                        <td style="border-right: none" class="text-right" colspan="5">Saldo Akhir: </td>
                         <td style="border-left: none" class="text-right" colspan="2">${closingBalance}</td>
                     </tr>
                 </tbody>
