@@ -5,8 +5,16 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 @inject(Router, Service)
 export class List {
+    dataToBePosted = [];
     context = ["Rincian"];
     columns = [
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+              this.checkboxEnabled = !data.IsPosted;
+              return ""
+            }
+        },
         { field: "SCNo", title: "No Sales Contract" },
         { field: "SCDate", title: "Tgl. Sales Contract", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -17,6 +25,13 @@ export class List {
         { field: "BuyerBrandName", title: "Buyer Brand"},
         { field: "OrderQuantity", title: "Jumlah Order" }
     ];
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+          return { classes: "success" }
+        else
+          return {}
+      }
 
     loader = (info) => {
         var order = {};
@@ -58,4 +73,15 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+          this.service.post(this.dataToBePosted.map(d => d.Id))
+            .then(result => {
+              this.table.refresh();
+            }).catch(e => {
+              this.error = e;
+            })
+        }
+      }
 }

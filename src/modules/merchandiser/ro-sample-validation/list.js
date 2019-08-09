@@ -7,10 +7,10 @@ import moment from 'moment';
 export class List {
     context = ["Rincian"];
     columns = [
-        { field: "CostCalculationGarment.RO_Number", title: "No RO",sortable:false },
-        { field: "CostCalculationGarment.Article", title: "Artikel" ,sortable:false},
-        { field: "CostCalculationGarment.Unit.Name", title: "Unit",sortable:false },
-        { field: "Total", title: "Kuantitas RO" ,sortable:false}
+        { field: "CostCalculationGarment.RO_Number", title: "No RO"},
+        { field: "CostCalculationGarment.Article", title: "Artikel" },
+        { field: "CostCalculationGarment.UnitName", title: "Unit"},
+        { field: "Total", title: "Kuantitas RO"}
     ];
 
     loader = (info) => {
