@@ -7,6 +7,7 @@ import {Service} from './service';
 export class View {
     isView = true;
     isPosted = true;
+    isUnposted = true;
 
     constructor(router, service) {
         this.router = router;
@@ -16,8 +17,16 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data)
-        this.hasUnpost = this.data.IsPosted && !this.data.IsCC && !this.data.IsPR;
+        if(this.data.IsPosted==true){
+            if(this.data.IsCC || this.data.IsPR){
+                this.isUnposted = false;
+            } else {
+                this.isUnposted = true;
+            }
+        } else {
+            this.isUnposted = false;
+        }
+        // this.isUnposted = this.data.IsPosted && (!this.data.IsCC && !this.data.IsPR);
         if (this.data.IsPosted) {
             this.isPosted = false;
         }
