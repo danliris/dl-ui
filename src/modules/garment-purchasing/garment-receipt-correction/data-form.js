@@ -82,8 +82,6 @@ export class DataForm {
                 "Satuan",
                 "Jumlah Sisa",
                 "Satuan",
-                // "Jumlah Koreksi",
-                // "Satuan",
                 "Konversi",
                 "Jumlah Kecil",
                 "Satuan Kecil",
@@ -105,15 +103,16 @@ export class DataForm {
         if(this.data.CorrectionType=="Jumlah"){
             this.collectionOptions.Qty=true;
             this.collectionOptions.Conv=false;
+            this.itemHeader=this.itemHeaderQty;
         }
         else{
             this.collectionOptions.Qty=false;
             this.collectionOptions.Conv=true;
+            this.itemHeader=this.itemHeaderConv;
         }
-        if (!this.readOnly) {
-            this.itemHeader.columns.push({ header: "" });
-        }
-        
+        // if (!this.readOnly) {
+        //     this.itemHeader.columns.push({ header: "" });
+        // }
         
         // if (this.data && this.data.Items) {
         //     this.collectionOptions.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
@@ -123,7 +122,6 @@ export class DataForm {
     
     unitReceiptNoteChanged(newValue, oldValue) {
         var selectedURN = newValue;
-        console.log(selectedURN)
         if (selectedURN) {
             this.data.URNId = selectedURN.Id;
             this.data.URNNo = selectedURN.URNNo;
@@ -180,17 +178,21 @@ export class DataForm {
         if (this.data.CorrectionType === "Jumlah") {
             this.collectionOptions.Qty = true;
             this.collectionOptions.Conv = false;
+            this.collectionOptions.checkedAll=false;
             this.itemHeader=this.itemHeaderQty;
             for(var a of this.data.Items){
                 a.isDO=false;
+                a.IsSave=false;
             }
         }
         else{
             this.collectionOptions.Qty = false;
             this.collectionOptions.Conv = true;
             this.itemHeader=this.itemHeaderConv;
+            this.collectionOptions.checkedAll=false;
             for(var a of this.data.Items){
                 a.CorrectionConversion=a.Conversion;
+                a.IsSave=false;
                 if(a.OrderQuantity>0){
                     a.isDO=true;
                 }
