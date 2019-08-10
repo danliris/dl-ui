@@ -32,18 +32,16 @@
             <table class="table table-bordered">
                 <!--Table head-->
                 <thead>
-                    <!-- <tr style="background-color: white; color: black">
-                        <td style="border-right: none" class="text-right" colspan="8">Saldo Awal: </td>
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none" class="text-right" colspan="5">Saldo Awal: </td>
                         <td style="border-left: none" class="text-right" colspan="2">${initialBalance}</td>
-                    </tr> -->
+                    </tr>
                     <tr>
-                        <th>Tgl. BP</th>
-                        <th>Keterangan</th>
-                        <th>Supplier</th>
-                        <th>No. BP.</th>
-                        <th>No. NI/SPB</th>
-                        <th>Keterangan Rek.</th>
-                        <th>No. Rek</th>
+                        <th>Tanggal</th>
+                        <th>No. Bukti</th>
+                        <th>Bank</th>
+                        <th>CEK/BG</th>
+                        <th>Perkiraan</th>
                         <th>DEBIT</th>
                         <th>KREDIT</th>
                     </tr>
@@ -51,35 +49,33 @@
                 <!--Table head-->
                 <!--Table body-->
                 <tbody>
-                    <tr show.bind="textileLokals.length == 0 && textileImports.length == 0
+                    <!-- <tr show.bind="textileLokals.length == 0 && textileImports.length == 0
                         && garmentLokals.length == 0 && garmentImports.length == 0 
                         && others.length == 0">
                         <td colspan="9">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                    <!-- <tr>
                         <td colspan="9">
                             <div>Pembelian Textile Lokal</div>
                         </td>
-                    </tr>
-                    <tr show.bind="textileLokals.length == 0">
-                        <td colspan="9">
+                    </tr> -->
+                    <tr show.bind="others.length == 0">
+                        <td colspan="7">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
                     </tr>
-                    <tr repeat.for="datum of textileLokals">
+                    <tr repeat.for="datum of others">
                         <td>${datum.Date}</td>
+                        <td>${datum.No}</td>
+                        <td>${datum.BankName}</td>
+                        <td>${datum.BGCheck}</td>
                         <td>${datum.Remark}</td>
-                        <td>${datum.Supplier}</td>
-                        <td>${datum.URNNo}</td>
-                        <td>${datum.UPONo}</td>
-                        <td>${datum.COAName}</td>
-                        <td>${datum.COACode}</td>
                         <td>${datum.Debit}</td>
                         <td>${datum.Credit}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td colspan="9">
                             <div>Pembelian Textile Import</div>
                         </td>
@@ -162,11 +158,11 @@
                         <td>${datum.COACode}</td>
                         <td>${datum.Debit}</td>
                         <td>${datum.Credit}</td>
-                    </tr>
-                    <!-- <tr style="background-color: white; color: black">
-                        <td style="border-right: none" class="text-right" colspan="8">Saldo Akhir: </td>
-                        <td style="border-left: none" class="text-right" colspan="2">${closingBalance}</td>
                     </tr> -->
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none" class="text-right" colspan="5">Saldo Akhir: </td>
+                        <td style="border-left: none" class="text-right" colspan="2">${closingBalance}</td>
+                    </tr>
                 </tbody>
                 <!--Table body-->
                 <div style="margin-bottom: 1%" slot="toolbar" class="btn-group">

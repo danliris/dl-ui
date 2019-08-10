@@ -136,6 +136,7 @@ export class List {
 
 
         let apiResult = await this.service.search(query);
+        // console.log(apiResult);
         this.textileLokals = apiResult.data.TextileLokals;
         this.textileImports = apiResult.data.TextileImports;
         this.garmentLokals = apiResult.data.GarmentLokals;

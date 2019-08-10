@@ -11,7 +11,7 @@ export class GarmentReceiptCorrectionItemHeader {
     changeCheckedAll() {
         this.items
             .forEach(item => {
-                item.data.IsSave = (this.options.checkedAll === true);
+                item.data.IsSave = item.data.isDO ? false : (this.options.checkedAll === true);
             });
     }
   }
