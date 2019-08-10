@@ -39,6 +39,8 @@ export class View {
         if (!this.data.IsCorrection || totalOrderQuantity === 0) {
             this.hasEdit = true;
         }
+
+        console.log(this.data)
     }
 
     cancel(event) {
