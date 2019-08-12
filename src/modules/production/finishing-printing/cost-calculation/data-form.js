@@ -71,8 +71,9 @@ export class DataForm {
   }
 
   machines = {
-    columns:[
-      { header: "Mesin", value: "Name" },
+    columns: [
+      { header: "Proses", value: "Process" },
+      { header: "Mesin", value: "Machine" },
       { header: "Biaya Chemical", value: "Chemical" },
       { header: "Biaya Utility", value: "Utility" },
       { header: "Biaya Depresiasi", value: "Depretiation" },
@@ -238,7 +239,7 @@ export class DataForm {
     return InstructionLoader;
   }
 
-  get productLoader(){
+  get productLoader() {
     return ProductLoader;
   }
 
@@ -329,6 +330,12 @@ export class DataForm {
     if (this.directLaborTotal) {
       this.data.DirectLaborTotal = this.directLaborTotal;
       this.data.SalaryTotal = this.data.DirectLaborTotal * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+    }
+  }
+
+  selectedInstructionChanged(n, o) {
+    if (this.selectedInstruction) {
+
     }
   }
 

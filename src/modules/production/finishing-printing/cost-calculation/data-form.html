@@ -103,49 +103,19 @@
                     options.bind="length4"></au-numeric>
                 <au-numeric label="Asuransi" value.bind="data.Insurance" error.bind="error.Insurance"
                     options.bind="length4"></au-numeric>
-                <au-numeric label="Komisi (%)" value.bind="data.CommissionPortion" error.bind="error.CommissionPortion"
-                    options.bind="length4"></au-numeric>
-                <au-numeric label="Komisi" value.bind="commissionRate" options.bind="length4" read-only="disabled"
-                    style="display:none"></au-numeric>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <au-numeric label="OTL 1" value.bind="calculatedRateOTL1" options.bind="length4" read-only="disabled">
                 </au-numeric>
                 <au-numeric label="OTL 2" value.bind="calculatedRateOTL2" options.bind="length4" read-only="disabled">
                 </au-numeric>
-                <au-numeric label="Resiko (%)" value.bind="data.Risk" options.bind="length4" read-only="disabled">
-                </au-numeric>
             </div>
             <div class="col-md-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <au-numeric label="Biaya Produksi" value.bind="productionCost" options.bind="length4"
-                            read-only="disabled"></au-numeric>
-                    </div>
-                    <div class="col-md-6">
-                        <au-numeric label="NET/FOB" value.bind="NETFOB" options.bind="length4" read-only="disabled">
-                        </au-numeric>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <au-numeric label="Biaya Angkut" value.bind="freightCost" options.bind="length4"
-                            read-only="disabled"></au-numeric>
-                    </div>
-                    <div class="col-md-6">
-                        <au-numeric label="NET/FOB (%)" value.bind="NETFOBP" options.bind="length4"
-                            read-only="disabled"></au-numeric>
-                    </div>
-                </div>
+                
                 <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.Description"
                     error.bind="error.Description" options.bind="length4"></au-multiline>
             </div>
-            <div class="col-md-2">
-                <input type="file" id="imageInput" class="center-block" value.bind="imageUpload" accept="image/*"
-                    style="width: 60%">
-                <br>
-                <img src.bind="imageSrc" class="center-block" height="auto" width="60%">
-            </div>
+            
         </div>
         <br>
     </au-input-form>
