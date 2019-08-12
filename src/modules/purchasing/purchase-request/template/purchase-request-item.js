@@ -1,5 +1,5 @@
 import {bindable} from 'aurelia-framework'
-var ProductLoader = require('../../../../loader/product-purchasing-loader');
+var ProductLoader = require('../../../../loader/product-purchasing-null-tags-loader');
 
 export class PurchaseRequestItem {
   @bindable dataProduct;
