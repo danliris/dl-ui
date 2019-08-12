@@ -196,6 +196,7 @@
             remove.bind="deliveryOrderItem.onRemove"
             errors.bind="error.Items"
             read-only.bind="readOnly || isEdit"
+            show.bind="!isProcess"
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-order-item"
             if.bind="deliveryOrder">
         </au-collection>
@@ -207,7 +208,8 @@
             errors.bind="error.Items"
             read-only.bind="readOnly || isEdit"
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-return-item"
-            if.bind="deliveryReturn">
+            if.bind="deliveryReturn"
+            show.bind="isProcess">
         </au-collection>
     </au-input-form>
 </template>

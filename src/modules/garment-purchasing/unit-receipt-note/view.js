@@ -40,7 +40,15 @@ export class View {
             this.hasEdit = true;
         }
 
-        console.log(this.data)
+        if(this.data.URNType=="PROSES"){
+            if(this.data.DRId){
+                this.deliveryReturn=await this.service.getDRById(this.data.DRId);
+                this.data.DRItems=this.data.Items;
+                this.data.ReturnType=this.deliveryReturn.ReturnType;
+                this.data.UnitDONo=this.deliveryReturn.UnitDONo;
+            }
+            this.hasEdit = false;
+        }
     }
 
     cancel(event) {

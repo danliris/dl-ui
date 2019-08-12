@@ -68,4 +68,14 @@ export class Service extends RestService {
         var endpoint = `${UnitDOserviceUri}/${id}`;
         return super.get(endpoint);
     }
+
+    getDRById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-production");
+        const resource = `delivery-returns/${id}`;
+        return _endpoint.find(resource)
+            .then(result => {
+                return result.data;
+            });
+    }
 }
