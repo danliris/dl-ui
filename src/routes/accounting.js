@@ -92,7 +92,7 @@ module.exports = [
     },
     {
         route: '/accounting/reports/sub-ledgers-report',
-        name: 'locking-transactions',
+        name: 'sub-ledgers',
         moduleId: './modules/accounting/reports/sub-ledgers-report/index',
         nav: true,
         title: 'Laporan Sub Ledger',
@@ -103,7 +103,20 @@ module.exports = [
             iconClass: 'fa fa-clone'
         }
     },
-      {
+    {
+        route: '/accounting/reports/general-ledgers-report',
+        name: 'general-ledgers',
+        moduleId: './modules/accounting/reports/general-ledgers-report/index',
+        nav: true,
+        title: 'Laporan General Ledger',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
         route: '/accounting/reports/flow-penerimaan',
         name: 'flow-penerimaan',
         moduleId: './modules/accounting/reports/flow-penerimaan/index',

@@ -96,6 +96,7 @@ export class DataForm {
   }
 
   preSalesContractFilter = {
+    IsPosted: true,
     SCType: "JOB ORDER"
   }
 

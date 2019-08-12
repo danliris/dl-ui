@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 
 const serviceUri = 'garment-unit-receipt-notes';
+const UnitDOserviceUri = 'garment-unit-delivery-orders';
 
 export class Service extends RestService {
 
@@ -63,5 +64,18 @@ export class Service extends RestService {
              });
      }
 
+     getUnitDOById(id) {
+        var endpoint = `${UnitDOserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
 
+    getDRById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-production");
+        const resource = `delivery-returns/${id}`;
+        return _endpoint.find(resource)
+            .then(result => {
+                return result.data;
+            });
+    }
 }
