@@ -15,7 +15,7 @@ import {
     Config
   } from "aurelia-api";
   
-  const serviceUri = "weaving/daily-operations-sizing";
+  const serviceUri = "";
   
   export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -57,88 +57,88 @@ import {
       });
     }
   
-    calculatePISMeter(counterStart, counterFinish) {
-      var task = "pis-in-meter";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
+    // calculatePISMeter(counterStart, counterFinish) {
+    //   var task = "pis-in-meter";
+    //   var config = Container.instance.get(Config);
+    //   var _endpoint = config.getEndpoint("weaving");
+    //   var _serviceUri = `weaving/daily-operations-reaching-tying/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
   
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+    //   return _endpoint.find(_serviceUri).then(result => {
+    //     return result.data;
+    //   });
+    // }
   
-    calculatePISPieces(counterStart, counterFinish) {
-      var task = "pis-in-pieces";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
+    // calculatePISPieces(counterStart, counterFinish) {
+    //   var task = "pis-in-pieces";
+    //   var config = Container.instance.get(Config);
+    //   var _endpoint = config.getEndpoint("weaving");
+    //   var _serviceUri = `weaving/daily-operations-reaching-tying/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
   
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+    //   return _endpoint.find(_serviceUri).then(result => {
+    //     return result.data;
+    //   });
+    // }
   
-    calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal) {
-      var task = "theoritical-kawamoto";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
+    // calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal) {
+    //   var task = "theoritical-kawamoto";
+    //   var config = Container.instance.get(Config);
+    //   var _endpoint = config.getEndpoint("weaving");
+    //   var _serviceUri = `weaving/daily-operations-reaching-tying/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
   
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+    //   return _endpoint.find(_serviceUri).then(result => {
+    //     return result.data;
+    //   });
+    // }
   
-    calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal) {
-      var task = "theoritical-sucker-muller";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
+    // calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal) {
+    //   var task = "theoritical-sucker-muller";
+    //   var config = Container.instance.get(Config);
+    //   var _endpoint = config.getEndpoint("weaving");
+    //   var _serviceUri = `weaving/daily-operations-reaching-tying/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
   
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+    //   return _endpoint.find(_serviceUri).then(result => {
+    //     return result.data;
+    //   });
+    // }
   
-    calculateSPU(netto, theoritical) {
-      var task = "spu";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/netto/${netto}/theoritical/${theoritical}`;
+    // calculateSPU(netto, theoritical) {
+    //   var task = "spu";
+    //   var config = Container.instance.get(Config);
+    //   var _endpoint = config.getEndpoint("weaving");
+    //   var _serviceUri = `weaving/daily-operations-reaching-tying/calculate/${task}/netto/${netto}/theoritical/${theoritical}`;
   
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+    //   return _endpoint.find(_serviceUri).then(result => {
+    //     return result.data;
+    //   });
+    // }
   
-    updateStart(Id, data) {
-      var status = "start";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
+    // updateStart(Id, data) {
+    //   var status = "start";
+    //   var endpoint = `${serviceUri}/${Id}/${status}`;
+    //   return super.put(endpoint, data);
+    // }
   
-    updatePause(Id, data) {
-      var status = "pause";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
+    // updatePause(Id, data) {
+    //   var status = "pause";
+    //   var endpoint = `${serviceUri}/${Id}/${status}`;
+    //   return super.put(endpoint, data);
+    // }
   
-    updateResume(Id, data) {
-      var status = "resume";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
+    // updateResume(Id, data) {
+    //   var status = "resume";
+    //   var endpoint = `${serviceUri}/${Id}/${status}`;
+    //   return super.put(endpoint, data);
+    // }
   
-    updateProduceBeams(Id, data) {
-      var status = "produce-beams";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
+    // updateProduceBeams(Id, data) {
+    //   var status = "produce-beams";
+    //   var endpoint = `${serviceUri}/${Id}/${status}`;
+    //   return super.put(endpoint, data);
+    // }
   
-    updateDoff(Id, data) {
-      var status = "doff";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
+    // updateDoff(Id, data) {
+    //   var status = "doff";
+    //   var endpoint = `${serviceUri}/${Id}/${status}`;
+    //   return super.put(endpoint, data);
+    // }
   }
