@@ -35,6 +35,7 @@ export class DataForm {
     @computedFrom("data.PRType")
     get salesContractFilter (){
         let filter = {
+            IsPosted: true,
             SCType: this.data.PRType == "MASTER" ?  "JOB ORDER" : "SAMPLE"
         };
         if (this.data.PRType == "SAMPLE") {

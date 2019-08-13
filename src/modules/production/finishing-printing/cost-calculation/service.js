@@ -7,13 +7,19 @@ import { Config } from "aurelia-api";
 const serviceUri = 'cost-calculation-fp';
 // const serviceUri = "rates";
 // const serviceUri = "efficiencies";
-
+const directLaborUri = 'master/direct-labor-cost'
 
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "production-azure");
+    }
+
+    getDirectLaborCost(month, year){
+
+        var endpoint = `${directLaborUri}/cost-calculation?month=${month}&year=${year}`;
+        return super.get(endpoint);
     }
 
     search(info) {
@@ -122,7 +128,7 @@ export class Service extends RestService {
     }
 
     getGarmentProductsDistinctDescription(keyword, filter) {
-        console.log(keyword,filter);
+        console.log(keyword, filter);
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 

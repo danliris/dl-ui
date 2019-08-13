@@ -4,6 +4,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
 var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
+var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
 var moment = require('moment');
 
 @inject(Service, BindingEngine, Element)
@@ -16,6 +17,13 @@ export class DataForm {
     @bindable supplier;
     @bindable deliveryOrder;
     @bindable storage;
+    @bindable deliveryReturn;
+
+    typeOptions = ['PEMBELIAN ','PROSES'];
+
+    filterDR={
+        IsUsed :false
+    };
 
     constructor(service, bindingEngine, element) {
         this.service = service;
@@ -46,6 +54,20 @@ export class DataForm {
                 { header: "Artikel" },
                 { header: "Keterangan" },
                 { header: "Design/Color" },
+            ],
+            onRemove: function () {
+                this.bind();
+            }
+        };
+
+        this.deliveryReturnItem={
+            columns: [
+                { header: "Kode Barang" },
+                { header: "Nama Barang" },
+                { header: "Keterangan Barang" },
+                { header: "RO Asal" },
+                { header: "Jumlah" },
+                { header: "Satuan" },
             ],
             onRemove: function () {
                 this.bind();
@@ -90,9 +112,12 @@ export class DataForm {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
 
-        // if (this.data.IsStorage) {
-        //     this.storage = this.data.Storage;
-        // }
+        if(this.data.URNType=="PROSES"){
+            this.isProcess=true;
+        }
+        else{
+            this.isProcess=false;
+        }
     }
 
     supplierChanged(newValue, oldValue) {
@@ -129,6 +154,87 @@ export class DataForm {
         this.storage = null;
         this.data.Storage = null;
         // this.data.IsStorage = false;
+    }
+
+    async deliveryReturnChanged(newValue, oldValue){
+        var selectedDR=newValue;
+        console.log(selectedDR)
+        if(selectedDR){
+            this.data.ReturnDate=selectedDR.ReturnDate;
+            this.data.Unit=selectedDR.Unit;
+            this.unit=selectedDR.Unit;
+            this.Storage=selectedDR.Storage.Name;
+            this.data.Unit=selectedDR.Unit;
+            this.data.ReturnType=selectedDR.ReturnType;
+            this.data.UnitDONo=selectedDR.UnitDONo;
+            this.data.DRId=selectedDR.Id;
+            this.data.DRNo=selectedDR.DRNo;
+            this.data.Article=selectedDR.Article;
+            this.data.RONo=selectedDR.RONo;
+            this.data.Storage=selectedDR.Storage;
+            this.data.Storage={
+                _id:selectedDR.Storage.Id,
+                name:selectedDR.Storage.Name,
+                code:selectedDR.Storage.Code
+            }
+           // this.data.Items=[];
+            var DRItems=[];
+            var UnitDO= await this.service.getUnitDOById(selectedDR.UnitDOId);
+            
+            for(var dritem of selectedDR.Items ){
+                var dup= UnitDO.Items.find(a=>a.Id==dritem.UnitDOItemId);
+                var DRItem={};
+                if(dup){
+                    var oldURN=await this.service.getById(dup.URNId);
+                    var same= oldURN.Items.find(a=>a.Id==dup.URNItemId);
+                    if(same){
+                        DRItem.DRId= dritem.DRId;
+                        DRItem.DesignColor= dritem.DesignColor;
+                        DRItem.DRItemId= dritem.Id;
+                        DRItem.UENItemId=dritem.UENItemId;
+                        DRItem.UnitDOItemId=dritem.UnitDOItemId;
+                        DRItem.PricePerDealUnit= same.PricePerDealUnit;
+                        DRItem.SmallUom=dritem.Uom;
+                        DRItem.SmallQuantityE=dritem.Quantity;
+                        DRItem.SmallQuantity=DRItem.SmallQuantityE;
+                        DRItem.Product= dritem.Product;
+                        DRItem.Article=same.Article;
+                        DRItem.Conversion=parseFloat(same.Conversion);
+                        DRItem.EPOItemId=dup.EPOItemId;
+                        DRItem.PRId= same.PRId;
+                        DRItem.PRNo=same.PRNo;
+                        DRItem.DODetailId= dup.DODetailId;
+                        DRItem.POItemId=dup.POItemId;
+                        DRItem.POSerialNumber=dup.POItemId;
+                        DRItem.PRItemId=dup.PRItemId;
+                        DRItem.POId=same.POId;
+                        DRItem.Uom= same.Uom;
+                        DRItem.Quantity= DRItem.SmallQuantity/DRItem.Conversion;
+                        DRItem.RONo=dritem.RONo;
+                        DRItem.ReceiptQuantity=DRItem.SmallQuantity/DRItem.Conversion;
+                        DRItem.ReceiptCorrection=DRItem.SmallQuantity/DRItem.Conversion;
+                        DRItem.OrderQuantity=0;
+                        DRItems.push(DRItem)
+                    }
+                }
+            }
+            this.data.DRItems=DRItems;
+        }
+        else{
+            
+        }
+    }
+
+    URNTypeChanged(e){
+        this.data.URNType=e.srcElement.value;
+        if(this.data.URNType=="PROSES"){
+            this.isProcess=true;
+            this.deliveryOrder=null;
+        }
+        else{
+            this.isProcess=false;
+            this.deliveryReturn=null;
+        }
     }
 
     deliveryOrderChanged(newValue, oldValue) {
@@ -260,4 +366,10 @@ export class DataForm {
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`;
     }
+
+    get deliveryReturnLoader() {
+        return DeliveryReturnLoader;
+    }
+
+    
 } 

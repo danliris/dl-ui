@@ -2,7 +2,7 @@ import { Router } from "aurelia-router";
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework';
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
-
+import { Service } from './service';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
@@ -13,7 +13,11 @@ var BuyerBrandLoader = require('../../../../loader/garment-buyer-brand-loader');
 var ComodityLoader = require('../../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../../loader/uom-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
-@inject(Router, BindingEngine, ServiceEffeciency, RateService, Element)
+var SPPLoader = require('../../../../loader/production-order-loader');
+var InstructionLoader = require('../../../../loader/instruction-loader');
+var ProductLoader = require('../../../../loader/product-null-tags-loader');
+
+@inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, Service)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -26,11 +30,21 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable SelectedRounding;
+  @bindable selectedSPP;
+  @bindable buyer;
+  @bindable color;
+  @bindable material;
+  @bindable selectedInstruction;
+  @bindable orderQuantity;
+  @bindable sales;
+  @bindable date;
+  @bindable directLaborTotal;
+  @bindable selectedProduct;
 
   sectionsList = ["", "A", "B", "C", "D", "E"];
   leadTimeList = ["", "30 hari", "45 hari"];
 
-
+  directLaborData = {};
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -56,7 +70,17 @@ export class DataForm {
     }
   }
 
-
+  machines = {
+    columns: [
+      { header: "Proses", value: "Process" },
+      { header: "Mesin", value: "Machine" },
+      { header: "Biaya Chemical", value: "Chemical" },
+      { header: "Biaya Utility", value: "Utility" },
+      { header: "Biaya Depresiasi", value: "Depretiation" },
+      { header: "Total", value: "Total" },
+    ]
+  }
+  machineOptions = {};
   costCalculationFP_MaterialsInfo = {
     columns: [
       { header: "Kategori", value: "Category" },
@@ -97,12 +121,13 @@ export class DataForm {
     Rupiah: "Rupiah"
   }
 
-  constructor(router, bindingEngine, serviceEffeciency, rateService, element) {
+  constructor(router, bindingEngine, serviceEffeciency, rateService, element, service) {
     this.router = router;
     this.bindingEngine = bindingEngine;
     this.efficiencyService = serviceEffeciency;
     this.rateService = rateService;
     this.element = element;
+    this.service = service;
     this.selectedRate = "USD"
   }
 
@@ -206,6 +231,18 @@ export class DataForm {
     }
   }
 
+  get sppLoader() {
+    return SPPLoader;
+  }
+
+  get instructionLoader() {
+    return InstructionLoader;
+  }
+
+  get productLoader() {
+    return ProductLoader;
+  }
+
   get sizeRangeLoader() {
     return SizeRangeLoader;
   }
@@ -249,6 +286,58 @@ export class DataForm {
     return uom ? `${uom.Unit}` : '';
   }
 
+  async selectedSPPChanged(n, o) {
+    if (this.selectedSPP) {
+      this.data.ProductionOrder = {};
+      this.data.ProductionOrder.Id = this.selectedSPP.Id;
+      this.data.ProductionOrder.OrderNo = this.selectedSPP.OrderNo;
+
+      this.buyer = this.selectedSPP.Buyer.Name;
+      this.material = this.selectedSPP.Material.Name;
+      this.color = this.selectedSPP.Details[0].ColorRequest;
+
+      this.data.Material = {};
+      this.data.Material.Id = this.selectedSPP.Material.Id;
+      this.data.Material.Name = this.material;
+
+      this.data.Buyer = {};
+      this.data.Buyer.Id = this.selectedSPP.Buyer.Id;
+      this.data.Buyer.Name = this.Buyer;
+
+      this.data.Color = this.color;
+
+      this.sales = this.selectedSPP.Account.UserName;
+      this.date = this.selectedSPP.DeliveryDate;
+      this.orderQuantity = this.selectedSPP.OrderQuantity + " " + this.selectedSPP.Uom.Unit;
+
+      this.data.Sales = {};
+      this.data.Sales.Id = this.selectedSPP.Account.Id;
+      this.data.Sales.UserName = this.sales;
+      this.data.DeliveryDate = this.date;
+      this.data.OrderQuantity = this.selectedSPP.OrderQuantity;
+
+      this.data.Uom = {};
+      this.data.Uom.Id = this.selectedSPP.Uom.Id;
+      this.data.Uom.Unit = this.selectedSPP.Uom.Unit;
+
+      var directLaborDate = new Date(this.date);
+
+      this.directLaborData = await this.service.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
+    }
+  }
+
+  directLaborTotalChanged(n, o) {
+    if (this.directLaborTotal) {
+      this.data.DirectLaborTotal = this.directLaborTotal;
+      this.data.SalaryTotal = this.data.DirectLaborTotal * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+    }
+  }
+
+  selectedInstructionChanged(n, o) {
+    if (this.selectedInstruction) {
+
+    }
+  }
 
   @bindable selectedComodity = "";
   selectedComodityChanged(newVal) {
@@ -544,4 +633,5 @@ export class DataForm {
     this.data.NETFOBP = numeral(NETFOBP).value();
     return NETFOBP;
   }
+
 }
