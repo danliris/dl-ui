@@ -47,7 +47,7 @@ export class View {
             });
     }
 
-    unpostCallback(event) {
+    unpost(data) {
         if (confirm(`Unpost Data?`))
             this.service.unpost({ Id: this.data.Id })
                 .then(result => {
