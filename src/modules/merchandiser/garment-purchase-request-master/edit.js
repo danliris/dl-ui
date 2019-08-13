@@ -24,10 +24,6 @@ export class Edit {
                 SCNo: this.data.SCNo
             };
 
-            if (this.data.PRType === "MASTER") {
-                this.data.Unit = null;
-            }
-
             if (this.data.Items) {
                 let fabricItemsProductIds = this.data.Items
                     .filter(i => i.Category.Name === "FABRIC")
