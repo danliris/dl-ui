@@ -34,8 +34,6 @@ export class Create {
                 this.data.Items.push(a);
             }
         }
-        //this.data.Items=this.data.DRItems;
-console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
