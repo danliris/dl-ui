@@ -14,6 +14,8 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        var countRes = await this.service.getCountById(this.data.CountConfiguration.Id);
+        this.data.countRes = countRes;
     }
 
     cancelCallback(event) {

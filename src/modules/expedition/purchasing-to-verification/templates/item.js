@@ -10,7 +10,7 @@ export class Item {
 
     constructor(service) {
         this.service = service;
-       // this.queryUPO = { Position: 6}; // PURCHASING_DIVISION
+        // this.queryUPO = { Position: 6}; // PURCHASING_DIVISION
         // this.selectUPO = [
         //     'invoceNo', 'division.code', 'division.name',
         //     'supplier.code', 'supplier.name',
@@ -56,13 +56,20 @@ export class Item {
             this.service.getURN(filter)
                 .then((response) => {
                     let urn = response.data;
-                    console.log(urn)
                     for (let item of newV.items) {
                         let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
+                        // let upoItem = newV.items.find(item => item.unitReceiptNote.no === urnObj.no);
+
+                        console.log(urnObj);
+                        console.log(item);
 
                         for (let detail of item.unitReceiptNote.items) {
                             let corrections = detail.correction;
                             let price, quantity;
+
+                            // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
+
+
 
                             // if (corrections && corrections.length !== 0) {
                             //     if (corrections[corrections.length - 1].correctionRemark === 'Koreksi Jumlah') {
@@ -82,8 +89,19 @@ export class Item {
                             //     }
                             // }
                             // else {
-                            price = Number((detail.pricePerDealUnit * detail.deliveredQuantity).toFixed(2));
-                            quantity = detail.deliveredQuantity;
+
+                            if (detail.QuantityCorrection > 0)
+                                quantity = detail.QuantityCorrection;
+                            else
+                                quantity = detail.deliveredQuantity;
+
+                            if (detail.PriceTotalCorrection > 0)
+                                price = Number((detail.PriceTotalCorrection).toFixed(2));
+                            else if (detail.PricePerDealUnitCorrection > 0)
+                                price = Number((detail.PricePerDealUnitCorrection * quantity).toFixed(2));
+                            else
+                                price = Number((detail.pricePerDealUnit * quantity).toFixed(2));
+                            // quantity = detail.deliveredQuantity;
                             // }
 
                             items.push({
@@ -120,18 +138,18 @@ export class Item {
                         divisionName: newV.division.name,
                         incomeTax: incomeTax,
                         vat: vat,
-                        category:newV.category,
-                        paymentMethod:newV.paymentMethod,
+                        category: newV.category,
+                        paymentMethod: newV.paymentMethod,
                         totalPaid: Number((totalPaid + vat).toFixed(2)),
                         currency: newV.currency.code,
                         items: items,
-                        useIncomeTax:newV.useIncomeTax,
-                        useVat:newV.useVat
+                        useIncomeTax: newV.useIncomeTax,
+                        useVat: newV.useVat
                     });
-                    if(newV.useIncomeTax){
-                        this.data.incomeTaxId= newV.incomeTax._id ;
-                        this.data.incomeTaxName= newV.incomeTax.name ;
-                        this.data.incomeTaxRate= newV.incomeTax.rate;
+                    if (newV.useIncomeTax) {
+                        this.data.incomeTaxId = newV.incomeTax._id;
+                        this.data.incomeTaxName = newV.incomeTax.name;
+                        this.data.incomeTaxRate = newV.incomeTax.rate;
                     }
                 });
         }
@@ -153,7 +171,7 @@ export class Item {
                 incomeTaxRate: undefined,
                 totalPaid: undefined,
                 currency: undefined,
-                category:undefined,
+                category: undefined,
                 details: [],
             });
         }

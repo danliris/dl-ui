@@ -38,6 +38,7 @@
             label="No Sales Contract"
             loader.bind="preSalesContractLoader"
             text="SCNo"
+            query.bind="salesContractFilter"
             placeholder="No Sales Contract"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
@@ -58,7 +59,7 @@
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
-            read-only.bind="readOnly || data.PRType!='SAMPLE' || isEdit"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             view-model.ref="unitViewModel">
         </au-autocomplete>
@@ -95,6 +96,8 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
+
+        <au-textbox  error.bind="error.ItemsCount" read-only="true"></au-textbox>
 
         <au-collection 
             items.bind="data.Items" 

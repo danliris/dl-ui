@@ -94,7 +94,19 @@
             text.bind="supplierView"
             placeholder="cari supplier"
             read-only.bind="readOnly"
-            if.bind="!isFrom"
+            if.bind="!isFrom && data.SourceType != 'Pendanaan'"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="data.OutputBank"
+            error.bind="error.OutputBank"
+            label="Destination Bank"
+            loader.bind="bankLoader"
+            text.bind="bankView"
+            placeholder="cari bank"
+            read-only.bind="readOnly"
+            if.bind="!isFrom && data.SourceType == 'Pendanaan'"
             options.bind="controlOptions">
         </au-autocomplete>
 

@@ -5,6 +5,7 @@ import moment from 'moment';
 var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
+var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -23,6 +24,7 @@ export class DataForm {
     @bindable isItem = true;
     @bindable detailOptions;
     @bindable error;
+    @bindable countConfiguration;
 
     formOptions = {
         cancelText: "Kembali",
@@ -72,6 +74,7 @@ export class DataForm {
     };
     masterMachine = [];
     items = [];
+    countFilter = {};
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     constructor(service, coreService) {
         this.service = service;
@@ -138,6 +141,11 @@ export class DataForm {
             this.inputDate = this.data.Date;
         }
 
+        if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
+
+            this.countConfiguration = this.data.countRes;
+        }
+
         if (this.data.Shift) {
             this.shift = this.data.Shift;
         }
@@ -146,7 +154,7 @@ export class DataForm {
             this.group = this.data.Group;
         }
 
-        
+
     }
 
     items = {
@@ -180,7 +188,7 @@ export class DataForm {
             this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
-                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
+                    this.detailOptions.CountConfig = this.countConfiguration;
                     if (!this.detailOptions.CountConfig) {
                         this.error.LotId = "Count is not created with this Lot";
                         return [];
@@ -193,20 +201,7 @@ export class DataForm {
                         existedItem = this.data;
                     }
                     else {
-                        // if(this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != ""){
-                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.Id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
-                        //     if (existedItem.Items && existedItem.Items.length > 0) {
-                        //         alert("Data already exist with this configuration");
-                        //         this.inputDate = undefined;
-                        //         this.processType = this.typeOptions[0];
-                        //         this.materialType = undefined;
-                        //         this.lot = undefined;
-                        //         this.shift = this.shiftOptions[0];
-                        //         this.group = undefined;
-                        //         this.unit = undefined;
-                        //         return [];
-                        //     }
-                        // }else{
+
                         existedItem = {};
                         existedItem.Items = [];
                         // }
@@ -249,69 +244,6 @@ export class DataForm {
         }
     }
 
-    // processTypeChanged(n, o) {
-    //     if (this.processType && this.processType != "") {
-    //         this.data.ProcessType = this.processType;
-    //         this.detailOptions.ProcessType = this.processType;
-    //         if (this.processType == "Blowing") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Bad Output",
-    //                 "Eff%"
-    //             ];
-
-    //         } else if (this.processType == "Flyer") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Total Delivery",
-    //                 "Spindle Kosong",
-    //                 "Eff%"
-    //             ];
-    //         } else if (this.processType == "Winder") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Waste",
-    //                 "Total Drum",
-    //                 "Eff%"
-    //             ];
-    //         } else {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Eff%"
-    //             ];
-    //         }
-    //         this.isItem = true;
-    //         this.fillItems();
-    //     } else {
-    //         this.data.ProcessType = null;
-    //         this.data.Items = [];
-    //         this.itemsColumnsHeader = [
-    //             "Nomor Mesin",
-    //             "Merk Mesin",
-    //             "Output (Counter)",
-    //             "UOM",
-    //             "Bale",
-    //             "Eff%"
-    //         ];
-    //         this.isItem = false;
-    //     }
-    // }
 
     inputDateChanged(n, o) {
         if (this.inputDate) {
@@ -381,10 +313,35 @@ export class DataForm {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
+            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
             this.data.Items = [];
+        }
+    }
+
+    countConfigurationChanged(n, o) {
+        if (this.countConfiguration && this.countConfiguration.Id) {
+            this.data.CountConfigurationId = this.countConfiguration.Id;
+
+
+            var yarnInCount = this.countConfiguration.MaterialComposition[0];
+            if (yarnInCount) {
+                this.materialType = {
+                    "Id": yarnInCount.YarnId,
+                    "Name": yarnInCount.YarnName
+                };
+                this.lot = {
+                    "Id": yarnInCount.LotId,
+                    "LotNo": yarnInCount.LotNo
+                };
+            }
+
+
+
+        } else {
+            this.data.CountConfigurationId = null;
         }
     }
 
@@ -410,5 +367,19 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+    get countConfigurationLoader() {
+        return CountConfigurationLoader;
+    }
+
+    countView(count) {
+        var materialComposition = count.MaterialComposition;
+        
+        if (materialComposition) {
+            return count.Count + " - " + materialComposition[0].LotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }

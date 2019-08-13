@@ -23,6 +23,97 @@
             options.bind="auInputOptions">
         </au-datepicker>
 
+        <au-dropdown 
+            label="Jenis Bon Terima Unit" 
+            value.bind="data.URNType" 
+            error.bind="error.URNType" 
+            read-only.bind="true"
+            items.bind="typeOptions"
+            change.delegate="URNTypeChanged($event)"
+            options.bind="auInputOptions">
+        </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="deliveryReturn"
+            label="No Bukti Pengantar" 
+            loader.bind="deliveryReturnLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.DeliveryReturn"
+            options.bind="auInputOptions"
+            placeholder="cari no bukti pengantar"
+            options.bind="auInputOptions"
+            if.bind="isProcess"
+            text="DRNo">
+        </au-autocomplete>
+        
+        <au-textbox
+            label="Jenis Pengembalian"
+            value.bind="data.ReturnType"
+            error.bind="error.ReturnType"
+            read-only.bind="true"
+            if.bind="isProcess"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-autocomplete 
+            value.bind="unit"
+            label="Unit" 
+            loader.bind="unitLoader" 
+            text.bind="unitView"
+            if.bind="isProcess"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-autocomplete>
+        
+        <au-textbox 
+            label="Storage" 
+            value.bind="data.Storage.name" 
+            error.bind="error.Storage" 
+            if.bind="isProcess"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.UnitDONo"
+            error.bind="error.UnitDONo"
+            label="No Unit DO"
+            if.bind="isProcess"
+            loader.bind="unitDOLoader"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox
+            label="RO"
+            value.bind="data.RONo"
+            error.bind="error.RONo"
+            if.bind="data.RONo"
+            read-only.bind="true"
+            if.bind="isProcess"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox
+            label="Artikel"
+            value.bind="data.Article"
+            error.bind="error.Article"
+            if.bind="data.Article"
+            read-only.bind="true"
+            if.bind="isProcess"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-datepicker
+            label="Tanggal Pengembalian"
+            value.bind="data.ReturnDate"
+            error.bind="error.ReturnDate"
+            if.bind="data.ReturnDate"
+            read-only.bind="true"
+            if.bind="isProcess"
+            options.bind="auInputOptions">
+        </au-datepicker>
+
         <au-autocomplete 
             value.bind="unit"
             label="Unit" 
@@ -31,6 +122,7 @@
             read-only.bind="readOnly || isEdit"
             error.bind="error.Unit"
             placeholder="cari unit"
+            show.bind= "!isProcess"
             options.bind="auInputOptions">
         </au-autocomplete>
        
@@ -42,7 +134,8 @@
             read-only.bind="readOnly || isEdit"
             error.bind="error.Supplier"
             placeholder="cari supplier"
-            options.bind="auInputOptions">
+            options.bind="auInputOptions"
+            show.bind="!isProcess">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -53,7 +146,7 @@
             error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
-            show.bind="data.Supplier && data.Unit"
+            show.bind="data.Supplier && data.Unit && !isProcess"
             text="doNo"
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">
@@ -77,7 +170,8 @@
             query.bind="filterUnit"
             placeholder="cari nama storage" 
             text.bind="storageView"
-            show.bind="data.DOId"
+            show.bind="data.DOId || data.DRId"
+            if.bind="!isProcess"
             options.bind="auInputOptions">
         </au-autocomplete>
 
@@ -102,8 +196,20 @@
             remove.bind="deliveryOrderItem.onRemove"
             errors.bind="error.Items"
             read-only.bind="readOnly || isEdit"
+            show.bind="!isProcess"
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-order-item"
-            show.bind="deliveryOrder">
+            if.bind="deliveryOrder">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.DRItems" 
+            columns.bind="deliveryReturnItem.columns"
+            remove.bind="deliveryReturnItem.onRemove"
+            errors.bind="error.Items"
+            read-only.bind="readOnly || isEdit"
+            item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-return-item"
+            if.bind="deliveryReturn"
+            show.bind="isProcess">
         </au-collection>
     </au-input-form>
 </template>

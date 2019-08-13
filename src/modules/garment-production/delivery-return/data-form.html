@@ -28,26 +28,28 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.Unit"
+            value.bind="Unit"
             error.bind="error.Unit"
             label="Unit"
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="UnitViewModel">
         </au-autocomplete>
         
         <au-autocomplete
-            value.bind="data.Storage"
+            value.bind="Storages"
             error.bind="error.Storage"
             label="Gudang"
             loader.bind="storageLoader"
             text.bind="storageView"
             placeholder="Gudang"
             query.bind="filterByUnit"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="StorageViewModel">
         </au-autocomplete>
 
         <au-autocomplete
@@ -57,7 +59,8 @@
             loader.bind="unitDOLoader"
             text="UnitDONo"
             placeholder="No Unit DO"
-            read-only.bind="readOnly"
+            query.bind="filterDO"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             view-model.ref="selectedUnitDOViewModel">
         </au-autocomplete>

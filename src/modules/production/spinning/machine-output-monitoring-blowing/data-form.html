@@ -28,13 +28,18 @@
             placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter"
             options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete label="Nama Benang" value.bind="materialType" error.bind="error.MaterialTypeId"
-            loader.bind="materialTypeLoader" placeholder="Cari nama benang" key="Id" text="Name"
+        <au-autocomplete show.bind="unit" query.bind="countFilter" label="Count" value.bind="countConfiguration" error.bind="error.CountConfigurationId"
+            loader.bind="countConfigurationLoader" placeholder="Cari count" key="Id" text.bind="countView"
             read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete label="Lot" value.bind="lot" error.bind="error.LotId" loader.bind="lotLoader"
-            placeholder="Cari nomor Lot" key="Id" text="LotNo" query.bind="lotFilter" read-only.bind="readOnly"
+        <au-autocomplete show.bind="unit" label="Nama Benang" value.bind="materialType" error.bind="error.MaterialTypeId"
+            loader.bind="materialTypeLoader" placeholder="Cari nama benang" key="Id" text="Name"
+            read-only.bind="true" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete show.bind="unit" label="Lot" value.bind="lot" error.bind="error.LotId" loader.bind="lotLoader"
+            placeholder="Cari nomor Lot" key="Id" text="LotNo" query.bind="lotFilter" read-only.bind="true"
             options.bind="controlOptions">
         </au-autocomplete>
 

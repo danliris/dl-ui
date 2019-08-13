@@ -308,7 +308,7 @@ export class Item {
   }
 
   ConfirmChanged(e){
-    if(this.data.IsConfirm){
+    if(this.data.IsConfirm && this.data.EHBooking && this.data.Operator && this.data.Efficiency){
       this.data.whConfirm= this.data.EHBooking/(this.data.Operator * this.data.Efficiency);
     }
     else{
@@ -318,7 +318,7 @@ export class Item {
   @computedFrom("data.EHBooking && data.Operator && data.Efficiency && data.IsConfirm")
   get whConfirm(){
     this.data.whConfirm=0;
-    if(this.data.IsConfirm){
+    if(this.data.IsConfirm && this.data.EHBooking && this.data.Operator && this.data.Efficiency){
       var calc=(this.data.Operator * this.data.Efficiency);
       this.data.whConfirm= this.data.EHBooking/calc;
     }

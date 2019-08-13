@@ -42,6 +42,17 @@ export class DataForm {
 
         this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
         this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
+
+        var arg = {
+            page:  1,
+            size: 1,
+        }
+
+        this.data.maxWH= await this.service.searchWHConfirm(arg)
+            .then(result => {
+                return result.data[0].UnitMaxValue + result.data[0].SKMaxValue;
+                
+            });
     }
 
     @computedFrom("data.Id")

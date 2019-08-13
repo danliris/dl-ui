@@ -6,6 +6,7 @@ var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 
+var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 @inject(Service, CoreService)
 export class DataForm {
     @bindable isCreate = false;
@@ -24,6 +25,7 @@ export class DataForm {
     @bindable detailOptions;
     @bindable error;
 
+    @bindable countConfiguration;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -70,13 +72,13 @@ export class DataForm {
             length: 4,
         }
     };
-
+    countFilter = {};
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        console.log(this);
+        // console.log(this);
         // this.bindingEngine = bindingEngine
     }
 
@@ -126,7 +128,10 @@ export class DataForm {
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
         }
+        if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
 
+            this.countConfiguration = this.data.countRes;
+        }
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.materialType = {};
             this.materialType.Id = this.data.MaterialType.Id;
@@ -186,7 +191,8 @@ export class DataForm {
             this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
-                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
+                    this.detailOptions.CountConfig = this.countConfiguration;
+                    console.log(this.countConfiguration);
                     if (!this.detailOptions.CountConfig) {
                         this.error.LotId = "Count is not created with this Lot";
                         return [];
@@ -353,7 +359,10 @@ export class DataForm {
                 this.data.LotId = this.lot.Id;
                 this.fillItems();
             } else {
-                this.error.LotId = "Count is not created with this Lot";
+                if (this.error) {
+                    this.error.LotId = "Count is not created with this Lot";
+                }
+
             }
 
         } else {
@@ -387,13 +396,30 @@ export class DataForm {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
+            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
             this.data.Items = [];
         }
     }
+    countConfigurationChanged(n, o) {
+        if (this.countConfiguration && this.countConfiguration.Id) {
+            this.data.CountConfigurationId = this.countConfiguration.Id;
 
+
+            this.materialType = {
+                "Id": this.countConfiguration.MixDrawingCountId,
+                "Name": this.countConfiguration.Count
+            };
+            this.lot = {
+                "Id": this.countConfiguration.MixDrawingLotId,
+                "LotNo": this.countConfiguration.MixDrawingLotNo
+            };
+        } else {
+            this.data.CountConfigurationId = null;
+        }
+    }
     get lotLoader() {
         //return LotLoader;
         return LotLoader;
@@ -416,5 +442,19 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+    get countConfigurationLoader() {
+        return CountConfigurationLoader;
+    }
+
+    countView(count) {
+        var mixDrawingLotNo = count.MixDrawingLotNo;
+
+        if (mixDrawingLotNo) {
+            return count.Count + " - " + mixDrawingLotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }

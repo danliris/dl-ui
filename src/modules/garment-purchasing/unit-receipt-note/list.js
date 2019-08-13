@@ -13,8 +13,10 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "URNType", title: "Tipe Bon Terima Unit" },
         { field: "SupplierName", title: "Supplier" },
-        { field: "DONo", title: "No. Surat Jalan" }
+        { field: "DONo", title: "No. Surat Jalan" },
+        { field: "DRNo", title: "No. Bukti Pengantar" }
     ];
 
     context = ["Rincian", "Cetak PDF"];

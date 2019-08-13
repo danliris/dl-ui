@@ -6,7 +6,7 @@ import { Config } from "aurelia-api";
 
 
 const serviceUri = 'sales/garment-booking-orders';
-const HourServiceUri = 'standard-hours-by-style';
+const MaxWHServiceUri = 'max-wh-confirms';
 
 export class Service extends RestService {
 
@@ -16,6 +16,11 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchWHConfirm(info) {
+        var endpoint = `${MaxWHServiceUri}`;
         return super.list(endpoint, info);
     }
 

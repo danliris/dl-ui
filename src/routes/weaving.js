@@ -195,6 +195,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/daily-operation-warping",
+    name: "daily-operation-warping",
+    moduleId: "./modules/weaving/daily-operation-warping/index",
+    nav: true,
+    title: "Operasional Mesin Harian Warping",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/daily-operation-sizing",
     name: "daily-operation-sizing",
     moduleId: "./modules/weaving/daily-operation-sizing/index",
@@ -258,5 +271,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
-  }
+  },
+  {
+    route: "weaving/daily-operation-reaching-tying",
+    name: "weaving-daily-operation-reaching-tying",
+    moduleId: "./modules/weaving/daily-operation-reaching-tying/index",
+    nav: true,
+    title: "Operasional Mesin Harian Reaching/ Tying",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
 ];
