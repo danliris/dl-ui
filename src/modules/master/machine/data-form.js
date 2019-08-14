@@ -40,7 +40,7 @@ export class DataForm {
 
   get addStep() {
     return (event) => {
-      this.data.MachineSteps.push({})
+      this.data.Steps.push({})
     };
   }
 
