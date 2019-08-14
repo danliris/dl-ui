@@ -4,6 +4,7 @@ import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const ProductLoader = require('../../../../../../loader/product-loader');
 const CategoryLoader = require('../../../../../../loader/category-loader');
+const MachineLoader = require('../../../../../../loader/machines-loader');
 import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
 
@@ -233,6 +234,11 @@ export class CostCalculationMaterial {
     get productLoader() {
         return ProductLoader;
     }
+
+    get machineLoader(){
+        return MachineLoader;
+    }
+
     get garmentProductConstLoader() {
 
         return (keyword) => {

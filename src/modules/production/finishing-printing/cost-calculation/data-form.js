@@ -335,7 +335,7 @@ export class DataForm {
 
   selectedInstructionChanged(n, o) {
     if (this.selectedInstruction) {
-
+      this.data.Machines = this.selectedInstruction.Steps;
     }
   }
 
