@@ -53,7 +53,10 @@ export class View {
             this.hasDelete=false;
             this.hasEdit=false;
         }
-        // this.
+        if(this.data.IsPreparing){
+            this.hasDelete=false;
+            this.hasEdit=false;
+        }
     }
 
     cancel(event) {
