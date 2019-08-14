@@ -341,7 +341,7 @@ module.exports = [
         name: 'unit-delivery-order-retur',
         moduleId: './modules/garment-purchasing/unit-delivery-order-retur/index',
         nav: true,
-        title: 'Retur Delivery Order',
+        title: 'DO Retur',
         auth: true,
         settings: {
             group: "g-purchasing",
