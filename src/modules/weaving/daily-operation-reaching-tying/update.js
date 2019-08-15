@@ -41,32 +41,32 @@ export class Update {
   process = ["", "Cucuk", "Sisir"];
 
   async activate(params) {
-    //   var Id = params.Id;
-    //   var dataResult;
-    //   this.data = await this.service
-    //     .getById(Id)
-    //     .then(result => {
-    //       dataResult = result;
-    //       return this.service.getUnitById(result.WeavingUnitDocumentId);
-    //     })
-    //     .then(unit => {
-    //       dataResult.WeavingDocument = unit;
-    //       return dataResult;
-    //     });
-    //   if (this.data.Id) {
-    //     this.BeamsWarping = this.data.WarpingBeamsDocument;
-    //     this.ProduceBeams = this.data.SizingBeamDocuments;
-    //     this.Log = this.data.SizingDetails;
-    //   }
-    this.data = {
-      Id: 1,
-      MachineDateHistory: "31/07/2019	",
-      MachineTimeHistory: "7:00 AM",
-      MachineNumber: "144",
-      WeavingUnitDocumentId: "WEAVING 2",
-      ConstructionNumber: "PC20  66 77 88 Da Da",
-      BeamNumber: "S43"
-    };
+      var Id = params.Id;
+      var dataResult;
+      this.data = await this.service
+        .getById(Id)
+        .then(result => {
+          dataResult = result;
+          return this.service.getUnitById(result.WeavingUnitDocumentId);
+        })
+        .then(unit => {
+          dataResult.WeavingDocument = unit;
+          return dataResult;
+        });
+      // if (this.data.Id) {
+      //   this.BeamsWarping = this.data.WarpingBeamsDocument;
+      //   this.ProduceBeams = this.data.SizingBeamDocuments;
+      //   this.Log = this.data.SizingDetails;
+      // }
+    // this.data = {
+    //   Id: 1,
+    //   MachineDateHistory: "31/07/2019	",
+    //   MachineTimeHistory: "7:00 AM",
+    //   MachineNumber: "144",
+    //   WeavingUnitDocumentId: "WEAVING 2",
+    //   ConstructionNumber: "PC20  66 77 88 Da Da",
+    //   BeamNumber: "S43"
+    // };
   }
 
   ReachingTyingProcessChanged(newValue) {

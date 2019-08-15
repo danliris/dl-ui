@@ -15,26 +15,11 @@ import {
     Config
   } from "aurelia-api";
   
-  const serviceUri = "";
+  const serviceUri = "weaving/daily-operations-reaching-tying";
   
   export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
       super(http, aggregator, config, "weaving");
-    }
-  
-    search(info) {
-      var endpoint = `${serviceUri}`;
-      return super.list(endpoint);
-    }
-  
-    getById(Id) {
-      var endpoint = `${serviceUri}/${Id}`;
-      return super.get(endpoint);
-    }
-  
-    create(data) {
-      var endpoint = `${serviceUri}`;
-      return super.post(endpoint, data);
     }
   
     getUnitById(Id) {
@@ -55,6 +40,21 @@ import {
       return _endpoint.find(_serviceUri).then(result => {
         return result.data;
       });
+    }
+  
+    create(data) {
+      var endpoint = `${serviceUriReaching}`;
+      return super.post(endpoint, data);
+    }
+  
+    search(info) {
+      var endpoint = `${serviceUri}`;
+      return super.list(endpoint);
+    }
+  
+    getById(Id) {
+      var endpoint = `${serviceUri}/${Id}`;
+      return super.get(endpoint);
     }
   
     // calculatePISMeter(counterStart, counterFinish) {
