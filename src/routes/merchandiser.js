@@ -159,4 +159,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/ro-acceptance',
+        name: 'ro-acceptance',
+        moduleId: './modules/merchandiser/ro-acceptance/index',
+        nav: true,
+        title: 'Penerimaan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
