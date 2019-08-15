@@ -17,12 +17,15 @@
         <td>
             <au-numeric value.bind="data.Chemical" error.bind="error.Chemical" options.bind="controlOptions"
                 read-only.bind="true"></au-numeric>
+            <button click.delegate="chemicalAdd()" class="btn btn-success pull-right">+</button>
+            <button class="btn btn-info pull-right" click.delegate="chemicalToggle()">i</button>
         </td>
 
         <!-- Utility -->
         <td>
             <au-numeric value.bind="data.Utility" error.bind="error.Utility" options.bind="controlOptions"
                 read-only.bind="true"></au-numeric>
+            <button class="btn btn-info pull-right" click.delegate="utilityToggle()">i</button>
         </td>
 
         <!-- Depretiation -->
