@@ -158,7 +158,6 @@ export class DataForm {
 
     async deliveryReturnChanged(newValue, oldValue){
         var selectedDR=newValue;
-        console.log(selectedDR)
         if(selectedDR){
             this.data.ReturnDate=selectedDR.ReturnDate;
             this.data.Unit=selectedDR.Unit;
@@ -230,10 +229,35 @@ export class DataForm {
         if(this.data.URNType=="PROSES"){
             this.isProcess=true;
             this.deliveryOrder=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.supplier=null;
         }
         else{
             this.isProcess=false;
             this.deliveryReturn=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.deliveryOrder=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
         }
     }
 
