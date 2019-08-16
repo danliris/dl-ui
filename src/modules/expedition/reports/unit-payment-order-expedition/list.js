@@ -10,26 +10,26 @@ const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-lo
 export class List {
     columns = [
         [
-            { field: 'no', title: 'No. SPB', rowspan: 2, sortable: true },
+            { field: 'No', title: 'No. SPB', rowspan: 2, sortable: true },
             {
-                field: 'date', title: 'Tgl SPB', formatter: function (value, data, index) {
+                field: 'Date', title: 'Tgl SPB', formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
                 sortable: true,
             },
             {
-                field: 'dueDate', title: 'Tgl Jatuh Tempo', formatter: function (value, data, index) {
+                field: 'DueDate', title: 'Tgl Jatuh Tempo', formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
                 sortable: true,
             },
-            { field: 'invoceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
-            { field: 'supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
-            { field: 'division.name', title: 'Divisi', rowspan: 2, sortable: true },
+            { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
+            { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
+            { field: 'Division.Name', title: 'Divisi', rowspan: 2, sortable: true },
             {
-                field: 'position', title: 'Posisi', formatter: (value, data, index) => {
+                field: 'Position', title: 'Posisi', formatter: (value, data, index) => {
                     let status = this.itemsStatus.find(p => p.value === value);
                     return status.text;
                 },
@@ -109,6 +109,7 @@ export class List {
     }
 
     loader = (info) => {
+        // console.log(this);
         let order = {};
         if (info.sort)
             order[info.sort] = info.order;
@@ -127,7 +128,7 @@ export class List {
             filter.divisionCode = this.division.code;
         }
 
-        if (this.status.value != 0) {
+        if (this.status && this.status.value != 0) {
             filter.status = this.status.value;
         }
 
@@ -140,33 +141,35 @@ export class List {
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            filter: JSON.stringify(filter),
+            // filter: JSON.stringify(filter),
             order: order,
-            select: ['no', 'date', 'dueDate', 'invoceNo', 'supplier.name', 'division.name', 'position'],
+            // select: ['no', 'date', 'dueDate', 'invoceNo', 'supplier.name', 'division.name', 'position'],
         };
+
+        Object.assign(arg, filter);
 
         return this.flag ? (
             this.service.search(arg)
                 .then(result => {
-                    let unitPaymentOrders = result.data.map(p => p.no);
+                    // let unitPaymentOrders = result.data.map(p => p.no);
 
-                    return this.azureService.search({ unitPaymentOrders })
-                        .then(response => {
-                            let expeditions = response.data;
+                    // return this.azureService.search({ unitPaymentOrders })
+                    // .then(response => {
+                    // let expeditions = response.data;
 
-                            for (let d of result.data) {
-                                let expedition = expeditions.find(p => p.UnitPaymentOrderNo == d.no);
+                    // for (let d of result.data) {
+                    //     let expedition = expeditions.find(p => p.UnitPaymentOrderNo == d.no);
 
-                                if (expedition) {
-                                    Object.assign(d, expedition);
-                                }
-                            }
+                    //     if (expedition) {
+                    //         Object.assign(d, expedition);
+                    //     }
+                    // }
 
-                            return {
-                                total: result.info.total,
-                                data: result.data
-                            }
-                        });
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                    // });
                 })
         ) : { total: 0, data: [] };
     }
