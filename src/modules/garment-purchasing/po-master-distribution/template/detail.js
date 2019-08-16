@@ -59,8 +59,12 @@ export class Detail {
             this.data.CostcalculationId = this.data.costCalculation.Id;
             this.data.RONo = this.data.costCalculation.RO_Number;
 
+            const poSerialNumbers = this.context.context.items
+                .filter(i => i.data.POSerialNumber)
+                .map(i => i.data.POSerialNumber);
+
             this.data.listPOSerialNumber = [""].concat(this.data.costCalculation.CostCalculationGarment_Materials
-                .filter(m => m.Product.Id == this.data.ParentProduct.Id)
+                .filter(m => m.Product.Id == this.data.ParentProduct.Id && poSerialNumbers.indexOf(m.PO_SerialNumber) < 0)
                 .map(m => m.PO_SerialNumber));
 
         } else {

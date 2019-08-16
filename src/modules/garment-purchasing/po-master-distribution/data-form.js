@@ -1,8 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-import { PurchaseRequestService, DeliveryOrderService } from './service';
+import { Router } from 'aurelia-router';
+import { Service, PurchaseRequestService, DeliveryOrderService } from './service';
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
-@inject(PurchaseRequestService, DeliveryOrderService)
+@inject(Router, Service, PurchaseRequestService, DeliveryOrderService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -86,7 +87,9 @@ export class DataForm {
         return `${data.Code || data.code} - ${data.Name || data.name}`;
     };
 
-    constructor(PurchaseRequestService, DeliveryOrderService) {
+    constructor(Router, Service, PurchaseRequestService, DeliveryOrderService) {
+        this.router = Router;
+        this.service = Service;
         this.prService = PurchaseRequestService;
         this.doService = DeliveryOrderService;
     }
@@ -121,6 +124,20 @@ export class DataForm {
         this.context.error = null;
 
         if (newValue) {
+            const checkExistingPOMasterDistribution = await this.service.search({
+                select: JSON.stringify({ "Id": 1, "DOId": 1, "DONo": 1 }),
+                filter: JSON.stringify({ "DOId": newValue.Id })
+            });
+
+            if (checkExistingPOMasterDistribution && checkExistingPOMasterDistribution.info && checkExistingPOMasterDistribution.info.total > 0) {
+                const existingPOMasterDistribution = checkExistingPOMasterDistribution.data.find(d => d.DOId == newValue.Id);
+                
+                if (confirm("NO SJ Sudah Pembagian PO Master. Ubah?")) {
+                    this.router.navigateToRoute('edit', { id: existingPOMasterDistribution.Id });
+                }
+                return;
+            }
+
             this.data.deliveryOrder = await this.doService.read(newValue.Id);
 
             if (this.data.deliveryOrder) {
