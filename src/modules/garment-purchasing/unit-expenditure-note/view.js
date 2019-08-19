@@ -57,6 +57,11 @@ export class View {
             this.hasDelete=false;
             this.hasEdit=false;
         }
+        
+        if(this.data.IsTransfered){
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }
     }
 
     cancel(event) {
