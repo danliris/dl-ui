@@ -44,7 +44,9 @@ export class CostCalculationMaterial {
 
             if (this.data.Category.name.toUpperCase() == 'PROCESS') {
                 this.isProcess = true;
-                this.data.Price = this.calculateProcessPrice();
+                if(!this.data.Id) {
+                    this.data.Price = this.calculateProcessPrice();
+                }
                 
             }
         }
