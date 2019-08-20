@@ -16,7 +16,8 @@ export class List {
         { field: "URNType", title: "Tipe Bon Terima Unit" },
         { field: "SupplierName", title: "Supplier" },
         { field: "DONo", title: "No. Surat Jalan" },
-        { field: "DRNo", title: "No. Bukti Pengantar" }
+        { field: "DRNo", title: "No. Bukti Pengantar" },
+        { field: "UENNo", title: "No. Bon Pengeluaran" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
