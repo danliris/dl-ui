@@ -172,4 +172,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/ro-available',
+        name: 'ro-available',
+        moduleId: './modules/merchandiser/ro-available/index',
+        nav: true,
+        title: 'Kesiapan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
