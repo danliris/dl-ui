@@ -34,7 +34,7 @@ export class List {
         },
         {
             field: "Position", title: "Di Kirim Ke?", formatter: (value, data) => {
-                return (value == 6 ? "Pembelian" : (value == 5 ? "Keuangan" : "Kasir"));
+                return (value == 6 ? "Pembelian" : (value == 5 ? "Accounting" : "Keuangan"));
             }
         },
         { field: "TotalPaid", title: "Total Bayar" },

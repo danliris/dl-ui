@@ -27,7 +27,7 @@ export class Create {
 
     save() {
         this.data.ReceiptDate = new Date(new Date().setHours(0, 0, 0, 0));
-        
+        this.data.URNType="PEMBELIAN";
         if(this.data.URNType=="PROSES"){
             this.data.Items=[];
             for(var a of this.data.DRItems){
