@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
