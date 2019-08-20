@@ -115,9 +115,9 @@ export class Create {
                 });
             }
         }
-        // else {
-        //     this.clear();
-        // }
+        else {
+            this.clear();
+        }
     }
 
     get sectionLoader() {
@@ -130,6 +130,10 @@ export class Create {
 
     cancelCallback(event) {
         this.router.navigateToRoute('list');
+    }
+
+    clear() {
+        this.data = {};
     }
 
     determineActivationStrategy() {
@@ -164,7 +168,7 @@ export class Create {
                     });
             }
         } else {
-            this.error = { RONo: "No. RO harus diisi." };
+            this.error = { section: "Seksi harus diisi." };
         }
     }
 }

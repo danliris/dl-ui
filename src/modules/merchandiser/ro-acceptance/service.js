@@ -18,11 +18,6 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    create(data) {
-        var endpoint = `${serviceUri}/`;
-        return super.post(endpoint, data);
-    }
-
     getCostCalculationGarment(info) {
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
