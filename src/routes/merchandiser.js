@@ -185,4 +185,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/ro-distribute',
+        name: 'ro-distribute',
+        moduleId: './modules/merchandiser/ro-distribute/index',
+        nav: true,
+        title: 'Distribusi RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];

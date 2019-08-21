@@ -13,7 +13,7 @@ class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/ro-available`;
+        var endpoint = `${serviceUri}/ro-distribute`;
         return super.list(endpoint, info);
     }
 
@@ -22,8 +22,8 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    availabled(data){
-        var endpoint = `${serviceUri}/available`;
+    distributed(data){
+        var endpoint = `${serviceUri}/distribute`;
         return super.post(endpoint, data);
     }
 }

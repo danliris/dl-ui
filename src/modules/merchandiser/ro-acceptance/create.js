@@ -143,7 +143,7 @@ export class Create {
     }
 
     saveCallback() {
-        if (this.data.CostCalculationGarment) {
+        if (this.section) {
             if (confirm("Terima RO Garment?")) {
                 // var sentData = this.data.CostCalculationGarment || {};
                 var sentData=[];
@@ -154,7 +154,8 @@ export class Create {
                     }
                 }
                 // sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
-                this.service.accpeted(sentData)
+                if(sentData.length>0){
+                    this.service.accpeted(sentData)
                     .then(result => {
                         alert("Berhasil Menerima RO");
                         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -166,6 +167,9 @@ export class Create {
                             this.error = e;
                         }
                     });
+                } else {
+                    this.error = { MaterialsCount: "Item belum ada yang dipilih"}
+                }
             }
         } else {
             this.error = { section: "Seksi harus diisi." };
