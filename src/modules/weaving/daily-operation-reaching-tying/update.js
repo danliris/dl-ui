@@ -33,6 +33,27 @@ export class Update {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
+  
+  logColumns = [{
+    value: "MachineDate",
+    header: "Tanggal"
+  }, {
+    value: "MachineTime",
+    header: "Jam"
+  },
+  {
+    value: "ShiftName",
+    header: "Shift"
+  },
+  {
+    value: "OperatorName",
+    header: "Operator"
+  },
+  {
+    value: "MachineStatus",
+    header: "Status"
+  }
+];
 
   process = ["", "Cucuk", "Sisir"];
 
@@ -49,20 +70,9 @@ export class Update {
         dataResult.WeavingDocument = unit;
         return dataResult;
       });
-    // if (this.data.Id) {
-    //   this.BeamsWarping = this.data.WarpingBeamsDocument;
-    //   this.ProduceBeams = this.data.SizingBeamDocuments;
-    //   this.Log = this.data.SizingDetails;
-    // }
-    // this.data = {
-    //   Id: 1,
-    //   MachineDateHistory: "31/07/2019	",
-    //   MachineTimeHistory: "7:00 AM",
-    //   MachineNumber: "144",
-    //   WeavingUnitDocumentId: "WEAVING 2",
-    //   ConstructionNumber: "PC20  66 77 88 Da Da",
-    //   BeamNumber: "S43"
-    // };
+    if (this.data.Id) {
+      this.Log = this.data.ReachingHistories;
+    }
   }
 
   ReachingTyingProcessChanged(newValue) {
