@@ -83,20 +83,6 @@ export class List {
           };
         }
       });
-
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     data: [{
-    //       Id: 1,
-    //       MachineDateHistory: "31/07/2019	",
-    //       MachineTimeHistory: "7:00 AM",
-    //       MachineNumber: "144",
-    //       WeavingUnitDocumentId: "WEAVING 2",
-    //       ConstructionNumber: "PC20  66 77 88 Da Da",
-    //       BeamNumber: "S43"
-    //     }]
-    //   };
-    // });
   };
 
   contextCallback(event) {

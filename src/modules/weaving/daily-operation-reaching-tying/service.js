@@ -43,7 +43,7 @@ import {
     }
   
     create(data) {
-      var endpoint = `${serviceUriReaching}`;
+      var endpoint = `${serviceUri}`;
       return super.post(endpoint, data);
     }
   
