@@ -221,11 +221,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/size-pick-up-report",
-    name: "size-pick-up-report",
-    moduleId: "./modules/weaving/size-pick-up-report/index",
+    route: "weaving/size-pickup-report",
+    name: "size-pickup-report",
+    moduleId: "./modules/weaving/size-pickup-report/index",
     nav: true,
-    title: "Laporan Size Pick Up",
+    title: "Laporan Size Pickup",
     auth: true,
     settings: {
       group: "weaving",
