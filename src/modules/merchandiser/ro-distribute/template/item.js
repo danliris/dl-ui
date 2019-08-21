@@ -1,6 +1,6 @@
 import {bindable, computedFrom} from 'aurelia-framework'
 
-export class GarmentROAvailableCC {
+export class GarmentRODistributeCC {
     activate(context) {
         this.context = context;
         this.data = context.data;

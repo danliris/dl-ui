@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Kesiapan RO</h1>
+    <h1 class="page-header">Distribusi RO</h1>
     <au-input-form options.bind="options">
         <au-autocomplete label="Seksi" placeholder="Cari Seksi" value.bind="section" error.bind="error.section"
             loader.one-time="sectionLoader" options.bind="length" text="Code" >
@@ -13,8 +13,8 @@
                     errors.bind="error.Materials"
                     read-only="true"
                     options.bind="itemOptions"
-                    header-template="modules/merchandiser/ro-acceptance/template/item-header"
-                    item-template="modules/merchandiser/ro-acceptance/template/item">
+                    header-template="modules/merchandiser/ro-distribute/template/item-header"
+                    item-template="modules/merchandiser/ro-distribute/template/item">
                 </au-collection>
             </div>
         </div>
