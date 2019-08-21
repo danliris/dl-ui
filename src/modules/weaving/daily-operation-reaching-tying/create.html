@@ -5,7 +5,7 @@
     }
 
   </style>
-  <au-input-form title="Create: Operasional Mesin Harian Sizing" options.bind="formOptions">
+  <au-input-form title="Create: Operasional Mesin Harian Reaching/ Tying" options.bind="formOptions">
     <div class="col-md-12">
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
@@ -44,8 +44,8 @@
           <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocuments"
-            error.bind="error.SizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
+          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocument"
+            error.bind="error.SizingBeamDocument" read-only.bind="readOnly" loader.bind="beams" text="Number">
           </au-autocomplete>
         </div>
       </div>
@@ -82,7 +82,7 @@
           <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-datepicker value.bind="data.SizingDetails.EntryDate" error.bind="error.EntryDate">
+          <au-datepicker value.bind="EntryDate" error.bind="error.EntryDate">
           </au-datepicker>
         </div>
       </div>
@@ -102,13 +102,16 @@
           </au-textbox>
         </div>
       </div>
-
-      <!-- <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;">
-        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
-          add.bind="addBeamsWarping" remove.bind="onremove" read-only.bind="readOnly"
-          options.bind="beamsWarpingTableOptions"
-          item-template="modules/weaving/daily-operation-sizing/templates/beam-items-post">
-        </au-collection>
+      
+      <!-- <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Proses" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown placeholder="Proses" value.bind="ReachingTyingProcess" error.bind="error.ReachingTyingProcess"
+            read-only.bind="readOnly" items.bind="process">
+          </au-dropdown>
+        </div>
       </div> -->
   </au-input-form>
 </template>

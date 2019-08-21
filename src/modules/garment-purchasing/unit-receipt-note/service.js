@@ -7,6 +7,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'garment-unit-receipt-notes';
 const UnitDOserviceUri = 'garment-unit-delivery-orders';
+const UENserviceUri = 'garment-unit-expenditure-notes';
 
 export class Service extends RestService {
 
@@ -66,6 +67,11 @@ export class Service extends RestService {
 
      getUnitDOById(id) {
         var endpoint = `${UnitDOserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUENById(id) {
+        var endpoint = `${UENserviceUri}/${id}`;
         return super.get(endpoint);
     }
 

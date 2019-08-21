@@ -5,7 +5,7 @@ export class Index {
       moduleId: './list',
       name: 'list',
       nav: true,
-      title: 'List : Laporan Size Pick Up'
+      title: 'List : Laporan Size Pickup'
     }, ]);
 
     this.router = router;

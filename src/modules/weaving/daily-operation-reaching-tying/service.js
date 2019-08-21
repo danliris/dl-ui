@@ -15,26 +15,11 @@ import {
     Config
   } from "aurelia-api";
   
-  const serviceUri = "weaving/daily-operations-sizing";
+  const serviceUri = "weaving/daily-operations-reaching-tying";
   
   export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
       super(http, aggregator, config, "weaving");
-    }
-  
-    search(info) {
-      var endpoint = `${serviceUri}`;
-      return super.list(endpoint);
-    }
-  
-    getById(Id) {
-      var endpoint = `${serviceUri}/${Id}`;
-      return super.get(endpoint);
-    }
-  
-    create(data) {
-      var endpoint = `${serviceUri}`;
-      return super.post(endpoint, data);
     }
   
     getUnitById(Id) {
@@ -57,87 +42,29 @@ import {
       });
     }
   
-    calculatePISMeter(counterStart, counterFinish) {
-      var task = "pis-in-meter";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
+    create(data) {
+      var endpoint = `${serviceUriReaching}`;
+      return super.post(endpoint, data);
     }
   
-    calculatePISPieces(counterStart, counterFinish) {
-      var task = "pis-in-pieces";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
+    search(info) {
+      var endpoint = `${serviceUri}`;
+      return super.list(endpoint);
     }
   
-    calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal) {
-      var task = "theoritical-kawamoto";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
+    getById(Id) {
+      var endpoint = `${serviceUri}/${Id}`;
+      return super.get(endpoint);
     }
   
-    calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal) {
-      var task = "theoritical-sucker-muller";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
-  
-    calculateSPU(netto, theoritical) {
-      var task = "spu";
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("weaving");
-      var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/netto/${netto}/theoritical/${theoritical}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
-  
-    updateStart(Id, data) {
-      var status = "start";
+    updateReachingStart(Id, data) {
+      var status = "reaching-start";
       var endpoint = `${serviceUri}/${Id}/${status}`;
       return super.put(endpoint, data);
     }
   
-    updatePause(Id, data) {
-      var status = "pause";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
-  
-    updateResume(Id, data) {
-      var status = "resume";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
-  
-    updateProduceBeams(Id, data) {
-      var status = "produce-beams";
-      var endpoint = `${serviceUri}/${Id}/${status}`;
-      return super.put(endpoint, data);
-    }
-  
-    updateDoff(Id, data) {
-      var status = "doff";
+    updateReachingFinish(Id, data) {
+      var status = "reaching-finish";
       var endpoint = `${serviceUri}/${Id}/${status}`;
       return super.put(endpoint, data);
     }

@@ -49,6 +49,14 @@ export class View {
             }
             this.hasEdit = false;
         }
+        else if(this.data.URNType=="GUDANG LAIN"){
+            if(this.data.UENId){
+                this.uen=await this.service.getUENById(this.data.UENId);
+                this.data.UnitSender= this.uen.UnitSender.Code + " - " + this.uen.UnitSender.Name;
+                this.data.StorageSender=this.uen.Storage.name;
+            }
+        }
+        
     }
 
     cancel(event) {

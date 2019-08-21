@@ -11,19 +11,14 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
-  @bindable StartTime;
-  @bindable PauseTime;
-  @bindable ResumeTime;
-  @bindable DoffTime;
-  @bindable ProduceBeamsTime;
-  @bindable ProduceBeamsFinishCounter;
-  @bindable ProduceBeamsNetto;
+  @bindable StartReachingTime;
+  @bindable FinishReachingTime;
+  @bindable StartTyingTime;
+  @bindable FinishTyingTime;
   @bindable ReachingTyingProcess;
 
   constructor(router, service, bindingEngine) {
@@ -31,62 +26,205 @@ export class Update {
     this.service = service;
     this.bindingEngine = bindingEngine;
     this.data = {};
+    this.error = {};
   }
 
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
+  
+  logColumns = [{
+    value: "MachineDate",
+    header: "Tanggal"
+  }, {
+    value: "MachineTime",
+    header: "Jam"
+  },
+  {
+    value: "ShiftName",
+    header: "Shift"
+  },
+  {
+    value: "OperatorName",
+    header: "Operator"
+  },
+  {
+    value: "MachineStatus",
+    header: "Status"
+  }
+];
 
   process = ["", "Cucuk", "Sisir"];
 
   async activate(params) {
-    //   var Id = params.Id;
-    //   var dataResult;
-    //   this.data = await this.service
-    //     .getById(Id)
-    //     .then(result => {
-    //       dataResult = result;
-    //       return this.service.getUnitById(result.WeavingUnitDocumentId);
-    //     })
-    //     .then(unit => {
-    //       dataResult.WeavingDocument = unit;
-    //       return dataResult;
-    //     });
-    //   if (this.data.Id) {
-    //     this.BeamsWarping = this.data.WarpingBeamsDocument;
-    //     this.ProduceBeams = this.data.SizingBeamDocuments;
-    //     this.Log = this.data.SizingDetails;
-    //   }
-    this.data = {
-      Id: 1,
-      MachineDateHistory: "31/07/2019	",
-      MachineTimeHistory: "7:00 AM",
-      MachineNumber: "144",
-      WeavingUnitDocumentId: "WEAVING 2",
-      ConstructionNumber: "PC20  66 77 88 Da Da",
-      BeamNumber: "S43"
-    };
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnitDocumentId);
+      })
+      .then(unit => {
+        dataResult.WeavingDocument = unit;
+        return dataResult;
+      });
+    if (this.data.Id) {
+      this.Log = this.data.ReachingHistories;
+    }
   }
 
   ReachingTyingProcessChanged(newValue) {
     if (newValue == "Cucuk") {
+      this.showHideReachingStartMenu = false;
+      this.showHideReachingFinishMenu = false;
       if (this.showHideReachingMenu === true) {
         this.showHideReachingMenu = false;
+        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
+          this.showHideReachingStartMenu = false;
+          this.showHideTyingStartMenu = false;
+
+          this.StartReachingDate = "";
+          this.StartReachingTime = "";
+          this.StartReachingShift = "";
+          this.StartReachingOperator = "";
+          this.StartReachingTypeInput = "";
+          this.StartReachingTypeOutput = "";
+          this.FinishReachingDate = "";
+          this.FinishReachingTime = "";
+          this.FinishReachingShift = "";
+          this.FinishReachingOperator = "";
+          this.FinishReachingWidth = "";
+        }
+        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
+          this.showHideReachingFinishMenu = false;
+          this.showHideTyingFinishMenu = false;
+
+          this.StartReachingDate = "";
+          this.StartReachingTime = "";
+          this.StartReachingShift = "";
+          this.StartReachingOperator = "";
+          this.StartReachingTypeInput = "";
+          this.StartReachingTypeOutput = "";
+          this.FinishReachingDate = "";
+          this.FinishReachingTime = "";
+          this.FinishReachingShift = "";
+          this.FinishReachingOperator = "";
+          this.FinishReachingWidth = "";
+        }
       } else {
         this.showHideReachingMenu = true;
         this.showHideTyingMenu = false;
+        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
+          this.showHideReachingStartMenu = false;
+          this.showHideTyingStartMenu = false;
+
+          this.StartReachingDate = "";
+          this.StartReachingTime = "";
+          this.StartReachingShift = "";
+          this.StartReachingOperator = "";
+          this.StartReachingTypeInput = "";
+          this.StartReachingTypeOutput = "";
+          this.FinishReachingDate = "";
+          this.FinishReachingTime = "";
+          this.FinishReachingShift = "";
+          this.FinishReachingOperator = "";
+          this.FinishReachingWidth = "";
+        }
+        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
+          this.showHideReachingFinishMenu = false;
+          this.showHideTyingFinishMenu = false;
+
+          this.StartReachingDate = "";
+          this.StartReachingTime = "";
+          this.StartReachingShift = "";
+          this.StartReachingOperator = "";
+          this.StartReachingTypeInput = "";
+          this.StartReachingTypeOutput = "";
+          this.FinishReachingDate = "";
+          this.FinishReachingTime = "";
+          this.FinishReachingShift = "";
+          this.FinishReachingOperator = "";
+          this.FinishReachingWidth = "";
+        }
       }
     } else if (newValue == "Sisir") {
+      this.showHideTyingStartMenu = false;
+      this.showHideTyingFinishMenu = false;
       if (this.showHideTyingMenu === true) {
         this.showHideTyingMenu = false;
+        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
+          this.showHideReachingStartMenu = false;
+          this.showHideTyingStartMenu = false;
+
+          this.StartTyingDate = "";
+          this.StartTyingTime = "";
+          this.StartTyingShift = "";
+          this.StartTyingOperator = "";
+          this.StartTyingMargin = "";
+          this.StartTyingNumber = "";
+          this.FinishTyingDate = "";
+          this.FinishTyingTime = "";
+          this.FinishTyingShift = "";
+          this.FinishTyingOperator = "";
+          this.FinishTyingWidth = "";
+        }
+        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
+          this.showHideReachingFinishMenu = false;
+          this.showHideTyingFinishMenu = false;
+
+          this.StartTyingDate = "";
+          this.StartTyingTime = "";
+          this.StartTyingShift = "";
+          this.StartTyingOperator = "";
+          this.StartTyingMargin = "";
+          this.StartTyingNumber = "";
+          this.FinishTyingDate = "";
+          this.FinishTyingTime = "";
+          this.FinishTyingShift = "";
+          this.FinishTyingOperator = "";
+          this.FinishTyingWidth = "";
+        }
       } else {
         this.showHideTyingMenu = true;
         this.showHideReachingMenu = false;
+        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
+          this.showHideReachingStartMenu = false;
+          this.showHideTyingStartMenu = false;
+
+          this.StartTyingDate = "";
+          this.StartTyingTime = "";
+          this.StartTyingShift = "";
+          this.StartTyingOperator = "";
+          this.StartTyingMargin = "";
+          this.StartTyingNumber = "";
+          this.FinishTyingDate = "";
+          this.FinishTyingTime = "";
+          this.FinishTyingShift = "";
+          this.FinishTyingOperator = "";
+          this.FinishTyingWidth = "";
+        }
+        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
+          this.showHideReachingFinishMenu = false;
+          this.showHideTyingFinishMenu = false;
+
+          this.StartTyingDate = "";
+          this.StartTyingTime = "";
+          this.StartTyingShift = "";
+          this.StartTyingOperator = "";
+          this.StartTyingMargin = "";
+          this.StartTyingNumber = "";
+          this.FinishTyingDate = "";
+          this.FinishTyingTime = "";
+          this.FinishTyingShift = "";
+          this.FinishTyingOperator = "";
+          this.FinishTyingWidth = "";
+        }
       }
-    } else{        
-        this.showHideReachingMenu = false;
-        this.showHideTyingMenu = false;
+    } else {
+      this.showHideReachingMenu = false;
+      this.showHideTyingMenu = false;
     }
   }
 
@@ -95,16 +233,16 @@ export class Update {
       this.showHideReachingStartMenu = false;
     } else {
       this.showHideReachingStartMenu = true;
-      this.showHideReachingDoffMenu = false;
+      this.showHideReachingFinishMenu = false;
     }
   }
 
   reachingFinish() {
-    if (this.showHideReachingDoffMenu === true) {
-      this.showHideReachingDoffMenu = false;
+    if (this.showHideReachingFinishMenu === true) {
+      this.showHideReachingFinishMenu = false;
     } else {
       this.showHideReachingStartMenu = false;
-      this.showHideReachingDoffMenu = true;
+      this.showHideReachingFinishMenu = true;
     }
   }
 
@@ -113,16 +251,16 @@ export class Update {
       this.showHideTyingStartMenu = false;
     } else {
       this.showHideTyingStartMenu = true;
-      this.showHideTyingDoffMenu = false;
+      this.showHideTyingFinishMenu = false;
     }
   }
 
   tyingFinish() {
-    if (this.showHideTyingDoffMenu === true) {
-      this.showHideTyingDoffMenu = false;
+    if (this.showHideTyingFinishMenu === true) {
+      this.showHideTyingFinishMenu = false;
     } else {
       this.showHideTyingStartMenu = false;
-      this.showHideTyingDoffMenu = true;
+      this.showHideTyingFinishMenu = true;
     }
   }
 
@@ -130,93 +268,111 @@ export class Update {
     return OperatorLoader;
   }
 
-//   StartTimeChanged(newValue) {
-//     this.service.getShiftByTime(newValue)
-//       .then(result => {
-//         this.error.StartShift = "";
-//         this.StartShift = {};
-//         this.StartShift = result;
-//       })
-//       .catch(e => {
-//         this.StartShift = {};
-//         this.error.StartShift = " Shift tidak ditemukan ";
-//       });
-//   }
+  StartReachingTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.StartReachingShift = "";
+        this.StartReachingShift = {};
+        this.StartReachingShift = result;
+      })
+      .catch(e => {
+        this.StartReachingShift = {};
+        this.error.StartReachingShift = " Shift tidak ditemukan ";
+      });
+  }
 
-//   saveStart() {
-//     var IdContainer = this.data.Id;
-//     var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
-//     var HistoryTimeContainer = this.StartTime;
-//     var ShiftContainer = this.StartShift.Id;
-//     var OperatorContainer = this.StartOperator.Id;
-//     var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
-//     var SizingBeamCounterContainer = this.StartSizingBeamCounter;
+  FinishReachingTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.FinishReachingShift = "";
+        this.FinishReachingShift = {};
+        this.FinishReachingShift = result;
+      })
+      .catch(e => {
+        this.FinishReachingShift = {};
+        this.error.FinishReachingShift = " Shift tidak ditemukan ";
+      });
+  }
 
-//     this.data = {};
-//     this.data.Id = IdContainer;
-//     this.data.SizingDetails = {};
-//     this.data.SizingDetails.StartDate = HistoryDateContainer;
-//     this.data.SizingDetails.StartTime = HistoryTimeContainer;
-//     this.data.SizingDetails.ShiftId = ShiftContainer;
-//     this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-//     this.data.SizingBeamDocuments = {};
-//     this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
-//     this.data.SizingBeamDocuments.Counter = {};
-//     this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
+  StartTyingTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.StartTyingShift = "";
+        this.StartTyingShift = {};
+        this.StartTyingShift = result;
+      })
+      .catch(e => {
+        this.StartTyingShift = {};
+        this.error.StartTyingShift = " Shift tidak ditemukan ";
+      });
+  }
 
-//     this.service
-//       .updateStart(this.data.Id, this.data)
-//       .then(result => {
-//         location.reload();
-//       })
-//       .catch(e => {
-//         this.error = e;
-//       });
-//   }
+  FinishTyingTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.FinishTyingShift = "";
+        this.FinishTyingShift = {};
+        this.FinishTyingShift = result;
+      })
+      .catch(e => {
+        this.FinishTyingShift = {};
+        this.error.FinishTyingShift = " Shift tidak ditemukan ";
+      });
+  }
 
-//   DoffTimeChanged(newValue) {
-//     this.service.getShiftByTime(newValue)
-//       .then(result => {
-//         this.error.DoffShift = "";
-//         this.DoffShift = {};
-//         this.DoffShift = result;
-//       })
-//       .catch(e => {
-//         this.DoffShift = {};
-//         this.error.DoffShift = " Shift tidak ditemukan ";
-//       });
-//   }
+  saveReachingStart() {
+    var IdContainer = this.data.Id;
+    var DateContainer = moment(this.StartReachingDate).utcOffset("+07:00").format();
+    var TimeContainer = this.StartReachingTime;
+    var ShiftContainer = this.StartReachingShift.Id;
+    var OperatorContainer = this.StartReachingOperator.Id;
+    var ReachingTypeInputContainer = this.StartReachingTypeInput;
+    var ReachingTypeOutputContainer = this.StartReachingTypeOutput;
 
-//   saveDoff() {
-//     var IdContainer = this.data.Id;
-//     var MachineSpeedContainer = this.DoffMachineSpeed;
-//     var TexSQContainer = this.DoffTexSQ;
-//     var ViscoContainer = this.DoffVisco;
-//     var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
-//     var HistoryTimeContainer = this.DoffTime;
-//     var ShiftContainer = this.DoffShift.Id;
-//     var OperatorContainer = this.DoffOperator.Id;
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.ReachingStartDate = DateContainer;
+    this.data.ReachingStartTime = TimeContainer;
+    this.data.ShiftDocumentId = ShiftContainer;
+    this.data.OperatorDocumentId = OperatorContainer;
+    this.data.ReachingTypeInput = ReachingTypeInputContainer;
+    this.data.ReachingTypeOutput = ReachingTypeOutputContainer;
 
-//     this.data = {};
-//     this.data.Id = IdContainer;
-//     this.data.MachineSpeed = MachineSpeedContainer;
-//     this.data.TexSQ = TexSQContainer;
-//     this.data.Visco = ViscoContainer;
-//     this.data.SizingDetails = {};
-//     this.data.SizingDetails.FinishDate = HistoryDateContainer;
-//     this.data.SizingDetails.FinishTime = HistoryTimeContainer;
-//     this.data.SizingDetails.ShiftId = ShiftContainer;
-//     this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    this.service
+      .updateReachingStart(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+    }
 
-//     this.service
-//       .updateDoff(this.data.Id, this.data)
-//       .then(result => {
-//         location.reload();
-//       })
-//       .catch(e => {
-//         this.error = e;
-//       });
-//   }
+    saveReachingFinish() {
+      var IdContainer = this.data.Id;
+      var DateContainer = moment(this.FinishReachingDate).utcOffset("+07:00").format();
+      var TimeContainer = this.FinishReachingTime;
+      var ShiftContainer = this.FinishReachingShift.Id;
+      var OperatorContainer = this.FinishReachingOperator.Id;
+      var ReachingWidthContainer = this.FinishReachingWidth;
+  
+      this.data = {};
+      this.data.Id = IdContainer;
+      this.data.ReachingFinishDate = DateContainer;
+      this.data.ReachingFinishTime = TimeContainer;
+      this.data.ShiftDocumentId = ShiftContainer;
+      this.data.OperatorDocumentId = OperatorContainer;
+      this.data.ReachingWidth = ReachingWidthContainer;
+  
+      this.service
+        .updateReachingFinish(this.data.Id, this.data)
+        .then(result => {
+          location.reload();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
 
   cancelCallback(event) {
     this.router.navigateToRoute('list');
