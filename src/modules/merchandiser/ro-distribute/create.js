@@ -64,7 +64,7 @@ export class Create {
                 isCreate : true,
                 sectionId : newValue.Id,
             }
-            let costCalculationGarment = await this.service.getCostCalculationGarment({size: Number.MAX_SAFE_INTEGER, filter : JSON.stringify({Section : newValue.Code, IsROAccepted : true, IsROAvailable : false})});
+            let costCalculationGarment = await this.service.getCostCalculationGarment({size: Number.MAX_SAFE_INTEGER, filter : JSON.stringify({Section : newValue.Code, IsROAvailable : true, IsRODistributed : false})});
             this.data.CostCalculationGarment = costCalculationGarment.data;
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
 
@@ -155,21 +155,22 @@ export class Create {
                 }
                 // sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
                 if(sentData.length>0){
-                    this.service.availabled(sentData)
-                        .then(result => {
-                            alert("Berhasil Menyimpan Data");
-                            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                        })
-                        .catch(e => {
-                            if (e.statusCode === 500) {
-                                this.error = JSON.parse(e.message);
-                            } else {
-                                this.error = e;
-                            }
-                        });
+                    this.service.distributed(sentData)
+                    .then(result => {
+                        alert("Berhasil Menyimpan Data");
+                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    })
+                    .catch(e => {
+                        if (e.statusCode === 500) {
+                            this.error = JSON.parse(e.message);
+                        } else {
+                            this.error = e;
+                        }
+                    });
                 } else {
                     this.error = { MaterialsCount: "Item belum ada yang dipilih"}
                 }
+                
             }
         } else {
             this.error = { section: "Seksi harus diisi." };
