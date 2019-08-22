@@ -198,4 +198,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: 'merchandiser/monitoring-ro-job-order',
+        name: 'merchandiser-monitoring-ro-job-order',
+        moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
+        nav: true,
+        title: 'Monitoring RO Job Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];
