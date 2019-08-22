@@ -33,7 +33,7 @@ export class PurchaseRequestItem {
     return (keyword) => this.coreService.getGarmentProductWidths(keyword, JSON.stringify(this.widthFilter));
   }
 
-  get priceUomLoader() {
+  get uomLoader() {
     return UomLoader;
   }
 
@@ -46,14 +46,14 @@ export class PurchaseRequestItem {
     }
   }
 
-  @computedFrom("data.Uom")
-  get uom() {
-    if (this.data.Uom) {
-      return this.data.Uom.Unit;
-    } else {
-      return "-";
-    }
-  }
+  // @computedFrom("data.Uom")
+  // get uom() {
+  //   if (this.data.Uom) {
+  //     return this.data.Uom.Unit;
+  //   } else {
+  //     return "-";
+  //   }
+  // }
 
   @computedFrom("data.Quantity", "data.BudgetPrice", "data.PriceConversion")
   get total() {
@@ -147,19 +147,19 @@ export class PurchaseRequestItem {
         this.coreService.getProductByName(this.data.Category.Name)
           .then(product => {
             this.data.Product = product;
-            this.data.Uom = {
-              Id: this.data.Product.UomId,
-              Unit: this.data.Product.UomUnit
-            };
+            // this.data.Uom = {
+            //   Id: this.data.Product.UomId,
+            //   Unit: this.data.Product.UomUnit
+            // };
           });
       } else {
         this.data.Product = null;
-        this.data.Uom = null;
+        // this.data.Uom = null;
       }
     } else {
       this.data.Category = null;
       this.data.Product = null;
-      this.data.Uom = null;
+      // this.data.Uom = null;
     }
     this.compositionViewModel.editorValue = "";
     this.selectedComposition = null;
@@ -202,17 +202,17 @@ export class PurchaseRequestItem {
     if (newValue) {
       this.data.Width = newValue;
       this.data.Product = this.data.Width;
-      this.data.Uom = {
-        // Id: this.data.Product.UomId,
-        // Unit: this.data.Product.UomUnit
-        Id: 1,
-        Unit: "MT"
-      };
+      // this.data.Uom = {
+      //   // Id: this.data.Product.UomId,
+      //   // Unit: this.data.Product.UomUnit
+      //   Id: 1,
+      //   Unit: "MT"
+      // };
     }
     else {
       this.data.Width = null;
       this.data.Product = null;
-      this.data.Uom = null;
+      // this.data.Uom = null;
     }
   }
 }
