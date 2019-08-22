@@ -26,14 +26,7 @@ export class Monitoring {
     search() {
         if (this.selectedROGarment) {
             this.service.search({costCalculationId: this.selectedROGarment.Id})
-                .then(result => {
-                    result.data.forEach(d => {
-                        [].concat(d.Items).forEach(i => {
-                            i.Quantity = (i.DistributionQuantity / i.Conversion).toFixed(2);
-                        })
-                    })
-                    this.tableData = result.data;
-                });
+                .then(result => this.tableData = result.data);
         }
     }
 }
