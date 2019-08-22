@@ -31,7 +31,7 @@ export class List {
             {
                 field: 'Position', title: 'Posisi', formatter: (value, data, index) => {
                     let status = this.itemsStatus.find(p => p.value === value);
-                    return status.text;
+                    return status != undefined ? status.text : '-';
                 },
                 rowspan: 2,
                 sortable: true,
@@ -128,7 +128,7 @@ export class List {
             filter.divisionCode = this.division.code;
         }
 
-        if (this.status && this.status.value != 0) {
+        if (this.status && this.status.value && this.status.value != 0) {
             filter.status = this.status.value;
         }
 
