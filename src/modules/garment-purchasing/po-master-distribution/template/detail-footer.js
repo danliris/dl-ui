@@ -1,3 +1,5 @@
+import numeral from 'numeral';
+
 export class DetailFooter {
     controlOptions = {
         label: {
@@ -9,13 +11,19 @@ export class DetailFooter {
         }
     }
 
+    format = "0,000.00";
+
     activate(context) {
         this.context = context;
     }
 
     get totalQuantity() {
-        const totalQuantity = this.context.items.reduce((acc, cur) => acc += cur.data.Quantity, 0);
-        return totalQuantity.toFixed(2);
+        const totalQuantity = this.context.items.reduce((acc, cur) => acc += this.convertedQuantity(cur.data), 0);
+        return numeral(totalQuantity).format(this.format);
+    }
+    
+    convertedQuantity = (data) => {
+        return parseFloat((data.Quantity * data.Conversion).toFixed(2));
     }
 
     get error() {

@@ -5,9 +5,10 @@ export class Item {
         { header: "Nomor Referensi PR" },
         { header: "Barang" },
         { header: "Jumlah CC" },
+        { header: "Jumlah Pembagian (CC)" },
         { header: "Satuan CC" },
         { header: "Konversi" },
-        { header: "Jumlah" },
+        { header: "Jumlah Pembagian (SJ)" },
         { header: "Satuan" },
     ];
 
@@ -25,7 +26,8 @@ export class Item {
         this.isEdit = context.context.options.isEdit && this.data.Id > 0;
         this.itemOptions = {
             error: this.error,
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            priceTotal: this.data.PriceTotal,
         };
 
         if (this.data.Product) {
