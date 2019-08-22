@@ -8,12 +8,8 @@ import {
   } from "../service";
   import moment from "moment";
   
-  // var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
-  
   @inject(BindingEngine, Service)
   export class LogItems {
-    // @bindable Code;
-    // @bindable OrderDocument;
   
     constructor(bindingEngine, service) {
       this.service = service;
