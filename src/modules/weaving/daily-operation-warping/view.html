@@ -1,45 +1,74 @@
 <template>
-  <require from="./template/create-form"></require>
-
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Operasi Warping</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">History Warping</a>
-    </li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="profile">
-      <create-form title="Operasi Harian Warping" error.bind="error" data.bind="data" read-only="true">
-      </create-form>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="buzz">Ini Halaman Profile</div>
-  </div>
-
-  <br>
-
-  <!-- Collapsing UI -->
-  <div id="accordion">
-    <div class="card" style="background-color: #EEEEEE">
-      <div class="card-header" id="headingTwo" data-toggle="tooltip" data-placement="top" title="Click Me">
-        <h1 class="mb-0">
-          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-            aria-controls="collapseTwo" style="text-decoration: none;">
-            <bold data-toggle="tooltip" data-placement="top" title="Click Me">Operasi Harian Loom History</bold>
-          </button>
-        </h1>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-        <div class="card-body">
-          <au-collection items.bind="data.LoomHistory" error.bind="error.LoomHistory" columns.bind="loomHistory"
-            options.bind="loomHistoryTableOptions" read-only.bind="readOnly"
-            item-template="modules/weaving/daily-operation-warping/template/history-items">
-          </au-collection>
+  <div class="col-md-12">
+    <H3>Operasi Harian Warping</H3>
+    <br>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Operasi Harian</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">History</a>
+      </li>
+    </ul>
+    <br>
+    <!-- Tab panes -->
+    <!--Content-->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="profile">
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <au-textbox label="No Operasi Harian" read-only="true"></au-textbox>
+          </div>
+          <div class="col-md-3">
+            <au-textbox value.bind="data.DailyOperationNumber" error.bind="error.DailyOperationNumber"
+              read-only.bind="true">
+            </au-textbox>
+          </div>
         </div>
+
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="No Konstruksi" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber"
+              read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="Jenis Material" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber"
+              read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="Jumlah Cone" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber"
+              read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+
+      </div>
+
+      <div role="tabpanel" class="tab-pane fade" id="buzz">
+        <au-collection items.bind="data.DailyOperationLoomHistories" error.bind="error.DailyOperationLoomHistories"
+          columns.bind="loomHistory" options.bind="loomHistoryTableOptions" read-only.bind="readOnly"
+          item-template="modules/weaving/daily-operation-warping/template/history-items">
+        </au-collection>
       </div>
     </div>
+
   </div>
+
 </template>

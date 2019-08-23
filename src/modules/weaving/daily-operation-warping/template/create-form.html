@@ -60,8 +60,19 @@
                     <textbox label="Waktu" read-only="true" style="display: inline-block"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <input value.bind="data.TimeOperation" type="time" error.bind="error.TimeOperation"
+                    <input value.bind="PreparationTime" type="time" error.bind="error.PreparationTime"
                         read-only.bind="readOnly">
+                </div>
+
+                <div class="row" style="white-space: nowrap;">
+                    <div class="col-md-2">
+                        <textbox label="Shift" read-only="true"></textbox>
+                    </div>
+                    <div class="col-md-2">
+                        <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift"
+                            read-only.bind="true">
+                        </au-textbox>
+                    </div>
                 </div>
             </div>
 

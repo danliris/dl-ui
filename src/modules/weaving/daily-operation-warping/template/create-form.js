@@ -15,9 +15,10 @@ export class CreateForm {
     @bindable Material;
     @bindable FabricConstruction;
     @bindable DateOperation;
+    @bindable PreparationTime;
+    @bindable Shift;
 
     constructor(service, router) {
-
         this.service = service;
         this.router = router;
     }
@@ -53,6 +54,22 @@ export class CreateForm {
         }
     }
 
+    PreparationTimeChanged(newValue) {
+        this.data.TimeOperation = newValue;
+        this.service.getShiftByTime(newValue)
+            .then(result => {
+                this.error.Shift = "";
+                this.Shift = {};
+                this.Shift = result;
+                this.data.ShiftId = this.Shift.Id;
+            })
+            .catch(e => {
+                this.Shift = {};
+                this.data.ShiftId = this.Shift.Id;
+                this.error.Shift = " Shift tidak ditemukan ";
+            });
+    }
+
     MaterialChanged(newValue) {
 
         if (newValue) {
@@ -70,8 +87,7 @@ export class CreateForm {
         return FabricConstruction;
     }
 
-    get Materials()
-    {
+    get Materials() {
         return Material;
     }
 }
