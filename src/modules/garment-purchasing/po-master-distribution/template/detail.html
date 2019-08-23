@@ -11,7 +11,7 @@
                 text="RO_Number">
             </au-autocomplete>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-dropdown
                 value.bind="selectedPOSerialNumber"
                 error.bind="error.POSerialNumber"
@@ -19,7 +19,7 @@
                 items.bind="data.listPOSerialNumber">
             </au-dropdown>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-textbox 
                 value.bind="dataProduct"
                 read-only.bind="true">
@@ -31,6 +31,13 @@
                 read-only.bind="true">
             </au-numeric>
         </td>
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.Quantity"
+                error.bind="error.Quantity"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
         <td class="col-sm-1">
             <au-textbox 
                 value.bind="data.UomCC.Unit" 
@@ -39,7 +46,7 @@
         </td>
         <td class="col-sm-2">
             <au-numeric 
-                value.bind="dataConversion" 
+                value.bind="data.Conversion" 
                 error.bind="error.Conversion"
                 read-only.bind="readOnly"
                 format="0,0.[00000000000000000000]">
@@ -47,9 +54,8 @@
         </td>
         <td class="col-sm-2">
             <au-numeric 
-                value.bind="data.Quantity"
-                error.bind="error.Quantity"
-                read-only.bind="readOnly">
+                value.bind="convertedQuantity"
+                read-only.bind="true">
             </au-numeric>
         </td>
         <td class="col-sm-1">
