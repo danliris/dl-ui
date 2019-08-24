@@ -7,6 +7,7 @@ import { activationStrategy } from 'aurelia-router';
 import SupplierLoader from '../../../loader/supplier-loader';
 import BankLoader from '../../../loader/account-banks-loader';
 
+import CurrencyLoader from '../../../loader/garment-currency-loader';
 import Service from './service';
 
 @inject(Router, Service, Dialog)
@@ -30,7 +31,6 @@ export class Create {
         this.service = service;
         this.dialog = dialog;
         this.data = {};
-
         this.collection = {
             columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
         };
@@ -51,15 +51,6 @@ export class Create {
     }
 
     saveCallback(event) {
-        // var dataPrep=this.data;
-        // var items=[];
-        // for(var a of this.data.Items){
-        //     if(a.Select){
-        //         items.push(a);
-        //     }
-        // }
-        // dataPrep.Items =items;
-        // console.log(dataPrep)
         this.data.Items = this.Items.filter((item) => item.Select);
         var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
@@ -83,6 +74,10 @@ export class Create {
 
     get bankLoader() {
         return BankLoader;
+    }
+
+    get currencyLoader() {
+        return CurrencyLoader;
     }
 
     @bindable selectedSupplier;
@@ -136,6 +131,7 @@ export class Create {
     @bindable selectedBank;
     async selectedBankChanged(newVal) {
         this.data.AccountBank = newVal;
+        this.IDR=false;
         if (newVal) {
             if(this.selectedSupplier){
                 let arg = {
@@ -147,6 +143,9 @@ export class Create {
             }
             //this.isExistBankAndSupplier = true;
             this.currency = newVal.Currency.Code;
+            if(this.currency=="IDR"){
+                this.IDR=true;
+            }
         } else {
             this.currency = "";
             this.Items = [];
@@ -171,5 +170,9 @@ export class Create {
 
     supplierView(supp) {
         return `${supp.code}-${supp.name}`;
+    }
+
+    currencyView(currency) {
+        return `${currency.code}`;
     }
 }

@@ -25,9 +25,22 @@
             label="Mata Uang"
             value.bind="data.AccountBank.Currency.Code"
             read-only.bind="true"
+            if.bind="!IDR"
             options.bind="controlOptions"
             show.bind="selectedBank">
         </au-textbox>
+
+        <au-autocomplete
+            label="Mata Uang"
+            placeholder="pilih mata uang"
+            value.bind="selectedCurrency"
+            error.bind="error.Currency"
+            loader.one-time="currencyLoader"
+            text.bind="currencyView"
+            read-only.bind="readOnly"
+            if.bind="IDR"
+            options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-autocomplete
             label="Supplier"
