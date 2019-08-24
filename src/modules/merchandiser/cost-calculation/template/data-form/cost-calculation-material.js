@@ -44,7 +44,9 @@ export class CostCalculationMaterial {
 
             if (this.data.Category.name.toUpperCase() == 'PROCESS') {
                 this.isProcess = true;
-                this.data.Price = this.calculateProcessPrice();
+                if(!this.data.Id) {
+                    this.data.Price = this.calculateProcessPrice();
+                }
                 
             }
         }
@@ -56,20 +58,20 @@ export class CostCalculationMaterial {
             }
             if (this.data.Product.Composition) {
                 this.data.Product.Composition = this.data.Product.Composition;
-                this.compositionIsExist = true;
+                this.compositionIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
                 this.selectedComposition = Object.assign({}, this.data.Product);
             }
 
            
             if (this.data.Product.Const) {
                 this.data.Product.Const=(this.data.Product.Const);
-                this.constructionIsExist = true;
+                this.constructionIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
                 this.selectedConstruction = Object.assign({}, this.data.Product);
 
             }
 
             if (this.data.Product.Yarn) {
-                this.yarnIsExist = true;
+                this.yarnIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
                 this.selectedYarn = Object.assign({}, this.data.Product);
             }
 
@@ -102,8 +104,8 @@ export class CostCalculationMaterial {
             this.data.UOMPrice = null;
             this.data.Conversion = 0;
             this.data.ShippingFeePortion = 0;
-            this.data.Product = await this.serviceCore.getByName(newVal.name);
-            // this.productCode = "Change";
+            // this.data.Product = await this.serviceCore.getByName(newVal.name);
+            this.productCode = "";
             if (this.data.Category.name.toUpperCase() === "FABRIC") {
                 this.categoryIsExist = true;
                 this.dialog.prompt("Apakah fabric ini menggunakan harga CMT?", "Detail Fabric Material")
@@ -115,7 +117,7 @@ export class CostCalculationMaterial {
                     });
                     
             } else if (this.data.Category.name.toUpperCase() === "PROCESS") {
-                //this.data.Product = await this.serviceCore.getByName(newVal.name);
+                this.data.Product = await this.serviceCore.getByName(newVal.name);
                 let UOM = await this.serviceCore.getUomByUnit("PCS");
                 this.data.UOMQuantity = UOM;
                 this.data.UOMPrice = UOM;
@@ -127,7 +129,7 @@ export class CostCalculationMaterial {
                 this.data.Price = this.calculateProcessPrice();
             } else {
                 this.categoryIsExist = false;
-                //this.data.Product = await this.serviceCore.getByName(newVal.name);
+                this.data.Product = await this.serviceCore.getByName(newVal.name);
                 this.productCode = this.data.Product ? this.data.Product.Code : "";
             }
         } else if (!newVal) {

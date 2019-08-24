@@ -82,12 +82,23 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <!-- <td>
             <au-textbox 
                 value.bind="uom" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
+        </td> -->
+        <td class="col-sm-1">
+            <au-autocomplete
+                value.bind="data.Uom"
+                error.bind="error.UOM"
+                loader.bind="uomLoader"
+                read-only.bind="readOnly"
+                placeholder="Satuan"
+                text="Unit"
+                options.bind="controlOptions">
+            </au-autocomplete>
         </td>
         <td class="col-sm-1">
             <au-numeric 
@@ -101,7 +112,7 @@
             <au-autocomplete
                 value.bind="data.PriceUom"
                 error.bind="error.PriceUom"
-                loader.bind="priceUomLoader"
+                loader.bind="uomLoader"
                 read-only.bind="readOnly"
                 placeholder="Satuan Harga"
                 text="Unit"

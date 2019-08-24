@@ -517,6 +517,32 @@ module.exports = [
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'garment/po-master-distribution',
+        name: 'garment-po-master-distribution',
+        moduleId: './modules/garment-purchasing/po-master-distribution/index',
+        nav: true,
+        title: 'Pembagian PO Master',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment/monitoring-ro-job-order',
+        name: 'garment-monitoring-ro-job-order',
+        moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
+        nav: true,
+        title: 'Monitoring RO Job Order',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]

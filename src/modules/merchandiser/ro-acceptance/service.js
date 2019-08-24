@@ -14,13 +14,7 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}/ro-acceptance`;
-        console.log(endpoint)
         return super.list(endpoint, info);
-    }
-
-    create(data) {
-        var endpoint = `${serviceUri}/`;
-        return super.post(endpoint, data);
     }
 
     getCostCalculationGarment(info) {
@@ -30,7 +24,6 @@ class Service extends RestService {
 
     accpeted(data){
         var endpoint = `${serviceUri}/acceptance`;
-        console.log(endpoint)
         return super.post(endpoint, data);
     }
 }

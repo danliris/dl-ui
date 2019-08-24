@@ -236,7 +236,7 @@ export class Update {
     this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
     this.data.SizingBeamDocuments.Counter = {};
     this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
-
+    
     this.service
       .updateStart(this.data.Id, this.data)
       .then(result => {
