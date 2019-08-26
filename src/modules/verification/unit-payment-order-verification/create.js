@@ -13,6 +13,7 @@ export class Create {
         this.service = service;
         this.dialog = dialog;
         this.data = {};
+        this.data.VerifyDate = new Date();
         this.submitContext = {
             verifiedAlert: false,
             position: 0,
