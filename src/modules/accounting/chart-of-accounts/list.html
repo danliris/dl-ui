@@ -30,12 +30,9 @@
   <h1 class="page-header">Chart of Accounts</h1>
 
   <div class="btn-group">
-    <button class="btn btn-success"
-            click.delegate="create()">Buat</button>
-    <button class="btn btn-default"
-            click.delegate="upload()">Unggah CSV</button>
-    <button class="btn btn-default"
-            click.delegate="download()">Download Template</button>
+    <button class="btn btn-success" click.delegate="create()">Buat</button>
+    <button class="btn btn-default" click.delegate="upload()">Unggah CSV</button>
+    <button class="btn btn-default" click.delegate="download()">Download Template</button>
   </div>
 
   <br></br>
@@ -43,21 +40,32 @@
   <aubs-accordion close-others.bind="true">
     <aubs-accordion-group repeat.for="item of items">
       <template replace-part="header">
-        <h4 class="panel-title"
-            style="cursor: pointer;">
-          <a click.delegate="toggle()">${item.name}</a>
+        <h4 class="panel-title" style="cursor: pointer;">
+          <div class="row">
+            <div class="col-md-10"><a click.delegate="toggle()">${item.name}</a></div>
+            <div class="col-md-2">${item.balanceString}</div>
+          </div>
+
         </h4>
       </template>
       <aubs-accordion close-others.bind="true">
-        <aubs-accordion-group repeat.for="subHeader of item.subHeaders"
-                              title.bind="subHeader.name">
+        <aubs-accordion-group repeat.for="subHeader of item.subHeaders">
+          <template replace-part="header">
+            <h4 class="panel-title" style="cursor: pointer;">
+              <div class="row">
+                <div class="col-md-10"><a click.delegate="toggle()">${subHeader.name}</a></div>
+                <div class="col-md-2">${subHeader.balanceString}</div>
+              </div>
+
+            </h4>
+          </template>
           <table class="table table-hover">
             <tbody>
               <tr repeat.for="ledger of subHeader.ledgers">
                 <td>${ledger.Code}</td>
                 <td>${ledger.Name}</td>
-                <td><a class="btn btn-success"
-                     click.delegate="edit(ledger.Id)">DETAIL</a></td>
+                <td>${ledger.Balance}</td>
+                <td><a class="btn btn-success" click.delegate="edit(ledger.Id)">DETAIL</a></td>
               </tr>
             </tbody>
           </table>
