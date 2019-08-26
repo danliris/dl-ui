@@ -172,4 +172,43 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/ro-available',
+        name: 'ro-available',
+        moduleId: './modules/merchandiser/ro-available/index',
+        nav: true,
+        title: 'Kesiapan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/ro-distribute',
+        name: 'ro-distribute',
+        moduleId: './modules/merchandiser/ro-distribute/index',
+        nav: true,
+        title: 'Distribusi RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: 'merchandiser/monitoring-ro-job-order',
+        name: 'merchandiser-monitoring-ro-job-order',
+        moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
+        nav: true,
+        title: 'Monitoring RO Job Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

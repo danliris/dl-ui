@@ -111,9 +111,13 @@ export class DataForm {
         if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
-
+        this.isDiffStorage=false;
         if(this.data.URNType=="PROSES"){
             this.isProcess=true;
+        }
+        else if(this.data.URNType=="GUDANG LAIN"){
+            this.isProcess=false;
+            this.isDiffStorage=true;
         }
         else{
             this.isProcess=false;

@@ -345,7 +345,9 @@ export class DataForm {
     if (this.data.CostCalculationGarment_Materials) {
       this.data.CostCalculationGarment_Materials.forEach(item => {
         item.QuantityOrder = this.data.Quantity;
+        item.Efficiency = this.data.Efficiency;
       })
+      this.context.itemsCollection.bind()
     }
   }
 

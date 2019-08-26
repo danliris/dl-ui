@@ -38,13 +38,7 @@ import {
       this.router = router;
       this.service = service;
       this.bindingEngine = bindingEngine;
-  
-      this.data = {};
-      this.data.SizingDetails = {};
-      this.BeamsWarping = [];
-      // this.data.Weight = {};
-      // this.data.Weight.Netto = "";
-  
+      this.data = {};  
       this.error = {};
     }
   
@@ -65,12 +59,12 @@ import {
       return ConstructionLoader;
     }
   
-    get operators() {
-      return OperatorLoader;
-    }
-  
     get beams() {
       return BeamLoader;
+    }
+  
+    get operators() {
+      return OperatorLoader;
     }
   
     OperatorDocumentChanged(newValue) {
@@ -78,73 +72,34 @@ import {
     }
   
     EntryTimeChanged(newValue) {
-      this.data.SizingDetails.PreparationTime = newValue;
       this.service.getShiftByTime(newValue)
         .then(result => {
           this.error.Shift = "";
           this.Shift = {};
           this.Shift = result;
-          this.data.SizingDetails.ShiftId = this.Shift.Id;
+          this.data.ShiftDocumentId = this.Shift.Id;
         })
         .catch(e => {
           this.Shift = {};
-          this.data.SizingDetails.ShiftId = this.Shift.Id;
+          this.data.ShiftDocumentId = this.Shift.Id;
           this.error.Shift = " Shift tidak ditemukan ";
         });
     }
   
-    get addBeamsWarping() {
-      return event => {
-        this.BeamsWarping.push({});
-      };
-    }
-  
-    // beamDetail(data) {
-    //   var beam = {};
-    //   beam.Id = data.Id;
-    //   beam.YarnStrands = data.YarnStrands;
-  
-    //   return beam;
-    // }
-  
-    get YarnStrands() {
-      let result = 0;
-  
-      if (this.BeamsWarping) {
-        if (this.BeamsWarping.length > 0) {
-          this.data.BeamsWarping = [];
-          for (let beam of this.BeamsWarping) {
-            if (beam.BeamDocument && beam.BeamDocument.YarnStrands != 0) {
-              result += beam.BeamDocument.YarnStrands;
-            }
-          }
-        }
-  
-        this.data.YarnStrands = result;
-      }
-      return result;
-  
-    }
-  
     saveCallback(event) {
-      var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
-      this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
-  
       this.data.MachineDocumentId = this.MachineDocument.Id;
       this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
       this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
-  
-      this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
-      this.BeamDocument.forEach(doc => {
-        var BeamId = doc.Id;
-        this.data.BeamsWarping.push(BeamId);
-      });
-  
-      // this.data.YarnStrands = this.YarnStrands;
-      this.data.NeReal = this.NeReal;
-      this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
-  
-      this.service
+      this.data.SizingBeamId = this.SizingBeamDocument.Id
+      this.data.PISPieces = this.PISPieces;
+      this.data.OperatorDocumentId = this.OperatorDocument.Id;
+
+      var EntryDateContainer = this.EntryDate;
+      this.data.EntryDate = moment(EntryDateContainer).utcOffset("+07:00").format();
+      this.data.EntryTime = this.EntryTime;
+      this.data.ShiftDocumentId = this.Shift.Id;
+      
+        this.service
         .create(this.data)
         .then(result => {
           this.router.navigateToRoute('list');

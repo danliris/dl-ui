@@ -115,9 +115,9 @@ export class Create {
                 });
             }
         }
-        // else {
-        //     this.clear();
-        // }
+        else {
+            this.clear();
+        }
     }
 
     get sectionLoader() {
@@ -132,6 +132,10 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
+    clear() {
+        this.data = {};
+    }
+
     determineActivationStrategy() {
         return activationStrategy.replace; //replace the viewmodel with a new instance
         // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
@@ -139,7 +143,7 @@ export class Create {
     }
 
     saveCallback() {
-        if (this.data.CostCalculationGarment) {
+        if (this.section) {
             if (confirm("Terima RO Garment?")) {
                 // var sentData = this.data.CostCalculationGarment || {};
                 var sentData=[];
@@ -150,7 +154,8 @@ export class Create {
                     }
                 }
                 // sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
-                this.service.accpeted(sentData)
+                if(sentData.length>0){
+                    this.service.accpeted(sentData)
                     .then(result => {
                         alert("Berhasil Menerima RO");
                         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -162,9 +167,12 @@ export class Create {
                             this.error = e;
                         }
                     });
+                } else {
+                    this.error = { MaterialsCount: "Item belum ada yang dipilih"}
+                }
             }
         } else {
-            this.error = { RONo: "No. RO harus diisi." };
+            this.error = { section: "Seksi harus diisi." };
         }
     }
 }
