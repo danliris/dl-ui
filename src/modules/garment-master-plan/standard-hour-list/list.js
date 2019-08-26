@@ -10,7 +10,7 @@ export class List {
         { field: "BuyerName", title: "Buyer" },
         { field: "ComodityName", title: "Comodity" },
         { 
-            field: "SMVDate", title: "Tanggal Update", 
+            field: "_LastModifiedUtc", title: "Tanggal Update", 
             formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }

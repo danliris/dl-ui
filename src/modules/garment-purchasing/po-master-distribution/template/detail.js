@@ -6,7 +6,6 @@ const CostCalculationGarmentLoader = require('../../../../loader/cost-calculatio
 export class Detail {
     @bindable selectedCostCalculation;
     @bindable selectedPOSerialNumber;
-    @bindable dataConversion;
 
     costCalculationFilter = {};
 
@@ -21,6 +20,11 @@ export class Detail {
     @computedFrom("data.Product")
     get dataProduct() {
         return this.data.Product ? this.data.Product.Code : "-";
+    }
+
+    @computedFrom("data.Quantity", "data.Conversion")
+    get convertedQuantity() {
+        return parseFloat((this.data.Quantity * this.data.Conversion).toFixed(2));
     }
 
     activate(context) {
@@ -47,8 +51,6 @@ export class Detail {
             this.costCalculationFilter["IsValidatedROPPIC"] = true;
             this.costCalculationFilter["PreSCId"] = this.data.SCId;
         }
-
-        this.dataConversion = this.data.Conversion;
 
     }
 
@@ -84,7 +86,6 @@ export class Detail {
             this.data.Product = costCalculationMaterial.Product;
             this.data.QuantityCC = costCalculationMaterial.BudgetQuantity;
             this.data.UomCC = costCalculationMaterial.UOMPrice;
-            this.data.Quantity = parseFloat((this.data.Conversion * this.data.QuantityCC).toFixed(2));
 
         } else {
 
@@ -94,11 +95,6 @@ export class Detail {
             this.data.UomCC = null;
 
         }
-    }
-
-    dataConversionChanged(newValue) {
-        this.data.Conversion = newValue;
-        this.data.Quantity = parseFloat((this.data.Conversion * this.data.QuantityCC).toFixed(2));
     }
 
 }

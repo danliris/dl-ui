@@ -24,7 +24,7 @@ export class Create {
 
     options = {
         cancelText: "Kembali",
-        saveText: "Terima",
+        saveText: "Simpan",
     };
 
     length = {
@@ -64,7 +64,7 @@ export class Create {
                 isCreate : true,
                 sectionId : newValue.Id,
             }
-            let costCalculationGarment = await this.service.getCostCalculationGarment({size: Number.MAX_SAFE_INTEGER, filter : JSON.stringify({Section : newValue.Code, IsValidatedROPPIC : true, IsROAccepted : false})});
+            let costCalculationGarment = await this.service.getCostCalculationGarment({size: Number.MAX_SAFE_INTEGER, filter : JSON.stringify({Section : newValue.Code, IsROAccepted : true, IsROAvailable : false})});
             this.data.CostCalculationGarment = costCalculationGarment.data;
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
 
@@ -144,7 +144,7 @@ export class Create {
 
     saveCallback() {
         if (this.section) {
-            if (confirm("Terima RO Garment?")) {
+            if (confirm("Apakah Anda Yakin Menyimpan Data Ini?")) {
                 // var sentData = this.data.CostCalculationGarment || {};
                 var sentData=[];
                 for(var item of this.data.CostCalculationGarment){
@@ -155,18 +155,18 @@ export class Create {
                 }
                 // sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
                 if(sentData.length>0){
-                    this.service.accpeted(sentData)
-                    .then(result => {
-                        alert("Berhasil Menerima RO");
-                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                    })
-                    .catch(e => {
-                        if (e.statusCode === 500) {
-                            this.error = JSON.parse(e.message);
-                        } else {
-                            this.error = e;
-                        }
-                    });
+                    this.service.availabled(sentData)
+                        .then(result => {
+                            alert("Berhasil Menyimpan Data");
+                            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                        })
+                        .catch(e => {
+                            if (e.statusCode === 500) {
+                                this.error = JSON.parse(e.message);
+                            } else {
+                                this.error = e;
+                            }
+                        });
                 } else {
                     this.error = { MaterialsCount: "Item belum ada yang dipilih"}
                 }

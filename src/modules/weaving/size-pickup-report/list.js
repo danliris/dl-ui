@@ -248,7 +248,6 @@ export class List {
       }
 
       return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
-        console.log(result);
         return {
           data: result,
           total: length
@@ -286,7 +285,6 @@ export class List {
       var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
 
       return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
-        console.log(result);
         return {
           data: result,
           total: length
@@ -323,7 +321,6 @@ export class List {
       var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
 
       return this.listDataFlag ? this.service.getDataByDate(DatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
-        console.log(result);
         return {
           data: result,
           total: length
@@ -502,7 +499,6 @@ export class List {
       var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
 
       return this.listDataFlag ? this.service.getXlsByDate(DatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
-        console.log(result);
         return {
           data: result,
           total: length

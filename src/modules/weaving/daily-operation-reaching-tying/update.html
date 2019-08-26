@@ -5,7 +5,7 @@
     }
 
   </style>
-  <au-input-form title="Update: Operasional Mesin Harian Reaching/ Tying" options.bind="formOptions">
+  <au-input-form title="Update: Operasional Mesin Harian Reaching-Tying" options.bind="formOptions">
     <div class="col-md-12">
       <!-- Header -->
       <div class="row" style="white-space: nowrap;">
@@ -22,7 +22,7 @@
           <textbox label="No. Beam" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Beam" value.bind="data.BeamNumber" error.bind="error.BeamNumber"
+          <au-textbox placeholder="No. Beam" value.bind="data.SizingBeamNumber" error.bind="error.SizingBeamNumber"
             read-only.bind="true"></au-textbox>
         </div>
       </div>
@@ -46,7 +46,7 @@
           </button>
           <button class="btn btn-default" click.delegate="reachingFinish()"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
-            Doff/ Selesai
+            Selesai
           </button>
         </div>
 
@@ -101,25 +101,25 @@
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-2" style="text-align:left;">
-                <textbox label="Cucukan" read-only="true" style="display: inline-block"></textbox>
+                <textbox label="Jenis Cucukan(Input)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-textbox placeholder="Cucukan" value.bind="StartReaching" error.bind="error.StartReaching"
+                <au-textbox placeholder="Jenis Cucukan(Input)" value.bind="StartReachingTypeInput" error.bind="error.StartReachingTypeInput"
                   read-only.bind="readOnly">
                 </au-textbox>
               </div>
               <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-                <textbox label="Jenis Cucukan" read-only="true" style="display: inline-block"></textbox>
+                <textbox label="Jenis Cucukan(Output)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-textbox placeholder="Jenis Cucukan" value.bind="StartReachingType"
-                  error.bind="error.StartReachingType" read-only.bind="readOnly"></au-textbox>
+                <au-textbox placeholder="Jenis Cucukan(Output)" value.bind="StartReachingTypeOutput"
+                  error.bind="error.StartReachingTypeOutput" read-only.bind="readOnly"></au-textbox>
               </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                <button class="btn btn-default" click.delegate="saveReachingStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                   width: 96px; border: 1px solid #777777;">
                   Simpan
                 </button>
@@ -128,8 +128,8 @@
           </div>
         </div>
 
-        <!-- Reaching Doff Menu -->
-        <div class="row" id="reachingDoffMenu" show.bind="showHideReachingDoffMenu">
+        <!-- Reaching Finish Menu -->
+        <div class="row" id="reachingFinishMenu" show.bind="showHideReachingFinishMenu">
           <div class="col-md-12"
             style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
 
@@ -138,7 +138,7 @@
                 <textbox label="Tanggal Selesai Reaching" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-datepicker value.bind="DoffReachingDate" error.bind="error.DoffReachingDate">
+                <au-datepicker value.bind="FinishReachingDate" error.bind="error.FinishReachingDate">
                 </au-datepicker>
               </div>
             </div>
@@ -148,13 +148,13 @@
                 <textbox label="Waktu Selesai Reaching" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-timepicker value.bind="DoffReachingTime" error.bind="error.DoffReachingTime" read-only.bind="readOnly">
+                <au-timepicker value.bind="FinishReachingTime" error.bind="error.FinishReachingTime" read-only.bind="readOnly">
               </div>
               <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                 <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-textbox placeholder="Shift" value.bind="DoffReachingShift.Name" error.bind="error.DoffReachingShift"
+                <au-textbox placeholder="Shift" value.bind="FinishReachingShift.Name" error.bind="error.FinishReachingShift"
                   read-only.bind="true">
                 </au-textbox>
               </div>
@@ -165,14 +165,14 @@
                 <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-autocomplete placeholder="Operator" value.bind="DoffReachingOperator" error.bind="error.DoffReachingOperator"
+                <au-autocomplete placeholder="Operator" value.bind="FinishReachingOperator" error.bind="error.FinishReachingOperator"
                   read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
               </div>
               <div class="col-md-2 col-md-offset-1" style="text-align:left;">
                 <textbox label="Grup Reaching" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-textbox placeholder="Grup Reaching" value.bind="DoffReachingOperator.Group" error.bind="error.DoffReachingGroup"
+                <au-textbox placeholder="Grup Reaching" value.bind="FinishReachingOperator.Group" error.bind="error.FinishReachingGroup"
                   read-only.bind="true"></au-textbox>
               </div>
             </div>
@@ -182,15 +182,15 @@
                 <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-numeric placeholder="Lebar Cucuk(cm)" value.bind="DoffReachingWidth"
-                  error.bind="error.DoffReachingWidth" read-only.bind="readOnly">
+                <au-numeric placeholder="Lebar Cucuk(cm)" value.bind="FinishReachingWidth"
+                  error.bind="error.FinishReachingWidth" read-only.bind="readOnly">
                 </au-numeric>
               </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveDoff()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                <button class="btn btn-default" click.delegate="saveReachingFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                         width: 96px; border: 1px solid #777777;">
                   Simpan
                 </button>
@@ -209,7 +209,7 @@
           </button>
           <button class="btn btn-default" click.delegate="tyingFinish()"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
-            Doff/ Selesai
+            Selesai
           </button>
         </div>
 
@@ -267,7 +267,7 @@
                 <textbox label="Pinggiran" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-textbox placeholder="Pinggiran" value.bind="StartTyingMargin" error.bind="error.StartTyingMargin"
+                <au-textbox placeholder="Pinggiran" value.bind="StartTyingEdgeStitching" error.bind="error.StartTyingEdgeStitching"
                   read-only.bind="readOnly">
                 </au-textbox>
               </div>
@@ -282,7 +282,7 @@
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                <button class="btn btn-default" click.delegate="saveTyingStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                   width: 96px; border: 1px solid #777777;">
                   Simpan
                 </button>
@@ -291,8 +291,8 @@
           </div>
         </div>
 
-        <!-- Tying Doff Menu -->
-        <div class="row" id="tyingDoffMenu" show.bind="showHideTyingDoffMenu">
+        <!-- Tying Finish Menu -->
+        <div class="row" id="tyingFinishMenu" show.bind="showHideTyingFinishMenu">
           <div class="col-md-12"
             style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
 
@@ -301,7 +301,7 @@
                 <textbox label="Tanggal Selesai Tying" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-datepicker value.bind="DoffTyingDate" error.bind="error.DoffTyingDate">
+                <au-datepicker value.bind="FinishTyingDate" error.bind="error.FinishTyingDate">
                 </au-datepicker>
               </div>
             </div>
@@ -311,13 +311,13 @@
                 <textbox label="Waktu Selesai Tying" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-timepicker value.bind="DoffTyingTime" error.bind="error.DoffTyingTime" read-only.bind="readOnly">
+                <au-timepicker value.bind="FinishTyingTime" error.bind="error.FinishTyingTime" read-only.bind="readOnly">
               </div>
               <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                 <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-textbox placeholder="Shift" value.bind="DoffTyingShift.Name" error.bind="error.DoffTyingShift"
+                <au-textbox placeholder="Shift" value.bind="FinishTyingShift.Name" error.bind="error.FinishTyingShift"
                   read-only.bind="true">
                 </au-textbox>
               </div>
@@ -328,14 +328,14 @@
                 <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-autocomplete placeholder="Operator" value.bind="DoffTyingOperator" error.bind="error.DoffTyingOperator"
+                <au-autocomplete placeholder="Operator" value.bind="FinishTyingOperator" error.bind="error.FinishTyingOperator"
                   read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
               </div>
               <div class="col-md-2 col-md-offset-1" style="text-align:left;">
                 <textbox label="Grup Tying" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-textbox placeholder="Grup Tying" value.bind="DoffTyingOperator.Group" error.bind="error.DoffTyingGroup"
+                <au-textbox placeholder="Grup Tying" value.bind="FinishTyingOperator.Group" error.bind="error.FinishTyingGroup"
                   read-only.bind="true"></au-textbox>
               </div>
             </div>
@@ -345,15 +345,15 @@
                 <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-numeric placeholder="Lebar Sisir(cm)" value.bind="DoffTyingWidth"
-                  error.bind="error.DoffTyingWidth" read-only.bind="readOnly">
+                <au-numeric placeholder="Lebar Sisir(cm)" value.bind="FinishTyingWidth"
+                  error.bind="error.FinishTyingWidth" read-only.bind="readOnly">
                 </au-numeric>
               </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveDoff()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                <button class="btn btn-default" click.delegate="saveTyingFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                         width: 96px; border: 1px solid #777777;">
                   Simpan
                 </button>
@@ -361,6 +361,15 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Reaching/ Tying</h1>
+      </div>
+      <div class="row" style="white-space: nowrap; overflow: auto;">
+        <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="logColumns" read-only.bind="true"
+          item-template="modules/weaving/daily-operation-reaching-tying/templates/log-items">
+        </au-collection>
       </div>
     </div>
   </au-input-form>
