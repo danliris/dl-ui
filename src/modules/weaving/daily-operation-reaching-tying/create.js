@@ -13,7 +13,8 @@ import {
 import moment from 'moment';
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
 @inject(Service, Router, BindingEngine)
@@ -21,7 +22,8 @@ export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable WeavingDocument;
-  @bindable ConstructionDocument;
+  // @bindable ConstructionDocument;
+  @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
   @bindable BeamsWarping;
@@ -55,8 +57,12 @@ export class Create {
     return UnitLoader;
   }
 
-  get constructions() {
-    return ConstructionLoader;
+  // get constructions() {
+  //   return ConstructionLoader;
+  // }
+
+  get orders() {
+    return OrderLoader;
   }
 
   get beams() {
@@ -89,7 +95,8 @@ export class Create {
   saveCallback(event) {
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
-    this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
+    // this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
+    this.data.OrderDocumentId = this.OrderDocument.Id;
     this.data.SizingBeamId = this.SizingBeamDocument.Id
     this.data.PISPieces = this.PISPieces;
     this.data.OperatorDocumentId = this.OperatorDocument.Id;
@@ -98,7 +105,7 @@ export class Create {
     this.data.EntryDate = moment(EntryDateContainer).utcOffset("+07:00").format();
     this.data.EntryTime = this.EntryTime;
     this.data.ShiftDocumentId = this.Shift.Id;
-
+    
     this.service
       .create(this.data)
       .then(result => {

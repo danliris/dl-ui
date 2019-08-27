@@ -120,6 +120,17 @@
             </div>
 
             <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Helai Cucuk Dikerjakan" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-numeric placeholder="Helai Cucuk Dikerjakan" value.bind="StartReachingYarnStrandsProcessed"
+                  error.bind="error.StartReachingYarnStrandsProcessed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
                 <button class="btn btn-default" click.delegate="saveReachingStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                   width: 96px; border: 1px solid #777777;">
@@ -183,6 +194,14 @@
 
             <div class="row" style="white-space: nowrap">
               <div class="col-md-2" style="text-align:left;">
+                <textbox label="Helai Cucuk Dikerjakan" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-numeric placeholder="Helai Cucuk Dikerjakan" value.bind="FinishReachingYarnStrandsProcessed"
+                  error.bind="error.FinishReachingYarnStrandsProcessed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
+              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                 <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
@@ -286,6 +305,17 @@
             </div>
 
             <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Helai Cucuk Dikerjakan" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-numeric placeholder="Helai Cucuk Dikerjakan" value.bind="StartTyingYarnStrandsProcessed"
+                  error.bind="error.StartTyingYarnStrandsProcessed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
               <div class="col-md-12">
                 <button class="btn btn-default" click.delegate="saveTyingStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                   width: 96px; border: 1px solid #777777;">
@@ -347,8 +377,16 @@
               </div>
             </div>
 
-            <div class="row" style="white-space: nowrap">
+            <div class="row" style="white-space: nowrap">              
               <div class="col-md-2" style="text-align:left;">
+                <textbox label="Helai Cucuk Dikerjakan" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-numeric placeholder="Helai Cucuk Dikerjakan" value.bind="FinishTyingYarnStrandsProcessed"
+                  error.bind="error.FinishTyingYarnStrandsProcessed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
+              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                 <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">

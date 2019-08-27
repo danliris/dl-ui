@@ -237,8 +237,6 @@ export class Update {
     this.data.SizingBeamDocuments.Counter = {};
     this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
     
-console.log(this.data);
-debugger
     this.service
       .updateStart(this.data.Id, this.data)
       .then(result => {

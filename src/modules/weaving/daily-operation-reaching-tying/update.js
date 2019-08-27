@@ -50,6 +50,10 @@ export class Update {
       header: "Operator"
     },
     {
+      value: "YarnStrandsProcessed",
+      header: "Helai Dikerjakan"
+    },
+    {
       value: "MachineStatus",
       header: "Status"
     }
@@ -326,18 +330,20 @@ export class Update {
     var TimeContainer = this.StartReachingTime;
     var ShiftContainer = this.StartReachingShift.Id;
     var OperatorContainer = this.StartReachingOperator.Id;
+    var YarnStrandsProcessedContainer = this.StartReachingYarnStrandsProcessed;
     var ReachingTypeInputContainer = this.StartReachingTypeInput;
     var ReachingTypeOutputContainer = this.StartReachingTypeOutput;
-
+    
     this.data = {};
     this.data.Id = IdContainer;
     this.data.ReachingStartDate = DateContainer;
     this.data.ReachingStartTime = TimeContainer;
     this.data.ShiftDocumentId = ShiftContainer;
     this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.ReachingTypeInput = ReachingTypeInputContainer;
     this.data.ReachingTypeOutput = ReachingTypeOutputContainer;
-
+    
     this.service
       .updateReachingStart(this.data.Id, this.data)
       .then(result => {
@@ -354,6 +360,7 @@ export class Update {
     var TimeContainer = this.FinishReachingTime;
     var ShiftContainer = this.FinishReachingShift.Id;
     var OperatorContainer = this.FinishReachingOperator.Id;
+    var YarnStrandsProcessedContainer = this.FinishReachingYarnStrandsProcessed;
     var ReachingWidthContainer = this.FinishReachingWidth;
 
     this.data = {};
@@ -362,8 +369,9 @@ export class Update {
     this.data.ReachingFinishTime = TimeContainer;
     this.data.ShiftDocumentId = ShiftContainer;
     this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.ReachingWidth = ReachingWidthContainer;
-
+    
     this.service
       .updateReachingFinish(this.data.Id, this.data)
       .then(result => {
@@ -380,6 +388,7 @@ export class Update {
     var TimeContainer = this.StartTyingTime;
     var ShiftContainer = this.StartTyingShift.Id;
     var OperatorContainer = this.StartTyingOperator.Id;
+    var YarnStrandsProcessedContainer = this.StartTyingYarnStrandsProcessed;
     var TyingEdgeStitchingContainer = this.StartTyingEdgeStitching;
     var TyingNumberContainer = this.StartTyingNumber;
 
@@ -389,9 +398,10 @@ export class Update {
     this.data.TyingStartTime = TimeContainer;
     this.data.ShiftDocumentId = ShiftContainer;
     this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.TyingEdgeStitching = TyingEdgeStitchingContainer;
     this.data.TyingNumber = TyingNumberContainer;
-
+    
     this.service
       .updateTyingStart(this.data.Id, this.data)
       .then(result => {
@@ -408,6 +418,7 @@ export class Update {
     var TimeContainer = this.FinishTyingTime;
     var ShiftContainer = this.FinishTyingShift.Id;
     var OperatorContainer = this.FinishTyingOperator.Id;
+    var YarnStrandsProcessedContainer = this.FinishTyingYarnStrandsProcessed;
     var TyingWidthContainer = this.FinishTyingWidth;
 
     this.data = {};
@@ -416,8 +427,9 @@ export class Update {
     this.data.TyingFinishTime = TimeContainer;
     this.data.ShiftDocumentId = ShiftContainer;
     this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.TyingWidth = TyingWidthContainer;
-
+    
     this.service
       .updateTyingFinish(this.data.Id, this.data)
       .then(result => {
