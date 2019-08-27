@@ -1,16 +1,27 @@
 <template>
-    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" part="actions">
         <div class="col-md-12">
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="No SOP" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-autocomplete placeholder="No SOP" value.bind="OrderProductionNumber" error.bind="error.OrderId"
+                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="OrderProductionNumbers"
+                        text="OrderNumber">
+                    </au-autocomplete>
+                </div>
+            </div>
 
             <div class="row" style="white-space: nowrap;">
                 <div class="col-md-2">
                     <textbox label="No Konstruksi" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Konstruksi" value.bind="FabricConstruction"
-                        error.bind="error.FabricConstruction" read-only.bind="readOnly" options.bind="customOptions"
-                        loader.bind="FabricConstructions" text="ConstructionNumber">
-                    </au-autocomplete>
+                    <au-textbox placeholder="Konstruksi" value.bind="FabricConstructionNumber"
+                        error.bind="error.ConstructionId" read-only.bind="true">
+                    </au-textbox>
                 </div>
             </div>
 
@@ -19,7 +30,7 @@
                     <textbox label="Jenis Material" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Material" value.bind="Material" error.bind="error.Beam"
+                    <au-autocomplete placeholder="Cari Material" value.bind="Material" error.bind="error.MaterialTypeId"
                         read-only.bind="readOnly" options.bind="customOptions" loader.bind="Materials" text="Name">
                     </au-autocomplete>
                 </div>
@@ -60,7 +71,7 @@
                     <textbox label="Waktu" read-only="true" style="display: inline-block"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <input value.bind="PreparationTime" type="time" error.bind="error.PreparationTime"
+                    <input value.bind="PreparationTime" type="time" error.bind="error.TimeOperation"
                         read-only.bind="readOnly">
                 </div>
 
@@ -81,7 +92,7 @@
                     <textbox label="Operator" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.Operator"
+                    <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.OperatorId"
                         read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
                     </au-autocomplete>
                 </div>
@@ -98,5 +109,4 @@
 
         </div>
     </au-input-form>
-
 </template>
