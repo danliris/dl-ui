@@ -2,6 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const garmentProductSingleByNameServiceUri = 'master/garmentProducts/byName';
 const uomServiceUri = 'master/uoms';
+const sectionServiceUri = 'master/garment-sections';
 
 export class ServiceCore extends RestService {
 
@@ -29,4 +30,9 @@ export class ServiceCore extends RestService {
       })
   }
 
+
+  getSection(id) {
+    var endpoint = `${sectionServiceUri}/${id}`;
+    return super.get(endpoint);
+  }
 }
