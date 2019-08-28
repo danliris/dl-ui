@@ -98,6 +98,16 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-textbox
+            value.bind="data.Destination"
+            error.bind="error.Destination"
+            label.bind="Tujuan"
+            placeholder="masukkan tujuan"
+            read-only.bind="readOnly"
+            if.bind="!isFrom && data.SourceType == 'Lain - lain'"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-autocomplete
             value.bind="data.OutputBank"
             error.bind="error.OutputBank"
@@ -109,6 +119,30 @@
             if.bind="!isFrom && data.SourceType == 'Pendanaan'"
             options.bind="controlOptions">
         </au-autocomplete>
+
+        <au-textbox
+            value.bind="data.OutputBank.AccountNumber"
+            label="Nomor Rekening"
+            read-only.bind="true"
+            if.bind="!isFrom && data.SourceType == 'Pendanaan' && data.OutputBank"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.OutputBank.Currency.Code"
+            label="Mata Uang"
+            read-only.bind="true"
+            if.bind="!isFrom && data.SourceType == 'Pendanaan' && data.OutputBank"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <!-- <au-textbox
+            value.bind="data.OutputBank.Currency.Code + ' - ' + data.OutputBank.AccountNumber"
+            read-only.bind="true"
+            if.bind="!isFrom && data.SourceType == 'Pendanaan' && data.OutputBank"
+            label="AccountNumber"
+            options.bind="controlOptions"
+        ></au-textbox> -->
 
         <au-autocomplete
             value.bind="data.Buyer"
@@ -126,6 +160,15 @@
             label="Nominal"
             value.bind="data.Nominal"
             error.bind="error.Nominal"
+            read-only.bind="readOnly"
+            format="0,0.0000"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            label="Nominal Keluar"
+            value.bind="data.NominalOut"
+            error.bind="error.NominalOut"
             read-only.bind="readOnly"
             format="0,0.0000"
             options.bind="controlOptions">

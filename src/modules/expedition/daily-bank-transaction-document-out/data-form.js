@@ -37,7 +37,7 @@ export class DataForm {
     }
 
     statusOptions = ["IN", "OUT"];
-    sourceTypes = ["Operasional", "Investasi", "Pendanaan"];
+    sourceTypes = ["Operasional", "Investasi", "Pendanaan", "Lain - lain"];
 
     get bankLoader() {
         return BankLoader;
