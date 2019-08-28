@@ -15,11 +15,12 @@ var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
+  @bindable ReachingTyingProcess;
   @bindable StartReachingTime;
+  @bindable ChangeOperatorReachingTime;
   @bindable FinishReachingTime;
   @bindable StartTyingTime;
   @bindable FinishTyingTime;
-  @bindable ReachingTyingProcess;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -81,29 +82,12 @@ export class Update {
 
   ReachingTyingProcessChanged(newValue) {
     if (newValue == "Cucuk") {
-      this.showHideReachingStartMenu = false;
-      this.showHideReachingFinishMenu = false;
-      if (this.showHideReachingMenu === true) {
-        this.showHideReachingMenu = false;
-        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
-          this.showHideReachingStartMenu = false;
-          this.showHideTyingStartMenu = false;
-
-          this.StartReachingDate = "";
-          this.StartReachingTime = "";
-          this.StartReachingShift = "";
-          this.StartReachingOperator = "";
-          this.StartReachingTypeInput = "";
-          this.StartReachingTypeOutput = "";
-          this.FinishReachingDate = "";
-          this.FinishReachingTime = "";
-          this.FinishReachingShift = "";
-          this.FinishReachingOperator = "";
-          this.FinishReachingWidth = "";
-        }
-        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
+      this.showHideReachingMenu = true;
+      this.showHideTyingMenu = false;
+      if(this.showHideReachingMenu === true){
+        if(this.showHideReachingStartMenu === true){
+          this.showHideReachingChangeOperatorMenu = false;
           this.showHideReachingFinishMenu = false;
-          this.showHideTyingFinishMenu = false;
 
           this.StartReachingDate = "";
           this.StartReachingTime = "";
@@ -111,119 +95,74 @@ export class Update {
           this.StartReachingOperator = "";
           this.StartReachingTypeInput = "";
           this.StartReachingTypeOutput = "";
-          this.FinishReachingDate = "";
-          this.FinishReachingTime = "";
-          this.FinishReachingShift = "";
-          this.FinishReachingOperator = "";
-          this.FinishReachingWidth = "";
+          this.StartReachingYarnStrandsProcessed = "";
         }
-      } else {
-        this.showHideReachingMenu = true;
-        this.showHideTyingMenu = false;
-        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
+        if(this.showHideReachingChangeOperatorMenu === true){
           this.showHideReachingStartMenu = false;
-          this.showHideTyingStartMenu = false;
-
-          this.StartReachingDate = "";
-          this.StartReachingTime = "";
-          this.StartReachingShift = "";
-          this.StartReachingOperator = "";
-          this.StartReachingTypeInput = "";
-          this.StartReachingTypeOutput = "";
-          this.FinishReachingDate = "";
-          this.FinishReachingTime = "";
-          this.FinishReachingShift = "";
-          this.FinishReachingOperator = "";
-          this.FinishReachingWidth = "";
-        }
-        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
           this.showHideReachingFinishMenu = false;
-          this.showHideTyingFinishMenu = false;
-
-          this.StartReachingDate = "";
-          this.StartReachingTime = "";
-          this.StartReachingShift = "";
-          this.StartReachingOperator = "";
-          this.StartReachingTypeInput = "";
-          this.StartReachingTypeOutput = "";
+  
+          this.ChangeOperatorReachingDate = "";
+          this.ChangeOperatorReachingTime = "";
+          this.ChangeOperatorReachingShift = "";
+          this.ChangeOperatorReachingOperator = "";
+          this.ChangeOperatorReachingYarnStrandsProcessed = "";
+        }
+        if(this.showHideReachingFinishMenu === true){
+          this.showHideReachingStartMenu = false;
+          this.showHideReachingChangeOperatorMenu = false;
+  
           this.FinishReachingDate = "";
           this.FinishReachingTime = "";
           this.FinishReachingShift = "";
           this.FinishReachingOperator = "";
+          this.FinishReachingYarnStrandsProcessed = "";
           this.FinishReachingWidth = "";
+        } else {
+          this.showHideReachingStartMenu = false;
+          this.showHideReachingChangeOperatorMenu = false;
+          this.showHideReachingFinishMenu = false;
         }
       }
     } else if (newValue == "Sisir") {
-      this.showHideTyingStartMenu = false;
-      this.showHideTyingFinishMenu = false;
-      if (this.showHideTyingMenu === true) {
-        this.showHideTyingMenu = false;
-        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
-          this.showHideReachingStartMenu = false;
-          this.showHideTyingStartMenu = false;
-
-          this.StartTyingDate = "";
-          this.StartTyingTime = "";
-          this.StartTyingShift = "";
-          this.StartTyingOperator = "";
-          this.StartTyingMargin = "";
-          this.StartTyingNumber = "";
-          this.FinishTyingDate = "";
-          this.FinishTyingTime = "";
-          this.FinishTyingShift = "";
-          this.FinishTyingOperator = "";
-          this.FinishTyingWidth = "";
-        }
-        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
-          this.showHideReachingFinishMenu = false;
+      this.showHideReachingMenu = false;
+      this.showHideTyingMenu = true;
+      if(this.showHideTyingMenu === true){
+        if(this.showHideTyingStartMenu === true){
+          // this.showHideTyingChangeOperatorMenu = false;
           this.showHideTyingFinishMenu = false;
-
+        
           this.StartTyingDate = "";
           this.StartTyingTime = "";
           this.StartTyingShift = "";
           this.StartTyingOperator = "";
-          this.StartTyingMargin = "";
+          this.StartTyingEdgeStitching = "";
           this.StartTyingNumber = "";
-          this.FinishTyingDate = "";
-          this.FinishTyingTime = "";
-          this.FinishTyingShift = "";
-          this.FinishTyingOperator = "";
-          this.FinishTyingWidth = "";
+          this.StartTyingYarnStrandsProcessed = "";
         }
-      } else {
-        this.showHideTyingMenu = true;
-        this.showHideReachingMenu = false;
-        if (this.showHideReachingStartMenu === true || this.showHideTyingStartMenu === true) {
-          this.showHideReachingStartMenu = false;
+        // if(this.showHideTyingChangeOperatorMenu === true){
+        //   this.showHideTyingStartMenu = false;
+        //   this.showHideTyingFinishMenu = false;
+  
+        //   this.ChangeOperatorTyingDate = "";
+        //   this.ChangeOperatorTyingTime = "";
+        //   this.ChangeOperatorTyingShift = "";
+        //   this.ChangeOperatorTyingOperator = "";
+        //   this.ChangeOperatorTyingYarnStrandsProcessed = "";
+        // }
+        if(this.showHideTyingFinishMenu === true){
           this.showHideTyingStartMenu = false;
-
-          this.StartTyingDate = "";
-          this.StartTyingTime = "";
-          this.StartTyingShift = "";
-          this.StartTyingOperator = "";
-          this.StartTyingMargin = "";
-          this.StartTyingNumber = "";
+          // this.showHideTyingChangeOperatorMenu = false;
+  
           this.FinishTyingDate = "";
           this.FinishTyingTime = "";
           this.FinishTyingShift = "";
           this.FinishTyingOperator = "";
+          this.FinishTyingYarnStrandsProcessed = "";
           this.FinishTyingWidth = "";
-        }
-        if (this.showHideReachingFinishMenu === true || this.showHideTyingFinishMenu === true) {
-          this.showHideReachingFinishMenu = false;
-          this.showHideTyingFinishMenu = false;
-
-          this.StartTyingDate = "";
-          this.StartTyingTime = "";
-          this.StartTyingShift = "";
-          this.StartTyingOperator = "";
-          this.StartTyingMargin = "";
-          this.StartTyingNumber = "";
-          this.FinishTyingDate = "";
-          this.FinishTyingTime = "";
-          this.FinishTyingShift = "";
-          this.FinishTyingOperator = "";
-          this.FinishTyingWidth = "";
+        } else {
+          this.showHideTyingStartMenu = false;
+          this.showHideTyingChangeOperatorMenu = false;
+          this.showHideTyingFinishMenu = false;          
         }
       }
     } else {
@@ -237,6 +176,17 @@ export class Update {
       this.showHideReachingStartMenu = false;
     } else {
       this.showHideReachingStartMenu = true;
+      this.showHideReachingChangeOperatorMenu = false;
+      this.showHideReachingFinishMenu = false;
+    }
+  }
+
+  reachingChangeOperator() {
+    if (this.showHideReachingChangeOperatorMenu === true) {
+      this.showHideReachingChangeOperatorMenu = false;
+    } else {
+      this.showHideReachingStartMenu = false;
+      this.showHideReachingChangeOperatorMenu = true;
       this.showHideReachingFinishMenu = false;
     }
   }
@@ -246,6 +196,7 @@ export class Update {
       this.showHideReachingFinishMenu = false;
     } else {
       this.showHideReachingStartMenu = false;
+      this.showHideReachingChangeOperatorMenu = false;
       this.showHideReachingFinishMenu = true;
     }
   }
@@ -255,15 +206,27 @@ export class Update {
       this.showHideTyingStartMenu = false;
     } else {
       this.showHideTyingStartMenu = true;
+      // this.showHideTyingChangeOperatorMenu = false;
       this.showHideTyingFinishMenu = false;
     }
   }
+
+  // tyingChangeOperator() {
+  //   if (this.showHideTyingChangeOperatorMenu === true) {
+  //     this.showHideTyingChangeOperatorMenu = false;
+  //   } else {
+  //     this.showHideTyingStartMenu = false;
+  //     this.showHideTyingChangeOperatorMenu = true;
+  //     this.showHideTyingFinishMenu = false;
+  //   }
+  // }
 
   tyingFinish() {
     if (this.showHideTyingFinishMenu === true) {
       this.showHideTyingFinishMenu = false;
     } else {
       this.showHideTyingStartMenu = false;
+      // this.showHideTyingChangeOperatorMenu = false;
       this.showHideTyingFinishMenu = true;
     }
   }
@@ -282,6 +245,19 @@ export class Update {
       .catch(e => {
         this.StartReachingShift = {};
         this.error.StartReachingShift = " Shift tidak ditemukan ";
+      });
+  }
+
+  ChangeOperatorReachingTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.ChangeOperatorReachingShift = "";
+        this.ChangeOperatorReachingShift = {};
+        this.ChangeOperatorReachingShift = result;
+      })
+      .catch(e => {
+        this.ChangeOperatorReachingShift = {};
+        this.error.ChangeOperatorReachingShift = " Shift tidak ditemukan ";
       });
   }
 
@@ -333,7 +309,7 @@ export class Update {
     var YarnStrandsProcessedContainer = this.StartReachingYarnStrandsProcessed;
     var ReachingTypeInputContainer = this.StartReachingTypeInput;
     var ReachingTypeOutputContainer = this.StartReachingTypeOutput;
-    
+
     this.data = {};
     this.data.Id = IdContainer;
     this.data.ReachingStartDate = DateContainer;
@@ -343,9 +319,35 @@ export class Update {
     this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.ReachingTypeInput = ReachingTypeInputContainer;
     this.data.ReachingTypeOutput = ReachingTypeOutputContainer;
-    
+
     this.service
       .updateReachingStart(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
+
+  saveReachingChangeOperator() {
+    var IdContainer = this.data.Id;
+    var DateContainer = moment(this.ChangeOperatorReachingDate).utcOffset("+07:00").format();
+    var TimeContainer = this.ChangeOperatorReachingTime;
+    var ShiftContainer = this.ChangeOperatorReachingShift.Id;
+    var OperatorContainer = this.ChangeOperatorReachingOperator.Id;
+    var YarnStrandsProcessedContainer = this.ChangeOperatorReachingYarnStrandsProcessed;
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.ChangeOperatorReachingDate = DateContainer;
+    this.data.ChangeOperatorReachingTime = TimeContainer;
+    this.data.ShiftDocumentId = ShiftContainer;
+    this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+
+    this.service
+      .updateReachingChangeOperator(this.data.Id, this.data)
       .then(result => {
         location.reload();
       })
@@ -371,7 +373,7 @@ export class Update {
     this.data.OperatorDocumentId = OperatorContainer;
     this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.ReachingWidth = ReachingWidthContainer;
-    
+
     this.service
       .updateReachingFinish(this.data.Id, this.data)
       .then(result => {
@@ -401,7 +403,7 @@ export class Update {
     this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.TyingEdgeStitching = TyingEdgeStitchingContainer;
     this.data.TyingNumber = TyingNumberContainer;
-    
+
     this.service
       .updateTyingStart(this.data.Id, this.data)
       .then(result => {
@@ -429,7 +431,7 @@ export class Update {
     this.data.OperatorDocumentId = OperatorContainer;
     this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.TyingWidth = TyingWidthContainer;
-    
+
     this.service
       .updateTyingFinish(this.data.Id, this.data)
       .then(result => {
