@@ -12,6 +12,11 @@ export class List {
         { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" }
+        { field: "ConfirmPrice", title: "Harga Konfirmasi" },
+        { field: "IsApprovedMD", title: "Approval MD" },
+        { field: "IsApprovedIE", title: "Approval IE" },
+        { field: "IsApprovedPurchasing", title: "Approval Purchasing" },
+        { field: "IsApprovedPPIC", title: "Approval PPIC" },
     ];
 
     loader = (info) => {
@@ -29,6 +34,13 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                result.data.map(data => {
+                    data.IsApprovedMD = data.ApprovalMD.IsApproved ? "SUDAH" : "BELUM";
+                    data.IsApprovedIE = data.ApprovalIE.IsApproved ? "SUDAH" : "BELUM";
+                    data.IsApprovedPurchasing = data.ApprovalPurchasing.IsApproved ? "SUDAH" : "BELUM";
+                    data.IsApprovedPPIC = data.ApprovalPPIC.IsApproved ? "SUDAH" : "BELUM";
+                    return data;
+                });
                 return {
                     total: result.info.total,
                     data: result.data
