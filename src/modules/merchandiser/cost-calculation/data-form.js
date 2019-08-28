@@ -2,6 +2,7 @@ import { Router } from "aurelia-router";
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework';
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
+import { ServiceCore } from './service-core';
 
 
 import numeral from 'numeral';
@@ -12,7 +13,7 @@ var SizeRangeLoader = require('../../../loader/size-range-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
-@inject(Router, BindingEngine, ServiceEffeciency, RateService,Element)
+@inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, ServiceCore)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -100,13 +101,14 @@ export class DataForm {
     SCType: "JOB ORDER"
   }
 
-  constructor(router, bindingEngine, serviceEffeciency, rateService,element) {
+  constructor(router, bindingEngine, serviceEffeciency, rateService, element, serviceCore) {
     this.router = router;
     this.bindingEngine = bindingEngine;
     this.efficiencyService = serviceEffeciency;
     this.rateService = rateService;
     this.element = element; 
     this.selectedRate = "USD"
+    this.serviceCore = serviceCore;
   }
 
   async bind(context) {
@@ -237,7 +239,7 @@ export class DataForm {
   }
 
   get dataSection() {
-    return this.data.Section || "-";
+    return (this.data.Section || this.data.SectionName) ? `${this.data.Section} - ${this.data.SectionName}` : "-";
   } 
 
   get dataBuyer() {
@@ -249,11 +251,13 @@ export class DataForm {
   }
 
   @bindable selectedPreSalesContract;
-  selectedPreSalesContractChanged(newValue, oldValue) {
+  async selectedPreSalesContractChanged(newValue, oldValue) {
     if (newValue) {
       this.data.PreSCId = newValue.Id;
       this.data.PreSCNo = newValue.SCNo;
       this.data.Section = newValue.SectionCode;
+      const section = await this.serviceCore.getSection(newValue.SectionId);
+      this.data.SectionName = section.Name;
       this.data.Buyer = {
         Id: newValue.BuyerAgentId,
         Code: newValue.BuyerAgentCode,
@@ -268,6 +272,7 @@ export class DataForm {
       this.data.PreSCId = 0;
       this.data.PreSCNo = null;
       this.data.Section = null;
+      this.data.SectionName = null;
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
     }
