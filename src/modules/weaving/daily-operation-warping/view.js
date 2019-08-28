@@ -23,7 +23,11 @@ export class View {
     this.data =
       await this.service.getById(Id)
         .then(result => {
-          return result;
+          return this.service.getUnitById(result.UnitId)
+            .then(unit => {
+              result.UnitName = unit.Name;
+              return result;
+            });
         });
   }
 
@@ -34,13 +38,13 @@ export class View {
     {
       field: "DateTimeMachine",
       title: "Waktu",
-      formatter: function(value, data, index) {
+      formatter: function (value, data, index) {
         return moment(new Date(value)).format("DD MMM YYYY");
       }
     },
     { header: "Status", value: "OperationStatus" },
     { header: "Shift", value: "ShiftName" }
-];
+  ];
 
   //Dipanggil ketika tombol "Kembali" ditekan
   list() {
@@ -49,6 +53,10 @@ export class View {
 
   //Tombol "Kembali", panggil list()
   cancelCallback(event) {
+    this.list();
+  }
+
+  back() {
     this.list();
   }
 

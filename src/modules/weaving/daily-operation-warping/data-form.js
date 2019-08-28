@@ -17,24 +17,38 @@ export class DataForm {
     @bindable PreparationTime;
     @bindable Shift;
     @bindable OrderProductionNumber;
+    @bindable UnitName;
 
     constructor(service, router) {
         this.service = service;
         this.router = router;
     }
-    
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
     }
 
-     // Bindable Method
-     OrderProductionNumberChanged(newValue) {
-         this.data.OrderId = newValue.Id;
-     }
+    // Bindable Method
+    OrderProductionNumberChanged(newValue) {
+        this.data.OrderId = newValue.Id;
 
-     DateOperationChanged(newValue) {
+        if (newValue) {
+
+            if (newValue.WeavingUnit) {
+
+                this.service.getUnitById(newValue.WeavingUnit)
+                    .then(result => {
+                        if (result) {
+                            this.UnitName = result.Name;
+                        }
+                    });
+            }
+        }
+    }
+
+    DateOperationChanged(newValue) {
         this.data.DateOperation = moment(newValue).format();
     }
 
@@ -78,8 +92,7 @@ export class DataForm {
     get FabricConstructionNumber() {
         if (this.OrderProductionNumber) {
 
-            if (this.OrderProductionNumber.ConstructionNumber)
-            {
+            if (this.OrderProductionNumber.ConstructionNumber) {
 
                 if (this.OrderProductionNumber.ConstructionId) {
                     this.data.ConstructionId = this.OrderProductionNumber.ConstructionId;

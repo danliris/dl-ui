@@ -19,7 +19,7 @@ export class List {
                 return moment(new Date(value)).format("DD MMM YYYY");
             }
         },
-        { field: "DailyOperationNumber", title: "No Operasi Harian" },
+        { field: "OrderNumber", title: "No SOP" },
         { field: "ConstructionNumber", title: "No Konstruksi" },
         { field: "LatestBeamNumber", title: "Proses Beam" },
         { field: "OperationStatus", title: "Status" }

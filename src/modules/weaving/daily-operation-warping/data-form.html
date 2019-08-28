@@ -27,6 +27,17 @@
 
             <div class="row" style="white-space: nowrap;">
                 <div class="col-md-2">
+                    <textbox label="Weaving Unit" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-textbox placeholder="Unit" value.bind="UnitName" error.bind="error.ConstructionId"
+                        read-only.bind="true">
+                    </au-textbox>
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
                     <textbox label="Jenis Material" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
@@ -74,16 +85,16 @@
                     <input value.bind="PreparationTime" type="time" error.bind="error.TimeOperation"
                         read-only.bind="readOnly">
                 </div>
+            </div>
 
-                <div class="row" style="white-space: nowrap;">
-                    <div class="col-md-2">
-                        <textbox label="Shift" read-only="true"></textbox>
-                    </div>
-                    <div class="col-md-2">
-                        <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift"
-                            read-only.bind="true">
-                        </au-textbox>
-                    </div>
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Shift" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift"
+                        read-only.bind="true">
+                    </au-textbox>
                 </div>
             </div>
 

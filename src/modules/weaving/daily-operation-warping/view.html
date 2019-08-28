@@ -4,7 +4,7 @@
     <br>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Operasi Harian</a>
+        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Detail</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">History</a>
@@ -17,11 +17,10 @@
       <div role="tabpanel" class="tab-pane fade in active" id="profile">
         <div class="row" style="white-space: nowrap;">
           <div class="col-md-2">
-            <au-textbox label="No Operasi Harian" read-only="true"></au-textbox>
+            <au-textbox label="No SOP" read-only="true"></au-textbox>
           </div>
           <div class="col-md-3">
-            <au-textbox value.bind="data.DailyOperationNumber" error.bind="error.DailyOperationNumber"
-              read-only.bind="true">
+            <au-textbox value.bind="data.OrderNumber" error.bind="error.OrderNumber" read-only.bind="true">
             </au-textbox>
           </div>
         </div>
@@ -39,11 +38,21 @@
 
         <div class="row" style="white-space: nowrap;">
           <div class="col-md-2">
+            <textbox label="Weaving Unit" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox placeholder="Unit" value.bind="data.UnitName" error.bind="error.ConstructionId"
+              read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
             <textbox label="Jenis Material" read-only="true"></textbox>
           </div>
           <div class="col-md-2">
-            <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber"
-              read-only.bind="true">
+            <au-textbox value.bind="data.MaterialName" error.bind="error.MaterialName" read-only.bind="true">
             </au-textbox>
           </div>
         </div>
@@ -53,12 +62,32 @@
             <textbox label="Jumlah Cone" read-only="true"></textbox>
           </div>
           <div class="col-md-2">
-            <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber"
+            <au-textbox value.bind="data.AmountOfCones" error.bind="error.AmountOfCones" read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="Warna Cone" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCone" error.bind="error.ColourOfCone"
               read-only.bind="true">
             </au-textbox>
           </div>
         </div>
 
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="Tanggal & Waktu" read-only="true"></textbox>
+          </div>
+          <div class="col-md-2">
+            <au-datepicker value.bind="data.DateTimeOperation" error.bind="error.DateOperation" read-only.bind="true">
+            </au-datepicker>
+          </div>
+        </div>
+        <div><button type="submit" click.delegate="back()"> Kembali</button></div>
       </div>
 
       <div role="tabpanel" class="tab-pane fade" id="buzz">
@@ -67,7 +96,7 @@
           item-template="modules/weaving/daily-operation-warping/template/history-items">
         </au-collection>
       </div>
-      
+
     </div>
 
   </div>
