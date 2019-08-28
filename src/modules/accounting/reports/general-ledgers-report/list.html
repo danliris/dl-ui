@@ -79,6 +79,16 @@
                         </h4>
                     </template>
                     <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Debit</th>
+                                <th>Kredit</th>
+                                <th>Sisa Saldo</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr repeat.for="item of result.Items">
                                 <td>${item.Date | dateFormat}</td>

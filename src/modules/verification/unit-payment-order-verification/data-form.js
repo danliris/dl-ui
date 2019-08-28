@@ -64,7 +64,7 @@ export class DataForm {
         { field: "no", title: "No Bon Terima Unit" },
         { field: "purchaseOrderExternalNo", title: "No PO Eksternal" },
         { field: "purchaseRequestNo", title: "No PR" },
-       // { field: "correctionNo", title: "No Koreksi" },
+        // { field: "correctionNo", title: "No Koreksi" },
     ]
 
     formOptions = {
@@ -102,9 +102,19 @@ export class DataForm {
 
     SPBChanged(newValue, oldValue) {
         if (this.SPB) {
-console.log(this.SPB)
-            this.data = Object.assign(this.data, this.SPB)
+            console.log(this.SPB)
+            var arg = {
+                filter: JSON.stringify({ UnitPaymentOrderNo: this.SPB.no, Active : "true", IsDeleted : "false" })
+            }
 
+            this.data = Object.assign(this.data, this.SPB)
+            this.service.search(arg)
+                .then(response => {
+                    var dataExpedition = response.data[0];
+                    this.data.IncomeTax = dataExpedition.IncomeTax;
+                    this.data.Vat = dataExpedition.Vat;
+                    this.data.TotalPaid = dataExpedition.TotalPaid;
+                });
             this.mapItems(this.data);
 
             this.data.UnitPaymentOrderNo = this.SPB.no;
