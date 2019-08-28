@@ -53,6 +53,7 @@
   <require from="../../../lib/number-format-value-converter.js"></require>
   <require from="../../../lib/date-format-value-converter.js"></require>
   <au-input-form title.bind="title" with.bind="context">
+    <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)" if.one-way="hasUnpost">Unpost</button>
     <div class="row">
       <div class="col-md-10">
         <div class="col-md-4">
