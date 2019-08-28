@@ -42,6 +42,17 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-numeric
+            label="Rate"
+            placeholder="masukkan rate"
+            value.bind="data.CurrencyRate"
+            error.bind="error.CurrencyRate"
+            change.delegate="rateChanged($event)"
+            read-only.bind="readOnly || sameCurrency"
+            options.bind="controlOptions"
+            if.bind="IDR">
+        </au-numeric>
+
         <au-autocomplete
             label="Supplier"
             placeholder="pilih supplier"
@@ -78,10 +89,21 @@
 
         <au-collection
             show.bind="selectedBank && selectedSupplier"
+            if.bind="!IDR"
             items.bind="Items" 
             columns.bind="collection.columns"
             checkall.delegate="onCheckAll($event)"
             item-template="modules/expedition/payment-disposition-note/templates/item">
+        </au-collection>
+
+        <au-collection
+            show.bind="selectedBank && selectedSupplier && selectedCurrency && data.CurrencyRate"
+            if.bind="IDR"
+            items.bind="Items" 
+            columns.bind="collection.columns"
+            checkall.delegate="onCheckAll($event)"
+            item-template="modules/expedition/payment-disposition-note/templates/item"
+            options.bind="collectionOptions">
         </au-collection>
 
         TOTAL BAYAR ${grandTotal | numberFormat: '0,000.0000'} ${data.AccountBank.Currency.Code}

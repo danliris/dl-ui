@@ -7,7 +7,7 @@ import { activationStrategy } from 'aurelia-router';
 import SupplierLoader from '../../../loader/supplier-loader';
 import BankLoader from '../../../loader/account-banks-loader';
 
-import CurrencyLoader from '../../../loader/garment-currency-loader';
+import CurrencyLoader from '../../../loader/currency-loader';
 import Service from './service';
 
 @inject(Router, Service, Dialog)
@@ -31,9 +31,24 @@ export class Create {
         this.service = service;
         this.dialog = dialog;
         this.data = {};
-        this.collection = {
-            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+        if(!this.IDR || this.sameCurrency){
+            this.collection = {
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            };
+        }
+        else{
+            this.collection = {
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+            };
+        }
+
+        this.collectionOptions={
+            IDR:this.IDR,
+            rate:this.data.CurrencyRate,
+            SameCurrency:this.sameCurrency
         };
+
+        
     }
 
     determineActivationStrategy() {
@@ -89,13 +104,19 @@ export class Create {
             this.data.Supplier.Code=newVal.code;
             this.data.Supplier.Import=newVal.import;
             if (this.selectedBank && this.selectedBank.Currency.Code) {
+                var currency= this.data.CurrencyCode ? this.data.CurrencyCode : this.selectedBank.Currency.Code;
                 let arg = {
                     page: 1,
                     size: Number.MAX_SAFE_INTEGER,
-                    filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierCode": newVal.code, "IsPaid": false , "Position":"7"}) //CASHIER DIVISION
+                    filter: JSON.stringify({ "CurrencyCode": currency, "SupplierCode": newVal.code, "IsPaid": false , "Position":"7"}) //CASHIER DIVISION
                 };
                 await this.DispositionData(arg);
             }
+            this.collectionOptions={
+                IDR:this.IDR,
+                rate:this.data.CurrencyRate,
+                SameCurrency:this.sameCurrency
+            };
         }
     }
 
@@ -146,22 +167,106 @@ export class Create {
             if(this.currency=="IDR"){
                 this.IDR=true;
             }
+            if(!this.IDR || this.sameCurrency){
+                this.collection = {
+                    columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+                };
+            }
+            else{
+                this.collection = {
+                    columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+                };
+            }
+            this.collectionOptions={
+                IDR:this.IDR,
+                rate:this.data.CurrencyRate,
+                SameCurrency:this.sameCurrency
+            };
         } else {
             this.currency = "";
             this.Items = [];
         }
     }
 
+    @bindable selectedCurrency;
+    async selectedCurrencyChanged(newVal){
+        this.sameCurrency=false;
+        this.data.CurrencyRate=0;
+        if(newVal){
+            this.data.CurrencyCode=newVal.Code;
+            this.data.CurrencyId=newVal.Id;
+            if(newVal.Code=="IDR"){
+                this.sameCurrency=true;
+                this.data.CurrencyRate=1;
+            }
+            if(this.selectedSupplier){
+                let arg = {
+                    page: 1,
+                    size: Number.MAX_SAFE_INTEGER,
+                    filter: JSON.stringify({"CurrencyCode": this.data.CurrencyCode, "SupplierCode": this.selectedSupplier.code, "IsPaid": false, "Position":"7" }) 
+                };
+                await this.DispositionData(arg);
+            }
+
+            if(!this.IDR || this.sameCurrency){
+                this.collection = {
+                    columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+                };
+            }
+            else{
+                this.collection = {
+                    columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+                };
+            }
+            this.collectionOptions={
+                IDR:this.IDR,
+                rate:this.data.CurrencyRate,
+                SameCurrency:this.sameCurrency
+            };
+        }
+        else{
+            this.data.CurrencyCode=null;
+            this.data.CurrencyId=null;
+            this.sameCurrency=false;
+            this.data.CurrencyRate=0;
+        }
+    }
+
+    async rateChanged(e){
+        console.log(e.srcElement.value)
+        this.collectionOptions={
+            IDR:this.IDR,
+            rate:parseFloat(e.srcElement.value),
+            SameCurrency:this.sameCurrency
+        };
+        this.data.CurrencyRate=parseFloat(e.srcElement.value);
+        if (this.selectedBank && this.selectedBank.Currency.Code && this.selectedSupplier) {
+            var currency= this.data.CurrencyCode ? this.data.CurrencyCode : this.selectedBank.Currency.Code;
+            let arg = {
+                page: 1,
+                size: Number.MAX_SAFE_INTEGER,
+                filter: JSON.stringify({ "CurrencyCode": currency, "SupplierCode": this.selectedSupplier.code, "IsPaid": false , "Position":"7"}) //CASHIER DIVISION
+            };
+            await this.DispositionData(arg);
+        }
+    }
+
     get grandTotal() {
         let result = 0;
+        let viewResult=0;
         if (this.Items && this.Items.length > 0) {
             for (let detail of this.Items) {
-                if (detail.Select)
+                if (detail.Select){
                     result += detail.payToSupplier;
+                    viewResult+=(detail.payToSupplier*this.data.CurrencyRate);
+                }
             }
         }
         this.data.Amount = result;
-        return result;
+        if(this.IDR)
+            return viewResult
+        else
+            return result;
     }
 
     bankView(bank) {
@@ -173,6 +278,6 @@ export class Create {
     }
 
     currencyView(currency) {
-        return `${currency.code}`;
+        return `${currency.Code}`;
     }
 }
