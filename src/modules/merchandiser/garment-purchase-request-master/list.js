@@ -61,6 +61,7 @@ export class List {
     return this.service.search(arg)
       .then(result => {
         result.data.forEach(data => {
+          data.isPosting = data.IsPosted;
           data.BuyerCode = data.Buyer.Code;
           data.BuyerName = data.Buyer.Name;
         });

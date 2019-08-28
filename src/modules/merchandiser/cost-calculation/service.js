@@ -141,6 +141,16 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    postCC(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.post(endpoint, data);
+    }
+
+    unpostCC(data) {
+        var endpoint = `${serviceUri}/unpost/${data.Id}`;
+        return super.put(endpoint, data.reason);
+    }
+
 };
 
 
