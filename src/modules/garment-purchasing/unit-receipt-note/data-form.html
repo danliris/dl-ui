@@ -27,7 +27,7 @@
             label="Jenis Bon Terima Unit" 
             value.bind="data.URNType" 
             error.bind="error.URNType" 
-            read-only.bind="true"
+            read-only.bind="readOnly || isEdit"
             items.bind="typeOptions"
             change.delegate="URNTypeChanged($event)"
             options.bind="auInputOptions">
