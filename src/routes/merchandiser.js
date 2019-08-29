@@ -67,6 +67,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/budget-validation-purchasing',
+        name: 'budget-validation-purchasing',
+        moduleId: './modules/merchandiser/budget-validation-purchasing/index',
+        nav: true,
+        title: 'Budget Validation - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/budget-validation-ppic',
         name: 'budget-validation-ppic',
         moduleId: './modules/merchandiser/budget-validation-ppic/index',
