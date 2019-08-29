@@ -194,7 +194,7 @@ export class View {
                 { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
             ];
 
-            this.service.patch(this.data.Id, jsonPatch)
+            this.service.replace(this.data.Id, jsonPatch)
                 .then(result => {
                     this.list();
                 })

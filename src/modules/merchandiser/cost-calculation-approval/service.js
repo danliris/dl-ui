@@ -18,7 +18,7 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    patch(id, data) {
+    replace(id, data) {
         var endpoint = `${serviceUri}/${id}`;
         return super.patch(endpoint, data);
     }
