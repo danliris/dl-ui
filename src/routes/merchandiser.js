@@ -67,11 +67,11 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/ro-garment-validation',
-        name: 'ro-garment-validation',
-        moduleId: './modules/merchandiser/ro-garment-validation/index',
+        route: '/merchandiser/budget-validation-ppic',
+        name: 'budget-validation-ppic',
+        moduleId: './modules/merchandiser/budget-validation-ppic/index',
         nav: true,
-        title: 'Validasi RO PPIC',
+        title: 'Budget Validation - PPIC',
         auth: true,
         settings: {
             group: "merchandiser",
