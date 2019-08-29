@@ -67,7 +67,11 @@ export class Create {
 
     saveCallback(event) {
         this.data.Items = this.Items.filter((item) => item.Select);
+        if(this.data.CurrencyRate==""){
+            this.data.CurrencyRate=0;
+        }
         var dataPrep = this.data;
+        
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
                 if (response == "ok") {
@@ -186,6 +190,9 @@ export class Create {
             this.currency = "";
             this.Items = [];
         }
+        this.data.CurrencyCode="";
+        this.data.CurrencyId=0;
+        this.data.CurrencyRate=0;
     }
 
     @bindable selectedCurrency;
@@ -226,14 +233,13 @@ export class Create {
         }
         else{
             this.data.CurrencyCode=null;
-            this.data.CurrencyId=null;
+            this.data.CurrencyId=0;
             this.sameCurrency=false;
             this.data.CurrencyRate=0;
         }
     }
 
     async rateChanged(e){
-        console.log(e.srcElement.value)
         this.collectionOptions={
             IDR:this.IDR,
             rate:parseFloat(e.srcElement.value),
