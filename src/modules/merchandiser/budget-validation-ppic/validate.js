@@ -51,7 +51,16 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true, IsValidatedROSample: true };
+        // Filter yang sudah Approved MD dan IE serta sudah Validasi Purchasing
+        // Saat disimpan maka IsApprovedPPIC menjadi true
+        // , dan sebagian Material value IsPosted menjadi true
+        return {
+            "CostCalculationGarment_Materials.Any(IsPosted == false)": true,
+            IsApprovedMD: true,
+            IsApprovedPurchasing: true,
+            IsApprovedIE: true,
+            // IsApprovedPPIC : false
+        };
     }
 
     constructor(router, service, purchaseRequestService) {
@@ -68,6 +77,8 @@ export class Create {
 
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
 
+                // Ambil semua Products di GarmentPurchaseRequests untuk mengecek
+                // Product di CostCalculation_Materials adalah MASTER (IsPRMaster) atau JOB ORDER
                 let productsInPRMaster = [];
                 if (this.data.CostCalculationGarment.PreSCId) {
                     const info = {
@@ -86,6 +97,14 @@ export class Create {
                 this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
+                /* FILTER MATERIALS */
+                // Cek apakah CostCalculation punya Material yang IsPosted adalah "TRUE"
+                // Untuk validasi pertama kali harusnya tidak ada, sehingga Jenis Validasi = "NON PROCESS"
+                // , Kemudian hanya memvalidasi Materials yang Category bukan "PROCESS"
+                // Untuk validasi selanjutnya jika ada, Jenis Validasi = "PROCESS"
+                // , Kemudian hanya memvalidasi Materials yang Category adalah "PROCESS"
+                // Saat validasi IsPosted pada Material dibuat "TRUE"
+
                 let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
                     return acc || cur.IsPosted || false;
                 }, false);
@@ -100,6 +119,7 @@ export class Create {
                         // && mtr.Category.Name.toUpperCase() === "PROCESS"
                         && processOrNot
                 });
+                /* FILTER MATERIALS */
 
                 let no = 0;
                 this.data.CostCalculationGarment_Materials.map(material => {
