@@ -34,6 +34,9 @@ export class Create {
   }, {
     value: "YarnStrands",
     header: "Helai Benang Beam Warping"
+  }, {
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam Warping"
   }];
 
   constructor(service, router, bindingEngine) {
@@ -129,7 +132,24 @@ export class Create {
       this.data.YarnStrands = result;
     }
     return result;
+  }
 
+  get EmptyWeight() {
+    let result = 0;
+
+    if (this.BeamsWarping) {
+      if (this.BeamsWarping.length > 0) {
+        // this.data.BeamsWarping = [];
+        for (let beam of this.BeamsWarping) {
+          if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
+            result += beam.BeamDocument.EmptyWeight;
+          }
+        }
+      }
+
+      this.data.EmptyWeight = result;
+    }
+    return result;
   }
 
   saveCallback(event) {
@@ -150,7 +170,7 @@ export class Create {
     // this.data.YarnStrands = this.YarnStrands;
     this.data.NeReal = this.NeReal;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
-    
+
     this.service
       .create(this.data)
       .then(result => {

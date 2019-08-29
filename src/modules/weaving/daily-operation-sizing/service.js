@@ -57,6 +57,17 @@ export class Service extends RestService {
     });
   }
 
+  calculateNetto(emptyWeight, bruto) {
+    var task = "netto";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/empty-weight/${emptyWeight}/bruto/${bruto}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   calculatePISMeter(counterStart, counterFinish) {
     var task = "pis-in-meter";
     var config = Container.instance.get(Config);

@@ -32,9 +32,8 @@
           <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument"
-            error.bind="error.OrderDocument" read-only.bind="readOnly" loader.bind="orders"
-            text="OrderNumber">
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocument"
+            read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
           </au-autocomplete>
         </div>
       </div>
@@ -102,11 +101,18 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Total Helai Benang" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="Total Helai Benang Beam Warping" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Total Helai Benang" value.bind="YarnStrands" error.bind="error.YarnStrands"
+          <au-textbox placeholder="Total Helai Benang Beam Warping" value.bind="YarnStrands" error.bind="error.YarnStrands"
             read-only.bind="true"></au-textbox>
+        </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Total Berat Kosong Beam Warping" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="Total Berat Kosong Beam Warping" value.bind="EmptyWeight"
+            error.bind="error.EmptyWeight" read-only.bind="true"></au-textbox>
         </div>
       </div>
 
