@@ -62,6 +62,21 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
+        <td show.bind= "IDR && !sameCurrency">
+            <au-numeric
+                value.bind="data.payToSupplierIDR"
+                format="0,000.0000"
+                if.bind="IDR && !sameCurrency"
+                read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td show.bind= "IDR && !sameCurrency">
+            <au-textbox
+                value.bind="data.currencyIDR"
+                if.bind="IDR && !sameCurrency"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
         <td class="col-sm-1">
             <button class="btn btn-info" click.delegate="toggle()">i</button> 
         </td>
