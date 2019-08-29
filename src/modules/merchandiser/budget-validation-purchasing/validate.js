@@ -3,12 +3,12 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { PurchaseRequestService } from './service';
 import moment from 'moment';
+import { AuthService } from "aurelia-authentication";
 
 const costCalculationGarmentLoader = require('../../../loader/cost-calculation-garment-loader');
-const buyerLoader = require('../../../loader/buyers-loader');
 
-@inject(Router, Service, PurchaseRequestService)
-export class Create {
+@inject(Router, Service, PurchaseRequestService, AuthService)
+export class Validate {
     @bindable data = {};
     @bindable error = {};
 
@@ -19,7 +19,7 @@ export class Create {
 
     options = {
         cancelText: "Clear",
-        saveText: "Process",
+        saveText: "Approve",
     };
 
     length = {
@@ -46,20 +46,26 @@ export class Create {
         return costCalculationGarmentLoader;
     }
 
-    get buyerLoader() {
-        return buyerLoader;
-    }
-
     get costCalculationGarmentUnpostedFilter() {
-        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true, IsValidatedROSample: true };
+        return {
+            IsApprovedMD: true,
+            IsApprovedPurchasing: false,
+        };
     }
 
-    constructor(router, service, purchaseRequestService) {
+    constructor(router, service, purchaseRequestService, authService) {
         this.router = router;
         this.service = service;
         this.purchaseRequestService = purchaseRequestService;
         this.data = {};
         this.error = {};
+
+        if (authService.authenticated) {
+            this.me = authService.getTokenPayload();
+        }
+        else {
+            this.me = {};
+        }
     }
 
     async costCalculationGarmentChanged(newValue) {
@@ -68,6 +74,8 @@ export class Create {
 
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
 
+                // Ambil semua Products di GarmentPurchaseRequests untuk mengecek
+                // Product di CostCalculation_Materials adalah MASTER (IsPRMaster) atau JOB ORDER
                 let productsInPRMaster = [];
                 if (this.data.CostCalculationGarment.PreSCId) {
                     const info = {
@@ -86,20 +94,7 @@ export class Create {
                 this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
-                let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
-                    return acc || cur.IsPosted || false;
-                }, false);
-
-                this.validationType = (isAnyPostedMaterials === true) ? "Process" : "Non Process";
-
-                this.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(mtr => {
-                    let processOrNot = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS") : (mtr.Category.name.toUpperCase() !== "PROCESS");
-                    return true
-                        && mtr.IsPosted !== true
-                        // && mtr.Category.Name.toUpperCase() !== "PROCESS"
-                        // && mtr.Category.Name.toUpperCase() === "PROCESS"
-                        && processOrNot
-                });
+                this.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment.CostCalculationGarment_Materials;
 
                 let no = 0;
                 this.data.CostCalculationGarment_Materials.map(material => {
@@ -137,12 +132,16 @@ export class Create {
 
     saveCallback() {
         if (this.data.CostCalculationGarment) {
-            if (confirm("Validasi RO Garment?")) {
-                var sentData = this.data.CostCalculationGarment || {};
-                sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
-                this.service.create(sentData)
+            if (confirm("Approve Budget?")) {
+                const jsonPatch = [
+                    { op: "replace", path: `/IsApprovedPurchasing`, value: true },
+                    { op: "replace", path: `/ApprovedPurchasingBy`, value: this.me.username },
+                    { op: "replace", path: `/ApprovedPurchasingDate`, value: new Date() }
+                ];
+
+                this.service.replace(this.data.CostCalculationGarment.Id, jsonPatch)
                     .then(result => {
-                        alert("Berhasil Validasi RO Garment");
+                        alert("Berhasil Approve Budget");
                         this.clear();
                     })
                     .catch(e => {
@@ -151,7 +150,7 @@ export class Create {
                         } else {
                             this.error = e;
                         }
-                    });
+                    })
             }
         } else {
             this.error = { RONo: "No. RO harus diisi." };

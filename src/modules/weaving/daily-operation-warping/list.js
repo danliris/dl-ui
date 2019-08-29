@@ -10,7 +10,7 @@ export class List {
         this.router = router;
     }
 
-    context = ["Update"];
+    context = ["view"];
     columns = [
         {
             field: "DateTimeOperation",
@@ -19,7 +19,7 @@ export class List {
                 return moment(new Date(value)).format("DD MMM YYYY");
             }
         },
-        {field: "DailyOperationNumber", title: "No Operasi Harian"},
+        { field: "OrderNumber", title: "No SOP" },
         { field: "ConstructionNumber", title: "No Konstruksi" },
         { field: "LatestBeamNumber", title: "Proses Beam" },
         { field: "OperationStatus", title: "Status" }
@@ -38,32 +38,10 @@ export class List {
         }
 
         return this.service.search(arg).then(result => {
-            if (result.data && result.data.length > 0) {
-                let getUnitPromises = result.data.map(datum =>
-                    this.service.getUnitById(datum.UnitId)
-                );
-
-                return Promise.all(getUnitPromises).then(units => {
-                    for (var datum of result.data) {
-                        if (units && units.length > 0) {
-                            let unit = units.find(
-                                unitResult => datum.UnitId == unitResult.Id
-                            );
-                            datum.WeavingUnit = unit;
-                        }
-                    }
-                    
-                    return {
-                        total: result.info.total,
-                        data: result.data
-                    };
-                });
-            } else {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                };
-            }
+            return {
+                total: result.info.total,
+                data: result.data
+            };
         });
     }
 
@@ -71,8 +49,8 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "Update":
-                this.router.navigateToRoute("update", { Id: data.Id });
+            case "view":
+                this.router.navigateToRoute("view", { Id: data.Id });
                 break;
         }
     }

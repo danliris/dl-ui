@@ -40,20 +40,6 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/cost-calculation-approval/purchasing',
-        name: 'cost-calculation-approval-purchasing',
-        moduleId: './modules/merchandiser/cost-calculation-approval/index',
-        nav: true,
-        title: 'Cost Calculation Approval - Purchasing',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            type: "purchasing"
-        }
-    },
-    {
         route: '/merchandiser/cost-calculation-approval/ie',
         name: 'cost-calculation-approval-ie',
         moduleId: './modules/merchandiser/cost-calculation-approval/index',
@@ -65,20 +51,6 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: "ie"
-        }
-    },
-    {
-        route: '/merchandiser/cost-calculation-approval/ppic',
-        name: 'cost-calculation-approval-ppic',
-        moduleId: './modules/merchandiser/cost-calculation-approval/index',
-        nav: true,
-        title: 'Cost Calculation Approval - PPIC',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            type: "ppic"
         }
     },
     {
@@ -95,11 +67,24 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/ro-garment-validation',
-        name: 'ro-garment-validation',
-        moduleId: './modules/merchandiser/ro-garment-validation/index',
+        route: '/merchandiser/budget-validation-purchasing',
+        name: 'budget-validation-purchasing',
+        moduleId: './modules/merchandiser/budget-validation-purchasing/index',
         nav: true,
-        title: 'Validasi RO PPIC',
+        title: 'Budget Validation - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/budget-validation-ppic',
+        name: 'budget-validation-ppic',
+        moduleId: './modules/merchandiser/budget-validation-ppic/index',
+        nav: true,
+        title: 'Budget Validation - PPIC',
         auth: true,
         settings: {
             group: "merchandiser",

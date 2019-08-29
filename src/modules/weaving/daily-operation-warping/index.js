@@ -14,15 +14,14 @@ export class Index {
           name: "create",
           nav: false,
           title: "Create: Operasional Mesin Harian Warping"
+        },
+        {
+          route: "view/:Id",
+          moduleId: "./view",
+          name: "view",
+          nav: false,
+          title: "view: Operasional Mesin Harian Warping"
         }
-        ,
-        // {
-        //   route: "view/:Id",
-        //   moduleId: "./view",
-        //   name: "view",
-        //   nav: false,
-        //   title: "view: Operasional Mesin Harian Warping"
-        // }
       ]);
   
       this.router = router;
