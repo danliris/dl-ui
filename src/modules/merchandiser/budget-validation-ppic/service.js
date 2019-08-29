@@ -3,7 +3,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "merchandiser/ro-garment-validations";
+const serviceUri = "merchandiser/budget-validations/ppic";
 const costCalculationGarmentServiceUri = "cost-calculation-garments";
 
 class Service extends RestService {
@@ -18,7 +18,7 @@ class Service extends RestService {
     }
 
     getCostCalculationGarmentById(id) {
-        var endpoint = `${costCalculationGarmentServiceUri}/ro-garment-validation/${id}`;
+        var endpoint = `${costCalculationGarmentServiceUri}/with-product-names/${id}`;
         return super.get(endpoint);
     }
 }
