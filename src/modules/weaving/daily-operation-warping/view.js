@@ -1,15 +1,18 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import { Dialog } from '../../../components/dialog/dialog';
 import moment from "moment";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
 
-  constructor(router, service) {
+  constructor(router, service, dialog) {
     this.router = router;
     this.service = service;
+    this.dialog = dialog;
     this.data = {};
+    this.error = {};
   }
 
   bind(context) {
@@ -31,7 +34,16 @@ export class View {
         });
   }
 
-  loomHistory = [
+  dailyOperationBeamProducts = [
+    { header: "Tanggal", value: "DateOperation" },
+    { header: "Waktu", value: "TimeOperation" },
+    { header: "Shift", value: "ShiftName" },
+    { header: "Operator", value: "BeamOperatorName" },
+    { header: "Group", value: "BeamOperatorGroup" },
+    { header: "Status", value: "OperationStatus" }
+  ];
+
+  warpingHistory = [
     { header: "Beam", value: "BeamNumber" },
     { header: "Operator", value: "BeamOperatorName" },
     { header: "Group", value: "BeamOperatorGroup" },
@@ -46,24 +58,111 @@ export class View {
     { header: "Shift", value: "ShiftName" }
   ];
 
-  //Dipanggil ketika tombol "Kembali" ditekan
-  list() {
-    this.router.navigateToRoute("list");
-  }
-
-  //Tombol "Kembali", panggil list()
-  cancelCallback(event) {
-    this.list();
-  }
-
   back() {
     this.list();
   }
 
-  //Tombol "Hapus", hapus this.data, redirect ke list
-  deleteCallback(event) {
-    this.service.delete(this.data).then(result => {
-      this.list();
-    });
+  start() {
+    $("#Mulai").modal('hide');
+    this.error = {};
+
+    this.service
+      .updateForStartProcess(this.data)
+      .then(result => {
+        this.data.LoomHistory = [];
+
+        if (result.length > 0) {
+
+        }
+
+        this.data.LoomHistory = result;
+      }).catch(e => {
+        var errorStatus = e.Status;
+        this.dialog.errorPrompt(errorStatus);
+      });
+  }
+
+  stop() {
+    $("#Berhenti").modal('hide');
+    this.error = {};
+
+    this.service
+      .updateForStopProcess(this.data)
+      .then(result => {
+
+        this.data.LoomHistory = [];
+
+        if (result.length > 0) {
+          result = this.remappingModels(result);
+        }
+
+        this.data.LoomHistory = result;
+      }).catch(e => {
+        var errorStatus = e.Status;
+        this.dialog.errorPrompt(errorStatus);
+      });
+  }
+
+  resume() {
+    $("#Melanjutkan").modal('hide');
+    this.error = {};
+
+    this.service
+      .updateForResumeProcess(this.data)
+      .then(result => {
+
+        this.data.LoomHistory = [];
+
+        if (result.length > 0) {
+          result = this.remappingModels(result);
+        }
+
+        this.data.LoomHistory = result;
+      }).catch(e => {
+        var errorStatus = e.Status;
+        this.dialog.errorPrompt(errorStatus);
+      });
+  }
+
+  finish() {
+    $("#Selesai").modal('hide');
+    this.error = {};
+
+    this.service
+      .updateForFinishProcess(this.data)
+      .then(result => {
+
+        this.data.LoomHistory = [];
+
+        if (result.length > 0) {
+          result = this.remappingModels(result);
+        }
+
+        this.data.LoomHistory = result;
+      }).catch(e => {
+        var errorStatus = e.Status;
+        this.dialog.errorPrompt(errorStatus);
+      });
+  }
+
+  updateShift() {
+    $("#UbahShift").modal('hide');
+    this.error = {};
+
+    this.service
+      .updateForShiftProcess(this.data)
+      .then(result => {
+
+        this.data.LoomHistory = [];
+
+        if (result.length > 0) {
+          result = this.remappingModels(result);
+        }
+
+        this.data.LoomHistory = result;
+      }).catch(e => {
+        var errorStatus = e.Status;
+        this.dialog.errorPrompt(errorStatus);
+      });
   }
 }
