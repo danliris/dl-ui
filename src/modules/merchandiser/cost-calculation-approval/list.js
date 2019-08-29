@@ -62,24 +62,10 @@ export class List {
                     IsApprovedMD: false
                 };
                 break;
-            case "purchasing":
-                this.filter = {
-                    IsApprovedMD: true,
-                    IsApprovedPurchasing: false
-                };
-                break;
             case "ie":
                 this.filter = {
                     IsApprovedMD: true,
                     IsApprovedIE: false
-                };
-                break;
-            case "ppic":
-                this.filter = {
-                    IsApprovedMD: true,
-                    IsApprovedPurchasing: true,
-                    IsApprovedIE: true,
-                    IsApprovedPPIC: false
                 };
                 break;
             default:

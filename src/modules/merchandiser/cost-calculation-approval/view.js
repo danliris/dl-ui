@@ -80,14 +80,8 @@ export class View {
             case "md":
                 this.type = "MD";
                 break;
-            case "purchasing":
-                this.type = "Purchasing";
-                break;
             case "ie":
                 this.type = "IE";
-                break;
-            case "ppic":
-                this.type = "PPIC";
                 break;
             default: break;
         }
