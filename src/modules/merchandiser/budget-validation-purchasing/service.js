@@ -1,9 +1,5 @@
-
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "merchandiser/ro-garment-validations";
 const costCalculationGarmentServiceUri = "cost-calculation-garments";
 
 class Service extends RestService {
@@ -12,13 +8,13 @@ class Service extends RestService {
         super(http, aggregator, config, "sales");
     }
 
-    create(data) {
-        var endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
+    replace(id, data) {
+        var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
+        return super.patch(endpoint, data);
     }
 
     getCostCalculationGarmentById(id) {
-        var endpoint = `${costCalculationGarmentServiceUri}/ro-garment-validation/${id}`;
+        var endpoint = `${costCalculationGarmentServiceUri}/with-product-names/${id}`;
         return super.get(endpoint);
     }
 }
