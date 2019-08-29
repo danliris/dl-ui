@@ -157,12 +157,12 @@ export class Create {
 
     saveCallback() {
         if (this.data.CostCalculationGarment) {
-            if (confirm("Validasi RO Garment?")) {
+            if (confirm("Validasi Budget?")) {
                 var sentData = this.data.CostCalculationGarment || {};
                 sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
                 this.service.create(sentData)
                     .then(result => {
-                        alert("Berhasil Validasi RO Garment");
+                        alert("Berhasil Validasi Budget");
                         this.clear();
                     })
                     .catch(e => {
