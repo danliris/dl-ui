@@ -33,27 +33,31 @@ export class Update {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
-  
+
   logColumns = [{
-    value: "MachineDate",
-    header: "Tanggal"
-  }, {
-    value: "MachineTime",
-    header: "Jam"
-  },
-  {
-    value: "ShiftName",
-    header: "Shift"
-  },
-  {
-    value: "OperatorName",
-    header: "Operator"
-  },
-  {
-    value: "MachineStatus",
-    header: "Status"
-  }
-];
+      value: "MachineDate",
+      header: "Tanggal"
+    }, {
+      value: "MachineTime",
+      header: "Jam"
+    },
+    {
+      value: "ShiftName",
+      header: "Shift"
+    },
+    {
+      value: "OperatorName",
+      header: "Operator"
+    },
+    {
+      value: "YarnStrandsProcessed",
+      header: "Helai Dikerjakan"
+    },
+    {
+      value: "MachineStatus",
+      header: "Status"
+    }
+  ];
 
   process = ["", "Cucuk", "Sisir"];
 
@@ -326,18 +330,20 @@ export class Update {
     var TimeContainer = this.StartReachingTime;
     var ShiftContainer = this.StartReachingShift.Id;
     var OperatorContainer = this.StartReachingOperator.Id;
+    var YarnStrandsProcessedContainer = this.StartReachingYarnStrandsProcessed;
     var ReachingTypeInputContainer = this.StartReachingTypeInput;
     var ReachingTypeOutputContainer = this.StartReachingTypeOutput;
-
+    
     this.data = {};
     this.data.Id = IdContainer;
     this.data.ReachingStartDate = DateContainer;
     this.data.ReachingStartTime = TimeContainer;
     this.data.ShiftDocumentId = ShiftContainer;
     this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
     this.data.ReachingTypeInput = ReachingTypeInputContainer;
     this.data.ReachingTypeOutput = ReachingTypeOutputContainer;
-
+    
     this.service
       .updateReachingStart(this.data.Id, this.data)
       .then(result => {
@@ -346,33 +352,93 @@ export class Update {
       .catch(e => {
         this.error = e;
       });
-    }
+  }
 
-    saveReachingFinish() {
-      var IdContainer = this.data.Id;
-      var DateContainer = moment(this.FinishReachingDate).utcOffset("+07:00").format();
-      var TimeContainer = this.FinishReachingTime;
-      var ShiftContainer = this.FinishReachingShift.Id;
-      var OperatorContainer = this.FinishReachingOperator.Id;
-      var ReachingWidthContainer = this.FinishReachingWidth;
-  
-      this.data = {};
-      this.data.Id = IdContainer;
-      this.data.ReachingFinishDate = DateContainer;
-      this.data.ReachingFinishTime = TimeContainer;
-      this.data.ShiftDocumentId = ShiftContainer;
-      this.data.OperatorDocumentId = OperatorContainer;
-      this.data.ReachingWidth = ReachingWidthContainer;
-  
-      this.service
-        .updateReachingFinish(this.data.Id, this.data)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
-    }
+  saveReachingFinish() {
+    var IdContainer = this.data.Id;
+    var DateContainer = moment(this.FinishReachingDate).utcOffset("+07:00").format();
+    var TimeContainer = this.FinishReachingTime;
+    var ShiftContainer = this.FinishReachingShift.Id;
+    var OperatorContainer = this.FinishReachingOperator.Id;
+    var YarnStrandsProcessedContainer = this.FinishReachingYarnStrandsProcessed;
+    var ReachingWidthContainer = this.FinishReachingWidth;
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.ReachingFinishDate = DateContainer;
+    this.data.ReachingFinishTime = TimeContainer;
+    this.data.ShiftDocumentId = ShiftContainer;
+    this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+    this.data.ReachingWidth = ReachingWidthContainer;
+    
+    this.service
+      .updateReachingFinish(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
+
+  saveTyingStart() {
+    var IdContainer = this.data.Id;
+    var DateContainer = moment(this.StartTyingDate).utcOffset("+07:00").format();
+    var TimeContainer = this.StartTyingTime;
+    var ShiftContainer = this.StartTyingShift.Id;
+    var OperatorContainer = this.StartTyingOperator.Id;
+    var YarnStrandsProcessedContainer = this.StartTyingYarnStrandsProcessed;
+    var TyingEdgeStitchingContainer = this.StartTyingEdgeStitching;
+    var TyingNumberContainer = this.StartTyingNumber;
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.TyingStartDate = DateContainer;
+    this.data.TyingStartTime = TimeContainer;
+    this.data.ShiftDocumentId = ShiftContainer;
+    this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+    this.data.TyingEdgeStitching = TyingEdgeStitchingContainer;
+    this.data.TyingNumber = TyingNumberContainer;
+    
+    this.service
+      .updateTyingStart(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
+
+  saveTyingFinish() {
+    var IdContainer = this.data.Id;
+    var DateContainer = moment(this.FinishTyingDate).utcOffset("+07:00").format();
+    var TimeContainer = this.FinishTyingTime;
+    var ShiftContainer = this.FinishTyingShift.Id;
+    var OperatorContainer = this.FinishTyingOperator.Id;
+    var YarnStrandsProcessedContainer = this.FinishTyingYarnStrandsProcessed;
+    var TyingWidthContainer = this.FinishTyingWidth;
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.TyingFinishDate = DateContainer;
+    this.data.TyingFinishTime = TimeContainer;
+    this.data.ShiftDocumentId = ShiftContainer;
+    this.data.OperatorDocumentId = OperatorContainer;
+    this.data.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+    this.data.TyingWidth = TyingWidthContainer;
+    
+    this.service
+      .updateTyingFinish(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
 
   cancelCallback(event) {
     this.router.navigateToRoute('list');

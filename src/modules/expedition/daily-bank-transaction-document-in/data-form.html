@@ -110,6 +110,16 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-textbox
+            value.bind="data.Destination"
+            error.bind="error.Destination"
+            label.bind="Tujuan"
+            placeholder="masukkan tujuan"
+            read-only.bind="readOnly"
+            if.bind="isFrom && data.SourceType == 'Lain - lain'"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-numeric
             label="Nominal"
             value.bind="data.Nominal"

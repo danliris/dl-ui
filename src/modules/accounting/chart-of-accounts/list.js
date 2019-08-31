@@ -59,12 +59,17 @@ export class List {
             return header.Code == subHeaderCode;
           })
         }
+        subHeader.balance = subHeader.ledgers.reduce((sum, current) => sum + current.Balance, 0);
+        subHeader.balanceString = subHeader.balance.toFixed(2);
         items[itemIndex].subHeaders.push(subHeader);
-
+        items[itemIndex].balance = items[itemIndex].balance + subHeader.balance;
+        items[itemIndex].balanceString = items[itemIndex].balance.toFixed(2);
       } else {
         let item = {
           name: header.Name,
           code: header.Code,
+          balance : 0,
+          balanceString : 0,
           subHeaders: []
         }
         items.push(item);

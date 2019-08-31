@@ -29,12 +29,12 @@
 
       <div class="row" style="white-space: nowrap">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
-            error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions"
-            text="ConstructionNumber">
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument"
+            error.bind="error.OrderDocument" read-only.bind="readOnly" loader.bind="orders"
+            text="OrderNumber">
           </au-autocomplete>
         </div>
       </div>
@@ -55,8 +55,8 @@
           <textbox label="PIS(pieces)" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3" style="text-align: left;">
-          <au-numeric placeholder="PIS(pieces)" value.bind="PISPieces"
-            error.bind="error.PISPieces" read-only.bind="readOnly"></au-numeric>
+          <au-numeric placeholder="PIS(pieces)" value.bind="PISPieces" error.bind="error.PISPieces"
+            read-only.bind="readOnly"></au-numeric>
         </div>
       </div>
 

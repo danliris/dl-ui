@@ -27,6 +27,12 @@ class Service extends RestService {
         var endpoint = `${serviceUriExpedition}/${id}`;
         return super.get(endpoint);
     }
+
+    searchUPOByCode(info) {
+        var endpoint = `${serviceUriUnitPaymenOrder}`;
+        return super.list(endpoint, info);
+    }
+
 }
 
 class MongoService extends RestService {

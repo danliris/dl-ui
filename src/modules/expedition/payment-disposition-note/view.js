@@ -38,6 +38,36 @@ export class View {
             a.SupplierName=this.data.Supplier.Name;
             a.Currency=this.data.AccountBank.Currency.Code;
         }
+        this.IDR=false;
+        this.sameCurrency=false;
+        this.Amount=this.data.Amount;
+
+        if(this.data.AccountBank.Currency.Code=="IDR"){
+            this.IDR=true;
+            if(this.data.CurrencyCode=="IDR"){
+                this.sameCurrency=true;
+            }
+            this.Amount=this.data.Amount*this.data.CurrencyRate;
+            
+        }
+        console.log(this.IDR)
+
+        if(!this.IDR || this.sameCurrency){
+            this.collection = {
+                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            };
+        }
+        else{
+            this.collection = {
+                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+            };
+        }
+
+        this.collectionOptions={
+            IDR:this.IDR,
+            rate:this.data.CurrencyRate,
+            SameCurrency:this.sameCurrency
+        };
     }
 
     cancelCallback(event) {

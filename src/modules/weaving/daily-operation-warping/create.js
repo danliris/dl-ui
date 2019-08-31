@@ -22,27 +22,65 @@ export class Create {
 
   saveCallback(event) {
     this.error = {};
+    var errorIndex = 0;
+
+    if (this.data.OrderId == "" ||
+      this.data.OrderId == undefined) {
+      this.error.OrderId = "Field masih kosong";
+      errorIndex++;
+    }
 
     if (this.data.ConstructionId == "" ||
       this.data.ConstructionId == undefined) {
-        console.log(this.data.ConstructionId);
-
-    } else if (this.data.MaterialTypeId == "" ||
-      this.data.MaterialTypeId == undefined) {
-        console.log(this.data.MaterialTypeId);
-
-    } else if (this.data.AmountOfCones == "" ||
-      this.data.AmountOfCones == undefined) {
-        console.log(this.data.AmountOfCones);
+      this.error.ConstructionId = "Field masih kosong";
+      errorIndex++;
     }
 
-    this.service
-      .createOnEntryProcess(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    if (this.data.MaterialTypeId == "" ||
+      this.data.MaterialTypeId == undefined) {
+      this.error.MaterialTypeId = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (this.data.AmountOfCones == 0 ||
+      this.data.AmountOfCones == undefined) {
+      this.error.AmountOfCones = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (this.data.ColourOfCone == "" ||
+      this.data.ColourOfCone == undefined) {
+      this.error.ColourOfCone = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (this.data.DateOperation == "" ||
+      this.data.DateOperation == undefined) {
+      this.error.DateOperation = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (this.data.TimeOperation == "" ||
+      this.data.TimeOperation == undefined) {
+      this.error.Shift = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (this.data.OperatorId == "" ||
+      this.data.OperatorId == undefined) {
+      this.error.OperatorId = "Field masih kosong";
+      errorIndex++;
+    }
+
+    if (errorIndex === 0) {
+      this.service
+        .createOnEntryProcess(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

@@ -2,6 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 import { Dialog } from "../../../au-components/dialog/dialog";
+import { UnpostDialog } from "./template/dialog/unpost";
 import numeral from "numeral";
 numeral.defaultFormat("0,0.00");
 const US = "US$. ";
@@ -152,6 +153,7 @@ export class View {
     this.data.LeadTime = `${this.data.LeadTime} hari`
     this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
     
+    this.hasUnpost = this.data.IsPosted && !(this.data.ApprovalIE.IsApproved && this.data.ApprovalMD.IsApproved && this.data.ApprovalPPIC.IsApproved && this.data.ApprovalPurchasing.IsApproved);
   }
 
   async bind(context) {
@@ -193,5 +195,24 @@ export class View {
           this.dialog.alert(e, "Hapus Cost Calculation");
         });
     }
+  }
+
+  unpostCallback() {
+    this.dialog.show(UnpostDialog, {})
+      .then(response => {
+        if (!response.wasCancelled) {
+          this.service.unpostCC({ Id: this.data.Id, reason: JSON.stringify(response.output) })
+            .then(result => {
+              this.list();
+            })
+            .catch(error => {
+              if (typeof error === 'string') {
+                alert(`Unpost dibatalkan : ${error}`);
+              } else {
+                alert(`Error : ${error.message}`);
+              }
+            });
+        }
+      });
   }
 }
