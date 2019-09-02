@@ -4,13 +4,32 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
+    dataToBePosted = [];
     context = ["Rincian", "Cetak PDF"];
     columns = [
-        { field: "CostCalculationGarment.RO_Number", title: "No RO",sortable:false },
-        { field: "CostCalculationGarment.Article", title: "Artikel" ,sortable:false},
-        { field: "CostCalculationGarment.Unit.Name", title: "Unit",sortable:false },
-        { field: "Total", title: "Kuantitas RO" ,sortable:false}
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return "";
+            }
+        },
+        { field: "CostCalculationGarment.RO_Number", title: "No RO" },
+        { field: "CostCalculationGarment.Article", title: "Artikel" },
+        { field: "CostCalculationGarment.UnitName", title: "Unit" },
+        { field: "Total", title: "Kuantitas RO" },
+        { field: "CostCalculationGarment.IsValidatedROSample", title: "Approval Sample"
+            , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
+        { field: "CostCalculationGarment.IsValidatedROPPIC", title: "Approval PPIC"
+            , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
     ];
+
+    rowFormatter(data, index) {
+        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROPPIC)
+            return { classes: "success" }
+        else
+            return { classes: "danger" }
+    }
 
     loader = (info) => {
         var order = {};
@@ -27,6 +46,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                result.data.forEach(data => {
+                    data.isPosting = data.IsPosted;
+                    data.CostCalculationGarment.UnitName = data.CostCalculationGarment.Unit.Name;
+                });
                 return {
                     total: result.info.total,
                     data: result.data
@@ -37,6 +60,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    get postButtonActive() {
+        return this.dataToBePosted.filter(d => d.IsPosted === false).length < 1;
     }
 
     contextCallback(event) {
@@ -52,7 +79,31 @@ export class List {
         }
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.IsPosted;
+            default:
+                return true;
+        }
+    }
+
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+        if (unpostedDataToBePosted.length > 0) {
+            if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
+                this.service.postRO(unpostedDataToBePosted.map(d => d.Id))
+                    .then(result => {
+                        this.table.refresh();
+                        this.dataToBePosted = [];
+                    }).catch(e => {
+                        this.error = e;
+                    })
+            }
+        }
     }
 }

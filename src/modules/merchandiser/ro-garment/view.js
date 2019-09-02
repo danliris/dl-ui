@@ -11,14 +11,27 @@ export class View {
         this.service = service;
     }
 
+    formOptions = {
+        saveText: "Unpost",
+    }
+
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
 
+        if (this.data.IsPosted) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+        }
+        else {
+            this.saveCallback = null;
+        }
+
         if(this.data.CostCalculationGarment){
-            if(this.data.CostCalculationGarment.IsValidatedROSample) {
+            if(this.data.CostCalculationGarment.IsValidatedROSample && this.data.CostCalculationGarment.IsValidatedROPPIC) {
                 this.editCallback = null;
                 this.deleteCallback = null;
+                this.saveCallback = null;
             }
         }
     }
@@ -36,9 +49,27 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.service.delete(this.data)
+        if (confirm("Delete?")) {
+            this.service.delete(this.data)
             .then(result => {
                 this.list();
             });
+        }
+    }
+
+    saveCallback(event) {
+        if (confirm("Unpost?")) {
+            this.service.unpostRO(this.data.Id)
+                .then(result => {
+                    this.list();
+                })
+                .catch(error => {
+                    if (typeof error === 'string') {
+                        alert(`Unpost dibatalkan : ${error}`);
+                    } else {
+                        alert(`Error : ${error.message}`);
+                    }
+                });
+        }
     }
 }

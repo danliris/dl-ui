@@ -22,7 +22,7 @@ export class List {
         filter = {
             "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
             "CostCalculationGarment.IsValidatedROSample": false,
-            "CostCalculationGarment.IsPosted": true
+            "IsPosted": true
         };
         let arg = {
           page: parseInt(info.offset / info.limit, 10) + 1,

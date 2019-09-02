@@ -65,6 +65,7 @@ export class DataForm {
       { header: "Yarn", value: "Yarn" },
       { header: "Width", value: "Width" },
       { header: "Deskripsi", value: "Description" },
+      { header: "Detail Barang", value: "ProductRemark" },
       { header: "Kuantitas", value: "Quantity" },
       { header: "Satuan", value: "SatuanQuantity" },
       { header: "Price", value: "Price" },
