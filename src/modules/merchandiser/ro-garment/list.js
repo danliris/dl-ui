@@ -4,8 +4,16 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
+    dataToBePosted = [];
     context = ["Rincian", "Cetak PDF"];
     columns = [
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return "";
+            }
+        },
         { field: "CostCalculationGarment.RO_Number", title: "No RO" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
         { field: "CostCalculationGarment.UnitName", title: "Unit" },
@@ -38,7 +46,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                result.data.map(d => d.CostCalculationGarment.UnitName = d.CostCalculationGarment.Unit.Name);
+                result.data.forEach(data => {
+                    data.isPosting = data.IsPosted;
+                    data.CostCalculationGarment.UnitName = data.CostCalculationGarment.Unit.Name;
+                });
                 return {
                     total: result.info.total,
                     data: result.data
@@ -49,6 +60,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    get postButtonActive() {
+        return this.dataToBePosted.filter(d => d.IsPosted === false).length < 1;
     }
 
     contextCallback(event) {
@@ -66,5 +81,20 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+        if (unpostedDataToBePosted.length > 0) {
+            if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
+                this.service.postRO(unpostedDataToBePosted.map(d => d.Id))
+                    .then(result => {
+                        this.table.refresh();
+                        this.dataToBePosted = [];
+                    }).catch(e => {
+                        this.error = e;
+                    })
+            }
+        }
     }
 }
