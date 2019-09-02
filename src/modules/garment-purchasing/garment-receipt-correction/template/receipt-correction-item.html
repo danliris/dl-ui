@@ -48,7 +48,8 @@
         <td if.bind="options.Qty">
             <au-numeric
                 value.bind="data.CorrectionQuantity"
-                read-only.bind="readOnly"
+				read-only.bind="readOnly"
+				format="0.0000"
 				error.bind="error.CorrectionQuantity"
 				change.delegate="qtyChanged($event)">
             </au-numeric>
