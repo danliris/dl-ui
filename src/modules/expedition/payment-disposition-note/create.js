@@ -189,10 +189,20 @@ export class Create {
         } else {
             this.currency = "";
             this.Items = [];
+            this.data.CurrencyCode="";
+            this.data.CurrencyId=0;
+            this.data.CurrencyRate=0;
+            this.data.Supplier=null;
+            this.selectedCurrency=null;
+            this.selectedSupplier=null;
         }
         this.data.CurrencyCode="";
         this.data.CurrencyId=0;
         this.data.CurrencyRate=0;
+        //this.data.Supplier=null;
+        this.selectedCurrency=null;
+        this.selectedSupplier=null;
+
     }
 
     @bindable selectedCurrency;

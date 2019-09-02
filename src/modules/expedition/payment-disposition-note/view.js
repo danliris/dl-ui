@@ -25,7 +25,7 @@ export class View {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
-
+        
         this.collection = {
             columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
         };
