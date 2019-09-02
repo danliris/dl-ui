@@ -98,7 +98,7 @@ export class Create {
     // this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
     this.data.OrderDocumentId = this.OrderDocument.Id;
     this.data.SizingBeamId = this.SizingBeamDocument.Id
-    this.data.PISPieces = this.PISPieces;
+    // this.data.PISPieces = this.PISPieces;
     this.data.OperatorDocumentId = this.OperatorDocument.Id;
 
     var EntryDateContainer = this.EntryDate;

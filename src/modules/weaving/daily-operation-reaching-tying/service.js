@@ -63,6 +63,12 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
+  updateReachingChangeOperator(Id, data) {
+    var status = "change-operator";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
   updateReachingFinish(Id, data) {
     var status = "reaching-finish";
     var endpoint = `${serviceUri}/${Id}/${status}`;

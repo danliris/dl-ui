@@ -22,7 +22,6 @@ export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable WeavingDocument;
-  // @bindable ConstructionDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
@@ -34,6 +33,9 @@ export class Create {
   }, {
     value: "YarnStrands",
     header: "Helai Benang Beam Warping"
+  }, {
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam Warping"
   }];
 
   constructor(service, router, bindingEngine) {
@@ -44,8 +46,6 @@ export class Create {
     this.data = {};
     this.data.SizingDetails = {};
     this.BeamsWarping = [];
-    // this.data.Weight = {};
-    // this.data.Weight.Netto = "";
 
     this.error = {};
   }
@@ -63,10 +63,6 @@ export class Create {
     return UnitLoader;
   }
 
-  // get constructions() {
-  //   return ConstructionLoader;
-  // }
-
   get orders() {
     return OrderLoader;
   }
@@ -77,6 +73,42 @@ export class Create {
 
   get beams() {
     return BeamLoader;
+  }
+
+  MachineDocumentChanged(newValue) {
+    // if (newValue) {
+      console.log(newValue);
+      if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+        this.error.MachineDocument = "";
+        this.MachineDocument = newValue;
+      } else {
+        this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+      }
+    // }
+  }
+
+  OrderDocumentChanged(newValue) {
+    if (newValue) {
+      let constructionId = newValue.ConstructionId;
+      let weavingUnitId = newValue.WeavingUnit;
+      this.service.getConstructionNumberById(constructionId)
+        .then(resultConstructionNumber => {
+          this.error.ConstructionNumber = "";
+          this.ConstructionNumber = resultConstructionNumber;
+          return this.service.getUnitById(weavingUnitId);
+        })
+        .then(resultWeavingUnit => {
+          this.error.WeavingUnitDocument = "";
+          this.WeavingUnitDocument = resultWeavingUnit.Name;
+        })
+        .catch(e => {
+          this.ConstructionNumber = "";
+          this.WeavingUnitDocument = "";
+
+          this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+          this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+        });
+    }
   }
 
   OperatorDocumentChanged(newValue) {
@@ -105,14 +137,6 @@ export class Create {
     };
   }
 
-  // beamDetail(data) {
-  //   var beam = {};
-  //   beam.Id = data.Id;
-  //   beam.YarnStrands = data.YarnStrands;
-
-  //   return beam;
-  // }
-
   get YarnStrands() {
     let result = 0;
 
@@ -129,7 +153,23 @@ export class Create {
       this.data.YarnStrands = result;
     }
     return result;
+  }
 
+  get EmptyWeight() {
+    let result = 0;
+
+    if (this.BeamsWarping) {
+      if (this.BeamsWarping.length > 0) {
+        for (let beam of this.BeamsWarping) {
+          if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
+            result += beam.BeamDocument.EmptyWeight;
+          }
+        }
+      }
+
+      this.data.EmptyWeight = result;
+    }
+    return result;
   }
 
   saveCallback(event) {
@@ -150,7 +190,7 @@ export class Create {
     // this.data.YarnStrands = this.YarnStrands;
     this.data.NeReal = this.NeReal;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
-    
+
     this.service
       .create(this.data)
       .then(result => {

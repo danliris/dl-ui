@@ -7,16 +7,6 @@
   </style>
   <au-input-form title="Update: Operasional Mesin Harian Sizing" options.bind="formOptions">
     <div class="col-md-12">
-      <!-- <div class="row" style="white-space: nowrap;">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Tanggal" read-only="true" style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-3">
-          <au-datepicker placeholder="Tanggal Produksi" value.bind="data.ProduceDate"
-            error.bind="error.ProduceDate" read-only.bind="true">
-          </au-datepicker>
-        </div>
-      </div> -->
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="No. Mesin" read-only="true" style="display: inline-block"></textbox>
@@ -354,22 +344,12 @@
               <au-numeric placeholder="Counter Akhir" value.bind="ProduceBeamsFinishCounter"
                 error.bind="error.ProduceBeamsFinishCounter" read-only.bind="readOnly"></au-numeric>
             </div>
-          </div>
-
-          <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3" style="text-align: left;">
               <au-numeric placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.ProduceBeamsPISMeter"
                 read-only.bind="true"></au-numeric>
-            </div>
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="PIS(pieces)" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3" style="text-align: left;">
-              <au-numeric placeholder="PIS(pieces)" value.bind="ProduceBeamsPISPieces"
-                error.bind="error.ProduceBeamsPISPieces" read-only.bind="true"></au-numeric>
             </div>
           </div>
 
@@ -386,7 +366,7 @@
             </div>
             <div class="col-md-3">
               <au-numeric placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.ProduceBeamsNetto"
-                read-only.bind="readOnly"></au-numeric>
+                read-only.bind="true"></au-numeric>
             </div>
           </div>
 
@@ -470,7 +450,7 @@
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed"
                 error.bind="error.DoffMachineSpeed" read-only.bind="readOnly">
               </au-numeric>
@@ -481,14 +461,14 @@
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <au-textbox placeholder="Visco" value.bind="DoffVisco" error.bind="error.DoffVisco"
                 read-only.bind="readOnly"></au-textbox>
             </div>
-            <div class="col-md-2" style="text-align:left;">
+            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <au-textbox placeholder="TexSQ" value.bind="DoffTexSQ" error.bind="error.DoffTexSQ"
                 read-only.bind="readOnly">
               </au-textbox>

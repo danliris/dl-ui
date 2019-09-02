@@ -47,10 +47,31 @@ export class Service extends RestService {
     });
   }
 
+  getConstructionNumberById(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/fabric-constructions/construction-number/${value}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   getShiftByTime(value) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");
     var _serviceUri = `weaving/shifts/check-shift/${value}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  calculateNetto(emptyWeight, bruto) {
+    var task = "netto";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/empty-weight/${emptyWeight}/bruto/${bruto}`;
 
     return _endpoint.find(_serviceUri).then(result => {
       return result.data;
@@ -68,16 +89,16 @@ export class Service extends RestService {
     });
   }
 
-  calculatePISPieces(counterStart, counterFinish) {
-    var task = "pis-in-pieces";
-    var config = Container.instance.get(Config);
-    var _endpoint = config.getEndpoint("weaving");
-    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
+  // calculatePISPieces(counterStart, counterFinish) {
+  //   var task = "pis-in-pieces";
+  //   var config = Container.instance.get(Config);
+  //   var _endpoint = config.getEndpoint("weaving");
+  //   var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
 
-    return _endpoint.find(_serviceUri).then(result => {
-      return result.data;
-    });
-  }
+  //   return _endpoint.find(_serviceUri).then(result => {
+  //     return result.data;
+  //   });
+  // }
 
   calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal) {
     var task = "theoritical-kawamoto";
