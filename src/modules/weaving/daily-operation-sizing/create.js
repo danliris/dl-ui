@@ -22,7 +22,6 @@ export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable WeavingDocument;
-  // @bindable ConstructionDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
@@ -47,8 +46,6 @@ export class Create {
     this.data = {};
     this.data.SizingDetails = {};
     this.BeamsWarping = [];
-    // this.data.Weight = {};
-    // this.data.Weight.Netto = "";
 
     this.error = {};
   }
@@ -66,10 +63,6 @@ export class Create {
     return UnitLoader;
   }
 
-  // get constructions() {
-  //   return ConstructionLoader;
-  // }
-
   get orders() {
     return OrderLoader;
   }
@@ -82,8 +75,20 @@ export class Create {
     return BeamLoader;
   }
 
-  OrderDocumentChanged(newValue){
-    if(newValue){
+  MachineDocumentChanged(newValue) {
+    // if (newValue) {
+      console.log(newValue);
+      if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+        this.error.MachineDocument = "";
+        this.MachineDocument = newValue;
+      } else {
+        this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+      }
+    // }
+  }
+
+  OrderDocumentChanged(newValue) {
+    if (newValue) {
       let constructionId = newValue.ConstructionId;
       let weavingUnitId = newValue.WeavingUnit;
       this.service.getConstructionNumberById(constructionId)
@@ -132,14 +137,6 @@ export class Create {
     };
   }
 
-  // beamDetail(data) {
-  //   var beam = {};
-  //   beam.Id = data.Id;
-  //   beam.YarnStrands = data.YarnStrands;
-
-  //   return beam;
-  // }
-
   get YarnStrands() {
     let result = 0;
 
@@ -163,7 +160,6 @@ export class Create {
 
     if (this.BeamsWarping) {
       if (this.BeamsWarping.length > 0) {
-        // this.data.BeamsWarping = [];
         for (let beam of this.BeamsWarping) {
           if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
             result += beam.BeamDocument.EmptyWeight;

@@ -24,7 +24,6 @@ export class Update {
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
   @bindable ProduceBeamsBruto;
-  // @bindable ProduceBeamsNetto;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -198,12 +197,6 @@ export class Update {
     }
   }
 
-  // get produceBeamsConstructions() {
-  //   return event => {
-  //     this.ProduceBeams.push({});
-  //   };
-  // }
-
   StartTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
@@ -364,28 +357,12 @@ export class Update {
       this.service.calculatePISMeter(startCounter, newValue)
         .then(resultPISMeter => {
           this.error.ProduceBeamsPISMeter = "";
-
-          this.data.ProduceBeamsPISMeter = resultPISMeter;
           this.ProduceBeamsPISMeter = resultPISMeter;
-          // this.ProduceBeamsNetto = 0;
-          // this.ProduceBeamsNettoTheoritical = 0;
-          // this.ProduceBeamsSPU = 0;
-          return this.service.calculatePISPieces(startCounter, newValue);
-        }).then(resultPISPieces => {
-          this.error.ProduceBeamsPISPieces = "";
-
-          this.data.ProduceBeamsPISPieces = resultPISPieces;
-          this.ProduceBeamsPISPieces = resultPISPieces;
         })
         .catch(e => {
           this.error.ProduceBeamsPISMeter = " Tidak dapat menghitung PIS(m) ";
-          this.error.ProduceBeamsPISPieces = " Tidak dapat menghitung PIS(pieces) ";
-
           this.data.ProduceBeamsPISMeter = 0;
-          this.data.ProduceBeamsPISPieces = 0;
-
           this.ProduceBeamsPISMeter = 0;
-          this.ProduceBeamsPISPieces = 0;
         });
     }
   }
@@ -405,9 +382,6 @@ export class Update {
       if (dataContainer.MachineType) {
         machineType = dataContainer.MachineType;
       }
-      if (dataContainer.ProduceBeamsPISMeter) {
-        pisMeter = dataContainer.ProduceBeamsPISMeter;
-      }
       if (dataContainer.YarnStrands) {
         yarnStrands = dataContainer.YarnStrands;
       }
@@ -419,7 +393,7 @@ export class Update {
           .then(resultNetto => {
             this.error.ProduceBeamsNetto = "";
             this.ProduceBeamsNetto = resultNetto;
-            return this.service.calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal);
+            return this.service.calculateTheoriticalKawamoto(this.ProduceBeamsPISMeter, yarnStrands, neReal);
           }).then(resultKawamoto => {
             this.error.ProduceBeamsNettoTheoritical = "";
             this.ProduceBeamsNettoTheoritical = resultKawamoto;
@@ -439,7 +413,7 @@ export class Update {
         .then(resultNetto => {
           this.error.ProduceBeamsNetto = "";
           this.ProduceBeamsNetto = resultNetto;
-          this.service.calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal);
+          return this.service.calculateTheoriticalSuckerMuller(this.ProduceBeamsPISMeter, yarnStrands, neReal);
         }).then(resultSuckerMuller => {
           this.error.ProduceBeamsNettoTheoritical = "";
           this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
@@ -457,58 +431,6 @@ export class Update {
       }
     }
   }
-
-  // ProduceBeamsNettoChanged(newValue) {
-  //   if (newValue) {
-  //     let dataContainer = this.data;
-  //     let machineType = dataContainer.MachineType;
-  //     let pisMeter;
-  //     let yarnStrands;
-  //     let neReal;
-  //     if (dataContainer.ProduceBeamsPISMeter) {
-  //       pisMeter = dataContainer.ProduceBeamsPISMeter;
-  //     }
-  //     if (dataContainer.YarnStrands) {
-  //       yarnStrands = dataContainer.YarnStrands;
-  //     }
-  //     if (dataContainer.NeReal) {
-  //       neReal = dataContainer.NeReal;
-  //     }
-  //     if (machineType == "Kawamoto") {
-  //       this.service.calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal)
-  //         .then(resultKawamoto => {
-  //           this.error.ProduceBeamsNettoTheoritical = "";
-  //           this.ProduceBeamsNettoTheoritical = resultKawamoto;
-  //           return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
-  //         }).then(resultSPU => {
-  //           this.error.ProduceBeamsSPU = "";
-  //           this.ProduceBeamsSPU = resultSPU;
-  //         }).catch(e => {
-  //           this.ProduceBeamsNettoTheoritical = 0;
-  //           this.ProduceBeamsSPU = 0;
-
-  //           this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
-  //           this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
-  //         });
-  //     } else if (machineType == "Sucker Muller") {
-  //       this.service.calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal)
-  //         .then(resultSuckerMuller => {
-  //           this.error.ProduceBeamsNettoTheoritical = "";
-  //           this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
-  //           return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
-  //         }).then(resultSPU => {
-  //           this.error.ProduceBeamsSPU = "";
-  //           this.ProduceBeamsSPU = resultSPU;
-  //         }).catch(e => {
-  //           this.ProduceBeamsNettoTheoritical = 0;
-  //           this.ProduceBeamsSPU = 0;
-
-  //           this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
-  //           this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
-  //         });
-  //     }
-  //   }
-  // }
 
   saveProduceBeam() {
     var IdContainer = this.data.Id;
