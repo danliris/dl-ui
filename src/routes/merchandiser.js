@@ -145,6 +145,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/ro-validation-ppic',
+        name: 'ro-validation-ppic',
+        moduleId: './modules/merchandiser/ro-validation-ppic/index',
+        nav: true,
+        title: 'Validasi RO - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/ro-acceptance',
         name: 'ro-acceptance',
         moduleId: './modules/merchandiser/ro-acceptance/index',

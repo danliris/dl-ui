@@ -61,6 +61,19 @@ export class View {
         if(this.data.IsTransfered){
             this.hasEdit = false;
             this.hasDelete = false;
+           
+        }
+        else if(!this.data.IsTransfered && this.data.ExpenditureType === "TRANSFER"){
+            
+            var uen= await this.service.getUENById(this.data.Id);
+            if(!uen.IsPreparing){
+                this.hasEdit = false;
+                this.hasDelete = true;
+            }
+            else{
+                this.hasEdit = false;
+                this.hasDelete = false;
+            }
         }
     }
 
