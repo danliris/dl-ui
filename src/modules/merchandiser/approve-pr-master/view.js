@@ -2,12 +2,10 @@ import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service, CoreService } from './service';
 
-
 @inject(Router, Service, CoreService)
 export class View {
     hasApprove = false;
     hasUnApprove = false;
-
 
     constructor(router, service, coreService) {
         this.router = router;
@@ -15,7 +13,22 @@ export class View {
         this.coreService = coreService;
     }
 
-    async activate(params) {
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        this.title = parentInstruction.config.title;
+        const type = parentInstruction.config.settings.type;
+
+        switch (type) {
+            case "PPIC":
+                this.type = "";
+                break;
+            case "MD1":
+            case "MD2":
+            default:
+                this.type = type;
+        }
+
         let id = params.id;
         this.data = await this.service.read(id);
 
@@ -50,16 +63,31 @@ export class View {
                         });
                 }
             }
-            if(this.data.IsValidate == true && this.data.IsUsed == false){
-                this.hasUnApprove=true;
-            } else if(this.data.IsValidate == false && this.data.IsPosted == true) {
-                this.hasApprove=true;
+
+            switch (type) {
+                case "MD1":
+                    this.hasApprove = !this.data.IsValidatedMD1;
+                    // this.hasUnApprove = this.data.IsValidatedMD1 && !this.data.IsValidatedMD2 && !this.data.IsValidated;
+                    break;
+                case "MD2":
+                    this.hasApprove = this.data.IsValidatedMD1 && !this.data.IsValidatedMD2;
+                    // this.hasUnApprove = this.data.IsValidatedMD2;
+                    break;
+                case "PPIC":
+                    this.hasApprove = this.data.IsValidatedMD1 && this.data.IsValidatedMD2 && !this.data.IsValidated;
+                    // this.hasUnApprove = this.data.IsValidated;
+                    break;
+                default:
+                    this.hasApprove = false;
+                    this.hasUnApprove = false;
             }
 
-            // if (this.data.IsPosted) {
-            //     this.editCallback = null;
-            //     this.deleteCallback = null;
-            // }
+            if (this.data.IsPosted === false) {
+                this.hasApprove = false;
+            }
+            if (this.data.IsUsed === true) {
+                this.hasUnApprove = false;
+            }
         }
     }
 
@@ -71,31 +99,37 @@ export class View {
         this.backToList();
     }
 
-    // editCallback(event) {
-    //     this.router.navigateToRoute('edit', { id: this.data.Id });
-    // }
-
-    // deleteCallback(event) {
-    //     if (confirm(`Hapus Data?`))
-    //         this.service.delete(this.data)
-    //             .then(result => {
-    //                 this.backToList();
-    //             });
-    // }
-
     approveCallback(event) {
-        if (confirm(`Approve Data?`))
-            this.service.approve({ Id: this.data.Id })
+        if (confirm(`Approve Data?`)) {
+            const jsonPatch = [
+                { op: "replace", path: `/IsValidated${this.type}`, value: true },
+                { op: "copy", path: `/Validated${this.type}By`, from: "/LastModifiedBy" },
+                { op: "copy", path: `/Validated${this.type}Date`, from: "/LastModifiedUtc" },
+            ];
+            this.service.patch(this.data.Id, jsonPatch)
                 .then(result => {
                     this.backToList();
-                });
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
     }
 
     unapproveCallback(event) {
-        if (confirm(`UnApprove Data?`))
-            this.service.unapprove({ Id: this.data.Id })
+        if (confirm(`UnApprove Data?`)) {
+            const jsonPatch = [
+                { op: "replace", path: `/IsValidated${this.type}`, value: false },
+                { op: "replace", path: `/Validated${this.type}By`, value: null },
+                { op: "replace", path: `/Validated${this.type}Date`, value: new Date('0001-01-01T00:00:00Z') }
+            ];
+            this.service.patch(this.data.Id, jsonPatch)
                 .then(result => {
                     this.backToList();
-                });
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }
