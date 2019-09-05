@@ -19,7 +19,7 @@ export class DataForm {
     @bindable storage;
     @bindable deliveryReturn;
 
-    typeOptions = ['PEMBELIAN ','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES'];
 
     filterDR={
         IsUsed :false
