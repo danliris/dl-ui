@@ -24,7 +24,10 @@ export class DataForm {
   };
 
   get filterCostCalculationGarment() {
-    return { "SCGarmentId": null }
+    return {
+      "IsPosted": true,
+      "SCGarmentId": null
+    }
   }
 
   constructor(bindingEngine, service, element) {
