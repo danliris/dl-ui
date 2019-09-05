@@ -33,13 +33,16 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
+    { field: "IsValidatedMD1", title: "Approval Kabag", formatter: (value) => value ? "SUDAH" : "BELUM" },
+    { field: "IsValidatedMD2", title: "Approval Kadiv", formatter: (value) => value ? "SUDAH" : "BELUM" },
+    { field: "IsValidated", title: "Approval PPIC", formatter: (value) => value ? "SUDAH" : "BELUM" },
   ];
 
   rowFormatter(data, index) {
-    if (data.IsPosted)
+    if (data.IsValidatedMD1 && data.IsValidatedMD2 && data.IsValidated)
       return { classes: "success" }
     else
-      return {}
+      return { classes: "danger" }
   }
 
   loader = (info) => {
@@ -77,6 +80,10 @@ export class List {
     this.router = router;
   }
 
+  get postButtonDisabled() {
+      return this.dataToBePosted.filter(d => d.IsPosted === false).length < 1;
+  }
+
   contextClickCallback(event) {
     let arg = event.detail;
     let data = arg.data;
@@ -100,13 +107,18 @@ export class List {
   }
 
   posting() {
-    if (this.dataToBePosted.length > 0) {
-      this.service.post(this.dataToBePosted.map(d => d.Id))
-        .then(result => {
-          this.table.refresh();
-        }).catch(e => {
-          this.error = e;
-        })
+    const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+    if (unpostedDataToBePosted.length > 0) {
+      if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) 
+      {
+        this.service.post(unpostedDataToBePosted.map(d => d.Id))
+          .then(result => {
+            this.table.refresh();
+            this.dataToBePosted = [];
+          }).catch(e => {
+            this.error = e;
+          })
+      }
     }
   }
 

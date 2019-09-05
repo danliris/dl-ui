@@ -119,16 +119,45 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/approve-pr-master',
+        route: '/merchandiser/approve-pr-master/kabag-md',
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approve PR Master',
+        title: 'Approval PR Master - Kabag MD',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            type: "MD1"
+        }
+    },
+    {
+        route: '/merchandiser/approve-pr-master/kadiv-md',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - Kadiv MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "MD2"
+        }
+    },
+    {
+        route: '/merchandiser/approve-pr-master/ppic',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "PPIC"
         }
     },
     {

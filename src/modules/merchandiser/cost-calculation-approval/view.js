@@ -44,6 +44,7 @@ export class View {
             { header: "Yarn", value: "Product.yarn" },
             { header: "Width", value: "Product.width" },
             { header: "Deskripsi", value: "Description" },
+            { header: "Detail Barang", value: "ProductRemark" },
             { header: "Kuantitas", value: "Quantity" },
             { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
             { header: "Total (Rp)", value: "Total" }
