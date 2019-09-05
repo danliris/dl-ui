@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'cost-calculation-garments';
+const serviceUri = "ro-garments";
+const costCalculationGarmentServiceUri = "cost-calculation-garments";
 
 export class Service extends RestService {
 
@@ -13,15 +14,13 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getById(id) {
+    read(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
 
     replace(id, data) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
         return super.patch(endpoint, data);
     }
-};
-
-
+}

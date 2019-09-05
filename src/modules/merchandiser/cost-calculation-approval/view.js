@@ -80,14 +80,8 @@ export class View {
             case "md":
                 this.type = "MD";
                 break;
-            case "purchasing":
-                this.type = "Purchasing";
-                break;
             case "ie":
                 this.type = "IE";
-                break;
-            case "ppic":
-                this.type = "PPIC";
                 break;
             default: break;
         }
@@ -200,7 +194,7 @@ export class View {
                 { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
             ];
 
-            this.service.patch(this.data.Id, jsonPatch)
+            this.service.replace(this.data.Id, jsonPatch)
                 .then(result => {
                     this.list();
                 })

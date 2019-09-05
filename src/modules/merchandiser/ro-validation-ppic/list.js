@@ -4,22 +4,33 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["Detail"];
+    context = ["Rincian"];
+
     columns = [
-        { field: "Size", title: "Size" },
+        { field: "CostCalculationGarment.RO_Number", title: "No RO" },
+        { field: "CostCalculationGarment.Article", title: "Artikel" },
+        { field: "CostCalculationGarment.UnitName", title: "Unit" },
+        { field: "Total", title: "Kuantitas RO" }
     ];
 
     loader = (info) => {
-        var order = {};
-
-        if (info.sort)
+        let order = {};
+        if (info.sort) {
             order[info.sort] = info.order;
+        }
 
-        var arg = {
+        const filter = {
+            "CostCalculationGarment.IsValidatedROSample": true,
+            "CostCalculationGarment.IsApprovedPPIC": true,
+            "CostCalculationGarment.IsValidatedROPPIC": false,
+        };
+
+        const arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter: JSON.stringify(filter)
         }
 
         return this.service.search(arg)
@@ -40,13 +51,9 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "Detail":
+            case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }
-    create() {
-        this.router.navigateToRoute('create');
-    }
-
 }

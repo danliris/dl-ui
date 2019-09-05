@@ -40,6 +40,7 @@ export class View {
       { header: "Yarn", value: "Product.yarn" },
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
+      { header: "Detail Barang", value: "ProductRemark" },
       { header: "Kuantitas", value: "Quantity" },
       { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
       { header: "Total (Rp)", value: "Total" }
@@ -153,7 +154,12 @@ export class View {
     this.data.LeadTime = `${this.data.LeadTime} hari`
     this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
     
+    // Unpost tampil jika IsPosted = true dan ada approval yang false
     this.hasUnpost = this.data.IsPosted && !(this.data.ApprovalIE.IsApproved && this.data.ApprovalMD.IsApproved && this.data.ApprovalPPIC.IsApproved && this.data.ApprovalPurchasing.IsApproved);
+    if (this.data.IsPosted) {
+      this.editCallback = null;
+      this.deleteCallback = null;
+    }
   }
 
   async bind(context) {

@@ -12,7 +12,6 @@ export class List {
 
     context = ["Update"];
     columns = [
-        {field: "DailyOperationNumber", title: "No Operasi Harian"},
         {
             field: "DateOperated",
             title: "Tanggal Produksi",
