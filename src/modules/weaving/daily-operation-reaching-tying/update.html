@@ -40,15 +40,15 @@
       <!-- Reaching Menu -->
       <div class="row" id="reachingMenu" show.bind="showHideReachingMenu">
         <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
-          <button class="btn btn-default" click.delegate="reachingStart()"
+          <button class="btn btn-default" click.delegate="reachingStart()" disabled.bind="isReachingStartDisabled"
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
-          <button class="btn btn-default" click.delegate="reachingChangeOperator()"
+          <button class="btn btn-default" click.delegate="reachingChangeOperator()" disabled.bind="isReachingChangeOperatorDisabled"
             style="margin-bottom: 16px; background-color: rgb(35, 98, 180); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Ganti Operator
           </button>
-          <button class="btn btn-default" click.delegate="reachingFinish()"
+          <button class="btn btn-default" click.delegate="reachingFinish()" disabled.bind="isReachingFinishDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Selesai
           </button>
@@ -303,7 +303,7 @@
       <!-- Tying Menu -->
       <div class="row" id="tyingMenu" show.bind="showHideTyingMenu">
         <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
-          <button class="btn btn-default" click.delegate="tyingStart()"
+          <button class="btn btn-default" click.delegate="tyingStart()" disabled.bind="isTyingStartDisabled"
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
@@ -311,7 +311,7 @@
             style="margin-bottom: 16px; background-color: rgb(35, 98, 180); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Ganti Operator
           </button> -->
-          <button class="btn btn-default" click.delegate="tyingFinish()"
+          <button class="btn btn-default" click.delegate="tyingFinish()" disabled.bind="isTyingFinishDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Selesai
           </button>
