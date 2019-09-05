@@ -48,23 +48,23 @@
 
       <div class="row">
         <div class="col-md-8" style="padding-left: 0px; padding-right: 0px;">
-          <button class="btn btn-default" click.delegate="start()"
+          <button class="btn btn-default" click.delegate="start()" disabled.bind="isStartDisabled"
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
-          <button class="btn btn-default" click.delegate="pause()"
+          <button class="btn btn-default" click.delegate="pause()" disabled.bind="isPauseDisabled"
             style="margin-bottom: 16px; background-color: #4c7ae7; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Jeda
           </button>
-          <button class="btn btn-default" click.delegate="resume()"
+          <button class="btn btn-default" click.delegate="resume()" disabled.bind="isResumeDisabled"
             style="margin-bottom: 16px; background-color: #eeeb38; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Lanjut
           </button>
-          <button class="btn btn-default" click.delegate="produceBeams()"
+          <button class="btn btn-default" click.delegate="produceBeams()" disabled.bind="isProduceBeamDisabled"
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Produksi Beam
           </button>
-          <button class="btn btn-default" click.delegate="finish()"
+          <button class="btn btn-default" click.delegate="finish()" disabled.bind="isDoffDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Doff/ Selesai
           </button>

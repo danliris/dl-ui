@@ -73,6 +73,30 @@ export class Create {
     return OperatorLoader;
   }
 
+  OrderDocumentChanged(newValue) {
+    if (newValue) {
+      let constructionId = newValue.ConstructionId;
+      let weavingUnitId = newValue.WeavingUnit;
+      this.service.getConstructionNumberById(constructionId)
+        .then(resultConstructionNumber => {
+          this.error.ConstructionNumber = "";
+          this.ConstructionNumber = resultConstructionNumber;
+          return this.service.getUnitById(weavingUnitId);
+        })
+        .then(resultWeavingUnit => {
+          this.error.WeavingUnitDocument = "";
+          this.WeavingUnitDocument = resultWeavingUnit.Name;
+        })
+        .catch(e => {
+          this.ConstructionNumber = "";
+          this.WeavingUnitDocument = "";
+
+          this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+          this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+        });
+    }
+  }
+
   OperatorDocumentChanged(newValue) {
     this.SizingGroup = newValue.Group;
   }

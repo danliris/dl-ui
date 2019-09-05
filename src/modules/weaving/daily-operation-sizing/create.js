@@ -76,15 +76,12 @@ export class Create {
   }
 
   MachineDocumentChanged(newValue) {
-    // if (newValue) {
-      console.log(newValue);
       if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
         this.error.MachineDocument = "";
         this.MachineDocument = newValue;
       } else {
         this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
       }
-    // }
   }
 
   OrderDocumentChanged(newValue) {
