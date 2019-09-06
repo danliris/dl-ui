@@ -37,7 +37,7 @@ export class DataForm {
         this.error = this.context.error;
         this.isTransfer = false;
         this.isItem = false;
-        this.data.ExpenditureTo = "PROSES";
+        //this.data.ExpenditureTo = "PROSES";
         this.isExternal=false;
         this.options.isExternal=false;
 

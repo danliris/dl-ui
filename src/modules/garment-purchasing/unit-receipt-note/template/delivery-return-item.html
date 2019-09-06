@@ -14,7 +14,7 @@
         </td>
         <td>
             <au-textbox 
-                value.bind="data.DesignColor"
+                value.bind="data.Product.Remark"
                 read-only.bind="true">
             </au-textbox>
         </td>
@@ -33,6 +33,12 @@
         <td align='center'>
             <au-textbox 
                 value.bind="data.SmallUom.Unit" 
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.DesignColor"
                 read-only.bind="true">
             </au-textbox>
         </td>
