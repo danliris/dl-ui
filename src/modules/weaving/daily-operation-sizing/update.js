@@ -153,7 +153,7 @@ export class Update {
         case "START":
           this.isStartDisabled = true;
           this.isPauseDisabled = false;
-          this.isResumeDisabled = false;
+          this.isResumeDisabled = true;
           this.isProduceBeamDisabled = false;
           this.isDoffDisabled = true;
           break;
