@@ -68,6 +68,7 @@ export class DataForm {
                 { header: "RO Asal" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
+                { header: "Design/Color" },
             ],
             onRemove: function () {
                 this.bind();
@@ -200,6 +201,7 @@ export class DataForm {
                         DRItem.SmallQuantityE=dritem.Quantity;
                         DRItem.SmallQuantity=DRItem.SmallQuantityE;
                         DRItem.Product= dritem.Product;
+                        DRItem.Product.Remark=dup.ProductRemark;
                         DRItem.Article=same.Article;
                         DRItem.Conversion=parseFloat(same.Conversion);
                         DRItem.EPOItemId=dup.EPOItemId;
@@ -207,7 +209,7 @@ export class DataForm {
                         DRItem.PRNo=same.PRNo;
                         DRItem.DODetailId= dup.DODetailId;
                         DRItem.POItemId=dup.POItemId;
-                        DRItem.POSerialNumber=dup.POItemId;
+                        DRItem.POSerialNumber=dup.POSerialNumber;
                         DRItem.PRItemId=dup.PRItemId;
                         DRItem.POId=same.POId;
                         DRItem.Uom= same.Uom;
@@ -223,7 +225,20 @@ export class DataForm {
             this.data.DRItems=DRItems;
         }
         else{
-            
+            this.isProcess=true;
+            this.deliveryOrder=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.ReturnType="";
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.supplier=null;
         }
     }
 
