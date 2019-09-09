@@ -25,7 +25,7 @@ export class Monitoring {
 
     search() {
         if (this.selectedROGarment) {
-            this.service.search({costCalculationId: this.selectedROGarment.Id})
+            this.service.search({CostCalculationId: this.selectedROGarment.Id})
                 .then(result => this.tableData = result.data);
         }
     }

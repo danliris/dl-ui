@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Approve PR Master</h1>
+    <h1 class="page-header">${title}</h1>
     <au-table 
         data.bind="loader" 
         columns.bind="columns" 
@@ -7,10 +7,6 @@
         page-size="25" 
         context.bind="context" 
         context-click.delegate="contextCallback($event)"
-        row-formatter.bind="rowFormatter"
-        >
-        <!-- <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
-        </div> -->
+        row-formatter.bind="rowFormatter" >
     </au-table>
 </template>

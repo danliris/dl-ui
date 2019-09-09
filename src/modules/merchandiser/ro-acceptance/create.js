@@ -64,7 +64,14 @@ export class Create {
                 isCreate : true,
                 sectionId : newValue.Id,
             }
-            let costCalculationGarment = await this.service.getCostCalculationGarment({size: Number.MAX_SAFE_INTEGER, filter : JSON.stringify({Section : newValue.Code, IsValidatedROPPIC : true, IsROAccepted : false})});
+            let costCalculationGarment = await this.service.getCostCalculationGarment({
+                size: Number.MAX_SAFE_INTEGER,
+                filter : JSON.stringify({
+                    Section : newValue.Code,
+                    IsApprovedPPIC : true,
+                    IsROAccepted : false
+                })
+            });
             this.data.CostCalculationGarment = costCalculationGarment.data;
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
 

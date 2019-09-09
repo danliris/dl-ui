@@ -19,7 +19,11 @@ export class List {
           order[info.sort] = info.order;
         }
         let filter = {};
-        filter["RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null) && CostCalculationGarment.IsValidatedROSample == false"] = true;
+        filter = {
+            "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
+            "CostCalculationGarment.IsValidatedROSample": false,
+            "IsPosted": true
+        };
         let arg = {
           page: parseInt(info.offset / info.limit, 10) + 1,
           size: info.limit,

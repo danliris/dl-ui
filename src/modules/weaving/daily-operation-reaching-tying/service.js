@@ -32,6 +32,16 @@ export class Service extends RestService {
     });
   }
 
+  getConstructionNumberById(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/fabric-constructions/construction-number/${value}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   getShiftByTime(value) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");
@@ -59,6 +69,12 @@ export class Service extends RestService {
 
   updateReachingStart(Id, data) {
     var status = "reaching-start";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
+  updateReachingChangeOperator(Id, data) {
+    var status = "change-operator";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
