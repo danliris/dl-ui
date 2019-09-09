@@ -190,7 +190,7 @@ export class DataForm {
   }
 
   roView(cc) {
-    return `${cc.RO_Number} ` ;
+    return `${cc.RO_Number}` ;
   }
 
   get accountBankLoader() {
