@@ -39,6 +39,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/cutting-out',
+        name: 'garment-production-cutting-out',
+        moduleId: './modules/garment-production/cutting-out/index',
+        nav: true,
+        title: 'Cutting-Out',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/delivery-return',
         name: 'garment-production-delivery-return',
         moduleId: './modules/garment-production/delivery-return/index',
