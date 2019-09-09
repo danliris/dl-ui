@@ -119,6 +119,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-sales-contract-copy',
+        name: 'garment-sales-contract-copy',
+        moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/garment-purchase-request-master',
         name: 'purchase-request-master',
         moduleId: './modules/merchandiser/garment-purchase-request-master/index',
