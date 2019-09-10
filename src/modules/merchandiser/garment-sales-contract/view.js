@@ -35,9 +35,11 @@ export class View {
     }
 
     delete() {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
-            });
+        if (confirm("Delete?")) {
+            this.service.delete(this.data)
+                .then(result => {
+                    this.list();
+                });
+        }
     }
 }

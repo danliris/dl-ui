@@ -26,6 +26,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/cost-calculation-copy',
+        name: 'cost-calculation-copy',
+        moduleId: './modules/merchandiser/cost-calculation/copy/index',
+        nav: true,
+        title: 'Copy Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/cost-calculation-approval/md',
         name: 'cost-calculation-approval-md',
         moduleId: './modules/merchandiser/cost-calculation-approval/index',
@@ -98,6 +111,19 @@ module.exports = [
         moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
         title: 'Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract-copy',
+        name: 'garment-sales-contract-copy',
+        moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract Per RO',
         auth: true,
         settings: {
             group: "merchandiser",

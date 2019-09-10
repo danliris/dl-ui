@@ -174,10 +174,6 @@ export class View {
     this.service.getBudgetById(this.data.Id);
   }
 
-  copyCC() {
-    this.router.navigateToRoute("copy", { id: this.data.Id });
-  }
-
   list() {
     this.router.navigateToRoute("list");
   }
