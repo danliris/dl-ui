@@ -11,9 +11,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
@@ -21,7 +19,6 @@ var BeamLoader = require("../../../loader/weaving-beam-loader");
 export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
-  @bindable WeavingDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
@@ -57,10 +54,6 @@ export class Create {
 
   get machines() {
     return MachineLoader;
-  }
-
-  get units() {
-    return UnitLoader;
   }
 
   get orders() {

@@ -1,6 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
 
 @inject(Router, Service)
 export class Create {
@@ -24,50 +31,42 @@ export class Create {
     this.error = {};
     var errorIndex = 0;
 
-    if (this.data.OrderId == "" ||
-      this.data.OrderId == undefined) {
-      this.error.OrderId = "Field masih kosong";
+    if (this.data.OrderDocumentId == "" || this.data.OrderDocument == undefined) {
+      this.error.OrderDocument = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.ConstructionId == "" ||
-      this.data.ConstructionId == undefined) {
+    if (this.data.ConstructionId == "" || this.data.ConstructionId == undefined) {
       this.error.ConstructionId = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.MaterialTypeId == "" ||
-      this.data.MaterialTypeId == undefined) {
+    if (this.data.MaterialTypeId == "" || this.data.MaterialTypeId == undefined) {
       this.error.MaterialTypeId = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.AmountOfCones == 0 ||
-      this.data.AmountOfCones == undefined) {
+    if (this.data.AmountOfCones == 0 || this.data.AmountOfCones == undefined) {
       this.error.AmountOfCones = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.ColourOfCone == "" ||
-      this.data.ColourOfCone == undefined) {
+    if (this.data.ColourOfCone == "" || this.data.ColourOfCone == undefined) {
       this.error.ColourOfCone = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.DateOperation == "" ||
-      this.data.DateOperation == undefined) {
+    if (this.data.DateOperation == "" || this.data.DateOperation == undefined) {
       this.error.DateOperation = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.TimeOperation == "" ||
-      this.data.TimeOperation == undefined) {
+    if (this.data.TimeOperation == "" || this.data.TimeOperation == undefined) {
       this.error.Shift = "Field masih kosong";
       errorIndex++;
     }
 
-    if (this.data.OperatorId == "" ||
-      this.data.OperatorId == undefined) {
+    if (this.data.OperatorId == "" || this.data.OperatorId == undefined) {
       this.error.OperatorId = "Field masih kosong";
       errorIndex++;
     }
