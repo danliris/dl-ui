@@ -7,9 +7,8 @@
           <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument"
-            error.bind="error.OrderDocument" read-only.bind="readOnly" loader.bind="orders"
-            text="OrderNumber">
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocument"
+            read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
           </au-autocomplete>
         </div>
       </div>
@@ -49,7 +48,7 @@
           <textbox label="Jumlah Cone" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-numeric placeholder="Jumlah Cone" value.bind="data.AmountOfCones" error.bind="error.AmountOfCones"
+          <au-numeric placeholder="Jumlah Cone" value.bind="AmountOfCones" error.bind="error.AmountOfCones"
             read-only.bind="readOnly">
           </au-numeric>
         </div>
@@ -60,7 +59,7 @@
           <textbox label="Warna Cone" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCone" error.bind="error.ColourOfCone"
+          <au-textbox placeholder="Warna Cone" value.bind="ColourOfCone" error.bind="error.ColourOfCone"
             read-only.bind="readOnly">
           </au-textbox>
         </div>

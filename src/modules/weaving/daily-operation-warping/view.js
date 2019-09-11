@@ -58,8 +58,8 @@ export class View {
     { header: "Shift", value: "ShiftName" }
   ];
 
-  back() {
-    this.list();
+  back() {this.router.navigateToRoute("list");
+    // this.list();
   }
 
   start() {

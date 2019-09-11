@@ -13,16 +13,21 @@ import moment from 'moment';
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var MaterialLoader = require("../../../loader/weaving-material-type-loader");
 var Operator = require("../../../loader/weaving-operator-loader");
-var FabricConstruction = require("../../../loader/weaving-constructions-loader");
 
 @inject(Service, Router, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable OrderDocument;
+  @bindable FabricConstructionDocument;
+  @bindable WeavingUnitDocument;
   @bindable MaterialType;
+  @bindable AmountOfCones;
+  @bindable ColourOfCone;
   @bindable OperatorDocument;
+  @bindable PreparationDate;
   @bindable PreparationTime;
+  @bindable Shift;
 
   constructor(service, router, bindingEngine) {
     this.service = service;
@@ -51,6 +56,11 @@ export class DataForm {
 
   // Bindable Method
   OrderDocumentChanged(newValue) {
+    if (newValue) {
+      this.OrderDocument = newValue;
+      this.data.OrderDocumentId = newValue.Id;
+    }
+
     if (newValue.ConstructionId) {
       this.service.getConstructionNumberById(newValue.ConstructionId)
         .then(resultConstructionNumber => {
@@ -80,18 +90,38 @@ export class DataForm {
     }
   }
 
+  MaterialTypeChanged(newValue) {
+    this.data.MaterialTypeId = newValue.Id;
+  }
+
+  AmountOfConesChanged(newValue) {
+    this.data.AmountOfCones = newValue;
+  }
+
+  ColourOfConeChanged(newValue) {
+    this.data.ColourOfCone = newValue;
+  }
+
+  OperatorDocumentChanged(newValue) {
+    this.data.OperatorDocumentId = newValue.Id;
+  }
+
+  PreparationDateChanged(newValue) {
+    this.data.PreparationDate = newValue;
+  }
+
   PreparationTimeChanged(newValue) {
-    this.data.TimeOperation = newValue;
+    this.data.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.Shift = "";
         this.Shift = {};
         this.Shift = result;
-        this.data.ShiftId = this.Shift.Id;
+        this.data.ShiftDocumentId = this.Shift.Id;
       })
       .catch(e => {
         this.Shift = {};
-        this.data.ShiftId = this.Shift.Id;
+        this.data.ShiftDocumentId = this.Shift.Id;
         this.error.Shift = " Shift tidak ditemukan ";
       });
   }

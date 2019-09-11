@@ -8,12 +8,6 @@ import {
   Config
 } from "aurelia-api";
 const serviceUri = 'weaving/daily-operations-warping';
-const entryProcess = 'entry-process-operation';
-const startProcess = 'start-process';
-const pauseProcess = 'pause-process';
-const resumeProcess = 'resume-process';
-const finishProcess = 'finish-process';
-const finishDailyOperation = 'finish-process-operation';
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -55,32 +49,37 @@ export class Service extends RestService {
     });
   }
 
-  createOnEntryProcess(data) {
-    var endpoint = `${serviceUri}/${entryProcess}`;
+  create(data) {
+    var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
   updateForStartProcess(data) {
+    const startProcess = 'start-process';
     var endpoint = `${serviceUri}/${startProcess}`;
     return super.put(endpoint, data);
   }
 
   updateForStopProcess(data) {
+    const pauseProcess = 'pause-process';
     var endpoint = `${serviceUri}/${pauseProcess}`;
     return super.put(endpoint, data);
   }
 
   updateForResumeProcess(data) {
+    const resumeProcess = 'resume-process';
     var endpoint = `${serviceUri}/${resumeProcess}`;
     return super.put(endpoint, data);
   }
 
   updateForFinishProcess(data) {
+    const finishProcess = 'finish-process';
     var endpoint = `${serviceUri}/${finishProcess}`;
     return super.put(endpoint, data);
   }
 
   updateForfinishDailyOperation(data) {
+    const finishDailyOperation = 'finish-process-operation';
     var endpoint = `${serviceUri}/${finishDailyOperation}`;
     return super.put(endpoint, data);
   }
