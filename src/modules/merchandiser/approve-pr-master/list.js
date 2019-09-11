@@ -1,11 +1,16 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import { activationStrategy } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
+
+import SectionLoader from "../../../loader/garment-sections-loader";
 
 import moment from 'moment';
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class List {
+    @bindable section;
+
     context = ["Rincian"];
     columns = [
         { field: "SCNo", title: "No Sales Contract" },
@@ -25,10 +30,16 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "IsValidatedMD1", title: "Approval Kabag", formatter: (value) => value ? "SUDAH" : "BELUM" },
-        { field: "IsValidatedMD2", title: "Approval Kadiv", formatter: (value) => value ? "SUDAH" : "BELUM" },
-        { field: "IsValidated", title: "Approval PPIC", formatter: (value) => value ? "SUDAH" : "BELUM" },
     ];
+
+    controlOptions = {
+        label: {
+            length: 1
+        },
+        control: {
+            length: 3
+        }
+    }
 
     rowFormatter = () => {
         return {};
@@ -41,17 +52,12 @@ export class List {
             order[info.sort] = info.order;
         }
 
-        const filter = {
-            IsPosted: true,
-            "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
-        };
-
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify(filter)
+            filter: JSON.stringify(this.filter)
         }
         return this.service.search(arg)
             .then(result => {
@@ -66,9 +72,18 @@ export class List {
             });
     }
 
-    constructor(router, service) {
+    get sectionLoader() {
+        return SectionLoader;
+    }
+
+    get sectionVisibility() {
+        return this.type=='MD2';
+    }
+
+    constructor(router, service, authService) {
         this.service = service;
         this.router = router;
+        this.authService = authService;
     }
 
     determineActivationStrategy() {
@@ -77,40 +92,67 @@ export class List {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
+    defaultFilter = {
+        IsPosted: true,
+        "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
+    }
+
+    get filter() {
+        let filter = {};
+        switch (this.type) {
+            case "MD1":
+                filter = Object.assign({
+                    IsValidatedMD1: false,
+                    SectionName: this.section.Name
+                }, this.defaultFilter);
+                break;
+            case "MD2":
+                filter = Object.assign({
+                    IsValidatedMD1: true,
+                    IsValidatedMD2: false,
+                    SectionName: this.section.Name
+                }, this.defaultFilter);
+                break;
+            case "PPIC":
+                filter = Object.assign({
+                    IsValidatedMD1: true,
+                    IsValidatedMD2: true,
+                    IsValidated: false,
+                }, this.defaultFilter);
+                break;
+        }
+
+        return filter;
+    }
+
     activate(params, routeConfig, navigationInstruction) {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
         this.title = parentInstruction.config.title;
-        const type = parentInstruction.config.settings.type;
+        this.type = parentInstruction.config.settings.type;
 
-        switch (type) {
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+
+        switch (this.type) {
             case "MD1":
-                this.rowFormatter = (data, index) => {
-                    if (data.IsValidatedMD1) {
-                        return { classes: "success" }
-                    } else {
-                        return { classes: "danger" }
-                    }
-                }
+                this.section = { Name: username };
                 break;
             case "MD2":
-                this.rowFormatter = (data, index) => {
-                    if (data.IsValidatedMD2) {
-                        return { classes: "success" }
-                    } else {
-                        return { classes: "danger" }
-                    }
-                }
+                this.section = null;
                 break;
             case "PPIC":
-                this.rowFormatter = (data, index) => {
-                    if (data.IsValidated) {
-                        return { classes: "success" }
-                    } else {
-                        return { classes: "danger" }
-                    }
-                }
+                this.section = {};
                 break;
+        }
+    }
+
+    sectionChanged() {
+        if (this.table) {
+            this.table.refresh();
         }
     }
 
