@@ -111,6 +111,7 @@ export class List {
                                 BankExpenditureNoteNo: item.BankExpenditureNoteNo,
                                 MemoNo: item.MemoNo,
                                 InvoiceNo: item.InvoiceNo,
+                                PaymentDuration: item.PaymentDuration,
                                 DPP: item.DPP ? numeral(item.DPP).format('0,000.000') : 0,
                                 DPPCurrency: item.DPPCurrency ? numeral(item.DPPCurrency).format('0,000.000') : 0,
                                 PPN: item.PPN ? numeral(item.PPN).format('0,000.000') : 0,
