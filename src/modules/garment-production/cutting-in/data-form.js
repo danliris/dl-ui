@@ -119,7 +119,7 @@ export class DataForm {
                                 item.PreparingUom = item.Uom;
                                 item.CuttingInUom = uom;
                                 item.PreparingRemainingQuantity = item.RemainingQuantity;
-                                item.BasicPrice = item.BasicPrice * this.data.FC;
+                                item.PreparingBasicPrice = item.BasicPrice;
                                 return item;
                             });
                         return data;
