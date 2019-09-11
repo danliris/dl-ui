@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/delivery-return',
+        name: 'garment-production-delivery-return',
+        moduleId: './modules/garment-production/delivery-return/index',
+        nav: true,
+        title: 'Bukti Pengantar',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/aval-product',
         name: 'aval-product',
         moduleId: './modules/garment-production/aval-product/index',
@@ -52,16 +65,16 @@ module.exports = [
         }
     },
     {
-        route: '/garment-production/delivery-return',
-        name: 'garment-production-delivery-return',
-        moduleId: './modules/garment-production/delivery-return/index',
+        route: '/garment-production/sewing-do',
+        name: 'garment-production-sewing-do',
+        moduleId: './modules/garment-production/sewing-do/index',
         nav: true,
-        title: 'Bukti Pengantar',
+        title: 'Sewing DO',
         auth: true,
         settings: {
             group: "g-production",
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
 ];
