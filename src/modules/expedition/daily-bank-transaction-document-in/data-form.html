@@ -106,14 +106,14 @@
             text.bind="buyerView"
             placeholder="cari buyer"
             read-only.bind="readOnly"
-            if.bind="isFrom && data.SourceType != 'Pendanaan'"
+            if.bind="isFrom && data.SourceType != 'Lain - lain'"
             options.bind="controlOptions">
         </au-autocomplete>
 
         <au-textbox
-            value.bind="data.Destination"
-            error.bind="error.Destination"
-            label.bind="Tujuan"
+            value.bind="data.Receiver"
+            error.bind="error.Receiver"
+            label="Tujuan"
             placeholder="masukkan tujuan"
             read-only.bind="readOnly"
             if.bind="isFrom && data.SourceType == 'Lain - lain'"
