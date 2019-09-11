@@ -28,6 +28,8 @@ export class Item {
             this.data.PreparingQuantity = this.data.CuttingInQuantity * this.context.context.options.FC || this.data.PreparingRemainingQuantity;
         }
 
+        this.data.BasicPrice = this.data.PreparingBasicPrice * this.context.context.options.FC;
+
         return this.data.PreparingQuantity;
     }
 

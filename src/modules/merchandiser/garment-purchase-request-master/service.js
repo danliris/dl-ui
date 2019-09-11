@@ -50,6 +50,7 @@ class Service extends RestService {
 
 const serviceMasterGarmentProductUri = 'master/garmentProducts';
 const serviceMasterUomUri = 'master/uoms';
+const serviceMasterGarmentSectionUri = 'master/garment-sections';
 
 class CoreService extends RestService {
     constructor(http, aggregator, config) {
@@ -106,6 +107,11 @@ class CoreService extends RestService {
         var endpoint = `${serviceMasterGarmentProductUri}/byId`;
         return super.list(endpoint, { garmentProductList: info })
             .then((result) => result.data);
+    }
+
+    getGarmentSection(id) {
+        var endpoint = `${serviceMasterGarmentSectionUri}/${id}`;
+        return super.get(endpoint);
     }
 }
 
