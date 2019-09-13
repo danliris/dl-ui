@@ -1,0 +1,80 @@
+<template>
+    <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-textbox
+            if.bind="data.LoadingNo"
+            value.bind="data.LoadingNo"
+            label="No Loading"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete
+            value.bind="data.Unit"
+            error.bind="error.Unit"
+            label="Unit Loading"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="selectedSewingDO"
+            error.bind="error.SewingDO"
+            label="No Sewing DO"
+            loader.bind="sewingDOLoader"
+            text="SewingDONo"
+            placeholder="nomor sewing DO"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedSewingDOViewModel">
+        </au-autocomplete>
+
+        <au-textbox
+            value.bind="data.RONo"
+            label="No RO"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.Article"
+            label="No Artikel"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.Comodity.Name"
+            label="Komoditi"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tanggal Loading"
+            value.bind="data.LoadingDate"
+            error.bind="error.LoadingDate"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-datepicker> 
+
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="itemsInfo.columns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/garment-production/loading/templates/item"
+            header-template="modules/garment-production/loading/templates/item-header"
+            if.bind="selectedSewingDO">
+        </au-collection>
+
+    </au-input-form>
+    <div class="row"></div>
+</template>

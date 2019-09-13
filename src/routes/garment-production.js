@@ -50,5 +50,18 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    // {
+    //     route: '/garment-production/loading',
+    //     name: 'garment-production-loading',
+    //     moduleId: './modules/garment-production/loading/index',
+    //     nav: true,
+    //     title: 'Loading',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: {"C9": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // }
 ];
