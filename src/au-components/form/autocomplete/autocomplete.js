@@ -39,6 +39,9 @@ export class Autocomplete {
   _isLoading = false;
   _noSuggestions = false;
 
+  //custom
+  _lessThanFourCharacters = false;
+
   constructor(component) {
     this.component = component;
   }
@@ -85,11 +88,20 @@ export class Autocomplete {
     } else if (typeof this.loader === 'function') {
       promise = this.loader(keyword, this.query, this.select);
     }
-    return promise.then(suggestions => {
+
+    if (keyword.length >= 4) {
+      this._lessThanFourCharacters = false;
+      return promise.then(suggestions => {
+        this._isLoading = false;
+        this._noSuggestions = !suggestions || !suggestions.length;
+        return suggestions;
+      });
+    }
+    else {
+      this._lessThanFourCharacters = true;
       this._isLoading = false;
-      this._noSuggestions = !suggestions || !suggestions.length;
-      return suggestions;
-    });
+      return Promise.resolve([]);
+    }
   }
 
   _hideSuggestions() {
