@@ -13,125 +13,6 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/cost-calculation',
-        name: 'cost-calculation',
-        moduleId: './modules/merchandiser/cost-calculation/index',
-        nav: true,
-        title: 'Cost Calculation Export Garment',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/cost-calculation-copy',
-        name: 'cost-calculation-copy',
-        moduleId: './modules/merchandiser/cost-calculation/copy/index',
-        nav: true,
-        title: 'Copy Cost Calculation',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/cost-calculation-approval/md',
-        name: 'cost-calculation-approval-md',
-        moduleId: './modules/merchandiser/cost-calculation-approval/index',
-        nav: true,
-        title: 'Cost Calculation Approval - MD',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            type: "md"
-        }
-    },
-    {
-        route: '/merchandiser/cost-calculation-approval/ie',
-        name: 'cost-calculation-approval-ie',
-        moduleId: './modules/merchandiser/cost-calculation-approval/index',
-        nav: true,
-        title: 'Cost Calculation Approval - IE',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            type: "ie"
-        }
-    },
-    {
-        route: '/merchandiser/ro-garment',
-        name: 'ro-garment',
-        moduleId: './modules/merchandiser/ro-garment/index',
-        nav: true,
-        title: 'RO Export Garment',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/budget-validation-purchasing',
-        name: 'budget-validation-purchasing',
-        moduleId: './modules/merchandiser/budget-validation-purchasing/index',
-        nav: true,
-        title: 'Budget Validation - Purchasing',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/budget-validation-ppic',
-        name: 'budget-validation-ppic',
-        moduleId: './modules/merchandiser/budget-validation-ppic/index',
-        nav: true,
-        title: 'Budget Validation - PPIC',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/garment-sales-contract',
-        name: 'garment-sales-contract',
-        moduleId: './modules/merchandiser/garment-sales-contract/index',
-        nav: true,
-        title: 'Sales Contract Per RO',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/garment-sales-contract-copy',
-        name: 'garment-sales-contract-copy',
-        moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
-        nav: true,
-        title: 'Copy Sales Contract Per RO',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
         route: '/merchandiser/garment-purchase-request-master',
         name: 'purchase-request-master',
         moduleId: './modules/merchandiser/garment-purchase-request-master/index',
@@ -184,6 +65,99 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: "PPIC"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation',
+        name: 'cost-calculation',
+        moduleId: './modules/merchandiser/cost-calculation/index',
+        nav: true,
+        title: 'Cost Calculation Export Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/md',
+        name: 'cost-calculation-approval-md',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "md"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/ie',
+        name: 'cost-calculation-approval-ie',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - IE',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "ie"
+        }
+    },
+    {
+        route: '/merchandiser/budget-validation-purchasing',
+        name: 'budget-validation-purchasing',
+        moduleId: './modules/merchandiser/budget-validation-purchasing/index',
+        nav: true,
+        title: 'Budget Validation - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/budget-validation-ppic',
+        name: 'budget-validation-ppic',
+        moduleId: './modules/merchandiser/budget-validation-ppic/index',
+        nav: true,
+        title: 'Budget Validation - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract',
+        name: 'garment-sales-contract',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment',
+        name: 'ro-garment',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Export Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
         }
     },
     {
@@ -248,6 +222,32 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-copy',
+        name: 'cost-calculation-copy',
+        moduleId: './modules/merchandiser/cost-calculation/copy/index',
+        nav: true,
+        title: 'Copy Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract-copy',
+        name: 'garment-sales-contract-copy',
+        moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator'
         }
     },
