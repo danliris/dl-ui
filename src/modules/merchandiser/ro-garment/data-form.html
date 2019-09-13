@@ -113,7 +113,9 @@
     </div>
     <div class="row" show.bind="hasCostCalculationGarment">
       <div class="col-md-12">
-        <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" if.bind="!readOnly" multiple>
+        <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" style="display: none;">
+        <button type="button" if.bind="!readOnly" onclick="document.getElementById('imageInput').click()">Add Image</button>
+        <br>
         <br>
         <template repeat.for="imageSrc of imagesSrc">
           <div style="display: inline-block; height: 250px; width: auto; margin-right:20px;">

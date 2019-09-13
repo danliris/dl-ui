@@ -13,6 +13,61 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-purchase-request-master',
+        name: 'purchase-request-master',
+        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        nav: true,
+        title: 'PR Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/approve-pr-master/kabag-md',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - Kabag MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "MD1"
+        }
+    },
+    {
+        route: '/merchandiser/approve-pr-master/kadiv-md',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - Kadiv MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "MD2"
+        }
+    },
+    {
+        route: '/merchandiser/approve-pr-master/ppic',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "PPIC"
+        }
+    },
+    {
         route: '/merchandiser/cost-calculation',
         name: 'cost-calculation',
         moduleId: './modules/merchandiser/cost-calculation/index',
@@ -51,19 +106,6 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: "ie"
-        }
-    },
-    {
-        route: '/merchandiser/ro-garment',
-        name: 'ro-garment',
-        moduleId: './modules/merchandiser/ro-garment/index',
-        nav: true,
-        title: 'RO Export Garment',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
         }
     },
     {
@@ -106,28 +148,15 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/garment-purchase-request-master',
-        name: 'purchase-request-master',
-        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        route: '/merchandiser/ro-garment',
+        name: 'ro-garment',
+        moduleId: './modules/merchandiser/ro-garment/index',
         nav: true,
-        title: 'PR Master',
+        title: 'RO Export Garment',
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
-    {
-        route: '/merchandiser/approve-pr-master',
-        name: 'approve-purchase-request-master',
-        moduleId: './modules/merchandiser/approve-pr-master/index',
-        nav: true,
-        title: 'Approve PR Master',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C9": 1 },
+            permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator'
         }
     },
@@ -193,6 +222,32 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-copy',
+        name: 'cost-calculation-copy',
+        moduleId: './modules/merchandiser/cost-calculation/copy/index',
+        nav: true,
+        title: 'Copy Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract-copy',
+        name: 'garment-sales-contract-copy',
+        moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator'
         }
     },

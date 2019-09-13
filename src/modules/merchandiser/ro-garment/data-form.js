@@ -100,14 +100,17 @@ export class DataForm {
 
   @bindable imageUpload;
   imageUploadChanged(newValue) {
-    let imageInput = document.getElementById('imageInput');
-    let reader = new FileReader();
-    reader.onload = event => {
-      let base64Image = event.target.result;
-      this.imagesSrc.push(base64Image);
-      this.imagesSrcChanged(this.imagesSrc);
+    if (newValue) {
+      let imageInput = document.getElementById('imageInput');
+      let reader = new FileReader();
+      reader.onload = event => {
+        let base64Image = event.target.result;
+        this.imagesSrc.push(base64Image);
+        this.imagesSrcChanged(this.imagesSrc);
+      }
+      reader.readAsDataURL(imageInput.files[0]);
+      this.imageUpload = null;
     }
-    reader.readAsDataURL(imageInput.files[imageInput.files.length - 1]);
   }
 
   @bindable imagesSrc = [];
