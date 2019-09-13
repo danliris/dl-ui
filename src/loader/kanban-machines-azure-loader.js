@@ -7,7 +7,7 @@ module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production-azure");
-    return endpoint.find(resource, { keyword: keyword })
+    return endpoint.find(resource, { keyword: keyword, size: 10 })
         .then(results => {
             let filteredResult = [];
 
