@@ -39,9 +39,6 @@ export class Autocomplete {
   _isLoading = false;
   _noSuggestions = false;
 
-  //custom
-  _lessThanFourCharacters = false;
-
   constructor(component) {
     this.component = component;
   }
@@ -83,25 +80,16 @@ export class Autocomplete {
 
     var promise;
     if (Array.isArray(this.loader)) {
-      promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
+      // promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
       promise = Promise.resolve(this.loader.filter(item => item[this.text].toUpperCase().indexOf(keyword.toUpperCase()) !== -1));
     } else if (typeof this.loader === 'function') {
       promise = this.loader(keyword, this.query, this.select);
     }
-
-    if (keyword) {
-      this._lessThanFourCharacters = false;
-      return promise.then(suggestions => {
-        this._isLoading = false;
-        this._noSuggestions = !suggestions || !suggestions.length;
-        return suggestions;
-      });
-    }
-    // else {
-    //   this._lessThanFourCharacters = true;
-    //   this._isLoading = false;
-    //   return Promise.resolve([]);
-    // }
+    return promise.then(suggestions => {
+      this._isLoading = false;
+      this._noSuggestions = !suggestions || !suggestions.length;
+      return suggestions;
+    });
   }
 
   _hideSuggestions() {
