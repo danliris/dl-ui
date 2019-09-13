@@ -1,0 +1,42 @@
+<template>
+  <tr>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.SizingBeamNumber" error.bind="error.SizingBeamNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.ProduceBeamsTime" error.bind="error.ProduceBeamsTime" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Panjang Beam" value.bind="data.BeamLength" error.bind="error.BeamLength"
+        read-only.bind="true"></au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Tention(mm)" value.bind="data.Tention" error.bind="error.Tention" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Berat Bersih (Netto)" value.bind="data.NettoWeight" error.bind="error.NettoWeight"
+        read-only.bind="true"></au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Berat Kotor (Bruto)" value.bind="data.BrutoWeight" error.bind="error.BrutoWeight"
+        read-only.bind="true"></au-textbox>
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="SPU" value.bind="data.SPU" error.bind="error.SPU" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Status Beam Sizing" value.bind="data.SizingBeamStatus"
+        error.bind="error.SizingBeamStatus" read-only.bind="true">
+      </au-textbox>
+    </td>
+  </tr>
+</template>

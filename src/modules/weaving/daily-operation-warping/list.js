@@ -25,7 +25,7 @@ export class List {
       title: "Jam"
     },
     {
-      field: "OrderNumber",
+      field: "OrderProductionNumber",
       title: "No SOP"
     },
     {
@@ -94,7 +94,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", {
+        this.router.navigateToRoute("update", {
           Id: data.Id
         });
         break;

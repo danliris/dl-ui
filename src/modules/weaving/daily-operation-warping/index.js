@@ -15,11 +15,11 @@ export class Index {
         title: "Create: Operasional Mesin Harian Warping"
       },
       {
-        route: "view/:Id",
-        moduleId: "./view",
-        name: "view",
+        route: "update/:Id",
+        moduleId: "./update",
+        name: "update",
         nav: false,
-        title: "view: Operasional Mesin Harian Warping"
+        title: "Update: Operasional Mesin Harian Warping"
       }
     ]);
 
