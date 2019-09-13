@@ -12,7 +12,7 @@ module.exports = function (keyword, filter) {
     //     filter = {};
     // }
     // Object.assign(filter, { "Tags.StartsWith(\"sales contract\")": false } )
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
             return results.data.map(product => {
                 product.toString = function () {

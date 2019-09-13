@@ -83,13 +83,13 @@ export class Autocomplete {
 
     var promise;
     if (Array.isArray(this.loader)) {
-      // promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
+      promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
       promise = Promise.resolve(this.loader.filter(item => item[this.text].toUpperCase().indexOf(keyword.toUpperCase()) !== -1));
     } else if (typeof this.loader === 'function') {
       promise = this.loader(keyword, this.query, this.select);
     }
 
-    if (keyword.length >= 4) {
+    if (keyword) {
       this._lessThanFourCharacters = false;
       return promise.then(suggestions => {
         this._isLoading = false;
@@ -97,11 +97,11 @@ export class Autocomplete {
         return suggestions;
       });
     }
-    else {
-      this._lessThanFourCharacters = true;
-      this._isLoading = false;
-      return Promise.resolve([]);
-    }
+    // else {
+    //   this._lessThanFourCharacters = true;
+    //   this._isLoading = false;
+    //   return Promise.resolve([]);
+    // }
   }
 
   _hideSuggestions() {
