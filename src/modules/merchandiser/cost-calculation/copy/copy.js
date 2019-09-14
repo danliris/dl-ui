@@ -64,7 +64,11 @@ export class Copy {
                 this.list();
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode === 500) {
+                    alert("Gagal menyimpan, silakan coba lagi!");
+                } else {
+                    this.error = e;
+                }
             });
     }
 }
