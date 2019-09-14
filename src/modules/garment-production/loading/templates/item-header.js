@@ -9,8 +9,7 @@ export class ItemHeader {
     }
   
     changeCheckedAll() {
-        this.items.filter(item => item.data.IsDisabled === false)
-            .forEach(item => {
+        this.items.forEach(item => {
                 item.data.IsSave = (this.options.checkedAll === true);
             });
     }

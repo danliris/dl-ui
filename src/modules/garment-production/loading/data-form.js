@@ -57,18 +57,15 @@ export class DataForm {
         this.error = this.context.error;
 
         this.itemOptions = {
-            FC: this.data.FC || 0,
             isEdit: this.isEdit,
             checkedAll: true
         }
 
         if (this.data && this.data.Items) {
             this.data.Items.forEach(
-                item => item.Details.forEach(
-                    detail => {
-                        detail.IsSave = true;
-                    }
-                )
+                item => {
+                    item.IsSave = true;
+                }
             );
         }
     }
@@ -92,21 +89,29 @@ export class DataForm {
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
             this.data.Comodity= newValue.Comodity;
-
+            this.data.UnitFrom=newValue.Unit;
+            this.data.SewingDOId=newValue.Id;
+            this.data.SewingDONo=newValue.SewingDONo;
             var items=[];
             for(var item of newValue.Items){
                 var a={};
                 a.Product= item.Product;
+                a.Uom=item.Uom;
+                a.DesignColor=item.DesignColor;
+                a.Color=item.Color;
+                a.Size=item.Size;
+                a.Quantity=item.RemainingQuantity;
+                a.SewingDORemainingQuantity=item.RemainingQuantity;
+                a.IsSave=true;
+                a.SewingDOItemId=item.Id;
                 this.data.Items.push(a);
             }
-            
-            
-            
         }
         else {
             this.context.selectedSewingDOViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
+            this.data.Comodity=null;
             this.data.Items = [];
         }
     }

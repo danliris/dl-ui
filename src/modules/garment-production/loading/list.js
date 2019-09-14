@@ -20,9 +20,9 @@ export class List {
         { field: "Color", title: "Warna" },
         { field: "UnitName", title: "Unit Loading" },
         { field: "UnitFromName", title: "Unit Asal" },
-        { field: "SewingDONo", title: "No DO Sewing", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "SewingDONo", title: "No DO Sewing" },
         { field: "LoadingDate", title: "Tanggal Loading", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "ProductList", title: "Kode Barang", sortable: false },
     ]
 
     loader = (info) => {
@@ -39,10 +39,12 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                
                 result.data.forEach(d => {
                     d.UnitName = d.Unit.Name
                     d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
                 });
+                console.log(result.data)
                 return {
                     total: result.info.total,
                     data: result.data

@@ -35,6 +35,17 @@
             view-model.ref="selectedSewingDOViewModel">
         </au-autocomplete>
 
+        <au-autocomplete
+            value.bind="data.UnitFrom"
+            error.bind="error.UnitFrom"
+            label="Unit Asal"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-textbox
             value.bind="data.RONo"
             label="No RO"
