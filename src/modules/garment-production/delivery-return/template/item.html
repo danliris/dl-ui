@@ -4,6 +4,7 @@
             <au-checkbox 
                 value.bind="data.IsSave" 
                 if.bind="options.isCreate || options.isEdit"
+                change.delegate="changeCheckBox()"
                 options.bind="controlOptions">
             </au-checkbox>
         </td>
