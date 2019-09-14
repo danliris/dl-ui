@@ -5,12 +5,6 @@ export class ItemHeader {
       this.data = context.items;
       this.error = context.error;
       this.options = this.context.options;
-
-      
-      if(this.options.isCreate){
-        this.options.checkedAll = false;
-      }
-      
       var count = 0;
       if(this.data.length>0){
         for(var item of this.data){
