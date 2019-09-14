@@ -97,7 +97,7 @@ export class List {
         if (this.info.supplier && this.info.supplier.name)
             arg.supplierName = this.info.supplier.name;
 
-        if (this.info.month.value)
+        if (this.info.month && this.info.month.value)
             arg.month = this.info.month.value;
 
         if (this.info.year)

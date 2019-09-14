@@ -14,10 +14,10 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox
+            <au-multiline
                 value.bind="data.DesignColor"
                 read-only.bind="true">
-            </au-textbox>
+            </au-multiline>
         </td>
         <td>
             <au-numeric 
@@ -43,6 +43,7 @@
             <au-numeric 
                 value.bind="data.CuttingInQuantity"
                 error.bind = "error.CuttingInQuantity"
+                format="0"
                 read-only.bind="readOnly" >
             </au-numeric>                    
         </td>

@@ -1,15 +1,19 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework'
 var UnitLoader = require('../../../loader/garment-units-loader');
 var PreSalesContractLoader = require('../../../loader/garment-pre-sales-contracts-loader');
-var BudgetLoader = require('../../../loader/budget-loader');
-var CategoryLoader = require('../../../loader/garment-category-loader');
+import { CoreService } from './service';
 
+@inject(CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable data = {};
     @bindable title;
     @bindable selectedPreSalesContract;
+
+    constructor(coreService) {
+        this.coreService = coreService;
+    }
 
     controlOptions = {
         label: {
@@ -100,7 +104,7 @@ export class DataForm {
         }
     }
 
-    selectedPreSalesContractChanged(newValue) {
+    async selectedPreSalesContractChanged(newValue) {
         if (newValue) {
             this.data.SCId = newValue.Id;
             this.data.SCNo = newValue.SCNo;
@@ -109,10 +113,14 @@ export class DataForm {
                 Code: newValue.BuyerBrandCode,
                 Name: newValue.BuyerBrandName
             };
+
+            const section = await this.coreService.getGarmentSection(newValue.SectionId);
+            this.data.SectionName = section.Name;
         } else {
             this.data.SCId = 0;
             this.data.SCNo = null;
             this.data.Buyer = null;
+            this.data.SectionName = null;
         }
     }
 
