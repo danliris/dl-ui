@@ -14,7 +14,7 @@ module.exports = function(keyword, filter) {
         delete filterTemp.currentUsed;
     }
 
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filterTemp), currentUsed: currentUsed })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filterTemp), currentUsed: currentUsed, size: 10 })
     .then(results => {
         if (currentUsed) {
             return results.data.filter((data) => data && currentUsed.indexOf(data.ETONo) < 0);

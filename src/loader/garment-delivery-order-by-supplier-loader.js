@@ -3,18 +3,18 @@ import { Config } from "aurelia-api";
 
 const resource = 'garment-delivery-orders/by-supplier';
 
-module.exports = function(keyword, filter) {
+module.exports = function (keyword, filter) {
 
-  var config = Container.instance.get(Config);
-  var endpoint = config.getEndpoint("purchasing-azure");
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("purchasing-azure");
 
-  return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
-                .then(results => {
-                    return results.data.map(deliveryOrder => {
-                        deliveryOrder.toString = function () {
-                            return `${this.doNo}`;
-                        }
-                        return deliveryOrder;
-                    });
-                });
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
+        .then(results => {
+            return results.data.map(deliveryOrder => {
+                deliveryOrder.toString = function () {
+                    return `${this.doNo}`;
+                }
+                return deliveryOrder;
+            });
+        });
 }
