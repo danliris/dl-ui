@@ -71,7 +71,7 @@ export class DataForm {
 
     uenNoChanged(newValue) {
         var selectedUEN = newValue;
-        if(selectedUEN){
+        if(selectedUEN && this.options.isCreate){
             this.data.ExpenditureDate = selectedUEN.ExpenditureDate;
             this.data.Unit = {};
             if(!this.options.isView){
@@ -108,7 +108,7 @@ export class DataForm {
                         }
                     }
                 });
-        } else {
+        } else if(!selectedUEN && this.options.isCreate){
             this.data.ExpenditureDate = null;
             this.data.Unit = {};
             this.data.UENId = null;
