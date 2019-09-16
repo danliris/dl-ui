@@ -35,7 +35,11 @@ export class Create {
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode === 500) {
+                    alert("Gagal menyimpan, silakan coba lagi!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }

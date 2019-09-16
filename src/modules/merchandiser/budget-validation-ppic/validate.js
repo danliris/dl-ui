@@ -167,6 +167,7 @@ export class Create {
                     })
                     .catch(e => {
                         if (e.statusCode === 500) {
+                            alert("Gagal menyimpan, silakan coba lagi!");
                             this.error = JSON.parse(e.message);
                         } else {
                             this.error = e;
