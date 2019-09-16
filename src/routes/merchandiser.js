@@ -263,5 +263,18 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/merchandiser/display-cost-calculation-garment-by-unit',
+        name: 'display-cost-calculation-garment-by-unit',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Per Konfeksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1, "PGA": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
