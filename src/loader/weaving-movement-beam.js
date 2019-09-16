@@ -9,7 +9,7 @@ module.exports = function (keyword, filter) {
     var endpoint = config.getEndpoint("weaving");
 
     return endpoint
-        .find(resource, { keyword: keyword })
+        .find(resource, { keyword: keyword, size: 10 })
         .then(results => {
             var beams = results.data;
 
