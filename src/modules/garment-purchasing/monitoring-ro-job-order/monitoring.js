@@ -31,4 +31,12 @@ export class Monitoring {
             alert("Nomor RO harus diisi!");
         }
     }
+
+    xls() {
+        if (this.selectedROGarment) {
+            this.service.xls({CostCalculationId: this.selectedROGarment.Id});
+        } else {
+            alert("Nomor RO harus diisi!");
+        }
+    }
 }
