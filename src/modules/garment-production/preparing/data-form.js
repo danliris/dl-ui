@@ -108,7 +108,7 @@ export class DataForm {
                         }
                     }
                 });
-        } else if(!selectedUEN && this.controlOptions.isCreate){
+        } else if(!selectedUEN && this.options.isCreate){
             this.data.ExpenditureDate = null;
             this.data.Unit = {};
             this.data.UENId = null;
