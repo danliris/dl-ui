@@ -11,7 +11,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
@@ -193,9 +193,9 @@ export class Update {
 
   causes = ["", "Putus Beam", "Mesin Bermasalah"];
 
-  get constructions() {
-    return ConstructionLoader;
-  }
+  // get constructions() {
+  //   return ConstructionLoader;
+  // }
 
   get operators() {
     return OperatorLoader;

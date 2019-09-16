@@ -14,6 +14,8 @@ import {
   Dialog
 } from '../../../components/dialog/dialog';
 import moment from "moment";
+var BeamLoader = require("../../../loader/weaving-beam-loader");
+var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
@@ -35,17 +37,29 @@ export class Update {
     this.error = this.context.error;
   }
 
+  formOptions = {
+    cancelText: 'Kembali',
+    saveText: 'Simpan',
+  };
+
   async activate(params) {
     var Id = params.Id;
-    this.data =
-      await this.service.getById(Id)
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
       .then(result => {
-        return this.service.getUnitById(result.WeavingUnitId)
-          .then(unit => {
-            result.WeavingUnit = unit.Name;
-            return result;
-          });
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnitId);
+      })
+      .then(unit => {
+        dataResult.WeavingUnit = unit.Name;
+        return dataResult;
       });
+    if (this.data.Id) {
+      this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+      this.Histories = this.data.DailyOperationWarpingHistories;
+      console.log(this.data);
+    }
   }
 
   dailyOperationBeamProductsColumns = [{
@@ -75,33 +89,42 @@ export class Update {
   ];
 
   dailyOperationHistoriesColumns = [{
-      header: "Beam",
-      value: "BeamNumber"
+      value: "WarpingBeamNumber",
+      header: "No. Beam Warping"
     },
     {
-      header: "Operator",
-      value: "BeamOperatorName"
+      value: "MachineDate",
+      header: "Tanggal"
     },
     {
-      header: "Group",
-      value: "BeamOperatorGroup"
+      value: "MachineTime",
+      header: "Jam"
     },
     {
-      field: "DateTimeMachine",
-      title: "Waktu",
-      formatter: function (value, data, index) {
-        return moment(new Date(value)).format("DD MMM YYYY");
-      }
+      value: "ShiftName",
+      header: "Shift"
     },
     {
-      header: "Status",
-      value: "OperationStatus"
+      value: "OperatorName",
+      header: "Operator"
     },
     {
-      header: "Shift",
-      value: "ShiftName"
+      value: "OperatorGroup",
+      header: "Group"
+    },
+    {
+      value: "OperationStatus",
+      header: "Status"
     }
   ];
+
+  get operators() {
+    return OperatorLoader;
+  }
+
+  get beams() {
+    return BeamLoader;
+  }
 
   brokenThreadsClicked(event) {
     let targetValue = event.target.checked;
@@ -125,11 +148,6 @@ export class Update {
       console.log("Loose Threads Unchecked");
       this.showHideLooseThreadsMenu = false;
     }
-  }
-
-  back() {
-    this.router.navigateToRoute("list");
-    // this.list();
   }
 
   start() {
@@ -221,6 +239,11 @@ export class Update {
       this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = true;
     }
+  }
+
+  back() {
+    this.router.navigateToRoute("list");
+    // this.list();
   }
 
   // start() {

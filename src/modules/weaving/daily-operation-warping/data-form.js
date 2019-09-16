@@ -41,6 +41,11 @@ export class DataForm {
     this.error = this.context.error;
   }
 
+  formOptions = {
+    cancelText: 'Kembali',
+    saveText: 'Simpan',
+  };
+
   // Loaders
   get orders() {
     return OrderLoader;

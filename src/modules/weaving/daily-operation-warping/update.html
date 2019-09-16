@@ -56,7 +56,7 @@
           <textbox label="Warna Cone" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCone" error.bind="error.ColourOfCone"
+          <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCones" error.bind="error.ColourOfCones"
             read-only.bind="true"></au-textbox>
         </div>
       </div>
@@ -150,17 +150,17 @@
                 text="Number">
               </au-autocomplete>
             </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+            <!-- <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Jenis Material" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
               <au-textbox placeholder="Jenis Material" value.bind="StartMaterialType"
                 error.bind="error.StartMaterialType" read-only.bind="readOnly"></au-textbox>
-            </div>
+            </div> -->
           </div>
 
           <!-- Amount of Cones and Color of Cones -->
-          <div class="row" style="white-space: nowrap;">
+          <!-- <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Jumlah Cone" read-only="true" style="display: inline-block"></textbox>
             </div>
@@ -176,7 +176,7 @@
               <au-textbox placeholder="Warna Cone" value.bind="StartColorOfCones" error.bind="error.StartColorOfCones"
                 read-only.bind="readOnly"></au-textbox>
             </div>
-          </div>
+          </div> -->
 
           <!-- Save Button for Update Start Phase -->
           <div class="row" style="white-space: nowrap;">
@@ -591,7 +591,7 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="ProduceBeams" errors.bind="error.ProduceBeams"
+        <au-collection items.bind="BeamProducts" errors.bind="error.BeamProducts"
           columns.bind="dailyOperationBeamProductsColumns" read-only.bind="true"
           item-template="modules/weaving/daily-operation-warping/templates/beam-product-items">
         </au-collection>
@@ -602,7 +602,7 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="dailyOperationHistoriesColumns"
+        <au-collection items.bind="Histories" errors.bind="error.Histories" columns.bind="dailyOperationHistoriesColumns"
           read-only.bind="true" item-template="modules/weaving/daily-operation-warping/templates/history-items">
         </au-collection>
       </div>

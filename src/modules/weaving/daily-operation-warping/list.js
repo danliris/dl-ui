@@ -33,7 +33,7 @@ export class List {
       title: "No Konstruksi"
     },
     {
-      field: "WeavingUnitDocumentId",
+      field: "WeavingUnitId",
       title: "Unit Weaving"
     },
     {
@@ -57,16 +57,16 @@ export class List {
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
         let getUnitPromises = result.data.map(operation =>
-          this.service.getUnitById(operation.WeavingUnitDocumentId)
+          this.service.getUnitById(operation.WeavingUnitId)
         );
 
         return Promise.all(getUnitPromises).then(units => {
           for (var datum of result.data) {
             if (units && units.length > 0) {
               let unit = units.find(
-                unitResult => datum.WeavingUnitDocumentId == unitResult.Id
+                unitResult => datum.WeavingUnitId == unitResult.Id
               );
-              datum.WeavingUnitDocumentId = unit.Name;
+              datum.WeavingUnitId = unit.Name;
             }
             if (datum.DateTimeMachine) {
               var DateMachine = moment(datum.DateTimeMachine).format('DD/MM/YYYY');

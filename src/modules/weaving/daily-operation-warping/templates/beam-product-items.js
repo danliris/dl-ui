@@ -3,6 +3,7 @@ import {
     bindable,
     BindingEngine
   } from "aurelia-framework";
+  import moment from "moment";
   
   @inject(BindingEngine, Service)
   export class BeamProductItems {
