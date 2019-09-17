@@ -13,7 +13,17 @@ export class Edit {
 
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
+        this.data = await this.service.read(id);
+        if(this.data.SewingDOId){
+            this.selectedSewingDO= await this.service.getSewingDObyId(this.data.SewingDOId);
+            for(var a of this.data.Items){
+                var same= this.selectedSewingDO.Items.find(b=>b.Id==a.SewingDOItemId);
+                if(same){
+                    a.SewingDORemainingQuantity=same.RemainingQuantity + a.Quantity;
+                }
+                console.log(a)
+            }
+        }
     }
 
     bind() {
@@ -25,6 +35,7 @@ export class Edit {
     }
 
     saveCallback(event) {
+        console.log(this.data)
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

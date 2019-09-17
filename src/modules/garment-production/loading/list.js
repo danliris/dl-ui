@@ -17,10 +17,10 @@ export class List {
         { field: "Article", title: "No Artikel" },
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "RONo", title: "RO" },
-        { field: "Color", title: "Warna" },
-        { field: "UnitName", title: "Unit Loading" },
-        { field: "UnitFromName", title: "Unit Asal" },
-        { field: "SewingDONo", title: "No DO Sewing" },
+        { field: "ColorList", title: "Warna" , sortable: false},
+        { field: "Unit.Name", title: "Unit Loading" },
+        { field: "UnitFrom.Name", title: "Unit Asal" },
+        { field: "SewingDONo", title: "No DO Sewing", sortable: false },
         { field: "LoadingDate", title: "Tanggal Loading", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "ProductList", title: "Kode Barang", sortable: false },
     ]
@@ -41,10 +41,9 @@ export class List {
             .then(result => {
                 
                 result.data.forEach(d => {
-                    d.UnitName = d.Unit.Name
+                    d.ColorList = `${d.Colors.map(p => `- ${p}`).join("<br/>")}`
                     d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
                 });
-                console.log(result.data)
                 return {
                     total: result.info.total,
                     data: result.data
