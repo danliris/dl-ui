@@ -1,41 +1,51 @@
 <template>
   <tr>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox value.bind="data.SizingBeamNumber" error.bind="error.SizingBeamNumber" read-only.bind="true">
+      <au-textbox value.bind="data.WarpingBeamNumber" error.bind="error.WarpingBeamNumber" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="true">
+      <au-textbox value.bind="data.LatestDateBeamProduct" error.bind="error.LatestDateBeamProduct" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox value.bind="data.ProduceBeamsTime" error.bind="error.ProduceBeamsTime" read-only.bind="true">
+      <au-textbox value.bind="data.BrokenThreadsCause" error.bind="error.BrokenThreadsCause" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="Panjang Beam" value.bind="data.BeamLength" error.bind="error.BeamLength"
-        read-only.bind="true"></au-textbox>
-    </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="Tention(mm)" value.bind="data.Tention" error.bind="error.Tention" read-only.bind="true">
+      <au-textbox value.bind="data.ConeDeficient" error.bind="error.ConeDeficient" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="Berat Bersih (Netto)" value.bind="data.NettoWeight" error.bind="error.NettoWeight"
-        read-only.bind="true"></au-textbox>
-    </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="Berat Kotor (Bruto)" value.bind="data.BrutoWeight" error.bind="error.BrutoWeight"
-        read-only.bind="true"></au-textbox>
+      <au-textbox value.bind="data.LooseThreadsAmount" error.bind="error.LooseThreadsAmount" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="SPU" value.bind="data.SPU" error.bind="error.SPU" read-only.bind="true">
+      <au-textbox value.bind="data.RightLooseCreel" error.bind="error.RightLooseCreel" read-only.bind="true">
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox placeholder="Status Beam Sizing" value.bind="data.SizingBeamStatus"
-        error.bind="error.SizingBeamStatus" read-only.bind="true">
+      <au-textbox value.bind="data.LeftLooseCreel" error.bind="error.LeftLooseCreel" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.WarpingBeamLength" error.bind="error.WarpingBeamLength" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.Tention" error.bind="error.Tention" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.MachineSpeed" error.bind="error.MachineSpeed" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.PressRoll" error.bind="error.PressRoll" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.BeamStatus" error.bind="error.BeamStatus" read-only.bind="true">
       </au-textbox>
     </td>
   </tr>

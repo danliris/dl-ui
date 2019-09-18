@@ -28,14 +28,14 @@ export class Create {
   }
 
   saveCallback(event) {
-    var OrderDocumentIdContainer;
-    var MaterialTypeIdContainer;
-    var AmountOfConesContainer;
-    var ColourOfConeContainer;
-    var OperatorDocumentIdContainer;
-    var PreparationDateContainer;
-    var PreparationTimeContainer;
-    var ShiftDocumentIdContainer;
+    // var OrderDocumentIdContainer;
+    // var MaterialTypeIdContainer;
+    // var AmountOfConesContainer;
+    // var ColourOfConeContainer;
+    // var OperatorDocumentIdContainer;
+    // var PreparationDateContainer;
+    // var PreparationTimeContainer;
+    // var ShiftDocumentIdContainer;
 
     this.error = {};
     var errorIndex = 0;
@@ -43,57 +43,57 @@ export class Create {
     if (this.data.OrderDocumentId == "" || this.data.OrderDocumentId == undefined) {
       this.error.OrderDocument = "No. Order Produksi Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      OrderDocumentIdContainer = this.data.OrderDocumentId;
+    // } else {
+    //   OrderDocumentIdContainer = this.data.OrderDocumentId;
     }
 
     if (this.data.MaterialTypeId == "" || this.data.MaterialTypeId == undefined) {
       this.error.MaterialType = "Jenis Material Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      MaterialTypeIdContainer = this.data.MaterialTypeId;
+    // } else {
+    //   MaterialTypeIdContainer = this.data.MaterialTypeId;
     }
 
     if (this.data.AmountOfCones == 0 || this.data.AmountOfCones == undefined) {
       this.error.AmountOfCones = "Jumlah Cone Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      AmountOfConesContainer = this.data.AmountOfCones;
+    // } else {
+    //   AmountOfConesContainer = this.data.AmountOfCones;
     }
 
     if (this.data.ColourOfCone == "" || this.data.ColourOfCone == undefined) {
       this.error.ColourOfCone = "Warna Cone Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      ColourOfConeContainer = this.data.ColourOfCone;
+    // } else {
+    //   ColourOfConeContainer = this.data.ColourOfCone;
     }
 
     if (this.data.OperatorDocumentId == "" || this.data.OperatorDocumentId == undefined) {
       this.error.OperatorDocument = "Operator Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      OperatorDocumentIdContainer = this.data.OperatorDocumentId;
+    // } else {
+    //   OperatorDocumentIdContainer = this.data.OperatorDocumentId;
     }
 
-    if (this.data.PreparationDate == "" || this.data.PreparationDate == undefined) {
-      this.error.PreparationDate = "Tanggal Pasang Tidak Boleh Kosong";
+    if (this.data.WarpingPreparationDate == "" || this.data.WarpingPreparationDate == undefined) {
+      this.error.WarpingPreparationDate = "Tanggal Pasang Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      PreparationDateContainer = moment(this.data.PreparationDate).utcOffset("+07:00").format();
+    // } else {
+    //   PreparationDateContainer = moment(this.data.WarpingPreparationDate).utcOffset("+07:00").format();
     }
 
-    if (this.data.PreparationTime == "" || this.data.PreparationTime == undefined) {
-      this.error.PreparationTime = "Waktu Pasang Tidak Boleh Kosong";
+    if (this.data.WarpingPreparationTime == "" || this.data.WarpingPreparationTime == undefined) {
+      this.error.WarpingPreparationTime = "Waktu Pasang Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      PreparationTimeContainer = this.data.PreparationTime;
+    // } else {
+    //   PreparationTimeContainer = this.data.WarpingPreparationTime;
     }
 
     if (this.data.ShiftDocumentId == "" || this.data.ShiftDocumentId == undefined) {
       this.error.Shift = "Shift Tidak Boleh Kosong";
       errorIndex++;
-    } else {
-      ShiftDocumentIdContainer = this.data.ShiftDocumentId;
+    // } else {
+    //   ShiftDocumentIdContainer = this.data.ShiftDocumentId;
     }
 
     if (errorIndex === 0) {

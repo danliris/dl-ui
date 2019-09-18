@@ -54,21 +54,21 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
-  updateForStartProcess(data) {
-    const startProcess = 'start-process';
-    var endpoint = `${serviceUri}/${startProcess}`;
+  updateStartProcess(Id, data) {
+    const process = 'start-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateForStopProcess(data) {
-    const pauseProcess = 'pause-process';
-    var endpoint = `${serviceUri}/${pauseProcess}`;
+  updatePauseProcess(Id, data) {
+    const process = 'pause-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateForResumeProcess(data) {
-    const resumeProcess = 'resume-process';
-    var endpoint = `${serviceUri}/${resumeProcess}`;
+  updateResumeProcess(Id, data) {
+    const process = 'resume-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 

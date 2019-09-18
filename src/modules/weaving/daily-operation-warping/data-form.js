@@ -25,8 +25,8 @@ export class DataForm {
   @bindable AmountOfCones;
   @bindable ColourOfCone;
   @bindable OperatorDocument;
-  @bindable PreparationDate;
-  @bindable PreparationTime;
+  @bindable WarpingPreparationDate;
+  @bindable WarpingPreparationTime;
   @bindable Shift;
 
   constructor(service, router, bindingEngine) {
@@ -111,12 +111,12 @@ export class DataForm {
     this.data.OperatorDocumentId = newValue.Id;
   }
 
-  PreparationDateChanged(newValue) {
-    this.data.PreparationDate = newValue;
+  WarpingPreparationDateChanged(newValue) {
+    this.data.WarpingPreparationDate = newValue;
   }
 
-  PreparationTimeChanged(newValue) {
-    this.data.PreparationTime = newValue;
+  WarpingPreparationTimeChanged(newValue) {
+    this.data.WarpingPreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.Shift = "";

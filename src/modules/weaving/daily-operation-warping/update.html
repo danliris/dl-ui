@@ -80,7 +80,7 @@
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Produksi Beam
           </button>
-          <button class="btn btn-default" click.delegate="finish()" disabled.bind="isDoffDisabled"
+          <button class="btn btn-default" click.delegate="finish()" disabled.bind="isFinishDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Selesai
           </button>
@@ -98,7 +98,7 @@
               <textbox label="Tanggal Mulai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="StartDate" error.bind="error.StartDate">
+              <au-datepicker value.bind="StartDate" error.bind="error.error.StartDate">
               </au-datepicker>
             </div>
           </div>
@@ -109,13 +109,13 @@
               <textbox label="Waktu Mulai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="StartTime" error.bind="error.StartTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="StartTime" error.bind="error.error.StartTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-2" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.StartShift"
+              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.error.StartShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -127,7 +127,7 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="StartOperator" error.bind="error.StartOperator"
+              <au-autocomplete placeholder="Operator" value.bind="StartOperator" error.bind="error.error.StartOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
@@ -135,7 +135,7 @@
             </div>
             <div class="col-md-3">
               <au-textbox placeholder="Grup Warping" value.bind="StartOperator.Group"
-                error.bind="error.StartWarpingGroup" read-only.bind="true"></au-textbox>
+                error.bind="error.error.StartWarpingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -146,7 +146,7 @@
             </div>
             <div class="col-md-3">
               <au-autocomplete placeholder="No. Beam Warping" value.bind="StartWarpingBeamDocuments"
-                error.bind="error.StartWarpingBeamDocuments" read-only.bind="readOnly" loader.bind="beams"
+                error.bind="error.error.WarpingBeamId" read-only.bind="readOnly" loader.bind="beams"
                 text="Number">
               </au-autocomplete>
             </div>
@@ -200,7 +200,7 @@
               <textbox label="Tanggal Berhenti" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="PauseDate" error.bind="error.PauseDate">
+              <au-datepicker value.bind="PauseDate" error.bind="error.error.PauseDate">
               </au-datepicker>
             </div>
           </div>
@@ -211,13 +211,13 @@
               <textbox label="Waktu Berhenti" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="PauseTime" error.bind="error.PauseTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="PauseTime" error.bind="error.error.PauseTime" read-only.bind="readOnly">
             </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+            <div class="col-md-2 col-md-offset-2" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="PauseShift.Name" error.bind="error.PauseShift"
+              <au-textbox placeholder="Shift" value.bind="PauseShift.Name" error.bind="error.error.PauseShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -229,14 +229,14 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="PauseOperator" error.bind="error.PauseOperator"
+              <au-autocomplete placeholder="Operator" value.bind="PauseOperator" error.bind="error.error.PauseOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
-            <div class="col-md-2" style="text-align:left;">
+            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.PauseSizingGroup"
+              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.error.PauseSizingGroup"
                 read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -266,9 +266,9 @@
                   <textbox label="Penyebab Putus Benang" read-only="true" style="display: inline-block"></textbox>
                 </div>
                 <div class="col-md-6">
-                  <au-textbox placeholder="Penyebab Putus Benang" value.bind="BrokenThreadsCause"
-                    error.bind="error.BrokenThreadsCause" read-only.bind="readOnly">
-                  </au-textbox>
+                  <au-dropdown items.bind="brokenThreadsItems" value.bind="BrokenThreadsCause"
+                    error.bind="error.error.BrokenThreadsCause" read-only.bind="readOnly">
+                  </au-dropdown>
                 </div>
               </div>
               <div class="row" style="white-space: nowrap;">
@@ -289,7 +289,7 @@
                 </div>
                 <div class="col-md-7">
                   <au-numeric placeholder="Jumlah Benang Lolos" value.bind="LooseThreadsAmount"
-                    error.bind="error.LooseThreadsAmount" read-only.bind="readOnly">
+                    error.bind="error.error.LooseThreadsAmount" read-only.bind="readOnly">
                   </au-numeric>
                 </div>
               </div>
@@ -315,6 +315,17 @@
           </div>
 
           <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Informasi Tambahan" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-textbox id="informationTextbox" placeholder="Informasi Tambahan" value.bind="Information"
+                error.bind="error.error.Information" read-only.bind="readOnly">
+              </au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
               <button class="btn btn-default" click.delegate="savePause()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                     width: 96px; border: 1px solid #777777;">
@@ -334,7 +345,7 @@
               <textbox label="Tanggal Lanjutkan" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="ResumeDate" error.bind="error.ResumeDate">
+              <au-datepicker value.bind="ResumeDate" error.bind="error.error.ResumeDate">
               </au-datepicker>
             </div>
           </div>
@@ -344,13 +355,13 @@
               <textbox label="Waktu Lanjutkan" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="ResumeTime" error.bind="error.ResumeTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="ResumeTime" error.bind="error.error.ResumeTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="ResumeShift.Name" error.bind="error.ResumeShift"
+              <au-textbox placeholder="Shift" value.bind="ResumeShift.Name" error.bind="error.error.ResumeShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -361,7 +372,7 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator" error.bind="error.ResumeOperator"
+              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator" error.bind="error.error.ResumeOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
@@ -369,7 +380,7 @@
             </div>
             <div class="col-md-4">
               <au-textbox placeholder="Grup Sizing" value.bind="ResumeOperator.Group"
-                error.bind="error.ResumeSizingGroup" read-only.bind="true"></au-textbox>
+                error.bind="error.error.ResumeSizingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -498,7 +509,7 @@
         </div>
       </div>
 
-      <div class="row" id="doffMenu" show.bind="showHideDoffMenu">
+      <div class="row" id="finishMenu" show.bind="showHideFinishMenu">
         <div class="col-md-12"
           style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
 
@@ -507,7 +518,7 @@
               <textbox label="Tanggal Selesai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="DoffDate" error.bind="error.DoffDate">
+              <au-datepicker value.bind="FinishDate" error.bind="error.FinishDate">
               </au-datepicker>
             </div>
           </div>
@@ -517,13 +528,13 @@
               <textbox label="Waktu Selesai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="DoffTime" error.bind="error.DoffTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="FinishTime" error.bind="error.FinishTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-2" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="DoffShift.Name" error.bind="error.DoffShift"
+              <au-textbox placeholder="Shift" value.bind="FinishShift.Name" error.bind="error.FinishShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -534,14 +545,14 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="DoffOperator" error.bind="error.DoffOperator"
+              <au-autocomplete placeholder="Operator" value.bind="FinishOperator" error.bind="error.FinishOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="DoffOperator.Group" error.bind="error.DoffOperator"
+              <au-textbox placeholder="Grup Sizing" value.bind="FinishOperator.Group" error.bind="error.FinishOperator"
                 read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -551,8 +562,8 @@
               <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed"
-                error.bind="error.DoffMachineSpeed" read-only.bind="readOnly">
+              <au-numeric placeholder="Kecepatan Mesin" value.bind="FinishMachineSpeed"
+                error.bind="error.FinishMachineSpeed" read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -562,14 +573,14 @@
               <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Visco" value.bind="DoffVisco" error.bind="error.DoffVisco"
+              <au-textbox placeholder="Visco" value.bind="FinishVisco" error.bind="error.FinishVisco"
                 read-only.bind="readOnly"></au-textbox>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="TexSQ" value.bind="DoffTexSQ" error.bind="error.DoffTexSQ"
+              <au-textbox placeholder="TexSQ" value.bind="FinishTexSQ" error.bind="error.FinishTexSQ"
                 read-only.bind="readOnly">
               </au-textbox>
             </div>
@@ -577,7 +588,7 @@
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveDoff()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+              <button class="btn btn-default" click.delegate="saveDFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                       width: 96px; border: 1px solid #777777;">
                 Simpan
               </button>
@@ -602,8 +613,9 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Histories" errors.bind="error.Histories" columns.bind="dailyOperationHistoriesColumns"
-          read-only.bind="true" item-template="modules/weaving/daily-operation-warping/templates/history-items">
+        <au-collection items.bind="Histories" errors.bind="error.Histories"
+          columns.bind="dailyOperationHistoriesColumns" read-only.bind="true"
+          item-template="modules/weaving/daily-operation-warping/templates/history-items">
         </au-collection>
       </div>
     </div>

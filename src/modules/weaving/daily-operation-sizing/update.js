@@ -11,7 +11,6 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 

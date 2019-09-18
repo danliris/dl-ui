@@ -10,15 +10,17 @@ import {
 import {
   Service
 } from "./service";
-import {
-  Dialog
-} from '../../../components/dialog/dialog';
 import moment from "moment";
 var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
+  @bindable StartTime;
+  @bindable PauseTime;
+  @bindable ResumeTime;
+  @bindable ProduceBeamsTime;
+  @bindable FinishTime;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -26,21 +28,24 @@ export class Update {
     this.bindingEngine = bindingEngine;
     this.data = {};
     this.error = {};
+    this.error.error = {};
 
     this.showHideBrokenThreadsMenu = false;
     this.showHideLooseThreadsMenu = false;
   }
 
-  bind(context) {
-    this.context = context;
-    this.data = this.context.data;
-    this.error = this.context.error;
-  }
+  // bind(context) {
+  //   this.context = context;
+  //   this.data = this.context.data;
+  //   this.error = this.context.error;
+  // }
 
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
+
+  brokenThreadsItems = ["", "Benang Tipis"];
 
   async activate(params) {
     var Id = params.Id;
@@ -63,28 +68,52 @@ export class Update {
   }
 
   dailyOperationBeamProductsColumns = [{
-      header: "Tanggal",
-      value: "DateOperation"
+      value: "WarpingBeamNumber",
+      header: "No. Beam Warping"
     },
     {
-      header: "Waktu",
-      value: "TimeOperation"
+      value: "LatestDateBeamProduct",
+      header: "Tanggal"
     },
     {
-      header: "Shift",
-      value: "ShiftName"
+      value: "BrokenThreadsCause",
+      header: "Benang Tipis Putus"
     },
     {
-      header: "Operator",
-      value: "BeamOperatorName"
+      value: "ConeDeficient",
+      header: "Cone Panjang Kurang"
     },
     {
-      header: "Group",
-      value: "BeamOperatorGroup"
+      value: "LooseThreadsAmount",
+      header: "Benang Lolos"
     },
     {
-      header: "Status",
-      value: "OperationStatus"
+      value: "RightLooseCreel",
+      header: "Creel Lolos (Kanan)"
+    },
+    {
+      value: "LeftLooseCreel",
+      header: "Creel Lolos (Kiri)"
+    },
+    {
+      value: "WarpingBeamLength",
+      header: "Panjang Beam"
+    },
+    {
+      value: "Tention",
+      header: "Tention"
+    },
+    {
+      value: "MachineSpeed",
+      header: "Kecepatan Mesin"
+    },
+    {
+      value: "PressRoll",
+      header: "PressRoll"
+    },
+    {
+      value: "BeamStatus",
+      header: "Status Beam"
     }
   ];
 
@@ -131,9 +160,11 @@ export class Update {
 
     if (targetValue) {
       console.log("Broken Threads Checked");
+      console.log(this.BrokenThreads);
       this.showHideBrokenThreadsMenu = true;
     } else {
       console.log("Broken Threads Unchecked");
+      console.log(this.BrokenThreads);
       this.showHideBrokenThreadsMenu = false;
     }
   }
@@ -143,9 +174,11 @@ export class Update {
 
     if (targetValue) {
       console.log("Loose Threads Checked");
+      console.log(this.LooseThreads);
       this.showHideLooseThreadsMenu = true;
     } else {
       console.log("Loose Threads Unchecked");
+      console.log(this.LooseThreads);
       this.showHideLooseThreadsMenu = false;
     }
   }
@@ -163,7 +196,7 @@ export class Update {
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = false;
+      this.showHideFinishMenu = false;
     }
   }
 
@@ -180,7 +213,7 @@ export class Update {
       this.showHidePauseMenu = true;
       this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = false;
+      this.showHideFinishMenu = false;
     }
   }
 
@@ -196,7 +229,7 @@ export class Update {
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = true;
       this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = false;
+      this.showHideFinishMenu = false;
     }
   }
 
@@ -218,135 +251,277 @@ export class Update {
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = true;
-      this.showHideDoffMenu = false;
+      this.showHideFinishMenu = false;
     }
   }
 
   finish() {
     this.MachineSpeed = 0;
-    this.DoffTexSQ = undefined;
-    this.DoffVisco = undefined;
-    this.DoffDate = undefined;
-    this.DoffTime = null;
-    this.DoffShift = undefined;
-    this.DoffOperator = undefined;
-    if (this.showHideDoffMenu === true) {
-      this.showHideDoffMenu = false;
+    this.FinishTexSQ = undefined;
+    this.FinishVisco = undefined;
+    this.FinishDate = undefined;
+    this.FinishTime = null;
+    this.FinishShift = undefined;
+    this.FinishOperator = undefined;
+    if (this.showHideFinishMenu === true) {
+      this.showHideFinishMenu = false;
     } else {
       this.showHideStartMenu = false;
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = true;
+      this.showHideFinishMenu = true;
     }
   }
 
-  back() {
-    this.router.navigateToRoute("list");
-    // this.list();
+  StartTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.StartShift = "";
+        this.StartShift = {};
+        this.StartShift = result;
+      })
+      .catch(e => {
+        this.StartShift = {};
+        this.error.StartShift = " Shift tidak ditemukan ";
+      });
   }
 
-  // start() {
-  //   $("#Mulai").modal('hide');
-  //   this.error = {};
+  saveStart() {
+    var IdContainer = this.data.Id;
+    if (this.StartDate) {
+      var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
+    }
+    if (this.StartTime) {
+      var HistoryTimeContainer = this.StartTime;
+    }
+    if (this.StartShift) {
+      var ShiftContainer = this.StartShift.Id;
+    }
+    if (this.StartOperator) {
+      var OperatorContainer = this.StartOperator.Id;
+    }
+    if (this.StartWarpingBeamDocuments) {
+      var WarpingBeamIdContainer = this.StartWarpingBeamDocuments.Id;
+      var WarpingBeamNumberContainer = this.StartWarpingBeamDocuments.Number;
+    }
 
-  //   this.service
-  //     .updateForStartProcess(this.data)
-  //     .then(result => {
-  //       this.data.LoomHistory = [];
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.StartDate = HistoryDateContainer;
+    this.data.StartTime = HistoryTimeContainer;
+    this.data.StartShift = ShiftContainer;
+    this.data.StartOperator = OperatorContainer;
+    this.data.WarpingBeamId = WarpingBeamIdContainer;
+    this.data.WarpingBeamNumber = WarpingBeamNumberContainer;
 
-  //       if (result.length > 0) {
+    debugger
 
-  //       }
+    this.service
+      .updateStartProcess(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error.error = e;
+      });
+  }
 
-  //       this.data.LoomHistory = result;
-  //     }).catch(e => {
-  //       var errorStatus = e.Status;
-  //       this.dialog.errorPrompt(errorStatus);
-  //     });
-  // }
+  PauseTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.PauseShift = "";
+        this.PauseShift = {};
+        this.PauseShift = result;
+      })
+      .catch(e => {
+        this.PauseShift = {};
+        this.error.PauseShift = " Shift tidak ditemukan ";
+      });
+  }
 
-  // stop() {
-  //   $("#Berhenti").modal('hide');
-  //   this.error = {};
+  savePause() {
+    // console.log(this.BrokenThreadsCause);
+    // console.log(this.ConeDeficient);
+    // console.log(this.LooseThreadsAmount);
+    // console.log(this.RightLooseCreel);
+    // console.log(this.LeftLooseCreel);
+    // if (this.ConeDeficient == null) {
+    //   console.log("null");
+    // }
+    // if (this.ConeDeficient == undefined) {
+    //   console.log("undefined");
+    // }
+    // if (this.ConeDeficient == "") {
+    //   console.log("kosong");
+    // }
+    var BrokenThreadsCauseContainer;
+    var ConeDeficientContainer;
+    var LooseThreadsAmountContainer;
+    var RightLooseCreelContainer;
+    var LeftLooseCreelContainer;
 
-  //   this.service
-  //     .updateForStopProcess(this.data)
-  //     .then(result => {
+    var BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+    if (this.BrokenThreads == true || this.LooseThreads == true) {
+      if (BeamProducts.length > 0) {
+        var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+        // if (LastBeamProduct.BrokenThreadsCause) {
+          if (this.BrokenThreads == true) {
+            if (this.BrokenThreadsCause === "Benang Tipis") {
+              BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
+            } else {
+              this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
+            }
+          } else {
+            BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause;
+          }
+        // }
+        // if (LastBeamProduct.ConeDeficient) {
+          if (this.ConeDeficient) {
+            ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
+          } else {
+            ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+          }
+        // }
+        // if (LastBeamProduct.LooseThreadsAmount) {
+          if (this.LooseThreads == true) {
+            if (!this.LooseThreadsAmount == 0) {
+              LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
+            } else {
+              this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+            }
+          } else {
+            LooseThreadsAmountContainer = LastBeamProduct.LooseThreadsAmount;
+          }
+        // }
+        // if (LastBeamProduct.RightLooseCreel) {
+          if (this.RightLooseCreel) {
+            RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
+          } else {
+            RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+          }
+        // }
+        // if (LastBeamProduct.LeftLooseCreel) {
+          if (this.LeftLooseCreel) {
+            LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
+          } else {
+            LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+          }
+        // }
+      }
+    } else {
+      this.error.BrokenThreads = "Penyebab Putus Benang Harus Diisi";
+      this.error.LooseThreads = "Jumlah Benang Lolos Tidak Boleh 0";
 
-  //       this.data.LoomHistory = [];
+    }
 
-  //       if (result.length > 0) {
-  //         result = this.remappingModels(result);
-  //       }
+    // switch (this.CauseOfStopping) {
+    //   case "Putus Beam":
+    //     LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
+    //     break;
+    //   case "Mesin Bermasalah":
+    //     LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
+    //     break;
+    //   default:
+    //     this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+    // }
 
-  //       this.data.LoomHistory = result;
-  //     }).catch(e => {
-  //       var errorStatus = e.Status;
-  //       this.dialog.errorPrompt(errorStatus);
-  //     });
-  // }
+    var IdContainer = this.data.Id;
+    if (this.PauseDate) {
+      var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
+    }
+    if (this.PauseTime) {
+      var HistoryTimeContainer = this.PauseTime;
+    }
+    if (this.PauseShift) {
+      var ShiftContainer = this.PauseShift.Id;
+    }
+    if (this.PauseOperator) {
+      var OperatorContainer = this.PauseOperator.Id;
+    }
+    if (this.Information) {
+      var InformationContainer = this.Information;
+    }
 
-  // resume() {
-  //   $("#Melanjutkan").modal('hide');
-  //   this.error = {};
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.PauseDate = HistoryDateContainer;
+    this.data.PauseTime = HistoryTimeContainer;
+    this.data.PauseShift = ShiftContainer;
+    this.data.PauseOperator = OperatorContainer;
+    this.data.Information = InformationContainer;
+    this.data.BrokenThreadsCause = BrokenThreadsCauseContainer;
+    this.data.ConeDeficient = ConeDeficientContainer;
+    this.data.LooseThreadsAmount = LooseThreadsAmountContainer;
+    this.data.RightLooseCreel = RightLooseCreelContainer;
+    this.data.LeftLooseCreel = LeftLooseCreelContainer;
 
-  //   this.service
-  //     .updateForResumeProcess(this.data)
-  //     .then(result => {
+    // this.data.SizingDetails = {};
+    // this.data.SizingDetails.PauseDate = HistoryDateContainer;
+    // this.data.SizingDetails.PauseTime = HistoryTimeContainer;
+    // this.data.SizingDetails.Information = InformationContainer;
+    // this.data.SizingDetails.ShiftId = ShiftContainer;
+    // this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    // this.data.SizingDetails.Causes = {};
+    // this.data.SizingDetails.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
+    // this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
 
-  //       this.data.LoomHistory = [];
+    this.service
+      .updatePauseProcess(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error.error = e;
+      });
+  }
 
-  //       if (result.length > 0) {
-  //         result = this.remappingModels(result);
-  //       }
+  ResumeTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.ResumeShift = "";
+        this.ResumeShift = {};
+        this.ResumeShift = result;
+      })
+      .catch(e => {
+        this.ResumeShift = {};
+        this.error.ResumeShift = " Shift tidak ditemukan ";
+      });
+  }
 
-  //       this.data.LoomHistory = result;
-  //     }).catch(e => {
-  //       var errorStatus = e.Status;
-  //       this.dialog.errorPrompt(errorStatus);
-  //     });
-  // }
+  saveResume() {
+    var IdContainer = this.data.Id;
+    if (this.ResumeDate) {
+      var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
+    }
+    if (this.ResumeTime) {
+      var HistoryTimeContainer = this.ResumeTime;
+    }
+    if (this.ResumeShift) {
+      var ShiftContainer = this.ResumeShift.Id;
+    }
+    if (this.ResumeOperator) {
+      var OperatorContainer = this.ResumeOperator.Id;
+    }
 
-  // finish() {
-  //   $("#Selesai").modal('hide');
-  //   this.error = {};
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.ResumeDate = HistoryDateContainer;
+    this.data.ResumeTime = HistoryTimeContainer;
+    this.data.ResumeShift = ShiftContainer;
+    this.data.ResumeOperator = OperatorContainer;
 
-  //   this.service
-  //     .updateForFinishProcess(this.data)
-  //     .then(result => {
+    this.service
+      .updateResumeProcess(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error.error = e;
+      });
+  }
 
-  //       this.data.LoomHistory = [];
-
-  //       if (result.length > 0) {
-  //         result = this.remappingModels(result);
-  //       }
-
-  //       this.data.LoomHistory = result;
-  //     }).catch(e => {
-  //       var errorStatus = e.Status;
-  //       this.dialog.errorPrompt(errorStatus);
-  //     });
-  // }
-
-  // updateShift() {
-  //   $("#UbahShift").modal('hide');
-  //   this.error = {};
-
-  //   this.service
-  //     .updateForShiftProcess(this.data)
-  //     .then(result => {
-
-  //       this.data.LoomHistory = [];
-
-  //       if (result.length > 0) {
-  //         result = this.remappingModels(result);
-  //       }
-
-  //       this.data.LoomHistory = result;
-  //     }).catch(e => {
-  //       var errorStatus = e.Status;
-  //       this.dialog.errorPrompt(errorStatus);
-  //     });
-  // }
+  cancelCallback(event) {
+    this.router.navigateToRoute('list');
+  }
 }
