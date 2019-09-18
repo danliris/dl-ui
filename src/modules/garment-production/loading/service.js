@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'loadings';
+const serviceUriSewingDO = 'sewing-dos';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -24,6 +25,7 @@ class Service extends RestService {
 
     update(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
+        console.log(data, endpoint)
         return super.put(endpoint, data);
     }
 
@@ -32,7 +34,11 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-}
+    getSewingDObyId(id) {
+        var endpoint = `${serviceUriSewingDO}/${id}`;
+        return super.get(endpoint);
+    }
 
+}
 
 export { Service }

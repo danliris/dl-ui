@@ -71,7 +71,7 @@
             label="Tanggal Loading"
             value.bind="data.LoadingDate"
             error.bind="error.LoadingDate"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
 
@@ -83,7 +83,18 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/loading/templates/item"
             header-template="modules/garment-production/loading/templates/item-header"
-            if.bind="selectedSewingDO">
+            if.bind="selectedSewingDO && !readOnly">
+        </au-collection>
+
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="itemsInfoView.columns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/garment-production/loading/templates/item-view"
+            header-template="modules/garment-production/loading/templates/item-view-header"
+            if.bind="selectedSewingDO && readOnly">
         </au-collection>
 
     </au-input-form>

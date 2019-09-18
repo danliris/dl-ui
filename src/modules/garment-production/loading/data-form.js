@@ -51,7 +51,7 @@ export class DataForm {
         }
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -60,6 +60,9 @@ export class DataForm {
             isEdit: this.isEdit,
             checkedAll: true
         }
+        // if(this.data.SewingDOId){
+        //     this.selectedSewingDO= await this.service.getSewingDObyId(this.data.SewingDOId);
+        // }
 
         if (this.data && this.data.Items) {
             this.data.Items.forEach(
@@ -83,8 +86,11 @@ export class DataForm {
     }
 
     async selectedSewingDOChanged(newValue, oldValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.Items = [];
         if(newValue) {
-            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -100,10 +106,11 @@ export class DataForm {
                 a.DesignColor=item.DesignColor;
                 a.Color=item.Color;
                 a.Size=item.Size;
-                a.Quantity=item.RemainingQuantity;
-                a.SewingDORemainingQuantity=item.RemainingQuantity;
+                a.Quantity=parseFloat(item.RemainingQuantity.toFixed(2));
+                a.SewingDORemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
                 a.IsSave=true;
                 a.SewingDOItemId=item.Id;
+                a.RemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
                 this.data.Items.push(a);
             }
         }
@@ -121,6 +128,18 @@ export class DataForm {
             "Keterangan",
             "Size",
             "Jumlah",
+            "Satuan",
+            "Warna",
+        ]
+    }
+
+    itemsInfoView = {
+        columns: [
+            "Kode Barang",
+            "Keterangan",
+            "Size",
+            "Jumlah",
+            "Sisa",
             "Satuan",
             "Warna",
         ]

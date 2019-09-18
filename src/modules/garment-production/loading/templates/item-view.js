@@ -8,6 +8,7 @@ export class Item {
     this.error = this.context.error;		
     this.options = this.context.options;    
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
+    
   }
 
   @computedFrom("data.Id")
@@ -17,9 +18,5 @@ export class Item {
 
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
-  }
-
-  qtyChanged(e) {
-    this.data.RemainingQuantity=e.srcElement.value;
   }
 }
