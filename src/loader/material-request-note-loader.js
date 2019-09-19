@@ -9,12 +9,12 @@ module.exports = function (keyword, filter) {
     var endpoint = config.getEndpoint("inventory-azure");
 
     var localFilter = filter ? filter.localFilter : null;
-    
+
     if (filter && filter.localFilter) {
         delete filter.localFilter;
     }
 
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
 
             if (localFilter) {

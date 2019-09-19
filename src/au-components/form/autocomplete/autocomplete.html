@@ -20,6 +20,7 @@
           <compose if.bind="template" view="${template}.html" view-model="${template}" model.bind="item"></compose>
         </a>
         <a class="list-group-item disabled" if.bind="_noSuggestions">No Result...</a>
+        <a class="list-group-item disabled" if.bind="_lessThanFourCharacters">Masukkan 4 karakter atau lebih...</a>
       </div>
     </div>
     <p class="form-control-static" if.bind="readOnly">${value | suggestionText: text}</p>
