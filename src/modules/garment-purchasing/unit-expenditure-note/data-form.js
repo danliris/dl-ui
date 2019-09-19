@@ -29,6 +29,7 @@ export class DataForm {
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
+        
     }
 
      bind(context) {
@@ -40,6 +41,16 @@ export class DataForm {
         this.data.ExpenditureTo = "PROSES";
         this.isExternal=false;
         this.options.isExternal=false;
+        
+        if(this.data.ExpenditureType === "TRANSFER"){
+            this.data.ExpenditureTo = "GUDANG LAIN";
+        }else if(this.data.ExpenditureType === "EXTERNAL"){
+            this.data.ExpenditureTo = "PEMBELIAN";
+        }else if(this.data.ExpenditureType === "SAMPLE"){
+            this.data.ExpenditureTo = "SAMPLE";
+        }else if(this.data.ExpenditureType === "PROSES"){
+            this.data.ExpenditureTo = "PROSES";
+        }
 
         if(this.data.ExpenditureType === "EXTERNAL"){
             this.isExternal = true;

@@ -8,7 +8,7 @@
         </div>
 
         <au-textbox
-            label="No. Bon Unit"
+            label="No. Bon Terima Unit"
             value.bind="data.URNNo"
             read-only.bind="true"
             if.bind="readOnly || isEdit"
@@ -16,7 +16,7 @@
         </au-textbox>
 
         <au-datepicker
-            label="Tgl. Bon Unit"
+            label="Tgl. Bon Terima Unit"
             value.bind="data.ReceiptDate"
             read-only.bind="true"
             if.bind="(readOnly || isEdit)"
@@ -27,11 +27,20 @@
             label="Jenis Bon Terima Unit" 
             value.bind="data.URNType" 
             error.bind="error.URNType" 
-            read-only.bind="true"
+            read-only.bind="readOnly || isEdit"
             items.bind="typeOptions"
             change.delegate="URNTypeChanged($event)"
             options.bind="auInputOptions">
         </au-dropdown>
+
+        <au-textbox 
+            label="No Bon Pengeluaran Unit" 
+            value.bind="data.UENNo" 
+            if.bind="isDiffStorage"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-textbox>
+    
 
         <au-autocomplete 
             value.bind="deliveryReturn"
@@ -41,6 +50,7 @@
             error.bind="error.DeliveryReturn"
             options.bind="auInputOptions"
             placeholder="cari no bukti pengantar"
+            query.bind="filterDR"
             options.bind="auInputOptions"
             if.bind="isProcess"
             text="DRNo">
@@ -135,7 +145,7 @@
             error.bind="error.Supplier"
             placeholder="cari supplier"
             options.bind="auInputOptions"
-            show.bind="!isProcess">
+            show.bind="!isProcess && !isDiffStorage">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -146,7 +156,7 @@
             error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
-            show.bind="data.Supplier && data.Unit && !isProcess"
+            show.bind="data.Supplier && data.Unit && !isProcess && !isDiffStorage"
             text="doNo"
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">
@@ -174,6 +184,22 @@
             if.bind="!isProcess"
             options.bind="auInputOptions">
         </au-autocomplete>
+
+        <au-textbox 
+            label="Unit yang Mengirim" 
+            value.bind="data.UnitSender" 
+            if.bind="isDiffStorage"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Gudang yang Mengirim" 
+            value.bind="data.StorageSender" 
+            if.bind="isDiffStorage"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-textbox>
 
         <au-multiline 
             label="Keterangan"

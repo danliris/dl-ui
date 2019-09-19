@@ -8,29 +8,14 @@ class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/by-user`;
+        var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
-
-    // create(data) {
-    //     var endpoint = `${serviceUri}`;
-    //     return super.post(endpoint, data);
-    // }
 
     read(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
-
-    // update(data) {
-    //     var endpoint = `${serviceUri}/${data.Id}`;
-    //     return super.put(endpoint, data);
-    // }
-
-    // delete(data) {
-    //     var endpoint = `${serviceUri}/${data.Id}`;
-    //     return super.delete(endpoint, data);
-    // }
 
     approve(data) {
         var endpoint = `${serviceUri}/approve/${data.Id}`;
@@ -42,10 +27,10 @@ class Service extends RestService {
         return super.put(endpoint, data);
     }
 
-    // getPdf(id) {
-    //     var endpoint = `${serviceUri}/${id}`;
-    //     return super.getPdf(endpoint);
-    // }
+    patch(id, data) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.patch(endpoint, data);
+    }
 }
 
 const serviceMasterGarmentProductUri = 'master/garmentProducts';

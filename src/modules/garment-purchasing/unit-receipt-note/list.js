@@ -6,9 +6,9 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "URNNo", title: "No. Bon Unit" },
+        { field: "URNNo", title: "No. Bon Terima Unit" },
         {
-            field: "ReceiptDate", title: "Tanggal Bon Unit",
+            field: "ReceiptDate", title: "Tanggal Bon Terima Unit",
             formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
@@ -16,7 +16,8 @@ export class List {
         { field: "URNType", title: "Tipe Bon Terima Unit" },
         { field: "SupplierName", title: "Supplier" },
         { field: "DONo", title: "No. Surat Jalan" },
-        { field: "DRNo", title: "No. Bukti Pengantar" }
+        { field: "DRNo", title: "No. Bukti Pengantar" },
+        { field: "UENNo", title: "No. Bon Pengeluaran" }
     ];
 
     context = ["Rincian", "Cetak PDF"];

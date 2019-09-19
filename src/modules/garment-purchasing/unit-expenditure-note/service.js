@@ -7,6 +7,8 @@ import moment from 'moment';
 
 const serviceUri = 'garment-unit-expenditure-notes';
 const unitDeliveryOrder = 'garment-unit-receipt-notes/unit-delivery-order-header';
+const URNServiceUri = 'garment-unit-receipt-notes';
+const unitDOServiceUri= 'garment-unit-delivery-orders';
 
 
 export class Service extends RestService {
@@ -46,7 +48,17 @@ export class Service extends RestService {
     }
 
     searchUnitReceiptNote(info) {
-        var endpoint = `${unitReceiptNoteUri}`;
+        var endpoint = `${URNServiceUri}`;
         return super.list(endpoint, info);
+    }
+
+    getUENById(id) {
+        var endpoint = `${serviceUri}/by-unit-expenditure-note/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDOId(id) {
+        var endpoint = `${unitDOServiceUri}/${id}`;
+        return super.get(endpoint);
     }
 }

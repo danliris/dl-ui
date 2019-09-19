@@ -24,7 +24,10 @@ export class DataForm {
   };
 
   get filterCostCalculationGarment() {
-    return { "SCGarmentId": null }
+    return {
+      "IsPosted": true,
+      "SCGarmentId": null
+    }
   }
 
   constructor(bindingEngine, service, element) {
@@ -187,7 +190,7 @@ export class DataForm {
   }
 
   roView(cc) {
-    return `${cc.RO_Number} ` ;
+    return `${cc.RO_Number}` ;
   }
 
   get accountBankLoader() {

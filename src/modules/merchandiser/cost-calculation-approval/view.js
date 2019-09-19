@@ -44,6 +44,7 @@ export class View {
             { header: "Yarn", value: "Product.yarn" },
             { header: "Width", value: "Product.width" },
             { header: "Deskripsi", value: "Description" },
+            { header: "Detail Barang", value: "ProductRemark" },
             { header: "Kuantitas", value: "Quantity" },
             { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
             { header: "Total (Rp)", value: "Total" }
@@ -80,14 +81,8 @@ export class View {
             case "md":
                 this.type = "MD";
                 break;
-            case "purchasing":
-                this.type = "Purchasing";
-                break;
             case "ie":
                 this.type = "IE";
-                break;
-            case "ppic":
-                this.type = "PPIC";
                 break;
             default: break;
         }
@@ -200,7 +195,7 @@ export class View {
                 { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
             ];
 
-            this.service.patch(this.data.Id, jsonPatch)
+            this.service.replace(this.data.Id, jsonPatch)
                 .then(result => {
                     this.list();
                 })

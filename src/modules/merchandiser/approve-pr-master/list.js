@@ -1,71 +1,159 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { activationStrategy } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
+
+import SectionLoader from "../../../loader/garment-sections-loader";
 
 import moment from 'moment';
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class List {
+    @bindable section;
+
     context = ["Rincian"];
     columns = [
         { field: "SCNo", title: "No Sales Contract" },
         { field: "PRNo", title: "No PR" },
         { field: "PRType", title: "Jenis PR" },
         { field: "RONo", title: "NO Ro" },
-        { field: "Date", title: "Tanggal PR", formatter: function (value, data, index) {
+        {
+            field: "Date", title: "Tanggal PR", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "BuyerCode", title: "Kode Buyer" },
         { field: "BuyerName", title: "Nama Buyer" },
         { field: "Article", title: "Kode Buyer" },
-        { field: "ExpectedDeliveryDate", title: "Tanggal Diminta Datang", formatter: function (value, data, index) {
+        {
+            field: "ExpectedDeliveryDate", title: "Tanggal Diminta Datang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "IsValidate", title: "Status",
-          formatter: function (value,row,index){
-              return value ? "APPROVED" : "NOT APPROVE";
-          }},
     ];
 
-    rowFormatter(data, index) {
-        if (data.IsValidate)
-            return { classes: "success" }
-        else
-            return {classes: "danger"}
+    controlOptions = {
+        label: {
+            length: 1
+        },
+        control: {
+            length: 3
+        }
+    }
+
+    rowFormatter = () => {
+        return {};
     }
 
     loader = (info) => {
         let order = {};
+
         if (info.sort) {
-          order[info.sort] = info.order;
+            order[info.sort] = info.order;
         }
-        let filter = {};
-        filter["IsPosted == true && (PRType == \"MASTER\" || PRType == \"SAMPLE\")"] = true;
+
         let arg = {
-          page: parseInt(info.offset / info.limit, 10) + 1,
-          size: info.limit,
-          keyword: info.search,
-          // select: ["PRNo", "RONo", "ShipmentDate", "Buyer.Name", "Unit.Name", "IsPosted"],
-          order: order,
-          filter: JSON.stringify(filter)
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order,
+            filter: JSON.stringify(this.filter)
         }
         return this.service.search(arg)
-        .then(result => {
-            result.data.forEach(data => {
-            data.BuyerCode = data.Buyer.Code;
-            data.BuyerName = data.Buyer.Name;
+            .then(result => {
+                result.data.forEach(data => {
+                    data.BuyerCode = data.Buyer.Code;
+                    data.BuyerName = data.Buyer.Name;
+                });
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
             });
-            return {
-            total: result.info.total,
-            data: result.data
-            }
-        });
     }
 
-    constructor(router, service) {
+    get sectionLoader() {
+        return SectionLoader;
+    }
+
+    get sectionVisibility() {
+        return this.type=='MD2';
+    }
+
+    constructor(router, service, authService) {
         this.service = service;
         this.router = router;
+        this.authService = authService;
+    }
+
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+    }
+
+    defaultFilter = {
+        IsPosted: true,
+        "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
+    }
+
+    get filter() {
+        let filter = {};
+        switch (this.type) {
+            case "MD1":
+                filter = Object.assign({
+                    IsValidatedMD1: false,
+                    SectionName: this.section.Name
+                }, this.defaultFilter);
+                break;
+            case "MD2":
+                filter = Object.assign({
+                    IsValidatedMD1: true,
+                    IsValidatedMD2: false,
+                    SectionName: this.section.Name
+                }, this.defaultFilter);
+                break;
+            case "PPIC":
+                filter = Object.assign({
+                    IsValidatedMD1: true,
+                    IsValidatedMD2: true,
+                    IsValidated: false,
+                }, this.defaultFilter);
+                break;
+        }
+
+        return filter;
+    }
+
+    activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        this.title = parentInstruction.config.title;
+        this.type = parentInstruction.config.settings.type;
+
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+
+        switch (this.type) {
+            case "MD1":
+                this.section = { Name: username };
+                break;
+            case "MD2":
+                this.section = null;
+                break;
+            case "PPIC":
+                this.section = {};
+                break;
+        }
+    }
+
+    sectionChanged() {
+        if (this.table) {
+            this.table.refresh();
+        }
     }
 
     contextCallback(event) {

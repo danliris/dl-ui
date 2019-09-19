@@ -50,6 +50,32 @@ export class Edit {
             a.Currency=this.data.AccountBank.Currency.Code;
         }
 
+        this.IDR=false;
+        this.sameCurrency=false;
+
+        if(this.data.AccountBank.Currency.Code=="IDR"){
+            this.IDR=true;
+            if(this.data.CurrencyCode=="IDR"){
+                this.sameCurrency=true;
+            }
+        }
+
+        if(!this.IDR || this.sameCurrency){
+            this.collection = {
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            };
+        }
+        else{
+            this.collection = {
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+            };
+        }
+        this.collectionOptions={
+            IDR:this.IDR,
+            rate:this.data.CurrencyRate,
+            SameCurrency:this.sameCurrency
+        };
+
         // let arg = {
         //     page: 1,
         //     size: Number.MAX_SAFE_INTEGER,
@@ -89,14 +115,20 @@ export class Edit {
 
     get grandTotal() {
         let result = 0;
+        let viewResult=0;
         if (this.Items && this.Items.length > 0) {
             for (let detail of this.Items) {
-                if (detail.Select)
+                if (detail.Select){
                     result += detail.payToSupplier;
+                    viewResult+=(detail.payToSupplier*this.data.CurrencyRate);
+                }
             }
         }
         this.data.Amount = result;
-        return result;
+        if(this.IDR)
+            return viewResult
+        else
+            return result;
     }
 
     onCheckAll(event) {

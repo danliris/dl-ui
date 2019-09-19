@@ -16,26 +16,34 @@
             read-only.bind="readOnly" loader.bind="machines" text="MachineNumber"></au-autocomplete>
         </div>
       </div>
-      <div class="row" style="white-space: nowrap;">
+
+      <div class="row" style="white-space: nowrap">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Unit Weaving" value.bind="WeavingUnitDocument"
-            error.bind="error.WeavingUnitDocument" read-only.bind="readOnly" loader.bind="units" text="Name">
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocument"
+            read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
           </au-autocomplete>
         </div>
       </div>
 
-      <div class="row" style="white-space: nowrap">
+      <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
-          <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
-            error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions"
-            text="ConstructionNumber">
-          </au-autocomplete>
+        <div class="col-md-3">
+          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber"
+            error.bind="error.ConstructionNumber" read-only.bind="true">
+          </au-textbox>
+        </div>
+        <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnitDocument"
+            error.bind="error.WeavingUnitDocument" read-only.bind="true">
+          </au-textbox>
         </div>
       </div>
 
@@ -43,15 +51,15 @@
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Kode Resep" read-only="true" style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-textbox placeholder="Kode Resep" value.bind="data.RecipeCode" error.bind="error.RecipeCode"
             read-only.bind="readOnly">
           </au-textbox>
         </div>
-        <div class="col-md-2" style="text-align:left;">
+        <div class="col-md-2 col-md-offset-1" style="text-align:left;">
           <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-numeric placeholder="Ne Real" value.bind="NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
           </au-numeric>
         </div>
@@ -61,14 +69,14 @@
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-autocomplete placeholder="Operator" value.bind="OperatorDocument" error.bind="error.OperatorDocument"
             read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
         </div>
-        <div class="col-md-2" style="text-align:left;">
+        <div class="col-md-2 col-md-offset-1" style="text-align:left;">
           <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-textbox placeholder="Grup Sizing" value.bind="SizingGroup" error.bind="error.SizingGroup"
             read-only.bind="true"></au-textbox>
         </div>
@@ -102,11 +110,18 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Total Helai Benang" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="Total Helai Benang Beam Warping" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Total Helai Benang" value.bind="YarnStrands" error.bind="error.YarnStrands"
+          <au-textbox placeholder="Total Helai Benang Beam Warping" value.bind="YarnStrands" error.bind="error.YarnStrands"
             read-only.bind="true"></au-textbox>
+        </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Total Berat Kosong Beam Warping" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="Total Berat Kosong Beam Warping" value.bind="EmptyWeight"
+            error.bind="error.EmptyWeight" read-only.bind="true"></au-textbox>
         </div>
       </div>
 

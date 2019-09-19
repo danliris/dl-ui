@@ -71,11 +71,10 @@
 
         <au-numeric
             label="FC"
-            value.bind="data.FC"
+            value.bind="dataFC"
             error.bind="error.FC"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
-            change.delegate="changeFC($event)"
             if.bind="!(readOnly || isEdit)">
         </au-numeric>
 

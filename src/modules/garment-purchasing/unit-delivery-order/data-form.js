@@ -336,7 +336,8 @@ export class DataForm {
             this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
             this.newProduct.DesignColor = selectedROHeader.DesignColor;
-            this.newProduct.DefaultDOQuantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+            this.newProduct.DefaultDOQuantity = parseFloat(((selectedROHeader.ReceiptCorrection*selectedROHeader.CorrectionConversion) - selectedROHeader.OrderQuantity).toFixed(2));
+            //(selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
             this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
             this.newProduct.IsSave = this.newProduct.Quantity > 0;
             this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);

@@ -23,13 +23,20 @@ export class Update {
   @bindable DoffTime;
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
-  @bindable ProduceBeamsNetto;
+  @bindable ProduceBeamsBruto;
+  // @bindable CounterStartReadOnly;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
     this.service = service;
     this.bindingEngine = bindingEngine;
     this.data = {};
+
+    this.isStartDisabled = false;
+    this.isPauseDisabled = false;
+    this.isResumeDisabled = false;
+    this.isProduceBeamDisabled = false;
+    this.isDoffDisabled = false;
   }
 
   formOptions = {
@@ -120,6 +127,67 @@ export class Update {
       this.BeamsWarping = this.data.WarpingBeamsDocument;
       this.ProduceBeams = this.data.SizingBeamDocuments;
       this.Log = this.data.SizingDetails;
+
+      if (this.ProduceBeams == []) {
+        this.StartSizingBeamCounter = 0;
+      } else {
+        var lastSizingDetail = this.Log[0];
+        if (lastSizingDetail.MachineStatusHistory == "ENTRY") {
+          this.StartSizingBeamCounter = 0;
+        } else {
+          var lastSizingBeamProduce = this.ProduceBeams[0];
+          this.StartSizingBeamCounter = lastSizingBeamProduce.FinishCounter;
+        }
+      }
+
+      var lastSizingDetail = this.Log[0];
+      var lastMachineStatusHistory = lastSizingDetail.MachineStatusHistory;
+      switch (lastMachineStatusHistory) {
+        case "ENTRY":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isDoffDisabled = true;
+          break;
+        case "START":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = false;
+          this.isProduceBeamDisabled = false;
+          this.isDoffDisabled = true;
+          break;
+        case "STOP":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = false;
+          this.isProduceBeamDisabled = true;
+          this.isDoffDisabled = true;
+          break;
+        case "CONTINUE":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = false;
+          this.isDoffDisabled = true;
+          break;
+        case "COMPLETED":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isDoffDisabled = false;
+          break;
+        case "FINISH":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isDoffDisabled = true;
+          break;
+        default:
+          this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+      }
     }
   }
 
@@ -138,6 +206,11 @@ export class Update {
   }
 
   start() {
+    this.StartDate = undefined;
+    this.StartTime = null;
+    this.StartShift = undefined;
+    this.StartOperator = undefined;
+    this.StartSizingBeamDocuments = undefined;
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
@@ -150,6 +223,11 @@ export class Update {
   }
 
   pause() {
+    this.PauseDate = undefined;
+    this.PauseTime = null;
+    this.PauseShift = undefined;
+    this.PauseOperator = undefined;
+    this.Information = undefined;
     if (this.showHidePauseMenu === true) {
       this.showHidePauseMenu = false;
     } else {
@@ -162,6 +240,10 @@ export class Update {
   }
 
   resume() {
+    this.ResumeDate = undefined;
+    this.ResumeTime = null;
+    this.ResumeShift = undefined;
+    this.ResumeOperator = undefined;
     if (this.showHideResumeMenu === true) {
       this.showHideResumeMenu = false;
     } else {
@@ -174,6 +256,16 @@ export class Update {
   }
 
   produceBeams() {
+    this.ProduceBeamsFinishCounter = null;
+    this.ProduceBeamsPISMeter = null;
+    this.ProduceBeamsSPU = null;
+    this.ProduceBeamsBruto = null;
+    this.ProduceBeamsNetto = null;
+    this.ProduceBeamsNettoTheoritical = null;
+    this.ProduceBeamsDate = undefined;
+    this.ProduceBeamsTime = null;
+    this.ProduceBeamsShift = undefined;
+    this.ProduceBeamsOperator = undefined;
     if (this.showHideProduceBeamsMenu === true) {
       this.showHideProduceBeamsMenu = false;
     } else {
@@ -186,6 +278,13 @@ export class Update {
   }
 
   finish() {
+    this.MachineSpeed = 0;
+    this.DoffTexSQ = undefined;
+    this.DoffVisco = undefined;
+    this.DoffDate = undefined;
+    this.DoffTime = null;
+    this.DoffShift = undefined;
+    this.DoffOperator = undefined;
     if (this.showHideDoffMenu === true) {
       this.showHideDoffMenu = false;
     } else {
@@ -196,12 +295,6 @@ export class Update {
       this.showHideDoffMenu = true;
     }
   }
-
-  // get produceBeamsConstructions() {
-  //   return event => {
-  //     this.ProduceBeams.push({});
-  //   };
-  // }
 
   StartTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
@@ -218,12 +311,24 @@ export class Update {
 
   saveStart() {
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
-    var HistoryTimeContainer = this.StartTime;
-    var ShiftContainer = this.StartShift.Id;
-    var OperatorContainer = this.StartOperator.Id;
-    var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
-    var SizingBeamCounterContainer = this.StartSizingBeamCounter;
+    if (this.StartDate) {
+      var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
+    }
+    if (this.StartTime) {
+      var HistoryTimeContainer = this.StartTime;
+    }
+    if (this.StartShift) {
+      var ShiftContainer = this.StartShift.Id;
+    }
+    if (this.StartOperator) {
+      var OperatorContainer = this.StartOperator.Id;
+    }
+    if (this.StartSizingBeamDocuments) {
+      var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
+    }
+    if (this.StartSizingBeamCounter) {
+      var SizingBeamCounterContainer = this.StartSizingBeamCounter;
+    }
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -261,9 +366,11 @@ export class Update {
   }
 
   savePause() {
-    var LastDetails = this.data.SizingDetails[this.data.SizingDetails.length - 1];
-    var LastCausesBrokenBeam = parseInt(LastDetails.BrokenBeamCauses);
-    var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
+    if (this.data.SizingDetails.length > 0) {
+      var LastDetails = this.data.SizingDetails[0];
+      var LastCausesBrokenBeam = parseInt(LastDetails.BrokenBeamCauses);
+      var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
+    }
 
     switch (this.CauseOfStopping) {
       case "Putus Beam":
@@ -277,11 +384,21 @@ export class Update {
     }
 
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
-    var HistoryTimeContainer = this.PauseTime;
-    var ShiftContainer = this.PauseShift.Id;
-    var OperatorContainer = this.PauseOperator.Id;
-    var InformationContainer = this.Information;
+    if (this.PauseDate) {
+      var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
+    }
+    if (this.PauseTime) {
+      var HistoryTimeContainer = this.PauseTime;
+    }
+    if (this.PauseShift) {
+      var ShiftContainer = this.PauseShift.Id;
+    }
+    if (this.PauseOperator) {
+      var OperatorContainer = this.PauseOperator.Id;
+    }
+    if (this.Information) {
+      var InformationContainer = this.Information;
+    }
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -320,10 +437,18 @@ export class Update {
 
   saveResume() {
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
-    var HistoryTimeContainer = this.ResumeTime;
-    var ShiftContainer = this.ResumeShift.Id;
-    var OperatorContainer = this.ResumeOperator.Id;
+    if (this.ResumeDate) {
+      var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
+    }
+    if (this.ResumeTime) {
+      var HistoryTimeContainer = this.ResumeTime;
+    }
+    if (this.ResumeShift) {
+      var ShiftContainer = this.ResumeShift.Id;
+    }
+    if (this.ResumeOperator) {
+      var OperatorContainer = this.ResumeOperator.Id;
+    }
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -363,41 +488,29 @@ export class Update {
       this.service.calculatePISMeter(startCounter, newValue)
         .then(resultPISMeter => {
           this.error.ProduceBeamsPISMeter = "";
-
-          this.data.ProduceBeamsPISMeter = resultPISMeter;
           this.ProduceBeamsPISMeter = resultPISMeter;
-          this.ProduceBeamsNetto = 0;
-          this.ProduceBeamsNettoTheoritical = 0;
-          this.ProduceBeamsSPU = 0;
-          return this.service.calculatePISPieces(startCounter, newValue);
-        }).then(resultPISPieces => {
-          this.error.ProduceBeamsPISPieces = "";
-
-          this.data.ProduceBeamsPISPieces = resultPISPieces;
-          this.ProduceBeamsPISPieces = resultPISPieces;
         })
         .catch(e => {
           this.error.ProduceBeamsPISMeter = " Tidak dapat menghitung PIS(m) ";
-          this.error.ProduceBeamsPISPieces = " Tidak dapat menghitung PIS(pieces) ";
-
           this.data.ProduceBeamsPISMeter = 0;
-          this.data.ProduceBeamsPISPieces = 0;
-
           this.ProduceBeamsPISMeter = 0;
-          this.ProduceBeamsPISPieces = 0;
         });
     }
   }
 
-  ProduceBeamsNettoChanged(newValue) {
+  ProduceBeamsBrutoChanged(newValue) {
     if (newValue) {
       let dataContainer = this.data;
-      let machineType = dataContainer.MachineType;
-      let pisMeter;
+      let emptyWeight;
+      let machineType;
       let yarnStrands;
       let neReal;
-      if (dataContainer.ProduceBeamsPISMeter) {
-        pisMeter = dataContainer.ProduceBeamsPISMeter;
+      let bruto = newValue;
+      if (dataContainer.EmptyWeight) {
+        emptyWeight = dataContainer.EmptyWeight;
+      }
+      if (dataContainer.MachineType) {
+        machineType = dataContainer.MachineType;
       }
       if (dataContainer.YarnStrands) {
         yarnStrands = dataContainer.YarnStrands;
@@ -406,8 +519,12 @@ export class Update {
         neReal = dataContainer.NeReal;
       }
       if (machineType == "Kawamoto") {
-        this.service.calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal)
-          .then(resultKawamoto => {
+        this.service.calculateNetto(emptyWeight, bruto)
+          .then(resultNetto => {
+            this.error.ProduceBeamsNetto = "";
+            this.ProduceBeamsNetto = resultNetto;
+            return this.service.calculateTheoriticalKawamoto(this.ProduceBeamsPISMeter, yarnStrands, neReal);
+          }).then(resultKawamoto => {
             this.error.ProduceBeamsNettoTheoritical = "";
             this.ProduceBeamsNettoTheoritical = resultKawamoto;
             return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
@@ -422,8 +539,12 @@ export class Update {
             this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
           });
       } else if (machineType == "Sucker Muller") {
-        this.service.calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal)
-          .then(resultSuckerMuller => {
+        this.service.calculateNetto(emptyWeight, bruto)
+          .then(resultNetto => {
+            this.error.ProduceBeamsNetto = "";
+            this.ProduceBeamsNetto = resultNetto;
+            return this.service.calculateTheoriticalSuckerMuller(this.ProduceBeamsPISMeter, yarnStrands, neReal);
+          }).then(resultSuckerMuller => {
             this.error.ProduceBeamsNettoTheoritical = "";
             this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
             return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
@@ -443,16 +564,36 @@ export class Update {
 
   saveProduceBeam() {
     var IdContainer = this.data.Id;
-    var FinishCounterContainer = this.ProduceBeamsFinishCounter;
-    var PISMeterContainer = this.ProduceBeamsPISMeter;
-    var SPUContainer = this.ProduceBeamsSPU;
-    var BrutoWeightContainer = this.ProduceBeamsBruto;
-    var NettoWeightContainer = this.ProduceBeamsNetto;
-    var NettoTheoriticalWeightContainer = this.ProduceBeamsNettoTheoritical;
-    var HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
-    var HistoryTimeContainer = this.ProduceBeamsTime;
-    var ShiftContainer = this.ProduceBeamsShift.Id;
-    var OperatorContainer = this.ProduceBeamsOperator.Id;
+    if (this.ProduceBeamsFinishCounter) {
+      var FinishCounterContainer = this.ProduceBeamsFinishCounter;
+    }
+    if (this.ProduceBeamsPISMeter) {
+      var PISMeterContainer = this.ProduceBeamsPISMeter;
+    }
+    if (this.ProduceBeamsSPU) {
+      var SPUContainer = this.ProduceBeamsSPU;
+    }
+    if (this.ProduceBeamsBruto) {
+      var BrutoWeightContainer = this.ProduceBeamsBruto;
+    }
+    if (this.ProduceBeamsNetto) {
+      var NettoWeightContainer = this.ProduceBeamsNetto;
+    }
+    if (this.ProduceBeamsNettoTheoritical) {
+      var NettoTheoriticalWeightContainer = this.ProduceBeamsNettoTheoritical;
+    }
+    if (this.ProduceBeamsDate) {
+      var HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
+    }
+    if (this.ProduceBeamsTime) {
+      var HistoryTimeContainer = this.ProduceBeamsTime;
+    }
+    if (this.ProduceBeamsShift) {
+      var ShiftContainer = this.ProduceBeamsShift.Id;
+    }
+    if (this.ProduceBeamsOperator) {
+      var OperatorContainer = this.ProduceBeamsOperator.Id;
+    }
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -496,13 +637,27 @@ export class Update {
 
   saveDoff() {
     var IdContainer = this.data.Id;
-    var MachineSpeedContainer = this.DoffMachineSpeed;
-    var TexSQContainer = this.DoffTexSQ;
-    var ViscoContainer = this.DoffVisco;
-    var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
-    var HistoryTimeContainer = this.DoffTime;
-    var ShiftContainer = this.DoffShift.Id;
-    var OperatorContainer = this.DoffOperator.Id;
+    if (this.DoffMachineSpeed) {
+      var MachineSpeedContainer = this.DoffMachineSpeed;
+    }
+    if (this.DoffTexSQ) {
+      var TexSQContainer = this.DoffTexSQ;
+    }
+    if (this.DoffVisco) {
+      var ViscoContainer = this.DoffVisco;
+    }
+    if (this.DoffDate) {
+      var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
+    }
+    if (this.DoffTime) {
+      var HistoryTimeContainer = this.DoffTime;
+    }
+    if (this.DoffShift) {
+      var ShiftContainer = this.DoffShift.Id;
+    }
+    if (this.DoffOperator) {
+      var OperatorContainer = this.DoffOperator.Id;
+    }
 
     this.data = {};
     this.data.Id = IdContainer;

@@ -13,6 +13,7 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedPreparing;
     @bindable itemOptions = {};
+    @bindable dataFC;
 
     constructor(service, coreService) {
         this.service = service;
@@ -118,7 +119,7 @@ export class DataForm {
                                 item.PreparingUom = item.Uom;
                                 item.CuttingInUom = uom;
                                 item.PreparingRemainingQuantity = item.RemainingQuantity;
-                                item.BasicPrice = item.BasicPrice * this.data.FC;
+                                item.PreparingBasicPrice = item.BasicPrice;
                                 return item;
                             });
                         return data;
@@ -133,7 +134,8 @@ export class DataForm {
         }
     }
 
-    changeFC(e) {
-        this.itemOptions.FC = e.target.value;
+    dataFCChanged(newValue) {
+        this.data.FC = newValue;
+        this.itemOptions.FC = newValue;
     }
 }

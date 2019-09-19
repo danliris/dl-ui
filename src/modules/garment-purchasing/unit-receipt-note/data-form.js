@@ -19,7 +19,7 @@ export class DataForm {
     @bindable storage;
     @bindable deliveryReturn;
 
-    typeOptions = ['PEMBELIAN ','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES'];
 
     filterDR={
         IsUsed :false
@@ -68,6 +68,7 @@ export class DataForm {
                 { header: "RO Asal" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
+                { header: "Design/Color" },
             ],
             onRemove: function () {
                 this.bind();
@@ -107,13 +108,16 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.URNType="PEMBELIAN";
         if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
-
+        this.isDiffStorage=false;
         if(this.data.URNType=="PROSES"){
             this.isProcess=true;
+        }
+        else if(this.data.URNType=="GUDANG LAIN"){
+            this.isProcess=false;
+            this.isDiffStorage=true;
         }
         else{
             this.isProcess=false;
@@ -158,7 +162,6 @@ export class DataForm {
 
     async deliveryReturnChanged(newValue, oldValue){
         var selectedDR=newValue;
-        console.log(selectedDR)
         if(selectedDR){
             this.data.ReturnDate=selectedDR.ReturnDate;
             this.data.Unit=selectedDR.Unit;
@@ -198,6 +201,7 @@ export class DataForm {
                         DRItem.SmallQuantityE=dritem.Quantity;
                         DRItem.SmallQuantity=DRItem.SmallQuantityE;
                         DRItem.Product= dritem.Product;
+                        DRItem.Product.Remark=dup.ProductRemark;
                         DRItem.Article=same.Article;
                         DRItem.Conversion=parseFloat(same.Conversion);
                         DRItem.EPOItemId=dup.EPOItemId;
@@ -205,7 +209,7 @@ export class DataForm {
                         DRItem.PRNo=same.PRNo;
                         DRItem.DODetailId= dup.DODetailId;
                         DRItem.POItemId=dup.POItemId;
-                        DRItem.POSerialNumber=dup.POItemId;
+                        DRItem.POSerialNumber=dup.POSerialNumber;
                         DRItem.PRItemId=dup.PRItemId;
                         DRItem.POId=same.POId;
                         DRItem.Uom= same.Uom;
@@ -221,7 +225,20 @@ export class DataForm {
             this.data.DRItems=DRItems;
         }
         else{
-            
+            this.isProcess=true;
+            this.deliveryOrder=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.ReturnType="";
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.supplier=null;
         }
     }
 
@@ -230,10 +247,37 @@ export class DataForm {
         if(this.data.URNType=="PROSES"){
             this.isProcess=true;
             this.deliveryOrder=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.ReturnType="";
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.supplier=null;
         }
         else{
             this.isProcess=false;
             this.deliveryReturn=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.deliveryOrder=null;
+            this.data.ReturnType="";
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
         }
     }
 
