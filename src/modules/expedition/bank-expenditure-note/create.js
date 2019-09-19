@@ -95,20 +95,22 @@ export class Create {
                     });
             }
         } else {
-            if (this.selectedBank && this.selectedBank.Currency.Code) {
-                let arg = {
-                    page: 1,
-                    size: Number.MAX_SAFE_INTEGER,
-                    filter: JSON.stringify({ "Position": 7, "Currency": this.selectedBank.Currency.Code, "IsPaid": false }) //CASHIER DIVISION
-                };
+            // if (this.selectedBank && this.selectedBank.Currency.Code) {
+            //     let arg = {
+            //         page: 1,
+            //         size: Number.MAX_SAFE_INTEGER,
+            //         filter: JSON.stringify({ "Position": 7, "Currency": this.selectedBank.Currency.Code, "IsPaid": false }) //CASHIER DIVISION
+            //     };
 
-                this.UPOResults = await this.service.searchAllByPosition(arg)
-                    .then((result) => {
-                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+            //     this.UPOResults = await this.service.searchAllByPosition(arg)
+            //         .then((result) => {
+            //             let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
 
-                        return resultData;
-                    });
-            }
+            //             return resultData;
+            //         });
+            // }
+
+            this.UPOResults = [];
         }
     }
 
@@ -134,12 +136,13 @@ export class Create {
                 filter: this.selectedSupplier && this.selectedSupplier.code ? JSON.stringify({ "Position": 7, "SupplierCode": this.selectedSupplier.code, "Currency": newVal.Currency.Code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": newVal.Currency.Code, "IsPaid": false }) //CASHIER DIVISION
             };
 
-            this.UPOResults = await this.service.searchAllByPosition(arg)
-                .then((result) => {
-                    let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+            if (this.selectedSupplier)
+                this.UPOResults = await this.service.searchAllByPosition(arg)
+                    .then((result) => {
+                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
 
-                    return resultData;
-                });
+                        return resultData;
+                    });
 
             // this.isExistBankAndSupplier = true;
             this.currency = newVal.Currency.Code;
