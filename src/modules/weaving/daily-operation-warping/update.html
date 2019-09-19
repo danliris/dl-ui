@@ -146,8 +146,7 @@
             </div>
             <div class="col-md-3">
               <au-autocomplete placeholder="No. Beam Warping" value.bind="StartWarpingBeamDocuments"
-                error.bind="error.error.WarpingBeamId" read-only.bind="readOnly" loader.bind="beams"
-                text="Number">
+                error.bind="error.error.WarpingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
               </au-autocomplete>
             </div>
             <!-- <div class="col-md-2 col-md-offset-1" style="text-align:left;">
@@ -236,8 +235,8 @@
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.error.PauseSizingGroup"
-                read-only.bind="true"></au-textbox>
+              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group"
+                error.bind="error.error.PauseSizingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -287,22 +286,22 @@
                 <div class="col-md-3" style="text-align:left;">
                   <textbox label="Jumlah Benang Lolos" read-only="true" style="display: inline-block"></textbox>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6 col-md-offset-1">
                   <au-numeric placeholder="Jumlah Benang Lolos" value.bind="LooseThreadsAmount"
                     error.bind="error.error.LooseThreadsAmount" read-only.bind="readOnly">
                   </au-numeric>
                 </div>
               </div>
               <div class="row" style="white-space: nowrap;">
-                <div class="col-md-3" style="text-align:left;">
+                <div class="col-md-2" style="text-align:left;">
                   <textbox label="No. Creel Lolos (Kanan)" read-only="true" style="display: inline-block"></textbox>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-md-offset-2">
                   <au-numeric placeholder="No. Creel Lolos (Kanan)" value.bind="RightLooseCreel"
                     error.bind="error.RightLooseCreel" read-only.bind="readOnly">
                   </au-numeric>
                 </div>
-                <div class="col-md-3" style="text-align:left;">
+                <div class="col-md-2" style="text-align:left;">
                   <textbox label="No. Creel Lolos (Kiri)" read-only="true" style="display: inline-block"></textbox>
                 </div>
                 <div class="col-md-2">
@@ -372,8 +371,9 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator" error.bind="error.error.ResumeOperator"
-                read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator"
+                error.bind="error.error.ResumeOperator" read-only.bind="readOnly" loader.bind="operators"
+                text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
@@ -447,60 +447,47 @@
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap;">
+          <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Counter Akhir" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Panjang Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Counter Akhir" value.bind="ProduceBeamsFinishCounter"
-                error.bind="error.ProduceBeamsFinishCounter" read-only.bind="readOnly"></au-numeric>
+              <au-numeric placeholder="Panjang Beam" value.bind="WarpingBeamLength"
+                error.bind="error.WarpingBeamLength" read-only.bind="readOnly">
+              </au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Tention" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-3" style="text-align: left;">
-              <au-numeric placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.ProduceBeamsPISMeter"
-                read-only.bind="true"></au-numeric>
+            <div class="col-md-3">
+              <au-numeric placeholder="Tention" value.bind="Tention"
+                error.bind="error.Tention" read-only.bind="readOnly">
+              </au-numeric>
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap;">
+          <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Bruto" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Bruto" value.bind="ProduceBeamsBruto" error.bind="error.ProduceBeamsBruto"
-                read-only.bind="readOnly"></au-numeric>
+              <au-numeric placeholder="Kecepatan Mesin" value.bind="MachineSpeed"
+                error.bind="error.MachineSpeed" read-only.bind="readOnly">
+              </au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Netto" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Press Roll" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.ProduceBeamsNetto"
-                read-only.bind="true"></au-numeric>
-            </div>
-          </div>
-
-          <div class="row" style="white-space: nowrap;">
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Netto Teoritis" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3">
-              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsNettoTheoritical"
-                error.bind="error.ProduceBeamsNettoTheoritical" read-only.bind="true"></au-numeric>
-            </div>
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3">
-              <au-numeric placeholder="SPU" value.bind="ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
-                read-only.bind="true"></au-numeric>
+              <au-numeric placeholder="Press Roll" value.bind="PressRoll"
+                error.bind="error.PressRoll" read-only.bind="readOnly">
+              </au-numeric>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveProduceBeam()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+              <button class="btn btn-default" click.delegate="saveProduceBeams()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                         width: 96px; border: 1px solid #777777;">
                 Simpan
               </button>
@@ -530,7 +517,7 @@
             <div class="col-md-2">
               <au-timepicker value.bind="FinishTime" error.bind="error.FinishTime" read-only.bind="readOnly">
             </div>
-            <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
@@ -548,7 +535,7 @@
               <au-autocomplete placeholder="Operator" value.bind="FinishOperator" error.bind="error.FinishOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+            <div class="col-md-2" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
@@ -557,38 +544,26 @@
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap">
+          <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Akumulasi Panjang Beam Warping" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Kecepatan Mesin" value.bind="FinishMachineSpeed"
-                error.bind="error.FinishMachineSpeed" read-only.bind="readOnly">
-              </au-numeric>
+              <au-textbox value.bind="data.TotalWarpingBeamLength" error.bind="error.TotalWarpingBeamLength"
+                read-only.bind="true"></au-textbox>
             </div>
-          </div>
-
-          <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Jumlah Beam Warping Dihasilkan" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Visco" value.bind="FinishVisco" error.bind="error.FinishVisco"
-                read-only.bind="readOnly"></au-textbox>
-            </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-              <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3">
-              <au-textbox placeholder="TexSQ" value.bind="FinishTexSQ" error.bind="error.FinishTexSQ"
-                read-only.bind="readOnly">
-              </au-textbox>
+              <au-textbox value.bind="data.CountWarpingBeamProducts" error.bind="error.CountWarpingBeamProducts"
+                read-only.bind="true"></au-textbox>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveDFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+              <button class="btn btn-default" click.delegate="saveFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                       width: 96px; border: 1px solid #777777;">
                 Simpan
               </button>

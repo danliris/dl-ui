@@ -315,8 +315,6 @@ export class Update {
     this.data.WarpingBeamId = WarpingBeamIdContainer;
     this.data.WarpingBeamNumber = WarpingBeamNumberContainer;
 
-    debugger
-
     this.service
       .updateStartProcess(this.data.Id, this.data)
       .then(result => {
@@ -373,7 +371,7 @@ export class Update {
               this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
             }
           } else {
-            BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause;
+            BrokenThreadsCauseContainer = 0;
           }
         // }
         // if (LastBeamProduct.ConeDeficient) {
@@ -391,7 +389,7 @@ export class Update {
               this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
             }
           } else {
-            LooseThreadsAmountContainer = LastBeamProduct.LooseThreadsAmount;
+            LooseThreadsAmountContainer = 0;
           }
         // }
         // if (LastBeamProduct.RightLooseCreel) {
@@ -518,6 +516,121 @@ export class Update {
       })
       .catch(e => {
         this.error.error = e;
+      });
+  }
+
+  ProduceBeamsTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.ProduceBeamsShift = "";
+        this.ProduceBeamsShift = {};
+        this.ProduceBeamsShift = result;
+      })
+      .catch(e => {
+        this.ProduceBeamsShift = {};
+        this.error.ProduceBeamsShift = " Shift tidak ditemukan ";
+      });
+  }
+
+  saveProduceBeams() {
+    var HistoryDateContainer;
+    var HistoryTimeContainer;
+    var ShiftContainer;
+    var OperatorContainer;
+    var WarpingBeamLengthContainer;
+    var TentionContainer;
+    var MachineSpeedContainer;
+    var PressRollContainer;
+
+    var IdContainer = this.data.Id;
+    if (this.ProduceBeamsDate) {
+      HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
+    }
+    if (this.ProduceBeamsTime) {
+      HistoryTimeContainer = this.ProduceBeamsTime;
+    }
+    if (this.ProduceBeamsShift) {
+      ShiftContainer = this.ProduceBeamsShift.Id;
+    }
+    if (this.ProduceBeamsOperator) {
+      OperatorContainer = this.ProduceBeamsOperator.Id;
+    }
+    if (this.WarpingBeamLength) {
+      WarpingBeamLengthContainer = this.WarpingBeamLength;
+    }
+    if (this.Tention) {
+      TentionContainer = this.Tention;
+    }
+    if (this.MachineSpeed) {
+      MachineSpeedContainer = this.MachineSpeed;
+    }
+    if (this.PressRoll) {
+      PressRollContainer = this.PressRoll;
+    }
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.ProduceBeamsDate = HistoryDateContainer;
+    this.data.ProduceBeamsTime = HistoryTimeContainer;
+    this.data.ProduceBeamsShift = ShiftContainer;
+    this.data.ProduceBeamsOperator = OperatorContainer;
+    this.data.WarpingBeamLength = WarpingBeamLengthContainer;
+    this.data.Tention = TentionContainer;
+    this.data.MachineSpeed = MachineSpeedContainer;
+    this.data.PressRoll = PressRollContainer;
+
+    this.service
+      .updateProduceBeamsProcess(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
+
+  FinishTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.FinishShift = "";
+        this.FinishShift = {};
+        this.FinishShift = result;
+      })
+      .catch(e => {
+        this.FinishShift = {};
+        this.error.FinishShift = " Shift tidak ditemukan ";
+      });
+  }
+
+  saveFinish() {
+    var IdContainer = this.data.Id;
+    if (this.FinishDate) {
+      var HistoryDateContainer = moment(this.FinishDate).utcOffset("+07:00").format();
+    }
+    if (this.FinishTime) {
+      var HistoryTimeContainer = this.FinishTime;
+    }
+    if (this.FinishShift) {
+      var ShiftContainer = this.FinishShift.Id;
+    }
+    if (this.FinishOperator) {
+      var OperatorContainer = this.FinishOperator.Id;
+    }
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.FinishDate = HistoryDateContainer;
+    this.data.FinishTime = HistoryTimeContainer;
+    this.data.FinishShift = ShiftContainer;
+    this.data.FinishOperator = OperatorContainer;
+
+    this.service
+      .updateFinishProcess(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
       });
   }
 

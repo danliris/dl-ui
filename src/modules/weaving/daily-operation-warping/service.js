@@ -72,15 +72,15 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  updateForFinishProcess(data) {
-    const finishProcess = 'finish-process';
-    var endpoint = `${serviceUri}/${finishProcess}`;
+  updateProduceBeamsProcess(Id, data) {
+    const process = 'produce-beams-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateForfinishDailyOperation(data) {
-    const finishDailyOperation = 'finish-process-operation';
-    var endpoint = `${serviceUri}/${finishDailyOperation}`;
+  updateFinishProcess(Id, data) {
+    const process = 'finish-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 

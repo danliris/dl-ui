@@ -18,16 +18,16 @@ var Operator = require("../../../loader/weaving-operator-loader");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable OrderDocument;
-  @bindable FabricConstructionDocument;
-  @bindable WeavingUnitDocument;
-  @bindable MaterialType;
+  @bindable PreparationOrder;
+  @bindable PreparationFabricConstruction;
+  @bindable PreparationWeavingUnit;
+  @bindable PreparationMaterialType;
   @bindable AmountOfCones;
   @bindable ColourOfCone;
-  @bindable OperatorDocument;
-  @bindable WarpingPreparationDate;
-  @bindable WarpingPreparationTime;
-  @bindable Shift;
+  @bindable PreparationOperator;
+  @bindable PreparationDate;
+  @bindable PreparationTime;
+  @bindable PreparationShift;
 
   constructor(service, router, bindingEngine) {
     this.service = service;
@@ -60,23 +60,23 @@ export class DataForm {
   }
 
   // Bindable Method
-  OrderDocumentChanged(newValue) {
+  PreparationOrderChanged(newValue) {
     if (newValue) {
-      this.OrderDocument = newValue;
-      this.data.OrderDocumentId = newValue.Id;
+      this.PreparationOrder = newValue;
+      this.data.PreparationOrder = newValue.Id;
     }
 
     if (newValue.ConstructionId) {
       this.service.getConstructionNumberById(newValue.ConstructionId)
         .then(resultConstructionNumber => {
           if (resultConstructionNumber) {
-            this.error.FabricConstructionDocument = "";
-            this.FabricConstructionDocument = resultConstructionNumber;
+            this.error.PreparationFabricConstruction = "";
+            this.PreparationFabricConstruction = resultConstructionNumber;
           }
         })
         .catch(e => {
-          this.FabricConstructionDocument = "";
-          this.error.FabricConstructionDocument = " Nomor Konstruksi Tidak Ditemukan ";
+          this.PreparationFabricConstruction = "";
+          this.error.PreparationFabricConstruction = " Nomor Konstruksi Tidak Ditemukan ";
         });
     }
 
@@ -84,19 +84,19 @@ export class DataForm {
       this.service.getUnitById(newValue.WeavingUnit)
         .then(resultWeavingUnit => {
           if (resultWeavingUnit) {
-            this.error.WeavingUnitDocument = "";
-            this.WeavingUnitDocument = resultWeavingUnit.Name;
+            this.error.PreparationWeavingUnit = "";
+            this.PreparationWeavingUnit = resultWeavingUnit.Name;
           }
         })
         .catch(e => {
-          this.WeavingUnitDocument = "";
-          this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+          this.PreparationWeavingUnit = "";
+          this.error.PreparationWeavingUnit = " Unit Weaving Tidak Ditemukan ";
         });
     }
   }
 
-  MaterialTypeChanged(newValue) {
-    this.data.MaterialTypeId = newValue.Id;
+  PreparationMaterialTypeChanged(newValue) {
+    this.data.PreparationMaterialType = newValue.Id;
   }
 
   AmountOfConesChanged(newValue) {
@@ -107,27 +107,27 @@ export class DataForm {
     this.data.ColourOfCone = newValue;
   }
 
-  OperatorDocumentChanged(newValue) {
-    this.data.OperatorDocumentId = newValue.Id;
+  PreparationOperatorChanged(newValue) {
+    this.data.PreparationOperator = newValue.Id;
   }
 
-  WarpingPreparationDateChanged(newValue) {
-    this.data.WarpingPreparationDate = newValue;
+  PreparationDateChanged(newValue) {
+    this.data.PreparationDate = newValue;
   }
 
-  WarpingPreparationTimeChanged(newValue) {
-    this.data.WarpingPreparationTime = newValue;
+  PreparationTimeChanged(newValue) {
+    this.data.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
-        this.error.Shift = "";
-        this.Shift = {};
-        this.Shift = result;
-        this.data.ShiftDocumentId = this.Shift.Id;
+        this.error.PreparationShift = "";
+        this.PreparationShift = {};
+        this.PreparationShift = result;
+        this.data.PreparationShift = this.PreparationShift.Id;
       })
       .catch(e => {
-        this.Shift = {};
-        this.data.ShiftDocumentId = this.Shift.Id;
-        this.error.Shift = " Shift tidak ditemukan ";
+        this.PreparationShift = {};
+        this.data.PreparationShift = this.PreparationShift.Id;
+        this.error.PreparationShift = " Shift tidak ditemukan ";
       });
   }
 }

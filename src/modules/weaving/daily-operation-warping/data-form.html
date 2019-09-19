@@ -7,7 +7,7 @@
           <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocument"
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="PreparationOrder" error.bind="error.PreparationOrder"
             read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
           </au-autocomplete>
         </div>
@@ -18,15 +18,15 @@
           <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Konstruksi" value.bind="FabricConstructionDocument"
-            error.bind="error.FabricConstructionDocument" read-only.bind="true">
+          <au-textbox placeholder="No. Konstruksi" value.bind="PreparationFabricConstruction"
+            error.bind="error.PreparationFabricConstruction" read-only.bind="true">
           </au-textbox>
         </div>
         <div class="col-md-2 col-md-offset-1" style="text-align:left;">
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnitDocument" error.bind="error.WeavingUnitDocument"
+          <au-textbox placeholder="Unit Weaving" value.bind="PreparationWeavingUnit" error.bind="error.PreparationWeavingUnit"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -37,7 +37,7 @@
           <textbox label="Jenis Material" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Jenis Material" value.bind="MaterialType" error.bind="error.MaterialType"
+          <au-autocomplete placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
             read-only.bind="readOnly" loader.bind="materialTypes" text="Name">
           </au-autocomplete>
         </div>
@@ -70,14 +70,14 @@
           <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Operator" value.bind="OperatorDocument" error.bind="error.OperatorDocument"
+          <au-autocomplete placeholder="Operator" value.bind="PreparationOperator" error.bind="error.PreparationOperator"
             read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
         </div>
         <div class="col-md-2 col-md-offset-1" style="text-align:left;">
           <textbox label="Grup Warping" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Grup Warping" value.bind="OperatorDocument.Group" error.bind="error.WarpingGroup"
+          <au-textbox placeholder="Grup Warping" value.bind="PreparationOperator.Group" error.bind="error.WarpingGroup"
             read-only.bind="true"></au-textbox>
         </div>
       </div>
@@ -87,7 +87,7 @@
           <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-datepicker value.bind="WarpingPreparationDate" error.bind="error.WarpingPreparationDate">
+          <au-datepicker value.bind="PreparationDate" error.bind="error.PreparationDate">
           </au-datepicker>
         </div>
       </div>
@@ -97,13 +97,13 @@
           <textbox label="Waktu Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-timepicker value.bind="WarpingPreparationTime" error.bind="error.WarpingPreparationTime" read-only.bind="readOnly">
+          <au-timepicker value.bind="PreparationTime" error.bind="error.PreparationTime" read-only.bind="readOnly">
         </div>
         <div class="col-md-2 col-md-offset-2" style="text-align:left;">
           <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift" read-only.bind="true">
+          <au-textbox placeholder="Shift" value.bind="PreparationShift.Name" error.bind="error.PreparationShift" read-only.bind="true">
           </au-textbox>
         </div>
       </div>
