@@ -79,7 +79,7 @@ export class List {
                 this.error.startDate = "Tanggal awal harus diisi";
 
             if (this.info.endDate == 'Invalid Date' || !this.info.endDate)
-                this.error.startDate = "Tanggal akhir harus diisi";
+                this.error.endDate = "Tanggal akhir harus diisi";
 
             return false;
         } else {
@@ -136,12 +136,14 @@ export class List {
                     //     })
                     // }, 10);
 
+                    // console.log(result)
+
                     return {
-                        total: result.info.Count,
+                        // total: result.info.Count,
                         data: result.data
                     };
                 })
-        ) : { total: 0, data: [] };
+        ) : Promise.resolve({ total: 0, data: [] });
     }
 
     search() {
@@ -187,15 +189,13 @@ export class List {
         this.error = {};
         this.isEmpty = true;
         // this.flag = false;
-        this.info.bank = undefined;
-        this.info.bankId = "";
-        this.info.month = this.monthList[this.monthNow];
-        this.info.year = this.yearNow;
+        this.info = {};
         this.currency = "";
         this.initialBalance = "";
         this.closingBalance = "";
         this.data = [];
-        // this.tableList.refresh();
+        this.flag = false;
+        this.tableList.refresh();
     }
 
     get bankLoader() {
