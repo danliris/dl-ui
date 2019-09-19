@@ -14,6 +14,7 @@
             <div class="col-sm-5"></div>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="xls()" class='btn btn-primary'>Cetak</button>
             </div>
         </div>
 
@@ -32,6 +33,7 @@
                         <td>Jumlah Pembagian PO</td>
                         <td>Satuan</td>
                         <td>No Surat Jalan</td>
+                        <td>Supplier</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,9 +51,10 @@
                                 <td align="center">${data.Items[0].DistributionQuantity}</td>
                                 <td align="center">${data.Items[0].UomCCUnit}</td>
                                 <td>${data.Items[0].DONo}</td>
+                                <td>${data.Items[0].SupplierName}</td>
                             </template>
                             <template else>
-                                <td repeat.for="i of 5"></td>
+                                <td repeat.for="i of 6"></td>
                             </template>
                         </tr>
                         <template if.bind="data.Items.length > 1">
@@ -61,6 +64,7 @@
                                 <td align="center">${data.Items[index+1].DistributionQuantity}</td>
                                 <td align="center">${data.Items[index+1].UomCCUnit}</td>
                                 <td>${data.Items[index+1].DONo}</td>
+                                <td>${data.Items[index+1].SupplierName}</td>
                             </tr>
                         </template>
                     </template>

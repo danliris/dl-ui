@@ -48,7 +48,7 @@ export class Detail {
 
         if (this.data.ParentProduct) {
             this.costCalculationFilter["CostCalculationGarment_Materials.Any(ProductId == \"" + this.data.ParentProduct.Id + "\")"] = true;
-            this.costCalculationFilter["IsValidatedROPPIC"] = true;
+            this.costCalculationFilter["IsApprovedPPIC"] = true;
             this.costCalculationFilter["PreSCId"] = this.data.SCId;
         }
 

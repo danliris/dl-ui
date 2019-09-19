@@ -14,7 +14,7 @@ export class Monitoring {
     }
 
     costCalculationFilter = {
-        "IsValidatedROPPIC": true
+        "IsApprovedPPIC": true
     }
 
     get costCalculationGarmentLoader() {
@@ -27,6 +27,16 @@ export class Monitoring {
         if (this.selectedROGarment) {
             this.service.search({CostCalculationId: this.selectedROGarment.Id})
                 .then(result => this.tableData = result.data);
+        } else {
+            alert("Nomor RO harus diisi!");
+        }
+    }
+
+    xls() {
+        if (this.selectedROGarment) {
+            this.service.xls({CostCalculationId: this.selectedROGarment.Id});
+        } else {
+            alert("Nomor RO harus diisi!");
         }
     }
 }
