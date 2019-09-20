@@ -130,7 +130,7 @@ export class List {
             for (var l = 0; l < pr.items.length; l++) {
               dataTemp.backgroundColorWH[l] = parseFloat(dataTemp.WHBooking[l]) <= 45.5 ? "#FFFF00" : 
                 parseFloat(dataTemp.WHBooking[l]) <= 50.5 && parseFloat(dataTemp.WHBooking[l]) > 45.5 ? "#52df46" : 
-                parseFloat(dataTemp.WHBooking[l]) <= 56.5 && parseFloat(dataTemp.WHBooking[l]) > 50.5 ? "#f62c2c" :
+                parseFloat(dataTemp.WHBooking[l]) <= 58 && parseFloat(dataTemp.WHBooking[l]) > 50.5 ? "#f62c2c" :
                   "#797978";
             }
             dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
@@ -492,7 +492,7 @@ export class List {
 
               var bgc = conf[y + 1] <= 45.5 ? "#FFFF00" : 
                 conf[y + 1] <= 50.5 && conf[y + 1] > 45.5 ? "#52df46" : 
-                conf[y + 1] <= 56.5 && conf[y + 1] > 50.5 ? "#f62c2c" :
+                conf[y + 1] <= 58 && conf[y + 1] > 50.5 ? "#f62c2c" :
                   "#797978";
               if(y==0){
                 cat[j + "backgroundColorWHC"]=["transparent"];
@@ -817,14 +817,14 @@ export class List {
 
             bgcWH[y + 1] = parseFloat(avgWHBooking[y + 1]) <= 45.5 ? "#FFFF00" : 
                 parseFloat(avgWHBooking[y + 1]) <= 50.5 && parseFloat(avgWHBooking[y + 1]) > 45.5 ? "#52df46" : 
-                parseFloat(avgWHBooking[y + 1]) <= 56.5 && parseFloat(avgWHBooking[y + 1]) > 50.5 ? "#f62c2c" :
+                parseFloat(avgWHBooking[y + 1]) <= 58 && parseFloat(avgWHBooking[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWH[0]="transparent";
 
             bgcWHC[y + 1] = parseFloat(avgWHConfirm[y + 1]) <= 45.5 ? "#FFFF00" : 
                 parseFloat(avgWHConfirm[y + 1]) <= 50.5 && parseFloat(avgWHConfirm[y + 1]) > 45.5 ? "#52df46" : 
-                parseFloat(avgWHConfirm[y + 1]) <= 56.5 && parseFloat(avgWHConfirm[y + 1]) > 50.5 ? "#f62c2c" :
+                parseFloat(avgWHConfirm[y + 1]) <= 58 && parseFloat(avgWHConfirm[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHC[0]="transparent";
@@ -840,14 +840,14 @@ export class List {
 
             bgcWHUnit[y + 1] = parseFloat(avgWHBookingUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
                 parseFloat(avgWHBookingUnit[y + 1]) <= 50.5 && parseFloat(avgWHBookingUnit[y + 1]) > 45.5 ? "#52df46" : 
-                parseFloat(avgWHBookingUnit[y + 1]) <= 56.5 && parseFloat(avgWHBookingUnit[y + 1]) > 50.5 ? "#f62c2c" :
+                parseFloat(avgWHBookingUnit[y + 1]) <= 58 && parseFloat(avgWHBookingUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHUnit[0]="transparent";
 
             bgcWHCUnit[y + 1] = parseFloat(avgWHConfirmUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
                 parseFloat(avgWHConfirmUnit[y + 1]) <= 50.5 && parseFloat(avgWHConfirmUnit[y + 1]) > 45.5 ? "#52df46" : 
-                parseFloat(avgWHConfirmUnit[y + 1]) <= 56.5 && parseFloat(avgWHConfirmUnit[y + 1]) > 50.5 ? "#f62c2c" :
+                parseFloat(avgWHConfirmUnit[y + 1]) <= 58 && parseFloat(avgWHConfirmUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHCUnit[0]="transparent";
@@ -866,8 +866,8 @@ export class List {
           dataGrandUnit.collection.push({ name: "Used EH Booking", quantity: totalUsedEH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Used EH Confirm", quantity: ehConfUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Remaining EH", quantity: totalremEh_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWH, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHC,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWHUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHCUnit,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           
           this.data.push(dataGrandUnit);
 

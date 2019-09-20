@@ -55,6 +55,7 @@ export class DataForm {
             { header: "Total EH", value: "EHTotal" },
             { header: "Used EH", value: "UsedEH" },
             { header: "Remaining EH", value: "RemainingEH" },
+            { header: "WH Confirm", value: "RemainingEH" },
         ];
         if (this.data && this.data.Id && this.data.Unit.Id) {
             for (var item of this.data.Items) {

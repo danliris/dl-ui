@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'garment-master-plan/over-schedule-monitoring';
+const serviceUri = 'weekly-working-schedule-monitoring';
 
 export class Service extends RestService {
 
@@ -15,10 +15,14 @@ export class Service extends RestService {
     search(info) { 
         var endpoint = `${serviceUri}`;
         return super.list(endpoint,info);
+        
     }
     
     generateExcel(info) {
         var endpoint = `${serviceUri}?filter=${info}`;
         return super.getXls(endpoint);
     }
+
+    
 }
+

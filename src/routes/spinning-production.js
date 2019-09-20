@@ -60,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -86,7 +86,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -99,7 +99,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +112,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,7 +125,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +138,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +151,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -164,7 +164,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -177,7 +177,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -190,7 +190,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -203,7 +203,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -216,7 +216,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -229,7 +229,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -255,7 +255,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -268,7 +268,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -281,7 +281,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -294,7 +294,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -307,7 +307,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -320,7 +320,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -333,7 +333,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -346,7 +346,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -359,7 +359,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -372,7 +372,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -385,7 +385,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -398,7 +398,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     // },
@@ -411,7 +411,7 @@ module.exports = [
     //     auth: true,
     //     settings: {
     //         group: "spinning",
-    //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+    //         //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }
     }

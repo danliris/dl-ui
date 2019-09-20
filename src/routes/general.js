@@ -7,7 +7,7 @@ module.exports = [
         title: 'Home',
         auth: true,
         settings: {
-            permission: { "*": 0 }
+            //permission: { "*": 0 }
 
         }
     }
