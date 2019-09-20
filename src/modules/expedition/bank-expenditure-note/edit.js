@@ -42,7 +42,7 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.bankView = this.data.Bank.accountName ? `${this.data.Bank.accountName} - A/C : ${this.data.Bank.accountNumber}` : '';
+        this.bankView = this.data.Bank.AccountName ? `${this.data.Bank.AccountName} - A/C : ${this.data.Bank.AccountNumber}` : '';
 
         this.UPOResults = this.data.Details.map((detail) => {
             detail.Select = true;
@@ -52,7 +52,7 @@ export class Edit {
         let arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
-            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "IsPaid": false }) //CASHIER DIVISION
+            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.Currency.Code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.Currency.Code, "IsPaid": false }) //CASHIER DIVISION
         };
 
         let newData = await this.service.searchAllByPosition(arg)
