@@ -4,7 +4,8 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'garment-master-plan/over-schedule-monitoring';
+
+const serviceUri = 'max-wh-confirms';
 
 export class Service extends RestService {
 
@@ -12,13 +13,23 @@ export class Service extends RestService {
         super(http, aggregator, config, "sales");
     }
 
-    search(info) { 
+    search(info) {
         var endpoint = `${serviceUri}`;
-        return super.list(endpoint,info);
+        return super.list(endpoint, info);
     }
-    
-    generateExcel(info) {
-        var endpoint = `${serviceUri}?filter=${info}`;
-        return super.getXls(endpoint);
+
+    getById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    create(data) {
+        var endpoint = `${serviceUri}`;
+        return super.post(endpoint, data);
+    }
+
+    delete(data) {
+        var endpoint = `${serviceUri}/${data.Id}`;
+        return super.delete(endpoint, data);
     }
 }

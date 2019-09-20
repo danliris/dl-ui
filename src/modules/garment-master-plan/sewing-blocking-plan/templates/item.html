@@ -4,7 +4,8 @@
         <au-checkbox
             value.bind="data.IsConfirm" 
             read-only.bind="options.readOnly" 
-            options.bind="controlOption">
+            options.bind="controlOption"
+            change.delegate="ConfirmChanged($event)">
         </au-checkbox>
     </td>
     <td width="10%">
@@ -122,6 +123,15 @@
         <au-numeric 
             value.bind="data.sisaEH" 
             error.bind="error.sisaEH" 
+            read-only="true"
+            options.bind="controlOption"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="whConfirm" 
+            error.bind="error.whConfirm" 
             read-only="true"
             options.bind="controlOption"
             if.bind="selectedWeek">
