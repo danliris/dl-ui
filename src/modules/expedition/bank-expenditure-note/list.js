@@ -75,7 +75,7 @@ export class List {
                 }
 
                 return {
-                    total: result.total,
+                    total: result.info.total,
                     data: result.data
                 }
             });
