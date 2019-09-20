@@ -36,7 +36,7 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.bankView = this.data.Bank.accountName ? `${this.data.Bank.accountName} - A/C : ${this.data.Bank.accountNumber}` : '';
+        this.bankView = this.data.Bank.AccountName ? `${this.data.Bank.AccountName} - A/C : ${this.data.Bank.AccountNumber}` : '';
     }
 
     cancelCallback(event) {
