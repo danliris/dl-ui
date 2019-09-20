@@ -20,6 +20,7 @@ export class Copy {
         "LastModifiedUtc",
         "LastModifiedBy",
         "LastModifiedAgent",
+        "IsDeleted",
     ];
 
     async activate(params) {
