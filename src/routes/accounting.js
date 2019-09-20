@@ -180,5 +180,18 @@ module.exports = [
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: 'garment-daily-purchase-order/reports',
+        name: 'garment-daily-purchase-order-report',
+        moduleId: './modules/accounting/reports/garment-daily-purchase-report/index',
+        nav: true,
+        title: 'Laporan Buku Harian Pembelian | Garment',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
     }
 ];
