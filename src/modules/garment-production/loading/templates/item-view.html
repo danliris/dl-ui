@@ -30,14 +30,16 @@
             <au-numeric 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"
-                read-only.bind="true">
+                read-only.bind="true"
+                format="0">
             </au-numeric>                    
         </td>
         <td>
             <au-numeric 
                 value.bind="data.RemainingQuantity"
                 error.bind = "error.RemainingQuantity"
-                read-only.bind="true">
+                read-only.bind="true"
+                format="0">
             </au-numeric>                    
         </td>
         <td>

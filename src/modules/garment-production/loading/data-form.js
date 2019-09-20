@@ -106,11 +106,11 @@ export class DataForm {
                 a.DesignColor=item.DesignColor;
                 a.Color=item.Color;
                 a.Size=item.Size;
-                a.Quantity=parseFloat(item.RemainingQuantity.toFixed(2));
-                a.SewingDORemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
+                a.Quantity=item.RemainingQuantity;
+                a.SewingDORemainingQuantity=item.RemainingQuantity;
                 a.IsSave=true;
                 a.SewingDOItemId=item.Id;
-                a.RemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
+                a.RemainingQuantity=item.RemainingQuantity;
                 this.data.Items.push(a);
             }
         }
