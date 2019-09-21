@@ -57,41 +57,7 @@ export class List {
       }
       this.service.search(filter)
         .then(result => {
-          var dataByCategory = {};
-          var subTotalCategory = {};
-          for (var data of result) {
-            //for (var item of data.items) {
-              var Category = data.categoryName;
-              if (!dataByCategory[Category]) dataByCategory[Category] = [];
-              dataByCategory[Category].push({
-                Date: moment(data.receiptDate).format("YYYY-MM-DD"),
-                No: data.urnNo,
-                Product: data.productName,
-                Category: data.categoryName,
-                Unit: data.unitName,
-                PIB: data.PIBNo || "-",
-                Nilai: (data.amount).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                CurrencyRate: data.rate.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                Total: (data.amountIDR).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-              });
-
-              if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-              subTotalCategory[Category] += (data.amountIDR);
-           // }
-          }
-
-          var categories = [];
-          this.total = 0;
-          for (var data in dataByCategory) {
-            categories.push({
-              data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-            });
-            this.total += subTotalCategory[data];
-          }
-          this.total = this.total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          this.categories = categories;
-
+          this.data = result
         });
     }
   }
@@ -121,5 +87,6 @@ export class List {
     this.unit = "";
     this.dateFrom = null;
     this.dateTo = null;
+    this.data = [];
   }
 }

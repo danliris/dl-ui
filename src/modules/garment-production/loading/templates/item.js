@@ -18,4 +18,8 @@ export class Item {
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
   }
+
+  qtyChanged(e) {
+    this.data.RemainingQuantity=e.srcElement.value;
+  }
 }

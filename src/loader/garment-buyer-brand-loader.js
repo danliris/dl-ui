@@ -7,7 +7,7 @@ module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("core");
-    return endpoint.find(resource, { keyword: keyword, filter: filter})
+    return endpoint.find(resource, { keyword: keyword, filter: filter, size: 10 })
         .then(results => {
             return results.data
         });
