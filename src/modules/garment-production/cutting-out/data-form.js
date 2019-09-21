@@ -96,18 +96,19 @@ export class DataForm {
 
     async selectedCuttingInChanged(newValue, oldValue){
         if(this.context.isCreate){
-            if (this.data.Items) {
-                this.data.Items.splice(0);
-            } else {
-                this.data.Items = [];
-            }
             if(newValue) {
+                if(this.data.Items.length>0){
+                    this.data.Items.splice(0);
+                }
                 this.context.error.Items = [];
                 this.data.CuttingOutType = "SEWING";
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
                 let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
-                this.data.Comodity = noResult.data[0].Comodity;
+                if(noResult.data.length>0){
+                    this.data.Comodity = noResult.data[0].Comodity;
+                }
+                
     
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
                     .then(result => {
@@ -126,7 +127,8 @@ export class DataForm {
                 this.context.selectedCuttingInViewModel.editorValue = "";
                 this.data.RONo = null;
                 this.data.Article = null;
-                this.data.Items = [];
+                this.data.Comodity = null;
+                this.data.Items.splice(0);
             }
         }
     }

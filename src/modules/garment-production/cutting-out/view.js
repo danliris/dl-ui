@@ -17,8 +17,15 @@ export class View {
             this.selectedCuttingIn = {
                 RONo: this.data.RONo
             };
-
-        //     if (this.data.Items) {
+            this.dataCutting = await this.service.getSewingDO(id);
+            let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
+            if (this.data.Items) {
+                var i = 0;
+                for(var sewingItem of this.dataCutting.Items){
+                    if(sewingItem.RemainingQuantity < sewingItem.Quantity){
+                        i++;
+                    }
+                }
         //         let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
 
         //         this.data.Items.forEach(
@@ -38,7 +45,10 @@ export class View {
         //             this.editCallback = null;
         //             this.deleteCallback = null;
         //         }
-        //     }
+            }
+            if(i>0){
+                this.deleteCallback = null;
+            }
         }
     }
 

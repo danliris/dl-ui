@@ -24,7 +24,7 @@ export class List {
             },
         },
         
-        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "Items", title: "Kode Barang", sortable: false },
     ]
 
     loader = (info) => {
@@ -40,16 +40,31 @@ export class List {
         }
 
         return this.service.search(arg)
-            .then(result => {
-                result.data.forEach(d => {
-                    d.UnitCode = d.Unit.Code
-                    d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
-                });
-                return {
-                    total: result.info.total,
-                    data: result.data
+        .then(result => {
+            var data = {};
+            data.total = result.info.total;
+            data.data = result.data;
+            data.data.forEach(s => {
+                if(s.Items){
+                s.Items.toString = function () {
+                    var str = "<ul>";
+                    for (var item of s.Items) {
+                        str += `<li>${item.Product.Code}</li>`;
+                    }
+                    str += "</ul>";
+                    return str;
+                        }
+                }
+                else{
+                s.Items = "-";
                 }
             });
+
+            return {
+            total: result.info.total,
+            data: result.data
+            }
+        });
     }
 
     contextClickCallback(event) {

@@ -99,6 +99,8 @@ export class DataForm {
     async UnitChanged(newValue){
         if(!newValue){
             this.context.UnitViewModel.editorValue = "";
+            this.context.StorageViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel.editorValue = "";
             this.Storages = null;
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -112,6 +114,7 @@ export class DataForm {
         } else if(newValue != this.data.Unit && this.context.isCreate){
             this.data.Unit = newValue;
             this.context.StorageViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel.editorValue = "";
             this.filterByUnit = {UnitId: this.data.Unit.Id};
             this.Storages = null;
             this.data.Storage = null;
@@ -211,7 +214,7 @@ export class DataForm {
                     product.Name = item.ProductName;
                     uom.Id = item.UomId;
                     uom.Unit = item.UomUnit;
-                    if(itemUnitDO.ProductCode == item.ProductCode){
+                    if(itemUnitDO.Id == item.UnitDOItemId){
                         var items = {
                             Product : product,
                             DesignColor : itemUnitDO.DesignColor,
@@ -236,12 +239,12 @@ export class DataForm {
                 for(var itemExpenditure of dataExpenditure.data[0].Items){
                     if(dataItem.Product.Code == itemExpenditure.ProductCode){
                         dataItem.QuantityUENItem = dataItem.Quantity + (itemExpenditure.Quantity - itemExpenditure.ReturQuantity);
-                        if(dataPreparing.data.length>0){
-                            for(var itemPreparing of dataPreparing.data[0].Items){
-                                if(itemPreparing.UENItemId == itemExpenditure.Id){
-                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
-                                }
-                            }
+                    }
+                }
+                if(dataPreparing.data.length>0){
+                    for(var itemPreparing of dataPreparing.data[0].Items){
+                        if(itemPreparing.UENItemId == dataItem.UENItemId){
+                            dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
                         }
                     }
                 }
