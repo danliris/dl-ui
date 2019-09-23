@@ -103,27 +103,30 @@ export class DataForm {
             Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                 .then(result => {
                     this.data.Items = result.data
-                        .filter(data => data.Items
-                            .filter(item => {
-                                if (this.data.CuttingType.toUpperCase() == "MAIN FABRIC") {
-                                    return (item.FabricType.toUpperCase() == "MAIN FABRIC");
-                                } else {
-                                    return (item.FabricType.toUpperCase() != "MAIN FABRIC");
-                                }
-                            }).length > 0)
                         .map(data => {
-                            data.PreparingId = data.Id;
-                            data.Details = data.Items.map(item => {
-                                item.PreparingItemId = item.Id;
-                                item.IsSave = true;
-                                item.PreparingUom = item.Uom;
-                                item.CuttingInUom = uom;
-                                item.PreparingRemainingQuantity = item.RemainingQuantity;
-                                item.PreparingBasicPrice = item.BasicPrice;
-                                return item;
+                            return Object.assign(data, {
+                                PreparingId: data.Id,
+                                Details: data.Items
+                                    .filter(item => {
+                                        if (this.data.CuttingType.toUpperCase() == "MAIN FABRIC") {
+                                            return (item.FabricType.toUpperCase() == "MAIN FABRIC");
+                                        } else {
+                                            return (item.FabricType.toUpperCase() != "MAIN FABRIC");
+                                        }
+                                    })
+                                    .map(item => {
+                                        return Object.assign(item, {
+                                            PreparingItemId: item.Id,
+                                            IsSave: true,
+                                            PreparingUom: item.Uom,
+                                            CuttingInUom: uom,
+                                            PreparingRemainingQuantity: item.RemainingQuantity,
+                                            PreparingBasicPrice: item.BasicPrice
+                                        });
+                                    })
                             });
-                        return data;
-                    });
+                        })
+                        .filter(data => data.Details.length > 0);
                 });
         }
         else {
