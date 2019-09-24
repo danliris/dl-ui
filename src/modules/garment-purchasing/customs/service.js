@@ -7,6 +7,7 @@ import { Config } from "aurelia-api";
 const serviceUri = 'garment-beacukai';
 const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
 const serviceUriUnitReceiptNotes = 'garment-delivery-orders/isReceived';
+const serviceUriPOMasterDistributions = 'garment-po-master-distributions';
 
 export class Service extends RestService {
 
@@ -16,7 +17,6 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        console.log(endpoint);
         return super.list(endpoint, info);
     }
 
@@ -26,7 +26,6 @@ export class Service extends RestService {
     }
 
     create(data) {
-        console.log(data);
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
@@ -68,7 +67,11 @@ export class Service extends RestService {
             a += `Id=${i}&`;
         }
         var endpoint = `${serviceUriUnitReceiptNotes}?${a}`;
-        console.log(Id);
         return super.get(endpoint);
+    }
+
+    searchPOMasterDistributions(info) {
+        var endpoint = `${serviceUriPOMasterDistributions}`;
+        return super.list(endpoint, info);
     }
 }
