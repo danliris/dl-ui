@@ -71,21 +71,71 @@
 
         <au-numeric
             label="FC"
-            value.bind="dataFC"
+            value.bind="data.FC"
             error.bind="error.FC"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             if.bind="!(readOnly || isEdit)">
         </au-numeric>
 
-        <au-collection
-            items.bind="data.Items"
-            errors.bind="error.Items"
-            columns.bind="itemsColumns"
-            read-only.bind="readOnly"
-            options.bind="itemOptions"
-            item-template="modules/garment-production/cutting-in/template/item">
-        </au-collection>
+        <table class="table table-hover table-bordered" if.bind="readOnly">
+            <thead>
+                <tr>
+                    <th repeat.for="column of detailsColumnsView"><label>${column.header}</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template repeat.for="i of data.Items.length">
+                    <tr repeat.for="detail of data.Items[i].Details">
+                        <td repeat.for="column of detailsColumnsView">
+                            <au-textbox
+                                value.bind="detail[column.value]"
+                                read-only="true">
+                            </au-textbox>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <table class="table table-hover table-bordered" if.bind="!readOnly">
+            <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked.bind="checkedAll"
+                                change.delegate="changeCheckedAll()"
+                                disabled.bind="readOnly || isEdit" />
+                        </label>
+                    </th>
+                    <template repeat.for="column of detailsColumns">
+                        <th><label>${column}</label></th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <!--No data to display-->
+                <tr if.bind="!data.Items || data.Items.length < 1">
+                    <td colspan="${detailsColumns.length + 1}">
+                        <div class="alert alert-info"> No data.</div>
+                    </td>
+                </tr>
+
+                <!--with-template-->
+                <template repeat.for="i of data.Items.length" if.bind="data.Items && data.Items.length > 0">
+                    <tr
+                        repeat.for="detail of data.Items[i].Details"
+                        as-element="compose"
+                        view="modules/garment-production/cutting-in/template/detail.html"
+                        view-model="modules/garment-production/cutting-in/template/detail"
+                        model.bind="{ isEdit: isEdit, data: detail, error: error.Items[i].Details[$index], items: data.Items, fc: data.FC, context: context }"
+                        containerless>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
 
     </au-input-form>
     <div class="row"></div>

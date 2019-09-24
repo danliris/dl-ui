@@ -12,8 +12,6 @@ export class DataForm {
     @bindable data = {};
     // @bindable error = {};
     @bindable selectedPreparing;
-    @bindable itemOptions = {};
-    @bindable dataFC;
 
     constructor(service, coreService) {
         this.service = service;
@@ -41,7 +39,25 @@ export class DataForm {
         "Non Main Fabric"
     ];
 
-    itemsColumns = [""];
+    detailsColumns = [
+        "Kode Barang",
+        "Keterangan",
+        "Jumlah Preparing",
+        "Jumlah Preparing Out",
+        "Satuan Barang",
+        "Jumlah Potong",
+        "Satuan Potong"
+    ];
+
+    detailsColumnsView = [
+        { value: "ProductCode", header: "Kode Barang" },
+        { value: "DesignColor", header: "Keterangan" },
+        { value: "CuttingInQuantity", header: "Jumlah Potong" },
+        { value: "RemainingQuantity", header: "Sisa" },
+        { value: "CuttingInUomUnit", header: "Satuan" },
+        { value: "BasicPrice", header: "Harga" },
+        { value: "Currency", header: "Mata Uang" },
+    ];
 
     @computedFrom("data.Unit")
     get preparingFilter() {
@@ -62,15 +78,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.itemOptions = {
-            FC: this.data.FC || 0,
-            isEdit: this.isEdit,
-            checkedAll: true
-        }
-
-        if (this.data && this.data.Items) {
-            this.data.Items.forEach(
-                item => item.Details.forEach(
+        if (this.data) {
+            (this.data.Items || []).forEach(
+                item => (item.Details || []).forEach(
                     detail => {
                         detail.IsSave = true;
                     }
@@ -127,6 +137,7 @@ export class DataForm {
                             });
                         })
                         .filter(data => data.Details.length > 0);
+                    this.context.checkedAll = true;
                 });
         }
         else {
@@ -137,8 +148,9 @@ export class DataForm {
         }
     }
 
-    dataFCChanged(newValue) {
-        this.data.FC = newValue;
-        this.itemOptions.FC = newValue;
+    changeCheckedAll() {
+        (this.data.Items || []).forEach(i => {
+            (i.Details || []).forEach(d => d.IsSave = this.context.checkedAll)
+        });
     }
 }
