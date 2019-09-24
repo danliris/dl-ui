@@ -152,19 +152,28 @@ export class Update {
   }
 
   get beams() {
-    return BeamLoader;
+    // return BeamLoader;
+    var orderId = this.data.OrderDocumentId;
+    var beamType = "Warping";
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnitId);
+      })
+      .then(unit => {
+        dataResult.WeavingUnit = unit.Name;
+        return dataResult;
+      });
   }
 
   brokenThreadsClicked(event) {
     let targetValue = event.target.checked;
 
     if (targetValue) {
-      console.log("Broken Threads Checked");
-      console.log(this.BrokenThreads);
       this.showHideBrokenThreadsMenu = true;
     } else {
-      console.log("Broken Threads Unchecked");
-      console.log(this.BrokenThreads);
       this.showHideBrokenThreadsMenu = false;
     }
   }
@@ -173,12 +182,8 @@ export class Update {
     let targetValue = event.target.checked;
 
     if (targetValue) {
-      console.log("Loose Threads Checked");
-      console.log(this.LooseThreads);
       this.showHideLooseThreadsMenu = true;
     } else {
-      console.log("Loose Threads Unchecked");
-      console.log(this.LooseThreads);
       this.showHideLooseThreadsMenu = false;
     }
   }
