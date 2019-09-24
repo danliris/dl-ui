@@ -25,7 +25,7 @@
 
         <au-autocomplete
             value.bind="selectedSewingDO"
-            error.bind="error.SewingDO"
+            error.bind="error.SewingDONo"
             label="No Sewing DO"
             loader.bind="sewingDOLoader"
             text="SewingDONo"
@@ -74,6 +74,10 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
 
         <au-collection
             items.bind="data.Items"

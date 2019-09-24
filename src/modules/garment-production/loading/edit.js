@@ -21,7 +21,6 @@ export class Edit {
                 if(same){
                     a.SewingDORemainingQuantity=same.RemainingQuantity + a.Quantity;
                 }
-                console.log(a)
             }
         }
     }
@@ -35,7 +34,6 @@ export class Edit {
     }
 
     saveCallback(event) {
-        console.log(this.data)
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

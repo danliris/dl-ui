@@ -1,0 +1,96 @@
+<template>
+    <h1 class="page-header">Buku Harian Pembelian Garment</h1>
+    <form class="form-horizontal">
+       <au-autocomplete  value.bind="unitName" label="Unit"  loader.bind="unitLoader"></au-autocomplete>
+                
+        <au-dropdown 
+                label="Jenis Supplier" 
+                value.bind="JenisSpl"
+                items.bind="SupplierType"
+                options.bind="controlOptions" >
+        </au-dropdown>
+       
+        <au-dropdown 
+                label="Supplier" 
+                value.bind="NamaSpl"
+                items.bind="SupplierName"
+                options.bind="controlOptions" >
+        </au-dropdown>
+        
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th class="text-center">Nomor</th>
+                    <th class="text-center">Supplier</th>
+                    <th class="text-center">Nomor Nota</th>
+                    <th class="text-center">No Bon Kecil</th>
+                    <th class="text-center">No Surat Jalan</th>
+                    <th class="text-center">Nota Intern</th>
+                    <th class="text-center">Nama Unit</th>
+                    <th class="text-center">Nama Barang</th>
+                    <th class="text-center">Jumlah</th>
+                    <th class="text-center">Satuan</th>
+                    <th class="text-center">Bahan Embalase [Rp]</th>
+                    <th class="text-center">Bahan Pendukung [Rp]</th>
+                    <th class="text-center">Bahan Baku [Rp]</th>
+                    <th class="text-center">Proses [Rp]</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <template repeat.for="supplier of suppliers">
+                    <tr repeat.for="data of supplier.data">
+                        <td class="text-center"> ${$index + 1}</td>
+                        <td>${data.SplName}</td>
+                        <td>${data.BPBesar}</td>
+                        <td>${data.BPKecil}</td>
+                        <td>${data.NoSJ}</td>
+                        <td>${data.NotaInt}</td>
+                        <td>${data.Konveksi}</td>
+                        <td>${data.NmBrg}</td>
+                        <td class="text-right">${data.Jumlah}</td>
+                        <td>${data.Satuan}</td>
+                        <td class="text-right"><strong>${data.AmountBE}</strong></td>
+                        <td class="text-right"><strong>${data.AmountBP}</strong></td>
+                        <td class="text-right"><strong>${data.AmountBB}</strong></td>
+                        <td class="text-right"><strong>${data.AmountBX}</strong></td>                        
+                    </tr>
+                    <tr class="active">
+                       <td class="text-center">.</td>
+                        <td class="text-right" colspan="7"><strong>${supplier.supplier}</strong></td>
+                        <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
+                        <td class="text-right"><strong>${supplier.subTotal1}</strong></td>
+                        <td class="text-right"><strong>${supplier.subTotal2}</strong></td>
+                        <td class="text-right"><strong>${supplier.subTotal3}</strong></td>
+                        <td class="text-right"><strong>${supplier.subTotal4}</strong></td>                        
+                    </tr>
+                </template>
+                    <tr class="active">
+                        <td class="text-center" colspan="10"><strong>T O T A L  P E M B E L I A N . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-right"><strong>${AmountTotal1}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal2}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal3}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal4}</strong></td>                        
+                    </tr>
+            </tbody>
+
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+    </form>
+
+</template>
