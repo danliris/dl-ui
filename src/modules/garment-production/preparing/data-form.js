@@ -101,8 +101,7 @@ export class DataForm {
 
                                 item.Uom.Id = item.UomId;
                                 item.Uom.Unit = item.UomUnit
-
-                                if(doItem.POItemId == item.POItemId ){item.DesignColor = doItem.DesignColor;}
+                                if(doItem.Id == item.UnitDOItemId ){item.DesignColor = doItem.DesignColor;}
                                 
                             }                
                         }

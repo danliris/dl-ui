@@ -11,8 +11,17 @@ export class View {
 
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
-       
+        this.data = await this.service.read(id);
+        this.selectedSewingDO={
+            SewingDONo:this.data.SewingDONo
+        };
+        for(var a of this.data.Items){
+            if(a.RemainingQuantity != a.Quantity){
+                this.editCallback = null;
+                this.deleteCallback = null;
+                break;
+            }
+        }
     }
 
     cancelCallback(event) {

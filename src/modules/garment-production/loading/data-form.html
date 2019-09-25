@@ -25,7 +25,7 @@
 
         <au-autocomplete
             value.bind="selectedSewingDO"
-            error.bind="error.SewingDO"
+            error.bind="error.SewingDONo"
             label="No Sewing DO"
             loader.bind="sewingDOLoader"
             text="SewingDONo"
@@ -71,9 +71,13 @@
             label="Tanggal Loading"
             value.bind="data.LoadingDate"
             error.bind="error.LoadingDate"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
 
         <au-collection
             items.bind="data.Items"
@@ -83,7 +87,18 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/loading/templates/item"
             header-template="modules/garment-production/loading/templates/item-header"
-            if.bind="selectedSewingDO">
+            if.bind="selectedSewingDO && !readOnly">
+        </au-collection>
+
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="itemsInfoView.columns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/garment-production/loading/templates/item-view"
+            header-template="modules/garment-production/loading/templates/item-view-header"
+            if.bind="selectedSewingDO && readOnly">
         </au-collection>
 
     </au-input-form>

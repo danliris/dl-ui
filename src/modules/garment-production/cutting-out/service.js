@@ -5,7 +5,8 @@ const cuttingInUri = 'cutting-ins';
 const preparingServiceUri = 'preparings';
 const costCalculationServiceUri = 'cost-calculation-garments';
 const gComodityServiceUri = 'master/garment-comodities';
-const uomServiceUri = 'master/uoms'
+const uomServiceUri = 'master/uoms';
+const sewingServiceUri = 'sewing-dos'
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -40,6 +41,11 @@ class Service extends RestService {
     getCuttingIn(info) {
         var endpoint = `${cuttingInUri}/complete`;
         return super.list(endpoint, info);
+    }
+
+    getSewingDO(id) { 
+        var endpoint = `${sewingServiceUri}/byCutOutId/${id}`;
+        return super.get(endpoint);
     }
 }
 

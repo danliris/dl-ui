@@ -1,11 +1,11 @@
-<template>
+<template >
     <tr>
         <th>
-            <!-- <au-checkbox
+            <au-checkbox 
                 value.bind="options.checkedAll"
-                disabled.bind="readOnly || isEdit"
+                disabled.bind="true"
                 change.delegate=changeCheckedAll()>
-            </au-checkbox> -->
+            </au-checkbox>
         </th>
         <th repeat.for="column of columns">
             <label>${column}</label>
