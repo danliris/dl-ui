@@ -19,6 +19,11 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  getById(Id) {
+    var endpoint = `${serviceUri}/${Id}`;
+    return super.get(endpoint);
+  }
+
   getUnitById(Id) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("core");
@@ -54,6 +59,21 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
+  // getBeamByOrderIdAndBeamType(orderId, beamType){
+  //   var config = Container.instance.get(Config);
+  //   var endpoint = config.getEndpoint("weaving");
+  //   const resource = "weaving/daily-operations-sizing";
+
+  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
+  //   return super.get(endpoint);
+  // }
+
+  // getBeamByOrderIdAndBeamType(orderId, beamType) {
+  //   const _serviceUri = "weaving/daily-operations-sizing";
+  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
+  //   return super.get(endpoint);
+  // }
+
   updateStartProcess(Id, data) {
     const process = 'start-process';
     var endpoint = `${serviceUri}/${Id}/${process}`;
@@ -84,13 +104,8 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  getById(Id) {
-    var endpoint = `${serviceUri}/${Id}`;
-    return super.get(endpoint);
-  }
-
-  update(data) {
-    var endpoint = `${serviceUri}/${data.Id}`;
-    return super.put(endpoint, data);
-  }
+  // update(data) {
+  //   var endpoint = `${serviceUri}/${data.Id}`;
+  //   return super.put(endpoint, data);
+  // }
 }

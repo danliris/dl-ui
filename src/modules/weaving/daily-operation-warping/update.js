@@ -12,6 +12,7 @@ import {
 } from "./service";
 import moment from "moment";
 var BeamLoader = require("../../../loader/weaving-beam-loader");
+var WarpingBeamLoader = require("../../../loader/weaving-warping-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
@@ -63,7 +64,6 @@ export class Update {
     if (this.data.Id) {
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
       this.Histories = this.data.DailyOperationWarpingHistories;
-      console.log(this.data);
     }
   }
 
@@ -152,20 +152,22 @@ export class Update {
   }
 
   get beams() {
-    // return BeamLoader;
-    var orderId = this.data.OrderDocumentId;
-    var beamType = "Warping";
-    var dataResult;
-    this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitId);
-      })
-      .then(unit => {
-        dataResult.WeavingUnit = unit.Name;
-        return dataResult;
-      });
+    return WarpingBeamLoader;
+    // loader = (info) => {
+    //   var arg = {
+    //     keyword: info.search,
+    //     filter: JSON.stringify({
+    //       "BeamType": "Warping"
+    //     })
+    //   }
+
+    //   return this.service.getBeamByBeamType(arg)
+    //     .then(result => {
+    //       return result.data.map(beam => {
+    //         return beam;
+    //       })
+    //     })
+    // }
   }
 
   brokenThreadsClicked(event) {
@@ -369,47 +371,47 @@ export class Update {
       if (BeamProducts.length > 0) {
         var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
         // if (LastBeamProduct.BrokenThreadsCause) {
-          if (this.BrokenThreads == true) {
-            if (this.BrokenThreadsCause === "Benang Tipis") {
-              BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
-            } else {
-              this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
-            }
+        if (this.BrokenThreads == true) {
+          if (this.BrokenThreadsCause === "Benang Tipis") {
+            BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
           } else {
-            BrokenThreadsCauseContainer = 0;
+            this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
           }
+        } else {
+          BrokenThreadsCauseContainer = 0;
+        }
         // }
         // if (LastBeamProduct.ConeDeficient) {
-          if (this.ConeDeficient) {
-            ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
-          } else {
-            ConeDeficientContainer = LastBeamProduct.ConeDeficient;
-          }
+        if (this.ConeDeficient) {
+          ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
+        } else {
+          ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+        }
         // }
         // if (LastBeamProduct.LooseThreadsAmount) {
-          if (this.LooseThreads == true) {
-            if (!this.LooseThreadsAmount == 0) {
-              LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
-            } else {
-              this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
-            }
+        if (this.LooseThreads == true) {
+          if (!this.LooseThreadsAmount == 0) {
+            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
           } else {
-            LooseThreadsAmountContainer = 0;
+            this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
           }
+        } else {
+          LooseThreadsAmountContainer = 0;
+        }
         // }
         // if (LastBeamProduct.RightLooseCreel) {
-          if (this.RightLooseCreel) {
-            RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
-          } else {
-            RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
-          }
+        if (this.RightLooseCreel) {
+          RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
+        } else {
+          RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+        }
         // }
         // if (LastBeamProduct.LeftLooseCreel) {
-          if (this.LeftLooseCreel) {
-            LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
-          } else {
-            LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
-          }
+        if (this.LeftLooseCreel) {
+          LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
+        } else {
+          LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+        }
         // }
       }
     } else {
