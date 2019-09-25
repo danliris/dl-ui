@@ -133,8 +133,6 @@ export class DataForm {
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
     let promises = [];
 
-    this.costCalculationGarment_MaterialsInfo.options.isCopy = this.isCopy;
-
     let wage;
     if (this.data.Wage) {
       wage = new Promise((resolve, reject) => {
