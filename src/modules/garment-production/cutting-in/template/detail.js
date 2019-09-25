@@ -5,30 +5,30 @@ export class Item {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        this.options = context.options;
 
-        this.readOnly = this.options.readOnly || this.data.IsDisabled;
-        this.isEdit = this.context.context.options.isEdit;
-        this.showOrigin = this.context.context.options.isEdit || this.readOnly;
+        this.isEdit = this.context.isEdit;
+        this.showOrigin = this.context.isEdit;
     }
 
     changeCheckBox() {
-        this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+        this.context.context.checkedAll = this.context.items.reduce((accItem, currItem) => {
+            return accItem && currItem.Details.reduce((accDetail, currDetail) => accDetail && currDetail.IsSave, true);
+        }, true);
     }
-    
-    @computedFrom("context.context.options.FC", "data.CuttingInQuantity")
+
+    @computedFrom("context.fc", "data.CuttingInQuantity")
     get dataPreparingQuantity() {
         this.data.RemainingQuantity = this.data.CuttingInQuantity;
 
         if (this.showOrigin) {
             this.showOrigin = false;
         } else {
-            // let total  = this.data.CuttingInQuantity + this.context.context.options.FC;
-            // this.data.PreparingQuantity = total ? this.data.CuttingInQuantity * this.context.context.options.FC : this.data.PreparingRemainingQuantity;
-            this.data.PreparingQuantity = this.data.CuttingInQuantity * this.context.context.options.FC || this.data.PreparingRemainingQuantity;
+            this.data.PreparingQuantity = this.data.CuttingInQuantity * this.context.fc || this.data.PreparingRemainingQuantity;
         }
 
-        this.data.BasicPrice = this.data.PreparingBasicPrice * this.context.context.options.FC;
+        if (!this.isEdit) {
+            this.data.BasicPrice = this.data.PreparingBasicPrice * this.context.fc;
+        }
 
         return this.data.PreparingQuantity;
     }

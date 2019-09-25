@@ -51,7 +51,6 @@ export class List {
 
         return this.service.search(arg)
             .then((result) => {
-                console.log(result.data);
                 var items = [];
                 for(var a of result.data){
                     var dOrder = ""
@@ -69,7 +68,6 @@ export class List {
                         deliveryOrder : dOrder
                     }
                     items.push(data);
-                    console.log(data);
                 }
                 return {
                     total: result.info.total,
