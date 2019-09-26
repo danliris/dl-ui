@@ -1,3 +1,7 @@
+# Danliris Code Coverage
+### com-danliris-service-purchasing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-purchasing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-purchasing)
+
+
 # aurelia-skeleton-webpack
 
 ## Getting started
