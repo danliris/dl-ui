@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
+var moment = require("moment");
 
 @inject(Service)
 export class DataForm {
@@ -157,5 +158,9 @@ export class DataForm {
                 this.error.DONo = null;
             }
         }
+    }
+
+    doView = (DO) => {
+        return `${DO.doNo} - ${DO.supplier.Name} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
     }
 }
