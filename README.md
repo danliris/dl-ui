@@ -1,5 +1,11 @@
 # Danliris Code Coverage
 ### com-danliris-service-purchasing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-purchasing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-purchasing)
+### com-danliris-service-finance-accounting [![codecov](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting)
+### com.danliris.service.core [![codecov](https://codecov.io/gh/danliris/com.danliris.service.core/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.core)
+### com-danliris-service-sales [![codecov](https://codecov.io/gh/danliris/com-danliris-service-sales/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-sales)
+### com-danliris-service-finishing-printing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-finishing-printing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-finishing-printing)
+### com.danliris.service.inventory [![codecov](https://codecov.io/gh/danliris/com.danliris.service.inventory/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.inventory)
+### com-danliris-service-auth [![codecov](https://codecov.io/gh/danliris/com-danliris-service-auth/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-auth)
 
 
 # aurelia-skeleton-webpack
