@@ -34,7 +34,6 @@ export class Detail {
         }
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
-
     }
 
     async selectedSizeChanged(newValue) {
