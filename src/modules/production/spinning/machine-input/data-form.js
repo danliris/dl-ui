@@ -4,7 +4,7 @@ import { debug } from 'util';
 import { Numeric } from '../../../../components/form/basic/numeric';
 
 var UnitLoader = require('../../../../loader/unit-loader');
-var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var LotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
 // var moment = require('moment');
