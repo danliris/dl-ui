@@ -6,7 +6,7 @@ import {
 import {
   Service
 } from "../service";
-var BeamLoader = require("../../../../loader/weaving-beam-loader");
+var WarpingBeamLoader = require("../../../../loader/weaving-warping-beam-loader");
 
 @inject(BindingEngine, Service)
 export class BeamItemsPost {
@@ -17,7 +17,7 @@ export class BeamItemsPost {
   }
 
   get beams() {
-    return BeamLoader;
+    return WarpingBeamLoader;
   }
 
   async activate(context) {

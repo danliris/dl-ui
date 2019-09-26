@@ -33,6 +33,12 @@ export class Update {
 
     this.showHideBrokenThreadsMenu = false;
     this.showHideLooseThreadsMenu = false;
+
+    this.isStartDisabled = false;
+    this.isPauseDisabled = false;
+    this.isResumeDisabled = false;
+    this.isProduceBeamDisabled = false;
+    this.isFinishDisabled = false;
   }
 
   // bind(context) {
@@ -64,6 +70,60 @@ export class Update {
     if (this.data.Id) {
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
       this.Histories = this.data.DailyOperationWarpingHistories;
+      
+      var lastWarpingHistory = this.Histories[0];
+      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
+      switch (lastWarpingHistoryStatus) {
+        case "ENTRY":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "START":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = false;
+          this.isFinishDisabled = true;
+          break;
+        case "STOP":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = false;
+          this.isProduceBeamDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "CONTINUE":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = false;
+          this.isFinishDisabled = true;
+          break;
+        case "COMPLETED":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isFinishDisabled = false;
+          break;
+        case "FINISH":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isProduceBeamDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        default:
+          this.isStartDisabled = false;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = false;
+          this.isProduceBeamDisabled = false;
+          this.isFinishDisabled = false;
+          break;
+      }
     }
   }
 
@@ -346,20 +406,6 @@ export class Update {
   }
 
   savePause() {
-    // console.log(this.BrokenThreadsCause);
-    // console.log(this.ConeDeficient);
-    // console.log(this.LooseThreadsAmount);
-    // console.log(this.RightLooseCreel);
-    // console.log(this.LeftLooseCreel);
-    // if (this.ConeDeficient == null) {
-    //   console.log("null");
-    // }
-    // if (this.ConeDeficient == undefined) {
-    //   console.log("undefined");
-    // }
-    // if (this.ConeDeficient == "") {
-    //   console.log("kosong");
-    // }
     var BrokenThreadsCauseContainer;
     var ConeDeficientContainer;
     var LooseThreadsAmountContainer;
@@ -370,7 +416,6 @@ export class Update {
     if (this.BrokenThreads == true || this.LooseThreads == true) {
       if (BeamProducts.length > 0) {
         var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
-        // if (LastBeamProduct.BrokenThreadsCause) {
         if (this.BrokenThreads == true) {
           if (this.BrokenThreadsCause === "Benang Tipis") {
             BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
@@ -380,15 +425,11 @@ export class Update {
         } else {
           BrokenThreadsCauseContainer = 0;
         }
-        // }
-        // if (LastBeamProduct.ConeDeficient) {
         if (this.ConeDeficient) {
           ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
         } else {
           ConeDeficientContainer = LastBeamProduct.ConeDeficient;
         }
-        // }
-        // if (LastBeamProduct.LooseThreadsAmount) {
         if (this.LooseThreads == true) {
           if (!this.LooseThreadsAmount == 0) {
             LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
@@ -398,15 +439,11 @@ export class Update {
         } else {
           LooseThreadsAmountContainer = 0;
         }
-        // }
-        // if (LastBeamProduct.RightLooseCreel) {
         if (this.RightLooseCreel) {
           RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
         } else {
           RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
         }
-        // }
-        // if (LastBeamProduct.LeftLooseCreel) {
         if (this.LeftLooseCreel) {
           LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
         } else {
@@ -419,17 +456,6 @@ export class Update {
       this.error.LooseThreads = "Jumlah Benang Lolos Tidak Boleh 0";
 
     }
-
-    // switch (this.CauseOfStopping) {
-    //   case "Putus Beam":
-    //     LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
-    //     break;
-    //   case "Mesin Bermasalah":
-    //     LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
-    //     break;
-    //   default:
-    //     this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
-    // }
 
     var IdContainer = this.data.Id;
     if (this.PauseDate) {
@@ -460,16 +486,6 @@ export class Update {
     this.data.LooseThreadsAmount = LooseThreadsAmountContainer;
     this.data.RightLooseCreel = RightLooseCreelContainer;
     this.data.LeftLooseCreel = LeftLooseCreelContainer;
-
-    // this.data.SizingDetails = {};
-    // this.data.SizingDetails.PauseDate = HistoryDateContainer;
-    // this.data.SizingDetails.PauseTime = HistoryTimeContainer;
-    // this.data.SizingDetails.Information = InformationContainer;
-    // this.data.SizingDetails.ShiftId = ShiftContainer;
-    // this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-    // this.data.SizingDetails.Causes = {};
-    // this.data.SizingDetails.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
-    // this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
 
     this.service
       .updatePauseProcess(this.data.Id, this.data)

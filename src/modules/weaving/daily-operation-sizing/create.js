@@ -169,7 +169,6 @@ export class Create {
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.OrderDocumentId = this.OrderDocument.Id;
-    // this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
     this.BeamDocument.forEach(doc => {
@@ -177,7 +176,6 @@ export class Create {
       this.data.BeamsWarping.push(BeamId);
     });
 
-    // this.data.YarnStrands = this.YarnStrands;
     this.data.NeReal = this.NeReal;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 
