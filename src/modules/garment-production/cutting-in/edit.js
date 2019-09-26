@@ -22,6 +22,7 @@ export class View {
 
     bind() {
         this.error = {};
+        this.checkedAll = true;
     }
 
     cancelCallback(event) {

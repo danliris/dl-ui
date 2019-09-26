@@ -15,6 +15,13 @@ export class View {
         this.selectedSewingDO={
             SewingDONo:this.data.SewingDONo
         };
+        for(var a of this.data.Items){
+            if(a.RemainingQuantity != a.Quantity){
+                this.editCallback = null;
+                this.deleteCallback = null;
+                break;
+            }
+        }
     }
 
     cancelCallback(event) {

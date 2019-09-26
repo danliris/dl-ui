@@ -67,14 +67,12 @@ export class DataForm {
         //         this.data.beacukaiNo = null;
         //         this.data.customType=null;
         //         this.data.billNo="";
-        //         console.log(oldValue);
         //     }
         // } else {
         //     this.data.beacukaiDate = null;
         //     this.data.beacukaiNo = null;
         //     this.data.customType=null;
         //     this.data.billNo="";
-        //     console.log("dsdsds");
         }
     }
     isBCDLChanged(e) {

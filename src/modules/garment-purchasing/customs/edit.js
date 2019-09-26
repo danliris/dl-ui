@@ -38,7 +38,6 @@ export class Edit {
            
             items.push(a);
         }
-        console.log(dataDelivery);
         for(var a of dataDelivery.data){
             a["selected"] = false;
             a["isView"] = true;
@@ -102,7 +101,6 @@ export class Edit {
             dataCustoms.deliveryOrders = items;
         }
         if(isSelectedData){
-            console.log(dataCustoms);
             this.service.update(dataCustoms)
                 .then(result => {
                     alert("Data berhasil diubah");

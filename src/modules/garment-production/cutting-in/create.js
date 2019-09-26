@@ -13,6 +13,7 @@ export class Create {
     bind() {
         this.data = {};
         this.error = {};
+        this.checkedAll = false;
     }
 
     determineActivationStrategy() {
