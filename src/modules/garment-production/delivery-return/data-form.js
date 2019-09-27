@@ -98,9 +98,6 @@ export class DataForm {
 
     async UnitChanged(newValue){
         if(!newValue){
-            this.context.UnitViewModel.editorValue = "";
-            this.context.StorageViewModel.editorValue = "";
-            this.context.selectedUnitDOViewModel.editorValue = "";
             this.Storages = null;
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -110,11 +107,14 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.UnitViewModel.editorValue = "";
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue != this.data.Unit && this.context.isCreate){
             this.data.Unit = newValue;
-            this.context.StorageViewModel.editorValue = "";
-            this.context.selectedUnitDOViewModel.editorValue = "";
             this.filterByUnit = {UnitId: this.data.Unit.Id};
             this.Storages = null;
             this.data.Storage = null;
@@ -127,12 +127,15 @@ export class DataForm {
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
             this.data.Items = [];
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
         }
     }
 
     async StoragesChanged(newValue){
         if(!newValue){
-            this.context.StorageViewModel.editorValue = "";
             this.selectedUnitDO = null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -141,6 +144,8 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue && this.context.isCreate){
             this.data.Storage = {};
@@ -148,7 +153,7 @@ export class DataForm {
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
             this.filterDO = {UnitSenderName: this.data.Unit.Name, StorageName: this.data.Storage.Name, UnitDOType: "PROSES"};
-            this.context.selectedUnitDOViewModel.editorValue = "";
+            
             this.selectedUnitDO = null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -157,13 +162,14 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.selectedUnitDOViewModel.editorValue = "";_suggestions
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         }
     }
 
     async selectedUnitDOChanged(newValue){
         if(!newValue && this.context.isCreate) {
-            this.context.selectedUnitDOViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
             this.data.ReturnDate = null;
@@ -171,6 +177,8 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue.Id && this.context.isCreate) {
             this.data.Items.splice(0);

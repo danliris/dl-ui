@@ -13,13 +13,15 @@ export class List {
     context = ["Rincian"];
 
     columns = [
-        { field: "SewingDONo", title: "No DO Sewing" },
+        { field: "SewingInNo", title: "No Sewing In" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalQuantity", title: "Jumlah" },
+        { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "RONo", title: "RO" },
-        { field: "Unit.Code", title: "Unit"},
+        { field: "Unit.Code", title: "Unit Sewing In"},
+        { field: "UnitFrom.Code", title: "Asal Unit"},
         {
-            field: "SewingDODate", title: "Tgl Sewing DO", formatter: function (value, data, index) {
+            field: "SewingInDate", title: "Tgl Sewing In", formatter: function (value, data, index) {
               return moment(value).format("DD MMM YYYY")
             },
         },
@@ -84,7 +86,7 @@ export class List {
         }
     }
 
-    // create() {
-    //     this.router.navigateToRoute('create');
-    // }
+    create() {
+        this.router.navigateToRoute('create');
+    }
 }
