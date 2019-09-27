@@ -277,4 +277,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/garment-cost-calculation-by-section-report',
+        name: 'garment-cost-calculation-by-section-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-section-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Seksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
