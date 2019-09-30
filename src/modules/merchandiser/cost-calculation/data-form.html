@@ -29,6 +29,7 @@
                     loader.bind="unitLoader"
                     text.bind="unitView"
                     placeholder="Unit"
+                    read-only.bind="readOnly || isEdit"
                     options.bind="length4">
                 </au-autocomplete>
                 <au-autocomplete
