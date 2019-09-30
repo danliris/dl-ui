@@ -73,42 +73,70 @@ export class DataForm {
         }
     }
 
-    async selectedLoadingChanged(newValue){
-        this.data.RONo = null;
-        this.data.Article = null;
-        this.data.Comodity = null;
-        this.data.UnitFrom = null;
-        if(newValue) {
-            if(this.data.Items.length > 0){
-                this.data.Items.splice(0);
+    LoadingView=(loading)=>{
+        var colorList=[];
+        var sizeList=[];
+        for(var a of loading.Items){
+            if(colorList.length==0){
+                colorList.push(a.Color);
             }
-            this.data.RONo = newValue.RONo;
-            this.data.Article = newValue.Article;
-            this.data.Comodity= newValue.Comodity;
-            this.data.UnitFrom = newValue.Unit;
-            this.data.LoadingId = newValue.Id;
-            this.data.LoadingNo = newValue.LoadingNo;
-            for(var item of newValue.Items){
-                var a = {};
-                a.Product = item.Product;
-                a.LoadingItemId = item.Id;
-                a.DesignColor = item.DesignColor;
-                a.Size = item.Size;
-                a.Quantity = item.Quantity;
-                a.Uom = item.Uom;
-                a.Color = item.Color;
-                a.RemainingQuantity = item.Quantity;
-                this.data.Items.push(a);
+            else{
+                var dup=colorList.find(d=> d==a.Color);
+                if(!dup){
+                    colorList.push(a.Color);
+                }
+            }
+            if(sizeList.length==0){
+                sizeList.push(a.Size.Size);
+            }
+            else{
+                var duplicate=sizeList.find(d=> d==a.Size.Size);
+                if(!duplicate){
+                    sizeList.push(a.Size.Size);
+                }
             }
         }
-        else {
-            this.context.selectedLoadingViewModel.editorValue = "";
+        return `${loading.LoadingNo} - ${loading.RONo} - ${colorList.join(", ")} - ${sizeList.join(", ")}`
+    }
+
+    async selectedLoadingChanged(newValue){
+        if(this.context.isCreate){
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.UnitFrom = null;
-            this.data.Items.splice(0);
-        }        
+            if(newValue) {
+                if(this.data.Items.length > 0){
+                    this.data.Items.splice(0);
+                }
+                this.data.RONo = newValue.RONo;
+                this.data.Article = newValue.Article;
+                this.data.Comodity= newValue.Comodity;
+                this.data.UnitFrom = newValue.Unit;
+                this.data.LoadingId = newValue.Id;
+                this.data.LoadingNo = newValue.LoadingNo;
+                for(var item of newValue.Items){
+                    var a = {};
+                    a.Product = item.Product;
+                    a.LoadingItemId = item.Id;
+                    a.DesignColor = item.DesignColor;
+                    a.Size = item.Size;
+                    a.Quantity = item.Quantity;
+                    a.Uom = item.Uom;
+                    a.Color = item.Color;
+                    a.RemainingQuantity = item.Quantity;
+                    this.data.Items.push(a);
+                }
+            }
+            else {
+                this.context.selectedLoadingViewModel.editorValue = "";
+                this.data.RONo = null;
+                this.data.Article = null;
+                this.data.Comodity = null;
+                this.data.UnitFrom = null;
+                this.data.Items.splice(0);
+            }        
+        }
     }
 
     unitView = (unit) => {
