@@ -213,21 +213,6 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
-    // loader = (info) => {
-    //   var arg = {
-    //     keyword: info.search,
-    //     filter: JSON.stringify({
-    //       "BeamType": "Warping"
-    //     })
-    //   }
-
-    //   return this.service.getBeamByBeamType(arg)
-    //     .then(result => {
-    //       return result.data.map(beam => {
-    //         return beam;
-    //       })
-    //     })
-    // }
   }
 
   brokenThreadsClicked(event) {

@@ -14,7 +14,7 @@ import moment from 'moment';
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+// var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -42,15 +42,18 @@ export class Create {
 
     this.data = {};
     this.data.SizingDetails = {};
-    this.BeamsWarping = [];
-
     this.error = {};
+    this.BeamsWarping = [];
   }
 
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
+
+  beamsWarpingTableOptions = {
+    
+  }
 
   get machines() {
     return MachineLoader;
@@ -64,9 +67,9 @@ export class Create {
     return OperatorLoader;
   }
 
-  get beams() {
-    return BeamLoader;
-  }
+  // get beams() {
+  //   return SizingBeamLoader;
+  // }
 
   MachineDocumentChanged(newValue) {
       if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
@@ -79,6 +82,7 @@ export class Create {
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
+      let order = newValue;
       let constructionId = newValue.ConstructionId;
       let weavingUnitId = newValue.WeavingUnit;
       this.service.getConstructionNumberById(constructionId)
@@ -90,6 +94,8 @@ export class Create {
         .then(resultWeavingUnit => {
           this.error.WeavingUnitDocument = "";
           this.WeavingUnitDocument = resultWeavingUnit.Name;
+
+          this.beamsWarpingTableOptions.OrderId = order.Id;
         })
         .catch(e => {
           this.ConstructionNumber = "";
