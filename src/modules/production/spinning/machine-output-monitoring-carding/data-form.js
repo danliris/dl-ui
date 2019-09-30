@@ -3,7 +3,7 @@ import { Service, CoreService } from './service';
 import moment from 'moment';
 
 var LotLoader = require('../../../../loader/lot-configuration-loader');
-var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 

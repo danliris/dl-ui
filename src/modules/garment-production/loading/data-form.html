@@ -25,10 +25,10 @@
 
         <au-autocomplete
             value.bind="selectedSewingDO"
-            error.bind="error.SewingDONo"
-            label="No Sewing DO"
+            error.bind="error.RONo"
+            label="No RO"
             loader.bind="sewingDOLoader"
-            text="SewingDONo"
+            text.bind="ROView"
             placeholder="nomor sewing DO"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
@@ -47,8 +47,8 @@
         </au-autocomplete>
 
         <au-textbox
-            value.bind="data.RONo"
-            label="No RO"
+            value.bind="data.SewingDONo"
+            label="No Sewing DO"
             read-only="true"
             options.bind="controlOptions">
         </au-textbox>

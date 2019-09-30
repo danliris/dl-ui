@@ -3,7 +3,7 @@ import { Service, CoreService } from "./service";
 import { Router } from 'aurelia-router';
 
 var moment = require('moment');
-var MaterialTypeLoader = require('../../../../../loader/material-types-loader');
+var MaterialTypeLoader = require('../../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../../loader/unit-loader');
 var MachineNoLoader = require('../../../../../loader/machine-spinning-distinct-no-loader');
 var MachineNameLoader = require('../../../../../loader/machine-spinning-distinct-name-loader');
