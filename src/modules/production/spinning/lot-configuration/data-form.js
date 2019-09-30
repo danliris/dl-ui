@@ -7,7 +7,7 @@ var MachineLoader = require('../../../../loader/machine-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
 
-var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 // var moment = require('moment');
 @inject(Service)
 export class DataForm {
