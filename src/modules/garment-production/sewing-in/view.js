@@ -14,31 +14,25 @@ export class View {
         let id = params.id;
         this.data = await this.service.read(id);
         if (this.data) {
-            // this.selectedCuttingIn = {
-            //     RONo: this.data.RONo
-            // };
 
-        //     if (this.data.Items) {
+            this.selectedLoading = await this.service.getLoadingById(this.data.LoadingId)
+
+            if (this.data.Items) {
         //         let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
 
-        //         this.data.Items.forEach(
-        //             item => item.Details.forEach(
-        //                 detail => {
-        //                     detail.ProductCode = detail.Product.Code;
-        //                     detail.CuttingInUomUnit = detail.CuttingInUom.Unit;
-        //                     detail.Currency = "IDR";
-
-        //                     dataRemainingQuantity += detail.RemainingQuantity;
-        //                     dataCuttingInQuantity += detail.CuttingInQuantity;
-        //                 }
-        //             )
-        //         );
+                this.data.Items.forEach(
+                    item => { 
+                        if(item.RemainingQuantity < item.Quantity){
+                            this.deleteCallback = null;
+                        }
+                    }
+                );
                 
         //         if(dataRemainingQuantity < dataCuttingInQuantity) {
         //             this.editCallback = null;
         //             this.deleteCallback = null;
         //         }
-        //     }
+            }
         }
     }
 
