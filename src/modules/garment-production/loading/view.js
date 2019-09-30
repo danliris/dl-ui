@@ -12,9 +12,7 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        this.selectedSewingDO={
-            SewingDONo:this.data.SewingDONo
-        };
+        this.selectedSewingDO=await this.service.getSewingDObyId(this.data.SewingDOId);
         for(var a of this.data.Items){
             if(a.RemainingQuantity != a.Quantity){
                 this.editCallback = null;
