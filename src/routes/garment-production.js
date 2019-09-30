@@ -64,19 +64,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: '/garment-production/subcon-cutting-out',
-        name: 'garment-production-subcon-cutting-out',
-        moduleId: './modules/garment-production/subcon-cutting-out/index',
-        nav: true,
-        title: 'Cutting-Out Subkon',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: '/garment-production/subcon-cutting-out',
+    //     name: 'garment-production-subcon-cutting-out',
+    //     moduleId: './modules/garment-production/subcon-cutting-out/index',
+    //     nav: true,
+    //     title: 'Cutting-Out Subkon',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: {"C9": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: '/garment-production/sewing-do',
         name: 'garment-production-sewing-do',
