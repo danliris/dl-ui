@@ -34,7 +34,9 @@ export class List {
             keyword: info.search,
             order: order
         }
-
+        const distinct = (value, index, self) => {
+            return self.indexOf(value) === index;
+          }
         return this.service.search(arg)
         .then(result => {
             var data = {};
@@ -44,8 +46,13 @@ export class List {
                 if(s.Items){
                 s.Items.toString = function () {
                     var str = "<ul>";
+                    var products = [];
                     for (var item of s.Items) {
-                        str += `<li>${item.Product.Code}</li>`;
+                        products.push(item.Product.Code)
+                    }
+                    var Products = products.filter(distinct);
+                    for(var product of Products){
+                    str += `<li>${product}</li>`;
                     }
                     str += "</ul>";
                     return str;
@@ -53,7 +60,7 @@ export class List {
                 }
                 else{
                 s.Items = "-";
-                }
+                }                                 
             });
 
             return {

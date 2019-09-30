@@ -543,6 +543,19 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'garment/monitoring-ro-master',
+        name: 'garment-monitoring-ro-master',
+        moduleId: './modules/garment-purchasing/monitoring-ro-master/index',
+        nav: true,
+        title: 'Monitoring RO Master',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]

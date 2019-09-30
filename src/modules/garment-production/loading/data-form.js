@@ -30,7 +30,7 @@ export class DataForm {
             length: 2
         },
         control: {
-            length: 5
+            length: 7
         }
     };
 
@@ -75,6 +75,32 @@ export class DataForm {
 
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`;
+    }
+
+    ROView=(DO)=>{
+        var colorList=[];
+        var sizeList=[];
+        for(var a of DO.Items){
+            if(colorList.length==0){
+                colorList.push(a.Color);
+            }
+            else{
+                var dup=colorList.find(d=> d==a.Color);
+                if(!dup){
+                    colorList.push(a.Color);
+                }
+            }
+            if(sizeList.length==0){
+                sizeList.push(a.Size.Size);
+            }
+            else{
+                var duplicate=sizeList.find(d=> d==a.Size.Size);
+                if(!duplicate){
+                    sizeList.push(a.Size.Size);
+                }
+            }
+        }
+        return `${DO.RONo} - ${DO.SewingDONo} - ${colorList.join(", ")} - ${sizeList.join(", ")}`
     }
 
     get unitLoader() {
