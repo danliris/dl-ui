@@ -424,7 +424,7 @@ module.exports = [
         name: 'cost-calculation',
         moduleId: './modules/production/finishing-printing/cost-calculation/index',
         nav: true,
-        title: 'Cost Calculation Finishing Printing',
+        title: 'Cost Calculation Dyeing Printing',
         auth: true,
         settings: {
             group: "production",

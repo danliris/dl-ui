@@ -7,7 +7,10 @@ const CategoryLoader = require('../../../../../../loader/category-loader');
 const MachineLoader = require('../../../../../../loader/machines-loader');
 import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
+
 import { UtilityForm } from '../../dialogs/utility-form';
+import { ChemicalAddForm } from '../../dialogs/chemical-add-form';
+import { ChemicalListForm } from '../../dialogs/chemical-list-form';
 
 const rateNumberFormat = "0,0.000";
 
@@ -43,7 +46,7 @@ export class CostCalculationMaterial {
 
             this.isReadOnly = true;
         }
-        console.log(this.data);
+        // console.log(this.data);
     }
 
     bind() {
@@ -57,22 +60,59 @@ export class CostCalculationMaterial {
         return MachineLoader;
     }
 
+    get chemicalCost() {
+        if (this.chemicals.length > 0) {
+            return this.chemicals.reduce((previousValue, currentValue) => {
+                return previousValue + (currentValue.Chemical.Price * currentValue.Quantity)
+            }, 0);
+        } else {
+            return 0;
+        }
+    }
+
     selectedMachineChanged(n, o) {
+        this.chemicals = [];
         if (this.selectedMachine) {
             this.data.Machine = this.selectedMachine;
             this.data.Utility = this.selectedMachine.Electric + this.selectedMachine.Steam + this.selectedMachine.Water + this.selectedMachine.Solar + this.selectedMachine.LPG;
         }
     }
 
-    chemicalAdd(){
-        
+    chemicals = [];
+    chemicalAdd() {
+        if (!this.selectedMachine)
+            alert("Anda belum memilih mesin!");
+        else {
+            var params = {
+                "machine": this.selectedMachine,
+                "chemicals": this.chemicals
+            }
+            this.dialog.show(ChemicalAddForm, params)
+                .then(response => {
+                    console.log(response)
+                    this.chemicals = response.output;
+                });
+        }
+    }
+
+    chemicalToggle() {
+        if (!this.selectedMachine)
+            alert("Anda belum memilih mesin!");
+        else
+            this.dialog.show(ChemicalListForm, this.chemicals)
+                .then(response => {
+                    return response;
+                });
     }
 
     utilityToggle() {
-        this.dialog.show(UtilityForm, this.selectedMachine)
-            .then(response => {
-                return response;
-            });
+        if (!this.selectedMachine)
+            alert("Anda belum memilih mesin!");
+        else
+            this.dialog.show(UtilityForm, this.selectedMachine)
+                .then(response => {
+                    return response;
+                });
     }
 
     @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
