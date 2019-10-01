@@ -12,6 +12,7 @@
 ### com-danliris-service-spinning [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_apis/build/status/DMS.Spinning-ASP.NET-CI?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_build/latest?definitionId=5&branchName=dev)
 ### com-danliris-service-merchandiser [![Build Status](https://travis-ci.com/danliris/com-danliris-service-merchandiser.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-merchandiser)
 ### com-danliris-service-deal-tracking [![Build Status](https://travis-ci.org/danliris/com-danliris-service-deal-tracking.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-deal-tracking)
+### com.danliris.service.support [![Build Status](https://travis-ci.org/danliris/com.danliris.service.support.svg?branch=dev)](https://travis-ci.org/danliris/com.danliris.service.support)
 
 
 # aurelia-skeleton-webpack
