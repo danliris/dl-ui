@@ -42,8 +42,6 @@ export class Edit {
     // if (this.data.Type == this.Types[0]) {
     //   this.data.Type = "";
     // }
-    console.log(this.data);
-    debugger
 
     this.service
       .update(this.data)
