@@ -10,6 +10,8 @@
 ### com-danliris-service-auth [![codecov](https://codecov.io/gh/danliris/com-danliris-service-auth/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-auth) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-auth.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-auth)
 ### com-danliris-service-weaving [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Weaving/_apis/build/status/Weaving%20CI-CD%20Auto%20Deploy%20to%20Dev?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Weaving/_build/latest?definitionId=9&branchName=dev)
 ### com-danliris-service-spinning [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_apis/build/status/DMS.Spinning-ASP.NET-CI?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_build/latest?definitionId=5&branchName=dev)
+### com-danliris-service-merchandiser [![Build Status](https://travis-ci.com/danliris/com-danliris-service-merchandiser.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-merchandiser)
+### com-danliris-service-deal-tracking [![Build Status](https://travis-ci.org/danliris/com-danliris-service-deal-tracking.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-deal-tracking)
 
 
 # aurelia-skeleton-webpack
