@@ -1,5 +1,6 @@
 # Danliris Code Coverage
 
+### dl-ui [![Build Status](https://travis-ci.org/danliris/dl-ui.svg?branch=migration)](https://travis-ci.org/danliris/dl-ui)
 ### com-danliris-service-purchasing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-purchasing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-purchasing) [![Build Status](https://travis-ci.org/danliris/com-danliris-service-purchasing.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-purchasing)
 ### com-danliris-service-finance-accounting [![codecov](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-finance-accounting.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-finance-accounting)
 ### com.danliris.service.core [![codecov](https://codecov.io/gh/danliris/com.danliris.service.core/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.core) [![Build Status](https://travis-ci.com/danliris/com.danliris.service.core.svg?branch=dev)](https://travis-ci.com/danliris/com.danliris.service.core)
