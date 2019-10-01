@@ -44,10 +44,10 @@ export class List {
         this.info.page = 1;
         this.info.total = 0;
         // if (validate)
-        this.validate();
+        // this.validate();
 
-        if (!this.error.dateDiff && !this.error.date)
-            this.searching();
+        // if (!this.error.dateDiff && !this.error.date)
+        this.searching();
 
     }
 
@@ -175,9 +175,9 @@ export class List {
             size: this.info.size
         };
 
-        this.validate();
-        if (!this.error.dateDiff && !this.error.date)
-            this.service.generateExcel(args);
+        // this.validate();
+        // if (!this.error.dateDiff && !this.error.date)
+        this.service.generateExcel(args);
     }
 
     startDateChanged(e) {
