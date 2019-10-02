@@ -3,7 +3,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'subcon-cutting-outs';
 const cuttingInUri = 'cutting-ins';
 const preparingServiceUri = 'preparings';
-const costCalculationServiceUri = 'cost-calculation-garments';
+const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 const gComodityServiceUri = 'master/garment-comodities';
 const uomServiceUri = 'master/uoms';
 const sewingServiceUri = 'sewing-dos'
@@ -49,13 +49,13 @@ class Service extends RestService {
     }
 }
 
-class SalesService extends RestService {
+class PurchasingService extends RestService {
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
-    getCostCalculationByRONo(info) {
-        var endpoint = `${costCalculationServiceUri}`;
+    getGarmentEPOByRONo(info) {
+        var endpoint = `${garmentEPOServiceUri}`;
         return super.list(endpoint, info);
     }
 }
@@ -76,4 +76,4 @@ class CoreService extends RestService {
     }
 }
 
-export { Service, SalesService, CoreService }
+export { Service, PurchasingService, CoreService }

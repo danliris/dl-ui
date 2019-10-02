@@ -14,11 +14,9 @@ export class List {
 
     columns = [
         { field: "CutOutNo", title: "No Cutting Out" },
-        { field: "Unit.Code", title: "Unit Tujuan" },
+        { field: "UnitFrom.Code", title: "Unit Asal" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
-        { field: "TotalCuttingOutQuantity", title: "Jumlah Out", sortable: false },
-        { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "CuttingOutDate", title: "Tanggal Cutting Out", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "Items", title: "Kode Barang", sortable: false},
     ]

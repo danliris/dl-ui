@@ -29,7 +29,7 @@
             label="RO"
             loader.bind="cuttingInLoader"
             query.bind="cuttingInFilter"
-            text="RONo"
+            text.bind="ROView"
             placeholder="Nomor RO"
             read-only.bind="readOnly"
             options.bind="controlOptions"
@@ -54,17 +54,6 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete
-            value.bind="data.Unit"
-            error.bind="error.Unit"
-            label="Unit Tujuan"
-            loader.bind="unitLoader"
-            text.bind="unitView"
-            placeholder="Unit"
-            read-only.bind="readOnly || isEdit"
-            options.bind="controlOptions">
-        </au-autocomplete>
-
         <au-datepicker 
             label="Tanggal Cutting Out"
             value.bind="data.CuttingOutDate"
@@ -84,8 +73,8 @@
             read-only.bind="readOnly"
             if.bind="data.Items"
             options.bind="itemOptions"
-            header-template="modules/garment-production/cutting-out/template/item-header"
-            item-template="modules/garment-production/cutting-out/template/item">
+            header-template="modules/garment-production/subcon-cutting-out/template/item-header"
+            item-template="modules/garment-production/subcon-cutting-out/template/item">
         </au-collection>
 
     </au-input-form>

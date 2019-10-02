@@ -1,10 +1,10 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service, SalesService, CoreService } from "./service";
+import { Service, PurchasingService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 const CuttingInLoader = require('../../../loader/garment-cutting-in-by-ro-loader');
 
-@inject(Service, SalesService, CoreService)
+@inject(Service, PurchasingService, CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
@@ -15,9 +15,9 @@ export class DataForm {
     @bindable selectedCuttingIn;
     @bindable itemOptions = {};
 
-    constructor(service, salesService, coreService) {
+    constructor(service, purchasingService, coreService) {
         this.service = service;
-        this.salesService = salesService;
+        this.purchasingService = purchasingService;
         this.coreService = coreService;
     }
 
@@ -42,6 +42,7 @@ export class DataForm {
             "Kode Barang",
             "Keterangan",
             "Jumlah",
+            "Jumlah Plan PO"
         ]
     }
 
@@ -86,28 +87,33 @@ export class DataForm {
         return `${comodity.Code} - ${comodity.Name}`
     }
 
+    ROView=(ro) => {
+        return `${ro.RONo} - ${ro.PO_SerialNumber}`;
+    }
+
     get unitLoader() {
         return UnitLoader;
     }
 
-    get cuttingInLoader() {
-        return CuttingInLoader;
-    }
+    // get cuttingInLoader() {
+    //     return CuttingInLoader;
+    // }
 
     async selectedCuttingInChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
+                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
                 this.context.error.Items = [];
-                this.data.CuttingOutType = "SEWING";
+                this.data.CuttingOutType = "SUBKON";
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
-                let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
-                if(noResult.data.length>0){
-                    this.data.Comodity = noResult.data[0].Comodity;
-                }
+                // let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
+                // if(noResult.data.length>0){
+                //     this.data.Comodity = noResult.data[0].Comodity;
+                // }
                 
     
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
@@ -130,6 +136,34 @@ export class DataForm {
                 this.data.Comodity = null;
                 this.data.Items.splice(0);
             }
+        }
+    }
+
+    get cuttingInLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+            };
+            return this.service.getCuttingIn(info)
+                .then((result) => {
+                    return this.purchasingService.getGarmentEPOByRONo(info)
+                    .then((epo)=>{
+                        var roList=[];
+                        for(var a of epo.data){
+                            var dup= result.data.find(d=>d.RONo==a.RONo);
+                            if(dup){
+                                a.POSerialNumber=dup.PO_SerialNumber;
+                                a.Items=dup.Items;
+                                a.Article=dup.Article;
+                                roList.push(a);
+                            }
+                            
+                        }
+                        console.log(roList)
+                        return roList;
+                    });
+                    
+                });
         }
     }
 }
