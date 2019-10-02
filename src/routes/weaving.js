@@ -104,6 +104,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/master-defect",
+    name: "master-defect",
+    moduleId: "./modules/weaving/master-defect/index",
+    nav: true,
+    title: "Master Cacat Kain",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/master-operator",
     name: "master-operator",
     moduleId: "./modules/weaving/master-operator/index",

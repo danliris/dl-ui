@@ -6,21 +6,21 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Machine Shift"
+          title: "List Master Beam"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Shift Mesin"
+          title: "Create: Master Beam"
         },
         { 
           route: 'edit/:Id', 
           moduleId: './edit', 
           name: 'edit', 
           nav: false, 
-          title: 'Edit: Shift Mesin' 
+          title: 'Edit: Master Beam' 
         }
       ]);
   
