@@ -30,11 +30,28 @@
             loader.bind="cuttingInLoader"
             query.bind="cuttingInFilter"
             text.bind="ROView"
+            if.bind="data.UnitFrom"
             placeholder="Nomor RO"
             read-only.bind="readOnly"
             options.bind="controlOptions"
             view-model.ref="selectedCuttingInViewModel">
         </au-autocomplete>
+
+        <au-numeric
+            value.bind="data.PlanPOQuantity"
+            if.bind="selectedCuttingIn"
+            read-only.bind="true"
+            options.bind="controlOptions"
+            label="Jumlah Plan PO">
+        </au-numeric>
+
+        <au-numeric
+            label="Sisa Jumlah Plan PO"
+            value.bind="data.PlanPORemainingQuantity"
+            options.bind="controlOptions"
+            if.bind="selectedCuttingIn"
+            read-only.bind="true">
+        </au-numeric>
 
         <au-textbox
             value.bind="data.Article"
