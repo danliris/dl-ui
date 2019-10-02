@@ -6,30 +6,29 @@ import {
 import {
   Service
 } from "../service";
-var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
+import moment from 'moment';
 
 @inject(BindingEngine, Service)
-export class BeamItemsPost {
+export class HistoryItems {
 
   constructor(bindingEngine, service) {
     this.service = service;
     this.bindingEngine = bindingEngine;
   }
 
-  get beams() {
-    return WarpingBeamByOrderLoader;
-  }
-
   async activate(context) {
     this.data = context.data;
     this.error = context.error;
 
-    this.BeamDocument = this.data.BeamDocument;
+    if (this.data.DateTimeMachine) {
+      var DateMachine = moment(this.data.DateTimeMachine).format('DD/MM/YYYY');
+      var TimeMachine = moment(this.data.DateTimeMachine).format('LT');
+
+      this.data.MachineDate = DateMachine;
+      this.data.MachineTime = TimeMachine;
+    }
 
     this.options = context.context.options;
-    this.OrderIdFilter = {
-      "OrderId": context.context.options.OrderId
-    };
     this.readOnly = context.options.readOnly;
   }
 }

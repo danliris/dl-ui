@@ -11,17 +11,14 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+// var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
-  @bindable WeavingDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
@@ -45,9 +42,8 @@ export class Create {
 
     this.data = {};
     this.data.SizingDetails = {};
-    this.BeamsWarping = [];
-
     this.error = {};
+    this.BeamsWarping = [];
   }
 
   formOptions = {
@@ -55,12 +51,12 @@ export class Create {
     saveText: 'Simpan',
   };
 
-  get machines() {
-    return MachineLoader;
+  beamsWarpingTableOptions = {
+    
   }
 
-  get units() {
-    return UnitLoader;
+  get machines() {
+    return MachineLoader;
   }
 
   get orders() {
@@ -71,9 +67,9 @@ export class Create {
     return OperatorLoader;
   }
 
-  get beams() {
-    return BeamLoader;
-  }
+  // get beams() {
+  //   return SizingBeamLoader;
+  // }
 
   MachineDocumentChanged(newValue) {
       if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
@@ -86,6 +82,7 @@ export class Create {
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
+      let order = newValue;
       let constructionId = newValue.ConstructionId;
       let weavingUnitId = newValue.WeavingUnit;
       this.service.getConstructionNumberById(constructionId)
@@ -97,6 +94,8 @@ export class Create {
         .then(resultWeavingUnit => {
           this.error.WeavingUnitDocument = "";
           this.WeavingUnitDocument = resultWeavingUnit.Name;
+
+          this.beamsWarpingTableOptions.OrderId = order.Id;
         })
         .catch(e => {
           this.ConstructionNumber = "";
@@ -176,7 +175,6 @@ export class Create {
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.OrderDocumentId = this.OrderDocument.Id;
-    // this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
     this.BeamDocument.forEach(doc => {
@@ -184,7 +182,6 @@ export class Create {
       this.data.BeamsWarping.push(BeamId);
     });
 
-    // this.data.YarnStrands = this.YarnStrands;
     this.data.NeReal = this.NeReal;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 

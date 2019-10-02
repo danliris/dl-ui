@@ -1,7 +1,14 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
-
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
+import moment from 'moment';
 @inject(Router, Service)
 export class Create {
 
@@ -24,57 +31,49 @@ export class Create {
     this.error = {};
     var errorIndex = 0;
 
-    if (this.data.OrderId == "" ||
-      this.data.OrderId == undefined) {
-      this.error.OrderId = "Field masih kosong";
+    if (this.data.PreparationOrder == "" || this.data.PreparationOrder == undefined) {
+      this.error.PreparationOrder = "No. Order Produksi Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.ConstructionId == "" ||
-      this.data.ConstructionId == undefined) {
-      this.error.ConstructionId = "Field masih kosong";
+    if (this.data.PreparationMaterialType == "" || this.data.PreparationMaterialType == undefined) {
+      this.error.PreparationMaterialType = "Jenis Material Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.MaterialTypeId == "" ||
-      this.data.MaterialTypeId == undefined) {
-      this.error.MaterialTypeId = "Field masih kosong";
+    if (this.data.AmountOfCones == 0 || this.data.AmountOfCones == undefined) {
+      this.error.AmountOfCones = "Jumlah Cone Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.AmountOfCones == 0 ||
-      this.data.AmountOfCones == undefined) {
-      this.error.AmountOfCones = "Field masih kosong";
+    if (this.data.ColourOfCone == "" || this.data.ColourOfCone == undefined) {
+      this.error.ColourOfCone = "Warna Cone Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.ColourOfCone == "" ||
-      this.data.ColourOfCone == undefined) {
-      this.error.ColourOfCone = "Field masih kosong";
+    if (this.data.PreparationOperator == "" || this.data.PreparationOperator == undefined) {
+      this.error.PreparationOperator = "Operator Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.DateOperation == "" ||
-      this.data.DateOperation == undefined) {
-      this.error.DateOperation = "Field masih kosong";
+    if (this.data.PreparationDate == "" || this.data.PreparationDate == undefined) {
+      this.error.PreparationDate = "Tanggal Pasang Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.TimeOperation == "" ||
-      this.data.TimeOperation == undefined) {
-      this.error.Shift = "Field masih kosong";
+    if (this.data.PreparationTime == "" || this.data.PreparationTime == undefined) {
+      this.error.PreparationTime = "Waktu Pasang Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.OperatorId == "" ||
-      this.data.OperatorId == undefined) {
-      this.error.OperatorId = "Field masih kosong";
+    if (this.data.PreparationShift == "" || this.data.PreparationShift == undefined) {
+      this.error.Shift = "Shift Tidak Boleh Kosong";
       errorIndex++;
     }
 
     if (errorIndex === 0) {
       this.service
-        .createOnEntryProcess(this.data)
+        .create(this.data)
         .then(result => {
           this.list();
         })
