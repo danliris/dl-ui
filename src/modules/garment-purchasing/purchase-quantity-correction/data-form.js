@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 var moment = require("moment");
+var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
 @inject(Service)
 export class DataForm {
@@ -11,6 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
+    @bindable selectedSupplier;
 
     constructor(service) {
         this.service = service;
@@ -48,6 +50,8 @@ export class DataForm {
         this.collectionOptions = {};
     }
 
+    
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -58,13 +62,42 @@ export class DataForm {
         }
     }
 
-    
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    supplierView = (supplier) => {
+        var code=supplier.code? supplier.code : supplier.Code;
+        var name=supplier.name? supplier.name : supplier.Name;
+        return `${code} - ${name}`
+    }
+
+    selectedSupplierChanged(newValue) {
+        var _selectedSupplier = newValue;
+        if (_selectedSupplier) {
+            this.filterDO={
+                SupplierName:_selectedSupplier.name
+            };
+        }
+        else{
+            this.filterDO={};
+            this.selectedSupplier=null;
+            this.data.Items=[];
+            this.data.DONo=null;
+            this.context.supplierViewModel.editorValue = "";
+            this.context.doViewModel.editorValue = "";
+        }
+        this.context.doViewModel.editorValue = "";
+        this.deliveryOrder = null;
+        this.data.Items = [];
+    }
 
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              order: {"DONo": "asc"}
+              order: {"DONo": "asc"},
+              filter: JSON.stringify(this.filterDO)
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
@@ -135,6 +168,7 @@ export class DataForm {
         }else{
             this.data.Items = [];
             this.data.DONo=null
+            this.context.doViewModel.editorValue = "";
         }
             this.resetErrorItems();
             this.resetErrorDeliveryOrder()
@@ -161,6 +195,6 @@ export class DataForm {
     }
 
     doView = (DO) => {
-        return `${DO.doNo} - ${DO.supplier.Name} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
+        return `${DO.doNo} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
     }
 }

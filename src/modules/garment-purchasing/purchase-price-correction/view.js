@@ -14,6 +14,8 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.deliveryOrder = await this.service.getdeliveryOrderById(this.data.DOId);
+        this.selectedSupplier=this.data.Supplier;
         this.correctionType = this.data.CorrectionType;
         this.deliveryOrder = { doNo:this.data.DONo};
     }
