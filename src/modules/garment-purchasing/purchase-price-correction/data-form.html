@@ -30,22 +30,31 @@
         </au-datepicker>
 
         <au-autocomplete 
+            value.bind="selectedSupplier" 
+            error.bind="error.Supplier"
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            text.bind = "supplierView"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions"
+            view-model.ref="supplierViewModel">
+        </au-autocomplete>
+
+        <au-autocomplete 
             value.bind="deliveryOrder" 
             error.bind="error.DONo"
             label="Nomor SJ"
             loader.one-time="garmentDeliveryOrderLoader"
             placeholder="Cari SJ"
             options.bind="controlOptions"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            text.bind = "doView"
+            show.bind="selectedSupplier"
+            view-model.ref="doViewModel">
         </au-autocomplete>
 
-        <au-textbox
-            label="Supplier"
-            value.bind="data.Supplier.Name"
-            options.bind="controlOptions"
-            read-only="true"
-            show.bind="data.Supplier">
-        </au-textbox>
         
         <au-checkbox 
             label="Dikenakan koreksi Ppn?" 
