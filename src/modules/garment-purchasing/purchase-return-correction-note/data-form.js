@@ -194,6 +194,6 @@ console.log(detail)
     }
 
     doView = (DO) => {
-        return `${DO.doNo} - ${DO.supplier.Name} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
+        return `${DO.doNo} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
     }
 }
