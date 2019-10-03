@@ -41,6 +41,7 @@ export class List {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
                 rowspan: 2,
+                sortable: true,
             },
             { title: 'Verifikasi', colspan: 3 },
             { title: 'Kasir', colspan: 2 }
@@ -49,24 +50,29 @@ export class List {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
+                sortable: true,
             },
             {
                 field: 'VerifyDate', title: 'Tgl Cek', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
+                sortable: true,
             },
             {
                 field: 'SendDate', title: 'Tgl Kirim', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
+                sortable: true,
             },
             {
                 field: 'CashierDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
+                sortable: true,
             },
             {
-                field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
+                field: 'BankExpenditureNoteNo', title: 'No Kuitansi',
+                sortable: true,
             },
         ]
     ];
@@ -188,6 +194,34 @@ export class List {
         this.dateFrom = undefined;
         this.dateTo = undefined;
         this.tableList.refresh();
+    }
+
+    xls() {
+        let filter = {};
+
+        if (this.unitPaymentOrder) {
+            filter.no = this.unitPaymentOrder.no;
+        }
+
+        if (this.supplier) {
+            filter.supplierCode = this.supplier.code;
+        }
+
+        if (this.division) {
+            filter.divisionCode = this.division.code;
+        }
+
+        if (this.status && this.status.value && this.status.value != 0) {
+            filter.status = this.status.value;
+        }
+
+        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+            filter.dateFrom = this.dateFrom;
+
+        if (this.dateTo && this.dateTo != 'Invalid Date')
+            filter.dateTo = this.dateTo;
+
+        this.service.xls(filter);
     }
 
     get supplierLoader() {
