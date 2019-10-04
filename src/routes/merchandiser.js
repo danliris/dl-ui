@@ -277,4 +277,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/budget-job-order-report',
+        name: 'budget-job-order-report',
+        moduleId: './modules/merchandiser/report/budget-job-order-report/index',
+        nav: true,
+        title: 'Display Budget Job Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
