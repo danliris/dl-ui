@@ -13,7 +13,7 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.UnitFrom"
+            value.bind="selectedUnitFrom"
             error.bind="error.UnitFrom"
             label="Unit Asal"
             loader.bind="unitLoader"
@@ -30,7 +30,7 @@
             loader.bind="cuttingInLoader"
             query.bind="cuttingInFilter"
             text.bind="ROView"
-            if.bind="data.UnitFrom"
+            show.bind="selectedUnitFrom"
             placeholder="Nomor RO"
             read-only.bind="readOnly"
             options.bind="controlOptions"
@@ -42,6 +42,7 @@
             if.bind="selectedCuttingIn"
             read-only.bind="true"
             options.bind="controlOptions"
+            format="0"
             label="Jumlah Plan PO">
         </au-numeric>
 
@@ -50,6 +51,7 @@
             value.bind="data.PlanPORemainingQuantity"
             options.bind="controlOptions"
             if.bind="selectedCuttingIn"
+            format="0"
             read-only.bind="true">
         </au-numeric>
 

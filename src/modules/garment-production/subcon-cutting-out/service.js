@@ -7,6 +7,7 @@ const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 const gComodityServiceUri = 'master/garment-comodities';
 const uomServiceUri = 'master/uoms';
 const sewingServiceUri = 'sewing-dos'
+const costCalculationServiceUri = 'cost-calculation-garments';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -15,6 +16,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getCuttingOut(info) {
+        var endpoint = `${serviceUri}/complete`;
         return super.list(endpoint, info);
     }
 
@@ -42,6 +48,7 @@ class Service extends RestService {
         var endpoint = `${cuttingInUri}/complete`;
         return super.list(endpoint, info);
     }
+
 
     getSewingDO(id) { 
         var endpoint = `${sewingServiceUri}/byCutOutId/${id}`;
@@ -76,4 +83,16 @@ class CoreService extends RestService {
     }
 }
 
-export { Service, PurchasingService, CoreService }
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
+
+
+export { Service, PurchasingService, CoreService,SalesService }
