@@ -298,4 +298,17 @@ module.exports = [
       iconClass: "fa fa-dashboard"
     }
   },
+  {
+    route: "weaving/fabric-defect-report",
+    name: "fabric-defect-report",
+    moduleId: "./modules/weaving/fabric-defect-report/index",
+    nav: true,
+    title: "Laporan Cacat Kain",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
 ];
