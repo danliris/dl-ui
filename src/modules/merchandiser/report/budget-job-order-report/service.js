@@ -5,7 +5,7 @@ const serviceUri = 'display/budget-job-orders';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "merchandiser");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
