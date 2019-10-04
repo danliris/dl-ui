@@ -1,123 +1,112 @@
 <template>
-    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" part="actions">
-        <div class="col-md-12">
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" part="actions">
+    <div class="col-md-12">
 
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="No SOP" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-autocomplete placeholder="No SOP" value.bind="OrderProductionNumber" error.bind="error.OrderId"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="OrderProductionNumbers"
-                        text="OrderNumber">
-                    </au-autocomplete>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="No Konstruksi" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Konstruksi" value.bind="FabricConstructionNumber"
-                        error.bind="error.ConstructionId" read-only.bind="true">
-                    </au-textbox>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Weaving Unit" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Unit" value.bind="UnitName" error.bind="error.ConstructionId"
-                        read-only.bind="true">
-                    </au-textbox>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Jenis Material" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Material" value.bind="Material" error.bind="error.MaterialTypeId"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Materials" text="Name">
-                    </au-autocomplete>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Jumlah Cone" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Jumlah Cone" value.bind="data.AmountOfCones"
-                        error.bind="error.AmountOfCones" read-only.bind="readOnly">
-                    </au-textbox>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Warna Cone" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCone" error.bind="error.ColourOfCone"
-                        read-only.bind="readOnly">
-                    </au-textbox>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Tanggal" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-datepicker value.bind="DateOperation" error.bind="error.DateOperation">
-                    </au-datepicker>
-                </div>
-
-                <div class="col-md-2" style="text-align:left;">
-                    <textbox label="Waktu" read-only="true" style="display: inline-block"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <input value.bind="PreparationTime" type="time" error.bind="error.TimeOperation"
-                        read-only.bind="readOnly">
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Shift" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift"
-                        read-only.bind="true">
-                    </au-textbox>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                    <textbox label="Operator" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.OperatorId"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
-                    </au-autocomplete>
-                </div>
-
-                <div class="col-md-2">
-                    <textbox label="Group Loom" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-textbox placeholder="Group Loom" value.bind="Operator.Group" error.bind="error.Group"
-                        read-only.bind="true">
-                    </au-textbox>
-                </div>
-            </div>
-
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
-    </au-input-form>
+        <div class="col-md-3">
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="PreparationOrder" error.bind="error.PreparationOrder"
+            read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
+          </au-autocomplete>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="No. Konstruksi" value.bind="PreparationFabricConstruction"
+            error.bind="error.PreparationFabricConstruction" read-only.bind="true">
+          </au-textbox>
+        </div>
+        <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Unit Weaving" value.bind="PreparationWeavingUnit" error.bind="error.PreparationWeavingUnit"
+            read-only.bind="true">
+          </au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jenis Material" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
+            read-only.bind="readOnly" loader.bind="materialTypes" text="Name">
+          </au-autocomplete>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Cone" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-numeric placeholder="Jumlah Cone" value.bind="AmountOfCones" error.bind="error.AmountOfCones"
+            read-only.bind="readOnly">
+          </au-numeric>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Warna Cone" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Warna Cone" value.bind="ColourOfCone" error.bind="error.ColourOfCone"
+            read-only.bind="readOnly">
+          </au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete placeholder="Operator" value.bind="PreparationOperator" error.bind="error.PreparationOperator"
+            read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+        </div>
+        <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+          <textbox label="Grup Warping" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Grup Warping" value.bind="PreparationOperator.Group" error.bind="error.WarpingGroup"
+            read-only.bind="true"></au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-datepicker value.bind="PreparationDate" error.bind="error.PreparationDate">
+          </au-datepicker>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Waktu Pasang" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-timepicker value.bind="PreparationTime" error.bind="error.PreparationTime" read-only.bind="readOnly">
+        </div>
+        <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+          <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-textbox placeholder="Shift" value.bind="PreparationShift.Name" error.bind="error.PreparationShift" read-only.bind="true">
+          </au-textbox>
+        </div>
+      </div>
+    </div>
+  </au-input-form>
 </template>

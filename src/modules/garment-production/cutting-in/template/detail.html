@@ -3,7 +3,7 @@
         <td>
             <au-checkbox 
                 value.bind="data.IsSave" 
-                disabled.bind="readOnly || isEdit"
+                disabled.bind="isEdit"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -43,8 +43,7 @@
             <au-numeric 
                 value.bind="data.CuttingInQuantity"
                 error.bind = "error.CuttingInQuantity"
-                format="0"
-                read-only.bind="readOnly" >
+                format="0">
             </au-numeric>                    
         </td>
         <td>

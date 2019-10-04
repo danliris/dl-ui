@@ -11,8 +11,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
@@ -24,7 +23,6 @@ export class Update {
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
   @bindable ProduceBeamsBruto;
-  // @bindable CounterStartReadOnly;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -153,7 +151,7 @@ export class Update {
         case "START":
           this.isStartDisabled = true;
           this.isPauseDisabled = false;
-          this.isResumeDisabled = false;
+          this.isResumeDisabled = true;
           this.isProduceBeamDisabled = false;
           this.isDoffDisabled = true;
           break;
@@ -193,16 +191,12 @@ export class Update {
 
   causes = ["", "Putus Beam", "Mesin Bermasalah"];
 
-  get constructions() {
-    return ConstructionLoader;
-  }
-
   get operators() {
     return OperatorLoader;
   }
 
   get beams() {
-    return BeamLoader;
+    return SizingBeamLoader;
   }
 
   start() {

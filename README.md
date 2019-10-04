@@ -1,3 +1,20 @@
+# Danliris Code Coverage
+
+### dl-ui [![Build Status](https://travis-ci.org/danliris/dl-ui.svg?branch=migration)](https://travis-ci.org/danliris/dl-ui)
+### com-danliris-service-purchasing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-purchasing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-purchasing) [![Build Status](https://travis-ci.org/danliris/com-danliris-service-purchasing.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-purchasing)
+### com-danliris-service-finance-accounting [![codecov](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-finance-accounting) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-finance-accounting.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-finance-accounting)
+### com.danliris.service.core [![codecov](https://codecov.io/gh/danliris/com.danliris.service.core/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.core) [![Build Status](https://travis-ci.com/danliris/com.danliris.service.core.svg?branch=dev)](https://travis-ci.com/danliris/com.danliris.service.core)
+### com-danliris-service-sales [![codecov](https://codecov.io/gh/danliris/com-danliris-service-sales/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-sales) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-sales.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-sales)
+### com-danliris-service-finishing-printing [![codecov](https://codecov.io/gh/danliris/com-danliris-service-finishing-printing/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-finishing-printing) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-finishing-printing.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-finishing-printing)
+### com.danliris.service.inventory [![codecov](https://codecov.io/gh/danliris/com.danliris.service.inventory/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.inventory) [![Build Status](https://travis-ci.org/danliris/com.danliris.service.inventory.svg?branch=dev)](https://travis-ci.org/danliris/com.danliris.service.inventory)
+### com-danliris-service-auth [![codecov](https://codecov.io/gh/danliris/com-danliris-service-auth/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com-danliris-service-auth) [![Build Status](https://travis-ci.com/danliris/com-danliris-service-auth.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-auth)
+### com-danliris-service-weaving [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Weaving/_apis/build/status/Weaving%20CI-CD%20Auto%20Deploy%20to%20Dev?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Weaving/_build/latest?definitionId=9&branchName=dev)
+### com-danliris-service-spinning [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_apis/build/status/DMS.Spinning-ASP.NET-CI?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_build/latest?definitionId=5&branchName=dev)
+### com-danliris-service-merchandiser [![Build Status](https://travis-ci.com/danliris/com-danliris-service-merchandiser.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-merchandiser)
+### com-danliris-service-deal-tracking [![Build Status](https://travis-ci.org/danliris/com-danliris-service-deal-tracking.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-deal-tracking)
+### com.danliris.service.support [![Build Status](https://travis-ci.org/danliris/com.danliris.service.support.svg?branch=dev)](https://travis-ci.org/danliris/com.danliris.service.support)
+
+
 # aurelia-skeleton-webpack
 
 ## Getting started

@@ -1,81 +1,111 @@
-import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
+import {
+  RestService
+} from "../../../utils/rest-service";
+import {
+  Container
+} from "aurelia-dependency-injection";
+import {
+  Config
+} from "aurelia-api";
 const serviceUri = 'weaving/daily-operations-warping';
-const entryProcess = 'entry-process-operation';
-const startProcess = 'start-process';
-const pauseProcess = 'pause-process';
-const resumeProcess = 'resume-process';
-const finishProcess = 'finish-process';
-const finishDailyOperation = 'finish-process-operation'; 
 
 export class Service extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "weaving");
-    }
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "weaving");
+  }
 
-    search(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
+  }
 
-    getUnitById(Id) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/units/${Id}`;
+  getById(Id) {
+    var endpoint = `${serviceUri}/${Id}`;
+    return super.get(endpoint);
+  }
 
-        return _endpoint.find(_serviceUri).then(result => {
-            return result.data;
-        });
-    }
+  getUnitById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/units/${Id}`;
 
-    getShiftByTime(value) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("weaving");
-        var _serviceUri = `weaving/shifts/check-shift/${value}`;
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
 
-        return _endpoint.find(_serviceUri).then(result => {
-            return result.data;
-        });
-    }
+  getConstructionNumberById(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/fabric-constructions/construction-number/${value}`;
 
-    createOnEntryProcess(data) {
-        var endpoint = `${serviceUri}/${entryProcess}`;
-        return super.post(endpoint, data);
-    }
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
 
-    updateForStartProcess(data) {
-        var endpoint = `${serviceUri}/${startProcess}`;
-        return super.put(endpoint, data);
-    }
+  getShiftByTime(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/shifts/check-shift/${value}`;
 
-    updateForStopProcess(data) {
-        var endpoint = `${serviceUri}/${pauseProcess}`;
-        return super.put(endpoint, data);
-    }
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
 
-    updateForResumeProcess(data) {
-        var endpoint = `${serviceUri}/${resumeProcess}`;
-        return super.put(endpoint, data);
-    }
+  create(data) {
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
 
-    updateForFinishProcess(data) {
-        var endpoint = `${serviceUri}/${finishProcess}`;
-        return super.put(endpoint, data);
-    }
+  // getBeamByOrderIdAndBeamType(orderId, beamType){
+  //   var config = Container.instance.get(Config);
+  //   var endpoint = config.getEndpoint("weaving");
+  //   const resource = "weaving/daily-operations-sizing";
 
-    updateForfinishDailyOperation(data) {
-        var endpoint = `${serviceUri}/${finishDailyOperation}`;
-        return super.put(endpoint, data);
-    }
+  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
+  //   return super.get(endpoint);
+  // }
 
-    getById(Id) {
-        var endpoint = `${serviceUri}/${Id}`;
-        return super.get(endpoint);
-    }
+  // getBeamByOrderIdAndBeamType(orderId, beamType) {
+  //   const _serviceUri = "weaving/daily-operations-sizing";
+  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
+  //   return super.get(endpoint);
+  // }
 
-    update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
-        return super.put(endpoint, data);
-    }
+  updateStartProcess(Id, data) {
+    const process = 'start-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
+
+  updatePauseProcess(Id, data) {
+    const process = 'pause-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
+
+  updateResumeProcess(Id, data) {
+    const process = 'resume-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
+
+  updateProduceBeamsProcess(Id, data) {
+    const process = 'produce-beams-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
+
+  updateFinishProcess(Id, data) {
+    const process = 'finish-process';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
+
+  // update(data) {
+  //   var endpoint = `${serviceUri}/${data.Id}`;
+  //   return super.put(endpoint, data);
+  // }
 }

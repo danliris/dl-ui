@@ -62,6 +62,7 @@ export class Copy {
             "ValidationPPICDate"
         ]).forEach(prop => delete this.data[prop]);
         this.data.CostCalculationGarment_Materials.forEach(ccm => {
+            ccm.isCopy = true;
             this.identityProperties.concat([
                 "AutoIncrementNumber",
                 "Code",

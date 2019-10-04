@@ -5,7 +5,7 @@ import { debug } from 'util';
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
 var moment = require('moment');
-var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
 

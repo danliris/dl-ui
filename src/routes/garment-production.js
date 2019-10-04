@@ -91,6 +91,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/sewing-in',
+        name: 'garment-production-sewing-in',
+        moduleId: './modules/garment-production/sewing-in/index',
+        nav: true,
+        title: 'Sewing In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/loading',
         name: 'garment-production-loading',
         moduleId: './modules/garment-production/loading/index',

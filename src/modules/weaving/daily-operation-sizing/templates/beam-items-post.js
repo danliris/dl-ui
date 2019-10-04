@@ -6,7 +6,7 @@ import {
 import {
   Service
 } from "../service";
-var BeamLoader = require("../../../../loader/weaving-beam-loader");
+var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
 
 @inject(BindingEngine, Service)
 export class BeamItemsPost {
@@ -17,7 +17,7 @@ export class BeamItemsPost {
   }
 
   get beams() {
-    return BeamLoader;
+    return WarpingBeamByOrderLoader;
   }
 
   async activate(context) {
@@ -27,6 +27,9 @@ export class BeamItemsPost {
     this.BeamDocument = this.data.BeamDocument;
 
     this.options = context.context.options;
+    this.OrderIdFilter = {
+      "OrderId": context.context.options.OrderId
+    };
     this.readOnly = context.options.readOnly;
   }
 }

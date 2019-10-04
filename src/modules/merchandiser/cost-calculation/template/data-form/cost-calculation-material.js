@@ -79,10 +79,9 @@ export class CostCalculationMaterial {
                 this.selectedWidth = Object.assign({}, this.data.Product);
             }
         }
-        const options = context.context.options || {};
-        if(this.data.Id || options.isCopy)
-        {
 
+        if(this.data.Id || this.data.isCopy)
+        {
             this.isReadOnly=true;
         }
     }
