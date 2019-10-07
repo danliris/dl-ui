@@ -15,7 +15,8 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.deliveryOrder = { doNo:this.data.DONo};
+        this.deliveryOrder = await this.service.getDOById(this.data.DOId);
+        this.selectedSupplier=this.data.Supplier;
         this.data.IncomeTax.toString = function () {
             return [this.Name, this.Rate]
                 .filter((item, index) => {
