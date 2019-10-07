@@ -20,6 +20,9 @@ export class Create {
     }
 
     saveCallback() {
+        const DATA_TOPOST = {
+            
+        };
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -27,6 +30,7 @@ export class Create {
             })
             .catch(e => {
                 this.error = e;
-            })
+            });
+        // console.log(this.data);
     }
 }

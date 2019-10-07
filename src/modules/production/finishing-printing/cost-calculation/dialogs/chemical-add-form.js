@@ -27,7 +27,7 @@ export class ChemicalAddForm {
 
     @bindable selectedChemical;
     selectedChemicalChanged(newValue, oldValue) {
-
+        // if (newValue, )
     }
 
     validate() {
@@ -38,8 +38,8 @@ export class ChemicalAddForm {
             isNotValid = true;
         }
 
-        if (this.data.Quantity <= 0) {
-            this.error.Quantity = "Kuantiti harus lebih besar dari 0";
+        if (this.data.ChemicalQuantity <= 0) {
+            this.error.ChemicalQuantity = "Kuantiti harus lebih besar dari 0";
             isNotValid = true;
         }
 
@@ -61,7 +61,7 @@ export class ChemicalAddForm {
 
     get totalPrice() {
         if (this.selectedChemical && this.selectedChemical.Id)
-            return this.selectedChemical.Price * this.data.Quantity;
+            return this.selectedChemical.Price * this.data.ChemicalQuantity;
         else {
             return 0;
         }
@@ -72,7 +72,8 @@ export class ChemicalAddForm {
             this.error = {};
             let chemical = {
                 "Chemical": this.selectedChemical,
-                "Quantity": this.data.Quantity
+                "ChemicalId": this.selectedChemical.Id,
+                "ChemicalQuantity": this.data.ChemicalQuantity
             };
             this.chemicals.push(chemical);
             this.dialogController.ok(this.chemicals);
@@ -85,7 +86,8 @@ export class ChemicalAddForm {
             this.error = {};
             let chemical = Object.assign({}, {
                 "Chemical": Object.assign({}, this.selectedChemical),
-                "Quantity": this.data.Quantity
+                "ChemicalId": this.selectedChemical.Id,
+                "ChemicalQuantity": this.data.ChemicalQuantity
             })
             this.chemicals.push(chemical);
             this.selectedChemical = null;

@@ -18,6 +18,7 @@ export class Chemical {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
+        console.log(this.options);
         this.readOnly = this.options.readOnly || false;
     }
 

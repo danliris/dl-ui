@@ -41,7 +41,15 @@ export class CostCalculationMaterial {
         this.options = context.options;
         this.readOnly = this.options.readOnly || false;
         this.disabled = true;
+        this.selectedMachine = this.data.Machine || undefined;
 
+        this.chemicals = this.data.Chemicals && this.data.Chemicals.length > 0 ? this.data.Chemicals : [];
+
+        if (this.data.step) {
+            this.data.StepProcessId = this.data.step.Id
+        }
+
+        console.log(this.data)
         if (this.data.Id) {
 
             this.isReadOnly = true;
@@ -63,7 +71,7 @@ export class CostCalculationMaterial {
     get chemicalCost() {
         if (this.chemicals.length > 0) {
             return this.chemicals.reduce((previousValue, currentValue) => {
-                return previousValue + (currentValue.Chemical.Price * currentValue.Quantity)
+                return previousValue + (currentValue.Chemical.Price * currentValue.ChemicalQuantity)
             }, 0);
         } else {
             return 0;
@@ -71,9 +79,10 @@ export class CostCalculationMaterial {
     }
 
     selectedMachineChanged(n, o) {
-        this.chemicals = [];
         if (this.selectedMachine) {
+            this.chemicals = [];
             this.data.Machine = this.selectedMachine;
+            this.data.MachineId = this.selectedMachine.Id;
             this.data.Utility = this.selectedMachine.Electric + this.selectedMachine.Steam + this.selectedMachine.Water + this.selectedMachine.Solar + this.selectedMachine.LPG;
         }
     }
@@ -91,6 +100,7 @@ export class CostCalculationMaterial {
                 .then(response => {
                     console.log(response)
                     this.chemicals = response.output;
+                    this.data.Chemicals = this.chemicals;
                 });
         }
     }
