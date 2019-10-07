@@ -2,42 +2,59 @@
     <tr>
         <!-- Proses -->
         <td>
-            <au-textbox value.bind="data.Process" error.bind="error.Process" read-only.bind="true"
-                options.bind="controlOptions"></au-textbox>
+            <au-textbox value.bind="data.step.Process"
+                        error.bind="error.StepProcess"
+                        read-only.bind="true"
+                        options.bind="controlOptions"></au-textbox>
         </td>
 
         <!-- Machine -->
         <td>
-            <au-autocomplete placeholder="Cari Mesin" read-only.bind="readOnly" value.bind="selectedMachine" key="Id"
-                text="Name" error.bind="error.Machine" loader.one-time="machineLoader" options.bind="controlOptions">
+            <au-autocomplete placeholder="Cari Mesin"
+                             read-only.bind="readOnly"
+                             value.bind="selectedMachine"
+                             text="Name"
+                             error.bind="error.Machine"
+                             loader.one-time="machineLoader"
+                             options.bind="controlOptions">
             </au-autocomplete>
         </td>
 
         <!-- Chemical -->
         <td>
-            <au-numeric value.bind="data.Chemical" error.bind="error.Chemical" options.bind="controlOptions"
-                read-only.bind="true"></au-numeric>
-            <button click.delegate="chemicalAdd()" class="btn btn-success pull-right">+</button>
-            <button class="btn btn-info pull-right" click.delegate="chemicalToggle()">i</button>
+            <au-numeric value.bind="chemicalCost"
+                        options.bind="controlOptions"
+                        read-only.bind="true"></au-numeric>
+            <button click.delegate="chemicalAdd()"
+                    class="btn btn-success pull-right">+</button>
+            <button class="btn btn-info pull-right"
+                    click.delegate="chemicalToggle()">i</button>
         </td>
 
         <!-- Utility -->
         <td>
-            <au-numeric value.bind="data.Utility" error.bind="error.Utility" options.bind="controlOptions"
-                read-only.bind="true"></au-numeric>
-            <button class="btn btn-info pull-right" click.delegate="utilityToggle()">i</button>
+            <au-numeric value.bind="data.Utility"
+                        error.bind="error.Utility"
+                        options.bind="controlOptions"
+                        read-only.bind="true"></au-numeric>
+            <button class="btn btn-info pull-right"
+                    click.delegate="utilityToggle()">i</button>
         </td>
 
         <!-- Depretiation -->
         <td>
-            <au-numeric value.bind="data.Depretiation" error.bind="error.Depretiation" options.bind="controlOptions"
-                read-only.bind="true"></au-numeric>
+            <au-numeric value.bind="data.Depretiation"
+                        error.bind="error.Depretiation"
+                        options.bind="controlOptions"
+                        read-only.bind="true"></au-numeric>
         </td>
 
         <!-- Total -->
         <td>
-            <au-numeric value.bind="data.Total" error.bind="error.Total" options.bind="controlOptions"
-                read-only.bind="true"></au-numeric>
+            <au-numeric value.bind="data.Total"
+                        error.bind="error.Total"
+                        options.bind="controlOptions"
+                        read-only.bind="true"></au-numeric>
         </td>
 
     </tr>
