@@ -303,4 +303,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/budget-master-sample-report',
+        name: 'budget-master-sample-report',
+        moduleId: './modules/merchandiser/report/budget-master-sample-report/index',
+        nav: true,
+        title: 'Display Budget Master / Sample',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
