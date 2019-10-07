@@ -11,9 +11,10 @@ import {
   Service
 } from "./service";
 import moment from "moment";
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+// var BeamLoader = require("../../../loader/weaving-beam-loader");
 var WarpingBeamLoader = require("../../../loader/weaving-warping-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
+var UOMLoader = require("../../../loader/uom-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
@@ -70,7 +71,7 @@ export class Update {
     if (this.data.Id) {
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
       this.Histories = this.data.DailyOperationWarpingHistories;
-      
+
       var lastWarpingHistory = this.Histories[0];
       var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
       switch (lastWarpingHistoryStatus) {
@@ -213,6 +214,10 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
+  }
+
+  get uoms() {
+    return UOMLoader;
   }
 
   brokenThreadsClicked(event) {
@@ -391,6 +396,9 @@ export class Update {
   }
 
   savePause() {
+    this.error = {};
+    this.error.error = {};
+
     var BrokenThreadsCauseContainer;
     var ConeDeficientContainer;
     var LooseThreadsAmountContainer;
@@ -398,43 +406,45 @@ export class Update {
     var LeftLooseCreelContainer;
 
     var BeamProducts = this.data.DailyOperationWarpingBeamProducts;
-    if (this.BrokenThreads == true || this.LooseThreads == true) {
-      if (BeamProducts.length > 0) {
-        var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
-        if (this.BrokenThreads == true) {
-          if (this.BrokenThreadsCause === "Benang Tipis") {
-            BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
-          } else {
-            this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
-          }
+    if (BeamProducts.length != null || BeamProducts != undefined) {
+      var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+      if (this.BrokenThreads == true) {
+        if (this.BrokenThreadsCause === "Benang Tipis") {
+          BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
         } else {
-          BrokenThreadsCauseContainer = 0;
+          this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
         }
+
         if (this.ConeDeficient) {
           ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
         } else {
           ConeDeficientContainer = LastBeamProduct.ConeDeficient;
         }
-        if (this.LooseThreads == true) {
-          if (!this.LooseThreadsAmount == 0) {
-            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
-          } else {
-            this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
-          }
+      } else {
+        BrokenThreadsCauseContainer = 0;
+      }
+
+      if (this.LooseThreads == true) {
+        if (!this.LooseThreadsAmount == 0) {
+          LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
         } else {
-          LooseThreadsAmountContainer = 0;
+          this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
         }
+
         if (this.RightLooseCreel) {
           RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
         } else {
           RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
         }
+        
         if (this.LeftLooseCreel) {
           LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
         } else {
           LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
         }
-        // }
+      } else {
+        LooseThreadsAmountContainer = 0;
       }
     } else {
       this.error.BrokenThreads = "Penyebab Putus Benang Harus Diisi";
@@ -471,7 +481,8 @@ export class Update {
     this.data.LooseThreadsAmount = LooseThreadsAmountContainer;
     this.data.RightLooseCreel = RightLooseCreelContainer;
     this.data.LeftLooseCreel = LeftLooseCreelContainer;
-
+    console.log(this.data);
+    debugger
     this.service
       .updatePauseProcess(this.data.Id, this.data)
       .then(result => {
@@ -546,6 +557,7 @@ export class Update {
     var ShiftContainer;
     var OperatorContainer;
     var WarpingBeamLengthContainer;
+    var WarpingBeamLengthUOMIdContainer;
     var TentionContainer;
     var MachineSpeedContainer;
     var PressRollContainer;
@@ -566,6 +578,9 @@ export class Update {
     if (this.WarpingBeamLength) {
       WarpingBeamLengthContainer = this.WarpingBeamLength;
     }
+    if (this.WarpingBeamLengthUOM) {
+      WarpingBeamLengthUOMIdContainer = this.WarpingBeamLengthUOM.Id;
+    }
     if (this.Tention) {
       TentionContainer = this.Tention;
     }
@@ -583,6 +598,7 @@ export class Update {
     this.data.ProduceBeamsShift = ShiftContainer;
     this.data.ProduceBeamsOperator = OperatorContainer;
     this.data.WarpingBeamLength = WarpingBeamLengthContainer;
+    this.data.WarpingBeamLengthUOMId = WarpingBeamLengthUOMIdContainer;
     this.data.Tention = TentionContainer;
     this.data.MachineSpeed = MachineSpeedContainer;
     this.data.PressRoll = PressRollContainer;
