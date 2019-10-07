@@ -1,11 +1,11 @@
 import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'display/budget-job-orders';
+const serviceUri = 'display/budget-master-sample';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
