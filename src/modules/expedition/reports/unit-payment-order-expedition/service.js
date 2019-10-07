@@ -1,5 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
+import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../utils/rest-service';
 
 const uriPurchasingDocumentExpeditionReport = 'expedition/purchasing-document-expeditions-report';
@@ -13,6 +12,12 @@ class Service extends RestService {
     search(info) {
         let endpoint = `${uriUPO}`;
         return super.list(endpoint, info);
+    }
+
+    xls(info) {
+        console.log(info)
+        let endpoint = `${uriUPO}?${buildQueryString(info)}`;
+        return super.getXls(endpoint);
     }
 }
 

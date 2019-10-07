@@ -3,9 +3,8 @@ export class Item {
     itemsColumns = [
         { header: "Ukuran" },
         { header: "Jumlah Potong" },
-        { header: "Sisa" },
         { header: "Satuan Potong" },
-        { header: "Warna" },
+        { header: "Keterangan" },
     ];
 
     // constructor(coreService) {
