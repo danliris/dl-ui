@@ -108,7 +108,7 @@ export class DataForm {
             var info = {
                 keyword: keyword,
                 filter: JSON.stringify(this.filterDO),
-                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName" }),
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName","doDate":"DODate" }),
                 search: JSON.stringify([ "DONo" ]),
                 order: {"DONo": "asc"}
             };
@@ -116,6 +116,7 @@ export class DataForm {
                 .then((result) => {
                     return result.data.map(data => {
                         data.toString = function() { return `${this.doNo} - ${this.supplierName}`; };
+                        
                         return data;
                     });
                 });
