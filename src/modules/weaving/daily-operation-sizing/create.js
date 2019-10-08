@@ -52,7 +52,7 @@ export class Create {
   };
 
   beamsWarpingTableOptions = {
-    
+
   }
 
   get machines() {
@@ -72,12 +72,12 @@ export class Create {
   // }
 
   MachineDocumentChanged(newValue) {
-      if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
-        this.error.MachineDocument = "";
-        this.MachineDocument = newValue;
-      } else {
-        this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
-      }
+    if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+      this.error.MachineDocument = "";
+      this.MachineDocument = newValue;
+    } else {
+      this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+    }
   }
 
   OrderDocumentChanged(newValue) {
@@ -169,21 +169,31 @@ export class Create {
   }
 
   saveCallback(event) {
-    var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
-    this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
-
-    this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
-    this.data.OrderDocumentId = this.OrderDocument.Id;
+    if (this.data.SizingDetails.PreparationDate) {
+      var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
+      this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+    }
+    if (this.MachineDocument) {
+      this.data.MachineDocumentId = this.MachineDocument.Id;
+    }
+    // if (this.WeavingUnitDocument) {
+    //   this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
+    // }
+    if (this.OrderDocument) {
+      this.data.OrderDocumentId = this.OrderDocument.Id;
+    }
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
     this.BeamDocument.forEach(doc => {
       var BeamId = doc.Id;
       this.data.BeamsWarping.push(BeamId);
     });
-
-    this.data.NeReal = this.NeReal;
-    this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
+    if (this.NeReal) {
+      this.data.NeReal = this.NeReal;
+    }
+    if (this.OperatorDocument) {
+      this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
+    }
 
     this.service
       .create(this.data)
@@ -191,6 +201,8 @@ export class Create {
         this.router.navigateToRoute('list');
       })
       .catch(e => {
+        console.log(e);
+        debugger
         this.error = e;
       });
   }
