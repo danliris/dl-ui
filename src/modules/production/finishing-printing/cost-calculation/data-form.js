@@ -6,7 +6,7 @@ import { Service } from './service';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
-var SPPLoader = require('../../../../loader/production-order-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var InstructionLoader = require('../../../../loader/instruction-loader');
 var ProductLoader = require('../../../../loader/product-null-tags-loader');
 
@@ -17,18 +17,24 @@ export class DataForm {
   @bindable disabled = "true";
   @bindable data = {};
   @bindable error = {};
-  @bindable selectedSPP;
+  @bindable selectedProductionOrder;
   @bindable buyer;
   @bindable color;
   @bindable material;
   @bindable selectedInstruction;
-  @bindable orderQuantity;
+  @bindable orderQuantityWithUOM;
   @bindable sales;
   @bindable date;
   @bindable directLaborTotal;
-  @bindable selectedProduct;
+  @bindable selectedGreige;
 
- 
+  formOptions = {
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  };
+
   directLaborData = {};
   length0 = {
     label: {
@@ -77,12 +83,12 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-    console.log(this.data);
     this.error = this.context.error;
+    this.machineOptions.readOnly = this.readOnly;
   }
 
-  get sppLoader() {
-    return SPPLoader;
+  get productionOrderLoader() {
+    return ProductionOrderLoader;
   }
 
   get instructionLoader() {
@@ -94,43 +100,48 @@ export class DataForm {
   }
 
 
-  async selectedSPPChanged(n, o) {
-    if (this.selectedSPP) {
-      this.data.ProductionOrder = {};
-      this.data.ProductionOrder.Id = this.selectedSPP.Id;
-      this.data.ProductionOrder.OrderNo = this.selectedSPP.OrderNo;
 
-      this.buyer = this.selectedSPP.Buyer.Name;
-      this.material = this.selectedSPP.Material.Name;
-      this.color = this.selectedSPP.Details[0].ColorRequest;
+  async selectedProductionOrderChanged(newValue, oldValue) {
+    if (newValue) {
+      // this.data.ProductionOrder = {};
+      this.data.ProductionOrderId = this.selectedProductionOrder.Id;
+      this.data.ProductionOrderNo = this.selectedProductionOrder.OrderNo;
 
-      this.data.Material = {};
-      this.data.Material.Id = this.selectedSPP.Material.Id;
-      this.data.Material.Name = this.material;
+      this.data.BuyerName = this.selectedProductionOrder.Buyer.Name;
+      this.color = this.selectedProductionOrder.Details[0].ColorRequest;
 
-      this.data.Buyer = {};
-      this.data.Buyer.Id = this.selectedSPP.Buyer.Id;
-      this.data.Buyer.Name = this.Buyer;
+      // this.data.Material = {};
+      // this.data.Material.Id = this.selectedSPP.Material.Id;
+      // this.data.Material.Name = this.material;
 
-      this.data.Color = this.color;
+      // this.data.Buyer = {};
+      // this.data.Buyer.Id = this.selectedSPP.Buyer.Id;
+      // this.data.Buyer.Name = this.Buyer;
 
-      this.sales = this.selectedSPP.Account.UserName;
-      this.date = this.selectedSPP.DeliveryDate;
-      this.orderQuantity = this.selectedSPP.OrderQuantity + " " + this.selectedSPP.Uom.Unit;
+      // this.data.Color = this.color;
 
-      this.data.Sales = {};
-      this.data.Sales.Id = this.selectedSPP.Account.Id;
-      this.data.Sales.UserName = this.sales;
-      this.data.DeliveryDate = this.date;
-      this.data.OrderQuantity = this.selectedSPP.OrderQuantity;
+      // this.sales = this.selectedSPP.Account.UserName;
+      // this.date = this.selectedSPP.DeliveryDate;
+      this.orderQuantityWithUOM = this.selectedProductionOrder.OrderQuantity + " " + this.selectedProductionOrder.Uom.Unit;
 
-      this.data.Uom = {};
-      this.data.Uom.Id = this.selectedSPP.Uom.Id;
-      this.data.Uom.Unit = this.selectedSPP.Uom.Unit;
+      // this.data.Sales = {};
+      // this.data.Sales.Id = this.selectedSPP.Account.Id;
+      // this.data.Sales.UserName = this.sales;
+      // this.data.DeliveryDate = this.date;
+      // this.data.OrderQuantity = this.selectedSPP.OrderQuantity;
 
-      var directLaborDate = new Date(this.date);
+      // this.data.Uom = {};
+      // this.data.Uom.Id = this.selectedSPP.Uom.Id;
+      // this.data.Uom.Unit = this.selectedSPP.Uom.Unit;
+
+      var directLaborDate = new Date(this.selectedProductionOrder.DeliveryDate);
 
       this.directLaborData = await this.service.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
+    } else {
+      this.data = {};
+      this.color = "";
+      this.orderQuantityWithUOM = "";
+
     }
   }
 
@@ -141,16 +152,41 @@ export class DataForm {
     }
   }
 
-  selectedInstructionChanged(n, o) {
-    if (this.selectedInstruction) {
-      this.data.Machines = this.selectedInstruction.Steps;
+  get salaryTotal() {
+    if (this.data.TKLQuantity > 0) {
+      return this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+    } else {
+      return 0;
     }
+  }
+
+  selectedInstructionChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.Machines = this.selectedInstruction.Steps.map((step) => { return { "step": step }; });
+      console.log(this.data.Machines);
+      this.data.InstructionId = this.selectedInstruction.Id;
+      this.data.InstructionName = this.selectedInstruction.Name;
+    } else {
+      this.data.Machines = [];
+      this.data.InstructionId = 0;
+      this.data.InstructionName = "";
+    }
+  }
+
+  selectedGreigeChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.GreigeId = newValue.Id;
+    } else {
+      this.data.GreigeId = 0;
+    }
+
   }
 
   @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || 0) != 0;
   }
+
   @computedFrom("error.Machines")
   get hasError() {
     return (this.error.Machines ? this.error.Machines.length : 0) > 0;
