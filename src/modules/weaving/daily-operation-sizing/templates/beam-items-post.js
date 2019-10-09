@@ -30,6 +30,7 @@ export class BeamItemsPost {
     this.OrderIdFilter = {
       "OrderId": context.context.options.OrderId
     };
+    
     this.readOnly = context.options.readOnly;
   }
 }

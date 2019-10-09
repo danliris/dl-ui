@@ -30,6 +30,7 @@ export class Update {
     this.router = router;
     this.service = service;
     this.bindingEngine = bindingEngine;
+    
     this.data = {};
     this.error = {};
     this.error.error = {};
