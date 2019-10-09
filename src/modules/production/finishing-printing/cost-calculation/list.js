@@ -6,11 +6,10 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail", "Cetak Cost Calculation", "Cetak Budget"];
     columns = [
-        { field: "RO_Number", title: "No RO" },
-        { field: "Article", title: "Artikel" },
-        { field: "UnitName", title: "Unit" },
-        { field: "Quantity", title: "Kuantitas" },
-        { field: "ConfirmPrice", title: "Harga Konfirmasi" }
+        { field: "ProductionOrderNo", title: "Nomor SPP" },
+        { field: "InstructionName", title: "Nama Instruksi" },
+        { field: "GreigeName", title: "Nama Greige" },
+        { field: "BuyerName", title: "Nama Buyer" }
     ];
 
     loader = (info) => {
@@ -25,15 +24,15 @@ export class List {
             keyword: info.search,
             order: order,
         }
-        return { total: 0, data: {} };
-        // return this.service.search(arg)
-        //     .then(result => {
-        //         console.log(result)
-        //         return {
-        //             total: result.info.total,
-        //             data: result.data
-        //         }
-        //     });
+        // return { total: 0, data: {} };
+        return this.service.search(arg)
+            .then(result => {
+                console.log(result)
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
     }
 
     constructor(router, service) {

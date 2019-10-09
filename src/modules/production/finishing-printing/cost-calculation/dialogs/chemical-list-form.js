@@ -1,28 +1,37 @@
 import { inject, useView, bindable, computedFrom } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 import { Service } from '../service';
-var ProductLoader = require('../../../../../loader/product-null-tags-loader');
+
 @inject(DialogController, Service)
-@useView("modules/production/finishing-printing/cost-calculation/dialogs/utility-form.html")
-export class UtilityForm {
+@useView("modules/production/finishing-printing/cost-calculation/dialogs/chemical-list-form.html")
+export class ChemicalListForm {
+    tableOptions = {
+        pagination: false,
+        search: false,
+        showColumns: false,
+        showToggle: false
+    }
+
+    columns = [
+        "Nama Chemical",
+        "Jumlah",
+        "Satuan",
+        "Mata Uang",
+        "Harga Satuan",
+        "Total Harga"
+    ]
+
+
     constructor(dialogController, service) {
         this.dialogController = dialogController;
         this.service = service;
     }
-    @bindable data;
-    @bindable selectedProduct;
 
+    // @bindable data;
     yearOptions = [];
     async activate(data) {
         console.log(data);
         this.data = data;
-    }
-    get productLoader() {
-        return ProductLoader;
-    }
-
-    selectedProductChanged(n, o) {
-
     }
 
     saveCallback() {
