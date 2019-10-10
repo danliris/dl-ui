@@ -177,7 +177,7 @@ export class Update {
     },
     {
       value: "BeamStatus",
-      header: "Status Beam"
+      header: "Status Beam Warping"
     }
   ];
 
@@ -207,7 +207,7 @@ export class Update {
     },
     {
       value: "OperationStatus",
-      header: "Status"
+      header: "Status Mesin"
     }
   ];
 

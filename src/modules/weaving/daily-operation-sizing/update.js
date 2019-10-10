@@ -44,7 +44,7 @@ export class Update {
 
   beamColumns = [{
     value: "BeamNumber",
-    header: "Nomor Beam Warping"
+    header: "No. Beam Warping"
   }, {
     value: "Netto",
     header: "Helai Benang Beam Warping"
@@ -52,7 +52,7 @@ export class Update {
 
   produceBeamsColumns = [{
     value: "SizingBeamNumber",
-    header: "Nomor Beam Sizing"
+    header: "No. Beam Sizing"
   }, {
     value: "ProduceBeamsDate",
     header: "Tanggal"
@@ -82,13 +82,6 @@ export class Update {
   logColumns = [{
       value: "SizingBeamNumber",
       header: "Nomor Beam Sizing"
-    }, {
-      value: "ShiftName",
-      header: "Shift"
-    },
-    {
-      value: "BrokenBeamCauses",
-      header: "Putus"
     },
     {
       value: "MachineDateHistory",
@@ -97,14 +90,29 @@ export class Update {
     {
       value: "MachineTimeHistory",
       header: "Jam"
+    }, {
+      value: "ShiftName",
+      header: "Shift"
     },
     {
-      value: "MachineStatusHistory",
-      header: "Status"
+      value: "OperatorName",
+      header: "Operator"
+    },
+    {
+      value: "OperatorGroup",
+      header: "Grup"
+    },
+    {
+      value: "BrokenBeamCauses",
+      header: "Putus"
     },
     {
       value: "InformationHistory",
-      header: "Information"
+      header: "Informasi"
+    },
+    {
+      value: "MachineStatusHistory",
+      header: "Status Mesin"
     }
   ];
 
@@ -127,14 +135,14 @@ export class Update {
       this.Log = this.data.SizingDetails;
 
       if (this.ProduceBeams == []) {
-        this.StartSizingBeamCounter = 0;
+        this.StartSizingStartCounter = 0;
       } else {
         var lastSizingDetail = this.Log[0];
         if (lastSizingDetail.MachineStatusHistory == "ENTRY") {
-          this.StartSizingBeamCounter = 0;
+          this.StartSizingStartCounter = 0;
         } else {
           var lastSizingBeamProduce = this.ProduceBeams[0];
-          this.StartSizingBeamCounter = lastSizingBeamProduce.FinishCounter;
+          this.StartSizingStartCounter = lastSizingBeamProduce.FinishCounter;
         }
       }
 
@@ -204,7 +212,7 @@ export class Update {
     this.StartTime = null;
     this.StartShift = undefined;
     this.StartOperator = undefined;
-    this.StartSizingBeamDocuments = undefined;
+    this.SizingBeamId = undefined;
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
@@ -305,6 +313,12 @@ export class Update {
 
   saveStart() {
     var IdContainer = this.data.Id;
+    if (this.StartSizingBeamDocuments) {
+      var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
+    }
+    if (this.StartSizingStartCounter) {
+      var SizingStartCounterContainer = this.StartSizingStartCounter;
+    }
     if (this.StartDate) {
       var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     }
@@ -317,24 +331,15 @@ export class Update {
     if (this.StartOperator) {
       var OperatorContainer = this.StartOperator.Id;
     }
-    if (this.StartSizingBeamDocuments) {
-      var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
-    }
-    if (this.StartSizingBeamCounter) {
-      var SizingBeamCounterContainer = this.StartSizingBeamCounter;
-    }
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.StartDate = HistoryDateContainer;
-    this.data.SizingDetails.StartTime = HistoryTimeContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-    this.data.SizingBeamDocuments = {};
-    this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
-    this.data.SizingBeamDocuments.Counter = {};
-    this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
+    this.data.SizingBeamId = SizingBeamIdContainer;
+    this.data.CounterStart = SizingStartCounterContainer;
+    this.data.StartDate = HistoryDateContainer;
+    this.data.StartTime = HistoryTimeContainer;
+    this.data.StartShift = ShiftContainer;
+    this.data.StartOperator = OperatorContainer;
 
     this.service
       .updateStart(this.data.Id, this.data)
@@ -366,6 +371,23 @@ export class Update {
       var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
     }
 
+    var IdContainer = this.data.Id;
+    if (this.PauseDate) {
+      var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
+    }
+
+    if (this.PauseTime) {
+      var HistoryTimeContainer = this.PauseTime;
+    }
+
+    if (this.PauseShift) {
+      var ShiftContainer = this.PauseShift.Id;
+    }
+
+    if (this.PauseOperator) {
+      var OperatorContainer = this.PauseOperator.Id;
+    }
+
     switch (this.CauseOfStopping) {
       case "Putus Beam":
         LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
@@ -374,37 +396,24 @@ export class Update {
         LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
         break;
       default:
-        this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+        LastCausesBrokenBeam = LastCausesBrokenBeam;
+        LastCausesMachineTroubled = LastCausesMachineTroubled;
+        break;
     }
 
-    var IdContainer = this.data.Id;
-    if (this.PauseDate) {
-      var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
-    }
-    if (this.PauseTime) {
-      var HistoryTimeContainer = this.PauseTime;
-    }
-    if (this.PauseShift) {
-      var ShiftContainer = this.PauseShift.Id;
-    }
-    if (this.PauseOperator) {
-      var OperatorContainer = this.PauseOperator.Id;
-    }
     if (this.Information) {
       var InformationContainer = this.Information;
     }
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.PauseDate = HistoryDateContainer;
-    this.data.SizingDetails.PauseTime = HistoryTimeContainer;
-    this.data.SizingDetails.Information = InformationContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-    this.data.SizingDetails.Causes = {};
-    this.data.SizingDetails.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
-    this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
+    this.data.PauseDate = HistoryDateContainer;
+    this.data.PauseTime = HistoryTimeContainer;
+    this.data.PauseShift = ShiftContainer;
+    this.data.PauseOperator = OperatorContainer;
+    this.data.BrokenBeam = LastCausesBrokenBeam.toString();
+    this.data.MachineTroubled = LastCausesMachineTroubled.toString();
+    this.data.Information = InformationContainer;
 
     this.service
       .updatePause(this.data.Id, this.data)
