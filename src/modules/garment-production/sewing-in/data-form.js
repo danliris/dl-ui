@@ -121,10 +121,10 @@ export class DataForm {
                     a.LoadingItemId = item.Id;
                     a.DesignColor = item.DesignColor;
                     a.Size = item.Size;
-                    a.Quantity = item.Quantity;
+                    a.Quantity = item.RemainingQuantity;
                     a.Uom = item.Uom;
                     a.Color = item.Color;
-                    a.RemainingQuantity = item.Quantity;
+                    a.RemainingQuantity = item.RemainingQuantity;
                     this.data.Items.push(a);
                 }
             }
