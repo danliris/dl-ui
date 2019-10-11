@@ -75,10 +75,10 @@ export class Create {
 
   MachineDocumentChanged(newValue) {
     if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
-      this.error.MachineDocument = "";
+      this.error.MachineDocumentId = "";
       this.MachineDocument = newValue;
     } else {
-      this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
     }
   }
 
@@ -219,14 +219,13 @@ export class Create {
       var BeamId = doc.Id;
       this.data.BeamsWarping.push(BeamId);
     });
-
+    
     this.service
       .create(this.data)
       .then(result => {
         this.router.navigateToRoute('list');
       })
       .catch(e => {
-        console.log(e);
         this.error = e;
       });
   }
