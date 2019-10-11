@@ -15,11 +15,11 @@ export class List {
     columns = [
         { field: "SewingInNo", title: "No Sewing In" },
         { field: "Article", title: "No Artikel" },
-        { field: "TotalQuantity", title: "Jumlah" },
+        { field: "TotalQuantity", title: "Jumlah", sortable: false },
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "RONo", title: "RO" },
-        { field: "Unit.Code", title: "Unit Sewing In"},
-        { field: "UnitFrom.Code", title: "Asal Unit"},
+        { field: "UnitCode", title: "Unit Sewing In"},
+        { field: "UnitFromCode", title: "Asal Unit"},
         {
             field: "SewingInDate", title: "Tgl Sewing In", formatter: function (value, data, index) {
               return moment(value).format("DD MMM YYYY")
@@ -49,6 +49,8 @@ export class List {
             data.total = result.info.total;
             data.data = result.data;
             data.data.forEach(s => {
+                s.UnitCode=s.Unit.Code;
+                s.UnitFromCode=s.UnitFrom.Code;
                 if(s.Items){
                 s.Items.toString = function () {
                     var str = "<ul>";

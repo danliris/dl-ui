@@ -187,6 +187,7 @@ export class DataForm {
             };
             return this.service.getCuttingIn(info)
                 .then((result) => {
+                    info.filter=JSON.stringify({ ProductName:"PROCESS" });
                     return this.purchasingService.getGarmentEPOByRONo(info)
                     .then((epo)=>{
                         var roList=[];
