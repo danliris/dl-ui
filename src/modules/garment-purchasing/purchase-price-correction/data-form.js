@@ -1,5 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
+var moment = require("moment");
+var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
 @inject(Service)
 export class DataForm {
@@ -12,6 +14,7 @@ export class DataForm {
     @bindable correctionType;
     @bindable isUseVat = false;
     @bindable isUseIncomeTax = false;
+    @bindable selectedSupplier;
 
     constructor(service) {
         this.service = service;
@@ -65,12 +68,47 @@ export class DataForm {
         }
     }
 
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    supplierView = (supplier) => {
+        var code=supplier.code? supplier.code : supplier.Code;
+        var name=supplier.name? supplier.name : supplier.Name;
+        return `${code} - ${name}`
+    }
+
+    selectedSupplierChanged(newValue) {
+        var _selectedSupplier = newValue;
+        if (_selectedSupplier) {
+            this.filterDO={
+                "BillNo != null": true,
+                SupplierName:_selectedSupplier.name
+            };
+        }
+        else{
+            this.filterDO={};
+            this.selectedSupplier=null;
+            this.data.Items=[];
+            this.itemsTemp = [];
+            this.data.DONo=null;
+            this.data.Supplier=null;
+            this.context.supplierViewModel.editorValue = "";
+            this.context.doViewModel.editorValue = "";
+        }
+        this.context.doViewModel.editorValue = "";
+        this.deliveryOrder = null;
+        this.data.Items = [];
+        this.itemsTemp = [];
+        this.data.Supplier=null;
+    }
+
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
             var info = {
                 keyword: keyword,
-                filter: JSON.stringify({ "BillNo != null": true }),
-                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName" }),
+                filter: JSON.stringify(this.filterDO),
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName","doDate":"DODate" }),
                 search: JSON.stringify([ "DONo" ]),
                 order: {"DONo": "asc"}
             };
@@ -78,10 +116,15 @@ export class DataForm {
                 .then((result) => {
                     return result.data.map(data => {
                         data.toString = function() { return `${this.doNo} - ${this.supplierName}`; };
+                        
                         return data;
                     });
                 });
         }
+    }
+
+    doView = (DO) => {
+        return `${DO.doNo} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
     }
 
 
@@ -155,6 +198,7 @@ export class DataForm {
             this.data.DOId = null;
             this.data.Items = [];
             this.itemsTemp = [];
+            this.context.doViewModel.editorValue = "";
 
             if (this.error) {
                 if(this.error.ItemsCount)
