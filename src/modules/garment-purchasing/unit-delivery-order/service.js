@@ -7,6 +7,8 @@ import moment from 'moment';
 
 const serviceUri = 'garment-unit-delivery-orders';
 const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order-header';
+const unitReceiptNoteItemUri='garment-unit-receipt-notes/by-ro';
+const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 
 export class Service extends RestService {
 
@@ -21,6 +23,11 @@ export class Service extends RestService {
 
     searchUnitReceiptNote(info) {
         var endpoint = `${unitReceiptNoteUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchUnitReceiptNoteItems(info) {
+        var endpoint = `${unitReceiptNoteItemUri}`;
         return super.list(endpoint, info);
     }
 
@@ -51,6 +58,11 @@ export class Service extends RestService {
 
     searchUnitReceiptNote(info) {
         var endpoint = `${unitReceiptNoteUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getGarmentEPOByRONo(info) {
+        var endpoint = `${garmentEPOServiceUri}`;
         return super.list(endpoint, info);
     }
 }

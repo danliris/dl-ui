@@ -108,8 +108,20 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "unitReceiptNoteLoader"
                             text = "RONo"
+                            if.bind="!isProses"
                             placeholder = "Cari Nomor RO"
                             query.bind = "filterRONoByUnit"
+                            view-model.ref="RONoViewModel">
+                        </au-autocomplete>
+                        <au-autocomplete
+                            disabled.bind="!(data.UnitSender && data.Storage)"
+                            value.bind = "RONo"
+                            error.bind = "error.RONo"
+                            read-only.bind = "readOnly || isEdit"
+                            loader.bind = "roLoader"
+                            text = "RONo"
+                            if.bind="isProses"
+                            placeholder = "Cari Nomor RO"
                             view-model.ref="RONoViewModel">
                         </au-autocomplete>
                     </div>
