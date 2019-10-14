@@ -106,21 +106,22 @@ export class DataForm {
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.Items.splice(0);
-            this.data.PlanPORemainingQuantity=0;
-            this.data.PlanPOQuantity=0;
+            // this.data.PlanPORemainingQuantity=0;
+            // this.data.PlanPOQuantity=0;
         }
         this.context.selectedCuttingInViewModel.editorValue = "";
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity = null;
         this.data.Items.splice(0);
-        this.data.PlanPORemainingQuantity=0;
-        this.data.PlanPOQuantity=0;
+        // this.data.PlanPORemainingQuantity=0;
+        // this.data.PlanPOQuantity=0;
     }
 
     async selectedCuttingInChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
+                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
@@ -139,7 +140,7 @@ export class DataForm {
                     this.data.Comodity = noResult.data[0].Comodity;
                 }
                 this.data.PlanPORemainingQuantity=this.data.PlanPOQuantity;
-                Promise.resolve(this.service.getCuttingOut({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
+                Promise.resolve(this.service.getCuttingOut({ filter: JSON.stringify({ EPOItemId: this.data.EPOItemId}) }))
                     .then(result => {
                         if(result.data.length>0){
                             for(var cuttingOutHeader of result.data){
@@ -170,8 +171,8 @@ export class DataForm {
             else {
                 this.context.selectedCuttingInViewModel.editorValue = "";
                 this.data.RONo = null;
-                this.data.PlanPORemainingQuantity=0;
-                this.data.PlanPOQuantity=0;
+                // this.data.PlanPORemainingQuantity=0;
+                // this.data.PlanPOQuantity=0;
                 this.data.Article = null;
                 this.data.Comodity = null;
                 this.data.Items.splice(0);
@@ -182,13 +183,17 @@ export class DataForm {
 
     get cuttingInLoader() {
         return (keyword) => {
-            var info = {
+            var infoCuttingIn = {
               keyword: keyword,
+              filter: JSON.stringify({UnitId: this.data.UnitFrom.Id})
             };
-            return this.service.getCuttingIn(info)
+            return this.service.getCuttingIn(infoCuttingIn)
                 .then((result) => {
-                    info.filter=JSON.stringify({ ProductName:"PROCESS" });
-                    return this.purchasingService.getGarmentEPOByRONo(info)
+                    var infoEPO = {
+                        keyword: keyword,
+                        filter: JSON.stringify({ ProductName:"PROCESS" })
+                      };
+                    return this.purchasingService.getGarmentEPOByRONo(infoEPO)
                     .then((epo)=>{
                         var roList=[];
                         for(var a of epo.data){
