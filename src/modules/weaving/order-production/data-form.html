@@ -53,12 +53,12 @@
               <textbox label="Asal Benang" read-only="true"></textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Asal Lusi" value.bind="data.WarpOrigin" error.bind="error.WarpOrigin"
-                read-only.bind="readOnly"></au-textbox>
+              <au-autocomplete placeholder="Asal Lusi" value.bind="WarpOrigin" error.bind="error.WarpOrigin"
+                read-only.bind="readOnly" loader.one-time="origins" text="Code"></au-autocomplete>
             </div>
             <div class="col-md-3" style="padding-left: 4px;">
-              <au-textbox placeholder="Asal Pakan" value.bind="data.WeftOrigin" error.bind="error.WeftOrigin"
-                read-only.bind="readOnly"></au-textbox>
+              <au-autocomplete placeholder="Asal Pakan" value.bind="WeftOrigin" error.bind="error.WeftOrigin"
+                read-only.bind="readOnly" loader.one-time="origins" text="Code"></au-autocomplete>
             </div>
           </div>
 

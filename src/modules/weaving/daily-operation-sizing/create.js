@@ -20,8 +20,8 @@ export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable OrderDocument;
-  @bindable OperatorDocument;
-  @bindable EntryTime;
+  @bindable PreparationOperator;
+  @bindable PreparationTime;
   @bindable BeamsWarping;
 
   beamColumns = [{
@@ -40,9 +40,11 @@ export class Create {
     this.service = service;
     this.bindingEngine = bindingEngine;
 
+    this.showHideBeamsCollection = false;
+
     this.data = {};
-    this.data.SizingDetails = {};
     this.error = {};
+
     this.BeamsWarping = [];
   }
 
@@ -52,7 +54,7 @@ export class Create {
   };
 
   beamsWarpingTableOptions = {
-    
+
   }
 
   get machines() {
@@ -72,12 +74,12 @@ export class Create {
   // }
 
   MachineDocumentChanged(newValue) {
-      if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
-        this.error.MachineDocument = "";
-        this.MachineDocument = newValue;
-      } else {
-        this.error.MachineDocument = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
-      }
+    if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+      this.error.MachineDocumentId = "";
+      this.MachineDocument = newValue;
+    } else {
+      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+    }
   }
 
   OrderDocumentChanged(newValue) {
@@ -92,38 +94,40 @@ export class Create {
           return this.service.getUnitById(weavingUnitId);
         })
         .then(resultWeavingUnit => {
-          this.error.WeavingUnitDocument = "";
-          this.WeavingUnitDocument = resultWeavingUnit.Name;
+          this.error.WeavingUnit = "";
+          this.WeavingUnit = resultWeavingUnit.Name;
 
           this.beamsWarpingTableOptions.OrderId = order.Id;
+
+          if (resultWeavingUnit.Id) {
+            this.showHideBeamsCollection = true;
+          }
         })
         .catch(e => {
           this.ConstructionNumber = "";
-          this.WeavingUnitDocument = "";
+          this.WeavingUnit = "";
 
           this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-          this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+          this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
         });
     }
   }
 
-  OperatorDocumentChanged(newValue) {
+  PreparationOperatorChanged(newValue) {
     this.SizingGroup = newValue.Group;
   }
 
-  EntryTimeChanged(newValue) {
-    this.data.SizingDetails.PreparationTime = newValue;
+  PreparationTimeChanged(newValue) {
+    this.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
-        this.error.Shift = "";
-        this.Shift = {};
-        this.Shift = result;
-        this.data.SizingDetails.ShiftId = this.Shift.Id;
+        this.error.PreparationShift = "";
+        this.data.PreparationShift = {};
+        this.data.PreparationShift = result.Id;
       })
       .catch(e => {
-        this.Shift = {};
-        this.data.SizingDetails.ShiftId = this.Shift.Id;
-        this.error.Shift = " Shift tidak ditemukan ";
+        this.data.PreparationShift = {};
+        this.error.PreparationShift = " Shift tidak ditemukan ";
       });
   }
 
@@ -169,22 +173,53 @@ export class Create {
   }
 
   saveCallback(event) {
-    var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
-    this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+    if (this.MachineDocument) {
+      this.data.MachineDocumentId = this.MachineDocument.Id;
+    }
 
-    this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
-    this.data.OrderDocumentId = this.OrderDocument.Id;
+    if (this.OrderDocument) {
+      this.data.OrderDocumentId = this.OrderDocument.Id;
+    }
+
+    if (this.RecipeCode) {
+      this.data.RecipeCode = this.RecipeCode;
+    }
+
+    if (this.NeReal) {
+      this.data.NeReal = this.NeReal;
+    }
+
+    if (this.PreparationOperator) {
+      this.data.PreparationOperator = this.PreparationOperator.Id;
+    }
+
+    if (this.PreparationDate) {
+      var PreparationDateContainer = this.PreparationDate;
+      this.data.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+    }
+
+    if (this.PreparationTime) {
+      this.data.PreparationTime = this.PreparationTime;
+    }
+
+    // if (this.PreparationShift) {
+    //   this.data.PreparationShift = this.PreparationShift.Id;
+    // }
+
+    if (this.YarnStrands) {
+      this.data.YarnStrands = this.YarnStrands;
+    }
+
+    if (this.EmptyWeight) {
+      this.data.EmptyWeight = this.EmptyWeight;
+    }
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
     this.BeamDocument.forEach(doc => {
       var BeamId = doc.Id;
       this.data.BeamsWarping.push(BeamId);
     });
-
-    this.data.NeReal = this.NeReal;
-    this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
-
+    
     this.service
       .create(this.data)
       .then(result => {

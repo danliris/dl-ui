@@ -49,19 +49,23 @@ export class Create {
     }
 
     if (
-      this.data.WarpOrigin == null ||
-      this.data.WarpOrigin == undefined ||
-      this.data.WarpOrigin == ""
+      this.WarpOrigin == null ||
+      this.WarpOrigin == undefined ||
+      this.WarpOrigin == ""
     ) {
-      this.data.WarpOrigin = "";
+      this.data.WarpOriginId = "";
+    } else{
+      this.data.WarpOriginId = this.WarpOrigin.Id
     }
 
     if (
-      this.data.WeftOrigin == null ||
-      this.data.WeftOrigin == undefined ||
-      this.data.WeftOrigin == ""
+      this.WeftOrigin == null ||
+      this.WeftOrigin == undefined ||
+      this.WeftOrigin == ""
     ) {
-      this.data.WeftOrigin = "";
+      this.data.WeftOriginId = "";
+    } else{
+      this.data.WeftOriginId = this.WeftOrigin.Id
     }
 
     if (!this.data.WarpComposition) {
@@ -98,7 +102,7 @@ export class Create {
       this.data.WeavingUnit.Code = Unit.Code;
       this.data.WeavingUnit.Name = Unit.Name;
     }
-
+    
     this.service
       .create(this.data)
       .then(result => {
