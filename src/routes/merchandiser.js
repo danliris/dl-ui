@@ -316,4 +316,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/monitoring-unpost-cost-calculation',
+        name: 'monitoring-unpost-cost-calculation',
+        moduleId: './modules/merchandiser/report/monitoring-unpost-cost-calculation/index',
+        nav: true,
+        title: 'Monitoring Unpost Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
