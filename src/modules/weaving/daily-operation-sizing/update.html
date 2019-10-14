@@ -125,15 +125,15 @@
             </div>
             <div class="col-md-4">
               <au-autocomplete placeholder="No. Beam Sizing" value.bind="StartSizingBeamDocuments"
-                error.bind="error.StartSizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
+                error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
               </au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Counter Awal" value.bind="StartSizingBeamCounter"
-                error.bind="error.StartSizingBeamCounter" read-only.bind="true"></au-textbox>
+              <au-textbox placeholder="Counter Awal" value.bind="StartSizingStartCounter"
+                error.bind="error.CounterStart" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -295,7 +295,7 @@
               <textbox label="Tanggal Produksi Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="ProduceBeamsDate" error.bind="error.ProduceBeamsDate">
+              <au-datepicker value.bind="ProduceBeamsDate" error.bind="error.ProduceBeamDate">
               </au-datepicker>
             </div>
           </div>
@@ -305,14 +305,13 @@
               <textbox label="Waktu Produksi Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="ProduceBeamsTime" error.bind="error.ProduceBeamsTime"
-                read-only.bind="readOnly">
+              <au-timepicker value.bind="ProduceBeamsTime" error.bind="error.ProduceBeamTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="ProduceBeamsShift.Name" error.bind="error.ProduceBeamsShift"
+              <au-textbox placeholder="Shift" value.bind="ProduceBeamsShift.Name" error.bind="error.ProduceBeamShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -324,7 +323,7 @@
             </div>
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator" value.bind="ProduceBeamsOperator"
-                error.bind="error.ProduceBeamsOperator" read-only.bind="readOnly" loader.bind="operators"
+                error.bind="error.ProduceBeamOperator" read-only.bind="readOnly" loader.bind="operators"
                 text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
@@ -342,48 +341,48 @@
             </div>
             <div class="col-md-3">
               <au-numeric placeholder="Counter Akhir" value.bind="ProduceBeamsFinishCounter"
-                error.bind="error.ProduceBeamsFinishCounter" read-only.bind="readOnly"></au-numeric>
+                error.bind="error.CounterFinish" read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3" style="text-align: left;">
-              <au-numeric placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.ProduceBeamsPISMeter"
+              <au-numeric placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.PISMeter"
                 read-only.bind="true"></au-numeric>
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap;">
+          <div class="row" style="white-space: nowrap;" show.bind="showHideCalculationField">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Bruto" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Bruto" value.bind="ProduceBeamsBruto" error.bind="error.ProduceBeamsBruto"
+              <au-numeric placeholder="Bruto" value.bind="ProduceBeamsBruto" error.bind="error.WeightBruto"
                 read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Netto" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.ProduceBeamsNetto"
+              <au-numeric placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.WeightNetto"
                 read-only.bind="true"></au-numeric>
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap;">
+          <div class="row" style="white-space: nowrap;" show.bind="showHideCalculationField">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Netto Teoritis" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsNettoTheoritical"
-                error.bind="error.ProduceBeamsNettoTheoritical" read-only.bind="true"></au-numeric>
+              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsTheoritical"
+                error.bind="error.WeightTheoritical" read-only.bind="true"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="SPU" value.bind="ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
-                read-only.bind="true"></au-numeric>
+              <au-numeric placeholder="SPU" value.bind="ProduceBeamsSPU" error.bind="error.SPU" read-only.bind="true">
+              </au-numeric>
             </div>
           </div>
 
@@ -407,7 +406,7 @@
               <textbox label="Tanggal Selesai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="DoffDate" error.bind="error.DoffDate">
+              <au-datepicker value.bind="FinishDoffDate" error.bind="error.FinishDoffDate">
               </au-datepicker>
             </div>
           </div>
@@ -417,13 +416,13 @@
               <textbox label="Waktu Selesai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="DoffTime" error.bind="error.DoffTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="FinishDoffTime" error.bind="error.FinishDoffTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-2" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="DoffShift.Name" error.bind="error.DoffShift"
+              <au-textbox placeholder="Shift" value.bind="FinishDoffShift.Name" error.bind="error.FinishDoffShift"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -434,14 +433,14 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="DoffOperator" error.bind="error.DoffOperator"
+              <au-autocomplete placeholder="Operator" value.bind="FinishDoffOperator" error.bind="error.FinishDoffOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="DoffOperator.Group" error.bind="error.DoffOperator"
+              <au-textbox placeholder="Grup Sizing" value.bind="FinishDoffOperator.Group" error.bind="error.FinishDoffOperatorGroup"
                 read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -451,8 +450,8 @@
               <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed"
-                error.bind="error.DoffMachineSpeed" read-only.bind="readOnly">
+              <au-numeric placeholder="Kecepatan Mesin" value.bind="FinishDoffMachineSpeed"
+                error.bind="error.MachineSpeed" read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -462,14 +461,14 @@
               <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Visco" value.bind="DoffVisco" error.bind="error.DoffVisco"
+              <au-textbox placeholder="Visco" value.bind="FinishDoffVisco" error.bind="error.Visco"
                 read-only.bind="readOnly"></au-textbox>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="TexSQ" value.bind="DoffTexSQ" error.bind="error.DoffTexSQ"
+              <au-textbox placeholder="TexSQ" value.bind="FinishDoffTexSQ" error.bind="error.TexSQ"
                 read-only.bind="readOnly">
               </au-textbox>
             </div>

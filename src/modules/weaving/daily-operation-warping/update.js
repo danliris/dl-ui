@@ -11,9 +11,10 @@ import {
   Service
 } from "./service";
 import moment from "moment";
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+// var BeamLoader = require("../../../loader/weaving-beam-loader");
 var WarpingBeamLoader = require("../../../loader/weaving-warping-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
+var UOMLoader = require("../../../loader/uom-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
@@ -22,11 +23,14 @@ export class Update {
   @bindable ResumeTime;
   @bindable ProduceBeamsTime;
   @bindable FinishTime;
+  @bindable BrokenThreads;
+  @bindable LooseThreads;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
     this.service = service;
     this.bindingEngine = bindingEngine;
+    
     this.data = {};
     this.error = {};
     this.error.error = {};
@@ -70,7 +74,7 @@ export class Update {
     if (this.data.Id) {
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
       this.Histories = this.data.DailyOperationWarpingHistories;
-      
+
       var lastWarpingHistory = this.Histories[0];
       var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
       switch (lastWarpingHistoryStatus) {
@@ -173,7 +177,7 @@ export class Update {
     },
     {
       value: "BeamStatus",
-      header: "Status Beam"
+      header: "Status Beam Warping"
     }
   ];
 
@@ -203,7 +207,7 @@ export class Update {
     },
     {
       value: "OperationStatus",
-      header: "Status"
+      header: "Status Mesin"
     }
   ];
 
@@ -213,6 +217,10 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
+  }
+
+  get uoms() {
+    return UOMLoader;
   }
 
   brokenThreadsClicked(event) {
@@ -391,56 +399,352 @@ export class Update {
   }
 
   savePause() {
+    this.error = {};
+    this.error.error = {};
+
     var BrokenThreadsCauseContainer;
     var ConeDeficientContainer;
     var LooseThreadsAmountContainer;
     var RightLooseCreelContainer;
     var LeftLooseCreelContainer;
 
-    var BeamProducts = this.data.DailyOperationWarpingBeamProducts;
-    if (this.BrokenThreads == true || this.LooseThreads == true) {
-      if (BeamProducts.length > 0) {
-        var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
-        if (this.BrokenThreads == true) {
+    //Lempar Error Jika Penyebabab Putus Benang dan Benang Lolos Tidak Dicentang
+    if ((this.BrokenThreads == false || this.BrokenThreads == null || this.BrokenThreads == undefined) && (this.LooseThreads == false || this.LooseThreads == null || this.LooseThreads == undefined)) {
+      this.error.BrokenThreads = "Penyebab Putus Benang atau Benang Lolos Harus Diisi";
+      this.error.LooseThreads = "Penyebab Putus Benang atau Benang Lolos Harus Diisi";
+    } else {
+
+      //Untuk Kondisi Putus Benang Dicentang DAN Benang Lolos Tidak Dicentang
+      if (this.BrokenThreads == true && (this.LooseThreads == false || this.LooseThreads == null || this.LooseThreads == undefined)) {
+        let BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+
+        //Jika Produk Beam Sebelumnya Sudah Ada
+        if (BeamProducts != null || BeamProducts != undefined) {
+          var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+          //Cek Penyebab Benang Putus Sudah Diisi
+          //Jika Diisi
           if (this.BrokenThreadsCause === "Benang Tipis") {
             BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
-          } else {
-            this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
           }
-        } else {
-          BrokenThreadsCauseContainer = 0;
-        }
-        if (this.ConeDeficient) {
-          ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
-        } else {
-          ConeDeficientContainer = LastBeamProduct.ConeDeficient;
-        }
-        if (this.LooseThreads == true) {
-          if (!this.LooseThreadsAmount == 0) {
-            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
-          } else {
-            this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
           }
-        } else {
-          LooseThreadsAmountContainer = 0;
-        }
-        if (this.RightLooseCreel) {
-          RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
-        } else {
-          RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
-        }
-        if (this.LeftLooseCreel) {
-          LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
-        } else {
-          LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
-        }
-        // }
-      }
-    } else {
-      this.error.BrokenThreads = "Penyebab Putus Benang Harus Diisi";
-      this.error.LooseThreads = "Jumlah Benang Lolos Tidak Boleh 0";
 
+          //Cek Cone Panjang Kurang Sudah Diisi
+          //Jika Diisi
+          if (this.ConeDeficient) {
+            ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
+          }
+          //Jika Tidak Diisi
+          else {
+            ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+          }
+        }
+
+        //Jika Produk Beam Sebelumnya Belum Ada
+        else {
+          //Cek Penyebab Benang Putus Sudah Diisi
+          //Jika Diisi
+          if (this.BrokenThreadsCause === "Benang Tipis") {
+            BrokenThreadsCauseContainer = 1;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
+          }
+
+          //Cek Cone Panjang Kurang Sudah Diisi
+          //Jika Diisi
+          if (this.ConeDeficient != 0) {
+            ConeDeficientContainer = this.ConeDeficient;
+          }
+          //Jika Tidak Diisi
+          else {
+            ConeDeficientContainer = 0;
+          }
+        }
+        // } else {
+        //   //Jika Beam Product Sebelumnya Sudah Ada
+        //   if (BeamProducts.length != null || BeamProducts != undefined) {
+        //     var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+        //     //Ambil Value dari Elemen Terakhir dari Array Produk Beam
+        //     LooseThreadsAmountContainer = LastBeamProduct.LooseThreadsAmount;
+        //     RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+        //     LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+        //   } else {
+        //     //Beri Nilai Default 0 Karena Benang Lolos Tidak Dicentang Dan Belum Ada Produk Beam (Array)
+        //     LooseThreadsAmountContainer = 0;
+        //     RightLooseCreelContainer = 0;
+        //     LeftLooseCreelContainer = 0;
+        //   }
+      }
+
+      //Untuk Kondisi Putus Benang Tidak Dicentang DAN Benang Lolos Dicentang
+      if ((this.BrokenThreads == false || this.BrokenThreads == null || this.BrokenThreads == undefined) && this.LooseThreads == true) {
+        let BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+
+        //Jika Produk Beam Sebelumnya Sudah Ada
+        if (BeamProducts != null || BeamProducts != undefined) {
+          var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+          //Cek Benang Lolos Sudah Diisi (Tidak 0)
+          //Jika Diisi
+          if (this.LooseThreadsAmount != 0) {
+            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+          }
+
+          //Cek Creel Lolos Kanan
+          //Jika Diisi
+          if (this.RightLooseCreel != 0) {
+            RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+          }
+
+          //Cek Creel Lolos Kiri
+          //Jika Diisi
+          if (this.LeftLooseCreel != 0) {
+            LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+          }
+        }
+
+        //Jika Produk Beam Sebelumnya Belum Ada
+        else {
+          //Cek Benang Lolos Sudah Diisi (Tidak 0)
+          //Jika Diisi
+          if (this.LooseThreadsAmount != 0) {
+            LooseThreadsAmountContainer = this.LooseThreadsAmount;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+          }
+
+          //Cek Creel Lolos Kanan
+          //Jika Diisi
+          if (this.RightLooseCreel != 0) {
+            RightLooseCreelContainer = this.RightLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            RightLooseCreelContainer = 0;
+          }
+
+          //Cek Creel Lolos Kiri
+          //Jika Diisi
+          if (this.LeftLooseCreel != 0) {
+            LeftLooseCreelContainer = this.LeftLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            LeftLooseCreelContainer = 0;
+          }
+        }
+        // } else {
+        //     //Jika Beam Product Sebelumnya Sudah Ada
+        //     if (BeamProducts.length != null || BeamProducts != undefined) {
+        //       var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+        //       //Ambil Value dari Elemen Terakhir dari Array Produk Beam
+        //       BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause;
+        //       ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+        //     } else {
+        //       //Beri Nilai Default 0 Karena Benang Lolos Tidak Dicentang Dan Belum Ada Produk Beam (Array)
+        //       BrokenThreadsCauseContainer = 0;
+        //       ConeDeficientContainer = 0;
+        //     }
+      }
+
+      //Untuk Kondisi Putus Benang Dicentang DAN Benang Lolos Dicentang (Dicentang Dua-duanya)
+      if (this.BrokenThreads == true && this.LooseThreads == true) {
+        let BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+
+        //Jika Produk Beam Sebelumnya Sudah Ada
+        if (BeamProducts != null || BeamProducts != undefined) {
+          var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+          //Cek Penyebab Benang Putus Sudah Diisi
+          //Jika Diisi
+          if (this.BrokenThreadsCause === "Benang Tipis") {
+            BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
+          }
+
+          //Cek Cone Panjang Kurang Sudah Diisi
+          //Jika Diisi
+          if (this.ConeDeficient != 0) {
+            ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
+          }
+          //Jika Tidak Diisi
+          else {
+            ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+          }
+
+          //Cek Benang Lolos Sudah Diisi (Tidak 0)
+          //Jika Diisi
+          if (this.LooseThreadsAmount != 0) {
+            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+          }
+
+          //Cek Creel Lolos Kanan
+          //Jika Diisi
+          if (this.RightLooseCreel != 0) {
+            RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+          }
+
+          //Cek Creel Lolos Kiri
+          //Jika Diisi
+          if (this.LeftLooseCreel != 0) {
+            LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+          }
+        }
+
+        //Jika Produk Beam Sebelumnya Belum Ada
+        else {
+          //Cek Penyebab Benang Putus Sudah Diisi
+          //Jika Diisi
+          if (this.BrokenThreadsCause === "Benang Tipis") {
+            BrokenThreadsCauseContainer = 1;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
+          }
+
+          //Cek Cone Panjang Kurang Sudah Diisi
+          //Jika Diisi
+          if (this.ConeDeficient != 0) {
+            ConeDeficientContainer = this.ConeDeficient;
+          }
+          //Jika Tidak Diisi
+          else {
+            ConeDeficientContainer = 0;
+          }
+
+          //Cek Benang Lolos Sudah Diisi (Tidak 0)
+          //Jika Diisi
+          if (this.LooseThreadsAmount != 0) {
+            LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
+          }
+          //Lempar Error Jika Tidak Diisi
+          else {
+            this.error.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+          }
+
+          //Cek Creel Lolos Kanan
+          //Jika Diisi
+          if (this.RightLooseCreel != 0) {
+            RightLooseCreelContainer = this.RightLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            RightLooseCreelContainer = 0;
+          }
+
+          //Cek Creel Lolos Kiri
+          //Jika Diisi
+          if (this.LeftLooseCreel != 0) {
+            LeftLooseCreelContainer = this.LeftLooseCreel;
+          }
+          //Nilai Default Jika Tidak Diisi 
+          else {
+            LeftLooseCreelContainer = 0;
+          }
+        }
+      }
+      // } else {
+      //   //Jika Beam Product Sebelumnya Sudah Ada
+      //   if (BeamProducts.length != null || BeamProducts != undefined) {
+      //     var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+      //     //Ambil Value dari Elemen Terakhir dari Array Produk Beam
+      //     BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause;
+      //     ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+      //     LooseThreadsAmountContainer = LastBeamProduct.LooseThreadsAmount;
+      //     RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+      //     LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+      //   } else {
+      //     //Beri Nilai Default 0 Karena Benang Lolos Tidak Dicentang Dan Belum Ada Produk Beam (Array)
+      //     BrokenThreadsCauseContainer = 0;
+      //     ConeDeficientContainer = 0;
+      //     LooseThreadsAmountContainer = 0;
+      //     RightLooseCreelContainer = 0;
+      //     LeftLooseCreelContainer = 0;
+      //   }
     }
+
+    // let BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+    // if (BeamProducts.length != null || BeamProducts != undefined) {
+    //   var LastBeamProduct = this.data.DailyOperationWarpingBeamProducts[0];
+
+    //   if (this.BrokenThreads == true) {
+    //     if (this.BrokenThreadsCause === "Benang Tipis") {
+    //       BrokenThreadsCauseContainer = LastBeamProduct.BrokenThreadsCause + 1;
+    //     } else {
+    //       this.error.BrokenThreadsCause = "Penyebab Putus Benang Harus Diisi";
+    //     }
+
+    //     if (this.ConeDeficient) {
+    //       ConeDeficientContainer = this.ConeDeficient + LastBeamProduct.ConeDeficient;
+    //     } else {
+    //       ConeDeficientContainer = LastBeamProduct.ConeDeficient;
+    //     }
+    //   } else {
+    //     BrokenThreadsCauseContainer = 0;
+    //   }
+
+    //   if (this.LooseThreads == true) {
+    //     if (!this.LooseThreadsAmount == 0) {
+    //       LooseThreadsAmountContainer = this.LooseThreadsAmount + LastBeamProduct.LooseThreadsAmount;
+    //     } else {
+    //       this.error.LooseThreadsAmount = "Jumlah Benang Lolos Tidak Boleh 0";
+    //     }
+
+    //     if (this.RightLooseCreel) {
+    //       RightLooseCreelContainer = this.RightLooseCreel + LastBeamProduct.RightLooseCreel;
+    //     } else {
+    //       RightLooseCreelContainer = LastBeamProduct.RightLooseCreel;
+    //     }
+
+    //     if (this.LeftLooseCreel) {
+    //       LeftLooseCreelContainer = this.LeftLooseCreel + LastBeamProduct.LeftLooseCreel;
+    //     } else {
+    //       LeftLooseCreelContainer = LastBeamProduct.LeftLooseCreel;
+    //     }
+    //   } else {
+    //     LooseThreadsAmountContainer = 0;
+    //   }
+    // } else {
+    //   this.error.BrokenThreads = "Penyebab Putus Benang Harus Diisi";
+    //   this.error.LooseThreads = "Jumlah Benang Lolos Tidak Boleh 0";
+
+    // }
 
     var IdContainer = this.data.Id;
     if (this.PauseDate) {
@@ -478,6 +782,12 @@ export class Update {
         location.reload();
       })
       .catch(e => {
+        if (this.error.error.BrokenThreadsCause) {
+          e.BrokenThreadsCause = this.error.error.BrokenThreadsCause;
+        }
+        if (this.error.error.LooseThreadsAmount) {
+          e.LooseThreadsAmount = this.error.error.LooseThreadsAmount;
+        }
         this.error.error = e;
       });
   }
@@ -546,6 +856,7 @@ export class Update {
     var ShiftContainer;
     var OperatorContainer;
     var WarpingBeamLengthContainer;
+    var WarpingBeamLengthUOMIdContainer;
     var TentionContainer;
     var MachineSpeedContainer;
     var PressRollContainer;
@@ -566,6 +877,9 @@ export class Update {
     if (this.WarpingBeamLength) {
       WarpingBeamLengthContainer = this.WarpingBeamLength;
     }
+    if (this.WarpingBeamLengthUOM) {
+      WarpingBeamLengthUOMIdContainer = this.WarpingBeamLengthUOM.Id;
+    }
     if (this.Tention) {
       TentionContainer = this.Tention;
     }
@@ -583,6 +897,7 @@ export class Update {
     this.data.ProduceBeamsShift = ShiftContainer;
     this.data.ProduceBeamsOperator = OperatorContainer;
     this.data.WarpingBeamLength = WarpingBeamLengthContainer;
+    this.data.WarpingBeamLengthUOMId = WarpingBeamLengthUOMIdContainer;
     this.data.Tention = TentionContainer;
     this.data.MachineSpeed = MachineSpeedContainer;
     this.data.PressRoll = PressRollContainer;

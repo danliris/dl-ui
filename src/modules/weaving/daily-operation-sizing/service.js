@@ -158,7 +158,7 @@ export class Service extends RestService {
   }
 
   updateDoff(Id, data) {
-    var status = "doff";
+    var status = "finish-doff";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }

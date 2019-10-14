@@ -19,7 +19,7 @@ export class Update {
   @bindable StartTime;
   @bindable PauseTime;
   @bindable ResumeTime;
-  @bindable DoffTime;
+  @bindable FinishDoffTime;
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
   @bindable ProduceBeamsBruto;
@@ -35,6 +35,8 @@ export class Update {
     this.isResumeDisabled = false;
     this.isProduceBeamDisabled = false;
     this.isDoffDisabled = false;
+
+    this.showHideCalculationField = false;
   }
 
   formOptions = {
@@ -44,7 +46,7 @@ export class Update {
 
   beamColumns = [{
     value: "BeamNumber",
-    header: "Nomor Beam Warping"
+    header: "No. Beam Warping"
   }, {
     value: "Netto",
     header: "Helai Benang Beam Warping"
@@ -52,7 +54,7 @@ export class Update {
 
   produceBeamsColumns = [{
     value: "SizingBeamNumber",
-    header: "Nomor Beam Sizing"
+    header: "No. Beam Sizing"
   }, {
     value: "ProduceBeamsDate",
     header: "Tanggal"
@@ -82,13 +84,6 @@ export class Update {
   logColumns = [{
       value: "SizingBeamNumber",
       header: "Nomor Beam Sizing"
-    }, {
-      value: "ShiftName",
-      header: "Shift"
-    },
-    {
-      value: "BrokenBeamCauses",
-      header: "Putus"
     },
     {
       value: "MachineDateHistory",
@@ -97,14 +92,29 @@ export class Update {
     {
       value: "MachineTimeHistory",
       header: "Jam"
+    }, {
+      value: "ShiftName",
+      header: "Shift"
     },
     {
-      value: "MachineStatusHistory",
-      header: "Status"
+      value: "OperatorName",
+      header: "Operator"
+    },
+    {
+      value: "OperatorGroup",
+      header: "Grup"
+    },
+    {
+      value: "BrokenBeamCauses",
+      header: "Putus"
     },
     {
       value: "InformationHistory",
-      header: "Information"
+      header: "Informasi"
+    },
+    {
+      value: "MachineStatusHistory",
+      header: "Status Mesin"
     }
   ];
 
@@ -121,20 +131,21 @@ export class Update {
         dataResult.WeavingDocument = unit;
         return dataResult;
       });
+
     if (this.data.Id) {
       this.BeamsWarping = this.data.WarpingBeamsDocument;
       this.ProduceBeams = this.data.SizingBeamDocuments;
       this.Log = this.data.SizingDetails;
 
       if (this.ProduceBeams == []) {
-        this.StartSizingBeamCounter = 0;
+        this.StartSizingStartCounter = 0;
       } else {
         var lastSizingDetail = this.Log[0];
         if (lastSizingDetail.MachineStatusHistory == "ENTRY") {
-          this.StartSizingBeamCounter = 0;
+          this.StartSizingStartCounter = 0;
         } else {
           var lastSizingBeamProduce = this.ProduceBeams[0];
-          this.StartSizingBeamCounter = lastSizingBeamProduce.FinishCounter;
+          this.StartSizingStartCounter = lastSizingBeamProduce.FinishCounter;
         }
       }
 
@@ -204,7 +215,7 @@ export class Update {
     this.StartTime = null;
     this.StartShift = undefined;
     this.StartOperator = undefined;
-    this.StartSizingBeamDocuments = undefined;
+    this.SizingBeamId = undefined;
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
@@ -255,7 +266,7 @@ export class Update {
     this.ProduceBeamsSPU = null;
     this.ProduceBeamsBruto = null;
     this.ProduceBeamsNetto = null;
-    this.ProduceBeamsNettoTheoritical = null;
+    this.ProduceBeamsTheoritical = null;
     this.ProduceBeamsDate = undefined;
     this.ProduceBeamsTime = null;
     this.ProduceBeamsShift = undefined;
@@ -272,13 +283,13 @@ export class Update {
   }
 
   finish() {
-    this.MachineSpeed = 0;
-    this.DoffTexSQ = undefined;
-    this.DoffVisco = undefined;
-    this.DoffDate = undefined;
-    this.DoffTime = null;
-    this.DoffShift = undefined;
-    this.DoffOperator = undefined;
+    this.FinishDoffMachineSpeed = 0;
+    this.FinishDoffTexSQ = undefined;
+    this.FinishDoffVisco = undefined;
+    this.FinishDoffDate = undefined;
+    this.FinishDoffTime = null;
+    this.FinishDoffShift = undefined;
+    this.FinishDoffOperator = undefined;
     if (this.showHideDoffMenu === true) {
       this.showHideDoffMenu = false;
     } else {
@@ -304,7 +315,14 @@ export class Update {
   }
 
   saveStart() {
+    this.error = {};
     var IdContainer = this.data.Id;
+    if (this.StartSizingBeamDocuments) {
+      var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
+    }
+    if (this.StartSizingStartCounter) {
+      var SizingStartCounterContainer = this.StartSizingStartCounter;
+    }
     if (this.StartDate) {
       var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     }
@@ -317,27 +335,18 @@ export class Update {
     if (this.StartOperator) {
       var OperatorContainer = this.StartOperator.Id;
     }
-    if (this.StartSizingBeamDocuments) {
-      var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
-    }
-    if (this.StartSizingBeamCounter) {
-      var SizingBeamCounterContainer = this.StartSizingBeamCounter;
-    }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.StartDate = HistoryDateContainer;
-    this.data.SizingDetails.StartTime = HistoryTimeContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-    this.data.SizingBeamDocuments = {};
-    this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
-    this.data.SizingBeamDocuments.Counter = {};
-    this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
+    var updateData = {};
+    updateData.Id = IdContainer;
+    updateData.SizingBeamId = SizingBeamIdContainer;
+    updateData.CounterStart = SizingStartCounterContainer;
+    updateData.StartDate = HistoryDateContainer;
+    updateData.StartTime = HistoryTimeContainer;
+    updateData.StartShift = ShiftContainer;
+    updateData.StartOperator = OperatorContainer;
 
     this.service
-      .updateStart(this.data.Id, this.data)
+      .updateStart(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
@@ -360,58 +369,70 @@ export class Update {
   }
 
   savePause() {
+    this.error = {};
     if (this.data.SizingDetails.length > 0) {
       var LastDetails = this.data.SizingDetails[0];
-      var LastCausesBrokenBeam = parseInt(LastDetails.BrokenBeamCauses);
-      var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
-    }
-
-    switch (this.CauseOfStopping) {
-      case "Putus Beam":
-        LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
-        break;
-      case "Mesin Bermasalah":
-        LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
-        break;
-      default:
-        this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+      var LastCausesBrokenBeam = LastDetails.BrokenBeamCauses;
+      var LastCausesMachineTroubled = LastDetails.MachineTroubledCauses;
     }
 
     var IdContainer = this.data.Id;
     if (this.PauseDate) {
       var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
     }
+
     if (this.PauseTime) {
       var HistoryTimeContainer = this.PauseTime;
     }
+
     if (this.PauseShift) {
       var ShiftContainer = this.PauseShift.Id;
     }
+
     if (this.PauseOperator) {
       var OperatorContainer = this.PauseOperator.Id;
     }
+
+    if (this.CauseOfStopping) {
+      switch (this.CauseOfStopping) {
+        case "Putus Beam":
+          LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
+          break;
+        case "Mesin Bermasalah":
+          LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
+          break;
+        default:
+          LastCausesBrokenBeam = LastCausesBrokenBeam;
+          LastCausesMachineTroubled = LastCausesMachineTroubled;
+          break;
+      }
+    } else {
+      this.error.CauseOfStopping = "Penyebab Berhenti Harus Diisi";
+    }
+
     if (this.Information) {
       var InformationContainer = this.Information;
     }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.PauseDate = HistoryDateContainer;
-    this.data.SizingDetails.PauseTime = HistoryTimeContainer;
-    this.data.SizingDetails.Information = InformationContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-    this.data.SizingDetails.Causes = {};
-    this.data.SizingDetails.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
-    this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
+    var updateData = {};
+    updateData.Id = IdContainer;
+    updateData.PauseDate = HistoryDateContainer;
+    updateData.PauseTime = HistoryTimeContainer;
+    updateData.PauseShift = ShiftContainer;
+    updateData.PauseOperator = OperatorContainer;
+    updateData.BrokenBeam = LastCausesBrokenBeam;
+    updateData.MachineTroubled = LastCausesMachineTroubled;
+    updateData.Information = InformationContainer;
 
     this.service
-      .updatePause(this.data.Id, this.data)
+      .updatePause(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
       .catch(e => {
+        if (this.error.CauseOfStopping) {
+          e.CauseOfStopping = this.error.CauseOfStopping;
+        }
         this.error = e;
       });
   }
@@ -444,16 +465,15 @@ export class Update {
       var OperatorContainer = this.ResumeOperator.Id;
     }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.ResumeDate = HistoryDateContainer;
-    this.data.SizingDetails.ResumeTime = HistoryTimeContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    var updateData = {};
+    updateData.Id = IdContainer;
+    updateData.ResumeDate = HistoryDateContainer;
+    updateData.ResumeTime = HistoryTimeContainer;
+    updateData.ResumeShift = ShiftContainer;
+    updateData.ResumeOperator = OperatorContainer;
 
     this.service
-      .updateResume(this.data.Id, this.data)
+      .updateResume(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
@@ -483,6 +503,9 @@ export class Update {
         .then(resultPISMeter => {
           this.error.ProduceBeamsPISMeter = "";
           this.ProduceBeamsPISMeter = resultPISMeter;
+          if(this.ProduceBeamsPISMeter){
+            this.showHideCalculationField = true;
+          }
         })
         .catch(e => {
           this.error.ProduceBeamsPISMeter = " Tidak dapat menghitung PIS(m) ";
@@ -519,17 +542,17 @@ export class Update {
             this.ProduceBeamsNetto = resultNetto;
             return this.service.calculateTheoriticalKawamoto(this.ProduceBeamsPISMeter, yarnStrands, neReal);
           }).then(resultKawamoto => {
-            this.error.ProduceBeamsNettoTheoritical = "";
-            this.ProduceBeamsNettoTheoritical = resultKawamoto;
-            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
+            this.error.ProduceBeamsTheoritical = "";
+            this.ProduceBeamsTheoritical = resultKawamoto;
+            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsTheoritical);
           }).then(resultSPU => {
             this.error.ProduceBeamsSPU = "";
             this.ProduceBeamsSPU = resultSPU;
           }).catch(e => {
-            this.ProduceBeamsNettoTheoritical = 0;
+            this.ProduceBeamsTheoritical = 0;
             this.ProduceBeamsSPU = 0;
 
-            this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
+            this.error.ProduceBeamsTheoritical = " Tidak dapat menghitung Netto Teoritis ";
             this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
           });
       } else if (machineType == "Sucker Muller") {
@@ -539,17 +562,17 @@ export class Update {
             this.ProduceBeamsNetto = resultNetto;
             return this.service.calculateTheoriticalSuckerMuller(this.ProduceBeamsPISMeter, yarnStrands, neReal);
           }).then(resultSuckerMuller => {
-            this.error.ProduceBeamsNettoTheoritical = "";
-            this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
-            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
+            this.error.ProduceBeamsTheoritical = "";
+            this.ProduceBeamsTheoritical = resultSuckerMuller;
+            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsTheoritical);
           }).then(resultSPU => {
             this.error.ProduceBeamsSPU = "";
             this.ProduceBeamsSPU = resultSPU;
           }).catch(e => {
-            this.ProduceBeamsNettoTheoritical = 0;
+            this.ProduceBeamsTheoritical = 0;
             this.ProduceBeamsSPU = 0;
 
-            this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
+            this.error.ProduceBeamsTheoritical = " Tidak dapat menghitung Netto Teoritis ";
             this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
           });
       }
@@ -559,55 +582,60 @@ export class Update {
   saveProduceBeam() {
     var IdContainer = this.data.Id;
     if (this.ProduceBeamsFinishCounter) {
-      var FinishCounterContainer = this.ProduceBeamsFinishCounter;
+      var CounterFinishContainer = this.ProduceBeamsFinishCounter;
     }
-    if (this.ProduceBeamsPISMeter) {
-      var PISMeterContainer = this.ProduceBeamsPISMeter;
-    }
-    if (this.ProduceBeamsSPU) {
-      var SPUContainer = this.ProduceBeamsSPU;
-    }
-    if (this.ProduceBeamsBruto) {
-      var BrutoWeightContainer = this.ProduceBeamsBruto;
-    }
+
     if (this.ProduceBeamsNetto) {
       var NettoWeightContainer = this.ProduceBeamsNetto;
     }
-    if (this.ProduceBeamsNettoTheoritical) {
-      var NettoTheoriticalWeightContainer = this.ProduceBeamsNettoTheoritical;
+
+    if (this.ProduceBeamsBruto) {
+      var BrutoWeightContainer = this.ProduceBeamsBruto;
     }
-    if (this.ProduceBeamsDate) {
-      var HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
+
+    if (this.ProduceBeamsTheoritical) {
+      var NettoTheoriticalWeightContainer = this.ProduceBeamsTheoritical;
     }
-    if (this.ProduceBeamsTime) {
-      var HistoryTimeContainer = this.ProduceBeamsTime;
+
+    if (this.ProduceBeamsPISMeter) {
+      var PISMeterContainer = this.ProduceBeamsPISMeter;
     }
-    if (this.ProduceBeamsShift) {
-      var ShiftContainer = this.ProduceBeamsShift.Id;
+
+    if (this.ProduceBeamsSPU) {
+      var SPUContainer = this.ProduceBeamsSPU;
     }
+
     if (this.ProduceBeamsOperator) {
       var OperatorContainer = this.ProduceBeamsOperator.Id;
     }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.SizingBeamDocuments = {};
-    this.data.SizingBeamDocuments.Counter = {};
-    this.data.SizingBeamDocuments.FinishCounter = FinishCounterContainer;
-    this.data.SizingBeamDocuments.PISMeter = PISMeterContainer;
-    this.data.SizingBeamDocuments.SPU = SPUContainer;
-    this.data.SizingBeamDocuments.Weight = {};
-    this.data.SizingBeamDocuments.Weight.Netto = NettoWeightContainer;
-    this.data.SizingBeamDocuments.Weight.Bruto = BrutoWeightContainer;
-    this.data.SizingBeamDocuments.Weight.Theoritical = NettoTheoriticalWeightContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.ProduceBeamDate = HistoryDateContainer;
-    this.data.SizingDetails.ProduceBeamTime = HistoryTimeContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    if (this.ProduceBeamsShift) {
+      var ShiftContainer = this.ProduceBeamsShift.Id;
+    }
 
+    if (this.ProduceBeamsDate) {
+      var HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
+    }
+
+    if (this.ProduceBeamsTime) {
+      var HistoryTimeContainer = this.ProduceBeamsTime;
+    }
+
+    var updateData = {};
+    updateData.Id = IdContainer;
+    updateData.CounterFinish = CounterFinishContainer;
+    updateData.PISMeter = PISMeterContainer;
+    updateData.SPU = SPUContainer;
+    updateData.WeightBruto = BrutoWeightContainer;
+    updateData.WeightNetto = NettoWeightContainer;
+    updateData.WeightTheoritical = NettoTheoriticalWeightContainer;
+    updateData.ProduceBeamDate = HistoryDateContainer;
+    updateData.ProduceBeamTime = HistoryTimeContainer;
+    updateData.ProduceBeamShift = ShiftContainer;
+    updateData.ProduceBeamOperator = OperatorContainer;
+    
     this.service
-      .updateProduceBeams(this.data.Id, this.data)
+      .updateProduceBeams(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
@@ -616,56 +644,55 @@ export class Update {
       });
   }
 
-  DoffTimeChanged(newValue) {
+  FinishDoffTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
-        this.error.DoffShift = "";
-        this.DoffShift = {};
-        this.DoffShift = result;
+        this.error.FinishDoffShift = "";
+        this.FinishDoffShift = {};
+        this.FinishDoffShift = result;
       })
       .catch(e => {
-        this.DoffShift = {};
-        this.error.DoffShift = " Shift tidak ditemukan ";
+        this.FinishDoffShift = {};
+        this.error.FinishDoffShift = " Shift tidak ditemukan ";
       });
   }
 
   saveDoff() {
     var IdContainer = this.data.Id;
-    if (this.DoffMachineSpeed) {
-      var MachineSpeedContainer = this.DoffMachineSpeed;
+    if (this.FinishDoffMachineSpeed) {
+      var MachineSpeedContainer = this.FinishDoffMachineSpeed;
     }
-    if (this.DoffTexSQ) {
-      var TexSQContainer = this.DoffTexSQ;
+    if (this.FinishDoffTexSQ) {
+      var TexSQContainer = this.FinishDoffTexSQ;
     }
-    if (this.DoffVisco) {
-      var ViscoContainer = this.DoffVisco;
+    if (this.FinishDoffVisco) {
+      var ViscoContainer = this.FinishDoffVisco;
     }
-    if (this.DoffDate) {
-      var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
+    if (this.FinishDoffDate) {
+      var HistoryDateContainer = moment(this.FinishDoffDate).utcOffset("+07:00").format();
     }
-    if (this.DoffTime) {
-      var HistoryTimeContainer = this.DoffTime;
+    if (this.FinishDoffTime) {
+      var HistoryTimeContainer = this.FinishDoffTime;
     }
-    if (this.DoffShift) {
-      var ShiftContainer = this.DoffShift.Id;
+    if (this.FinishDoffShift) {
+      var ShiftContainer = this.FinishDoffShift.Id;
     }
-    if (this.DoffOperator) {
-      var OperatorContainer = this.DoffOperator.Id;
+    if (this.FinishDoffOperator) {
+      var OperatorContainer = this.FinishDoffOperator.Id;
     }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.MachineSpeed = MachineSpeedContainer;
-    this.data.TexSQ = TexSQContainer;
-    this.data.Visco = ViscoContainer;
-    this.data.SizingDetails = {};
-    this.data.SizingDetails.FinishDate = HistoryDateContainer;
-    this.data.SizingDetails.FinishTime = HistoryTimeContainer;
-    this.data.SizingDetails.ShiftId = ShiftContainer;
-    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
-
+    var updateData = {};
+    updateData.Id = IdContainer;
+    updateData.MachineSpeed = MachineSpeedContainer;
+    updateData.TexSQ = TexSQContainer;
+    updateData.Visco = ViscoContainer;
+    updateData.FinishDoffDate = HistoryDateContainer;
+    updateData.FinishDoffTime = HistoryTimeContainer;
+    updateData.FinishDoffShift = ShiftContainer;
+    updateData.FinishDoffOperator = OperatorContainer;
+    
     this.service
-      .updateDoff(this.data.Id, this.data)
+      .updateDoff(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
