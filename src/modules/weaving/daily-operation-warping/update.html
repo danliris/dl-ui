@@ -457,11 +457,30 @@
               </au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
+              <textbox label="Satuan Panjang Beam" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-autocomplete placeholder="Satuan Panjang Beam" value.bind="WarpingBeamLengthUOM"
+                error.bind="error.WarpingBeamLengthUOM" read-only.bind="readOnly" loader.bind="uoms" text="Unit">
+              </au-autocomplete>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap">
+            <div class="col-md-2" style="text-align:left;">
               <textbox label="Tention" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
               <au-numeric placeholder="Tention" value.bind="Tention"
                 error.bind="error.Tention" read-only.bind="readOnly">
+              </au-numeric>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Press Roll" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-numeric placeholder="Press Roll" value.bind="PressRoll"
+                error.bind="error.PressRoll" read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -473,14 +492,6 @@
             <div class="col-md-3">
               <au-numeric placeholder="Kecepatan Mesin" value.bind="MachineSpeed"
                 error.bind="error.MachineSpeed" read-only.bind="readOnly">
-              </au-numeric>
-            </div>
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Press Roll" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3">
-              <au-numeric placeholder="Press Roll" value.bind="PressRoll"
-                error.bind="error.PressRoll" read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>

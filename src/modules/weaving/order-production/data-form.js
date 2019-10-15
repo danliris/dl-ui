@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var UnitLoader = require("../../../loader/unit-loader");
+var YarnOriginLoader = require("../../../loader/weaving-yarn-origin-loader");
 var moment = require("moment");
 
 export class DataForm {
@@ -97,6 +98,10 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+  }
+
+  get origins(){
+    return YarnOriginLoader;
   }
 
   get constructions() {
