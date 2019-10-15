@@ -195,11 +195,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/beam-monitoring",
-    name: "beam-monitoring",
-    moduleId: "./modules/weaving/beam-monitoring/index",
+    route: "weaving/beam-monitoring-visualization",
+    name: "beam-monitoring-visualization",
+    moduleId: "./modules/weaving/beam-monitoring-visualization/index",
     nav: true,
-    title: "Pemantauan Beam",
+    title: "Visualisasi Pemantauan Beam",
     auth: true,
     settings: {
       group: "weaving",

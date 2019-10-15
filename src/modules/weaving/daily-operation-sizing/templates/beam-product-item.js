@@ -11,7 +11,7 @@ var OperatorLoader = require("../../../../loader/weaving-operator-loader");
 var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(Service, BindingEngine)
-export class ProduceBeams {
+export class BeamProductItem {
   // @bindable ProduceBeamsTime;
   // @bindable ProduceBeamsShift;
 
@@ -30,12 +30,12 @@ export class ProduceBeams {
 
     this.error = context.error || {};
 
-    if (this.data.DateTimeBeamDocument) {
-      var DateMachine = moment(this.data.DateTimeBeamDocument).format('DD/MM/YYYY');
-      var TimeMachine = moment(this.data.DateTimeBeamDocument).format('LT');
+    if (this.data.LatestDateTimeBeamProduct) {
+      var DateMachine = moment(this.data.LatestDateTimeBeamProduct).format('DD/MM/YYYY');
+      var TimeMachine = moment(this.data.LatestDateTimeBeamProduct).format('LT');
 
-      this.data.ProduceBeamsDate = DateMachine;
-      this.data.ProduceBeamsTime = TimeMachine;
+      this.data.BeamProductDate = DateMachine;
+      this.data.BeamProductTime = TimeMachine;
     }
 
     this.options = context.context.options;
