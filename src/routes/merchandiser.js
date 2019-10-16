@@ -342,4 +342,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/accepted-ro-report',
+        name: 'accepted-ro-report',
+        moduleId: './modules/merchandiser/report/accepted-ro-report/index',
+        nav: true,
+        title: 'Laporan Penerimaan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
