@@ -150,7 +150,23 @@
                     text.bind = "roNoView"
                     query.bind = "filterRONoAddProductByUnit"
                     options.bind="controlOptions"
-                    view-model.ref="RONoHeaderViewModel">
+                    view-model.ref="RONoHeaderViewModel"
+                    if.bind="!isProses">
+                </au-autocomplete>
+
+                <au-autocomplete
+                    disabled.bind="!RONo"
+                    label="No RO"
+                    value.bind="RONoHeader"
+                    error.bind="error.RONoHeader"
+                    read-only.bind="readOnly"
+                    loader.bind = "garmentUnitReceiptNoteHeaderLoader"
+                    placeholder = "Cari Nomor RO"
+                    text.bind = "roNoView"
+                    query.bind = "filterRONoAddProductByUnit"
+                    options.bind="controlOptions"
+                    view-model.ref="RONoHeaderViewModel"
+                    if.bind="isProses">
                 </au-autocomplete>
 
                 <au-textbox 

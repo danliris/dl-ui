@@ -39,7 +39,7 @@
 
         <au-numeric
             value.bind="data.PlanPOQuantity"
-            if.bind="selectedCuttingIn"
+            show.bind="selectedCuttingIn"
             read-only.bind="true"
             options.bind="controlOptions"
             format="0"
@@ -50,7 +50,7 @@
             label="Sisa Jumlah Plan PO"
             value.bind="data.PlanPORemainingQuantity"
             options.bind="controlOptions"
-            if.bind="selectedCuttingIn"
+            show.bind="selectedCuttingIn"
             format="0"
             read-only.bind="true">
         </au-numeric>
@@ -83,6 +83,7 @@
         
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+            <p if.bind="error.TotalQty" class="help-block text-center">${error.TotalQty}</p>
         </div>
 
         <au-collection

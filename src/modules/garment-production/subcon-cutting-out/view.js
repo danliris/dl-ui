@@ -15,11 +15,11 @@ export class View {
         let id = params.id;
         this.data = await this.service.read(id);
         this.selectedUnitFrom=this.data.UnitFrom;
-        var epoItem= await this.purchasingService.getGarmentEPOByRONo({ filter: JSON.stringify({ RONo: this.data.RONo}) });
+        var epoItem= await this.purchasingService.getGarmentEPOByRONo({ filter: JSON.stringify({ Id: this.data.EPOItemId}) });
         
         this.data.PlanPORemainingQuantity=epoItem.data[0].DealQuantity;
         this.data.PlanPOQuantity=epoItem.data[0].DealQuantity;
-        Promise.resolve(this.service.getCuttingOut({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
+        Promise.resolve(this.service.getCuttingOut({ filter: JSON.stringify({ EPOItemId: this.data.EPOItemId}) }))
                     .then(result => {
                         if(result.data.length>0){
                             for(var cuttingOutHeader of result.data){

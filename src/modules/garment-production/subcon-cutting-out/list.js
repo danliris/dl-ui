@@ -14,7 +14,7 @@ export class List {
 
     columns = [
         { field: "CutOutNo", title: "No Cutting Out" },
-        { field: "UnitFrom.Code", title: "Unit Asal" },
+        { field: "UnitFromCode", title: "Unit Asal" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
         { field: "CuttingOutDate", title: "Tanggal Cutting Out", formatter: value => moment(value).format("DD MMM YYYY") },
@@ -32,26 +32,33 @@ export class List {
             keyword: info.search,
             order: order
         }
-
+        const distinct = (value, index, self) => {
+            return self.indexOf(value) === index;
+          }
         return this.service.search(arg)
         .then(result => {
             var data = {};
             data.total = result.info.total;
-            data.data = result.data;
-            data.data.forEach(s => {
+            result.data.forEach(s => {
+                s.UnitFromCode=s.UnitFrom.Code;
                 if(s.Items){
-                s.Items.toString = function () {
-                    var str = "<ul>";
-                    for (var item of s.Items) {
-                        str += `<li>${item.Product.Code}</li>`;
-                    }
-                    str += "</ul>";
-                    return str;
+                    s.Items.toString = function () {
+                        var str = "<ul>";
+                        var products = [];
+                        for (var item of s.Items) {
+                            products.push(item.Product.Code)
                         }
-                }
-                else{
-                s.Items = "-";
-                }
+                        var Products = products.filter(distinct);
+                        for(var product of Products){
+                        str += `<li>${product}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                            }
+                    }
+                    else{
+                    s.Items = "-";
+                    }         
             });
 
             return {
