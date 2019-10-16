@@ -329,4 +329,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/production-order-report',
+        name: 'production-order-report',
+        moduleId: './modules/merchandiser/report/production-order-report/index',
+        nav: true,
+        title: 'Laporan Production Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
