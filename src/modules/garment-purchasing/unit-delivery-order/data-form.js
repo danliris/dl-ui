@@ -443,6 +443,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
+              filter: JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false"})
             };
             var ro=[];
             return this.service.getGarmentEPOByRONo(info)
