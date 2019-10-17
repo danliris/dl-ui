@@ -261,6 +261,7 @@ export class DataForm {
         var selectedro = newValue;
         this.dataItems = [];
         this.data.Items = [];
+        this.data.Article = null;
         if(this.error && this.error.Items) {
             this.error.Items = [];
         }
@@ -278,7 +279,8 @@ export class DataForm {
                 Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
                     .then(result => {
                         if(result.data.length>0){
-                            for(var item of result.data){
+                            for(var item of result.data){ 
+                                
                                 var Items = {};
                                 Items.URNItemId = item.Id;
                                 Items.URNNo = item.URNNo;
@@ -442,9 +444,21 @@ export class DataForm {
             var info = {
               keyword: keyword,
             };
+            var ro=[];
             return this.service.getGarmentEPOByRONo(info)
             .then((epo)=>{
-                return epo.data;
+                for(var a of epo.data){
+                    if(ro.length==0){
+                        ro.push(a);
+                    }
+                    else{
+                        var dup=ro.find(b=>b.RONo==a.RONo);
+                        if(!dup){
+                            ro.push(a);
+                        }
+                    }
+                }
+                return ro;
             });
                     
         }

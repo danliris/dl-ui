@@ -30,11 +30,13 @@ export class Create {
 
     saveCallback(event) {
         if(this.data){
+            this.data.TotalQty=0;
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         for(var detail of item.Details){
                             item.TotalCuttingOutQuantity += detail.CuttingOutQuantity;
+                            this.data.TotalQty+=detail.CuttingOutQuantity;
                         }
                     }
                 }

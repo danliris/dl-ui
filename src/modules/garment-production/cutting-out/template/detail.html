@@ -13,6 +13,7 @@
             <td class="col-sm-3">
                 <au-numeric 
                     value.bind="data.CuttingOutQuantity"
+                    error.bind="error.CuttingOutQuantity"
                     read-only.bind="readOnly"
                     format="0">
                 </au-numeric>
@@ -32,6 +33,7 @@
             <td class="col-sm-3">
                 <au-textbox 
                     value.bind="data.Color"
+                    error.bind="error.Color"
                     read-only.bind="readOnly">
                 </au-textbox>
             </td>
