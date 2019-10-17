@@ -692,9 +692,9 @@ export class Update {
     updateData.FinishDoffTime = HistoryTimeContainer;
     updateData.FinishDoffShift = ShiftContainer;
     updateData.FinishDoffOperator = OperatorContainer;
-
+    
     this.service
-      .updateDoff(updateData.Id, updateData)
+      .updateFinishDoff(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
