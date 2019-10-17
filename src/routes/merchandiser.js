@@ -303,6 +303,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+     {
+        route: '/merchandiser/garment-cost-calculation-by-sc-report',
+        name: 'garment-cost-calculation-by-sc-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-sc-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Buyer - Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: '/merchandiser/budget-job-order-report',
         name: 'budget-job-order-report',
