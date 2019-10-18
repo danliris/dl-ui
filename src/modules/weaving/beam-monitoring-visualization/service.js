@@ -4,7 +4,7 @@
 // import { Config } from "aurelia-api";
 import { RestService } from "../../../utils/rest-service";
 
-// const serviceUri = "weaving/movements/beam";
+const serviceUri = "weaving/movements/beam";
 // const qCserviceUri = 'finishing-printing/quality-control/fabrics';
 
 export class Service extends RestService {
