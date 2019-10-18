@@ -381,4 +381,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/available-ro-report',
+        name: 'available-ro-report',
+        moduleId: './modules/merchandiser/report/available-ro-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
