@@ -291,6 +291,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-cost-calculation-by-buyer-report',
+        name: 'garment-cost-calculation-by-buyer-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-buyer-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Buyer - Deskripsi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/merchandiser/budget-job-order-report',
         name: 'budget-job-order-report',
         moduleId: './modules/merchandiser/report/budget-job-order-report/index',
@@ -322,6 +335,32 @@ module.exports = [
         moduleId: './modules/merchandiser/report/monitoring-unpost-cost-calculation/index',
         nav: true,
         title: 'Monitoring Unpost Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/production-order-report',
+        name: 'production-order-report',
+        moduleId: './modules/merchandiser/report/production-order-report/index',
+        nav: true,
+        title: 'Laporan Production Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/accepted-ro-report',
+        name: 'accepted-ro-report',
+        moduleId: './modules/merchandiser/report/accepted-ro-report/index',
+        nav: true,
+        title: 'Laporan Penerimaan RO',
         auth: true,
         settings: {
             group: "merchandiser",

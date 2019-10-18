@@ -68,4 +68,8 @@ export class Item {
           this.isShowing = !this.isShowing;
       }
 
+      changeCheckBox() {
+        this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+      }
+
 }

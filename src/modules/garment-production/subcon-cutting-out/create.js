@@ -30,17 +30,20 @@ export class Create {
 
     saveCallback(event) {
         if(this.data){
+            this.data.TotalQty=0;
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        item.TotalCuttingOutQuantity=0;
                         for(var detail of item.Details){
                             item.TotalCuttingOutQuantity += detail.CuttingOutQuantity;
+                            this.data.TotalQty+=detail.CuttingOutQuantity;
                         }
                     }
                 }
             }
         }
-        
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
