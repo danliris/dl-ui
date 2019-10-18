@@ -114,7 +114,7 @@
                                         <au-textbox value.bind="data.Buyers[buyerIndex].Details[detailIndex].Uom" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
-                                        <au-numeric value.bind="data.Buyers[buyerIndex].Details[detailIndex].ConfirmPrice" read-only="true"></au-numeric>
+                                        <au-numeric value.bind="data.Buyers[buyerIndex].Details[detailIndex].ConfirmPrice" format="0,0.0000" read-only="true"></au-numeric>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
                                         <au-numeric value.bind="data.Buyers[buyerIndex].Details[detailIndex].Amount" read-only="true"></au-numeric>
