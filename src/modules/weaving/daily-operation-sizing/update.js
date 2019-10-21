@@ -44,34 +44,34 @@ export class Update {
     saveText: 'Simpan',
   };
 
-  beamColumns = [{
-    value: "BeamNumber",
+  beamsWarpingColumns = [{
+    value: "WarpingBeamNumber",
     header: "No. Beam Warping"
   }, {
-    value: "Netto",
+    value: "WarpingBeamConeAmount",
     header: "Helai Benang Beam Warping"
   }];
 
-  produceBeamsColumns = [{
+  beamProductsColumns = [{
     value: "SizingBeamNumber",
     header: "No. Beam Sizing"
   }, {
-    value: "ProduceBeamsDate",
+    value: "BeamProductDate",
     header: "Tanggal"
   }, {
-    value: "ProduceBeamsTime",
+    value: "BeamProductTime",
     header: "Waktu"
   }, {
-    value: "FinishCounter",
+    value: "CounterFinish",
     header: "Counter Akhir"
   }, {
     value: "PISMeter",
     header: "PIS(m)"
   }, {
-    value: "NettoWeight",
+    value: "WeightNetto",
     header: "Netto"
   }, {
-    value: "BrutoWeight",
+    value: "WeightBruto",
     header: "Bruto"
   }, {
     value: "SPU",
@@ -81,16 +81,16 @@ export class Update {
     header: "Status Beam Sizing"
   }];
 
-  logColumns = [{
+  historiesColumns = [{
       value: "SizingBeamNumber",
       header: "Nomor Beam Sizing"
     },
     {
-      value: "MachineDateHistory",
+      value: "MachineDate",
       header: "Tanggal"
     },
     {
-      value: "MachineTimeHistory",
+      value: "MachineTime",
       header: "Jam"
     }, {
       value: "ShiftName",
@@ -105,15 +105,15 @@ export class Update {
       header: "Grup"
     },
     {
-      value: "BrokenBeamCauses",
+      value: "CausesBrokenBeam",
       header: "Putus"
     },
     {
-      value: "InformationHistory",
+      value: "Information",
       header: "Informasi"
     },
     {
-      value: "MachineStatusHistory",
+      value: "MachineStatus",
       header: "Status Mesin"
     }
   ];
@@ -125,7 +125,7 @@ export class Update {
       .getById(Id)
       .then(result => {
         dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitDocumentId);
+        return this.service.getUnitById(result.WeavingUnitId);
       })
       .then(unit => {
         dataResult.WeavingDocument = unit;
@@ -133,24 +133,24 @@ export class Update {
       });
 
     if (this.data.Id) {
-      this.BeamsWarping = this.data.WarpingBeamsDocument;
-      this.ProduceBeams = this.data.SizingBeamDocuments;
-      this.Log = this.data.SizingDetails;
+      this.BeamsWarping = this.data.BeamsWarping;
+      this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
+      this.Histories = this.data.DailyOperationSizingHistories;
 
-      if (this.ProduceBeams == []) {
+      if (this.BeamProducts.length == 0) {
         this.StartSizingStartCounter = 0;
       } else {
-        var lastSizingDetail = this.Log[0];
-        if (lastSizingDetail.MachineStatusHistory == "ENTRY") {
+        var lastSizingHistory = this.Histories[0];
+        if (lastSizingHistory.MachineStatus == "ENTRY") {
           this.StartSizingStartCounter = 0;
         } else {
-          var lastSizingBeamProduce = this.ProduceBeams[0];
+          var lastSizingBeamProduce = this.BeamProducts[0];
           this.StartSizingStartCounter = lastSizingBeamProduce.FinishCounter;
         }
       }
 
-      var lastSizingDetail = this.Log[0];
-      var lastMachineStatusHistory = lastSizingDetail.MachineStatusHistory;
+      var lastSizingHistory = this.Histories[0];
+      var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
       switch (lastMachineStatusHistory) {
         case "ENTRY":
           this.isStartDisabled = false;
@@ -322,6 +322,8 @@ export class Update {
     }
     if (this.StartSizingStartCounter) {
       var SizingStartCounterContainer = this.StartSizingStartCounter;
+    } else {
+      var SizingStartCounterContainer = 0;
     }
     if (this.StartDate) {
       var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
@@ -370,10 +372,10 @@ export class Update {
 
   savePause() {
     this.error = {};
-    if (this.data.SizingDetails.length > 0) {
-      var LastDetails = this.data.SizingDetails[0];
-      var LastCausesBrokenBeam = LastDetails.BrokenBeamCauses;
-      var LastCausesMachineTroubled = LastDetails.MachineTroubledCauses;
+    if (this.data.DailyOperationSizingHistories.length > 0) {
+      var LastDetails = this.data.DailyOperationSizingHistories[0];
+      var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
+      var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
     }
 
     var IdContainer = this.data.Id;
@@ -497,13 +499,13 @@ export class Update {
 
   ProduceBeamsFinishCounterChanged(newValue) {
     if (newValue) {
-      let sizingBeamDocumentContainer = this.data.SizingBeamDocuments.find(doc => true);
-      let startCounter = sizingBeamDocumentContainer.StartCounter;
-      this.service.calculatePISMeter(startCounter, newValue)
+      let sizingBeamProductsContainer = this.data.DailyOperationSizingBeamProducts.find(doc => true);
+      let counterStart = sizingBeamProductsContainer.CounterStart;
+      this.service.calculatePISMeter(counterStart, newValue)
         .then(resultPISMeter => {
           this.error.ProduceBeamsPISMeter = "";
           this.ProduceBeamsPISMeter = resultPISMeter;
-          if(this.ProduceBeamsPISMeter){
+          if (this.ProduceBeamsPISMeter) {
             this.showHideCalculationField = true;
           }
         })
@@ -633,7 +635,7 @@ export class Update {
     updateData.ProduceBeamTime = HistoryTimeContainer;
     updateData.ProduceBeamShift = ShiftContainer;
     updateData.ProduceBeamOperator = OperatorContainer;
-    
+
     this.service
       .updateProduceBeams(updateData.Id, updateData)
       .then(result => {
@@ -692,7 +694,7 @@ export class Update {
     updateData.FinishDoffOperator = OperatorContainer;
     
     this.service
-      .updateDoff(updateData.Id, updateData)
+      .updateFinishDoff(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })

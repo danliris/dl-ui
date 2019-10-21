@@ -17,7 +17,7 @@ export class List {
     @bindable buyerBrand;
     @bindable BuyerId;
 
-   filterBuyerBrand = {};
+    filterBuyerBrand = {};
 
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
@@ -35,7 +35,7 @@ export class List {
         }
     }
 
-    bind(context) {
+      bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -81,6 +81,7 @@ export class List {
         return GarmentBuyerBrandLoader;
     }
 
+
     searching() {
         var info = {
             year : this.filterYear
@@ -106,13 +107,12 @@ export class List {
                             dataByBrand[Brand].push({                                                        
                             RO_Number : data.RO_Number,
                             DeliveryDate : moment(data.DeliveryDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.DeliveryDate).format("DD MMM YYYY"),                          
-                            Description : data.Description,
+                            SalesContractNo : data.SalesContractNo,
                             Article : data.Article,
                             BuyerCode : data.BuyerCode,
                             BuyerName : data.BuyerName,
                             BrandCode : data.BrandCode,
                             BrandName : data.BrandName,
-                            Commission : data.Commission.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),              
                             Quantity : data.Quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             ConfirmPrice : data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             UOMUnit : data.UOMUnit,

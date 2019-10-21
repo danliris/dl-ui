@@ -176,7 +176,7 @@ export class Update {
       header: "PressRoll"
     },
     {
-      value: "BeamStatus",
+      value: "WarpingBeamStatus",
       header: "Status Beam Warping"
     }
   ];

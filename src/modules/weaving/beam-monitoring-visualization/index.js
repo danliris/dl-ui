@@ -6,15 +6,15 @@ export class Index {
         moduleId: "./list",
         name: "list",
         nav: false,
-        title: "List: Pemantauan Beam"
-      },
-      {
-        route: "view/:Id",
-        moduleId: "./view",
-        name: "view",
-        nav: false,
-        title: "View: Pemantauan Beam"
+        title: "List: Visualisasi Pemantauan Beam"
       }
+      // {
+      //   route: "view/:Id",
+      //   moduleId: "./view",
+      //   name: "view",
+      //   nav: false,
+      //   title: "View: Pemantauan Beam"
+      // }
     ]);
 
     this.router = router;

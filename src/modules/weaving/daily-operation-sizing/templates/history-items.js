@@ -11,7 +11,7 @@ import moment from "moment";
 // var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
 @inject(BindingEngine, Service)
-export class LogItems {
+export class HistoryItems {
   // @bindable Code;
   // @bindable OrderDocument;
 
@@ -24,12 +24,12 @@ export class LogItems {
     this.data = context.data;
     this.error = context.error;
 
-    if (this.data.DateTimeMachineHistory) {
-        var DateMachine = moment(this.data.DateTimeMachineHistory).format('DD/MM/YYYY');
-        var TimeMachine = moment(this.data.DateTimeMachineHistory).format('LT');
+    if (this.data.DateTimeMachine) {
+        var DateMachine = moment(this.data.DateTimeMachine).format('DD/MM/YYYY');
+        var TimeMachine = moment(this.data.DateTimeMachine).format('LT');
   
-        this.data.MachineDateHistory = DateMachine;
-        this.data.MachineTimeHistory = TimeMachine;
+        this.data.MachineDate = DateMachine;
+        this.data.MachineTime = TimeMachine;
     }
 
     this.options = context.context.options;

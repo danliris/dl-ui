@@ -14,10 +14,10 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "MachineDateHistory",
+      field: "MachineDate",
       title: "Tanggal"
     }, {
-      field: "MachineTimeHistory",
+      field: "MachineTime",
       title: "Jam"
     },
     {
@@ -25,16 +25,20 @@ export class List {
       title: "No. Mesin"
     },
     {
-      field: "WeavingUnitDocumentId",
-      title: "Unit Weaving"
+      field: "OrderProductionNumber",
+      title: "No. SOP"
     },
     {
-      field: "ConstructionNumber",
+      field: "FabricConstructionNumber",
       title: "No. Konstruksi"
     },
     {
-      field: "ShiftName",
-      title: "Shift"
+      field: "WeavingUnitId",
+      title: "Unit Weaving"
+    },
+    {
+      field: "OperationStatus",
+      title: "Status"
     }
   ];
 
@@ -57,23 +61,23 @@ export class List {
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
         let getUnitPromises = result.data.map(operation =>
-          this.service.getUnitById(operation.WeavingUnitDocumentId)
+          this.service.getUnitById(operation.WeavingUnitId)
         );
 
         return Promise.all(getUnitPromises).then(units => {
           for (var datum of result.data) {
             if (units && units.length > 0) {
               let unit = units.find(
-                unitResult => datum.WeavingUnitDocumentId == unitResult.Id
+                unitResult => datum.WeavingUnitId == unitResult.Id
               );
-              datum.WeavingUnitDocumentId = unit.Name;
+              datum.WeavingUnitId = unit.Name;
             }
-            if (datum.DateTimeMachineHistory) {
-              var DateMachine = moment(datum.DateTimeMachineHistory).format('DD/MM/YYYY');
-              var TimeMachine = moment(datum.DateTimeMachineHistory).format('LT');
+            if (datum.DateTimeMachine) {
+              var DateMachine = moment(datum.DateTimeMachine).format('DD/MM/YYYY');
+              var TimeMachine = moment(datum.DateTimeMachine).format('LT');
 
-              datum.MachineDateHistory = DateMachine;
-              datum.MachineTimeHistory = TimeMachine;
+              datum.MachineDate = DateMachine;
+              datum.MachineTime = TimeMachine;
             }
           }
           return {

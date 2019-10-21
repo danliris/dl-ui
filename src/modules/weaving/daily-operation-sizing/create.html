@@ -126,10 +126,10 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;" show.bind="showHideBeamsCollection">
-        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
+        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamsWarpingColumns"
           add.bind="addBeamsWarping" remove.bind="onremove" read-only.bind="readOnly"
           options.bind="beamsWarpingTableOptions"
-          item-template="modules/weaving/daily-operation-sizing/templates/beam-items-post">
+          item-template="modules/weaving/daily-operation-sizing/templates/beams-warping-post">
         </au-collection>
       </div>
   </au-input-form>
