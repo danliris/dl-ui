@@ -9,16 +9,16 @@ import {
 var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(BindingEngine, Service)
-export class BeamItemsUpdate {
+export class BeamsWarpingUpdate {
 
   constructor(bindingEngine, service) {
     this.service = service;
     this.bindingEngine = bindingEngine;
   }
 
-  get beams() {
-    return BeamLoader;
-  }
+  // get beams() {
+  //   return BeamLoader;
+  // }
 
   async activate(context) {
     this.data = context.data;

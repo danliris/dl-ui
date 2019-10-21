@@ -14,7 +14,7 @@ import moment from 'moment';
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-// var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader");
+
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -24,7 +24,7 @@ export class Create {
   @bindable PreparationTime;
   @bindable BeamsWarping;
 
-  beamColumns = [{
+  beamsWarpingColumns = [{
     value: "BeamNumber",
     header: "Nomor Beam Warping"
   }, {
@@ -68,10 +68,6 @@ export class Create {
   get operators() {
     return OperatorLoader;
   }
-
-  // get beams() {
-  //   return SizingBeamLoader;
-  // }
 
   MachineDocumentChanged(newValue) {
     if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
@@ -122,11 +118,12 @@ export class Create {
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.PreparationShift = "";
-        this.data.PreparationShift = {};
-        this.data.PreparationShift = result.Id;
+        this.PreparationShift = {};
+        this.PreparationShift = result;
+        this.data.PreparationShift = this.PreparationShift.Id;
       })
       .catch(e => {
-        this.data.PreparationShift = {};
+        this.PreparationShift = {};
         this.error.PreparationShift = " Shift tidak ditemukan ";
       });
   }
@@ -201,10 +198,6 @@ export class Create {
     if (this.PreparationTime) {
       this.data.PreparationTime = this.PreparationTime;
     }
-
-    // if (this.PreparationShift) {
-    //   this.data.PreparationShift = this.PreparationShift.Id;
-    // }
 
     if (this.YarnStrands) {
       this.data.YarnStrands = this.YarnStrands;
