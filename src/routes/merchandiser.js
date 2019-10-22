@@ -394,4 +394,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/available-budget-report',
+        name: 'available-budget-report',
+        moduleId: './modules/merchandiser/report/available-budget-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan Budget',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
