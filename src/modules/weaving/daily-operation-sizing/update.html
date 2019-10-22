@@ -152,8 +152,8 @@
               <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-numeric placeholder="Counter Awal" value.bind="StartSizingStartCounter"
-                error.bind="error.CounterStart" read-only.bind="true"></au-numeric>
+              <au-textbox placeholder="Counter Awal" value.bind="StartSizingStartCounter"
+                error.bind="error.CounterStart" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -482,16 +482,16 @@
               <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Visco" value.bind="FinishDoffVisco" error.bind="error.Visco"
-                read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Visco" value.bind="FinishDoffVisco" error.bind="error.Visco"
+                read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="TexSQ" value.bind="FinishDoffTexSQ" error.bind="error.TexSQ"
+              <au-numeric placeholder="TexSQ" value.bind="FinishDoffTexSQ" error.bind="error.TexSQ"
                 read-only.bind="readOnly">
-              </au-textbox>
+              </au-numeric>
             </div>
           </div>
 

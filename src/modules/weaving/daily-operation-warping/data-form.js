@@ -112,7 +112,7 @@ export class DataForm {
   }
 
   PreparationDateChanged(newValue) {
-    this.data.PreparationDate = newValue;
+    this.data.PreparationDate = moment(newValue).utcOffset("+07:00").format();
   }
 
   PreparationTimeChanged(newValue) {

@@ -23,6 +23,7 @@ export class Update {
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
   @bindable ProduceBeamsBruto;
+  @bindable StartSizingStartCounter;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -136,16 +137,16 @@ export class Update {
       this.BeamsWarping = this.data.BeamsWarping;
       this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
       this.Histories = this.data.DailyOperationSizingHistories;
-
-      if (this.BeamProducts.length == 0) {
+debugger
+      if (this.BeamProducts.length === 0) {
         this.StartSizingStartCounter = 0;
       } else {
         var lastSizingHistory = this.Histories[0];
         if (lastSizingHistory.MachineStatus == "ENTRY") {
           this.StartSizingStartCounter = 0;
         } else {
-          var lastSizingBeamProduce = this.BeamProducts[0];
-          this.StartSizingStartCounter = lastSizingBeamProduce.FinishCounter;
+          var lastSizingBeamProduct = this.BeamProducts[0];
+          this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
         }
       }
 
@@ -196,7 +197,10 @@ export class Update {
           break;
         default:
           this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+          break;
       }
+
+      debugger;
     }
   }
 

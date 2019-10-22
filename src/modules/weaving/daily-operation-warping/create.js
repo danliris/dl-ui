@@ -60,7 +60,7 @@ export class Create {
       this.error.PreparationDate = "Tanggal Pasang Tidak Boleh Kosong";
       errorIndex++;
     }
-
+    
     if (this.data.PreparationTime == "" || this.data.PreparationTime == undefined) {
       this.error.PreparationTime = "Waktu Pasang Tidak Boleh Kosong";
       errorIndex++;
