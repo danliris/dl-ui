@@ -360,7 +360,7 @@ module.exports = [
         name: 'production-order-report',
         moduleId: './modules/merchandiser/report/production-order-report/index',
         nav: true,
-        title: 'Laporan Production Order',
+        title: 'Laporan Order Produksi',
         auth: true,
         settings: {
             group: "merchandiser",
