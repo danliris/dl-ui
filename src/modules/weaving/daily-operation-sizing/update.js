@@ -137,7 +137,7 @@ export class Update {
       this.BeamsWarping = this.data.BeamsWarping;
       this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
       this.Histories = this.data.DailyOperationSizingHistories;
-debugger
+      
       if (this.BeamProducts.length === 0) {
         this.StartSizingStartCounter = 0;
       } else {
@@ -199,8 +199,6 @@ debugger
           this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
           break;
       }
-
-      debugger;
     }
   }
 
