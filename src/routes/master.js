@@ -104,6 +104,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-omzet-target',
+        name: 'garment-omzet-target',
+        moduleId: './modules/merchandiser/garment-omzet-target/index',
+        nav: true,
+        title: 'Target Omzet Divisi Garment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'garment-categories',
         name: 'garment-categories',
         moduleId: './modules/master/garment-category/index',
