@@ -407,4 +407,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/monitoring-pre-sales-contract',
+        name: 'monitoring-pre-sales-contract',
+        moduleId: './modules/merchandiser/report/monitoring-pre-sales-contract/index',
+        nav: true,
+        title: 'Monitoring Pre Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
