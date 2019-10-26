@@ -8,6 +8,7 @@ var PRLoader = require('../../../loader/purchase-request-all-loader');
 var URNLoader = require('../../../loader/unit-receipt-note-all-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
+var DOLoader = require('../../../loader/delivery-order-all-loader');
 
 @inject(Router, Service)
 export class List {
@@ -16,12 +17,7 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
-        this.spbStatuses = this.spbStatuses.map(status => {
-            status.toString = function(){
-                return this.name;
-            }
-            return status;
-        })
+        
     }
    
     controlOptions = {
@@ -41,38 +37,44 @@ export class List {
 
     columns = [
         { field: "index", title: "No" , sortable: false},
-        { field: "UrnNo", title: "Nomor Bon Terima" , sortable: false },
-        { field: "ReceiptDate", title: "Tanggal Bon Terima", sortable: false, formatter: function (value, data, index) {
-            return moment(value).format("DD MMM YYYY");
+        { field: "PRDate", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) 
+            {
+                return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "SupplierCode", title: "Kode Supplier", sortable: false },
-        { field: "SupplierName", title: "Nama Supplier" , sortable: false},
-        { field: "DONo", title: "Nomor Surat Jalan", sortable: false },
+        { field: "PRNo", title: "Nomor PR" , sortable: false},
+        { field: "ProductName", title: "Nama Barang" , sortable: false},
         { field: "DODate", title: "Tanggal Surat Jalan", sortable: false, formatter: function (value, data, index) 
             {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "EPONo", title: "Nomor PO Eksternal" , sortable: false},
-        { field: "OrderDate", title: "Tanggal Order", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+        { field: "DONo", title: "Nomor Surat Jalan", sortable: false },
+        { field: "ReceiptDate", title: "Tanggal Bon", sortable: false, formatter: function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "PaymentDueDays", title: "Tempo Pembelian" , sortable: false},
-        { field: "PRNo", title: "Nomor PR" , sortable: false},
-        { field: "BudgetName", title: "Nama Budget" , sortable: false},
-        { field: "UnitName", title: "Nama Unit" , sortable: false},
-        { field: "CategoryName", title: "Kategori" , sortable: false},
-        { field: "ProductCode", title: "Kode Barang" , sortable: false},
-        { field: "ProductName", title: "Nama Barang" , sortable: false},
+        { field: "UrnNo", title: "Nomor Bon" , sortable: false },
         { field: "ReceiptQuantity", title: "Jumlah Barang", sortable: false,formatter:(value,data)=>{
-            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 0 });
         }  },
         { field: "Uom", title: "Satuan Barang", sortable: false },
-        { field: "createdBy", title: "Staff Pembelian", sortable: false },
-        { field: "IsPaid", title: "Status SPB", sortable: false },
-        { field: "UPONo", title: "Nomor SPB", sortable: false }
+        { field: "PricePerDealUnit", title: "Harga Satuan", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+
+        { field: "TotalPrice", title: "Harga Total", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+        { field: "CurencyCode", title: "Mata Uang", sortable: false },
+
+        { field: "SupplierName", title: "Nama Supplier" , sortable: false},
+        { field: "PaymentDueDays", title: "Tempo" , sortable: false},
+        { field: "CategoryName", title: "Kategori" , sortable: false},
+        { field: "BudgetName", title: "Budget" , sortable: false},
+        { field: "UnitName", title: "Unit" , sortable: false},
+        { field: "createdBy", title: "Staff", sortable: false },
+        
     ];
 
     
@@ -94,9 +96,10 @@ export class List {
         
         this.unitReceiptNote = null;
         this.supplierName = null;
+        this.doNo = null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
-        this.spbStatus =null;
+        
         this.error = {};
 
         this.flag = false;
@@ -114,9 +117,9 @@ export class List {
             size: info.limit,
             UrnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
             SupplierName: this.supplierName? this.supplierName.name : "",
+            DONo: this.doNo? this.doNo.no: "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
-            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
-            IsPaid: this.isPaids ? this.isPaids.value :""
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):""
 
 
         };
@@ -139,19 +142,6 @@ export class List {
             ) : { total: 0, data: [] };
     }
 
-    spbStatuses = [
-    {
-        "name": "",
-        "value": ""
-    }, 
-    {
-        "name": "SUDAH",
-        "value": "true"
-    },  
-    {
-        "name": "BELUM",
-        "value": "false"
-    }];
 
     xls() {
         this.error = {};
@@ -159,9 +149,9 @@ export class List {
             let args = {
             UrnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
             SupplierName: this.supplierName? this.supplierName.name : "",
+            DONo: this.doNo? this.doNo.no: "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
-            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
-            IsPaid: this.isPaids ? this.isPaids.value :""
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):""
         };
 
             this.service.generateExcel(args)
@@ -191,6 +181,10 @@ export class List {
         return URNLoader;
     }
 
+    get doLoader(){
+        return DOLoader;
+    }
+
     prView = (tr) => {
       return `${tr.no}`;
     }
@@ -199,6 +193,10 @@ export class List {
     }
     supplierView =(supplier) =>{
         return `${supplier.name}`;
+    }
+
+    doView = (dol) =>{
+        return `${dol.no}`;
     }
 
     
