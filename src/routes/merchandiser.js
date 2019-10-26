@@ -407,4 +407,30 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/monitoring-pre-sales-contract',
+        name: 'monitoring-pre-sales-contract',
+        moduleId: './modules/merchandiser/report/monitoring-pre-sales-contract/index',
+        nav: true,
+        title: 'Monitoring Pre Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/garment-purchasing-quality-objective-report',
+        name: 'garment-purchasing-quality-objective-report',
+        moduleId: './modules/merchandiser/report/garment-purchasing-quality-objective-report/index',
+        nav: true,
+        title: 'Laporan Sasaran Mutu Penjualan Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
