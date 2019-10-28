@@ -360,7 +360,7 @@ module.exports = [
         name: 'production-order-report',
         moduleId: './modules/merchandiser/report/production-order-report/index',
         nav: true,
-        title: 'Laporan Production Order',
+        title: 'Laporan Order Produksi',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -374,6 +374,58 @@ module.exports = [
         moduleId: './modules/merchandiser/report/accepted-ro-report/index',
         nav: true,
         title: 'Laporan Penerimaan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-ro-report',
+        name: 'available-ro-report',
+        moduleId: './modules/merchandiser/report/available-ro-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-budget-report',
+        name: 'available-budget-report',
+        moduleId: './modules/merchandiser/report/available-budget-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan Budget',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/monitoring-pre-sales-contract',
+        name: 'monitoring-pre-sales-contract',
+        moduleId: './modules/merchandiser/report/monitoring-pre-sales-contract/index',
+        nav: true,
+        title: 'Monitoring Pre Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/garment-purchasing-quality-objective-report',
+        name: 'garment-purchasing-quality-objective-report',
+        moduleId: './modules/merchandiser/report/garment-purchasing-quality-objective-report/index',
+        nav: true,
+        title: 'Laporan Sasaran Mutu Penjualan Garment',
         auth: true,
         settings: {
             group: "merchandiser",
