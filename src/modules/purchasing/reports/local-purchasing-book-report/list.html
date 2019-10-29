@@ -71,6 +71,10 @@
                     <td rowspan=2>No SPB/NI</td>
                     <td rowspan=2>Kategori</td>
                     <td rowspan=2>Unit</td>
+                    <td rowspan=2>Quantity</td>
+                    <td rowspan=2>Satuan</td>
+                    <td rowspan=2>Mata Uang</td>
+                    <td rowspan=2>Kurs</td>
                     <td colspan=3>Pembelian</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
@@ -93,6 +97,10 @@
                     <td>${report.UPONo}</td>
                     <td>${report.CategoryCode}</td>
                     <td>${report.UnitName}</td>
+                    <td>${report.Quantity}</td>
+                    <td>${report.Uom}</td>
+                    <td>${report.CurrencyCode}</td>
+                    <td>${report.CurrencyRate}</td>
                     <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>

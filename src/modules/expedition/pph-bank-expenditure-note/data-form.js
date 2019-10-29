@@ -133,7 +133,7 @@ export class DataForm {
     }
 
     bankView(bank) {
-        return bank.accountName ? `${bank.accountName} - ${bank.bankName} - ${bank.accountNumber} - ${bank.currency.code}` : '';
+        return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
     }
 
     incomeTaxView = (incomeTax) => {

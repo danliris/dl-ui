@@ -2,16 +2,10 @@
     <h1 class="page-header">Laporan Jurnal Transaksi</h1>
 
     <form class="form-horizontal">
-        <au-datepicker
-            value.bind="dateFrom"
-            label="Tanggal Awal"
-            options.bind="controlOptions">
+        <au-datepicker value.bind="dateFrom" label="Tanggal Awal" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-datepicker
-            value.bind="dateTo"
-            label="Tanggal Akhir"
-            options.bind="controlOptions">
+        <au-datepicker value.bind="dateTo" label="Tanggal Akhir" options.bind="controlOptions">
         </au-datepicker>
 
         <div class="form-group">
@@ -30,6 +24,8 @@
                 <!--Table head-->
                 <thead>
                     <tr>
+                        <th>Deskripsi</th>
+                        <th>No Referensi</th>
                         <th>Tanggal</th>
                         <th>Nama Akun</th>
                         <th>No Akun</th>
@@ -47,11 +43,22 @@
                         </td>
                     </tr>
                     <tr repeat.for="datum of data">
-                        <td repeat.for="key of datum | keys" style="white-space: pre;" colspan="1">${datum[key]}</td>
+                        <!-- <td repeat.for="key of datum | keys" style="white-space: pre;" colspan="1">${datum[key]}</td> -->
+                        <td if.bind="datum.isHeader" rowspan.bind="datum.rowspanNumber">
+                            ${datum.header.Description}
+                        </td>
+                        <td if.bind="datum.isHeader" rowspan.bind="datum.rowspanNumber">
+                            ${datum.header.ReferenceNo}</td>
 
+                        <td>${datum.Date}</td>
+                        <td>${datum.COAName}</td>
+                        <td>${datum.COACode}</td>
+                        <td>${datum.Remark}</td>
+                        <td>${datum.Debit}</td>
+                        <td>${datum.Credit}</td>
                     </tr>
                     <tr>
-                        <td class="text-right" colspan="4">TOTAL </td>
+                        <td class="text-right" colspan="6">TOTAL </td>
                         <td>${totalDebit}</td>
                         <td>${totalCredit}</td>
                     </tr>
