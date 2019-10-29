@@ -87,8 +87,11 @@ export class Monitoring {
 
     search() {
         this.service.search({ filter: JSON.stringify(this.filter) })
-            .then(result => this.tableData = result.data.map(data => {
+            .then(result => this.tableData = result.data.map((data, index) => {
                 data.itemsLength = Math.max(data.GarmentPurchaseRequests.length ,data.CostCalculations.length) || 1;
+                data.style = {
+                    'background-color': index % 2 == 0 ? "white" : "whitesmoke"
+                };
                 return data;
             }));
     }
