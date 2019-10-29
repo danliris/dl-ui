@@ -1,14 +1,17 @@
 <template>
+    <require from="../../../../au-components/form/input/_input"></require>
+    <require from="../../../../lib/number-format-value-converter"></require>
     <h1 class="page-header">Display Cost Calculation Garment Per Buyer | Description</h1>
     <form class="form-horizontal">
-         <au-textbox
-            label="Tahun"
-            placeholder="Masukkan Tahun"
-            value.bind="year"
-            options.bind="controlOptions">
-        </au-textbox>
-        
 
+        <au-input
+            type="number"
+            value.bind="filterYear"
+            label="Tahun"
+            input-options.bind="yearOptions"
+            options.bind="controlOptions">
+        </au-input>
+     
         <au-autocomplete 
             label="Buyer Agent"
             value.bind="buyerAgent"

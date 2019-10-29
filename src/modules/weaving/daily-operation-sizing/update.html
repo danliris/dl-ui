@@ -7,7 +7,15 @@
   </style>
   <au-input-form title="Update: Operasional Mesin Harian Sizing" options.bind="formOptions">
     <div class="col-md-12">
+      <!-- No. Order Produksi & Jenis Material -->
       <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="No. Order Produksi" value.bind="data.OrderProductionNumber"
+            error.bind="error.OrderProductionNumber" read-only.bind="true"></au-textbox>
+        </div>
         <div class="col-md-2" style="text-align:left;">
           <textbox label="No. Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
@@ -16,33 +24,45 @@
             read-only.bind="true"></au-textbox>
         </div>
       </div>
+
+      <!-- No. Konstruksi & Unit Weaving -->
       <div class="row" style="white-space: nowrap;">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+          <div class="col-md-2" style="text-align:left;">
+            <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
+          </div>
+          <div class="col-md-4">
+            <au-textbox placeholder="No. Konstruksi" value.bind="data.FabricConstructionNumber"
+              error.bind="error.FabricConstructionNumber" read-only.bind="true">
+            </au-textbox>
+          </div>
+          <div class="col-md-2" style="text-align:left;">
+            <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+          </div>
+          <div class="col-md-3">
+            <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name"
+              error.bind="error.WeavingDocument" read-only.bind="true"></au-textbox>
+          </div>
         </div>
-        <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name"
-            error.bind="error.WeavingDocument" read-only.bind="true"></au-textbox>
+
+        <!-- Tipe Mesin -->
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2" style="text-align:left;">
+            <textbox label="Tipe Mesin" read-only="true" style="display: inline-block"></textbox>
+          </div>
+          <div class="col-md-4">
+            <au-textbox placeholder="Tipe Mesin" value.bind="data.MachineType"
+              error.bind="error.MachineType" read-only.bind="true">
+            </au-textbox>
+          </div>
         </div>
-      </div>
-      <div class="row" style="white-space: nowrap">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-4">
-          <au-textbox placeholder="No. Konstruksi" value.bind="data.ConstructionNumber"
-            error.bind="error.ConstructionNumber" read-only.bind="true">
-          </au-textbox>
-        </div>
-      </div>
 
       <div class="row" style="white-space: nowrap;">
         <h1 style="font-size: 16px; font-weight: 600;">Beam Warping</h1>
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
-          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/beam-items-update">
+        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamsWarpingColumns"
+          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/beams-warping-update">
         </au-collection>
       </div>
 
@@ -132,8 +152,8 @@
               <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Counter Awal" value.bind="StartSizingStartCounter"
-                error.bind="error.CounterStart" read-only.bind="true"></au-textbox>
+              <au-numeric placeholder="Counter Awal" value.bind="StartSizingStartCounter"
+                error.bind="error.CounterStart" read-only.bind="true"></au-numeric>
             </div>
           </div>
 
@@ -433,15 +453,16 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="FinishDoffOperator" error.bind="error.FinishDoffOperator"
-                read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+              <au-autocomplete placeholder="Operator" value.bind="FinishDoffOperator"
+                error.bind="error.FinishDoffOperator" read-only.bind="readOnly" loader.bind="operators" text="Username">
+              </au-autocomplete>
             </div>
             <div class="col-md-2 col-md-offset-1" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="FinishDoffOperator.Group" error.bind="error.FinishDoffOperatorGroup"
-                read-only.bind="true"></au-textbox>
+              <au-textbox placeholder="Grup Sizing" value.bind="FinishDoffOperator.Group"
+                error.bind="error.FinishDoffOperatorGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -490,8 +511,8 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="ProduceBeams" errors.bind="error.ProduceBeams" columns.bind="produceBeamsColumns"
-          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/produce-beams">
+        <au-collection items.bind="BeamProducts" errors.bind="error.BeamProducts" columns.bind="beamProductsColumns"
+          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/beam-product-item">
         </au-collection>
       </div>
 
@@ -500,8 +521,8 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="logColumns" read-only.bind="true"
-          item-template="modules/weaving/daily-operation-sizing/templates/log-items">
+        <au-collection items.bind="Histories" errors.bind="error.Histories" columns.bind="historiesColumns"
+          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/history-items">
         </au-collection>
       </div>
     </div>

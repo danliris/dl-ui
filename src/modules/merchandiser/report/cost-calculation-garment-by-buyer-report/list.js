@@ -17,20 +17,25 @@ export class List {
     @bindable buyerBrand;
     @bindable BuyerId;
 
-    filterBuyerBrand = {};
+   filterBuyerBrand = {};
 
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
         this.service = service;
+
+        const moment = require('moment');
+        moment.locale('id');
+        this.currentYear = moment().year();
+        this.filterYear = this.currentYear;
+
+        this.yearOptions = {
+            min: this.currentYear - 50,
+            max: this.currentYear + 50
+        }
     }
 
-    // activate() {
-       
-    // }
-     year = null
-
-     bind(context) {
+    bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -76,10 +81,9 @@ export class List {
         return GarmentBuyerBrandLoader;
     }
 
-
     searching() {
         var info = {
-            year : this.year
+            year : this.filterYear
         }
         if (this.buyerAgent) {
            info.buyerAgent = this.buyerAgent.Code
@@ -149,7 +153,7 @@ export class List {
 
     ExportToExcel() {
         var info = {
-            year : this.year,
+            year : this.filterYear,
         }
         if (this.buyerAgent) {
            info.buyerAgent = this.buyerAgent.Code
@@ -162,7 +166,9 @@ export class List {
     }
 
     reset() {
-        this.year = null;
+        this.filterYear = this.currentYear;
+        this.buyerAgent = null;
+        this.buyerBrand = null;
         this.brands = [];
         this.QtyTotal = null;            
         this.AmountTotal = null;    

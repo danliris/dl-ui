@@ -9,7 +9,7 @@ import {
 var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
 
 @inject(BindingEngine, Service)
-export class BeamItemsPost {
+export class BeamsWarpingPost {
 
   constructor(bindingEngine, service) {
     this.service = service;

@@ -126,7 +126,6 @@ export class DataForm {
       })
       .catch(e => {
         this.PreparationShift = {};
-        this.data.PreparationShift = this.PreparationShift.Id;
         this.error.PreparationShift = " Shift tidak ditemukan ";
       });
   }

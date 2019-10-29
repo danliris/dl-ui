@@ -26,11 +26,11 @@ export class List {
     },
     {
       field: "OrderProductionNumber",
-      title: "No SOP"
+      title: "No. SOP"
     },
     {
       field: "ConstructionNumber",
-      title: "No Konstruksi"
+      title: "No. Konstruksi"
     },
     {
       field: "WeavingUnitId",
