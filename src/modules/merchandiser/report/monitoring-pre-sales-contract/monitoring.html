@@ -122,13 +122,13 @@
                         <th><label>No PR Master</label></th>
                         <th><label>No RO Master</label></th>
                         <th><label>Jenis PR Master</label></th>
-                        <th><label>Unit</label></th>
+                        <th><label>Unit (PR Master)</label></th>
                         <th><label>Tgl PR Master</label></th>
-                        <th><label>Artikel</label></th>
+                        <th><label>Artikel (PR Master)</label></th>
                         <th><label>Tgl Cost Calculation</label></th>
                         <th><label>No RO JOB</label></th>
-                        <th><label>Artikel</label></th>
-                        <th><label>Unit</label></th>
+                        <th><label>Artikel (Cost Calculation)</label></th>
+                        <th><label>Unit (Cost Calculation)</label></th>
                         <th><label>Kuantitas</label></th>
                         <th><label>Satuan</label></th>
                         <th><label>Confirm Price</label></th>
@@ -145,7 +145,7 @@
                     <!--Data to display-->
                     <template repeat.for="data of tableData">
                         <template repeat.for="itemIndex of (data.itemsLength)">
-                            <tr>
+                            <tr style.bind="data.style">
                                 <template if.bind="itemIndex == 0">
                                     <td rowspan.bind="data.itemsLength" align="center">
                                         <au-textbox value.bind="data.Section" read-only="true"></au-textbox>
