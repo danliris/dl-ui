@@ -269,7 +269,7 @@ module.exports = [
         name: 'garment-cost-calculation-by-unit-report',
         moduleId: './modules/merchandiser/report/cost-calculation-garment-by-unit-report/index',
         nav: true,
-        title: 'Display Cost Calculation Garment Per Konfeksi',
+        title: 'Display Cost Calculation Garment Per Unit',
         auth: true,
         settings: {
             group: "merchandiser",
