@@ -35,7 +35,39 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        for (var a of this.data.Details) {
+            a.SupplierName = this.data.Supplier.Name;
+            a.Currency = this.data.Bank.Currency.Code;
+        }
 
+        this.IDR = false;
+        this.sameCurrency = false;
+        this.GrandTotal = this.data.GrandTotal;
+        if (this.data.Bank.Currency.Code == "IDR") {
+            this.IDR = true;
+            if (this.data.CurrencyCode == "IDR") {
+                this.sameCurrency = true;
+            }
+            this.GrandTotal = this.data.GrandTotal * this.data.CurrencyRate;
+
+        }
+
+        if (!this.IDR || this.sameCurrency) {
+            this.collection = {
+                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
+            };
+        }
+        else {
+            this.collection = {
+                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
+            };
+        }
+        this.collectionOptions = {
+            IDR: this.IDR,
+            rate: this.data.CurrencyRate,
+            SameCurrency: this.sameCurrency
+        };
+        console.log(this.IDR)
         this.bankView = this.data.Bank.AccountName ? `${this.data.Bank.AccountName} - A/C : ${this.data.Bank.AccountNumber}` : '';
     }
 
