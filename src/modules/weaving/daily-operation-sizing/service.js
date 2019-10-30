@@ -162,4 +162,21 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
+
+  deleteEntry(data) {
+    var endpoint = `${serviceUri}/${data.Id}`;
+    return super.delete(endpoint, data);
+  }
+
+  deleteStopOrContinueOrFinish(Id, data) {
+    var status = data.HistoryStatus;
+    var endpoint = `${serviceUri}/${Id}/${data.HistoryId}/${status}`;
+    return super.put(endpoint, data);
+  }
+
+  deleteStartOrCompleted(Id, data) {
+    var status = data.HistoryStatus;
+    var endpoint = `${serviceUri}/${Id}/${data.HistoryId}/${data.BeamProductId}/${status}`;
+    return super.put(endpoint, data);
+  }
 }

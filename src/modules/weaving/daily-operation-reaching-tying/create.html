@@ -33,16 +33,16 @@
           <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber"
-            error.bind="error.ConstructionNumber" read-only.bind="true">
+          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber" error.bind="error.ConstructionNumber"
+            read-only.bind="true">
           </au-textbox>
         </div>
         <div class="col-md-2 col-md-offset-1" style="text-align:left;">
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnitDocument"
-            error.bind="error.WeavingUnitDocument" read-only.bind="true">
+          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnitDocument" error.bind="error.WeavingUnitDocument"
+            read-only.bind="true">
           </au-textbox>
         </div>
       </div>
@@ -53,7 +53,8 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocument"
-            error.bind="error.SizingBeamDocument" read-only.bind="readOnly" loader.bind="beams" text="Number">
+            error.bind="error.SizingBeamDocument" read-only.bind="readOnly" loader.bind="beams" text="Number"
+            query.bind="LoaderFilter">
           </au-autocomplete>
         </div>
       </div>

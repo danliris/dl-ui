@@ -36,5 +36,17 @@
       <au-textbox value.bind="data.MachineStatus" error.bind="error.MachineStatus" read-only.bind="true">
       </au-textbox>
     </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <div if.bind="$first">
+      <button class="btn btn-default" click.delegate="edit()" disabled.bind="isEditDisabled"
+            style="background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 100px; border: 1px solid #777777;">
+            Edit
+      </button>
+      <button class="btn btn-default" click.delegate="delete()" disabled.bind="isDeleteDisabled"
+            style="background-color: #d65151; color:white; white-space: nowrap; width: 100px; border: 1px solid #777777;">
+            Delete
+      </button>
+    </div>
+    </td>
   </tr>
 </template>
