@@ -91,6 +91,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/loading',
+        name: 'garment-production-loading',
+        moduleId: './modules/garment-production/loading/index',
+        nav: true,
+        title: 'Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/sewing-in',
         name: 'garment-production-sewing-in',
         moduleId: './modules/garment-production/sewing-in/index',
@@ -104,11 +117,11 @@ module.exports = [
         }
     },
     {
-        route: '/garment-production/loading',
-        name: 'garment-production-loading',
-        moduleId: './modules/garment-production/loading/index',
+        route: '/garment-production/sewing-out',
+        name: 'garment-production-sewing-out',
+        moduleId: './modules/garment-production/sewing-out/index',
         nav: true,
-        title: 'Loading',
+        title: 'Sewing Out',
         auth: true,
         settings: {
             group: "g-production",
