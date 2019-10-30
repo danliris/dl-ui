@@ -42,17 +42,17 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.bankView = this.data.Bank.accountName ? `${this.data.Bank.accountName} - A/C : ${this.data.Bank.accountNumber}` : '';
+        this.bankView = this.data.Bank.AccountName ? `${this.data.Bank.AccountName} - A/C : ${this.data.Bank.AccountNumber}` : '';
 
         this.UPOResults = this.data.Details.map((detail) => {
             detail.Select = true;
             return detail;
         });
-
+        
         let arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
-            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "IsPaid": false }) //CASHIER DIVISION
+            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.Currency.Code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.Currency.Code, "IsPaid": false }) //CASHIER DIVISION
         };
 
         let newData = await this.service.searchAllByPosition(arg)
@@ -65,6 +65,37 @@ export class Edit {
         if (newData.length > 0) {
             this.UPOResults = this.UPOResults.concat(newData);
         }
+
+        for (var a of this.data.Details) {
+            a.SupplierName = this.data.Supplier.Name;
+            a.Currency = this.data.Bank.Currency.Code;
+        }
+
+        this.IDR=false;
+        this.sameCurrency=false;
+        if (this.data.Bank.Currency.Code == "IDR") {
+            this.IDR = true;
+            if (this.data.CurrencyCode == "IDR") {
+                this.sameCurrency = true;
+            }
+           
+        }
+
+        if (!this.IDR || this.sameCurrency) {
+            this.collection = {
+                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
+            };
+        }
+        else {
+            this.collection = {
+                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
+            };
+        }
+        this.collectionOptions = {
+            IDR: this.IDR,
+            rate: this.data.CurrencyRate,
+            SameCurrency: this.sameCurrency
+        };
     }
 
     cancelCallback(event) {
@@ -88,14 +119,22 @@ export class Edit {
 
     get grandTotal() {
         let result = 0;
+        let viewResult = 0;
         if (this.UPOResults && this.UPOResults.length > 0) {
             for (let detail of this.UPOResults) {
-                if (detail.Select)
+                if (detail.Select) {
                     result += detail.TotalPaid;
+                    viewResult += (detail.TotalPaid * this.data.CurrencyRate);
+                }
+
             }
         }
+        // console.log(result);
         this.data.GrandTotal = result;
-        return result;
+        if (this.IDR)
+            return viewResult
+        else
+            return result;
     }
 
     onCheckAll(event) {

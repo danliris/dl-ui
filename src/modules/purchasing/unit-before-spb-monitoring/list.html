@@ -3,9 +3,9 @@
     <form class="form-horizontal">
         <au-autocomplete 
             value.bind="unitReceiptNote" 
-            label="Nomor Bon Unit" 
+            label="Nomor Bon" 
             loader.bind="urnLoader"
-            placeholder="cari nomor Bon Terima" 
+            placeholder="Cari Nomor Bon" 
             text.bind = "urnView"
             key="URNNo"
             options.bind="controlOptions">
@@ -13,11 +13,21 @@
 
         <au-autocomplete 
             value.bind="supplierName" 
-            label="SupplierName" 
+            label="Supplier" 
             loader.bind="supplierLoader"
             placeholder="cari Nama Supplier" 
             text.bind = "supplierView"
             key="SupplierName"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+       <au-autocomplete 
+            value.bind="doNo" 
+            label="Nomor SJ" 
+            loader.bind="doLoader"
+            placeholder="Cari Nomor SJ" 
+            text.bind = "doView"
+            key="DONo"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -35,13 +45,6 @@
             options.bind="controlOptions"
             error.bind="error.date">
         </au-datepicker>
-
-        <au-dropdown
-            value.bind="isPaids"
-            label="Status SPB"
-            options.bind="controlOptions"
-            items.bind="spbStatuses">
-        </au-dropdown>
         
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
