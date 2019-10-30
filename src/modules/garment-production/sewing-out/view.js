@@ -20,7 +20,14 @@ export class View {
         this.selectedUnitTo=this.data.UnitTo;
         this.selectedUnit=this.data.Unit;
         this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
-        console.log(this.data)
+        for(var a of this.data.Items){
+            if(b.RemainingQuantity != b.Quantity){
+                this.deleteCallback = null;
+                this.editCallback=null;
+                break;
+            }
+            
+        }
     }
 
     cancelCallback(event) {
