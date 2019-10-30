@@ -26,7 +26,6 @@ export class View {
                 this.editCallback=null;
                 break;
             }
-            
         }
     }
 
