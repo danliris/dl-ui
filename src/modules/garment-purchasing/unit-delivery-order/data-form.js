@@ -27,6 +27,7 @@ export class DataForm {
     @bindable isProses = false;
     @bindable isTransfer = false;
     @bindable isSample = false;
+    @bindable RONoJob;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE'];
 
@@ -257,24 +258,38 @@ export class DataForm {
         this.RONoHeader = null;
     }
 
+    RONoJobChanged(newValue){
+        if(newValue){
+            this.data.Article =newValue.Article;
+            this.data.RONo = newValue.RONo;
+        }
+        else{
+            this.data.RONo =null;
+            this.data.Article =null;
+            this.context.RONoJobViewModel.editorValue = "";
+        }
+            
+    }
+
     RONoChanged(newValue) {
         var selectedro = newValue;
         this.dataItems = [];
         this.data.Items = [];
-        this.data.Article = null;
+        this.data.Article = this.isTransfer?this.data.Article :null;
         if(this.error && this.error.Items) {
             this.error.Items = [];
         }
 
         if (newValue == null) {
-            this.data.RONo = null;
-            this.data.Article = null;
+            if(!this.isTransfer){
+                this.data.RONo = null;
+                this.data.Article = null;
+            }
             this.context.RONoViewModel.editorValue = "";
         }
         else if (newValue) {
-            console.log(newValue)
-            this.data.RONo = selectedro.RONo;
-            this.data.Article = selectedro.Article;
+            this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
+            this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
             if(this.isProses){
                 Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
                     .then(result => {
