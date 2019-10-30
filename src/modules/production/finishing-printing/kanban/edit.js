@@ -78,20 +78,21 @@ export class Edit {
     this.invalidSteps = [];
     this.range = [];
 
-    if (this.validateStepsDurationEstimation()) {
-      if (this.invalidSteps.length > 0) {
-        this.dialog.show(AlertView, { message: this.generateMessage() })
-          .then(response => {
-            if (!response.wasCancelled) {
-              this.save();
-            }
-          });
-      }
-      else
-        this.save();
-    }
-    else
-      this.save();
+    // if (this.validateStepsDurationEstimation()) {
+    //   if (this.invalidSteps.length > 0) {
+    //     this.dialog.show(AlertView, { message: this.generateMessage() })
+    //       .then(response => {
+    //         if (!response.wasCancelled) {
+    //           this.save();
+    //         }
+    //       });
+    //   }
+    //   else
+    //     this.save();
+    // }
+    // else
+    //   this.save();
+    this.save();
   }
 
   generateMessage() {
