@@ -116,6 +116,9 @@ export class Update {
     {
       value: "MachineStatus",
       header: "Status Mesin"
+    },
+    {
+      header: "Action"
     }
   ];
 
@@ -199,6 +202,8 @@ export class Update {
           this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
           break;
       }
+
+      this.dataOptions = this.data;
     }
   }
 

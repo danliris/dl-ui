@@ -27,34 +27,34 @@
 
       <!-- No. Konstruksi & Unit Weaving -->
       <div class="row" style="white-space: nowrap;">
-          <div class="col-md-2" style="text-align:left;">
-            <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
-          </div>
-          <div class="col-md-4">
-            <au-textbox placeholder="No. Konstruksi" value.bind="data.FabricConstructionNumber"
-              error.bind="error.FabricConstructionNumber" read-only.bind="true">
-            </au-textbox>
-          </div>
-          <div class="col-md-2" style="text-align:left;">
-            <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
-          </div>
-          <div class="col-md-3">
-            <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name"
-              error.bind="error.WeavingDocument" read-only.bind="true"></au-textbox>
-          </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
         </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="No. Konstruksi" value.bind="data.FabricConstructionNumber"
+            error.bind="error.FabricConstructionNumber" read-only.bind="true">
+          </au-textbox>
+        </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name"
+            error.bind="error.WeavingDocument" read-only.bind="true"></au-textbox>
+        </div>
+      </div>
 
-        <!-- Tipe Mesin -->
-        <div class="row" style="white-space: nowrap;">
-          <div class="col-md-2" style="text-align:left;">
-            <textbox label="Tipe Mesin" read-only="true" style="display: inline-block"></textbox>
-          </div>
-          <div class="col-md-4">
-            <au-textbox placeholder="Tipe Mesin" value.bind="data.MachineType"
-              error.bind="error.MachineType" read-only.bind="true">
-            </au-textbox>
-          </div>
+      <!-- Tipe Mesin -->
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Tipe Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="Tipe Mesin" value.bind="data.MachineType" error.bind="error.MachineType"
+            read-only.bind="true">
+          </au-textbox>
+        </div>
+      </div>
 
       <div class="row" style="white-space: nowrap;">
         <h1 style="font-size: 16px; font-weight: 600;">Beam Warping</h1>
@@ -521,8 +521,9 @@
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Histories" errors.bind="error.Histories" columns.bind="historiesColumns"
-          read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/history-items">
+        <au-collection items.bind="Histories" options.bind="dataOptions" errors.bind="error.Histories"
+          columns.bind="historiesColumns" read-only.bind="true"
+          item-template="modules/weaving/daily-operation-sizing/templates/history-items">
         </au-collection>
       </div>
     </div>
