@@ -40,7 +40,7 @@
 }
 
 #kanbanArea .type-2 {
-  	border-top: 5px solid #FF3D00;
+  	border-top: 5px solid #8BC34A;
 }
 
 #kanbanArea .type-3 {
@@ -48,7 +48,7 @@
 }
 
 #kanbanArea .type-4 {
-  	border-top: 5px solid #8BC34A;
+  	border-top: 5px solid #FF3D00;
 }
 
 #kanbanArea .kanban {
