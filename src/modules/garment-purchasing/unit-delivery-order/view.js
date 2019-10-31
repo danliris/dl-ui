@@ -34,10 +34,26 @@ export class View {
             }
 
             if (this.data.RONo) {
-                this.RONo = {
-                    RONo: this.data.RONo,
-                    Items: []
-                };
+                if(this.data.UnitDOType=="TRANSFER"){
+                    var RO="";
+                    for(var a of this.data.Items){
+                        RO=a.RONo; break;
+                    }
+                    this.RONoJob = {
+                        RONo: this.data.RONo,
+                        Items: []
+                    };
+                    this.RONo = {
+                        RONo: RO,
+                        Items: []
+                    };
+                }
+                else{
+                    this.RONo = {
+                        RONo: this.data.RONo,
+                        Items: []
+                    };
+                }
             }
 
             if (this.data.Items) {
