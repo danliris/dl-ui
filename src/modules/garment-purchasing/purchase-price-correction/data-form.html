@@ -49,7 +49,10 @@
             loader.one-time="garmentDeliveryOrderLoader"
             placeholder="Cari SJ"
             options.bind="controlOptions"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            text.bind = "doView"
+            show.bind="selectedSupplier"
+            view-model.ref="doViewModel">
         </au-autocomplete>
 
         
