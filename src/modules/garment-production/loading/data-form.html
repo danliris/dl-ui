@@ -13,7 +13,7 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.Unit"
+            value.bind="selectedUnit"
             error.bind="error.Unit"
             label="Unit Loading"
             loader.bind="unitLoader"
@@ -28,6 +28,8 @@
             error.bind="error.RONo"
             label="No RO"
             loader.bind="sewingDOLoader"
+            query.bind="filter"
+            show.bind="data.Unit"
             text.bind="ROView"
             placeholder="nomor sewing DO"
             read-only.bind="readOnly || isEdit"

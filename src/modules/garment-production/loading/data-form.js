@@ -13,6 +13,7 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedSewingDO;
     @bindable itemOptions = {};
+    @bindable selectedUnit;
 
     constructor(service) {
         this.service = service;
@@ -37,19 +38,6 @@ export class DataForm {
 
     itemsColumns = [""];
 
-    @computedFrom("data.Unit")
-    get preparingFilter() {
-        this.selectedPreparing = null;
-        if (this.data.Unit) {
-            return {
-                UnitId: this.data.Unit.Id
-            };
-        } else {
-            return {
-                UnitId: 0
-            };
-        }
-    }
 
     async bind(context) {
         this.context = context;
@@ -111,10 +99,52 @@ export class DataForm {
         return SewingDOLoader;
     }
 
+    @computedFrom("data.Unit")
+    get filter(){
+        if (this.data.Unit) {
+            return {
+                UnitId: this.data.Unit.Id
+            };
+        } else {
+            return {
+                UnitId: 0
+            };
+        }
+    }
+
+    selectedUnitChanged(newValue){
+        this.selectedSewingDO=null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.UnitFrom=null;
+        this.data.SewingDOId=null;
+        this.data.SewingDONo=null;
+        this.data.Items = [];
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit=null;
+            this.selectedSewingDO=null;
+            this.selectedSewingDO=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity=null;
+            this.data.UnitFrom=null;
+            this.data.SewingDOId=null;
+            this.data.SewingDONo=null;
+            this.data.Items = [];
+        }
+    }
+
     async selectedSewingDOChanged(newValue, oldValue){
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity=null;
+        this.data.UnitFrom=null;
+        this.data.SewingDOId=null;
+        this.data.SewingDONo=null;
         this.data.Items = [];
         if(newValue) {
             this.context.error.Items = [];
@@ -145,6 +175,9 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
+            this.data.UnitFrom=null;
+            this.data.SewingDOId=null;
+            this.data.SewingDONo=null;
             this.data.Items = [];
         }
     }

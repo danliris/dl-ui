@@ -20,6 +20,7 @@ export class View {
                 break;
             }
         }
+        this.selectedUnit=this.data.Unit;
     }
 
     cancelCallback(event) {

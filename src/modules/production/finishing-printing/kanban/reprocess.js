@@ -37,20 +37,21 @@ export class Reprocess {
     this.invalidSteps = [];
     this.range = [];
 
-    if (this.validateStepsDurationEstimation()) {
-      if (this.invalidSteps.length > 0) {
-        this.dialog.show(AlertView, { message: this.generateMessage() })
-          .then(response => {
-            if (!response.wasCancelled) {
-              this.save(event);
-            }
-          });
-      }
-      else
-        this.save(event);
-    }
-    else
-      this.save(event);
+    // if (this.validateStepsDurationEstimation()) {
+    //   if (this.invalidSteps.length > 0) {
+    //     this.dialog.show(AlertView, { message: this.generateMessage() })
+    //       .then(response => {
+    //         if (!response.wasCancelled) {
+    //           this.save(event);
+    //         }
+    //       });
+    //   }
+    //   else
+    //     this.save(event);
+    // }
+    // else
+    //   this.save(event);
+    this.save();
   }
 
   generateMessage() {

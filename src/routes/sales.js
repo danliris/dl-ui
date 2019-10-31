@@ -4,7 +4,7 @@ module.exports = [
         name: 'finishing-printing-sales-contract',
         moduleId: './modules/sales/finishing-printing-sales-contract/index',
         nav: true,
-        title: 'Sales Contract - Finishing & Printing',
+        title: 'Sales Contract - Dyeing & Printing',
         auth: true,
         settings: {
             group: "sales",
@@ -17,7 +17,7 @@ module.exports = [
         name: 'finishing-printing-sales-contract-report',
         moduleId: './modules/sales/reports/finishing-printing-sales-contract-report/index',
         nav: true,
-        title: 'Laporan Sales Contract - Finishing & Printing',
+        title: 'Laporan Sales Contract - Dyeing & Printing',
         auth: true,
         settings: {
             group: "sales",
