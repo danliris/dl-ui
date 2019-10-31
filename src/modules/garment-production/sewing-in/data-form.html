@@ -20,7 +20,7 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.Unit"
+            value.bind="selectedUnit"
             error.bind="error.Unit"
             label="Unit Sewing In"
             loader.bind="unitLoader"
@@ -34,6 +34,8 @@
             value.bind="selectedLoading"
             error.bind="error.LoadingNo"
             label="No Loading"
+            query.bind="filter"
+            show.bind="data.Unit"
             loader.bind="loadingLoader"
             text.bind="LoadingView"
             placeholder="nomor loading"
