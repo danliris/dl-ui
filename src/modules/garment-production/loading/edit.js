@@ -14,6 +14,7 @@ export class Edit {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
+        this.selectedUnit=this.data.Unit;
         if(this.data.SewingDOId){
             this.selectedSewingDO= await this.service.getSewingDObyId(this.data.SewingDOId);
             for(var a of this.data.Items){

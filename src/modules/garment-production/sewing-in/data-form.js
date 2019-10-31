@@ -15,6 +15,7 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedLoading;
     @bindable itemOptions = {};
+    @bindable selectedUnit;
 
     constructor(service) {
         this.service = service;
@@ -45,6 +46,19 @@ export class DataForm {
             "Satuan",
             "Warna",
         ]
+    }
+
+    @computedFrom("data.Unit")
+    get filter(){
+        if (this.data.Unit) {
+            return {
+                UnitId: this.data.Unit.Id
+            };
+        } else {
+            return {
+                UnitId: 0
+            };
+        }
     }
 
     bind(context) {
@@ -97,6 +111,30 @@ export class DataForm {
             }
         }
         return `${loading.LoadingNo} - ${loading.RONo} - ${colorList.join(", ")} - ${sizeList.join(", ")}`
+    }
+
+    selectedUnitChanged(newValue){
+        this.data.Unit=null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.UnitFrom = null;
+        this.selectedLoading=null;
+        this.data.LoadingId = null;
+        this.data.LoadingNo =null;
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.UnitFrom = null;
+            this.selectedLoading=null;
+            this.data.LoadingId = null;
+            this.data.LoadingNo =null;
+        }
     }
 
     async selectedLoadingChanged(newValue){
