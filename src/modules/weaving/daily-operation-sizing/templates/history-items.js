@@ -42,6 +42,10 @@ export class HistoryItems {
     let operationId = this.options.Id;
     let lastBeamProduct = this.options.DailyOperationSizingBeamProducts[0];
     let lastBeamProductId = lastBeamProduct.Id;
+    lastBeamProductId ="";
+    if(lastBeamProductId == null || lastBeamProductId == undefined){
+      let lastBeamProductId = lastBeamProduct.Id;
+    }
 
     let historyId = this.data.Id;
     let historyStatus = this.data.MachineStatus;
