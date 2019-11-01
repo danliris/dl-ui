@@ -6,19 +6,23 @@ import {
 import {
   Service
 } from "../service";
+import {
+  Router
+} from "aurelia-router";
 import { Dialog } from '../../../../au-components/dialog/dialog'
 import moment from "moment";
 
 // var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
-@inject(BindingEngine, Service, Dialog)
+@inject(BindingEngine, Service, Router, Dialog)
 export class HistoryItems {
   // @bindable Code;
   // @bindable OrderDocument;
 
-  constructor(bindingEngine, service, dialog) {
+  constructor(bindingEngine, service, router, dialog) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.router = router;
     this.dialog = dialog;
   }
 
@@ -41,7 +45,10 @@ export class HistoryItems {
   delete() {
     let operationId = this.options.Id;
     let lastBeamProduct = this.options.DailyOperationSizingBeamProducts[0];
-    let lastBeamProductId = lastBeamProduct.Id;
+    let lastBeamProductId = "";
+    if (lastBeamProduct != null || lastBeamProduct != undefined) {
+      lastBeamProductId = lastBeamProduct.Id;
+    }
 
     let historyId = this.data.Id;
     let historyStatus = this.data.MachineStatus;
@@ -50,15 +57,16 @@ export class HistoryItems {
     sizingData.Id = operationId;
     sizingData.HistoryId = historyId;
     sizingData.HistoryStatus = historyStatus;
+    sizingData.BeamProductId = lastBeamProductId;
     
     switch (historyStatus) {
       case "ENTRY":
           this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
           .then(response => {
               if (response.ok) {
-                this.service.deleteEntry(this.options)
+                this.service.deleteEntry(sizingData)
                 .then(result => {
-                  location.reload();
+                  this.router.navigateToRoute('list');
                 })
                 .catch(e => {
                   this.error = e;
@@ -67,8 +75,6 @@ export class HistoryItems {
           });
         break;
       case "START":
-        sizingData.BeamProductId = lastBeamProductId;
-
         this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
         .then(response => {
             if (response.ok) {
@@ -111,8 +117,6 @@ export class HistoryItems {
           });
         break;
       case "COMPLETED":
-        sizingData.BeamProductId = lastBeamProductId;
-
         this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
           .then(response => {
               if (response.ok) {
