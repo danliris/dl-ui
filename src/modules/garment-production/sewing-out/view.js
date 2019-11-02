@@ -21,7 +21,7 @@ export class View {
         this.selectedUnit=this.data.Unit;
         this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
         for(var a of this.data.Items){
-            if(b.RemainingQuantity != b.Quantity){
+            if(a.RemainingQuantity != a.Quantity){
                 this.deleteCallback = null;
                 this.editCallback=null;
                 break;
