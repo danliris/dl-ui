@@ -13,8 +13,6 @@ export class List {
 
     context = ["detail"];
     columns = [
-        // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        // { field: "Yarn.Name", title: "Yarn Name" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
         {
             field: "LotDate", title: "Date", formatter: function (value, data, index) {
@@ -34,7 +32,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ "MixDrawing": false })
+            filter: JSON.stringify({ "MixDrawing": true })
         }
 
         return this.service.search(arg)
