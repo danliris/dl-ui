@@ -38,6 +38,7 @@ export class DataForm {
 
     statusOptions = ["IN", "OUT"];
     sourceTypes = ["Operasional", "Investasi", "Pendanaan", "Lain - lain"];
+    SourceFundingTypes = ["Internal", "Eksternal"];
 
     get bankLoader() {
         return BankLoader;
@@ -58,7 +59,7 @@ export class DataForm {
             return "Ke";
         }
     }
-
+ 
     supplierView = (supplier) => {
         return `${supplier.code} / ${supplier.name}`
     }
