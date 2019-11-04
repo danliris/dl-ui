@@ -84,6 +84,16 @@
                      options.bind="controlOptions">
         </au-dropdown>
 
+        <au-dropdown label="Sumber Pendanaan"
+                     value.bind="data.SourceFundingType"
+                     error.bind="error.SourceFundingType"
+                     read-only.bind="readOnly"
+                     items.bind="SourceFundingTypes"
+                     read-only.bind="readOnly"
+                     if.bind="!isFrom && data.SourceType == 'Pendanaan'"
+                     options.bind="controlOptions">
+        </au-dropdown>
+
         <au-autocomplete value.bind="data.Supplier"
                          error.bind="error.Supplier"
                          label.bind="getSupplierLabel"
@@ -111,7 +121,7 @@
                          text.bind="bankView"
                          placeholder="cari bank"
                          read-only.bind="readOnly"
-                         if.bind="!isFrom && data.SourceType == 'Pendanaan'"
+                         if.bind="!isFrom && data.SourceType == 'Pendanaan' && data.SourceFundingType == 'Internal'"
                          options.bind="controlOptions">
         </au-autocomplete>
 

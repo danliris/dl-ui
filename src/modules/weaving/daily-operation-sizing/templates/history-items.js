@@ -6,18 +6,24 @@ import {
 import {
   Service
 } from "../service";
+import {
+  Router
+} from "aurelia-router";
+import { Dialog } from '../../../../au-components/dialog/dialog'
 import moment from "moment";
 
 // var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
-@inject(BindingEngine, Service)
+@inject(BindingEngine, Service, Router, Dialog)
 export class HistoryItems {
   // @bindable Code;
   // @bindable OrderDocument;
 
-  constructor(bindingEngine, service) {
+  constructor(bindingEngine, service, router, dialog) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.router = router;
+    this.dialog = dialog;
   }
 
   activate(context) {
@@ -39,7 +45,10 @@ export class HistoryItems {
   delete() {
     let operationId = this.options.Id;
     let lastBeamProduct = this.options.DailyOperationSizingBeamProducts[0];
-    let lastBeamProductId = lastBeamProduct.Id;
+    let lastBeamProductId = "";
+    if (lastBeamProduct != null || lastBeamProduct != undefined) {
+      lastBeamProductId = lastBeamProduct.Id;
+    }
 
     let historyId = this.data.Id;
     let historyStatus = this.data.MachineStatus;
@@ -48,64 +57,91 @@ export class HistoryItems {
     sizingData.Id = operationId;
     sizingData.HistoryId = historyId;
     sizingData.HistoryStatus = historyStatus;
+    sizingData.BeamProductId = lastBeamProductId;
     
     switch (historyStatus) {
       case "ENTRY":
-        this.service.deleteEntry(this.options)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
+          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+          .then(response => {
+              if (response.ok) {
+                this.service.deleteEntry(sizingData)
+                .then(result => {
+                  this.router.navigateToRoute('list');
+                })
+                .catch(e => {
+                  this.error = e;
+                });
+              }
           });
         break;
       case "START":
-        sizingData.BeamProductId = lastBeamProductId;
-
-        this.service.deleteStartOrCompleted(sizingData.Id, sizingData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
-          });
+        this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+        .then(response => {
+            if (response.ok) {
+              this.service.deleteStartOrCompleted(sizingData.Id, sizingData)
+              .then(result => {
+                location.reload();
+              })
+              .catch(e => {
+                this.error = e;
+              });
+            }
+        });
         break;
       case "STOP":
-        this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
+          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+          .then(response => {
+              if (response.ok) {
+                this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
+                .then(result => {
+                  location.reload();
+                })
+                .catch(e => {
+                  this.error = e;
+          });
+              }
           });
         break;
       case "CONTINUE":
-        this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
+          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+          .then(response => {
+              if (response.ok) {
+                this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
+                .then(result => {
+                  location.reload();
+                })
+                .catch(e => {
+                  this.error = e;
+                });
+              }
           });
         break;
       case "COMPLETED":
-        sizingData.BeamProductId = lastBeamProductId;
-
-        this.service.deleteStartOrCompleted(sizingData.Id, sizingData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
+        this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+          .then(response => {
+              if (response.ok) {
+                this.service.deleteStartOrCompleted(sizingData.Id, sizingData)
+                .then(result => {
+                  location.reload();
+                })
+                .catch(e => {
+                  this.error = e;
+                });
+              }
           });
         break;
       case "FINISH":
-        this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
+          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+          .then(response => {
+              if (response.ok) {
+                this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
+                .then(result => {
+                  location.reload();
+                })
+                .catch(e => {
+                  this.error = e;
+                });
+              }
           });
         break;
     }
