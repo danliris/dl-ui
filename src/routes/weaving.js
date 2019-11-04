@@ -195,6 +195,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/machine-planning-report",
+    name: "machine-planning-report",
+    moduleId: "./modules/weaving/machine-planning-report/index",
+    nav: true,
+    title: "Laporan Perencanaan Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/beam-monitoring-visualization",
     name: "beam-monitoring-visualization",
     moduleId: "./modules/weaving/beam-monitoring-visualization/index",
