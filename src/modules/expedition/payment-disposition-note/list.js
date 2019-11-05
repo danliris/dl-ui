@@ -49,6 +49,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result)
                 if (result.data && result.data.length > 0) {
                     result.data = result.data.map((datum) => {
                         let listDispo = [];
@@ -75,7 +76,7 @@ export class List {
                 
 
                 return {
-                    total: result.total,
+                    total: result.info.total,
                     data: result.data
                 }
             });
