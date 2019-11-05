@@ -24,39 +24,8 @@ export class Create {
     }
 
     saveCallback(event) {
-        // this.error = {};
-        // var errorCount = 0;
-        // if(!this.data.ProcessType || this.data.ProcessType==""){
-        //     this.error.ProcessType="Jenis Proses tidak boleh kosong";
-        //     errorCount++;
-        // }
-        // if(!this.data.YarnType || this.data.YarnType=="" && this.data.IsMixDrawing!=true){
-        //     this.error.YarnType="Jenis Benang tidak boleh kosong";
-        //     errorCount++;
-        // }
-        // if(!this.data.Count){
-        //     this.error.Count="Count tidak boleh kosong";
-        //     errorCount++;
-        // }
-        // if(this.data.ProcessType == "Finish Drawing" && this.data.IsMixDrawing==true && this.data.Items){
-        //     this.error.Items="Item tidak boleh kosong";
-        //     errorCount++;
-        // }
-        // if(errorCount==0){
-        if (this.data.ProcessType != "Mix Drawing") {
-            this.data.IsMixDrawing = false;
-            this.data.MaterialComposition = [];
-            var itemDetail = {};
-            itemDetail.LotId = this.data.LotId;
-            itemDetail.LotNo = this.data.LotNo;
-            itemDetail.YarnId = this.data.YarnMaterialTypeId;
-            itemDetail.YarnCode = this.data.YarnMaterialTypeCode;
-            itemDetail.YarnName = this.data.YarnMaterialTypeName;
-            itemDetail.Composition = 100;
-            this.data.MaterialComposition.push(itemDetail);
-        } else {
-            this.data.IsMixDrawing = true;
-        }
+        this.data.IsMixDrawing = false;
+        
         this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);

@@ -18,14 +18,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error;
     @bindable title;
-    @bindable lotConfiguration;
-    // @bindable processType;
     @bindable yarnType;
     @bindable count;
-    @bindable showItemRegular;
-    @bindable regularItems;
-    @bindable lot;
-    @bindable mixDrawingLot;
     @bindable detailOptions;
     @bindable unit;
 
@@ -78,21 +72,7 @@ export class DataForm {
         console.log(this.context)
         this.data = this.context.data;
         this.error = this.context.error;
-        // if (!this.readOnly)
-        //     this.coreService.getMachineTypes()
-        //         .then(result => {
-        //             if (this.data.ProcessType) {
-        //                 this.processTypeList = result;
-        //             } else {
-        //                 this.processTypeList.push("");
-        //                 for (var list of result) {
-        //                     this.processTypeList.push(list);
-        //                 }
-        //             }
-        //         });
-        // if (this.data.ProcessType) {
-        //     this.processType = this.data.ProcessType;
-        // }
+
         this.processType = "Pre-Drawing";
 
         if (!this.data.ProcessType) {
@@ -118,65 +98,16 @@ export class DataForm {
             this.unit = this.data.UnitDepartment;
         }
 
-        if (!this.context.isCreate) {
-
+        if (this.data.MaterialType && this.data.MaterialType.Id) {
+            this.yarnType = this.data.MaterialType;
         }
-        if (this.data.ProcessType == "Mix Drawing") {
-            this.showItemRegular = false;
-            this.mixDrawing = true;
-            if (this.data.MixDrawingLotNo) {
-                this.mixDrawingLot = this.data.MixDrawingLotNo;
-            }
-            if (this.data.MixDrawingCountId) {
-                this.count = {};
-                this.count.Id = this.data.MixDrawingCountId;
-                this.count.Name = this.data.Count;
-            }
-
-        } else {
-            if (this.data.ProcessType == 'Winder')
-                this.data.ConeWeight = 1.89;
-
-            // this.data.MaterialComposition = [];
-            this.showItemRegular = true;
-            this.mixDrawing = false;
-            this.yarnType = {};
-            if (this.data.MaterialComposition) {
-                this.yarnType.Id = this.data.MaterialComposition[0].YarnId;
-                this.yarnType.Name = this.data.MaterialComposition[0].YarnName;
-                this.data.YarnMaterialTypeId = this.yarnType.Id;
-                this.data.YarnMaterialTypeCode = this.yarnType.Code;
-                this.data.YarnMaterialTypeName = this.yarnType.Name;
-                if (this.yarnType.Id) {
-                    this.yarnTypeId = this.yarnType.Id;
-                    this.lot = this.data.LotNo;
-                    this.regularItems = this.data.regularItems;
-
-                }
-            }
-
-        }
+        this.showItemRegular = true;
+        this.mixDrawing = false;
     }
 
-    inputInfo = {
-        columns: [
-            { header: "Nama Serat", value: "product" },
-            { header: "Komposisi(%)", value: "composition" },
-        ],
-    };
+    
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
-    mixDrawingColumns = {
-        columns: [
-            "Jenis Material",
-            "Nomor Lot",
-            "Komposisi(%)"
-        ],
-        onAdd: function () {
-            this.context.ItemsCollection.bind();
-            this.data.MaterialComposition.push({});
-        }.bind(this)
-    };
-
+    
     unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
@@ -185,109 +116,12 @@ export class DataForm {
         }
     }
 
-    // processTypeChanged(n, o) {
-    //     var selectedProcess = this.processType;
-    //     this.data.ProcessType = selectedProcess;
-    //     if (selectedProcess) {
-    //         if (this.data.ProcessType == "Mix Drawing") {
-    //             this.showItemRegular = false;
-    //             this.mixDrawing = true;
-    //             this.lot = undefined;
-    //             this.regularItems = [];
+    
 
-    //         } else {
-    //             if (this.data.ProcessType == 'Winder')
-    //                 this.data.ConeWeight = 1.89;
-
-    //             if(o == "Mix Drawing" && n != "Mix Drawing"){
-    //                 this.data.Count = null;
-    //             }
-    //             this.data.MaterialComposition = [];
-    //             this.showItemRegular = true;
-    //             this.mixDrawing = false;
-
-    //         }
-
-    //     }
-    // }
-
-    mixDrawingLotChanged(n, o) {
-        if (this.mixDrawingLot) {
-            this.data.mixDrawingLot = this.mixDrawingLot;
-            this.data.MixDrawingLotNo = this.mixDrawingLot;
-        }
-    }
-
-    countChanged(n, o) {
-        if (this.count) {
-            this.data.Count = this.count.Id;
-
-        }
-    }
-
+    
     yarnTypeChanged(n, o) {
-        var selectedProcess = this.yarnType;
-
-        if (selectedProcess) {
-            this.data.YarnMaterialTypeCode = selectedProcess.Code;
-            this.data.YarnMaterialTypeId = selectedProcess.Id;
-            this.data.YarnMaterialTypeName = selectedProcess.Name;
-            var yarn = selectedProcess.Id;
-            if (yarn) {
-                if (this.data.Id) {
-                    this.service.getLotById(this.data.MaterialComposition[0].LotId).then(result => {
-                        if (result) {
-                            this.lot = result.LotNo;
-                            this.data.LotId = result.Id;
-                            this.data.LotNo = result.LotNo;
-                            if (this.error) {
-                                this.error.YarnId = null;
-                            }
-                            if (this.data.ProcessType != "Mix Drawing") {
-
-                                this.regularItems = result.CottonCompositions;
-                            }
-                        } else {
-                            this.error.YarnId = "Lot tidak ditemukan";
-                            this.data.MaterialComposition = [];
-                            this.data.LotId = null;
-                            this.data.LotNo = null;
-                            this.cottonLot = null;
-                            this.regularItems = null;
-                            this.data.YarnMaterialTypeId = null;
-                            this.data.YarnMaterialTypeCode = null;
-                            this.data.YarnMaterialTypeName = null;
-                        }
-                    });
-                } else {
-                    this.service.getLotByYarnType(yarn, this.unit.Id).then(result => {
-                        if (result) {
-                            this.lot = result.LotNo;
-                            this.data.LotId = result.Id;
-                            this.data.LotNo = result.LotNo;
-                            if (this.error) {
-                                this.error.YarnId = null;
-                            }
-                            if (this.data.ProcessType != "Mix Drawing") {
-
-                                this.regularItems = result.CottonCompositions;
-                            }
-                        } else {
-                            this.error.YarnId = "Lot tidak ditemukan";
-                            this.data.MaterialComposition = [];
-                            this.data.LotId = null;
-                            this.data.LotNo = null;
-                            this.cottonLot = null;
-                            this.regularItems = null;
-                            this.data.YarnMaterialTypeId = null;
-                            this.data.YarnMaterialTypeCode = null;
-                            this.data.YarnMaterialTypeName = null;
-                        }
-                    });
-                }
-
-            }
-
+        if (this.yarnType && this.yarnType.Id) {
+            this.data.MaterialTypeId = this.yarnType.Id;
         }
     }
 

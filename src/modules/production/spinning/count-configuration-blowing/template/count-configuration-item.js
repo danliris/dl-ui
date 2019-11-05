@@ -78,26 +78,6 @@ export class CountConfigurationItem {
             this.data.YarnName = null;
         }
     }
-    // yarnItemChanged(n, o) {
-    //     var selectedProcess = this.yarnItem;
-
-    //     if (selectedProcess) {
-    //         var yarn = selectedProcess;
-    //         var isMixDrawing = this.isMixDrawing;
-    //         this.service.getLotByYarnType(yarn, true).then(result => {
-    //             if (result) {
-
-    //                 this.data.yarn = selectedProcess
-    //                 this.data.lotNoItem = result.LotNo;
-    //                 this.data.CottonCompositions = result.CottonCompositions;
-    //             } else {
-    //                 this.error.yarn = "Produk tidak ditemukan";
-    //                 this.data.yarn = null;
-    //                 this.data.lotNoItem = null;
-    //                 this.data.CottonCompositions = null;
-    //             }
-    //         });
-    //     }
-    // }
+    
 
 }
