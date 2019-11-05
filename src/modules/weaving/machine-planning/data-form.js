@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 var unitLoader = require("../../../loader/unit-loader");
-var accountLoader = require("../../../loader/account-loader");
+var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var machineLoader = require("../../../loader/weaving-machine-loader");
 
 export class DataForm {
@@ -66,7 +66,7 @@ export class DataForm {
   }
 
   get users() {
-    return accountLoader;
+    return OperatorLoader;
   }
 
   MachineChanged(newValue) {
@@ -88,7 +88,7 @@ export class DataForm {
     
     if (newValue) {
 
-      this.data.UserMaintenanceId = newValue._id;
+      this.data.UserMaintenanceId = newValue.Id;
     }
   }
 
@@ -96,7 +96,7 @@ export class DataForm {
 
     if (newValue) {
 
-      this.data.UserOperatorId = newValue._id;
+      this.data.UserOperatorId = newValue.Id;
     }
   }
 }

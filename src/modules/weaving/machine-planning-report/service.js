@@ -12,7 +12,7 @@ import {
   debug
 } from 'util';
 
-const serviceUri = 'weaving/daily-operations-sizing/machine-planning-report';
+const serviceUri = 'weaving/machines-planning';
 
 export class Service extends RestService {
 
@@ -74,52 +74,52 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  //Get Data
-  getDataByDate(date, weavingUnitId, shiftId, spu) {
-    var periodType = "date";
-    var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
-
-  getDataByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
-    var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
-
-  getDataByMonth(month, weavingUnitId, shiftId, spu) {
-    var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
-
-  //Export to Excel
-  getXlsByDate(date, weavingUnitId, shiftId, spu) {
-    var periodType = "date";
-    var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //Export to Excel Machine Planning Report
+  getXlsAll() {
+    var filterType = "get-all";
+    var endpoint = `${serviceUri}/${filterType}`;
     return super.getXls(endpoint);
   }
-
-  getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
-    var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  
+  getXlsByWeavingUnit(weavingUnitId) {
+    var filterType = "get-by-weaving-unit";
+    var endpoint = `${serviceUri}/${filterType}/${weavingUnitId}`;
     return super.getXls(endpoint);
   }
-
-  getXlsByMonth(month, weavingUnitId, shiftId, spu) {
-    var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  
+  getXlsByMachine(machineId) {
+    var filterType = "get-by-machine";
+    var endpoint = `${serviceUri}/${filterType}/${machineId}`;
+    return super.getXls(endpoint);
+  }
+  
+  getXlsByBlock(block) {
+    var filterType = "get-by-block";
+    var endpoint = `${serviceUri}/${filterType}/${block}`;
+    return super.getXls(endpoint);
+  }
+  
+  getXlsByWeavingUnitMachine(weavingUnitId, machineId) {
+    var filterType = "get-by-weaving-unit-machine";
+    var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}`;
+    return super.getXls(endpoint);
+  }
+  
+  getXlsByWeavingUnitBlock(weavingUnitId, block) {
+    var filterType = "get-by-weaving-unit-block";
+    var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/block/${block}`;
+    return super.getXls(endpoint);
+  }
+  
+  getXlsByMachineBlock(machineId, block) {
+    var filterType = "get-by-machine-block";
+    var endpoint = `${serviceUri}/${filterType}/machine/${machineId}/block/${block}`;
+    return super.getXls(endpoint);
+  }
+  
+  getXlsAllSpecified(weavingUnitId, machineId, block) {
+    var filterType = "get-all-specified";
+    var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}/block/${block}`;
     return super.getXls(endpoint);
   }
 }

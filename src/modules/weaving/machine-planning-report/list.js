@@ -46,7 +46,7 @@ export class List {
     field: "Maintenance",
     title: "Maintenance"
   }, {
-    field: "Operator",
+    field: "OperatorName",
     title: "Operator"
   }, ];
 
@@ -69,7 +69,7 @@ export class List {
 
   loader = (info) => {
     this.info = {};
-
+    
     //Get All
     if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
       return this.listDataFlag ? this.service.getAll().then(result => {
@@ -221,7 +221,7 @@ export class List {
   exportToExcel() {
     //Get All
     if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      return this.listDataFlag ? this.service.getAll().then(result => {
+      return this.listDataFlag ? this.service.getXlsAll().then(result => {
         return {
           data: result,
           total: length
@@ -236,7 +236,7 @@ export class List {
     if (this.WeavingUnit && !this.MachineDocument && !this.Block) {
       let WeavingUnitIdContainer = this.WeavingUnit.Id;
 
-      return this.listDataFlag ? this.service.getByWeavingUnit(WeavingUnitIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByWeavingUnit(WeavingUnitIdContainer).then(result => {
         return {
           data: result,
           total: length
@@ -251,7 +251,7 @@ export class List {
     if (!this.WeavingUnit && this.MachineDocument && !this.Block) {
       let MachineDocumentIdContainer = this.MachineDocument.Id;
 
-      return this.listDataFlag ? this.service.getByMachine(MachineDocumentIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByMachine(MachineDocumentIdContainer).then(result => {
         return {
           data: result,
           total: length
@@ -266,7 +266,7 @@ export class List {
     if (!this.WeavingUnit && !this.MachineDocument && this.Block) {
       let BlockContainer = this.Block;
 
-      return this.listDataFlag ? this.service.getByBlock(BlockContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByBlock(BlockContainer).then(result => {
         return {
           data: result,
           total: length
@@ -282,7 +282,7 @@ export class List {
       let WeavingUnitIdContainer = this.WeavingUnit.Id;
       let MachineDocumentIdContainer = this.MachineDocument.Id;
 
-      return this.listDataFlag ? this.service.getByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
         return {
           data: result,
           total: length
@@ -298,7 +298,7 @@ export class List {
       let WeavingUnitIdContainer = this.WeavingUnit.Id;
       let BlockContainer = this.Block;
 
-      return this.listDataFlag ? this.service.getByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
         return {
           data: result,
           total: length
@@ -314,7 +314,7 @@ export class List {
       let MachineDocumentIdContainer = this.MachineDocument.Id;
       let BlockContainer = this.Block;
 
-      return this.listDataFlag ? this.service.getByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
         return {
           data: result,
           total: length
@@ -331,7 +331,7 @@ export class List {
       let MachineDocumentIdContainer = this.MachineDocument.Id;
       let BlockContainer = this.Block;
 
-      return this.listDataFlag ? this.service.getAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
         return {
           data: result,
           total: length
