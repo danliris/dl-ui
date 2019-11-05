@@ -129,4 +129,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/finishing-in',
+        name: 'garment-production-finishing-in',
+        moduleId: './modules/garment-production/finishing-in/index',
+        nav: true,
+        title: 'Finishing In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
