@@ -5,6 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUri = 'cost-calculation-fp';
+const costCalculationServiceUri = 'finishing-printing/cost-calculations';
 // const serviceUri = "rates";
 // const serviceUri = "efficiencies";
 const directLaborUri = 'master/direct-labor-cost'
@@ -23,18 +24,18 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${costCalculationServiceUri}`;
         return super.list(endpoint, info);
     }
 
     create(data) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${costCalculationServiceUri}`;
         console.log(data);
         return super.post(endpoint, data);
     }
 
     getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${costCalculationServiceUri}/${id}`;
         return super.get(endpoint);
     }
 
@@ -44,18 +45,18 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${costCalculationServiceUri}/${data.Id}`;
         console.log(data);
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${costCalculationServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
     getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
+        var endpoint = `${costCalculationServiceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
     }
 
@@ -69,6 +70,7 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
+    
     //cari efficiencies
     getEffByQty(qty) {
         var endpoint = `${serviceUri}/quantity/${qty}`;

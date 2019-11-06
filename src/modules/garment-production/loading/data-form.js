@@ -13,6 +13,7 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedSewingDO;
     @bindable itemOptions = {};
+    @bindable selectedUnit;
 
     constructor(service) {
         this.service = service;
@@ -30,26 +31,13 @@ export class DataForm {
             length: 2
         },
         control: {
-            length: 5
+            length: 7
         }
     };
 
 
     itemsColumns = [""];
 
-    @computedFrom("data.Unit")
-    get preparingFilter() {
-        this.selectedPreparing = null;
-        if (this.data.Unit) {
-            return {
-                UnitId: this.data.Unit.Id
-            };
-        } else {
-            return {
-                UnitId: 0
-            };
-        }
-    }
 
     async bind(context) {
         this.context = context;
@@ -77,6 +65,32 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
+    ROView=(DO)=>{
+        var colorList=[];
+        var sizeList=[];
+        for(var a of DO.Items){
+            if(colorList.length==0){
+                colorList.push(a.Color);
+            }
+            else{
+                var dup=colorList.find(d=> d==a.Color);
+                if(!dup){
+                    colorList.push(a.Color);
+                }
+            }
+            if(sizeList.length==0){
+                sizeList.push(a.Size.Size);
+            }
+            else{
+                var duplicate=sizeList.find(d=> d==a.Size.Size);
+                if(!duplicate){
+                    sizeList.push(a.Size.Size);
+                }
+            }
+        }
+        return `${DO.RONo} - ${DO.SewingDONo} - ${colorList.join(", ")} - ${sizeList.join(", ")}`
+    }
+
     get unitLoader() {
         return UnitLoader;
     }
@@ -85,10 +99,52 @@ export class DataForm {
         return SewingDOLoader;
     }
 
+    @computedFrom("data.Unit")
+    get filter(){
+        if (this.data.Unit) {
+            return {
+                UnitId: this.data.Unit.Id
+            };
+        } else {
+            return {
+                UnitId: 0
+            };
+        }
+    }
+
+    selectedUnitChanged(newValue){
+        this.selectedSewingDO=null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.UnitFrom=null;
+        this.data.SewingDOId=null;
+        this.data.SewingDONo=null;
+        this.data.Items = [];
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit=null;
+            this.selectedSewingDO=null;
+            this.selectedSewingDO=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity=null;
+            this.data.UnitFrom=null;
+            this.data.SewingDOId=null;
+            this.data.SewingDONo=null;
+            this.data.Items = [];
+        }
+    }
+
     async selectedSewingDOChanged(newValue, oldValue){
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity=null;
+        this.data.UnitFrom=null;
+        this.data.SewingDOId=null;
+        this.data.SewingDONo=null;
         this.data.Items = [];
         if(newValue) {
             this.context.error.Items = [];
@@ -106,11 +162,11 @@ export class DataForm {
                 a.DesignColor=item.DesignColor;
                 a.Color=item.Color;
                 a.Size=item.Size;
-                a.Quantity=parseFloat(item.RemainingQuantity.toFixed(2));
-                a.SewingDORemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
+                a.Quantity=item.RemainingQuantity;
+                a.SewingDORemainingQuantity=item.RemainingQuantity;
                 a.IsSave=true;
                 a.SewingDOItemId=item.Id;
-                a.RemainingQuantity=parseFloat(item.RemainingQuantity.toFixed(2));
+                a.RemainingQuantity=item.RemainingQuantity;
                 this.data.Items.push(a);
             }
         }
@@ -119,6 +175,9 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
+            this.data.UnitFrom=null;
+            this.data.SewingDOId=null;
+            this.data.SewingDONo=null;
             this.data.Items = [];
         }
     }

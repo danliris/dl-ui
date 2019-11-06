@@ -27,6 +27,7 @@ export class DataForm {
     @bindable isProses = false;
     @bindable isTransfer = false;
     @bindable isSample = false;
+    @bindable RONoJob;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE'];
 
@@ -257,51 +258,107 @@ export class DataForm {
         this.RONoHeader = null;
     }
 
+    RONoJobChanged(newValue){
+        if(newValue){
+            this.data.Article =newValue.Article;
+            this.data.RONo = newValue.RONo;
+        }
+        else{
+            this.data.RONo =null;
+            this.data.Article =null;
+            this.context.RONoJobViewModel.editorValue = "";
+        }
+            
+    }
+
     RONoChanged(newValue) {
         var selectedro = newValue;
         this.dataItems = [];
         this.data.Items = [];
+        this.data.Article = this.isTransfer?this.data.Article :null;
         if(this.error && this.error.Items) {
             this.error.Items = [];
         }
 
         if (newValue == null) {
-            this.data.RONo = null;
-            this.data.Article = null;
+            if(!this.isTransfer){
+                this.data.RONo = null;
+                this.data.Article = null;
+            }
             this.context.RONoViewModel.editorValue = "";
         }
         else if (newValue) {
-            this.data.RONo = selectedro.RONo;
-            this.data.Article = selectedro.Article;
-
-            for (var item of selectedro.Items) {
-                var Items = {};
-                Items.URNItemId = item.Id;
-                Items.URNNo = item.URNNo;
-                Items.DODetailId = item.DODetailId;
-                Items.URNId = item.URNId;
-                Items.POItemId = item.POItemId;
-                Items.EPOItemId = item.EPOItemId;
-                Items.PRItemId = item.PRItemId;
-                Items.RONo = item.RONo;
-                Items.Article = item.Article;
-                Items.POSerialNumber = item.POSerialNumber;
-                Items.ProductId = item.ProductId;
-                Items.ProductCode = item.ProductCode;
-                Items.ProductName = item.ProductName;
-                Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
-                Items.UomId = item.SmallUomId;
-                Items.UomUnit = item.SmallUomUnit;
-                Items.PricePerDealUnit = item.PricePerDealUnit;
-                Items.DesignColor = item.DesignColor;
-                Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
-                //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
-                Items.Quantity = Items.DefaultDOQuantity;
-                Items.IsSave = Items.Quantity > 0;
-                Items.IsDisabled = !(Items.Quantity > 0);
-
-                this.dataItems.push(Items);
+            this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
+            this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
+            if(this.isProses){
+                Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
+                    .then(result => {
+                        if(result.data.length>0){
+                            for(var item of result.data){ 
+                                
+                                var Items = {};
+                                Items.URNItemId = item.Id;
+                                Items.URNNo = item.URNNo;
+                                Items.DODetailId = item.DODetailId;
+                                Items.URNId = item.URNId;
+                                Items.POItemId = item.POItemId;
+                                Items.EPOItemId = item.EPOItemId;
+                                Items.PRItemId = item.PRItemId;
+                                Items.RONo = item.RONo;
+                                Items.Article = item.Article;
+                                Items.POSerialNumber = item.POSerialNumber;
+                                Items.ProductId = item.ProductId;
+                                Items.ProductCode = item.ProductCode;
+                                Items.ProductName = item.ProductName;
+                                Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+                                Items.UomId = item.SmallUomId;
+                                Items.UomUnit = item.SmallUomUnit;
+                                Items.PricePerDealUnit = item.PricePerDealUnit;
+                                Items.DesignColor = item.DesignColor;
+                                Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                                //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                                Items.Quantity = Items.DefaultDOQuantity;
+                                Items.IsSave = Items.Quantity > 0;
+                                Items.IsDisabled = !(Items.Quantity > 0);
+                
+                                this.dataItems.push(Items);
+                            }
+                        }
+                        
+                        
+                    });
             }
+            else{
+                for (var item of selectedro.Items) {
+                    var Items = {};
+                    Items.URNItemId = item.Id;
+                    Items.URNNo = item.URNNo;
+                    Items.DODetailId = item.DODetailId;
+                    Items.URNId = item.URNId;
+                    Items.POItemId = item.POItemId;
+                    Items.EPOItemId = item.EPOItemId;
+                    Items.PRItemId = item.PRItemId;
+                    Items.RONo = item.RONo;
+                    Items.Article = item.Article;
+                    Items.POSerialNumber = item.POSerialNumber;
+                    Items.ProductId = item.ProductId;
+                    Items.ProductCode = item.ProductCode;
+                    Items.ProductName = item.ProductName;
+                    Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+                    Items.UomId = item.SmallUomId;
+                    Items.UomUnit = item.SmallUomUnit;
+                    Items.PricePerDealUnit = item.PricePerDealUnit;
+                    Items.DesignColor = item.DesignColor;
+                    Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                    //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                    Items.Quantity = Items.DefaultDOQuantity;
+                    Items.IsSave = Items.Quantity > 0;
+                    Items.IsDisabled = !(Items.Quantity > 0);
+    
+                    this.dataItems.push(Items);
+                }
+            }
+            
         }
         
         this.context.error.Items = [];
@@ -396,4 +453,30 @@ export class DataForm {
             "Tipe Fabric"
         ],
     };
+
+    get roLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false"})
+            };
+            var ro=[];
+            return this.service.getGarmentEPOByRONo(info)
+            .then((epo)=>{
+                for(var a of epo.data){
+                    if(ro.length==0){
+                        ro.push(a);
+                    }
+                    else{
+                        var dup=ro.find(b=>b.RONo==a.RONo);
+                        if(!dup){
+                            ro.push(a);
+                        }
+                    }
+                }
+                return ro;
+            });
+                    
+        }
+    }
 }

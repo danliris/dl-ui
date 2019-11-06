@@ -8,7 +8,6 @@ export class DeliveryOrderItemHeader {
       this.options = this.context.options;
       var count = 0;
       
-      console.log(this.context);
       for(var item of this.context.items){
         if(item.data.selected==true){
           count++;

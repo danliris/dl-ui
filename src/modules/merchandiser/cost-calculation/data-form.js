@@ -26,6 +26,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable SelectedRounding;
+  @bindable isCopy = false;
  
   leadTimeList = ["", "30 hari", "45 hari"];
 
@@ -90,7 +91,8 @@ export class DataForm {
         SMV_Total: this.data.SMV_Total,
         Efficiency: this.data.Efficiency
       });
-    }.bind(this)
+    }.bind(this),
+    options: {}
   }
   radio = {
     Dollar: "Dollar",
@@ -123,7 +125,7 @@ export class DataForm {
     this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
     this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-    this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
+    this.imageSrc = this.data.ImageFile = this.isEdit || this.isCopy ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
     this.selectedUnit = this.data.Unit?this.data.Unit:"";
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);

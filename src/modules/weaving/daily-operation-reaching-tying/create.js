@@ -16,13 +16,12 @@ var MachineLoader = require("../../../loader/weaving-machine-loader");
 // var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
+var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader-by-order-and-status");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable WeavingDocument;
-  // @bindable ConstructionDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
   @bindable EntryTime;
@@ -44,6 +43,9 @@ export class Create {
     this.error = {};
   }
 
+  LoaderFilter = {
+    "Type": "Sizing"
+  };
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
@@ -66,7 +68,7 @@ export class Create {
   }
 
   get beams() {
-    return BeamLoader;
+    return SizingBeamLoader;
   }
 
   get operators() {
@@ -75,6 +77,7 @@ export class Create {
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
+      this.LoaderFilter.OrderId = newValue.Id;
       let constructionId = newValue.ConstructionId;
       let weavingUnitId = newValue.WeavingUnit;
       this.service.getConstructionNumberById(constructionId)
@@ -129,7 +132,7 @@ export class Create {
     this.data.EntryDate = moment(EntryDateContainer).utcOffset("+07:00").format();
     this.data.EntryTime = this.EntryTime;
     this.data.ShiftDocumentId = this.Shift.Id;
-    
+
     this.service
       .create(this.data)
       .then(result => {

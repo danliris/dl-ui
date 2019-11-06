@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: 'production/spinning/material-type',
+        name: 'material-type',
+        moduleId: './modules/production/spinning/material-type/index',
+        nav: true,
+        title: 'Master Material',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/yarn-output-production',
         name: 'yarn-output-production',
         moduleId: './modules/production/spinning/yarn-output-production/index',
@@ -226,6 +239,19 @@ module.exports = [
         moduleId: './modules/production/spinning/lot-configuration/index',
         nav: true,
         title: 'Konfigurasi Lot',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/lot-configuration-mix-drawing',
+        name: 'lot-configuration',
+        moduleId: './modules/production/spinning/lot-configuration-mix-drawing/index',
+        nav: true,
+        title: 'Konfigurasi Lot Mix Drawing',
         auth: true,
         settings: {
             group: "spinning",

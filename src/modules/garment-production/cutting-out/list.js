@@ -14,13 +14,13 @@ export class List {
 
     columns = [
         { field: "CutOutNo", title: "No Cutting Out" },
-        { field: "UnitCode", title: "Unit Tujuan" },
+        { field: "Unit.Code", title: "Unit Tujuan" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalCuttingOutQuantity", title: "Jumlah Out", sortable: false },
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "CuttingOutDate", title: "Tanggal Cutting Out", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "Items", title: "Kode Barang", sortable: false},
     ]
 
     loader = (info) => {
@@ -34,18 +34,40 @@ export class List {
             keyword: info.search,
             order: order
         }
-
+        const distinct = (value, index, self) => {
+            return self.indexOf(value) === index;
+          }
         return this.service.search(arg)
-            .then(result => {
-                result.data.forEach(d => {
-                    d.UnitCode = d.Unit.Code
-                    d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
-                });
-                return {
-                    total: result.info.total,
-                    data: result.data
+        .then(result => {
+            var data = {};
+            data.total = result.info.total;
+            data.data = result.data;
+            data.data.forEach(s => {
+                if(s.Items){
+                s.Items.toString = function () {
+                    var str = "<ul>";
+                    var products = [];
+                    for (var item of s.Items) {
+                        products.push(item.Product.Code)
+                    }
+                    var Products = products.filter(distinct);
+                    for(var product of Products){
+                    str += `<li>${product}</li>`;
+                    }
+                    str += "</ul>";
+                    return str;
+                        }
                 }
+                else{
+                s.Items = "-";
+                }                                 
             });
+
+            return {
+            total: result.info.total,
+            data: result.data
+            }
+        });
     }
 
     contextClickCallback(event) {

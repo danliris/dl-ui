@@ -1,53 +1,98 @@
 <template>
-    <au-input-form title.bind="title" with.bind="context">
+    <au-input-form title.bind="title"
+                   with.bind="context"
+                   options.bind="formOptions">
         <div class="row">
             <div class="col-md-3">
-                <au-autocomplete label="No Order" value.bind="selectedSPP" error.bind="error.ProductionOrder"
-                    loader.bind="sppLoader" text="OrderNo" placeholder="No. SPP" options.bind="length4">
+                <au-autocomplete label="No Order"
+                                 value.bind="selectedProductionOrder"
+                                 error.bind="error.ProductionOrder"
+                                 loader.bind="productionOrderLoader"
+                                 text="OrderNo"
+                                 placeholder="No. SPP"
+                                 options.bind="length4">
                 </au-autocomplete>
 
-                <au-textbox label="Buyer" value.bind="buyer" error.bind="error.Buyer" read-only.bind="true"
-                    options.bind="length4"></au-textbox>
+                <au-textbox label="Buyer"
+                            value.bind="data.BuyerName"
+                            read-only.bind="true"
+                            options.bind="length4"></au-textbox>
 
-                <au-textbox label="Material" value.bind="material" error.bind="error.Material" read-only.bind="true"
-                    options.bind="length4"></au-textbox>
+                <au-textbox label="Material"
+                            value.bind="selectedProductionOrder.Material.Name"
+                            read-only.bind="true"
+                            options.bind="length4"></au-textbox>
 
-                <au-textbox label="Warna" value.bind="color" error.bind="error.Color" read-only.bind=" true"
-                    options.bind="length4"></au-textbox>
+                <au-textbox label="Warna"
+                            value.bind="color"
+                            read-only.bind=" true"
+                            options.bind="length4"></au-textbox>
 
-                <au-autocomplete label="Instruksi" value.bind="selectedInstruction" error.bind="error.Instruction"
-                    loader.bind="instructionLoader" text="Name" placeholder="Master Instruksi" options.bind="length4">
+                <au-autocomplete label="Instruksi"
+                                 value.bind="selectedInstruction"
+                                 error.bind="error.Instruction"
+                                 loader.bind="instructionLoader"
+                                 text="Name"
+                                 placeholder="Master Instruksi"
+                                 options.bind="length4">
                 </au-autocomplete>
             </div>
             <div class="col-md-3">
-                <au-datepicker read-only.bind="true" label="Tanggal" value.bind="date" error.bind="error.Date"
-                    options.bind="length4">
+                <au-datepicker read-only.bind="true"
+                               label="Tanggal"
+                               value.bind="selectedProductionOrder.DeliveryDate"
+                               options.bind="length4">
                 </au-datepicker>
 
-                <au-textbox label="Sales" value.bind="sales" error.bind="error.Sales" read-only.bind="true"
-                    options.bind="length4"></au-textbox>
+                <au-textbox label="Sales"
+                            value.bind="selectedProductionOrder.Account.UserName"
+                            error.bind="error.Sales"
+                            read-only.bind="true"
+                            options.bind="length4"></au-textbox>
 
-                <au-textbox label="Jumlah Order" value.bind="orderQuantity" error.bind="error.OrderQuantity"
-                    read-only.bind="true" options.bind="length4"></au-textbox>
+                <au-textbox label="Jumlah Order"
+                            value.bind="orderQuantityWithUOM"
+                            error.bind="error.OrderQuantity"
+                            read-only.bind="true"
+                            options.bind="length4"></au-textbox>
 
-                <au-numeric label="Preparasi" format="0,000.00" value.bind="data.Preparation"
-                    error.bind="error.Preparation" options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <au-numeric label="Preparasi"
+                            format="0,000.00"
+                            value.bind="data.PreparationValue"
+                            error.bind="error.PreparationValue"
+                            options.bind="length4"
+                            read-only.bind="readOnly"></au-numeric>
 
             </div>
             <div class="col-md-3">
-                <au-numeric label="Kurs" format="0,000.00" value.bind="data.Rate" error.bind="error.Rate"
-                    options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <au-numeric label="Kurs"
+                            format="0,000.00"
+                            value.bind="data.CurrencyRate"
+                            error.bind="error.CurrencyRate"
+                            options.bind="length4"
+                            read-only.bind="readOnly"></au-numeric>
 
-                <au-numeric label="Produksi Unit" format="0,000.00" value.bind="data.UnitProduction"
-                    error.bind="error.UnitProduction" options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <au-numeric label="Produksi Unit"
+                            format="0,000.00"
+                            value.bind="data.ProductionUnitValue"
+                            error.bind="error.ProductionUnitValue"
+                            options.bind="length4"
+                            read-only.bind="readOnly"></au-numeric>
 
             </div>
             <div class="col-md-3">
-                <au-numeric label="Jumlah TKL" format="0" value.bind="directLaborTotal"
-                    error.bind="error.DirectLaborTotal" options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <au-numeric label="Jumlah TKL"
+                            format="0"
+                            value.bind="data.TKLQuantity"
+                            error.bind="error.TKLQuantity"
+                            options.bind="length4"
+                            read-only.bind="readOnly"></au-numeric>
 
-                <au-numeric label="Total Upah" format="0,000.00" value.bind="data.SalaryTotal"
-                    error.bind="error.SalaryTotal" options.bind="length4" read-only.bind="true"></au-numeric>
+                <au-numeric label="Total Upah"
+                            format="0,000.00"
+                            value.bind="salaryTotal"
+                            options.bind="length4"
+                            read-only.bind="true"></au-numeric>
             </div>
         </div>
 
@@ -55,18 +100,54 @@
         <hr>
         <div class="row">
             <div class="col-md-3">
-                <au-autocomplete label="Greige" value.bind="selectedProduct" error.bind="error.Product"
-                    loader.bind="productLoader" text="Name" placeholder="Product" options.bind="length4">
+                <au-autocomplete label="Greige"
+                                 value.bind="selectedGreige"
+                                 error.bind="error.Greige"
+                                 loader.bind="productLoader"
+                                 text="Name"
+                                 placeholder="pilih greige"
+                                 options.bind="length4">
                 </au-autocomplete>
             </div>
             <div class="col-md-3">
-                <au-numeric label="Berat Kain Prep" format="0,000.00" value.bind="data.PrepFabricWeight"
-                    error.bind="error.PrepFabricWeight" options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <div class="row">
+                    <div class="col-md-12">
+                        <au-numeric label="Berat Kain Prep"
+                                    format="0,000.00"
+                                    value.bind="data.PreparationFabricWeight"
+                                    error.bind="error.PreparationFabricWeight"
+                                    options.bind="length4"
+                                    read-only.bind="readOnly"></au-numeric>
+                    </div>
+                    <div class="col-md-12">
+                        <au-numeric label="Harga Master"
+                                    format="0,000.00"
+                                    value.bind="selectedGreige.Price"
+                                    options.bind="length4"
+                                    read-only.bind="true"></au-numeric>
+                    </div>
+                </div>
 
             </div>
             <div class="col-md-3">
-                <au-numeric label="Berat Kain RFD" format="0,000.00" value.bind="data.RFDFabricWeight"
-                    error.bind="error.RFDFabricWeight" options.bind="length4" read-only.bind="readOnly"></au-numeric>
+                <div class="row">
+                    <div class="col-md-12">
+                        <au-numeric label="Berat Kain RFD"
+                                    format="0,000.00"
+                                    value.bind="data.RFDFabricWeight"
+                                    error.bind="error.RFDFabricWeight"
+                                    options.bind="length4"
+                                    read-only.bind="readOnly"></au-numeric>
+                    </div>
+                    <div class="col-md-12">
+                        <au-numeric label="Harga Real"
+                                    format="0,000.00"
+                                    value.bind="data.ActualPrice"
+                                    error.bind="error.ActualPrice"
+                                    options.bind="length4"
+                                    read-only.bind="readOnly"></au-numeric>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -75,33 +156,50 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                <au-collection view-model.ref="machineCollection" items.bind="data.Machines"
-                    errors.bind="error.Machines" columns.bind="machines.columns" options.bind="machineOptions"
-                    item-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine"
-                    footer-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine-footer">
+                <au-collection view-model.ref="machineCollection"
+                               items.bind="data.Machines"
+                               errors.bind="error.Machines"
+                               columns.bind="machines.columns"
+                               options.bind="machineOptions"
+                               item-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine"
+                               footer-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine-footer">
                 </au-collection>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
-                <au-numeric label="Biaya Kargo" value.bind="data.Freight" error.bind="error.Freight"
-                    options.bind="length4"></au-numeric>
-                <au-numeric label="Asuransi" value.bind="data.Insurance" error.bind="error.Insurance"
-                    options.bind="length4"></au-numeric>
+                <au-numeric label="Biaya Kargo"
+                            value.bind="data.CargoCost"
+                            error.bind="error.CargoCost"
+                            options.bind="length4"></au-numeric>
+
+                <au-numeric label="Asuransi"
+                            value.bind="data.InsuranceCost"
+                            error.bind="error.InsuranceCost"
+                            options.bind="length4"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-numeric label="OTL 1" value.bind="calculatedRateOTL1" options.bind="length4" read-only="disabled">
+                <au-numeric label="OTL 1"
+                            value.bind="calculateRateOTL1"
+                            options.bind="length4"
+                            read-only="disabled">
                 </au-numeric>
-                <au-numeric label="OTL 2" value.bind="calculatedRateOTL2" options.bind="length4" read-only="disabled">
+                <au-numeric label="OTL 2"
+                            value.bind="calculateRateOTL2"
+                            options.bind="length4"
+                            read-only="disabled">
                 </au-numeric>
             </div>
             <div class="col-md-5">
-                
-                <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.Description"
-                    error.bind="error.Description" options.bind="length4"></au-multiline>
+
+                <au-multiline label="Keterangan"
+                              placeholder="Keterangan"
+                              value.bind="data.Remark"
+                              error.bind="error.Remark"
+                              options.bind="length4"></au-multiline>
             </div>
-            
+
         </div>
         <br>
     </au-input-form>

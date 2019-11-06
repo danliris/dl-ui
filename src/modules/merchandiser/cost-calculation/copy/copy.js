@@ -20,6 +20,7 @@ export class Copy {
         "LastModifiedUtc",
         "LastModifiedBy",
         "LastModifiedAgent",
+        "IsDeleted",
     ];
 
     async activate(params) {
@@ -31,19 +32,45 @@ export class Copy {
 
     clearDataProperties() {
         this.identityProperties.concat([
+            "PreSCId",
             "PreSCNo",
             "Code",
             "RO_Number",
             "ImagePath",
+            "RO_GarmentId",
             "RO_RetailId",
-            "IsDeleted",
-            "Article"
+            "Article",
+            "AutoIncrementNumber",
+            "SCGarmentId",
+            "ApprovalIE",
+            "ApprovalMD",
+            "ApprovalPPIC",
+            "ApprovalPurchasing",
+            "IsPosted",
+            "IsROAccepted",
+            "IsROAvailable",
+            "IsRODistributed",
+            "IsValidatedROPPIC",
+            "IsValidatedROSample",
+            "ROAcceptedBy",
+            "ROAcceptedDate",
+            "ROAvailableBy",
+            "ROAvailableDate",
+            "RODistributionBy",
+            "RODistributionDate",
+            "ValidationPPICBy",
+            "ValidationPPICDate"
         ]).forEach(prop => delete this.data[prop]);
         this.data.CostCalculationGarment_Materials.forEach(ccm => {
+            ccm.isCopy = true;
             this.identityProperties.concat([
+                "AutoIncrementNumber",
                 "Code",
                 "PO",
                 "PO_SerialNumber",
+                "Information",
+                "IsPosted",
+                "IsPRMaster"
             ]).forEach(prop => delete ccm[prop]);
         });
     }

@@ -51,7 +51,6 @@ export class Create {
       
         var isSelectedData = false;
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
-        //    console.log(dataCustoms.deliveryOrders);
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
                 if(a && a.selected){
@@ -76,7 +75,6 @@ export class Create {
         }
         
         if(isSelectedData){
-            console.log(dataCustoms);
             this.service.create(dataCustoms)
                 .then(result => {
                     alert("Data berhasil dibuat");

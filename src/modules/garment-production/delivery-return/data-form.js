@@ -98,7 +98,6 @@ export class DataForm {
 
     async UnitChanged(newValue){
         if(!newValue){
-            this.context.UnitViewModel.editorValue = "";
             this.Storages = null;
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -108,10 +107,14 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.UnitViewModel.editorValue = "";
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue != this.data.Unit && this.context.isCreate){
             this.data.Unit = newValue;
-            this.context.StorageViewModel.editorValue = "";
             this.filterByUnit = {UnitId: this.data.Unit.Id};
             this.Storages = null;
             this.data.Storage = null;
@@ -124,12 +127,15 @@ export class DataForm {
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
             this.data.Items = [];
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
         }
     }
 
     async StoragesChanged(newValue){
         if(!newValue){
-            this.context.StorageViewModel.editorValue = "";
             this.selectedUnitDO = null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -138,6 +144,8 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.StoragesViewModel.editorValue = "";
+            this.context.StoragesViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue && this.context.isCreate){
             this.data.Storage = {};
@@ -145,7 +153,7 @@ export class DataForm {
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
             this.filterDO = {UnitSenderName: this.data.Unit.Name, StorageName: this.data.Storage.Name, UnitDOType: "PROSES"};
-            this.context.selectedUnitDOViewModel.editorValue = "";
+            
             this.selectedUnitDO = null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -154,13 +162,14 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.selectedUnitDOViewModel.editorValue = "";_suggestions
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         }
     }
 
     async selectedUnitDOChanged(newValue){
         if(!newValue && this.context.isCreate) {
-            this.context.selectedUnitDOViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
             this.data.ReturnDate = null;
@@ -168,6 +177,8 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         } else if(newValue.Id && this.context.isCreate) {
             this.data.Items.splice(0);
@@ -211,7 +222,7 @@ export class DataForm {
                     product.Name = item.ProductName;
                     uom.Id = item.UomId;
                     uom.Unit = item.UomUnit;
-                    if(itemUnitDO.ProductCode == item.ProductCode){
+                    if(itemUnitDO.Id == item.UnitDOItemId){
                         var items = {
                             Product : product,
                             DesignColor : itemUnitDO.DesignColor,
@@ -236,12 +247,12 @@ export class DataForm {
                 for(var itemExpenditure of dataExpenditure.data[0].Items){
                     if(dataItem.Product.Code == itemExpenditure.ProductCode){
                         dataItem.QuantityUENItem = dataItem.Quantity + (itemExpenditure.Quantity - itemExpenditure.ReturQuantity);
-                        if(dataPreparing.data.length>0){
-                            for(var itemPreparing of dataPreparing.data[0].Items){
-                                if(itemPreparing.UENItemId == itemExpenditure.Id){
-                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
-                                }
-                            }
+                    }
+                }
+                if(dataPreparing.data.length>0){
+                    for(var itemPreparing of dataPreparing.data[0].Items){
+                        if(itemPreparing.UENItemId == dataItem.UENItemId){
+                            dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
                         }
                     }
                 }

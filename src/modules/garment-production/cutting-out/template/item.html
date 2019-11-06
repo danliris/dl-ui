@@ -4,7 +4,8 @@
             <au-checkbox 
                 value.bind="data.IsSave" 
                 if.bind="options.isCreate"
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
         <td class="bg-primary">
@@ -30,6 +31,11 @@
                 <button class="btn btn-info pull-right" if.bind= "data.Details" click.delegate="toggle()">i</button>
             </div>
         </td>
+        <tr if.bind="error.DetailsCount">
+            <div class="form-group has-error" if.bind="error.DetailsCount">
+                <p if.bind="error.DetailsCount" class="help-block text-center">${error.DetailsCount}</p>
+            </div>
+        </tr>
     <tr show.bind="isShowing">
         <td colspan="15">
             <au-collection 

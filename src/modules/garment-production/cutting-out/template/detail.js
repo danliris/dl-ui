@@ -27,9 +27,13 @@ export class Detail {
         if(this.data.Size){
             this.selectedSize = this.data.Size;
         }
+        if(!this.data.CuttingOutUom){
+            this.data.CuttingOutUom = {
+                Unit : 'PCS'
+            };
+        }
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
-
     }
 
     async selectedSizeChanged(newValue) {
@@ -37,7 +41,6 @@ export class Detail {
             this.data.Size = newValue;
             let uomResult = await this.coreService.getUom({ size: 1,keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
             this.data.CuttingOutUom = uomResult.data[0];
-            
         } else {
 
             this.data.CuttingOutUom = [];

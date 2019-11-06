@@ -3,6 +3,14 @@ export class Item {
     itemsColumns = [
         { header: "Ukuran" },
         { header: "Jumlah Potong" },
+        { header: "Sisa" },
+        { header: "Satuan Potong" },
+        { header: "Warna" },
+    ];
+    itemsColumnsCreate = [
+        { header: "Ukuran" },
+        { header: "Jumlah Potong" },
+        { header: "Satuan Potong" },
         { header: "Warna" },
     ];
 
@@ -32,11 +40,9 @@ export class Item {
                 this.isShowing = true;
             }
         }
-        
-        // if (this.data.Product) {
-        //     this.dataProduct = `${this.data.Product.Code} - ${this.data.Product.Name}`;
-        // }
-
+        if(this.isCreate == true){
+            this.itemsColumns = this.itemsColumnsCreate;
+        }
     }
 
     get addItems() {
@@ -60,6 +66,10 @@ export class Item {
           this.isShowing = true;
         else
           this.isShowing = !this.isShowing;
+      }
+
+      changeCheckBox() {
+        this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
       }
 
 }

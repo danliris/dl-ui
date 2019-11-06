@@ -1,4 +1,8 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 
 var MaterialTypeLoader = require("../../../loader/material-types-loader");
 var RingLoader = require("../../../loader/weaving-ring-loader");
@@ -6,10 +10,9 @@ var RingLoader = require("../../../loader/weaving-ring-loader");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable YarnNumberId;
   @bindable MaterialTypeId;
-  @bindable yarnCode;
-  @bindable optionalName;
+  @bindable YarnNumberId;
+  @bindable OptionalName;
 
   formOptions = {
     cancelText: "Kembali",
@@ -33,30 +36,13 @@ export class DataForm {
       this.MaterialTypeId = this.data.MaterialTypeId.Code;
       this.YarnNumberId = this.data.YarnNumberId.Code;
       this.data.Name = detectWhitespace[0] ? detectWhitespace[0] : " ";
-      this.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
+      this.OptionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
     }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
-  }
-
-  optionalNameChanged(newValue) {
-    var whitespaceRegex = new RegExp("\\s");
-    if (this.data.MaterialTypeId && this.data.YarnNumberId) {
-      if (whitespaceRegex.test(newValue)) {
-        this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
-      } else {
-        var yarnMaterial = this.data.MaterialTypeId.Name;
-        var yarnNumber = this.data.YarnNumberId.Number;
-        this.data.Name = yarnMaterial + yarnNumber;
-        this.data.Name = this.data.Name + " " + newValue;
-      }
-    } else {
-      this.data.Name = "";
-      this.data.Name = newValue;
-    }
   }
 
   // Change on Kode Bahan, affected when MaterialTypeId change
@@ -71,14 +57,31 @@ export class DataForm {
 
       if (this.data.YarnNumberId) {
         this.data.Name =
-          newValue.Name + this.data.YarnNumberId.Number
-            ? newValue.Name + this.data.YarnNumberId.Number
-            : "";
+          newValue.Name + this.data.YarnNumberId.Number ?
+          newValue.Name + this.data.YarnNumberId.Number :
+          "";
 
         this.data.Code = this.data.MaterialTypeId.Code + this.data.YarnNumberId.Code;
       } else {
         this.data.Name = newValue.Name;
       }
+    }
+  }
+
+  OptionalNameChanged(newValue) {
+    var whitespaceRegex = new RegExp("\\s");
+    if (this.data.MaterialTypeId && this.data.YarnNumberId) {
+      if (whitespaceRegex.test(newValue)) {
+        this.error.OptionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+      } else {
+        var yarnMaterial = this.data.MaterialTypeId.Name;
+        var yarnNumber = this.data.YarnNumberId.Number;
+        this.data.Name = yarnMaterial + yarnNumber;
+        this.data.Name = this.data.Name + " " + newValue;
+      }
+    } else {
+      this.data.Name = "";
+      this.data.Name = newValue;
     }
   }
 
@@ -93,9 +96,9 @@ export class DataForm {
       this.data.YarnNumberId.Code = newValue.Code;
 
       if (this.data.MaterialTypeId) {
-        this.data.Name = this.data.MaterialTypeId.Name
-          ? this.data.MaterialTypeId.Name + newValue.Number
-          : newValue.Number;
+        this.data.Name = this.data.MaterialTypeId.Name ?
+          this.data.MaterialTypeId.Name + newValue.Number :
+          newValue.Number;
 
         this.data.Code = this.data.MaterialTypeId.Code + this.data.YarnNumberId.Code;
       } else {

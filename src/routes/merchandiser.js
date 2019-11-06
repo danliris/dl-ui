@@ -263,5 +263,174 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/merchandiser/garment-cost-calculation-by-unit-report',
+        name: 'garment-cost-calculation-by-unit-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/garment-cost-calculation-by-section-report',
+        name: 'garment-cost-calculation-by-section-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-section-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Seksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/garment-cost-calculation-by-buyer-report',
+        name: 'garment-cost-calculation-by-buyer-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-buyer-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Buyer - Deskripsi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+     {
+        route: '/merchandiser/garment-cost-calculation-by-sc-report',
+        name: 'garment-cost-calculation-by-sc-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-sc-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Buyer - Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/budget-job-order-report',
+        name: 'budget-job-order-report',
+        moduleId: './modules/merchandiser/report/budget-job-order-report/index',
+        nav: true,
+        title: 'Display Budget Job Order',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/budget-master-sample-report',
+        name: 'budget-master-sample-report',
+        moduleId: './modules/merchandiser/report/budget-master-sample-report/index',
+        nav: true,
+        title: 'Display Budget Master / Sample',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/monitoring-unpost-cost-calculation',
+        name: 'monitoring-unpost-cost-calculation',
+        moduleId: './modules/merchandiser/report/monitoring-unpost-cost-calculation/index',
+        nav: true,
+        title: 'Monitoring Unpost Cost Calculation',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/production-order-report',
+        name: 'production-order-report',
+        moduleId: './modules/merchandiser/report/production-order-report/index',
+        nav: true,
+        title: 'Laporan Order Produksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/accepted-ro-report',
+        name: 'accepted-ro-report',
+        moduleId: './modules/merchandiser/report/accepted-ro-report/index',
+        nav: true,
+        title: 'Laporan Penerimaan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-ro-report',
+        name: 'available-ro-report',
+        moduleId: './modules/merchandiser/report/available-ro-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-budget-report',
+        name: 'available-budget-report',
+        moduleId: './modules/merchandiser/report/available-budget-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan Budget',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/monitoring-pre-sales-contract',
+        name: 'monitoring-pre-sales-contract',
+        moduleId: './modules/merchandiser/report/monitoring-pre-sales-contract/index',
+        nav: true,
+        title: 'Monitoring Pre Sales Contract',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/garment-purchasing-quality-objective-report',
+        name: 'garment-purchasing-quality-objective-report',
+        moduleId: './modules/merchandiser/report/garment-purchasing-quality-objective-report/index',
+        nav: true,
+        title: 'Laporan Sasaran Mutu Penjualan Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];

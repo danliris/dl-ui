@@ -13,7 +13,7 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.Unit"
+            value.bind="selectedUnit"
             error.bind="error.Unit"
             label="Unit Loading"
             loader.bind="unitLoader"
@@ -25,10 +25,12 @@
 
         <au-autocomplete
             value.bind="selectedSewingDO"
-            error.bind="error.SewingDO"
-            label="No Sewing DO"
+            error.bind="error.RONo"
+            label="No RO"
             loader.bind="sewingDOLoader"
-            text="SewingDONo"
+            query.bind="filter"
+            show.bind="data.Unit"
+            text.bind="ROView"
             placeholder="nomor sewing DO"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
@@ -47,8 +49,8 @@
         </au-autocomplete>
 
         <au-textbox
-            value.bind="data.RONo"
-            label="No RO"
+            value.bind="data.SewingDONo"
+            label="No Sewing DO"
             read-only="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -74,6 +76,10 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
 
         <au-collection
             items.bind="data.Items"

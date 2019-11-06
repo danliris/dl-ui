@@ -1,6 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 
+var moment = require('moment');
+
 var InstructionLoader = require('../../../../loader/instruction-no-id-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
@@ -427,28 +429,47 @@ export class DataForm {
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
             if (this.data.durationEstimation.Areas) {
-                var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
-                this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+
+                var totalDay = 1;
+                for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                    var step = this.data.Instruction.Steps[i];
                     if (step.ProcessArea && step.ProcessArea != "") {
-                        var d = new Date(deliveryDate);
-                        var totalDay = 0;
+                        // var d = new Date(deliveryDate);
+                        // var totalDay = 0;
 
-                        for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
-                            var area = this.data.durationEstimation.Areas[i];
-                            totalDay += area.Duration;
+                        // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                        //     var area = this.data.durationEstimation.Areas[i];
+                        //     totalDay += area.Duration;
 
-                            if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
-                                break;
+                        //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                        //         break;
+                        // }
+
+                        // d.setDate(d.getDate() - totalDay + 1);
+
+                        var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                        // if (i == this.data.Instruction.Steps.length - 1) {
+                        //     deadline = deadline.add(-1, 'days');
+                        // } else {
+                        //     deadline = 
+                        // }
+
+                        if (i == this.data.Instruction.Steps.length - 1) {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
                         }
-
-                        d.setDate(d.getDate() - totalDay + 1);
-
-                        step.Deadline = new Date(d);
+                        else {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
+                        }
+                        // deadline = deadline.add(totalDay * -1, 'days');
                     }
 
-                    return step;
-                });
+                    // return step;
+                }
+                // });
             }
             else {
                 this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {

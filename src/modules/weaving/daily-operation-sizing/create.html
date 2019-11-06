@@ -12,7 +12,7 @@
           <textbox label="No. Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocument"
+          <au-autocomplete placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocumentId"
             read-only.bind="readOnly" loader.bind="machines" text="MachineNumber"></au-autocomplete>
         </div>
       </div>
@@ -22,7 +22,7 @@
           <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocument"
+          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument" error.bind="error.OrderDocumentId"
             read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
           </au-autocomplete>
         </div>
@@ -41,8 +41,8 @@
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnitDocument"
-            error.bind="error.WeavingUnitDocument" read-only.bind="true">
+          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnit"
+            error.bind="error.WeavingUnit" read-only.bind="true">
           </au-textbox>
         </div>
       </div>
@@ -52,7 +52,7 @@
           <textbox label="Kode Resep" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Kode Resep" value.bind="data.RecipeCode" error.bind="error.RecipeCode"
+          <au-textbox placeholder="Kode Resep" value.bind="RecipeCode" error.bind="error.RecipeCode"
             read-only.bind="readOnly">
           </au-textbox>
         </div>
@@ -70,7 +70,7 @@
           <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Operator" value.bind="OperatorDocument" error.bind="error.OperatorDocument"
+          <au-autocomplete placeholder="Operator" value.bind="PreparationOperator" error.bind="error.PreparationOperator"
             read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
         </div>
         <div class="col-md-2 col-md-offset-1" style="text-align:left;">
@@ -87,7 +87,7 @@
           <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-datepicker value.bind="data.SizingDetails.PreparationDate" error.bind="error.EntryDate">
+          <au-datepicker value.bind="PreparationDate" error.bind="error.PreparationDate">
           </au-datepicker>
         </div>
       </div>
@@ -97,13 +97,13 @@
           <textbox label="Waktu Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-timepicker value.bind="EntryTime" error.bind="error.EntryTime" read-only.bind="readOnly">
+          <au-timepicker value.bind="PreparationTime" error.bind="error.PreparationTime" read-only.bind="readOnly">
         </div>
         <div class="col-md-2 col-md-offset-2" style="text-align:left;">
           <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-textbox placeholder="Shift" value.bind="Shift.Name" error.bind="error.Shift" read-only.bind="true">
+          <au-textbox placeholder="Shift" value.bind="PreparationShift.Name" error.bind="error.PreparationShift" read-only.bind="true">
           </au-textbox>
         </div>
       </div>
@@ -125,11 +125,11 @@
         </div>
       </div>
 
-      <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;">
-        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
+      <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;" show.bind="showHideBeamsCollection">
+        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamsWarpingColumns"
           add.bind="addBeamsWarping" remove.bind="onremove" read-only.bind="readOnly"
           options.bind="beamsWarpingTableOptions"
-          item-template="modules/weaving/daily-operation-sizing/templates/beam-items-post">
+          item-template="modules/weaving/daily-operation-sizing/templates/beams-warping-post">
         </au-collection>
       </div>
   </au-input-form>
