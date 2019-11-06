@@ -16,7 +16,7 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable processType = "Blowing";
-    @bindable inputDate;
+
     @bindable materialType;
     @bindable lot;
     @bindable shift;
@@ -68,7 +68,7 @@ export class DataForm {
     machineSpinningFilter = {};
     masterFilter = {};
     lotFilter = {};
-    countFilter = {};
+    // countFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -93,8 +93,7 @@ export class DataForm {
 
     }
 
-    async bind(context) {
-
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -128,7 +127,7 @@ export class DataForm {
         }
 
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
-            
+
             this.countConfiguration = this.data.countRes;
         }
 
@@ -137,10 +136,6 @@ export class DataForm {
             this.materialType.Id = this.data.MaterialType.Id;
             this.materialType.Name = this.data.MaterialType.Name;
             this.materialType.Code = this.data.MaterialType.Code;
-        }
-
-        if (this.data.Date) {
-            this.inputDate = this.data.Date;
         }
 
         if (this.data.Shift) {
@@ -178,11 +173,11 @@ export class DataForm {
         }.bind(this)
     };
 
-    async fillItems() {
+    fillItems() {
         if (this.data.UnitDepartmentId && this.data.MaterialTypeId && this.data.LotId && this.machineSpinning) {
             this.isItem = true;
             this.detailOptions.UomUnit = this.machineSpinning.UomUnit;
-            await this.service.validateLotInCount(this.data.LotId, this.processType);
+            // await this.service.validateLotInCount(this.data.LotId, this.processType);
             this.detailOptions.CountConfig = this.countConfiguration;
             if (!this.detailOptions.CountConfig) {
                 if (this.error) {
@@ -203,7 +198,7 @@ export class DataForm {
 
                 this.data.Items[0].MachineSpinningIdentity = this.machineSpinning.Id;
                 this.data.Items[0].BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
-                
+
                 this.data.MachineSpinning = this.machineSpinning;
                 this.data.CountConfig = this.detailOptions.CountConfig
 
@@ -225,7 +220,7 @@ export class DataForm {
                 var item = {};
                 item.MachineSpinningIdentity = this.machineSpinning.Id;
                 item.BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
-                
+
                 this.data.MachineSpinning = this.machineSpinning;
                 this.data.CountConfig = this.detailOptions.CountConfig
                 this.data.Items.push(item);
@@ -241,33 +236,10 @@ export class DataForm {
     }
 
 
-    inputDateChanged(n, o) {
-        if (this.inputDate) {
-            this.data.Date = this.inputDate;
-            // this.fillItems();
-        } else {
-            this.data.Date = null;
-            // this.data.Items = [];
-        }
-    }
-
     countConfigurationChanged(n, o) {
         if (this.countConfiguration && this.countConfiguration.Id) {
+
             this.data.CountConfigurationId = this.countConfiguration.Id;
-
-
-            var yarnInCount = this.countConfiguration.MaterialComposition[0];
-            if (yarnInCount) {
-                this.materialType = {
-                    "Id": yarnInCount.YarnId,
-                    "Name": yarnInCount.YarnName
-                };
-                this.lot = {
-                    "Id": yarnInCount.LotId,
-                    "LotNo": yarnInCount.LotNo
-                };
-            }
-
 
 
         } else {
@@ -277,34 +249,44 @@ export class DataForm {
 
     materialTypeChanged(n, o) {
         if (this.materialType && this.materialType.Id) {
-            this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
             this.data.MaterialTypeId = this.materialType.Id;
-            this.fillItems();
+
         } else {
             this.data.MaterialTypeId = null;
-            // this.data.Items = [];
         }
     }
 
     async lotChanged(n, o) {
 
         if (this.lot && this.lot.Id) {
+            this.data.LotId = this.lot.Id;
 
-            let check = await this.service.validateLotInCount(this.lot.Id, this.processType);
-            if (check) {
-                if (this.error) {
-                    this.error.LotId = undefined;
+            if (this.lot.YarnType) {
+                this.materialType = {
+                    Id: this.lot.YarnType.Id,
+                    Name: this.lot.YarnType.Name
+                };
+                let countData = await this.service.getCountByProcessAndYarn(this.processType, this.materialType.Id, this.data.UnitDepartmentId);
+
+                if (countData) {
+                    this.countConfiguration = countData;
+                    this.fillItems();
+                } else {
+                    if (this.error) {
+                        this.error.LotId = "Cannot find Count with this Lot Data";
+                    } else {
+                        this.error = {
+                            LotId: "Cannot find Count with this Lot Data"
+                        };
+                    }
                 }
-
-                this.data.LotId = this.lot.Id;
-                this.fillItems();
-            } else {
-                this.error.LotId = "Count is not created with this Lot";
             }
+
+
+
 
         } else {
             this.data.LotId = null;
-            // this.data.Items = [];
         }
     }
 
@@ -481,7 +463,10 @@ export class DataForm {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
             this.machineSpinningFilter.UnitName = this.unit.Name;
-            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
+            this.lotFilter = {
+                "UnitDepartmentId": this.unit.Id
+            };
+            // this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = null;
