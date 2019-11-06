@@ -69,14 +69,30 @@ export class List {
 
   loader = (info) => {
     this.info = {};
-    
+
     //Get All
     if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
       return this.listDataFlag ? this.service.getAll().then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -88,10 +104,26 @@ export class List {
       let WeavingUnitIdContainer = this.WeavingUnit.Id;
 
       return this.listDataFlag ? this.service.getByWeavingUnit(WeavingUnitIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -103,10 +135,26 @@ export class List {
       let MachineDocumentIdContainer = this.MachineDocument.Id;
 
       return this.listDataFlag ? this.service.getByMachine(MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -118,10 +166,26 @@ export class List {
       let BlockContainer = this.Block;
 
       return this.listDataFlag ? this.service.getByBlock(BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -134,10 +198,26 @@ export class List {
       let MachineDocumentIdContainer = this.MachineDocument.Id;
 
       return this.listDataFlag ? this.service.getByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -150,10 +230,26 @@ export class List {
       let BlockContainer = this.Block;
 
       return this.listDataFlag ? this.service.getByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -166,10 +262,26 @@ export class List {
       let BlockContainer = this.Block;
 
       return this.listDataFlag ? this.service.getByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -183,10 +295,26 @@ export class List {
       let BlockContainer = this.Block;
 
       return this.listDataFlag ? this.service.getAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
+        if (result && result.length > 0) {
+          let getUnitPromises = result.map(planning =>
+            this.service.getUnitById(planning.WeavingUnit)
+          );
+
+          return Promise.all(getUnitPromises).then(weavingUnits => {
+            for (var machinePlanning of result) {
+              if (weavingUnits && weavingUnits.length > 0) {
+                let weavingUnit = weavingUnits.find(
+                  unitResult => machinePlanning.WeavingUnit == unitResult.Id
+                );
+                machinePlanning.WeavingUnit = weavingUnit.Name;
+              }
+            }
+            return {
+              data: result,
+              total: length
+            };
+          });
+        }
       }) : {
         data: {},
         total: 0
@@ -210,6 +338,10 @@ export class List {
 
   reset() {
     this.listDataFlag = false;
+
+    this.WeavingUnit = null;
+    this.MachineDocument = undefined;
+    this.Block = "";
 
     this.WeavingUnitIdContainer = null;
     this.MachineDocumentIdContainer = null;

@@ -9,6 +9,12 @@ import {
   RestService
 } from "../../../utils/rest-service";
 import {
+  Container
+} from "aurelia-dependency-injection";
+import {
+  Config
+} from "aurelia-api";
+import {
   debug
 } from 'util';
 
@@ -23,6 +29,16 @@ export class Service extends RestService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
+  }
+
+  getUnitById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/units/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
   }
 
   //Get Data Machine Planning Report
