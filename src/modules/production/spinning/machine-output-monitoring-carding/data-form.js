@@ -15,7 +15,6 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable processType = "Carding";
-    @bindable inputDate;
     @bindable materialType;
     @bindable lot;
     @bindable shift;
@@ -137,13 +136,12 @@ export class DataForm {
             this.materialType.Code = this.data.MaterialType.Code;
         }
 
-        if (this.data.Date) {
-            this.inputDate = this.data.Date;
-        }
+
 
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
 
             this.countConfiguration = this.data.countRes;
+            this.countConfiguration.Count = this.data.CountConfiguration.Count;
         }
 
         if (this.data.Shift) {
@@ -245,21 +243,11 @@ export class DataForm {
     }
 
 
-    inputDateChanged(n, o) {
-        if (this.inputDate) {
-            this.data.Date = this.inputDate;
-            // this.fillItems();
-        } else {
-            this.data.Date = null;
-            this.data.Items = [];
-        }
-    }
-
     materialTypeChanged(n, o) {
         if (this.materialType && this.materialType.Id) {
-            this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
+            // this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
             this.data.MaterialTypeId = this.materialType.Id;
-            this.fillItems();
+            // this.fillItems();
         } else {
             this.data.MaterialTypeId = null;
             this.data.Items = [];
@@ -269,17 +257,26 @@ export class DataForm {
     async lotChanged(n, o) {
 
         if (this.lot && this.lot.Id) {
+            this.data.LotId = this.lot.Id;
+            if (this.lot.YarnType) {
+                this.materialType = {
+                    Id: this.lot.YarnType.Id,
+                    Name: this.lot.YarnType.Name
+                };
+                let countData = await this.service.getCountByProcessAndYarn(this.processType, this.materialType.Id, this.data.UnitDepartmentId);
 
-            let check = await this.service.validateLotInCount(this.lot.Id, this.processType);
-            if (check) {
-                if (this.error) {
-                    this.error.LotId = undefined;
+                if (countData) {
+                    this.countConfiguration = countData;
+                    this.fillItems();
+                } else {
+                    if (this.error) {
+                        this.error.LotId = "Cannot find Count with this Lot Data";
+                    } else {
+                        this.error = {
+                            LotId: "Cannot find Count with this Lot Data"
+                        };
+                    }
                 }
-
-                this.data.LotId = this.lot.Id;
-                this.fillItems();
-            } else {
-                this.error.LotId = "Count is not created with this Lot";
             }
 
         } else {
@@ -313,7 +310,10 @@ export class DataForm {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
-            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
+            this.lotFilter = {
+                "UnitDepartmentId": this.unit.Id
+            };
+            // this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
@@ -324,22 +324,7 @@ export class DataForm {
     countConfigurationChanged(n, o) {
         if (this.countConfiguration && this.countConfiguration.Id) {
             this.data.CountConfigurationId = this.countConfiguration.Id;
-
-
-            var yarnInCount = this.countConfiguration.MaterialComposition[0];
-            if (yarnInCount) {
-                this.materialType = {
-                    "Id": yarnInCount.YarnId,
-                    "Name": yarnInCount.YarnName
-                };
-                this.lot = {
-                    "Id": yarnInCount.LotId,
-                    "LotNo": yarnInCount.LotNo
-                };
-            }
-
-
-
+            this.data.CountConfigurationName = this.countConfiguration.Count;
         } else {
             this.data.CountConfigurationId = null;
         }
@@ -374,7 +359,7 @@ export class DataForm {
 
     countView(count) {
         var materialComposition = count.MaterialComposition;
-        
+
         if (materialComposition) {
             return count.Count + " - " + materialComposition[0].LotNo;
         } else {

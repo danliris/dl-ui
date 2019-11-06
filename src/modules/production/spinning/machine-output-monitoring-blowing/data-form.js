@@ -129,6 +129,7 @@ export class DataForm {
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
 
             this.countConfiguration = this.data.countRes;
+            this.countConfiguration.Count = this.data.CountConfiguration.Count;
         }
 
         if (this.data.MaterialType && this.data.MaterialType.Id) {
@@ -240,7 +241,7 @@ export class DataForm {
         if (this.countConfiguration && this.countConfiguration.Id) {
 
             this.data.CountConfigurationId = this.countConfiguration.Id;
-
+            this.data.CountConfigurationName = this.countConfiguration.Count;
 
         } else {
             this.data.CountConfigurationId = null;
