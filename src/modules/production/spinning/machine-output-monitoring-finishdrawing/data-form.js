@@ -137,6 +137,7 @@ export class DataForm {
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
             
             this.countConfiguration = this.data.countRes;
+            this.countConfiguration.Count = this.data.CountConfiguration.Count;
         }
 
         if (this.data.Shift) {
