@@ -17,9 +17,10 @@ export class DataForm {
     @bindable readOnly;
     @bindable data = {};
     @bindable error;
+    @bindable mixItems = [];
     @bindable title;
     @bindable lotConfiguration;
-    @bindable processType;
+    // @bindable processType;
     @bindable yarnType;
     @bindable count;
     @bindable showItemRegular;
@@ -62,8 +63,8 @@ export class DataForm {
         }
     }
     mixDrawing = false;
-    processTypeList = [
-    ];
+    // processTypeList = [
+    // ];
 
     detailOptions = {};
     constructor(service, coreService) {
@@ -75,23 +76,27 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
+        console.log(this.context)
         this.data = this.context.data;
         this.error = this.context.error;
-        this.processType = false;
-        if (!this.readOnly)
-            this.coreService.getMachineTypes()
-                .then(result => {
-                    if (this.data.ProcessType) {
-                        this.processTypeList = result;
-                    } else {
-                        this.processTypeList.push("");
-                        for (var list of result) {
-                            this.processTypeList.push(list);
-                        }
-                    }
-                });
-        if (this.data.ProcessType) {
-            this.processType = this.data.ProcessType;
+        // if (!this.readOnly)
+        //     this.coreService.getMachineTypes()
+        //         .then(result => {
+        //             if (this.data.ProcessType) {
+        //                 this.processTypeList = result;
+        //             } else {
+        //                 this.processTypeList.push("");
+        //                 for (var list of result) {
+        //                     this.processTypeList.push(list);
+        //                 }
+        //             }
+        //         });
+        // if (this.data.ProcessType) {
+        //     this.processType = this.data.ProcessType;
+        // }
+        this.processType = "Mix Drawing";
+        if (!this.data.ProcessType) {
+            this.data.ProcessType = this.processType;
         }
         if (!this.data.Id) {
             this.data.Grain = 1;
@@ -113,19 +118,29 @@ export class DataForm {
             this.unit = this.data.UnitDepartment;
         }
 
+        if (!this.context.isCreate) {
+
+        }
         if (this.data.ProcessType == "Mix Drawing") {
             this.showItemRegular = false;
             this.mixDrawing = true;
             if (this.data.MixDrawingLotNo) {
                 this.mixDrawingLot = this.data.MixDrawingLotNo;
             }
-            if(this.data.MixDrawingCountId){
+            if (this.data.MixDrawingCountId) {
                 this.count = {};
                 this.count.Id = this.data.MixDrawingCountId;
                 this.count.Name = this.data.Count;
             }
+            if (this.data.mixItems) {
 
+                this.mixItems = this.data.mixItems;
+            }
         } else {
+            if (this.data.ProcessType == 'Winder')
+                this.data.ConeWeight = 1.89;
+
+            // this.data.MaterialComposition = [];
             this.showItemRegular = true;
             this.mixDrawing = false;
             this.yarnType = {};
@@ -161,7 +176,7 @@ export class DataForm {
         ],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.MaterialComposition.push({});
+            this.mixItems.push({});
         }.bind(this)
     };
 
@@ -169,34 +184,36 @@ export class DataForm {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
             this.detailOptions.UnitDepartmentId = this.unit.Id;
+            this.data.MaterialComposition = [];
+            // this.mixItems = [];
         }
     }
 
-    processTypeChanged(n, o) {
-        var selectedProcess = this.processType;
-        this.data.ProcessType = selectedProcess;
-        if (selectedProcess) {
-            if (this.data.ProcessType == "Mix Drawing") {
-                this.showItemRegular = false;
-                this.mixDrawing = true;
-                this.lot = undefined;
-                this.regularItems = [];
+    // processTypeChanged(n, o) {
+    //     var selectedProcess = this.processType;
+    //     this.data.ProcessType = selectedProcess;
+    //     if (selectedProcess) {
+    //         if (this.data.ProcessType == "Mix Drawing") {
+    //             this.showItemRegular = false;
+    //             this.mixDrawing = true;
+    //             this.lot = undefined;
+    //             this.regularItems = [];
 
-            } else {
-                if (this.data.ProcessType == 'Winder')
-                    this.data.ConeWeight = 1.89;
+    //         } else {
+    //             if (this.data.ProcessType == 'Winder')
+    //                 this.data.ConeWeight = 1.89;
 
-                if(o == "Mix Drawing" && n != "Mix Drawing"){
-                    this.data.Count = null;
-                }
-                this.data.MaterialComposition = [];
-                this.showItemRegular = true;
-                this.mixDrawing = false;
+    //             if(o == "Mix Drawing" && n != "Mix Drawing"){
+    //                 this.data.Count = null;
+    //             }
+    //             this.data.MaterialComposition = [];
+    //             this.showItemRegular = true;
+    //             this.mixDrawing = false;
 
-            }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
     mixDrawingLotChanged(n, o) {
         if (this.mixDrawingLot) {
@@ -205,10 +222,10 @@ export class DataForm {
         }
     }
 
-    countChanged(n, o){
-        if(this.count){
+    countChanged(n, o) {
+        if (this.count) {
             this.data.Count = this.count.Id;
-            
+
         }
     }
 
@@ -237,6 +254,7 @@ export class DataForm {
                         } else {
                             this.error.YarnId = "Lot tidak ditemukan";
                             this.data.MaterialComposition = [];
+                            this.mixItems = [];
                             this.data.LotId = null;
                             this.data.LotNo = null;
                             this.cottonLot = null;
@@ -262,6 +280,7 @@ export class DataForm {
                         } else {
                             this.error.YarnId = "Lot tidak ditemukan";
                             this.data.MaterialComposition = [];
+                            this.mixItems = [];
                             this.data.LotId = null;
                             this.data.LotNo = null;
                             this.cottonLot = null;
