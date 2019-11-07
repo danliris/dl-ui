@@ -2,24 +2,23 @@
     <tr>
         <require from="../../../../lib/number-format-value-converter"></require>
         <td>
-            <au-textbox label="Mata Uang"
-                        value.bind="data.Bank.Currency.Code"
-                        read-only.bind="true"
-                        options.bind="controlOptions"
-                        show.bind="selectedBank">
+            <au-textbox value.bind="data.Remark"
+                          placeholder="tambah keterangan"
+                          read-only.bind="readOnly"
+                          options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.COA.Name"
+            <au-textbox value.bind="selectedCOA.Name"
                         read-only="true">
             </au-textbox>
         </td>
         <td>
             <au-autocomplete placeholder="pilih akun"
-                             value.bind="data.COA"
+                             value.bind="selectedCOA"
                              error.bind="error.COA"
                              loader.one-time="coaLoader"
-                             text="Code"
+                             text="Name"
                              read-only.bind="readOnly"
                              options.bind="controlOptions">
             </au-autocomplete>

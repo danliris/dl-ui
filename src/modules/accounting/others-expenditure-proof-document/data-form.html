@@ -6,22 +6,22 @@
         <au-autocomplete label="Bank"
                          placeholder="pilih bank"
                          value.bind="selectedBank"
-                         error.bind="error.Bank"
+                         error.bind="error.AccountBank"
                          loader.one-time="bankLoader"
                          text.bind="bankView"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || context.isEdit"
                          options.bind="controlOptions">
         </au-autocomplete>
 
         <au-textbox label="No. Rekening"
-                    value.bind="data.Bank.AccountNumber"
+                    value.bind="selectedBank.AccountNumber"
                     read-only.bind="true"
                     options.bind="controlOptions"
                     show.bind="selectedBank">
         </au-textbox>
 
         <au-textbox label="Mata Uang"
-                    value.bind="data.Bank.Currency.Code"
+                    value.bind="selectedBank.Currency.Code"
                     read-only.bind="true"
                     options.bind="controlOptions"
                     show.bind="selectedBank">
@@ -29,7 +29,7 @@
 
         <au-datepicker value.bind="data.Date"
                        error.bind="error.Date"
-                       read-only.bind="readOnly"
+                       read-only.bind="readOnly || context.isEdit"
                        label="Tanggal"
                        options.bind="controlOptions">
         </au-datepicker>
@@ -37,7 +37,7 @@
         <au-dropdown label="Jenis Transaksi"
                      value.bind="data.Type"
                      error.bind="error.Type"
-                     read-only.bind="readOnly"
+                     read-only.bind="readOnly || context.isEdit"
                      items.bind="types"
                      options.bind="controlOptions">
         </au-dropdown>
@@ -45,7 +45,7 @@
         <au-multiline label="Keterangan"
                       value.bind="data.Remark"
                       placeholder="tambah keterangan"
-                      read-only.bind="readOnly"
+                      read-only.bind="readOnly || context.isEdit"
                       options.bind="controlOptions">
         </au-multiline>
 

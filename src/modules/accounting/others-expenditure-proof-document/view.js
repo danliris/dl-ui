@@ -1,28 +1,46 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { ServiceCore } from './service-core';
 import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service, Dialog)
+@inject(Router, Service, ServiceCore, Dialog)
 export class View {
-    constructor(router, service, dialog) {
+    constructor(router, service, serviceCore, dialog) {
         this.router = router;
         this.service = service;
+        this.serviceCore = serviceCore;
         this.dialog = dialog;
     }
 
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
+        await this.service.getById(id)
+            .then((result) => {
+                this.data = result;
 
-        if (this.data.Status == "POSTED") {
-            this.hasPosting = false;
-            this.editCallback = false;
-            this.deleteCallback = false;
-        } else {
-            this.hasPosting = true;
-        }
+                return this.serviceCore.getBankById(result.AccountBankId)
+                    .then((bankResult) => {
+                        this.data.AccountBank = bankResult;
 
+                        let itemPromises = this.data.Items.map((item) => {
+
+                            return this.service.getCOAById(item.COAId)
+                                .then((coaResult) => {
+                                    item.COA = coaResult;
+                                    return Promise.resolve(item);
+                                });
+                        });
+
+                        return Promise.all(itemPromises)
+                            .then((items) => {
+                                this.data.Items = items;
+                                return Promise.resolve();
+                            });
+                    });
+            });
+
+        // this.data.AccountBank = await
     }
 
     list() {
@@ -37,20 +55,8 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
-    postingCallback(event) {
-        this.dialog.prompt('Transaksi yang sudah di POSTING tidak dapat diubah dan dihapus. Apakah anda yakin?', 'Posting Jurnal Transaksi')
-            .then(response => {
-                if (response.ok) {
-                    this.service.posting(this.data)
-                        .then(result => {
-                            this.list();
-                        });
-                }
-            });
-    }
-
     deleteCallback(event) {
-        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Jurnal Transaksi')
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Dokumen')
             .then(response => {
                 if (response.ok) {
                     this.service.delete(this.data)

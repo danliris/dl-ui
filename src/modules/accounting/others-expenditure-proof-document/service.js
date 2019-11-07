@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "journal-transactions";
+const serviceUri = "others-expenditure-proof-documents";
 const subLedgerReportServiceUri = 'journal-transactions/report/sub-ledgers';
 
 export class Service extends RestService {
@@ -18,6 +18,11 @@ export class Service extends RestService {
 
     getById(id) {
         let endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getCOAById(id) {
+        let endpoint = `master/chart-of-accounts/${id}`;
         return super.get(endpoint);
     }
 

@@ -1,10 +1,11 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
+import { ServiceCore } from "./service-core";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceCore)
 export class List {
     context = ["Rincian"];
     columns = [
@@ -12,15 +13,23 @@ export class List {
         {
             field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
-            },
+            }
         },
-        { field: "AccountBank", title: "Description" },
+        {
+            field: "AccountBank", title: "Nama Bank", formatter: function (value, data, index) {
+                return `${value.AccountName} - ${value.AccountNumber}`;
+            }
+        },
         {
             field: 'Total', title: 'Total', formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             }
         },
-        { field: "CurrencyCode", title: "Mata Uang" },
+        {
+            field: "AccountBank", title: "Mata Uang", formatter: function (value, data, index) {
+                return `${value.Currency.Code}`;
+            }
+        },
         { field: "Type", title: "Jenis Transaksi" }
     ];
 
@@ -39,15 +48,28 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
+
+                let itemPromises = result.data.map((datum) => {
+                    return this.serviceCore.getBankById(datum.AccountBankId)
+                        .then((accountBank) => {
+                            datum.AccountBank = accountBank;
+                            return Promise.resolve(datum)
+                        });
+                });
+
+                return Promise.all(itemPromises)
+                    .then((items) => {
+                        return {
+                            total: result.info.total,
+                            data: items
+                        }
+                    });
             });
     }
 
-    constructor(router, service) {
+    constructor(router, service, serviceCore) {
         this.service = service;
+        this.serviceCore = serviceCore;
         this.router = router;
     }
 

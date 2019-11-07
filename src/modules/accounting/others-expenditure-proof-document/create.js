@@ -11,7 +11,7 @@ export class Create {
     this.data = {};
   }
 
-  activate(params) {}
+  activate(params) { }
 
   list() {
     this.router.navigateToRoute("list");
@@ -26,6 +26,7 @@ export class Create {
   }
 
   saveCallback(event) {
+    // console.log(this);
     this.service
       .create(this.data)
       .then(result => {

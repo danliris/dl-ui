@@ -16,6 +16,8 @@ export class DataForm {
         editText: "Ubah",
     };
 
+    types = ["", "Operasional", "Lain -lain"];
+
     controlOptions = {
         label: {
             length: 4,
@@ -31,14 +33,16 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
+        
         this.data = this.context.data;
+        this.selectedBank = this.data.AccountBank || null;
+
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        this.hasPosting = this.context.hasPosting;
     }
 
     columns = [
@@ -53,4 +57,24 @@ export class DataForm {
             this.data.Items.push({})
         };
     }
+
+    get bankLoader() {
+        return BankLoader;
+    }
+
+    @bindable selectedBank;
+    selectedBankChanged(newValue, oldValue) {
+        if (newValue) {
+            this.data.AccountBankId = newValue.Id;
+            this.data.AccountBankCode = newValue.Code;
+        } else {
+            this.data.AccountBankId = 0;
+            this.data.AccountBankCode = "";
+        }
+    }
+
+    bankView(bank) {
+        return bank.AccountName ? `${bank.AccountName} - ${bank.AccountNumber}` : '';
+    }
+
 }

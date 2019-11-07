@@ -1,4 +1,4 @@
-import { inject, BindingEngine } from 'aurelia-framework';
+import { inject, BindingEngine, bindable } from 'aurelia-framework';
 
 var COALoader = require('../../../../loader/coa-loader');
 
@@ -10,6 +10,8 @@ export class Item {
 
     activate(context) {
         this.data = context.data;
+        this.selectedCOA = this.data.COA || null;
+
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
@@ -17,5 +19,14 @@ export class Item {
 
     get coaLoader() {
         return COALoader;
+    }
+
+    @bindable selectedCOA;
+    selectedCOAChanged(newValue, oldValue) {
+        if (newValue) {
+            this.data.COAId = newValue.Id;
+        } else {
+            this.data.COAId = 0;
+        }
     }
 }
