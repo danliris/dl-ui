@@ -234,6 +234,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/daily-operation-warping-report",
+    name: "daily-operation-warping",
+    moduleId: "./modules/weaving/daily-operation-warping-report/index",
+    nav: true,
+    title: "Laporan Operasional Mesin Harian Warping",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/daily-operation-sizing",
     name: "daily-operation-sizing",
     moduleId: "./modules/weaving/daily-operation-sizing/index",
