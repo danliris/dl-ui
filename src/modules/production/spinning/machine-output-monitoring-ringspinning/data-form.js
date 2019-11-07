@@ -14,7 +14,6 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable processType = "Ring Spinning";
-    @bindable inputDate;
     @bindable materialType;
     @bindable lot;
     @bindable shift;
@@ -134,12 +133,10 @@ export class DataForm {
             this.materialType.Code = this.data.MaterialType.Code;
         }
 
-        if (this.data.Date) {
-            this.inputDate = this.data.Date;
-        }
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
-            
+
             this.countConfiguration = this.data.countRes;
+            this.countConfiguration.Count = this.data.CountConfiguration.Count;
         }
         if (this.data.Shift) {
             this.shift = this.data.Shift;
@@ -202,20 +199,7 @@ export class DataForm {
                         existedItem = this.data;
                     }
                     else {
-                        // if(this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != ""){
-                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.Id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
-                        //     if (existedItem.Items && existedItem.Items.length > 0) {
-                        //         alert("Data already exist with this configuration");
-                        //         this.inputDate = undefined;
-                        //         this.processType = this.typeOptions[0];
-                        //         this.materialType = undefined;
-                        //         this.lot = undefined;
-                        //         this.shift = this.shiftOptions[0];
-                        //         this.group = undefined;
-                        //         this.unit = undefined;
-                        //         return [];
-                        //     }
-                        // }else{
+
                         existedItem = {};
                         existedItem.Items = [];
                         // }
@@ -258,85 +242,11 @@ export class DataForm {
         }
     }
 
-    // processTypeChanged(n, o) {
-    //     if (this.processType && this.processType != "") {
-    //         this.data.ProcessType = this.processType;
-    //         this.detailOptions.ProcessType = this.processType;
-    //         if (this.processType == "Blowing") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Bad Output",
-    //                 "Eff%"
-    //             ];
-
-    //         } else if (this.processType == "Flyer") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Total Delivery",
-    //                 "Spindle Kosong",
-    //                 "Eff%"
-    //             ];
-    //         } else if (this.processType == "Winder") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Waste",
-    //                 "Total Drum",
-    //                 "Eff%"
-    //             ];
-    //         } else {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Eff%"
-    //             ];
-    //         }
-    //         this.isItem = true;
-    //         this.fillItems();
-    //     } else {
-    //         this.data.ProcessType = null;
-    //         this.data.Items = [];
-    //         this.itemsColumnsHeader = [
-    //             "Nomor Mesin",
-    //             "Merk Mesin",
-    //             "Output (Counter)",
-    //             "UOM",
-    //             "Bale",
-    //             "Eff%"
-    //         ];
-    //         this.isItem = false;
-    //     }
-    // }
-
-    inputDateChanged(n, o) {
-        if (this.inputDate) {
-            this.data.Date = this.inputDate;
-            // this.fillItems();
-        } else {
-            this.data.Date = null;
-            this.data.Items = [];
-        }
-    }
-
     materialTypeChanged(n, o) {
         if (this.materialType && this.materialType.Id) {
-            this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
+            // this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
             this.data.MaterialTypeId = this.materialType.Id;
-            this.fillItems();
+            // this.fillItems();
         } else {
             this.data.MaterialTypeId = null;
             this.data.Items = [];
@@ -346,19 +256,27 @@ export class DataForm {
     async lotChanged(n, o) {
 
         if (this.lot && this.lot.Id) {
+            this.data.LotId = this.lot.Id;
+            if (this.lot.YarnType) {
+                this.materialType = {
+                    Id: this.lot.YarnType.Id,
+                    Name: this.lot.YarnType.Name
+                };
+                let countData = await this.service.getCountByProcessAndYarn(this.processType, this.materialType.Id, this.data.UnitDepartmentId);
 
-            let check = await this.service.validateLotInCount(this.lot.Id, this.processType);
-            if (check) {
-                if (this.error) {
-                    this.error.LotId = undefined;
+                if (countData) {
+                    this.countConfiguration = countData;
+                    this.fillItems();
+                } else {
+                    if (this.error) {
+                        this.error.LotId = "Cannot find Count with this Lot Data";
+                    } else {
+                        this.error = {
+                            LotId: "Cannot find Count with this Lot Data"
+                        };
+                    }
                 }
-
-                this.data.LotId = this.lot.Id;
-                this.fillItems();
-            } else {
-                this.error.LotId = "Count is not created with this Lot";
             }
-
         } else {
             this.data.LotId = null;
             this.data.Items = [];
@@ -390,7 +308,10 @@ export class DataForm {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
-            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
+            this.lotFilter = {
+                "UnitDepartmentId": this.unit.Id
+            };
+            // this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
@@ -400,21 +321,7 @@ export class DataForm {
     countConfigurationChanged(n, o) {
         if (this.countConfiguration && this.countConfiguration.Id) {
             this.data.CountConfigurationId = this.countConfiguration.Id;
-
-
-            var yarnInCount = this.countConfiguration.MaterialComposition[0];
-            if (yarnInCount) {
-                this.materialType = {
-                    "Id": yarnInCount.YarnId,
-                    "Name": yarnInCount.YarnName
-                };
-                this.lot = {
-                    "Id": yarnInCount.LotId,
-                    "LotNo": yarnInCount.LotNo
-                };
-            }
-
-
+            this.data.CountConfigurationName = this.countConfiguration.Count;
 
         } else {
             this.data.CountConfigurationId = null;
@@ -450,7 +357,7 @@ export class DataForm {
 
     countView(count) {
         var materialComposition = count.MaterialComposition;
-        
+
         if (materialComposition) {
             return count.Count + " - " + materialComposition[0].LotNo;
         } else {
