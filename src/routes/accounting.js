@@ -193,5 +193,18 @@ module.exports = [
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: 'accounting/others-expenditure-proof-document',
+        name: 'others-expenditure-proof-document',
+        moduleId: './modules/accounting/others-expenditure-proof-document/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank Lain - Lain',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
     }
 ];
