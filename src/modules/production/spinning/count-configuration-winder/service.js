@@ -51,27 +51,6 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    // getLot(keyword, filter) {
-    //     var config = Container.instance.get(Config);
-    //     var endpoint = config.getEndpoint("core-azure");
-
-    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
-    //         .then(results => {
-    //             return results.data;
-    //         });
-    // }
-
-    // getYarn(yarnType) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("core");
-    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
-
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
-
 }
 
 export class CoreService extends RestService {
