@@ -104,11 +104,12 @@ export class DataForm {
     get filter(){
         if (this.data.Unit) {
             return {
-                UnitId: this.data.Unit.Id
+                UnitToId: this.data.Unit.Id,
+                SewingTo: "FINISHING"
             };
         } else {
             return {
-                UnitId: 0
+                UnitToId: 0
             };
         }
     }
@@ -148,7 +149,6 @@ export class DataForm {
         this.data.SewingOutNo=null;
         this.data.Items = [];
         if(newValue) {
-            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -157,15 +157,15 @@ export class DataForm {
             this.data.SewingOutId=newValue.Id;
             this.data.SewingOutNo=newValue.SewingOutNo;
             var items=[];
-            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
+            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING" }) }))
                     .then(result => {
-                        console.log(result)
                         for(var sewingOut of result.data){
                             for(var sewingOutItem of sewingOut.Items){
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
                                     if(sewingOut.IsDifferentSize){
                                         for(var sewingOutDetail of sewingOutItem.Details){
+                                            item={};
                                             item.SewingOutItemId=sewingOutItem.Id;
                                             item.SewingOutDetailId=sewingOutDetail.Id;
                                             item.Quantity=sewingOutDetail.Quantity;
@@ -192,9 +192,7 @@ export class DataForm {
                                 
                                 }
                             }
-                        
                     }
-                    console.log(this.data.Items);
                 });
             }
         

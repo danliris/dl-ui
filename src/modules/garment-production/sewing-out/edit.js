@@ -25,8 +25,10 @@ export class View {
                 console.log(SewingIn);
                 var sewIn= SewingIn.Items.find(x=>x.Id==a.SewingInItemId);
                 if(sewIn){
-                    a.Quantity+= sewIn.RemainingQuantity;
-                    a.SewingInQuantity=a.Quantity;
+                    a.SewingInQuantity=a.Quantity + sewIn.RemainingQuantity;
+                    if(this.data.IsDifferentSize){
+                        a.Quantity+= sewIn.RemainingQuantity;
+                    }
                 }
             }
         }
