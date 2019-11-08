@@ -1,29 +1,26 @@
+import {
+  inject,
+  Lazy
+} from 'aurelia-framework';
+import {
+  HttpClient
+} from 'aurelia-fetch-client';
+import {
+  Config
+} from "aurelia-api";
+import {
+  RestService
+} from "../../../utils/rest-service";
 
-// import { inject, Lazy } from 'aurelia-framework';
-// import { HttpClient } from 'aurelia-fetch-client';
-// import { Config } from "aurelia-api";
-import { RestService } from "../../../utils/rest-service";
-
-const serviceUri = "weaving/movements/beam";
-// const qCserviceUri = 'finishing-printing/quality-control/fabrics';
+const serviceUri = "weaving/beam-stock-monitoring";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "weaving");
   }
 
-  search(info) {
+  search() {
     var endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
+    return super.get(endpoint);
   }
-
-  // getById(Id, number) {
-  //   var endpoint = `${serviceUri}/${Id}/beam-number/${number}`;
-  //   return super.get(endpoint);
-  // }
-
-  // searchQC(info) {
-  //     var endpoint = `${qCserviceUri}`;
-  //     return super.list(endpoint, info);
-  // }
 }

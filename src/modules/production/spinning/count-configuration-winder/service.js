@@ -23,41 +23,7 @@ export class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
 
-        return super.get(endpoint).then((data) => {
-
-            if (data.ProcessType == "Mix Drawing") {
-                var setItem = data.MaterialComposition.map((item) => {
-                    // this.service.getLotById(item.LotId).then((lotResult) =>{
-                    //     item.CottonCompositions = lotResult.CottonCompositions;
-                    // });
-
-                    return this.getLotById(item.LotId)
-                        .then((lot) => {
-
-                            item.cottonCompositions = lot.CottonCompositions;
-                            return Promise.resolve(item);
-                        });
-
-                    // return Promise.resolve(item);
-                });
-
-                return Promise.all(setItem).then((setItemResult) => {
-                    data.MaterialComposition = setItemResult;
-                    return Promise.resolve(data);
-                });
-            } 
-            else {
-                return this.getLotById(data.MaterialComposition[0].LotId).then(result => {
-                    if (result) {
-                        data.LotId = result.Id;
-                        data.LotNo = result.LotNo;
-                        data.regularItems = result.CottonCompositions;
-                    }
-                    return Promise.resolve(data);
-                });
-            }
-
-        });
+        return super.get(endpoint);
     }
 
     create(data) {
@@ -84,27 +50,6 @@ export class Service extends RestService {
         var endpoint = `${lotYarnServiceUri}/${id}`;
         return super.get(endpoint);
     }
-
-    // getLot(keyword, filter) {
-    //     var config = Container.instance.get(Config);
-    //     var endpoint = config.getEndpoint("core-azure");
-
-    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
-    //         .then(results => {
-    //             return results.data;
-    //         });
-    // }
-
-    // getYarn(yarnType) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("core");
-    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
-
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
 
 }
 

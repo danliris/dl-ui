@@ -33,7 +33,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter: JSON.stringify({ "MixDrawing": false })
         }
 
         return this.service.search(arg)

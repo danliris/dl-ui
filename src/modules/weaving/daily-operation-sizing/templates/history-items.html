@@ -1,4 +1,22 @@
 <template>
+  <style>
+    #edit-button {
+      background-color: rgb(32, 124, 8);
+      color: white;
+      white-space: nowrap;
+      width: 100px;
+      border: 1px solid #777777;
+    }
+
+    #delete-button {
+      background-color: #d65151;
+      color: white;
+      white-space: nowrap;
+      width: 100px;
+      border: 1px solid #777777;
+    }
+
+  </style>
   <tr>
     <td class="col-sm-1" style="white-space: nowrap;">
       <au-textbox value.bind="data.SizingBeamNumber" error.bind="error.SizingBeamNumber" read-only.bind="true">
@@ -35,6 +53,16 @@
     <td class="col-sm-1" style="white-space: nowrap;">
       <au-textbox value.bind="data.MachineStatus" error.bind="error.MachineStatus" read-only.bind="true">
       </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <div if.bind="$first">
+        <!-- <button class="btn btn-default" id="edit-button" click.delegate="edit()" disabled.bind="isEditDisabled">
+          Edit
+        </button> -->
+        <button class="btn btn-default" id="delete-button" click.delegate="delete()" disabled.bind="isDeleteDisabled">
+          Delete
+        </button>
+      </div>
     </td>
   </tr>
 </template>
