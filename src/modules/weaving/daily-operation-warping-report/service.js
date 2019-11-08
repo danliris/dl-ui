@@ -18,7 +18,7 @@ import {
     debug
   } from 'util';
   
-  const serviceUri = 'weaving/machines-planning';
+  const serviceUri = 'weaving/daily-operations-warping';
   
   export class Service extends RestService {
   
@@ -41,10 +41,16 @@ import {
       });
     }
   
-    //Get Data Machine Planning Report
+    //Get Data Daily Operation Warping Report
     getAll() {
       var filterType = "get-all";
       var endpoint = `${serviceUri}/${filterType}`;
+      return super.get(endpoint);
+    }
+    
+    getByOrder(orderId) {
+      var filterType = "get-by-order";
+      var endpoint = `${serviceUri}/${filterType}/${orderId}`;
       return super.get(endpoint);
     }
     
@@ -53,47 +59,17 @@ import {
       var endpoint = `${serviceUri}/${filterType}/${weavingUnitId}`;
       return super.get(endpoint);
     }
-    
-    getByMachine(machineId) {
-      var filterType = "get-by-machine";
-      var endpoint = `${serviceUri}/${filterType}/${machineId}`;
-      return super.get(endpoint);
-    }
-    
-    getByBlock(block) {
-      var filterType = "get-by-block";
-      var endpoint = `${serviceUri}/${filterType}/${block}`;
-      return super.get(endpoint);
-    }
-    
-    getByWeavingUnitMachine(weavingUnitId, machineId) {
-      var filterType = "get-by-weaving-unit-machine";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}`;
-      return super.get(endpoint);
-    }
-    
-    getByWeavingUnitBlock(weavingUnitId, block) {
-      var filterType = "get-by-weaving-unit-block";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/block/${block}`;
-      return super.get(endpoint);
-    }
-    
-    getByMachineBlock(machineId, block) {
-      var filterType = "get-by-machine-block";
-      var endpoint = `${serviceUri}/${filterType}/machine/${machineId}/block/${block}`;
-      return super.get(endpoint);
-    }
-    
-    getAllSpecified(weavingUnitId, machineId, block) {
-      var filterType = "get-all-specified";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}/block/${block}`;
-      return super.get(endpoint);
-    }
   
-    //Export to Excel Machine Planning Report
+    //Export to Excel Daily Operation Warping Report
     getXlsAll() {
       var filterType = "get-all";
       var endpoint = `${serviceUri}/${filterType}`;
+      return super.getXls(endpoint);
+    }
+    
+    getXlsByOrder(orderId) {
+      var filterType = "get-by-order";
+      var endpoint = `${serviceUri}/${filterType}/${orderId}`;
       return super.getXls(endpoint);
     }
     
@@ -101,42 +77,5 @@ import {
       var filterType = "get-by-weaving-unit";
       var endpoint = `${serviceUri}/${filterType}/${weavingUnitId}`;
       return super.getXls(endpoint);
-    }
-    
-    getXlsByMachine(machineId) {
-      var filterType = "get-by-machine";
-      var endpoint = `${serviceUri}/${filterType}/${machineId}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByBlock(block) {
-      var filterType = "get-by-block";
-      var endpoint = `${serviceUri}/${filterType}/${block}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByWeavingUnitMachine(weavingUnitId, machineId) {
-      var filterType = "get-by-weaving-unit-machine";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByWeavingUnitBlock(weavingUnitId, block) {
-      var filterType = "get-by-weaving-unit-block";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/block/${block}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByMachineBlock(machineId, block) {
-      var filterType = "get-by-machine-block";
-      var endpoint = `${serviceUri}/${filterType}/machine/${machineId}/block/${block}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsAllSpecified(weavingUnitId, machineId, block) {
-      var filterType = "get-all-specified";
-      var endpoint = `${serviceUri}/${filterType}/unit/${weavingUnitId}/machine/${machineId}/block/${block}`;
-      return super.getXls(endpoint);
-    }
   }
-  
+}
