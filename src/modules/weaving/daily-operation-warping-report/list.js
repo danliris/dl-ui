@@ -137,69 +137,30 @@ export class List {
   loader = (info) => {
     this.info = {};
 
+    var OrderProductionContainer = this.OrderProduction;
+    var MaterialTypeContainer = this.MaterialType;
+    var OperationStatusContainer = this.OperationStatus;
+    var WeavingUnitContainer = this.WeavingUnit;
+    var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
+    var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+
     //Get All
-    if (!this.StartDatePeriod && !this.EndDatePeriod && !this.OrderProduction && !this.WeavingUnit && !this.MaterialType && !this.OperationStatus) {
-      return this.listDataFlag ? this.service.getAll().then(result => {
-        for (var datum of result) {
-          if (datum.PreparationDate) {
-            var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
+    return this.listDataFlag ? this.service.getReportData(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+      for (var datum of result) {
+        if (datum.PreparationDate) {
+          var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
 
-            datum.PreparationDate = InstallationDate;
-          }
+          datum.PreparationDate = InstallationDate;
         }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
+      }
+      return {
+        data: result,
+        total: length
       };
-    }
-
-    //Get Data by Order
-    if (!this.StartDatePeriod && !this.EndDatePeriod && this.OrderProduction && !this.WeavingUnit && !this.MaterialType && !this.OperationStatus) {
-      let OrderProductionIdContainer = this.OrderProduction.Id;
-      
-      return this.listDataFlag ? this.service.getByOrder(OrderProductionIdContainer).then(result => {
-        for (var datum of result) {
-          if (datum.PreparationDate) {
-            var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
-
-            datum.PreparationDate = InstallationDate;
-          }
-        }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get Data by Weaving Unit
-    if (!this.StartDatePeriod && !this.EndDatePeriod && !this.OrderProduction && this.WeavingUnit && !this.MaterialType && !this.OperationStatus) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      
-      return this.listDataFlag ? this.service.getByWeavingUnit(WeavingUnitIdContainer).then(result => {
-        for (var datum of result) {
-          if (datum.PreparationDate) {
-            var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
-
-            datum.PreparationDate = InstallationDate;
-          }
-        }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
+    }) : {
+      data: {},
+      total: 0
+    };
   }
 
   get orders() {
@@ -241,127 +202,29 @@ export class List {
   }
 
   exportToExcel() {
+    var OrderProductionContainer = this.OrderProduction;
+    var MaterialTypeContainer = this.MaterialType;
+    var OperationStatusContainer = this.OperationStatus;
+    var WeavingUnitContainer = this.WeavingUnit;
+    var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
+    var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+
     //Get All
-    if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      return this.listDataFlag ? this.service.getXlsAll().then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
+    return this.listDataFlag ? this.service.getReportXls(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+      for (var datum of result) {
+        if (datum.PreparationDate) {
+          var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
+
+          datum.PreparationDate = InstallationDate;
+        }
+      }
+      return {
+        data: result,
+        total: length
       };
-    }
-
-    //Get By Fill Weaving Unit Only
-    if (this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnit(WeavingUnitIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Machine Document Only
-    if (!this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getXlsByMachine(MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Block Only
-    if (!this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByBlock(BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Machine Document
-    if (this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Block
-    if (this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Machine and Block
-    if (!this.WeavingUnit && this.MachineDocument && this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit, Machine and Block
-    if (this.WeavingUnit && this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
+    }) : {
+      data: {},
+      total: 0
+    };
   }
 }

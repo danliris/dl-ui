@@ -40,6 +40,74 @@ import {
         return result.data;
       });
     }
+
+    getReportData(order, material, status, weavingUnit, startDate, endDate) {
+        var endpoint = `${serviceUri}/get-report`;
+        var query = '';
+        
+        if (order) {
+            if (query === '') query = `orderId=${(order.Id)}`;
+            else query = `${query}&orderId=${(order.Id)}`;
+        }
+        if (material) {
+            if (query === '') query = `materialId=${(material.Id)}`;
+            else query = `${query}&materialId=${(material.Id)}`;
+        }
+        if (status) {
+            if (query === '') query = `operationStatus=${status}`;
+            else query = `${query}&operationStatus=${status}`;
+        }
+        if (weavingUnit) {
+            if (query === '') query = `weavingId=${weavingUnit.Id}`;
+            else query = `${query}&weavingId=${weavingUnit.Id}`;
+        }        
+        if (startDate) {
+            if (query === '') query = `dateFrom=${(startDate)}`;
+            else query = `${query}&dateFrom=${(startDate)}`;
+        }
+        if (endDate) {
+            if (query === '') query = `dateTo=${(endDate)}`;
+            else query = `${query}&dateTo=${(endDate)}`;
+        }
+        if (query !== '')
+            endpoint = `${serviceUri}/get-report?${query}`;
+
+        return super.get(endpoint);
+    }
+
+    getReportXls(order, material, status, weavingUnit, startDate, endDate) {
+        var endpoint = `${serviceUri}/get-report`;
+        var query = '';
+        
+        if (order) {
+            if (query === '') query = `orderId=${(order.Id)}`;
+            else query = `${query}&orderId=${(order.Id)}`;
+        }
+        if (material) {
+            if (query === '') query = `materialId=${(material.Id)}`;
+            else query = `${query}&materialId=${(material.Id)}`;
+        }
+        if (status) {
+            if (query === '') query = `operationStatus=${status}`;
+            else query = `${query}&operationStatus=${status}`;
+        }
+        if (weavingUnit) {
+            if (query === '') query = `weavingId=${weavingUnit.Id}`;
+            else query = `${query}&weavingId=${weavingUnit.Id}`;
+        }        
+        if (startDate) {
+            if (query === '') query = `dateFrom=${(startDate)}`;
+            else query = `${query}&dateFrom=${(startDate)}`;
+        }
+        if (endDate) {
+            if (query === '') query = `dateTo=${(endDate)}`;
+            else query = `${query}&dateTo=${(endDate)}`;
+        }
+        if (query !== '')
+            endpoint = `${serviceUri}/get-report?${query}`;
+            
+        return super.getXls(endpoint);
+    }
   
     //Get Data Daily Operation Warping Report
     getAll() {
