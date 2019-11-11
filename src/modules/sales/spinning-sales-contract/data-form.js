@@ -87,8 +87,10 @@ export class DataForm {
             if (this.data.Buyer) {
                 if (this.data.Buyer.Type == "Ekspor") {
                     this.termOfPaymentFilter = { "IsExport": true };
+                    this.isExport = true;
                 } else {
                     this.termOfPaymentFilter = { "IsExport": false };
+                    this.isExport = false;
                 }
             }
 
