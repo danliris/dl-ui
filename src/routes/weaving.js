@@ -260,6 +260,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/daily-operation-sizing-report",
+    name: "daily-operation-sizing",
+    moduleId: "./modules/weaving/daily-operation-sizing-report/index",
+    nav: true,
+    title: "Laporan Operasional Mesin Harian Sizing",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/size-pickup-report",
     name: "size-pickup-report",
     moduleId: "./modules/weaving/size-pickup-report/index",
