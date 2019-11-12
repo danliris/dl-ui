@@ -16,11 +16,13 @@ var MaterialTypeLoader = require("../../../loader/weaving-material-type-loader")
 
 @inject(Router, Service)
 export class List {
-  //   @bindable Period;
+  @bindable StartDatePeriod;
+  @bindable EndDatePeriod;
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    this.error = {};
     // this.ShowHideByDatePeriod = false;
     // this.ShowHideByDateRangePeriod = false;
     // this.ShowHideMonthlyPeriod = false;
@@ -165,6 +167,32 @@ export class List {
       total: 0
     };
   }
+
+  // EndDatePeriodChanged(newValue) {
+  //   this.error.EndDatePeriod = "";
+  //   var parsedStartDate = Date.parse(this.StartDatePeriod);
+  //   var parsedEndDate = Date.parse(newValue);
+  //   if (this.StartDatePeriod) {
+  //     if (parsedStartDate > parsedEndDate) {
+  //       this.error.EndDatePeriod = "Tanggal Akhir Tidak Boleh Lebih Dahulu dari Tanggal Mulai";
+  //     } else {
+  //       this.error.EndDatePeriod = "";
+  //     }
+  //   }
+  // }
+
+  // StartDatePeriodChanged(newValue) {
+  //   this.error.StartDatePeriod = "";
+  //   var parsedStartDate = Date.parse(newValue);
+  //   var parsedEndDate = Date.parse(this.EndDatePeriod);
+  //   if (this.EndDatePeriod) {
+  //     if (parsedStartDate > parsedEndDate) {
+  //       this.error.StartDatePeriod = "Tanggal Mulai Tidak Boleh Lebih Lambat dari Tanggal Akhir";
+  //     } else {
+  //       this.error.StartDatePeriod = "";
+  //     }
+  //   }
+  // }
 
   get orders() {
     return OrderLoader;

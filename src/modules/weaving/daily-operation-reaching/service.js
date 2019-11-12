@@ -15,7 +15,7 @@ import {
   Config
 } from "aurelia-api";
 
-const serviceUri = "weaving/daily-operations-reaching-tying";
+const serviceUri = "weaving/daily-operations-reaching";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
