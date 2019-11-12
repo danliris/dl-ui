@@ -12,7 +12,7 @@ import moment from 'moment';
 
 let OrderLoader = require("../../../loader/weaving-order-loader");
 let UnitLoader = require('../../../loader/unit-loader');
-var MaterialTypeLoader = require("../../../loader/weaving-material-type-loader");
+var MachineLoader = require("../../../loader/weaving-machine-loader");
 
 @inject(Router, Service)
 export class List {
@@ -21,20 +21,16 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.ShowHideByDatePeriod = false;
-    // this.ShowHideByDateRangePeriod = false;
-    // this.ShowHideMonthlyPeriod = false;
   }
 
   listDataFlag = false;
 
-  //   periods = ["", "Harian", "Rekap", "Bulanan"];
-
-  //   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-
   operationStatusItems = ["", "ON-PROCESS", "FINISH"];
 
   columns = [{
+    field: "MachineNumber",
+    title: "No. Mesin"
+  }, {
     field: "OrderProductionNumber",
     title: "No. Order Produksi"
   }, {
@@ -44,30 +40,33 @@ export class List {
     field: "WeavingUnit",
     title: "Unit Weaving"
   }, {
-    field: "MaterialType",
-    title: "Jenis Material"
+    field: "RecipeCode",
+    title: "Kode Resep"
   }, {
-    field: "AmountOfCones",
-    title: "Jumlah Cone"
-  }, {
-    field: "ColourOfCones",
-    title: "Warna Cone"
+    field: "NeReal",
+    title: "Ne Real"
   }, {
     field: "OperatorName",
     title: "Operator"
   }, {
-    field: "WarpingOperatorGroup",
-    title: "Grup Warping"
+    field: "SizingOperatorGroup",
+    title: "Grup Sizing"
   }, {
     field: "PreparationDate",
     title: "Tanggal Pasang"
-  }, {
+  },{
     field: "LastModifiedTime",
     title: "Waktu Terakhir Diubah"
   }, {
     field: "Shift",
     title: "Shift"
-  }, ];
+  }, {
+    field: "YarnStrands",
+    title: "Total Helai Beam"
+  }, {
+    field: "EmptyWeight",
+    title: "Total Berat Kosong"
+  }];
 
   controlOptions = {
     label: {
@@ -101,54 +100,18 @@ export class List {
     sortable: false,
   }
 
-  //   PeriodChanged(newValue) {
-  //     switch (newValue) {
-  //       case "":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Harian":
-  //         this.ShowHideByDatePeriod = true;
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Rekap":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = true;
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Bulanan":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = true;
-  //     }
-  //   }
-
   loader = (info) => {
     this.info = {};
 
     var OrderProductionContainer = this.OrderProduction;
-    var MaterialTypeContainer = this.MaterialType;
+    var MachineContainer = this.Machine;
     var OperationStatusContainer = this.OperationStatus;
     var WeavingUnitContainer = this.WeavingUnit;
     var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
     //Get All
-    return this.listDataFlag ? this.service.getReportData(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+    return this.listDataFlag ? this.service.getReportData(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
@@ -174,14 +137,14 @@ export class List {
     return UnitLoader;
   }
 
-  get materialTypes() {
-    return MaterialTypeLoader;
+  get machines() {
+    return MachineLoader;
   }
 
-  searchDailyOperationWarpings() {
+  searchDailyOperationSizings() {
     this.listDataFlag = true;
 
-    this.dailyOperationWarpingsTable.refresh();
+    this.dailyOperationSizingsTable.refresh();
   }
 
   reset() {
@@ -191,29 +154,29 @@ export class List {
     this.EndDatePeriod = undefined;
     this.OrderProduction = undefined;
     this.WeavingUnit = undefined;
-    this.MaterialType = undefined;
+    this.Machine = undefined;
     this.OperationStatus = null;
 
     this.StartDatePeriodContainer = undefined;
     this.EndDatePeriodContainer = undefined;
-    this.OrderProductionIdContainer = undefined;
-    this.WeavingUnitIdContainer = undefined;
-    this.MaterialTypeIdContainer = undefined;
+    this.OrderProductionContainer = undefined;
+    this.WeavingUnitContainer = undefined;
+    this.MachineContainer = undefined;
     this.OperationStatusContainer = null;
 
-    this.dailyOperationWarpingsTable.refresh();
+    this.dailyOperationSizingsTable.refresh();
   }
 
   exportToExcel() {
     var OrderProductionContainer = this.OrderProduction;
-    var MaterialTypeContainer = this.MaterialType;
+    var MachineContainer = this.Machine;
     var OperationStatusContainer = this.OperationStatus;
     var WeavingUnitContainer = this.WeavingUnit;
     var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
     //Get All
-    return this.listDataFlag ? this.service.getReportXls(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+    return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
