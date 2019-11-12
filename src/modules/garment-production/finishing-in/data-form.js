@@ -68,7 +68,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "FINISHING"})
             };
             return this.service.searchSewingOut(info)
                 .then((result) => {
