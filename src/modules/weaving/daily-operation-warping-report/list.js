@@ -62,6 +62,9 @@ export class List {
     field: "PreparationDate",
     title: "Tanggal Pasang"
   }, {
+    field: "LastModifiedTime",
+    title: "Waktu Terakhir Diubah"
+  }, {
     field: "Shift",
     title: "Shift"
   }, ];

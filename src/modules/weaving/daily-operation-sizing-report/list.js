@@ -54,6 +54,9 @@ export class List {
   }, {
     field: "PreparationDate",
     title: "Tanggal Pasang"
+  },{
+    field: "LastModifiedTime",
+    title: "Waktu Terakhir Diubah"
   }, {
     field: "Shift",
     title: "Shift"
@@ -108,7 +111,7 @@ export class List {
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
     //Get All
-    return this.listDataFlag ? this.service.getReportData(OrderProductionContainer, MachineContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+    return this.listDataFlag ? this.service.getReportData(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
@@ -134,6 +137,10 @@ export class List {
     return UnitLoader;
   }
 
+  get machines() {
+    return MachineLoader;
+  }
+
   searchDailyOperationSizings() {
     this.listDataFlag = true;
 
@@ -152,12 +159,12 @@ export class List {
 
     this.StartDatePeriodContainer = undefined;
     this.EndDatePeriodContainer = undefined;
-    this.OrderProductionIdContainer = undefined;
-    this.WeavingUnitIdContainer = undefined;
-    this.MachineIdContainer = undefined;
+    this.OrderProductionContainer = undefined;
+    this.WeavingUnitContainer = undefined;
+    this.MachineContainer = undefined;
     this.OperationStatusContainer = null;
 
-    this.dailyOperationWarpingsTable.refresh();
+    this.dailyOperationSizingsTable.refresh();
   }
 
   exportToExcel() {
@@ -169,7 +176,7 @@ export class List {
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
     //Get All
-    return this.listDataFlag ? this.service.getReportXls(OrderProductionContainer, MachineContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+    return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
