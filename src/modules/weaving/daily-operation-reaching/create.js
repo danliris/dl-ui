@@ -16,7 +16,7 @@ var MachineLoader = require("../../../loader/weaving-machine-loader");
 // var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader-by-order-and-status");
+var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -24,7 +24,7 @@ export class Create {
   @bindable WeavingDocument;
   @bindable OrderDocument;
   @bindable OperatorDocument;
-  @bindable EntryTime;
+  @bindable PreparationTime;
   @bindable BeamsWarping;
 
   beamColumns = [{
@@ -104,7 +104,7 @@ export class Create {
     this.SizingGroup = newValue.Group;
   }
 
-  EntryTimeChanged(newValue) {
+  PreparationTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.Shift = "";
@@ -120,21 +120,34 @@ export class Create {
   }
 
   saveCallback(event) {
-    this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
-    // this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
-    this.data.OrderDocumentId = this.OrderDocument.Id;
-    this.data.SizingBeamId = this.SizingBeamDocument.Id
-    // this.data.PISPieces = this.PISPieces;
-    this.data.OperatorDocumentId = this.OperatorDocument.Id;
+    var preparationData = {};
+    if (this.MachineDocument) {
+      preparationData.MachineDocumentId = this.MachineDocument.Id;
+    }
+    if (this.OrderDocument) {
+      preparationData.OrderDocumentId = this.OrderDocument.Id;
+    }
+    if (this.SizingBeamDocument) {
+      preparationData.SizingBeamId = this.SizingBeamDocument.Id
+    }
+    if (this.OperatorDocument) {
+      preparationData.OperatorDocumentId = this.OperatorDocument.Id;
+    }
 
-    var EntryDateContainer = this.EntryDate;
-    this.data.EntryDate = moment(EntryDateContainer).utcOffset("+07:00").format();
-    this.data.EntryTime = this.EntryTime;
-    this.data.ShiftDocumentId = this.Shift.Id;
+    if (this.PreparationDate) {
+      var PreparationDateContainer = this.PreparationDate;
+      preparationData.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+    }
 
+    if (this.PreparationTime) {
+      preparationData.PreparationTime = this.PreparationTime;
+    }
+    if (this.Shift) {
+      preparationData.ShiftDocumentId = this.Shift.Id;
+    }
+    
     this.service
-      .create(this.data)
+      .create(preparationData)
       .then(result => {
         this.router.navigateToRoute('list');
       })

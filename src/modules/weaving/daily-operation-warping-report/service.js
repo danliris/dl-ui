@@ -108,42 +108,4 @@ import {
             
         return super.getXls(endpoint);
     }
-  
-    //Get Data Daily Operation Warping Report
-    getAll() {
-      var filterType = "get-all";
-      var endpoint = `${serviceUri}/${filterType}`;
-      return super.get(endpoint);
-    }
-    
-    getByOrder(orderId) {
-      var filterType = "get-by-order";
-      var endpoint = `${serviceUri}/${filterType}/${orderId}`;
-      return super.get(endpoint);
-    }
-    
-    getByWeavingUnit(weavingUnitId) {
-      var filterType = "get-by-weaving-unit";
-      var endpoint = `${serviceUri}/${filterType}/${weavingUnitId}`;
-      return super.get(endpoint);
-    }
-  
-    //Export to Excel Daily Operation Warping Report
-    getXlsAll() {
-      var filterType = "get-all";
-      var endpoint = `${serviceUri}/${filterType}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByOrder(orderId) {
-      var filterType = "get-by-order";
-      var endpoint = `${serviceUri}/${filterType}/${orderId}`;
-      return super.getXls(endpoint);
-    }
-    
-    getXlsByWeavingUnit(weavingUnitId) {
-      var filterType = "get-by-weaving-unit";
-      var endpoint = `${serviceUri}/${filterType}/${weavingUnitId}`;
-      return super.getXls(endpoint);
-  }
 }

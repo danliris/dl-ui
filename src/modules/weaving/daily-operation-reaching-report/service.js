@@ -41,7 +41,7 @@ export class Service extends RestService {
     });
   }
 
-  getReportData(machine, order, status, weavingUnit, startDate, endDate) {
+  getReportData(machine, order, constructions, sizingBeam, status, weavingUnit, startDate, endDate) {
     var endpoint = `${serviceUri}/get-report`;
     var query = '';
 
@@ -52,6 +52,14 @@ export class Service extends RestService {
     if (order) {
       if (query === '') query = `orderId=${(order.Id)}`;
       else query = `${query}&orderId=${(order.Id)}`;
+    }
+    if (constructions) {
+      if (query === '') query = `constructionId=${(constructions.Id)}`;
+      else query = `${query}&constructionId=${(constructions.Id)}`;
+    }
+    if (sizingBeam) {
+      if (query === '') query = `sizingBeamId=${(sizingBeam.Id)}`;
+      else query = `${query}&sizingBeamId=${(sizingBeam.Id)}`;
     }
     if (status) {
       if (query === '') query = `operationStatus=${status}`;
@@ -71,11 +79,11 @@ export class Service extends RestService {
     }
     if (query !== '')
       endpoint = `${serviceUri}/get-report?${query}`;
-    
+
     return super.get(endpoint);
   }
 
-  getReportXls(order, material, status, weavingUnit, startDate, endDate) {
+  getReportXls(machine, order, constructions, sizingBeam, status, weavingUnit, startDate, endDate) {
     var endpoint = `${serviceUri}/get-report`;
     var query = '';
 
@@ -86,6 +94,14 @@ export class Service extends RestService {
     if (order) {
       if (query === '') query = `orderId=${(order.Id)}`;
       else query = `${query}&orderId=${(order.Id)}`;
+    }
+    if (constructions) {
+      if (query === '') query = `constructionId=${(constructions.Id)}`;
+      else query = `${query}&constructionId=${(constructions.Id)}`;
+    }
+    if (sizingBeam) {
+      if (query === '') query = `sizingBeamId=${(sizingBeam.Id)}`;
+      else query = `${query}&sizingBeamId=${(sizingBeam.Id)}`;
     }
     if (status) {
       if (query === '') query = `operationStatus=${status}`;
