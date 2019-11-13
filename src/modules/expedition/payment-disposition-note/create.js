@@ -21,6 +21,8 @@ export class Create {
         },
     };
 
+    transactionTypeOptions = ["", "Operasional", "Investasi"]
+
     formOptions = {
         cancelText: 'Kembali',
         saveText: 'Simpan',
