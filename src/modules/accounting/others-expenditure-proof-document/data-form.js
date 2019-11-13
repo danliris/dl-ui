@@ -66,7 +66,7 @@ export class DataForm {
     selectedBankChanged(newValue, oldValue) {
         if (newValue) {
             this.data.AccountBankId = newValue.Id;
-            this.data.AccountBankCode = newValue.Code;
+            this.data.AccountBankCode = newValue.BankCode;
         } else {
             this.data.AccountBankId = 0;
             this.data.AccountBankCode = "";
