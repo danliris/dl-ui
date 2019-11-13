@@ -3,6 +3,9 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Service, AzureService } from './service';
 const SupplierLoader = require('../../../../loader/supplier-loader');
+// const CurrencyLoader = require('../../../../loader/currency-loader');
+// const CategoryLoader = require('../../../../loader/category-loader');
+// const UnitLoader = require('../../../../loader/unit-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
@@ -27,6 +30,11 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
+            { field: 'Currency.Code', title: 'Kurs', rowspan: 2, sortable: true },
+            { title: 'Jumlah', colspan: 4 },
+            { field: 'TotalDay', title: 'Tempo', rowspan: 2, sortable: true },
+            { field: 'Category.Name', title: 'Kategori', rowspan: 2, sortable: true },
+            { field: 'Unit.Name', title: 'Unit', rowspan: 2, sortable: true },
             { field: 'Division.Name', title: 'Divisi', rowspan: 2, sortable: true },
             {
                 field: 'Position', title: 'Posisi', formatter: (value, data, index) => {
@@ -45,7 +53,33 @@ export class List {
             },
             { title: 'Verifikasi', colspan: 3 },
             { title: 'Kasir', colspan: 2 }
-        ], [
+        ], 
+        [
+            {
+                field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+                sortable: true,
+            },
+            
+            {
+                field: 'PPn', title: 'PPn', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+                sortable: true,
+            },
+            {
+                field: 'PPh', title: 'PPh', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+                sortable: true,
+            },
+            {
+                field: 'TotalTax', title: 'Total', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+                sortable: true,
+            },
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
@@ -130,6 +164,18 @@ export class List {
             filter.supplierCode = this.supplier.code;
         }
 
+        // if (this.currency) {
+        //     filter.currencyCode = this.currency.code;
+        // }
+
+        // if (this.category) {
+        //     filter.categoryCode = this.category.code;
+        // }
+
+        // if (this.unit) {
+        //     filter.unitCode = this.unit.code;
+        // }
+
         if (this.division) {
             filter.divisionCode = this.division.code;
         }
@@ -189,6 +235,9 @@ export class List {
         this.flag = false;
         this.unitPaymentOrder = undefined;
         this.supplier = undefined;
+        // this.currency = undefined;
+        // this.category = undefined;
+        // this.unit = undefined;
         this.division = undefined;
         this.status = { value: 0 };
         this.dateFrom = undefined;
@@ -206,6 +255,18 @@ export class List {
         if (this.supplier) {
             filter.supplierCode = this.supplier.code;
         }
+
+        // if (this.currency) {
+        //     filter.currencyCode = this.currency.code;
+        // }
+
+        // if (this.category) {
+        //     filter.categoryCode = this.category.code;
+        // }
+
+        // if (this.unit) {
+        //     filter.unitCode = this.unit.code;
+        // }
 
         if (this.division) {
             filter.divisionCode = this.division.code;
@@ -231,6 +292,18 @@ export class List {
     get divisionLoader() {
         return DivisionLoader;
     }
+    
+    // get currencyLoader() {
+    //     return CurrencyLoader;
+    // }
+
+    // get categoryLoader() {
+    //     return CategoryLoader;
+    // }
+
+    // get unitLoader() {
+    //     return UnitLoader;
+    // }
 
     get unitPaymentOrderLoader() {
         return UnitPaymentOrderLoader;
