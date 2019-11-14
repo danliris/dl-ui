@@ -25,7 +25,7 @@ export class List {
 
   listDataFlag = false;
 
-  operationStatusItems = ["", "ON-PROCESS", "FINISH"];
+  operationStatusItems = ["", "PROCESSING", "FINISH"];
 
   columns = [{
     field: "MachineNumber",
@@ -54,7 +54,7 @@ export class List {
   }, {
     field: "PreparationDate",
     title: "Tanggal Pasang"
-  },{
+  }, {
     field: "LastModifiedTime",
     title: "Waktu Terakhir Diubah"
   }, {
@@ -96,12 +96,13 @@ export class List {
     search: false,
     showToggle: false,
     showColumns: false,
-    pagination: false,
-    sortable: false,
+    pagination: true,
+    sortable: true,
   }
 
   loader = (info) => {
     this.info = {};
+    if (info.sort) order[info.sort] = info.order;
 
     var OrderProductionContainer = this.OrderProduction;
     var MachineContainer = this.Machine;
@@ -109,6 +110,21 @@ export class List {
     var WeavingUnitContainer = this.WeavingUnit;
     var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+
+    var arg = {
+      machineId: MachineContainer,
+      orderDocument: OrderProductionContainer,
+      material: MaterialTypeContainer,
+      status: OperationStatusContainer,
+      weavingUnit: WeavingUnitContainer,
+      startDate: StartDatePeriodContainer,
+      endDate: EndDatePeriodContainer,
+
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    };
 
     //Get All
     return this.listDataFlag ? this.service.getReportData(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {

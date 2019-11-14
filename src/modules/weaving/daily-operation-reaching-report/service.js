@@ -18,7 +18,7 @@ import {
   debug
 } from 'util';
 
-const serviceUri = 'weaving/daily-operations-sizing';
+const serviceUri = 'weaving/daily-operations-reaching';
 
 export class Service extends RestService {
 
@@ -58,8 +58,8 @@ export class Service extends RestService {
       else query = `${query}&constructionId=${(constructions.Id)}`;
     }
     if (sizingBeam) {
-      if (query === '') query = `sizingBeamId=${(sizingBeam.Id)}`;
-      else query = `${query}&sizingBeamId=${(sizingBeam.Id)}`;
+      if (query === '') query = `beamId=${(sizingBeam.Id)}`;
+      else query = `${query}&beamId=${(sizingBeam.Id)}`;
     }
     if (status) {
       if (query === '') query = `operationStatus=${status}`;
@@ -100,8 +100,8 @@ export class Service extends RestService {
       else query = `${query}&constructionId=${(constructions.Id)}`;
     }
     if (sizingBeam) {
-      if (query === '') query = `sizingBeamId=${(sizingBeam.Id)}`;
-      else query = `${query}&sizingBeamId=${(sizingBeam.Id)}`;
+      if (query === '') query = `beamId=${(sizingBeam.Id)}`;
+      else query = `${query}&beamId=${(sizingBeam.Id)}`;
     }
     if (status) {
       if (query === '') query = `operationStatus=${status}`;

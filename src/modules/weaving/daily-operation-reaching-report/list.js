@@ -14,7 +14,7 @@ import {
   const UnitLoader = require('../../../loader/unit-loader');
   const MachineLoader = require("../../../loader/weaving-machine-loader");
   const ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-  const SizingBeamLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
+  const BeamLoader = require("../../../loader/weaving-sizing-beam-loader");
   
   @inject(Router, Service)
   export class List {
@@ -27,7 +27,7 @@ import {
   
     listDataFlag = false;
   
-    operationStatusItems = ["", "ON-PROCESS", "FINISH"];
+    operationStatusItems = ["", "PROCESSING", "FINISH"];
   
     columns = [{
       field: "MachineNumber",
@@ -90,7 +90,7 @@ import {
       showToggle: false,
       showColumns: false,
       pagination: false,
-      sortable: false,
+      sortable: true,
     }
   
     loader = (info) => {
@@ -99,14 +99,14 @@ import {
       var MachineContainer = this.Machine;
       var OrderProductionContainer = this.OrderProduction;
       var FabricConstructionContainer = this.FabricConstruction;
-      var SizingBeamContainer = this.SizingBeam;
+      var BeamContainer = this.Beam;
       var OperationStatusContainer = this.OperationStatus;
       var WeavingUnitContainer = this.WeavingUnit;
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
       var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
   
       //Get All
-      return this.listDataFlag ? this.service.getReportData(MachineContainer, OrderProductionContainer, FabricConstructionContainer, SizingBeamContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+      return this.listDataFlag ? this.service.getReportData(MachineContainer, OrderProductionContainer, FabricConstructionContainer, BeamContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
         for (var datum of result) {
           if (datum.PreparationDate) {
             var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
@@ -140,8 +140,8 @@ import {
       return ConstructionLoader;
     }
   
-    get sizingBeams() {
-      return SizingBeamLoader;
+    get beams() {
+      return BeamLoader;
     }
   
     searchDailyOperationReachings() {
@@ -158,14 +158,14 @@ import {
       this.OperationStatus = null;
       this.WeavingUnit = undefined;
       this.FabricConstruction = undefined;
-      this.SizingBeam = undefined;
+      this.Beam = undefined;
       this.StartDatePeriod = undefined;
       this.EndDatePeriod = undefined;
   
       this.MachineContainer = undefined;
       this.OrderProductionContainer = undefined;
       this.FabricConstructionContainer = undefined;
-      this.SizingBeamContainer = undefined;
+      this.BeamContainer = undefined;
       this.OperationStatusContainer = null;
       this.WeavingUnitContainer = undefined;
       this.StartDatePeriodContainer = undefined;
@@ -178,14 +178,14 @@ import {
         var MachineContainer = this.Machine;
         var OrderProductionContainer = this.OrderProduction;
         var FabricConstructionContainer = this.FabricConstruction;
-        var SizingBeamContainer = this.SizingBeam;
+        var BeamContainer = this.Beam;
         var OperationStatusContainer = this.OperationStatus;
         var WeavingUnitContainer = this.WeavingUnit;
         var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
         var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
     
         //Get All
-        return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, FabricConstructionContainer, SizingBeamContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+        return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, FabricConstructionContainer, BeamContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
           for (var datum of result) {
           if (datum.PreparationDate) {
             var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
