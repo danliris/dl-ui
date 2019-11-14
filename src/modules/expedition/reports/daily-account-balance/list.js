@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import XLSX from 'xlsx';
@@ -41,13 +41,33 @@ export class List {
         }
     ];
 
+    currencyColumns = [
+
+        { field: 'CurrencyCode', title: 'Mata Uang' },
+        {
+            field: 'Debit', title: 'Debit', formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000') : '0';
+            }
+        },
+        {
+            field: 'Credit', title: 'Kredit', formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000') : '0';
+            }
+        },
+        {
+            field: 'Balance', title: 'Saldo', formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000') : '0';
+            }
+        }
+    ];
+
     tableOptions = {
         showColumns: false,
         search: false,
         showToggle: false,
         pagination: false
     };
-
+    @bindable currencyData;
     constructor(service) {
         this.service = service;
         this.info = {};
@@ -88,6 +108,71 @@ export class List {
         }
     }
 
+    currencyLoader = (info) => {
+        let order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        let arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            order: order,
+            select: [],
+        };
+
+        if (this.info.bank && this.info.bank.Id)
+            arg.bankId = this.info.bank.Id;
+
+        if (this.info.startDate && this.info.startDate != 'Invalid Date')
+            arg.startDate = moment(this.info.startDate).format("MM/DD/YYYY");
+
+        if (this.info.endDate && this.info.endDate != 'Invalid Date')
+            arg.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
+
+        // if (!this.flag) {
+        //     this.currencyData = { total: 0, data: [] };
+
+        // }
+
+        return this.flag ? (
+            this.service.searchCurrency(arg)
+                .then((result) => {
+                    // this.error = {}
+
+                    // let before = {};
+
+                    // if (result.data.length != 0) {
+                    //     for (let i in result.data) {
+                    //         if (result.data[i].Currency != before.Currency) {
+                    //             before = result.data[i];
+                    //             before._Currency_rowspan = 1;
+                    //         } else {
+                    //             before._Currency_rowspan++;
+
+                    //             result.data[i].Currency = undefined;
+                    //         }
+                    //         result.data[i].Products = result.data[i].Products || "";
+                    //     }
+                    // }
+                    // setTimeout(() => {
+                    //     $('#credit-balance-table td').each(function () {
+                    //         if ($(this).html() === '-')
+                    //             $(this).hide();
+                    //     })
+                    // }, 10);
+
+                    // console.log(result)
+                    // this.currencyData = {
+                    //     data: result.data.CurrencyReports
+                    // }
+                    return {
+                        // total: result.info.Count,
+                        data: result.data
+                    };
+                })
+        ) : Promise.resolve({ total: 0, data: [] });
+    }
+
     loader = (info) => {
         let order = {};
         if (info.sort)
@@ -108,6 +193,11 @@ export class List {
 
         if (this.info.endDate && this.info.endDate != 'Invalid Date')
             arg.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
+
+        // if (!this.flag) {
+        //     this.currencyData = { total: 0, data: [] };
+
+        // }
 
         return this.flag ? (
             this.service.search(arg)
@@ -137,7 +227,9 @@ export class List {
                     // }, 10);
 
                     // console.log(result)
-
+                    // this.currencyData = {
+                    //     data: result.data.CurrencyReports
+                    // }
                     return {
                         // total: result.info.Count,
                         data: result.data
@@ -150,6 +242,7 @@ export class List {
         this.error = {};
         this.flag = this.validate();
         this.tableList.refresh();
+        this.currencyTableList.refresh();
     }
 
     excel() {
@@ -175,7 +268,7 @@ export class List {
             // this.tableList.refresh();
 
             let params = {
-                bankId: this.info.bank.Id,
+                bankId: this.info.bank ? this.info.bank.Id : 0,
                 startDate: moment(this.info.startDate).format("MM/DD/YYYY"),
                 endDate: moment(this.info.endDate).format("MM/DD/YYYY")
             }
@@ -196,6 +289,7 @@ export class List {
         this.data = [];
         this.flag = false;
         this.tableList.refresh();
+        this.currencyTableList.refresh();
     }
 
     get bankLoader() {

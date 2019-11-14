@@ -52,11 +52,16 @@
     </form>
 
     <div id="daily-balance">
-        <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable="true" page-size="25"
-            options.bind="tableOptions">
+        <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns"
+            sortable="true" page-size="25" options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="excel()">Excel</button>
             </div>
+        </au-table>
+        <br><br>
+        <au-table view-model.ref="currencyTableList" data.bind="currencyLoader" columns.bind="currencyColumns"
+            sortable="true" options.bind="tableOptions">
+
         </au-table>
     </div>
 </template>
