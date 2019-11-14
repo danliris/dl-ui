@@ -109,11 +109,19 @@
 
     <au-textbox
       label="Satuan"
-      value.bind="data.ProductionOrder.Uom.Unit" 
+      value.bind="data.SelectedProductionOrderDetail.Uom.Unit" 
       read-only.bind="true"
       if.bind="hasColor"
       options.bind="controlOptions">
     </au-textbox>
+
+    <!-- <au-textbox
+      label="Satuan"
+      value.bind="data.ProductionOrder.Uom.Unit" 
+      read-only.bind="true"
+      if.bind="isReprocess"
+      options.bind="controlOptions">
+    </au-textbox> -->
 
     <au-textbox 
       label="Grade" 

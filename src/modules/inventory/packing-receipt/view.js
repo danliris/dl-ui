@@ -26,7 +26,7 @@ export class View {
             var delivered;
             for (var item of this.data.Items) {
                 var properties = Object.getOwnPropertyNames(item);
-                delivered = properties.find((property) => property.toString().toLowerCase() === "Isdelivered");
+                delivered = properties.find((property) => property.toString().toLowerCase() === "isdelivered");
 
                 if (delivered) {
                     if (item.IsDelivered || this.data.IsVoid) {
