@@ -28,7 +28,8 @@ export class List {
                 return numeral(value).format('0,000.00');
             },
         },
-        { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo'}
+        { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo'},
+        { field: 'TransactionType', title: 'Jenis Transaksi'}
     ];
 
     constructor(router, service) {
