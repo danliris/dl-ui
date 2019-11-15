@@ -481,27 +481,52 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation.Areas) {
-            var deliveryDate = this.data.ProductionOrder.DeliveryDate;
+        if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
 
-            this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
-                if (step.ProcessArea && step.ProcessArea != "" && !step.Deadline) {
-                    var d = new Date(deliveryDate);
-                    var totalDay = 0;
+            // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
 
-                    for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
-                        var area = this.data.durationEstimation.Areas[i];
-                        totalDay += area.Duration;
+            var totalDay = 1;
+            for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                var step = this.data.Instruction.Steps[i];
+                if (step.ProcessArea && step.ProcessArea != "") {
+                    // var d = new Date(deliveryDate);
+                    // var totalDay = 0;
 
-                        if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
-                            break;
+                    // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                    //     var area = this.data.durationEstimation.Areas[i];
+                    //     totalDay += area.Duration;
+
+                    //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                    //         break;
+                    // }
+
+                    // d.setDate(d.getDate() - totalDay + 1);
+
+                    var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                    // if (i == this.data.Instruction.Steps.length - 1) {
+                    //     deadline = deadline.add(-1, 'days');
+                    // } else {
+                    //     deadline = 
+                    // }
+
+                    if (i == this.data.Instruction.Steps.length - 1) {
+                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                        totalDay += durationEstimationArea.Duration;
                     }
-
-                    d.setDate(d.getDate() - totalDay + 1);
-
-                    step.Deadline = new Date(d);
+                    else {
+                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                        totalDay += durationEstimationArea.Duration;
+                    }
+                    // deadline = deadline.add(totalDay * -1, 'days');
                 }
 
+                // return step;
+            }
+            // });
+        }
+        else {
+            this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                step.Deadline = null;
                 return step;
             });
         }
