@@ -143,7 +143,6 @@ export class DataForm {
 
                 Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                     .then(result => {
-                        console.log(result)
                         for(var sewingIn of result.data){
                             for(var sewingInItem of sewingIn.Items){
                                 var item={};
@@ -162,7 +161,6 @@ export class DataForm {
                             }
                         }
                     });
-                    console.log(this.data.Items);
             }
             else {
                 this.context.selectedROViewModel.editorValue = "";
@@ -196,10 +194,8 @@ export class DataForm {
                                     roList.push(a);
                                 }
                             }
-                            
                         }
                         return roList;
-                    
                 });
         }
     }
