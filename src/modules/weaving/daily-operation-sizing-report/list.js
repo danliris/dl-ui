@@ -128,8 +128,8 @@ export class List {
       orderId: OrderProductionIdContainer,
       operationStatus: OperationStatusContainer,
       unitId: WeavingUnitIdContainer,
-      startDate: StartDatePeriodContainer,
-      endDate: EndDatePeriodContainer,
+      dateFrom: StartDatePeriodContainer,
+      dateTo: EndDatePeriodContainer,
 
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
