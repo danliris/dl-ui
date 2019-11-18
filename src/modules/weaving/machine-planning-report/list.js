@@ -63,295 +63,44 @@ export class List {
     search: false,
     showToggle: false,
     showColumns: false,
-    pagination: false,
-    sortable: false,
+    pagination: true,
+    sortable: true,
   }
 
   loader = (info) => {
-    this.info = {};
+    let order = {};
+    if (info.sort) order[info.sort] = info.order
 
-    //Get All
-    if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      return this.listDataFlag ? this.service.getAll().then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
+    if (this.WeavingUnit) {
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+    }
+    if (this.MachineDocument) {
+      var MachineDocumentIdContainer = this.MachineDocument.Id;
+    }
+    if (this.Block) {
+      var BlockContainer = this.Block;
     }
 
-    //Get By Fill Weaving Unit Only
-    if (this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
+    var arg = {
+      machineId: MachineDocumentIdContainer,
+      block: BlockContainer,
+      unitId: WeavingUnitIdContainer,
 
-      return this.listDataFlag ? this.service.getByWeavingUnit(WeavingUnitIdContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    };
 
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
+    return this.listDataFlag ? this.service.getReportData(arg).then(result => {
+      return {
+        data: result.data,
+        total: result.info.count
       };
-    }
-
-    //Get By Fill Machine Document Only
-    if (!this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getByMachine(MachineDocumentIdContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Block Only
-    if (!this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getByBlock(BlockContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Machine Document
-    if (this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Block
-    if (this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Machine and Block
-    if (!this.WeavingUnit && this.MachineDocument && this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit, Machine and Block
-    if (this.WeavingUnit && this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
-        // if (result && result.length > 0) {
-        //   let getUnitPromises = result.map(planning =>
-        //     this.service.getUnitById(planning.WeavingUnit)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(weavingUnits => {
-        //     for (var machinePlanning of result) {
-        //       if (weavingUnits && weavingUnits.length > 0) {
-        //         let weavingUnit = weavingUnits.find(
-        //           unitResult => machinePlanning.WeavingUnit == unitResult.Id
-        //         );
-        //         machinePlanning.WeavingUnit = weavingUnit.Name;
-        //       }
-        //     }
-        //     return {
-        //       data: result,
-        //       total: length
-        //     };
-        //   });
-        // }
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
+    }) : {
+      data: {},
+      total: 0
+    };
   }
 
   get units() {
@@ -383,127 +132,24 @@ export class List {
   }
 
   exportToExcel() {
-    //Get All
-    if (!this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      return this.listDataFlag ? this.service.getXlsAll().then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
+    if (this.WeavingUnit) {
+      var WeavingUnitContainer = this.WeavingUnit;
+    }
+    if (this.MachineDocument) {
+      var MachineDocumentContainer = this.MachineDocument;
+    }
+    if (this.Block) {
+      var BlockContainer = this.Block;
     }
 
-    //Get By Fill Weaving Unit Only
-    if (this.WeavingUnit && !this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnit(WeavingUnitIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
+    return this.listDataFlag ? this.service.getReportXls(MachineDocumentContainer, BlockContainer, WeavingUnitContainer).then(result => {
+      return {
+        data: result,
+        total: length
       };
-    }
-
-    //Get By Fill Machine Document Only
-    if (!this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getXlsByMachine(MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Block Only
-    if (!this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByBlock(BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Machine Document
-    if (this.WeavingUnit && this.MachineDocument && !this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnitMachine(WeavingUnitIdContainer, MachineDocumentIdContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit and Block
-    if (this.WeavingUnit && !this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByWeavingUnitBlock(WeavingUnitIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Machine and Block
-    if (!this.WeavingUnit && this.MachineDocument && this.Block) {
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsByMachineBlock(MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
-
-    //Get By Fill Weaving Unit, Machine and Block
-    if (this.WeavingUnit && this.MachineDocument && this.Block) {
-      let WeavingUnitIdContainer = this.WeavingUnit.Id;
-      let MachineDocumentIdContainer = this.MachineDocument.Id;
-      let BlockContainer = this.Block;
-
-      return this.listDataFlag ? this.service.getXlsAllSpecified(WeavingUnitIdContainer, MachineDocumentIdContainer, BlockContainer).then(result => {
-        return {
-          data: result,
-          total: length
-        };
-      }) : {
-        data: {},
-        total: 0
-      };
-    }
+    }) : {
+      data: {},
+      total: 0
+    };
   }
 }

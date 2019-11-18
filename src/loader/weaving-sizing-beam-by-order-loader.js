@@ -15,7 +15,8 @@ module.exports = function (keyword, filter) {
     .find(resource, {
       keyword: keyword,
       filter: JSON.stringify(filter),
-      size: 10
+      size: 10,
+      page : 1
     })
     .then(results => {
       return results.data.map(beam => {
