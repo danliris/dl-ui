@@ -142,4 +142,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/aval-component',
+        name: 'garment-production-aval-component',
+        moduleId: './modules/garment-production/aval-component/index',
+        nav: true,
+        title: 'Aval Komponen',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
