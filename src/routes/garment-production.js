@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: '/garment-production/comodity-price',
+        name: 'comodity-price',
+        moduleId: './modules/garment-production/comodity-price/index',
+        nav: true,
+        title: 'Master Tarif',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/preparing',
         name: 'preparing',
         moduleId: './modules/garment-production/preparing/index',
