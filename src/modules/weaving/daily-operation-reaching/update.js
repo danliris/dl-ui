@@ -18,10 +18,10 @@ export class Update {
   @bindable ReachingInCombProcess;
   @bindable ReachingInStartTime;
   @bindable ChangeOperatorReachingInTime;
-  // @bindable ReachingInFinishTime;
   @bindable CombStartTime;
   @bindable ChangeOperatorCombTime;
-  // @bindable CombFinishTime;
+  @bindable ChangeOperatorReachingInYarnStrandsProcessed;
+  @bindable ChangeOperatorCombYarnStrandsProcessed
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -34,6 +34,9 @@ export class Update {
     this.isReachingInChangeOperatorDisabled = false;
     this.isCombStartDisabled = false;
     this.isCombChangeOperatorDisabled = false;
+
+    this.showHideReachingInWidth = false;
+    this.showHideCombWidth = false;
 
     this.data.ReachingInYarnStrandsProcessed = 0;
     this.data.CombYarnStrandsProcessed = 0;
@@ -136,13 +139,72 @@ export class Update {
             this.isCombChangeOperatorDisabled = false;
           }
           break;
+        case "REACHING-IN-FINISH":
+          var isCombStart = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "COMB-START") {
+              isCombStart = true;
+            }
+          });
+
+          if (isCombStart != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = false;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
+          break;
         case "COMB-START":
-          this.isReachingInStartDisabled = true;
-          this.isReachingInChangeOperatorDisabled = false;
-          this.isCombStartDisabled = true;
-          this.isCombChangeOperatorDisabled = false;
+          var isReachingInChangeOperator = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "REACHING-IN-FINISH") {
+              isReachingInChangeOperator = true;
+            }
+          });
+
+          if (isReachingInChangeOperator != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
           break;
         case "COMB-CHANGE-OPERATOR":
+          var reachingInYarnStrands = 0;
+          var combYarnStrands = 0;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR" || history.MachineStatus == "REACHING-IN-FINISH") {
+              reachingInYarnStrands += history.YarnStrandsProcessed;
+              this.data.ReachingInYarnStrandsProcessed = reachingInYarnStrands;
+            } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+              combYarnStrands += history.YarnStrandsProcessed;
+              this.data.CombYarnStrandsProcessed = combYarnStrands;
+            }
+          });
+
+          if (reachingInYarnStrands < this.data.SizingYarnStrands) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
+          break;
+        case "COMB-FINISH":
           this.isReachingInStartDisabled = true;
           this.isReachingInChangeOperatorDisabled = true;
           this.isCombStartDisabled = true;
@@ -232,6 +294,60 @@ export class Update {
     } else {
       this.showHideReachingInMenu = false;
       this.showHideCombMenu = false;
+    }
+  }
+
+  ChangeOperatorReachingInYarnStrandsProcessedChanged(newValue) {
+    this.error.ChangeOperatorReachingInYarnStrandsProcessed = "";
+    this.showHideReachingInWidth = false;
+
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
+    this.Log.forEach(history => {
+      if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
+      }
+    });
+    var sumOfReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed + newValue;
+
+    if (sumOfReachingInYarnStrandsProcessed > this.data.SizingYarnStrands) {
+      this.error.ChangeOperatorReachingInYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
+    } else if (sumOfReachingInYarnStrandsProcessed == this.data.SizingYarnStrands) {
+      this.showHideReachingInWidth = true;
+    } else {
+      this.error.ChangeOperatorReachingInYarnStrandsProcessed = "";
+      this.showHideReachingInWidth = false;
+      this.ChangeOperatorReachingInFinishWidth = undefined;
+    }
+  }
+
+  ChangeOperatorCombYarnStrandsProcessedChanged(newValue) {
+    this.error.ChangeOperatorCombYarnStrandsProcessed = "";
+    this.showHideCombWidth = false;
+
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
+    this.Log.forEach(history => {
+      if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
+      }
+    });
+    var sumOfCombYarnStrandsProcessed = combYarnStrandsProcessed + newValue;
+
+    if (sumOfCombYarnStrandsProcessed > this.data.ReachingInYarnStrandsProcessed && sumOfCombYarnStrandsProcessed > this.data.SizingYarnStrands) {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai pada Beam Sizing ";
+    } else if (sumOfCombYarnStrandsProcessed > this.data.ReachingInYarnStrandsProcessed) {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai yang telah Dicucuk ";
+    } else if (reachingInYarnStrandsProcessed == this.data.ReachingInYarnStrandsProcessed && reachingInYarnStrandsProcessed == sumOfCombYarnStrandsProcessed) {
+      this.showHideCombWidth = true;
+    } else {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = "";
+      this.showHideCombWidth = false;
+      this.ChangeOperatorCombWidth = undefined;
     }
   }
 
@@ -617,7 +733,7 @@ export class Update {
         changeOperatorCombData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
 
         this.service
-          .updateReachingInChangeOperator(changeOperatorCombData.Id, changeOperatorCombData)
+          .updateCombChangeOperator(changeOperatorCombData.Id, changeOperatorCombData)
           .then(result => {
             location.reload();
           })
