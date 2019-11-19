@@ -10,6 +10,7 @@ export class Item {
     this.error = this.context.error;		
     this.options = this.context.options;   
     this.data.isEdit=true;
+    this.comodity=`${this.data.Comodity.Code}-${this.data.Comodity.Name}`;
   }
 
 

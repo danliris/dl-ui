@@ -30,7 +30,7 @@ export class Item {
         }
 
         comodityView = (comodity) => {
-            return `${comodity.Name}`;
+            return `${comodity.Code}-${comodity.Name}`;
         }
 
         get comodityLoader() {

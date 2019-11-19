@@ -71,6 +71,7 @@ export class DataForm {
                         item.Price=data.Price;
                         item.NewPrice=data.Price;
                         item.Id=data.Id;
+                        item.Date=data.Date;
                         this.data.Items.push(item);
                     }
                 });
