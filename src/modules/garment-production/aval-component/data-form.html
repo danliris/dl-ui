@@ -1,0 +1,98 @@
+<template>
+    <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-textbox
+            if.bind="data.AvalComponentNo"
+            value.bind="data.AvalComponentNo"
+            label="No Bon Aval"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete
+            value.bind="data.Unit"
+            error.bind="error.Unit"
+            label="Unit Bon Aval"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown
+            label="Asal Barang"
+            value.bind="data.AvalComponentType"
+            error.bind="error.AvalComponentType"
+            read-only.bind="readOnly || isEdit"
+            items.bind="avalComponentTypes"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-autocomplete
+            if.bind="data.AvalComponentType == 'CUTTING'"
+            value.bind="selectedCuttingIn"
+            error.bind="error.RONo"
+            label="RO Cutting In"
+            loader.bind="cuttingInLoader"
+            query.bind="cuttingInFilter"
+            text="RONo"
+            placeholder="Nomor RO"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedCuttingInViewModel">
+        </au-autocomplete>
+
+        <au-autocomplete
+            if.bind="data.AvalComponentType == 'SEWING'"
+            value.bind="selectedSewingOut"
+            error.bind="error.RONo"
+            label="RO Sewing Out"
+            loader.bind="sewingOutLoader"
+            query.bind="sewingOutFilter"
+            text="RONo"
+            placeholder="Nomor RO"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedSewingOutViewModel">
+        </au-autocomplete>
+
+        <au-textbox
+            value.bind="data.Article"
+            label="No Artikel"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            if.bind="data.AvalComponentType == 'SEWING'"
+            value.bind="data.Comodity.Name"
+            label="Komoditi"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tanggal Aval Komponen"
+            value.bind="data.Date"
+            error.bind="error.Date"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-datepicker> 
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="detailsColumns" 
+            read-only.bind="readOnly"
+            options.bind="itemsOptions"
+            item-template="modules/garment-production/aval-component/template/item"
+            view-model.ref="ItemsCollection">
+        </au-collection>
+
+    </au-input-form>
+    <div class="row"></div>
+</template>

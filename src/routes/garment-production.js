@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: '/garment-production/comodity-price',
+        name: 'comodity-price',
+        moduleId: './modules/garment-production/comodity-price/index',
+        nav: true,
+        title: 'Master Tarif',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/preparing',
         name: 'preparing',
         moduleId: './modules/garment-production/preparing/index',
@@ -135,6 +148,19 @@ module.exports = [
         moduleId: './modules/garment-production/finishing-in/index',
         nav: true,
         title: 'Finishing In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/aval-component',
+        name: 'garment-production-aval-component',
+        moduleId: './modules/garment-production/aval-component/index',
+        nav: true,
+        title: 'Aval Komponen',
         auth: true,
         settings: {
             group: "g-production",
