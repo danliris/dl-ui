@@ -34,8 +34,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        // if(this.data.Unit && !this.data.Unit.Id){this.data.Unit.Id=0;}
-        // this.data.ProcessDate = this.data.ProcessDate ? moment(this.data.ProcessDate).format("DD MMM YYYY") : null;
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
