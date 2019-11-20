@@ -9,8 +9,12 @@ export class Item {
 
         this.options = this.context.context.options;
 
-        if (this.options.type !== 'SEWING') {
+        if (this.options.type !== 'CUTTING') {
             this.readOnly = true;
         }
+    }
+
+    changeCheckBox() {
+        this.context.headerContext.checkedAll = this.context.context.items.reduce((accItem, currItem) => accItem && currItem.IsSave, true);
     }
 }
