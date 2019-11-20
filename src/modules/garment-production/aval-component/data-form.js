@@ -17,8 +17,6 @@ export class DataForm {
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-
-        this.data.Items = this.itemsDummy;
     }
 
     formOptions = {
@@ -42,7 +40,7 @@ export class DataForm {
     ];
 
     @computedFrom("data.AvalComponentType")
-    get detailsColumns() {
+    get itemsColumns() {
         return  [
             "Kode Barang",
             "Keterangan",
@@ -51,20 +49,9 @@ export class DataForm {
         ].concat(this.data.AvalComponentType == "SEWING" ? ["Size"] : []);
     }
 
-    detailsColumnsView = [
-        { value: "ProductCode", header: "Kode Barang" },
-        { value: "DesignColor", header: "Keterangan" },
-        { value: "CuttingInQuantity", header: "Jumlah Potong" },
-        { value: "RemainingQuantity", header: "Sisa" },
-        { value: "CuttingInUomUnit", header: "Satuan" },
-        { value: "BasicPrice", header: "Harga" },
-        { value: "Currency", header: "Mata Uang" },
-    ];
-
     @computedFrom("data.Unit")
     get cuttingInFilter() {
         this.selectedCuttingIn = null;
-        this.selectedSewingOut = null;
 
         if (this.data.Unit) {
             return {
@@ -79,16 +66,15 @@ export class DataForm {
 
     @computedFrom("data.Unit")
     get sewingOutFilter() {
-        this.selectedCuttingIn = null;
         this.selectedSewingOut = null;
 
         if (this.data.Unit) {
             return {
-                UnitId: this.data.Unit.Id
+                UnitToId: this.data.Unit.Id
             };
         } else {
             return {
-                UnitId: 0
+                UnitToId: 0
             };
         }
     }
@@ -129,8 +115,8 @@ export class DataForm {
             this.data.Comodity = newValue.Comodity;
 
             Promise.resolve(this.service.getSewingOut({
-                filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }),
-                select: "new (IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
+                filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id }),
+                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
             }))
                 .then(result => {
                     this.data.Items = [];
@@ -145,6 +131,7 @@ export class DataForm {
                                         //     SourceQuantity: detail.Quantity
                                         // }));
                                         this.data.Items.push({
+                                            IsSave: true,
                                             IsDifferentSize: data.IsDifferentSize,
                                             SewingOutItemId: item.SewingOutItemId,
                                             Product: item.Product,
@@ -160,6 +147,7 @@ export class DataForm {
                             } else {
                                 if (item.RemainingQuantity > 0) {
                                     this.data.Items.push(Object.assign(item, {
+                                        IsSave: true,
                                         Quantity: item.RemainingQuantity,
                                         SourceQuantity: item.RemainingQuantity
                                     }));
@@ -167,6 +155,7 @@ export class DataForm {
                             }
                         });
                     });
+                    this.context.checkedAll = true;
                 });
         }
         else {
@@ -191,10 +180,14 @@ export class DataForm {
                     result.data.forEach(data => {
                         (data.Items || []).forEach(item => {
                             (item.Details || []).forEach(detail => {
-                                this.data.Items.push(Object.assign(detail, {
-                                    Quantity: detail.RemainingQuantity,
-                                    CuttingInDetailId: detail.Id
-                                }));
+                                if (detail.RemainingQuantity > 0) {
+                                    this.data.Items.push(Object.assign(detail, {
+                                        IsSave: true,
+                                        Quantity: detail.RemainingQuantity,
+                                        CuttingInDetailId: detail.Id,
+                                        SourceQuantity: detail.RemainingQuantity
+                                    }));
+                                }
                             });
                         });
                     });
@@ -204,6 +197,7 @@ export class DataForm {
 
                     //         })
                     //     })), []);
+                    this.context.checkedAll = true;
                 });
             return;
         }
@@ -213,5 +207,9 @@ export class DataForm {
             this.data.Article = null;
             this.data.Items = [];
         }
+    }
+
+    changeCheckedAll() {
+        (this.data.Items || []).forEach(i => i.IsSave = this.context.checkedAll);
     }
 }

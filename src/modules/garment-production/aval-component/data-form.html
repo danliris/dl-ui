@@ -19,7 +19,7 @@
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -27,7 +27,7 @@
             label="Asal Barang"
             value.bind="data.AvalComponentType"
             error.bind="error.AvalComponentType"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             items.bind="avalComponentTypes"
             options.bind="controlOptions">
         </au-dropdown>
@@ -41,7 +41,7 @@
             query.bind="cuttingInFilter"
             text="RONo"
             placeholder="Nomor RO"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions"
             view-model.ref="selectedCuttingInViewModel">
         </au-autocomplete>
@@ -55,7 +55,7 @@
             query.bind="sewingOutFilter"
             text="RONo"
             placeholder="Nomor RO"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions"
             view-model.ref="selectedSewingOutViewModel">
         </au-autocomplete>
@@ -79,19 +79,57 @@
             label="Tanggal Aval Komponen"
             value.bind="data.Date"
             error.bind="error.Date"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
 
-        <au-collection 
+        <!-- <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items" 
-            columns.bind="detailsColumns" 
+            columns.bind="itemsColumns" 
             read-only.bind="readOnly"
             options.bind="itemsOptions"
             item-template="modules/garment-production/aval-component/template/item"
             view-model.ref="ItemsCollection">
-        </au-collection>
+        </au-collection> -->
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th if.bind="data.AvalComponentType == 'CUTTING'" show.bind="!readOnly">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked.bind="checkedAll"
+                                change.delegate="changeCheckedAll()"
+                                disabled.bind="readOnly" />
+                        </label>
+                    </th>
+                    <template repeat.for="column of itemsColumns">
+                        <th><label>${column}</label></th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <!--No data to display-->
+                <tr if.bind="!data.Items || data.Items.length < 1">
+                    <td colspan="${itemsColumns.length + 1}">
+                        <div class="alert alert-info"> No data.</div>
+                    </td>
+                </tr>
+
+                <!--with-template-->
+                <tr
+                    if.bind="data.Items && data.Items.length > 0"
+                    repeat.for="item of data.Items"
+                    as-element="compose"
+                    view="modules/garment-production/aval-component/template/item.html"
+                    view-model="modules/garment-production/aval-component/template/item"
+                    model.bind="{ data: item, error: error.Items[$index], context: { columns: itemsColumns, options: itemsOptions, items: data.Items }, headerContext: context }"
+                    containerless>
+                </tr>
+            </tbody>
+        </table>
 
     </au-input-form>
     <div class="row"></div>
