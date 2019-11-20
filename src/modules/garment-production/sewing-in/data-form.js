@@ -18,6 +18,7 @@ export class DataForm {
     @bindable selectedUnit;
     @bindable selectedSewingFrom;
     @bindable selectedSewingOut;
+    @bindable selectedUnitFrom;
 
     constructor(service) {
         this.service = service;
@@ -147,7 +148,9 @@ export class DataForm {
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity = null;
-        this.data.UnitFrom = null;
+        if(this.isCutting)
+            this.data.UnitFrom = null;
+        this.selectedSewingOut=null;
         this.selectedLoading=null;
         delete this.data.LoadingId;
         this.data.LoadingNo =null;
@@ -159,10 +162,28 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity = null;
-            this.data.UnitFrom = null;
+            if(this.isCutting)
+                this.data.UnitFrom = null;
             this.selectedLoading=null;
+            this.selectedSewingOut=null;
             delete this.data.LoadingId;
             this.data.LoadingNo =null;
+        }
+    }
+
+    selectedUnitFromChanged(newValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.selectedSewingOut=null;
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.selectedSewingOut=null;
         }
     }
 
@@ -307,7 +328,6 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.UnitFrom = null;
             this.data.Items = [];
         }
     }
