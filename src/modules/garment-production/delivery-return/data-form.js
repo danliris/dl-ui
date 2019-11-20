@@ -46,6 +46,11 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    returnTypes = [
+        "RETUR",
+        "SISA PRODUKSI"
+    ]
+
     itemsColumns = [""];
 
     bind(context) {
@@ -53,11 +58,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.ReturnType = "RETUR";
         this.itemOptions = {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,
-            checkedAll: this.data.Items.reduce((acc, curr) => acc && cur.IsSave, false)
+            checkedAll: this.data.Items.reduce((acc, curr) => acc && cur.IsSave, false),
+            returnType: this.returnTypes[0]
         }
         if (this.data.DRNo && this.data.Items) {
             this.Storages = {};
@@ -94,6 +99,11 @@ export class DataForm {
 
     get unitDOLoader() {
         return UnitDOLoader;
+    }
+
+    returnTypeChanged(e) {
+        this.itemOptions.returnType = e.target.value;
+        this.Unit = null;
     }
 
     async UnitChanged(newValue){
@@ -162,7 +172,7 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
-            this.context.selectedUnitDOViewModel.editorValue = "";_suggestions
+            this.context.selectedUnitDOViewModel.editorValue = "";
             this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         }
@@ -193,7 +203,9 @@ export class DataForm {
             this.data.UnitDONo = newValue.UnitDONo;
             this.data.PreparingId = dataPreparing.data.length>0 ? dataPreparing.data[0].Id : null;
             for(var itemUnitDO of newValue.Items){
-                for(var item of dataExpenditure.data[0].Items){
+                const item = dataExpenditure.data[0].Items.find(f => f.UnitDOItemId == itemUnitDO.Id);
+                
+                if (item) {
                     var qty = 0;
                     var preparingItemId = null;
                     var RemainingQuantityPreparingItem = 0;
@@ -222,21 +234,20 @@ export class DataForm {
                     product.Name = item.ProductName;
                     uom.Id = item.UomId;
                     uom.Unit = item.UomUnit;
-                    if(itemUnitDO.Id == item.UnitDOItemId){
-                        var items = {
-                            Product : product,
-                            DesignColor : itemUnitDO.DesignColor,
-                            RONo : item.RONo,
-                            Quantity : qty,
-                            Uom : uom,
-                            UnitDOItemId : itemUnitDO.Id,
-                            UENItemId : item.Id,
-                            PreparingItemId : preparingItemId,
-                            QuantityUENItem : qty,
-                            RemainingQuantityPreparingItem : qty,
-                        }
-                        this.data.Items.push(items);
+
+                    var items = {
+                        Product : product,
+                        DesignColor : itemUnitDO.DesignColor,
+                        RONo : item.RONo,
+                        Quantity : qty,
+                        Uom : uom,
+                        UnitDOItemId : itemUnitDO.Id,
+                        UENItemId : item.Id,
+                        PreparingItemId : preparingItemId,
+                        QuantityUENItem : qty,
+                        RemainingQuantityPreparingItem : qty,
                     }
+                    this.data.Items.push(items);
                 }
             }
         } 
