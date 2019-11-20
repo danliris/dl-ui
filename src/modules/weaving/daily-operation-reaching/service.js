@@ -91,6 +91,12 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
+  updateCombChangeOperator(Id, data) {
+    var status = "comb-change-operator";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
   updateCombFinish(Id, data) {
     var status = "comb-finish";
     var endpoint = `${serviceUri}/${Id}/${status}`;

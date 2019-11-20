@@ -16,8 +16,9 @@
           <au-textbox placeholder="No. Konstruksi" value.bind="data.ConstructionNumber"
             error.bind="error.ConstructionNumber" read-only.bind="true"></au-textbox>
         </div>
-      </div>
-      <div class="row" style="white-space: nowrap;">
+        <!-- </div>
+
+      <div class="row" style="white-space: nowrap;"> -->
         <div class="col-md-2" style="text-align:left;">
           <textbox label="No. Beam" read-only="true" style="display: inline-block"></textbox>
         </div>
@@ -26,6 +27,34 @@
             read-only.bind="true"></au-textbox>
         </div>
       </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Helai Benang" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Jumlah Helai Benang" value.bind="data.SizingYarnStrands"
+            error.bind="error.SizingYarnStrands" read-only.bind="true"></au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Helai Benang Cucuk Diproses" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Jumlah Helai Benang Cucuk Diproses" value.bind="data.ReachingInYarnStrandsProcessed"
+            error.bind="error.ReachingInYarnStrandsProcessed" read-only.bind="true"></au-textbox>
+        </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Helai Benang Sisir Diproses" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox placeholder="Jumlah Helai Benang Sisir Diproses" value.bind="data.CombYarnStrandsProcessed"
+            error.bind="error.CombYarnStrandsProcessed" read-only.bind="true"></au-textbox>
+        </div>
+      </div>
+
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Proses" read-only="true" style="display: inline-block"></textbox>
@@ -44,14 +73,15 @@
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
-          <button class="btn btn-default" click.delegate="reachingInChangeOperator()" disabled.bind="isReachingInChangeOperatorDisabled"
+          <button class="btn btn-default" click.delegate="reachingInChangeOperator()"
+            disabled.bind="isReachingInChangeOperatorDisabled"
             style="margin-bottom: 16px; background-color: rgb(35, 98, 180); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Ganti Operator
           </button>
-          <button class="btn btn-default" click.delegate="reachingInFinish()" disabled.bind="isReachingInFinishDisabled"
+          <!-- <button class="btn btn-default" click.delegate="reachingInFinish()" disabled.bind="isReachingInFinishDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Selesai
-          </button>
+          </button> -->
         </div>
 
         <!-- Reaching In Start Menu -->
@@ -107,18 +137,18 @@
 
             <div class="row" style="white-space: nowrap;">
               <div class="col-md-2" style="text-align:left;">
-                <textbox label="Jenis Cucukan(Input)" read-only="true" style="display: inline-block"></textbox>
+                <textbox label="Jenis Cucukan (Input)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-textbox placeholder="Jenis Cucukan(Input)" value.bind="ReachingInStartTypeInput"
+                <au-textbox placeholder="Jenis Cucukan (Input)" value.bind="ReachingInStartTypeInput"
                   error.bind="error.ReachingInStartTypeInput" read-only.bind="readOnly">
                 </au-textbox>
               </div>
               <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-                <textbox label="Jenis Cucukan(Output)" read-only="true" style="display: inline-block"></textbox>
+                <textbox label="Jenis Cucukan (Output)" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-textbox placeholder="Jenis Cucukan(Output)" value.bind="ReachingInStartTypeOutput"
+                <au-textbox placeholder="Jenis Cucukan (Output)" value.bind="ReachingInStartTypeOutput"
                   error.bind="error.ReachingInStartTypeOutput" read-only.bind="readOnly"></au-textbox>
               </div>
             </div>
@@ -155,7 +185,8 @@
                 <textbox label="Tanggal Ganti Operator Cucuk" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-datepicker value.bind="ChangeOperatorReachingInDate" error.bind="error.ChangeOperatorReachingInDate">
+                <au-datepicker value.bind="ChangeOperatorReachingInDate"
+                  error.bind="error.ChangeOperatorReachingInDate">
                 </au-datepicker>
               </div>
             </div>
@@ -205,6 +236,16 @@
                   error.bind="error.ChangeOperatorReachingInYarnStrandsProcessed" read-only.bind="readOnly">
                 </au-numeric>
               </div>
+              <div show.bind="showHideReachingInWidth">
+                <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+                  <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
+                </div>
+                <div class="col-md-2">
+                  <au-numeric placeholder="Lebar Cucuk(cm)" value.bind="ChangeOperatorReachingInFinishWidth"
+                    error.bind="error.ChangeOperatorReachingInFinishWidth" read-only.bind="readOnly">
+                  </au-numeric>
+                </div>
+              </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
@@ -217,9 +258,10 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Reaching In Finish Menu -->
-        <div class="row" id="reachingInFinishMenu" show.bind="showHideReachingInFinishMenu">
+      <!-- Reaching In Finish Menu -->
+      <!-- <div class="row" id="reachingInFinishMenu" show.bind="showHideReachingInFinishMenu">
           <div class="col-md-12"
             style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
 
@@ -297,8 +339,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
 
       <!-- Comb Menu -->
       <div class="row" id="combMenu" show.bind="showHideCombMenu">
@@ -307,10 +348,15 @@
             style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
-          <button class="btn btn-default" click.delegate="combFinish()" disabled.bind="isCombFinishDisabled"
+          <button class="btn btn-default" click.delegate="combChangeOperator()"
+            disabled.bind="isCombChangeOperatorDisabled"
+            style="margin-bottom: 16px; background-color: rgb(35, 98, 180); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
+            Ganti Operator
+          </button>
+          <!-- <button class="btn btn-default" click.delegate="combFinish()" disabled.bind="isCombFinishDisabled"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Selesai
-          </button>
+          </button> -->
         </div>
 
         <!-- Comb Start Menu -->
@@ -403,8 +449,92 @@
           </div>
         </div>
 
+        <!-- Comb Change Operator Menu -->
+        <div class="row" id="combChangeOperatorMenu" show.bind="showHideCombChangeOperatorMenu">
+          <div class="col-md-12"
+            style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:97%">
+
+            <div class="row" style="margin-top: 24px; white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Tanggal Ganti Operator Sisir" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-datepicker value.bind="ChangeOperatorCombDate" error.bind="error.ChangeOperatorCombDate">
+                </au-datepicker>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Waktu Ganti Operator Sisir" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-timepicker value.bind="ChangeOperatorCombTime" error.bind="error.ChangeOperatorCombTime"
+                  read-only.bind="readOnly">
+              </div>
+              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+                <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-textbox placeholder="Shift" value.bind="ChangeOperatorCombShift.Name"
+                  error.bind="error.ChangeOperatorCombShift" read-only.bind="true">
+                </au-textbox>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-3">
+                <au-autocomplete placeholder="Operator" value.bind="ChangeOperatorCombOperator"
+                  error.bind="error.ChangeOperatorCombOperator" read-only.bind="readOnly" loader.bind="operators"
+                  text="Username"></au-autocomplete>
+              </div>
+              <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+                <textbox label="Grup Sisir" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-3">
+                <au-textbox placeholder="Grup Sisir" value.bind="ChangeOperatorCombOperator.Group"
+                  error.bind="error.ChangeOperatorCombOperatorGroup" read-only.bind="true"></au-textbox>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Helai Dikerjakan" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-2">
+                <au-numeric placeholder="Helai Dikerjakan" value.bind="ChangeOperatorCombYarnStrandsProcessed"
+                  error.bind="error.ChangeOperatorCombYarnStrandsProcessed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
+              <div show.bind="showHideCombWidth">
+                <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+                  <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
+                </div>
+                <div class="col-md-2">
+                  <au-numeric placeholder="Lebar Sisir(cm)" value.bind="ChangeOperatorCombWidth"
+                    error.bind="error.ChangeOperatorCombWidth" read-only.bind="readOnly">
+                  </au-numeric>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-12">
+                <button class="btn btn-default" click.delegate="saveCombChangeOperator()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                  width: 96px; border: 1px solid #777777;">
+                  Simpan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
         <!-- Comb Finish Menu -->
-        <div class="row" id="combFinishMenu" show.bind="showHideCombFinishMenu">
+        <!-- <div class="row" id="combFinishMenu" show.bind="showHideCombFinishMenu">
           <div class="col-md-12"
             style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
 
@@ -423,8 +553,7 @@
                 <textbox label="Waktu Selesai Sisir" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-2">
-                <au-timepicker value.bind="CombFinishTime" error.bind="error.CombFinishTime"
-                  read-only.bind="readOnly">
+                <au-timepicker value.bind="CombFinishTime" error.bind="error.CombFinishTime" read-only.bind="readOnly">
               </div>
               <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                 <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
@@ -454,7 +583,7 @@
               </div>
             </div>
 
-            <div class="row" style="white-space: nowrap">              
+            <div class="row" style="white-space: nowrap">
               <div class="col-md-2" style="text-align:left;">
                 <textbox label="Helai Dikerjakan" read-only="true" style="display: inline-block"></textbox>
               </div>
@@ -482,8 +611,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
 
       <div class="row" style="white-space: nowrap;">
         <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Reaching</h1>

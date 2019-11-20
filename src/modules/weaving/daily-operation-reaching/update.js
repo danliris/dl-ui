@@ -18,9 +18,10 @@ export class Update {
   @bindable ReachingInCombProcess;
   @bindable ReachingInStartTime;
   @bindable ChangeOperatorReachingInTime;
-  @bindable ReachingInFinishTime;
   @bindable CombStartTime;
-  @bindable CombFinishTime;
+  @bindable ChangeOperatorCombTime;
+  @bindable ChangeOperatorReachingInYarnStrandsProcessed;
+  @bindable ChangeOperatorCombYarnStrandsProcessed
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -31,9 +32,14 @@ export class Update {
 
     this.isReachingInStartDisabled = false;
     this.isReachingInChangeOperatorDisabled = false;
-    this.isReachingInFinishDisabled = false;
     this.isCombStartDisabled = false;
-    this.isCombFinishDisabled = false;
+    this.isCombChangeOperatorDisabled = false;
+
+    this.showHideReachingInWidth = false;
+    this.showHideCombWidth = false;
+
+    this.data.ReachingInYarnStrandsProcessed = 0;
+    this.data.CombYarnStrandsProcessed = 0;
   }
 
   formOptions = {
@@ -90,53 +96,139 @@ export class Update {
         case "ENTRY":
           this.isReachingInStartDisabled = false;
           this.isReachingInChangeOperatorDisabled = true;
-          this.isReachingInFinishDisabled = true;
           this.isCombStartDisabled = true;
-          this.isCombFinishDisabled = true;
+          this.isCombChangeOperatorDisabled = true;
           break;
         case "REACHING-IN-START":
-          this.isReachingInStartDisabled = true;
-          this.isReachingInChangeOperatorDisabled = false;
-          this.isReachingInFinishDisabled = false;
-          this.isCombStartDisabled = true;
-          this.isCombFinishDisabled = true;
+          var isCombStart = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "COMB-START") {
+              isCombStart = true;
+            }
+          });
+
+          if (isCombStart != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = false;
+            this.isCombChangeOperatorDisabled = true;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = true;
+          }
           break;
         case "REACHING-IN-CHANGE-OPERATOR":
-          this.isReachingInStartDisabled = true;
-          this.isReachingInChangeOperatorDisabled = false;
-          this.isReachingInFinishDisabled = false;
-          this.isCombStartDisabled = true;
-          this.isCombFinishDisabled = true;
+          var isCombStart = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "COMB-START") {
+              isCombStart = true;
+            }
+          });
+
+          if (isCombStart != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = false;
+            this.isCombChangeOperatorDisabled = true;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
           break;
         case "REACHING-IN-FINISH":
-          this.isReachingInStartDisabled = true;
-          this.isReachingInChangeOperatorDisabled = true;
-          this.isReachingInFinishDisabled = true;
-          this.isCombStartDisabled = false;
-          this.isCombFinishDisabled = true;
+          var isCombStart = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "COMB-START") {
+              isCombStart = true;
+            }
+          });
+
+          if (isCombStart != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = false;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
           break;
         case "COMB-START":
-          this.isReachingInStartDisabled = true;
-          this.isReachingInChangeOperatorDisabled = true;
-          this.isReachingInFinishDisabled = true;
-          this.isCombStartDisabled = true;
-          this.isCombFinishDisabled = false;
+          var isReachingInChangeOperator = false;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "REACHING-IN-FINISH") {
+              isReachingInChangeOperator = true;
+            }
+          });
+
+          if (isReachingInChangeOperator != true) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
+          break;
+        case "COMB-CHANGE-OPERATOR":
+          var reachingInYarnStrands = 0;
+          var combYarnStrands = 0;
+          this.Log.forEach(history => {
+            if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR" || history.MachineStatus == "REACHING-IN-FINISH") {
+              reachingInYarnStrands += history.YarnStrandsProcessed;
+              this.data.ReachingInYarnStrandsProcessed = reachingInYarnStrands;
+            } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+              combYarnStrands += history.YarnStrandsProcessed;
+              this.data.CombYarnStrandsProcessed = combYarnStrands;
+            }
+          });
+
+          if (reachingInYarnStrands < this.data.SizingYarnStrands) {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = false;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          } else {
+            this.isReachingInStartDisabled = true;
+            this.isReachingInChangeOperatorDisabled = true;
+            this.isCombStartDisabled = true;
+            this.isCombChangeOperatorDisabled = false;
+          }
           break;
         case "COMB-FINISH":
           this.isReachingInStartDisabled = true;
           this.isReachingInChangeOperatorDisabled = true;
-          this.isReachingInFinishDisabled = true;
           this.isCombStartDisabled = true;
-          this.isCombFinishDisabled = true;
+          this.isCombChangeOperatorDisabled = true;
           break;
         default:
           this.isReachingInStartDisabled = false;
           this.isReachingInChangeOperatorDisabled = false;
-          this.isReachingInFinishDisabled = false;
           this.isCombStartDisabled = false;
-          this.isCombFinishDisabled = false;
+          this.isCombChangeOperatorDisabled = false;
           break;
-      }
+      };
+
+      var reachingInYarnStrandsProcessed = 0;
+      var combYarnStrandsProcessed = 0;
+      this.Log.forEach(history => {
+        if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR" || history.MachineStatus == "REACHING-IN-FINISH") {
+          reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+          this.data.ReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed;
+        } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+          combYarnStrandsProcessed += history.YarnStrandsProcessed;
+          this.data.CombYarnStrandsProcessed = combYarnStrandsProcessed;
+        }
+      });
     }
   }
 
@@ -147,40 +239,27 @@ export class Update {
       if (this.showHideReachingInMenu === true) {
         if (this.showHideReachingInStartMenu === true) {
           this.showHideReachingInChangeOperatorMenu = false;
-          this.showHideReachingInFinishMenu = false;
 
           this.ReachingInStartDate = undefined;
           this.ReachingInStartTime = null;
           this.ReachingInStartShift = undefined;
           this.ReachingInStartOperator = undefined;
-          this.ReachingInStartYarnStrandsProcessed = undefined;
           this.ReachingInStartTypeInput = undefined;
           this.ReachingInStartTypeOutput = undefined;
+          this.ReachingInStartYarnStrandsProcessed = undefined;
         }
         if (this.showHideReachingInChangeOperatorMenu === true) {
           this.showHideReachingInStartMenu = false;
-          this.showHideReachingInFinishMenu = false;
 
           this.ChangeOperatorReachingInDate = undefined;
           this.ChangeOperatorReachingInTime = null;
           this.ChangeOperatorReachingInShift = undefined;
           this.ChangeOperatorReachingInOperator = undefined;
           this.ChangeOperatorReachingInYarnStrandsProcessed = undefined;
-        }
-        if (this.showHideReachingInFinishMenu === true) {
-          this.showHideReachingInStartMenu = false;
-          this.showHideReachingInChangeOperatorMenu = false;
-
-          this.ReachingInFinishDate = undefined;
-          this.ReachingInFinishTime = null;
-          this.ReachingInFinishShift = undefined;
-          this.ReachingInFinishOperator = undefined;
-          this.ReachingInFinishYarnStrandsProcessed = undefined;
-          this.ReachingInFinishWidth = undefined;
+          this.ChangeOperatorReachingInFinishWidth = undefined;
         } else {
           this.showHideReachingInStartMenu = false;
           this.showHideReachingInChangeOperatorMenu = false;
-          this.showHideReachingInFinishMenu = false;
         }
       }
     } else if (newValue == "Sisir") {
@@ -188,33 +267,87 @@ export class Update {
       this.showHideCombMenu = true;
       if (this.showHideCombMenu === true) {
         if (this.showHideCombStartMenu === true) {
-          this.showHideCombFinishMenu = false;
+          this.showHideCombChangeOperatorMenu = false;
 
           this.CombStartDate = undefined;
           this.CombStartTime = null;
           this.CombStartShift = undefined;
           this.CombStartOperator = undefined;
-          this.CombStartYarnStrandsProcessed = undefined;
           this.CombStartEdgeStitching = undefined;
           this.CombStartNumber = undefined;
+          this.CombStartYarnStrandsProcessed = undefined;
         }
-        if (this.showHideCombFinishMenu === true) {
+        if (this.showHideCombChangeOperatorMenu === true) {
           this.showHideCombStartMenu = false;
 
-          this.CombFinishDate = undefined;
-          this.CombFinishTime = null;
-          this.CombFinishShift = undefined;
-          this.CombFinishOperator = undefined;
-          this.CombFinishYarnStrandsProcessed = undefined;
-          this.CombFinishWidth = undefined;
+          this.ChangeOperatorCombDate = undefined;
+          this.ChangeOperatorCombTime = null;
+          this.ChangeOperatorCombShift = undefined;
+          this.ChangeOperatorCombOperator = undefined;
+          this.ChangeOperatorCombYarnStrandsProcessed = undefined;
+          this.ChangeOperatorCombWidth = undefined;
         } else {
           this.showHideCombStartMenu = false;
-          this.showHideCombFinishMenu = false;
+          this.showHideCombChangeOperatorMenu = false;
         }
       }
     } else {
       this.showHideReachingInMenu = false;
       this.showHideCombMenu = false;
+    }
+  }
+
+  ChangeOperatorReachingInYarnStrandsProcessedChanged(newValue) {
+    this.error.ChangeOperatorReachingInYarnStrandsProcessed = "";
+    this.showHideReachingInWidth = false;
+
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
+    this.Log.forEach(history => {
+      if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
+      }
+    });
+    var sumOfReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed + newValue;
+
+    if (sumOfReachingInYarnStrandsProcessed > this.data.SizingYarnStrands) {
+      this.error.ChangeOperatorReachingInYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
+    } else if (sumOfReachingInYarnStrandsProcessed == this.data.SizingYarnStrands) {
+      this.showHideReachingInWidth = true;
+    } else {
+      this.error.ChangeOperatorReachingInYarnStrandsProcessed = "";
+      this.showHideReachingInWidth = false;
+      this.ChangeOperatorReachingInFinishWidth = undefined;
+    }
+  }
+
+  ChangeOperatorCombYarnStrandsProcessedChanged(newValue) {
+    this.error.ChangeOperatorCombYarnStrandsProcessed = "";
+    this.showHideCombWidth = false;
+
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
+    this.Log.forEach(history => {
+      if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
+      }
+    });
+    var sumOfCombYarnStrandsProcessed = combYarnStrandsProcessed + newValue;
+
+    if (sumOfCombYarnStrandsProcessed > this.data.ReachingInYarnStrandsProcessed && sumOfCombYarnStrandsProcessed > this.data.SizingYarnStrands) {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai pada Beam Sizing ";
+    } else if (sumOfCombYarnStrandsProcessed > this.data.ReachingInYarnStrandsProcessed) {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai yang telah Dicucuk ";
+    } else if (reachingInYarnStrandsProcessed == this.data.ReachingInYarnStrandsProcessed && reachingInYarnStrandsProcessed == sumOfCombYarnStrandsProcessed) {
+      this.showHideCombWidth = true;
+    } else {
+      this.error.ChangeOperatorCombYarnStrandsProcessed = "";
+      this.showHideCombWidth = false;
+      this.ChangeOperatorCombWidth = undefined;
     }
   }
 
@@ -224,15 +357,14 @@ export class Update {
     this.ReachingInStartTime = null;
     this.ReachingInStartShift = undefined;
     this.ReachingInStartOperator = undefined;
-    this.ReachingInStartYarnStrandsProcessed = undefined;
     this.ReachingInStartTypeInput = undefined;
     this.ReachingInStartTypeOutput = undefined;
+    this.ReachingInStartYarnStrandsProcessed = undefined;
     if (this.showHideReachingInStartMenu === true) {
       this.showHideReachingInStartMenu = false;
     } else {
       this.showHideReachingInStartMenu = true;
       this.showHideReachingInChangeOperatorMenu = false;
-      this.showHideReachingInFinishMenu = false;
     }
   }
 
@@ -243,29 +375,12 @@ export class Update {
     this.ChangeOperatorReachingInShift = undefined;
     this.ChangeOperatorReachingInOperator = undefined;
     this.ChangeOperatorReachingInYarnStrandsProcessed = undefined;
+    this.ChangeOperatorReachingInFinishWidth = undefined;
     if (this.showHideReachingInChangeOperatorMenu === true) {
       this.showHideReachingInChangeOperatorMenu = false;
     } else {
       this.showHideReachingInStartMenu = false;
       this.showHideReachingInChangeOperatorMenu = true;
-      this.showHideReachingInFinishMenu = false;
-    }
-  }
-
-  reachingInFinish() {
-    this.error = {};
-    this.ReachingInFinishDate = undefined;
-    this.ReachingInFinishTime = null;
-    this.ReachingInFinishShift = undefined;
-    this.ReachingInFinishOperator = undefined;
-    this.ReachingInFinishYarnStrandsProcessed = undefined;
-    this.ReachingInFinishWidth = undefined;
-    if (this.showHideReachingInFinishMenu === true) {
-      this.showHideReachingInFinishMenu = false;
-    } else {
-      this.showHideReachingInStartMenu = false;
-      this.showHideReachingInChangeOperatorMenu = false;
-      this.showHideReachingInFinishMenu = true;
     }
   }
 
@@ -275,30 +390,30 @@ export class Update {
     this.CombStartTime = null;
     this.CombStartShift = undefined;
     this.CombStartOperator = undefined;
-    this.CombStartYarnStrandsProcessed = undefined;
     this.CombStartEdgeStitching = undefined;
     this.CombStartNumber = undefined;
+    this.CombStartYarnStrandsProcessed = undefined;
     if (this.showHideCombStartMenu === true) {
       this.showHideCombStartMenu = false;
     } else {
       this.showHideCombStartMenu = true;
-      this.showHideCombFinishMenu = false;
+      this.showHideCombChangeOperatorMenu = false;
     }
   }
 
-  combFinish() {
+  combChangeOperator() {
     this.error = {};
-    this.ReachingInFinishDate = undefined;
-    this.ReachingInFinishTime = null;
-    this.ReachingInFinishShift = undefined;
-    this.ReachingInFinishOperator = undefined;
-    this.ReachingInFinishYarnStrandsProcessed = undefined;
-    this.ReachingInFinishWidth = undefined;
-    if (this.showHideCombFinishMenu === true) {
-      this.showHideCombFinishMenu = false;
+    this.ChangeOperatorCombDate = undefined;
+    this.ChangeOperatorCombTime = null;
+    this.ChangeOperatorCombShift = undefined;
+    this.ChangeOperatorCombOperator = undefined;
+    this.ChangeOperatorCombYarnStrandsProcessed = undefined;
+    this.ChangeOperatorCombWidth = undefined;
+    if (this.showHideCombChangeOperatorMenu === true) {
+      this.showHideCombChangeOperatorMenu = false;
     } else {
       this.showHideCombStartMenu = false;
-      this.showHideCombFinishMenu = true;
+      this.showHideCombChangeOperatorMenu = true;
     }
   }
 
@@ -332,19 +447,6 @@ export class Update {
       });
   }
 
-  ReachingInFinishTimeChanged(newValue) {
-    this.service.getShiftByTime(newValue)
-      .then(result => {
-        this.error.ReachingInFinishShift = "";
-        this.ReachingInFinishShift = {};
-        this.ReachingInFinishShift = result;
-      })
-      .catch(e => {
-        this.ReachingInFinishShift = {};
-        this.error.ReachingInFinishShift = " Shift tidak ditemukan ";
-      });
-  }
-
   CombStartTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
@@ -358,46 +460,37 @@ export class Update {
       });
   }
 
-  CombFinishTimeChanged(newValue) {
+  ChangeOperatorCombTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
-        this.error.CombFinishShift = "";
-        this.CombFinishShift = {};
-        this.CombFinishShift = result;
+        this.error.ChangeOperatorCombShift = "";
+        this.ChangeOperatorCombShift = {};
+        this.ChangeOperatorCombShift = result;
       })
       .catch(e => {
-        this.CombFinishShift = {};
-        this.error.CombFinishShift = " Shift tidak ditemukan ";
+        this.ChangeOperatorCombShift = {};
+        this.error.ChangeOperatorCombShift = " Shift tidak ditemukan ";
       });
   }
 
   saveReachingInStart() {
-    var reachingInYarnStrandsProcessedProcessed = 0;
-    var combYarnStrandsProcessedProcessed = 0;
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
     this.Log.forEach(history => {
       if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
-        reachingInYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-FINISH") {
-        combYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
       }
     });
+    var sumOfReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed + this.ReachingInStartYarnStrandsProcessed
+
     // var sumOfYarnStrandsProcessedHistory = this.Log.reduce((previousObject, currentObject) => previousObject + currentObject.YarnStrandsProcessed, 0);
     // var sumOfYarnStrandsProcessed = sumOfYarnStrandsProcessedHistory + this.ReachingInStartYarnStrandsProcessed;
 
-    if (reachingInYarnStrandsProcessedProcessed <= this.data.SizingYarnStrands) {
+    if (parseInt(sumOfReachingInYarnStrandsProcessed) <= this.data.SizingYarnStrands) {
+      var reachingInStartData = {};
       var IdContainer = this.data.Id;
-      if (this.ReachingInStartTypeInput) {
-        var ReachingInTypeInputContainer = this.ReachingInStartTypeInput;
-      }
-      if (this.ReachingInStartTypeOutput) {
-        var ReachingInTypeOutputContainer = this.ReachingInStartTypeOutput;
-      }
-      if (this.ReachingInStartOperator) {
-        var OperatorContainer = this.ReachingInStartOperator.Id;
-      }
-      if (this.ReachingInStartYarnStrandsProcessed) {
-        var YarnStrandsProcessedContainer = this.ReachingInStartYarnStrandsProcessed;
-      }
       if (this.ReachingInStartDate) {
         var DateContainer = moment(this.ReachingInStartDate).utcOffset("+07:00").format();
       }
@@ -407,16 +500,27 @@ export class Update {
       if (this.ReachingInStartShift) {
         var ShiftContainer = this.ReachingInStartShift.Id;
       }
+      if (this.ReachingInStartOperator) {
+        var OperatorContainer = this.ReachingInStartOperator.Id;
+      }
+      if (this.ReachingInStartYarnStrandsProcessed) {
+        var YarnStrandsProcessedContainer = this.ReachingInStartYarnStrandsProcessed;
+      }
+      if (this.ReachingInStartTypeInput) {
+        var ReachingInTypeInputContainer = this.ReachingInStartTypeInput;
+      }
+      if (this.ReachingInStartTypeOutput) {
+        var ReachingInTypeOutputContainer = this.ReachingInStartTypeOutput;
+      }
 
-      var reachingInStartData = {};
       reachingInStartData.Id = IdContainer;
-      reachingInStartData.ReachingInTypeInput = ReachingInTypeInputContainer;
-      reachingInStartData.ReachingInTypeOutput = ReachingInTypeOutputContainer;
-      reachingInStartData.OperatorDocumentId = OperatorContainer;
-      reachingInStartData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
       reachingInStartData.ReachingInStartDate = DateContainer;
       reachingInStartData.ReachingInStartTime = TimeContainer;
       reachingInStartData.ShiftDocumentId = ShiftContainer;
+      reachingInStartData.OperatorDocumentId = OperatorContainer;
+      reachingInStartData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+      reachingInStartData.ReachingInTypeInput = ReachingInTypeInputContainer;
+      reachingInStartData.ReachingInTypeOutput = ReachingInTypeOutputContainer;
 
       this.service
         .updateReachingInStart(reachingInStartData.Id, reachingInStartData)
@@ -432,26 +536,22 @@ export class Update {
   }
 
   saveReachingInChangeOperator() {
-    var reachingInYarnStrandsProcessedProcessed = 0;
-    var combYarnStrandsProcessedProcessed = 0;
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
     this.Log.forEach(history => {
       if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
-        reachingInYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-FINISH") {
-        combYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
       }
     });
+    var sumOfReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed + this.ChangeOperatorReachingInYarnStrandsProcessed
+
     // var sumOfYarnStrandsProcessedHistory = this.Log.reduce((previousObject, currentObject) => previousObject + currentObject.YarnStrandsProcessed, 0);
     // var sumOfYarnStrandsProcessed = sumOfYarnStrandsProcessedHistory + this.ChangeOperatorReachingInYarnStrandsProcessed;
 
-    if (reachingInYarnStrandsProcessedProcessed <= this.data.SizingYarnStrands) {
+    if (parseInt(sumOfReachingInYarnStrandsProcessed) <= this.data.SizingYarnStrands) {
       var IdContainer = this.data.Id;
-      if (this.ChangeOperatorReachingInOperator) {
-        var OperatorContainer = this.ChangeOperatorReachingInOperator.Id;
-      }
-      if (this.ChangeOperatorReachingInYarnStrandsProcessed) {
-        var YarnStrandsProcessedContainer = this.ChangeOperatorReachingInYarnStrandsProcessed;
-      }
       if (this.ChangeOperatorReachingInDate) {
         var DateContainer = moment(this.ChangeOperatorReachingInDate).utcOffset("+07:00").format();
       }
@@ -461,111 +561,72 @@ export class Update {
       if (this.ChangeOperatorReachingInShift) {
         var ShiftContainer = this.ChangeOperatorReachingInShift.Id;
       }
+      if (this.ChangeOperatorReachingInOperator) {
+        var OperatorContainer = this.ChangeOperatorReachingInOperator.Id;
+      }
+      if (this.ChangeOperatorReachingInYarnStrandsProcessed) {
+        var YarnStrandsProcessedContainer = this.ChangeOperatorReachingInYarnStrandsProcessed;
+      }
+      if (this.ChangeOperatorReachingInFinishWidth) {
+        var ReachingInWidthContainer = this.ChangeOperatorReachingInFinishWidth;
 
-      var ChangeOperatorReachingInData = {};
-      ChangeOperatorReachingInData.Id = IdContainer;
-      ChangeOperatorReachingInData.OperatorDocumentId = OperatorContainer;
-      ChangeOperatorReachingInData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
-      ChangeOperatorReachingInData.ChangeOperatorReachingInDate = DateContainer;
-      ChangeOperatorReachingInData.ChangeOperatorReachingInTime = TimeContainer;
-      ChangeOperatorReachingInData.ShiftDocumentId = ShiftContainer;
+        var reachingInFinishData = {};
+        reachingInFinishData.Id = IdContainer;
+        reachingInFinishData.ReachingInFinishDate = DateContainer;
+        reachingInFinishData.ReachingInFinishTime = TimeContainer;
+        reachingInFinishData.ShiftDocumentId = ShiftContainer;
+        reachingInFinishData.OperatorDocumentId = OperatorContainer;
+        reachingInFinishData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+        reachingInFinishData.ReachingInWidth = ReachingInWidthContainer;
 
-      this.service
-        .updateReachingInChangeOperator(ChangeOperatorReachingInData.Id, ChangeOperatorReachingInData)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
+        this.service
+          .updateReachingInFinish(reachingInFinishData.Id, reachingInFinishData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      } else {
+        var changeOperatorReachingInData = {};
+        changeOperatorReachingInData.Id = IdContainer;
+        changeOperatorReachingInData.ChangeOperatorReachingInDate = DateContainer;
+        changeOperatorReachingInData.ChangeOperatorReachingInTime = TimeContainer;
+        changeOperatorReachingInData.ShiftDocumentId = ShiftContainer;
+        changeOperatorReachingInData.OperatorDocumentId = OperatorContainer;
+        changeOperatorReachingInData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+
+        this.service
+          .updateReachingInChangeOperator(changeOperatorReachingInData.Id, changeOperatorReachingInData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
     } else {
       this.error.ChangeOperatorReachingInYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
     }
   }
 
-  saveReachingInFinish() {
-    var reachingInYarnStrandsProcessedProcessed = 0;
-    var combYarnStrandsProcessedProcessed = 0;
-    this.Log.forEach(history => {
-      if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
-        reachingInYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-FINISH") {
-        combYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      }
-    });
-    // var sumOfYarnStrandsProcessedHistory = this.Log.reduce((previousObject, currentObject) => previousObject + currentObject.YarnStrandsProcessed, 0);
-    // var sumOfYarnStrandsProcessed = sumOfYarnStrandsProcessedHistory + this.ReachingInFinishYarnStrandsProcessed;
-
-    if (reachingInYarnStrandsProcessedProcessed <= this.data.SizingYarnStrands) {
-      var IdContainer = this.data.Id;
-      if (this.ReachingInFinishWidth) {
-        var ReachingWidthContainer = this.ReachingInFinishWidth;
-      }
-      if (this.ReachingInFinishOperator) {
-        var OperatorContainer = this.ReachingInFinishOperator.Id;
-      }
-      if (this.ReachingInFinishYarnStrandsProcessed) {
-        var YarnStrandsProcessedContainer = this.ReachingInFinishYarnStrandsProcessed;
-      }
-      if (this.ReachingInFinishDate) {
-        var DateContainer = moment(this.ReachingInFinishDate).utcOffset("+07:00").format();
-      }
-      if (this.ReachingInFinishTime) {
-        var TimeContainer = this.ReachingInFinishTime;
-      }
-      if (this.ReachingInFinishShift) {
-        var ShiftContainer = this.ReachingInFinishShift.Id;
-      }
-
-      var reachingInFinishData = {};
-      reachingInFinishData.Id = IdContainer;
-      reachingInFinishData.ReachingInWidth = ReachingWidthContainer;
-      reachingInFinishData.OperatorDocumentId = OperatorContainer;
-      reachingInFinishData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
-      reachingInFinishData.ReachingInFinishDate = DateContainer;
-      reachingInFinishData.ReachingInFinishTime = TimeContainer;
-      reachingInFinishData.ShiftDocumentId = ShiftContainer;
-
-      this.service
-        .updateReachingInFinish(reachingInFinishData.Id, reachingInFinishData)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
-    } else {
-      this.error.ReachingInFinishYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
-    }
-  }
-
   saveCombStart() {
-    var reachingInYarnStrandsProcessedProcessed = 0;
-    var combYarnStrandsProcessedProcessed = 0;
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
     this.Log.forEach(history => {
       if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
-        reachingInYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-FINISH") {
-        combYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
       }
     });
+    var sumOfCombYarnStrandsProcessed = combYarnStrandsProcessed + this.CombStartYarnStrandsProcessed;
+
     // var sumOfYarnStrandsProcessedHistory = this.Log.reduce((previousObject, currentObject) => previousObject + currentObject.YarnStrandsProcessed, 0);
     // var sumOfYarnStrandsProcessed = sumOfYarnStrandsProcessedHistory + this.CombStartYarnStrandsProcessed;
-    
-    if (combYarnStrandsProcessedProcessed <= reachingInYarnStrandsProcessedProcessed) {
+
+    if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed) {
       var IdContainer = this.data.Id;
-      if (this.CombStartEdgeStitching) {
-        var CombEdgeStitchingContainer = this.CombStartEdgeStitching;
-      }
-      if (this.CombStartNumber) {
-        var CombNumberContainer = this.CombStartNumber;
-      }
-      if (this.CombStartOperator) {
-        var OperatorContainer = this.CombStartOperator.Id;
-      }
-      if (this.CombStartYarnStrandsProcessed) {
-        var YarnStrandsProcessedContainer = this.CombStartYarnStrandsProcessed;
-      }
       if (this.CombStartDate) {
         var DateContainer = moment(this.CombStartDate).utcOffset("+07:00").format();
       }
@@ -575,16 +636,28 @@ export class Update {
       if (this.CombStartShift) {
         var ShiftContainer = this.CombStartShift.Id;
       }
+      if (this.CombStartOperator) {
+        var OperatorContainer = this.CombStartOperator.Id;
+      }
+      if (this.CombStartYarnStrandsProcessed) {
+        var YarnStrandsProcessedContainer = this.CombStartYarnStrandsProcessed;
+      }
+      if (this.CombStartEdgeStitching) {
+        var CombEdgeStitchingContainer = this.CombStartEdgeStitching;
+      }
+      if (this.CombStartNumber) {
+        var CombNumberContainer = this.CombStartNumber;
+      }
 
       var combStartData = {};
       combStartData.Id = IdContainer;
-      combStartData.CombEdgeStitching = CombEdgeStitchingContainer;
-      combStartData.CombNumber = CombNumberContainer;
-      combStartData.OperatorDocumentId = OperatorContainer;
-      combStartData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
       combStartData.CombStartDate = DateContainer;
       combStartData.CombStartTime = TimeContainer;
       combStartData.ShiftDocumentId = ShiftContainer;
+      combStartData.OperatorDocumentId = OperatorContainer;
+      combStartData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+      combStartData.CombEdgeStitching = CombEdgeStitchingContainer;
+      combStartData.CombNumber = CombNumberContainer;
 
       this.service
         .updateCombStart(combStartData.Id, combStartData)
@@ -595,63 +668,81 @@ export class Update {
           this.error = e;
         });
     } else {
-      this.error.CombStartYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
+      this.error.CombStartYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai yang sudah Dicucuk ";
     }
   }
 
-  saveCombFinish() {
-    var reachingInYarnStrandsProcessedProcessed = 0;
-    var combYarnStrandsProcessedProcessed = 0;
+  saveCombChangeOperator() {
+    var reachingInYarnStrandsProcessed = 0;
+    var combYarnStrandsProcessed = 0;
     this.Log.forEach(history => {
       if (history.MachineStatus == "REACHING-IN-START" || history.MachineStatus == "REACHING-IN-FINISH" || history.MachineStatus == "REACHING-IN-CHANGE-OPERATOR") {
-        reachingInYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
-      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-FINISH") {
-        combYarnStrandsProcessedProcessed += history.YarnStrandsProcessed;
+        reachingInYarnStrandsProcessed += history.YarnStrandsProcessed;
+      } else if (history.MachineStatus == "COMB-START" || history.MachineStatus == "COMB-CHANGE-OPERATOR" || history.MachineStatus == "COMB-FINISH") {
+        combYarnStrandsProcessed += history.YarnStrandsProcessed;
       }
     });
+    var sumOfCombYarnStrandsProcessed = combYarnStrandsProcessed + this.ChangeOperatorCombYarnStrandsProcessed;
     // var sumOfYarnStrandsProcessedHistory = this.Log.reduce((previousObject, currentObject) => previousObject + currentObject.YarnStrandsProcessed, 0);
     // var sumOfYarnStrandsProcessed = sumOfYarnStrandsProcessedHistory + this.CombFinishYarnStrandsProcessed;
 
-    if (combYarnStrandsProcessedProcessed <= reachingInYarnStrandsProcessedProcessed) {
+    if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed) {
       var IdContainer = this.data.Id;
-      if (this.CombFinishWidth) {
-        var CombFinishWidthContainer = this.CombFinishWidth;
+      if (this.ChangeOperatorCombDate) {
+        var DateContainer = moment(this.ChangeOperatorCombDate).utcOffset("+07:00").format();
       }
-      if (this.CombFinishOperator) {
-        var OperatorContainer = this.CombFinishOperator.Id;
+      if (this.ChangeOperatorCombTime) {
+        var TimeContainer = this.ChangeOperatorCombTime;
       }
-      if (this.CombFinishYarnStrandsProcessed) {
-        var YarnStrandsProcessedContainer = this.CombFinishYarnStrandsProcessed;
+      if (this.ChangeOperatorCombShift) {
+        var ShiftContainer = this.ChangeOperatorCombShift.Id;
       }
-      if (this.CombFinishDate) {
-        var DateContainer = moment(this.CombFinishDate).utcOffset("+07:00").format();
+      if (this.ChangeOperatorCombOperator) {
+        var OperatorContainer = this.ChangeOperatorCombOperator.Id;
       }
-      if (this.CombFinishTime) {
-        var TimeContainer = this.CombFinishTime;
+      if (this.ChangeOperatorCombYarnStrandsProcessed) {
+        var YarnStrandsProcessedContainer = this.ChangeOperatorCombYarnStrandsProcessed;
       }
-      if (this.CombFinishShift) {
-        var ShiftContainer = this.CombFinishShift.Id;
-      }
+      if (this.ChangeOperatorCombWidth) {
+        var CombFinishWidthContainer = this.ChangeOperatorCombWidth;
 
-      var combFinishData = {};
-      combFinishData.Id = IdContainer;
-      combFinishData.CombWidth = CombFinishWidthContainer;
-      combFinishData.OperatorDocumentId = OperatorContainer;
-      combFinishData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
-      combFinishData.CombFinishDate = DateContainer;
-      combFinishData.CombFinishTime = TimeContainer;
-      combFinishData.ShiftDocumentId = ShiftContainer;
+        var combFinishData = {};
+        combFinishData.Id = IdContainer;
+        combFinishData.CombFinishDate = DateContainer;
+        combFinishData.CombFinishTime = TimeContainer;
+        combFinishData.ShiftDocumentId = ShiftContainer;
+        combFinishData.OperatorDocumentId = OperatorContainer;
+        combFinishData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+        combFinishData.CombWidth = CombFinishWidthContainer;
 
-      this.service
-        .updateCombFinish(combFinishData.Id, combFinishData)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
+        this.service
+          .updateCombFinish(combFinishData.Id, combFinishData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      } else {
+        var changeOperatorCombData = {};
+        changeOperatorCombData.Id = IdContainer;
+        changeOperatorCombData.ChangeOperatorCombDate = DateContainer;
+        changeOperatorCombData.ChangeOperatorCombTime = TimeContainer;
+        changeOperatorCombData.ShiftDocumentId = ShiftContainer;
+        changeOperatorCombData.OperatorDocumentId = OperatorContainer;
+        changeOperatorCombData.YarnStrandsProcessed = YarnStrandsProcessedContainer;
+
+        this.service
+          .updateCombChangeOperator(changeOperatorCombData.Id, changeOperatorCombData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
     } else {
-      this.error.CombFinishYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
+      this.error.CombFinishYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai yang sudah Dicucuk ";
     }
   }
 
