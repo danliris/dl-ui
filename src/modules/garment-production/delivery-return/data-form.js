@@ -46,6 +46,11 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    returnTypes = [
+        "RETUR",
+        "SISA PRODUKSI"
+    ]
+
     itemsColumns = [""];
 
     bind(context) {
@@ -53,11 +58,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.ReturnType = "RETUR";
         this.itemOptions = {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,
-            checkedAll: this.data.Items.reduce((acc, curr) => acc && cur.IsSave, false)
+            checkedAll: this.data.Items.reduce((acc, curr) => acc && cur.IsSave, false),
+            returnType: this.returnTypes[0]
         }
         if (this.data.DRNo && this.data.Items) {
             this.Storages = {};
@@ -94,6 +99,11 @@ export class DataForm {
 
     get unitDOLoader() {
         return UnitDOLoader;
+    }
+
+    returnTypeChanged(e) {
+        this.itemOptions.returnType = e.target.value;
+        this.Unit = null;
     }
 
     async UnitChanged(newValue){
@@ -162,7 +172,7 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
-            this.context.selectedUnitDOViewModel.editorValue = "";_suggestions
+            this.context.selectedUnitDOViewModel.editorValue = "";
             this.context.selectedUnitDOViewModel._suggestions = [];
             this.data.Items = [];
         }

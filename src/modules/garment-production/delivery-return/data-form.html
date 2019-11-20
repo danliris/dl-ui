@@ -19,13 +19,15 @@
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox
+        <au-dropdown
             label="Jenis Pengembalian"
             value.bind="data.ReturnType"
             error.bind="error.ReturnType"
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
+            read-only.bind="readOnly || isEdit"
+            items.bind="returnTypes"
+            options.bind="controlOptions"
+            change.delegate="returnTypeChanged($event)">
+        </au-dropdown>
 
         <au-autocomplete
             value.bind="Unit"

@@ -7,6 +7,10 @@ export class GarmentDeliveryReturnItem {
         this.options = context.context.options;
         this.error = context.error;
         this.contextOptions = context.context.options;
+
+        if (this.options.returnType === "RETUR") {
+            this.readOnly = true;
+        }
     }
 
     changeCheckBox() {
