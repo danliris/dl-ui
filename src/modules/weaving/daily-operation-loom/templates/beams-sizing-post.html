@@ -12,7 +12,7 @@
     </td>
     <td style="white-space: nowrap;">
       <au-autocomplete value.bind="OperatorDocument" error.bind="error.OperatorDocument" read-only.bind="readOnly"
-        placeholder="Operator" loader.bind="operators" text="CoreAccount.Name">
+        placeholder="Operator" loader.bind="operators" text="Username">
       </au-autocomplete>
     </td>
     <td style="white-space: nowrap;">
@@ -21,14 +21,14 @@
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-datepicker value.bind="PreparationDate" error.bind="error.PreparationDate" read-only.bind="readOnly">
+      <au-datepicker value.bind="BeamPreparationDate" error.bind="error.BeamPreparationDate" read-only.bind="readOnly">
       </au-datepicker>
     </td>
     <td style="white-space: nowrap;">
-      <au-timepicker value.bind="PreparationTime" error.bind="error.PreparationTime" read-only.bind="readOnly">
+      <au-timepicker value.bind="BeamPreparationTime" error.bind="error.BeamPreparationTime" read-only.bind="readOnly">
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="Shift" error.bind="error.Shift" read-only.bind="true"
+      <au-textbox value.bind="Shift.Name" error.bind="error.Shift" read-only.bind="true"
         placeholder="Shift">
       </au-textbox>
     </td>
@@ -38,10 +38,15 @@
       </au-dropdown>
     </td>
     <td style="white-space: nowrap;">
+      <au-textbox value.bind="Information" error.bind="error.Information" read-only.bind="readOnly"
+        placeholder="Informasi">
+      </au-textbox>
+    </td>
+    <!-- <td style="white-space: nowrap;">
       <au-textbox value.bind="MachineStatus" error.bind="error.MachineStatus" read-only.bind="true"
         placeholder="Status">
       </au-textbox>
-    </td>
+    </td> -->
     <td class="col-sm-1" if.bind="!readOnly">
       <button class="btn btn-danger pull-right" click.delegate="onremove(beamData, $event)">
         -

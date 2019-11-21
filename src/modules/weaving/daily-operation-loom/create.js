@@ -11,9 +11,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var MachineLoader = require("../../../loader/weaving-machine-loader");
 var OrderLoader = require("../../../loader/weaving-order-loader");
-var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Service, Router, BindingEngine)
 export class Create {
@@ -25,33 +23,38 @@ export class Create {
   @bindable BeamsSizing;
 
   beamsSizingColumns = [{
-    value: "BeamNumber",
-    header: "Nomor Beam Sizing"
-  }, {
-    value: "MachineNumber",
-    header: "No. Mesin"
-  }, {
-    value: "OperatorName",
-    header: "Operator"
-  }, {
-    value: "LoomGroupOperator",
-    header: "Grup Loom"
-  }, {
-    value: "MachineDate",
-    header: "Tanggal"
-  }, {
-    value: "MachineTime",
-    header: "Jam"
-  }, {
-    value: "Shift",
-    header: "Shift"
-  }, {
-    value: "Process",
-    header: "Proses"
-  }, {
-    value: "MachineStatus",
-    header: "Status"
-  }];
+      value: "BeamNumber",
+      header: "Nomor Beam Sizing"
+    }, {
+      value: "MachineNumber",
+      header: "No. Mesin"
+    }, {
+      value: "OperatorName",
+      header: "Operator"
+    }, {
+      value: "LoomGroupOperator",
+      header: "Grup Loom"
+    }, {
+      value: "MachineDate",
+      header: "Tanggal"
+    }, {
+      value: "MachineTime",
+      header: "Jam"
+    }, {
+      value: "Shift",
+      header: "Shift"
+    }, {
+      value: "Process",
+      header: "Proses"
+    }, {
+      value: "Information",
+      header: "Informasi"
+    }
+    // {
+    //   value: "MachineStatus",
+    //   header: "Status"
+    // }
+  ];
 
   constructor(service, router, bindingEngine) {
     this.router = router;
@@ -75,16 +78,8 @@ export class Create {
 
   }
 
-  get machines() {
-    return MachineLoader;
-  }
-
   get orders() {
     return OrderLoader;
-  }
-
-  get operators() {
-    return OperatorLoader;
   }
 
   MachineDocumentChanged(newValue) {
@@ -168,51 +163,19 @@ export class Create {
   }
 
   saveCallback(event) {
-    if (this.MachineDocument) {
-      this.data.MachineDocumentId = this.MachineDocument.Id;
-    }
-
+    var preparationData = {};
     if (this.OrderDocument) {
-      this.data.OrderDocumentId = this.OrderDocument.Id;
+      preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    if (this.RecipeCode) {
-      this.data.RecipeCode = this.RecipeCode;
-    }
-
-    if (this.NeReal) {
-      this.data.NeReal = this.NeReal;
-    }
-
-    if (this.PreparationOperator) {
-      this.data.PreparationOperator = this.PreparationOperator.Id;
-    }
-
-    if (this.PreparationDate) {
-      var PreparationDateContainer = this.PreparationDate;
-      this.data.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
-    }
-
-    if (this.PreparationTime) {
-      this.data.PreparationTime = this.PreparationTime;
-    }
-
-    if (this.YarnStrands) {
-      this.data.YarnStrands = this.YarnStrands;
-    }
-
-    if (this.EmptyWeight) {
-      this.data.EmptyWeight = this.EmptyWeight;
-    }
-
-    this.BeamDocument = this.BeamsSizing.map((beam) => beam.BeamDocument);
-    this.BeamDocument.forEach(doc => {
+    this.BeamHistoryDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
+    this.BeamHistoryDocument.forEach(doc => {
       var BeamId = doc.Id;
-      this.data.BeamsSizing.push(BeamId);
+      this.data.BeamsWarping.push(BeamId);
     });
 
     this.service
-      .create(this.data)
+      .create(preparationData)
       .then(result => {
         this.router.navigateToRoute('list');
       })

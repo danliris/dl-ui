@@ -342,7 +342,7 @@ export class Update {
       this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai pada Beam Sizing ";
     } else if (sumOfCombYarnStrandsProcessed > this.data.ReachingInYarnStrandsProcessed) {
       this.error.ChangeOperatorCombYarnStrandsProcessed = " Helai yang Disisir Melebihi Jumlah Helai yang telah Dicucuk ";
-    } else if (reachingInYarnStrandsProcessed == this.data.ReachingInYarnStrandsProcessed && reachingInYarnStrandsProcessed == sumOfCombYarnStrandsProcessed) {
+    } else if (reachingInYarnStrandsProcessed == this.data.SizingYarnStrands && reachingInYarnStrandsProcessed == sumOfCombYarnStrandsProcessed) {
       this.showHideCombWidth = true;
     } else {
       this.error.ChangeOperatorCombYarnStrandsProcessed = "";
