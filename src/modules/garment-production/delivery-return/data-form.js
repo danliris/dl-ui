@@ -201,51 +201,54 @@ export class DataForm {
             this.data.UENId = dataExpenditure.data[0].Id;
             this.data.UnitDOId = newValue.Id;
             this.data.UnitDONo = newValue.UnitDONo;
-            this.data.PreparingId = dataPreparing.data.length>0 ? dataPreparing.data[0].Id : null;
+            this.data.PreparingId = dataPreparing.data.length > 0 ? dataPreparing.data[0].Id : null;
+
             for(var itemUnitDO of newValue.Items){
-                for(var item of dataExpenditure.data[0].Items){
-                    var qty = 0;
-                    var preparingItemId = null;
-                    var RemainingQuantityPreparingItem = 0;
-                    var QuantityUENItem = 0;
-                    qty = item.Quantity - item.ReturQuantity;
-                    QuantityUENItem = item.Quantity - item.ReturQuantity;
-                    if(dataPreparing.data.length>0){
-                        for(var itemPreparing of dataPreparing.data[0].Items){
-                            if(itemPreparing.UENItemId==item.Id){
-                                preparingItemId = itemPreparing.Id;
-                                RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
-                                if(item.ProductName == "FABRIC"){
-                                    qty = itemPreparing.RemainingQuantity
-                                }
-                            }
-                        }
-                    } else if(dataPreparing.data.length == 0 && item.ProductName == "FABRIC"){
-                        qty = 0;
-                    }
-                    
-                    var product = {};
-                    var uom = {};
-                    var designColor = "";
+                const item = (dataExpenditure.data[0] || []).Items.find(f => f.UnitDOItemId == itemUnitDO.Id)
+
+                if (item) {
+
+                    let product = {};
+                    let uom = {};
                     product.Id = item.ProductId;
                     product.Code = item.ProductCode;
                     product.Name = item.ProductName;
                     uom.Id = item.UomId;
                     uom.Unit = item.UomUnit;
-                    if(itemUnitDO.Id == item.UnitDOItemId){
-                        var items = {
-                            Product : product,
-                            DesignColor : itemUnitDO.DesignColor,
-                            RONo : item.RONo,
-                            Quantity : qty,
-                            Uom : uom,
-                            UnitDOItemId : itemUnitDO.Id,
-                            UENItemId : item.Id,
-                            PreparingItemId : preparingItemId,
-                            QuantityUENItem : qty,
-                            RemainingQuantityPreparingItem : qty,
+
+                    const items = {
+                        Product : product,
+                        DesignColor : itemUnitDO.DesignColor,
+                        RONo : item.RONo,
+                        Uom : uom,
+                        UnitDOItemId : itemUnitDO.Id,
+                        UENItemId : item.Id,
+                    }
+
+                    if (item.ProductName == "FABRIC") {
+                        if (dataPreparing.data.length > 0) {
+                            let itemPreparing = (dataPreparing.data[0].Items || []).find(f => f.UENItemId == item.Id);
+
+                            if (itemPreparing) {
+                                if ((this.data.ReturnType == "RETUR" && itemPreparing.RemainingQuantity == itemPreparing.Quantity) || (this.data.ReturnType == "SISA PRODUKSI" && itemPreparing.RemainingQuantity != itemPreparing.Quantity)) {
+                                    this.data.Items.push(Object.assign(items, {
+                                        Quantity : itemPreparing.RemainingQuantity,
+                                        PreparingItemId : itemPreparing.Id,
+                                        QuantityUENItem : itemPreparing.RemainingQuantity,
+                                        RemainingQuantityPreparingItem : itemPreparing.RemainingQuantity,
+                                    }));
+                                }
+                            }
                         }
-                        this.data.Items.push(items);
+                    } else {
+                        if ((this.data.ReturnType == "RETUR" && item.ReturQuantity == 0) || (this.data.ReturnType == "SISA PRODUKSI" && item.ReturQuantity != item.Quantity)) {
+                            let qty = item.Quantity - item.ReturQuantity;
+                            this.data.Items.push(Object.assign(items, {
+                                Quantity : qty,
+                                QuantityUENItem : qty,
+                                RemainingQuantityPreparingItem : qty,
+                            }));
+                        }
                     }
                 }
             }
