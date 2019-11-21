@@ -193,5 +193,31 @@ module.exports = [
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: 'accounting/others-expenditure-proof-document',
+        name: 'others-expenditure-proof-document',
+        moduleId: './modules/accounting/others-expenditure-proof-document/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank Lain - Lain',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+      route: 'garment-purchase-order/purchase-book-report',
+      name: 'garment-purchasing-book-report',
+      moduleId: './modules/garment-purchasing/purchase-book-report/index',
+      nav: true,
+      title: 'Laporan Buku Pembelian Bahan Baku, Embalace, Umum',
+      auth: true,
+      settings: {
+          group: "accounting",
+          permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+          iconClass: 'fa fa-dashboard'
+      }
     }
 ];

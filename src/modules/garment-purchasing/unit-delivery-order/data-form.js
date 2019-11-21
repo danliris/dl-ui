@@ -291,7 +291,7 @@ export class DataForm {
             this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
             this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
             if(this.isProses){
-                Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo}) }))
+                Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
                     .then(result => {
                         if(result.data.length>0){
                             for(var item of result.data){ 
