@@ -1,10 +1,10 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service, CoreService } from "./service";
+import { Service, CoreService,SalesService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 const PreparingLoader = require('../../../loader/garment-preparing-ro-loader');
 
-@inject(Service, CoreService)
+@inject(Service, CoreService,SalesService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -13,9 +13,10 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedPreparing;
 
-    constructor(service, coreService) {
+    constructor(service, coreService,salesService) {
         this.service = service;
         this.coreService = coreService;
+        this.salesService=salesService;
     }
 
     formOptions = {
@@ -109,6 +110,21 @@ export class DataForm {
 
             let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
             let uom = uomResult.data[0];
+
+            let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
+                if(noResult.data.length>0){
+                    this.data.Comodity = noResult.data[0].Comodity;
+                    //console.log(this.data.Comodity)
+                }
+            
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+                //console.log(this.data.Price)
+            }
+            else{
+                this.data.Price=0;
+            }
             
             Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                 .then(result => {
@@ -125,14 +141,17 @@ export class DataForm {
                                         }
                                     })
                                     .map(item => {
+                                        
                                         return Object.assign(item, {
                                             PreparingItemId: item.Id,
                                             IsSave: true,
                                             PreparingUom: item.Uom,
                                             CuttingInUom: uom,
                                             PreparingRemainingQuantity: item.RemainingQuantity,
-                                            PreparingBasicPrice: item.BasicPrice
+                                            PreparingBasicPrice: item.BasicPrice,
+                                            ComodityPrice: this.data.Price
                                         });
+                                        
                                     })
                             });
                         })
