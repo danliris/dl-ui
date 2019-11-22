@@ -158,20 +158,32 @@ export class Create {
 
   get addBeamsSizing() {
     return event => {
+      console.log(this.BeamsSizing);
       this.BeamsSizing.push({});
     };
   }
 
   saveCallback(event) {
     var preparationData = {};
+    preparationData.LoomBeamHistories = [];
     if (this.OrderDocument) {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    this.BeamHistoryDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
-    this.BeamHistoryDocument.forEach(doc => {
-      var BeamId = doc.Id;
-      this.data.BeamsWarping.push(BeamId);
+    // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
+    this.BeamsSizing.forEach(doc => {
+      var BeamHistoryDocument = {};
+      
+      BeamHistoryDocument.BeamDocumentId = doc.BeamDocument.Id;
+      BeamHistoryDocument.MachineDocumentId = doc.MachineDocument.Id;
+      BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
+      BeamHistoryDocument.DateMachine = doc.DateMachine;
+      BeamHistoryDocument.TimeMachine = doc.TimeMachine;
+      BeamHistoryDocument.ShiftDocumentId = doc.Shift.Id;
+      BeamHistoryDocument.Process = doc.LoomProcess;
+      BeamHistoryDocument.Information = doc.Information;
+
+      preparationData.LoomBeamHistories.push(BeamHistoryDocument);
     });
 
     this.service

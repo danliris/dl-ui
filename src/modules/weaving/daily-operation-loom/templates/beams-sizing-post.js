@@ -12,7 +12,10 @@ var OperatorLoader = require("../../../../loader/weaving-operator-loader");
 
 @inject(BindingEngine, Service)
 export class BeamsSizingPost {
-  @bindable BeamPreparationTime
+  @bindable BeamDocument
+  @bindable MachineDocument
+  @bindable OperatorDocument
+  @bindable TimeMachine
 
   constructor(bindingEngine, service) {
     this.service = service;
@@ -33,28 +36,40 @@ export class BeamsSizingPost {
     return OperatorLoader;
   }
 
-  async BeamPreparationTimeChanged(newValue) {
-    this.Shift = {};
-    this.BeamPreparationTime = newValue;
+  BeamDocumentChanged(newValue) {
+    this.data.BeamDocument = newValue;
+  }
+
+  MachineDocumentChanged(newValue){
+    this.data.MachineDocument = newValue;
+  }
+
+  OperatorDocumentChanged(newValue){
+    this.data.OperatorDocument = newValue;
+  }
+
+  async TimeMachineChanged(newValue) {
+    this.data.Shift = {};
+    this.data.TimeMachine = newValue;
     var resultShift = await this.service.getShiftByTime(newValue)
       .then(result => {
         return result;
-        // this.error.Shift = "";
-        // this.Shift = {};
-        // this.Shift = result;
       })
       .catch(e => {
         this.Shift = {};
         this.error.Shift = " Shift tidak ditemukan ";
       });
-    this.Shift = resultShift;
+    this.data.Shift = resultShift;
   }
 
   async activate(context) {
     this.data = context.data;
     this.error = context.error;
 
-    this.BeamHistoryDocument = this.data.BeamHistoryDocument;
+    this.BeamDocument = this.data.BeamDocument;
+    this.MachineDocument = this.data.MachineDocument;
+    this.OperatorDocument = this.data.OperatorDocument;
+    this.TimeMachine = this.data.TimeMachine;
 
     this.options = context.context.options;
     this.OrderIdFilter = {
