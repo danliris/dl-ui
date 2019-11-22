@@ -15,7 +15,7 @@ import {
   Config
 } from "aurelia-api";
 
-const serviceUri = "weaving/daily-operations-reaching-tying";
+const serviceUri = "weaving/daily-operations-reaching";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -67,32 +67,38 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  updateReachingStart(Id, data) {
-    var status = "reaching-start";
+  updateReachingInStart(Id, data) {
+    var status = "reaching-in-start";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateReachingChangeOperator(Id, data) {
-    var status = "change-operator";
+  updateReachingInChangeOperator(Id, data) {
+    var status = "reaching-in-change-operator";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateReachingFinish(Id, data) {
-    var status = "reaching-finish";
+  updateReachingInFinish(Id, data) {
+    var status = "reaching-in-finish";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateTyingStart(Id, data) {
-    var status = "tying-start";
+  updateCombStart(Id, data) {
+    var status = "comb-start";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateTyingFinish(Id, data) {
-    var status = "tying-finish";
+  updateCombChangeOperator(Id, data) {
+    var status = "comb-change-operator";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
+  updateCombFinish(Id, data) {
+    var status = "comb-finish";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }

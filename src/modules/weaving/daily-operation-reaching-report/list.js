@@ -10,9 +10,11 @@ import {
 } from 'aurelia-router';
 import moment from 'moment';
 
-let OrderLoader = require("../../../loader/weaving-order-loader");
-let UnitLoader = require('../../../loader/unit-loader');
-var MachineLoader = require("../../../loader/weaving-machine-loader");
+const OrderLoader = require("../../../loader/weaving-order-loader");
+const UnitLoader = require('../../../loader/unit-loader');
+const MachineLoader = require("../../../loader/weaving-machine-loader");
+const ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+const BeamLoader = require("../../../loader/weaving-sizing-beam-loader");
 
 @inject(Router, Service)
 export class List {
@@ -40,17 +42,14 @@ export class List {
     field: "WeavingUnit",
     title: "Unit Weaving"
   }, {
-    field: "RecipeCode",
-    title: "Kode Resep"
-  }, {
-    field: "NeReal",
-    title: "Ne Real"
+    field: "SizingBeamNumber",
+    title: "No. Beam Sizing"
   }, {
     field: "OperatorName",
     title: "Operator"
   }, {
-    field: "SizingOperatorGroup",
-    title: "Grup Sizing"
+    field: "ReachingOperatorGroup",
+    title: "Grup Reaching"
   }, {
     field: "PreparationDate",
     title: "Tanggal Pasang"
@@ -60,12 +59,6 @@ export class List {
   }, {
     field: "Shift",
     title: "Shift"
-  }, {
-    field: "YarnStrands",
-    title: "Total Helai Beam"
-  }, {
-    field: "EmptyWeight",
-    title: "Total Berat Kosong"
   }];
 
   controlOptions = {
@@ -110,6 +103,12 @@ export class List {
     if (this.OrderProduction) {
       var OrderProductionIdContainer = this.OrderProduction.Id;
     }
+    if (this.FabricConstruction) {
+      var FabricConstructionContainer = this.FabricConstruction.Id;
+    }
+    if (this.Beam) {
+      var BeamIdContainer = this.Beam.Id;
+    }
     if (this.OperationStatus) {
       var OperationStatusContainer = this.OperationStatus;
     }
@@ -126,6 +125,8 @@ export class List {
     var arg = {
       machineId: MachineIdContainer,
       orderId: OrderProductionIdContainer,
+      constructionId: FabricConstructionContainer,
+      beamId: BeamIdContainer,
       operationStatus: OperationStatusContainer,
       unitId: WeavingUnitIdContainer,
       dateFrom: StartDatePeriodContainer,
@@ -156,32 +157,6 @@ export class List {
     };
   }
 
-  // EndDatePeriodChanged(newValue) {
-  //   this.error.EndDatePeriod = "";
-  //   var parsedStartDate = Date.parse(this.StartDatePeriod);
-  //   var parsedEndDate = Date.parse(newValue);
-  //   if (this.StartDatePeriod) {
-  //     if (parsedStartDate > parsedEndDate) {
-  //       this.error.EndDatePeriod = "Tanggal Akhir Tidak Boleh Lebih Dahulu dari Tanggal Mulai";
-  //     } else {
-  //       this.error.EndDatePeriod = "";
-  //     }
-  //   }
-  // }
-
-  // StartDatePeriodChanged(newValue) {
-  //   this.error.StartDatePeriod = "";
-  //   var parsedStartDate = Date.parse(newValue);
-  //   var parsedEndDate = Date.parse(this.EndDatePeriod);
-  //   if (this.EndDatePeriod) {
-  //     if (parsedStartDate > parsedEndDate) {
-  //       this.error.StartDatePeriod = "Tanggal Mulai Tidak Boleh Lebih Lambat dari Tanggal Akhir";
-  //     } else {
-  //       this.error.StartDatePeriod = "";
-  //     }
-  //   }
-  // }
-
   get orders() {
     return OrderLoader;
   }
@@ -194,42 +169,56 @@ export class List {
     return MachineLoader;
   }
 
-  searchDailyOperationSizings() {
+  get constructions() {
+    return ConstructionLoader;
+  }
+
+  get beams() {
+    return BeamLoader;
+  }
+
+  searchDailyOperationReachings() {
     this.listDataFlag = true;
 
-    this.dailyOperationSizingsTable.refresh();
+    this.dailyOperationReachingsTable.refresh();
   }
 
   reset() {
     this.listDataFlag = false;
 
+    this.Machine = undefined;
+    this.OrderProduction = undefined;
+    this.OperationStatus = null;
+    this.WeavingUnit = undefined;
+    this.FabricConstruction = undefined;
+    this.Beam = undefined;
     this.StartDatePeriod = undefined;
     this.EndDatePeriod = undefined;
-    this.OrderProduction = undefined;
-    this.WeavingUnit = undefined;
-    this.Machine = undefined;
-    this.OperationStatus = null;
 
+    this.MachineContainer = undefined;
+    this.OrderProductionContainer = undefined;
+    this.FabricConstructionContainer = undefined;
+    this.BeamContainer = undefined;
+    this.OperationStatusContainer = null;
+    this.WeavingUnitContainer = undefined;
     this.StartDatePeriodContainer = undefined;
     this.EndDatePeriodContainer = undefined;
-    this.OrderProductionContainer = undefined;
-    this.WeavingUnitContainer = undefined;
-    this.MachineContainer = undefined;
-    this.OperationStatusContainer = null;
 
-    this.dailyOperationSizingsTable.refresh();
+    this.dailyOperationReachingsTable.refresh();
   }
 
   exportToExcel() {
-    var OrderProductionContainer = this.OrderProduction;
     var MachineContainer = this.Machine;
+    var OrderProductionContainer = this.OrderProduction;
+    var FabricConstructionContainer = this.FabricConstruction;
+    var BeamContainer = this.Beam;
     var OperationStatusContainer = this.OperationStatus;
     var WeavingUnitContainer = this.WeavingUnit;
     var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
     //Get All
-    return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+    return this.listDataFlag ? this.service.getReportXls(MachineContainer, OrderProductionContainer, FabricConstructionContainer, BeamContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');

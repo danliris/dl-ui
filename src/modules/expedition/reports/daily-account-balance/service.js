@@ -9,7 +9,13 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}`;
+        let endpoint = `${serviceUri}/accountbank`;
+        // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.list(endpoint, info);
+    }
+
+    searchCurrency(info) {
+        let endpoint = `${serviceUri}/currency`;
         // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.list(endpoint, info);
     }

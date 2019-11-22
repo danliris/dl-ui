@@ -16,11 +16,13 @@ var MaterialTypeLoader = require("../../../loader/weaving-material-type-loader")
 
 @inject(Router, Service)
 export class List {
-  //   @bindable Period;
+  @bindable StartDatePeriod;
+  @bindable EndDatePeriod;
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    this.error = {};
     // this.ShowHideByDatePeriod = false;
     // this.ShowHideByDateRangePeriod = false;
     // this.ShowHideMonthlyPeriod = false;
@@ -32,7 +34,7 @@ export class List {
 
   //   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-  operationStatusItems = ["", "ON-PROCESS", "FINISH"];
+  operationStatusItems = ["", "PROCESSING", "FINISH"];
 
   columns = [{
     field: "OrderProductionNumber",
@@ -97,8 +99,8 @@ export class List {
     search: false,
     showToggle: false,
     showColumns: false,
-    pagination: false,
-    sortable: false,
+    pagination: true,
+    sortable: true,
   }
 
   //   PeriodChanged(newValue) {
@@ -137,19 +139,46 @@ export class List {
   //     }
   //   }
 
-  loader = (info) => {
-    this.info = {};
+  loader = info => {
+    let order = {};
+    if (info.sort) order[info.sort] = info.order;
 
-    var OrderProductionContainer = this.OrderProduction;
-    var MaterialTypeContainer = this.MaterialType;
-    var OperationStatusContainer = this.OperationStatus;
-    var WeavingUnitContainer = this.WeavingUnit;
-    var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+    if (this.OrderProduction) {
+      var OrderProductionIdContainer = this.OrderProduction.Id;
+    }
+    if (this.MaterialType) {
+      var MaterialTypeIdContainer = this.MaterialType.Id;
+    }
+    if (this.OperationStatus) {
+      var OperationStatusContainer = this.OperationStatus;
+    }
+    if (this.WeavingUnit) {
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+    }
+    if (this.StartDatePeriod) {
+      var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
+    }
+    if (this.EndDatePeriod) {
+      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+    }
+
+    var arg = {
+      orderId: OrderProductionIdContainer,
+      materialId: MaterialTypeIdContainer,
+      operationStatus: OperationStatusContainer,
+      unitId: WeavingUnitIdContainer,
+      dateFrom: StartDatePeriodContainer,
+      dateTo: EndDatePeriodContainer,
+
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    };
 
     //Get All
-    return this.listDataFlag ? this.service.getReportData(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
-      for (var datum of result) {
+    return this.listDataFlag ? this.service.getReportData(arg).then(result => {
+      for (var datum of result.data) {
         if (datum.PreparationDate) {
           var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
 
@@ -157,14 +186,40 @@ export class List {
         }
       }
       return {
-        data: result,
-        total: length
+        data: result.data,
+        total: result.info.count
       };
     }) : {
       data: {},
       total: 0
     };
   }
+
+  // EndDatePeriodChanged(newValue) {
+  //   this.error.EndDatePeriod = "";
+  //   var parsedStartDate = Date.parse(this.StartDatePeriod);
+  //   var parsedEndDate = Date.parse(newValue);
+  //   if (this.StartDatePeriod) {
+  //     if (parsedStartDate > parsedEndDate) {
+  //       this.error.EndDatePeriod = "Tanggal Akhir Tidak Boleh Lebih Dahulu dari Tanggal Mulai";
+  //     } else {
+  //       this.error.EndDatePeriod = "";
+  //     }
+  //   }
+  // }
+
+  // StartDatePeriodChanged(newValue) {
+  //   this.error.StartDatePeriod = "";
+  //   var parsedStartDate = Date.parse(newValue);
+  //   var parsedEndDate = Date.parse(this.EndDatePeriod);
+  //   if (this.EndDatePeriod) {
+  //     if (parsedStartDate > parsedEndDate) {
+  //       this.error.StartDatePeriod = "Tanggal Mulai Tidak Boleh Lebih Lambat dari Tanggal Akhir";
+  //     } else {
+  //       this.error.StartDatePeriod = "";
+  //     }
+  //   }
+  // }
 
   get orders() {
     return OrderLoader;
