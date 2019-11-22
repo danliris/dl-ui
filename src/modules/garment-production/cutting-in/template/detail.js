@@ -19,7 +19,8 @@ export class Item {
     @computedFrom("context.fc", "data.CuttingInQuantity")
     get dataPreparingQuantity() {
         this.data.RemainingQuantity = this.data.CuttingInQuantity;
-
+        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
+        
         if (this.showOrigin) {
             this.showOrigin = false;
         } else {
@@ -28,6 +29,7 @@ export class Item {
 
         if (!this.isEdit) {
             this.data.BasicPrice = this.data.PreparingBasicPrice * this.context.fc;
+            this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
         }
 
         return this.data.PreparingQuantity;

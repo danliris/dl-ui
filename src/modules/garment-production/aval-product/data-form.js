@@ -72,6 +72,7 @@ export class DataForm {
                             Quantity : item.RemainingQuantity,
                             Uom : item.Uom,
                             IsSave : false,
+                            BasicPrice: item.BasicPrice
                         };
                         this.data.Items.push(items); 
                     }
