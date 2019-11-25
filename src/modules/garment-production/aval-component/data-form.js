@@ -70,7 +70,8 @@ export class DataForm {
 
         if (this.data.Unit) {
             return {
-                UnitToId: this.data.Unit.Id
+                UnitToId: this.data.Unit.Id,
+                SewingTo: "CUTTING"
             };
         } else {
             return {
