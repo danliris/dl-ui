@@ -108,6 +108,11 @@ export class DataForm {
         };
     }
 
+    avalComponentTypeChanged() {
+        this.selectedCuttingIn = null;
+        this.selectedSewingOut = null;
+    }
+
     async selectedSewingOutChanged(newValue, oldValue) {
         if (newValue) {
             this.context.error.Items = [];
