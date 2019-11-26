@@ -29,6 +29,7 @@
             error.bind="error.AvalComponentType"
             read-only.bind="readOnly"
             items.bind="avalComponentTypes"
+            change.delegate="avalComponentTypeChanged()"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -82,6 +83,10 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
+
+        <div class="form-group has-error">
+            <p if.bind="error.Item" class="help-block text-center">${error.Item}</p>
+        </div>
 
         <!-- <au-collection 
             items.bind="data.Items" 

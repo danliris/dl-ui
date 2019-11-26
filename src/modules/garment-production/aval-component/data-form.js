@@ -70,7 +70,8 @@ export class DataForm {
 
         if (this.data.Unit) {
             return {
-                UnitToId: this.data.Unit.Id
+                UnitToId: this.data.Unit.Id,
+                SewingTo: "CUTTING"
             };
         } else {
             return {
@@ -105,6 +106,11 @@ export class DataForm {
         return {
             type: this.data.AvalComponentType
         };
+    }
+
+    avalComponentTypeChanged() {
+        this.selectedCuttingIn = null;
+        this.selectedSewingOut = null;
     }
 
     async selectedSewingOutChanged(newValue, oldValue) {
