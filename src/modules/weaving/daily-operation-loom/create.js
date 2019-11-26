@@ -165,6 +165,7 @@ export class Create {
 
   saveCallback(event) {
     var preparationData = {};
+    preparationData.LoomBeamProducts = [];
     preparationData.LoomBeamHistories = [];
     if (this.OrderDocument) {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
@@ -173,16 +174,23 @@ export class Create {
     // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
     this.BeamsSizing.forEach(doc => {
       var BeamHistoryDocument = {};
+      var BeamProductDocument = {};
       
-      BeamHistoryDocument.BeamDocumentId = doc.BeamDocument.Id;
-      BeamHistoryDocument.MachineDocumentId = doc.MachineDocument.Id;
+      BeamProductDocument.BeamDocumentId = doc.BeamDocument.Id;
+      BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
+      BeamProductDocument.DateBeamProduct = doc.Date;
+      BeamProductDocument.TimeBeamProduct = doc.Time;
+      BeamProductDocument.LoomProcess = doc.LoomProcess;
+
+      BeamHistoryDocument.BeamNumber = doc.BeamDocument.Number;
+      BeamHistoryDocument.MachineNumber = doc.MachineDocument.MachineNumber;
       BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
-      BeamHistoryDocument.DateMachine = doc.DateMachine;
-      BeamHistoryDocument.TimeMachine = doc.TimeMachine;
+      BeamHistoryDocument.DateMachine = doc.Date;
+      BeamHistoryDocument.TimeMachine = doc.Time;
       BeamHistoryDocument.ShiftDocumentId = doc.Shift.Id;
-      BeamHistoryDocument.Process = doc.LoomProcess;
       BeamHistoryDocument.Information = doc.Information;
 
+      preparationData.LoomBeamProducts.push(BeamProductDocument);
       preparationData.LoomBeamHistories.push(BeamHistoryDocument);
     });
 

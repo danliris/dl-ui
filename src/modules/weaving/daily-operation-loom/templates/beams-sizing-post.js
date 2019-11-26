@@ -15,7 +15,7 @@ export class BeamsSizingPost {
   @bindable BeamDocument
   @bindable MachineDocument
   @bindable OperatorDocument
-  @bindable TimeMachine
+  @bindable Time
 
   constructor(bindingEngine, service) {
     this.service = service;
@@ -48,9 +48,9 @@ export class BeamsSizingPost {
     this.data.OperatorDocument = newValue;
   }
 
-  async TimeMachineChanged(newValue) {
+  async TimeChanged(newValue) {
     this.data.Shift = {};
-    this.data.TimeMachine = newValue;
+    this.data.Time = newValue;
     var resultShift = await this.service.getShiftByTime(newValue)
       .then(result => {
         return result;
@@ -69,7 +69,7 @@ export class BeamsSizingPost {
     this.BeamDocument = this.data.BeamDocument;
     this.MachineDocument = this.data.MachineDocument;
     this.OperatorDocument = this.data.OperatorDocument;
-    this.TimeMachine = this.data.TimeMachine;
+    this.Time = this.data.Time;
 
     this.options = context.context.options;
     this.OrderIdFilter = {

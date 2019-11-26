@@ -114,89 +114,90 @@ export class Update {
   async activate(params) {
     var Id = params.Id;
     var dataResult;
-    this.data = [{
-      Id: 1,
-      OrderNumber: "PCA ORDER 133",
-      OperationStatus: "ON-PROCESS",
-      ConstructionNumber: "CXK 44RT",
-      WarpOrigin: "KDKI",
-      WeavingUnit: "WEAVING 2",
-      WeftOrigin: "UAE"
-    }];
-    // this.data = await this.service
-    //   .getById(Id)
-    //   .then(result => {
-    //     dataResult = result;
-    //     return this.service.getUnitById(result.WeavingUnitId);
-    //   })
-    //   .then(unit => {
-    //     dataResult.WeavingDocument = unit;
-    //     return dataResult;
-    //   });
+    // this.data = [{
+    //   Id: 1,
+    //   OrderNumber: "PCA ORDER 133",
+    //   OperationStatus: "ON-PROCESS",
+    //   ConstructionNumber: "CXK 44RT",
+    //   WarpOrigin: "KDKI",
+    //   WeavingUnit: "WEAVING 2",
+    //   WeftOrigin: "UAE"
+    // }];
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnitId);
+      })
+      .then(unit => {
+        dataResult.WeavingDocument = unit;
+        return dataResult;
+      });
 
-    // if (this.data.Id) {
-    //   this.BeamsWarping = this.data.BeamsWarping;
-    //   this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
-    //   this.Histories = this.data.DailyOperationSizingHistories;
+    if (this.data.Id) {
+      debugger
+      this.BeamsWarping = this.data.BeamsWarping;
+      this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
+      this.Histories = this.data.DailyOperationSizingHistories;
 
-    //   if (this.BeamProducts.length === 0) {
-    //     this.StartSizingStartCounter = 0;
-    //   } else {
-    //     var lastSizingHistory = this.Histories[0];
-    //     if (lastSizingHistory.MachineStatus == "ENTRY") {
-    //       this.StartSizingStartCounter = 0;
-    //     } else {
-    //       var lastSizingBeamProduct = this.BeamProducts[0];
-    //       this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
-    //     }
-    //   }
+      if (this.BeamProducts.length === 0) {
+        this.StartSizingStartCounter = 0;
+      } else {
+        var lastSizingHistory = this.Histories[0];
+        if (lastSizingHistory.MachineStatus == "ENTRY") {
+          this.StartSizingStartCounter = 0;
+        } else {
+          var lastSizingBeamProduct = this.BeamProducts[0];
+          this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
+        }
+      }
 
-    //   var lastSizingHistory = this.Histories[0];
-    //   var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
-    //   switch (lastMachineStatusHistory) {
-    //     case "ENTRY":
-    //       this.isStartDisabled = false;
-    //       this.isPauseDisabled = true;
-    //       this.isResumeDisabled = true;
-    //       this.isFinishDisabled = true;
-    //       break;
-    //     case "START":
-    //       this.isStartDisabled = true;
-    //       this.isPauseDisabled = false;
-    //       this.isResumeDisabled = true;
-    //       this.isFinishDisabled = true;
-    //       break;
-    //     case "STOP":
-    //       this.isStartDisabled = true;
-    //       this.isPauseDisabled = true;
-    //       this.isResumeDisabled = false;
-    //       this.isFinishDisabled = true;
-    //       break;
-    //     case "CONTINUE":
-    //       this.isStartDisabled = true;
-    //       this.isPauseDisabled = false;
-    //       this.isResumeDisabled = true;
-    //       this.isFinishDisabled = true;
-    //       break;
-    //     case "COMPLETED":
-    //       this.isStartDisabled = false;
-    //       this.isPauseDisabled = true;
-    //       this.isResumeDisabled = true;
-    //       this.isFinishDisabled = false;
-    //       break;
-    //     case "FINISH":
-    //       this.isStartDisabled = true;
-    //       this.isPauseDisabled = true;
-    //       this.isResumeDisabled = true;
-    //       this.isFinishDisabled = true;
-    //       break;
-    //     default:
-    //       this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
-    //       break;
-    //   }
+      var lastSizingHistory = this.Histories[0];
+      var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
+      switch (lastMachineStatusHistory) {
+        case "ENTRY":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "START":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "STOP":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = false;
+          this.isFinishDisabled = true;
+          break;
+        case "CONTINUE":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "COMPLETED":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = false;
+          break;
+        case "FINISH":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        default:
+          this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+          break;
+      }
 
-    //   this.dataOptions = this.data;
-    // }
+      this.dataOptions = this.data;
+    }
   }
 
   causes = ["", "Putus Beam", "Mesin Bermasalah"];
