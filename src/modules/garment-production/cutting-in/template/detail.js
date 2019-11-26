@@ -28,7 +28,7 @@ export class Item {
         }
 
         if (!this.isEdit) {
-            this.data.BasicPrice = this.data.PreparingBasicPrice * this.context.fc;
+            this.data.BasicPrice = this.data.PreparingBasicPrice ;//* this.context.fc;
             this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
         }
 
