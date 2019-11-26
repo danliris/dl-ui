@@ -20,36 +20,33 @@
                     show.bind="selectedBank">
         </au-textbox>
 
-        <au-textbox
-            label="Mata Uang"
-            value.bind="data.Bank.Currency.Code"
-            read-only.bind="true"
-            if.bind="!IDR"
-            options.bind="controlOptions"
-            show.bind="selectedBank">
+        <au-textbox label="Mata Uang"
+                    value.bind="data.Bank.Currency.Code"
+                    read-only.bind="true"
+                    if.bind="!IDR"
+                    options.bind="controlOptions"
+                    show.bind="selectedBank">
         </au-textbox>
 
-        <au-autocomplete
-            label="Mata Uang"
-            placeholder="pilih mata uang"
-            value.bind="selectedCurrency"
-            error.bind="error.Currency"
-            loader.one-time="currencyLoader"
-            text.bind="currencyView"
-            read-only.bind="readOnly"
-            if.bind="IDR"
-            options.bind="controlOptions">
+        <au-autocomplete label="Mata Uang"
+                         placeholder="pilih mata uang"
+                         value.bind="selectedCurrency"
+                         error.bind="error.Currency"
+                         loader.one-time="currencyLoader"
+                         text.bind="currencyView"
+                         read-only.bind="readOnly"
+                         if.bind="IDR"
+                         options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-numeric
-            label="Rate"
-            placeholder="masukkan rate"
-            value.bind="data.CurrencyRate"
-            error.bind="error.CurrencyRate"
-            change.delegate="rateChanged($event)"
-            read-only.bind="readOnly || sameCurrency"
-            options.bind="controlOptions"
-            if.bind="IDR">
+        <au-numeric label="Rate"
+                    placeholder="masukkan rate"
+                    value.bind="data.CurrencyRate"
+                    error.bind="error.CurrencyRate"
+                    change.delegate="rateChanged($event)"
+                    read-only.bind="readOnly || sameCurrency"
+                    options.bind="controlOptions"
+                    if.bind="IDR">
         </au-numeric>
 
         <!-- <au-textbox label="Mata Uang"
@@ -89,22 +86,40 @@
                     read-only.bind="true">
         </au-textbox>
 
+        <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4">
+                <au-dropdown value.bind="selectedSortOption"
+                             label="Urutkan Berdasar :"
+                             show.bind="isExistBankAndSupplier"
+                             options.bind="sortingControlOptions"
+                             items.bind="sortingOptions">
+                </au-dropdown>
+                <au-dropdown value.bind="selectedSortTypeOption"
+                             show.bind="isExistBankAndSupplier"
+                             options.bind="sortingControlOptions"
+                             items.bind="sortingTypeOptions">
+                </au-dropdown>
+            </div>
+        </div>
+
         <au-collection show.bind="isExistBankAndSupplier"
-                        if.bind="!IDR"
+                       if.bind="!IDR"
+                       view-model.ref="ItemsCollection"
                        items.bind="UPOResults"
                        columns.bind="collection.columns"
                        checkall.delegate="onCheckAll($event)"
                        item-template="modules/expedition/bank-expenditure-note/templates/item">
         </au-collection>
 
-        <au-collection
-            show.bind="isExistBankAndSupplier && selectedCurrency && data.CurrencyRate"
-            if.bind="IDR"
-            items.bind="UPOResults" 
-            columns.bind="collection.columns"
-            checkall.delegate="onCheckAll($event)"
-            item-template="modules/expedition/bank-expenditure-note/templates/item"
-            options.bind="collectionOptions">
+        <au-collection show.bind="isExistBankAndSupplier && selectedCurrency && data.CurrencyRate"
+                       if.bind="IDR"
+                       view-model.ref="ItemsCollectionRate"
+                       items.bind="UPOResults"
+                       columns.bind="collection.columns"
+                       checkall.delegate="onCheckAll($event)"
+                       item-template="modules/expedition/bank-expenditure-note/templates/item"
+                       options.bind="collectionOptions">
         </au-collection>
 
         TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${currency}

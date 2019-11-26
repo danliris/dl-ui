@@ -250,6 +250,19 @@ module.exports = [
             permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/smv-garment-by-unit',
+        name: 'smv-garment-by-unit-report',
+        moduleId: './modules/merchandiser/report/smv-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display SMV Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]
