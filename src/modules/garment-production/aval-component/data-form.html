@@ -93,6 +93,7 @@
             view-model.ref="ItemsCollection">
         </au-collection> -->
 
+        <au-layout error.bind="error.Price" if.bind="error.Price"></au-layout>
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -117,7 +118,6 @@
                         <div class="alert alert-info"> No data.</div>
                     </td>
                 </tr>
-
                 <!--with-template-->
                 <tr
                     if.bind="data.Items && data.Items.length > 0"

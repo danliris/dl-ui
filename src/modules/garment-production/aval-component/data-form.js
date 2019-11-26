@@ -1,11 +1,11 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service, CoreService } from "./service";
+import { Service, CoreService,SalesService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 const CuttingInLoader = require('../../../loader/garment-cutting-in-by-ro-loader');
 const SewingOutLoader = require('../../../loader/garment-sewing-out-by-ro-loader');
 
-@inject(Service, CoreService)
+@inject(Service, CoreService,SalesService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -14,9 +14,10 @@ export class DataForm {
     @bindable selectedCuttingIn;
     @bindable selectedSewingOut;
 
-    constructor(service, coreService) {
+    constructor(service, coreService,salesService) {
         this.service = service;
         this.coreService = coreService;
+        this.salesService=salesService;
     }
 
     formOptions = {
@@ -114,6 +115,14 @@ export class DataForm {
             this.data.Article = newValue.Article;
             this.data.Comodity = newValue.Comodity;
 
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+            }
+            else{
+                this.data.Price=0;
+            }
+
             Promise.resolve(this.service.getSewingOut({
                 filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id }),
                 select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
@@ -140,7 +149,9 @@ export class DataForm {
                                             SewingOutDetailId: detail.SewingOutDetailId,
                                             Quantity: detail.Quantity,
                                             SourceQuantity: detail.Quantity,
-                                            Size: detail.Size
+                                            Size: detail.Size,
+                                            BasicPrice: item.BasicPrice,
+                                            ComodityPrice: this.data.Price
                                         });
                                     }
                                 });
@@ -149,7 +160,9 @@ export class DataForm {
                                     this.data.Items.push(Object.assign(item, {
                                         IsSave: true,
                                         Quantity: item.RemainingQuantity,
-                                        SourceQuantity: item.RemainingQuantity
+                                        SourceQuantity: item.RemainingQuantity,
+                                        BasicPrice: item.BasicPrice,
+                                        ComodityPrice: this.data.Price
                                     }));
                                 }
                             }
@@ -164,6 +177,7 @@ export class DataForm {
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.Items = [];
+            this.data.Price=0;
         }
     }
 
@@ -172,6 +186,20 @@ export class DataForm {
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
+
+            let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
+            if(noResult.data.length>0){
+                this.data.Comodity = noResult.data[0].Comodity;
+            }
+            console.log(this.data.Comodity)
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+            }
+            else{
+                this.data.Price=0;
+            }
 
             Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                 .then(result => {
@@ -185,7 +213,9 @@ export class DataForm {
                                         IsSave: true,
                                         Quantity: detail.RemainingQuantity,
                                         CuttingInDetailId: detail.Id,
-                                        SourceQuantity: detail.RemainingQuantity
+                                        SourceQuantity: detail.RemainingQuantity,
+                                        BasicPrice:detail.BasicPrice,
+                                        ComodityPrice:this.data.Price
                                     }));
                                 }
                             });

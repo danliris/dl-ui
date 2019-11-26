@@ -5,7 +5,7 @@ const cuttingInUri = 'cutting-ins';
 const costCalculationServiceUri = 'cost-calculation-garments';
 const gComodityServiceUri = 'master/garment-comodities';
 const uomServiceUri = 'master/uoms';
-const sewingServiceUri = 'sewing-dos'
+const sewingServiceUri = 'sewing-dos';
 const comodityPriceserviceUri = 'comodity-prices';
 
 class Service extends RestService {
