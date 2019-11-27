@@ -76,7 +76,7 @@ export class List {
             endDate: this.endDate ? moment(this.endDate).format("MM/DD/YYYY") : "",
             supplierId: this.supplier ? this.supplier._id.toString() : "",
             prId: this.pr ? this.pr._id : 0,
-            poExtId: this.purchaseOrder ? this.purchaseOrder._id : 0,
+            poExtId: this.epo ? this.epo._id : 0,
             page: this.info.page,
             size: this.info.size
         };
