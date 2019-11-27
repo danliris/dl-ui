@@ -72,7 +72,6 @@ export class DataForm {
             };
             return this.service.searchSewingOut(info)
                 .then((result) => {
-                    console.log(result)
                     var roList=[];
                         for(var a of result.data){
                             if(roList.length==0){
@@ -123,6 +122,7 @@ export class DataForm {
         this.data.SewingOutId=null;
         this.data.SewingOutNo=null;
         this.data.Items = [];
+        this.data.Price=0;
         if(newValue){
             this.data.Unit=newValue;
         }
@@ -137,6 +137,7 @@ export class DataForm {
             this.data.SewingOutId=null;
             this.data.SewingOutNo=null;
             this.data.Items = [];
+            this.data.Price=0;
         }
     }
 
@@ -148,7 +149,9 @@ export class DataForm {
         this.data.SewingOutId=null;
         this.data.SewingOutNo=null;
         this.data.Items = [];
+        this.data.Price=0;
         if(newValue) {
+            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -157,10 +160,20 @@ export class DataForm {
             this.data.SewingOutId=newValue.Id;
             this.data.SewingOutNo=newValue.SewingOutNo;
             var items=[];
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+            }
+            else{
+                this.data.Price=0;
+            }
+            console.log(this.data.Price)
             Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING" }) }))
                     .then(result => {
                         for(var sewingOut of result.data){
                             for(var sewingOutItem of sewingOut.Items){
+                                console.log(sewingOutItem)
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
                                     if(sewingOut.IsDifferentSize){
@@ -175,6 +188,9 @@ export class DataForm {
                                             item.Color=sewingOutItem.Color;
                                             item.DesignColor=sewingOutItem.DesignColor;
                                             item.RemainingQuantity=sewingOutDetail.Quantity;
+                                            item.BasicPrice=sewingOutItem.BasicPrice;
+                                            item.ComodityPrice=this.data.Price;
+                                            item.Price=(sewingOutItem.BasicPrice) + ((this.data.Price * 75/100) * sewingOutItem.Quantity);
                                             this.data.Items.push(item);
                                         }
                                     }
@@ -187,6 +203,9 @@ export class DataForm {
                                         item.Color=sewingOutItem.Color;
                                         item.DesignColor=sewingOutItem.DesignColor;
                                         item.RemainingQuantity=sewingOutItem.Quantity;
+                                        item.BasicPrice=sewingOutItem.BasicPrice;
+                                        item.ComodityPrice=this.data.Price;
+                                        item.Price=(sewingOutItem.BasicPrice) + ((this.data.Price * 75/100) * sewingOutItem.Quantity);
                                         this.data.Items.push(item);
                                     }
                                 
@@ -206,6 +225,7 @@ export class DataForm {
             this.data.SewingOutId=null;
             this.data.SewingOutNo=null;
             this.data.Items = [];
+            this.data.Price=0;
         }
     }
     itemsInfo = {
