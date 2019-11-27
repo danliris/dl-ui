@@ -58,7 +58,7 @@ export class DataForm {
             let info = {
                 incomeTaxName: this.data.IncomeTax.name,
                 incomeTaxRate: this.data.IncomeTax.rate,
-                currency: this.data.Bank.currency.code
+                currency: this.data.Bank.Currency.Code
             };
 
             this.service.getUnitPaymentOrders(info)
@@ -68,7 +68,7 @@ export class DataForm {
         }
 
         if (this.isEdit || this.readOnly) {
-            this.Currency = this.data.Bank.currency.code;
+            this.Currency = this.data.Bank.Currency.Code;
             this.calculateTotalPPHCallback();
         }
 
@@ -102,7 +102,7 @@ export class DataForm {
         if (newV) {
             this.data.Bank = newV;
             this.data.Bank.code = this.data.Bank.bankCode;
-            this.Currency = this.data.Bank.currency.code;
+            this.Currency = this.data.Bank.Currency.Code;
         }
         else {
             this.data.Bank = undefined;
@@ -122,7 +122,7 @@ export class DataForm {
                 dateTo: moment(this.data.dateTo).format("MM/DD/YYYY"),
                 incomeTaxName: this.data.IncomeTax.name,
                 incomeTaxRate: this.data.IncomeTax.rate,
-                currency: this.data.Bank.currency.code
+                currency: this.data.Bank.Currency.Code
             };
 
             this.service.getUnitPaymentOrders(info)

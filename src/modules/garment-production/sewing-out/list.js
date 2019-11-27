@@ -51,28 +51,8 @@ export class List {
                 s.UnitToCode=s.UnitTo.Code;
                 s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
                 s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
-                // if(s.Items){
-                // s.Items.toString = function () {
-                //     var str = "<ul>";
-                //     var products = [];
-                //     var colors=[];
-                //     for (var item of s.Items) {
-                //         products.push(item.Product.Code)
-                //         colors.push(item.Color)
-                //     }
-                //     var Products = products.filter(distinct);
-                //     for(var product of Products){
-                //     str += `<li>${product}</li>`;
-                //     }
-                //     str += "</ul>";
-                //     return str;
-                //         }
-                // }
-                // else{
-                // s.Items = "-";
-                // }
+                
             });
-            console.log(result.data)
             return {
             total: result.info.total,
             data: result.data

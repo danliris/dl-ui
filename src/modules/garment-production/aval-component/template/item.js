@@ -12,9 +12,15 @@ export class Item {
         if (this.options.type !== 'CUTTING') {
             this.readOnly = true;
         }
+        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.Quantity);
     }
 
     changeCheckBox() {
         this.context.headerContext.checkedAll = this.context.context.items.reduce((accItem, currItem) => accItem && currItem.IsSave, true);
     }
+
+    qtyChanged(e) {
+        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.Quantity);
+        
+      }
 }
