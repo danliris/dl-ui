@@ -25,8 +25,8 @@ import {
         var DateBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('DD/MM/YYYY');
         var TimeBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('LT');
   
-        this.data.LatestDateBeamProduct = DateBeamProduct;
-        this.data.LatestTimeBeamProduct = TimeBeamProduct;
+        this.data.LatestBeamProductDate = DateBeamProduct;
+        this.data.LatestBeamProductTime = TimeBeamProduct;
       }
   
       this.options = context.context.options;

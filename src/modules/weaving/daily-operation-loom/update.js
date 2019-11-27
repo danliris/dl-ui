@@ -11,12 +11,13 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-loader");
+var LoomBeamProductsLoader = require("../../../loader/weaving-loom-beam-products-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
   @bindable StartTime;
+  @bindable StartLoomBeamDocuments;
   @bindable PauseTime;
   @bindable ResumeTime;
   @bindable FinishTime;
@@ -47,10 +48,10 @@ export class Update {
     value: "MachineNumber",
     header: "No. Mesin"
   }, {
-    value: "BeamProductDate",
+    value: "LatestBeamProductDate",
     header: "Tanggal"
   }, {
-    value: "BeamProductTime",
+    value: "LatestBeamProductTime",
     header: "Waktu"
   }, {
     value: "LoomProcess",
@@ -116,13 +117,14 @@ export class Update {
     var dataResult;
     // this.data = [{
     //   Id: 1,
-    //   OrderNumber: "PCA ORDER 133",
+    //   OrderProductionNumber: "PCA ORDER 133",
     //   OperationStatus: "ON-PROCESS",
-    //   ConstructionNumber: "CXK 44RT",
+    //   FabricConstructionNumber: "CXK 44RT",
     //   WarpOrigin: "KDKI",
     //   WeavingUnit: "WEAVING 2",
     //   WeftOrigin: "UAE"
     // }];
+    // return this.data;
     this.data = await this.service
       .getById(Id)
       .then(result => {
@@ -131,72 +133,75 @@ export class Update {
       })
       .then(unit => {
         dataResult.WeavingDocument = unit;
+        dataResult.WeavingUnitName = unit.Name;
         return dataResult;
       });
 
     if (this.data.Id) {
-      debugger
-      this.BeamsWarping = this.data.BeamsWarping;
-      this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
-      this.Histories = this.data.DailyOperationSizingHistories;
+      this.OperationIdFilter = {
+        "LoomOperationId": this.data.Id
+      };
 
-      if (this.BeamProducts.length === 0) {
-        this.StartSizingStartCounter = 0;
-      } else {
-        var lastSizingHistory = this.Histories[0];
-        if (lastSizingHistory.MachineStatus == "ENTRY") {
-          this.StartSizingStartCounter = 0;
-        } else {
-          var lastSizingBeamProduct = this.BeamProducts[0];
-          this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
-        }
-      }
+      this.BeamProducts = this.data.DailyOperationLoomBeamProducts;
+      this.Histories = this.data.DailyOperationLoomBeamHistories;
 
-      var lastSizingHistory = this.Histories[0];
-      var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
-      switch (lastMachineStatusHistory) {
-        case "ENTRY":
-          this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        case "START":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        case "STOP":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = false;
-          this.isFinishDisabled = true;
-          break;
-        case "CONTINUE":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        case "COMPLETED":
-          this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isFinishDisabled = false;
-          break;
-        case "FINISH":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        default:
-          this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
-          break;
-      }
+      // if (this.BeamProducts.length === 0) {
+      //   this.StartSizingStartCounter = 0;
+      // } else {
+      //   var lastSizingHistory = this.Histories[0];
+      //   if (lastSizingHistory.MachineStatus == "ENTRY") {
+      //     this.StartSizingStartCounter = 0;
+      //   } else {
+      //     var lastSizingBeamProduct = this.BeamProducts[0];
+      //     this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
+      //   }
+      // }
 
-      this.dataOptions = this.data;
+      var lastLoomHistory = this.Histories[0];
+      var lastMachineStatusHistory = lastLoomHistory.MachineStatus;
+      // switch (lastMachineStatusHistory) {
+      //   case "ENTRY":
+      //     this.isStartDisabled = false;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "START":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = false;
+      //     this.isResumeDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "STOP":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = false;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "CONTINUE":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = false;
+      //     this.isResumeDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "COMPLETED":
+      //     this.isStartDisabled = false;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isFinishDisabled = false;
+      //     break;
+      //   case "FINISH":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   default:
+      //     this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+      //     break;
+      // }
+
+      // this.dataOptions = this.data;
     }
   }
 
@@ -206,8 +211,8 @@ export class Update {
     return OperatorLoader;
   }
 
-  get beams() {
-    return SizingBeamLoader;
+  get loomBeamProducts() {
+    return LoomBeamProductsLoader;
   }
 
   start() {
@@ -215,7 +220,7 @@ export class Update {
     this.StartTime = null;
     this.StartShift = undefined;
     this.StartOperator = undefined;
-    this.StartLoomBeamDocuments = undefined;
+    // this.StartLoomBeamDocuments = undefined;
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
@@ -234,7 +239,6 @@ export class Update {
     document.getElementById("warpBrokenThreads").checked = false;
     document.getElementById("weftBrokenThreads").checked = false;
     document.getElementById("lenoBrokenThreads").checked = false;
-    // this.Reprocess = undefined;
     this.PauseInformation = undefined;
     if (this.showHidePauseMenu === true) {
       this.showHidePauseMenu = false;
@@ -289,35 +293,45 @@ export class Update {
       });
   }
 
+  StartLoomBeamDocumentsChanged(newValue) {
+    if (newValue.MachineNumber) {
+      this.StartMachineNumber = newValue.MachineNumber;
+    }
+  }
+
   saveStart() {
     this.error = {};
     var IdContainer = this.data.Id;
     if (this.StartDate) {
-      var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
+      var StartDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     }
     if (this.StartTime) {
-      var HistoryTimeContainer = this.StartTime;
+      var StartTimeContainer = this.StartTime;
     }
     if (this.StartShift) {
-      var ShiftContainer = this.StartShift.Id;
+      var StartShiftIdContainer = this.StartShift.Id;
     }
     if (this.StartOperator) {
-      var OperatorContainer = this.StartOperator.Id;
+      var StartOperatorIdContainer = this.StartOperator.Id;
     }
     if (this.StartLoomBeamDocuments) {
-      var LoomBeamIdContainer = this.StartLoomBeamDocuments.Id;
+      var StartBeamNumberContainer = this.StartLoomBeamDocuments.BeamNumber;
+    }
+    if (this.StartMachineNumber) {
+      var StartMachineNumberContainer = this.StartMachineNumber;
     }
 
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.StartDate = HistoryDateContainer;
-    updateData.StartTime = HistoryTimeContainer;
-    updateData.StartShift = ShiftContainer;
-    updateData.StartOperator = OperatorContainer;
-    updateData.BeamId = LoomBeamIdContainer;
-
+    var startData = {};
+    startData.Id = IdContainer;
+    startData.StartBeamNumber = StartBeamNumberContainer;
+    startData.StartMachineNumber = StartMachineNumberContainer;
+    startData.StartDateMachine = StartDateContainer;
+    startData.StartTimeMachine = StartTimeContainer;
+    startData.StartShiftDocumentId = StartShiftIdContainer;
+    startData.StartOperatorDocumentId = StartOperatorIdContainer;
+debugger
     this.service
-      .updateStart(updateData.Id, updateData)
+      .updateStart(startData.Id, startData)
       .then(result => {
         location.reload();
       })
@@ -365,7 +379,7 @@ export class Update {
       var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
       var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
     }
-    
+
     //Cek Validasi Untuk Reproses
     if (this.CauseOfStopping) {
       switch (this.CauseOfStopping) {

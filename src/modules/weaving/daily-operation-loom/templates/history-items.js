@@ -25,8 +25,8 @@ import {
         var DateMachine = moment(this.data.DateTimeMachine).format('DD/MM/YYYY');
         var TimeMachine = moment(this.data.DateTimeMachine).format('LT');
   
-        this.data.DateMachine = DateMachine;
-        this.data.TimeMachine = TimeMachine;
+        this.data.MachineDate = DateMachine;
+        this.data.MachineTime = TimeMachine;
       }
   
       this.options = context.context.options;

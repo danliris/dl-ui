@@ -105,6 +105,7 @@ export class List {
       case "detail":
         this.router.navigateToRoute("update", {
           Id: data.Id
+          // Id: 1
         });
         break;
     }

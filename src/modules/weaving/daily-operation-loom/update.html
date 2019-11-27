@@ -12,7 +12,7 @@
           <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Order Produksi" value.bind="OrderNumber" error.bind="error.OrderNumber"
+          <au-textbox placeholder="No. Order Produksi" value.bind="data.OrderProductionNumber" error.bind="error.OrderProductionNumber"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -20,7 +20,7 @@
           <textbox label="Status Operasi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Status Operasi" value.bind="OperationStatus" error.bind="error.OperationStatus"
+          <au-textbox placeholder="Status Operasi" value.bind="data.OperationStatus" error.bind="error.OperationStatus"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -31,7 +31,7 @@
           <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber" error.bind="error.ConstructionNumber"
+          <au-textbox placeholder="No. Konstruksi" value.bind="data.FabricConstructionNumber" error.bind="error.FabricConstructionNumber"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -39,7 +39,7 @@
           <textbox label="Asal Lusi" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Asal Lusi" value.bind="WarpOrigin" error.bind="error.WarpOrigin"
+          <au-textbox placeholder="Asal Lusi" value.bind="data.WarpOrigin" error.bind="error.WarpOrigin"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -50,7 +50,7 @@
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
+          <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingUnitName" error.bind="error.WeavingUnitName"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -58,7 +58,7 @@
           <textbox label="Asal Pakan" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Asal Pakan" value.bind="WeftOrigin" error.bind="error.WeftOrigin"
+          <au-textbox placeholder="Asal Pakan" value.bind="data.WeftOrigin" error.bind="error.WeftOrigin"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -104,7 +104,7 @@
               <textbox label="Tanggal Mulai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-datepicker value.bind="StartDate" error.bind="error.StartDate">
+              <au-datepicker value.bind="StartDate" error.bind="error.StartDateMachine">
               </au-datepicker>
             </div>
           </div>
@@ -114,13 +114,13 @@
               <textbox label="Waktu Mulai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="StartTime" error.bind="error.StartTime" read-only.bind="readOnly">
+              <au-timepicker value.bind="StartTime" error.bind="error.StartTimeMachine" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-2" style="text-align:left;">
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.StartShift"
+              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.StartShiftDocumentId"
                 read-only.bind="true">
               </au-textbox>
             </div>
@@ -131,7 +131,7 @@
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-autocomplete placeholder="Operator" value.bind="StartOperator" error.bind="error.StartOperator"
+              <au-autocomplete placeholder="Operator" value.bind="StartOperator" error.bind="error.StartOperatorDocumentId"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
@@ -148,8 +148,8 @@
               <textbox label="No. Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-autocomplete placeholder="No. Beam" value.bind="StartLoomBeamDocuments" error.bind="error.StartBeamId"
-                read-only.bind="readOnly" loader.bind="beams" text="Number">
+              <au-autocomplete placeholder="No. Beam" value.bind="StartLoomBeamDocuments" error.bind="error.StartBeamNumber"
+                read-only.bind="readOnly" loader.bind="loomBeamProducts" text="BeamNumber"query.bind="OperationIdFilter">
               </au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
@@ -264,7 +264,7 @@
             </div>
             <div class="col-md-2">
               <au-textbox placeholder="Keterangan" value.bind="PauseInformation" error.bind="error.PauseInformation"
-                read-only.bind="true"></au-textbox>
+                read-only.bind="readOnly"></au-textbox>
             </div>
           </div>
 
@@ -404,7 +404,7 @@
         <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Loom</h1>
       </div>
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Histories" options.bind="dataOptions" errors.bind="error.Histories"
+        <au-collection items.bind="Histories" errors.bind="error.Histories"
           columns.bind="historiesColumns" read-only.bind="true"
           item-template="modules/weaving/daily-operation-loom/templates/history-items">
         </au-collection>

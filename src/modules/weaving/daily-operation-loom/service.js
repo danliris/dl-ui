@@ -69,32 +69,26 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
-  updateStartProcess(Id, data) {
-    const process = 'start-process';
+  updateStart(Id, data) {
+    const process = 'start';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updatePauseProcess(Id, data) {
-    const process = 'pause-process';
+  updatePause(Id, data) {
+    const process = 'pause';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateResumeProcess(Id, data) {
-    const process = 'resume-process';
+  updateResume(Id, data) {
+    const process = 'resume';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateProduceGreigeProcess(Id, data) {
-    const process = 'produce-greige';
-    var endpoint = `${serviceUri}/${Id}/${process}`;
-    return super.put(endpoint, data);
-  }
-
-  updateFinishProcess(Id, data) {
-    const process = 'finish-process';
+  updateFinish(Id, data) {
+    const process = 'finish';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
