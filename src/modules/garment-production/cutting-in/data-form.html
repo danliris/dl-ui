@@ -78,6 +78,10 @@
             if.bind="!(readOnly || isEdit)">
         </au-numeric>
 
+        <div class="form-group has-error">
+            <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+        </div>
+
         <table class="table table-hover table-bordered" if.bind="readOnly">
             <thead>
                 <tr>

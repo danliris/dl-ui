@@ -120,6 +120,7 @@ export class DataForm {
         this.data.UnitFrom=null;
         this.data.SewingDOId=null;
         this.data.SewingDONo=null;
+        this.data.Price=0;
         this.data.Items = [];
         if(newValue){
             this.data.Unit=newValue;
@@ -134,6 +135,7 @@ export class DataForm {
             this.data.UnitFrom=null;
             this.data.SewingDOId=null;
             this.data.SewingDONo=null;
+            this.data.Price=0;
             this.data.Items = [];
         }
     }
@@ -145,8 +147,10 @@ export class DataForm {
         this.data.UnitFrom=null;
         this.data.SewingDOId=null;
         this.data.SewingDONo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
+        this.data.Price=0;
         if(newValue) {
+            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -154,6 +158,16 @@ export class DataForm {
             this.data.UnitFrom=newValue.Unit;
             this.data.SewingDOId=newValue.Id;
             this.data.SewingDONo=newValue.SewingDONo;
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+                //console.log(this.data.Price)
+            }
+            else{
+                this.data.Price=0;
+            }
+
             var items=[];
             for(var item of newValue.Items){
                 var a={};
@@ -167,9 +181,12 @@ export class DataForm {
                 a.IsSave=true;
                 a.SewingDOItemId=item.Id;
                 a.RemainingQuantity=item.RemainingQuantity;
+                a.BasicPrice=item.BasicPrice;
+                a.ComodityPrice=this.data.Price;
                 this.data.Items.push(a);
             }
         }
+        
         else {
             this.context.selectedSewingDOViewModel.editorValue = "";
             this.data.RONo = null;
@@ -178,6 +195,7 @@ export class DataForm {
             this.data.UnitFrom=null;
             this.data.SewingDOId=null;
             this.data.SewingDONo=null;
+            this.data.Price=0;
             this.data.Items = [];
         }
     }

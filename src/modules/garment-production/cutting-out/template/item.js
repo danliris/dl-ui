@@ -50,6 +50,8 @@ export class Item {
             this.data.Details.push({
                 ParentProduct: this.data.Product,
                 TotalRemainingQuantityCuttingInItem: this.data.TotalCuttingOut ,
+                ComodityPrice:this.data.ComodityPrice,
+                BasicPrice: this.data.BasicPrice
             })
         };
     }

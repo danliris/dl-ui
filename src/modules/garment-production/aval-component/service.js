@@ -4,6 +4,8 @@ const serviceUri = 'aval-components';
 const cuttingInUri = 'cutting-ins';
 const sewingOutUri = 'sewing-outs';
 const uomServiceUri = 'master/uoms';
+const comodityPriceserviceUri = 'comodity-prices';
+const costCalculationServiceUri = 'cost-calculation-garments';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -12,6 +14,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getComodityPrice(info) {
+        var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
 
@@ -57,4 +64,16 @@ class CoreService extends RestService {
     }
 }
 
-export { Service, CoreService }
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
+
+
+export { Service, CoreService,SalesService }

@@ -129,6 +129,7 @@
         </au-datepicker>
 
         <au-layout error.bind="error.ItemsCount" if.bind="error.ItemsCount"></au-layout>
+        <au-layout error.bind="error.Price" if.bind="error.Price"></au-layout>
 
         <au-collection 
             items.bind="data.Items" 
@@ -138,8 +139,7 @@
             if.bind="data.Items.length > 0 && isCutting"
             read-only.bind="readOnly"
             header-template="modules/garment-production/sewing-in/template/item-header"
-            item-template="modules/garment-production/sewing-in/template/item"
-            >
+            item-template="modules/garment-production/sewing-in/template/item">
         </au-collection>
 
         <au-collection 

@@ -2,6 +2,8 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'finishing-ins';
 const serviceUriSewingOut = 'sewing-outs/complete';
+const costCalculationServiceUri = 'cost-calculation-garments';
+const comodityPriceserviceUri = 'comodity-prices';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -10,6 +12,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getComodityPrice(info) {
+        var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
     

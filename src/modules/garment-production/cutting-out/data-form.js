@@ -108,7 +108,15 @@ export class DataForm {
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
                 }
-                
+
+                let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
+                if(priceResult.data.length>0){
+                    this.data.Price= priceResult.data[0].Price;
+                    //console.log(this.data.Price)
+                }
+                else{
+                    this.data.Price=0;
+                }
     
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
                     .then(result => {
@@ -117,6 +125,7 @@ export class DataForm {
                                 for(var cuttingInDetail of cuttingInItem.Details){
                                     cuttingInDetail.CuttingInId = cuttingInHeader.Id;
                                     cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                    cuttingInDetail.ComodityPrice=this.data.Price;
                                     this.data.Items.push(cuttingInDetail);
                                 }
                             }

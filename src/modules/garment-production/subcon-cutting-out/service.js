@@ -8,6 +8,7 @@ const gComodityServiceUri = 'master/garment-comodities';
 const uomServiceUri = 'master/uoms';
 const sewingServiceUri = 'sewing-dos'
 const costCalculationServiceUri = 'cost-calculation-garments';
+const comodityPriceserviceUri = 'comodity-prices';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -16,6 +17,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getComodityPrice(info) {
+        var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
 

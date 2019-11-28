@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject, Lazy, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Dialog } from '../../../components/dialog/dialog'
 
@@ -16,6 +16,18 @@ export class Edit {
             length: 4,
         },
     };
+
+    sortingControlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        }
+    };
+
+    sortingOptions = ["", "Tanggal Invoice", "Tanggal Jatuh Tempo"];
+    sortingTypeOptions = ["A - Z", "Z - A"];
 
     formOptions = {
         cancelText: 'Kembali',
@@ -48,7 +60,7 @@ export class Edit {
             detail.Select = true;
             return detail;
         });
-        
+
         let arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
@@ -71,24 +83,24 @@ export class Edit {
             a.Currency = this.data.Bank.Currency.Code;
         }
 
-        this.IDR=false;
-        this.sameCurrency=false;
+        this.IDR = false;
+        this.sameCurrency = false;
         if (this.data.Bank.Currency.Code == "IDR") {
             this.IDR = true;
             if (this.data.CurrencyCode == "IDR") {
                 this.sameCurrency = true;
             }
-           
+
         }
 
         if (!this.IDR || this.sameCurrency) {
             this.collection = {
-                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
+                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
             };
         }
         else {
             this.collection = {
-                columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
+                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
             };
         }
         this.collectionOptions = {
@@ -115,6 +127,104 @@ export class Edit {
                     })
                 }
             });
+    }
+
+    @bindable selectedSortOption;
+    selectedSortOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    @bindable selectedSortTypeOption
+    selectedSortTypeOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    sortItems() {
+        if (this.UPOResults && this.UPOResults.length > 0) {
+            if (this.selectedSortTypeOption == "A - Z") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate < item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate > item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate < item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate > item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            } else if (this.selectedSortTypeOption == "Z - A") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate > item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate < item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate > item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate < item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            }
+        }
+
+        // this.Item
+        // if (this.ItemsCollection) {
+        //     this.ItemsCollection.bind();
+        // }
+
+        if (this.ItemsCollectionRate)
+            this.ItemsCollectionRate.bind();
     }
 
     get grandTotal() {
