@@ -7,14 +7,6 @@
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
       <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
     </div>
-
-    <au-textbox
-      label="Kode"
-      value.bind="data.Code"
-      error.bind="error.Code"
-      if.bind="readOnly || isEdit"
-      read-only.bind="true">
-    </au-textbox>
     
     <au-textbox
       label="No. DO" 
@@ -59,17 +51,6 @@
       read-only.bind="true">
     </au-textbox>
 
-    <au-autocomplete
-      value.bind="selectedMaterialConstructionFinish"
-      label="Konstruksi"
-      read-only.bind="readOnly || isEdit"
-      error.bind="error.MaterialConstructionFinish"
-      loader.bind="materialConstructionFinishLoader"
-      key="Name"
-      text="Name"
-      keypress.delegate="enterDelegate($event)">
-    </au-autocomplete>
-
     <au-textbox
       label="Lebar"
       value.bind="data.MaterialWidthFinish"
@@ -82,13 +63,25 @@
     <au-autocomplete
       value.bind="selectedBuyer"
       label="Buyer"
-      read-only.bind="readOnly"
+      read-only.bind="true"
       error.bind="error.Buyer"
       loader.bind="buyersLoader"
       key="Name"
       text="Name"
       keypress.delegate="enterDelegate($event)">
     </au-autocomplete>
+
+    <au-autocomplete
+      value.bind="selectedMaterialConstructionFinish"
+      label="Konstruksi"
+      read-only.bind="readOnly || isEdit"
+      error.bind="error.MaterialConstructionFinish"
+      loader.bind="materialConstructionFinishLoader"
+      key="Name"
+      text="Name"
+      keypress.delegate="enterDelegate($event)">
+    </au-autocomplete>
+
 
     <au-dropdown
       label="Satuan"

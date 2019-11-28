@@ -68,7 +68,7 @@ export class DataForm {
     }
 
     doSalesDetailsInfo = { 
-        columns: ["Nama Barang", "Kode", "Kuantitas", "Berat Satuan", "Panjang Satuan", "Remark"],
+        columns: ["Nama Barang", "Kuantitas", "Berat Satuan", "Panjang Satuan", "Remark"],
         onAdd: function () {
             this.context.DOSalesDetailsCollection.bind();
             this.data.DOSalesDetails = this.data.DOSalesDetails || [];
