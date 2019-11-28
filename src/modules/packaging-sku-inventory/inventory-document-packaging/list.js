@@ -42,13 +42,18 @@ export class List {
             order: order
         }
 
-        return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        // return this.service.search(arg)
+        //     .then(result => {
+        //         return {
+        //             total: result.info.total,
+        //             data: result.data
+        //         }
+        //     });
+
+        return {
+            total: 0,
+            data: []
+        };
     }
 
     constructor(router, service) {
