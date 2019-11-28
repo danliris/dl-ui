@@ -16,6 +16,15 @@ export class DataForm {
     @bindable error;
     // @bindable items;
 
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+
     constructor(service, serviceSales, serviceCore, bindingSignaler, bindingEngine) {
         this.service = service;
         this.serviceSales = serviceSales;
