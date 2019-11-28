@@ -115,16 +115,6 @@ export class Update {
   async activate(params) {
     var Id = params.Id;
     var dataResult;
-    // this.data = [{
-    //   Id: 1,
-    //   OrderProductionNumber: "PCA ORDER 133",
-    //   OperationStatus: "ON-PROCESS",
-    //   FabricConstructionNumber: "CXK 44RT",
-    //   WarpOrigin: "KDKI",
-    //   WeavingUnit: "WEAVING 2",
-    //   WeftOrigin: "UAE"
-    // }];
-    // return this.data;
     this.data = await this.service
       .getById(Id)
       .then(result => {
@@ -145,61 +135,59 @@ export class Update {
       this.BeamProducts = this.data.DailyOperationLoomBeamProducts;
       this.Histories = this.data.DailyOperationLoomBeamHistories;
 
-      // if (this.BeamProducts.length === 0) {
-      //   this.StartSizingStartCounter = 0;
-      // } else {
-      //   var lastSizingHistory = this.Histories[0];
-      //   if (lastSizingHistory.MachineStatus == "ENTRY") {
-      //     this.StartSizingStartCounter = 0;
-      //   } else {
-      //     var lastSizingBeamProduct = this.BeamProducts[0];
-      //     this.StartSizingStartCounter = lastSizingBeamProduct.CounterFinish;
-      //   }
-      // }
-
       var lastLoomHistory = this.Histories[0];
       var lastMachineStatusHistory = lastLoomHistory.MachineStatus;
-      // switch (lastMachineStatusHistory) {
-      //   case "ENTRY":
-      //     this.isStartDisabled = false;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "START":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = false;
-      //     this.isResumeDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "STOP":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = false;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "CONTINUE":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = false;
-      //     this.isResumeDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "COMPLETED":
-      //     this.isStartDisabled = false;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isFinishDisabled = false;
-      //     break;
-      //   case "FINISH":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   default:
-      //     this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
-      //     break;
-      // }
+      switch (lastMachineStatusHistory) {
+        case "ENTRY":
+          this.isStartDisabled = false;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+        case "START":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = false;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = false;
+          break;
+        case "STOP":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = false;
+          this.isFinishDisabled = true;
+          break;
+        case "CONTINUE":
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = false;
+          break;
+        case "COMPLETED":
+          var isAllBeamProcessed = 0;
+          this.BeamProducts.forEach(beamProduct => {
+            if (beamProduct.BeamProductStatus == "ON-PROCESS") {
+              isAllBeamProcessed++;
+            }
+          });
+          if (isAllBeamProcessed == 0) {
+            this.isStartDisabled = true;
+            this.isPauseDisabled = true;
+            this.isResumeDisabled = true;
+            this.isFinishDisabled = true;
+          } else {
+            this.isStartDisabled = false;
+            this.isPauseDisabled = true;
+            this.isResumeDisabled = true;
+            this.isFinishDisabled = true;
+          }
+          break;
+        default:
+          this.isStartDisabled = true;
+          this.isPauseDisabled = true;
+          this.isResumeDisabled = true;
+          this.isFinishDisabled = true;
+          break;
+      }
 
       // this.dataOptions = this.data;
     }
@@ -220,7 +208,6 @@ export class Update {
     this.StartTime = null;
     this.StartShift = undefined;
     this.StartOperator = undefined;
-    // this.StartLoomBeamDocuments = undefined;
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
@@ -236,9 +223,12 @@ export class Update {
     this.PauseTime = null;
     this.PauseShift = undefined;
     this.PauseOperator = undefined;
-    document.getElementById("warpBrokenThreads").checked = false;
-    document.getElementById("weftBrokenThreads").checked = false;
-    document.getElementById("lenoBrokenThreads").checked = false;
+    // document.getElementById("warpBrokenThreads").checked = false;
+    // document.getElementById("weftBrokenThreads").checked = false;
+    // document.getElementById("lenoBrokenThreads").checked = false;
+    this.WarpBrokenThreads = false;
+    this.WeftBrokenThreads = false;
+    this.LenoBrokenThreads = false;
     this.PauseInformation = undefined;
     if (this.showHidePauseMenu === true) {
       this.showHidePauseMenu = false;
@@ -316,6 +306,7 @@ export class Update {
     }
     if (this.StartLoomBeamDocuments) {
       var StartBeamNumberContainer = this.StartLoomBeamDocuments.BeamNumber;
+      var StartBeamIdContainer = this.StartLoomBeamDocuments.Id;
     }
     if (this.StartMachineNumber) {
       var StartMachineNumberContainer = this.StartMachineNumber;
@@ -323,13 +314,14 @@ export class Update {
 
     var startData = {};
     startData.Id = IdContainer;
+    startData.StartBeamProductId = StartBeamIdContainer;
     startData.StartBeamNumber = StartBeamNumberContainer;
     startData.StartMachineNumber = StartMachineNumberContainer;
     startData.StartDateMachine = StartDateContainer;
     startData.StartTimeMachine = StartTimeContainer;
     startData.StartShiftDocumentId = StartShiftIdContainer;
     startData.StartOperatorDocumentId = StartOperatorIdContainer;
-debugger
+
     this.service
       .updateStart(startData.Id, startData)
       .then(result => {
@@ -356,6 +348,42 @@ debugger
   savePause() {
     this.error = {};
     var IdContainer = this.data.Id;
+
+    //Cek Validasi Untuk Putus Lusi, Pakan dan Leno
+    if (this.data.DailyOperationLoomBeamHistories.length > 0) {
+      var LastHistory = this.data.DailyOperationLoomBeamHistories[0];
+      var LastWarpBrokenThreads = LastHistory.WarpBrokenThreads;
+      var LastWeftBrokenThreads = LastHistory.WeftBrokenThreads;
+      var LastLenoBrokenThreads = LastHistory.LenoBrokenThreads;
+    }
+
+    var beamProductBeamId = ""
+    this.BeamProducts.forEach(beamProduct => {
+      if (beamProduct.BeamNumber == LastHistory.BeamNumber) {
+        beamProductBeamId = beamProduct.BeamDocumentId;
+      }
+    });
+
+    if (this.WarpBrokenThreads === true) {
+      LastWarpBrokenThreads = LastWarpBrokenThreads + 1;
+    }
+
+    if (this.WeftBrokenThreads === true) {
+      LastWeftBrokenThreads = LastWeftBrokenThreads + 1;
+    }
+
+    if (this.LenoBrokenThreads === true) {
+      LastLenoBrokenThreads = LastLenoBrokenThreads + 1;
+    }
+
+    if (this.Reprocess) {
+      var ReprocessContainer = this.Reprocess;
+    }
+
+    if (this.PauseInformation) {
+      var InformationContainer = this.PauseInformation;
+    }
+
     if (this.PauseDate) {
       var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
     }
@@ -372,48 +400,23 @@ debugger
       var OperatorContainer = this.PauseOperator.Id;
     }
 
-    //Cek Validasi Untuk Putus Lusi, Pakan dan Leno
-
-    if (this.data.DailyOperationSizingHistories.length > 0) {
-      var LastDetails = this.data.DailyOperationSizingHistories[0];
-      var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
-      var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
-    }
-
-    //Cek Validasi Untuk Reproses
-    if (this.CauseOfStopping) {
-      switch (this.CauseOfStopping) {
-        case "Putus Beam":
-          LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
-          break;
-        case "Mesin Bermasalah":
-          LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
-          break;
-        default:
-          LastCausesBrokenBeam = LastCausesBrokenBeam;
-          LastCausesMachineTroubled = LastCausesMachineTroubled;
-          break;
-      }
-    } else {
-      this.error.CauseOfStopping = "Penyebab Berhenti Harus Diisi";
-    }
-
-    if (this.Information) {
-      var InformationContainer = this.Information;
-    }
-
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.PauseDate = HistoryDateContainer;
-    updateData.PauseTime = HistoryTimeContainer;
-    updateData.PauseShift = ShiftContainer;
-    updateData.PauseOperator = OperatorContainer;
-    updateData.BrokenBeam = LastCausesBrokenBeam;
-    updateData.MachineTroubled = LastCausesMachineTroubled;
-    updateData.Information = InformationContainer;
+    var pauseData = {};
+    pauseData.Id = IdContainer;
+    pauseData.PauseBeamProductBeamId = beamProductBeamId;
+    pauseData.PauseBeamNumber = LastHistory.BeamNumber;
+    pauseData.PauseMachineNumber = LastHistory.MachineNumber;
+    pauseData.WarpBrokenThreads = LastWarpBrokenThreads;
+    pauseData.WeftBrokenThreads = LastWeftBrokenThreads;
+    pauseData.LenoBrokenThreads = LastLenoBrokenThreads;
+    pauseData.ReprocessTo = ReprocessContainer;
+    pauseData.Information = InformationContainer;
+    pauseData.PauseDateMachine = HistoryDateContainer;
+    pauseData.PauseTimeMachine = HistoryTimeContainer;
+    pauseData.PauseShiftDocumentId = ShiftContainer;
+    pauseData.PauseOperatorDocumentId = OperatorContainer;
 
     this.service
-      .updatePause(updateData.Id, updateData)
+      .updatePause(pauseData.Id, pauseData)
       .then(result => {
         location.reload();
       })
@@ -440,6 +443,17 @@ debugger
 
   saveResume() {
     var IdContainer = this.data.Id;
+
+    if (this.data.DailyOperationLoomBeamHistories.length > 0) {
+      var LastHistory = this.data.DailyOperationLoomBeamHistories[0];
+    }
+
+    var beamProductBeamId = ""
+    this.BeamProducts.forEach(beamProduct => {
+      if (beamProduct.BeamNumber == LastHistory.BeamNumber) {
+        beamProductBeamId = beamProduct.BeamDocumentId;
+      }
+    });
     if (this.ResumeDate) {
       var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
     }
@@ -453,15 +467,18 @@ debugger
       var OperatorContainer = this.ResumeOperator.Id;
     }
 
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.ResumeDate = HistoryDateContainer;
-    updateData.ResumeTime = HistoryTimeContainer;
-    updateData.ResumeShift = ShiftContainer;
-    updateData.ResumeOperator = OperatorContainer;
+    var resumeData = {};
+    resumeData.Id = IdContainer;
+    resumeData.ResumeBeamProductBeamId = beamProductBeamId;
+    resumeData.ResumeBeamNumber = LastHistory.BeamNumber;
+    resumeData.ResumeMachineNumber = LastHistory.MachineNumber;
+    resumeData.ResumeDateMachine = HistoryDateContainer;
+    resumeData.ResumeTimeMachine = HistoryTimeContainer;
+    resumeData.ResumeShiftDocumentId = ShiftContainer;
+    resumeData.ResumeOperatorDocumentId = OperatorContainer;
 
     this.service
-      .updateResume(updateData.Id, updateData)
+      .updateResume(resumeData.Id, resumeData)
       .then(result => {
         location.reload();
       })
@@ -485,6 +502,17 @@ debugger
 
   saveFinish() {
     var IdContainer = this.data.Id;
+
+    if (this.data.DailyOperationLoomBeamHistories.length > 0) {
+      var LastHistory = this.data.DailyOperationLoomBeamHistories[0];
+    }
+
+    var beamProductBeamId = ""
+    this.BeamProducts.forEach(beamProduct => {
+      if (beamProduct.BeamNumber == LastHistory.BeamNumber) {
+        beamProductBeamId = beamProduct.BeamDocumentId;
+      }
+    });
     if (this.FinishDate) {
       var HistoryDateContainer = moment(this.FinishDate).utcOffset("+07:00").format();
     }
@@ -500,10 +528,13 @@ debugger
 
     var updateData = {};
     updateData.Id = IdContainer;
-    updateData.FinishDate = HistoryDateContainer;
-    updateData.FinishTime = HistoryTimeContainer;
-    updateData.FinishShift = ShiftContainer;
-    updateData.FinishOperator = OperatorContainer;
+    updateData.FinishBeamProductBeamId = beamProductBeamId;
+    updateData.FinishBeamNumber = LastHistory.BeamNumber;;
+    updateData.FinishMachineNumber = LastHistory.MachineNumber;;
+    updateData.FinishDateMachine = HistoryDateContainer;
+    updateData.FinishTimeMachine = HistoryTimeContainer;
+    updateData.FinishShiftDocumentId = ShiftContainer;
+    updateData.FinishOperatorDocumentId = OperatorContainer;
 
     this.service
       .updateFinish(updateData.Id, updateData)
