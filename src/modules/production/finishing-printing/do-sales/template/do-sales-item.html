@@ -3,9 +3,6 @@
         <td>
             <au-textbox value.bind="data.UnitName" error.bind="error.UnitName" read-only.bind="readOnly"></au-textbox>
         </td>
-        <td>
-            <au-textbox value.bind="data.UnitCode" error.bind="error.UnitCode" read-only.bind="readOnly"></au-textbox>
-        </td>
         <td show.bind="!readOnly">
             <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" format="0,000" read-only.bind="readOnly">
             </au-numeric>
@@ -30,9 +27,6 @@
             <au-numeric value.bind="Length" error.bind="error.Length" format="0,000.0000" read-only.bind="readOnly">
             </au-numeric>
         </td>
-        <!-- <td width="10%">
-            <au-dropdown value.bind="data.Status" error.bind="error.Status" items.bind="Status" read-only.bind="readOnly"></au-dropdown>
-        </td> -->
         <td>
             <au-textbox value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"></au-textbox>
         </td>

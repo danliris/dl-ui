@@ -7,28 +7,22 @@
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
       <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
     </div>
-
-    <au-textbox
-      label="Kode"
-      value.bind="data.Code"
-      error.bind="error.Code"
-      if.bind="readOnly || isEdit"
-      read-only.bind="true">
-    </au-textbox>
     
     <au-textbox
-      label="No. DO" 
+      label="Nomor DO" 
       value.bind="data.Code"
       error.bind="error.Code"
       if.bind="readOnly || isEdit"
-      read-only.bind="true">
+      read-only.bind="true"
+      options.bind="controlOptions">
     </au-textbox>
     
     <au-datepicker
       label="Tanggal"
       value.bind="data.Date"
       error.bind="error.Date"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      options.bind="controlOptions">
     </au-datepicker>
 
     <au-autocomplete
@@ -39,7 +33,8 @@
       loader.bind="storageLoader"
       key="name"
       text="name"
-      keypress.delegate="enterDelegate($event)">
+      keypress.delegate="enterDelegate($event)"
+      options.bind="controlOptions">
     </au-autocomplete>
   
     <au-autocomplete
@@ -50,14 +45,38 @@
       loader.bind="productionOrderLoader"
       key="OrderNo"
       text.bind="productionOrderTextFormatter"
-      keypress.delegate="enterDelegate($event)">
+      keypress.delegate="enterDelegate($event)"
+      options.bind="controlOptions">
     </au-autocomplete>
 
     <au-textbox
       label="Material"
       value.bind="data.Material"
-      read-only.bind="true">
+      read-only.bind="true"
+      options.bind="controlOptions">
     </au-textbox>
+
+    <au-textbox
+      label="Lebar"
+      value.bind="data.MaterialWidthFinish"
+      error.bind="error.MaterialWidthFinish"
+      read-only.bind="true"
+      keypress.delegate="enterDelegate($event)"
+      change.delegate="widthChanged($event)"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-autocomplete
+      value.bind="selectedBuyer"
+      label="Buyer"
+      read-only.bind="true"
+      error.bind="error.Buyer"
+      loader.bind="buyersLoader"
+      key="Name"
+      text="Name"
+      keypress.delegate="enterDelegate($event)"
+      options.bind="controlOptions">
+    </au-autocomplete>
 
     <au-autocomplete
       value.bind="selectedMaterialConstructionFinish"
@@ -67,35 +86,18 @@
       loader.bind="materialConstructionFinishLoader"
       key="Name"
       text="Name"
-      keypress.delegate="enterDelegate($event)">
-    </au-autocomplete>
-
-    <au-textbox
-      label="Lebar"
-      value.bind="data.MaterialWidthFinish"
-      error.bind="error.MaterialWidthFinish"
-      read-only.bind="true"
       keypress.delegate="enterDelegate($event)"
-      change.delegate="widthChanged($event)">
-    </au-textbox>
-
-    <au-autocomplete
-      value.bind="selectedBuyer"
-      label="Buyer"
-      read-only.bind="readOnly"
-      error.bind="error.Buyer"
-      loader.bind="buyersLoader"
-      key="Name"
-      text="Name"
-      keypress.delegate="enterDelegate($event)">
+      options.bind="controlOptions">
     </au-autocomplete>
+
 
     <au-dropdown
       label="Satuan"
       value.bind="data.PackingUom"
       items.bind="packingUomOptions"
       error.bind="error.PackingUom"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      options.bind="controlOptions">
     </au-dropdown>
 
     <au-textbox show.bind="error.DOSalesDetail" error.bind="error.DOSalesDetail" read-only.bind="true"></au-textbox>
