@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: 'sales/finishing-printing-pre-sales-contract',
+        name: 'finishing-printing-sales-pre-contract',
+        moduleId: './modules/sales/finishing-printing-pre-sales-contract/index',
+        nav: true,
+        title: 'Pre Sales Contract - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/finishing-printing-sales-contract',
         name: 'finishing-printing-sales-contract',
         moduleId: './modules/sales/finishing-printing-sales-contract/index',
