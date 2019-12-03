@@ -8,6 +8,7 @@ export class List {
   columns = [
     { field: "Code", title: "Kode Benang" },
     { field: "Number", title: "Nomor Benang" },
+    { field: "AdditionalNumber", title: "Nomor Benang Tambahan" },
     { field: "RingType", title: "Tipe Benang" }
   ];
 
