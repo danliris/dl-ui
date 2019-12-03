@@ -180,14 +180,18 @@ export class List {
     this.info = {};
 
     if (this.MonthlyPeriod) {
-      var MonthContainer = this.MonthlyPeriod;
+      if (this.MonthlyPeriod) {
+        var MonthContainer = this.MonthlyPeriod;
+      }
       var ShiftIdContainer;
       if (this.Shift) {
         ShiftIdContainer = this.Shift.Id;
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {
@@ -263,7 +267,9 @@ export class List {
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {
@@ -300,7 +306,9 @@ export class List {
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {
@@ -364,7 +372,9 @@ export class List {
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {
@@ -440,7 +450,9 @@ export class List {
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {
@@ -478,7 +490,9 @@ export class List {
       } else {
         ShiftIdContainer = "All";
       }
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      if (this.WeavingUnit.Id) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
       var SPUContainer;
       if (this.SPU) {
         switch (this.SPU) {

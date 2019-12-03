@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineTypeLoader = require('../../../loader/weaving-machine-type-loader');
-// var UomLoader = require('../../../loader/uom-loader');
+var UOMLoader = require("../../../loader/uom-loader");
 
 export class DataForm {
   @bindable title;
@@ -36,6 +36,8 @@ export class DataForm {
       this.WeavingUnit = this.data.WeavingUnit;
     }
 
+    this.showHideKawaMotoSuckerMuller = false;
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -48,6 +50,10 @@ export class DataForm {
 
   get machineTypes() {
     return MachineTypeLoader;
+  }
+
+  get uoms() {
+    return UOMLoader;
   }
 
   WeavingMachineTypeChanged(newValue) {

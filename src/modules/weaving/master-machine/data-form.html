@@ -27,9 +27,34 @@
           <p style="white-space: nowrap;">Jenis Mesin</p>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Jenis Mesin" value.bind="WeavingMachineType" error.bind="error.WeavingMachineType"
-            read-only.bind="readOnly" options.bind="customOptions" loader.one-time="machineTypes" text="TypeName">
+          <au-autocomplete placeholder="Jenis Mesin" value.bind="WeavingMachineType"
+            error.bind="error.WeavingMachineType" read-only.bind="readOnly" options.bind="customOptions"
+            loader.one-time="machineTypes" text="TypeName">
           </au-autocomplete>
+        </div>
+      </div>
+
+      <div show.bind="showHideKawaMotoSuckerMuller">
+        <div class="row">
+          <div class="col-md-3">
+            <p style="white-space: nowrap;">Cut Mark</p>
+          </div>
+          <div class="col-md-3">
+            <au-numeric placeholder="Jenis Mesin" value.bind="data.CutMark" error.bind="error.CutMark"
+              read-only.bind="readOnly" options.bind="customOptions">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p style="white-space: nowrap;">Satuan Cut Mark</p>
+          </div>
+          <div class="col-md-3">
+            <au-autocomplete placeholder="Satuan Cut Mark" value.bind="data.CutMarkUOM" error.bind="error.CutMarkUOM"
+              read-only.bind="readOnly" options.bind="customOptions" loader.one-time="uoms" text="Unit">
+            </au-autocomplete>
+          </div>
         </div>
       </div>
 
@@ -47,7 +72,8 @@
           <p style="white-space: nowrap;">Satuan</p>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit" read-only.bind="readOnlyValue">
+          <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit"
+            read-only.bind="readOnlyValue">
           </au-textbox>
         </div>
       </div>

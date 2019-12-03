@@ -22,6 +22,8 @@ export class List {
     this.router = router;
   }
 
+  context = ["detail"];
+
   listDataFlag = false;
 
   operationStatusItems = ["", "PROCESSING", "FINISH"];
@@ -202,5 +204,18 @@ export class List {
       data: {},
       total: 0
     };
+  }
+
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    console.log(data.Id);
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute("view", {
+          Id: data.Id
+        });
+        break;
+    }
   }
 }
