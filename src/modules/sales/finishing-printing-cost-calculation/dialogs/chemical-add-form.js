@@ -2,10 +2,10 @@ import { inject, useView, bindable, computedFrom } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 import { Service } from '../service';
 
-var ProductLoader = require('../../../../../loader/product-null-tags-loader');
+var ProductLoader = require('../../../../loader/product-null-tags-loader');
 
 @inject(DialogController, Service)
-@useView("modules/production/finishing-printing/cost-calculation/dialogs/chemical-add-form.html")
+@useView("modules/sales/finishing-printing-cost-calculation/dialogs/chemical-add-form.html")
 export class ChemicalAddForm {
     constructor(dialogController, service) {
         this.dialogController = dialogController;

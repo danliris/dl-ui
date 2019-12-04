@@ -83,7 +83,7 @@
             <div class="col-md-3">
                 <au-numeric label="Jumlah TKL"
                             format="0"
-                            value.bind="data.TKLQuantity"
+                            value.bind="tklQuantity"
                             error.bind="error.TKLQuantity"
                             options.bind="length4"
                             read-only.bind="readOnly"></au-numeric>
@@ -161,8 +161,8 @@
                                errors.bind="error.Machines"
                                columns.bind="machines.columns"
                                options.bind="machineOptions"
-                               item-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine"
-                               footer-template="modules/production/finishing-printing/cost-calculation/template/data-form/cost-calculation-machine-footer">
+                               item-template="modules/sales/finishing-printing-cost-calculation/template/data-form/cost-calculation-machine"
+                               footer-template="modules/sales/finishing-printing-cost-calculation/template/data-form/cost-calculation-machine-footer">
                 </au-collection>
             </div>
         </div>

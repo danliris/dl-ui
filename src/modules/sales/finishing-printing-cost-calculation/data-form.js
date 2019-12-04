@@ -6,9 +6,9 @@ import { Service } from './service';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
-var ProductionOrderLoader = require('../../../../loader/production-order-loader');
-var InstructionLoader = require('../../../../loader/instruction-loader');
-var ProductLoader = require('../../../../loader/product-null-tags-loader');
+var ProductionOrderLoader = require('../../../loader/production-order-loader');
+var InstructionLoader = require('../../../loader/instruction-loader');
+var ProductLoader = require('../../../loader/product-null-tags-loader');
 
 @inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, Service)
 export class DataForm {
@@ -27,6 +27,8 @@ export class DataForm {
   @bindable date;
   @bindable directLaborTotal;
   @bindable selectedGreige;
+  @bindable tklQuantity;
+  @bindable salaryTotal;
 
   formOptions = {
     cancelText: "Kembali",
@@ -85,6 +87,14 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.machineOptions.readOnly = this.readOnly;
+
+    if (this.data.TKLQuantity) {
+      this.tklQuantity = this.data.TKLQuantity;
+    }
+
+    if (this.data.SalaryTotal) {
+      this.salaryTotal = this.data.SalaryTotal;
+    }
   }
 
   get productionOrderLoader() {
@@ -152,13 +162,25 @@ export class DataForm {
     }
   }
 
-  get salaryTotal() {
-    if (this.data.TKLQuantity > 0) {
-      return this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
-    } else {
-      return 0;
+  tklQuantityChanged(n, o) {
+    if (this.tklQuantity) {
+      this.data.TKLQuantity = this.tklQuantity;
+      if (this.data.TKLQuantity > 0) {
+        this.salaryTotal = this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+      } else {
+        this.salaryTotal = 0;
+      }
+      this.data.SalaryTotal = this.salaryTotal;
     }
   }
+
+  // get salaryTotal() {
+  //   if (this.data.TKLQuantity > 0) {
+  //     return this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
   selectedInstructionChanged(newValue, oldValue) {
     if (newValue) {
