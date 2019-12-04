@@ -62,6 +62,9 @@ export class DataForm {
       this.data.WeavingMachineType = newValue
       this.data.Speed = newValue.Speed;
       this.data.MachineUnit = newValue.MachineUnit;
+      if(newValue.TypeName == "Kawa Moto"||newValue.TypeName == "Sucker Muller"){
+        this.showHideKawaMotoSuckerMuller = true;
+      }
     } else {
       this.data.WeavingMachineType = newValue
       this.data.Speed = 0;

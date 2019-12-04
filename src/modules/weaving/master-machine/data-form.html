@@ -40,7 +40,7 @@
             <p style="white-space: nowrap;">Cut Mark</p>
           </div>
           <div class="col-md-3">
-            <au-numeric placeholder="Jenis Mesin" value.bind="data.CutMark" error.bind="error.CutMark"
+            <au-numeric placeholder="Jenis Mesin" value.bind="data.Cutmark" error.bind="error.CutMark"
               read-only.bind="readOnly" options.bind="customOptions">
             </au-numeric>
           </div>
@@ -63,7 +63,7 @@
           <p style="white-space: nowrap;">RPM Standar</p>
         </div>
         <div class="col-md-3">
-          <au-numeric value.bind="data.Speed" error.bind="error.Speed" read-only.bind="readOnlyValue"></au-numeric>
+          <au-numeric value.bind="data.Speed" error.bind="error.Speed" read-only.bind="true"></au-numeric>
         </div>
       </div>
 
@@ -73,7 +73,7 @@
         </div>
         <div class="col-md-3">
           <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit"
-            read-only.bind="readOnlyValue">
+            read-only.bind="true">
           </au-textbox>
         </div>
       </div>

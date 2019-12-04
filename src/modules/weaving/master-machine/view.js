@@ -20,7 +20,6 @@ export class View {
       .then(result => {
 
         dataResult = result;
-
         return this.service.getUnitById(dataResult.WeavingUnitId);
       })
       .then(unit => {
@@ -34,7 +33,7 @@ export class View {
 
         return dataResult;
       });
-
+      
       this.data.WeavingUnit = weavingUnit;
       this.data.WeavingMachineType = weavingMachineUnit;
   }
