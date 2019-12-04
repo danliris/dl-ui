@@ -50,6 +50,7 @@ export async function configure(aurelia) {
       var weaving = "https://com-danliris-service-weaving.azurewebsites.net/";
       var finance = "https://com-danliris-service-finance-accounting.azurewebsites.net/v1/";
       var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
+      var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -70,6 +71,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('weaving', weaving, defaultConfig);
       config.registerEndpoint('finance', finance, defaultConfig);
       config.registerEndpoint('garment-production', garmentProduction, defaultConfig);
+      config.registerEndpoint('packing-inventory', packingInventory, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

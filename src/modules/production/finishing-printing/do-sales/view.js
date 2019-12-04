@@ -43,7 +43,7 @@ export class View {
 
   attached() {  
             var total = {
-                UnitCode: "Total Jumlah",
+                UnitName: "Total Jumlah",
                 Quantity: 0,
                 Weight: 0,
                 Length: 0,

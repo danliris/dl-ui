@@ -162,6 +162,16 @@
                   error.bind="error.ReachingInStartYarnStrandsProcessed" read-only.bind="readOnly">
                 </au-numeric>
               </div>
+              <div show.bind="showHideStartReachingInWidth">
+                <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+                  <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
+                </div>
+                <div class="col-md-2">
+                  <au-numeric placeholder="Lebar Cucuk(cm)" value.bind="StartReachingInFinishWidth"
+                    error.bind="error.StartReachingInFinishWidth" read-only.bind="readOnly">
+                  </au-numeric>
+                </div>
+              </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
@@ -236,7 +246,7 @@
                   error.bind="error.ChangeOperatorReachingInYarnStrandsProcessed" read-only.bind="readOnly">
                 </au-numeric>
               </div>
-              <div show.bind="showHideReachingInWidth">
+              <div show.bind="showHideChangeOperatorReachingInWidth">
                 <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                   <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
                 </div>
@@ -260,87 +270,6 @@
         </div>
       </div>
 
-      <!-- Reaching In Finish Menu -->
-      <!-- <div class="row" id="reachingInFinishMenu" show.bind="showHideReachingInFinishMenu">
-          <div class="col-md-12"
-            style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
-
-            <div class="row" style="margin-top: 24px; white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Tanggal Selesai Reaching" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-datepicker value.bind="ReachingInFinishDate" error.bind="error.ReachingInFinishDate">
-                </au-datepicker>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Waktu Selesai Reaching" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-timepicker value.bind="ReachingInFinishTime" error.bind="error.ReachingInFinishTime"
-                  read-only.bind="readOnly">
-              </div>
-              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
-                <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-textbox placeholder="Shift" value.bind="ReachingInFinishShift.Name"
-                  error.bind="error.ReachingInFinishShift" read-only.bind="true">
-                </au-textbox>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-3">
-                <au-autocomplete placeholder="Operator" value.bind="ReachingInFinishOperator"
-                  error.bind="error.ReachingInFinishOperator" read-only.bind="readOnly" loader.bind="operators"
-                  text="Username"></au-autocomplete>
-              </div>
-              <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-                <textbox label="Grup Reaching" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-textbox placeholder="Grup Reaching" value.bind="ReachingInFinishOperator.Group"
-                  error.bind="error.ReachingInFinishOperatorGroup" read-only.bind="true"></au-textbox>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Helai Dikerjakan" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-numeric placeholder="Helai Dikerjakan" value.bind="ReachingInFinishYarnStrandsProcessed"
-                  error.bind="error.ReachingInFinishYarnStrandsProcessed" read-only.bind="readOnly">
-                </au-numeric>
-              </div>
-              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
-                <textbox label="Lebar Cucuk(cm)" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-numeric placeholder="Lebar Cucuk(cm)" value.bind="ReachingInFinishWidth"
-                  error.bind="error.ReachingInFinishWidth" read-only.bind="readOnly">
-                </au-numeric>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveReachingInFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
-                        width: 96px; border: 1px solid #777777;">
-                  Simpan
-                </button>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
       <!-- Comb Menu -->
       <div class="row" id="combMenu" show.bind="showHideCombMenu">
         <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
@@ -353,10 +282,6 @@
             style="margin-bottom: 16px; background-color: rgb(35, 98, 180); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Ganti Operator
           </button>
-          <!-- <button class="btn btn-default" click.delegate="combFinish()" disabled.bind="isCombFinishDisabled"
-            style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
-            Selesai
-          </button> -->
         </div>
 
         <!-- Comb Start Menu -->
@@ -436,6 +361,16 @@
                   error.bind="error.CombStartYarnStrandsProcessed" read-only.bind="readOnly">
                 </au-numeric>
               </div>
+              <div show.bind="showHideStartCombWidth">
+                <div class="col-md-2 col-md-offset-2" style="text-align:left;">
+                  <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
+                </div>
+                <div class="col-md-2">
+                  <au-numeric placeholder="Lebar Sisir(cm)" value.bind="CombStartWidth"
+                    error.bind="error.CombStartWidth" read-only.bind="readOnly">
+                  </au-numeric>
+                </div>
+              </div>
             </div>
 
             <div class="row" style="white-space: nowrap;">
@@ -509,7 +444,7 @@
                   error.bind="error.ChangeOperatorCombYarnStrandsProcessed" read-only.bind="readOnly">
                 </au-numeric>
               </div>
-              <div show.bind="showHideCombWidth">
+              <div show.bind="showHideChangeOperatorCombWidth">
                 <div class="col-md-2 col-md-offset-2" style="text-align:left;">
                   <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
                 </div>
@@ -532,86 +467,6 @@
           </div>
         </div>
       </div>
-
-        <!-- Comb Finish Menu -->
-        <!-- <div class="row" id="combFinishMenu" show.bind="showHideCombFinishMenu">
-          <div class="col-md-12"
-            style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px;margin-left: 16px;width:98%">
-
-            <div class="row" style="margin-top: 24px; white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Tanggal Selesai Sisir" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-datepicker value.bind="CombFinishDate" error.bind="error.CombFinishDate">
-                </au-datepicker>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Waktu Selesai Sisir" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-timepicker value.bind="CombFinishTime" error.bind="error.CombFinishTime" read-only.bind="readOnly">
-              </div>
-              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
-                <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-textbox placeholder="Shift" value.bind="CombFinishShift.Name" error.bind="error.CombFinishShift"
-                  read-only.bind="true">
-                </au-textbox>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-3">
-                <au-autocomplete placeholder="Operator" value.bind="CombFinishOperator"
-                  error.bind="error.CombFinishOperator" read-only.bind="readOnly" loader.bind="operators"
-                  text="Username"></au-autocomplete>
-              </div>
-              <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-                <textbox label="Grup Sisir" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-textbox placeholder="Grup Sisir" value.bind="CombFinishOperator.Group"
-                  error.bind="error.CombFinishOperatorGroup" read-only.bind="true"></au-textbox>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap">
-              <div class="col-md-2" style="text-align:left;">
-                <textbox label="Helai Dikerjakan" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-numeric placeholder="Helai Dikerjakan" value.bind="CombFinishYarnStrandsProcessed"
-                  error.bind="error.CombFinishYarnStrandsProcessed" read-only.bind="readOnly">
-                </au-numeric>
-              </div>
-              <div class="col-md-2 col-md-offset-2" style="text-align:left;">
-                <textbox label="Lebar Sisir(cm)" read-only="true" style="display: inline-block"></textbox>
-              </div>
-              <div class="col-md-2">
-                <au-numeric placeholder="Lebar Sisir(cm)" value.bind="CombFinishWidth"
-                  error.bind="error.CombFinishWidth" read-only.bind="readOnly">
-                </au-numeric>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-12">
-                <button class="btn btn-default" click.delegate="saveCombFinish()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
-                        width: 96px; border: 1px solid #777777;">
-                  Simpan
-                </button>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
       <div class="row" style="white-space: nowrap;">
         <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Reaching</h1>

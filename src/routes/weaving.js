@@ -424,6 +424,23 @@ module.exports = [{
     }
   },
   {
+    route: "weaving/daily-operation-loom-report",
+    name: "weaving-daily-operation-loom-report",
+    moduleId: "./modules/weaving/daily-operation-loom-report/index",
+    nav: true,
+    title: "Laporan Operasional Mesin Harian Loom",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/production-results",
     name: "production-results",
     moduleId: "./modules/weaving/production-results/index",
