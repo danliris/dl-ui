@@ -544,7 +544,7 @@ export class Update {
       if (dataContainer.NeReal) {
         neReal = dataContainer.NeReal;
       }
-      if (machineType == "Kawamoto") {
+      if (machineType == "Kawa Moto") {
         this.service.calculateNetto(emptyWeight, bruto)
           .then(resultNetto => {
             this.error.ProduceBeamsNetto = "";
