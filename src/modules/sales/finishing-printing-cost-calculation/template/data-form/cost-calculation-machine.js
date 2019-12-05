@@ -1,10 +1,10 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Dialog } from '../../../../../../components/dialog/dialog';
+import { Dialog } from '../../../../../components/dialog/dialog';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
-const ProductLoader = require('../../../../../../loader/product-loader');
-const CategoryLoader = require('../../../../../../loader/category-loader');
-const MachineLoader = require('../../../../../../loader/machines-loader');
+const ProductLoader = require('../../../../../loader/product-loader');
+const CategoryLoader = require('../../../../../loader/category-loader');
+const MachineLoader = require('../../../../../loader/machines-loader');
 import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
 
@@ -14,8 +14,8 @@ import { ChemicalListForm } from '../../dialogs/chemical-list-form';
 
 const rateNumberFormat = "0,0.000";
 
-// const materialLoader = require('../../../../../loader/material-md-loader');
-const UomLoader = require('../../../../../../loader/uom-loader');
+// const materialLoader = require('../../../../loader/material-md-loader');
+const UomLoader = require('../../../../../loader/uom-loader');
 
 @inject(Dialog, Service, ServiceCore)
 export class CostCalculationMaterial {
@@ -71,7 +71,9 @@ export class CostCalculationMaterial {
     get chemicalCost() {
         if (this.chemicals.length > 0) {
             return this.chemicals.reduce((previousValue, currentValue) => {
-                return previousValue + (currentValue.Chemical.Price * currentValue.ChemicalQuantity)
+                var res = previousValue + (currentValue.Chemical.Price * currentValue.ChemicalQuantity)
+                this.data.Total = res + this.data.Utility + this.data.Depretiation;
+                return res;
             }, 0);
         } else {
             return 0;
@@ -84,6 +86,7 @@ export class CostCalculationMaterial {
             this.data.Machine = this.selectedMachine;
             this.data.MachineId = this.selectedMachine.Id;
             this.data.Utility = this.selectedMachine.Electric + this.selectedMachine.Steam + this.selectedMachine.Water + this.selectedMachine.Solar + this.selectedMachine.LPG;
+            this.data.Total = this.chemicalCost + this.data.Utility + this.data.Depretiation;
         }
     }
 
@@ -125,23 +128,24 @@ export class CostCalculationMaterial {
                 });
     }
 
-    @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
-    get total() {
-        let total = this.data.Quantity && this.data.Conversion && parseFloat(this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity) : 0;
-        //total = numeral(total).format();
-        if (this.data.isFabricCM) {
-            this.data.Total = 0;
-            this.data.TotalTemp = numeral(total).value();
-            this.data.CM_Price = numeral(total).value();
-        }
-        else {
-            this.data.Total = numeral(total).value();
-            this.data.TotalTemp = numeral(total).value();;
-            this.data.CM_Price = null;
-        }
-        total = parseFloat(total).toFixed(2);
+    // @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
+    // get total() {
+    //     let total = this.data.Quantity && this.data.Conversion && parseFloat(this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity) : 0;
+    //     //total = numeral(total).format();
+    //     if (this.data.isFabricCM) {
+    //         this.data.Total = 0;
+    //         this.data.TotalTemp = numeral(total).value();
+    //         this.data.CM_Price = numeral(total).value();
+    //     }
+    //     else {
+    //         this.data.Total = numeral(total).value();
+    //         this.data.TotalTemp = numeral(total).value();;
+    //         this.data.CM_Price = null;
+    //     }
+    //     total = parseFloat(total).toFixed(2);
 
-        return total;
-    }
+    //     return total;
+    // }
+
 
 }
