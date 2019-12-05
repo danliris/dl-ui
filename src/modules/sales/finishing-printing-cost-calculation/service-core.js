@@ -1,4 +1,4 @@
-import { RestService } from '../../../../utils/rest-service';
+import { RestService } from '../../../utils/rest-service';
 
 const productSingleByNameServiceUri = 'master/products';
 const uomServiceUri = 'master/uoms';
