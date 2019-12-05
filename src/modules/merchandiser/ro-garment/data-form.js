@@ -139,6 +139,9 @@ export class DataForm {
     this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
     this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
     this.imagesSrc = this.data.ImagesFile.slice();
+    this.data.DocumentsFile = this.data.DocumentsFile || [];
+    this.data.DocumentsFileName = this.data.DocumentsFileName || [];
+    this.documentsPathTemp = [].concat(this.data.DocumentsPath);
   }
 
   async costCalculationGarmentChanged(newValue) {
@@ -197,4 +200,43 @@ export class DataForm {
   //   }
   //   return this.data.Total;
   // }
+
+  onAddDocument() {
+    this.data.DocumentsFile.push("");
+    this.data.DocumentsFileName.push("");
+    this.documentsPathTemp.push("");
+  }
+
+  onRemoveDocument(index) {
+    this.data.DocumentsFile.splice(index, 1);
+    this.data.DocumentsFileName.splice(index, 1);
+    this.documentsPathTemp.splice(index, 1);
+  }
+
+  downloadDocument(index) {
+    // this.service.getFile((this.documentsPathTemp[index] || '').replace('/sales/', ''), this.data.DocumentsFileName[index]);
+
+    const linkSource = this.data.DocumentsFile[index];
+    const downloadLink = document.createElement("a");
+    const fileName = this.data.DocumentsFileName[index];
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
+  documentInputChanged(index) {
+    let documentInput = document.getElementById('documentInput'+index);
+
+    if (documentInput.files[0]) {
+      let reader = new FileReader();
+      reader.onload = event => {
+          let base64Document = event.target.result;
+          this.data.DocumentsFile[index] = base64Document;
+          this.data.DocumentsFileName[index] = documentInput.value.replace(/^.*[\\\/]/, '');
+      }
+      reader.readAsDataURL(documentInput.files[0]);
+    }
+  }
 }
+
