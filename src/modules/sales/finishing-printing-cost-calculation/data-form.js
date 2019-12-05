@@ -2,7 +2,7 @@ import { Router } from "aurelia-router";
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework';
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
-import { Service } from './service';
+import { Service, ProductionService } from './service';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
@@ -10,7 +10,7 @@ var ProductionOrderLoader = require('../../../loader/production-order-loader');
 var InstructionLoader = require('../../../loader/instruction-loader');
 var ProductLoader = require('../../../loader/product-null-tags-loader');
 
-@inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, Service)
+@inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, Service, ProductionService)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -73,13 +73,14 @@ export class DataForm {
     ]
   }
   machineOptions = {};
-  constructor(router, bindingEngine, serviceEffeciency, rateService, element, service) {
+  constructor(router, bindingEngine, serviceEffeciency, rateService, element, service, productionService) {
     this.router = router;
     this.bindingEngine = bindingEngine;
     this.efficiencyService = serviceEffeciency;
     this.rateService = rateService;
     this.element = element;
     this.service = service;
+    this.productionService = productionService;
   }
 
   async bind(context) {
@@ -92,9 +93,9 @@ export class DataForm {
       this.tklQuantity = this.data.TKLQuantity;
     }
 
-    if (this.data.SalaryTotal) {
-      this.salaryTotal = this.data.SalaryTotal;
-    }
+    // if (this.data.SalaryTotal) {
+    //   this.salaryTotal = this.data.SalaryTotal;
+    // }
   }
 
   get productionOrderLoader() {
@@ -119,6 +120,7 @@ export class DataForm {
 
       this.data.BuyerName = this.selectedProductionOrder.Buyer.Name;
       this.color = this.selectedProductionOrder.Details[0].ColorRequest;
+      this.data.Date = this.selectedProductionOrder.DeliveryDate;
 
       // this.data.Material = {};
       // this.data.Material.Id = this.selectedSPP.Material.Id;
@@ -146,7 +148,7 @@ export class DataForm {
 
       var directLaborDate = new Date(this.selectedProductionOrder.DeliveryDate);
 
-      this.directLaborData = await this.service.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
+      this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
     } else {
       this.data = {};
       this.color = "";
@@ -158,7 +160,7 @@ export class DataForm {
   directLaborTotalChanged(n, o) {
     if (this.directLaborTotal) {
       this.data.DirectLaborTotal = this.directLaborTotal;
-      this.data.SalaryTotal = this.data.DirectLaborTotal * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+      // this.data.SalaryTotal = this.data.DirectLaborTotal * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
     }
   }
 
@@ -170,7 +172,7 @@ export class DataForm {
       } else {
         this.salaryTotal = 0;
       }
-      this.data.SalaryTotal = this.salaryTotal;
+      // this.data.SalaryTotal = this.salaryTotal;
     }
   }
 
@@ -198,6 +200,7 @@ export class DataForm {
   selectedGreigeChanged(newValue, oldValue) {
     if (newValue) {
       this.data.GreigeId = newValue.Id;
+      this.data.GreigeName = newValue.Name;
     } else {
       this.data.GreigeId = 0;
     }
