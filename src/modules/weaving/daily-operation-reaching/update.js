@@ -725,7 +725,7 @@ export class Update {
       var CombNumberContainer = this.CombStartNumber;
     }
 
-    if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) < reachingInYarnStrandsProcessed) {
+    if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) < this.data.SizingYarnStrands) {
       var combStartData = {};
 
       combStartData.Id = IdContainer;
@@ -745,7 +745,7 @@ export class Update {
         .catch(e => {
           this.error = e;
         });
-    } else if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) == reachingInYarnStrandsProcessed) {
+    } else if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) == this.data.SizingYarnStrands) {
       if (this.CombStartWidth) {
         var CombFinishWidthContainer = this.CombStartWidth;
 
@@ -820,7 +820,7 @@ export class Update {
         .catch(e => {
           this.error = e;
         });
-    } else if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) == reachingInYarnStrandsProcessed) {
+    } else if (parseInt(sumOfCombYarnStrandsProcessed) <= reachingInYarnStrandsProcessed && parseInt(sumOfCombYarnStrandsProcessed) == this.data.SizingYarnStrands) {
       if (this.ChangeOperatorCombWidth) {
         var CombFinishWidthContainer = this.ChangeOperatorCombWidth;
 
