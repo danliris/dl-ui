@@ -8,11 +8,11 @@ export class Index {
         title: 'List : Laporan Operasional Mesin Harian Loom'
       },
       {
-        route: "detail/:Id",
-        moduleId: "./detail",
-        name: "detail",
+        route: "view/:Id",
+        moduleId: "./view",
+        name: "view",
         nav: false,
-        title: "Detail: Detail Operasional Mesin Harian Loom"
+        title: "View: Operasional Mesin Harian Loom"
       }
     ]);
 
