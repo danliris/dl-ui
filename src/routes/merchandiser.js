@@ -40,6 +40,20 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/approve-pr-master/purchasing',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approval PR Master - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "Purchasing"
+        }
+    },
+    {
         route: '/merchandiser/approve-pr-master/kadiv-md',
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
@@ -51,20 +65,6 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: "MD2"
-        }
-    },
-    {
-        route: '/merchandiser/approve-pr-master/ppic',
-        name: 'approve-purchase-request-master',
-        moduleId: './modules/merchandiser/approve-pr-master/index',
-        nav: true,
-        title: 'Approval PR Master - PPIC',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            type: "PPIC"
         }
     },
     {
