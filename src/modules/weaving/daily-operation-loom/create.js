@@ -62,6 +62,7 @@ export class Create {
     this.bindingEngine = bindingEngine;
 
     this.showHideBeamsCollection = false;
+    this.showHideCollectionError = false;
 
     this.data = {};
     this.error = {};
@@ -98,6 +99,10 @@ export class Create {
       let weavingUnitId = newValue.WeavingUnit;
       let warpOriginId = newValue.WarpOrigin;
       let weftOriginId = newValue.WeftOrigin;
+
+      this.BeamsSizing.splice(0, this.BeamsSizing.length);
+      this.beamsSizingTableOptions.OrderId = order.Id;
+
       this.service.getConstructionNumberById(constructionId)
         .then(resultConstructionNumber => {
           this.error.ConstructionNumber = "";
@@ -116,8 +121,6 @@ export class Create {
         }).then(resultWeftOrigin => {
           this.error.WeftOrigin = "";
           this.WeftOrigin = resultWeftOrigin;
-
-          this.beamsSizingTableOptions.OrderId = order.Id;
 
           if (resultWeftOrigin) {
             this.showHideBeamsCollection = true;
@@ -174,7 +177,7 @@ export class Create {
     this.BeamsSizing.forEach(doc => {
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};
-      
+
       BeamProductDocument.BeamDocumentId = doc.BeamDocument.Id;
       BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
       BeamProductDocument.DateBeamProduct = doc.Date;
@@ -200,6 +203,9 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
+        if (this.error.LoomBeamProducts || this.error.LoomBeamHistories) {
+          this.showHideCollectionError = true;
+        }
       });
   }
 
