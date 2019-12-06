@@ -158,7 +158,6 @@ export class Create {
 
   get addBeamsSizing() {
     return event => {
-      console.log(this.BeamsSizing);
       this.BeamsSizing.push({});
     };
   }
