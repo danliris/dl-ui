@@ -21,7 +21,7 @@ export class Chemical {
         this.options = context.options;
         console.log(this.options);
         this.readOnly = this.options.readOnly || false;
-        this.priceTotal = this.data.Chemical.Price * this.data.Quantity;
+        this.priceTotal = this.data.Chemical.Price * this.data.ChemicalQuantity;
     }
 
     bind() {
