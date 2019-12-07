@@ -85,7 +85,7 @@ module.exports = [
         name: 'cost-calculation-approval-md',
         moduleId: './modules/merchandiser/cost-calculation-approval/index',
         nav: true,
-        title: 'Cost Calculation Approval - MD',
+        title: 'Cost Calculation Approval - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
