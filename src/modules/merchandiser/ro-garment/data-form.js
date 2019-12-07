@@ -149,7 +149,7 @@ export class DataForm {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
         this.data.CostCalculationGarment.ImageFile = this.data.CostCalculationGarment.ImageFile || '#';
-        this.data.Total=this.data.CostCalculationGarment.Quantity;
+        this.data.Total = this.data.CostCalculationGarment.Quantity;
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
         this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
@@ -157,13 +157,13 @@ export class DataForm {
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
     }
-    else{
+    else {
       //this.data.CostCalculationGarment.CostCalculationGarment_Materials=[];
-      this.data.CostCalculationGarment =null;
+      this.data.CostCalculationGarment = null;
       //this.data.CostCalculationGarment.ImageFile = '#';
-      this.CCG_M_Fabric =[];
-      this.CCG_M_Accessories =[];
-      this.data.Total=0;
+      this.CCG_M_Fabric = [];
+      this.CCG_M_Accessories = [];
+      this.data.Total = 0;
     }
   }
 
@@ -226,14 +226,25 @@ export class DataForm {
   }
 
   documentInputChanged(index) {
-    let documentInput = document.getElementById('documentInput'+index);
+    let documentInput = document.getElementById('documentInput' + index);
 
     if (documentInput.files[0]) {
       let reader = new FileReader();
       reader.onload = event => {
-          let base64Document = event.target.result;
+        let base64Document = event.target.result;
+        const base64Content = base64Document.substring(base64Document.indexOf(',') + 1);
+        console.log(base64Content.length, ' characters');
+        console.log(base64Content.length * 6, ' bits');
+        console.log(base64Content.length * 6 / 8, ' bytes');
+        if (base64Content.length * 6 / 8 > 52428800) {
+          documentInput.value = "";
+          this.data.DocumentsFile[index] = "";
+          this.data.DocumentsFileName[index] = "";
+          alert("Maximum Document Size is 50 MB")
+        } else {
           this.data.DocumentsFile[index] = base64Document;
           this.data.DocumentsFileName[index] = documentInput.value.replace(/^.*[\\\/]/, '');
+        }
       }
       reader.readAsDataURL(documentInput.files[0]);
     }
