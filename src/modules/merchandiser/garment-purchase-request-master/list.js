@@ -34,8 +34,8 @@ export class List {
       }
     },
     { field: "IsValidatedMD1", title: "Approval Kabag", formatter: (value) => value ? "SUDAH" : "BELUM" },
+    { field: "IsValidatedPurchasing", title: "Approval PPIC", formatter: (value) => value ? "SUDAH" : "BELUM" },
     { field: "IsValidatedMD2", title: "Approval Kadiv", formatter: (value) => value ? "SUDAH" : "BELUM" },
-    { field: "IsValidated", title: "Approval PPIC", formatter: (value) => value ? "SUDAH" : "BELUM" },
   ];
 
   rowFormatter(data, index) {
