@@ -6,9 +6,12 @@ import { Service, ProductionService } from './service';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
-var ProductionOrderLoader = require('../../../loader/production-order-loader');
+var SalesContractLoader = require('../../../loader/finishing-printing-pre-sales-contract-loader');
 var InstructionLoader = require('../../../loader/instruction-loader');
 var ProductLoader = require('../../../loader/product-null-tags-loader');
+var UomLoader = require('../../../loader/uom-loader');
+var MaterialLoader = require("../../../loader/product-loader");
+var AccountLoader = require('../../../loader/account-loader');
 
 @inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, Service, ProductionService)
 export class DataForm {
@@ -17,18 +20,18 @@ export class DataForm {
   @bindable disabled = "true";
   @bindable data = {};
   @bindable error = {};
-  @bindable selectedProductionOrder;
+  @bindable selectedSalesContract;
   @bindable buyer;
   @bindable color;
-  @bindable material;
   @bindable selectedInstruction;
   @bindable orderQuantityWithUOM;
-  @bindable sales;
-  @bindable date;
   @bindable directLaborTotal;
   @bindable selectedGreige;
   @bindable tklQuantity;
   @bindable salaryTotal;
+  @bindable selectedUOM;
+  @bindable selectedMaterial;
+  @bindable selectedSales;
 
   formOptions = {
     cancelText: "Kembali",
@@ -61,7 +64,9 @@ export class DataForm {
       length: 8
     }
   }
-
+  materialQuery = {
+    "Tags": "MATERIAL"
+  }
   machines = {
     columns: [
       { header: "Proses", value: "Process" },
@@ -89,71 +94,94 @@ export class DataForm {
     this.error = this.context.error;
     this.machineOptions.readOnly = this.readOnly;
 
+    if (this.data.PreSalesContract && this.data.PreSalesContract.Id) {
+      this.selectedSalesContract = this.data.PreSalesContract
+
+    }
+
+    if (this.data.Material && this.data.Material.Id) {
+      this.selectedMaterial = this.data.Material;
+    }
+
+    if (this.data.Instruction && this.data.Instruction.Id) {
+      this.selectedInstruction = this.data.Instruction;
+    }
+
+    if (this.data.UOM && this.data.UOM.Id) {
+      this.selectedUOM = this.data.UOM;
+    }
+
+    if (this.data.Sales) {
+      this.selectedSales = this.data.Sales;
+    }
+
+    if (this.data.Greige && this.data.Greige.Id) {
+      this.selectedGreige = this.data.Greige;
+    }
+
     if (this.data.TKLQuantity) {
       this.tklQuantity = this.data.TKLQuantity;
     }
 
-    // if (this.data.SalaryTotal) {
-    //   this.salaryTotal = this.data.SalaryTotal;
-    // }
   }
 
-  get productionOrderLoader() {
-    return ProductionOrderLoader;
-  }
-
-  get instructionLoader() {
-    return InstructionLoader;
+  get materialLoader() {
+    return MaterialLoader;
   }
 
   get productLoader() {
     return ProductLoader;
   }
 
+  get instructionLoader() {
+    return InstructionLoader;
+  }
 
+  get salesContractLoader() {
+    return SalesContractLoader;
+  }
 
-  async selectedProductionOrderChanged(newValue, oldValue) {
+  get uomLoader() {
+    return UomLoader;
+  }
+
+  get accountLoader() {
+    return AccountLoader;
+  }
+
+  salesText = (data) => {
+    return `${data.profile.firstname} - ${data.profile.lastname}`
+  }
+
+  selectedSalesContractChanged(newValue, oldValue) {
     if (newValue) {
-      // this.data.ProductionOrder = {};
-      this.data.ProductionOrderId = this.selectedProductionOrder.Id;
-      this.data.ProductionOrderNo = this.selectedProductionOrder.OrderNo;
-
-      this.data.BuyerName = this.selectedProductionOrder.Buyer.Name;
-      this.color = this.selectedProductionOrder.Details[0].ColorRequest;
-      this.data.Date = this.selectedProductionOrder.DeliveryDate;
-
-      // this.data.Material = {};
-      // this.data.Material.Id = this.selectedSPP.Material.Id;
-      // this.data.Material.Name = this.material;
-
-      // this.data.Buyer = {};
-      // this.data.Buyer.Id = this.selectedSPP.Buyer.Id;
-      // this.data.Buyer.Name = this.Buyer;
-
-      // this.data.Color = this.color;
-
-      // this.sales = this.selectedSPP.Account.UserName;
-      // this.date = this.selectedSPP.DeliveryDate;
-      this.orderQuantityWithUOM = this.selectedProductionOrder.OrderQuantity + " " + this.selectedProductionOrder.Uom.Unit;
-
-      // this.data.Sales = {};
-      // this.data.Sales.Id = this.selectedSPP.Account.Id;
-      // this.data.Sales.UserName = this.sales;
-      // this.data.DeliveryDate = this.date;
-      // this.data.OrderQuantity = this.selectedSPP.OrderQuantity;
-
-      // this.data.Uom = {};
-      // this.data.Uom.Id = this.selectedSPP.Uom.Id;
-      // this.data.Uom.Unit = this.selectedSPP.Uom.Unit;
-
-      var directLaborDate = new Date(this.selectedProductionOrder.DeliveryDate);
-
-      this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
-    } else {
+      this.data.PreSalesContract = this.selectedSalesContract;
+      this.data.Unit = this.selectedSalesContract.Unit.Name;
+      this.data.Buyer = this.selectedSalesContract.Buyer.Name;
+      this.data.OrderQuantity = this.selectedSalesContract.OrderQuantity;
+    }
+    else {
       this.data = {};
-      this.color = "";
-      this.orderQuantityWithUOM = "";
+    }
+  }
 
+  selectedUOMChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.UOMUnit = this.selectedUOM.Unit;
+      this.data.UOMId = this.selectedUOM.Id;
+      this.data.UOM = this.selectedUOM;
+    }
+  }
+
+  selectedMaterialChanged(n, o) {
+    if (this.selectedMaterial) {
+      this.data.Material = this.selectedMaterial;
+    }
+  }
+
+  selectedSalesChanged(n, o) {
+    if (this.selectedSales) {
+      this.data.Sales = this.selectedSales;
     }
   }
 
@@ -164,8 +192,10 @@ export class DataForm {
     }
   }
 
-  tklQuantityChanged(n, o) {
+  async tklQuantityChanged(n, o) {
     if (this.tklQuantity) {
+      var directLaborDate = new Date(this.data.Date);
+      this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
       this.data.TKLQuantity = this.tklQuantity;
       if (this.data.TKLQuantity > 0) {
         this.salaryTotal = this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
@@ -176,20 +206,17 @@ export class DataForm {
     }
   }
 
-  // get salaryTotal() {
-  //   if (this.data.TKLQuantity > 0) {
-  //     return this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
-  //   } else {
-  //     return 0;
-  //   }
-  // }
 
   selectedInstructionChanged(newValue, oldValue) {
     if (newValue) {
-      this.data.Machines = this.selectedInstruction.Steps.map((step) => { return { "step": step }; });
-      console.log(this.data.Machines);
+      if (!this.data.Id) {
+        this.data.Machines = this.selectedInstruction.Steps.map((step) => { return { "Step": step }; });
+        console.log(this.data.Machines);
+      }
+
       this.data.InstructionId = this.selectedInstruction.Id;
       this.data.InstructionName = this.selectedInstruction.Name;
+      this.data.Instruction = this.selectedInstruction;
     } else {
       this.data.Machines = [];
       this.data.InstructionId = 0;
@@ -201,6 +228,7 @@ export class DataForm {
     if (newValue) {
       this.data.GreigeId = newValue.Id;
       this.data.GreigeName = newValue.Name;
+      this.data.Greige = this.selectedGreige;
     } else {
       this.data.GreigeId = 0;
     }

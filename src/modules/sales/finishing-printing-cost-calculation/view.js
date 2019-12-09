@@ -1,13 +1,13 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
-import { Service } from "./service";
+import { Service, ProductionService } from "./service";
 import { Dialog } from "../../../au-components/dialog/dialog";
 import numeral from "numeral";
 numeral.defaultFormat("0,0.00");
 const US = "US$. ";
 const RP = "Rp. ";
 
-@inject(Router, Service, Dialog)
+@inject(Router, Service, Dialog, ProductionService)
 export class View {
   title = "Detail Cost Calculation Export Finishing Printing";
   readOnly = true;
@@ -29,40 +29,27 @@ export class View {
       length: 7
     }
   };
-
-  costCalculationGarment_MaterialsInfo = {
+  machines = {
     columns: [
-      { header: "Kategori", value: "Category" },
-      { header: "Kode Barang", value: "Product.code" },
-      { header: "Komposisi", value: "Product.composition" },
-      { header: "Konstruksi", value: "Product.const" },
-      { header: "Yarn", value: "Product.yarn" },
-      { header: "Width", value: "Product.width" },
-      { header: "Deskripsi", value: "Description" },
-      { header: "Kuantitas", value: "Quantity" },
-      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
-      { header: "Total (Rp)", value: "Total" }
+      { header: "Proses", value: "Process" },
+      { header: "Mesin", value: "Machine" },
+      { header: "Biaya Chemical", value: "Chemical" },
+      { header: "Biaya Utility", value: "Utility" },
+      { header: "Biaya Depresiasi", value: "Depretiation" },
+      { header: "Total", value: "Total" },
     ]
   };
 
-  priceInfo = {
-    columns: [
-      { header: "FOB Price", value: "FOB_Price" },
-      { header: "CMT Price", value: "CMT_Price" },
-      { header: "CNF Price", value: "CNF_Price" },
-      { header: "CIF Price", value: "CIF_Price" }
-    ]
-  };
-
-  constructor(router, service, dialog) {
+  constructor(router, service, dialog, productionService) {
     this.router = router;
     this.service = service;
     this.dialog = dialog;
+    this.productionService = productionService;
   }
 
   get isDollar() {
-    if (this.data.Rate) {
-      return this.data.Rate.Id !== 0;
+    if (this.data.CurrencyRate) {
+      return this.data.CurrencyRate !== 0;
     }
     else {
       return false;
@@ -73,92 +60,35 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    if (this.data.SCGarmentId) {
-      this.editCallback = null;
-      this.deleteCallback = null;
+    this.salesText = `${this.data.Sales.profile.firstname} - ${this.data.Sales.profile.lastname}`;
+    var totalDetailAll = 0;
+    for (var item of this.data.Machines) {
+      var itemChemical = 0;
+      if (item.Chemicals.length > 0) {
+        itemChemical = item.Chemicals.reduce((previousValue, currentValue) => {
+          var res = previousValue + (currentValue.Chemical.Price * currentValue.ChemicalQuantity)
+
+          return res;
+        }, 0);
+        var itemUtility = item.Machine.Electric + item.Machine.Steam + item.Machine.Water + item.Machine.Solar + item.Machine.LPG;
+        var totalDetail = itemChemical + itemUtility + item.Depretiation;
+        totalDetailAll += totalDetail;
+      }
+      this.totalMachinesAndGreige = totalDetailAll + this.data.ActualPrice;
+
     }
-    this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
-    this.data.AccessoriesAllowance = numeral(
-      this.data.AccessoriesAllowance
-    ).format();
-    let total = 0;
-    if (this.data.CostCalculationGarment_Materials) {
-      this.data.CostCalculationGarment_Materials.forEach(item => {
-        total += Number(item.Total);
-      });
+
+    var directLaborDate = new Date(this.data.Date);
+    this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
+    if (this.data.TKLQuantity > 0) {
+      this.salaryTotal = this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
+    } else {
+      this.salaryTotal = 0;
     }
-    //total += this.data.ProductionCost;
-    this.data.Total = total;
-    var _confirmPrice = this.data.ConfirmPrice;
-    var _insurance = this.data.Insurance;
-    // this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
-    // this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
-    // this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
-    // this.data.AfterFreightCost = this.data.AfterRisk + this.data.FreightCost;
-    // this.data.ConfirmPriceWithRate =
-    //   this.data.ConfirmPrice * this.data.Rate.Value;
-    //   this.data.ConfirmPriceWithRate=this.data.ConfirmPriceWithRate.toLocaleString('en-EN', { minimumFractionDigits: 4});
-    // let CM_Price = 0;
-    // if (this.data.CostCalculationGarment_Materials) {
-    //   this.data.CostCalculationGarment_Materials.forEach(item => {
-    //     CM_Price += Number(item.CM_Price);
-    //   });
-    // }
-
-    // let FOB_Price = this.data.ConfirmPrice;
-    // let CNF_Price=_confirmPrice;
-    // let CIF_Price=_confirmPrice;
-    // if(this.data.Freight==0)
-    //   {
-    //     CNF_Price=0;
-    //   }
-    //   if(this.data.Insurance ==0)
-    //   {
-    //     CIF_Price=0;
-    //   }
-    // if(CM_Price >0)
-    // {
-    //   FOB_Price=0;
-    // }
-    // this.data.ConfirmPrice = this.isDollar
-    //   ? US + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4})//numeral(this.data.ConfirmPrice).format()
-    //   : RP + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
-    // this.data.FOB_Price = this.isDollar
-    //   ? US + numeral(FOB_Price).format()
-    //   : RP + numeral(FOB_Price).format();
-    // this.data.CMT_Price =
-    //   CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
-    // this.data.CNF_Price = this.isDollar
-    //   ? US + numeral(( CNF_Price +this.data.Freight)).format()
-    //   : RP + numeral(0).format();
-    // this.data.CIF_Price = this.isDollar
-    //   ? US + numeral(CIF_Price +_insurance).format()
-    //   : RP + numeral(0).format();
-    // this.data.priceInfo = [
-    //   {
-    //     FOB_Price: this.data.FOB_Price,
-    //     CMT_Price: this.data.CMT_Price,
-    //     CNF_Price: this.data.CNF_Price,
-    //     CIF_Price: this.data.CIF_Price
-    //   }
-    // ];
-
-    // this.data.Freight = this.isDollar
-    //   ? US + numeral(this.data.Freight).format()
-    //   : RP + numeral(this.data.Freight).format();
-    // this.data.Insurance = this.isDollar
-    //   ? US + numeral(this.data.Insurance).format()
-    //   : RP + numeral(this.data.Insurance).format();
-    // this.data.SMV_Cutting = numeral(this.data.SMV_Cutting).format();
-    // this.data.SMV_Sewing = numeral(this.data.SMV_Sewing).format();
-    // this.data.SMV_Finishing = numeral(this.data.SMV_Finishing).format();
-    // this.data.SMV_Total = numeral(this.data.SMV_Total).format();
-
-    // this.data.LeadTime = `${this.data.LeadTime} hari`
-    // this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
-
+    this.subTotal = this.salaryTotal + this.data.OTL1 + this.data.OTL2 + this.data.FreightCost;
+    this.totalConfirmPrice = this.totalMachinesAndGreige + this.subTotal;
+    this.finalConfirmPrice = this.totalConfirmPrice + this.data.CargoCost + this.data.InsuranceCost;
   }
-
   async bind(context) {
     this.context = context;
   }
