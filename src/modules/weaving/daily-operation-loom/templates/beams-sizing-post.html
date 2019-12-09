@@ -1,9 +1,18 @@
 <template>
   <tr>
     <td style="white-space: nowrap;">
+      <au-dropdown value.bind="BeamOrigin" error.bind="error.BeamOrigin" read-only.bind="readOnly"
+        items.bind="beamOrigins">
+      </au-dropdown>
+    </td>
+    <td style="white-space: nowrap;">
       <au-autocomplete value.bind="BeamDocument" error.bind="error.BeamDocument" read-only.bind="readOnly"
         placeholder="No. Beam" loader.bind="beams" text="Number" query.bind="OrderIdFilter">
       </au-autocomplete>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-numeric value.bind="CombNumber" error.bind="error.CombNumber" read-only.bind="combReadOnly">
+      </au-numeric>
     </td>
     <td style="white-space: nowrap;">
       <au-autocomplete value.bind="MachineDocument" error.bind="error.MachineDocument" read-only.bind="readOnly"
@@ -28,8 +37,7 @@
       <au-timepicker value.bind="Time" error.bind="error.Time" read-only.bind="readOnly">
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Shift.Name" error.bind="error.Shift" read-only.bind="true"
-        placeholder="Shift">
+      <au-textbox value.bind="data.Shift.Name" error.bind="error.Shift" read-only.bind="true" placeholder="Shift">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">

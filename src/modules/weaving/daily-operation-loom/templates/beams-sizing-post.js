@@ -12,6 +12,7 @@ var OperatorLoader = require("../../../../loader/weaving-operator-loader");
 
 @inject(BindingEngine, Service)
 export class BeamsSizingPost {
+  @bindable BeamOrigin
   @bindable BeamDocument
   @bindable MachineDocument
   @bindable OperatorDocument
@@ -22,6 +23,8 @@ export class BeamsSizingPost {
     this.bindingEngine = bindingEngine;
   }
 
+  beamOrigins = ["", "Reaching", "Tying"];
+  
   process = ["", "Normal", "Reproses"];
 
   get beams() {
