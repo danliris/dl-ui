@@ -8,6 +8,7 @@ export class Item {
 
         this.isEdit = this.context.isEdit;
         this.showOrigin = this.context.isEdit;
+        
     }
 
     changeCheckBox() {
@@ -16,26 +17,42 @@ export class Item {
         }, true);
     }
 
-    @computedFrom("context.fc", "data.CuttingInQuantity")
-    get dataPreparingQuantity() {
-        this.data.RemainingQuantity = this.data.CuttingInQuantity;
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
+    // @computedFrom("context.fc", "data.CuttingInQuantity")
+    // get dataPreparingQuantity() {
+    //     this.data.RemainingQuantity = this.data.CuttingInQuantity;
+    //     this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
         
-        if (this.showOrigin) {
-            this.showOrigin = false;
-        } else {
-            this.data.PreparingQuantity = this.data.CuttingInQuantity * this.context.fc || this.data.PreparingRemainingQuantity;
+    //     if (this.showOrigin) {
+    //         this.showOrigin = false;
+    //     } else {
+    //         this.data.PreparingQuantity = this.data.CuttingInQuantity * this.context.fc || this.data.PreparingRemainingQuantity;
+    //     }
+
+    //     if (!this.isEdit) {
+    //         this.data.BasicPrice = this.data.PreparingBasicPrice ;//* this.context.fc;
+    //         this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
+    //     }
+
+    //     return this.data.PreparingQuantity;
+    // }
+
+    // set dataPreparingQuantity(value) {
+    //     this.data.PreparingQuantity = value;
+    // }
+
+    @computedFrom("data.PreparingQuantity", "data.CuttingInQuantity")
+    get dataFC() {
+        
+        if(this.data.PreparingQuantity && this.data.CuttingInQuantity){
+            this.data.RemainingQuantity = this.data.CuttingInQuantity;
+            this.data.FC=this.data.PreparingQuantity/this.data.CuttingInQuantity;
+
+            this.data.BasicPrice=this.data.PreparingBasicPrice * this.data.FC;
+            this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingInQuantity;
+        
         }
-
-        if (!this.isEdit) {
-            this.data.BasicPrice = this.data.PreparingBasicPrice ;//* this.context.fc;
-            this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingInQuantity);
-        }
-
-        return this.data.PreparingQuantity;
-    }
-
-    set dataPreparingQuantity(value) {
-        this.data.PreparingQuantity = value;
+        else 
+            this.data.FC=0;
+        return this.data.FC;
     }
 }

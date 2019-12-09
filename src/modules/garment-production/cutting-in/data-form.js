@@ -47,7 +47,8 @@ export class DataForm {
         "Jumlah Preparing Out",
         "Satuan Barang",
         "Jumlah Potong",
-        "Satuan Potong"
+        "Satuan Potong",
+        "FC"
     ];
 
     detailsColumnsView = [
@@ -58,6 +59,7 @@ export class DataForm {
         { value: "CuttingInUomUnit", header: "Satuan" },
         { value: "BasicPrice", header: "Harga" },
         { value: "Currency", header: "Mata Uang" },
+        { value: "FC", header: "FC" },
     ];
 
     @computedFrom("data.Unit")
@@ -149,7 +151,9 @@ export class DataForm {
                                             CuttingInUom: uom,
                                             PreparingRemainingQuantity: item.RemainingQuantity,
                                             PreparingBasicPrice: item.BasicPrice,
-                                            ComodityPrice: this.data.Price
+                                            ComodityPrice: this.data.Price,
+                                            PreparingQuantity:0,
+                                            FC: 0
                                         });
                                         
                                     })
@@ -171,5 +175,28 @@ export class DataForm {
         (this.data.Items || []).forEach(i => {
             (i.Details || []).forEach(d => d.IsSave = this.context.checkedAll)
         });
+    }
+
+    //@computedFrom("data.Items")
+    get dataFC(){
+        this.data.FC=0;
+        var count=0;
+        var fc=0;
+        if(this.data.Items){
+            if(this.data.Items.length > 0){
+                for(var a of this.data.Items){
+                    for(var b of a.Details){
+                        if(b.IsSave){
+                            fc+=b.FC;
+                            count++;
+                        }
+                    }
+                }
+            }
+            if(fc && count){
+                this.data.FC=fc/count;
+            }
+        }
+        return this.data.FC;
     }
 }
