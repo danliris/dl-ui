@@ -45,6 +45,11 @@ class Service extends RestService {
         var endpoint = `${preparingServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    readPreparing(id) {
+        var endpoint = `${preparingServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
 }
 
 class CoreService extends RestService {

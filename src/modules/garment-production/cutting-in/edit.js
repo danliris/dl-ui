@@ -35,8 +35,11 @@ export class View {
             }
 
             for(var item of this.data.Items){
+                let preparing=await this.service.readPreparing(item.PreparingId);
                 for(var detail of item.Details){
                     detail.ComodityPrice=this.data.Price;
+                    var prepItem= preparing.Items.find(a=>a.Id==detail.PreparingItemId);
+                    detail.PreparingBasicPrice=prepItem ? prepItem.BasicPrice :0;
                 }
             }
         }

@@ -28,9 +28,9 @@
         </td>
         <td>
             <au-numeric 
-                value.bind="dataPreparingQuantity"
+                value.bind="data.PreparingQuantity"
                 error.bind = "error.PreparingQuantity"
-                read-only.bind="true">
+                >
             </au-numeric>                    
         </td>
         <td>
@@ -51,6 +51,12 @@
                 value.bind="data.CuttingInUom.Unit"
                 read-only.bind="true">
             </au-textbox>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="dataFC"
+                read-only.bind="true">
+            </au-numeric>
         </td>
     </tr>
 </template>
