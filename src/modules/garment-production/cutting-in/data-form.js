@@ -54,6 +54,8 @@ export class DataForm {
     detailsColumnsView = [
         { value: "ProductCode", header: "Kode Barang" },
         { value: "DesignColor", header: "Keterangan" },
+        { value: "PreparingQuantity", header: "Jumlah Preparing Out" },
+        { value: "PreparingUomUnit", header: "Satuan" },
         { value: "CuttingInQuantity", header: "Jumlah Potong" },
         { value: "RemainingQuantity", header: "Sisa" },
         { value: "CuttingInUomUnit", header: "Satuan" },
@@ -194,7 +196,7 @@ export class DataForm {
                 }
             }
             if(fc && count){
-                this.data.FC=fc/count;
+                this.data.FC=parseFloat((fc/count).toFixed(2));
             }
         }
         return this.data.FC;

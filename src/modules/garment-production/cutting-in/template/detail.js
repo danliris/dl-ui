@@ -45,11 +45,11 @@ export class Item {
         
         if(this.data.PreparingQuantity && this.data.CuttingInQuantity){
             this.data.RemainingQuantity = this.data.CuttingInQuantity;
-            this.data.FC=this.data.PreparingQuantity/this.data.CuttingInQuantity;
+            this.data.FC=parseFloat((this.data.PreparingQuantity/this.data.CuttingInQuantity).toFixed(2));
 
-            this.data.BasicPrice=this.data.PreparingBasicPrice * this.data.FC;
-            this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingInQuantity;
-        
+            this.data.BasicPrice=parseFloat((this.data.PreparingBasicPrice * this.data.FC).toFixed(4));
+            this.data.Price=parseFloat(((this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingInQuantity).toFixed(4));
+        console.log(this.data.FC)
         }
         else 
             this.data.FC=0;
