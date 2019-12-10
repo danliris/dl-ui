@@ -1,16 +1,17 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service,ProductionService } from './service';
 
-@inject(Router, Service)
+@inject(Router, Service,ProductionService)
 export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
 
-    constructor(router, service) {
+    constructor(router, service,productionService) {
         this.router = router;
         this.service = service;
+        this.productionService=productionService;
     }
     async activate(params) {
         var id = params.id;
@@ -73,6 +74,19 @@ export class View {
             else{
                 this.hasEdit = false;
                 this.hasDelete = false;
+            }
+        }
+
+        if(this.data.ExpenditureType==="TRANSFER"){
+            let unitDOResult = await this.service.searchUnitDO({ size: 1, filter: JSON.stringify({ UENFromId: this.data.Id }) });
+            let unitDO = unitDOResult.data[0];
+            if(unitDO){
+                let DRResult= await this.productionService.getGarmentDR({ size: 1, filter: JSON.stringify({ UnitDOId: unitDO.Id }) });
+                let DR=DRResult.data[0];
+                if(DR){
+                    this.hasEdit = false;
+                    this.hasDelete = false;
+                }
             }
         }
     }
