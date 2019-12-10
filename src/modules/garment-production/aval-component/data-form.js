@@ -71,7 +71,8 @@ export class DataForm {
 
         if (this.data.Unit) {
             return {
-                UnitToId: this.data.Unit.Id
+                UnitToId: this.data.Unit.Id,
+                SewingTo: "CUTTING"
             };
         } else {
             return {
@@ -108,6 +109,11 @@ export class DataForm {
         };
     }
 
+    avalComponentTypeChanged() {
+        this.selectedCuttingIn = null;
+        this.selectedSewingOut = null;
+    }
+
     async selectedSewingOutChanged(newValue, oldValue) {
         if (newValue) {
             this.context.error.Items = [];
@@ -124,8 +130,10 @@ export class DataForm {
             }
 
             Promise.resolve(this.service.getSewingOut({
-                filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id }),
+
+                filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "CUTTING" }),
                 select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
+
             }))
                 .then(result => {
                     this.data.Items = [];

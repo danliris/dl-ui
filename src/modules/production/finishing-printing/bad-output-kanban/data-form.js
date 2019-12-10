@@ -1,6 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 
+var moment = require('moment');
+
 var InstructionLoader = require('../../../../loader/instruction-no-id-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
@@ -454,11 +456,15 @@ export class DataForm {
 
                         if (i == this.data.Instruction.Steps.length - 1) {
                             step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
-                            totalDay += durationEstimationArea.Duration;
+
+                            if (durationEstimationArea)
+                                totalDay += durationEstimationArea.Duration;
                         }
                         else {
                             step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
-                            totalDay += durationEstimationArea.Duration;
+
+                            if (durationEstimationArea)
+                                totalDay += durationEstimationArea.Duration;
                         }
                         // deadline = deadline.add(totalDay * -1, 'days');
                     }
@@ -507,11 +513,15 @@ export class DataForm {
 
                     if (i == this.data.Instruction.Steps.length - 1) {
                         step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
-                        totalDay += durationEstimationArea.Duration;
+
+                        if (durationEstimationArea)
+                            totalDay += durationEstimationArea.Duration;
                     }
                     else {
                         step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
-                        totalDay += durationEstimationArea.Duration;
+
+                        if (durationEstimationArea)
+                            totalDay += durationEstimationArea.Duration;
                     }
                     // deadline = deadline.add(totalDay * -1, 'days');
                 }

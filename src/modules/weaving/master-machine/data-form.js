@@ -1,14 +1,18 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineTypeLoader = require('../../../loader/weaving-machine-type-loader');
-// var UomLoader = require('../../../loader/uom-loader');
+var UOMLoader = require("../../../loader/uom-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable WeavingMachineType;
   @bindable WeavingUnit;
-  @bindable readOnlyValue;
+  @bindable WeavingMachineType;
+  @bindable CutmarkUom;
 
   formOptions = {
     cancelText: "Kembali",
@@ -19,7 +23,7 @@ export class DataForm {
 
   location = ["", "Utara", "Timur", "Selatan", "Barat"];
 
-  constructor() { }
+  constructor() {}
 
   bind(context) {
     this.context = context;
@@ -31,10 +35,15 @@ export class DataForm {
       this.data.Speed = this.WeavingMachineType.Speed;
       this.data.MachineUnit = this.WeavingMachineType.MachineUnit;
     }
-
     if (this.data.WeavingUnit) {
       this.WeavingUnit = this.data.WeavingUnit;
     }
+
+    if (this.data.CutmarkUom) {
+      this.CutmarkUom = this.data.CutmarkUom;
+    }
+
+    this.showHideKawaMotoSuckerMuller = false;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -50,12 +59,26 @@ export class DataForm {
     return MachineTypeLoader;
   }
 
-  WeavingMachineTypeChanged(newValue) {
+  get uoms() {
+    return UOMLoader;
+  }
 
+  WeavingUnitChanged(newValue) {
+    this.data.WeavingUnit = newValue;
+  }
+
+  WeavingMachineTypeChanged(newValue) {
     if (newValue) {
       this.data.WeavingMachineType = newValue
       this.data.Speed = newValue.Speed;
       this.data.MachineUnit = newValue.MachineUnit;
+      if (newValue.TypeName == "Kawa Moto" || newValue.TypeName == "Sucker Muller") {
+        this.showHideKawaMotoSuckerMuller = true;
+      } else {
+        this.showHideKawaMotoSuckerMuller = false;
+        this.data.Cutmark = 0;
+        this.CutmarkUom = null;
+      }
     } else {
       this.data.WeavingMachineType = newValue
       this.data.Speed = 0;
@@ -63,8 +86,7 @@ export class DataForm {
     }
   }
 
-  WeavingUnitChanged(newValue) {
-
-    this.data.WeavingUnit = newValue;
+  CutmarkUomChanged(newValue) {
+    this.data.CutmarkUom = newValue;
   }
 }

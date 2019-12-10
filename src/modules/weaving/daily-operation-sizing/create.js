@@ -45,7 +45,7 @@ export class Create {
     this.data = {};
     this.error = {};
 
-    this.BeamsWarping = [];
+    // this.BeamsWarping = [];
   }
 
   formOptions = {
@@ -70,11 +70,11 @@ export class Create {
   }
 
   MachineDocumentChanged(newValue) {
-    if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+    if (newValue.MachineType === "Kawa Moto" || newValue.MachineType === "Sucker Muller") {
       this.error.MachineDocumentId = "";
       this.MachineDocument = newValue;
     } else {
-      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawa Moto atau Sucker Muller ";
     }
   }
 
@@ -83,6 +83,10 @@ export class Create {
       let order = newValue;
       let constructionId = newValue.ConstructionId;
       let weavingUnitId = newValue.WeavingUnit;
+
+      this.BeamsWarping.splice(0, this.BeamsWarping.length);
+      this.beamsWarpingTableOptions.OrderId = order.Id;
+
       this.service.getConstructionNumberById(constructionId)
         .then(resultConstructionNumber => {
           this.error.ConstructionNumber = "";
@@ -92,8 +96,6 @@ export class Create {
         .then(resultWeavingUnit => {
           this.error.WeavingUnit = "";
           this.WeavingUnit = resultWeavingUnit.Name;
-
-          this.beamsWarpingTableOptions.OrderId = order.Id;
 
           if (resultWeavingUnit.Id) {
             this.showHideBeamsCollection = true;
@@ -128,10 +130,15 @@ export class Create {
       });
   }
 
-  get addBeamsWarping() {
-    return event => {
-      this.BeamsWarping.push({});
-    };
+  // get addBeamsWarping() {
+  //   return event => {
+  //     this.BeamsWarping.push({});
+  //   };
+  // }
+
+  addBeamsWarping = (e) => {
+    this.BeamsWarping = this.BeamsWarping || [];
+    this.BeamsWarping.push({});
   }
 
   get YarnStrands() {
@@ -212,7 +219,7 @@ export class Create {
       var BeamId = doc.Id;
       this.data.BeamsWarping.push(BeamId);
     });
-    
+
     this.service
       .create(this.data)
       .then(result => {

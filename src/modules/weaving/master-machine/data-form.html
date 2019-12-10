@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete placeholder="Cari Unit" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
-            read-only.bind="readOnly" options.bind="customOptions" loader.one-time="units" text="Name">
+            read-only.bind="readOnly" loader.one-time="units" text="Name">
           </au-autocomplete>
         </div>
       </div>
@@ -27,9 +27,34 @@
           <p style="white-space: nowrap;">Jenis Mesin</p>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Jenis Mesin" value.bind="WeavingMachineType" error.bind="error.WeavingMachineType"
-            read-only.bind="readOnly" options.bind="customOptions" loader.one-time="machineTypes" text="TypeName">
+          <au-autocomplete placeholder="Jenis Mesin" value.bind="WeavingMachineType"
+            error.bind="error.WeavingMachineType" read-only.bind="readOnly"
+            loader.one-time="machineTypes" text="TypeName">
           </au-autocomplete>
+        </div>
+      </div>
+
+      <div show.bind="showHideKawaMotoSuckerMuller">
+        <div class="row">
+          <div class="col-md-3">
+            <p style="white-space: nowrap;">Cut Mark</p>
+          </div>
+          <div class="col-md-3">
+            <au-numeric value.bind="data.Cutmark" error.bind="error.Cutmark"
+              read-only.bind="readOnly">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p style="white-space: nowrap;">Satuan Cut Mark</p>
+          </div>
+          <div class="col-md-3">
+            <au-autocomplete placeholder="Satuan Cut Mark" value.bind="CutmarkUom" error.bind="error.CutmarkUom"
+              read-only.bind="readOnly" loader.one-time="uoms" text="Unit">
+            </au-autocomplete>
+          </div>
         </div>
       </div>
 
@@ -38,7 +63,7 @@
           <p style="white-space: nowrap;">RPM Standar</p>
         </div>
         <div class="col-md-3">
-          <au-numeric value.bind="data.Speed" error.bind="error.Speed" read-only.bind="readOnlyValue"></au-numeric>
+          <au-numeric value.bind="data.Speed" error.bind="error.Speed" read-only.bind="true"></au-numeric>
         </div>
       </div>
 
@@ -47,7 +72,8 @@
           <p style="white-space: nowrap;">Satuan</p>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit" read-only.bind="readOnlyValue">
+          <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit"
+            read-only.bind="true">
           </au-textbox>
         </div>
       </div>
