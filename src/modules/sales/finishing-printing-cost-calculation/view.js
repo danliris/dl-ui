@@ -60,6 +60,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.isPosted = this.data.IsPosted;
     this.salesText = `${this.data.Sales.profile.firstname} - ${this.data.Sales.profile.lastname}`;
     var totalDetailAll = 0;
     for (var item of this.data.Machines) {
@@ -109,15 +110,42 @@ export class View {
     this.router.navigateToRoute("list");
   }
 
-  cancelCallback(event) {
-    this.list();
+  // cancelCallback(event) {
+  //   this.list();
+  // }
+
+  // editCallback(event) {
+  //   if (!this.data.IsPosted) {
+
+  //     this.router.navigateToRoute("edit", { id: this.data.Id });
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // deleteCallback(event) {
+
+  //   if (!this.data.IsPosted) {
+  //     this.service
+  //       .delete(this.data)
+  //       .then(result => {
+  //         this.list();
+  //       })
+  //       .catch(e => {
+  //         this.dialog.alert(e, "Hapus Cost Calculation");
+  //       });
+  //   } else {
+  //     return false;
+  //   }
+
+  // }
+
+
+  edit(data) {
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }
 
-  editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.Id });
-  }
-
-  deleteCallback(event) {
+  delete() {
     this.service
       .delete(this.data)
       .then(result => {

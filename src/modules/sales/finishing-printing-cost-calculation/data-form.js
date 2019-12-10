@@ -67,6 +67,9 @@ export class DataForm {
   materialQuery = {
     "Tags": "MATERIAL"
   }
+  preSCQuery = {
+    "IsPosted" : true
+  }
   machines = {
     columns: [
       { header: "Proses", value: "Process" },

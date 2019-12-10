@@ -30,8 +30,8 @@ export class Service extends RestService {
     }
 
     postCC(data) {
-        var endpoint = `${serviceUri}/post`;
-        return super.post(endpoint, data);
+        var endpoint = `${costCalculationServiceUri}/post`;
+        return super.put(endpoint, data);
     }
 
     search(info) {

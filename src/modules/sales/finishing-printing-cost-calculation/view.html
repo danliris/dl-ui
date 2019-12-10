@@ -147,7 +147,7 @@
 
       </div>
       <div class="col-md-4">
-        
+
         <!-- <p if.bind="isDollar">Note: 1 US$ = Rp. ${data.CurrencyRate | numberFormat:'0,0.00'}</p> -->
         <div>
           <table class="table table-bordered small-column-table">
@@ -256,6 +256,14 @@
         </div>
       </div>
     </div>
+    <div class="btn-group pull-right">
+      <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+      <a click.delegate="edit(data)" class='btn btn-primary btn-sm' if.bind="!isPosted">Ubah</a>
+      <a click.delegate="delete()" class='btn btn-danger btn-sm' if.bind="!isPosted">Hapus</a>
+      <!-- <a click.delegate="unpost(data)" class='btn btn-primary btn-sm' if.bind="isUnposted"> Unpost</a> -->
+    </div>
+    <br>
+    <br>
   </au-input-form>
   <!-- <button type="button" class="btn btn-default" click.delegate="copyCC()">Copy</button> -->
 </template>
