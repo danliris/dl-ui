@@ -1,17 +1,17 @@
 <template>
   <tr>
     <td style="white-space: nowrap;">
-      <au-dropdown value.bind="BeamOrigin" error.bind="error.BeamOrigin" read-only.bind="readOnly"
+      <au-dropdown value.bind="data.BeamOrigin" error.bind="error.BeamOrigin" read-only.bind="readOnly"
         items.bind="beamOrigins">
       </au-dropdown>
     </td>
     <td style="white-space: nowrap;">
       <au-autocomplete value.bind="BeamDocument" error.bind="error.BeamDocument" read-only.bind="readOnly"
-        placeholder="No. Beam" loader.bind="beams" text="Number" query.bind="OrderIdFilter">
+        placeholder="No. Beam" loader.bind="beams" text="ReachingBeamNumber" query.bind="OrderIdFilter">
       </au-autocomplete>
     </td>
     <td style="white-space: nowrap;">
-      <au-numeric value.bind="CombNumber" error.bind="error.CombNumber" read-only.bind="combReadOnly">
+      <au-numeric value.bind="data.CombNumber" error.bind="error.CombNumber" read-only.bind="combReadOnly">
       </au-numeric>
     </td>
     <td style="white-space: nowrap;">

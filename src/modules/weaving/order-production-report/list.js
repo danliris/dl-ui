@@ -66,7 +66,7 @@ export class List {
       },
       {
         field: "EstimatedProductionDocument.WholeGrade",
-        title: "Total Gram",
+        title: "Total Estimasi Produksi",
         rowspan: "2",
         valign: "top"
       },

@@ -23,8 +23,14 @@ export class Create {
   @bindable BeamsSizing;
 
   beamsSizingColumns = [{
+      value: "BeamOrigin",
+      header: "Asal Beam"
+    }, {
       value: "BeamNumber",
-      header: "Nomor Beam Sizing"
+      header: "No. Beam Sizing"
+    }, {
+      value: "CombNumber",
+      header: "No. Sisir"
     }, {
       value: "MachineNumber",
       header: "No. Mesin"
@@ -50,10 +56,6 @@ export class Create {
       value: "Information",
       header: "Informasi"
     }
-    // {
-    //   value: "MachineStatus",
-    //   header: "Status"
-    // }
   ];
 
   constructor(service, router, bindingEngine) {
@@ -174,17 +176,19 @@ export class Create {
     }
 
     // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
-    this.BeamsSizing.forEach(doc => {
+    this.BeamsSizing.forEach(doc => {debugger
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};
 
-      BeamProductDocument.BeamDocumentId = doc.BeamDocument.Id;
+      BeamProductDocument.BeamOrigin = doc.BeamOrigin;
+      BeamProductDocument.BeamDocumentId = doc.BeamDocument.ReachingBeamId;
+      BeamProductDocument.CombNumber = doc.CombNumber;
       BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
       BeamProductDocument.DateBeamProduct = doc.Date;
       BeamProductDocument.TimeBeamProduct = doc.Time;
       BeamProductDocument.LoomProcess = doc.LoomProcess;
 
-      BeamHistoryDocument.BeamNumber = doc.BeamDocument.Number;
+      BeamHistoryDocument.BeamNumber = doc.BeamDocument.ReachingBeamNumber;
       BeamHistoryDocument.MachineNumber = doc.MachineDocument.MachineNumber;
       BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
       BeamHistoryDocument.DateMachine = doc.Date;
