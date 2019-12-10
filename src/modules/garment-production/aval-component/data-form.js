@@ -130,15 +130,16 @@ export class DataForm {
             }
 
             Promise.resolve(this.service.getSewingOut({
+
                 filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "CUTTING" }),
-                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
+                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
+
             }))
                 .then(result => {
                     this.data.Items = [];
 
                     result.data.forEach(data => {
                         (data.Items || []).forEach(item => {
-                            
                             if (data.IsDifferentSize) {
                                 (item.Details || []).forEach(detail => {
                                     if (detail.Quantity > 0) {
