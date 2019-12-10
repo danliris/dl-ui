@@ -218,17 +218,19 @@ export class DataForm {
 
                 for(var item of newValue.Items){
                     var a = {};
-                    a.Product = item.Product;
-                    a.LoadingItemId = item.Id;
-                    a.DesignColor = item.DesignColor;
-                    a.Size = item.Size;
-                    a.Quantity = item.RemainingQuantity;
-                    a.Uom = item.Uom;
-                    a.Color = item.Color;
-                    a.RemainingQuantity = item.RemainingQuantity;
-                    a.BasicPrice=item.BasicPrice;
-                    a.ComodityPrice=this.data.Price;
-                    this.data.Items.push(a);
+                    if(item.RemainingQuantity>0){
+                        a.Product = item.Product;
+                        a.LoadingItemId = item.Id;
+                        a.DesignColor = item.DesignColor;
+                        a.Size = item.Size;
+                        a.Quantity = item.RemainingQuantity;
+                        a.Uom = item.Uom;
+                        a.Color = item.Color;
+                        a.RemainingQuantity = item.RemainingQuantity;
+                        a.BasicPrice=item.BasicPrice;
+                        a.ComodityPrice=this.data.Price;
+                        this.data.Items.push(a);
+                    }
                 }
             }
             else {

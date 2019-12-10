@@ -143,7 +143,7 @@ export class DataForm {
                                         } else {
                                             return (item.FabricType.toUpperCase() != "MAIN FABRIC");
                                         }
-                                    })
+                                    }).filter(d=>d.RemainingQuantity>0)
                                     .map(item => {
                                         
                                         return Object.assign(item, {
