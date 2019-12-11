@@ -177,7 +177,7 @@ module.exports = [
     {
         route: '/merchandiser/ro-sample-validation',
         name: 'ro-sample-validation',
-        moduleId: './modules/merchandiser/ro-sample-validation/index',
+        moduleId: './modules/merchandiser/ro-validation/index',
         nav: true,
         title: 'Validasi RO Sample',
         auth: true,
