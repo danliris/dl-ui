@@ -12,7 +12,7 @@ export class Item {
         if (this.options.type !== 'CUTTING') {
             this.readOnly = true;
         }
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.Quantity);
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.Quantity;
     }
 
     changeCheckBox() {
@@ -20,7 +20,8 @@ export class Item {
     }
 
     qtyChanged(e) {
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.Quantity);
+        var qty=parseFloat(e.srcElement.value);
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * qty;
         
       }
 }
