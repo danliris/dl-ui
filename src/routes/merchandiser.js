@@ -138,7 +138,7 @@ module.exports = [
     {
         route: '/merchandiser/budget-validation-process',
         name: 'budget-validation-process',
-        moduleId: './modules/merchandiser/budget-validation-ppic/index',
+        moduleId: './modules/merchandiser/budget-validation-process/index',
         nav: true,
         title: 'Validasi Budget - PROSES',
         auth: true,
