@@ -8,7 +8,7 @@ export class Item {
         this.error = context.error;
         this.options = context.context.options;
         this.contextOptions = context.context.options;
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 50/100) * this.data.Quantity);
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 50/100)) * this.data.RemainingQuantity;
     }
 
     changeCheckBox() {
@@ -16,7 +16,8 @@ export class Item {
       }
 
       qtyChanged(e) {
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 50/100) * this.data.Quantity);
+        var qty=e.srcElement.value;
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 50/100)) * qty;
         
       }
 }

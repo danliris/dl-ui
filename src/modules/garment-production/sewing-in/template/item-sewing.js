@@ -9,6 +9,7 @@ export class Item {
         this.options = context.context.options;
         this.contextOptions = context.context.options;
         this.data.IsSave=true;
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 50/100)) * this.data.RemainingQuantity;
     }
 
 }
