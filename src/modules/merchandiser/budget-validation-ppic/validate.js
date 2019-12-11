@@ -56,6 +56,7 @@ export class Create {
         // , dan sebagian Material value IsPosted menjadi true
         return {
             "CostCalculationGarment_Materials.Any(IsPosted == false)": true,
+            "CostCalculationGarment_Materials.Any(IsPosted == true)": true,
             IsApprovedMD: true,
             IsApprovedPurchasing: true,
             IsApprovedIE: true,

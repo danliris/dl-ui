@@ -136,11 +136,11 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/budget-validation-ppic',
-        name: 'budget-validation-ppic',
+        route: '/merchandiser/budget-validation-process',
+        name: 'budget-validation-process',
         moduleId: './modules/merchandiser/budget-validation-ppic/index',
         nav: true,
-        title: 'Budget Validation - PPIC',
+        title: 'Validasi Budget - PROSES',
         auth: true,
         settings: {
             group: "merchandiser",
