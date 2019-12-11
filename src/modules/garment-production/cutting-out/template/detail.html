@@ -14,6 +14,7 @@
                 <au-numeric 
                     value.bind="data.CuttingOutQuantity"
                     error.bind="error.CuttingOutQuantity"
+                    change.delegate="CuttingOutQuantityChanged($event)"
                     read-only.bind="readOnly"
                     format="0">
                 </au-numeric>

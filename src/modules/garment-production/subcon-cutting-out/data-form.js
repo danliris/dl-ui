@@ -105,6 +105,7 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity = null;
+            this.data.Price=0;
             this.data.Items.splice(0);
             // this.data.PlanPORemainingQuantity=0;
             // this.data.PlanPOQuantity=0;
@@ -113,6 +114,7 @@ export class DataForm {
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity = null;
+        this.data.Price=0;
         this.data.Items.splice(0);
         // this.data.PlanPORemainingQuantity=0;
         // this.data.PlanPOQuantity=0;
@@ -121,7 +123,6 @@ export class DataForm {
     async selectedCuttingInChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
@@ -139,6 +140,16 @@ export class DataForm {
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
                 }
+
+                let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
+                if(priceResult.data.length>0){
+                    this.data.Price= priceResult.data[0].Price;
+                    //console.log(this.data.Price)
+                }
+                else{
+                    this.data.Price=0;
+                }
+
                 this.data.PlanPORemainingQuantity=this.data.PlanPOQuantity;
                 Promise.resolve(this.service.getCuttingOut({ filter: JSON.stringify({ EPOItemId: this.data.EPOItemId}) }))
                     .then(result => {
@@ -160,9 +171,12 @@ export class DataForm {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
                                 for(var cuttingInDetail of cuttingInItem.Details){
-                                    cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                    cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                    this.data.Items.push(cuttingInDetail);
+                                    if(cuttingInDetail.RemainingQuantity>0){
+                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
+                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                        cuttingInDetail.ComodityPrice=this.data.Price;
+                                        this.data.Items.push(cuttingInDetail);
+                                    }
                                 }
                             }
                         }
@@ -176,6 +190,7 @@ export class DataForm {
                 this.data.Article = null;
                 this.data.Comodity = null;
                 this.data.Items.splice(0);
+                this.data.Price=0;
             }
             this.data.Items.splice(0);
         }

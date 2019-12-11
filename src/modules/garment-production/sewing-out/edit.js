@@ -20,6 +20,16 @@ export class View {
             this.selectedUnitTo=this.data.UnitTo;
             this.selectedUnit=this.data.Unit;
             this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+                //console.log(this.data.Price)
+            }
+            else{
+                this.data.Price=0;
+            }
+
             for(var a of this.data.Items){
                 var SewingIn=await this.service.GetSewingInById(a.SewingInId );
                 console.log(SewingIn);
@@ -54,6 +64,7 @@ export class View {
                             detail.Uom=item.Uom;
                         }
                         item.RemainingQuantity=item.TotalQuantity;
+                        item.Price=(item.BasicPrice) + ((this.data.Price * 50/100) * item.TotalQuantity);
                     }
                 }
             }
@@ -63,11 +74,11 @@ export class View {
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         item.RemainingQuantity=item.Quantity;
+                        item.Price=(item.BasicPrice) + ((this.data.Price * 50/100) * item.Quantity);
                     }
                 }
             }
         }
-        console.log(this.data)
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

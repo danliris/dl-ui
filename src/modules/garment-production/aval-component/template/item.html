@@ -1,5 +1,12 @@
 <template >
     <tr>
+        <td if.bind="options.type == 'CUTTING'" show.bind="!readOnly">
+            <au-checkbox 
+                value.bind="data.IsSave"
+                disabled.bind="readOnly" 
+                change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
         <td>
             <au-textbox
                 value.bind="data.Product.Code"
@@ -16,6 +23,7 @@
             <au-numeric 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"
+                change.delegate="qtyChanged($event)"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
@@ -27,7 +35,7 @@
         </td>
         <td if.bind="options.type == 'SEWING'">
             <au-textbox 
-                value.bind="data.Size.Name"
+                value.bind="data.Size.Size"
                 read-only.bind="true">
             </au-textbox>
         </td>

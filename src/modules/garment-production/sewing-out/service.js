@@ -5,6 +5,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 const serviceUri = 'sewing-outs';
 const serviceUriSewIn = 'sewing-ins';
 const serviceUriPR = 'garment-purchase-requests';
+const comodityPriceserviceUri = 'comodity-prices';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -13,6 +14,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getComodityPrice(info) {
+        var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
 

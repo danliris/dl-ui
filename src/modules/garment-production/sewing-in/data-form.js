@@ -16,6 +16,9 @@ export class DataForm {
     @bindable selectedLoading;
     @bindable itemOptions = {};
     @bindable selectedUnit;
+    @bindable selectedSewingFrom;
+    @bindable selectedSewingOut;
+    @bindable selectedUnitFrom;
 
     constructor(service) {
         this.service = service;
@@ -27,6 +30,8 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah"
     };
+
+    sewingFromOptions=["CUTTING", "SEWING"]
 
     controlOptions = {
         label: {
@@ -79,11 +84,36 @@ export class DataForm {
             );
         }
 
+        if(this.data){
+            this.isCutting= this.data.SewingFrom==="CUTTING";
+            this.isSewing= this.data.SewingFrom==="SEWING";
+        }
+
         if(this.context.isView){
             this.service.getLoadingById(this.data.LoadingId)
             .then((loadingNo) => {
                 this.selectedLoading = loadingNo;
             });
+        }
+    }
+
+    selectedSewingFromChanged(newValue){
+        
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.UnitFrom = null;
+        this.selectedLoading=null;
+        delete this.data.LoadingId;
+        this.data.LoadingNo =null;
+
+        var sewingFrom=newValue;
+        if(sewingFrom){
+            this.data.SewingFrom=sewingFrom;
+
+            this.isCutting= sewingFrom==="CUTTING";
+            this.isSewing= sewingFrom==="SEWING";
+
         }
     }
 
@@ -118,10 +148,13 @@ export class DataForm {
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity = null;
-        this.data.UnitFrom = null;
+        if(this.isCutting)
+            this.data.UnitFrom = null;
+        this.selectedSewingOut=null;
         this.selectedLoading=null;
-        this.data.LoadingId = null;
+        delete this.data.LoadingId;
         this.data.LoadingNo =null;
+        this.data.Price=0;
         if(newValue){
             this.data.Unit=newValue;
         }
@@ -130,10 +163,29 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity = null;
-            this.data.UnitFrom = null;
+            if(this.isCutting)
+                this.data.UnitFrom = null;
             this.selectedLoading=null;
-            this.data.LoadingId = null;
+            this.selectedSewingOut=null;
+            delete this.data.LoadingId;
             this.data.LoadingNo =null;
+            this.data.Price=0;
+        }
+    }
+
+    selectedUnitFromChanged(newValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.selectedSewingOut=null;
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.selectedSewingOut=null;
         }
     }
 
@@ -143,6 +195,7 @@ export class DataForm {
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.UnitFrom = null;
+            this.data.Price=0;
             if(newValue) {
                 if(this.data.Items.length > 0){
                     this.data.Items.splice(0);
@@ -153,17 +206,31 @@ export class DataForm {
                 this.data.UnitFrom = newValue.Unit;
                 this.data.LoadingId = newValue.Id;
                 this.data.LoadingNo = newValue.LoadingNo;
+
+                let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+                if(priceResult.data.length>0){
+                    this.data.Price= priceResult.data[0].Price;
+                    //console.log(this.data.Price)
+                }
+                else{
+                    this.data.Price=0;
+                }
+
                 for(var item of newValue.Items){
                     var a = {};
-                    a.Product = item.Product;
-                    a.LoadingItemId = item.Id;
-                    a.DesignColor = item.DesignColor;
-                    a.Size = item.Size;
-                    a.Quantity = item.RemainingQuantity;
-                    a.Uom = item.Uom;
-                    a.Color = item.Color;
-                    a.RemainingQuantity = item.RemainingQuantity;
-                    this.data.Items.push(a);
+                    if(item.RemainingQuantity>0){
+                        a.Product = item.Product;
+                        a.LoadingItemId = item.Id;
+                        a.DesignColor = item.DesignColor;
+                        a.Size = item.Size;
+                        a.Quantity = item.RemainingQuantity;
+                        a.Uom = item.Uom;
+                        a.Color = item.Color;
+                        a.RemainingQuantity = item.RemainingQuantity;
+                        a.BasicPrice=item.BasicPrice;
+                        a.ComodityPrice=this.data.Price;
+                        this.data.Items.push(a);
+                    }
                 }
             }
             else {
@@ -172,6 +239,7 @@ export class DataForm {
                 this.data.Article = null;
                 this.data.Comodity = null;
                 this.data.UnitFrom = null;
+                this.data.Price=0;
                 this.data.Items.splice(0);
             }        
         }
@@ -195,5 +263,109 @@ export class DataForm {
 
     get loadingLoader() {
         return LoadingLoader;
+    }
+
+    get roLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id })
+            };
+            return this.service.searchSewingOut(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= result.data.find(d=>d.RONo==a.RONo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                            
+                        }
+                        return roList;
+                    
+                });
+        }
+    }
+
+    async selectedSewingOutChanged(newValue, oldValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.Items = [];
+        this.data.Price=0;
+        if(newValue) {
+            this.context.error.Items = [];
+            this.data.RONo = newValue.RONo;
+            this.data.Article = newValue.Article;
+            this.data.Comodity= newValue.Comodity;
+            var items=[];
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+                //console.log(this.data.Price)
+            }
+            else{
+                this.data.Price=0;
+            }
+
+            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id }) }))
+                    .then(result => {
+                        for(var sewingOut of result.data){
+                            for(var sewingOutItem of sewingOut.Items){
+                                var item={};
+                                if(sewingOutItem.RemainingQuantity>0){
+                                    if(sewingOut.IsDifferentSize){
+                                        for(var sewingOutDetail of sewingOutItem.Details){
+                                            item={};
+                                            item.SewingOutItemId=sewingOutItem.Id;
+                                            item.SewingOutDetailId=sewingOutDetail.Id;
+                                            item.Quantity=sewingOutDetail.Quantity;
+                                            item.Product=sewingOutItem.Product;
+                                            item.Uom=sewingOutItem.Uom;
+                                            item.Size=sewingOutDetail.Size;
+                                            item.Color=sewingOutItem.Color;
+                                            item.DesignColor=sewingOutItem.DesignColor;
+                                            item.RemainingQuantity=sewingOutDetail.Quantity;
+                                            item.BasicPrice=sewingOutItem.BasicPrice;
+                                            item.ComodityPrice=this.data.Price;
+                                            this.data.Items.push(item);
+                                        }
+                                    }
+                                    else{
+                                        item.SewingOutItemId=sewingOutItem.Id;
+                                        item.Quantity=sewingOutItem.Quantity;
+                                        item.Product=sewingOutItem.Product;
+                                        item.Uom=sewingOutItem.Uom;
+                                        item.Size=sewingOutItem.Size;
+                                        item.Color=sewingOutItem.Color;
+                                        item.DesignColor=sewingOutItem.DesignColor;
+                                        item.RemainingQuantity=sewingOutItem.Quantity;
+                                        item.BasicPrice=sewingOutItem.BasicPrice;
+                                        item.ComodityPrice=this.data.Price;
+                                        this.data.Items.push(item);
+                                    }
+                                
+                                }
+                            }
+                    }
+                });
+            }
+        else {
+            this.context.selectedSewingOutViewModel.editorValue = "";
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity=null;
+            this.data.Items = [];
+            this.data.Price=0;
+        }
+    }
+    ROView=(ro) => {
+        return `${ro.RONo}`;
     }
 }

@@ -159,6 +159,17 @@ export class RestService {
 
   }
 
+  getFile(endpoint, header) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+    return this._downloadFile(getRequest);
+
+  }
+
   _downloadFile(request) {
     return request
       .then(response => {

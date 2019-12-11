@@ -1,12 +1,11 @@
 export class Index {
     configureRouter(config, router) {
-      config.map([
-        {
+      config.map([{
           route: ["", "list"],
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Operasional Mesin Harian Loom"
+          title: "List: Operasional Mesin Harian Loom"
         },
         {
           route: "create",
@@ -20,7 +19,7 @@ export class Index {
           moduleId: "./update",
           name: "update",
           nav: false,
-          title: "update: Operasional Mesin Harian Loom"
+          title: "Update: Operasional Mesin Harian Loom"
         }
       ]);
   

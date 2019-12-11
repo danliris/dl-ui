@@ -40,6 +40,7 @@ export class Validate {
         { header: "Satuan", value: "UOMPriceUnit" },
         { header: "Shipment", value: "DeliveryDate" },
         { header: "Status", value: "Status" },
+        { header: "Harga Satuan", value: "Price" },
     ];
 
     get costCalculationGarmentLoader() {

@@ -16,7 +16,14 @@ export class View {
         if (this.data) {
 
             this.selectedLoading = await this.service.getLoadingById(this.data.LoadingId)
-
+            this.selectedUnit=this.data.Unit;
+            this.selectedSewingFrom=this.data.SewingFrom;
+            if(this.data.SewingFrom=="SEWING"){
+                this.selectedSewingOut={
+                    RONo:this.data.RONo
+                };
+                this.selectedUnitFrom=this.data.UnitFrom;
+            }
             if (this.data.Items) {
         //         let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
 

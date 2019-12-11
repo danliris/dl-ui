@@ -19,8 +19,20 @@ export class Create {
         },
         control: {
             length: 4,
-        },
+        }
     };
+
+    sortingControlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        }
+    };
+
+    sortingOptions = ["", "Tanggal Invoice", "Tanggal Jatuh Tempo"];
+    sortingTypeOptions = ["A - Z", "Z - A"];
 
     formOptions = {
         cancelText: 'Kembali',
@@ -97,12 +109,111 @@ export class Create {
         return CurrencyLoader;
     }
 
+    @bindable selectedSortOption;
+    selectedSortOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    @bindable selectedSortTypeOption
+    selectedSortTypeOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    sortItems() {
+        if (this.UPOResults && this.UPOResults.length > 0) {
+            if (this.selectedSortTypeOption == "A - Z") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate < item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate > item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate < item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate > item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            } else if (this.selectedSortTypeOption == "Z - A") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate > item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate < item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate > item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate < item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            }
+        }
+
+        // this.Item
+        if (this.ItemsCollection) {
+            this.ItemsCollection.bind();
+        }
+
+        if (this.ItemsCollectionRate)
+            this.ItemsCollectionRate.bind();
+        console.log(this);
+    }
+
     @bindable selectedSupplier;
     async selectedSupplierChanged(newVal, oldVal) {
         this.data.Supplier = newVal;
         if (newVal) {
             if (this.selectedBank && this.selectedBank.Currency.Code) {
-                var currency= this.data.CurrencyCode ? this.data.CurrencyCode : this.selectedBank.Currency.Code;
+                var currency = this.data.CurrencyCode ? this.data.CurrencyCode : this.selectedBank.Currency.Code;
                 let arg = {
                     page: 1,
                     size: Number.MAX_SAFE_INTEGER,
@@ -281,8 +392,8 @@ export class Create {
                     .then((result) => {
                         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
 
-                    return resultData;
-                });
+                        return resultData;
+                    });
         }
     }
 

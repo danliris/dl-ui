@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject, Lazy, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import Service from './service';
 import { Dialog } from '../../../au-components/dialog/dialog'
@@ -14,6 +14,18 @@ export class View {
             length: 4,
         },
     };
+
+    sortingControlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        }
+    };
+
+    sortingOptions = ["", "Tanggal Invoice", "Tanggal Jatuh Tempo"];
+    sortingTypeOptions = ["A - Z", "Z - A"];
 
     formOptions = {
         cancelText: 'Kembali',
@@ -88,5 +100,103 @@ export class View {
                     });
                 }
             });
+    }
+
+    @bindable selectedSortOption;
+    selectedSortOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    @bindable selectedSortTypeOption
+    selectedSortTypeOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    sortItems() {
+        if (this.UPOResults && this.UPOResults.length > 0) {
+            if (this.selectedSortTypeOption == "A - Z") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate < item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate > item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate < item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate > item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            } else if (this.selectedSortTypeOption == "Z - A") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal Invoice":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UPODate > item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate < item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    case "Tanggal Jatuh Tempo":
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.DueDate > item2.DueDate) {
+                                return -1;
+                            }
+                            if (item1.DueDate < item2.DueDate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.UPOResults = this.UPOResults.sort((item1, item2) => {
+                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                                return -1;
+                            }
+                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            }
+        }
+
+        // this.Item
+        // if (this.ItemsCollection) {
+        //     this.ItemsCollection.bind();
+        // }
+
+        if (this.ItemsCollectionRate)
+            this.ItemsCollectionRate.bind();
     }
 }

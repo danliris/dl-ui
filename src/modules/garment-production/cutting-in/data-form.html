@@ -66,17 +66,21 @@
             label="FC"
             read-only="true"
             options.bind="controlOptions"
-            if.bind="readOnly || isEdit">
+            if.bind="readOnly">
         </au-textbox>
 
         <au-numeric
             label="FC"
-            value.bind="data.FC"
+            value.bind="dataFC"
             error.bind="error.FC"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="true"
             options.bind="controlOptions"
-            if.bind="!(readOnly || isEdit)">
+            if.bind="!(readOnly)">
         </au-numeric>
+
+        <div class="form-group has-error">
+            <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+        </div>
 
         <table class="table table-hover table-bordered" if.bind="readOnly">
             <thead>

@@ -35,6 +35,8 @@ export class View {
         this.deliveryOrder = { Id: this.data.DOId, doNo: this.data.DONo };
         this.storage = this.data.Storage;
 
+        this.URNType=this.data.URNType;
+
         let totalOrderQuantity = this.data.Items.reduce((acc, cur) => acc + cur.OrderQuantity, 0);
         if (!this.data.IsCorrection || totalOrderQuantity === 0) {
             this.hasEdit = true;
@@ -46,6 +48,13 @@ export class View {
                 this.data.DRItems=this.data.Items;
                 this.data.ReturnType=this.deliveryReturn.ReturnType;
                 this.data.UnitDONo=this.deliveryReturn.UnitDONo;
+                var UnitDO= await this.service.getUnitDOById(this.deliveryReturn.UnitDOId);
+                var OldUnitDO={};
+                if(UnitDO.UnitDOFromId){
+                    OldUnitDO=await this.service.getUnitDOById(UnitDO.UnitDOFromId);
+                    this.data.UnitFrom=OldUnitDO.UnitSender;
+                    this.data.StorageFrom=OldUnitDO.Storage;
+                }
             }
             this.hasEdit = false;
         }
