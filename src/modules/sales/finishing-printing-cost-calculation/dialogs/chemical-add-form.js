@@ -16,7 +16,7 @@ export class ChemicalAddForm {
     @bindable error;
     async activate(data) {
         this.data = data.machine;
-        this.data.Quantity = 0;
+        this.data.ChemicalQuantity = 0;
         this.chemicals = data.chemicals;
         this.error = {};
     }
@@ -93,7 +93,7 @@ export class ChemicalAddForm {
             })
             this.chemicals.push(chemical);
             this.selectedChemical = null;
-            this.data.Quantity = 0;
+            this.data.ChemicalQuantity = 0;
         }
     }
 

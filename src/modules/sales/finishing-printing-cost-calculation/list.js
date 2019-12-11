@@ -5,11 +5,23 @@ import { Router } from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     context = ["Detail", "Cetak Cost Calculation", "Cetak Budget"];
+    // context = ["Detail"];
+    dataToBePosted = [];
     columns = [
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return "";
+            }
+        },
+        { field: "PreSalesContract.No", title: "Nomor Sales Contract" },
         { field: "ProductionOrderNo", title: "Nomor SPP" },
-        { field: "InstructionName", title: "Nama Instruksi" },
-        { field: "GreigeName", title: "Nama Greige" },
-        { field: "BuyerName", title: "Nama Buyer" }
+        { field: "PreSalesContract.Unit.Name", title: "Unit" },
+        { field: "OrderQuantity", title: "Kuantitas" },
+        { field: "ConfirmPrice", title: "Harga Konfirmasi" },
+        { field: "IsApprovedMD", title: "Approval MD" },
+        { field: "IsApprovedPPIC", title: "Approval PPIC" },
     ];
 
     loader = (info) => {
@@ -27,7 +39,13 @@ export class List {
         // return { total: 0, data: {} };
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
+                result.data.map(data => {
+                    data.isPosting = data.IsPosted;
+                    data.IsApprovedMD = data.ApprovalMD && data.ApprovalMD.IsApproved ? "SUDAH" : "BELUM";
+
+                    data.IsApprovedPPIC = data.ApprovalPPIC && data.ApprovalPPIC.IsApproved ? "SUDAH" : "BELUM";
+                    return data;
+                });
                 return {
                     total: result.info.total,
                     data: result.data
@@ -40,6 +58,16 @@ export class List {
         this.router = router;
     }
 
+    rowFormatter(data, index) {
+        if (data.ApprovalMD && data.ApprovalPPIC && data.ApprovalMD.IsApproved && data.ApprovalPPIC.IsApproved)
+            return { classes: "success" }
+        else
+            return { classes: "danger" }
+    }
+
+    get postButtonActive() {
+        return this.dataToBePosted.filter(d => d.IsPosted === false).length < 1;
+    }
     contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
@@ -56,7 +84,32 @@ export class List {
         }
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak Cost Calculation":
+            case "Cetak Budget":
+                return data.IsPosted;
+            default:
+                return true;
+        }
+    }
+
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+        if (unpostedDataToBePosted.length > 0) {
+            if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
+                this.service.postCC(unpostedDataToBePosted.map(d => d.Id))
+                    .then(result => {
+                        this.table.refresh();
+                        this.dataToBePosted = [];
+                    }).catch(e => {
+                        this.error = e;
+                    })
+            }
+        }
     }
 }
