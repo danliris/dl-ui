@@ -1,9 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 
 import moment from 'moment';
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class List {
     context = ["Rincian"];
     columns = [
@@ -18,19 +19,14 @@ export class List {
         if (info.sort) {
           order[info.sort] = info.order;
         }
-        let filter = {};
-        filter = {
-            "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
-            "CostCalculationGarment.IsValidatedROSample": false,
-            "IsPosted": true
-        };
+
         let arg = {
           page: parseInt(info.offset / info.limit, 10) + 1,
           size: info.limit,
           keyword: info.search,
           // select: ["PRNo", "RONo", "ShipmentDate", "Buyer.Name", "Unit.Name", "IsPosted"],
           order: order,
-          filter: JSON.stringify(filter)
+          filter: JSON.stringify(this.filter)
         }
 
         return this.service.search(arg)
@@ -46,9 +42,38 @@ export class List {
         });
     }
 
-    constructor(router, service) {
+    constructor(router, service, authService) {
         this.service = service;
         this.router = router;
+        this.authService = authService;
+    }
+
+    activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        this.title = parentInstruction.config.title;
+        const type = parentInstruction.config.settings.type;
+
+        switch (type) {
+            case "kabagmd":
+                this.filter = {
+                    "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
+                    "CostCalculationGarment.IsValidatedROMD": false,
+                    "CostCalculationGarment.IsValidatedROSample": false,
+                    "IsPosted": true
+                };
+                break;
+            case "sample":
+                this.filter = {
+                    "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
+                    "CostCalculationGarment.IsValidatedROMD": true,
+                    "CostCalculationGarment.IsValidatedROSample": false,
+                    "IsPosted": true
+                };
+                break;
+            default:
+                break;
+        }
     }
 
     contextCallback(event) {

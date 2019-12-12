@@ -175,6 +175,20 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/ro-validation-kabagmd',
+        name: 'ro-validation-kabagmd',
+        moduleId: './modules/merchandiser/ro-validation/index',
+        nav: true,
+        title: 'Validasi RO - Kabag MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: 'kabagmd'
+        }
+    },
+    {
         route: '/merchandiser/ro-sample-validation',
         name: 'ro-sample-validation',
         moduleId: './modules/merchandiser/ro-validation/index',
@@ -184,22 +198,23 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            type: 'sample'
         }
     },
-    {
-        route: '/merchandiser/ro-validation-ppic',
-        name: 'ro-validation-ppic',
-        moduleId: './modules/merchandiser/ro-validation-ppic/index',
-        nav: true,
-        title: 'Validasi RO - PPIC',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator'
-        }
-    },
+    // {
+    //     route: '/merchandiser/ro-validation-ppic',
+    //     name: 'ro-validation-ppic',
+    //     moduleId: './modules/merchandiser/ro-validation-ppic/index',
+    //     nav: true,
+    //     title: 'Validasi RO - PPIC',
+    //     auth: true,
+    //     settings: {
+    //         group: "merchandiser",
+    //         permission: { "C9": 1 },
+    //         iconClass: 'fa fa-calculator'
+    //     }
+    // },
     {
         route: '/merchandiser/ro-acceptance',
         name: 'ro-acceptance',

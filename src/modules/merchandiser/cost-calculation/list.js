@@ -20,14 +20,14 @@ export class List {
         { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" },
-        { field: "IsApprovedMD", title: "Approval MD" },
+        { field: "IsApprovedMD", title: "Approval Kabag MD" },
         { field: "IsApprovedIE", title: "Approval IE" },
         { field: "IsApprovedPurchasing", title: "Approval Purchasing" },
-        { field: "IsApprovedPPIC", title: "Approval PPIC" },
+        { field: "IsApprovedKadivMD", title: "Approval Kadiv MD" },
     ];
 
     rowFormatter(data, index) {
-        if (data.ApprovalMD.IsApproved && data.ApprovalPurchasing.IsApproved && data.ApprovalIE.IsApproved && data.ApprovalPPIC.IsApproved)
+        if (data.ApprovalMD.IsApproved && data.ApprovalPurchasing.IsApproved && data.ApprovalIE.IsApproved && data.ApprovalKadivMD.IsApproved)
             return { classes: "success" }
         else
             return { classes: "danger" }
@@ -53,7 +53,7 @@ export class List {
                     data.IsApprovedMD = data.ApprovalMD.IsApproved ? "SUDAH" : "BELUM";
                     data.IsApprovedIE = data.ApprovalIE.IsApproved ? "SUDAH" : "BELUM";
                     data.IsApprovedPurchasing = data.ApprovalPurchasing.IsApproved ? "SUDAH" : "BELUM";
-                    data.IsApprovedPPIC = data.ApprovalPPIC.IsApproved ? "SUDAH" : "BELUM";
+                    data.IsApprovedKadivMD = data.ApprovalKadivMD.IsApproved ? "SUDAH" : "BELUM";
                     return data;
                 });
                 return {
