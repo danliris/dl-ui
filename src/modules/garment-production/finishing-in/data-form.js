@@ -151,7 +151,6 @@ export class DataForm {
         this.data.Items = [];
         this.data.Price=0;
         if(newValue) {
-            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -168,7 +167,6 @@ export class DataForm {
             else{
                 this.data.Price=0;
             }
-            console.log(this.data.Price)
             Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING" }) }))
                     .then(result => {
                         for(var sewingOut of result.data){
@@ -190,7 +188,7 @@ export class DataForm {
                                             item.RemainingQuantity=sewingOutDetail.Quantity;
                                             item.BasicPrice=sewingOutItem.BasicPrice;
                                             item.ComodityPrice=this.data.Price;
-                                            item.Price=(sewingOutItem.BasicPrice) + ((this.data.Price * 75/100) * sewingOutItem.Quantity);
+                                            item.Price=(sewingOutItem.BasicPrice + (this.data.Price * 75/100)) * sewingOutDetail.Quantity;
                                             this.data.Items.push(item);
                                         }
                                     }
@@ -205,7 +203,7 @@ export class DataForm {
                                         item.RemainingQuantity=sewingOutItem.Quantity;
                                         item.BasicPrice=sewingOutItem.BasicPrice;
                                         item.ComodityPrice=this.data.Price;
-                                        item.Price=(sewingOutItem.BasicPrice) + ((this.data.Price * 75/100) * sewingOutItem.Quantity);
+                                        item.Price=(sewingOutItem.BasicPrice + (this.data.Price * 75/100)) * sewingOutItem.Quantity;
                                         this.data.Items.push(item);
                                     }
                                 

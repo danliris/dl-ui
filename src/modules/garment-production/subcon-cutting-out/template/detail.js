@@ -50,8 +50,8 @@ export class Detail {
 
     CuttingOutQuantityChanged(e){
         this.data.CuttingOutQuantity=parseFloat(e.srcElement.value);
-        this.data.Price=(this.data.BasicPrice) + ((this.data.ComodityPrice * 25/100) * this.data.CuttingOutQuantity);
-        console.log(this.data)
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingOutQuantity;
+        
     }
 
     sizeView = (size) => {

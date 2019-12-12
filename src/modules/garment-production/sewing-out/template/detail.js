@@ -33,7 +33,6 @@ export class Detail {
         if(this.isEdit){
             this.readOnly=false;
         }
-        console.log(this.context)
 
     }
 

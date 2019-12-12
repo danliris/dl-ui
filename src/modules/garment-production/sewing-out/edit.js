@@ -64,17 +64,17 @@ export class View {
                             detail.Uom=item.Uom;
                         }
                         item.RemainingQuantity=item.TotalQuantity;
-                        item.Price=(item.BasicPrice) + ((this.data.Price * 50/100) * item.TotalQuantity);
+                        item.Price=(item.BasicPrice + (this.data.Price * 50/100)) * item.TotalQuantity;
                     }
                 }
             }
         }
-        else if(this.data){
+        else if(this.data&& !this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         item.RemainingQuantity=item.Quantity;
-                        item.Price=(item.BasicPrice) + ((this.data.Price * 50/100) * item.Quantity);
+                        item.Price=(item.BasicPrice + (this.data.Price * 50/100)) * item.Quantity;
                     }
                 }
             }
