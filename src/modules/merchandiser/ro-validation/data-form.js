@@ -194,4 +194,17 @@ export class DataForm {
   //   }
   //   return this.data.Total;
   // }
+
+  downloadDocument(index) {
+    // this.service.getFile((this.documentsPathTemp[index] || '').replace('/sales/', ''), this.data.DocumentsFileName[index]);
+
+    const linkSource = this.data.DocumentsFile[index];
+    const downloadLink = document.createElement("a");
+    const fileName = this.data.DocumentsFileName[index];
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
 }
