@@ -20,12 +20,12 @@ export class List {
         { field: "Total", title: "Kuantitas RO" },
         { field: "CostCalculationGarment.IsValidatedROSample", title: "Approval Sample"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
-        { field: "CostCalculationGarment.IsValidatedROPPIC", title: "Approval PPIC"
+        { field: "CostCalculationGarment.IsValidatedROMD", title: "Approval Kabag MD"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
     ];
 
     rowFormatter(data, index) {
-        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROPPIC)
+        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROMD)
             return { classes: "success" }
         else
             return { classes: "danger" }
