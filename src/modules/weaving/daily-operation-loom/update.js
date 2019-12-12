@@ -42,8 +42,14 @@ export class Update {
   };
 
   beamProductsColumns = [{
+    value: "BeamOrigin",
+    header: "Asal Beam"
+  },{
     value: "BeamNumber",
     header: "No. Beam"
+  },{
+    value: "CombNumber",
+    header: "No. Sisir"
   }, {
     value: "MachineNumber",
     header: "No. Mesin"

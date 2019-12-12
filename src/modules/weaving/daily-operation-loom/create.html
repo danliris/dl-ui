@@ -55,10 +55,11 @@
           </au-textbox>
         </div>
       </div>
-
+      
       <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;"
         show.bind="showHideBeamsCollection">
-        <au-collection items.bind="BeamsSizing" errors.bind="error.BeamsSizing" columns.bind="beamsSizingColumns"
+        <au-textbox error.bind="error.LoomBeamProducts" read-only="true"></au-textbox>
+        <au-collection items.bind="BeamsSizing" errors.bind="error.LoomBeamHistories" columns.bind="beamsSizingColumns"
           add.bind="addBeamsSizing" remove.bind="onremove" read-only.bind="readOnly"
           options.bind="beamsSizingTableOptions"
           item-template="modules/weaving/daily-operation-loom/templates/beams-sizing-post">

@@ -23,8 +23,14 @@ export class Create {
   @bindable BeamsSizing;
 
   beamsSizingColumns = [{
+      value: "BeamOrigin",
+      header: "Asal Beam"
+    }, {
       value: "BeamNumber",
-      header: "Nomor Beam Sizing"
+      header: "No. Beam Sizing"
+    }, {
+      value: "CombNumber",
+      header: "No. Sisir"
     }, {
       value: "MachineNumber",
       header: "No. Mesin"
@@ -50,10 +56,6 @@ export class Create {
       value: "Information",
       header: "Informasi"
     }
-    // {
-    //   value: "MachineStatus",
-    //   header: "Status"
-    // }
   ];
 
   constructor(service, router, bindingEngine) {
@@ -62,6 +64,7 @@ export class Create {
     this.bindingEngine = bindingEngine;
 
     this.showHideBeamsCollection = false;
+    this.showHideCollectionError = false;
 
     this.data = {};
     this.error = {};
@@ -98,6 +101,10 @@ export class Create {
       let weavingUnitId = newValue.WeavingUnit;
       let warpOriginId = newValue.WarpOrigin;
       let weftOriginId = newValue.WeftOrigin;
+
+      this.BeamsSizing.splice(0, this.BeamsSizing.length);
+      this.beamsSizingTableOptions.OrderId = order.Id;
+
       this.service.getConstructionNumberById(constructionId)
         .then(resultConstructionNumber => {
           this.error.ConstructionNumber = "";
@@ -116,8 +123,6 @@ export class Create {
         }).then(resultWeftOrigin => {
           this.error.WeftOrigin = "";
           this.WeftOrigin = resultWeftOrigin;
-
-          this.beamsSizingTableOptions.OrderId = order.Id;
 
           if (resultWeftOrigin) {
             this.showHideBeamsCollection = true;
@@ -171,17 +176,19 @@ export class Create {
     }
 
     // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
-    this.BeamsSizing.forEach(doc => {
+    this.BeamsSizing.forEach(doc => {debugger
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};
-      
-      BeamProductDocument.BeamDocumentId = doc.BeamDocument.Id;
+
+      BeamProductDocument.BeamOrigin = doc.BeamOrigin;
+      BeamProductDocument.BeamDocumentId = doc.BeamDocument.ReachingBeamId;
+      BeamProductDocument.CombNumber = doc.CombNumber;
       BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
       BeamProductDocument.DateBeamProduct = doc.Date;
       BeamProductDocument.TimeBeamProduct = doc.Time;
       BeamProductDocument.LoomProcess = doc.LoomProcess;
 
-      BeamHistoryDocument.BeamNumber = doc.BeamDocument.Number;
+      BeamHistoryDocument.BeamNumber = doc.BeamDocument.ReachingBeamNumber;
       BeamHistoryDocument.MachineNumber = doc.MachineDocument.MachineNumber;
       BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
       BeamHistoryDocument.DateMachine = doc.Date;
@@ -200,6 +207,9 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
+        if (this.error.LoomBeamProducts || this.error.LoomBeamHistories) {
+          this.showHideCollectionError = true;
+        }
       });
   }
 
