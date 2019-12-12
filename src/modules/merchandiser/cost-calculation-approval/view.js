@@ -74,6 +74,7 @@ export class View {
             { header: "Deskripsi Barang", value: "Description" },
             { header: "Qty", value: "BudgetQuantityString" },
             { header: "Satuan", value: "UOMPriceUnit" },
+            { header: "Harga Satuan", value: "Price" },
             { header: "Shipment", value: "DeliveryDate" },
             { header: "Status", value: "Status" },
         ],
