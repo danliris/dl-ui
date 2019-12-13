@@ -117,6 +117,32 @@ module.exports = [
         }
     },
     {
+        route: 'sales/do-sales',
+        name: 'do-sales',
+        moduleId: './modules/sales/do-sales/index',
+        nav: true,
+        title: 'DO Penjualan',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/sales-invoice',
+        name: 'sales-invoice',
+        moduleId: './modules/sales/sales-invoice/index',
+        nav: true,
+        title: 'Faktur Penjualan',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/reports/sales-monthly-reports',
         name: 'sales-monthly-report',
         moduleId: './modules/sales/reports/sales-monthly-report/index',
