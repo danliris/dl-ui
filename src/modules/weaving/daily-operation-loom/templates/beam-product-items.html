@@ -1,7 +1,15 @@
 <template>
     <tr>
       <td class="col-sm-1" style="white-space: nowrap;">
+        <au-textbox value.bind="data.BeamOrigin" error.bind="error.BeamOrigin" read-only.bind="true">
+        </au-textbox>
+      </td>
+      <td class="col-sm-1" style="white-space: nowrap;">
         <au-textbox value.bind="data.BeamNumber" error.bind="error.BeamNumber" read-only.bind="true">
+        </au-textbox>
+      </td>
+      <td class="col-sm-1" style="white-space: nowrap;">
+        <au-textbox value.bind="data.CombNumber" error.bind="error.CombNumber" read-only.bind="true">
         </au-textbox>
       </td>
       <td class="col-sm-1" style="white-space: nowrap;">

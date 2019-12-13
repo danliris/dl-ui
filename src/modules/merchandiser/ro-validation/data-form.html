@@ -114,8 +114,33 @@
             read-only.bind="readOnly"></au-multiline>
         </div>
       </div>
+
+      <div class="row" if.bind="hasCostCalculationGarment">
+        <div class="col-md-6">
+          <h4>File Dokumen</h4>
+          <table class="table table-hover table-bordered">
+            <thead>
+              <th class="col-md-11">File</th>
+            </thead>
+            <tbody>
+              <tr if.bind="!data.DocumentsFileName || data.DocumentsFileName.length < 1">
+                <td colspan="2">
+                  Tidak ada file
+                </td>
+              </tr>
+              <tr if.bind="data.DocumentsFileName" repeat.for="doc of data.DocumentsFileName">
+                <td if.bind="readOnly">
+                  <button class="btn btn-primary justify-content-center" click.delegate="downloadDocument($index)">${doc}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
       <div class="row" show.bind="hasCostCalculationGarment">
         <div class="col-md-12">
+          <h4>File Gambar</h4>
           <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" if.bind="!readOnly" multiple>
           <br>
           <template repeat.for="imageSrc of imagesSrc">

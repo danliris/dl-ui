@@ -13,7 +13,7 @@ export class CostCalculationMaterialFooter {
         let totalMaterial = 0;
         for (let item of this.context.items) {
             if (item.data) {
-                totalMaterial += numeral(item.data.Total).value();
+                totalMaterial += item.data.Total ? Number(item.data.Total) : 0;
             }
         }
         return totalMaterial;

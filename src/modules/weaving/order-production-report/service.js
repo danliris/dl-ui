@@ -3,10 +3,16 @@ import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "weaving/orders/order-by-period";
+const _serviceUri = "weaving/orders";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "weaving");
+  }
+
+  getById(id) {
+    var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
   }
 
   searchSOP(month, year, unitName, unitId) {
@@ -15,39 +21,37 @@ export class Service extends RestService {
     return super.list(endpoint);
   }
 
-  getById(id) {
-    var endpoint = `${serviceUri}/${id}`;
-    return super.get(endpoint);
-  }
-
   getPdfByPeriod(month, year, unitName, unitId) {
     var status = "ESTIMATED";
     var endpoint = `${serviceUri}/${month}/${year}/unit-name/${unitName}/unit-id/${unitId}/status/${status}`;
     return super.getPdf(endpoint);
   }
 
-  // getOrders(month, year, unitId){
-  //   var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}`;
-  //   return super.list(endpoint, info);
-  // }
+  getReportData(info) {
+    var endpoint = `${_serviceUri}/get-report`;
 
-  // create(data) {
-  //   var endpoint = `${serviceUri}`;
-  //   return super.post(endpoint, data);
-  // }
+    return super.list(endpoint, info);
+  }
 
-  // update(data) {
-  //   var endpoint = `${serviceUri}/${data.id}`;
-  //   return super.put(endpoint, data);
-  // }
+  getReportPdf(weavingUnit, dateFrom, dateTo) {
+    var endpoint = `${_serviceUri}/get-report`;
+    var query = '';
 
-  // delete(data) {
-  //   var endpoint = `${serviceUri}/${data.id}`;
-  //   return super.delete(endpoint, data);
-  // }
-
-  // getByCode(code) {
-  //   var endpoint = `${serviceUri}?keyword=${code}`;
-  //   return super.get(endpoint);
-  // }
+    if (weavingUnit) {
+      if (query === '') query = `weavingUnitId=${weavingUnit.Id}`;
+      else query = `${query}&weavingUnitId=${weavingUnit.Id}`;
+    }
+    if (dateFrom) {
+      if (query === '') query = `dateFrom=${(dateFrom)}`;
+      else query = `${query}&dateFrom=${(dateFrom)}`;
+    }
+    if (dateTo) {
+      if (query === '') query = `dateTo=${(dateTo)}`;
+      else query = `${query}&dateTo=${(dateTo)}`;
+    }
+    if (query !== '')
+      endpoint = `${_serviceUri}/get-report?${query}`;
+      
+    return super.getPdf(endpoint);
+  }
 }

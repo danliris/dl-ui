@@ -168,4 +168,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/monitoring-prepare',
+        name: 'garment-production-monitoring-prepare',
+        moduleId: './modules/garment-production/monitoring-prepare/index',
+        nav: true,
+        title: 'Monitoring Prepare',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];

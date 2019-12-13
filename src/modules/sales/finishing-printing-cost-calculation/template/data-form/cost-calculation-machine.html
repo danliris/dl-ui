@@ -2,7 +2,7 @@
     <tr>
         <!-- Proses -->
         <td>
-            <au-textbox value.bind="data.step.Process"
+            <au-textbox value.bind="data.Step.Process"
                         error.bind="error.StepProcess"
                         read-only.bind="true"
                         options.bind="controlOptions"></au-textbox>
@@ -24,7 +24,8 @@
         <td>
             <au-numeric value.bind="chemicalCost"
                         options.bind="controlOptions"
-                        read-only.bind="true"></au-numeric>
+                        read-only.bind="true"
+                        error.bind="error.Chemical"></au-numeric>
             <button click.delegate="chemicalAdd()"
                     class="btn btn-success pull-right">+</button>
             <button class="btn btn-info pull-right"

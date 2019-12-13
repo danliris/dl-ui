@@ -65,6 +65,11 @@ export class Service extends RestService {
     //     return super.getPdf(endpoint);
     // }
 
+    replaceCostCalculation(id, data) {
+        var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
+        return super.patch(endpoint, data);
+    }
+
     approve(data) {
         var endpoint = `${costCalculationGarmentServiceUri}/isvalidate-ro-sample/${data.Id}`;
         return super.put(endpoint, data);
