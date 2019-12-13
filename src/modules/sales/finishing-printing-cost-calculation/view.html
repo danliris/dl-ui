@@ -69,18 +69,22 @@
           </au-textbox>
         </div>
         <div class="col-md-4">
-          <au-numeric label="Jumlah Order" format="0,000.00" value.bind="data.OrderQuantity" read-only.bind="readOnly"
-            options.bind="length4"></au-numeric>
+          <au-textbox label="Jumlah Order" value.bind="data.OrderQuantity" read-only.bind="readOnly"
+            options.bind="length4"></au-textbox>
           <au-textbox label="Sales" value.bind="salesText" read-only.bind="readOnly" options.bind="length4">
           </au-textbox>
           <au-textbox label="Warna" options.bind="length4" value.bind="data.Color" read-only.bind="readOnly">
           </au-textbox>
           <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.Date" read-only.bind="readOnly">
           </au-datepicker>
-          <au-numeric label="Jumlah TKL" format="0" value.bind="data.TKLQuantity" options.bind="length4"
-            read-only.bind="readOnly"></au-numeric>
+          <au-textbox label="Jumlah TKL" value.bind="data.TKLQuantity" options.bind="length4" read-only.bind="readOnly">
+          </au-textbox>
         </div>
-
+        <div class="col-md-4">
+          <au-textbox label="Satuan" value.bind="data.UOM.Unit" error.bind="error.UOM" options.bind="length4"
+            read-only.bind="readOnly">
+          </au-textbox>
+        </div>
       </div>
 
     </div>

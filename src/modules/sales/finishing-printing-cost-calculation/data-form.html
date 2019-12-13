@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-3">
                 <au-numeric label="Jumlah Order" format="0,000.00" value.bind="data.OrderQuantity"
-                    error.bind="error.OrderQuantity" read-only.bind="readOnly" options.bind="length4"></au-numeric>
+                    error.bind="error.OrderQuantity" read-only.bind="true" options.bind="length4"></au-numeric>
 
                 <au-autocomplete label="Satuan" value.bind="selectedUOM" error.bind="error.UOM" loader.bind="uomLoader"
                     text="Unit" placeholder="Master Satuan" options.bind="length4" read-only.bind="readOnly">

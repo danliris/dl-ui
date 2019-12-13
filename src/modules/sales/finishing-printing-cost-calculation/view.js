@@ -60,6 +60,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.data.OrderQuantity = this.formatNumber(this.data.OrderQuantity, 2);
     this.isPosted = this.data.IsPosted;
     this.salesText = `${this.data.Sales.profile.firstname} - ${this.data.Sales.profile.lastname}`;
     var totalDetailAll = 0;
@@ -154,5 +155,9 @@ export class View {
       .catch(e => {
         this.dialog.alert(e, "Hapus Cost Calculation");
       });
+  }
+
+  formatNumber(input, decimalPlaces){
+    return (input).toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
   }
 }
