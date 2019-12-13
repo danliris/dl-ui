@@ -228,6 +228,7 @@ export class DataForm {
                         DRItem.ReceiptQuantity=DRItem.SmallQuantity/DRItem.Conversion;
                         DRItem.ReceiptCorrection=DRItem.SmallQuantity/DRItem.Conversion;
                         DRItem.OrderQuantity=0;
+                        DRItem.DOCurrencyRate=dup.DOCurrency.Rate;
                         DRItems.push(DRItem)
                     }
                 }
