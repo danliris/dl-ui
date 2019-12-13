@@ -20,12 +20,9 @@ export class ItemsWeft {
     this.data = context.data;
     this.error = context.error;
 
-    // console.log(this.data);
     this.Quantity = this.data.Quantity;
     this.Information = this.data.Information;
-    console.log(this.data.Yarn);
     if (this.data.Yarn) {
-
       var retrieveValue = this.data.Yarn;
       this.data.YarnId = retrieveValue.Id;
       this.Yarn = retrieveValue;
@@ -38,7 +35,6 @@ export class ItemsWeft {
 
   // Change on Kode Pakan, affected when Benang Pakan change
   async YarnChanged(newValue) {
-    console.log(newValue);
     if (newValue) {
       this.data.Yarn = newValue;
 
