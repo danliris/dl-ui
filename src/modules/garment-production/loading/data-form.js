@@ -171,19 +171,22 @@ export class DataForm {
             var items=[];
             for(var item of newValue.Items){
                 var a={};
-                a.Product= item.Product;
-                a.Uom=item.Uom;
-                a.DesignColor=item.DesignColor;
-                a.Color=item.Color;
-                a.Size=item.Size;
-                a.Quantity=item.RemainingQuantity;
-                a.SewingDORemainingQuantity=item.RemainingQuantity;
-                a.IsSave=true;
-                a.SewingDOItemId=item.Id;
-                a.RemainingQuantity=item.RemainingQuantity;
-                a.BasicPrice=item.BasicPrice;
-                a.ComodityPrice=this.data.Price;
-                this.data.Items.push(a);
+                if(item.RemainingQuantity >0){
+                    a.Product= item.Product;
+                    a.Uom=item.Uom;
+                    a.DesignColor=item.DesignColor;
+                    a.Color=item.Color;
+                    a.Size=item.Size;
+                    a.Quantity=item.RemainingQuantity;
+                    a.SewingDORemainingQuantity=item.RemainingQuantity;
+                    a.IsSave=true;
+                    a.SewingDOItemId=item.Id;
+                    a.RemainingQuantity=item.RemainingQuantity;
+                    a.BasicPrice=item.BasicPrice;
+                    a.ComodityPrice=this.data.Price;
+                    this.data.Items.push(a);
+                }
+                
             }
         }
         
