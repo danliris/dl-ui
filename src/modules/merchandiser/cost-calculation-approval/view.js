@@ -241,6 +241,11 @@ export class View {
 
         this.data.LeadTime = `${this.data.LeadTime} hari`
         this.data.ConfirmPrice = (this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 }));
+
+        this.editCallback = this.approve;
+        if (this.type === "KadivMD") {
+            this.editCallback = null;
+        }
     }
 
     async bind(context) {
@@ -255,7 +260,7 @@ export class View {
         this.list();
     }
 
-    editCallback(event) {
+    approve(event) {
         if (confirm("Approve Cost Calculation?")) {
             if (this.type !== "KadivMD") {
                 const jsonPatch = [
@@ -290,5 +295,9 @@ export class View {
 
     changeRole(tab) {
         this.activeTab = tab;
+        this.editCallback = this.approve;
+        if (tab === 0 && this.type === "KadivMD") {
+            this.editCallback = null;
+        }
     }
 }
