@@ -9,7 +9,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/garment-pre-sales-contract-by-user',
+        name: 'garment-pre-sales-contract-by-user',
+        moduleId: './modules/merchandiser/garment-pre-sales-contract/index',
+        nav: true,
+        title: 'Pre Sales Contract - Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
@@ -77,7 +92,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-by-user',
+        name: 'cost-calculation-by-user',
+        moduleId: './modules/merchandiser/cost-calculation/index',
+        nav: true,
+        title: 'Cost Calculation Export Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
@@ -158,7 +188,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract-by-user',
+        name: 'garment-sales-contract-by-user',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract Per RO (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
@@ -171,7 +216,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment-by-user',
+        name: 'ro-garment-by-user',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Export Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
