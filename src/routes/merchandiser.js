@@ -188,7 +188,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/garment-sales-contract-by-user',
+        name: 'garment-sales-contract-by-user',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract Per RO (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
