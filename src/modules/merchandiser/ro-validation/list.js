@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { activationStrategy } from 'aurelia-router';
 import { AuthService } from "aurelia-authentication";
 
 import moment from 'moment';
@@ -46,6 +47,12 @@ export class List {
         this.service = service;
         this.router = router;
         this.authService = authService;
+    }
+
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
     }
 
     activate(params, routeConfig, navigationInstruction) {
