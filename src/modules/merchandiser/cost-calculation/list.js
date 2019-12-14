@@ -12,7 +12,7 @@ export class List {
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.IsPosted;
+                this.checkboxEnabled = !data.IsPosted && data.byUser;
                 return "";
             }
         },
@@ -52,6 +52,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 result.data.map(data => {
+                    data.byUser = this.byUser;
                     data.isPosting = data.IsPosted;
                     data.IsApprovedMD = data.ApprovalMD.IsApproved ? "SUDAH" : "BELUM";
                     data.IsApprovedIE = data.ApprovalIE.IsApproved ? "SUDAH" : "BELUM";
@@ -81,7 +82,7 @@ export class List {
     activate(params, routeConfig, navigationInstruction) {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
-        const byUser = parentInstruction.config.settings.byUser;
+        this.byUser = parentInstruction.config.settings.byUser;
 
         let username = null;
         if (this.authService.authenticated) {
@@ -89,7 +90,7 @@ export class List {
             username = me.username;
         }
 
-        if (byUser) {
+        if (this.byUser) {
                 this.filter = {
                     CreatedBy: username
                 };

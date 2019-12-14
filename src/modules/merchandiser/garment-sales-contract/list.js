@@ -62,7 +62,7 @@ export class List {
     activate(params, routeConfig, navigationInstruction) {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
-        const byUser = parentInstruction.config.settings.byUser;
+        this.byUser = parentInstruction.config.settings.byUser;
 
         let username = null;
         if (this.authService.authenticated) {
@@ -70,7 +70,7 @@ export class List {
             username = me.username;
         }
 
-        if (byUser) {
+        if (this.byUser) {
                 this.filter = {
                     CreatedBy: username
                 };
