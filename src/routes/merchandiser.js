@@ -9,7 +9,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/garment-pre-sales-contract-by-user',
+        name: 'garment-pre-sales-contract-by-user',
+        moduleId: './modules/merchandiser/garment-pre-sales-contract/index',
+        nav: true,
+        title: 'Pre Sales Contract - Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
