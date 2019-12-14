@@ -92,7 +92,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-by-user',
+        name: 'cost-calculation-by-user',
+        moduleId: './modules/merchandiser/cost-calculation/index',
+        nav: true,
+        title: 'Cost Calculation Export Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
