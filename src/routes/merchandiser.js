@@ -216,7 +216,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment-by-user',
+        name: 'ro-garment-by-user',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Export Garment (Per User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: true
         }
     },
     {
