@@ -1,6 +1,6 @@
 import { bindable, inject } from "aurelia-framework";
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
+import { Router } from "aurelia-router";
 
 @inject(Router, Service)
 export class Edit {
@@ -21,16 +21,17 @@ export class Edit {
   }
 
   cancel(event) {
-    this.router.navigateToRoute('view', { id: this.data.Id });
+    this.router.navigateToRoute("view", { id: this.data.Id });
   }
 
   save(event) {
-    this.service.update(this.data)
+    this.service
+      .update(this.data)
       .then(result => {
         this.cancel();
       })
       .catch(e => {
         this.error = e;
-      })
+      });
   }
 }

@@ -1,7 +1,7 @@
 import { bindable, inject } from "aurelia-framework";
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
-import {activationStrategy} from 'aurelia-router';
+import { Router } from "aurelia-router";
+import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
@@ -17,7 +17,7 @@ export class Create {
   }
 
   created(owner, self) {
-    this.data = { DOSalesDetails: [] }
+    this.data = { DOSalesDetails: [] };
   }
 
   cancel(event) {
@@ -31,10 +31,15 @@ export class Create {
   }
 
   save(event) {
-    this.service.create(this.data)
+    this.service
+      .create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");
-        this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+        this.router.navigateToRoute(
+          "create",
+          {},
+          { replace: true, trigger: true }
+        );
         // this.__goToList();
       })
       .catch(error => {
@@ -43,7 +48,6 @@ export class Create {
   }
 
   __goToList() {
-
-    this.router.navigateToRoute('list');
+    this.router.navigateToRoute("list");
   }
 }

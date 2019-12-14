@@ -1,7 +1,7 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox value.bind="data.UnitName" error.bind="error.UnitName" read-only.bind="readOnly"></au-textbox>
+            <au-textbox value.bind="data.UnitName" error.bind="error.UnitName" read-only.bind="readOnly"  placeholder="Input Nama Barang"></au-textbox>
         </td>
         <td show.bind="!readOnly">
             <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" format="0,000" read-only.bind="readOnly">
@@ -28,7 +28,7 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"></au-textbox>
+            <au-textbox value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"  placeholder="Input Remark"></au-textbox>
         </td>
         <td if.bind="!options.readOnly">
             <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
