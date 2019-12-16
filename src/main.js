@@ -31,11 +31,15 @@ export async function configure(aurelia) {
       }
 
       var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
+      // var core = "http://localhost:57932/v1/";
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
       var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
+      // var productionAzure = "http://localhost:56409/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites-dev.net/v1/";
+      // var purchasing = "http://localhost:50938/v1/";
       var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";
+      // var purchasingAzure = "http://localhost:50938/v1/";
       var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
       var inventory = "https://dl-inventory-webapi-dev.azurewebsites.net/v1/";
       var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
@@ -46,9 +50,12 @@ export async function configure(aurelia) {
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md.azurewebsites-dev.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
-      const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
+      // const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
+      const sales = "http://localhost:50297/v1/";
       var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
+      // var weaving = "http://localhost:57914/";
       var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
+      // var finance = "http://localhost:53364/v1/";
       var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
 
       config.registerEndpoint('auth', auth);
@@ -110,3 +117,4 @@ export async function configure(aurelia) {
   offline.install();
   */
 }
+   
