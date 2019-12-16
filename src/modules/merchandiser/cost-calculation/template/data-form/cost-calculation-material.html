@@ -45,14 +45,14 @@
         </td>
         <!-- deskripsi -->
         <td>
-            <div style="width: 100px;">
+            <div style="width: 200px;">
                 <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
                     show.bind="productCodeIsExist"></au-textbox>
             </div>
         </td>
         <!-- detail barang -->
         <td>
-            <div style="width: 200px;">
+            <div style="min-width: 200px;">
                 <au-multiline placeholder="Detail Barang" value.bind="data.ProductRemark" error.bind="error.ProductRemark" options.bind="controlOptions"
                     show.bind="productCodeIsExist"></au-multiline>
             </div>
