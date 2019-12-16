@@ -49,7 +49,6 @@ export class Item {
 
             this.data.BasicPrice=parseFloat((this.data.PreparingBasicPrice * this.data.FC).toFixed(4));
             this.data.Price=parseFloat(((this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingInQuantity).toFixed(4));
-        console.log(this.data.FC)
         }
         else 
             this.data.FC=0;
