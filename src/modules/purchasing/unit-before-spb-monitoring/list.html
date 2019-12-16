@@ -12,13 +12,12 @@
         </au-autocomplete>
 
         <au-autocomplete 
-            value.bind="supplierName" 
-            label="Supplier" 
-            loader.bind="supplierLoader"
-            placeholder="cari Nama Supplier" 
-            text.bind = "supplierView"
-            key="SupplierName"
-            options.bind="controlOptions">
+            value.bind="supplier"
+            loader.one-time="supplierLoader"
+            label="Supplier"
+            options.bind="controlOptions"
+            placeholder="Masukkan Nama Supplier"
+            select.bind="selectSupplier">
         </au-autocomplete>
 
        <au-autocomplete 
