@@ -78,6 +78,15 @@ export class List {
                     IsApprovedIE: false
                 };
                 break;
+            case "kadivmd":
+                this.filter = {
+                    "CostCalculationGarment_Materials.All(IsPosted == false)": true,
+                    IsApprovedMD: true,
+                    IsApprovedPurchasing: true,
+                    IsApprovedIE: true,
+                    IsApprovedKadivMD: false
+                };
+                break;
             default:
                 break;
         }

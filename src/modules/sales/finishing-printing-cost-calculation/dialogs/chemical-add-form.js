@@ -16,7 +16,7 @@ export class ChemicalAddForm {
     @bindable error;
     async activate(data) {
         this.data = data.machine;
-        this.data.Quantity = 0;
+        this.data.ChemicalQuantity = 0;
         this.chemicals = data.chemicals;
         this.error = {};
     }
@@ -73,7 +73,8 @@ export class ChemicalAddForm {
             let chemical = {
                 "Chemical": this.selectedChemical,
                 "ChemicalId": this.selectedChemical.Id,
-                "ChemicalQuantity": this.data.ChemicalQuantity
+                "ChemicalQuantity": this.data.ChemicalQuantity,
+                "Price": this.selectedChemical.Price
             };
             this.chemicals.push(chemical);
             this.dialogController.ok(this.chemicals);
@@ -87,11 +88,12 @@ export class ChemicalAddForm {
             let chemical = Object.assign({}, {
                 "Chemical": Object.assign({}, this.selectedChemical),
                 "ChemicalId": this.selectedChemical.Id,
-                "ChemicalQuantity": this.data.ChemicalQuantity
+                "ChemicalQuantity": this.data.ChemicalQuantity,
+                "Price": this.selectedChemical.Price
             })
             this.chemicals.push(chemical);
             this.selectedChemical = null;
-            this.data.Quantity = 0;
+            this.data.ChemicalQuantity = 0;
         }
     }
 

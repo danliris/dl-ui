@@ -123,7 +123,6 @@ export class DataForm {
     async selectedCuttingInChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
@@ -172,10 +171,12 @@ export class DataForm {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
                                 for(var cuttingInDetail of cuttingInItem.Details){
-                                    cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                    cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                    cuttingInDetail.ComodityPrice=this.data.Price;
-                                    this.data.Items.push(cuttingInDetail);
+                                    if(cuttingInDetail.RemainingQuantity>0){
+                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
+                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                        cuttingInDetail.ComodityPrice=this.data.Price;
+                                        this.data.Items.push(cuttingInDetail);
+                                    }
                                 }
                             }
                         }

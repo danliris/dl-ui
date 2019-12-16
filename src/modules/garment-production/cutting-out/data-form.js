@@ -123,10 +123,12 @@ export class DataForm {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
                                 for(var cuttingInDetail of cuttingInItem.Details){
-                                    cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                    cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                    cuttingInDetail.ComodityPrice=this.data.Price;
-                                    this.data.Items.push(cuttingInDetail);
+                                    if(cuttingInDetail.RemainingQuantity>0){
+                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
+                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                        cuttingInDetail.ComodityPrice=this.data.Price;
+                                        this.data.Items.push(cuttingInDetail);
+                                    }
                                 }
                             }
                         }

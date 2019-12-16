@@ -17,17 +17,7 @@ export class View {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
         this.title = parentInstruction.config.title;
-        const type = parentInstruction.config.settings.type;
-
-        switch (type) {
-            case "PPIC":
-                this.type = "";
-                break;
-            case "MD1":
-            case "MD2":
-            default:
-                this.type = type;
-        }
+        this.type = parentInstruction.config.settings.type;
 
         let id = params.id;
         this.data = await this.service.read(id);
@@ -64,18 +54,17 @@ export class View {
                 }
             }
 
-            switch (type) {
+            switch (this.type) {
                 case "MD1":
                     this.hasApprove = !this.data.IsValidatedMD1;
                     // this.hasUnApprove = this.data.IsValidatedMD1 && !this.data.IsValidatedMD2 && !this.data.IsValidated;
                     break;
-                case "MD2":
-                    this.hasApprove = this.data.IsValidatedMD1 && !this.data.IsValidatedMD2;
-                    // this.hasUnApprove = this.data.IsValidatedMD2;
+                case "Purchasing":
+                    this.hasApprove = this.data.IsValidatedMD1 && !this.data.IsValidatedPurchasing;
                     break;
-                case "PPIC":
-                    this.hasApprove = this.data.IsValidatedMD1 && this.data.IsValidatedMD2 && !this.data.IsValidated;
-                    // this.hasUnApprove = this.data.IsValidated;
+                case "MD2":
+                    this.hasApprove = this.data.IsValidatedMD1 && this.data.IsValidatedPurchasing && !this.data.IsValidatedMD2;
+                    // this.hasUnApprove = this.data.IsValidatedMD2;
                     break;
                 default:
                     this.hasApprove = false;
@@ -106,6 +95,15 @@ export class View {
                 { op: "copy", path: `/Validated${this.type}By`, from: "/LastModifiedBy" },
                 { op: "copy", path: `/Validated${this.type}Date`, from: "/LastModifiedUtc" },
             ];
+
+            if (this.type === "MD2") {
+                jsonPatch.push(
+                    { op: "replace", path: `/IsValidated`, value: true },
+                    { op: "copy", path: `/ValidatedBy`, from: "/LastModifiedBy" },
+                    { op: "copy", path: `/ValidatedDate`, from: "/LastModifiedUtc" },
+                );
+            }
+
             this.service.patch(this.data.Id, jsonPatch)
                 .then(result => {
                     this.backToList();

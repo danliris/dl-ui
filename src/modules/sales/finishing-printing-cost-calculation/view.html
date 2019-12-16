@@ -56,34 +56,46 @@
     <div class="row">
       <div class="col-md-10">
         <div class="col-md-4">
-          <au-textbox label="RO" options.bind="length4" value.bind="data.RO_Number" read-only.bind="readOnly"></au-textbox>
-          <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.CreatedUtc" read-only.bind="readOnly"></au-datepicker>
-          <au-textbox label="Unit" options.bind="length4" value.bind="data.Unit.Name" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="No Sales Contract" options.bind="length4" value.bind="data.PreSalesContract.No"
+            read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="No SPP" options.bind="length4" value.bind="data.ProductionOrderNo"
+            read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Unit" options.bind="length4" value.bind="data.PreSalesContract.Unit.Name"
+            read-only.bind="readOnly">
+          </au-textbox>
+          <au-textbox label="Buyer" options.bind="length4" value.bind="data.PreSalesContract.Buyer.Name"
+            read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Material" options.bind="length4" value.bind="data.Material.Name" read-only.bind="readOnly">
+          </au-textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox label="Size Range" options.bind="length4" value.bind="data.SizeRange" read-only.bind="readOnly"></au-textbox>
-          <au-textbox label="Seksi" options.bind="length4" value.bind="data.Section" read-only.bind="readOnly"></au-textbox>
-          <au-textbox label="Komoditi" options.bind="length4" value.bind="data.Comodity.Name" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Jumlah Order" value.bind="data.OrderQuantity" read-only.bind="readOnly"
+            options.bind="length4"></au-textbox>
+          <au-textbox label="Sales" value.bind="salesText" read-only.bind="readOnly" options.bind="length4">
+          </au-textbox>
+          <au-textbox label="Warna" options.bind="length4" value.bind="data.Color" read-only.bind="readOnly">
+          </au-textbox>
+          <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.Date" read-only.bind="readOnly">
+          </au-datepicker>
+          <au-textbox label="Jumlah TKL" value.bind="data.TKLQuantity" options.bind="length4" read-only.bind="readOnly">
+          </au-textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox label="Lead Time" options.bind="length4" value.bind="data.LeadTime" read-only.bind="readOnly"></au-textbox>
-          <au-textbox label="Fabric (%)" options.bind="length4" value.bind="data.FabricAllowance" read-only.bind="readOnly"></au-textbox>
-          <au-textbox label="Accessories (%)" options.bind="length4" value.bind="data.AccessoriesAllowance" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Satuan" value.bind="data.UOM.Unit" error.bind="error.UOM" options.bind="length4"
+            read-only.bind="readOnly">
+          </au-textbox>
         </div>
       </div>
-      <div class="col-md-2">
-        <img src.bind="data.ImageFile || '#'" class="center-block" height="auto" width="60%">
-        <br>
-        <div class="text-center">${data.Article}</div>
-      </div>
+
     </div>
     <br>
-    <au-collection items.bind="data.CostCalculationGarment_Materials" columns.bind="costCalculationGarment_MaterialsInfo.columns"
-      item-template="modules/sales/finishing-printing-cost-calculation/template/view/cost-calculation-material" footer-template="modules/sales/finishing-printing-cost-calculation/template/view/cost-calculation-material-footer">
+    <au-collection items.bind="data.Machines" columns.bind="machines.columns"
+      item-template="modules/sales/finishing-printing-cost-calculation/template/view/cost-calculation-machine"
+      footer-template="modules/sales/finishing-printing-cost-calculation/template/view/cost-calculation-machine-footer">
     </au-collection>
     <div class="row">
       <div class="col-md-4">
-        <div>
+        <!-- <div>
           <table class="table table-bordered large-column-table">
             <tbody>
               <tr>
@@ -112,85 +124,104 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> -->
         <div>
-          <au-collection items.bind="data.priceInfo" columns.bind="priceInfo.columns" item-template="modules/production/finishing-printing/cost-calculation/template/view/price-info">
-          </au-collection>
+          <table class="table table-bordered small-column-table">
+            <tbody>
+              <tr>
+                <td class="label-td">Greige</td>
+                <td colspan="2">${data.Greige.Name}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Berat Kain Prep</td>
+                <td>${data.PreparationFabricWeight | numberFormat:'0,0.000'}</td>
+
+              </tr>
+              <tr>
+                <td class="label-td">Berat Kain RFD</td>
+                <td>${data.RFDFabricWeight | numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Total</td>
+                <td>${data.ActualPrice | numberFormat:'0,0.000'}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
       <div class="col-md-4">
+
+        <!-- <p if.bind="isDollar">Note: 1 US$ = Rp. ${data.CurrencyRate | numberFormat:'0,0.00'}</p> -->
         <div>
           <table class="table table-bordered small-column-table">
             <tbody>
               <tr>
                 <td class="label-td">Total</td>
-                <td colspan="2">${data.Total | numberFormat:'0,0.00'}</td>
+                <td colspan="2">${totalMachinesAndGreige | numberFormat:'0,0.0000'}</td>
               </tr>
               <tr>
-                <td class="label-td">OTL 1</td>
-                <td>${data.OTL1.CalculatedValue | numberFormat:'0,0.000'}</td>
-                <td>${data.AfterOTL1 | numberFormat:'0,0.00'}</td>
-              </tr>
-              <tr>
-                <td class="label-td">OTL 2</td>
-                <td>${data.OTL2.CalculatedValue | numberFormat:'0,0.000'}</td>
-                <td>${data.AfterOTL2 | numberFormat:'0,0.00'}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Resiko (%)</td>
-                <td>${data.Risk | numberFormat:'0,0.00'}%</td>
-                <td>${data.AfterRisk | numberFormat:'0,0.00'}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Biaya Angkut</td>
-                <td>${data.FreightCost | numberFormat:'0,0.00'}</td>
-                <td>${data.AfterFreightCost | numberFormat:'0,0.00'}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Sub Total</td>
-                <td colspan="2">${data.AfterFreightCost | numberFormat:'0,0.00'}</td>
-              </tr>
-              <tr>
-                <td class="label-td">NET/FOB (%)</td>
-                <td>${data.NETFOBP | numberFormat:'0,0.00'}%</td>
-                <td>${data.NETFOB | numberFormat:'0,0.00'}</td>
+                <td class="label-td">Total Upah</td>
+                <td>${salaryTotal | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
                 <td class="label-td">Komisi (%)</td>
-                <td>${data.CommissionPortion | numberFormat:'0,0.00'}%</td>
-                <td>${data.CommissionRate | numberFormat:'0,0.00'}</td>
+                <td>${data.Comission | numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">OTL 1</td>
+                <td>${data.OTL1 | numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">OTL 2</td>
+                <td>${data.OTL2 | numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Biaya Angkut</td>
+                <td>${data.FreightCost | numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Sub Total</td>
+                <td colspan="2">${subTotal | numberFormat:'0,0.0000'}</td>
               </tr>
               <tr>
                 <td class="label-td">Confirm Price</td>
-                <td colspan="2">${data.ConfirmPriceWithRate | numberFormat:'0,0.0000'}</td>
+                <td colspan="2">${totalConfirmPrice | numberFormat:'0,0.0000'}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div>
-          <p if.bind="isDollar">Note: 1 US$ = Rp. ${data.Rate.Value | numberFormat:'0,0.00'}</p>
-          <table class="table table-bordered">
+
+          <!-- <table class="table table-bordered">
             <tbody>
               <tr>
                 <td>
-                  <au-textbox label="Biaya Kargo" options.bind="length6" value.bind="data.Freight" read-only.bind="readOnly"></au-textbox>
-                  <au-textbox label="Asuransi" options.bind="length6" value.bind="data.Insurance" read-only.bind="readOnly"></au-textbox>
-                  <au-textbox label="Confirm Price" options.bind="length6" value.bind="data.ConfirmPrice" read-only.bind="readOnly"></au-textbox>
+                  <au-textbox label="Biaya Kargo" options.bind="length6" value.bind="data.Freight"
+                    read-only.bind="readOnly"></au-textbox>
+                  <au-textbox label="Asuransi" options.bind="length6" value.bind="data.Insurance"
+                    read-only.bind="readOnly"></au-textbox>
+                  <au-textbox label="Confirm Price" options.bind="length6" value.bind="data.ConfirmPrice"
+                    read-only.bind="readOnly"></au-textbox>
                 </td>
               </tr>
               <tr>
                 <td>
                   <div class="col-md-6">
-                    <au-textbox label="SMV Cut" options.bind="length7" value.bind="data.SMV_Cutting" read-only.bind="readOnly"></au-textbox>
-                    <au-textbox label="SMV Fin" options.bind="length7" value.bind="data.SMV_Finishing" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="SMV Cut" options.bind="length7" value.bind="data.SMV_Cutting"
+                      read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="SMV Fin" options.bind="length7" value.bind="data.SMV_Finishing"
+                      read-only.bind="readOnly"></au-textbox>
                   </div>
                   <div class="col-md-6">
-                    <au-textbox label="SMV Sew" options.bind="length7" value.bind="data.SMV_Sewing" read-only.bind="readOnly"></au-textbox>
-                    <au-textbox label="SMV Total" options.bind="length7" value.bind="data.SMV_Total" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="SMV Sew" options.bind="length7" value.bind="data.SMV_Sewing"
+                      read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="SMV Total" options.bind="length7" value.bind="data.SMV_Total"
+                      read-only.bind="readOnly"></au-textbox>
                   </div>
                 </td>
               </tr>
-          </table>
+          </table> -->
         </div>
       </div>
       <div class="col-md-4">
@@ -200,14 +231,43 @@
               <tr>
                 <td class="label-td">Deskripsi</td>
                 <td>
-                  <au-multiline read-only.bind="true" value.bind="data.Description"></au-multiline>
+                  <au-multiline read-only.bind="true" value.bind="data.Remark"></au-multiline>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <div>
+          <table class="table table-bordered small-column-table">
+            <tbody>
+              <tr>
+                <td class="label-td">Biaya Kargo</td>
+                <td colspan="2">${data.CargoCost| numberFormat:'0,0.000'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Asuransi</td>
+                <td>${data.InsuranceCost | numberFormat:'0,0.000'}</td>
+
+              </tr>
+              <tr>
+                <td class="label-td">ConfirmPrice</td>
+                <td>${finalConfirmPrice | numberFormat:'0,0.000'}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+    <div class="btn-group pull-right">
+      <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+      <a click.delegate="edit(data)" class='btn btn-primary btn-sm' if.bind="!isPosted">Ubah</a>
+      <a click.delegate="delete()" class='btn btn-danger btn-sm' if.bind="!isPosted">Hapus</a>
+      <!-- <a click.delegate="unpost(data)" class='btn btn-primary btn-sm' if.bind="isUnposted"> Unpost</a> -->
+    </div>
+    <br>
+    <br>
   </au-input-form>
-  <button type="button" class="btn btn-default" click.delegate="copyCC()">Copy</button>
+  <!-- <button type="button" class="btn btn-default" click.delegate="copyCC()">Copy</button> -->
 </template>

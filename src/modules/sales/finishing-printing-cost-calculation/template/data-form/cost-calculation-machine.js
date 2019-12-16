@@ -44,12 +44,15 @@ export class CostCalculationMaterial {
         this.selectedMachine = this.data.Machine || undefined;
 
         this.chemicals = this.data.Chemicals && this.data.Chemicals.length > 0 ? this.data.Chemicals : [];
-
-        if (this.data.step) {
-            this.data.StepProcessId = this.data.step.Id
+        if (this.data.Machine) {
+            this.data.Utility = this.selectedMachine.Electric + this.selectedMachine.Steam + this.selectedMachine.Water + this.selectedMachine.Solar + this.selectedMachine.LPG;
+            this.data.Total = this.chemicalCost + this.data.Utility + this.data.Depretiation;
+        }
+        if (this.data.Step) {
+            this.data.StepProcessId = this.data.Step.Id
         }
 
-        console.log(this.data)
+        // console.log(this.data)
         if (this.data.Id) {
 
             this.isReadOnly = true;

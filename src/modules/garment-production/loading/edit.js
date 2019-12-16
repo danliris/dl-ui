@@ -15,6 +15,16 @@ export class Edit {
         let id = params.id;
         this.data = await this.service.read(id);
         this.selectedUnit=this.data.Unit;
+
+        let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+        if(priceResult.data.length>0){
+            this.data.Price= priceResult.data[0].Price;
+            //console.log(this.data.Price)
+        }
+        else{
+            this.data.Price=0;
+        }
+
         if(this.data.SewingDOId){
             this.selectedSewingDO= await this.service.getSewingDObyId(this.data.SewingDOId);
             for(var a of this.data.Items){
@@ -22,6 +32,7 @@ export class Edit {
                 if(same){
                     a.SewingDORemainingQuantity=same.RemainingQuantity + a.Quantity;
                 }
+                a.ComodityPrice=this.data.Price;
             }
         }
     }
