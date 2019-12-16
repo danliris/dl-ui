@@ -69,7 +69,7 @@ export class List {
             staff : data.user ? data.user: "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
-            divisi : this.divisi ? this.divisi.Id : "",
+            divisi : this.divisi ? this.divisi.Id : this.divisiId ? this.divisiId : "" ,
         }
         this.router.navigateToRoute('view', { id: data.user,user: data.user,info: info});
      }

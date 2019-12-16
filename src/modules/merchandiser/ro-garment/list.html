@@ -12,7 +12,7 @@
         selections.bind="dataToBePosted"
         context-click.delegate="contextCallback($event)"
         context-show.call="contextShowCallback(index, context, data)">
-        <div slot="toolbar" class="btn-group">
+        <div slot="toolbar" class="btn-group" if.bind="byUser">
             <button class="btn btn-success" click.delegate="create()">Buat</button>
             <button class="btn btn-primary" disabled.bind="postButtonActive" click.delegate="posting()">Posting</button>
         </div>

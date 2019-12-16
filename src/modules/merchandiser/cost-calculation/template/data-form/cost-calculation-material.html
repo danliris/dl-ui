@@ -2,84 +2,118 @@
     <tr>
         <!-- kategori -->
         <td>
-            <au-autocomplete placeholder="Cari Kategori"  read-only.bind="isReadOnly"  value.bind="selectedCategory" key="name" text="name" error.bind="error.Category"
-                loader.one-time="garmentCategoryLoader" options.bind="controlOptions">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete placeholder="Cari Kategori"  read-only.bind="isReadOnly"  value.bind="selectedCategory" key="name" text="name" error.bind="error.Category"
+                    loader.one-time="garmentCategoryLoader" options.bind="controlOptions">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- kode barang -->
         <td>
-            <au-textbox value.bind="productCode" options.bind="controlOptions" read-only.bind="true">
-            </au-textbox>
+            <div style="width: 100px;">
+                <au-textbox value.bind="productCode" options.bind="controlOptions" read-only.bind="true">
+                </au-textbox>
+            </div>
         </td>
         <!-- komposisi -->
         <td>
-            <au-autocomplete value.bind="selectedComposition"  read-only.bind="isReadOnly"  placeholder="Cari Komposisi" text="Composition" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
-            </au-autocomplete>
+            <div style="width: 200px;">
+                <au-autocomplete value.bind="selectedComposition"  read-only.bind="isReadOnly"  placeholder="Cari Komposisi" text="Composition" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- konstruksi -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Konstruksi" text.bind="getConstructionText" value.bind="selectedConstruction" options.bind="controlOptions" loader.bind="garmentProductConstLoader" show.bind="compositionIsExist">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Konstruksi" text.bind="getConstructionText" value.bind="selectedConstruction" options.bind="controlOptions" loader.bind="garmentProductConstLoader" show.bind="compositionIsExist">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- yarn -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Yarn" text.bind="getYarnText" value.bind="selectedYarn" options.bind="controlOptions" loader.bind="garmentProductYarnLoader" show.bind="constructionIsExist">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Yarn" text.bind="getYarnText" value.bind="selectedYarn" options.bind="controlOptions" loader.bind="garmentProductYarnLoader" show.bind="constructionIsExist">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- width -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Width" text.bind="getWidthText" value.bind="selectedWidth" options.bind="controlOptions" loader.bind="garmentProductWidthLoader" show.bind="yarnIsExist">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete query.bind="filterProductQuery"  read-only.bind="isReadOnly" placeholder="Cari Width" text.bind="getWidthText" value.bind="selectedWidth" options.bind="controlOptions" loader.bind="garmentProductWidthLoader" show.bind="yarnIsExist">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- deskripsi -->
         <td>
-            <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
-                show.bind="productCodeIsExist"></au-textbox>
+            <div style="width: 200px;">
+                <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
+                    show.bind="productCodeIsExist"></au-textbox>
+            </div>
         </td>
         <!-- detail barang -->
         <td>
-            <au-multiline placeholder="Detail Barang" value.bind="data.ProductRemark" error.bind="error.ProductRemark" options.bind="controlOptions"
-                show.bind="productCodeIsExist"></au-multiline>
+            <div style="min-width: 200px;">
+                <au-multiline placeholder="Detail Barang" value.bind="data.ProductRemark" error.bind="error.ProductRemark" options.bind="controlOptions"
+                    show.bind="productCodeIsExist"></au-multiline>
+            </div>
         </td>
         <!-- kuantitas -->
         <td>
-            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
+            </div>
         </td>
         <!-- satuan -->
         <td>
-            <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
+                    options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- price -->
         <td>
-            <au-numeric value.bind="data.Price" error.bind="error.Price" format = "0,0.00" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="data.Price" error.bind="error.Price" format = "0,0.00" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
+            </div>
         </td>
         <!-- satuan harga -->
         <td>
-            <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
-                options.bind="controlOptions" text.bind="uomView"  show.bind="productCodeIsExist" read-only.bind="isProcess">
-            </au-autocomplete>
+            <div style="width: 100px;">
+                <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
+                    options.bind="controlOptions" text.bind="uomView"  show.bind="productCodeIsExist" read-only.bind="isProcess">
+                </au-autocomplete>
+            </div>
         </td>
         <!-- konversi -->
         <td>
-            <au-numeric value.bind="data.Conversion" error.bind="error.Conversion" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess" format="0,0.[00000000000000000000]"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="data.Conversion" error.bind="error.Conversion" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess" format="0,0.[00000000000000000000]"></au-numeric>
+            </div>
         </td>
         <!-- total -->
         <td>
-            <au-numeric value.bind="total" read-only.bind="disabled"  format = "0,0.00" ></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="total" read-only.bind="disabled"  format = "0,0.00" ></au-numeric>
+            </div>
         </td>
         <!-- ongkir -->
         <td>
-            <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+            </div>
         </td>
         <!-- jumlah ongkir -->
         <td>
-            <au-numeric value.bind="totalShippingFee" read-only.bind="disabled"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="totalShippingFee" read-only.bind="disabled"></au-numeric>
+            </div>
         </td>
         <!-- kuantitas budget -->
         <td>
-            <au-numeric value.bind="budgetQuantity" read-only.bind="disabled"></au-numeric>
+            <div style="width: 100px;">
+                <au-numeric value.bind="budgetQuantity" read-only.bind="disabled"></au-numeric>
+            </div>
         </td>
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
