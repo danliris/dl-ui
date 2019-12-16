@@ -12,7 +12,7 @@ export class List {
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.IsPosted;
+                this.checkboxEnabled = !data.IsPosted && data.byUser;
                 return "";
             }
         },
@@ -50,6 +50,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 result.data.forEach(data => {
+                    data.byUser = this.byUser;
                     data.isPosting = data.IsPosted;
                     data.CostCalculationGarment.UnitName = data.CostCalculationGarment.Unit.Name;
                 });
@@ -75,7 +76,7 @@ export class List {
     activate(params, routeConfig, navigationInstruction) {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
-        const byUser = parentInstruction.config.settings.byUser;
+        this.byUser = parentInstruction.config.settings.byUser;
 
         let username = null;
         if (this.authService.authenticated) {
@@ -83,7 +84,7 @@ export class List {
             username = me.username;
         }
 
-        if (byUser) {
+        if (this.byUser) {
                 this.filter = {
                     CreatedBy: username
                 };
