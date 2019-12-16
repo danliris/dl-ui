@@ -181,4 +181,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/monitoring-cutting',
+        name: 'garment-production-monitoring-cutting',
+        moduleId: './modules/garment-production/monitoring-cutting/index',
+        nav: true,
+        title: 'Monitoring Cutting',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
