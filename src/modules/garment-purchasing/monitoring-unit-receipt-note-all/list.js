@@ -41,6 +41,10 @@ export class List {
         { field: "dateBon", title: "Tanggal Bon Terima Unit", sortable: false },
         { field: "unit", title: "Unit", sortable: false },
         { field: "supplier", title: "Supplier", sortable: false },
+        { field: "shipmentType", title: "Jenis Supplier", sortable: false, formatter: function (value, data) {
+            
+                return (value)==""? "Local" : "Import";
+        }},
         { field: "doNo", title: "Surat Jalan", sortable: false },
         { field: "poEksternalNo", title: "No PO Eksternal", sortable: false },
         { field: "poRefPR", title: "No Ref PR", sortable: false },
@@ -50,9 +54,11 @@ export class List {
         { field: "productName", title: "Nama Barang", sortable: false },
         { field: "qty", title: "Jumlah", sortable: false },
         { field: "uom", title: "Satuan", sortable: false },
+        { field: "price", title: "Harga Satuan", sortable: false },
         { field: "remark", title: "Keterangan", sortable: false },
         { field: "design", title: "Desain Color", sortable: false },
         { field: "user", title: "User", sortable: false },
+        { field: "createdBy", title: "Staff Pembelian", sortable: false },
         { field: "internNote", title: "Nota Intern", sortable: false },
     ]
     Values() {

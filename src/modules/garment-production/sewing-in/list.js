@@ -19,6 +19,7 @@ export class List {
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "RONo", title: "RO" },
         { field: "UnitCode", title: "Unit Sewing In"},
+        { field: "SewingFrom", title: "Asal Sewing"},
         { field: "UnitFromCode", title: "Asal Unit"},
         {
             field: "SewingInDate", title: "Tgl Sewing In", formatter: function (value, data, index) {

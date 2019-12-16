@@ -141,28 +141,37 @@ export class DataForm {
                     this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
                 }
 
+                let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+                if(priceResult.data.length>0){
+                    this.data.Price= priceResult.data[0].Price;
+                }
+                else{
+                    this.data.Price=0;
+                }
+
                 Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                     .then(result => {
-                        console.log(result)
                         for(var sewingIn of result.data){
                             for(var sewingInItem of sewingIn.Items){
                                 var item={};
-                                item.SewingInItemId=sewingInItem.Id;
-                                item.SewingInId=sewingIn.Id;
-                                item.Quantity=sewingInItem.RemainingQuantity;
-                                item.Product=sewingInItem.Product;
-                                item.Uom=sewingInItem.Uom;
-                                item.Size=sewingInItem.Size;
-                                item.SewingInQuantity=sewingInItem.RemainingQuantity;
-                                item.Color=sewingInItem.Color;
-                                item.DesignColor=sewingInItem.DesignColor;
+                                if(sewingInItem.RemainingQuantity>0){
+                                    item.SewingInItemId=sewingInItem.Id;
+                                    item.SewingInId=sewingIn.Id;
+                                    item.Quantity=sewingInItem.RemainingQuantity;
+                                    item.Product=sewingInItem.Product;
+                                    item.Uom=sewingInItem.Uom;
+                                    item.Size=sewingInItem.Size;
+                                    item.SewingInQuantity=sewingInItem.RemainingQuantity;
+                                    item.Color=sewingInItem.Color;
+                                    item.DesignColor=sewingInItem.DesignColor;
+                                    item.BasicPrice=sewingInItem.BasicPrice;
+                                    item.ComodityPrice=this.data.Price;
 
-                                this.data.Items.push(item);
-                                
+                                    this.data.Items.push(item);
+                                }
                             }
                         }
                     });
-                    console.log(this.data.Items);
             }
             else {
                 this.context.selectedROViewModel.editorValue = "";
@@ -184,7 +193,6 @@ export class DataForm {
             };
             return this.service.searchSewingIn(info)
                 .then((result) => {
-                    console.log(result)
                     var roList=[];
                         for(var a of result.data){
                             if(roList.length==0){
@@ -196,10 +204,8 @@ export class DataForm {
                                     roList.push(a);
                                 }
                             }
-                            
                         }
                         return roList;
-                    
                 });
         }
     }

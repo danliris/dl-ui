@@ -17,6 +17,11 @@ export class View {
             this.selectedUnitDO = {
                 UnitDONo: this.data.UnitDONo
             };
+
+            if(this.data.IsUsed){
+                this.editCallback=null;
+                this.deleteCallback=null;
+            }
         }
     }
 

@@ -37,10 +37,15 @@
           <textbox label="Jenis Material" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
+          <au-textbox placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
+            read-only.bind="true">
+          </au-textbox>
+        </div>
+        <!-- <div class="col-md-3">
           <au-autocomplete placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
             read-only.bind="readOnly" loader.bind="materialTypes" text="Name">
           </au-autocomplete>
-        </div>
+        </div> -->
       </div>
 
       <div class="row" style="white-space: nowrap;">

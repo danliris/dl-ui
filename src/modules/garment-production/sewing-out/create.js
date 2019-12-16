@@ -39,15 +39,18 @@ export class Create {
                             detail.Uom=item.Uom;
                         }
                         item.RemainingQuantity=item.TotalQuantity;
+                        item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.RemainingQuantity;
+                        
                     }
                 }
             }
         }
-        if(this.data){
+        if(this.data&& !this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         item.RemainingQuantity=item.Quantity;
+                        item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.Quantity;
                     }
                 }
             }

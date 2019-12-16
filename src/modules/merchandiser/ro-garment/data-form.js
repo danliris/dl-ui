@@ -139,6 +139,9 @@ export class DataForm {
     this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
     this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
     this.imagesSrc = this.data.ImagesFile.slice();
+    this.data.DocumentsFile = this.data.DocumentsFile || [];
+    this.data.DocumentsFileName = this.data.DocumentsFileName || [];
+    this.documentsPathTemp = [].concat(this.data.DocumentsPath);
   }
 
   async costCalculationGarmentChanged(newValue) {
@@ -146,7 +149,7 @@ export class DataForm {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
         this.data.CostCalculationGarment.ImageFile = this.data.CostCalculationGarment.ImageFile || '#';
-        this.data.Total=this.data.CostCalculationGarment.Quantity;
+        this.data.Total = this.data.CostCalculationGarment.Quantity;
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
         this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
@@ -154,13 +157,13 @@ export class DataForm {
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
     }
-    else{
+    else {
       //this.data.CostCalculationGarment.CostCalculationGarment_Materials=[];
-      this.data.CostCalculationGarment =null;
+      this.data.CostCalculationGarment = null;
       //this.data.CostCalculationGarment.ImageFile = '#';
-      this.CCG_M_Fabric =[];
-      this.CCG_M_Accessories =[];
-      this.data.Total=0;
+      this.CCG_M_Fabric = [];
+      this.CCG_M_Accessories = [];
+      this.data.Total = 0;
     }
   }
 
@@ -197,4 +200,54 @@ export class DataForm {
   //   }
   //   return this.data.Total;
   // }
+
+  onAddDocument() {
+    this.data.DocumentsFile.push("");
+    this.data.DocumentsFileName.push("");
+    this.documentsPathTemp.push("");
+  }
+
+  onRemoveDocument(index) {
+    this.data.DocumentsFile.splice(index, 1);
+    this.data.DocumentsFileName.splice(index, 1);
+    this.documentsPathTemp.splice(index, 1);
+  }
+
+  downloadDocument(index) {
+    // this.service.getFile((this.documentsPathTemp[index] || '').replace('/sales/', ''), this.data.DocumentsFileName[index]);
+
+    const linkSource = this.data.DocumentsFile[index];
+    const downloadLink = document.createElement("a");
+    const fileName = this.data.DocumentsFileName[index];
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
+  documentInputChanged(index) {
+    let documentInput = document.getElementById('documentInput' + index);
+
+    if (documentInput.files[0]) {
+      let reader = new FileReader();
+      reader.onload = event => {
+        let base64Document = event.target.result;
+        const base64Content = base64Document.substring(base64Document.indexOf(',') + 1);
+        console.log(base64Content.length, ' characters');
+        console.log(base64Content.length * 6, ' bits');
+        console.log(base64Content.length * 6 / 8, ' bytes');
+        if (base64Content.length * 6 / 8 > 52428800) {
+          documentInput.value = "";
+          this.data.DocumentsFile[index] = "";
+          this.data.DocumentsFileName[index] = "";
+          alert("Maximum Document Size is 50 MB")
+        } else {
+          this.data.DocumentsFile[index] = base64Document;
+          this.data.DocumentsFileName[index] = documentInput.value.replace(/^.*[\\\/]/, '');
+        }
+      }
+      reader.readAsDataURL(documentInput.files[0]);
+    }
+  }
 }
+

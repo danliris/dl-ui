@@ -13,7 +13,7 @@ import {
 } from 'util';
 var moment = require('moment');
 
-const serviceUri = 'weaving/daily-operations-sizing/size-pickup';
+const serviceUri = 'weaving/daily-operations-sizing';
 
 export class Service extends RestService {
 
@@ -24,6 +24,49 @@ export class Service extends RestService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
+  }
+
+  getReportData(info) {
+    var endpoint = `${serviceUri}/get-size-pickup-report`;    
+    return super.list(endpoint, info);
+  }
+
+  getReportXls(shift, spuStatus, weavingUnit, date, dateFrom, dateTo, month) {
+    var endpoint = `${serviceUri}/get-size-pickup-report`;
+    var query = '';
+
+    if (shift) {
+      if (query === '') query = `shiftId=${(shift.Id)}`;
+      else query = `${query}&shiftId=${(shift.Id)}`;
+    }
+    if (spuStatus) {
+      if (query === '') query = `spuStatus=${spuStatus}`;
+      else query = `${query}&spuStatus=${spuStatus}`;
+    }
+    if (weavingUnit) {
+      if (query === '') query = `unitId=${weavingUnit.Id}`;
+      else query = `${query}&unitId=${weavingUnit.Id}`;
+    }
+    if (date) {
+      if (query === '') query = `date=${(date)}`;
+      else query = `${query}&date=${(date)}`;
+    }
+    if (dateFrom) {
+      if (query === '') query = `dateFrom=${(dateFrom)}`;
+      else query = `${query}&dateFrom=${(dateFrom)}`;
+    }
+    if (dateTo) {
+      if (query === '') query = `dateTo=${(dateTo)}`;
+      else query = `${query}&dateTo=${(dateTo)}`;
+    }
+    if (month) {
+      if (query === '') query = `month=${(month)}`;
+      else query = `${query}&month=${(month)}`;
+    }
+    if (query !== '')
+      endpoint = `${serviceUri}/get-report?${query}`;
+debugger
+    return super.getXls(endpoint);
   }
 
   //Export to Excel

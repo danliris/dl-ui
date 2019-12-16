@@ -6,7 +6,7 @@
             value.bind="section"
             placeholder="Section"
             options.bind="controlOptions"
-            text="Name"
+            text="Code"
             loader.bind="sectionLoader"
             if.bind="sectionVisibility">
         </au-autocomplete>
@@ -18,8 +18,7 @@
         page-size="25" 
         view-model.ref="table"
         context.bind="context" 
-        context-click.delegate="contextCallback($event)"
-        if.bind="section" >
+        context-click.delegate="contextCallback($event)" >
         <!-- <div slot="toolbar">
             <au-autocomplete
                 label="Section"

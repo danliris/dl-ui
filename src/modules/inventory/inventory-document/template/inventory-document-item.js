@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
 import { Service } from "../service";
-var ProductLoader = require('../../../../loader/product-loader');
+var ProductLoader = require('../../../../loader/product-purchasing-null-tags-loader');
 var UomLoader = require('../../../../loader/uom-loader');
 
 @containerless()

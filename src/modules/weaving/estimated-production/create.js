@@ -82,7 +82,7 @@ export class Create {
       summedUpGrade =
         summedUpGrade + gradeANum + gradeBNum + gradeCNum + gradeDNum;
     });
-
+    
     if (orderProductionsDocumentError.length > 0) {
       this.error.EstimationProducts = orderProductionsDocumentError;
     } else {

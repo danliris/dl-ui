@@ -52,6 +52,16 @@ export class Service extends RestService {
     });
   }
 
+  getUomById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/uoms/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   getMachineTypeById(Id) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");

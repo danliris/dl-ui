@@ -155,7 +155,7 @@ export class Reprocess {
       }
 
       if (!hasError) {
-        event.event.toElement.disabled = true;
+        // event.event.toElement.disabled = true;
 
         var createPromise = [];
         this.data.CurrentStepIndex = 0;

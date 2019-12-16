@@ -62,6 +62,12 @@
             options.bind="controlOptions">
         </au-datepicker>
 
+        <au-textbox label="Jenis Transaksi"
+                    value.bind="data.TransactionType"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox>
+
         <au-textbox
             error.bind="error.Items"
             show.bind="error.Items"

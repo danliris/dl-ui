@@ -1,0 +1,64 @@
+<template>
+  <tr>
+    <td style="white-space: nowrap;">
+      <au-dropdown value.bind="data.BeamOrigin" error.bind="error.BeamOrigin" read-only.bind="readOnly"
+        items.bind="beamOrigins">
+      </au-dropdown>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-autocomplete value.bind="BeamDocument" error.bind="error.BeamDocument" read-only.bind="readOnly"
+        placeholder="No. Beam" loader.bind="beams" text="ReachingBeamNumber" query.bind="OrderIdFilter">
+      </au-autocomplete>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-numeric value.bind="data.CombNumber" error.bind="error.CombNumber" read-only.bind="combReadOnly">
+      </au-numeric>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-autocomplete value.bind="MachineDocument" error.bind="error.MachineDocument" read-only.bind="readOnly"
+        placeholder="No. Mesin" loader.bind="machines" text="MachineNumber" query.bind="OrderIdFilter">
+      </au-autocomplete>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-autocomplete value.bind="OperatorDocument" error.bind="error.OperatorDocument" read-only.bind="readOnly"
+        placeholder="Operator" loader.bind="operators" text="Username">
+      </au-autocomplete>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox value.bind="OperatorDocument.Group" error.bind="error.LoomOperatorGroup" read-only.bind="true"
+        placeholder="Grup Loom">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-datepicker value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly">
+      </au-datepicker>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-timepicker value.bind="Time" error.bind="error.Time" read-only.bind="readOnly">
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox value.bind="data.Shift.Name" error.bind="error.Shift" read-only.bind="true" placeholder="Shift">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-dropdown value.bind="data.LoomProcess" error.bind="error.LoomProcess" read-only.bind="readOnly"
+        placeholder="Proses" items.bind="process">
+      </au-dropdown>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox value.bind="data.Information" error.bind="error.Information" read-only.bind="readOnly"
+        placeholder="Informasi">
+      </au-textbox>
+    </td>
+    <!-- <td style="white-space: nowrap;">
+      <au-textbox value.bind="MachineStatus" error.bind="error.MachineStatus" read-only.bind="true"
+        placeholder="Status">
+      </au-textbox>
+    </td> -->
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(beamData, $event)">
+        -
+      </button>
+    </td>
+  </tr>
+</template>

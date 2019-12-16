@@ -3,6 +3,8 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'cutting-ins';
 const preparingServiceUri = 'preparings';
 const uomServiceUri = 'master/uoms';
+const comodityPriceserviceUri = 'comodity-prices';
+const costCalculationServiceUri = 'cost-calculation-garments';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -11,6 +13,11 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getComodityPrice(info) {
+        var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
 
@@ -38,6 +45,11 @@ class Service extends RestService {
         var endpoint = `${preparingServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    readPreparing(id) {
+        var endpoint = `${preparingServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
 }
 
 class CoreService extends RestService {
@@ -51,4 +63,15 @@ class CoreService extends RestService {
     }
 }
 
-export { Service, CoreService }
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, CoreService,SalesService }

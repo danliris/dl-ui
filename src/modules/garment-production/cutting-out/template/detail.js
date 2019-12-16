@@ -42,9 +42,14 @@ export class Detail {
             let uomResult = await this.coreService.getUom({ size: 1,keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
             this.data.CuttingOutUom = uomResult.data[0];
         } else {
-
             this.data.CuttingOutUom = [];
         }
+    }
+    
+    CuttingOutQuantityChanged(e){
+        this.data.CuttingOutQuantity=parseFloat(e.srcElement.value);
+        this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.CuttingOutQuantity;
+        //console.log(this.data)
     }
 
     sizeView = (size) => {
