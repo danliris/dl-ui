@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Daftar Laporan Surat Order Produksi</h1>
+  <h1 class="page-header">Daftar Laporan Surat Perintah Produksi</h1>
   <div class="row">
     <div class="col-md-1" style="white-space: nowrap;">
       <textbox label="Tanggal Produksi" read-only="true"></textbox>
@@ -28,8 +28,7 @@
         loader.bind="units" text="Name"></au-autocomplete>
     </div>
   </div>
-  
-  
+
   <div class="row" style="margin-top: 20px;">
     <div class="col-md-4">
       <button class="btn btn-primary" click.delegate="exportToExcel()"
@@ -46,7 +45,7 @@
       </button>
     </div>
   </div>
-  
+
   <au-table style="white-space: nowrap; margin-top: 26px;" data.bind="loader" columns.bind="columns"
     sortable.bind="true" view-model.ref="orderProductionsTable" page-size="25" options.bind="tableOptions"
     context.bind="context">

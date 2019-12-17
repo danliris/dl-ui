@@ -100,16 +100,16 @@ export class DataForm {
   //Concatenated some properties for create ConstructionNumber on Form
   get ConstructionNumber() {
     var result = "";
-    var Name = this.data.MaterialTypeName ? this.data.MaterialTypeName : "";
-    var Woven = this.data.WovenType ? this.data.WovenType : "";
+    var MaterialName = this.data.MaterialTypeName ? this.data.MaterialTypeName : "";
+    // var Woven = this.data.WovenType ? this.data.WovenType : "";
     var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
     var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
     var Width = this.data.Width ? this.data.Width : "";
     result =
-      Name +
+      MaterialName +
       " " +
-      Woven +
-      " " +
+      // Woven +
+      // " " +
       Warp +
       " " +
       Weft +

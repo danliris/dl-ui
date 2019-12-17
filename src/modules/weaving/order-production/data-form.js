@@ -1,5 +1,11 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
-import { callbackify } from "util";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
+import {
+  callbackify
+} from "util";
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var UnitLoader = require("../../../loader/unit-loader");
 var YarnOriginLoader = require("../../../loader/weaving-yarn-origin-loader");
@@ -20,38 +26,6 @@ export class DataForm {
     saveText: "Simpan",
     deleteText: "Hapus",
     editText: "Ubah"
-  };
-
-  customOptions = {
-    label: {
-      align: "left"
-    },
-    control: {
-      align: "left",
-      length: 6
-    }
-  };
-
-  customShortOptions = {
-    label: {
-      align: "left"
-    },
-    control: {
-      align: "left",
-      length: 2
-    }
-  };
-
-  customCenterOptions = {
-    value: {
-      align: "center"
-    }
-  };
-
-  customLeftOptions = {
-    label: {
-      align: "left"
-    }
   };
 
   months = [
@@ -100,7 +74,7 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  get origins(){
+  get origins() {
     return YarnOriginLoader;
   }
 
@@ -115,18 +89,15 @@ export class DataForm {
   FabricConstructionDocumentChanged(newValue) {
     if (newValue) {
       if (newValue.Id) {
-        //   this.data.yarnType = newValue.yarnType;
-        // } else {
         this.data.FabricConstructionDocument = newValue;
-      }
-
-      this.ConstructionNumber = newValue;
-      this.data.FabricConstructionDocument = {};
-
-      if (newValue) {
         this.data.FabricConstructionDocument.Id = newValue.Id;
-        this.data.FabricConstructionDocument.ConstructionNumber =
-          newValue.ConstructionNumber;
+        this.data.FabricConstructionDocument.ConstructionNumber = newValue.ConstructionNumber;
+
+        var ConstructionNumberSplitted = newValue.ConstructionNumber.split(" ");
+        var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2]
+        var WeftCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 1]
+        var WarpWeftCode = WarpCode + "X" + WeftCode;
+        this.data.YarnType = WarpWeftCode;
       }
     }
   }
