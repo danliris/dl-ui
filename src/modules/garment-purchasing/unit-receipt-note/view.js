@@ -64,6 +64,7 @@ export class View {
                 this.data.UnitSender= this.uen.UnitSender.Code + " - " + this.uen.UnitSender.Name;
                 this.data.StorageSender=this.uen.Storage.name;
             }
+            this.hasDelete = false;
         }
         
     }
