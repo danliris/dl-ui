@@ -9,6 +9,8 @@ import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
 
 import { UtilityForm } from '../../dialogs/utility-form';
+
+import { DepretiationForm } from '../../dialogs/depretiation-form';
 import { ChemicalAddForm } from '../../dialogs/chemical-add-form';
 import { ChemicalListForm } from '../../dialogs/chemical-list-form';
 
@@ -130,25 +132,14 @@ export class CostCalculationMaterial {
                     return response;
                 });
     }
-
-    // @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
-    // get total() {
-    //     let total = this.data.Quantity && this.data.Conversion && parseFloat(this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity) : 0;
-    //     //total = numeral(total).format();
-    //     if (this.data.isFabricCM) {
-    //         this.data.Total = 0;
-    //         this.data.TotalTemp = numeral(total).value();
-    //         this.data.CM_Price = numeral(total).value();
-    //     }
-    //     else {
-    //         this.data.Total = numeral(total).value();
-    //         this.data.TotalTemp = numeral(total).value();;
-    //         this.data.CM_Price = null;
-    //     }
-    //     total = parseFloat(total).toFixed(2);
-
-    //     return total;
-    // }
-
-
+    depretiationToggle() {
+        if (!this.selectedMachine)
+            alert("Anda belum memilih mesin!");
+        else
+            this.dialog.show(DepretiationForm, this.selectedMachine)
+                .then(response => {
+                    return response;
+                });
+    }
+  
 }

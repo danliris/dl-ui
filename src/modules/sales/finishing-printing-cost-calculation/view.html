@@ -54,8 +54,8 @@
   <require from="../../../lib/date-format-value-converter.js"></require>
   <au-input-form title.bind="title" with.bind="context">
     <div class="row">
-      <div class="col-md-10">
-        <div class="col-md-4">
+      <div class="col-md-15">
+        <div class="col-md-3">
           <au-textbox label="No Sales Contract" options.bind="length4" value.bind="data.PreSalesContract.No"
             read-only.bind="readOnly"></au-textbox>
           <au-textbox label="No SPP" options.bind="length4" value.bind="data.ProductionOrderNo"
@@ -68,22 +68,49 @@
           <au-textbox label="Material" options.bind="length4" value.bind="data.Material.Name" read-only.bind="readOnly">
           </au-textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-textbox label="Jumlah Order" value.bind="data.OrderQuantity" read-only.bind="readOnly"
             options.bind="length4"></au-textbox>
+          <au-textbox label="Satuan" value.bind="data.UOM.Unit" error.bind="error.UOM" options.bind="length4"
+            read-only.bind="readOnly">
+          </au-textbox>
           <au-textbox label="Sales" value.bind="salesText" read-only.bind="readOnly" options.bind="length4">
           </au-textbox>
           <au-textbox label="Warna" options.bind="length4" value.bind="data.Color" read-only.bind="readOnly">
           </au-textbox>
           <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.Date" read-only.bind="readOnly">
           </au-datepicker>
-          <au-textbox label="Jumlah TKL" value.bind="data.TKLQuantity" options.bind="length4" read-only.bind="readOnly">
-          </au-textbox>
         </div>
-        <div class="col-md-4">
-          <au-textbox label="Satuan" value.bind="data.UOM.Unit" error.bind="error.UOM" options.bind="length4"
+        <div class="col-md-3">
+          <au-textbox label="Pemb. Jasa Ongkosan" value.bind="data.ManufacturingServiceCost" options.bind="length4"
             read-only.bind="readOnly">
           </au-textbox>
+
+          <au-textbox label="Bahan Pembantu" value.bind="data.HelperMaterial" options.bind="length4"
+            read-only.bind="readOnly">
+          </au-textbox>
+
+          <au-textbox label="Bahan Lain-Lain" value.bind="data.MiscMaterial" options.bind="length4"
+            read-only.bind="readOnly">
+          </au-textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox label="Olie/Pelumas" value.bind="data.Lubricant" options.bind="length6" read-only.bind="readOnly">
+          </au-textbox>
+
+          <au-textbox label="Spare Part" value.bind="data.SparePart" options.bind="length6" read-only.bind="readOnly">
+          </au-textbox>
+
+          <au-textbox label="Pemeliharaan Gedung" value.bind="data.StructureMaintenance" options.bind="length6"
+            read-only.bind="readOnly">
+          </au-textbox>
+
+          <au-textbox label="Pemeliharaan Mesin" value.bind="data.MachineMaintenance" options.bind="length6"
+            read-only.bind="readOnly">
+          </au-textbox>
+
+          <au-textbox label="Confirm Price" value.bind="data.ConfirmPrice" options.bind="length6"
+            read-only.bind="readOnly"></au-textbox>
         </div>
       </div>
 
@@ -95,36 +122,6 @@
     </au-collection>
     <div class="row">
       <div class="col-md-4">
-        <!-- <div>
-          <table class="table table-bordered large-column-table">
-            <tbody>
-              <tr>
-                <td class="label-td">Kuantitas</td>
-                <td>${data.Quantity + ' ' + data.UOM.Unit}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Deskripsi</td>
-                <td>${data.CommodityDescription}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Cont/Style</td>
-                <td>${data.Article}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Buyer Agent</td>
-                <td>${data.Buyer.Name}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Buyer Brand</td>
-                <td>${data.BuyerBrand.Name}</td>
-              </tr>
-              <tr>
-                <td class="label-td">Delivery</td>
-                <td>${data.DeliveryDate | dateFormat:'YYYY-MM-DD'}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
         <div>
           <table class="table table-bordered small-column-table">
             <tbody>
@@ -148,7 +145,24 @@
             </tbody>
           </table>
         </div>
+        <div>
+          <table class="table table-bordered small-column-table">
+            <tbody>
+              <tr>
+                <td colspan="2">Screen</td>
+              </tr>
+              <tr>
+                <td class="label-td">Biaya Screem</td>
+                <td>${data.ScreenCost | numberFormat:'0,0.000'}</td>
 
+              </tr>
+              <tr>
+                <td class="label-td">No. Document</td>
+                <td>${data.ScreenDocumentNo}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="col-md-4">
 
@@ -161,24 +175,24 @@
                 <td colspan="2">${totalMachinesAndGreige | numberFormat:'0,0.0000'}</td>
               </tr>
               <tr>
-                <td class="label-td">Total Upah</td>
-                <td>${salaryTotal | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Upah TKL</td>
+                <td>${directLaborWage | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
-                <td class="label-td">Komisi (%)</td>
-                <td>${data.Comission | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Gaji TKTL</td>
+                <td>${indirectLaborWage | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
-                <td class="label-td">OTL 1</td>
-                <td>${data.OTL1 | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Biaya Umum & Administrasi</td>
+                <td>${data.GeneralAdministrationCost | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
-                <td class="label-td">OTL 2</td>
-                <td>${data.OTL2 | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Biaya Dir & Kantor Panin</td>
+                <td>${data.DirectorOfficeCost | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
-                <td class="label-td">Biaya Angkut</td>
-                <td>${data.FreightCost | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Biaya Bank & Lain-Lain</td>
+                <td>${data.BankMiscCost | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
                 <td class="label-td">Sub Total</td>
@@ -242,12 +256,12 @@
           <table class="table table-bordered small-column-table">
             <tbody>
               <tr>
-                <td class="label-td">Biaya Kargo</td>
-                <td colspan="2">${data.CargoCost| numberFormat:'0,0.000'}</td>
+                <td class="label-td">Biaya Angkut</td>
+                <td colspan="2">${data.FreightCost| numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
-                <td class="label-td">Asuransi</td>
-                <td>${data.InsuranceCost | numberFormat:'0,0.000'}</td>
+                <td class="label-td">Embalase</td>
+                <td>${data.Embalase | numberFormat:'0,0.000'}</td>
 
               </tr>
               <tr>

@@ -60,7 +60,15 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.OrderQuantity = this.formatNumber(this.data.OrderQuantity, 2);
+    this.data.OrderQuantity = this.formatNumber(this.data.PreSalesContract.OrderQuantity, 2);
+    this.data.ManufacturingServiceCost = this.formatNumber(this.data.ManufacturingServiceCost, 2);
+    this.data.HelperMaterial = this.formatNumber(this.data.HelperMaterial, 2);
+    this.data.MiscMaterial = this.formatNumber(this.data.MiscMaterial, 2);
+    this.data.Lubricant = this.formatNumber(this.data.Lubricant, 2);
+    this.data.SparePart = this.formatNumber(this.data.SparePart, 2);
+    this.data.StructureMaintenance = this.formatNumber(this.data.StructureMaintenance, 2);
+    this.data.MachineMaintenance = this.formatNumber(this.data.MachineMaintenance, 2);
+    this.data.ConfirmPrice = this.formatNumber(this.data.ConfirmPrice, 2);
     this.isPosted = this.data.IsPosted;
     this.salesText = `${this.data.Sales.profile.firstname} - ${this.data.Sales.profile.lastname}`;
     var totalDetailAll = 0;
@@ -82,14 +90,12 @@ export class View {
 
     var directLaborDate = new Date(this.data.Date);
     this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
-    if (this.data.TKLQuantity > 0) {
-      this.salaryTotal = this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
-    } else {
-      this.salaryTotal = 0;
-    }
-    this.subTotal = this.salaryTotal + this.data.OTL1 + this.data.OTL2 + this.data.FreightCost;
+    this.directLaborWage = this.directLaborData.WageTotal;
+    this.indirectLaborWage = 0;
+    this.subTotal = this.directLaborWage + this.indirectLaborWage + this.data.GeneralAdministrationCost + this.data.DirectorOfficeCost + this.data.BankMiscCost;
+
     this.totalConfirmPrice = this.totalMachinesAndGreige + this.subTotal;
-    this.finalConfirmPrice = this.totalConfirmPrice + this.data.CargoCost + this.data.InsuranceCost;
+    this.finalConfirmPrice = this.totalConfirmPrice + this.data.FreightCost + this.data.Embalase;
   }
   async bind(context) {
     this.context = context;
@@ -111,37 +117,6 @@ export class View {
     this.router.navigateToRoute("list");
   }
 
-  // cancelCallback(event) {
-  //   this.list();
-  // }
-
-  // editCallback(event) {
-  //   if (!this.data.IsPosted) {
-
-  //     this.router.navigateToRoute("edit", { id: this.data.Id });
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  // deleteCallback(event) {
-
-  //   if (!this.data.IsPosted) {
-  //     this.service
-  //       .delete(this.data)
-  //       .then(result => {
-  //         this.list();
-  //       })
-  //       .catch(e => {
-  //         this.dialog.alert(e, "Hapus Cost Calculation");
-  //       });
-  //   } else {
-  //     return false;
-  //   }
-
-  // }
-
-
   edit(data) {
     this.router.navigateToRoute('edit', { id: this.data.Id });
   }
@@ -157,7 +132,7 @@ export class View {
       });
   }
 
-  formatNumber(input, decimalPlaces){
+  formatNumber(input, decimalPlaces) {
     return (input).toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
   }
 }
