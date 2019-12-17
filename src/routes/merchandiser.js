@@ -1,7 +1,7 @@
 module.exports = [
     {
-        route: '/merchandiser/garment-pre-sales-contract',
-        name: 'garment-pre-sales-contract',
+        route: '/merchandiser/garment-pre-sales-contract-by-user',
+        name: 'garment-pre-sales-contract-by-user',
         moduleId: './modules/merchandiser/garment-pre-sales-contract/index',
         nav: true,
         title: 'Pre Sales Contract - Garment',
@@ -10,21 +10,21 @@ module.exports = [
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
-            byUser: false
+            byUser: true
         }
     },
     {
-        route: '/merchandiser/garment-pre-sales-contract-by-user',
-        name: 'garment-pre-sales-contract-by-user',
+        route: '/merchandiser/garment-pre-sales-contract',
+        name: 'garment-pre-sales-contract',
         moduleId: './modules/merchandiser/garment-pre-sales-contract/index',
         nav: true,
-        title: 'Pre Sales Contract - Garment (Per User)',
+        title: 'Pre Sales Contract - Garment (Semua User)',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
-            byUser: true
+            byUser: false
         }
     },
     {
@@ -83,8 +83,8 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/cost-calculation',
-        name: 'cost-calculation',
+        route: '/merchandiser/cost-calculation-by-user',
+        name: 'cost-calculation-by-user',
         moduleId: './modules/merchandiser/cost-calculation/index',
         nav: true,
         title: 'Cost Calculation Export Garment',
@@ -93,21 +93,21 @@ module.exports = [
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
-            byUser: false
+            byUser: true
         }
     },
     {
-        route: '/merchandiser/cost-calculation-by-user',
-        name: 'cost-calculation-by-user',
+        route: '/merchandiser/cost-calculation',
+        name: 'cost-calculation',
         moduleId: './modules/merchandiser/cost-calculation/index',
         nav: true,
-        title: 'Cost Calculation Export Garment (Per User)',
+        title: 'Cost Calculation Export Garment (Semua User)',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
-            byUser: true
+            byUser: false
         }
     },
     {
@@ -179,25 +179,11 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/garment-sales-contract',
-        name: 'garment-sales-contract',
-        moduleId: './modules/merchandiser/garment-sales-contract/index',
-        nav: true,
-        title: 'Sales Contract Per RO',
-        auth: true,
-        settings: {
-            group: "merchandiser",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-calculator',
-            byUser: false
-        }
-    },
-    {
         route: '/merchandiser/garment-sales-contract-by-user',
         name: 'garment-sales-contract-by-user',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
-        title: 'Sales Contract Per RO (Per User)',
+        title: 'Sales Contract Per RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -207,11 +193,11 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/ro-garment',
-        name: 'ro-garment',
-        moduleId: './modules/merchandiser/ro-garment/index',
+        route: '/merchandiser/garment-sales-contract',
+        name: 'garment-sales-contract',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
-        title: 'RO Export Garment',
+        title: 'Sales Contract Per RO (Semua User)',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -225,13 +211,27 @@ module.exports = [
         name: 'ro-garment-by-user',
         moduleId: './modules/merchandiser/ro-garment/index',
         nav: true,
-        title: 'RO Export Garment (Per User)',
+        title: 'RO Export Garment',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             byUser: true
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment',
+        name: 'ro-garment',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Export Garment (Semua User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: false
         }
     },
     {
