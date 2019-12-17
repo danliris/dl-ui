@@ -65,9 +65,9 @@
           <textbox label="Reed Space" read-only.bind="readOnlyAll"></textbox>
         </div>
         <div class="col-md-2">
-          <au-textbox placeholder="Reed Space" value.bind="data.ReedSpace" error.bind="error.ReedSpace"
+          <au-numeric value.bind="data.ReedSpace" error.bind="error.ReedSpace"
             read-only.bind="readOnly">
-          </au-textbox>
+          </au-numeric>
         </div>
       </div>
 
@@ -76,9 +76,9 @@
           <textbox label="Jumlah Helai Benang" read-only.bind="readOnlyAll"></textbox>
         </div>
         <div class="col-md-2">
-          <au-textbox placeholder="Helai Benang" value.bind="data.TotalEnds" error.bind="error.TotalEnds"
+          <au-numeric value.bind="data.TotalEnds" error.bind="error.TotalEnds"
             read-only.bind="readOnly">
-          </au-textbox>
+          </au-numeric>
         </div>
       </div>
 
@@ -96,15 +96,13 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <au-collection items.bind="ItemsWarp" errors.bind="error.ItemsWarp" columns.bind="warpColumns"
-              add.bind="addItemsWarp" options.bind="ItemsWarpOptions" remove.bind="onremove"
-              checkall.delegate="onCheckWarp($event)" read-only.bind="readOnly"
+              add.bind="addItemsWarp" options.bind="ItemsWarpOptions" remove.bind="onremove"read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-warp">
             </au-collection>
           </div>
           <div class="col-md-6">
             <au-collection items.bind="ItemsWeft" errors.bind="error.ItemsWeft" columns.bind="weftColumns"
-              add.bind="addItemsWeft" options.bind="ItemsWeftOptions" remove.bind="onremove"
-              checkall.delegate="onCheckWeft($event)" read-only.bind="readOnly"
+              add.bind="addItemsWeft" options.bind="ItemsWeftOptions" remove.bind="onremove"read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-weft">
             </au-collection>
           </div>
