@@ -29,6 +29,7 @@ export class DataForm {
   @bindable date;
   @bindable directLaborWage;
   @bindable indirectLaborWage;
+  @bindable orderQuantity;
 
   formOptions = {
     cancelText: "Kembali",
@@ -169,7 +170,8 @@ export class DataForm {
       this.data.PreSalesContract = this.selectedSalesContract;
       this.data.Unit = this.selectedSalesContract.Unit.Name;
       this.data.Buyer = this.selectedSalesContract.Buyer.Name;
-      this.data.OrderQuantity = this.selectedSalesContract.OrderQuantity;
+      this.orderQuantity = this.selectedSalesContract.OrderQuantity;
+      console.log(this.orderQuantity)
     }
     else {
       this.data = {};

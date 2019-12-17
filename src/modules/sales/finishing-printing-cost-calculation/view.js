@@ -1,4 +1,4 @@
-import { inject, Lazy } from "aurelia-framework";
+import { inject, Lazy, computedFrom } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service, ProductionService } from "./service";
 import { Dialog } from "../../../au-components/dialog/dialog";
@@ -134,5 +134,10 @@ export class View {
 
   formatNumber(input, decimalPlaces) {
     return (input).toFixed(decimalPlaces).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
+  }
+
+  @computedFrom("data.PreSalesContract.Unit.Name")
+  get isPrinting() {
+    return (this.data.PreSalesContract.Unit.Name && this.data.PreSalesContract.Unit.Name.toUpperCase() == "PRINTING");
   }
 }
