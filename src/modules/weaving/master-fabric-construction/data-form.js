@@ -1,10 +1,15 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable onCreated;
   @bindable Yarn;
+  @bindable MaterialTypeName;
   @bindable ItemsWarp;
   @bindable ItemsWeft;
   readOnlyAll = "true";
@@ -21,19 +26,40 @@ export class DataForm {
   }
 
   //Collections Columns
-  warpColumns = [
-    { value: "__check" },
-    { header: "Kode Lusi", value: "warpType.Code" },
-    { header: "Benang Lusi", value: "warpType" },
-    { header: "Qty(Gram/Meter)", value: "warp.Quantity" },
-    { header: "Keterangan", value: "warp.Information" }
+  warpColumns = [{
+      header: "Kode Lusi",
+      value: "warpType.Code"
+    },
+    {
+      header: "Benang Lusi",
+      value: "warpType"
+    },
+    {
+      header: "Qty(Gram/Meter)",
+      value: "warp.Quantity"
+    },
+    {
+      header: "Keterangan",
+      value: "warp.Information"
+    }
   ];
-  weftColumns = [
-    { value: "__check" },
-    { header: "Kode Pakan", value: "weftType.Code" },
-    { header: "Benang Pakan", value: "weftType" },
-    { header: "Qty(Gram/Meter)", value: "weft.Quantity" },
-    { header: "Keterangan", value: "weft.Information" }
+
+  weftColumns = [{
+      header: "Kode Pakan",
+      value: "weftType.Code"
+    },
+    {
+      header: "Benang Pakan",
+      value: "weftType"
+    },
+    {
+      header: "Qty(Gram/Meter)",
+      value: "weft.Quantity"
+    },
+    {
+      header: "Keterangan",
+      value: "weft.Information"
+    }
   ];
 
   bind(context) {
@@ -42,49 +68,9 @@ export class DataForm {
     this.error = this.context.error;
 
     if (this.data.Id) {
+      this.MaterialTypeName = this.data.MaterialTypeName;
       this.ItemsWarp = this.data.ItemsWarp;
       this.ItemsWeft = this.data.ItemsWeft;
-
-      this.ItemsWarp.forEach(item => {
-        item["Select"] = true;
-      });
-
-      this.ItemsWeft.forEach(item => {
-        item["Select"] = true;
-      });
-    }
-
-    if (this.readOnly) {
-      //Collections Columns on readOnly state
-      this.warpColumns = [
-        { header: "Kode Lusi", value: "warpType.Code" },
-        { header: "Benang Lusi", value: "warpType" },
-        { header: "Qty(Gram/Meter)", value: "warp.Quantity" },
-        { header: "Keterangan", value: "warp.Information" }
-      ];
-
-      this.weftColumns = [
-        { header: "Kode Pakan", value: "weftType.Code" },
-        { header: "Benang Pakan", value: "weftType" },
-        { header: "Qty(Gram/Meter)", value: "weft.Quantity" },
-        { header: "Keterangan", value: "weft.Information" }
-      ];
-    } else {
-      this.warpColumns = [
-        { value: "__check" },
-        { header: "Kode Lusi", value: "warpType.Code" },
-        { header: "Benang Lusi", value: "warpType" },
-        { header: "Qty(Gram/Meter)", value: "warp.Quantity" },
-        { header: "Keterangan", value: "warp.Information" }
-      ];
-
-      this.weftColumns = [
-        { value: "__check" },
-        { header: "Kode Pakan", value: "weftType.Code" },
-        { header: "Benang Pakan", value: "weftType" },
-        { header: "Qty(Gram/Meter)", value: "weft.Quantity" },
-        { header: "Keterangan", value: "weft.Information" }
-      ];
     }
 
     this.cancelCallback = this.context.cancelCallback;
@@ -107,84 +93,14 @@ export class DataForm {
     };
   }
 
-  // Triggered when "check" on Warp Collections checked
-  onCheckWarp(event) {
-    for (var item of this.ItemsWarp) {
-      item.Select = event.detail.target.checked;
-    }
-  }
-
-  // Triggered when "check" on Weft Collections checked
-  onCheckWeft(event) {
-    for (var item of this.ItemsWeft) {
-      item.Select = event.detail.target.checked;
-    }
-  }
-
-  get MaterialTypeName() {
-    let warpNames = [];
-    let weftNames = [];
-    let weftCompareName = [];
-    var result = "";
-
-    if (this.ItemsWarp) {
-      if (this.ItemsWarp.length > 0) {
-        this.ItemsWarp.forEach(item => {
-          if (item.Select) {
-            if (item.Yarn) {
-              if (warpNames.indexOf(item.Yarn.Name) < 0) {
-                warpNames.push(item.Yarn.Name);
-              }
-            }
-          }
-        });
-      }
-    }
-
-    if (this.ItemsWeft) {
-      if (this.ItemsWeft.length > 0) {
-        this.ItemsWeft.forEach(item => {
-          if (item.Select) {
-            if (item.Yarn) {
-              if (weftNames.indexOf(item.Yarn.Name) < 0) {
-                weftNames.push(item.Yarn.Name);
-              }
-            }
-          }
-        });
-      }
-    }
-
-    warpNames.forEach(name => {
-      if (result == "") {
-        result = name;
-      } else {
-        result = result + " " + name;
-      }
-    });
-
-    weftNames.forEach(name => {
-      warpNames.forEach(warpName => {
-        if (name != warpName) {
-          weftCompareName.push(name);
-        }
-      });
-    });
-
-    if (weftCompareName.length > 0) {
-      weftCompareName.forEach(name => {
-        result = result + " " + name;
-      });
-    }
-
-    this.data.MaterialTypeName = result;
-    return result;
+  MaterialTypeNameChanged(newValue) {
+    this.data.MaterialTypeName = newValue;
   }
 
   //Concatenated some properties for create ConstructionNumber on Form
   get ConstructionNumber() {
     var result = "";
-    var Name = this.MaterialTypeName ? this.MaterialTypeName : "";
+    var Name = this.data.MaterialTypeName ? this.data.MaterialTypeName : "";
     var Woven = this.data.WovenType ? this.data.WovenType : "";
     var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
     var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
@@ -227,10 +143,8 @@ export class DataForm {
     if (this.ItemsWarp) {
       if (this.ItemsWarp.length > 0) {
         for (let detail of this.ItemsWarp) {
-          if (detail.Select) {
-            if (detail.Yarn) {
-              result = result + detail.Yarn.Code;
-            }
+          if (detail.Yarn) {
+            result = result + detail.Yarn.Code;
           }
         }
       }
@@ -248,12 +162,8 @@ export class DataForm {
     if (this.ItemsWeft) {
       if (this.ItemsWeft.length > 0) {
         for (let detail of this.ItemsWeft) {
-          if (detail.Select) {
-            if (detail.Yarn) {
-              result = result + detail.Yarn.Code;
-            }
-          } else {
-            result = "";
+          if (detail.Yarn) {
+            result = result + detail.Yarn.Code;
           }
         }
       }
@@ -271,10 +181,8 @@ export class DataForm {
       if (this.ItemsWarp.length > 0) {
         this.data.ItemsWarp = [];
         for (let detail of this.ItemsWarp) {
-          if (detail.Select) {
-            if (detail.YarnId && detail.Quantity != 0) {
-              this.data.ItemsWarp.push(this.constructionDetail(detail));
-            }
+          if (detail.YarnId && detail.Quantity != 0) {
+            this.data.ItemsWarp.push(this.constructionDetail(detail));
             result += detail.Quantity;
           } else {
             var ItemWarpsIndex = this.data.ItemsWarp.indexOf(detail);
@@ -286,10 +194,8 @@ export class DataForm {
       if (this.ItemsWeft.length > 0) {
         this.data.ItemsWeft = [];
         for (let detail of this.ItemsWeft) {
-          if (detail.Select) {
-            if (detail.YarnId && detail.Quantity != 0) {
-              this.data.ItemsWeft.push(this.constructionDetail(detail));
-            }
+          if (detail.YarnId && detail.Quantity != 0) {
+            this.data.ItemsWeft.push(this.constructionDetail(detail));
             result += detail.Quantity;
           } else {
             var ItemWeftsIndex = this.data.ItemsWeft.indexOf(detail);

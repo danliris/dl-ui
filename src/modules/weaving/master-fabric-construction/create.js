@@ -19,10 +19,6 @@ export class Create {
     this.router.navigateToRoute("list");
   }
 
-  determineActivationStrategy() {
-    return activationStrategy.replace;
-  }
-
   //Tombol "Kembali", panggil list()
   cancelCallback(event) {
     this.list();
@@ -41,7 +37,6 @@ export class Create {
         errorIndex++;
       }
     }
-
     
     if (!this.data.TotalEnds) {
       this.data.TotalEnds = 0;
