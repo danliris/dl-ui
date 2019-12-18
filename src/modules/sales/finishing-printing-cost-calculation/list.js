@@ -18,7 +18,7 @@ export class List {
         { field: "PreSalesContract.No", title: "Nomor Sales Contract" },
         { field: "ProductionOrderNo", title: "Nomor SPP" },
         { field: "PreSalesContract.Unit.Name", title: "Unit" },
-        { field: "OrderQuantity", title: "Kuantitas" },
+        { field: "PreSalesContract.OrderQuantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" },
         { field: "IsApprovedMD", title: "Approval MD" },
         { field: "IsApprovedPPIC", title: "Approval PPIC" },

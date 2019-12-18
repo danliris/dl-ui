@@ -21,17 +21,15 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable selectedSalesContract;
-  @bindable buyer;
-  @bindable color;
   @bindable selectedInstruction;
-  @bindable orderQuantityWithUOM;
-  @bindable directLaborTotal;
   @bindable selectedGreige;
-  @bindable tklQuantity;
-  @bindable salaryTotal;
   @bindable selectedUOM;
   @bindable selectedMaterial;
   @bindable selectedSales;
+  @bindable date;
+  @bindable directLaborWage;
+  @bindable indirectLaborWage;
+  @bindable orderQuantity;
 
   formOptions = {
     cancelText: "Kembali",
@@ -68,7 +66,7 @@ export class DataForm {
     "Tags": "MATERIAL"
   }
   preSCQuery = {
-    "IsPosted" : true
+    "IsPosted": true
   }
   machines = {
     columns: [
@@ -122,10 +120,9 @@ export class DataForm {
       this.selectedGreige = this.data.Greige;
     }
 
-    if (this.data.TKLQuantity) {
-      this.tklQuantity = this.data.TKLQuantity;
+    if (this.data.Date) {
+      this.date = this.data.Date;
     }
-
   }
 
   get materialLoader() {
@@ -156,12 +153,25 @@ export class DataForm {
     return `${data.profile.firstname} - ${data.profile.lastname}`
   }
 
+  async dateChanged(n, o) {
+    if (this.date) {
+
+      this.data.Date = this.date;
+      var directLaborDate = new Date(this.data.Date);
+      this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
+      this.directLaborWage = this.directLaborData.WageTotal;
+    } else {
+      this.directLaborWage = 0;
+    }
+  }
+
   selectedSalesContractChanged(newValue, oldValue) {
     if (newValue) {
       this.data.PreSalesContract = this.selectedSalesContract;
       this.data.Unit = this.selectedSalesContract.Unit.Name;
       this.data.Buyer = this.selectedSalesContract.Buyer.Name;
-      this.data.OrderQuantity = this.selectedSalesContract.OrderQuantity;
+      this.orderQuantity = this.selectedSalesContract.OrderQuantity;
+      console.log(this.orderQuantity)
     }
     else {
       this.data = {};
@@ -187,28 +197,6 @@ export class DataForm {
       this.data.Sales = this.selectedSales;
     }
   }
-
-  directLaborTotalChanged(n, o) {
-    if (this.directLaborTotal) {
-      this.data.DirectLaborTotal = this.directLaborTotal;
-      // this.data.SalaryTotal = this.data.DirectLaborTotal * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
-    }
-  }
-
-  async tklQuantityChanged(n, o) {
-    if (this.tklQuantity) {
-      var directLaborDate = new Date(this.data.Date);
-      this.directLaborData = await this.productionService.getDirectLaborCost(directLaborDate.getMonth() + 1, directLaborDate.getFullYear());
-      this.data.TKLQuantity = this.tklQuantity;
-      if (this.data.TKLQuantity > 0) {
-        this.salaryTotal = this.data.TKLQuantity * (this.directLaborData.WageTotal / this.directLaborData.LaborTotal);
-      } else {
-        this.salaryTotal = 0;
-      }
-      // this.data.SalaryTotal = this.salaryTotal;
-    }
-  }
-
 
   selectedInstructionChanged(newValue, oldValue) {
     if (newValue) {
@@ -241,6 +229,11 @@ export class DataForm {
   @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || 0) != 0;
+  }
+
+  @computedFrom("data.Unit")
+  get isPrinting() {
+    return (this.data.Unit && this.data.Unit.toUpperCase() == "PRINTING");
   }
 
   @computedFrom("error.Machines")
