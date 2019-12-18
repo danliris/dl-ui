@@ -13,7 +13,7 @@ export class List {
     context = ["Rincian"];
 
     columns = [
-        { field: "DRNo", title: "No Bukti Pengantar" },
+        { field: "DRNo", title: "No Retur Proses" },
         { field: "UnitDONo", title: "No Unit DO" },
         {
             field: "ReturnDate", title: "Tgl Retur", formatter: function (value, data, index) {

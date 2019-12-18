@@ -30,7 +30,7 @@ module.exports = [
         name: 'garment-production-delivery-return',
         moduleId: './modules/garment-production/delivery-return/index',
         nav: true,
-        title: 'Bukti Pengantar',
+        title: 'Retur Proses',
         auth: true,
         settings: {
             group: "g-production",
