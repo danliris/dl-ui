@@ -17,14 +17,14 @@ export class View {
   }
 
   async activate(params) {
-    //   var Id = params.Id;
-    //   this.data = await this.service.getById(Id);
-    this.data = {
-      Id: 1,
-      WarpingBrokenCauseName: "Benang Tipis",
-      Information: "Test 1",
-      WarpingBrokenCauseCategory: "Umum"
-    };
+    var Id = params.Id;
+    this.data = await this.service.getById(Id);
+    // this.data = {
+    //   Id: 1,
+    //   WarpingBrokenCauseName: "Benang Tipis",
+    //   Information: "Test 1",
+    //   WarpingBrokenCauseCategory: "Umum"
+    // };
   }
 
   list() {
