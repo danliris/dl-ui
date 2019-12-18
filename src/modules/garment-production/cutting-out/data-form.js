@@ -14,6 +14,9 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedCuttingIn;
     @bindable itemOptions = {};
+    @bindable selectedCuttingIn;
+    @bindable selectedUnit;
+    @bindable selectedUnitFrom;
 
     constructor(service, salesService, coreService) {
         this.service = service;
@@ -151,5 +154,39 @@ export class DataForm {
                 this.data.Items.splice(0);
             }
         }
+    }
+
+    selectedUnitChanged(newValue){
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.Items.splice(0);
+        }
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.Items.splice(0);
+    }
+
+    selectedUnitFromChanged(newValue){
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.UnitFrom=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.Items.splice(0);
+        }
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.Items.splice(0);
     }
 }
