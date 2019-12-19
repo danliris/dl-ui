@@ -4,6 +4,7 @@ import { debug } from 'util';
 
 var moment = require('moment');
 var ROLoader = require('../../../loader/preparing-distinct-loader');
+const UnitLoader = require('../../../loader/garment-units-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -17,6 +18,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable roNo;
+    @bindable selectedUnit;
 
     formOptions = {
         cancelText: "Kembali",
@@ -40,6 +42,25 @@ export class DataForm {
         
     }
 
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    @computedFrom("data.Unit")
+    get filter(){
+        var filter={};
+        if(this.data.Unit){
+            filter={
+                UnitId: this.data.Unit.Id
+            }
+        }
+        return filter;
+    }
+
     bind(context) {
         this.context = context;
         this.dataView = this.context.data;
@@ -52,13 +73,27 @@ export class DataForm {
         }
     }
 
+    selectedUnitChanged(newValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Unit=null;
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Unit=null;
+        }
+    }
+
     async roNoChanged(newValue){
         var selectedPreparing = newValue;
         if(selectedPreparing && this.options.isCreate){
             this.data.Items.splice(0);
             this.data.RONo = selectedPreparing.RONo;
             this.data.Article = selectedPreparing.Article;
-            var filterPreparing = {"RONo": selectedPreparing.RONo}
+            var filterPreparing = {"RONo": selectedPreparing.RONo, "UnitId": this.data.Unit.Id}
             var info = {filter : JSON.stringify(filterPreparing), size: 2147483647}
             var dataForItem = await this.service.getPreparing(info);
             for(var dataHeader of dataForItem.data){
@@ -72,7 +107,8 @@ export class DataForm {
                             Quantity : item.RemainingQuantity,
                             Uom : item.Uom,
                             IsSave : false,
-                            BasicPrice: item.BasicPrice
+                            BasicPrice: item.BasicPrice,
+                            PreparingQuantity: item.RemainingQuantity,
                         };
                         this.data.Items.push(items); 
                     }

@@ -186,6 +186,23 @@ module.exports = [{
     }
   },
   {
+    route: "weaving/master-broken-cause-warping",
+    name: "master-broken-cause-warping",
+    moduleId: "./modules/weaving/master-broken-cause-warping/index",
+    nav: true,
+    title: "Master Penyebab Putus Warping",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/order-production",
     name: "order-production",
     moduleId: "./modules/weaving/order-production/index",
@@ -446,6 +463,23 @@ module.exports = [{
     moduleId: "./modules/weaving/production-results/index",
     nav: true,
     title: "Hasil Produksi",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/production-results-report",
+    name: "production-results-report",
+    moduleId: "./modules/weaving/production-results-report/index",
+    nav: true,
+    title: "Laporan Hasil Produksi",
     auth: true,
     settings: {
       group: "weaving",

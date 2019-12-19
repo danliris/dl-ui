@@ -6,12 +6,13 @@ import {
 import {
   Service
 } from "../service";
-var SizingBeamByOrderLoader = require("../../../../loader/weaving-sizing-beam-by-order-loader");
+var BeamByOrderLoader = require("../../../../loader/weaving-reaching-beam-by-order-loader");
 var MachineLoader = require("../../../../loader/weaving-machine-loader");
 var OperatorLoader = require("../../../../loader/weaving-operator-loader");
 
 @inject(BindingEngine, Service)
 export class BeamsSizingPost {
+  @bindable BeamOrigin
   @bindable BeamDocument
   @bindable MachineDocument
   @bindable OperatorDocument
@@ -20,12 +21,15 @@ export class BeamsSizingPost {
   constructor(bindingEngine, service) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.combReadOnly = true;
   }
+
+  beamOrigins = ["", "Reaching", "Tying"];
 
   process = ["", "Normal", "Reproses"];
 
   get beams() {
-    return SizingBeamByOrderLoader;
+    return BeamByOrderLoader;
   }
 
   get machines() {
@@ -38,13 +42,20 @@ export class BeamsSizingPost {
 
   BeamDocumentChanged(newValue) {
     this.data.BeamDocument = newValue;
+    
+    if (newValue.CombNumber || newValue.CombNumber != null || newValue.CombNumber != undefined || newValue.CombNumber != 0) {
+      this.data.CombNumber = newValue.CombNumber;
+      this.combReadOnly = true;
+    } else {
+      this.combReadOnly = false;
+    }
   }
 
-  MachineDocumentChanged(newValue){
+  MachineDocumentChanged(newValue) {
     this.data.MachineDocument = newValue;
   }
 
-  OperatorDocumentChanged(newValue){
+  OperatorDocumentChanged(newValue) {
     this.data.OperatorDocument = newValue;
   }
 

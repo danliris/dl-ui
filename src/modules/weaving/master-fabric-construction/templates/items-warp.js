@@ -20,8 +20,9 @@ export class ItemsWarp {
     this.data = context.data;
     this.error = context.error;
 
+    this.Quantity = this.data.Quantity;
+    this.Information = this.data.Information;
     if (this.data.Yarn) {
-
       var retrieveValue = this.data.Yarn;
       this.data.YarnId = retrieveValue.Id;
       this.Yarn = retrieveValue;
@@ -33,8 +34,7 @@ export class ItemsWarp {
   }
 
   // Change on Kode Lusi, affected when Benang Lusi change
-  async YarnChanged(newValue) {
-    
+  async YarnChanged(newValue) {    
     if (newValue) {
       this.data.Yarn = newValue;
 

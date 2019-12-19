@@ -25,11 +25,10 @@
 
         <au-dropdown 
             label="Jenis Bon Terima Unit" 
-            value.bind="data.URNType" 
+            value.bind="URNType" 
             error.bind="error.URNType" 
             read-only.bind="readOnly || isEdit"
             items.bind="typeOptions"
-            change.delegate="URNTypeChanged($event)"
             options.bind="auInputOptions">
         </au-dropdown>
 
@@ -44,7 +43,7 @@
 
         <au-autocomplete 
             value.bind="deliveryReturn"
-            label="No Bukti Pengantar" 
+            label="No Retur Proses" 
             loader.bind="deliveryReturnLoader" 
             read-only.bind="readOnly || isEdit"
             error.bind="error.DeliveryReturn"
@@ -111,6 +110,25 @@
             if.bind="data.Article"
             read-only.bind="true"
             if.bind="isProcess"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-autocomplete 
+            value.bind="data.UnitFrom"
+            label="Unit Asal" 
+            loader.bind="unitLoader" 
+            text.bind="unitView"
+            if.bind="data.UnitFrom"
+            read-only.bind="true"
+            options.bind="auInputOptions">
+        </au-autocomplete>
+        
+        <au-textbox 
+            label="Gudang Asal" 
+            value.bind="data.StorageFrom.name" 
+            error.bind="error.Storage" 
+            if.bind="data.StorageFrom"
+            read-only.bind="true"
             options.bind="auInputOptions">
         </au-textbox>
 

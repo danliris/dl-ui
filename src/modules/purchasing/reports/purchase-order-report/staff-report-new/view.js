@@ -45,6 +45,10 @@ var divisiId = params.info.divisi;
 
              
               for (var sel of data) {
+                sel.tgltarget = sel.tgltarget.substring(0,10)
+                sel.tgldatang = sel.tgldatang.substring(0,10)
+                sel.tglpoint = sel.tglpoint.substring(0,10)
+                sel.tglpoeks = sel.tglpoeks.substring(0,10)
                   divname=sel.divisi;
                  if (sel.selisih > 0)
                      nilais=1;

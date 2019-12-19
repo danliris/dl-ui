@@ -11,7 +11,7 @@ const URNServiceUri = 'garment-unit-receipt-notes';
 const unitDOServiceUri= 'garment-unit-delivery-orders';
 
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "purchasing-azure");
@@ -61,4 +61,22 @@ export class Service extends RestService {
         var endpoint = `${unitDOServiceUri}/${id}`;
         return super.get(endpoint);
     }
+
+    searchUnitDO(info) {
+        var endpoint = `${unitDOServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
+
+const resource = 'delivery-returns';
+class ProductionService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "garment-production");
+    }
+    getGarmentDR(info) {
+        var endpoint = `${resource}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service,ProductionService }

@@ -18,6 +18,7 @@ export class DataForm {
     @bindable deliveryOrder;
     @bindable storage;
     @bindable deliveryReturn;
+    @bindable URNType;
 
     typeOptions = ['PEMBELIAN','PROSES'];
 
@@ -162,6 +163,8 @@ export class DataForm {
 
     async deliveryReturnChanged(newValue, oldValue){
         var selectedDR=newValue;
+        this.data.UnitFrom=null;
+        this.data.StorageFrom=null;
         if(selectedDR){
             this.data.ReturnDate=selectedDR.ReturnDate;
             this.data.Unit=selectedDR.Unit;
@@ -183,6 +186,13 @@ export class DataForm {
            // this.data.Items=[];
             var DRItems=[];
             var UnitDO= await this.service.getUnitDOById(selectedDR.UnitDOId);
+            console.log(UnitDO);
+            var OldUnitDO={};
+            if(UnitDO.UnitDOFromId){
+                OldUnitDO=await this.service.getUnitDOById(UnitDO.UnitDOFromId);
+                this.data.UnitFrom=OldUnitDO.UnitSender;
+                this.data.StorageFrom=OldUnitDO.Storage;
+            }
             
             for(var dritem of selectedDR.Items ){
                 var dup= UnitDO.Items.find(a=>a.Id==dritem.UnitDOItemId);
@@ -218,6 +228,7 @@ export class DataForm {
                         DRItem.ReceiptQuantity=DRItem.SmallQuantity/DRItem.Conversion;
                         DRItem.ReceiptCorrection=DRItem.SmallQuantity/DRItem.Conversion;
                         DRItem.OrderQuantity=0;
+                        DRItem.DOCurrencyRate=dup.DOCurrency.Rate;
                         DRItems.push(DRItem)
                     }
                 }
@@ -225,7 +236,7 @@ export class DataForm {
             this.data.DRItems=DRItems;
         }
         else{
-            this.isProcess=true;
+            
             this.deliveryOrder=null;
             this.unit=null;
             this.storage=null;
@@ -239,11 +250,13 @@ export class DataForm {
             this.data.Article="";
             this.data.RONo="";
             this.supplier=null;
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
         }
     }
 
-    URNTypeChanged(e){
-        this.data.URNType=e.srcElement.value;
+    URNTypeChanged(newValue){
+        this.data.URNType=newValue;
         if(this.data.URNType=="PROSES"){
             this.isProcess=true;
             this.deliveryOrder=null;
@@ -259,6 +272,8 @@ export class DataForm {
             this.data.Article="";
             this.data.RONo="";
             this.supplier=null;
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
         }
         else{
             this.isProcess=false;
@@ -278,6 +293,8 @@ export class DataForm {
             this.data.DRNo="";
             this.data.Article="";
             this.data.RONo="";
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
         }
     }
 

@@ -236,19 +236,6 @@ module.exports = [
         }
     },
     {
-        route: 'production/finishing-printing/do-sales',
-        name: 'do-sales',
-        moduleId: './modules/production/finishing-printing/do-sales/index',
-        nav: true,
-        title: 'DO Penjualan',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'production/finishing-printing/reports/packing-report',
         name: 'packing-report',
         moduleId: './modules/production/finishing-printing/reports/packing-report/index',
@@ -431,20 +418,20 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },
-    {
-        route: 'production/finishing-printing/cost-calculation',
-        name: 'cost-calculation',
-        moduleId: './modules/production/finishing-printing/cost-calculation/index',
-        nav: true,
-        title: 'Cost Calculation Dyeing Printing',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
     }
+    // {
+    //     route: 'production/finishing-printing/cost-calculation',
+    //     name: 'cost-calculation',
+    //     moduleId: './modules/production/finishing-printing/cost-calculation/index',
+    //     nav: true,
+    //     title: 'Cost Calculation Dyeing Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // }
     // {
     //     route: 'production/finishing-printing/operational-cost',
     //     name: 'operational-cost',

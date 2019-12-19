@@ -1,14 +1,16 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import { PurchaseRequestService } from './service';
 import { Dialog } from "../../../au-components/dialog/dialog";
 import numeral from "numeral";
 numeral.defaultFormat("0,0.00");
 const US = "US$. ";
 const RP = "Rp. ";
 import { AuthService } from "aurelia-authentication";
+import moment from 'moment';
 
-@inject(Router, Service, Dialog, AuthService)
+@inject(Router, Service, PurchaseRequestService, Dialog, AuthService)
 export class View {
     readOnly = true;
     length4 = {
@@ -60,9 +62,30 @@ export class View {
         ]
     };
 
-    constructor(router, service, dialog, authService) {
+    activeTab = 0;
+
+    approval = {
+        columns: [
+            { header: "No.", value: "No" },
+            { header: "Seksi", value: "Section" },
+            { header: "No. PO", value: "PO_SerialNumber" },
+            { header: "Kode", value: "ProductCode" },
+            { header: "Item Barang", value: "ProductName" },
+            { header: "Deskripsi Barang", value: "Description" },
+            { header: "Qty", value: "BudgetQuantityString" },
+            { header: "Satuan", value: "UOMPriceUnit" },
+            { header: "Harga Satuan", value: "Price" },
+            { header: "Shipment", value: "DeliveryDate" },
+            { header: "Status", value: "Status" },
+        ],
+        data: {},
+        error: {}
+    }
+
+    constructor(router, service, purchaseRequestService, dialog, authService) {
         this.router = router;
         this.service = service;
+        this.purchaseRequestService = purchaseRequestService;
         this.dialog = dialog;
         this.authService = authService;
     }
@@ -84,6 +107,9 @@ export class View {
             case "ie":
                 this.type = "IE";
                 break;
+            case "kadivmd":
+                this.type = "KadivMD";
+                break;
             default: break;
         }
 
@@ -95,7 +121,50 @@ export class View {
         }
 
         var id = params.id;
-        this.data = await this.service.getById(id);
+
+        if (this.type !== "KadivMD") {
+            this.data = await this.service.getById(id);
+        } else {
+            this.data = await this.service.getByIdWithProductNames(id);
+
+            let productsInPRMaster = [];
+            if (this.data.PreSCId) {
+                const info = {
+                    select: JSON.stringify({ Id: 1, PRNo: 1, SCId: 1, SCNo: 1, "Items.ProductId": 1, "Items.ProductCode": 1 }),
+                    filter: JSON.stringify({ SCId: this.data.PreSCId, PRType: "MASTER" })
+                };
+                let purchaseRequest = await this.purchaseRequestService.getProducts(info);
+
+                if (purchaseRequest.data && purchaseRequest.data.length > 0) {
+                    productsInPRMaster = purchaseRequest.data.reduce(
+                        (acc, cur) => acc.concat(cur.Items.map(i => i.ProductCode))
+                        , []);
+                }
+            }
+
+            this.approval.data = Object.assign({}, this.data);
+
+            this.approval.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials.filter(mtr => {
+                let processOrNot = mtr.Category.name.toUpperCase() !== "PROCESS";
+                return true
+                    && mtr.IsPosted !== true
+                    && processOrNot
+            });
+
+            let no = 0;
+            this.approval.data.CostCalculationGarment_Materials.map(material => {
+                material.No = ++no;
+                material.Section = this.data.Section;
+                material.ProductCode = material.Product.Code;
+                material.ProductName = material.Product.Name;
+                material.UOMPriceUnit = material.UOMPrice.Unit;
+                material.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY");
+                material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
+                material.IsPRMaster = productsInPRMaster.indexOf(material.ProductCode) > -1;
+                material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
+            });
+        }
+
         this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
         this.data.AccessoriesAllowance = numeral(
             this.data.AccessoriesAllowance
@@ -173,6 +242,10 @@ export class View {
         this.data.LeadTime = `${this.data.LeadTime} hari`
         this.data.ConfirmPrice = (this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 }));
 
+        this.editCallback = this.approve;
+        if (this.activeTab === 1 && this.type === "KadivMD") {
+            this.editCallback = null;
+        }
     }
 
     async bind(context) {
@@ -187,21 +260,44 @@ export class View {
         this.list();
     }
 
-    editCallback(event) {
+    approve(event) {
         if (confirm("Approve Cost Calculation?")) {
-            const jsonPatch = [
-                { op: "replace", path: `/IsApproved${this.type}`, value: true },
-                { op: "replace", path: `/Approved${this.type}By`, value: this.me.username },
-                { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
-            ];
+            if (this.type !== "KadivMD") {
+                const jsonPatch = [
+                    { op: "replace", path: `/IsApproved${this.type}`, value: true },
+                    { op: "replace", path: `/Approved${this.type}By`, value: this.me.username },
+                    { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
+                ];
 
-            this.service.replace(this.data.Id, jsonPatch)
-                .then(result => {
-                    this.list();
-                })
-                .catch(e => {
-                    this.error = e;
-                })
+                this.service.replace(this.data.Id, jsonPatch)
+                    .then(result => {
+                        this.list();
+                    })
+                    .catch(e => {
+                        this.error = e;
+                    })
+            } else {
+                this.service.approve(this.approval.data)
+                    .then(result => {
+                        this.list();
+                    })
+                    .catch(e => {
+                        if (e.statusCode === 500) {
+                            alert("Gagal menyimpan, silakan coba lagi!");
+                            this.approval.error = JSON.parse(e.message);
+                        } else {
+                            this.approval.error = e;
+                        }
+                    });
+            }
+        }
+    }
+
+    changeRole(tab) {
+        this.activeTab = tab;
+        this.editCallback = this.approve;
+        if (tab === 1 && this.type === "KadivMD") {
+            this.editCallback = null;
         }
     }
 }

@@ -17,6 +17,10 @@ export class View {
             this.selectedCuttingIn = {
                 RONo: this.data.RONo
             };
+
+            this.selectedUnit=this.data.Unit;
+            this.selectedUnitFrom=this.data.UnitFrom;
+
             this.dataCutting = await this.service.getSewingDO(id);
             let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
             if (this.data.Items) {

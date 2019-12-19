@@ -1,8 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { activationStrategy } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class List {
     dataToBePosted = [];
     context = ["Rincian", "Cetak PDF"];
@@ -10,7 +12,7 @@ export class List {
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.IsPosted;
+                this.checkboxEnabled = !data.IsPosted && data.byUser;
                 return "";
             }
         },
@@ -20,12 +22,12 @@ export class List {
         { field: "Total", title: "Kuantitas RO" },
         { field: "CostCalculationGarment.IsValidatedROSample", title: "Approval Sample"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
-        { field: "CostCalculationGarment.IsValidatedROPPIC", title: "Approval PPIC"
+        { field: "CostCalculationGarment.IsValidatedROMD", title: "Approval Kabag MD"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
     ];
 
     rowFormatter(data, index) {
-        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROPPIC)
+        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROMD)
             return { classes: "success" }
         else
             return { classes: "danger" }
@@ -42,11 +44,13 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            filter: JSON.stringify(this.filter)
         }
 
         return this.service.search(arg)
             .then(result => {
                 result.data.forEach(data => {
+                    data.byUser = this.byUser;
                     data.isPosting = data.IsPosted;
                     data.CostCalculationGarment.UnitName = data.CostCalculationGarment.Unit.Name;
                 });
@@ -57,9 +61,36 @@ export class List {
             });
     }
 
-    constructor(router, service) {
+    constructor(router, service, authService) {
         this.service = service;
         this.router = router;
+        this.authService = authService;
+    }
+
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+    }
+
+    activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        this.byUser = parentInstruction.config.settings.byUser;
+
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+
+        if (this.byUser) {
+                this.filter = {
+                    CreatedBy: username
+                };
+        } else {
+                this.filter = {};
+        }
     }
 
     get postButtonActive() {

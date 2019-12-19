@@ -17,6 +17,7 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.selectSupplier = ['code', 'name'];
         
     }
    
@@ -95,7 +96,7 @@ export class List {
     reset() {
         
         this.unitReceiptNote = null;
-        this.supplierName = null;
+        this.supplier = null;
         this.doNo = null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
@@ -116,7 +117,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             UrnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
-            SupplierName: this.supplierName? this.supplierName.name : "",
+            SupplierName: this.supplier? this.supplier.name : "",
             DONo: this.doNo? this.doNo.no: "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):""
@@ -191,9 +192,7 @@ export class List {
     urnView = (urn) => {
         return `${urn.no}`;
     }
-    supplierView =(supplier) =>{
-        return `${supplier.name}`;
-    }
+   
 
     doView = (dol) =>{
         return `${dol.no}`;

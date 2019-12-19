@@ -30,7 +30,7 @@ module.exports = [
         name: 'garment-production-delivery-return',
         moduleId: './modules/garment-production/delivery-return/index',
         nav: true,
-        title: 'Bukti Pengantar',
+        title: 'Retur Proses',
         auth: true,
         settings: {
             group: "g-production",
@@ -168,4 +168,43 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/monitoring-prepare',
+        name: 'garment-production-monitoring-prepare',
+        moduleId: './modules/garment-production/monitoring-prepare/index',
+        nav: true,
+        title: 'Monitoring Prepare',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-cutting',
+        name: 'garment-production-monitoring-cutting',
+        moduleId: './modules/garment-production/monitoring-cutting/index',
+        nav: true,
+        title: 'Monitoring Cutting',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-loading',
+        name: 'garment-production-monitoring-cutting',
+        moduleId: './modules/garment-production/monitoring-loading/index',
+        nav: true,
+        title: 'Monitoring Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

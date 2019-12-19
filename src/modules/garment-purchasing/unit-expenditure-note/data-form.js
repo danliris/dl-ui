@@ -14,7 +14,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL'];
+    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL', 'SISA'];
     controlOptions = {
         label: {
             align : "right",
@@ -50,6 +50,8 @@ export class DataForm {
             this.data.ExpenditureTo = "SAMPLE";
         }else if(this.data.ExpenditureType === "PROSES"){
             this.data.ExpenditureTo = "PROSES";
+        }else if(this.data.ExpenditureType === "SISA"){
+            this.data.ExpenditureTo = "GUDANG PEMBELIAN";
         }
 
         if(this.data.ExpenditureType === "EXTERNAL"){
@@ -117,6 +119,8 @@ export class DataForm {
                 this.data.ExpenditureTo = "SAMPLE";
             }else if(this.data.ExpenditureType === "PROSES"){
                 this.data.ExpenditureTo = "PROSES";
+            }else if(this.data.ExpenditureType === "SISA"){
+                this.data.ExpenditureTo = "GUDANG PEMBELIAN";
             }
         }
         this.context.DONoViewModel._suggestions=[];

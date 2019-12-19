@@ -10,6 +10,17 @@
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
         </div>
 
+        <au-autocomplete
+            value.bind="selectedUnit"
+            error.bind="error.Unit"
+            label="Unit"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-autocomplete 
             label="RO"
             value.bind="roNo"
@@ -17,8 +28,10 @@
             loader.bind="roLoader"
             text.bind = "roView"
             key="RONo"
+            query.bind="filter"
             aria-placeholder="Cari No RO"
             read-only.bind="readOnly"
+            if.bind="data.Unit"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -38,6 +51,10 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
+
+        <div class="form-group has-error">
+            <p if.bind="error.Item" class="help-block text-center">${error.Item}</p>
+        </div>
 
         <au-collection 
             items.bind="data.Items" 

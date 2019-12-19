@@ -154,20 +154,21 @@ export class DataForm {
                         for(var sewingIn of result.data){
                             for(var sewingInItem of sewingIn.Items){
                                 var item={};
-                                item.SewingInItemId=sewingInItem.Id;
-                                item.SewingInId=sewingIn.Id;
-                                item.Quantity=sewingInItem.RemainingQuantity;
-                                item.Product=sewingInItem.Product;
-                                item.Uom=sewingInItem.Uom;
-                                item.Size=sewingInItem.Size;
-                                item.SewingInQuantity=sewingInItem.RemainingQuantity;
-                                item.Color=sewingInItem.Color;
-                                item.DesignColor=sewingInItem.DesignColor;
-                                item.BasicPrice=sewingInItem.BasicPrice;
-                                item.ComodityPrice=this.data.Price;
+                                if(sewingInItem.RemainingQuantity>0){
+                                    item.SewingInItemId=sewingInItem.Id;
+                                    item.SewingInId=sewingIn.Id;
+                                    item.Quantity=sewingInItem.RemainingQuantity;
+                                    item.Product=sewingInItem.Product;
+                                    item.Uom=sewingInItem.Uom;
+                                    item.Size=sewingInItem.Size;
+                                    item.SewingInQuantity=sewingInItem.RemainingQuantity;
+                                    item.Color=sewingInItem.Color;
+                                    item.DesignColor=sewingInItem.DesignColor;
+                                    item.BasicPrice=sewingInItem.BasicPrice;
+                                    item.ComodityPrice=this.data.Price;
 
-                                this.data.Items.push(item);
-                                
+                                    this.data.Items.push(item);
+                                }
                             }
                         }
                     });
@@ -192,7 +193,6 @@ export class DataForm {
             };
             return this.service.searchSewingIn(info)
                 .then((result) => {
-                    console.log(result)
                     var roList=[];
                         for(var a of result.data){
                             if(roList.length==0){

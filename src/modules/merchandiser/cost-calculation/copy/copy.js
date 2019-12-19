@@ -46,12 +46,14 @@ export class Copy {
             "ApprovalMD",
             "ApprovalPPIC",
             "ApprovalPurchasing",
+            "ApprovalKadivMD",
             "IsPosted",
             "IsROAccepted",
             "IsROAvailable",
             "IsRODistributed",
             "IsValidatedROPPIC",
             "IsValidatedROSample",
+            "IsValidatedROMD",
             "ROAcceptedBy",
             "ROAcceptedDate",
             "ROAvailableBy",
@@ -59,7 +61,11 @@ export class Copy {
             "RODistributionBy",
             "RODistributionDate",
             "ValidationPPICBy",
-            "ValidationPPICDate"
+            "ValidationPPICDate",
+            "ValidationSampleBy",
+            "ValidationSampleDate",
+            "ValidationMDBy",
+            "ValidationMDDate"
         ]).forEach(prop => delete this.data[prop]);
         this.data.CostCalculationGarment_Materials.forEach(ccm => {
             ccm.isCopy = true;
