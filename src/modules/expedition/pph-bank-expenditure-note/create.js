@@ -37,7 +37,7 @@ export class Create {
         }
 
         if (this.data.Bank)
-            this.data.Currency = this.data.Bank.currency.code;
+            this.data.Currency = this.data.Bank.Currency.Code;
 
         if (this.data.PPHBankExpenditureNoteItems.length > 0) {
             let totalDPP = 0, totalPPH = 0;
