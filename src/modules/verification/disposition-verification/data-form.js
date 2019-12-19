@@ -28,6 +28,7 @@ export class DataForm {
     { header: "Kena PPH" },
     { header: "PPH" },
     { header: "Nominal PPH" },
+    { header: "Verified Amount" },
     { header: "Harga yang Sudah dibayar" },
     { header: "" }];
 
