@@ -60,7 +60,8 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.OrderQuantity = this.formatNumber(this.data.PreSalesContract.OrderQuantity, 2);
+    // this.data.OrderQuantity = this.formatNumber(this.data.PreSalesContract.OrderQuantity, 2);
+    this.data.OrderQuantity = this.data.PreSalesContract.OrderQuantity;
     this.data.ManufacturingServiceCost = this.formatNumber(this.data.ManufacturingServiceCost, 2);
     this.data.HelperMaterial = this.formatNumber(this.data.HelperMaterial, 2);
     this.data.MiscMaterial = this.formatNumber(this.data.MiscMaterial, 2);
