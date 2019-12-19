@@ -22,10 +22,10 @@ export class BeamProductItems {
 
     if (this.data.LatestDateTimeBeamProduct) {
       var DateBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('DD/MM/YYYY');
-      // var TimeBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('LT');
+      var TimeBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('LT');
 
       this.data.LatestDateBeamProduct = DateBeamProduct;
-      // this.data.LatestTimeBeamProduct = TimeBeamProduct;
+      this.data.LatestTimeBeamProduct = TimeBeamProduct;
     }
 
     this.options = context.context.options;

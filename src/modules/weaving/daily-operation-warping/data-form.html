@@ -37,23 +37,18 @@
           <textbox label="Jenis Material" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
+          <au-textbox placeholder="Jenis Material" value.bind="data.PreparationMaterialType" error.bind="error.PreparationMaterialType"
             read-only.bind="true">
           </au-textbox>
         </div>
-        <!-- <div class="col-md-3">
-          <au-autocomplete placeholder="Jenis Material" value.bind="PreparationMaterialType" error.bind="error.PreparationMaterialType"
-            read-only.bind="readOnly" loader.bind="materialTypes" text="Name">
-          </au-autocomplete>
-        </div> -->
       </div>
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Jumlah Cone" read-only="true"></textbox>
+          <textbox label="Jumlah Beam Dihasilkan" read-only="true"></textbox>
         </div>
-        <div class="col-md-3">
-          <au-numeric placeholder="Jumlah Cone" value.bind="AmountOfCones" error.bind="error.AmountOfCones"
+        <div class="col-md-2">
+          <au-numeric placeholder="Jumlah Beam Dihasilkan" value.bind="BeamProductResult" error.bind="error.BeamProductResult"
             read-only.bind="readOnly">
           </au-numeric>
         </div>
@@ -61,12 +56,12 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Warna Cone" read-only="true"></textbox>
+          <textbox label="Jumlah Cone" read-only="true"></textbox>
         </div>
-        <div class="col-md-3">
-          <au-textbox placeholder="Warna Cone" value.bind="ColourOfCone" error.bind="error.ColourOfCone"
+        <div class="col-md-2">
+          <au-numeric placeholder="Jumlah Cone" value.bind="AmountOfCones" error.bind="error.AmountOfCones"
             read-only.bind="readOnly">
-          </au-textbox>
+          </au-numeric>
         </div>
       </div>
 

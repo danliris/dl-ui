@@ -45,12 +45,6 @@ export class Update {
     this.isFinishDisabled = false;
   }
 
-  // bind(context) {
-  //   this.context = context;
-  //   this.data = this.context.data;
-  //   this.error = this.context.error;
-  // }
-
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
@@ -77,57 +71,57 @@ export class Update {
 
       var lastWarpingHistory = this.Histories[0];
       var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
-      switch (lastWarpingHistoryStatus) {
-        case "ENTRY":
-          this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        case "START":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = false;
-          this.isFinishDisabled = true;
-          break;
-        case "STOP":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = false;
-          this.isProduceBeamDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        case "CONTINUE":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = false;
-          this.isFinishDisabled = true;
-          break;
-        case "COMPLETED":
-          this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = true;
-          this.isFinishDisabled = false;
-          break;
-        case "FINISH":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-        default:
-          this.isStartDisabled = false;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = false;
-          this.isProduceBeamDisabled = false;
-          this.isFinishDisabled = false;
-          break;
-      }
+      // switch (lastWarpingHistoryStatus) {
+      //   case "ENTRY":
+      //     this.isStartDisabled = false;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isProduceBeamDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "START":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = false;
+      //     this.isResumeDisabled = true;
+      //     this.isProduceBeamDisabled = false;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "STOP":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = false;
+      //     this.isProduceBeamDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "CONTINUE":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = false;
+      //     this.isResumeDisabled = true;
+      //     this.isProduceBeamDisabled = false;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   case "COMPLETED":
+      //     this.isStartDisabled = false;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isProduceBeamDisabled = true;
+      //     this.isFinishDisabled = false;
+      //     break;
+      //   case "FINISH":
+      //     this.isStartDisabled = true;
+      //     this.isPauseDisabled = true;
+      //     this.isResumeDisabled = true;
+      //     this.isProduceBeamDisabled = true;
+      //     this.isFinishDisabled = true;
+      //     break;
+      //   default:
+      //     this.isStartDisabled = false;
+      //     this.isPauseDisabled = false;
+      //     this.isResumeDisabled = false;
+      //     this.isProduceBeamDisabled = false;
+      //     this.isFinishDisabled = false;
+      //     break;
+      // }
     }
   }
 
@@ -140,28 +134,16 @@ export class Update {
       header: "Tanggal"
     },
     {
-      value: "BrokenThreadsCause",
-      header: "Benang Tipis Putus"
+      value: "LatestTimeBeamProduct",
+      header: "Jam"
     },
     {
-      value: "ConeDeficient",
-      header: "Cone Panjang Kurang"
+      value: "WarpingBrokenThreads",
+      header: "Putus Benang Warping"
     },
     {
-      value: "LooseThreadsAmount",
-      header: "Benang Lolos"
-    },
-    {
-      value: "RightLooseCreel",
-      header: "Creel Lolos (Kanan)"
-    },
-    {
-      value: "LeftLooseCreel",
-      header: "Creel Lolos (Kiri)"
-    },
-    {
-      value: "WarpingBeamLength",
-      header: "Panjang Beam"
+      value: "WarpingTotalBeamLength",
+      header: "Total Panjang Beam"
     },
     {
       value: "Tention",
@@ -186,11 +168,11 @@ export class Update {
       header: "No. Beam Warping"
     },
     {
-      value: "MachineDate",
+      value: "DateMachine",
       header: "Tanggal"
     },
     {
-      value: "MachineTime",
+      value: "TimeMachine",
       header: "Jam"
     },
     {
@@ -204,6 +186,10 @@ export class Update {
     {
       value: "OperatorGroup",
       header: "Group"
+    },
+    {
+      value: "WarpingBeamLengthPerOperator",
+      header: "Panjang Beam Per Operator"
     },
     {
       value: "OperationStatus",
