@@ -144,7 +144,7 @@ export class DataForm {
       if (this.ItemsWarp.length > 0) {
         for (let detail of this.ItemsWarp) {
           if (detail.Yarn) {
-            result = result + detail.Yarn.Code;
+            result = result + detail.Yarn.Name;
           }
         }
       }
@@ -163,7 +163,7 @@ export class DataForm {
       if (this.ItemsWeft.length > 0) {
         for (let detail of this.ItemsWeft) {
           if (detail.Yarn) {
-            result = result + detail.Yarn.Code;
+            result = result + detail.Yarn.Name;
           }
         }
       }
