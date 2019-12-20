@@ -156,6 +156,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/finishing-out',
+        name: 'garment-production-finishing-out',
+        moduleId: './modules/garment-production/finishing-out/index',
+        nav: true,
+        title: 'Finishing Out',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
         moduleId: './modules/garment-production/aval-component/index',
