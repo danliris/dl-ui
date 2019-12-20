@@ -121,7 +121,7 @@ export class DataForm {
     async selectedROChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                console.log(newValue)
+                
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
@@ -129,8 +129,9 @@ export class DataForm {
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
                 this.data.Comodity = newValue.Comodity;
-
+                
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+                
                 if(priceResult.data.length>0){
                     this.data.Price= priceResult.data[0].Price;
                 }
@@ -138,22 +139,23 @@ export class DataForm {
                     this.data.Price=0;
                 }
 
-                Promise.resolve(this.service.searchFinishingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
+                Promise.resolve(this.service.searchFinishingInComplete({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                     .then(result => {
-                        for(var sewingIn of result.data){
-                            for(var sewingInItem of sewingIn.Items){
+                        
+                        for(var finishingIn of result.data){
+                            for(var finishingInItem of finishingIn.Items){
                                 var item={};
-                                if(sewingInItem.RemainingQuantity>0){
-                                    item.FinishingInItemId=sewingInItem.Id;
-                                    item.FinishingInId=sewingIn.Id;
-                                    item.Quantity=sewingInItem.RemainingQuantity;
-                                    item.Product=sewingInItem.Product;
-                                    item.Uom=sewingInItem.Uom;
-                                    item.Size=sewingInItem.Size;
-                                    item.FinishingInQuantity=sewingInItem.RemainingQuantity;
-                                    item.Color=sewingInItem.Color;
-                                    item.DesignColor=sewingInItem.DesignColor;
-                                    item.BasicPrice=sewingInItem.BasicPrice;
+                                if(finishingInItem.RemainingQuantity>0){
+                                    item.FinishingInItemId=finishingInItem.Id;
+                                    item.FinishingInId=finishingIn.Id;
+                                    item.Quantity=finishingInItem.RemainingQuantity;
+                                    item.Product=finishingInItem.Product;
+                                    item.Uom=finishingInItem.Uom;
+                                    item.Size=finishingInItem.Size;
+                                    item.FinishingInQuantity=finishingInItem.RemainingQuantity;
+                                    item.Color=finishingInItem.Color;
+                                    item.DesignColor=finishingInItem.DesignColor;
+                                    item.BasicPrice=finishingInItem.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
 
                                     this.data.Items.push(item);

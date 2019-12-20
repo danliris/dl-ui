@@ -38,7 +38,7 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm(`Hapus ${this.data.CutOutNo}?`))
+        if (confirm(`Hapus ${this.data.SewingOutNo}?`))
             this.service.delete(this.data)
                 .then(result => {
                     this.cancelCallback();

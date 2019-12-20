@@ -39,9 +39,6 @@ export class Detail {
     async selectedSizeChanged(newValue) {
         if (newValue) {
             this.data.Size = newValue;
-        } else {
-
-            this.data.CuttingOutUom = [];
         }
     }
 

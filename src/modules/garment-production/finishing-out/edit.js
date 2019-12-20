@@ -19,7 +19,6 @@ export class View {
             };
             this.selectedUnitTo=this.data.UnitTo;
             this.selectedUnit=this.data.Unit;
-            this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
 
             let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
             if(priceResult.data.length>0){
@@ -30,13 +29,12 @@ export class View {
             }
 
             for(var a of this.data.Items){
-                var SewingIn=await this.service.GetSewingInById(a.SewingInId );
-                console.log(SewingIn);
-                var sewIn= SewingIn.Items.find(x=>x.Id==a.SewingInItemId);
-                if(sewIn){
-                    a.SewingInQuantity=a.Quantity + sewIn.RemainingQuantity;
+                var FinishingIn=await this.service.GetFinishingInById(a.FinishingInId );
+                var finishIn= FinishingIn.Items.find(x=>x.Id==a.FinishingInItemId);
+                if(finishIn){
+                    a.FinishingInQuantity=a.Quantity + finishIn.RemainingQuantity;
                     if(this.data.IsDifferentSize){
-                        a.Quantity+= sewIn.RemainingQuantity;
+                        a.Quantity+= finishIn.RemainingQuantity;
                     }
                 }
             }

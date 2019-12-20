@@ -27,6 +27,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    searchFinishingInComplete(info) {
+        var endpoint = `${serviceUriFinIn}/complete`;
+        return super.list(endpoint, info);
+    }
+
     GetFinishingInById(id) {
         var endpoint = `${serviceUriFinIn}/${id}`;
         return super.get(endpoint);
