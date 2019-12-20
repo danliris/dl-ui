@@ -30,7 +30,6 @@ export class PurchaseOrderItem {
     if(this.data.DealUom){
       this.selectedDealUom=this.data.DealUom;
     }
-
     if(!this.data.SmallUom && this.data.Product){
       if(this.data.Product.Id){
         var config = Container.instance.get(Config);

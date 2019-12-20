@@ -22,7 +22,6 @@ export class View {
         this.data = await this.service.getById(id);
         var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
         this.kurs=kurs[0];
-
         var isUsedSJ=false;
         for(var item of this.data.Items){
             if(item.DOQuantity>0){
