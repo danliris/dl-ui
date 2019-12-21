@@ -75,15 +75,27 @@
                 options.bind="controlOptions">
             </numeric>
         </td>
-        <td>
-            <numeric 
-                value.bind="data.PricePerDealUnit" 
+        <td if.bind="!options.readOnly">
+            <numeric
+                value.bind="data.PricePerDealUnit"
                 error.bind="error.PricePerDealUnit"
                 change.delegate="priceChanged($event)"
                 read-only.bind="options.readOnly" 
+                read-only.bind="options.readOnly"
                 options.bind="controlOptions"
+                if.bind="!options.readOnly"
                 >
             </numeric>
+        </td>
+        <td if.bind="options.readOnly">
+            <au-textbox
+                value.bind="data.PricePerDealUnit"
+                error.bind="error.PricePerDealUnit"
+                read-only.bind="options.readOnly"
+                options.bind="controlOptions"
+                if.bind="options.readOnly"
+                >
+            </au-textbox>
         </td>
         <td show.bind="context.context.options.checkOverBudget" align="center">
             <au-checkbox 
