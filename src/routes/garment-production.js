@@ -196,10 +196,23 @@ module.exports = [
     },
     {
         route: '/garment-production/monitoring-loading',
-        name: 'garment-production-monitoring-cutting',
+        name: 'garment-production-monitoring-loading',
         moduleId: './modules/garment-production/monitoring-loading/index',
         nav: true,
         title: 'Monitoring Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-sewing',
+        name: 'garment-production-monitoring-sewing',
+        moduleId: './modules/garment-production/monitoring-sewing/index',
+        nav: true,
+        title: 'Monitoring Sewing',
         auth: true,
         settings: {
             group: "g-production",
