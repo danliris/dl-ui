@@ -33,41 +33,41 @@ export class List {
   ];
 
   loader = (info) => {
-    //   var order = {};
-    //   if (info.sort)
-    //     order[info.sort] = info.order;
+      var order = {};
+      if (info.sort)
+        order[info.sort] = info.order;
 
-    //   var arg = {
-    //     page: parseInt(info.offset / info.limit, 10) + 1,
-    //     size: info.limit,
-    //     keyword: info.search,
-    //     order: order
-    //   }
+      var arg = {
+        page: parseInt(info.offset / info.limit, 10) + 1,
+        size: info.limit,
+        keyword: info.search,
+        order: order
+      }
 
-    //   return this.service.search(arg).then(result => {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     };
-    //   });
-    return {
-      data: [{
-        Id: 1,
-        WarpingBrokenCauseName: "Benang Tipis",
-        Information: "Test 1",
-        WarpingBrokenCauseCategory: "Umum"
-      }, {
-        Id: 2,
-        WarpingBrokenCauseName: "Slub",
-        Information: "Test 2",
-        WarpingBrokenCauseCategory: "Umum"
-      }, {
-        Id: 2,
-        WarpingBrokenCauseName: "Gulungan Keras",
-        Information: "Test 3",
-        WarpingBrokenCauseCategory: "Lain-lain"
-      }]
-    }
+      return this.service.search(arg).then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      });
+    // return {
+    //   data: [{
+    //     Id: 1,
+    //     WarpingBrokenCauseName: "Benang Tipis",
+    //     Information: "Test 1",
+    //     WarpingBrokenCauseCategory: "Umum"
+    //   }, {
+    //     Id: 2,
+    //     WarpingBrokenCauseName: "Slub",
+    //     Information: "Test 2",
+    //     WarpingBrokenCauseCategory: "Umum"
+    //   }, {
+    //     Id: 2,
+    //     WarpingBrokenCauseName: "Gulungan Keras",
+    //     Information: "Test 3",
+    //     WarpingBrokenCauseCategory: "Lain-lain"
+    //   }]
+    // }
   }
 
   contextCallback(event) {

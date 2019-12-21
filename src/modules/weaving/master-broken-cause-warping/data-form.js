@@ -12,7 +12,7 @@ export class DataForm {
         this.router = router;
     }
 
-    categories = ["-- Pilih Kategori Penyebab Putus --", "Umum", "Lain-lain"];
+    categories = ["", "Umum", "Lain-lain"];
 
     formOptions = {
         cancelText: "Kembali",

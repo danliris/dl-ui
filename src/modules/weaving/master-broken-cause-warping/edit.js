@@ -18,18 +18,18 @@ export class Edit {
   }
 
   async activate(params) {
-    //   var Id = params.Id;
-    //   this.data = await this.service
-    //     .getById(Id)
-    //     .then(result => {
-    //       return result;
-    //     });
-    this.data = {
-      Id: 1,
-      WarpingBrokenCauseName: "Benang Tipis",
-      Information: "Test 1",
-      WarpingBrokenCauseCategory: "Umum"
-    };
+    var Id = params.Id;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        return result;
+      });
+    // this.data = {
+    //   Id: 1,
+    //   WarpingBrokenCauseName: "Benang Tipis",
+    //   Information: "Test 1",
+    //   WarpingBrokenCauseCategory: "Umum"
+    // };
   }
 
   cancelCallback(event) {

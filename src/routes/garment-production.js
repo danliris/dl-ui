@@ -30,7 +30,7 @@ module.exports = [
         name: 'garment-production-delivery-return',
         moduleId: './modules/garment-production/delivery-return/index',
         nav: true,
-        title: 'Bukti Pengantar',
+        title: 'Retur Proses',
         auth: true,
         settings: {
             group: "g-production",
@@ -148,6 +148,19 @@ module.exports = [
         moduleId: './modules/garment-production/finishing-in/index',
         nav: true,
         title: 'Finishing In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/finishing-out',
+        name: 'garment-production-finishing-out',
+        moduleId: './modules/garment-production/finishing-out/index',
+        nav: true,
+        title: 'Finishing Out',
         auth: true,
         settings: {
             group: "g-production",

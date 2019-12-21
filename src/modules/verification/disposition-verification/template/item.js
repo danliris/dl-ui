@@ -39,6 +39,26 @@ export class PurchasingDispositionItem {
                 this.TotalPaidPrice+=a.price;
             }
             
+            this.VerifiedPaidPrice=0;
+
+            var arg = {
+                epoId: this.data.EPOId,
+                filter: JSON.stringify({ "Position >= 4 && Position!=6" : true })
+            }
+            var verifiedEPO= await this.purchasingDispositionService.searchByEPO(arg);
+            
+            if(verifiedEPO){
+                if(verifiedEPO.data.length>0){
+                    for(var verifiedEPOData of verifiedEPO.data){
+                        for(var verifiedEPOItem of verifiedEPOData.Items){
+                            for(var verifiedEPODetail of verifiedEPOItem.Details ){
+                                this.VerifiedPaidPrice+=verifiedEPODetail.PaidPrice;
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
 
         if(this.data.Details){

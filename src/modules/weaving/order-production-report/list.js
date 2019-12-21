@@ -151,6 +151,7 @@ export class List {
   }
 
   listDataFlag = false;
+  hasDataFlag = false;
 
   get units() {
     return UnitLoader;
@@ -183,6 +184,7 @@ export class List {
     }
 
     return this.listDataFlag ? this.service.getReportData(arg).then(result => {
+      this.hasDataFlag = result.data.length > 0;
       return {
         data: result.data,
         total: result.data.length
@@ -194,26 +196,30 @@ export class List {
   };
 
   exportToExcel() {
-    if (this.StartDatePeriod) {
-      var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    }
-    if (this.EndDatePeriod) {
-      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    }
+    if (this.hasDataFlag) {
+      if (this.StartDatePeriod) {
+        var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
+      }
+      if (this.EndDatePeriod) {
+        var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
+      }
 
-    if (this.WeavingUnit) {
-      var WeavingUnitContainer = this.WeavingUnit;
-    }
+      if (this.WeavingUnit) {
+        var WeavingUnitContainer = this.WeavingUnit;
+      }
 
-    return this.listDataFlag ? this.service.getReportPdf(WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
-      return {
-        data: result,
-        total: length
+      return this.listDataFlag ? this.service.getReportPdf(WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
       };
-    }) : {
-      data: {},
-      total: 0
-    };
+    } else {
+      alert("Belum Ada Data Dari Hasil Pencarian");
+    }
   }
 
   searchOrders() {
@@ -223,7 +229,7 @@ export class List {
 
       this.orderProductionsTable.refresh();
     } else {
-      this.error.WeavingUnit = "Unit Weaving Harus Diisi"
+      this.error.WeavingUnit = "Unit Weaving Harus Diisi";
     }
   }
 
