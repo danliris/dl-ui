@@ -130,12 +130,6 @@ export class Create {
       });
   }
 
-  // get addBeamsWarping() {
-  //   return event => {
-  //     this.BeamsWarping.push({});
-  //   };
-  // }
-
   addBeamsWarping = (e) => {
     this.BeamsWarping = this.BeamsWarping || [];
     this.BeamsWarping.push({});

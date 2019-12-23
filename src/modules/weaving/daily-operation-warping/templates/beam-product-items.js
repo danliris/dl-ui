@@ -16,6 +16,12 @@ export class BeamProductItems {
     this.bindingEngine = bindingEngine;
   }
 
+  brokenThreadsOptions = {
+      value: {
+          length: 1
+      }
+  };
+
   async activate(context) {
     this.data = context.data;
     this.error = context.error;

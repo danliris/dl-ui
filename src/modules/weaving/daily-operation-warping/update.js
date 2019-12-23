@@ -42,89 +42,6 @@ export class Update {
     saveText: 'Simpan',
   };
 
-  warpingBrokenCausesColumns = [{
-    value: "WarpingBrokenCause",
-    header: "Penyebab Putus Benang"
-  }, {
-    value: "TotalBroken",
-    header: "Total"
-  }];
-
-  brokenThreadsItems = ["", "Benang Tipis"];
-
-  async activate(params) {
-    var Id = params.Id;
-    var dataResult;
-    this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitId);
-      })
-      .then(unit => {
-        dataResult.WeavingUnit = unit.Name;
-        return dataResult;
-      });
-    if (this.data.Id) {
-      this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
-      this.Histories = this.data.DailyOperationWarpingHistories;
-
-      var lastWarpingHistory = this.Histories[0];
-      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
-      // switch (lastWarpingHistoryStatus) {
-      //   case "ENTRY":
-      //     this.isStartDisabled = false;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isProduceBeamDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "START":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = false;
-      //     this.isResumeDisabled = true;
-      //     this.isProduceBeamDisabled = false;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "STOP":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = false;
-      //     this.isProduceBeamDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "CONTINUE":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = false;
-      //     this.isResumeDisabled = true;
-      //     this.isProduceBeamDisabled = false;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   case "COMPLETED":
-      //     this.isStartDisabled = false;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isProduceBeamDisabled = true;
-      //     this.isFinishDisabled = false;
-      //     break;
-      //   case "FINISH":
-      //     this.isStartDisabled = true;
-      //     this.isPauseDisabled = true;
-      //     this.isResumeDisabled = true;
-      //     this.isProduceBeamDisabled = true;
-      //     this.isFinishDisabled = true;
-      //     break;
-      //   default:
-      //     this.isStartDisabled = false;
-      //     this.isPauseDisabled = false;
-      //     this.isResumeDisabled = false;
-      //     this.isProduceBeamDisabled = false;
-      //     this.isFinishDisabled = false;
-      //     break;
-      // }
-    }
-  }
-
   dailyOperationBeamProductsColumns = [{
       value: "WarpingBeamNumber",
       header: "No. Beam Warping"
@@ -138,8 +55,8 @@ export class Update {
       header: "Jam"
     },
     {
-      value: "WarpingBrokenThreads",
-      header: "Putus Benang Warping"
+      value: "WarpingBrokenCauses",
+      header: "Putus"
     },
     {
       value: "WarpingTotalBeamLength",
@@ -197,6 +114,58 @@ export class Update {
     }
   ];
 
+  warpingBrokenCausesColumns = [{
+    value: "WarpingBrokenCause",
+    header: "Penyebab Putus Benang"
+  }, {
+    value: "TotalBroken",
+    header: "Total"
+  }];
+
+  async activate(params) {
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnitId);
+      })
+      .then(unit => {
+        dataResult.WeavingUnit = unit.Name;
+        return dataResult;
+      });
+    if (this.data.Id) {
+      this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
+      this.Histories = this.data.DailyOperationWarpingHistories;
+
+      var lastWarpingHistory = this.Histories[0];
+      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
+      switch (lastWarpingHistoryStatus) {
+        case "ENTRY":
+          this.isStartDisabled = false;
+          this.isProduceBeamDisabled = true;
+          break;
+        case "START":
+          this.isStartDisabled = true;
+          this.isProduceBeamDisabled = false;
+          break;
+        case "COMPLETED":
+          this.isStartDisabled = false;
+          this.isProduceBeamDisabled = true;
+          break;
+        case "FINISH":
+          this.isStartDisabled = true;
+          this.isProduceBeamDisabled = true;
+          break;
+        default:
+          this.isStartDisabled = false;
+          this.isProduceBeamDisabled = false;
+          break;
+      }
+    }
+  }
+
   get operators() {
     return OperatorLoader;
   }
@@ -234,8 +203,6 @@ export class Update {
       this.showHideStartMenu = false;
     } else {
       this.showHideStartMenu = true;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
       this.showHideFinishMenu = false;
     }
@@ -256,8 +223,6 @@ export class Update {
       this.showHideProduceBeamsMenu = false;
     } else {
       this.showHideStartMenu = false;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = true;
       this.showHideFinishMenu = false;
     }
