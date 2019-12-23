@@ -13,7 +13,7 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="data.UnitFrom"
+            value.bind="selectedUnitFrom"
             error.bind="error.UnitFrom"
             label="Unit Asal"
             loader.bind="unitLoader"
@@ -24,12 +24,24 @@
         </au-autocomplete>
 
         <au-autocomplete
+            value.bind="selectedUnit"
+            error.bind="error.Unit"
+            label="Unit Tujuan"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
             value.bind="selectedCuttingIn"
             error.bind="error.RONo"
             label="RO"
             loader.bind="cuttingInLoader"
             query.bind="cuttingInFilter"
             text="RONo"
+            show.bind="data.Unit && data.UnitFrom"
             placeholder="Nomor RO"
             read-only.bind="readOnly"
             options.bind="controlOptions"
@@ -51,17 +63,6 @@
             text.bind="comodityView"
             read-only.bind="true"
             if.bind="data.Comodity"
-            options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-autocomplete
-            value.bind="data.Unit"
-            error.bind="error.Unit"
-            label="Unit Tujuan"
-            loader.bind="unitLoader"
-            text.bind="unitView"
-            placeholder="Unit"
-            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
 

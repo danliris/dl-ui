@@ -62,7 +62,7 @@ export class DataForm {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,
             checkedAll: this.data.Items.reduce((acc, curr) => acc && cur.IsSave, false),
-            returnType: this.returnTypes[0]
+            returnType: this.isEdit ? this.data.ReturnType :this.returnTypes[0]
         }
         if (this.data.DRNo && this.data.Items) {
             this.Storages = {};

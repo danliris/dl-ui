@@ -243,7 +243,7 @@ export class View {
         this.data.ConfirmPrice = (this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 }));
 
         this.editCallback = this.approve;
-        if (this.type === "KadivMD") {
+        if (this.activeTab === 1 && this.type === "KadivMD") {
             this.editCallback = null;
         }
     }
@@ -296,7 +296,7 @@ export class View {
     changeRole(tab) {
         this.activeTab = tab;
         this.editCallback = this.approve;
-        if (tab === 0 && this.type === "KadivMD") {
+        if (tab === 1 && this.type === "KadivMD") {
             this.editCallback = null;
         }
     }

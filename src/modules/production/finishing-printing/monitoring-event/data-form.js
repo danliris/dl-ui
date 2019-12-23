@@ -30,7 +30,7 @@ export class DataForm {
         }
     };
 
-    divisionFilter = { "UnitDivisionName": "FINISHING & PRINTING" };
+    divisionFilter = { "UnitDivisionName": "DYEING & PRINTINg" };
 
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
