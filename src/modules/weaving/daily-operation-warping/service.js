@@ -80,17 +80,17 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  updatePauseProcess(Id, data) {
-    const process = 'pause-process';
-    var endpoint = `${serviceUri}/${Id}/${process}`;
-    return super.put(endpoint, data);
-  }
+  // updatePauseProcess(Id, data) {
+  //   const process = 'pause-process';
+  //   var endpoint = `${serviceUri}/${Id}/${process}`;
+  //   return super.put(endpoint, data);
+  // }
 
-  updateResumeProcess(Id, data) {
-    const process = 'resume-process';
-    var endpoint = `${serviceUri}/${Id}/${process}`;
-    return super.put(endpoint, data);
-  }
+  // updateResumeProcess(Id, data) {
+  //   const process = 'resume-process';
+  //   var endpoint = `${serviceUri}/${Id}/${process}`;
+  //   return super.put(endpoint, data);
+  // }
 
   updateProduceBeamsProcess(Id, data) {
     const process = 'produce-beams-process';
@@ -103,9 +103,4 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
-
-  // update(data) {
-  //   var endpoint = `${serviceUri}/${data.Id}`;
-  //   return super.put(endpoint, data);
-  // }
 }

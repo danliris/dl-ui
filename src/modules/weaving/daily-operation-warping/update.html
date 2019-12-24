@@ -184,12 +184,31 @@
             </div>
           </div>
 
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-autocomplete placeholder="Operator" value.bind="ProduceBeamsOperator"
+                error.bind="error.ProduceBeamsOperator" read-only.bind="readOnly" loader.bind="operators"
+                text="Username">
+              </au-autocomplete>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-textbox placeholder="Grup Sizing" value.bind="ProduceBeamsOperator.Group"
+                error.bind="error.ProduceBeamsSizingGroup" read-only.bind="true"></au-textbox>
+            </div>
+          </div>
+
           <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Panjang Beam" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Panjang Beam Per Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-numeric placeholder="Panjang Beam" value.bind="WarpingBeamLength" error.bind="error.WarpingBeamLength"
+              <au-numeric value.bind="WarpingBeamLengthPerOperator" error.bind="error.WarpingBeamLengthPerOperator"
                 read-only.bind="readOnly">
               </au-numeric>
             </div>
@@ -208,7 +227,7 @@
               <textbox label="Selesai Produksi Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-checkbox value.bind="completeBeam" change.delegate="completeBeamClicked($event)"></au-checkbox>
+              <au-checkbox id="checkCompleteBeam" value.bind="completeBeam" change.delegate="completeBeamClicked($event)"></au-checkbox>
             </div>
           </div>
 
@@ -221,7 +240,7 @@
                 <textbox label="Tention" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-numeric placeholder="Tention" value.bind="Tention" error.bind="error.Tention"
+                <au-numeric value.bind="Tention" error.bind="error.Tention"
                   read-only.bind="readOnly">
                 </au-numeric>
               </div>
@@ -229,7 +248,7 @@
                 <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-numeric placeholder="Kecepatan Mesin" value.bind="MachineSpeed" error.bind="error.MachineSpeed"
+                <au-numeric value.bind="MachineSpeed" error.bind="error.MachineSpeed"
                   read-only.bind="readOnly">
                 </au-numeric>
               </div>
@@ -240,7 +259,7 @@
                 <textbox label="Press Roll" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-numeric placeholder="Press Roll" value.bind="PressRoll" error.bind="error.PressRoll"
+                <au-numeric value.bind="PressRoll" error.bind="error.PressRoll"
                   read-only.bind="readOnly">
                 </au-numeric>
               </div>
@@ -248,9 +267,9 @@
                 <textbox label="Satuan Press Roll" read-only="true" style="display: inline-block"></textbox>
               </div>
               <div class="col-md-3">
-                <au-autocomplete placeholder="Satuan Press Roll" value.bind="PressRollUom"
-                  error.bind="error.PressRollUom" read-only.bind="readOnly" loader.bind="uoms" text="Unit">
-                </au-autocomplete>
+                <au-dropdown value.bind="PressRollUom" items.bind="pressRollUoms"
+                  error.bind="error.PressRollUom" read-only.bind="readOnly">
+                </au-dropdown>
               </div>
             </div>
 

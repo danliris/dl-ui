@@ -42,6 +42,8 @@ export class Update {
     saveText: 'Simpan',
   };
 
+  pressRollUoms = ["", "PSA", "Kg/Cm2"]
+
   dailyOperationBeamProductsColumns = [{
       value: "WarpingBeamNumber",
       header: "No. Beam Warping"
@@ -183,8 +185,18 @@ export class Update {
 
     if (targetValue) {
       this.showHideCompleteMenu = true;
+
+      this.Tention = 0;
+      this.MachineSpeed = 0;
+      this.PressRoll = 0;
+      this.PressRollUom = "";
     } else {
       this.showHideCompleteMenu = false;
+
+      this.Tention = 0;
+      this.MachineSpeed = 0;
+      this.PressRoll = 0;
+      this.PressRollUom = "";
     }
   }
 
@@ -204,27 +216,21 @@ export class Update {
     } else {
       this.showHideStartMenu = true;
       this.showHideProduceBeamsMenu = false;
-      this.showHideFinishMenu = false;
     }
   }
 
   produceBeams() {
-    this.ProduceBeamsFinishCounter = null;
-    this.ProduceBeamsPISMeter = null;
-    this.ProduceBeamsSPU = null;
-    this.ProduceBeamsBruto = null;
-    this.ProduceBeamsNetto = null;
-    this.ProduceBeamsNettoTheoritical = null;
     this.ProduceBeamsDate = undefined;
     this.ProduceBeamsTime = null;
     this.ProduceBeamsShift = undefined;
     this.ProduceBeamsOperator = undefined;
+    this.WarpingBeamLengthPerOperator = 0;
+    this.WarpingBeamLengthUom = "";
     if (this.showHideProduceBeamsMenu === true) {
       this.showHideProduceBeamsMenu = false;
     } else {
       this.showHideStartMenu = false;
       this.showHideProduceBeamsMenu = true;
-      this.showHideFinishMenu = false;
     }
   }
 
@@ -295,13 +301,10 @@ export class Update {
   saveProduceBeams() {
     var HistoryDateContainer;
     var HistoryTimeContainer;
-    var ShiftContainer;
-    var OperatorContainer;
-    var WarpingBeamLengthContainer;
+    var ShiftIdContainer;
+    var OperatorIdContainer;
+    var WarpingBeamLengthPerOperatorContainer;
     var WarpingBeamLengthUomIdContainer;
-    var TentionContainer;
-    var MachineSpeedContainer;
-    var PressRollContainer;
 
     var IdContainer = this.data.Id;
     if (this.ProduceBeamsDate) {
@@ -311,47 +314,60 @@ export class Update {
       HistoryTimeContainer = this.ProduceBeamsTime;
     }
     if (this.ProduceBeamsShift) {
-      ShiftContainer = this.ProduceBeamsShift.Id;
+      ShiftIdContainer = this.ProduceBeamsShift.Id;
     }
     if (this.ProduceBeamsOperator) {
-      OperatorContainer = this.ProduceBeamsOperator.Id;
+      OperatorIdContainer = this.ProduceBeamsOperator.Id;
     }
-    if (this.WarpingBeamLength) {
-      WarpingBeamLengthContainer = this.WarpingBeamLength;
+    if (this.WarpingBeamLengthPerOperator) {
+      WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
     }
     if (this.WarpingBeamLengthUom) {
       WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
     }
-    if (this.Tention) {
-      TentionContainer = this.Tention;
-    }
-    if (this.MachineSpeed) {
-      MachineSpeedContainer = this.MachineSpeed;
-    }
-    if (this.PressRoll) {
-      PressRollContainer = this.PressRoll;
-    }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.ProduceBeamsDate = HistoryDateContainer;
-    this.data.ProduceBeamsTime = HistoryTimeContainer;
-    this.data.ProduceBeamsShift = ShiftContainer;
-    this.data.ProduceBeamsOperator = OperatorContainer;
-    this.data.WarpingBeamLength = WarpingBeamLengthContainer;
-    this.data.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
-    this.data.Tention = TentionContainer;
-    this.data.MachineSpeed = MachineSpeedContainer;
-    this.data.PressRoll = PressRollContainer;
+    updateData = {};
+    updateData.Id = IdContainer;
+    updateData.ProduceBeamsDate = HistoryDateContainer;
+    updateData.ProduceBeamsTime = HistoryTimeContainer;
+    updateData.ProduceBeamsShift = ShiftIdContainer;
+    updateData.ProduceBeamsOperator = OperatorIdContainer;
+    updateData.WarpingBeamLength = WarpingBeamLengthPerOperatorContainer;
+    updateData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
 
-    this.service
-      .updateProduceBeamsProcess(this.data.Id, this.data)
+    if (this.completeBeam) {
+      var TentionContainer;
+      var MachineSpeedContainer;
+      var PressRollContainer;
+      var PressRollUomIdContainer;
+
+      if (this.Tention) {
+        TentionContainer = this.Tention;
+      }
+      if (this.MachineSpeed) {
+        MachineSpeedContainer = this.MachineSpeed;
+      }
+      if (this.PressRoll) {
+        PressRollContainer = this.PressRoll;
+      }
+      if (this.PressRollUom) {
+        PressRollUomIdContainer = this.PressRollUom.id;
+      }
+
+      updateData.Tention = TentionContainer;
+      updateData.MachineSpeed = MachineSpeedContainer;
+      updateData.PressRoll = PressRollContainer;
+      updateData.PressRollUom = PressRollUomIdContainer;
+    } else {
+      this.service
+      .updateProduceBeamsProcess(updateData.Id, updateData)
       .then(result => {
         location.reload();
       })
       .catch(e => {
         this.error = e;
       });
+    }
   }
 
   cancelCallback(event) {
