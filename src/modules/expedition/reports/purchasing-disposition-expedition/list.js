@@ -147,9 +147,10 @@ export class List {
         if (this.supplier) {
             filter.supplierCode = this.supplier.code;
         }
-
-        if (this.Position.value != 0) {
-            filter.Position = this.Position.value;
+        
+        if (this.Position) {
+            if(this.Position.value != 0)
+                filter.Position = this.Position.value;
         }
 
         if (this.staffName) {

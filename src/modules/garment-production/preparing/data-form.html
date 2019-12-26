@@ -10,6 +10,18 @@
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
         </div>
 
+        
+        <au-autocomplete
+            label="Unit"
+            value.bind="selectedUnit"
+            error.bind="error.Unit.Name"
+            read-only.bind="readOnly"
+            options.bind="controlOptions"
+            loader.bind="unitLoader"
+            text.bind = "unitView"
+            placeholder="Unit">
+        </au-autocomplete>
+
         <au-autocomplete 
             label="No Bukti Pengeluaran"
             value.bind="uenNo"
@@ -17,10 +29,12 @@
             loader.bind="uenLoader"
             text.bind = "uenView"
             key="UENNo"
+            if.bind="selectedUnit"
             aria-placeholder="Cari No Bukti Pengeluaran"
             query.bind="filterUen"
             read-only.bind="readOnly"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            view-model.ref="UENViewModel">
         </au-autocomplete>
 
         <au-datepicker
@@ -30,15 +44,6 @@
             show.bind="(data.ExpenditureDate && !isView)"
             options.bind="controlOptions">
         </au-datepicker>
-
-        <au-textbox
-            label="Unit"
-            value.bind="data.Unit.Name"
-            error.bind="error.Unit.Name"
-            if.bind="data.Unit.Name"
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
 
         <au-textbox
             label="RO"

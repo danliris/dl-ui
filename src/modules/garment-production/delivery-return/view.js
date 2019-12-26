@@ -24,7 +24,6 @@ export class View {
             }
             if(this.data.ReturnType=="RETUR"){
                 this.editCallback=null;
-                this.deleteCallback=null;
             }
         }
     }
