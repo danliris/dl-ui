@@ -59,6 +59,8 @@ export class DataForm {
 
   costCalculationGarment_MaterialsInfo = {
     columns: [
+      { header: "PR Master" },
+      { header: "No. PO" },
       { header: "Kategori", value: "Category" },
       { header: "Kode Barang", value: "ProductCode" },
       { header: "Komposisi", value: "Composition" },
@@ -279,6 +281,8 @@ export class DataForm {
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
     }
+    this.data.CostCalculationGarment_Materials.splice(0);
+    this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
   @bindable selectedComodity = "";

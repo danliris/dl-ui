@@ -15,6 +15,7 @@ export class Collection {
   @bindable itemTemplate = null;
   @bindable footerTemplate = null;
   @bindable columns;
+  @bindable responsive = false;
 
   defaultOptions = {
     control: {
