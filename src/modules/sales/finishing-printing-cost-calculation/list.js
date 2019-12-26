@@ -59,7 +59,8 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.ApprovalMD && data.ApprovalPPIC && data.ApprovalMD.IsApproved && data.ApprovalPPIC.IsApproved)
+        // if (data.ApprovalMD && data.ApprovalPPIC && data.ApprovalMD.IsApproved && data.ApprovalPPIC.IsApproved)
+        if (data.IsPosted)
             return { classes: "success" }
         else
             return { classes: "danger" }
