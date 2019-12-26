@@ -138,11 +138,17 @@ export class Update {
         return dataResult;
       });
     if (this.data.Id) {
+      var isAllBeamProcessedFlag;
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
-      this.Histories = this.data.DailyOperationWarpingHistories;
+      if (this.data.BeamProductResult == this.BeamProducts.length) {
+        isAllBeamProcessedFlag = true;
+      } else {
+        isAllBeamProcessedFlag = false;
+      }
 
+      this.Histories = this.data.DailyOperationWarpingHistories;
       var lastWarpingHistory = this.Histories[0];
-      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus
+      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus;
       switch (lastWarpingHistoryStatus) {
         case "ENTRY":
           this.isStartDisabled = false;
@@ -152,14 +158,23 @@ export class Update {
           this.isStartDisabled = true;
           this.isProduceBeamDisabled = false;
           break;
-        case "COMPLETED":
-          this.isStartDisabled = false;
-          this.isProduceBeamDisabled = true;
-          break;
-        case "FINISH":
+        case "ON-PROCESS-BEAM":
           this.isStartDisabled = true;
-          this.isProduceBeamDisabled = true;
+          this.isProduceBeamDisabled = false;
           break;
+        case "COMPLETED":
+          if (isAllBeamProcessedFlag == true) {
+            this.isStartDisabled = true;
+            this.isProduceBeamDisabled = true;
+          } else {
+            this.isStartDisabled = false;
+            this.isProduceBeamDisabled = true;
+          }
+          break;
+          // case "FINISH":
+          //   this.isStartDisabled = true;
+          //   this.isProduceBeamDisabled = true;
+          //   break;
         default:
           this.isStartDisabled = false;
           this.isProduceBeamDisabled = false;
@@ -326,20 +341,22 @@ export class Update {
       WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
     }
 
-    updateData = {};
+    var updateData = {};
     updateData.Id = IdContainer;
     updateData.ProduceBeamsDate = HistoryDateContainer;
     updateData.ProduceBeamsTime = HistoryTimeContainer;
     updateData.ProduceBeamsShift = ShiftIdContainer;
     updateData.ProduceBeamsOperator = OperatorIdContainer;
-    updateData.WarpingBeamLength = WarpingBeamLengthPerOperatorContainer;
+    updateData.WarpingBeamLengthPerOperator = WarpingBeamLengthPerOperatorContainer;
     updateData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
+    updateData.BrokenCauses = [];
 
     if (this.completeBeam) {
       var TentionContainer;
       var MachineSpeedContainer;
       var PressRollContainer;
-      var PressRollUomIdContainer;
+      var PressRollUomContainer;
+      var IsFinishFlagContainer;
 
       if (this.Tention) {
         TentionContainer = this.Tention;
@@ -351,22 +368,44 @@ export class Update {
         PressRollContainer = this.PressRoll;
       }
       if (this.PressRollUom) {
-        PressRollUomIdContainer = this.PressRollUom.id;
+        PressRollUomContainer = this.PressRollUom;
       }
+      if (this.data.BeamProductResult == this.BeamProducts.length) {
+        IsFinishFlagContainer = true
+      } else {
+        IsFinishFlagContainer = false;
+      }
+
+      this.WarpingBrokenCauses.forEach(o => {
+        var brokenCauseObject = {};
+        brokenCauseObject.WarpingBrokenCauseId = o.WarpingBrokenCause.Id;
+        brokenCauseObject.TotalBroken = o.TotalBroken;
+        updateData.BrokenCauses.push(brokenCauseObject);
+      });
 
       updateData.Tention = TentionContainer;
       updateData.MachineSpeed = MachineSpeedContainer;
       updateData.PressRoll = PressRollContainer;
-      updateData.PressRollUom = PressRollUomIdContainer;
+      updateData.PressRollUom = PressRollUomContainer;
+      updateData.IsFinishFlag = IsFinishFlagContainer;
+      console.log(updateData);
+      this.service
+        .updateCompletedProcess(updateData.Id, updateData)
+        .then(result => {
+          location.reload();
+        })
+        .catch(e => {
+          this.error = e;
+        });
     } else {
       this.service
-      .updateProduceBeamsProcess(updateData.Id, updateData)
-      .then(result => {
-        location.reload();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+        .updateProduceBeamsProcess(updateData.Id, updateData)
+        .then(result => {
+          location.reload();
+        })
+        .catch(e => {
+          this.error = e;
+        });
     }
   }
 

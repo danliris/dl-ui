@@ -7,14 +7,14 @@ export class BrokenCausesFooter {
         this.context = context;
     }
 
-    get totalBroken() {
-        let totalBroken = 0;
+    get totalBrokenAccumulation() {
+        let totalBrokenAccumulation = 0;
         for (let item of this.context.items) {
             console.log(item);
             if (item.data) {
-                totalBroken += item.data.Total ? Number(item.data.Total) : 0;
+                totalBrokenAccumulation += item.data.TotalBroken ? Number(item.data.TotalBroken) : 0;
             }
         }
-        return totalBroken;
+        return totalBrokenAccumulation;
     }
 }

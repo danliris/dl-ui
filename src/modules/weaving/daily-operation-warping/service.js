@@ -98,8 +98,8 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  updateFinishProcess(Id, data) {
-    const process = 'finish-process';
+  updateCompletedProcess(Id, data) {
+    const process = 'completed-process';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }

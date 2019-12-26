@@ -42,7 +42,7 @@ export class BeamProductItems {
       }
 
       if (this.data.BrokenCauses) {
-        this.BrokenCauses = [];
+        this.BrokenCauses = this.data.BrokenCauses;
       }
     }
 

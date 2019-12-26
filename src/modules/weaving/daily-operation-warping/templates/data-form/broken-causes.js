@@ -7,7 +7,6 @@ export class BrokenCauses {
     constructor() {
     }
 
-
     activate(context) {
         this.context = context;
         this.data = context.data;
