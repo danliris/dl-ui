@@ -30,7 +30,17 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Proforma', rowspan: 2, sortable: true },
             { field: 'SupplierName', title: 'Supplier', rowspan: 2, sortable: true },
-            
+            {
+                field: 'CurrencyRate', title: 'Kurs', rowspan: 2, formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+            },
+            { title: 'Jumlah', colspan: 4 },
+            { field: 'DueDateDays', title: 'Tempo', rowspan: 2, sortable: true },
+            { field: 'Category', title: 'Kategori', rowspan: 2, sortable: true },
+            { field: 'Unit', title: 'Unit', rowspan: 2, sortable: true },
+            { field: 'Division', title: 'Divisi', rowspan: 2, sortable: true },
+
             {
                 field: 'Position', title: 'Posisi', formatter: (value, data, index) => {
                     let status = this.itemsStatus.find(p => p.value === value);
@@ -46,9 +56,36 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
+            { field: 'VerifiedBy', title: 'Verifikator', rowspan: 2, sortable: true },
+
             { title: 'Kasir', colspan: 5 },
+
+            { field: 'ExternalPurchaseOrderNo', title: 'PO Eksteranl', rowspan: 2, sortable: true },
+            { field: 'UnitPaymenOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
+            { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
+
             { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
         ], [
+            {
+                field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+            },
+            {
+                field: 'VAT', title: 'PPN', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+            },
+            {
+                field: 'IncomeTax', title: 'PPh', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+            },
+            {
+                field: 'Total', title: 'Total', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
+                },
+            },
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
@@ -75,11 +112,11 @@ export class List {
                 },
             },
             {
-                field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
+                field: 'BankExpenditureNoteNo', title: 'No Bukti Pengeluaran Bank'
             },
             {
-                field: 'PayToSupplier', title: 'Nominal yang dibayar',formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.0000')  : '-';
+                field: 'PayToSupplier', title: 'Nominal yang dibayar', formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.0000') : '-';
                 },
             },
             {
@@ -127,7 +164,7 @@ export class List {
             //{ text: 'Dikirim ke Bag. Keuangan', value: 5 },
             { text: 'Dikirim ke Bag. Pembelian', value: 6 },
             { text: 'Bag. Keuangan', value: 7 },
-           // { text: 'Bag. Keuangan', value: 8 },
+            // { text: 'Bag. Keuangan', value: 8 },
         ];
     }
 
@@ -147,16 +184,16 @@ export class List {
         if (this.supplier) {
             filter.supplierCode = this.supplier.code;
         }
-        
+
         if (this.Position) {
-            if(this.Position.value != 0)
+            if (this.Position.value != 0)
                 filter.Position = this.Position.value;
         }
 
         if (this.staffName) {
             filter.CreatedBy = this.staffName.username;
         }
-            
+
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -165,7 +202,7 @@ export class List {
         };
 
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
-        arg.dateTo = this.dateTo? moment(this.dateTo).format("YYYY-MM-DD") : null;
+        arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         return this.flag ? (
             this.service.getReport(arg)
                 .then(result => {
@@ -186,7 +223,7 @@ export class List {
         let order = {};
         var postedDateFrom = null;
         var postedDateTo = null;
-        
+
         let filter = {};
 
         if (this.disposition) {
@@ -209,13 +246,13 @@ export class List {
         if (this.staffName) {
             filter.CreatedBy = this.staffName.username;
         }
-            
+
         let arg = {
             filter: JSON.stringify(filter)
         };
 
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
-        arg.dateTo = this.dateTo? moment(this.dateTo).format("YYYY-MM-DD") : null;
+        arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.service.getXls(arg);
     }
 
@@ -224,9 +261,9 @@ export class List {
     }
 
     reset() {
-        this.staffName=null;
+        this.staffName = null;
         this.flag = false;
-        this.disposition=null;
+        this.disposition = null;
         this.unitPaymentOrder = undefined;
         this.supplier = undefined;
         this.division = undefined;
@@ -240,7 +277,7 @@ export class List {
         return SupplierLoader;
     }
 
-    get dispositionLoader(){
+    get dispositionLoader() {
         return DispositionLoader;
     }
 
@@ -248,8 +285,8 @@ export class List {
         return AccountLoader;
     }
 
-    stafView= (staff) => {
-      return `${staff.username}`
-  }
+    stafView = (staff) => {
+        return `${staff.username}`
+    }
 
 }
