@@ -1,19 +1,32 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service)
+@inject(Router, Service,AuthService)
 export class List {
-    constructor(router, service) {
+    constructor(router, service,authService) {
         this.service = service;
         this.router = router;
+        this.authService=authService;
     }
+
+    activate(params) {
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+        this.filter={
+          CreatedBy: username
+        }
+      }
 
     context = ["Rincian"];
 
     columns = [
-        { field: "DRNo", title: "No Bukti Pengantar" },
+        { field: "DRNo", title: "No Retur Proses" },
         { field: "UnitDONo", title: "No Unit DO" },
         {
             field: "ReturnDate", title: "Tgl Retur", formatter: function (value, data, index) {
@@ -24,6 +37,8 @@ export class List {
         { field: "Storage.Name", title: "Gudang" },
     ]
 
+    filter={};
+
     loader = (info) => {
         var order = {};
         if (info.sort)
@@ -33,7 +48,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter:JSON.stringify(this.filter)
         }
 
         return this.service.search(arg)

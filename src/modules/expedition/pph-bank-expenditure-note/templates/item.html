@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <require from="../../../../lib/number-format-value-converter"></require>
+        
         <td if.bind="!readOnly">
             <au-checkbox value.bind="data.Check"></au-checkbox>
         </td>
@@ -47,22 +47,25 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox
+            <require from="../../../../lib/number-format-value-converter.js"></require>
+            <au-numeric
                 value.bind="data.IncomeTax | numberFormat: '0,000.0000'"
                 read-only="true">
-            </au-textbox>
+            </au-numeric>
         </td>
         <td>
-            <au-textbox
+            <require from="../../../../lib/number-format-value-converter.js"></require>
+            <au-numeric
                 value.bind="data.Vat | numberFormat: '0,000.0000'"
                 read-only="true">
-            </au-textbox>
+            </au-numeric>
         </td>
         <td>
-            <au-textbox
+            <require from="../../../../lib/number-format-value-converter.js"></require>
+            <au-numeric
                 value.bind="data.TotalPaid | numberFormat: '0,000.0000'"
                 read-only="true">
-            </au-textbox>
+            </au-numeric>
         </td>
         <td>
             <au-textbox

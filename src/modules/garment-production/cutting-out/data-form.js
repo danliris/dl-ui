@@ -14,6 +14,9 @@ export class DataForm {
     // @bindable error = {};
     @bindable selectedCuttingIn;
     @bindable itemOptions = {};
+    @bindable selectedCuttingIn;
+    @bindable selectedUnit;
+    @bindable selectedUnitFrom;
 
     constructor(service, salesService, coreService) {
         this.service = service;
@@ -117,6 +120,15 @@ export class DataForm {
                 else{
                     this.data.Price=0;
                 }
+
+                let priceSewingResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+                if(priceSewingResult.data.length>0){
+                    this.data.PriceSewing= priceSewingResult.data[0].Price;
+                    //console.log(this.data.Price)
+                }
+                else{
+                    this.data.PriceSewing=0;
+                }
     
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
                     .then(result => {
@@ -142,5 +154,39 @@ export class DataForm {
                 this.data.Items.splice(0);
             }
         }
+    }
+
+    selectedUnitChanged(newValue){
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.Items.splice(0);
+        }
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.Items.splice(0);
+    }
+
+    selectedUnitFromChanged(newValue){
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.UnitFrom=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.Items.splice(0);
+        }
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.Items.splice(0);
     }
 }

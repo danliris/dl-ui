@@ -4,6 +4,7 @@ import { debug } from 'util';
 
 var moment = require('moment');
 var UENLoader = require('../../../loader/unit-expenditure-note-gpreparing-loader');
+const UnitLoader = require('../../../loader/garment-units-loader');
 
 @containerless()
 @inject(Service, BindingEngine, PurchasingService)
@@ -18,6 +19,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable uenNo;
+    @bindable selectedUnit;
 
 
     formOptions = {
@@ -36,9 +38,11 @@ export class DataForm {
         }
     }
 
+    @computedFrom("data.Unit")
     get filterUen(){
         return{
-            ExpenditureType : "PROSES"
+            ExpenditureType : "PROSES",
+            UnitRequestId: this.data.Unit.Id
         }
     }
 
@@ -69,20 +73,36 @@ export class DataForm {
         }
     }
 
+    selectedUnitChanged(newValue){
+        if(newValue){
+            this.data.Unit=newValue;
+        }
+        else{
+            this.data.Unit = null;
+        }
+        this.data.ExpenditureDate = null;
+        this.data.UENId = null;
+        this.data.UENNo = null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.ProcessDate = null;
+        this.data.Items.splice(0);
+        this.uenNo=null;
+    }
+
     uenNoChanged(newValue) {
         var selectedUEN = newValue;
         if(selectedUEN && this.options.isCreate){
             this.data.ExpenditureDate = selectedUEN.ExpenditureDate;
-            this.data.Unit = {};
-            if(!this.options.isView){
-                this.data.Unit.Id = selectedUEN.UnitRequestId;
-                this.data.Unit.Name = selectedUEN.UnitRequestName;
-                this.data.Unit.Code = selectedUEN.UnitRequestCode;
-            } else {
-                this.data.Unit.Id = selectedUEN.UnitRequest.Id;
-                this.data.Unit.Name = selectedUEN.UnitRequest.Name;
-                this.data.Unit.Code = selectedUEN.UnitRequest.Code;
-            }
+            // if(!this.options.isView){
+            //     this.data.Unit.Id = selectedUEN.UnitRequestId;
+            //     this.data.Unit.Name = selectedUEN.UnitRequestName;
+            //     this.data.Unit.Code = selectedUEN.UnitRequestCode;
+            // } else {
+            //     this.data.Unit.Id = selectedUEN.UnitRequest.Id;
+            //     this.data.Unit.Name = selectedUEN.UnitRequest.Name;
+            //     this.data.Unit.Code = selectedUEN.UnitRequest.Code;
+            // }
             this.data.UENId = selectedUEN.Id;
             this.data.UENNo = selectedUEN.UENNo;
             this.data.Items = selectedUEN.Items;
@@ -109,13 +129,13 @@ export class DataForm {
                 });
         } else if(!selectedUEN && this.options.isCreate){
             this.data.ExpenditureDate = null;
-            this.data.Unit = {};
             this.data.UENId = null;
             this.data.UENNo = null;
             this.data.RONo = null;
             this.data.Article = null;
             this.data.ProcessDate = null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
+            this.context.UENViewModel.editorValue = "";
         }
     }
 
@@ -138,4 +158,13 @@ export class DataForm {
     get uenLoader() {
         return UENLoader;
     }
+
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
 }

@@ -75,7 +75,7 @@
                     label="Unit yang mengirim"
                     value.bind = "unitSender"
                     error.bind="error.UnitSender"
-                    read-only.bind="readOnly || isEdit || isProses || isSample"
+                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain"
                     loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
@@ -242,7 +242,7 @@
                 </au-textbox>
                 <div class="form-group">
                     <div class="col-sm-5 col-sm-offset-4">
-                        <button class="btn btn-success" click.delegate="addProduct()" disabled.bind="!RONoHeader">Tambah Barang</button>
+                        <button class="btn btn-success" click.delegate="addProduct()" disabled.bind="!RONoHeader || newProduct.IsDisabled">Tambah Barang</button>
                     </div>
                 </div>
             </div>
