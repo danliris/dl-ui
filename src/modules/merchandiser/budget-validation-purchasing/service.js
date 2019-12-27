@@ -8,12 +8,22 @@ class Service extends RestService {
         super(http, aggregator, config, "sales");
     }
 
+    search(info) {
+        var endpoint = `${costCalculationGarmentServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getById(id) {
+        var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
     replace(id, data) {
         var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
         return super.patch(endpoint, data);
     }
 
-    getCostCalculationGarmentById(id) {
+    getByIdWithProductNames(id) {
         var endpoint = `${costCalculationGarmentServiceUri}/with-product-names/${id}`;
         return super.get(endpoint);
     }
