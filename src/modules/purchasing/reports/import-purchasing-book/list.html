@@ -3,61 +3,36 @@
     <require from="../../../../lib/date-format-value-converter"></require>
     <h1 class="page-header">Laporan Buku Pembelian Impor</h1>
     <form class="form-horizontal">
-        <au-autocomplete value.bind="no"
-                         label="Nomor Nota"
-                         loader.bind="unitReceiptNoteLoader"
-                         text.bind="unitReceiptNoteView"
-                         placeholder="Cari Nomor Nota"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
+        <au-autocomplete value.bind="no" label="Nomor Nota" loader.bind="unitReceiptNoteLoader"
+            text.bind="unitReceiptNoteView" placeholder="Cari Nomor Nota" read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="category"
-                         label="Kategori"
-                         loader.bind="categoryLoader"
-                         text.bind="categoryView"
-                         placeholder="Cari Kategori"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
+        <au-autocomplete value.bind="category" label="Kategori" loader.bind="categoryLoader" text.bind="categoryView"
+            placeholder="Cari Kategori" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="unit"
-                         label="Unit"
-                         loader.bind="unitLoader"
-                         text.bind="unitView"
-                         placeholder="Cari Unit"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
+        <au-autocomplete value.bind="unit" label="Unit" loader.bind="unitLoader" text.bind="unitView"
+            placeholder="Cari Unit" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
-        <au-datepicker label="Dari Tanggal"
-                       value.bind="dateFrom"
-                       options.bind="controlOptions"></au-datepicker>
-        <au-datepicker label="Sampai Tanggal"
-                       value.bind="dateTo"
-                       options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Dari Tanggal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Sampai Tanggal" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
 
         <div class="form-group">
-            <label for="contact"
-                   class="col-sm-6 control-label"></label>
+            <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="searching()"
-                        class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()"
-                        class='btn btn-success'>Reset</button>
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
         <div class="btn-group pull-left">
-            <a click.delegate="ExportToExcel()"
-               class='btn btn-primary'>Cetak Excel</a>
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
     </form>
 
     <br>
     </br>
 
-    <div class="table-responsive"
-         if.bind="data.Reports && data.Reports.length > 0">
-        <table class="table table-bordered table-hover"
-               border="1"
-               id="myTable">
+    <div class="table-responsive" if.bind="data.Reports && data.Reports.length > 0">
+        <table class="table table-bordered table-hover" border="1" id="myTable">
             <thead align="center">
                 <tr>
                     <td rowspan=2>Tanggal</td>
@@ -71,11 +46,17 @@
                     <td rowspan=2>No SPB/NI</td>
                     <td rowspan=2>Kategori</td>
                     <td rowspan=2>Unit</td>
+                    <td colspan=5>PIB</td>
                     <td colspan=3>Pembelian</td>
                     <td rowspan=2>Rate</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
                 <tr>
+                    <td>Tanggal</td>
+                    <td>No</td>
+                    <td>BM</td>
+                    <td>PPH 22</td>
+                    <td>PPN Impor</td>
                     <td>DPP</td>
                     <td>DPP Valas</td>
                     <td>PPN</td>
@@ -94,6 +75,11 @@
                     <td>${report.UPONo}</td>
                     <td>${report.CategoryCode} - ${report.CategoryName}</td>
                     <td>${report.UnitName}</td>
+                    <td>${report.PIBDate | dateFormat:'YYYY-MM-DD'}</td>
+                    <td>${report.PIBNo}</td>
+                    <td class="text-right">${report.PIBBM | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.PIBIncomeTax | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.PIBVat | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
@@ -101,27 +87,21 @@
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="15"
-                        class="text-right">Jumlah</td>
+                    <td colspan="15" class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="alert alert-info text-center"
-         role="alert"
-         if.bind="data.Reports && data.Reports.length === 0">
+    <div class="alert alert-info text-center" role="alert" if.bind="data.Reports && data.Reports.length === 0">
         Tidak ada data.
     </div>
 
 
     <div class="row">
         <div class="col-sm-4">
-            <div class="table-responsive"
-                 if.bind="data.Reports && data.Reports.length > 0">
-                <table class="table table-bordered table-hover"
-                       border="1"
-                       id="myTable">
+            <div class="table-responsive" if.bind="data.Reports && data.Reports.length > 0">
+                <table class="table table-bordered table-hover" border="1" id="myTable">
                     <thead align="center">
                         <tr>
                             <td>Kategori</td>
@@ -144,11 +124,8 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="table-responsive"
-                 if.bind="data.Reports && data.Reports.length > 0">
-                <table class="table table-bordered table-hover"
-                       border="1"
-                       id="myTable">
+            <div class="table-responsive" if.bind="data.Reports && data.Reports.length > 0">
+                <table class="table table-bordered table-hover" border="1" id="myTable">
                     <thead align="center">
                         <tr>
                             <td>Mata Uang</td>
