@@ -62,6 +62,9 @@ export class DataForm {
                 this.context.hasDelete=false;
             }
         }
+        if(this.data){
+            this.selectedUnit=this.data.Unit;
+        }
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
         this.options.isView = this.context.isView;
@@ -80,14 +83,17 @@ export class DataForm {
         else{
             this.data.Unit = null;
         }
-        this.data.ExpenditureDate = null;
-        this.data.UENId = null;
-        this.data.UENNo = null;
-        this.data.RONo = null;
-        this.data.Article = null;
-        this.data.ProcessDate = null;
-        this.data.Items.splice(0);
-        this.uenNo=null;
+        if(!this.readOnly){
+            this.data.ExpenditureDate = null;
+            this.data.UENId = null;
+            this.data.UENNo = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ProcessDate = null;
+            this.data.Items.splice(0);
+            this.uenNo=null;
+        }
+        
     }
 
     uenNoChanged(newValue) {
