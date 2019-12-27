@@ -29,17 +29,4 @@ class Service extends RestService {
     }
 }
 
-const servicePurchaseRequestUri = 'garment-purchase-requests';
-
-class PurchaseRequestService extends RestService {
-    constructor(http, aggregator, config) {
-        super(http, aggregator, config, "purchasing-azure");
-    }
-
-    getProducts(info) {
-        var endpoint = `${servicePurchaseRequestUri}/dynamic`;
-        return super.list(endpoint, info);
-    }
-}
-
-export { Service, PurchaseRequestService }
+export { Service }
