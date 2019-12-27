@@ -143,7 +143,7 @@ module.exports = [
         name: 'budget-validation-purchasing',
         moduleId: './modules/merchandiser/budget-validation-purchasing/index',
         nav: true,
-        title: 'Budget Validation - Purchasing',
+        title: 'Validasi Budget - Purchasing',
         auth: true,
         settings: {
             group: "merchandiser",
