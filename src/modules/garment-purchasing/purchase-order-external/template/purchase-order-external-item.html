@@ -13,22 +13,22 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric 
+            <au-numeric
                 value.bind="data.DefaultQuantity"
-                read-only.bind="true" 
+                read-only.bind="true"
                 options.bind="controlOptions"
                 format="0,000.00">
             </au-numeric>
         </td>
         <td>
-            <au-textbox 
+            <au-textbox
                 value.bind="data.DefaultUom.Unit"
-                read-only.bind="true" 
+                read-only.bind="true"
                 options.bind="controlOptions">
-            </au-textbox>                    
+            </au-textbox>
         </td>
         <td>
-            <au-numeric 
+            <au-numeric
                 value.bind="data.DealQuantity"
                 error.bind="error.DealQuantity"
                 change.delegate="qtyChanged($event)"
@@ -38,36 +38,36 @@
             </au-numeric>
         </td>
         <td>
-            <au-autocomplete 
-                value.bind="selectedDealUom" 
+            <au-autocomplete
+                value.bind="selectedDealUom"
                 error.bind="error.DealUom"
                 change.delegate="selectedDealUomChanged($event)"
                 loader.bind="uomLoader"
                 text.bind="uomView"
-                placeholder="cari satuan" 
+                placeholder="cari satuan"
                 key="unit"
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions">
-            </au-autocomplete>                   
+            </au-autocomplete>
         </td>
         <td>
-            <au-numeric 
+            <au-numeric
                 value.bind="quantityConversion"
-                read-only.bind="true" 
+                read-only.bind="true"
                 options.bind="controlOptions"
                 format="0.00">
             </au-numeric>
         </td>
         <td>
-            <au-textbox 
+            <au-textbox
                 value.bind="data.SmallUom.Unit"
                 error.bind="error.SmallUom"
-                read-only.bind="true" 
+                read-only.bind="true"
                 options.bind="controlOptions">
-            </au-textbox>                    
+            </au-textbox>
         </td>
         <td>
-            <numeric 
+            <numeric
                 value.bind="data.Conversion"
                 error.bind="error.Conversion"
                 read-only.bind="options.readOnly"
@@ -80,7 +80,7 @@
                 value.bind="data.PricePerDealUnit"
                 error.bind="error.PricePerDealUnit"
                 change.delegate="priceChanged($event)"
-                read-only.bind="options.readOnly" 
+
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions"
                 if.bind="!options.readOnly"
@@ -98,16 +98,16 @@
             </au-textbox>
         </td>
         <td show.bind="context.context.options.checkOverBudget" align="center">
-            <au-checkbox 
-                value.bind="data.IsOverBudget" 
-                error.bind="error.IsOverBudget" 
+            <au-checkbox
+                value.bind="data.IsOverBudget"
+                error.bind="error.IsOverBudget"
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-checkbox>
         </td>
         <td show.bind="context.context.options.checkOverBudget">
-            <au-textbox 
-                value.bind="data.OverBudgetRemark" 
+            <au-textbox
+                value.bind="data.OverBudgetRemark"
                 error.bind="error.OverBudgetRemark"
                 read-only.bind="options.readOnly || !data.IsOverBudget || !context.context.options.checkOverBudget"
                 placeholder="tambah keterangan over budget"
@@ -115,17 +115,17 @@
             </au-textbox>
         </td>
         <!--<td show.bind="context.context.options.isUseIncomeTax" align="center">
-            <au-checkbox 
-                value.bind="data.useIncomeTax" 
-                error.bind="error.useIncomeTax" 
+            <au-checkbox
+                value.bind="data.useIncomeTax"
+                error.bind="error.useIncomeTax"
                 read-only.bind="readOnly"
                 change.delegate="useIncomeTaxChanged($event)"
                 options.bind="controlOptions">
             </au-checkbox>
         </td>-->
         <td>
-            <au-multiline 
-                value.bind="data.Remark" 
+            <au-multiline
+                value.bind="data.Remark"
                 error.bind="error.Remark"
                 read-only.bind="options.readOnly"
                 placeholder="tambah keterangan"

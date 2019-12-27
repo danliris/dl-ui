@@ -1,5 +1,5 @@
 <template>
-    <require from="../../../lib/number-format-value-converter"></require>
+    <require from="../../../lib/number-format-value-converter.js"></require>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">  
         <au-datepicker
             value.bind="dateFrom"
@@ -47,7 +47,7 @@
         </au-autocomplete>
 
         <au-textbox
-            value.bind="data.Bank.AccountNumber"
+            value.bind="data.Bank.AccountNumber ? data.Bank.AccountNumber : data.Bank.accountNumber"
             read-only="true"
             label="No Rekening"
             options.bind="controlOptions"
@@ -55,7 +55,7 @@
         </au-textbox>
 
         <au-textbox
-            value.bind="data.Bank.Currency.Code"
+            value.bind="data.Bank.Currency ? data.Bank.Currency.Code : data.Bank.currency.code"
             read-only="true"
             label="Currency"
             options.bind="controlOptions"

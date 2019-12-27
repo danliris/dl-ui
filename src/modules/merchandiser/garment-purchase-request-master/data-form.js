@@ -56,6 +56,10 @@ export class DataForm {
         this.itemOptions = {
             isEdit : this.isEdit
         };
+
+        if (this.readOnly || this.isEdit) {
+            this.itemsColumns.splice(0, 0, { header: "No. PO" });
+        }
     }
 
     unitView = (unit) => {

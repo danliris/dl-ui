@@ -156,6 +156,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/finishing-out',
+        name: 'garment-production-finishing-out',
+        moduleId: './modules/garment-production/finishing-out/index',
+        nav: true,
+        title: 'Finishing Out',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
         moduleId: './modules/garment-production/aval-component/index',
@@ -196,10 +209,23 @@ module.exports = [
     },
     {
         route: '/garment-production/monitoring-loading',
-        name: 'garment-production-monitoring-cutting',
+        name: 'garment-production-monitoring-loading',
         moduleId: './modules/garment-production/monitoring-loading/index',
         nav: true,
         title: 'Monitoring Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-sewing',
+        name: 'garment-production-monitoring-sewing',
+        moduleId: './modules/garment-production/monitoring-sewing/index',
+        nav: true,
+        title: 'Monitoring Sewing',
         auth: true,
         settings: {
             group: "g-production",

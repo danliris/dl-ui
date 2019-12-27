@@ -58,7 +58,7 @@ export class DataForm {
             let info = {
                 incomeTaxName: this.data.IncomeTax.name,
                 incomeTaxRate: this.data.IncomeTax.rate,
-                currency: this.data.Bank.Currency.Code
+                currency: this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code
             };
 
             this.service.getUnitPaymentOrders(info)
@@ -68,7 +68,7 @@ export class DataForm {
         }
 
         if (this.isEdit || this.readOnly) {
-            this.Currency = this.data.Bank.Currency.Code;
+            this.Currency = this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code;
             this.calculateTotalPPHCallback();
         }
 
@@ -102,7 +102,7 @@ export class DataForm {
         if (newV) {
             this.data.Bank = newV;
             this.data.Bank.code = this.data.Bank.bankCode;
-            this.Currency = this.data.Bank.Currency.Code;
+            this.Currency = this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code;
         }
         else {
             this.data.Bank = undefined;
@@ -125,6 +125,7 @@ export class DataForm {
                 currency: this.data.Bank.Currency.Code
             };
 
+            console.log(info)
             this.service.getUnitPaymentOrders(info)
                 .then(response => {
                     this.data.UnitPaymentOrders = response.data;
@@ -133,7 +134,7 @@ export class DataForm {
     }
 
     bankView(bank) {
-        return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
+        return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : bank.accountName ? `${bank.accountName} - ${bank.bankName} - ${bank.accountNumber} - ${bank.currency.code}` : '';
     }
 
     incomeTaxView = (incomeTax) => {

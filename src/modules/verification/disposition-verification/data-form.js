@@ -28,6 +28,7 @@ export class DataForm {
     { header: "Kena PPH" },
     { header: "PPH" },
     { header: "Nominal PPH" },
+    { header: "Verified Amount" },
     { header: "Harga yang Sudah dibayar" },
     { header: "" }];
 
@@ -120,7 +121,6 @@ export class DataForm {
             if(this.data.IncomeTaxBy=="Supplier"){
                 this.data.PayToSupplier=this.data.DPP+this.data.VatValue+ this.data.PaymentCorrection-this.data.IncomeTaxValue;
             }
-            console.log(this.data.PayToSupplier)
             if(this.data.Items){
                 for(var a of this.data.Items){
                     if(a.Details){

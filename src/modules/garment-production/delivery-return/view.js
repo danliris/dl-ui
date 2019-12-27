@@ -22,6 +22,9 @@ export class View {
                 this.editCallback=null;
                 this.deleteCallback=null;
             }
+            if(this.data.ReturnType=="RETUR"){
+                this.editCallback=null;
+            }
         }
     }
 

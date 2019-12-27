@@ -7,9 +7,10 @@ export class GarmentDeliveryReturnItem {
         this.options = context.context.options;
         this.error = context.error;
         this.contextOptions = context.context.options;
-
+console.log(this.options)
         if (this.options.returnType === "RETUR") {
             this.readOnly = true;
+            this.options.isEdit=false;
         }
     }
 
