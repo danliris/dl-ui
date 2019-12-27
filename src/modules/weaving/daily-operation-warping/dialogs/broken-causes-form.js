@@ -24,7 +24,6 @@ export class BrokenCausesForm {
     }
 
     async activate(data) {
-        console.log(data);
         this.data = data;
     }
 }

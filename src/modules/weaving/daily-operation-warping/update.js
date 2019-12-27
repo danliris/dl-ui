@@ -388,7 +388,7 @@ export class Update {
       updateData.PressRoll = PressRollContainer;
       updateData.PressRollUom = PressRollUomContainer;
       updateData.IsFinishFlag = IsFinishFlagContainer;
-      console.log(updateData);
+      
       this.service
         .updateCompletedProcess(updateData.Id, updateData)
         .then(result => {
