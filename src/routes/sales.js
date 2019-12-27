@@ -17,7 +17,19 @@ module.exports = [
         name: 'finishing-printing-cost-calculation',
         moduleId: './modules/sales/finishing-printing-cost-calculation/index',
         nav: true,
-        title: 'Cost Calculation Dyeing Printing',
+        title: 'Cost Calculation - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },{
+        route: 'sales/shin-finishing-printing-sales-contract',
+        name: 'shin-finishing-printing-sales-contract',
+        moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Dyeing & Printing (New)',
         auth: true,
         settings: {
             group: "sales",
@@ -25,6 +37,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'sales/reports/shin-finishing-printing-sales-contract-reports',
+    //     name: 'shin-finishing-printing-sales-contract-report',
+    //     moduleId: './modules/sales/reports/shin-finishing-printing-sales-contract-report/index',
+    //     nav: true,
+    //     title: 'Laporan Sales Contract - Dyeing & Printing (New)',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'sales/finishing-printing-sales-contract',
         name: 'finishing-printing-sales-contract',
