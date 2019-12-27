@@ -24,8 +24,10 @@ export class Item {
     @bindable selectedCOA;
     selectedCOAChanged(newValue, oldValue) {
         if (newValue) {
+            this.data.COA = newValue;
             this.data.COAId = newValue.Id;
         } else {
+            this.data.COA = undefined;
             this.data.COAId = 0;
         }
     }

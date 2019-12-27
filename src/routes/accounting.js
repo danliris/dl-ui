@@ -202,7 +202,7 @@ module.exports = [
         title: 'Bukti Pengeluaran Bank Lain - Lain',
         auth: true,
         settings: {
-            group: "accounting",
+            group: "finance",
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
