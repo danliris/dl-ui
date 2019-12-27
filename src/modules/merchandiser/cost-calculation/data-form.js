@@ -210,6 +210,8 @@ export class DataForm {
         item.Efficiency = this.data.Efficiency;
       })
     }
+
+    this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
   get preSalesContractLoader() {
