@@ -232,5 +232,18 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-production/monitoring-finishing',
+        name: 'garment-production-monitoring-finishing',
+        moduleId: './modules/garment-production/monitoring-finishing/index',
+        nav: true,
+        title: 'Monitoring Finishing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];

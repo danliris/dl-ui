@@ -1,7 +1,7 @@
 <template>
     <require from="../../../../lib/number-format-value-converter"></require>
     <require from="../../../../lib/date-format-value-converter"></require>
-    <h1 class="page-header">Laporan Buku Pembelian Lokal</h1>
+    <h1 class="page-header">Laporan Buku Pembelian Lokal Valas</h1>
     <form class="form-horizontal">
         <au-autocomplete value.bind="no"
                          label="Nomor Nota"
@@ -74,11 +74,12 @@
                     <td rowspan=2>Quantity</td>
                     <td rowspan=2>Satuan</td>
                     <td rowspan=2>Mata Uang</td>
+                    <td rowspan=2>Kurs</td>
                     <td colspan=2>Pembelian</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
                 <tr>
-                    <td>DPP</td>
+                    <td>DPP Valas</td>
                     <td>PPN</td>
                 </tr>
             </thead>
@@ -98,7 +99,8 @@
                     <td>${report.Quantity}</td>
                     <td>${report.Uom}</td>
                     <td>${report.CurrencyCode}</td>
-                    <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
+                    <td>${report.CurrencyRate}</td>
+                    <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>

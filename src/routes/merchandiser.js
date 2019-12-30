@@ -28,8 +28,8 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/garment-purchase-request-master',
-        name: 'purchase-request-master',
+        route: '/merchandiser/garment-purchase-request-master-by-user',
+        name: 'purchase-request-master-by-user',
         moduleId: './modules/merchandiser/garment-purchase-request-master/index',
         nav: true,
         title: 'PR Master',
@@ -37,7 +37,22 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
-            iconClass: 'fa fa-calculator'
+            iconClass: 'fa fa-calculator',
+            byUser: true
+        }
+    },
+    {
+        route: '/merchandiser/garment-purchase-request-master',
+        name: 'purchase-request-master',
+        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        nav: true,
+        title: 'PR Master (Semua User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: false
         }
     },
     {
@@ -143,7 +158,7 @@ module.exports = [
         name: 'budget-validation-purchasing',
         moduleId: './modules/merchandiser/budget-validation-purchasing/index',
         nav: true,
-        title: 'Budget Validation - Purchasing',
+        title: 'Validasi Budget - Purchasing',
         auth: true,
         settings: {
             group: "merchandiser",
