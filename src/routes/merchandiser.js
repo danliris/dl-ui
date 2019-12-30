@@ -498,6 +498,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+     {
+        route: '/merchandiser/distribution-ro-garment-report',
+        name: 'distribution-ro-garment-report',
+        moduleId: './modules/merchandiser/report/distribution-ro-garment-report/index',
+        nav: true,
+        title: 'Laporan Distribusi RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },    
     {
         route: '/merchandiser/available-budget-report',
         name: 'available-budget-report',
