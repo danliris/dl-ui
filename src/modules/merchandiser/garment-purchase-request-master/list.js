@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
@@ -61,7 +62,7 @@ export class List {
       filter: JSON.stringify(filter)
     }
 
-    return this.service.search(arg)
+    return this.service.search(arg, this.byUser)
       .then(result => {
         result.data.forEach(data => {
           data.isPosting = data.IsPosted;
@@ -78,6 +79,18 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+  }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace; //replace the viewmodel with a new instance
+    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+    // or activationStrategy.noChange to explicitly use the default behavior
+  }
+
+  activate(params, routeConfig, navigationInstruction) {
+    const instruction = navigationInstruction.getAllInstructions()[0];
+    const parentInstruction = instruction.parentInstruction;
+    this.byUser = parentInstruction.config.settings.byUser;
   }
 
   get postButtonDisabled() {

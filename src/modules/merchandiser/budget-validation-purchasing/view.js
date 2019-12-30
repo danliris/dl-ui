@@ -96,20 +96,6 @@ export class View {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
         this.title = parentInstruction.config.title;
-        const type = parentInstruction.config.settings.type;
-
-        switch (type) {
-            case "md":
-                this.type = "MD";
-                break;
-            case "ie":
-                this.type = "IE";
-                break;
-            case "kadivmd":
-                this.type = "KadivMD";
-                break;
-            default: break;
-        }
 
         if (this.authService.authenticated) {
             this.me = this.authService.getTokenPayload();
@@ -120,33 +106,24 @@ export class View {
 
         var id = params.id;
 
-        if (this.type !== "KadivMD") {
-            this.data = await this.service.getById(id);
-        } else {
-            this.data = await this.service.getByIdWithProductNames(id);
+        this.data = await this.service.getByIdWithProductNames(id);
 
-            this.approval.data = Object.assign({}, this.data);
+        // DATA APPROVAL
+        this.approval.data = Object.assign({}, this.data);
 
-            this.approval.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials.filter(mtr => {
-                let processOrNot = mtr.Category.name.toUpperCase() !== "PROCESS";
-                return true
-                    && mtr.IsPosted !== true
-                    && processOrNot
-            });
-
-            let no = 0;
-            this.approval.data.CostCalculationGarment_Materials.map(material => {
-                material.No = ++no;
-                material.Section = this.data.Section;
-                material.ProductCode = material.Product.Code;
-                material.ProductName = material.Product.Name;
-                material.UOMPriceUnit = material.UOMPrice.Unit;
-                material.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY");
-                material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
-                material.IsPRMaster = material.PRMasterId > 0;
-                material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
-            });
-        }
+        let no = 0;
+        this.approval.data.CostCalculationGarment_Materials.map(material => {
+            material.No = ++no;
+            material.Section = this.data.Section;
+            material.ProductCode = material.Product.Code;
+            material.ProductName = material.Product.Name;
+            material.UOMPriceUnit = material.UOMPrice.Unit;
+            material.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY");
+            material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
+            material.IsPRMaster = material.PRMasterId > 0;
+            material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
+        });
+        // DATA APPROVAL
 
         this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
         this.data.AccessoriesAllowance = numeral(
@@ -226,7 +203,7 @@ export class View {
         this.data.ConfirmPrice = (this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 }));
 
         this.editCallback = this.approve;
-        if (this.activeTab === 1 && this.type === "KadivMD") {
+        if (this.activeTab === 0) {
             this.editCallback = null;
         }
     }
@@ -244,42 +221,32 @@ export class View {
     }
 
     approve(event) {
-        if (confirm("Approve Cost Calculation?")) {
-            if (this.type !== "KadivMD") {
-                const jsonPatch = [
-                    { op: "replace", path: `/IsApproved${this.type}`, value: true },
-                    { op: "replace", path: `/Approved${this.type}By`, value: this.me.username },
-                    { op: "replace", path: `/Approved${this.type}Date`, value: new Date() }
-                ];
+        if (confirm("Approve Budget?")) {
+            const jsonPatch = [
+                { op: "replace", path: `/IsApprovedPurchasing`, value: true },
+                { op: "replace", path: `/ApprovedPurchasingBy`, value: this.me.username },
+                { op: "replace", path: `/ApprovedPurchasingDate`, value: new Date() }
+            ];
 
-                this.service.replace(this.data.Id, jsonPatch)
-                    .then(result => {
-                        this.list();
-                    })
-                    .catch(e => {
+            this.service.replace(this.data.Id, jsonPatch)
+                .then(result => {
+                    alert("Berhasil Approve Budget");
+                    this.list();
+                })
+                .catch(e => {
+                    if (e.statusCode === 500) {
+                        this.error = JSON.parse(e.message);
+                    } else {
                         this.error = e;
-                    })
-            } else {
-                this.service.approve(this.approval.data)
-                    .then(result => {
-                        this.list();
-                    })
-                    .catch(e => {
-                        if (e.statusCode === 500) {
-                            alert("Gagal menyimpan, silakan coba lagi!");
-                            this.approval.error = JSON.parse(e.message);
-                        } else {
-                            this.approval.error = e;
-                        }
-                    });
-            }
+                    }
+                })
         }
     }
 
     changeRole(tab) {
         this.activeTab = tab;
         this.editCallback = this.approve;
-        if (tab === 1 && this.type === "KadivMD") {
+        if (tab === 0) {
             this.editCallback = null;
         }
     }
