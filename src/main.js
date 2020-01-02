@@ -43,7 +43,7 @@ export async function configure(aurelia) {
       var spMasterPlan = "https://dl-sp-master-plan-webapi.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning.azurewebsites.net/";
       var intPurchasing = "https://com-danliris-service-internal-transfer.azurewebsites.net/v1/";
-      var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
+      var customsReport = "https://com-danliris-service-support.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md.azurewebsites.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking.azurewebsites.net/v1/';
       const sales = "https://com-danliris-service-sales.azurewebsites.net/v1/";
