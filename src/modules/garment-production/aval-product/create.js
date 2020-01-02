@@ -34,7 +34,7 @@ export class Create {
     }
 
     save(event) {
-        this.data.AvalDate = this.data.AvalDate ? moment(this.data.AvalDate).format("DD MMM YYYY") : null;
+        //this.data.AvalDate = this.data.AvalDate ? moment(this.data.AvalDate).format("DD MMM YYYY") : null;
         let objData = {};
         let data = Object.assign(objData, this.data)
         data.Items = data.Items.filter(x => x.IsSave==true);

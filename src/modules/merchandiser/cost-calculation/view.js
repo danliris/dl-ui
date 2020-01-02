@@ -66,7 +66,11 @@ export class View {
     return this.data.Rate.Id !== 0;
   }
 
-  async activate(params) {
+  async activate(params, routeConfig, navigationInstruction) {
+    const instruction = navigationInstruction.getAllInstructions()[0];
+    const parentInstruction = instruction.parentInstruction;
+    const byUser = parentInstruction.config.settings.byUser;
+
     var id = params.id;
     this.data = await this.service.getById(id);
     if(this.data.ApprovalMD.IsApproved || this.data.SCGarmentId)
@@ -159,6 +163,12 @@ export class View {
     if (this.data.IsPosted) {
       this.editCallback = null;
       this.deleteCallback = null;
+    }
+
+    if (!byUser) {
+      this.editCallback = null;
+      this.deleteCallback = null;
+      this.hasUnpost = false; 
     }
   }
 

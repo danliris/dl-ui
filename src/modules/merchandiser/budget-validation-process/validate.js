@@ -1,13 +1,12 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import { PurchaseRequestService } from './service';
 import moment from 'moment';
 
 const costCalculationGarmentLoader = require('../../../loader/cost-calculation-garment-loader');
 const buyerLoader = require('../../../loader/buyers-loader');
 
-@inject(Router, Service, PurchaseRequestService)
+@inject(Router, Service)
 export class Create {
     @bindable data = {};
     @bindable error = {};
@@ -64,10 +63,9 @@ export class Create {
         };
     }
 
-    constructor(router, service, purchaseRequestService) {
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.purchaseRequestService = purchaseRequestService;
         this.data = {};
         this.error = {};
     }
@@ -80,21 +78,6 @@ export class Create {
 
                 // Ambil semua Products di GarmentPurchaseRequests untuk mengecek
                 // Product di CostCalculation_Materials adalah MASTER (IsPRMaster) atau JOB ORDER
-                let productsInPRMaster = [];
-                if (this.data.CostCalculationGarment.PreSCId) {
-                    const info = {
-                        select: JSON.stringify({ Id: 1, PRNo: 1, SCId: 1, SCNo: 1, "Items.ProductId": 1, "Items.ProductCode": 1 }),
-                        filter: JSON.stringify({ SCId: this.data.CostCalculationGarment.PreSCId, PRType: "MASTER" })
-                    };
-                    let purchaseRequest = await this.purchaseRequestService.getProducts(info);
-
-                    if (purchaseRequest.data && purchaseRequest.data.length > 0) {
-                        productsInPRMaster = purchaseRequest.data.reduce(
-                            (acc, cur) => acc.concat(cur.Items.map(i => i.ProductCode))
-                            , []);
-                    }
-                }
-
                 this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
@@ -131,7 +114,7 @@ export class Create {
                     material.UOMPriceUnit = material.UOMPrice.Unit;
                     material.DeliveryDate = moment(this.data.CostCalculationGarment.DeliveryDate).format("DD MMM YYYY");
                     material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
-                    material.IsPRMaster = productsInPRMaster.indexOf(material.ProductCode) > -1;
+                    material.IsPRMaster = material.PRMasterId > 0;
                     material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
                 });
             }

@@ -61,13 +61,20 @@ export class List {
         this.title = parentInstruction.config.title;
         const type = parentInstruction.config.settings.type;
 
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+
         switch (type) {
             case "kabagmd":
                 this.filter = {
                     "RO_Garment_SizeBreakdowns.Any(RO_GarmentId != null)": true,
                     "CostCalculationGarment.IsValidatedROMD": false,
                     "CostCalculationGarment.IsValidatedROSample": false,
-                    "IsPosted": true
+                    "IsPosted": true,
+                    "CostCalculationGarment.SectionName": username
                 };
                 break;
             case "sample":

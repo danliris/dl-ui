@@ -1,7 +1,8 @@
 export class Index {
     configureRouter(config, router) {
         config.map([
-            { route: ['', 'validate'], moduleId: './validate', name: 'validate', nav: true },
+            { route: ["", "list"], moduleId: "./list", name: "list", nav: true },
+            { route: "view/:id", moduleId: "./view", name: "view", nav: false, title: "Detail" }
         ]);
 
         this.router = router;

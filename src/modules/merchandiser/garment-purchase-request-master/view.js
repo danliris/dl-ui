@@ -13,7 +13,11 @@ export class View {
         this.coreService = coreService;
     }
 
-    async activate(params) {
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        const byUser = parentInstruction.config.settings.byUser;
+
         let id = params.id;
         this.data = await this.service.read(id);
 
@@ -51,6 +55,12 @@ export class View {
                 this.editCallback = null;
                 this.deleteCallback = null;
             }
+        }
+
+        if (!byUser) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+            this.hasUnpost = false;
         }
     }
 

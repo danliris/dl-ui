@@ -15,7 +15,11 @@ export class View {
         saveText: "Unpost",
     }
 
-    async activate(params) {
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        const byUser = parentInstruction.config.settings.byUser;
+
         var id = params.id;
         this.data = await this.service.getById(id);
 
@@ -33,6 +37,12 @@ export class View {
                 this.deleteCallback = null;
                 this.saveCallback = null;
             }
+        }
+
+        if (!byUser) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+            this.saveCallback = null;
         }
     }
 

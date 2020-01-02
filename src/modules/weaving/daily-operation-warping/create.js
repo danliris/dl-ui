@@ -36,18 +36,13 @@ export class Create {
       errorIndex++;
     }
 
-    if (this.data.PreparationMaterialType == "" || this.data.PreparationMaterialType == undefined) {
-      this.error.PreparationMaterialType = "Jenis Material Tidak Boleh Kosong";
-      errorIndex++;
-    }
-
     if (this.data.AmountOfCones == 0 || this.data.AmountOfCones == undefined) {
       this.error.AmountOfCones = "Jumlah Cone Tidak Boleh Kosong";
       errorIndex++;
     }
 
-    if (this.data.ColourOfCone == "" || this.data.ColourOfCone == undefined) {
-      this.error.ColourOfCone = "Warna Cone Tidak Boleh Kosong";
+    if (this.data.PreparationMaterialType == 0 || this.data.PreparationMaterialType == undefined) {
+      this.error.PreparationMaterialType = "Jumlah Beam Dihasilkan Tidak Boleh Kosong";
       errorIndex++;
     }
 
