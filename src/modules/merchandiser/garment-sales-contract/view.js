@@ -13,7 +13,11 @@ export class View {
         this.service = service;
     }
 
-    async activate(params) {
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        const byUser = parentInstruction.config.settings.byUser;
+
         var id = params.id;
         this.data = await this.service.getById(id);
         if (this.data && this.data.CostCalculationId) {
@@ -24,6 +28,11 @@ export class View {
             }
         }
         this.hasItems=true;
+
+        if (!byUser) {
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }
     }
 
     list() {
