@@ -491,4 +491,13 @@ uomView =(uom)=>{
                 }
             });
     }
+
+    enterDelegate(event) {
+        if (event.charCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+        else
+            return true;
+    }
 }
