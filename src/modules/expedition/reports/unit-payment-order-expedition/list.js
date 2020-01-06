@@ -33,8 +33,11 @@ export class List {
             { field: 'Currency.Code', title: 'Kurs', rowspan: 2, sortable: true },
             { title: 'Jumlah', colspan: 4 },
             {
+                // field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
+                //     return moment(data.DueDate).diff(moment(data.Date), 'days', false);
+                // }
                 field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
-                    return moment(data.DueDate).diff(moment(data.Date), 'days', false);
+                    return Math.ceil((moment(data.DueDate) - moment(data.Date))/(1000*60*60*24));
                 }
             },
             { field: 'Category.Name', title: 'Kategori', rowspan: 2, sortable: true },
