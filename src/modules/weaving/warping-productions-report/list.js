@@ -12,26 +12,18 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
   listDataFlag = false;
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+  years = [];
 
   columns = [
     [{
         field: "ProductionDate",
         title: "Tanggal Produksi",
         rowspan: "2",
-        valign: "top",
-        sortable: true,
-        formatter: function (value, data, index) {
-          return moment(value).format("DD MMMM YYYY");
-        }
+        valign: "top"
       },
       {
         title: "A",
@@ -66,31 +58,44 @@ export class List {
       }
     ],
     [{
-      field: "A",
+      field: "AGroupTotal",
       valign: "middle"
     }, {
-      field: "B",
+      field: "BGroupTotal",
       valign: "middle"
     }, {
-      field: "C",
+      field: "CGroupTotal",
       valign: "middle"
     }, {
-      field: "D",
+      field: "DGroupTotal",
       valign: "middle"
     }, {
-      field: "E",
+      field: "EGroupTotal",
       valign: "middle"
     }, {
-      field: "F",
+      field: "FGroupTotal",
       valign: "middle"
     }, {
-      field: "G",
+      field: "GGroupTotal",
       valign: "middle"
     }, {
-      field: "Total",
+      field: "TotalAll",
       valign: "middle"
     }]
   ];
+
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 5;
+    this.maxYearItem = this.currentYearItem + 5;
+
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
+    }
+  }
 
   controlOptions = {
     label: {
@@ -105,13 +110,14 @@ export class List {
     search: false,
     showToggle: false,
     showColumns: false,
-    pagination: true,
-    sortable: true,
+    pagination: false,
+    sortable: false,
   }
 
   loader = (info) => {
-    let order = {};
-    if (info.sort) order[info.sort] = info.order;
+    if (this.Year) {
+      var YearContainer = this.Year;
+    }
     if (this.Month) {
       var MonthContainer = this.Month;
     }
@@ -162,17 +168,20 @@ export class List {
 
     var arg = {
       month: MonthInNumber,
-
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
-      order: order
+      year : YearContainer
     };
 
     return this.listDataFlag ? this.service.getReportData(arg).then(result => {
       return {
-        data: result.data,
-        total: result.info.count
+        AGroupTotal : result.data.AGroupTotal,
+        BGroupTotal : result.data.BGroupTotal,
+        CGroupTotal : result.data.CGroupTotal,
+        DGroupTotal : result.data.DGroupTotal,
+        EGroupTotal : result.data.EGroupTotal,
+        FGroupTotal : result.data.FGroupTotal,
+        GGroupTotal : result.data.GGroupTotal,
+        TotalAll : result.data.TotalAll,
+        data: result.data.PerOperatorList
       };
     }) : {
       data: {},
@@ -195,6 +204,9 @@ export class List {
   }
 
   exportToExcel() {
+    if (this.Year) {
+      var YearContainer = this.Year;
+    }
     if (this.Month) {
       var MonthContainer = this.Month;
     }
@@ -244,7 +256,7 @@ export class List {
     }
 
     //Get All
-    return this.listDataFlag ? this.service.getReportXls(MonthInNumber).then(result => {
+    return this.listDataFlag ? this.service.getReportXls(MonthInNumber, YearContainer).then(result => {
       return {
         data: result,
         total: length
