@@ -14,7 +14,7 @@ export class Create {
         let now = new Date();
         this.data = {
             Date: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-            ExpectedDeliveryDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+            ShipmentDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
         };
         this.error = {};
     }
