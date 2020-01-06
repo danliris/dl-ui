@@ -4,27 +4,28 @@ export class DOSalesItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    if (!this.data.Weight) {
-      this.data.Weight = 0;
+
+    if (!this.data.PackingQuantity) {
+      this.data.PackingQuantity = 0;
     }
-    if (!this.data.Quantity) {
-      this.data.Quantity = 0;
+    if (!this.data.ImperialQuantity) {
+      this.data.ImperialQuantity = 0;
     }
-    if (!this.data.Length) {
-      this.data.Length = 0;
+    if (!this.data.MetricQuantity) {
+      this.data.MetricQuantity = 0;
     }
   }
 
-  get Quantity() {
-    return numeral(this.data.Quantity).format("0,000");
+  get PackingQuantity() {
+    return numeral(this.data.PackingQuantity).format("0,0.00");
   }
 
-  get Weight() {
-    return numeral(this.data.Weight).format("0,000.0000");
+  get ImperialQuantity() {
+    return numeral(this.data.ImperialQuantity).format("0,0.00");
   }
 
-  get Length() {
-    return numeral(this.data.Length).format("0,000.0000");
+  get MetricQuantity() {
+    return numeral(this.data.MetricQuantity).format("0,0.00");
   }
 
   controlOptions = {

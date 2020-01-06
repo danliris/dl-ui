@@ -40,6 +40,11 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
+  getPdfById(id) {
+    var endpoint = `${serviceUri}/pdf/${id}`;
+    return super.getPdf(endpoint);
+  }
+
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
@@ -58,7 +63,6 @@ export class ServiceSales extends RestService {
 
   getProductionOrderById(id, select) {
     var endpoint = `${productionOrderServiceUri}/${id}`;
-    //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

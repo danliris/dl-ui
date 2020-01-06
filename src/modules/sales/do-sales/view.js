@@ -40,21 +40,21 @@ export class View {
 
   attached() {
     var total = {
-      UnitName: "Total Jumlah",
-      Quantity: 0,
-      Weight: 0,
-      Length: 0
+      UnitCode: "Total Jumlah",
+      PackingQuantity: 0,
+      ImperialQuantity: 0,
+      MetricQuantity: 0
     };
 
     for (var detail of this.data.DOSalesDetails) {
-      total.Quantity += detail.Quantity;
-      total.Weight += detail.Weight;
-      total.Length += detail.Length;
+      total.PackingQuantity += detail.PackingQuantity;
+      total.ImperialQuantity += detail.ImperialQuantity;
+      total.MetricQuantity += detail.MetricQuantity;
     }
 
-    total.Quantity = numeral(total.Quantity).format("0,000");
-    total.Weight = numeral(total.Weight).format("0,000.0000");
-    total.Length = numeral(total.Length).format("0,000.0000");
+    total.PackingQuantity = numeral(total.PackingQuantity).format("0,0.00");
+    total.ImperialQuantity = numeral(total.ImperialQuantity).format("0,0.00");
+    total.MetricQuantity = numeral(total.MetricQuantity).format("0,0.00");
 
     this.data.DOSalesDetails.push(total);
   }
