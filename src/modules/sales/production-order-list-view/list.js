@@ -28,15 +28,15 @@ export class List {
             }
         },
         {
-            field: "isClosed", title: "Status",
+            field: "IsClosed", title: "Status",
             formatter: function (value, data, index) {
-                return data.isClosed ? "Closed" : "Open";
+                return data.IsClosed ? "Closed" : "Open";
             }
         }
     ];
 
     rowFormatter(data, index) {
-        if (data.isClosed)
+        if (data.IsClosed)
             return { classes: "danger" };
         else
             return {}
