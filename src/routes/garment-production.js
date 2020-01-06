@@ -142,32 +142,32 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: '/garment-production/finishing-in',
-        name: 'garment-production-finishing-in',
-        moduleId: './modules/garment-production/finishing-in/index',
-        nav: true,
-        title: 'Finishing In',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/garment-production/finishing-out',
-        name: 'garment-production-finishing-out',
-        moduleId: './modules/garment-production/finishing-out/index',
-        nav: true,
-        title: 'Finishing Out',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: '/garment-production/finishing-in',
+    //     name: 'garment-production-finishing-in',
+    //     moduleId: './modules/garment-production/finishing-in/index',
+    //     nav: true,
+    //     title: 'Finishing In',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: {"C9": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: '/garment-production/finishing-out',
+    //     name: 'garment-production-finishing-out',
+    //     moduleId: './modules/garment-production/finishing-out/index',
+    //     nav: true,
+    //     title: 'Finishing Out',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: {"C9": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
@@ -233,17 +233,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: '/garment-production/monitoring-finishing',
-        name: 'garment-production-monitoring-finishing',
-        moduleId: './modules/garment-production/monitoring-finishing/index',
-        nav: true,
-        title: 'Monitoring Finishing',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    }
+    // {
+    //     route: '/garment-production/monitoring-finishing',
+    //     name: 'garment-production-monitoring-finishing',
+    //     moduleId: './modules/garment-production/monitoring-finishing/index',
+    //     nav: true,
+    //     title: 'Monitoring Finishing',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: {"C9": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // }
 ];
