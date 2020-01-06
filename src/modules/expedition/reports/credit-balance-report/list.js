@@ -9,9 +9,9 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 export class List {
     itemYears = [];
     columns = [
-        { field: 'Currency', title: 'Mata Uang' },
-        { field: 'Products', title: 'Nama Barang' },
         { field: 'SupplierName', title: 'Supplier' },
+        { field: 'Currency', title: 'Mata Uang' },
+        // { field: 'Products', title: 'Nama Barang' },
         {
             field: 'StartBalance', title: 'Saldo Awal', formatter: function (value, data, index) {
                 return value ? numeral(value).format('0,000') : '0';
@@ -107,27 +107,27 @@ export class List {
             this.service.search(arg)
                 .then((result) => {
 
-                    let before = {};
+                    // let before = {};
 
-                    if (result.data.length != 0) {
-                        for (let i in result.data) {
-                            if (result.data[i].Currency != before.Currency) {
-                                before = result.data[i];
-                                before._Currency_rowspan = 1;
-                            } else {
-                                before._Currency_rowspan++;
+                    // if (result.data.length != 0) {
+                    //     for (let i in result.data) {
+                    //         if (result.data[i].Currency != before.Currency) {
+                    //             before = result.data[i];
+                    //             before._Currency_rowspan = 1;
+                    //         } else {
+                    //             before._Currency_rowspan++;
 
-                                result.data[i].Currency = undefined;
-                            }
-                            result.data[i].Products = result.data[i].Products || "";
-                        }
-                    }
-                    setTimeout(() => {
-                        $('#credit-balance-table td').each(function () {
-                            if ($(this).html() === '-')
-                                $(this).hide();
-                        })
-                    }, 10);
+                    //             result.data[i].Currency = undefined;
+                    //         }
+                    //         result.data[i].Products = result.data[i].Products || "";
+                    //     }
+                    // }
+                    // setTimeout(() => {
+                    //     $('#credit-balance-table td').each(function () {
+                    //         if ($(this).html() === '-')
+                    //             $(this).hide();
+                    //     })
+                    // }, 10);
 
                     return {
                         total: result.info.Count,
