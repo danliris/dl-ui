@@ -28,7 +28,7 @@ export class DataForm {
   @bindable SelectedRounding;
   @bindable isCopy = false;
  
-  leadTimeList = ["", "30 hari", "45 hari"];
+  leadTimeList = ["", "25 hari", "35 hari"];
 
   
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
@@ -303,13 +303,13 @@ export class DataForm {
   @bindable selectedLeadTime = "";
   selectedLeadTimeChanged(newVal) {
  
-    if (newVal === "30 hari")
+    if (newVal === "25 hari")
     {
-      this.data.LeadTime = 30;
+      this.data.LeadTime = 25;
     }
-    else if (newVal === "45 hari")
+    else if (newVal === "35 hari")
     {      
-      this.data.LeadTime = 45;
+      this.data.LeadTime = 35;
       
     }
     else
