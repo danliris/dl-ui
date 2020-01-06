@@ -283,7 +283,10 @@ export class DataForm {
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
     }
-    this.data.CostCalculationGarment_Materials.splice(0);
+
+    if ((oldValue && newValue) || (oldValue && !newValue)) {
+      this.data.CostCalculationGarment_Materials.splice(0);
+    }
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
