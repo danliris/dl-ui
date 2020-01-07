@@ -9,7 +9,6 @@ import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceProductionAzure, ServiceCore } from "./service";
 
 var DOSalesLoader = require("../../../loader/do-sales-loader");
-var BuyersLoader = require("../../../loader/buyers-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
 
 @containerless()
@@ -28,15 +27,6 @@ export class DataForm {
   @bindable SalesInvoiceDate;
   @bindable DueDate;
   @bindable getTempo;
-
-  controlOptions = {
-    label: {
-      length: 4
-    },
-    control: {
-      length: 5
-    }
-  };
 
   constructor(
     service,
@@ -71,22 +61,6 @@ export class DataForm {
       );
     }
 
-    var buyerId = this.data.BuyerId;
-    if (buyerId) {
-      this.selectedDOSales = await this.serviceCore.getBuyerById(
-        buyerId,
-        this.buyerFields
-      );
-    }
-    else {
-      this.selectedBuyer = {
-        Id: this.data.BuyerId,
-        Name: this.data.BuyerName,
-        Address: this.data.BuyerAddress,
-        NPWP: this.data.BuyerNPWP
-      };
-    }
-
     var currencyId = this.data.CurrencyId;
     if (currencyId) {
       this.selectedCurrency = await this.serviceCore.getCurrencyById(
@@ -94,22 +68,13 @@ export class DataForm {
         this.currencyFields
       );
     }
-    
-  }
 
-  activate(context) {
-    this.context = context;
-    this.data = context.data;
-    this.error = context.error;
-    this.options = context.context.options;
-    this.readOnly = context.options.readOnly;
-    this.SalesInvoiceDate = this.data.SalesInvoiceDate.getTime();
-    this.DueDate = this.data.DueDate.getTime();
-    if (this.SalesInvoiceDate && this.DueDate) {
-      this.getTempo =
-        (this.DueDate - this.SalesInvoiceDate) / (1000 * 60 * 60 * 24);
-      this.data.SalesInvoiceDate = this.SalesInvoiceDate;
-      this.data.DueDate = this.DueDate;
+    if (this.data.SalesInvoiceDate) {
+      this.SalesInvoiceDate = this.data.SalesInvoiceDate;
+    }
+
+    if (this.data.DueDate) {
+      this.DueDate = this.data.DueDate;
     }
   }
 
@@ -123,19 +88,23 @@ export class DataForm {
 
   SalesInvoiceDateChanged(newValue, oldValue) {
     if (this.SalesInvoiceDate && this.DueDate) {
-      this.getTempo =
-        (this.DueDate - this.SalesInvoiceDate) / (1000 * 60 * 60 * 24);
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
       this.data.DueDate = this.DueDate;
+
+      var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+      var dueTime = new Date(this.data.DueDate).getTime();
+      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
     }
   }
 
   DueDateChanged(newValue, oldValue) {
     if (this.SalesInvoiceDate && this.DueDate) {
-      this.getTempo =
-        (this.DueDate - this.SalesInvoiceDate) / (1000 * 60 * 60 * 24);
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
       this.data.DueDate = this.DueDate;
+
+      var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+      var dueTime = new Date(this.data.DueDate).getTime();
+      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
     }
   }
 
@@ -146,7 +115,7 @@ export class DataForm {
   salesInvoiceDetailsInfo = {
     columns: [
       "Kode",
-      "Kuantitas",
+      "Banyak",
       "Jumlah",
       "Satuan",
       "Nama Barang",
@@ -163,6 +132,8 @@ export class DataForm {
     }.bind(this)
   };
 
+  salesInvoiceTypeOptions = ["", "BPF", "BPS", "BPP", "BRG"];
+
   enterDelegate(event) {
     if (event.charCode === 13) {
       event.preventDefault();
@@ -174,11 +145,14 @@ export class DataForm {
   selectedDOSalesChanged(newValue, oldValue) {
     if (this.selectedDOSales && this.selectedDOSales.Id) {
       this.data.DOSalesId = this.selectedDOSales.Id;
-      this.data.DOSalesNo = this.selectedDOSales.Code;
+      this.data.DOSalesNo = this.selectedDOSales.DOSalesNo;
       this.data.BuyerId = this.selectedDOSales.BuyerId;
       this.data.BuyerName = this.selectedDOSales.BuyerName;
       this.data.BuyerAddress = this.selectedDOSales.BuyerAddress;
       this.data.BuyerNPWP = this.selectedDOSales.BuyerNPWP;
+      this.data.Disp = this.selectedDOSales.Disp;
+      this.data.Op = this.selectedDOSales.Op;
+      this.data.Sc = this.selectedDOSales.Sc;
     } else {
       this.data.DOSalesId = null;
       this.data.DOSalesNo = null;
@@ -186,21 +160,9 @@ export class DataForm {
       this.data.BuyerName = null;
       this.data.BuyerAddress = null;
       this.data.BuyerNPWP = null;
-    }
-  }
-
-  @bindable selectedBuyer;
-  selectedBuyerChanged(newValue, oldValue) {
-    if (this.selectedBuyer && this.selectedBuyer.Id) {
-      this.data.BuyerId = this.selectedBuyer.BuyerId;
-      this.data.BuyerName = this.selectedBuyer.BuyerName;
-      this.data.BuyerAddress = this.selectedBuyer.BuyerAddress;
-      this.data.BuyerNPWP = this.selectedBuyer.BuyerNPWP;
-    } else {
-      this.data.BuyerId = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
-      this.data.BuyerNPWP = null;
+      this.data.Disp = null;
+      this.data.Op = null;
+      this.data.Sc = null;
     }
   }
 
@@ -209,20 +171,18 @@ export class DataForm {
     if (this.selectedCurrency && this.selectedCurrency.Id) {
       this.data.CurrencyId = this.selectedCurrency.Id;
       this.data.CurrencyCode = this.selectedCurrency.Code;
+      this.data.CurrencyRate = this.selectedCurrency.Rate;
       this.data.CurrencySymbol = this.selectedCurrency.Symbol;
     } else {
       this.data.CurrencyId = null;
       this.data.CurrencyCode = null;
+      this.data.CurrencyRate = null;
       this.data.CurrencySymbol = null;
     }
   }
 
   get doSalesLoader() {
     return DOSalesLoader;
-  }
-
-  get buyersLoader() {
-    return BuyersLoader;
   }
 
   get currencyLoader() {
@@ -235,43 +195,28 @@ export class DataForm {
   salesInvoiceNoChanged(e) {
     console.log(this.data.SalesInvoiceNo);
   }
+  salesInvoiceTypeChanged(e) {
+    console.log(this.data.SalesInvoiceType);
+  }
   deliveryOrderNoChanged(e) {
     console.log(this.data.DeliveryOrderNo);
-  }
-  npwpChanged(e) {
-    console.log(this.data.NPWP);
-  }
-  nppkpChanged(e) {
-    console.log(this.data.NPPKP);
   }
   debtorIndexNoChanged(e) {
     console.log(this.data.DebtorIndexNo);
   }
-  buyerNameChanged(e) {
-    console.log(this.data.BuyerName);
-  }
-  buyerNPWPChanged(e) {
-    console.log(this.data.BuyerNPWP);
-  }
-  dispChanged(e) {
-    console.log(this.data.Disp);
-  }
-  opChanged(e) {
-    console.log(this.data.Op);
-  }
-  scChanged(e) {
-    console.log(this.data.Sc);
-  }
   tempoChanged(e) {
     console.log(this.getTempo);
   }
-  getTotalItemChanged(e){
+  getTotalItemChanged(e) {
     this.console.log(this.getTotalItem);
   }
   useVatChanged(e) {
     console.log(this.data.useVat);
   }
-  notesChanged(e) {
-    console.log(this.data.Notes);
+  remarkChanged(e) {
+    console.log(this.data.Remark);
+  }
+  idNoChanged(e) {
+    console.log(this.data.IDNo);
   }
 }

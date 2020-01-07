@@ -26,6 +26,7 @@ export class View {
                 break;
             }
         }
+        this.editCallback=null;
     }
 
     cancelCallback(event) {
