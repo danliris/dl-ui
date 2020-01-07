@@ -3,7 +3,7 @@
 
     <form class="form-horizontal">
         <au-autocomplete value.bind="info.supplier" error.bind="error.supplier" label="Supplier" loader.bind="supplierLoader"
-            text.bind="supplierView" placeholder="Input Supplier" read-only.bind="readOnly" options.bind="controlOptions">
+            text.bind="supplierView" query.bind="supplierQuery" placeholder="Input Supplier" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
         <au-dropdown value.bind="info.month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths" key="value"
             text="text">
