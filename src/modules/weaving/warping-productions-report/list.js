@@ -171,7 +171,7 @@ export class List {
       year : YearContainer
     };
 
-    return this.listDataFlag ? this.service.getReportData(arg).then(result => {
+    return this.listDataFlag ? this.service.getReportData(arg).then(result => {debugger
       return {
         AGroupTotal : result.data.AGroupTotal,
         BGroupTotal : result.data.BGroupTotal,
