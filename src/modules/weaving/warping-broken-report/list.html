@@ -1,0 +1,109 @@
+<template>
+  <h1 class="page-header">Daftar Laporan Produksi Warping Per Operator</h1>
+
+  <div class="row">
+    <div class="col-md-3" style="white-space: nowrap;">
+      <au-dropdown label="Bulan" value.bind="Month" error.bind="error.Month" read-only.bind="readOnly"
+        items.bind="months" options.bind="controlOptions">
+      </au-dropdown>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3" style="white-space: nowrap;">
+      <au-dropdown label="Tahun" value.bind="Year" error.bind="error.Year" read-only.bind="readOnly" items.bind="years"
+        options.bind="controlOptions">
+      </au-dropdown>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3" style="white-space: nowrap;">
+      <au-autocomplete label="Unit Weaving" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
+        read-only.bind="readOnly" loader.bind="units" text="Name" options.bind="controlOptions"></au-autocomplete>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-4">
+      <button class="btn btn-primary" click.delegate="exportToExcel()"
+        style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
+        Print Laporan
+      </button>
+      <button class="btn btn-success" click.delegate="searchWarpingProductions()"
+        style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
+        Cari
+      </button>
+      <button class="btn btn-success" click.delegate="reset()"
+        style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
+        Atur Ulang
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+        <tr>
+          <td rowspan="3" style="vertical-align: middle;"> No</td>
+          <td>Jenis Benang</td>
+          <td colspan="spin1Col">Spinning 1</td>
+          <td colspan="spin2Col">Spinning 2</td>
+          <td colspan="spin3Col">Spinning 3</td>
+          <td colspan="outerThreadCol">Benang Luar</td>
+        </tr>
+        <tr>
+          <td>Jenis & No Benang</td>
+          <td colspan="2" repeat.for="thread of data.Spinning1Threads">${Spinning1Thread}</td>
+          <td colspan="2" repeat.for="thread of data.Spinning2Threads">${Spinning2Thread}</td>
+          <td colspan="2" repeat.for="thread of data.Spinning3Threads">${Spinning3Thread}</td>
+          <td colspan="2" repeat.for="thread of data.OuterThreads">${OuterThread}</td>
+        </tr>
+        <tr>
+          <td>Penyebab</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr repeat.for="report of data.BrokenThreadsList">
+          <td>${report.indexNumber}</td>
+          <td>${report.Cause}</td>
+          <td repeat.for="thread of data.Spinning1TotalThreads">${Spinning1TotalThread}</td>
+          <td repeat.for="thread of data.Spinning2TotalThreads">${Spinning2TotalThread}</td>
+          <td repeat.for="thread of data.Spinning3TotalThreads">${Spinning3TotalThread}</td>
+          <td repeat.for="thread of data.OuterTotalThreads">${OuterTotalThread}</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center"><strong>Total</strong></td>
+          <td class="text-right" repeat.for="totalThread of data.Spinning1ThreadsGrandTotal"><strong>${Spinning1GrandTotal}</strong></td>
+          <td class="text-right" repeat.for="totalThread of data.Spinning2ThreadsGrandTotal"><strong>${Spinning2GrandTotal}</strong></td>
+          <td class="text-right" repeat.for="totalThread of data.Spinning3ThreadsGrandTotal"><strong>${Spinning3GrandTotal}</strong></td>
+          <td class="text-right" repeat.for="totalThread of data.OuterThreadsGrandTotal"><strong>${OuterGrandTotal}</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center"><strong>Maximum</strong></td>
+          <td class="text-right" repeat.for="maxThread of data.Spinning1ThreadsMaximum"><strong>${Spinning1Maximum}</strong></td>
+          <td class="text-right" repeat.for="maxThread of data.Spinning2ThreadsMaximum"><strong>${Spinning2Maximum}</strong></td>
+          <td class="text-right" repeat.for="maxThread of data.Spinning3ThreadsMaximum"><strong>${Spinning3Maximum}</strong></td>
+          <td class="text-right" repeat.for="maxThread of data.OuterThreadsMaximum"><strong>${OuterMaximum}</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center"><strong>Minimum</strong></td>
+          <td class="text-right" repeat.for="minThread of data.Spinning1ThreadsMinimum"><strong>${Spinning1Minimum}</strong></td>
+          <td class="text-right" repeat.for="minThread of data.Spinning2ThreadsMinimum"><strong>${Spinning2Minimum}</strong></td>
+          <td class="text-right" repeat.for="minThread of data.Spinning3ThreadsMinimum"><strong>${Spinning3Minimum}</strong></td>
+          <td class="text-right" repeat.for="minThread of data.OuterThreadsMinimum"><strong>${OuterMinimum}</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center"><strong>Rata-rata Bulan ${Month}</strong></td>
+          <td class="text-right" repeat.for="averageThread of data.Spinning1ThreadsAverage"><strong>${Spinning1Average}</strong></td>
+          <td class="text-right" repeat.for="averageThread of data.Spinning2ThreadsAverage"><strong>${Spinning2Average}</strong></td>
+          <td class="text-right" repeat.for="averageThread of data.Spinning3ThreadsAverage"><strong>${Spinning3Average}</strong></td>
+          <td class="text-right" repeat.for="averageThread of data.OuterThreadsAverage"><strong>${OuterAverage}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-info text-center" role="alert" if.bind="data.Reports && data.Reports.length === 0">
+    Tidak ada data.
+  </div>
+</template>
