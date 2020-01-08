@@ -39,7 +39,7 @@
             label="Asal Cutting"
             read-only="true"
             options.bind="controlOptions"
-            show.bind="fromSewing">
+            show.bind="readOnly || isEdit">
         </au-textbox>
 
         <au-datepicker 
