@@ -52,11 +52,13 @@ export class DataForm {
         this.selectedCuttingIn = null;
         if (this.data.UnitFrom) {
             return {
-                UnitId: this.data.UnitFrom.Id
+                UnitId: this.data.UnitFrom.Id,
+                CuttingFrom:"PREPARING"
             };
         } else {
             return {
-                UnitId: 0
+                UnitId: 0,
+                CuttingFrom:"PREPARING"
             };
         }
     }
