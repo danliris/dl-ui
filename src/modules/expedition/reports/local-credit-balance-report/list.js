@@ -8,6 +8,7 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 @inject(Service)
 export class List {
     itemYears = [];
+    supplierQuery = { "Import": false };
     columns = [
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'Currency', title: 'Mata Uang' },
@@ -92,6 +93,7 @@ export class List {
             size: info.limit,
             order: order,
             select: [],
+            isImport : false
         };
 
         if (this.info.supplier && this.info.supplier.name)
@@ -156,6 +158,7 @@ export class List {
             supplierName: this.info.supplierName,
             month: this.info.month.value,
             year: this.info.year,
+            isImport:false
         }
 
         this.service.getXls(params)
