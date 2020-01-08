@@ -31,7 +31,7 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getReportXls(month, year) {
+  getReportPdf(month, year) {
     var endpoint = `${serviceUri}/get-warping-production-report`;
     var query = '';
 
@@ -47,6 +47,6 @@ export class Service extends RestService {
     if (query !== '') {
       endpoint = `${serviceUri}/get-warping-production-report?${query}`; 
     }
-    return super.getXls(endpoint);
+    return super.getPdf(endpoint);
   }
 }
