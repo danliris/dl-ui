@@ -12,7 +12,6 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  listDataFlag = false;
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
@@ -114,11 +113,19 @@ export class List {
     if (false) {
       alert("");
     } else {
+      this.error = {};
+      var errorIndex = 0;
       if (this.Year) {
         var YearContainer = this.Year;
+      } else {
+        this.error.Year = "Tahun Harus Diisi";
+        errorIndex++;
       }
       if (this.Month) {
         var MonthContainer = this.Month;
+      } else {
+        this.error.Month = "Bulan Harus Diisi";
+        errorIndex++;
       }
 
       var MonthInNumber = 0;
@@ -169,26 +176,37 @@ export class List {
         month: MonthInNumber,
         year: YearContainer
       };
-      this.service.getReportData(arg).then(result => {
-        this.data = result.data;
-      });
+      if (errorIndex == 0) {
+        this.service.getReportData(arg).then(result => {
+          this.data = result.data;
+        });
+      }
     }
   }
 
   reset() {
-    this.listDataFlag = false;
-
+    this.Month = null;
     this.MonthContainer = null;
-
-    // this.warpingProductionsTable.refresh();
+    this.MonthInNumber = null;
+    this.Year = null;
+    this.YearContainer = null;
+    this.data = [];
   }
 
   exportToExcel() {
+    this.error = {};
+    var errorIndex = 0;
     if (this.Year) {
       var YearContainer = this.Year;
+    } else {
+      this.error.Year = "Tahun Harus Diisi";
+      errorIndex++;
     }
     if (this.Month) {
       var MonthContainer = this.Month;
+    } else {
+      this.error.Month = "Bulan Harus Diisi";
+      errorIndex++;
     }
 
     var MonthInNumber = 0;
@@ -234,7 +252,9 @@ export class List {
         MonthInNumber = 0;
         break;
     }
-    
-    this.service.getReportPdf(MonthInNumber, YearContainer);
+
+    if (errorIndex == 0) {
+      this.service.getReportPdf(MonthInNumber, YearContainer);
+    }
   }
 }
