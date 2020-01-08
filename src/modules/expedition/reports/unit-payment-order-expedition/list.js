@@ -37,7 +37,7 @@ export class List {
                 //     return moment(data.DueDate).diff(moment(data.Date), 'days', false);
                 // }
                 field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
-                    return Math.ceil((moment(data.DueDate) - moment(data.Date))/(1000*60*60*24));
+                    return Math.abs(Math.ceil((moment(data.DueDate) - moment(data.Date))/(1000*60*60*24)));
                 }
             },
             { field: 'Category.Name', title: 'Kategori', rowspan: 2, sortable: true },
@@ -58,6 +58,7 @@ export class List {
                 rowspan: 2,
                 sortable: true,
             },
+            { field: 'CreatedBy', title: 'Admin', rowspan: 2, sortable: true },
             { title: 'Verifikasi', colspan: 3 },
             {
                 field: 'VerifiedBy', title: 'Verifikator', sortable: true, rowspan: 2
@@ -194,11 +195,13 @@ export class List {
             filter.status = this.status.value;
         }
 
-        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+        if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
-
-        if (this.dateTo && this.dateTo != 'Invalid Date')
             filter.dateTo = this.dateTo;
+
+            filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
+            filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
 
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
@@ -286,11 +289,13 @@ export class List {
             filter.status = this.status.value;
         }
 
-        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+        if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
-
-        if (this.dateTo && this.dateTo != 'Invalid Date')
             filter.dateTo = this.dateTo;
+
+            filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
+            filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
 
         this.service.xls(filter);
     }
