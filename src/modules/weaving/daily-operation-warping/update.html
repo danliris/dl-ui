@@ -195,11 +195,11 @@
               </au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Grup Warping" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Grup Sizing" value.bind="ProduceBeamsOperator.Group"
-                error.bind="error.ProduceBeamsSizingGroup" read-only.bind="true"></au-textbox>
+              <au-textbox placeholder="Grup Warping" value.bind="ProduceBeamsOperator.Group"
+                error.bind="error.ProduceBeamsWarpingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -217,7 +217,7 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete placeholder="Satuan Panjang Beam" value.bind="WarpingBeamLengthUom"
-                error.bind="error.WarpingBeamLengthUom" read-only.bind="readOnly" loader.bind="uoms" text="Unit">
+                error.bind="error.WarpingBeamLengthUomId" read-only.bind="readOnly" loader.bind="uoms" text="Unit">
               </au-autocomplete>
             </div>
           </div>
