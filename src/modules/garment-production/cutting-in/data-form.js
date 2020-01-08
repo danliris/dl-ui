@@ -64,6 +64,14 @@ export class DataForm {
         { value: "FC", header: "FC" },
     ];
 
+    detailsColumnsViewSewing = [
+        { value: "ProductCode", header: "Kode Barang" },
+        { value: "DesignColor", header: "Keterangan" },
+        { value: "CuttingInQuantity", header: "Jumlah" },
+        { value: "CuttingInUomUnit", header: "Satuan" },
+        { value: "DesignColor", header: "Warna" },
+    ];
+
     @computedFrom("data.Unit")
     get preparingFilter() {
         this.selectedPreparing = null;

@@ -30,8 +30,17 @@
             read-only.bind="readOnly || isEdit"
             items.bind="cuttingTypes"
             options.bind="controlOptions"
-            change.delegate="selectedPreparing = null">
+            change.delegate="selectedPreparing = null"
+            show.bind="!fromSewing">
         </au-dropdown>
+
+        <au-textbox
+            value.bind="data.CuttingFrom"
+            label="Asal Cutting"
+            read-only="true"
+            options.bind="controlOptions"
+            show.bind="fromSewing">
+        </au-textbox>
 
         <au-datepicker 
             label="Tanggal Cutting In"
@@ -66,7 +75,7 @@
             label="FC"
             read-only="true"
             options.bind="controlOptions"
-            if.bind="readOnly">
+            if.bind="readOnly && !fromSewing">
         </au-textbox>
 
         <au-numeric
@@ -82,7 +91,7 @@
             <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
         </div>
 
-        <table class="table table-hover table-bordered" if.bind="readOnly">
+        <table class="table table-hover table-bordered" if.bind="readOnly && !fromSewing">
             <thead>
                 <tr>
                     <th repeat.for="column of detailsColumnsView"><label>${column.header}</label></th>
@@ -92,6 +101,26 @@
                 <template repeat.for="i of data.Items.length">
                     <tr repeat.for="detail of data.Items[i].Details">
                         <td repeat.for="column of detailsColumnsView">
+                            <au-textbox
+                                value.bind="detail[column.value]"
+                                read-only="true">
+                            </au-textbox>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <table class="table table-hover table-bordered" if.bind="readOnly && fromSewing">
+            <thead>
+                <tr>
+                    <th repeat.for="column of detailsColumnsViewSewing"><label>${column.header}</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template repeat.for="i of data.Items.length">
+                    <tr repeat.for="detail of data.Items[i].Details">
+                        <td repeat.for="column of detailsColumnsViewSewing">
                             <au-textbox
                                 value.bind="detail[column.value]"
                                 read-only="true">
