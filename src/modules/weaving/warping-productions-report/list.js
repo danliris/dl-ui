@@ -12,7 +12,6 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  listDataFlag = false;
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
@@ -97,6 +96,10 @@ export class List {
     }
   }
 
+  bind() {
+    this.reset();
+  }
+
   controlOptions = {
     label: {
       length: 3
@@ -106,109 +109,104 @@ export class List {
     }
   }
 
-  tableOptions = {
-    search: false,
-    showToggle: false,
-    showColumns: false,
-    pagination: false,
-    sortable: false,
-  }
-
-  loader = (info) => {
-    if (this.Year) {
-      var YearContainer = this.Year;
-    }
-    if (this.Month) {
-      var MonthContainer = this.Month;
-    }
-
-    var MonthInNumber = 0;
-
-    switch (MonthContainer) {
-      case "Januari":
-        MonthInNumber = 1;
-        break;
-      case "Februari":
-        MonthInNumber = 2;
-        break;
-      case "Maret":
-        MonthInNumber = 3;
-        break;
-      case "April":
-        MonthInNumber = 4;
-        break;
-      case "Mei":
-        MonthInNumber = 5;
-        break;
-      case "Juni":
-        MonthInNumber = 6;
-        break;
-      case "Juli":
-        MonthInNumber = 7;
-        break;
-      case "Agustus":
-        MonthInNumber = 8;
-        break;
-      case "September":
-        MonthInNumber = 9;
-        break;
-      case "Oktober":
-        MonthInNumber = 10;
-        break;
-      case "November":
-        MonthInNumber = 11;
-        break;
-      case "Desember":
-        MonthInNumber = 12;
-        break;
-      default:
-        MonthInNumber = 0;
-        break;
-    }
-
-    var arg = {
-      month: MonthInNumber,
-      year : YearContainer
-    };
-
-    return this.listDataFlag ? this.service.getReportData(arg).then(result => {debugger
-      return {
-        AGroupTotal : result.data.AGroupTotal,
-        BGroupTotal : result.data.BGroupTotal,
-        CGroupTotal : result.data.CGroupTotal,
-        DGroupTotal : result.data.DGroupTotal,
-        EGroupTotal : result.data.EGroupTotal,
-        FGroupTotal : result.data.FGroupTotal,
-        GGroupTotal : result.data.GGroupTotal,
-        TotalAll : result.data.TotalAll,
-        data: result.data.PerOperatorList
-      };
-    }) : {
-      data: {},
-      total: 0
-    };
-  }
-
   searchWarpingProductions() {
-    this.listDataFlag = true;
+    if (false) {
+      alert("");
+    } else {
+      this.error = {};
+      var errorIndex = 0;
+      if (this.Year) {
+        var YearContainer = this.Year;
+      } else {
+        this.error.Year = "Tahun Harus Diisi";
+        errorIndex++;
+      }
+      if (this.Month) {
+        var MonthContainer = this.Month;
+      } else {
+        this.error.Month = "Bulan Harus Diisi";
+        errorIndex++;
+      }
 
-    this.warpingProductionsTable.refresh();
+      var MonthInNumber = 0;
+
+      switch (MonthContainer) {
+        case "Januari":
+          MonthInNumber = 1;
+          break;
+        case "Februari":
+          MonthInNumber = 2;
+          break;
+        case "Maret":
+          MonthInNumber = 3;
+          break;
+        case "April":
+          MonthInNumber = 4;
+          break;
+        case "Mei":
+          MonthInNumber = 5;
+          break;
+        case "Juni":
+          MonthInNumber = 6;
+          break;
+        case "Juli":
+          MonthInNumber = 7;
+          break;
+        case "Agustus":
+          MonthInNumber = 8;
+          break;
+        case "September":
+          MonthInNumber = 9;
+          break;
+        case "Oktober":
+          MonthInNumber = 10;
+          break;
+        case "November":
+          MonthInNumber = 11;
+          break;
+        case "Desember":
+          MonthInNumber = 12;
+          break;
+        default:
+          MonthInNumber = 0;
+          break;
+      }
+
+      var arg = {
+        month: MonthInNumber,
+        year: YearContainer
+      };
+      if (errorIndex == 0) {
+        this.service.getReportData(arg).then(result => {
+          this.data = result.data;
+        });
+      }
+    }
   }
 
   reset() {
-    this.listDataFlag = false;
-
+    this.Month = null;
     this.MonthContainer = null;
-
-    this.warpingProductionsTable.refresh();
+    this.MonthInNumber = null;
+    this.Year = null;
+    this.YearContainer = null;
+    this.data = [];
   }
 
   exportToExcel() {
+    this.error = {};
+    var errorIndex = 0;
     if (this.Year) {
       var YearContainer = this.Year;
+    } else {
+      this.error.Year = "Tahun Harus Diisi";
+      errorIndex++;
     }
     if (this.Month) {
       var MonthContainer = this.Month;
+    } else {
+      this.error.Month = "Bulan Harus Diisi";
+      errorIndex++;
     }
 
     var MonthInNumber = 0;
@@ -255,15 +253,8 @@ export class List {
         break;
     }
 
-    //Get All
-    return this.listDataFlag ? this.service.getReportXls(MonthInNumber, YearContainer).then(result => {
-      return {
-        data: result,
-        total: length
-      };
-    }) : {
-      data: {},
-      total: 0
-    };
+    if (errorIndex == 0) {
+      this.service.getReportPdf(MonthInNumber, YearContainer);
+    }
   }
 }
