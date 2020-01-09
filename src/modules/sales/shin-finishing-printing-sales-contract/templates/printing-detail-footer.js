@@ -3,7 +3,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
 export class DetailFooter {
-  scSum = 0;
+
   activate(context) {
     this.context = context;
   }
@@ -14,6 +14,15 @@ export class DetailFooter {
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
+
+  get itemScreenCostSum() {
+    var qty = this.context.items
+      .map((item) => item.data.ScreenCost);
+
+    return qty
+      .reduce((prev, curr, index) => { return prev + curr }, 0);
+  }
+
   get currency() {
     var currency = [];
     if (this.context.items.length > 0) {
