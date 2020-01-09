@@ -1,7 +1,7 @@
 <template>
-    <h1 class="page-header">Display SMV Garment Per Unit</h1>
+    <h1 class="page-header">Display Approval Purchase Request Master</h1>
     <form class="form-horizontal">
-        <au-autocomplete  value.bind="unitName" label="Unit"  loader.bind="unitLoader"></au-autocomplete>
+        <au-autocomplete  value.bind="unit" label="Unit"  loader.bind="unitLoader"></au-autocomplete>
         <au-datepicker label="Tanggal Shipment Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Shipment Akhir" value.bind="dateTo"></au-datepicker>
         <div class="form-group">
@@ -19,47 +19,35 @@
             <thead>
                 <tr>
                     <th class="text-center">Nomor</th>
+                    <th class="text-center">Nomor RO</th>
+                    <th class="text-center">Nama Staff</th>                    
                     <th class="text-center">Nama Unit</th>
+                    <th class="text-center">Tgl PR Master</th>
                     <th class="text-center">Seksi</th>
-                    <th class="text-center">Buyer Agent</th>
-                    <th class="text-center">Nama Buyer Agent</th>
-                    <th class="text-center">Brand Buyer</th>
+                    <th class="text-center">Kode Brand</th>
                     <th class="text-center">Nama Brand Buyer</th>
                     <th class="text-center">Article / Style</th>
-                    <th class="text-center">No RO</th>
-                    <th class="text-center">Tgl Confirm</th>
                     <th class="text-center">Tgl Shipment</th>        
-                    <th class="text-center">Komoditi</th>
-                    <th class="text-center">Jumlah</th>
-                    <th class="text-center">Satuan</th>        
-                    <th class="text-center">SMV Cutting</th>        
-                    <th class="text-center">SMV Sewing</th>        
-                    <th class="text-center">SMV Finishing</th>        
-                    <th class="text-center">SMV Total</th>        
-                    <th class="text-center">Status Valid</th>        
+                    <th class="text-center">Valid Kabag Merchandiser</th>
+                    <th class="text-center">Valid Kabag Pucrhasing</th>
+                    <th class="text-center">Valid Kaduv Merchandiser</th>        
                  </tr>
             </thead>
             <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center"> ${$index + 1}</td>
+                        <td>${item.RO_Number}</td>
+                        <td>${item.StaffName}</td>
                         <td>${item.UnitName}</td>
-                        <td>${item.Section}</td>
+                        <td>${item.PRDate}</td>                        
+                        <td>${item.SectionName}</td>
                         <td>${item.BuyerCode}</td>
                         <td>${item.BuyerName}</td>
-                        <td>${item.BrandCode}</td>
-                        <td>${item.BrandName}</td>
                         <td>${item.Article}</td>
-                        <td>${item.RO_Number}</td>
-                        <td>${item.ConfirmDate}</td>                        
                         <td>${item.DeliveryDate}</td>
-                        <td>${item.Comodity}</td>
-                        <td class="text-right">${item.Quantity}</td>
-                        <td>${item.UOMUnit}</td>
-                        <td class="text-right">${item.SMV_Cutting}</strong></td>     
-                        <td class="text-right">${item.SMV_Sewing}</td>   
-                        <td class="text-right">${item.SMV_Finishing}</strong></td>     
-                        <td class="text-right">${item.SMV_Total}</td>   
-                        <td>${item.StatusValid}</td>                        
+                        <td>${item.ValidatedMD}</td>
+                        <td>${item.ValidatedPurch}</td>
+                        <td>${item.ValidatedKadiv}</td>                        
                     </tr>
             </tbody>
 
