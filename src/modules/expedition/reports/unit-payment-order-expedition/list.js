@@ -30,7 +30,7 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
-            { field: 'Currency.Code', title: 'Kurs', rowspan: 2, sortable: true },
+            { field: 'Currency', title: 'Kurs', rowspan: 2, sortable: true },
             { title: 'Jumlah', colspan: 4 },
             {
                 // field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
@@ -307,7 +307,9 @@ export class List {
     get divisionLoader() {
         return DivisionLoader;
     }
-
+    divisionView = (division) => {
+        return `${division.Name}`;
+      }
     // get currencyLoader() {
     //     return CurrencyLoader;
     // }
