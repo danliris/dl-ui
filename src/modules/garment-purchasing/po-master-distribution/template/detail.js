@@ -4,10 +4,12 @@ const CostCalculationGarmentLoader = require('../../../../loader/cost-calculatio
 
 @inject(CostCalculationService)
 export class Detail {
+    @bindable error;
     @bindable selectedCostCalculation;
     @bindable selectedPOSerialNumber;
 
     costCalculationFilter = {};
+    isOverUsageReasonReadOnly = true;
 
     constructor(CostCalculationService) {
         this.costCalculationService = CostCalculationService;
@@ -52,6 +54,11 @@ export class Detail {
             this.costCalculationFilter["PreSCId"] = this.data.SCId;
         }
 
+        if ((this.error && this.error.OverUsageReason) || (this.data && this.data.OverUsageReason)) {
+            this.isOverUsageReasonReadOnly = false;
+        } else {
+            this.isOverUsageReasonReadOnly = true;
+        }
     }
 
     async selectedCostCalculationChanged(newValue) {
@@ -97,4 +104,14 @@ export class Detail {
         }
     }
 
+    quantityChanged(value) {
+        if (value <= this.data.QuantityCC) {
+            this.isOverUsageReasonReadOnly = true;
+            this.data.OverUsageReason = null;
+            if (this.error) {
+                this.error.OverUsageReason = null;
+            }
+        }
+    }
+    
 }

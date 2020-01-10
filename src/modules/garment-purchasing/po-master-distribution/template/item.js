@@ -7,6 +7,7 @@ export class Item {
         { header: "Jumlah CC" },
         { header: "Jumlah Pembagian (CC)" },
         { header: "Satuan CC" },
+        { header: "Ket. Kelebihan Pemakaian" },
         { header: "Konversi" },
         { header: "Jumlah Pembagian (SJ)" },
         { header: "Satuan" },
