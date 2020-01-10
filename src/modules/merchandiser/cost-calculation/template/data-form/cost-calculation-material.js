@@ -83,7 +83,9 @@ export class CostCalculationMaterial {
 
         if(this.data.Id || this.data.isCopy)
         {
-            this.isReadOnly=true;
+            if (this.data.Category && this.data.Category.name && this.data.Category.name.toUpperCase() !== "FABRIC") {
+                this.isReadOnly = true;
+            }
         }
     }
 
