@@ -52,18 +52,8 @@ export class DataForm {
   }
 
   async bind() {
-    // this.data = this.data || {};
-    if (this.data.Uom) {
-      this.data.Uom.Unit = this.data.Uom.Unit;
-    }
-    else {
-      this.data.Uom = {};
-      this.data.Uom.Unit = "MTR";
-    }
+   
     if (this.data && this.data.Id) {
-
-      // this.SalesContract = this.data.FinishingPrintingSalesContract.SalesContractNo;
-      this.OrderType = this.data.OrderType;
 
       this.account = {
         username: this.data.Account.UserName,
@@ -74,12 +64,6 @@ export class DataForm {
       }
       this.data.Details = this.data.Details || [];
       this.data.LampStandards = this.data.LampStandards || [];
-      this.data.BeforeQuantity = this.data.OrderQuantity;
-
-
-      if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
-        this.SalesContract = await this.service.getSCbyId(this.data.FinishingPrintingSalesContract.Id);
-      }
 
     }
   }
@@ -149,8 +133,10 @@ export class DataForm {
       this.orderQuantity = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.OrderQuantity;
       this.data.UOM = this.data.FinishingPrintingSalesContract.CostCalculation.UOM.Unit;
       this.data.ShippingQuantityTolerance = this.data.FinishingPrintingSalesContract.ShippingQuantityTolerance;
+      this.data.Quality = this.data.FinishingPrintingSalesContract.Quality.Name;
+      this.data.SalesContractType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Type;
+      this.data.Packing = this.data.FinishingPrintingSalesContract.Packing;
 
-      
     } else {
       this.data = {};
     }
@@ -238,7 +224,7 @@ export class DataForm {
   }
 
   get detailHeader() {
-    if (!this.printing && !this.yarndyed) {
+    if (!this.printing) {
       return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jenis Warna" }, { header: "Jumlah" }, { header: "Satuan" }];
     }
     else {
@@ -250,24 +236,11 @@ export class DataForm {
     return (event) => console.log(event);
   }
 
-  get addDetailnonPrinting() {
+  
+  get addDetail() {
     return (event) => {
       var newDetail = {
-        Uom: this.data.Uom,
-        // uomId: this.data.uom._id,
-        ColorRequest: '',
-        ColorTemplate: '',
-        Quantity: 0,
-        Printing: this.isPrinting
-      };
-      this.data.Details.push(newDetail);
-    };
-  }
-
-  get addDetailPrintingYarnDyed() {
-    return (event) => {
-      var newDetail = {
-        Uom: this.data.Uom,
+        Uom: this.data.UOM,
         // uomId: this.data.uom._id,
         ColorRequest: '',
         ColorTemplate: '',

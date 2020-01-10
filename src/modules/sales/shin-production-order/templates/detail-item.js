@@ -12,6 +12,7 @@ export class DetailItem {
     this.error = item.error;
     this.options = item.options;
     this.ColorType = this.data.ColorType;
+    console.log(this.data);
   }
 
   controlOption = {
@@ -19,18 +20,6 @@ export class DetailItem {
       length: 12
     }
   }
-
-  // setColorTypeId(newValue) {
-  //   if (newValue) {
-  //     this.data.ColorType = newValue;
-  //     // this.data.colorTypeId = newValue.Id;
-  //   }
-  //   else {
-  //     this.data.ColorType = {};
-  //     // this.data.colorTypeId = {};
-  //     this.data.ColorType = null;
-  //   }
-  // }
 
   ColorTypeChanged() {
     if (this.ColorType) {
