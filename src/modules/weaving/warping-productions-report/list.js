@@ -17,72 +17,6 @@ export class List {
 
   years = [];
 
-  columns = [
-    [{
-        field: "ProductionDate",
-        title: "Tanggal Produksi",
-        rowspan: "2",
-        valign: "top"
-      },
-      {
-        title: "A",
-        valign: "top"
-      },
-      {
-        title: "B",
-        valign: "top"
-      },
-      {
-        title: "C",
-        valign: "top"
-      },
-      {
-        title: "D",
-        valign: "top"
-      },
-      {
-        title: "E",
-        valign: "top"
-      },
-      {
-        title: "F",
-        valign: "top"
-      },
-      {
-        title: "G",
-        valign: "top"
-      },
-      {
-        title: "Total"
-      }
-    ],
-    [{
-      field: "AGroupTotal",
-      valign: "middle"
-    }, {
-      field: "BGroupTotal",
-      valign: "middle"
-    }, {
-      field: "CGroupTotal",
-      valign: "middle"
-    }, {
-      field: "DGroupTotal",
-      valign: "middle"
-    }, {
-      field: "EGroupTotal",
-      valign: "middle"
-    }, {
-      field: "FGroupTotal",
-      valign: "middle"
-    }, {
-      field: "GGroupTotal",
-      valign: "middle"
-    }, {
-      field: "TotalAll",
-      valign: "middle"
-    }]
-  ];
-
   constructor(router, service) {
     this.service = service;
     this.router = router;
@@ -179,6 +113,17 @@ export class List {
       if (errorIndex == 0) {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
+          // this.data.GroupedHeader = result.data.ProcessedList.map(function (item) {
+          //     var groupedOperator = [item.Day, item.DailyProcessedPerOperator];
+          //     return groupedOperator;
+          //   })
+          //   .reduce(function (a, b) {
+          //     return a.concat(b);
+          //   });
+
+          this.data.GroupedHeader = result.data.Headers.filter((item) => item.Group).map((item) => item.Name);
+          console.log(result.data.Headers);
+          console.log(result.data.GroupedHeader);
         });
       }
     }
