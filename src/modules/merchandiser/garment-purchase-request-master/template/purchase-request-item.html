@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="col-sm-1" if.bind="readOnly || isEdit">
+        <td class="col-sm-1" if.bind="readOnly || context.context.options.isEdit">
             <au-textbox 
                 value.bind="data.PO_SerialNumber"
                 read-only.bind="true"

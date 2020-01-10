@@ -23,6 +23,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
+    { field: "Status", title: "Status Validasi" }
   ];
 
   loader = (info) => {
@@ -42,6 +43,11 @@ export class List {
         for (const data of result.data) {
           data.BuyerCode = data.Buyer.Code;
           data.BuyerName = data.Buyer.Name;
+          if (data.PRType == "MASTER" || data.PRType == "SAMPLE") {
+            data.Status = (data.IsValidatedMD1 && data.IsValidatedMD2 && data.IsValidatedPurchasing) ? "SUDAH" : "BELUM";
+          } else {
+            data.Status = "SUDAH";
+          }
         }
         return {
           total: result.info.total,

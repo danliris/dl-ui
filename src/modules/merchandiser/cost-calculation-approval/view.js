@@ -162,6 +162,7 @@ export class View {
         this.data.Total = total;
         var _confirmPrice = this.data.ConfirmPrice;
         var _insurance = this.data.Insurance;
+        const _freight = this.data.Freight;
         this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
         this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
         this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
@@ -229,6 +230,17 @@ export class View {
         if (this.activeTab === 1 && this.type === "KadivMD") {
             this.editCallback = null;
         }
+
+        this.hasFOBRemark = this.data.CostCalculationGarment_Materials.some(m => m.isFabricCM);
+    
+        if (this.hasFOBRemark) {
+            const a = (1.05 * CM_Price / this.data.Rate.Value) - (_insurance + _freight);
+            console.log(CM_Price, this.data.Rate.Value, _insurance, _freight);
+            this.fobRemark = `US$ ${(_confirmPrice + a).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        } else {
+            this.fobRemark = "-";
+        }
+    
     }
 
     async bind(context) {
