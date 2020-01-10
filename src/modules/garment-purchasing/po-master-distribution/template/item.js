@@ -35,17 +35,9 @@ export class Item {
             this.dataProduct = `${this.data.Product.Code} - ${this.data.Product.Name}`;
         }
 
-    }
-
-    get addItems() {
-        return (event) => {
-            this.data.Details.push({
-                Conversion: 1,
-                ParentProduct: this.data.Product,
-                Uom: this.data.Uom,
-                SCId: this.data.SCId,
-            })
-        };
+        if (!this.readOnly) {
+            this.itemsColumns.push({ header: "" });
+        }
     }
 
     get removeItems() {

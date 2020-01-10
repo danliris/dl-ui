@@ -1,23 +1,16 @@
 <template>
     <tr>
         <td class="col-sm-1">
-            <au-autocomplete
-                value.bind="selectedCostCalculation"
-                error.bind="error.CostCalculation"
-                loader.bind="costCalculationGarmentLoader"
-                query.bind="costCalculationFilter"
-                read-only.bind="readOnly || isEdit"
-                placeholder="RO No"
-                text="RO_Number">
-            </au-autocomplete>
+            <au-textbox 
+                value.bind="data.RONo"
+                read-only.bind="true">
+            </au-textbox>
         </td>
         <td class="col-sm-1">
-            <au-dropdown
-                value.bind="selectedPOSerialNumber"
-                error.bind="error.POSerialNumber"
-                read-only.bind="readOnly || isEdit || !selectedCostCalculation"
-                items.bind="data.listPOSerialNumber">
-            </au-dropdown>
+            <au-textbox 
+                value.bind="data.POSerialNumber"
+                read-only.bind="true">
+            </au-textbox>
         </td>
         <td class="col-sm-1">
             <au-textbox 
