@@ -221,6 +221,7 @@
         </div>
       </div>
       <div class="col-md-4">
+        <!-- Deskripsi Start -->
         <div>
           <table class="table table-bordered large-column-table">
             <tbody>
@@ -233,6 +234,27 @@
             </tbody>
           </table>
         </div>
+        <!-- Deskripsi End -->
+        <!-- FOB PRICE Start -->
+        <div if.bind="hasFOBRemark">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  <label>FOB PRICE</label>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p class="text-center">${fobRemark}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- FOB PRICE Start -->
       </div>
     </div>
   </au-input-form>

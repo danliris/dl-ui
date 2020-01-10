@@ -30,7 +30,7 @@ export class List {
     { field: "BuyerName", title: "Nama Buyer" },
     { field: "Article", title: "Artikel" },
     {
-      field: "ExpectedDeliveryDate", title: "Tanggal Diminta Datang", formatter: function (value, data, index) {
+      field: "ShipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },

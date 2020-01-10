@@ -456,13 +456,15 @@ export class DataForm {
                         //     deadline = 
                         // }
 
-                        if (i == this.data.Instruction.Steps.length - 1) {
-                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
-                            totalDay += durationEstimationArea.Duration;
-                        }
-                        else {
-                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
-                            totalDay += durationEstimationArea.Duration;
+                        if (durationEstimationArea) {
+                            if (i == this.data.Instruction.Steps.length - 1) {
+                                step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                                totalDay += durationEstimationArea.Duration;
+                            }
+                            else {
+                                step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                                totalDay += durationEstimationArea.Duration;
+                            }
                         }
                         // deadline = deadline.add(totalDay * -1, 'days');
                     }
@@ -509,13 +511,15 @@ export class DataForm {
                     //     deadline = 
                     // }
 
-                    if (i == this.data.Instruction.Steps.length - 1) {
-                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
-                        totalDay += durationEstimationArea.Duration;
-                    }
-                    else {
-                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
-                        totalDay += durationEstimationArea.Duration;
+                    if (durationEstimationArea) {
+                        if (i == this.data.Instruction.Steps.length - 1) {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
+                        }
+                        else {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
+                        }
                     }
                     // deadline = deadline.add(totalDay * -1, 'days');
                 }
