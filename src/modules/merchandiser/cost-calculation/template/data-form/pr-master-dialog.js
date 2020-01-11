@@ -59,7 +59,8 @@ export class PRMasterDialog {
                 "Items.Id": "1", "Items.PO_SerialNumber": "1",
                 "Items.CategoryId": "1", "Items.CategoryName": "1",
                 "Items.ProductId": "1", "Items.ProductCode": "1", "Items.ProductName": "1",
-                "Items.ProductRemark": "1", "Items.Quantity": "1", "Items.UomUnit": "1"
+                "Items.ProductRemark": "1", "Items.Quantity": "1", "Items.BudgetPrice": "1",
+                "Items.UomId": "1", "Items.UomUnit": "1", "Items.PriceUomId": "1", "Items.PriceUomUnit": "1"
             }),
             filter: JSON.stringify(this.filter),
         }
@@ -92,7 +93,16 @@ export class PRMasterDialog {
                                 Code: i.ProductCode,
                                 Name: i.ProductName,
                             },
-                            Description: i.ProductRemark
+                            Description: i.ProductRemark,
+                            Uom: {
+                                Id: i.UomId,
+                                Unit: i.UomUnit
+                            },
+                            BudgetPrice: i.BudgetPrice,
+                            PriceUom: {
+                                Id: i.PriceUomId,
+                                Unit: i.PriceUomUnit
+                            }
                         }, i));
                     }
                 }
