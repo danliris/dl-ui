@@ -11,6 +11,18 @@ module.exports = [
             permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },{
+        route: '/garment-production/scrap-classification',
+        name: 'garment-production-scrap-classification',
+        moduleId: './modules/garment-production/scrap-classification/index',
+        nav: true,
+        title: 'Master Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     },
     {
         route: '/garment-production/preparing',
