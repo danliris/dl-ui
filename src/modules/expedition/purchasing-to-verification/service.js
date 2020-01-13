@@ -15,6 +15,11 @@ export class Service extends RestService {
         let endpoint = `${uriURN}/all/by-list-of-no`;
         return super.list(endpoint, info);
     }
+
+    getCorrectionState(unitPaymentOrderId) {
+        let endpoint = `unit-payment-correction-notes/quantity-correction/correction-state-by-unit-payment-order`
+        return super.list(endpoint, { unitPaymentOrderId });
+    }
 }
 
 export class AzureService extends RestService {
