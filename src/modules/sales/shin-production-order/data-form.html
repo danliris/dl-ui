@@ -10,8 +10,8 @@
             </au-autocomplete>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
-            <textbox label="No. Order Produksi" value.bind="data.OrderNo" error.bind="error.orderNo" read-only="true"
-              if.bind="data.Id"></textbox>
+            <au-textbox label="No. Order Produksi" value.bind="data.OrderNo" error.bind="error.orderNo" read-only="true"
+              if.bind="data.Id"></au-textbox>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
             <au-textbox label="Buyer" value.bind="data.Buyer" read-only="true">
@@ -53,11 +53,11 @@
 
           <div class="row">
             <div class="col-sm-4" style="padding-left:20%">
-              <textbox label="Jumlah Order" read-only.bind="readOnly"></textbox>
+              <textbox label="Jumlah Order" read-only.bind="true"></textbox>
             </div>
 
             <div class="col-sm-3">
-              <au-numeric format="0" value.bind="orderQuantity" read-only.bind="true">
+              <au-numeric format="0" value.bind="orderQuantity" read-only.bind="readOnly">
               </au-numeric>
             </div>
 
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-numeric label="Toleransi Jumlah (%)" value.bind="data.ShippingQuantityTolerance" read-only.bind="true"
+            <au-numeric label="Toleransi Jumlah (%)" value.bind="shippingQuantityTolerance" read-only.bind="true"
               post-fix="%">
             </au-numeric>
           </div>

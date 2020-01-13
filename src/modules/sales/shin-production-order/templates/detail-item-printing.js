@@ -7,7 +7,6 @@ export class DetailItem {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
-    console.log(this.data);
   }
 
   controlOption = {

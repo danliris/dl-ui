@@ -22,6 +22,7 @@ export class DataForm {
   @bindable Material;
   @bindable account;
   @bindable orderQuantity;
+  @bindable shippingQuantityTolerance;
   lampHeader = [{ header: "Standar Lampu" }];
 
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
@@ -52,7 +53,7 @@ export class DataForm {
   }
 
   async bind() {
-   
+
     if (this.data && this.data.Id) {
 
       this.account = {
@@ -62,9 +63,17 @@ export class DataForm {
           lastname: this.data.Account.LastName,
         }
       }
+
+      if (this.data.FinishingPrintingSalesContract) {
+        this.SalesContract = this.data.FinishingPrintingSalesContract;
+      }
+
       this.data.Details = this.data.Details || [];
       this.data.LampStandards = this.data.LampStandards || [];
 
+    } else {
+      this.data.Details = [];
+      this.data.LampStandards = [];
     }
   }
 
@@ -116,10 +125,11 @@ export class DataForm {
   SalesContractChanged(newVal, oldVal) {
 
     if (newVal) {
-
+      console.log(newVal)
       this.data.FinishingPrintingSalesContract = newVal;
       this.data.Buyer = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name;
-      this.data.Unit = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name;
+      this.data.Unit = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit ?
+        this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name : "";
       this.data.BuyerType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Type;
       this.data.ProcessType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name;
       this.data.OrderNo = this.data.FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo;
@@ -131,14 +141,19 @@ export class DataForm {
       this.data.YarnMaterial = this.data.FinishingPrintingSalesContract.YarnMaterial.Name;
       this.data.MaterialWidth = this.data.FinishingPrintingSalesContract.MaterialWidth;
       this.orderQuantity = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.OrderQuantity;
+      this.data.OrderQuantity = this.orderQuantity;
       this.data.UOM = this.data.FinishingPrintingSalesContract.CostCalculation.UOM.Unit;
-      this.data.ShippingQuantityTolerance = this.data.FinishingPrintingSalesContract.ShippingQuantityTolerance;
-      this.data.Quality = this.data.FinishingPrintingSalesContract.Quality.Name;
+      this.shippingQuantityTolerance = this.data.FinishingPrintingSalesContract.ShippingQuantityTolerance;
+      this.data.ShippingQuantityTolerance = this.shippingQuantityTolerance;
+      this.data.Quality = this.data.FinishingPrintingSalesContract.Quality ?
+        this.data.FinishingPrintingSalesContract.Quality.Name : "";
       this.data.SalesContractType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Type;
       this.data.Packing = this.data.FinishingPrintingSalesContract.Packing;
 
     } else {
       this.data = {};
+      this.data.Details = [];
+      this.data.LampStandards = [];
     }
   }
 
@@ -206,7 +221,7 @@ export class DataForm {
 
       };
 
-     
+
     }
   }
   // NEW CODE
@@ -236,11 +251,11 @@ export class DataForm {
     return (event) => console.log(event);
   }
 
-  
+
   get addDetail() {
     return (event) => {
       var newDetail = {
-        Uom: this.data.UOM,
+        Uom: this.data.FinishingPrintingSalesContract.CostCalculation.UOM,
         // uomId: this.data.uom._id,
         ColorRequest: '',
         ColorTemplate: '',

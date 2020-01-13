@@ -12,7 +12,6 @@ export class DetailItem {
     this.error = item.error;
     this.options = item.options;
     this.ColorType = this.data.ColorType;
-    console.log(this.data);
   }
 
   controlOption = {

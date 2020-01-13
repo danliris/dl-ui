@@ -17,17 +17,17 @@ export class List {
                 return "";
             }
         },
-        { field: "FinishingPrintingSalesContract.SalesContractNo", title: "No. Sales Contract" },
-        { field: "OrderNo", title: "No. SPP" },
-        { field: "Buyer.Name", title: "Buyer" },
-        { field: "Unit.Name", title: "Unit"},
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.No", title: "No. Sales Contract" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo", title: "No. SPP" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit"},
         {
             field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "isClosed", title: "Status",
+            field: "IsClosed", title: "Status",
             formatter: function (value, data, index) {
                 return data.isClosed ? "Closed" : "Open";
             }
