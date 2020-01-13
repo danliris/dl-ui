@@ -9,6 +9,12 @@ import {
   Router
 } from 'aurelia-router';
 import moment from 'moment';
+import {
+  index
+} from '../../../samples/index';
+import {
+  Item
+} from '../../accounting/journal-transaction/templates/item';
 
 @inject(Router, Service)
 export class List {
@@ -42,6 +48,20 @@ export class List {
       length: 6
     }
   }
+
+  // groupBy(list, keyGetter) {
+  //   const map = new Map();
+  //   list.forEach((item) => {
+  //     const key = keyGetter(item);
+  //     const collection = map.get(key);
+  //     if (!collection) {
+  //       map.set(key, [item]);
+  //     } else {
+  //       collection.push(item);
+  //     }
+  //   });
+  //   return map;
+  // }
 
   searchWarpingProductions() {
     if (false) {
@@ -113,17 +133,53 @@ export class List {
       if (errorIndex == 0) {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
-          // this.data.GroupedHeader = result.data.ProcessedList.map(function (item) {
-          //     var groupedOperator = [item.Day, item.DailyProcessedPerOperator];
-          //     return groupedOperator;
-          //   })
-          //   .reduce(function (a, b) {
-          //     return a.concat(b);
-          //   });
 
-          this.data.GroupedHeader = result.data.Headers.filter((item) => item.Group).map((item) => item.Name);
-          console.log(result.data.Headers);
-          console.log(result.data.GroupedHeader);
+          result.data._ProcessedList = [];
+          var index = 1;
+          const reducer = (pv, cv) => previousValue + currentValue;
+          for (var item of result.data.ProcessedList) {
+            var productionDatum = {
+              Day: index,
+              TotalValue: 0,
+              _DailyProcessed: []
+            };
+
+            var valueEach = 0;
+            var totalValue = 0;
+            for (var headerItem of result.data.Headers) {
+              if (item.DailyProcessedPerOperator.length > 0) {
+
+                var processedItemIndex = item.DailyProcessedPerOperator.findIndex(o => o.Group == headerItem.Group && o.Name == headerItem.Name);
+                if (processedItemIndex >= 0) {
+
+                  valueEach = item.DailyProcessedPerOperator[processedItemIndex].Total;
+                  // totalValue = totalValue + valueEach;
+
+                  // productionDatum.TotalValue = totalValue;
+                  productionDatum._DailyProcessed.push({
+                    Value: valueEach
+                  });
+                } else {
+                  // productionDatum.TotalValue = 0;
+                  productionDatum._DailyProcessed.push({
+                    Value: 0
+                  });
+                }
+              } else {
+                // productionDatum.TotalValue = 0;
+                productionDatum._DailyProcessed.push({
+                  Value: 0
+                });
+              }
+            }
+            result.data._ProcessedList.push(productionDatum);
+            index++;
+          }
+          console.log(result);
+          // result.data._ProcessedList.forEach(Item => {
+          //   item.TotalValue = item._DailyProcessed.Value.reduce(reducer)
+          // });
+          return result;
         });
       }
     }

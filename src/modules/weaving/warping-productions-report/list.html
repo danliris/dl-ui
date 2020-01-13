@@ -39,18 +39,18 @@
       <thead align="center">
         <tr>
           <td rowspan="2" style="vertical-align: middle;">Tanggal Produksi</td>
-          <td colspan="groupCol" repeat.for="operator of data.GroupedHeader">${operator.Group}</td>
+          <td repeat.for="operator of data.Groups" colspan.bind="operator.Span" >${operator.Group}</td>
           <td rowspan="2" style="vertical-align: middle;">Total</td>
         </tr>
         <tr>
-          <td>${total}</td>
+          <td repeat.for="operator of data.Headers">${operator.Name}</td>
         </tr>
       </thead>
       <tbody>
-        <tr repeat.for="report of data._PerOperatorList">
+        <tr repeat.for="report of data._ProcessedList">
           <td>${report.Day}</td>
-          <td repeat.for="processed of report.DailyProcessedPerOperator">${processed.Total}</td>
-          <td>${report.Total}</td>
+          <td repeat.for="processed of report._DailyProcessed">${processed.Value}</td>
+          <td>${report.TotalValue}</td>
         </tr>
       </tbody>
     </table>
