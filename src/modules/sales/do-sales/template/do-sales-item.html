@@ -8,32 +8,36 @@
             <au-textbox value.bind="data.UnitCode" error.bind="error.UnitCode" read-only.bind="readOnly"
                 placeholder="Input Kode Barang"></au-textbox>
         </td>
+        <td>
+            <au-textbox value.bind="data.UnitRemark" error.bind="error.UnitRemark" read-only.bind="readOnly"
+                placeholder="Input Keterangan Barang"></au-textbox>
+        </td>
         <td show.bind="!readOnly">
-            <au-numeric value.bind="data.PackingQuantity" error.bind="error.PackingQuantity" format="0,0.00"
+            <au-numeric value.bind="TotalPacking" error.bind="error.TotalPacking" format="0,0"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td if.bind="readOnly">
-            <au-numeric value.bind="PackingQuantity" error.bind="error.PackingQuantity" format="0,0.00"
+            <au-numeric value.bind="TotalPacking" error.bind="error.TotalPacking" format="0,0"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td show.bind="!readOnly">
-            <au-numeric value.bind="data.ImperialQuantity" error.bind="error.ImperialQuantity" format="0,0.00"
+            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength" format="0,0.0"
                 read-only.bind="readOnly"></au-numeric>
         </td>
         <td if.bind="readOnly">
-            <au-numeric value.bind="ImperialQuantity" error.bind="error.ImperialQuantity" format="0,0.00"
+            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength" format="0,0.0"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td show.bind="!readOnly">
-            <au-numeric value.bind="data.MetricQuantity" error.bind="error.MetricQuantity" format="0,0.00"
-                read-only.bind="readOnly"></au-numeric>
+            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion" format="0,0.000"
+                read-only.bind="true"></au-numeric>
         </td>
         <td if.bind="readOnly">
-            <au-numeric value.bind="MetricQuantity" error.bind="error.MetricQuantity" format="0,0.00"
-                read-only.bind="readOnly">
+            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion" format="0,0.000"
+                read-only.bind="true">
             </au-numeric>
         </td>
         <td if.bind="!options.readOnly">

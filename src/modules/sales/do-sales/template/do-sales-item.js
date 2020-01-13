@@ -1,31 +1,42 @@
+import { inject, bindable } from "aurelia-framework";
 import numeral from "numeral";
+
 export class DOSalesItem {
+  @bindable TotalLength;
+
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-
-    if (!this.data.PackingQuantity) {
-      this.data.PackingQuantity = 0;
+    
+    if (!this.data.TotalPacking) {
+      this.data.TotalPacking = 0;
     }
-    if (!this.data.ImperialQuantity) {
-      this.data.ImperialQuantity = 0;
+    if (!this.data.TotalLength) {
+      this.data.TotalLength = 0;
     }
-    if (!this.data.MetricQuantity) {
-      this.data.MetricQuantity = 0;
+    if (!this.data.TotalLengthConversion) {
+      this.data.TotalLengthConversion = 0;
     }
+    
+    this.TotalPacking = this.data.TotalPacking;
+    this.TotalLength = this.data.TotalLength;
+    this.getTotalLengthConversion = this.TotalLength * 1.094;
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
-  get PackingQuantity() {
-    return numeral(this.data.PackingQuantity).format("0,0.00");
+  TotalPackingChanged(newValue, oldValue) {
+    this.data.TotalPacking = this.TotalPacking;
   }
 
-  get ImperialQuantity() {
-    return numeral(this.data.ImperialQuantity).format("0,0.00");
+  TotalLengthChanged(newValue, oldValue) {
+    this.getTotalLengthConversion = this.TotalLength * 1.094;
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
+    this.data.TotalLength = this.TotalLength;
   }
 
-  get MetricQuantity() {
-    return numeral(this.data.MetricQuantity).format("0,0.00");
+  TotalLengthConversionChanged(newValue, oldValue) {
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
   controlOptions = {
