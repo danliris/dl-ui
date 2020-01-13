@@ -112,8 +112,8 @@ export class PRMasterDialog {
 
                 const materialsFilter = {};
                 // materialsFilter["IsPRMaster"] = true;
-                materialsFilter[data.filter((item, index) => item.PRMasterId > 0 && data.findIndex(d => d.PRMasterId === item.PRMasterId) === index).map(item => `PRMasterId == ${item.PRMasterId}`).join(" or ")] = true;
-                materialsFilter[data.filter((item, index) => item.PRMasterItemId > 0 && data.findIndex(d => d.PRMasterItemId === item.PRMasterItemId) === index).map(item => `PRMasterItemId == ${item.PRMasterItemId}`).join(" or ")] = true;
+                materialsFilter[data.filter((item, index) => item.PRMasterId > 0 && data.findIndex(d => d.PRMasterId === item.PRMasterId) === index).map(item => `PRMasterId == ${item.PRMasterId}`).join(" or ") || "false"] = true;
+                materialsFilter[data.filter((item, index) => item.PRMasterItemId > 0 && data.findIndex(d => d.PRMasterItemId === item.PRMasterItemId) === index).map(item => `PRMasterItemId == ${item.PRMasterItemId}`).join(" or ") || "false"] = true;
 
                 const materialsInfo = {
                     filter: JSON.stringify(materialsFilter),
