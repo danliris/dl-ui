@@ -455,6 +455,7 @@ uomView =(uom)=>{
 
                     const result = response.output;
 
+                    this.data.IsPRMaster = true;
                     this.data.PRMasterId = result.PRMasterId;
                     this.data.PRMasterItemId = result.PRMasterItemId;
                     this.data.POMaster = result.POMaster;
