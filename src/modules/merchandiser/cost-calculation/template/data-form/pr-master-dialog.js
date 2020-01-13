@@ -1,17 +1,18 @@
 import { inject, useView } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
-import { PurchasingService } from '../../service';
+import { Service, PurchasingService } from '../../service';
 import { ServiceCore } from '../../service-core';
 
-@inject(DialogController, PurchasingService, ServiceCore)
+@inject(DialogController, Service, PurchasingService, ServiceCore)
 @useView("modules/merchandiser/cost-calculation/template/data-form/pr-master-dialog.html")
 export class PRMasterDialog {
     data = {};
     error = {};
 
-    constructor(controller, prService, coreService) {
+    constructor(controller, service, prService, coreService) {
         this.controller = controller;
         this.answer = null;
+        this.service = service;
         this.prService = prService;
         this.coreService = coreService;
     }
@@ -40,6 +41,7 @@ export class PRMasterDialog {
         { field: "ProductRemark", title: "Keterangan" },
         { field: "Quantity", title: "Jumlah" },
         { field: "UomUnit", title: "Satuan" },
+        { field: "AvailableQuantity", title: "Jumlah Tersedia" },
     ];
 
     loader = (info) => {
@@ -72,6 +74,7 @@ export class PRMasterDialog {
                 });
 
                 let data = [];
+                let items = [];
                 for (const d of result.data) {
                     for (const i of d.Items) {
                         data.push(Object.assign({
@@ -107,35 +110,55 @@ export class PRMasterDialog {
                     }
                 }
 
-                let fabricItemsProductIds = data
-                    .filter(i => i.Category.name === "FABRIC")
-                    .map(i => i.Product.Id);
+                const materialsFilter = {};
+                // materialsFilter["IsPRMaster"] = true;
+                materialsFilter[data.filter((item, index) => item.PRMasterId > 0 && data.findIndex(d => d.PRMasterId === item.PRMasterId) === index).map(item => `PRMasterId == ${item.PRMasterId}`).join(" or ")] = true;
+                materialsFilter[data.filter((item, index) => item.PRMasterItemId > 0 && data.findIndex(d => d.PRMasterItemId === item.PRMasterItemId) === index).map(item => `PRMasterItemId == ${item.PRMasterItemId}`).join(" or ")] = true;
 
-                if (fabricItemsProductIds.length) {
-                    return this.coreService.getGarmentProductsByIds(fabricItemsProductIds)
-                        .then(result => {
-                            data.filter(i => i.Category.name === "FABRIC")
-                                .forEach(i => {
-                                    const product = result.find(d => d.Id == i.Product.Id);
+                const materialsInfo = {
+                    filter: JSON.stringify(materialsFilter),
+                    select: "new(PRMasterId, PRMasterItemId, BudgetQuantity)"
+                };
 
-                                    i.Product = product;
-                                    i.Composition = product;
-                                    i.Const = product;
-                                    i.Yarn = product;
-                                    i.Width = product;
+                return this.service.getMaterials(materialsInfo)
+                    .then(ccMaterialsResults => {
+                        const ccMaterials = ccMaterialsResults.data || [];
+                        data.forEach(d => {
+                            const selectedCCMaterials = ccMaterials.filter(m => m.PRMasterId === d.PRMasterId && m.PRMasterItemId === d.PRMasterItemId);
+                            const othersQuantity = selectedCCMaterials.reduce((acc, cur) => acc += cur.BudgetQuantity, 0);
+                            d.AvailableQuantity = d.Quantity - othersQuantity;
+                        });
+
+                        let fabricItemsProductIds = data
+                            .filter(i => i.Category.name === "FABRIC")
+                            .map(i => i.Product.Id);
+
+                        if (fabricItemsProductIds.length) {
+                            return this.coreService.getGarmentProductsByIds(fabricItemsProductIds)
+                                .then(result => {
+                                    data.filter(i => i.Category.name === "FABRIC")
+                                        .forEach(i => {
+                                            const product = result.find(d => d.Id == i.Product.Id);
+
+                                            i.Product = product;
+                                            i.Composition = product;
+                                            i.Const = product;
+                                            i.Yarn = product;
+                                            i.Width = product;
+                                        });
+
+                                    return {
+                                        total: data.length,
+                                        data: data
+                                    }
                                 });
-
+                        } else {
                             return {
                                 total: data.length,
                                 data: data
                             }
-                        });
-                } else {
-                    return {
-                        total: data.length,
-                        data: data
-                    }
-                }
+                        }
+                    });
             });
     }
 
