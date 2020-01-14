@@ -78,8 +78,7 @@
     </au-textbox>
 
     <au-collection columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
-      errors.bind="error.SalesInvoiceDetails" add.bind="salesInvoiceDetailsInfo.onAdd"
-      remove.bind="salesInvoiceDetailsInfo.onRemove" read-only.bind="readOnly"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" options.bind="doSalesTableOptions"
       item-template="modules/sales/sales-invoice/template/sales-invoice-item"
       view-model.ref="SalesInvoiceDetailsCollection">
     </au-collection>

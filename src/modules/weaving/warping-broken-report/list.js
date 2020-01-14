@@ -9,12 +9,8 @@ import {
   Router
 } from 'aurelia-router';
 import moment from 'moment';
-import {
-  index
-} from '../../../samples/index';
-import {
-  Item
-} from '../../accounting/journal-transaction/templates/item';
+
+let UnitLoader = require('../../../loader/unit-loader');
 
 @inject(Router, Service)
 export class List {
@@ -22,6 +18,72 @@ export class List {
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
   years = [];
+
+  columns = [
+    [{
+        field: "ProductionDate",
+        title: "Tanggal Produksi",
+        rowspan: "2",
+        valign: "top"
+      },
+      {
+        title: "A",
+        valign: "top"
+      },
+      {
+        title: "B",
+        valign: "top"
+      },
+      {
+        title: "C",
+        valign: "top"
+      },
+      {
+        title: "D",
+        valign: "top"
+      },
+      {
+        title: "E",
+        valign: "top"
+      },
+      {
+        title: "F",
+        valign: "top"
+      },
+      {
+        title: "G",
+        valign: "top"
+      },
+      {
+        title: "Total"
+      }
+    ],
+    [{
+      field: "AGroupTotal",
+      valign: "middle"
+    }, {
+      field: "BGroupTotal",
+      valign: "middle"
+    }, {
+      field: "CGroupTotal",
+      valign: "middle"
+    }, {
+      field: "DGroupTotal",
+      valign: "middle"
+    }, {
+      field: "EGroupTotal",
+      valign: "middle"
+    }, {
+      field: "FGroupTotal",
+      valign: "middle"
+    }, {
+      field: "GGroupTotal",
+      valign: "middle"
+    }, {
+      field: "TotalAll",
+      valign: "middle"
+    }]
+  ];
 
   constructor(router, service) {
     this.service = service;
@@ -49,19 +111,9 @@ export class List {
     }
   }
 
-  // groupBy(list, keyGetter) {
-  //   const map = new Map();
-  //   list.forEach((item) => {
-  //     const key = keyGetter(item);
-  //     const collection = map.get(key);
-  //     if (!collection) {
-  //       map.set(key, [item]);
-  //     } else {
-  //       collection.push(item);
-  //     }
-  //   });
-  //   return map;
-  // }
+  get units() {
+    return UnitLoader;
+  }
 
   searchWarpingProductions() {
     if (false) {
@@ -133,46 +185,6 @@ export class List {
       if (errorIndex == 0) {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
-
-          result.data._ProcessedList = [];
-          var index = 1;
-          const reducer = (pv, cv) => previousValue + currentValue;
-          for (var item of result.data.ProcessedList) {
-            var productionDatum = {
-              Day: index,
-              TotalValue: 0,
-              _DailyProcessed: []
-            };
-
-            var valueEach = 0;
-            var totalValue = 0;
-            for (var headerItem of result.data.Headers) {
-              if (item.DailyProcessedPerOperator.length > 0) {
-
-                var processedItemIndex = item.DailyProcessedPerOperator.findIndex(o => o.Group == headerItem.Group && o.Name == headerItem.Name);
-                if (processedItemIndex >= 0) {
-                  valueEach = item.DailyProcessedPerOperator[processedItemIndex].Total;
-                  totalValue = totalValue + valueEach;
-
-                  productionDatum.TotalValue = totalValue;
-                  productionDatum._DailyProcessed.push({
-                    Value: valueEach
-                  });
-                } else {
-                  productionDatum._DailyProcessed.push({
-                    Value: 0
-                  });
-                }
-              } else {
-                productionDatum._DailyProcessed.push({
-                  Value: 0
-                });
-              }
-            }
-            result.data._ProcessedList.push(productionDatum);
-            index++;
-          }
-          return result;
         });
       }
     }

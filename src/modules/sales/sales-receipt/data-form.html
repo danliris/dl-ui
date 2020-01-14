@@ -1,0 +1,49 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-2" style="padding:0"></div>
+            <div class="col-md-8" style="padding:0">
+
+                <au-textbox label="No. Kwitansi Penjualan" value.bind="data.SalesReceiptNo"
+                    error.bind="error.SalesReceiptNo" if.bind="readOnly || isEdit" read-only.bind="true"
+                    change.delegate="salesReceiptNoChanged($event)">
+                </au-textbox>
+
+                <au-dropdown label="Tipe Kwitansi Penjualan" value.bind="data.SalesReceiptType"
+                    items.bind="salesReceiptTypeOptions" error.bind="error.SalesReceiptType"
+                    read-only.bind="readOnly || isEdit" change.delegate="salesReceiptTypeChanged($event)">
+                </au-dropdown>
+
+                <au-datepicker label="Tgl. Kwitansi Penjualan" value.bind="SalesReceiptDate"
+                    error.bind="error.SalesReceiptDate" read-only.bind="readOnly">
+                </au-datepicker>
+
+                <au-autocomplete label="Bank" placeholder="pilih bank" value.bind="selectedBank" error.bind="error.Bank"
+                    loader.bind="bankLoader" key="BankName" text="BankName" read-only.bind="readOnly" keypress.delegate="enterDelegate($event)"
+                    change.delegate="selectedBankChanged($event)">
+                </au-autocomplete>
+
+                <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer" error.bind="error.Buyer"
+                    loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly" keypress.delegate="enterDelegate($event)"
+                    change.delegate="selectedBuyerChanged($event)">
+                </au-autocomplete>
+
+            </div>
+            <div class="col-md-2" style="padding:0"></div>
+        </div>
+        <au-textbox show.bind="error.SalesReceiptDetail" error.bind="error.SalesReceiptDetail" read-only.bind="true">
+        </au-textbox>
+
+        <au-collection columns.bind="salesReceiptDetailsInfo.columns" items.bind="data.SalesReceiptDetails"
+            errors.bind="error.SalesReceiptDetails" add.bind="salesReceiptDetailsInfo.onAdd"
+            remove.bind="salesReceiptDetailsInfo.onRemove" read-only.bind="readOnly"
+            item-template="modules/sales/sales-receipt/template/sales-receipt-item"
+            view-model.ref="SalesReceiptDetailsCollection">
+        </au-collection>
+
+        <div if.bind="error.Details.toString()">
+            <span style="color:red">-Detail harus diisi
+                .</span>
+        </div>
+    </au-input-form>
+</template>

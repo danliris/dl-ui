@@ -37,6 +37,7 @@
                 <span class="tooltiptext">No. PO</span>
             </div>
         </td>
+        <!-- FROM PR MASTER -->
         <template if.bind="data.POMaster">
             <td>
                 <div style="width: 100px;" class="tooltip-material-field">
@@ -81,6 +82,7 @@
                 </div>
             </td>
         </template>
+        <!-- INPUT MANUAL -->
         <template if.bind="!data.POMaster">
             <!-- kategori -->
             <td>
@@ -155,31 +157,58 @@
                 <span class="tooltiptext">Kuantitas</span>
             </div>
         </td>
-        <!-- satuan -->
-        <td>
-            <div style="width: 100px;" class="tooltip-material-field">
-                <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                    options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
-                </au-autocomplete>
-                <span class="tooltiptext">Satuan</span>
-            </div>
-        </td>
-        <!-- price -->
-        <td>
-            <div style="width: 100px;" class="tooltip-material-field">
-                <au-numeric value.bind="data.Price" error.bind="error.Price" format = "0,0.00" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
-                <span class="tooltiptext">Price</span>
-            </div>
-        </td>
-        <!-- satuan harga -->
-        <td>
-            <div style="width: 100px;" class="tooltip-material-field">
-                <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
-                    options.bind="controlOptions" text.bind="uomView"  show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
-                </au-autocomplete>
-                <span class="tooltiptext">Satuan</span>
-            </div>
-        </td>
+        <!-- FROM PR MASTER -->
+        <template if.bind="data.POMaster">
+            <!-- satuan -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-autocomplete value.bind="data.UOMQuantity" options.bind="controlOptions" text.bind="uomView" read-only="true"></au-autocomplete>
+                    <span class="tooltiptext">Satuan</span>
+                </div>
+            </td>
+            <!-- price -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-numeric value.bind="data.Price" format = "0,0.00" options.bind="controlOptions" read-only="true"></au-numeric>
+                    <span class="tooltiptext">Price</span>
+                </div>
+            </td>
+            <!-- satuan harga -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-autocomplete value.bind="data.UOMPrice" options.bind="controlOptions" text.bind="uomView" read-only="true"></au-autocomplete>
+                    <span class="tooltiptext">Satuan Harga</span>
+                </div>
+            </td>
+        </template>
+        <!-- INPUT MANUAL -->
+        <template if.bind="!data.POMaster">
+            <!-- satuan -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
+                        options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
+                    </au-autocomplete>
+                    <span class="tooltiptext">Satuan</span>
+                </div>
+            </td>
+            <!-- price -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-numeric value.bind="data.Price" error.bind="error.Price" format = "0,0.00" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
+                    <span class="tooltiptext">Price</span>
+                </div>
+            </td>
+            <!-- satuan harga -->
+            <td>
+                <div style="width: 100px;" class="tooltip-material-field">
+                    <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
+                        options.bind="controlOptions" text.bind="uomView"  show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
+                    </au-autocomplete>
+                    <span class="tooltiptext">Satuan Harga</span>
+                </div>
+            </td>
+        </template>
         <!-- konversi -->
         <td>
             <div style="width: 100px;" class="tooltip-material-field">
@@ -197,7 +226,7 @@
         <!-- ongkir -->
         <td>
             <div style="width: 100px;" class="tooltip-material-field">
-                <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+                <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="data.isFabricCM"></au-numeric>
                 <span class="tooltiptext">Ongkir (%)</span>
             </div>
         </td>

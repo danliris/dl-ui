@@ -1,0 +1,36 @@
+<template replace-part="item">
+    <tr>
+        <td>
+            <au-autocomplete value.bind="selectedSalesInvoice" error.bind="error.SalesInvoice" read-only.bind="readOnly"
+                loader.bind="salesInvoiceLoader" key="SalesInvoiceNo" text="SalesInvoiceNo"
+                change.delegate="selectedSalesInvoiceChanged($event)" placeholder="Pilih No. Faktur Penjualan">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-textbox label="Tempo" value.bind="getTempo" error.bind="error.Tempo"
+                change.delegate="tempoChanged($event)" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="getTotalAmount" error.bind="error.TotalAmount" read-only.bind="true"
+                format="0,0.00">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="getPaid" error.bind="error.Paid" read-only.bind="true" format="0,0.00">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="Nominal" error.bind="error.Nominal" read-only.bind="readOnly" format="0,0.00">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="getUnpaid" error.bind="error.Unpaid" read-only.bind="true" format="0,0.00">
+            </au-numeric>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
+                click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>
