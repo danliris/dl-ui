@@ -467,7 +467,7 @@ uomView =(uom)=>{
 
                     this.data.ProductRemark = null;
                     this.data.Quantity = 0;
-                    this.data.UOMQuantity = result.Uom;
+                    this.data.UOMQuantity = null;
                     this.data.Price = result.BudgetPrice;
                     this.data.UOMPrice = result.PriceUom;
                     this.data.Conversion = 0;
@@ -475,6 +475,7 @@ uomView =(uom)=>{
                     this.data.ShippingFeePortion = 0;
                     // this.totalShippingFee = 0;
                     // this.budgetQuantity = 0;
+                    this.data.AvailableQuantity = result.AvailableQuantity;
 
                     this.serviceCore.getCategoryId(this.data.Category.Id)
                         .then(category => {
