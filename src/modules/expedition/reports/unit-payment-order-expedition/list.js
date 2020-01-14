@@ -188,7 +188,7 @@ export class List {
         // }
 
         if (this.division) {
-            filter.divisionCode = this.division.code;
+            filter.divisionCode = this.division.Code;
         }
 
         if (this.status && this.status.value && this.status.value != 0) {
@@ -282,7 +282,7 @@ export class List {
         // }
 
         if (this.division) {
-            filter.divisionCode = this.division.code;
+            filter.divisionCode = this.division.Code;
         }
 
         if (this.status && this.status.value && this.status.value != 0) {
