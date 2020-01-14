@@ -197,7 +197,7 @@
         <!-- ongkir -->
         <td>
             <div style="width: 100px;" class="tooltip-material-field">
-                <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+                <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="data.isFabricCM"></au-numeric>
                 <span class="tooltiptext">Ongkir (%)</span>
             </div>
         </td>

@@ -60,10 +60,10 @@ export class Service extends RestService {
             });
     }
 
-    // getPdfById(id) {
-    //     var endpoint = `${serviceUri}/pdf/${id}`;
-    //     return super.getPdf(endpoint);
-    // }
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 
     replaceCostCalculation(id, data) {
         var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
