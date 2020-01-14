@@ -467,7 +467,7 @@ uomView =(uom)=>{
 
                     this.data.ProductRemark = null;
                     this.data.Quantity = 0;
-                    this.data.UOMQuantity = result.Uom;
+                    this.data.UOMQuantity = null;
                     this.data.Price = result.BudgetPrice;
                     this.data.UOMPrice = result.PriceUom;
                     this.data.Conversion = 0;

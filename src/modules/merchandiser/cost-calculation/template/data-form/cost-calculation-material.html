@@ -157,15 +157,17 @@
                 <span class="tooltiptext">Kuantitas</span>
             </div>
         </td>
+        <!-- satuan -->
+        <td>
+            <div style="width: 100px;" class="tooltip-material-field">
+                <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
+                    options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
+                </au-autocomplete>
+                <span class="tooltiptext">Satuan</span>
+            </div>
+        </td>
         <!-- FROM PR MASTER -->
         <template if.bind="data.POMaster">
-            <!-- satuan -->
-            <td>
-                <div style="width: 100px;" class="tooltip-material-field">
-                    <au-autocomplete value.bind="data.UOMQuantity" options.bind="controlOptions" text.bind="uomView" read-only="true"></au-autocomplete>
-                    <span class="tooltiptext">Satuan</span>
-                </div>
-            </td>
             <!-- price -->
             <td>
                 <div style="width: 100px;" class="tooltip-material-field">
@@ -183,15 +185,6 @@
         </template>
         <!-- INPUT MANUAL -->
         <template if.bind="!data.POMaster">
-            <!-- satuan -->
-            <td>
-                <div style="width: 100px;" class="tooltip-material-field">
-                    <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                        options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess" keypress.delegate="enterDelegate($event)">
-                    </au-autocomplete>
-                    <span class="tooltiptext">Satuan</span>
-                </div>
-            </td>
             <!-- price -->
             <td>
                 <div style="width: 100px;" class="tooltip-material-field">
