@@ -20,6 +20,7 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
+  @bindable selectedStorage;
 
   constructor(
     service,
@@ -38,6 +39,10 @@ export class DataForm {
   @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || "").toString() !== "";
+  }
+
+  storageQuery = {
+    "DivisionName" : "DYEING & PRINTING"
   }
 
   async bind(context) {
@@ -104,9 +109,10 @@ export class DataForm {
     columns: [
       "Nama Barang",
       "Kode Barang",
-      "Jumlah Packing",
-      "Jumlah Benang",
-      "Jumlah Metrik"
+      "Keterangan Barang",
+      "Total Packing",
+      "Total Panjang (m)",
+      "Total Panjang (yard)"
     ],
     onAdd: function() {
       this.context.DOSalesDetailsCollection.bind();
@@ -119,9 +125,8 @@ export class DataForm {
   };
 
   doSalesTypeOptions = ["", "UP", "US", "JS", "USS", "JB", "UPS"];
-  packingUomOptions = ["", "PCS", "ROLL", "PT"];
-  imperialUomOptions = ["", "YDS", "BALE"];
-  metricUomOptions = ["", "MTR", "KG"];
+  packingUomOptions = ["", "PCS", "ROLL"];
+  lengthUomOptions = ["", "MTR"];
 
   @bindable selectedProductionOrder;
   async selectedProductionOrderChanged(newValue, oldValue) {
@@ -209,9 +214,11 @@ export class DataForm {
     if (this.selectedStorage && this.selectedStorage._id) {
       this.data.StorageId = this.selectedStorage._id;
       this.data.StorageName = this.selectedStorage.name;
+      this.data.StorageDivision = this.selectedStorage.unit.division.Name;
     } else {
       this.data.StorageId = null;
       this.data.StorageName = null;
+      this.data.StorageDivision = null;
     }
   }
 
@@ -232,6 +239,10 @@ export class DataForm {
   productionOrderTextFormatter = productionOrder => {
     return `${productionOrder.OrderNo}`;
   };
+
+  storageView = (storage) => {
+    return `${storage.unit.division.Name} - ${storage.name}`;
+}
 
   get productionOrderLoader() {
     return ProductionOrderLoader;
@@ -265,11 +276,8 @@ export class DataForm {
   packingUomChanged(e) {
     console.log(this.data.PackingUom);
   }
-  imperialUomChanged(e) {
-    console.log(this.data.ImperialUom);
-  }
-  metricUomChanged(e) {
-    console.log(this.data.MetricUom);
+  lengthUomChanged(e) {
+    console.log(this.data.LengthUom);
   }
   dispChanged(e) {
     console.log(this.data.Disp);
