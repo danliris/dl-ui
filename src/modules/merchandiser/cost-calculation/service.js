@@ -151,6 +151,11 @@ class Service extends RestService {
         return super.put(endpoint, data.reason);
     }
 
+    getMaterials(info) {
+        var endpoint = `${serviceUri}/materials/dynamic`;
+        return super.list(endpoint, info);
+    }
+
 };
 
 const serviceUriPurchaseRequest = 'garment-purchase-requests';

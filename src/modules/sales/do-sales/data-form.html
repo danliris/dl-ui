@@ -5,7 +5,7 @@
         if.one-way="context.hasCancel">Kembali</button>
       <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <!-- <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button> -->
+      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
     </div>
 
     <div class="row">
@@ -51,6 +51,11 @@
           loader.bind="buyersLoader" key="Address" text="Address" keypress.delegate="enterDelegate($event)"
           change.delegate="selectedDestinationBuyerChanged($event)">
         </au-autocomplete>
+      </div>
+
+      <div class="col-md-1" style="padding:0"></div>
+
+      <div class="col-md-5" style="padding:0">
 
         <au-autocomplete value.bind="selectedMaterialConstructionFinish" label="Konstruksi"
           read-only.bind="readOnly || isEdit" error.bind="error.MaterialConstructionFinish"
@@ -58,13 +63,9 @@
           keypress.delegate="enterDelegate($event)" change.delegate="selectedMaterialConstructionFinishChanged($event)"
           placeholder="Pilih Konstruksi">
         </au-autocomplete>
-      </div>
-
-      <div class="col-md-1" style="padding:0"></div>
-
-      <div class="col-md-5" style="padding:0">
+        
         <au-autocomplete value.bind="selectedStorage" label="Gudang" read-only.bind="readOnly"
-          error.bind="error.Storage" loader.bind="storageLoader" key="name" text="name"
+          error.bind="error.Storage" loader.bind="storageLoader" key="name" text.bind="storageView" query.bind="storageQuery"
           keypress.delegate="enterDelegate($event)" change.delegate="selectedStorageChanged($event)"
           placeholder="Pilih Gudang">
         </au-autocomplete>
@@ -74,24 +75,14 @@
           change.delegate="headOfStorageChanged($event)">
         </au-textbox>
 
-        <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
-          keypress.delegate="enterDelegate($event)" change.delegate="remarkChanged($event)"
-          change.delegate="remarkChanged($event)" placeholder="Input Keterangan">
-        </au-multiline>
-
         <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomOptions"
           error.bind="error.PackingUom" read-only.bind="readOnly" change.delegate="packingUomChanged($event)"
           placeholder="Pilih Satuan Packing">
         </au-dropdown>
 
-        <au-dropdown label="Satuan Imperial" value.bind="data.ImperialUom" items.bind="imperialUomOptions"
-          error.bind="error.ImperialUom" read-only.bind="readOnly" change.delegate="imperialUomChanged($event)"
-          placeholder="Pilih Satuan Imperial">
-        </au-dropdown>
-
-        <au-dropdown label="Satuan Metrik" value.bind="data.MetricUom" items.bind="metricUomOptions"
-          error.bind="error.MetricUom" read-only.bind="readOnly" change.delegate="metricUomChanged($event)"
-          placeholder="Pilih Satuan Metrik">
+        <au-dropdown label="Satuan Panjang" value.bind="data.LengthUom" items.bind="lengthUomOptions"
+          error.bind="error.LengthUom" read-only.bind="readOnly" change.delegate="lengthUomChanged($event)"
+          placeholder="Pilih Satuan Panjang">
         </au-dropdown>
 
         <au-textbox label="Disp" value.bind="data.Disp" error.bind="error.Disp" read-only.bind="readOnly"
@@ -105,6 +96,11 @@
         <au-textbox label="Sc" value.bind="data.Sc" error.bind="error.Sc" read-only.bind="readOnly"
           placeholder="Input Sc" keypress.delegate="enterDelegate($event)" change.delegate="scChanged($event)">
         </au-textbox>
+
+        <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
+          keypress.delegate="enterDelegate($event)" change.delegate="remarkChanged($event)"
+          change.delegate="remarkChanged($event)" placeholder="Input Keterangan">
+        </au-multiline>
       </div>
 
       <div class="col-md-1" style="padding:0"></div>

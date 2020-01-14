@@ -114,23 +114,17 @@ export class DataForm {
 
   salesInvoiceDetailsInfo = {
     columns: [
-      "Kode",
-      "Banyak",
-      "Jumlah",
-      "Satuan",
+      "Kode Barang",
       "Nama Barang",
+      "Banyak",
+      "Satuan",
+      "Jumlah",
       "Harga Satuan",
       "Total"
-    ],
-    onAdd: function() {
-      this.context.SalesInvoiceDetailsCollection.bind();
-      this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
-      this.data.SalesInvoiceDetails.push({});
-    }.bind(this),
-    onRemove: function() {
-      this.context.SalesInvoiceDetailsCollection.bind();
-    }.bind(this)
+    ]
   };
+
+  doSalesTableOptions = {}
 
   salesInvoiceTypeOptions = ["", "BPF", "BPS", "BPP", "BRG"];
 
@@ -153,6 +147,12 @@ export class DataForm {
       this.data.Disp = this.selectedDOSales.Disp;
       this.data.Op = this.selectedDOSales.Op;
       this.data.Sc = this.selectedDOSales.Sc;
+      if(!this.data.Id){
+      this.data.SalesInvoiceDetails = this.selectedDOSales.DOSalesDetails.map((item) => ({
+        UnitCode : item.UnitCode,
+        UnitName : item.UnitName
+      }));
+      }
     } else {
       this.data.DOSalesId = null;
       this.data.DOSalesNo = null;
