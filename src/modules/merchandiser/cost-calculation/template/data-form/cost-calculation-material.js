@@ -455,6 +455,7 @@ uomView =(uom)=>{
 
                     const result = response.output;
 
+                    this.data.IsPRMaster = true;
                     this.data.PRMasterId = result.PRMasterId;
                     this.data.PRMasterItemId = result.PRMasterItemId;
                     this.data.POMaster = result.POMaster;
@@ -466,9 +467,9 @@ uomView =(uom)=>{
 
                     this.data.ProductRemark = null;
                     this.data.Quantity = 0;
-                    this.data.UOMQuantity = null;
-                    this.data.Price = 0;
-                    this.data.UOMPrice = null;
+                    this.data.UOMQuantity = result.Uom;
+                    this.data.Price = result.BudgetPrice;
+                    this.data.UOMPrice = result.PriceUom;
                     this.data.Conversion = 0;
                     // this.total = 0;
                     this.data.ShippingFeePortion = 0;
