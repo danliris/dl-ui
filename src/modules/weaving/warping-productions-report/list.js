@@ -151,22 +151,19 @@ export class List {
 
                 var processedItemIndex = item.DailyProcessedPerOperator.findIndex(o => o.Group == headerItem.Group && o.Name == headerItem.Name);
                 if (processedItemIndex >= 0) {
-
                   valueEach = item.DailyProcessedPerOperator[processedItemIndex].Total;
-                  // totalValue = totalValue + valueEach;
+                  totalValue = totalValue + valueEach;
 
-                  // productionDatum.TotalValue = totalValue;
+                  productionDatum.TotalValue = totalValue;
                   productionDatum._DailyProcessed.push({
                     Value: valueEach
                   });
                 } else {
-                  // productionDatum.TotalValue = 0;
                   productionDatum._DailyProcessed.push({
                     Value: 0
                   });
                 }
               } else {
-                // productionDatum.TotalValue = 0;
                 productionDatum._DailyProcessed.push({
                   Value: 0
                 });
@@ -175,10 +172,6 @@ export class List {
             result.data._ProcessedList.push(productionDatum);
             index++;
           }
-          console.log(result);
-          // result.data._ProcessedList.forEach(Item => {
-          //   item.TotalValue = item._DailyProcessed.Value.reduce(reducer)
-          // });
           return result;
         });
       }
