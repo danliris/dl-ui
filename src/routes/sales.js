@@ -24,7 +24,34 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },{
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-ppic',
+        name: 'finishing-printing-cost-calculation-approval-ppic',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-md',
+        name: 'finishing-printing-cost-calculation-approval-md',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval MD',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/shin-finishing-printing-sales-contract',
         name: 'shin-finishing-printing-sales-contract',
         moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
