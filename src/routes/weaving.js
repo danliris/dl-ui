@@ -356,6 +356,23 @@ module.exports = [{
     }
   },
   {
+    route: "weaving/warping-broken-report",
+    name: "warping-broken-report",
+    moduleId: "./modules/weaving/warping-broken-report/index",
+    nav: true,
+    title: "Laporan Putus Warping",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/daily-operation-sizing",
     name: "daily-operation-sizing",
     moduleId: "./modules/weaving/daily-operation-sizing/index",
