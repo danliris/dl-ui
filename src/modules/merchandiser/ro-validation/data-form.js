@@ -66,6 +66,11 @@ export class DataForm {
     }.bind(this)
   };
 
+  formOptions = {
+      cancelText: "Kembali",
+      saveText: "Cetak PDF",
+  };
+  
   @bindable title;
   @bindable data = {};
   @bindable error = {};
