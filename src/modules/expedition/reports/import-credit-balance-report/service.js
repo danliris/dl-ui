@@ -16,9 +16,9 @@ export class Service extends RestService {
     getXls(info) {
         var query = '';
         if(info.supplierName != null){
-            query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
+            query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
         }else{
-            query = `?month=${info.month}&year=${info.year}`;
+            query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
         }
 
         let endpoint = `${serviceUri}/downloads/xls${query}`;

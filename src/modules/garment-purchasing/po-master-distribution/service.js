@@ -76,6 +76,11 @@ class CostCalculationService extends RestService {
         var endpoint = `${serviceCCUri}/${id}`;
         return super.get(endpoint);
     }
+
+    readMaterials(info) {
+        var endpoint = `${serviceCCUri}/materials/dynamic`;
+        return super.list(endpoint, info);
+    }
 }
 
 export { Service, PurchaseRequestService, DeliveryOrderService, CostCalculationService }

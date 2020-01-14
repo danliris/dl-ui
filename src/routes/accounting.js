@@ -219,5 +219,18 @@ module.exports = [
           permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
           iconClass: 'fa fa-dashboard'
       }
-    }
+    },
+    {
+        route: 'accounting/accounting-stock-report',
+        name: 'accounting-stock-report',
+        moduleId: './modules/accounting/reports/accounting-stock-report/index',
+        nav: true,
+        title: 'Laporan Stok Pembukuan',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+      }
 ];

@@ -276,5 +276,31 @@ module.exports = [
             permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/pr-master-garment-validation-report',
+        name: 'pr-master-garment-validation-report',
+        moduleId: './modules/merchandiser/report/pr-master-garment-validation-report/index',
+        nav: true,
+        title: 'Display Approval PR Master Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/cost-calculation-garment-validation-report',
+        name: 'cost-calculation-garment-validation-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-validation-report/index',
+        nav: true,
+        title: 'Display Approval Cost Calculation Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]

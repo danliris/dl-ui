@@ -11,7 +11,8 @@
                     text="SCNo"
                     placeholder="No Sales Contract"
                     read-only.bind="readOnly || isEdit"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-textbox
                     label="Artikel"
@@ -29,7 +30,8 @@
                     text.bind="unitView"
                     placeholder="Unit"
                     read-only.bind="readOnly || isEdit"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-autocomplete
                     label="Komoditi"
@@ -38,7 +40,8 @@
                     text.bind="comodityView"
                     error.bind="error.Commodity"
                     loader.one-time="comodityLoader"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-multiline
                     placeholder="Deskripsi Komoditi"
@@ -81,7 +84,8 @@
                     error.bind="error.UOM"
                     text.bind="uomView"
                     loader.one-time="uomLoader"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-textbox
                     placeholder="Size Range"

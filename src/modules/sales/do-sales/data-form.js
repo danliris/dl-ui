@@ -20,16 +20,7 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  // @bindable items;
-
-  controlOptions = {
-    label: {
-      length: 4
-    },
-    control: {
-      length: 5
-    }
-  };
+  @bindable selectedStorage;
 
   constructor(
     service,
@@ -50,6 +41,10 @@ export class DataForm {
     return (this.data.Id || "").toString() !== "";
   }
 
+  storageQuery = {
+    "DivisionName" : "DYEING & PRINTING"
+  }
+
   async bind(context) {
     this.context = context;
     this.context._this = this;
@@ -57,7 +52,6 @@ export class DataForm {
     this.error = this.context.error;
 
     var productionOrderId = this.data.ProductionOrderId;
-    // var productionOrderId = "58c8f8287b915900364dd2b0";
     if (productionOrderId) {
       this.selectedProductionOrder = await this.serviceSales.getProductionOrderById(
         productionOrderId,
@@ -77,8 +71,17 @@ export class DataForm {
         Code: this.data.BuyerCode,
         Name: this.data.BuyerName,
         Address: this.data.BuyerAddress,
-        Type: this.data.BuyerType
+        Type: this.data.BuyerType,
+        NPWP: this.data.BuyerNPWP
       };
+    }
+
+    var destinationBuyerId = this.data.DestinationBuyerId;
+    if (destinationBuyerId) {
+      this.selectedDestinationBuyer = await this.serviceCore.getBuyerById(
+        destinationBuyerId,
+        this.destinationBuyerFields
+      );
     }
 
     var materialConstructionId = this.data.MaterialConstructionFinishId;
@@ -105,10 +108,11 @@ export class DataForm {
   doSalesDetailsInfo = {
     columns: [
       "Nama Barang",
-      "Kuantitas",
-      "Berat Satuan",
-      "Panjang Satuan",
-      "Remark"
+      "Kode Barang",
+      "Keterangan Barang",
+      "Total Packing",
+      "Total Panjang (m)",
+      "Total Panjang (yard)"
     ],
     onAdd: function() {
       this.context.DOSalesDetailsCollection.bind();
@@ -119,17 +123,10 @@ export class DataForm {
       this.context.DOSalesDetailsCollection.bind();
     }.bind(this)
   };
-  packingUomOptions = [
-    "",
-    "ROLL",
-    "PCS",
-    "POT",
-    "SETS",
-    "SLP",
-    "BDL",
-    "KRG",
-    "LBR"
-  ];
+
+  doSalesTypeOptions = ["", "UP", "US", "JS", "USS", "JB", "UPS"];
+  packingUomOptions = ["", "PCS", "ROLL"];
+  lengthUomOptions = ["", "MTR"];
 
   @bindable selectedProductionOrder;
   async selectedProductionOrderChanged(newValue, oldValue) {
@@ -156,6 +153,7 @@ export class DataForm {
           this.data.BuyerName = this.selectedBuyer.Name;
           this.data.BuyerAddress = this.selectedBuyer.Address;
           this.data.BuyerType = this.selectedBuyer.Type;
+          this.data.BuyerNPWP = this.selectedBuyer.NPWP;
         } else {
           this.selectedBuyer = this.selectedProductionOrder.Buyer;
           this.data.BuyerId = this.selectedProductionOrder.Buyer.Id;
@@ -163,6 +161,7 @@ export class DataForm {
           this.data.BuyerName = this.selectedProductionOrder.Buyer.Name;
           this.data.BuyerAddress = this.selectedProductionOrder.Buyer.Address;
           this.data.BuyerType = this.selectedProductionOrder.Buyer.Type;
+          this.data.BuyerNPWP = this.selectedProductionOrder.Buyer.NPWP;
         }
         this.data.MaterialWidthFinish = this.selectedProductionOrder.FinishWidth;
       }
@@ -182,30 +181,44 @@ export class DataForm {
   @bindable selectedBuyer;
   selectedBuyerChanged(newValue, oldValue) {
     if (this.selectedBuyer && this.selectedBuyer.Id) {
-      console.log(this.selectedBuyer); //Buyer Changed
       this.data.BuyerId = this.selectedBuyer.Id;
       this.data.BuyerCode = this.selectedBuyer.Code;
       this.data.BuyerName = this.selectedBuyer.Name;
       this.data.BuyerAddress = this.selectedBuyer.Address;
       this.data.BuyerType = this.selectedBuyer.Type;
+      this.data.BuyerNPWP = this.selectedBuyer.NPWP;
     } else {
       this.data.BuyerId = null;
       this.data.BuyerCode = null;
       this.data.BuyerName = null;
       this.data.BuyerAddress = null;
       this.data.BuyerType = null;
+      this.data.BuyerNPWP = null;
+    }
+  }
+
+  @bindable selectedDestinationBuyer;
+  selectedDestinationBuyerChanged(newValue, oldValue) {
+    if (this.selectedDestinationBuyer && this.selectedDestinationBuyer.Id) {
+      this.data.DestinationBuyerId = this.selectedDestinationBuyer.Id;
+      this.data.DestinationBuyerCode = this.selectedDestinationBuyer.Code;
+      this.data.DestinationBuyerName = this.selectedDestinationBuyer.Name;
+      this.data.DestinationBuyerAddress = this.selectedDestinationBuyer.Address;
+      this.data.DestinationBuyerType = this.selectedDestinationBuyer.Type;
+      this.data.DestinationBuyerNPWP = this.selectedDestinationBuyer.NPWP;
     }
   }
 
   @bindable selectedStorage;
   selectedStorageChanged(newValue, oldValue) {
     if (this.selectedStorage && this.selectedStorage._id) {
-      // console.log(this.selectedStorage); //Storage Changed)
       this.data.StorageId = this.selectedStorage._id;
       this.data.StorageName = this.selectedStorage.name;
+      this.data.StorageDivision = this.selectedStorage.unit.division.Name;
     } else {
       this.data.StorageId = null;
       this.data.StorageName = null;
+      this.data.StorageDivision = null;
     }
   }
 
@@ -215,7 +228,6 @@ export class DataForm {
       this.selectedMaterialConstructionFinish &&
       this.selectedMaterialConstructionFinish.Id
     ) {
-      // console.log(this.selectedMaterialConstructionFinish); //Material Changed)
       this.data.MaterialConstructionFinishId = this.selectedMaterialConstructionFinish.Id;
       this.data.MaterialConstructionFinishName = this.selectedMaterialConstructionFinish.Name;
     } else {
@@ -227,6 +239,10 @@ export class DataForm {
   productionOrderTextFormatter = productionOrder => {
     return `${productionOrder.OrderNo}`;
   };
+
+  storageView = (storage) => {
+    return `${storage.unit.division.Name} - ${storage.name}`;
+}
 
   get productionOrderLoader() {
     return ProductionOrderLoader;
@@ -245,7 +261,31 @@ export class DataForm {
   console() {
     console.log(this.data);
   }
-  widthChanged(e) {
-    console.log(this.data.MaterialWidthFinish);
+  doSalesNoChanged(e) {
+    console.log(this.data.DOSalesNo);
+  }
+  doSalesTypeChanged(e) {
+    console.log(this.data.DOSalesType);
+  }
+  headOfStorageChanged(e) {
+    console.log(this.data.HeadOfStorage);
+  }
+  remarkChanged(e) {
+    console.log(this.data.Remark);
+  }
+  packingUomChanged(e) {
+    console.log(this.data.PackingUom);
+  }
+  lengthUomChanged(e) {
+    console.log(this.data.LengthUom);
+  }
+  dispChanged(e) {
+    console.log(this.data.Disp);
+  }
+  opChanged(e) {
+    console.log(this.data.Op);
+  }
+  scChanged(e) {
+    console.log(this.data.Sc);
   }
 }

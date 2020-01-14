@@ -1,54 +1,111 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
-
     <div slot="actions" class="btn-group">
-      <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+      <button class="btn btn-default" click.delegate="context.cancel($event)"
+        if.one-way="context.hasCancel">Kembali</button>
       <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
       <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
     </div>
 
-    <au-textbox label="Nomor DO" value.bind="data.Code" error.bind="error.Code" if.bind="readOnly || isEdit"
-      read-only.bind="true" options.bind="controlOptions">
-    </au-textbox>
+    <div class="row">
+      <div class="col-md-5" style="padding:0">
+        <au-textbox label="No. DO Penjualan" value.bind="data.DOSalesNo" error.bind="error.DOSalesNo"
+          if.bind="readOnly || isEdit" read-only.bind="true" change.delegate="doSalesNoChanged($event)">
+        </au-textbox>
 
-    <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly"
-      options.bind="controlOptions">
-    </au-datepicker>
+        <au-dropdown label="Tipe DO Penjualan" value.bind="data.DOSalesType"
+          items.bind="doSalesTypeOptions" error.bind="error.DOSalesType" read-only.bind="readOnly || isEdit"
+          change.delegate="doSalesTypeChanged($event)">
+        </au-dropdown>
 
-    <au-autocomplete value.bind="selectedStorage" label="Gudang" read-only.bind="readOnly" error.bind="error.Storage"
-      loader.bind="storageLoader" key="name" text="name" keypress.delegate="enterDelegate($event)"
-      options.bind="controlOptions" placeholder="Pilih Gudang">
-    </au-autocomplete>
+        <au-datepicker label="Tanggal" value.bind="data.DOSalesDate" error.bind="error.DOSalesDate"
+          read-only.bind="readOnly">
+        </au-datepicker>
 
-    <au-autocomplete value.bind="selectedProductionOrder" label="Nomor SPP" read-only.bind="readOnly || isEdit"
-      error.bind="error.ProductionOrder" loader.bind="productionOrderLoader" key="OrderNo"
-      text.bind="productionOrderTextFormatter" keypress.delegate="enterDelegate($event)" options.bind="controlOptions" placeholder="Pilih No. SPP">
-    </au-autocomplete>
+        <au-autocomplete value.bind="selectedProductionOrder" label="Nomor SPP" read-only.bind="readOnly || isEdit"
+          error.bind="error.ProductionOrder" loader.bind="productionOrderLoader" key="OrderNo"
+          text.bind="productionOrderTextFormatter" keypress.delegate="enterDelegate($event)"
+          change.delegate="selectedProductionOrderChanged($event)" placeholder="Pilih No. SPP">
+        </au-autocomplete>
 
-    <au-textbox label="Material" value.bind="data.Material" read-only.bind="true" options.bind="controlOptions">
-    </au-textbox>
+        <au-textbox label="Material" value.bind="data.Material" read-only.bind="true">
+        </au-textbox>
 
-    <au-textbox label="Lebar" value.bind="data.MaterialWidthFinish" error.bind="error.MaterialWidthFinish"
-      read-only.bind="true" keypress.delegate="enterDelegate($event)" change.delegate="widthChanged($event)"
-      options.bind="controlOptions">
-    </au-textbox>
+        <au-textbox label="Lebar Finish" value.bind="data.MaterialWidthFinish" read-only.bind="true"
+          keypress.delegate="enterDelegate($event)" change.delegate="widthChanged($event)">
+        </au-textbox>
 
-    <au-autocomplete value.bind="selectedBuyer" label="Buyer" read-only.bind="true" error.bind="error.Buyer"
-      loader.bind="buyersLoader" key="Name" text="Name" keypress.delegate="enterDelegate($event)"
-      options.bind="controlOptions">
-    </au-autocomplete>
+        <au-autocomplete label="Buyer" value.bind="selectedBuyer" read-only.bind="true" loader.bind="buyersLoader"
+          key="Name" text="Name" keypress.delegate="enterDelegate($event)"
+          change.delegate="selectedBuyerChanged($event)">
+        </au-autocomplete>
 
-    <au-autocomplete value.bind="selectedMaterialConstructionFinish" label="Konstruksi"
-      read-only.bind="readOnly || isEdit" error.bind="error.MaterialConstructionFinish"
-      loader.bind="materialConstructionFinishLoader" key="Name" text="Name" keypress.delegate="enterDelegate($event)"
-      options.bind="controlOptions" placeholder="Pilih Konstruksi">
-    </au-autocomplete>
+        <au-autocomplete value.bind="selectedDestinationBuyer" label="Dikirim Kepada"
+          read-only.bind="readOnly || isEdit" error.bind="error.Buyer" loader.bind="buyersLoader" key="Name" text="Name"
+          keypress.delegate="enterDelegate($event)" change.delegate="selectedDestinationBuyerChanged($event)"
+          placeholder="Dikirim Kepada">
+        </au-autocomplete>
 
+        <au-autocomplete label="Alamat Tujuan" value.bind="selectedDestinationBuyer" read-only.bind="true"
+          loader.bind="buyersLoader" key="Address" text="Address" keypress.delegate="enterDelegate($event)"
+          change.delegate="selectedDestinationBuyerChanged($event)">
+        </au-autocomplete>
+      </div>
 
-    <au-dropdown label="Satuan" value.bind="data.PackingUom" items.bind="packingUomOptions"
-      error.bind="error.PackingUom" read-only.bind="readOnly" options.bind="controlOptions">
-    </au-dropdown>
+      <div class="col-md-1" style="padding:0"></div>
+
+      <div class="col-md-5" style="padding:0">
+
+        <au-autocomplete value.bind="selectedMaterialConstructionFinish" label="Konstruksi"
+          read-only.bind="readOnly || isEdit" error.bind="error.MaterialConstructionFinish"
+          loader.bind="materialConstructionFinishLoader" key="Name" text="Name"
+          keypress.delegate="enterDelegate($event)" change.delegate="selectedMaterialConstructionFinishChanged($event)"
+          placeholder="Pilih Konstruksi">
+        </au-autocomplete>
+        
+        <au-autocomplete value.bind="selectedStorage" label="Gudang" read-only.bind="readOnly"
+          error.bind="error.Storage" loader.bind="storageLoader" key="name" text.bind="storageView" query.bind="storageQuery"
+          keypress.delegate="enterDelegate($event)" change.delegate="selectedStorageChanged($event)"
+          placeholder="Pilih Gudang">
+        </au-autocomplete>
+
+        <au-textbox label="Kepala Gudang" value.bind="data.HeadOfStorage" error.bind="error.HeadOfStorage"
+          read-only.bind="readOnly" placeholder="Input Kepala Gudang" keypress.delegate="enterDelegate($event)"
+          change.delegate="headOfStorageChanged($event)">
+        </au-textbox>
+
+        <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomOptions"
+          error.bind="error.PackingUom" read-only.bind="readOnly" change.delegate="packingUomChanged($event)"
+          placeholder="Pilih Satuan Packing">
+        </au-dropdown>
+
+        <au-dropdown label="Satuan Panjang" value.bind="data.LengthUom" items.bind="lengthUomOptions"
+          error.bind="error.LengthUom" read-only.bind="readOnly" change.delegate="lengthUomChanged($event)"
+          placeholder="Pilih Satuan Panjang">
+        </au-dropdown>
+
+        <au-textbox label="Disp" value.bind="data.Disp" error.bind="error.Disp" read-only.bind="readOnly"
+          placeholder="Input Disp" keypress.delegate="enterDelegate($event)" change.delegate="dispChanged($event)">
+        </au-textbox>
+
+        <au-textbox label="Op" value.bind="data.Op" error.bind="error.Op" read-only.bind="readOnly"
+          placeholder="Input Op" keypress.delegate="enterDelegate($event)" change.delegate="opChanged($event)">
+        </au-textbox>
+
+        <au-textbox label="Sc" value.bind="data.Sc" error.bind="error.Sc" read-only.bind="readOnly"
+          placeholder="Input Sc" keypress.delegate="enterDelegate($event)" change.delegate="scChanged($event)">
+        </au-textbox>
+
+        <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
+          keypress.delegate="enterDelegate($event)" change.delegate="remarkChanged($event)"
+          change.delegate="remarkChanged($event)" placeholder="Input Keterangan">
+        </au-multiline>
+      </div>
+
+      <div class="col-md-1" style="padding:0"></div>
+
+    </div>
 
     <au-textbox show.bind="error.DOSalesDetail" error.bind="error.DOSalesDetail" read-only.bind="true"></au-textbox>
 

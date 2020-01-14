@@ -28,6 +28,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.CuttingFrom="PREPARING";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

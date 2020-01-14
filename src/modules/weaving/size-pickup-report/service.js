@@ -64,46 +64,45 @@ export class Service extends RestService {
       else query = `${query}&month=${(month)}`;
     }
     if (query !== '')
-      endpoint = `${serviceUri}/get-report?${query}`;
-debugger
+      endpoint = `${serviceUri}/get-size-pickup-report?${query}`;
     return super.getXls(endpoint);
   }
 
-  //Export to Excel
-  getDataByDate(date, weavingUnitId, shiftId, spu) {
-    var periodType = "date";
-    var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
+  // //Get Data
+  // getDataByDate(date, weavingUnitId, shiftId, spu) {
+  //   var periodType = "date";
+  //   var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.get(endpoint);
+  // }
 
-  getDataByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
-    var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
+  // getDataByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
+  //   var periodType = "daterange";
+  //   var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.get(endpoint);
+  // }
 
-  getDataByMonth(month, weavingUnitId, shiftId, spu) {
-    var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.get(endpoint);
-  }
+  // getDataByMonth(month, weavingUnitId, shiftId, spu) {
+  //   var periodType = "month";
+  //   var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.get(endpoint);
+  // }
 
-  //Export to Excel
-  getXlsByDate(date, weavingUnitId, shiftId, spu) {
-    var periodType = "date";
-    var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.getXls(endpoint);
-  }
+  // //Export to Excel
+  // getXlsByDate(date, weavingUnitId, shiftId, spu) {
+  //   var periodType = "date";
+  //   var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.getXls(endpoint);
+  // }
 
-  getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
-    var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.getXls(endpoint);
-  }
+  // getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId, spu) {
+  //   var periodType = "daterange";
+  //   var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.getXls(endpoint);
+  // }
 
-  getXlsByMonth(month, weavingUnitId, shiftId, spu) {
-    var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
-    return super.getXls(endpoint);
-  }
+  // getXlsByMonth(month, weavingUnitId, shiftId, spu) {
+  //   var periodType = "month";
+  //   var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
+  //   return super.getXls(endpoint);
+  // }
 }
