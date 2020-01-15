@@ -12,6 +12,7 @@ export class PurchaseRequestItem {
   @bindable selectedConst;
   @bindable selectedYarn;
   @bindable selectedWidth;
+  @bindable selectedUom;
 
   get categoryLoader() {
     return CategoryLoader;
@@ -123,6 +124,7 @@ export class PurchaseRequestItem {
       this.selectedConst = this.data.Const;
       this.selectedYarn = this.data.Yarn;
       this.selectedWidth = this.data.Width;
+      this.selectedUom = this.data.Uom;
     }
   }
 
@@ -214,5 +216,11 @@ export class PurchaseRequestItem {
       this.data.Product = null;
       // this.data.Uom = null;
     }
+  }
+
+  selectedUomChanged(newValue) {
+    this.data.Uom = newValue;
+    this.data.PriceUom = newValue;
+    this.data.PriceConversion = 1;
   }
 }
