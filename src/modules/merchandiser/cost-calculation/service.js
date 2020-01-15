@@ -152,7 +152,7 @@ class Service extends RestService {
     }
 
     getMaterials(info) {
-        var endpoint = `${serviceUri}/materials/dynamic`;
+        var endpoint = `${serviceUri}/materials/by-prmasteritemids`;
         return super.list(endpoint, info);
     }
 

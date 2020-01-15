@@ -98,12 +98,13 @@
         </td> -->
         <td class="col-sm-1">
             <au-autocomplete
-                value.bind="data.Uom"
+                value.bind="selectedUom"
                 error.bind="error.UOM"
                 loader.bind="uomLoader"
                 read-only.bind="readOnly"
                 placeholder="Satuan"
                 text="Unit"
+                change.delegate="uomChanged($event)"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -120,7 +121,7 @@
                 value.bind="data.PriceUom"
                 error.bind="error.PriceUom"
                 loader.bind="uomLoader"
-                read-only.bind="readOnly"
+                read-only="true"
                 placeholder="Satuan Harga"
                 text="Unit"
                 options.bind="controlOptions">
@@ -130,7 +131,7 @@
             <au-numeric 
                 value.bind="data.PriceConversion" 
                 error.bind="error.PriceConversion"
-                read-only.bind="readOnly"
+                read-only="true"
                 format="0,0.[00000000000000000000]"
                 options.bind="controlOptions">
             </au-numeric>
