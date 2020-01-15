@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail", "print"]
+    context = ["detail"]
 
     columns = [
         
