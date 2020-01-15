@@ -172,6 +172,7 @@ export class List {
             result.data._ProcessedList.push(productionDatum);
             index++;
           }
+          console.log(result);
           return result;
         });
       }
