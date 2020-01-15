@@ -41,6 +41,11 @@ export class View {
                     this.deleteCallback = null;
                 }
             }
+            if(this.data.CuttingFrom=="SEWING"){
+                this.fromSewing=true;
+                this.editCallback = null;
+                this.deleteCallback = null;
+            }
         }
     }
 

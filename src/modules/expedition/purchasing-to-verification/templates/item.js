@@ -53,105 +53,127 @@ export class Item {
                 // select: ['no', 'unit._id', 'unit.code', 'unit.name']
             };
 
-            this.service.getURN(filter)
-                .then((response) => {
-                    let urn = response.data;
-                    for (let item of newV.items) {
-                        let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
-                        // let upoItem = newV.items.find(item => item.unitReceiptNote.no === urnObj.no);
+            this.service.getCorrectionState(newV._id)
+                .then((correctionStateResponse) => {
+                    let correctionState = correctionStateResponse.data;
+                    console.log(correctionState);
+                    return this.service.getURN(filter)
+                        .then((response) => {
+                            let urn = response.data;
+                            for (let item of newV.items) {
+                                let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
+                                // let upoItem = newV.items.find(item => item.unitReceiptNote.no === urnObj.no);
 
-                        console.log(urnObj);
-                        console.log(item);
+                                // console.log(urnObj);
+                                // console.log(item);
 
-                        for (let detail of item.unitReceiptNote.items) {
-                            let corrections = detail.correction;
-                            let price, quantity;
+                                for (let detail of item.unitReceiptNote.items) {
+                                    let corrections = detail.correction;
+                                    let price, quantity;
 
-                            // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
+                                    // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
 
 
 
-                            // if (corrections && corrections.length !== 0) {
-                            //     if (corrections[corrections.length - 1].correctionRemark === 'Koreksi Jumlah') {
-                            //         let pricePerUnit = corrections[corrections.length - 1].correctionPricePerUnit;
-                            //         let correctionQuantity = detail.deliveredQuantity;
+                                    // if (corrections && corrections.length !== 0) {
+                                    //     if (corrections[corrections.length - 1].correctionRemark === 'Koreksi Jumlah') {
+                                    //         let pricePerUnit = corrections[corrections.length - 1].correctionPricePerUnit;
+                                    //         let correctionQuantity = detail.deliveredQuantity;
 
-                            //         for (let correction of corrections.filter(p => p.correctionRemark === 'Koreksi Jumlah')) {
-                            //             correctionQuantity -= correction.correctionQuantity;
-                            //         }
+                                    //         for (let correction of corrections.filter(p => p.correctionRemark === 'Koreksi Jumlah')) {
+                                    //             correctionQuantity -= correction.correctionQuantity;
+                                    //         }
 
-                            //         price = pricePerUnit * correctionQuantity;
-                            //         quantity = correctionQuantity;
-                            //     }
-                            //     else {
-                            //         price = corrections[corrections.length - 1].correctionPriceTotal;
-                            //         quantity = corrections[corrections.length - 1].correctionQuantity;
-                            //     }
-                            // }
-                            // else {
+                                    //         price = pricePerUnit * correctionQuantity;
+                                    //         quantity = correctionQuantity;
+                                    //     }
+                                    //     else {
+                                    //         price = corrections[corrections.length - 1].correctionPriceTotal;
+                                    //         quantity = corrections[corrections.length - 1].correctionQuantity;
+                                    //     }
+                                    // }
+                                    // else {
 
-                            if (detail.QuantityCorrection > 0)
-                                quantity = detail.QuantityCorrection;
-                            else
-                                quantity = detail.deliveredQuantity;
+                                    let correctQuantity = detail.deliveredQuantity;
+                                    if (correctionState.IsHavingQuantityCorrection) {
+                                        correctQuantity = detail.QuantityCorrection;
+                                    }
 
-                            if (detail.PriceTotalCorrection > 0)
-                                price = Number((detail.PriceTotalCorrection).toFixed(2));
-                            else if (detail.PricePerDealUnitCorrection > 0)
-                                price = Number((detail.PricePerDealUnitCorrection * quantity).toFixed(2));
-                            else
-                                price = Number((detail.pricePerDealUnit * quantity).toFixed(2));
-                            // quantity = detail.deliveredQuantity;
-                            // }
+                                    let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(2));
+                                    if (correctionState.IsHavingPricePerUnitCorrection) {
+                                        correctPricePerUnit = Number((detail.PricePerDealUnitCorrection).toFixed(2));
+                                    }
 
-                            items.push({
-                                productId: detail.product._id,
-                                productCode: detail.product.code,
-                                productName: detail.product.name,
-                                quantity: quantity,
-                                uom: detail.deliveredUom.unit,
-                                price: price,
-                                unitId: urnObj.unit._id,
-                                unitCode: urnObj.unit.code,
-                                unitName: urnObj.unit.name
+                                    let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(2));
+                                    if (correctionState.IsHavingPriceTotalCorrection) {
+                                        correctPriceTotal = Number((detail.PriceTotalCorrection).toFixed(2));
+                                    }
+
+                                    // if (detail.QuantityCorrection > 0)
+                                    //     quantity = detail.QuantityCorrection;
+                                    // else
+                                    //     quantity = detail.deliveredQuantity;
+
+                                    // if (detail.PriceTotalCorrection > 0)
+                                    //     price = Number((detail.PriceTotalCorrection).toFixed(2));
+                                    // else if (detail.PricePerDealUnitCorrection > 0)
+                                    //     price = Number((detail.PricePerDealUnitCorrection * quantity).toFixed(2));
+                                    // else
+                                    //     price = Number((detail.pricePerDealUnit * quantity).toFixed(2));
+                                    // quantity = detail.deliveredQuantity;
+                                    // }
+
+                                    items.push({
+                                        productId: detail.product._id,
+                                        productCode: detail.product.code,
+                                        productName: detail.product.name,
+                                        quantity: correctQuantity,
+                                        uom: detail.deliveredUom.unit,
+                                        price: correctPriceTotal,
+                                        unitId: urnObj.unit._id,
+                                        unitCode: urnObj.unit.code,
+                                        unitName: urnObj.unit.name
+                                    });
+
+                                    totalPaid += correctPriceTotal;
+                                }
+                            }
+
+                            // console.log(newV)
+                            // console.log(totalPaid);
+                            let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
+                            let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
+                            let income = newV.useIncomeTax ? newV.incomeTax : null;
+                            // console.log(vat);
+                            Object.assign(this.data, {
+                                id: newV._id,
+                                no: newV.no,
+                                date: newV.date,
+                                dueDate: newV.dueDate,
+                                invoiceNo: newV.invoiceNo,
+                                supplierCode: newV.supplier.code,
+                                supplierName: newV.supplier.name,
+                                divisionCode: newV.division.code,
+                                divisionName: newV.division.name,
+                                incomeTax: incomeTax,
+                                vat: vat,
+                                category: newV.category,
+                                paymentMethod: newV.paymentMethod,
+                                totalPaid: Number((totalPaid + vat).toFixed(2)),
+                                currency: newV.currency.code,
+                                items: items,
+                                useIncomeTax: newV.useIncomeTax,
+                                useVat: newV.useVat
                             });
+                            if (newV.useIncomeTax) {
+                                this.data.incomeTaxId = newV.incomeTax._id;
+                                this.data.incomeTaxName = newV.incomeTax.name;
+                                this.data.incomeTaxRate = newV.incomeTax.rate;
+                            }
+                        });
+                })
 
-                            totalPaid += price;
-                        }
-                    }
 
-                    // console.log(newV)
-                    // console.log(totalPaid);
-                    let vat = newV.useVat ?Number((totalPaid * 0.1).toFixed(2)) : 0;
-                    let incomeTax = newV.useIncomeTax ?  Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
-                    let income= newV.useIncomeTax? newV.incomeTax : null;
-                    // console.log(vat);
-                    Object.assign(this.data, {
-                        id: newV._id,
-                        no: newV.no,
-                        date: newV.date,
-                        dueDate: newV.dueDate,
-                        invoiceNo: newV.invoiceNo,
-                        supplierCode: newV.supplier.code,
-                        supplierName: newV.supplier.name,
-                        divisionCode: newV.division.code,
-                        divisionName: newV.division.name,
-                        incomeTax: incomeTax,
-                        vat: vat,
-                        category: newV.category,
-                        paymentMethod: newV.paymentMethod,
-                        totalPaid: Number((totalPaid + vat).toFixed(2)),
-                        currency: newV.currency.code,
-                        items: items,
-                        useIncomeTax: newV.useIncomeTax,
-                        useVat: newV.useVat
-                    });
-                    if (newV.useIncomeTax) {
-                        this.data.incomeTaxId = newV.incomeTax._id;
-                        this.data.incomeTaxName = newV.incomeTax.name;
-                        this.data.incomeTaxRate = newV.incomeTax.rate;
-                    }
-                });
         }
         else {
             Object.assign(this.data, {

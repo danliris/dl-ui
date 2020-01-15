@@ -8,7 +8,19 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },{
+        route: '/garment-production/scrap-classification',
+        name: 'garment-production-scrap-classification',
+        moduleId: './modules/garment-production/scrap-classification/index',
+        nav: true,
+        title: 'Master Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +33,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +46,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +59,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -60,7 +72,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +85,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -86,7 +98,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -99,7 +111,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +124,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,7 +137,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,36 +150,36 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: '/garment-production/finishing-in',
-    //     name: 'garment-production-finishing-in',
-    //     moduleId: './modules/garment-production/finishing-in/index',
-    //     nav: true,
-    //     title: 'Finishing In',
-    //     auth: true,
-    //     settings: {
-    //         group: "g-production",
-    //         permission: {"C9": 1},
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: '/garment-production/finishing-out',
-    //     name: 'garment-production-finishing-out',
-    //     moduleId: './modules/garment-production/finishing-out/index',
-    //     nav: true,
-    //     title: 'Finishing Out',
-    //     auth: true,
-    //     settings: {
-    //         group: "g-production",
-    //         permission: {"C9": 1},
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+    {
+        route: '/garment-production/finishing-in',
+        name: 'garment-production-finishing-in',
+        moduleId: './modules/garment-production/finishing-in/index',
+        nav: true,
+        title: 'Finishing In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/finishing-out',
+        name: 'garment-production-finishing-out',
+        moduleId: './modules/garment-production/finishing-out/index',
+        nav: true,
+        title: 'Finishing Out',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
@@ -177,7 +189,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -190,7 +202,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -203,7 +215,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -216,7 +228,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -229,7 +241,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -242,7 +254,7 @@ module.exports = [
     //     auth: true,
     //     settings: {
     //         group: "g-production",
-    //         permission: {"C9": 1},
+    //         permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }
     // }

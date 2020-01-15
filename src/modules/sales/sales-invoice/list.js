@@ -5,7 +5,7 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["detail", "cetak PDF"];
+  context = ["Detail","Cetak Surat Jalan","Cetak Faktur Penjualan"];
 
   columns = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
@@ -52,18 +52,23 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "detail":
+      case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
+        break;     
+      case "Cetak Surat Jalan":
+        this.service.getDeliveryOrderPdfById(data.Id);
         break;
-      case "cetak PDF":
-        this.service.getPdfById(data.Id);
+      case "Cetak Faktur Penjualan":
+        this.service.getSalesInvoicePdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "cetak PDF":
+      case "Cetak Surat Jalan":
+        return data;
+      case "Cetak Faktur Penjualan":
         return data;
       default:
         return true;

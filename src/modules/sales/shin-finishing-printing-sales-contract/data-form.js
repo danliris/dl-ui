@@ -22,7 +22,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable selectedCostCalculation;
-
+  @bindable itemsOptions = {};
   lampHeader = [{ header: "Standar Lampu" }];
 
   pointSystemOptions = [10, 4];
@@ -39,7 +39,8 @@ export class DataForm {
     "Tags": "MATERIAL"
   }
   ccQuery = {
-    "IsPosted": true
+    "IsPosted": true,
+    "IsSCCreated": false
   }
   constructor(bindingEngine, service, element) {
     this.bindingEngine = bindingEngine;
@@ -50,13 +51,22 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = context.data;
+
+    if(!this.data.Date){
+
+      this.data.Date = new Date().toLocaleString();
+    }
     this.error = context.error;
     this.itemsOptions = {
-      useIncomeTax: this.data.UseIncomeTax || false
+      useIncomeTax: this.data.UseIncomeTax || false,
+      ScreenCost: this.data.CostCalculation ? this.data.CostCalculation.ScreenCost : 0,
+      UnitName: this.data.CostCalculation ? this.data.CostCalculation.PreSalesContract.Unit.Name : ""
     };
 
     if (this.data.CostCalculation) {
       this.selectedCostCalculation = this.data.CostCalculation;
+      this.isPrinting = this.data.CostCalculation.PreSalesContract.Unit.Name === "PRINTING";
+
     }
     // this.selectedBuyer = this.data.Buyer || null;
     // this.selectedOrderType = this.data.OrderType || null;
@@ -75,6 +85,11 @@ export class DataForm {
       this.data.Material = newValue.Material.Name;
       this.orderQuantity = newValue.PreSalesContract.OrderQuantity;
       this.data.UOM = newValue.UOM.Unit;
+      this.data.ProductionOrderNo = newValue.ProductionOrderNo;
+      this.itemsOptions.UnitName = newValue.PreSalesContract.Unit.Name;
+      this.itemsOptions.ScreenCost = newValue.ScreenCost;
+
+      this.isPrinting = this.data.CostCalculation.PreSalesContract.Unit.Name === "PRINTING";
 
       if (newValue.PreSalesContract.Buyer.Type && (newValue.PreSalesContract.Buyer.Type.toLowerCase() == "ekspor" || newValue.PreSalesContract.Buyer.Type.toLowerCase() == "export")) {
         this.filterpayment = {
@@ -122,6 +137,7 @@ export class DataForm {
       this.data.PointSystem = 10;
       this.data.PointLimit = 0;
       this.data.Details = [];
+
     }
   }
 
@@ -179,13 +195,22 @@ export class DataForm {
   @bindable selectedUseIncomeTax = false;
   selectedUseIncomeTaxChanged(newValue, oldValue) {
     this.data.UseIncomeTax = newValue
-    this.data.Details.map((detail) => {
-      detail.isUseIncomeTax = newValue
-    })
-    this.context.FPCollection.bind();
+
+    if(this.data.Details){
+
+      this.data.Details.map((detail) => {
+        detail.isUseIncomeTax = newValue
+      });
+      // 
+      if(this.context.FPCollection){
+
+        this.context.FPCollection.bind();
+      }
+    }
+    
   }
 
-  isPrinting = false;
+  @bindable isPrinting = false;
   @bindable selectedOrderType;
   selectedOrderTypeChanged(newValue, oldValue) {
     this.data.OrderType = newValue;
@@ -227,10 +252,22 @@ export class DataForm {
 
   get detailHeader() {
     if (!this.data.UseIncomeTax) {
-      return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
+
+      if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
+
+        return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }];
+      } else {
+
+        return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
+      }
     }
     else {
-      return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
+      if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
+        return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
+      } else {
+        return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
+      }
+
     }
   }
 
@@ -241,6 +278,7 @@ export class DataForm {
         Color: '',
         Price: 0,
         UseIncomeTax: false,
+        ScreenCost: this.data.CostCalculation.ScreenCost,
         isUseIncomeTax: this.data.UseIncomeTax || false
       });
     }.bind(this)

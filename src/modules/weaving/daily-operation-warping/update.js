@@ -171,10 +171,6 @@ export class Update {
             this.isProduceBeamDisabled = true;
           }
           break;
-          // case "FINISH":
-          //   this.isStartDisabled = true;
-          //   this.isProduceBeamDisabled = true;
-          //   break;
         default:
           this.isStartDisabled = false;
           this.isProduceBeamDisabled = false;

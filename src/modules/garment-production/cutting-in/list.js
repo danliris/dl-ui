@@ -29,11 +29,14 @@ export class List {
     columns = [
         { field: "CutInNo", title: "No Cutting In" },
         { field: "CuttingType", title: "Tipe Cutting In" },
+        { field: "CuttingFrom", title: "Asal Cutting In" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalCuttingInQuantity", title: "Jumlah Cutting", sortable: false },
         { field: "RONo", title: "RO" },
         { field: "UnitName", title: "Unit" },
-        { field: "UENNos", title: "No Bukti Pengeluaran", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "UENNos", title: "No Bukti Pengeluaran", sortable: false, formatter: function (value, data, index) {
+            return value[0] ? `${value.map(v => `&bullet; ${v}`).join("<br/>")}` : `-` }
+          }, 
         { field: "CuttingInDate", title: "Tanggal Cutting In", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
     ]
@@ -56,6 +59,7 @@ export class List {
                 result.data.forEach(d => {
                     d.UnitName = d.Unit.Name
                     d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
+                    
                 });
                 return {
                     total: result.info.total,

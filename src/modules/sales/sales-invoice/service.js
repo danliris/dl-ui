@@ -40,8 +40,13 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getPdfById(id) {
-    var endpoint = `${serviceUri}/pdf/${id}`;
+  getDeliveryOrderPdfById(id) {
+    var endpoint = `${serviceUri}/deliveryOrderPdf/${id}`;
+    return super.getPdf(endpoint);
+  }
+  
+  getSalesInvoicePdfById(id) {
+    var endpoint = `${serviceUri}/salesInvoicePdf/${id}`;
     return super.getPdf(endpoint);
   }
 

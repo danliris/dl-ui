@@ -1,30 +1,42 @@
+import { inject, bindable } from "aurelia-framework";
 import numeral from "numeral";
+
 export class DOSalesItem {
+  @bindable TotalLength;
+
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    if (!this.data.Weight) {
-      this.data.Weight = 0;
+    
+    if (!this.data.TotalPacking) {
+      this.data.TotalPacking = 0;
     }
-    if (!this.data.Quantity) {
-      this.data.Quantity = 0;
+    if (!this.data.TotalLength) {
+      this.data.TotalLength = 0;
     }
-    if (!this.data.Length) {
-      this.data.Length = 0;
+    if (!this.data.TotalLengthConversion) {
+      this.data.TotalLengthConversion = 0;
     }
+    
+    this.TotalPacking = this.data.TotalPacking;
+    this.TotalLength = this.data.TotalLength;
+    this.getTotalLengthConversion = this.TotalLength * 1.094;
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
-  get Quantity() {
-    return numeral(this.data.Quantity).format("0,000");
+  TotalPackingChanged(newValue, oldValue) {
+    this.data.TotalPacking = this.TotalPacking;
   }
 
-  get Weight() {
-    return numeral(this.data.Weight).format("0,000.0000");
+  TotalLengthChanged(newValue, oldValue) {
+    this.getTotalLengthConversion = this.TotalLength * 1.094;
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
+    this.data.TotalLength = this.TotalLength;
   }
 
-  get Length() {
-    return numeral(this.data.Length).format("0,000.0000");
+  TotalLengthConversionChanged(newValue, oldValue) {
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
   controlOptions = {

@@ -83,7 +83,9 @@ export class CostCalculationMaterial {
 
         if(this.data.Id || this.data.isCopy)
         {
-            this.isReadOnly=true;
+            if (this.data.Category && this.data.Category.name && this.data.Category.name.toUpperCase() !== "FABRIC") {
+                this.isReadOnly = true;
+            }
         }
     }
 
@@ -453,6 +455,7 @@ uomView =(uom)=>{
 
                     const result = response.output;
 
+                    this.data.IsPRMaster = true;
                     this.data.PRMasterId = result.PRMasterId;
                     this.data.PRMasterItemId = result.PRMasterItemId;
                     this.data.POMaster = result.POMaster;
@@ -465,13 +468,14 @@ uomView =(uom)=>{
                     this.data.ProductRemark = null;
                     this.data.Quantity = 0;
                     this.data.UOMQuantity = null;
-                    this.data.Price = 0;
-                    this.data.UOMPrice = null;
+                    this.data.Price = result.BudgetPrice;
+                    this.data.UOMPrice = result.PriceUom;
                     this.data.Conversion = 0;
                     // this.total = 0;
                     this.data.ShippingFeePortion = 0;
                     // this.totalShippingFee = 0;
                     // this.budgetQuantity = 0;
+                    this.data.AvailableQuantity = result.AvailableQuantity;
 
                     this.serviceCore.getCategoryId(this.data.Category.Id)
                         .then(category => {
@@ -490,5 +494,14 @@ uomView =(uom)=>{
                         });
                 }
             });
+    }
+
+    enterDelegate(event) {
+        if (event.charCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+        else
+            return true;
     }
 }
