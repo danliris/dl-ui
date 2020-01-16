@@ -448,7 +448,7 @@ uomView =(uom)=>{
     }
 
     clickPRMaster() {
-        this.dialog.show(PRMasterDialog, { SCId: this.context.context.options.SCId || 0 })
+        this.dialog.show(PRMasterDialog, { CCId: this.context.context.options.CCId || 0, SCId: this.context.context.options.SCId || 0 })
             .then(response => {
                 if (!response.wasCancelled) {
                     this.error = {};
