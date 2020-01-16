@@ -125,7 +125,6 @@ export class DataForm {
     async selectedROChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
