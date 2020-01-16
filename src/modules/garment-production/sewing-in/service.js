@@ -6,6 +6,7 @@ const serviceUri = 'sewing-ins';
 const loadingUri = 'loadings';
 const serviceUriSewingOut = 'sewing-outs/complete';
 const comodityPriceserviceUri = 'comodity-prices';
+const serviceUriFinishingOut='finishing-outs/complete';
 
 
 class Service extends RestService {
@@ -50,6 +51,11 @@ class Service extends RestService {
 
     searchSewingOut(info) {
         var endpoint = `${serviceUriSewingOut}`;
+        return super.list(endpoint, info);
+    }
+
+    searchFinishingOut(info) {
+        var endpoint = `${serviceUriFinishingOut}`;
         return super.list(endpoint, info);
     }
 }
