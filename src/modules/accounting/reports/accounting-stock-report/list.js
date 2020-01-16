@@ -15,8 +15,8 @@ export class List {
     @bindable UnitItem;
     @bindable KtgrItem;
     
-    KategoriItems= ['BAHAN BAKU','BAHAN EMBALANCE','BAHAN PENDUKUNG']
-    UnitItems = ['KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
+    KategoriItems= ['','BAHAN BAKU','BAHAN EMBALANCE','BAHAN PENDUKUNG']
+    UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
 
     search(){
             this.info.page = 1;
@@ -65,7 +65,9 @@ export class List {
 
     reset() {
         this.dateFrom= "",
-        this.dateTo=""
+        this.dateTo="",
+        this.KtgrItem="",
+        this.UnitItem=""
         
     }
 
@@ -103,8 +105,10 @@ export class List {
                 this.unit = "C2C"; 
             }else if(newvalue === "KONFEKSI 1A"){
                 this.unit = "C1A";
-            }else{
+            }else if(newvalue === "KONFEKSI 1B"){
                 this.unit = "C1B";
+            }else{
+                this.unit = "";
             }
         }
     }
@@ -119,8 +123,10 @@ export class List {
             }
             else if (newvalue === "BAHAN EMBALANCE") {
                 this.category = "BE"; 
+            }else{
+                this.category = "";
+            }
         }
-    }
     }
     
 }
