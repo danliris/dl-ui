@@ -298,9 +298,9 @@ module.exports = [
         }
     },
     {
-        route: '/garment/unit-receipt-note',
+        route: '/garment/unit-receipt-note-by-user',
         name: 'unit-receipt-note',
-        moduleId: './modules/garment-purchasing/unit-receipt-note/index',
+        moduleId: './modules/garment-purchasing/unit-receipt-note-by-user/index',
         nav: true,
         title: 'Bon Terima Unit',
         auth: true,
@@ -311,8 +311,21 @@ module.exports = [
         }
     },
     {
-        route: 'garment-receipt-correction',
-        name: 'garment-receipt-correction',
+        route: '/garment/unit-receipt-note-all',
+        name: 'unit-receipt-note',
+        moduleId: './modules/garment-purchasing/unit-receipt-note-all/index',
+        nav: true,
+        title: 'Bon Terima Unit (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-receipt-correction-by-user',
+        name: 'garment-receipt-correction-by-user',
         moduleId: './modules/garment-purchasing/garment-receipt-correction/index',
         nav: true,
         title: 'Koreksi Bon Terima Unit',
@@ -320,15 +333,43 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1, "PG": 1,  },
+            iconClass: 'fa fa-dashboard',
+            byUser:true
+        }
+    },
+    {
+        route: 'garment-receipt-correction-all',
+        name: 'garment-receipt-correction-all',
+        moduleId: './modules/garment-purchasing/garment-receipt-correction/index',
+        nav: true,
+        title: 'Koreksi Bon Terima Unit (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1, "PG": 1,  },
+            iconClass: 'fa fa-dashboard',
+            byUser:false
+        }
+    },
+    {
+        route: '/garment/unit-delivery-order-by-user',
+        name: 'unit-receipt-note-by-user',
+        moduleId: './modules/garment-purchasing/unit-delivery-order-by-user/index',
+        nav: true,
+        title: 'Unit Delivery Order',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
-        route: '/garment/unit-delivery-order',
-        name: 'unit-receipt-note',
-        moduleId: './modules/garment-purchasing/unit-delivery-order/index',
+        route: '/garment/unit-delivery-order-all',
+        name: 'unit-receipt-note-all',
+        moduleId: './modules/garment-purchasing/unit-delivery-order-all/index',
         nav: true,
-        title: 'Unit Delivery Order',
+        title: 'Unit Delivery Order (Semua User)',
         auth: true,
         settings: {
             group: "g-purchasing",
@@ -350,15 +391,28 @@ module.exports = [
         }
     },
     {
-        route: '/garment/unit-expenditure-note',
-        name: 'unit-expenditure-note',
-        moduleId: './modules/garment-purchasing/unit-expenditure-note/index',
+        route: '/garment/unit-expenditure-note-by-user',
+        name: 'unit-expenditure-note-by-user',
+        moduleId: './modules/garment-purchasing/unit-expenditure-note-by-user/index',
         nav: true,
         title: 'Bon Pengeluaran Unit',
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "C9": 1, "PG": 1 },
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/unit-expenditure-note-all',
+        name: 'unit-expenditure-note-all',
+        moduleId: './modules/garment-purchasing/unit-expenditure-note-all/index',
+        nav: true,
+        title: 'Bon Pengeluaran Unit (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
