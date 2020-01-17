@@ -19,6 +19,7 @@ export class DataForm {
     @bindable selectedSewingFrom;
     @bindable selectedSewingOut;
     @bindable selectedUnitFrom;
+    @bindable selectedFinishingOut;
 
     constructor(service) {
         this.service = service;
@@ -31,7 +32,7 @@ export class DataForm {
         editText: "Ubah"
     };
 
-    sewingFromOptions=["CUTTING", "SEWING"]
+    sewingFromOptions=["CUTTING", "SEWING", "FINISHING"]
 
     controlOptions = {
         label: {
@@ -87,6 +88,7 @@ export class DataForm {
         if(this.data){
             this.isCutting= this.data.SewingFrom==="CUTTING";
             this.isSewing= this.data.SewingFrom==="SEWING";
+            this.isFinishing= this.data.SewingFrom==="FINISHING";
         }
 
         if(this.context.isView){
@@ -113,6 +115,7 @@ export class DataForm {
 
             this.isCutting= sewingFrom==="CUTTING";
             this.isSewing= sewingFrom==="SEWING";
+            this.isFinishing= sewingFrom==="FINISHING";
 
         }
     }
@@ -367,5 +370,107 @@ export class DataForm {
     }
     ROView=(ro) => {
         return `${ro.RONo}`;
+    }
+
+    get roFinishingLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", UnitId:this.data.UnitFrom.Id })
+            };
+            return this.service.searchFinishingOut(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= result.data.find(d=>d.RONo==a.RONo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                            
+                        }
+                        return roList;
+                    
+                });
+        }
+    }
+
+    async selectedFinishingOutChanged(newValue){
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.Items = [];
+        this.data.Price=0;
+        if(newValue) {
+            console.log(newValue)
+            this.context.error.Items = [];
+            this.data.RONo = newValue.RONo;
+            this.data.Article = newValue.Article;
+            this.data.Comodity= newValue.Comodity;
+            var items=[];
+
+            let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+            if(priceResult.data.length>0){
+                this.data.Price= priceResult.data[0].Price;
+                //console.log(this.data.Price)
+            }
+            else{
+                this.data.Price=0;
+            }
+
+            Promise.resolve(this.service.searchFinishingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", UnitId:this.data.UnitFrom.Id }) }))
+                    .then(result => {
+                        for(var finishingOut of result.data){
+                            for(var finishingOutItem of finishingOut.Items){
+                                var item={};
+                                if(finishingOutItem.RemainingQuantity>0){
+                                    if(finishingOut.IsDifferentSize){
+                                        for(var finishingOutDetail of finishingOutItem.Details){
+                                            item={};
+                                            item.FinishingOutItemId=finishingOutItem.Id;
+                                            item.FinishingOutDetailId=finishingOutDetail.Id;
+                                            item.Quantity=finishingOutDetail.Quantity;
+                                            item.Product=finishingOutItem.Product;
+                                            item.Uom=finishingOutItem.Uom;
+                                            item.Size=finishingOutDetail.Size;
+                                            item.Color=finishingOutItem.Color;
+                                            item.DesignColor=finishingOutItem.DesignColor;
+                                            item.RemainingQuantity=finishingOutDetail.Quantity;
+                                            item.BasicPrice=finishingOutItem.BasicPrice;
+                                            item.ComodityPrice=this.data.Price;
+                                            this.data.Items.push(item);
+                                        }
+                                    }
+                                    else{
+                                        item.FinishingOutItemId=finishingOutItem.Id;
+                                        item.Quantity=finishingOutItem.Quantity;
+                                        item.Product=finishingOutItem.Product;
+                                        item.Uom=finishingOutItem.Uom;
+                                        item.Size=finishingOutItem.Size;
+                                        item.Color=finishingOutItem.Color;
+                                        item.DesignColor=finishingOutItem.DesignColor;
+                                        item.RemainingQuantity=finishingOutItem.Quantity;
+                                        item.BasicPrice=finishingOutItem.BasicPrice;
+                                        item.ComodityPrice=this.data.Price;
+                                        this.data.Items.push(item);
+                                    }
+                                
+                                }
+                            }
+                    }
+                });
+            }
+        else {
+            this.context.selectedFinishingOutViewModel.editorValue = "";
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity=null;
+            this.data.Items = [];
+            this.data.Price=0;
+        }
     }
 }

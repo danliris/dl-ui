@@ -211,6 +211,7 @@ export class DataForm {
       })
     }
 
+    this.costCalculationGarment_MaterialsInfo.options.CCId = this.data.Id;
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
