@@ -13,24 +13,25 @@ export class View {
         let id = params.id;
         this.data = await this.service.read(id);
         this.hasEdit=true;
-
+        this.hasDelete=true;
+        this.hasCancel=true;
     }
 
-    cancelCallback(event) {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
-
-    deleteCallback(event) {
+    edit(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
+    delete(event) {
         if (confirm(`Hapus ${this.data.Code}?`))
             this.service.delete(this.data)
                 .then(result => {
-                    this.cancelCallback();
+                    this.cancel();
                 })
                 .catch(e => {
                     this.error = e;
                 })
     }
-    edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+   
 }

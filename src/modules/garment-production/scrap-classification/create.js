@@ -13,6 +13,8 @@ export class Create {
     bind() {
         this.data = {};
         this.error = {};
+        this.hasCancel=true;
+        this.hasSave=true;
     }
     activate(params) {
 
@@ -25,11 +27,11 @@ export class Create {
         // return activationStrategy.invokeLifecycle;
     }
 
-    cancelCallback(event) {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    saveCallback(event) {
+    save(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
