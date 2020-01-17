@@ -5,12 +5,13 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 import moment from 'moment';
 
-const serviceUri = 'garment-unit-delivery-orders';
-const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order-header';
-const unitReceiptNoteItemUri='garment-unit-receipt-notes/by-ro';
-const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
+const serviceUri = 'garment-unit-expenditure-notes';
+const unitDeliveryOrder = 'garment-unit-receipt-notes/unit-delivery-order-header';
+const URNServiceUri = 'garment-unit-receipt-notes';
+const unitDOServiceUri= 'garment-unit-delivery-orders';
 
-export class Service extends RestService {
+
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "purchasing-azure");
@@ -18,16 +19,6 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
-
-    searchUnitReceiptNote(info) {
-        var endpoint = `${unitReceiptNoteUri}`;
-        return super.list(endpoint, info);
-    }
-
-    searchUnitReceiptNoteItems(info) {
-        var endpoint = `${unitReceiptNoteItemUri}`;
         return super.list(endpoint, info);
     }
 
@@ -42,12 +33,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
@@ -57,12 +48,35 @@ export class Service extends RestService {
     }
 
     searchUnitReceiptNote(info) {
-        var endpoint = `${unitReceiptNoteUri}`;
+        var endpoint = `${URNServiceUri}`;
         return super.list(endpoint, info);
     }
 
-    getGarmentEPOByRONo(info) {
-        var endpoint = `${garmentEPOServiceUri}`;
+    getUENById(id) {
+        var endpoint = `${serviceUri}/by-unit-expenditure-note/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDOId(id) {
+        var endpoint = `${unitDOServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    searchUnitDO(info) {
+        var endpoint = `${unitDOServiceUri}`;
         return super.list(endpoint, info);
     }
 }
+
+const resource = 'delivery-returns';
+class ProductionService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "garment-production");
+    }
+    getGarmentDR(info) {
+        var endpoint = `${resource}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service,ProductionService }

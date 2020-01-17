@@ -70,7 +70,10 @@ export class View {
             {
                 this.unitDOType = this.data.UnitDOType;
             }
+
         }
+        this.hasDelete = false;
+        this.hasEdit = false;
     }
 
     cancel(event) {

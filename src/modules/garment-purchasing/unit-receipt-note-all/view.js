@@ -67,6 +67,8 @@ export class View {
             this.hasDelete = false;
         }
         
+        this.hasDelete = false;
+        this.hasEdit = false;
     }
 
     cancel(event) {

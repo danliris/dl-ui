@@ -10,7 +10,7 @@
         options.bind="tableOptions">
 
        <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
+            <button class="btn btn-success" click.delegate="create()" if.bind="byUser">Buat</button>
         </div>
     </au-table>
 </template>
