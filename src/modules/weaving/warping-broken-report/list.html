@@ -30,7 +30,7 @@
         style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
         Print Laporan
       </button>
-      <button class="btn btn-success" click.delegate="searchWarpingProductions()"
+      <button class="btn btn-success" click.delegate="searchWarpingBrokens()"
         style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
         Cari
       </button>
@@ -41,20 +41,17 @@
     </div>
   </div>
   <!-- if.bind="data.Headers.length > 0 && data.ProcessedList.length > 0" -->
-  <div class="table-responsive">
+  <div class="table-responsive"if.bind="data.HeaderSuppliers.length > 0 &&data.HeaderWarps.length > 0 && data.BodyBrokens.length > 0">
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center">
         <tr>
           <td rowspan="3" style="vertical-align: middle;"> No</td>
           <td>Jenis Benang</td>
-          <td colspan="spinning1.colspan">Spinning 1</td>
-          <td colspan="spinning2.colspan">Spinning 2</td>
-          <td colspan="spinning3.colspan">Spinning 3</td>
-          <td colspan="outer.colspan">Benang Luar</td>
+          <td repeat.for="headerSupplier of data.HeaderSuppliers" colspan.bind="headerSupplier.Span" >${supplier.Unit}</td>
         </tr>
         <tr>
           <td>Jenis & No Benang</td>
-          <td rowspan="2" style="vertical-align: middle;" repeat.for="headerWarp of data.HeaderWarps">${headerWarp.BrokenName}</td>
+          <td rowspan="2" style="vertical-align: middle;" repeat.for="headerWarp of data.HeaderWarps">${headerWarp.WarpName}</td>
         </tr>
         <tr>
           <td>Penyebab</td>
@@ -64,21 +61,21 @@
         <tr repeat.for="bodyBroken of data._BodyBrokens">
           <td>${bodyBroken.IndexNumber}</td>
           <td>${bodyBroken.BrokenName}</td>
-          <td repeat.for="brokenList of bodyBroken._BodyBrokenList">${brokenList.BrokenValue}</td>
+          <td repeat.for="brokenValue of bodyBroken._BrokenValueList">${brokenValue.BrokenValue}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan.bind="2" repeat.for="value of data._BodyBrokens">${value.TotalBrokenValue}</td>
+          <td colspan.bind="2" repeat.for="TotalBrokenValue of data._Footers.TotalBrokenValue">${TotalBrokenValue}</td>
         </tr>
         <tr >
-          <td colspan.bind="2"repeat.for="value of data._BodyBrokens">${value.MaxBrokenValue}</td>
+          <td colspan.bind="2"repeat.for="MaxBrokenValue of data._Footers.MaxBrokenValue">${MaxBrokenValue}</td>
         </tr>
         <tr >
-          <td colspan.bind="2"repeat.for="value of data._BodyBrokens">${value.MinBrokenValue}</td>
+          <td colspan.bind="2"repeat.for="MinBrokenValue of data._Footers.MinBrokenValue">${MinBrokenValue}</td>
         </tr>
         <tr >
-          <td colspan.bind="2"repeat.for="value of data._BodyBrokens">${value.LastMonthAverageBrokenValue}</td>
+          <td colspan.bind="2"repeat.for="LastMonthAverageBrokenValue of data._Footers.LastMonthAverageBrokenValue">${LastMonthAverageBrokenValue}</td>
         </tr>
       </tfoot>
     </table>
