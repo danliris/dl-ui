@@ -72,7 +72,8 @@ export class DataForm {
         if (this.data.Unit) {
             return {
                 UnitToId: this.data.Unit.Id,
-                SewingTo: "CUTTING"
+                SewingTo: "CUTTING",
+                "GarmentSewingOutItem.Any(RemainingQuantity>0)":true
             };
         } else {
             return {

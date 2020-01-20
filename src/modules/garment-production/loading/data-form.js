@@ -103,7 +103,8 @@ export class DataForm {
     get filter(){
         if (this.data.Unit) {
             return {
-                UnitId: this.data.Unit.Id
+                UnitId: this.data.Unit.Id,
+                "GarmentSewingDOItem.Any(a=>a.RemainingQuantity>0)":true
             };
         } else {
             return {
@@ -150,7 +151,6 @@ export class DataForm {
         this.data.Items.splice(0);
         this.data.Price=0;
         if(newValue) {
-            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;

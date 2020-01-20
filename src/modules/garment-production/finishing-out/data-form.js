@@ -197,7 +197,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id,"Items.Any(RemainingQuantity>0)":true})
             };
             return this.service.searchFinishingIn(info)
                 .then((result) => {
