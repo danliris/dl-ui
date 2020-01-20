@@ -12,7 +12,7 @@ export class List {
     {
       field: "Date", title: "Tanggal Validasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
-      }, sortable: false
+      }
     },
     { field: "RONo", title: "Nomor RO" },
     { field: "BuyerCode", title: "Kode Buyer" },
