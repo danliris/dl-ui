@@ -81,7 +81,7 @@ export class List {
 						  "isReprocess" :hasil,
                         "isComplete" : a.IsComplete ? "Complete" : a.CurrentStepIndex === a.Instruction.Steps.length ? "Pending" : a.IsInactive ? "Inactive" : "Incomplete",
                         "currentStepIndex" : `${a.CurrentStepIndex} / ${a.Instruction.Steps.length}`,
-                        "step" : a.CurrentStepIndex === 0 ? " - " : a.Instruction.Steps[a.CurrentStepIndex - 1].Process
+                        "step" : a.CurrentStepIndex === 0 ? " - " : a.CurrentStepIndex > a.Instruction.Steps.length ? "REPROSES" : a.Instruction.Steps[a.CurrentStepIndex - 1].Process
                     }
                     dataTemp.push(temp);
                 }

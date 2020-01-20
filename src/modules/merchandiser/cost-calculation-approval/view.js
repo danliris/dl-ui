@@ -1,7 +1,6 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
-import { PurchaseRequestService } from './service';
 import { Dialog } from "../../../au-components/dialog/dialog";
 import numeral from "numeral";
 numeral.defaultFormat("0,0.00");
@@ -10,7 +9,7 @@ const RP = "Rp. ";
 import { AuthService } from "aurelia-authentication";
 import moment from 'moment';
 
-@inject(Router, Service, PurchaseRequestService, Dialog, AuthService)
+@inject(Router, Service, Dialog, AuthService)
 export class View {
     readOnly = true;
     length4 = {
@@ -82,10 +81,9 @@ export class View {
         error: {}
     }
 
-    constructor(router, service, purchaseRequestService, dialog, authService) {
+    constructor(router, service, dialog, authService) {
         this.router = router;
         this.service = service;
-        this.purchaseRequestService = purchaseRequestService;
         this.dialog = dialog;
         this.authService = authService;
     }
@@ -127,21 +125,6 @@ export class View {
         } else {
             this.data = await this.service.getByIdWithProductNames(id);
 
-            let productsInPRMaster = [];
-            if (this.data.PreSCId) {
-                const info = {
-                    select: JSON.stringify({ Id: 1, PRNo: 1, SCId: 1, SCNo: 1, "Items.ProductId": 1, "Items.ProductCode": 1 }),
-                    filter: JSON.stringify({ SCId: this.data.PreSCId, PRType: "MASTER" })
-                };
-                let purchaseRequest = await this.purchaseRequestService.getProducts(info);
-
-                if (purchaseRequest.data && purchaseRequest.data.length > 0) {
-                    productsInPRMaster = purchaseRequest.data.reduce(
-                        (acc, cur) => acc.concat(cur.Items.map(i => i.ProductCode))
-                        , []);
-                }
-            }
-
             this.approval.data = Object.assign({}, this.data);
 
             this.approval.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials.filter(mtr => {
@@ -160,7 +143,7 @@ export class View {
                 material.UOMPriceUnit = material.UOMPrice.Unit;
                 material.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY");
                 material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
-                material.IsPRMaster = productsInPRMaster.indexOf(material.ProductCode) > -1;
+                material.IsPRMaster = material.PRMasterId > 0;
                 material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
             });
         }
@@ -179,6 +162,7 @@ export class View {
         this.data.Total = total;
         var _confirmPrice = this.data.ConfirmPrice;
         var _insurance = this.data.Insurance;
+        const _freight = this.data.Freight;
         this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
         this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
         this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
@@ -246,6 +230,17 @@ export class View {
         if (this.activeTab === 1 && this.type === "KadivMD") {
             this.editCallback = null;
         }
+
+        this.hasFOBRemark = this.data.CostCalculationGarment_Materials.some(m => m.isFabricCM);
+    
+        if (this.hasFOBRemark) {
+            const a = (1.05 * CM_Price / this.data.Rate.Value) - (_insurance + _freight);
+            console.log(CM_Price, this.data.Rate.Value, _insurance, _freight);
+            this.fobRemark = `US$ ${(_confirmPrice + a).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        } else {
+            this.fobRemark = "-";
+        }
+    
     }
 
     async bind(context) {

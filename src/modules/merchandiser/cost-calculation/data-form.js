@@ -28,7 +28,7 @@ export class DataForm {
   @bindable SelectedRounding;
   @bindable isCopy = false;
  
-  leadTimeList = ["", "30 hari", "45 hari"];
+  leadTimeList = ["", "25 hari", "35 hari"];
 
   
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
@@ -59,6 +59,8 @@ export class DataForm {
 
   costCalculationGarment_MaterialsInfo = {
     columns: [
+      { header: "PR Master" },
+      { header: "No. PO" },
       { header: "Kategori", value: "Category" },
       { header: "Kode Barang", value: "ProductCode" },
       { header: "Komposisi", value: "Composition" },
@@ -208,6 +210,9 @@ export class DataForm {
         item.Efficiency = this.data.Efficiency;
       })
     }
+
+    this.costCalculationGarment_MaterialsInfo.options.CCId = this.data.Id;
+    this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
   get preSalesContractLoader() {
@@ -279,6 +284,17 @@ export class DataForm {
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
     }
+
+    if ((oldValue && newValue) || (oldValue && !newValue)) {
+      this.data.CostCalculationGarment_Materials.splice(0);
+    } else if (this.data.PreSCNoSource && this.data.PreSCNo !== this.data.PreSCNoSource) {
+      const materialsFromPRMaster = this.data.CostCalculationGarment_Materials.filter(m => m.PRMasterItemId > 0);
+      for (const materialFromPRmaster of materialsFromPRMaster) {
+        const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
+        this.data.CostCalculationGarment_Materials.splice(index, 1);
+      }
+    }
+    this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
   @bindable selectedComodity = "";
@@ -294,13 +310,13 @@ export class DataForm {
   @bindable selectedLeadTime = "";
   selectedLeadTimeChanged(newVal) {
  
-    if (newVal === "30 hari")
+    if (newVal === "25 hari")
     {
-      this.data.LeadTime = 30;
+      this.data.LeadTime = 25;
     }
-    else if (newVal === "45 hari")
+    else if (newVal === "35 hari")
     {      
-      this.data.LeadTime = 45;
+      this.data.LeadTime = 35;
       
     }
     else
@@ -536,5 +552,14 @@ export class DataForm {
     NETFOBP = numeral(NETFOBP).format();
     this.data.NETFOBP = numeral(NETFOBP).value();
     return NETFOBP;
+  }
+
+  enterDelegate(event) {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      return false;
+    }
+    else
+      return true;
   }
 }

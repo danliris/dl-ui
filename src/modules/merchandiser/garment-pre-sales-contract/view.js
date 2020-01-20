@@ -14,7 +14,11 @@ export class View {
         this.service = service;
     }
 
-    async activate(params) {
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        const byUser = parentInstruction.config.settings.byUser;
+
         var id = params.id;
         this.data = await this.service.getById(id);
         if(this.data.IsPosted==true){
@@ -29,6 +33,11 @@ export class View {
         // this.isUnposted = this.data.IsPosted && (!this.data.IsCC && !this.data.IsPR);
         if (this.data.IsPosted) {
             this.isPosted = false;
+        }
+
+        if (!byUser) {
+            this.isPosted = false;
+            this.isUnposted = false;
         }
     }
 

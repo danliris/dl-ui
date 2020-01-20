@@ -10,7 +10,7 @@ const serviceUri = 'cost-calculation-garments';
 
 
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "sales");
@@ -151,6 +151,24 @@ export class Service extends RestService {
         return super.put(endpoint, data.reason);
     }
 
+    getMaterials(info) {
+        var endpoint = `${serviceUri}/materials/by-prmasteritemids`;
+        return super.list(endpoint, info);
+    }
+
 };
 
+const serviceUriPurchaseRequest = 'garment-purchase-requests';
 
+class PurchasingService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    search(info) {
+        var endpoint = `${serviceUriPurchaseRequest}/dynamic`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, PurchasingService }

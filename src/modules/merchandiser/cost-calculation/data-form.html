@@ -11,15 +11,15 @@
                     text="SCNo"
                     placeholder="No Sales Contract"
                     read-only.bind="readOnly || isEdit"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-textbox
                     label="Artikel"
                     placeholder="Nama Artikel"
                     value.bind="data.Article"
                     error.bind="error.Article"
-                    options.bind="length4"
-                    read-only.bind="isEdit">
+                    options.bind="length4">
                 </au-textbox>
 
                 <au-autocomplete
@@ -30,7 +30,8 @@
                     text.bind="unitView"
                     placeholder="Unit"
                     read-only.bind="readOnly || isEdit"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-autocomplete
                     label="Komoditi"
@@ -39,7 +40,8 @@
                     text.bind="comodityView"
                     error.bind="error.Commodity"
                     loader.one-time="comodityLoader"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-multiline
                     placeholder="Deskripsi Komoditi"
@@ -82,7 +84,8 @@
                     error.bind="error.UOM"
                     text.bind="uomView"
                     loader.one-time="uomLoader"
-                    options.bind="length4">
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
                 <au-textbox
                     placeholder="Size Range"
@@ -212,6 +215,13 @@
                             options.bind="length4">
                         </au-textbox>
                     </div>
+                    <div class="col-md-6">
+                        <au-numeric
+                            value.bind="data.Rate.Value"
+                            options.bind="length4"
+                            read-only="true">
+                        </au-numeric>
+                    </div>
                 </div>
             </div>
         </div>
@@ -228,6 +238,7 @@
                     add.bind="costCalculationGarment_MaterialsInfo.onAdd"
                     remove.bind="costCalculationGarment_MaterialsInfo.onRemove"
                     options.bind="costCalculationGarment_MaterialsInfo.options"
+                    responsive.bind="true"
                     item-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material"
                     footer-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material-footer">
                 </au-collection>

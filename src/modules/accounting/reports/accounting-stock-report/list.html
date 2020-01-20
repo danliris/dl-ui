@@ -1,0 +1,189 @@
+<template>
+    <h1 if.bind ="KtgrItem == ''" class="page-header">LAPORAN FLOW All</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN BAKU'" class="page-header">LAPORAN FLOW BAHAN BAKU</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN EMBALANCE'" class="page-header">LAPORAN FLOW BAHAN EMBALANCE</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN PENDUKUNG'" class="page-header">LAPORAN FLOW BAHAN PENDUKUNG</h1>
+    <form class="form-horizontal">
+        <au-dropdown 
+              label="Unit" 
+              value.bind="UnitItem"
+              items.bind="UnitItems"
+              options.bind="controlOptions" >
+      </au-dropdown>
+        <au-dropdown 
+              label="Kategori" 
+              value.bind="KtgrItem"
+              items.bind="KategoriItems"
+              options.bind="controlOptions" >
+      </au-dropdown>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <td align="center" rowspan="3">NO</td>
+                        <td align="center" rowspan="3">KODE</td>
+                        <td align="center" rowspan="3">NAMA BARANG</td>
+                        <td align="center" rowspan="3">RO</td>
+                        <td align="center" rowspan="3">BUYER</td>
+                        <td align="center" rowspan="3">PLANPO</td>
+                        <td align="center" rowspan="3">NO ARTIKEL</td>
+                        <td align="center" colspan="3" rowspan="2">SALDO AWAL</td>
+                        <td if.bind ="UnitItem != ''" colspan="14">P E M A S U K A N</td>
+                        <td if.bind ="UnitItem == ''" colspan="16">P E M A S U K A N</td>
+                        <td colspan="18">P E N G E L U A R A N</td>
+                        <td align="center" rowspan="2" colspan="3">SALDO AKHIR</td>
+                        
+    
+                     </tr>
+                    <tr>
+                        <td colspan="2">KOREKSI</td>
+                        <td colspan="2">PEMBELIAN</td>
+                        <td colspan="2">PROSES</td>
+                        <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 2A'">KONFEKSI 2A</td>
+                        <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 2B'">KONFEKSI 2B</td>
+                        <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 2C'">KONFEKSI 2C</td>
+                        <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 1A'">KONFEKSI 1 MNS</td>
+                        <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 1B'">KONFEKSI 2D</td>
+                        <td colspan="2">RETUR</td>
+                        <td colspan="2">SISA</td>
+                        <td colspan="2">PROSES</td>
+                        <td colspan="2">SAMPLE</td>
+                        <td colspan="2" >KONFEKSI 2A</td>
+                        <td colspan="2" >KONFEKSI 2B</td>
+                        <td colspan="2" >KONFEKSI 2C</td>
+                        <td colspan="2" >KONFEKSI 1 MNS</td>
+                        <td colspan="2" >KONFEKSI 2D</td>
+                        <!-- <td rowspan="2">TGL DATANG</td>
+                        <td rowspan="2">NO INVOICE</td>
+                        <td rowspan="2">NO FAKTUR</td>
+                        <td rowspan="2">TGL FAKTUR</td>
+                        <td rowspan="2">PO PEMBELIAN</td>                        
+                        <td rowspan="2">KODE BARANG</td>
+                        <td rowspan="2">NAMA BARANG</td>
+                        <td rowspan="2">KETERANGAN BARANG</td>
+                        
+                        <td colspan="4">SEBELUM KONVERSI</td>
+                        <td colspan="3">SETELAH KONVERSI</td>
+    
+                        <td rowspan="2">NO NOTA INTERN</td>
+                        <td rowspan="2">TGL NOTA INTERN</td>
+    
+                        <td rowspan="2">NO. BUM MASUK</td>
+                        <td rowspan="2">TGL BUM MASUK</td>
+                        <td rowspan="2">NAMA UNIT</td>
+    
+                        <td colspan="4">SEBELUM KONVERSI</td>
+                        <td colspan="3">SETELAH KONVERSI</td> -->
+                        
+                    </tr>
+                    <tr>
+                        <td>JUMLAH</td>
+                        <td>SATUAN</td>
+                        <td>HARGA</td>
+                        <td if.bind ="UnitItem == ''">JUMLAH</td>
+                        <td if.bind ="UnitItem == ''">HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td>${$index + 1}</td>
+                        <td>${item.ProductCode}</td>
+                        <td>${item.ProductName}</td>
+                        <td>${item.RO}</td>
+                        <td>${item.Buyer}</td>
+                        <td>${item.PlanPo}</td>
+                        <td>${item.NoArticle}</td>
+                        <td>${item.BeginningBalanceQty}</td>
+                        <td>${item.BeginningBalanceUom}</td>
+                        <td>${item.BeginningBalancePrice}</td>
+                        <td>${item.ReceiptCorrectionQty}</td>
+                        <td>${item.ReceiptCorrectionPrice}</td>
+                        <td>${item.ReceiptPurchaseQty }</td>
+                        <td>${item.ReceiptPurchasePrice}</td>
+                        <td>${item.ReceiptProcessQty}</td>
+                        <td>${item.ReceiptProcessPrice}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2A'">${item.ReceiptKon2AQty}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2A'">${item.ReceiptKon2APrice}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2B'">${item.ReceiptKon2BQty}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2B'">${item.ReceiptKon2BPrice}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2C'">${item.ReceiptKon2CQty}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 2C'">${item.ReceiptKon2CPrice}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 1A'">${item.ReceiptKon1MNSQty}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 1A'">${item.ReceiptKon1MNSPrice}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 1B'">${item.ReceiptKon2DQty}</td>
+                        <td if.bind ="UnitItem != 'KONFEKSI 1B'">${item.ReceiptKon2DPrice}</td>
+                        <td>${item.ExpendReturQty}</td>
+                        <td>${item.ExpendReturPrice}</td>
+                        <td>${item.ExpendRestQty}</td>
+                        <td>${item.ExpendRestPrice}</td>
+                        <td>${item.ExpendProcessQty}</td>
+                        <td>${item.ExpendProcessPrice}</td>
+                        <td>${item.ExpendSampleQty}</td>
+                        <td>${item.ExpendSamplePrice}</td>
+                        <td>${item.ExpendKon2AQty}</td>
+                        <td>${item.ExpendKon2APrice}</td>
+                        <td>${item.ExpendKon2BQty}</td>
+                        <td>${item.ExpendKon2BPrice}</td>
+                        <td align="right">${item.ExpendKon2CQty}</td>
+                        <td>${item.ExpendKon2CPrice}</td>
+                        <td align="right">${item.ExpendKon1MNSQty}</td>
+                        <td align="right">${item.ExpendKon1MNSPrice}</td>
+                        <td align="right">${item.ExpendKon2DQty}</td>
+                        <td align="right">${item.ExpendKon2DPrice}</td>
+                        <td align="right">${item.EndingBalanceQty}</td>
+                        <td align="right">${item.EndingBalancePrice}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    
+</template>

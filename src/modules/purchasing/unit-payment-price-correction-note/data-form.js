@@ -6,7 +6,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var UPOLoader = require('../../../loader/unit-payment-order-all-loader');
 
 
-@inject(BindingEngine, Element,Service)
+@inject(BindingEngine, Element, Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -20,21 +20,21 @@ export class DataForm {
 
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
-        this.element = element; 
+        this.element = element;
         this.service = service;
 
         this.controlOptions = {
             label: {
-                    length: 4,
-                    align: "right"
-                },
-                control: {
-                    length: 5
-                }
+                length: 4,
+                align: "right"
+            },
+            control: {
+                length: 5
+            }
         }
-    
+
         this.UpoItem = {
-            columns:  [
+            columns: [
                 { header: "No. PO Eksternal" },
                 { header: "No. PR" },
                 { header: "Barang" },
@@ -43,7 +43,7 @@ export class DataForm {
                 { header: "Harga Satuan" },
                 { header: "Harga Total" }
             ],
-            onRemove: function() {
+            onRemove: function () {
                 this.bind();
             }
         };
@@ -55,7 +55,7 @@ export class DataForm {
     }
 
     bind() {
-        this.hasView=true;
+        this.hasView = true;
         if (this.data) {
             this.flag = true;
             if (this.data.correctionType == "Harga Satuan")
@@ -63,46 +63,46 @@ export class DataForm {
             else if (this.data.correctionType == "Harga Total")
                 this.pricePerUnitCorrectionReadOnly = true;
 
-            if(this.data.supplier){
-                this.selectedSupplier=this.data.supplier.code+" - "+this.data.supplier.name;
+            if (this.data.supplier) {
+                this.selectedSupplier = this.data.supplier.code + " - " + this.data.supplier.name;
             }
-            this.selectectedUnitPaymentOrder=this.data.uPONo;
+            this.selectectedUnitPaymentOrder = this.data.uPONo;
         }
-        else{
+        else {
             this.flag = false;
         }
-        this.data.invoiceCorrectionDate=moment(this.data.invoiceCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.invoiceCorrectionDate;
-        this.data.vatTaxCorrectionDate=moment(this.data.vatTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.vatTaxCorrectionDate;
-        this.data.incomeTaxCorrectionDate=moment(this.data.incomeTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.incomeTaxCorrectionDate;
-        if(!this.readOnly) {
+        this.data.invoiceCorrectionDate = moment(this.data.invoiceCorrectionDate).format("DD MMM YYYY") == "01 Jan 0001" ? null : this.data.invoiceCorrectionDate;
+        this.data.vatTaxCorrectionDate = moment(this.data.vatTaxCorrectionDate).format("DD MMM YYYY") == "01 Jan 0001" ? null : this.data.vatTaxCorrectionDate;
+        this.data.incomeTaxCorrectionDate = moment(this.data.incomeTaxCorrectionDate).format("DD MMM YYYY") == "01 Jan 0001" ? null : this.data.incomeTaxCorrectionDate;
+        if (!this.readOnly) {
             this.UpoItem.columns.push({ header: "" });
-            this.hasView=false;
+            this.hasView = false;
         }
-        
+
     }
 
     setItems(_paymentOrder) {
-        if(!this.readOnly){
+        if (!this.readOnly) {
             var _items = []
             for (var unitPaymentOrder of _paymentOrder.items) {
 
                 for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
 
                     var unitPaymentPriceCorrectionNoteItem = {};
-                    unitPaymentPriceCorrectionNoteItem.uPODetailId=unitReceiptNoteItem._id;
-                    unitPaymentPriceCorrectionNoteItem.uRNNo=unitPaymentOrder.unitReceiptNote.no;
-                    unitPaymentPriceCorrectionNoteItem.ePONo=unitReceiptNoteItem.EPONo;
-                    unitPaymentPriceCorrectionNoteItem.pRNo=unitReceiptNoteItem.PRNo;
-                    unitPaymentPriceCorrectionNoteItem.pRId=unitReceiptNoteItem.PRId;
-                    unitPaymentPriceCorrectionNoteItem.pRDetailId=unitReceiptNoteItem.PRItemId;
-                    unitPaymentPriceCorrectionNoteItem.product=unitReceiptNoteItem.product;
-                    unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.QuantityCorrection;
-                    unitPaymentPriceCorrectionNoteItem.uom=unitReceiptNoteItem.deliveredUom;
-                    unitPaymentPriceCorrectionNoteItem.pricePerDealUnitAfter=unitReceiptNoteItem.PricePerDealUnitCorrection;
-                    unitPaymentPriceCorrectionNoteItem.priceTotalAfter=unitReceiptNoteItem.PriceTotalCorrection;
-                    unitPaymentPriceCorrectionNoteItem.pricePerDealUnitBefore=unitReceiptNoteItem.PricePerDealUnitCorrection;
-                    unitPaymentPriceCorrectionNoteItem.priceTotalBefore=unitReceiptNoteItem.PriceTotalCorrection;
-                    unitPaymentPriceCorrectionNoteItem.currency=_paymentOrder.currency;
+                    unitPaymentPriceCorrectionNoteItem.uPODetailId = unitReceiptNoteItem._id;
+                    unitPaymentPriceCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
+                    unitPaymentPriceCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
+                    unitPaymentPriceCorrectionNoteItem.pRNo = unitReceiptNoteItem.PRNo;
+                    unitPaymentPriceCorrectionNoteItem.pRId = unitReceiptNoteItem.PRId;
+                    unitPaymentPriceCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
+                    unitPaymentPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
+                    unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection || unitReceiptNoteItem.deliveredQuantity;
+                    unitPaymentPriceCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
+                    unitPaymentPriceCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.PricePerDealUnit;
+                    unitPaymentPriceCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
+                    unitPaymentPriceCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.PricePerDealUnit;
+                    unitPaymentPriceCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
+                    unitPaymentPriceCorrectionNoteItem.currency = _paymentOrder.currency;
                     //FROM MONGO
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
@@ -163,61 +163,61 @@ export class DataForm {
                     _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
             }
-        
+
             this.data.items = _items;
             this.resetErrorItems();
         }
     }
 
     async selectectedUnitPaymentOrderChanged(newValue) {
-        if(!this.readOnly){
+        if (!this.readOnly) {
             var _selectedPaymentOrder = newValue;
             if (_selectedPaymentOrder && !this.readOnly) {
-                this.data.unitPaymentOrder=_selectedPaymentOrder;
+                this.data.unitPaymentOrder = _selectedPaymentOrder;
                 if (!this.readOnly)
                     this.data.items = [];
                 this.data.uPOId = _selectedPaymentOrder._id;
-                this.data.uPONo=_selectedPaymentOrder.no;
-                this.data.supplier=_selectedPaymentOrder.supplier;
-                if(_selectedPaymentOrder.supplier){
+                this.data.uPONo = _selectedPaymentOrder.no;
+                this.data.supplier = _selectedPaymentOrder.supplier;
+                if (_selectedPaymentOrder.supplier) {
                     this.data.supplier = await this.service.getSupplierById(_selectedPaymentOrder.supplier._id);
-                    
+
                 }
-                this.data.dueDate=_selectedPaymentOrder.dueDate;
-                this.data.division=_selectedPaymentOrder.division;
-                this.data.category=_selectedPaymentOrder.category;
-                this.selectedSupplier=this.data.supplier.code +" - "+this.data.supplier.name;
-                this.data.useVat=_selectedPaymentOrder.useVat;
-                this.data.useIncomeTax=_selectedPaymentOrder.useIncomeTax;
+                this.data.dueDate = _selectedPaymentOrder.dueDate;
+                this.data.division = _selectedPaymentOrder.division;
+                this.data.category = _selectedPaymentOrder.category;
+                this.selectedSupplier = this.data.supplier.code + " - " + this.data.supplier.name;
+                this.data.useVat = _selectedPaymentOrder.useVat;
+                this.data.useIncomeTax = _selectedPaymentOrder.useIncomeTax;
                 this.setItems(_selectedPaymentOrder);
             }
             else {
                 this.data.items = [];
-                this.data.supplier=null;
-                this.data.useVat=false;
-                this.data.useIncomeTax=false;
-                this.data.dueDate=null;
-                this.data.vatTaxCorrectionNo="";
-                this.data.vatTaxCorrectionDate=null;
-                this.data.incomeTaxCorrectionNo="";
-                this.data.incomeTaxCorrectionDate=null;
+                this.data.supplier = null;
+                this.data.useVat = false;
+                this.data.useIncomeTax = false;
+                this.data.dueDate = null;
+                this.data.vatTaxCorrectionNo = "";
+                this.data.vatTaxCorrectionDate = null;
+                this.data.incomeTaxCorrectionNo = "";
+                this.data.incomeTaxCorrectionDate = null;
             }
         }
     }
-    useIncomeTaxChanged(e){
-        if(!this.data.useIncomeTax){
-            this.data.incomeTaxCorrectionNo="";
-            this.data.incomeTaxCorrectionDate=null;
+    useIncomeTaxChanged(e) {
+        if (!this.data.useIncomeTax) {
+            this.data.incomeTaxCorrectionNo = "";
+            this.data.incomeTaxCorrectionDate = null;
         }
     }
-    useVatChanged(e){
-        if(!this.data.useVat){
-            this.data.vatTaxCorrectionNo="";
-            this.data.vatTaxCorrectionDate=null;
+    useVatChanged(e) {
+        if (!this.data.useVat) {
+            this.data.vatTaxCorrectionNo = "";
+            this.data.vatTaxCorrectionDate = null;
         }
     }
     correctionTypeChanged(e) {
-        
+
         if (e.srcElement) {
             if (e.srcElement.value) {
                 this.data.correctionType = e.srcElement.value;
@@ -241,7 +241,7 @@ export class DataForm {
         }
     }
 
-    get upoLoader(){
+    get upoLoader() {
         return UPOLoader;
     }
 

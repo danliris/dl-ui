@@ -21,7 +21,7 @@ export class DataForm {
   @bindable PreparationOrder;
   @bindable PreparationFabricConstruction;
   @bindable PreparationWeavingUnit;
-  @bindable PreparationMaterialType;
+  @bindable BeamProductResult;
   @bindable AmountOfCones;
   @bindable ColourOfCone;
   @bindable PreparationOperator;
@@ -72,6 +72,10 @@ export class DataForm {
           if (resultConstructionNumber) {
             this.error.PreparationFabricConstruction = "";
             this.PreparationFabricConstruction = resultConstructionNumber;
+
+            var ConstructionNumberSplitted = resultConstructionNumber.split(" ");
+            var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2];
+            this.data.PreparationMaterialType = WarpCode;
           }
         })
         .catch(e => {
@@ -95,8 +99,8 @@ export class DataForm {
     }
   }
 
-  PreparationMaterialTypeChanged(newValue) {
-    this.data.PreparationMaterialType = newValue.Id;
+  BeamProductResultChanged(newValue){
+    this.data.BeamProductResult = newValue;
   }
 
   AmountOfConesChanged(newValue) {

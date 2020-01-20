@@ -17,7 +17,7 @@ module.exports = [
         name: 'finishing-printing-cost-calculation',
         moduleId: './modules/sales/finishing-printing-cost-calculation/index',
         nav: true,
-        title: 'Cost Calculation Dyeing Printing',
+        title: 'Cost Calculation - Dyeing & Printing',
         auth: true,
         settings: {
             group: "sales",
@@ -25,6 +25,58 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-ppic',
+        name: 'finishing-printing-cost-calculation-approval-ppic',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-md',
+        name: 'finishing-printing-cost-calculation-approval-md',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval MD',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-finishing-printing-sales-contract',
+        name: 'shin-finishing-printing-sales-contract',
+        moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Dyeing & Printing (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { /*"A2": 1,*/ "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    // {
+    //     route: 'sales/reports/shin-finishing-printing-sales-contract-reports',
+    //     name: 'shin-finishing-printing-sales-contract-report',
+    //     moduleId: './modules/sales/reports/shin-finishing-printing-sales-contract-report/index',
+    //     nav: true,
+    //     title: 'Laporan Sales Contract - Dyeing & Printing (New)',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'sales/finishing-printing-sales-contract',
         name: 'finishing-printing-sales-contract',
@@ -104,6 +156,32 @@ module.exports = [
         }
     },
     {
+        route: 'sales/shin-production-order',
+        name: 'shin-production-order',
+        moduleId: './modules/sales/shin-production-order/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-list-view',
+        name: 'shin-production-order-list-view',
+        moduleId: './modules/sales/shin-production-order-list-view/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
@@ -161,6 +239,19 @@ module.exports = [
         moduleId: './modules/sales/sales-invoice/index',
         nav: true,
         title: 'Faktur Penjualan',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/sales-receipt',
+        name: 'sales-receipt',
+        moduleId: './modules/sales/sales-receipt/index',
+        nav: true,
+        title: 'Kwitansi Penjualan',
         auth: true,
         settings: {
             group: "sales",

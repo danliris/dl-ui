@@ -1,9 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Router } from 'aurelia-router';
-import { Service, PurchaseRequestService, DeliveryOrderService } from './service';
+import { Service, PurchaseRequestService, DeliveryOrderService, CostCalculationService } from './service';
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
-@inject(Router, Service, PurchaseRequestService, DeliveryOrderService)
+@inject(Router, Service, PurchaseRequestService, DeliveryOrderService, CostCalculationService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -87,11 +87,12 @@ export class DataForm {
         return `${data.Code || data.code} - ${data.Name || data.name}`;
     };
 
-    constructor(Router, Service, PurchaseRequestService, DeliveryOrderService) {
+    constructor(Router, Service, PurchaseRequestService, DeliveryOrderService, CostCalculationService) {
         this.router = Router;
         this.service = Service;
         this.prService = PurchaseRequestService;
         this.doService = DeliveryOrderService;
+        this.ccService = CostCalculationService;
     }
 
     async bind(context) {
@@ -146,7 +147,6 @@ export class DataForm {
                 this.data.DODate = this.data.deliveryOrder.doDate;
 
                 let items = [];
-                let purchaseRequestIds = [];
 
                 for (const item of this.data.deliveryOrder.items) {
                     for (const detail of item.fulfillments) {
@@ -156,6 +156,7 @@ export class DataForm {
                                 DODetailId: detail.Id,
                                 EPONo: item.purchaseOrderExternal.no,
                                 PRId: detail.pRId,
+                                PRItemId: detail.pRItemId, // untuk filter CC saja
                                 PRNo: detail.pRNo,
                                 POSerialNumber: detail.poSerialNumber,
                                 Product: detail.product,
@@ -170,25 +171,41 @@ export class DataForm {
                                 Currency: item.currency,
                                 Remark: detail.product.Remark
                             });
-
-                            if (purchaseRequestIds.indexOf(detail.pRId) < 0) purchaseRequestIds.push(detail.pRId);
                         }
                     }
                 }
 
-                let filter = {};
-                filter[purchaseRequestIds.map(id => `Id == ${id}`).join(" or ")] = true;
-                filter["PRType"] = "MASTER";
-                filter["SCId > 0"] = true;
+                let ccFilter = {};
+                ccFilter['CostCalculationGarment.IsApprovedPPIC'] = true;
+                ccFilter['IsPRMaster'] = true;
+                ccFilter[items.map(item => `PRMasterId == ${item.PRId}`).join(" or ")] = true;
+                ccFilter[items.map(item => `PRMasterItemId == ${item.PRItemId}`).join(" or ")] = true;
 
-                const purchaseRequests = await this.prService.search({
-                    filter: JSON.stringify(filter),
-                    select: JSON.stringify({ "Id": "1", "PRType": "1", "SCId": "1", "SCNo": "1" }),
+                const constCalculationMaterials = await this.ccService.readMaterials({
+                    filter: JSON.stringify(ccFilter),
+                    select: "new(Id, IsPRMaster, PRMasterId, PRMasterItemId, PO_SerialNumber, new(ProductId as Id, ProductCode as Code) as Product, BudgetQuantity, new(UOMPriceId as Id, UOMPriceName as Unit) as UOMPrice, CostCalculationGarment.Id as CostcalculationId, CostCalculationGarment.RO_Number, CostCalculationGarment.PreSCId)"
                 });
 
                 items.forEach(item => {
-                    const purchaseRequest = purchaseRequests.data.find(d => d.Id == item.PRId);
-                    item.SCId = purchaseRequest ? purchaseRequest.SCId : 0;
+                    const ccMaterials = constCalculationMaterials.data.filter(f => f.PRMasterId == item.PRId && f.PRMasterItemId == item.PRItemId);
+
+                    item.Details = (ccMaterials || []).map(material => {
+                        item.SCId = material.PreSCId;
+                        return {
+                            Conversion: 1,
+                            // ParentProduct: item.Product,
+                            Uom: item.Uom,
+                            // SCId: material.PreSCId,
+
+                            RONo: material.RO_Number,
+                            CostcalculationId: material.CostcalculationId,
+
+                            POSerialNumber: material.PO_SerialNumber,
+                            Product: material.Product,
+                            QuantityCC: material.BudgetQuantity,
+                            UomCC: material.UOMPrice
+                        };
+                    });
 
                     this.data.Items.push(item);
                 });

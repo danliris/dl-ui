@@ -23,14 +23,14 @@ export class List {
   }
 
   setContext() {
-    this.context = ["Rincian"];
+    this.context = ["Detail", "Cetak DO Penjualan"];
   }
 
   setColumns() {
     this.columns = [
-      { field: "Code", title: "No. DO" },
+      { field: "DOSalesNo", title: "No. DO Penjualan" },
       {
-        field: "Date",
+        field: "DOSalesDate",
         title: "Tanggal",
         formatter: (value, data) => {
           return moment(value).format("DD-MMM-YYYY");
@@ -71,14 +71,22 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "Rincian":
+      case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
+        break;
+      case "Cetak DO Penjualan":
+        this.service.getPdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
-    return true;
+    switch (name) {
+      case "Cetak DO Penjualan":
+        return data;
+      default:
+        return true;
+    }
   }
 
   create() {

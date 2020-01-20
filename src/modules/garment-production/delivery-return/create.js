@@ -34,7 +34,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.ReturnDate = this.data.ReturnDate ? moment(this.data.ReturnDate).format("DD MMM YYYY") : null;
+        this.data.ReturnDate = this.data.ReturnDate ? moment(moment(this.data.ReturnDate).format("DD MMM YYYY")).toDate() : null;
         // let objData = {};
         // let data = Object.assign(objData, this.data);
         // data.Items = data.Items.filter(x => x.IsSave==true);

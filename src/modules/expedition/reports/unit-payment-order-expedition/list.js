@@ -30,9 +30,16 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
-            { field: 'Currency.Code', title: 'Kurs', rowspan: 2, sortable: true },
+            { field: 'Currency', title: 'Kurs', rowspan: 2, sortable: true },
             { title: 'Jumlah', colspan: 4 },
-            { field: 'TotalDay', title: 'Tempo', rowspan: 2, sortable: true },
+            {
+                // field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
+                //     return moment(data.DueDate).diff(moment(data.Date), 'days', false);
+                // }
+                field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
+                    return Math.abs(Math.ceil((moment(data.DueDate) - moment(data.Date))/(1000*60*60*24)));
+                }
+            },
             { field: 'Category.Name', title: 'Kategori', rowspan: 2, sortable: true },
             { field: 'Unit.Name', title: 'Unit', rowspan: 2, sortable: true },
             { field: 'Division.Name', title: 'Divisi', rowspan: 2, sortable: true },
@@ -51,9 +58,13 @@ export class List {
                 rowspan: 2,
                 sortable: true,
             },
+            { field: 'CreatedBy', title: 'Admin', rowspan: 2, sortable: true },
             { title: 'Verifikasi', colspan: 3 },
+            {
+                field: 'VerifiedBy', title: 'Verifikator', sortable: true, rowspan: 2
+            },
             { title: 'Kasir', colspan: 2 }
-        ], 
+        ],
         [
             {
                 field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
@@ -61,7 +72,7 @@ export class List {
                 },
                 sortable: true,
             },
-            
+
             {
                 field: 'PPn', title: 'PPn', formatter: function (value, data, index) {
                     return value ? numeral(value).format('0,000.0000') : '-';
@@ -105,7 +116,7 @@ export class List {
                 sortable: true,
             },
             {
-                field: 'BankExpenditureNoteNo', title: 'No Kuitansi',
+                field: 'BankExpenditureNoteNo', title: 'No Bukti Pengeluaran Bank',
                 sortable: true,
             },
         ]
@@ -177,18 +188,20 @@ export class List {
         // }
 
         if (this.division) {
-            filter.divisionCode = this.division.code;
+            filter.divisionCode = this.division.Code;
         }
 
         if (this.status && this.status.value && this.status.value != 0) {
             filter.status = this.status.value;
         }
 
-        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+        if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
-
-        if (this.dateTo && this.dateTo != 'Invalid Date')
             filter.dateTo = this.dateTo;
+
+            filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
+            filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
 
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
@@ -269,18 +282,20 @@ export class List {
         // }
 
         if (this.division) {
-            filter.divisionCode = this.division.code;
+            filter.divisionCode = this.division.Code;
         }
 
         if (this.status && this.status.value && this.status.value != 0) {
             filter.status = this.status.value;
         }
 
-        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+        if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
-
-        if (this.dateTo && this.dateTo != 'Invalid Date')
             filter.dateTo = this.dateTo;
+
+            filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
+            filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
 
         this.service.xls(filter);
     }
@@ -292,7 +307,9 @@ export class List {
     get divisionLoader() {
         return DivisionLoader;
     }
-    
+    divisionView = (division) => {
+        return `${division.Name}`;
+      }
     // get currencyLoader() {
     //     return CurrencyLoader;
     // }

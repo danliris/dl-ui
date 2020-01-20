@@ -443,6 +443,19 @@ module.exports = [
         }
     },
     {
+        route: 'report/local-valas-purchasing-book-report',
+        name: 'local-valas-purchasing-book-report',
+        moduleId: './modules/purchasing/reports/local-valas-purchasing-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Lokal Valas',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "B1": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'report/import-purchasing-book',
         name: 'import-purchasing-book-report',
         moduleId: './modules/purchasing/reports/import-purchasing-book/index',

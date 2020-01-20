@@ -31,6 +31,9 @@ export class View {
                 break;
             case "sample":
                 this.type = "Sample";
+                this.saveCallback = () => {
+                    this.service.getPdfById(id);
+                };
                 break;
             default: break;
         }

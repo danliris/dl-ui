@@ -7,8 +7,8 @@ class Service extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(info) {
-        var endpoint = `${serviceUri}/by-user`;
+    search(info, byUser) {
+        var endpoint = `${serviceUri}${byUser ? '/by-user' : ''}`;
         return super.list(endpoint, info);
     }
 

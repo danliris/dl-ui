@@ -10,7 +10,9 @@
         <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.CostCalculationGarment"
           loader.one-time="costCalculationGarmentLoader" query.bind="filterCostCalculationGarment" options.bind="length4"
           text="RO_Number" read-only.bind="readOnly || isEdit"></au-autocomplete>
-        <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
+        <au-textbox label="Article" value.bind="data.CostCalculationGarment.Article" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationGarment"></au-textbox>
+        <au-textbox label="Description" value.bind="data.CostCalculationGarment.CommodityDescription" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
       <div class="col-md-6">
@@ -31,9 +33,11 @@
     <div class="row" if.bind="readOnly">
       <div class="col-md-4">
         <au-textbox label="No RO" value.bind="data.CostCalculationGarment.RO_Number" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-textbox>
+        <au-textbox label="Article" value.bind="data.CostCalculationGarment.Article" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationGarment"></au-textbox>
         <au-textbox label="Unit" value.bind="data.CostCalculationGarment.Unit.Name" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
-        <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
+        <au-textbox label="Description" value.bind="data.CostCalculationGarment.CommodityDescription" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
       <div class="col-md-4">
