@@ -198,6 +198,7 @@ export class DataForm {
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.UnitFrom = null;
+            this.data.SewingInDate=null;
             this.data.Price=0;
             if(newValue) {
                 if(this.data.Items.length > 0){
@@ -209,6 +210,7 @@ export class DataForm {
                 this.data.UnitFrom = newValue.Unit;
                 this.data.LoadingId = newValue.Id;
                 this.data.LoadingNo = newValue.LoadingNo;
+                this.data.SewingInDate=newValue.LoadingDate;
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
                 if(priceResult.data.length>0){
@@ -244,6 +246,7 @@ export class DataForm {
                 this.data.UnitFrom = null;
                 this.data.Price=0;
                 this.data.Items.splice(0);
+                this.data.SewingInDate=null;
             }        
         }
     }
@@ -472,5 +475,15 @@ export class DataForm {
             this.data.Items = [];
             this.data.Price=0;
         }
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                qty += item.Quantity;
+            }
+        }
+        return qty;
     }
 }

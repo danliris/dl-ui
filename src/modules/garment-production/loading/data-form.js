@@ -224,4 +224,14 @@ export class DataForm {
             "Warna",
         ]
     }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                qty += item.Quantity;
+            }
+        }
+        return qty;
+    }
 }
