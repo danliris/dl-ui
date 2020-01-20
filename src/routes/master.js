@@ -1,5 +1,18 @@
 module.exports = [
     {
+      route: 'account-bank',
+      name: 'account-bank',
+      moduleId: './modules/master/account-bank/index',
+      nav: true,
+      title: 'Akun Bank',
+      auth: true,
+      settings: {
+          group: "master",
+          permission: { "C9": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+    },
+    {
         route: 'buyers',
         name: 'buyers',
         moduleId: './modules/master/buyer/index',
