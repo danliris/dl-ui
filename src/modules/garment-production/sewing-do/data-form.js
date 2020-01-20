@@ -82,4 +82,14 @@ export class DataForm {
     get comodityLoader() {
         return ComodityLoader;
     }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                qty += item.Quantity;
+            }
+        }
+        return qty;
+    }
 }

@@ -19,6 +19,7 @@ export class View {
         };
         this.selectedUnitTo=this.data.UnitTo;
         this.selectedUnit=this.data.Unit;
+        this.selectedSewingTo=this.data.SewingTo;
         this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
         for(var a of this.data.Items){
             if(a.RemainingQuantity != a.Quantity){

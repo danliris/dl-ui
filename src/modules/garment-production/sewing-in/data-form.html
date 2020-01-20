@@ -137,7 +137,7 @@
             label="Tanggal Sewing In"
             value.bind="data.SewingInDate"
             error.bind="error.SewingInDate"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isCutting"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -165,5 +165,8 @@
             item-template="modules/garment-production/sewing-in/template/item-sewing"
             >
         </au-collection>
+
+        <p if.bind="data.Items"><b>Jumlah Total Sewing In : ${totalQuantity} PCS</b></p>
+
     </au-input-form>
 </template>

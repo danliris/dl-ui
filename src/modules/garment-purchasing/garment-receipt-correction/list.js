@@ -2,19 +2,36 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import { AuthService } from "aurelia-authentication";
+import { activationStrategy } from 'aurelia-router';
+
 var moment = require("moment");
 
 @inject(Router, Service,AuthService)
 export class List {
 
-    activate(params) {
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+    }
+    
+    activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        this.byUser = parentInstruction.config.settings.byUser;
+
         let username = null;
         if (this.authService.authenticated) {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        this.filter={
-          CreatedBy: username
+
+        if (this.byUser) {
+                this.filter = {
+                    CreatedBy: username
+                };
+        } else {
+                this.filter = {};
         }
       }
 
@@ -59,21 +76,21 @@ export class List {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            keyword: info.search,
+            keyword: info.search, 
             order: order,
             filter:JSON.stringify(this.filter)
         }
 
+         
         return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        .then(result => {
+            return {
+                total: result.info.total,
+                data: result.data.map(d => Object.assign(d, { byUser: this.byUser }))
+            }
+        });
     }
 }

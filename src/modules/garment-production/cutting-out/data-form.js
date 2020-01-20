@@ -178,6 +178,8 @@ export class DataForm {
     selectedUnitFromChanged(newValue){
         if(newValue){
             this.data.UnitFrom=newValue;
+            this.data.Unit=this.data.UnitFrom;
+            this.selectedUnit=this.data.UnitFrom;
         }
         else{
             this.data.UnitFrom=null;
@@ -190,5 +192,19 @@ export class DataForm {
         this.data.Article = null;
         this.data.Comodity = null;
         this.data.Items.splice(0);
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.Details){
+                    for(var detail of item.Details){
+                        qty += detail.CuttingOutQuantity;
+                    }
+                }
+            }
+        }
+        return qty;
     }
 }
