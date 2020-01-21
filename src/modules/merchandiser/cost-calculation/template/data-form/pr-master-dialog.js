@@ -110,6 +110,7 @@ export class PRMasterDialog {
                     }
                 }
 
+
                 let materialsFilter = {};
                 materialsFilter[`(CostCalculationGarmentId == ${this.CCId})`] = false;
 
@@ -118,8 +119,10 @@ export class PRMasterDialog {
                 const materialsInfo = {
                     size: 0,
                     select: "new(PRMasterId, PRMasterItemId, BudgetQuantity)",
+
                     prmasteritemids: JSON.stringify(prmasteritemids),
                     filter: JSON.stringify(materialsFilter)
+
                 };
 
                 return this.service.getMaterials(materialsInfo)
