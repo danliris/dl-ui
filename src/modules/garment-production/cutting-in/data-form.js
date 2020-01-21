@@ -69,7 +69,7 @@ export class DataForm {
         { value: "DesignColor", header: "Keterangan" },
         { value: "CuttingInQuantity", header: "Jumlah" },
         { value: "CuttingInUomUnit", header: "Satuan" },
-        { value: "DesignColor", header: "Warna" },
+        { value: "Color", header: "Warna" },
     ];
 
     @computedFrom("data.Unit")

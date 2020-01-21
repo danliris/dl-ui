@@ -23,6 +23,16 @@
                 <thead align="center">
                     <tr>
                         <th><label>Urut</label></th>
+                        <th><label>Nomor RO</label></th>
+                        <th><label>Kode Agent</label></th>
+                        <th><label>Nama Agent Buyer</label></th>
+                        <th><label>Kode Brand</label></th>
+                        <th><label>Nama Brand Buyer</label></th>
+                        <th><label>Article</label></th>                        
+                        <th><label>Komodity</label></th>
+                        <th><label>Qty Order</label></th>
+                        <th><label>Satuan</label></th>
+                        <th><label>Tgl Shipment</label></th>   
                         <th><label>Kode Barang</label></th>
                         <th><label>Keterangan</label></th>
                         <th><label>Quantity</label></th>
@@ -46,6 +56,66 @@
                             <td width="5%" align="center">
                                 <au-textbox
                                     value.bind="index + 1"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="10%">
+                                <au-textbox
+                                    value.bind="tableData[index].RO_Number"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="10%">
+                                <au-textbox
+                                    value.bind="tableData[index].BuyerCode"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="30%">
+                                <au-textbox
+                                    value.bind="tableData[index].BuyerName"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="10%">
+                                <au-textbox
+                                    value.bind="tableData[index].BrandCode"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="30%">
+                                <au-textbox
+                                    value.bind="tableData[index].BrandName"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="30%">
+                                <au-textbox
+                                    value.bind="tableData[index].Article"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="15%">
+                                <au-textbox
+                                    value.bind="tableData[index].ComodityCode"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="15%" align="right">
+                                <au-numeric
+                                    value.bind="tableData[index].Quantity"
+                                    read-only="true">
+                                </au-numeric>
+                            </td>
+                            <td width="10%">
+                                <au-textbox
+                                    value.bind="tableData[index].UOMUnit"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="15%">
+                                <au-textbox
+                                    value.bind="tableData[index].DeliveryDate"
                                     read-only="true">
                                 </au-textbox>
                             </td>

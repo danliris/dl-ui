@@ -110,12 +110,19 @@ export class PRMasterDialog {
                     }
                 }
 
+
+                let materialsFilter = {};
+                materialsFilter[`(CostCalculationGarmentId == ${this.CCId})`] = false;
+
                 const prmasteritemids = data.filter((item, index) => item.PRMasterItemId > 0 && data.findIndex(d => d.PRMasterItemId === item.PRMasterItemId) === index).map(item => item.PRMasterItemId);
 
                 const materialsInfo = {
                     size: 0,
                     select: "new(PRMasterId, PRMasterItemId, BudgetQuantity)",
-                    prmasteritemids: JSON.stringify(prmasteritemids)
+
+                    prmasteritemids: JSON.stringify(prmasteritemids),
+                    filter: JSON.stringify(materialsFilter)
+
                 };
 
                 return this.service.getMaterials(materialsInfo)
@@ -161,6 +168,7 @@ export class PRMasterDialog {
     }
 
     activate(params) {
+        this.CCId = params.CCId;
         this.filter = {};
         this.filter["PRType == \"MASTER\" || PRType == \"SAMPLE\""] = true;
         this.filter["SCId"] = params.SCId;

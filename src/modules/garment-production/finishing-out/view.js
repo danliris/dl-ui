@@ -19,6 +19,7 @@ export class View {
         };
         this.selectedUnitTo=this.data.UnitTo;
         this.selectedUnit=this.data.Unit;
+        this.selectedFinishingTo=this.data.FinishingTo;
         for(var a of this.data.Items){
             if(a.RemainingQuantity != a.Quantity){
                 this.deleteCallback = null;

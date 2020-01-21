@@ -204,11 +204,11 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.UnitFrom.Id})
             };
-            return this.service.getCuttingIn(infoCuttingIn)
+            return this.service.getCuttingInByRO(infoCuttingIn)
                 .then((result) => {
                     var infoEPO = {
                         keyword: keyword,
-                        filter: JSON.stringify({ ProductName:"PROCESS" })
+                        filter: JSON.stringify({ ProductName:"PROCESS"})
                       };
                     return this.purchasingService.getGarmentEPOByRONo(infoEPO)
                     .then((epo)=>{

@@ -61,7 +61,7 @@
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="UnitFrom"
-            if.bind="isSewing"
+            if.bind="isSewing || isFinishing"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -90,6 +90,19 @@
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             view-model.ref="selectedSewingOutViewModel">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="selectedFinishingOut"
+            error.bind="error.RONo"
+            label="No RO"
+            loader.bind="roFinishingLoader"
+            show.bind="data.Unit && data.UnitFrom && isFinishing"
+            text.bind="ROView"
+            placeholder="nomor RO"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedFinishingOutViewModel">
         </au-autocomplete>
 
         <au-textbox
@@ -124,7 +137,7 @@
             label="Tanggal Sewing In"
             value.bind="data.SewingInDate"
             error.bind="error.SewingInDate"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isCutting"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -147,10 +160,13 @@
             errors.bind="error.Items" 
             columns.bind="itemsInfo.columns" 
             options.bind="itemOptions"
-            if.bind="data.Items.length > 0 && isSewing"
+            if.bind="data.Items.length > 0 && (isSewing || isFinishing)"
             read-only.bind="readOnly"
             item-template="modules/garment-production/sewing-in/template/item-sewing"
             >
         </au-collection>
+
+        <p if.bind="data.Items"><b>Jumlah Total Sewing In : ${totalQuantity} PCS</b></p>
+
     </au-input-form>
 </template>

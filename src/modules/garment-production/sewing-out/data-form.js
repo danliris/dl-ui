@@ -16,6 +16,7 @@ export class DataForm {
     @bindable selectedUnit;
     @bindable selectedUnitTo;
     @bindable itemOptions = {};
+    @bindable selectedSewingTo;
 
     sewingToOptions = ['FINISHING','SEWING', 'CUTTING'];
 
@@ -51,7 +52,17 @@ export class DataForm {
         ]
     }
 
-    
+    selectedSewingToChanged(newValue){
+        this.data.SewingTo=newValue;
+        if(newValue=="FINISHING"){
+            this.data.UnitTo=this.data.Unit;
+            this.selectedUnitTo=this.data.Unit;
+        }
+        else{
+            this.data.UnitTo=null;
+            this.selectedUnitTo=null;
+        }
+    }
 
     bind(context) {
         this.context = context;
@@ -92,6 +103,8 @@ export class DataForm {
     selectedUnitChanged(newValue){
         if(newValue){
             this.data.Unit=newValue;
+            this.selectedUnitTo=newValue;
+            this.data.UnitTo=newValue;
         }
         else{
             this.context.selectedROViewModel.editorValue = "";
@@ -125,7 +138,6 @@ export class DataForm {
     async selectedROChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                console.log(newValue)
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
@@ -189,7 +201,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, "GarmentSewingInItem.Any(RemainingQuantity>0)" : true})
             };
             return this.service.searchSewingIn(info)
                 .then((result) => {
@@ -217,5 +229,24 @@ export class DataForm {
                 a.IsSave=false;
             }
         }
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(this.data.IsDifferentSize){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            qty += detail.Quantity;
+                        }
+                    }
+                }
+                else{
+                    qty += item.Quantity;
+                }
+            }
+        }
+        return qty;
     }
 }

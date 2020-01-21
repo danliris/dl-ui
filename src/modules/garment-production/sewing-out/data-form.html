@@ -65,7 +65,7 @@
 
         <au-dropdown 
             label="Proses Tujuan" 
-            value.bind="data.SewingTo" 
+            value.bind="selectedSewingTo" 
             error.bind="error.SewingTo" 
             read-only.bind="readOnly || isEdit"
             items.bind="sewingToOptions"
@@ -125,6 +125,8 @@
             header-template="modules/garment-production/sewing-out/template/item-header"
             item-template="modules/garment-production/sewing-out/template/item-different-size">
         </au-collection>
+
+        <p if.bind="data.Items"><b>Jumlah Total Sewing Out : ${totalQuantity} PCS</b></p>
 
     </au-input-form>
     <div class="row"></div>

@@ -68,7 +68,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "FINISHING"})
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true})
             };
             return this.service.searchSewingOut(info)
                 .then((result) => {
@@ -171,7 +171,6 @@ export class DataForm {
                     .then(result => {
                         for(var sewingOut of result.data){
                             for(var sewingOutItem of sewingOut.Items){
-                                console.log(sewingOutItem)
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
                                     if(sewingOut.IsDifferentSize){

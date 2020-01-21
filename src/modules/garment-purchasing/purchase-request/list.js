@@ -11,7 +11,7 @@ export class List {
     { field: "PRNo", title: "Nomor PR" },
     {
       field: "Date", title: "Tanggal Validasi", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       }
     },
     { field: "RONo", title: "Nomor RO" },
@@ -25,6 +25,13 @@ export class List {
     },
     { field: "Status", title: "Status Validasi" }
   ];
+
+  rowFormatter(data, index) {
+    if (data.Status === "SUDAH")
+      return { classes: "success" }
+    else
+      return { classes: "danger" }
+  }
 
   loader = (info) => {
     var order = {};
@@ -45,6 +52,11 @@ export class List {
           data.BuyerName = data.Buyer.Name;
           if (data.PRType == "MASTER" || data.PRType == "SAMPLE") {
             data.Status = (data.IsValidatedMD1 && data.IsValidatedMD2 && data.IsValidatedPurchasing) ? "SUDAH" : "BELUM";
+            if (data.Status === "SUDAH") {
+              data.Date = data.ValidatedMD2Date;
+            } else {
+              data.Date = null;
+            }
           } else {
             data.Status = "SUDAH";
           }
