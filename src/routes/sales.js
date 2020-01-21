@@ -173,7 +173,7 @@ module.exports = [
         name: 'sales-receipt',
         moduleId: './modules/sales/sales-receipt/index',
         nav: true,
-        title: 'Kwitansi Penjualan',
+        title: 'Kuitansi Penjualan',
         auth: true,
         settings: {
             group: "sales",
