@@ -233,7 +233,7 @@
         <!-- kuantitas budget -->
         <td>
             <div style="width: 100px;" class="tooltip-material-field">
-                <au-numeric value.bind="budgetQuantity" read-only.bind="disabled"></au-numeric>
+                <au-numeric value.bind="budgetQuantity" error.bind="error.BudgetQuantity" read-only.bind="disabled"></au-numeric>
                 <span class="tooltiptext">Kuantitas Budget</span>
             </div>
         </td>
