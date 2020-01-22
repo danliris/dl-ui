@@ -52,9 +52,6 @@ export class List {
     field: "AmountOfCones",
     title: "Jumlah Cone"
   }, {
-    field: "ColourOfCones",
-    title: "Warna Cone"
-  }, {
     field: "OperatorName",
     title: "Operator"
   }, {
