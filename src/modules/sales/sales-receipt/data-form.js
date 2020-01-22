@@ -11,31 +11,17 @@ import { Service, ServiceCore } from "./service";
 var BuyersLoader = require("../../../loader/buyers-loader");
 var BankLoader = require("../../../loader/account-banks-loader");
 
-
 @containerless()
-@inject(
-  Service,
-  ServiceCore,
-  BindingSignaler,
-  BindingEngine
-)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable data;
   @bindable error;
+  @bindable SalesReceiptDate;
 
-  constructor(
-    service,
-    serviceProductionAzure,
-    servicePurchasingAzure,
-    serviceCore,
-    bindingSignaler,
-    bindingEngine
-  ) {
+  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
-    this.serviceProductionAzure = serviceProductionAzure;
-    this.servicePurchasingAzure = servicePurchasingAzure;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -51,6 +37,9 @@ export class DataForm {
     this.context._this = this;
     this.data = this.context.data;
     this.error = this.context.error;
+
+    this.TotalPaid = this.data.TotalPaid;
+    this.data.TotalPaid = this.getTotalPaid;
 
     var buyerId = this.data.BuyerId;
     if (buyerId) {
@@ -68,10 +57,33 @@ export class DataForm {
       );
     }
 
+    if (this.data.SalesReceiptDate) {
+      this.salesInvoiceTableOptions.SalesReceiptDate = this.data.SalesReceiptDate;
+      this.SalesReceiptDate = this.data.SalesReceiptDate;
+    }
+
+    if (this.data.TotalPaid) {
+      this.TotalPaid = this.data.TotalPaid;
+      this.data.TotalPaid = this.getTotalPaid;
+    }
   }
 
-  errorChanged() {
-    console.log(this.error);
+  get getTotalPaid() {
+    var result = 0;
+    if (this.data.SalesReceiptDetails) {
+      for (var item of this.data.SalesReceiptDetails) {
+        result += item.Nominal;
+      }
+    }
+    this.data.TotalPaid = result;
+    return result;
+  }
+
+  SalesReceiptDateChanged(newValue, oldValue) {
+    if (newValue) {
+      this.salesInvoiceTableOptions.SalesReceiptDate = newValue;
+    }
+    this.data.SalesReceiptDate = this.SalesReceiptDate;
   }
 
   salesReceiptDetailsInfo = {
@@ -79,9 +91,10 @@ export class DataForm {
       "No. Jual",
       "Tempo (hari)",
       "Total Harga",
+      "Kurs",
       "Sudah Dibayar",
       "Nominal",
-      "Sisa Pembayaran"
+      "Sisa Bayar"
     ],
     onAdd: function() {
       this.context.SalesReceiptDetailsCollection.bind();
@@ -92,6 +105,8 @@ export class DataForm {
       this.context.SalesReceiptDetailsCollection.bind();
     }.bind(this)
   };
+
+  salesInvoiceTableOptions = {};
 
   salesReceiptTypeOptions = ["", "A", "B", "C", "D"];
 
@@ -119,10 +134,16 @@ export class DataForm {
   selectedBankChanged(newValue, oldValue) {
     if (this.selectedBank && this.selectedBank.Id) {
       this.data.BankId = this.selectedBank.Id;
+      this.data.AccountCOA = this.selectedBank.AccountCOA;
+      this.data.AccountName = this.selectedBank.AccountName;
+      this.data.AccountNumber = this.selectedBank.AccountNumber;
       this.data.BankName = this.selectedBank.BankName;
       this.data.BankCode = this.selectedBank.BankCode;
     } else {
       this.data.BankId = null;
+      this.data.AccountCOA = null;
+      this.data.AccountName = null;
+      this.data.AccountNumber = null;
       this.data.BankName = null;
       this.data.BankAddress = null;
     }
@@ -135,13 +156,7 @@ export class DataForm {
     return BankLoader;
   }
 
-  console() {
-    console.log(this.data);
-  }
-  salesReceiptNoChanged(e) {
-    console.log(this.data.SalesReceiptNo);
-  }
-  salesReceiptTypeChanged(e) {
-    console.log(this.data.SalesReceiptType);
+  errorChanged() {
+    console.log(this.error);
   }
 }

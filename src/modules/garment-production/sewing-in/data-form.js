@@ -58,7 +58,8 @@ export class DataForm {
     get filter(){
         if (this.data.Unit) {
             return {
-                UnitId: this.data.Unit.Id
+                UnitId: this.data.Unit.Id,
+                "Items.Any(RemainingQuantity>0)":true
             };
         } else {
             return {
@@ -198,6 +199,7 @@ export class DataForm {
             this.data.Article = null;
             this.data.Comodity = null;
             this.data.UnitFrom = null;
+            this.data.SewingInDate=null;
             this.data.Price=0;
             if(newValue) {
                 if(this.data.Items.length > 0){
@@ -209,6 +211,7 @@ export class DataForm {
                 this.data.UnitFrom = newValue.Unit;
                 this.data.LoadingId = newValue.Id;
                 this.data.LoadingNo = newValue.LoadingNo;
+                this.data.SewingInDate=newValue.LoadingDate;
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
                 if(priceResult.data.length>0){
@@ -244,6 +247,7 @@ export class DataForm {
                 this.data.UnitFrom = null;
                 this.data.Price=0;
                 this.data.Items.splice(0);
+                this.data.SewingInDate=null;
             }        
         }
     }
@@ -272,7 +276,10 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id })
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, 
+                SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id,
+                "GarmentSewingOutItem.Any(RemainingQuantity>0)":true
+             })
             };
             return this.service.searchSewingOut(info)
                 .then((result) => {
@@ -376,7 +383,9 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", UnitId:this.data.UnitFrom.Id })
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", 
+              UnitId:this.data.UnitFrom.Id,
+             "GarmentFinishingOutItem.Any(RemainingQuantity>0)":true })
             };
             return this.service.searchFinishingOut(info)
                 .then((result) => {
@@ -406,7 +415,6 @@ export class DataForm {
         this.data.Items = [];
         this.data.Price=0;
         if(newValue) {
-            console.log(newValue)
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -472,5 +480,16 @@ export class DataForm {
             this.data.Items = [];
             this.data.Price=0;
         }
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave)
+                    qty += item.Quantity;
+            }
+        }
+        return qty;
     }
 }
