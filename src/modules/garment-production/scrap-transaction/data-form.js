@@ -12,7 +12,6 @@ export class DataForm {
     @bindable selectedSource;
     @bindable isEdit = false;
     @bindable isView = false;
-    @bindable classificationName;
     @bindable options = {};
     formOptions = {
         cancelText: "Kembali",
@@ -23,7 +22,9 @@ export class DataForm {
 
     @computedFrom("data.Id")
     get isEdit() {
+        this.readOnly=true;
         return (this.data.Id || '').toString() != '';
+      
     }
     constructor(service,coreService, bindingEngine) {
         this.service = service;
@@ -67,6 +68,8 @@ export class DataForm {
         if (newValue) {
             this.data.ScrapSourceId = newValue.Id;
             this.data.ScrapSourceName = newValue.Name;
+            
+            console.log(this.data.ScrapSourceName);
         }
     }
     async selectedDestinationChanged(newValue) {
@@ -81,12 +84,13 @@ export class DataForm {
      
         this.service.searchClassification({})
             .then((cls) => {
-               
+               console.log(cls);
                 for (var item of cls.data) {
                     this.data.Items.push({
                         ScrapClassificationId : item.Id,
                         ScrapClassificationName: item.Name,
                         UomUnit:"KG",
+                      
                         UomId: uom
                     });
                 }

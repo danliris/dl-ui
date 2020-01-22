@@ -18,9 +18,9 @@
         </au-datepicker>
         <au-autocomplete
             label="Asal Barang"
-            value.bind="selectedSource"
-            error.bind="error.Source.Name"
-            read-only.bind="readOnly"
+            value.bind="selectedSource || data.ScrapSourceName"
+            error.bind="error.ScrapSourceName"
+            read-only.bind="readOnly "
             options.bind="controlOptions"
             loader.bind="sourceLoader"
             text.bind = "sourceView"
@@ -28,9 +28,9 @@
         </au-autocomplete>
         <au-autocomplete
             label="Gudang Tujuan"
-            value.bind="selectedDestination"
-            error.bind="error.Destination.Name"
-            read-only.bind="readOnly"
+            value.bind="selectedDestination || data.ScrapDestinationName"
+            error.bind="error.ScrapDestinationName"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             loader.bind="destinationLoader"
             text.bind = "destinationView"
@@ -47,7 +47,7 @@
           columns.bind="itemsInfo.columns" 
           options.bind="itemsInfo.options"
           read-only.bind="readOnly"
-          show.bind="selectedDestination && selectedSource"
+          show.bind="selectedDestination || data.ScrapDestinationName "
           item-template="modules/garment-production/scrap-transaction/template/item"
           view-model.ref="ItemsCollection">
 </au-collection>

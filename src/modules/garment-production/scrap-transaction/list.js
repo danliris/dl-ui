@@ -14,7 +14,7 @@ export class List {
    
     columns = [
         { field: "TransactionNo", title: "No Bon" },
-        { field: "TransactionDate", title: "Tanggal Masuk" },
+        { field: "TransactionDate", title: "Tanggal Masuk", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "ScrapSourceName", title: "Asal Barang" },
         { field: "ScrapDestinationName", title: "Gudang Tujuan" }
     ]
