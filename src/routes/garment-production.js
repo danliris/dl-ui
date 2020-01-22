@@ -129,6 +129,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-loading',
+        name: 'garment-production-adjustment-loading',
+        moduleId: './modules/garment-production/adjustment-loading/index',
+        nav: true,
+        title: 'Adjustment Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/sewing-in',
         name: 'garment-production-sewing-in',
         moduleId: './modules/garment-production/sewing-in/index',
