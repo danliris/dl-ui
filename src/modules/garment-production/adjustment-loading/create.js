@@ -34,7 +34,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        
+        this.data.AdjustmentType="LOADING";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
