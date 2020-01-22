@@ -5,6 +5,7 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Edit {
+    isEdit = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -21,6 +22,7 @@ export class Edit {
         this.error = this.context.error;
         this.hasCancel=true;
         this.hasSave=true;
+       
         // this.cancelCallback = this.context.cancelCallback;
         // this.deleteCallback = this.context.deleteCallback;
         // this.editCallback = this.context.editCallback;

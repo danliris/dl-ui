@@ -15,6 +15,7 @@ export class View {
         this.hasEdit=true;
         this.hasDelete=true;
         this.hasCancel=true;
+        console.log(this.data);
     }
 
     cancel(event) {
@@ -24,7 +25,7 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
     delete(event) {
-        if (confirm(`Hapus ${this.data.Code}?`))
+        if (confirm(`Hapus ${this.data.TransactionNo}?`))
             this.service.delete(this.data)
                 .then(result => {
                     this.cancel();
