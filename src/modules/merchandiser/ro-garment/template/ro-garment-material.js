@@ -14,7 +14,7 @@ export class ROGarmentMaterial {
         this.disabled = true;
         this.subCategory = this.data.Category && this.data.Category.SubCategory ? this.data.Category.SubCategory : "";
         this.quantity = this.data.Quantity !== undefined || this.data.Quantity !== null ? this.data.Quantity : 0;
-        this.uom = this.data.UOMQuantity && this.data.UOMQuantity.Name ? this.data.UOMQuantity.Name : "";
+        this.uom = this.data.UOMQuantity && this.data.UOMQuantity.Unit ? this.data.UOMQuantity.Unit : "";
         this.quantityText = this.quantity + " " + this.uom;
     }
 }

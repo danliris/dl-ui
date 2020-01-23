@@ -17,9 +17,12 @@ export class List {
             }
         },
         { field: "CostCalculationGarment.RO_Number", title: "No RO" },
+        { field: "BrandCode", title: "Kode Buyer" },
+        { field: "BrandName", title: "Nama Buyer" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
         { field: "CostCalculationGarment.UnitName", title: "Unit" },
-        { field: "Total", title: "Kuantitas RO" },
+        { field: "Total", title: "Kuantitas Order" },
+        { field: "UOMUnit", title: "Satuan" },
         { field: "CostCalculationGarment.IsValidatedROSample", title: "Approval Sample"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
         { field: "CostCalculationGarment.IsValidatedROMD", title: "Approval Kabag MD"
@@ -53,6 +56,9 @@ export class List {
                     data.byUser = this.byUser;
                     data.isPosting = data.IsPosted;
                     data.CostCalculationGarment.UnitName = data.CostCalculationGarment.Unit.Name;
+                    data.BrandCode = data.CostCalculationGarment.BuyerBrand.Code;
+                    data.BrandName = data.CostCalculationGarment.BuyerBrand.Name;   
+                    data.UOMUnit = data.CostCalculationGarment.UOM.Unit; 
                 });
                 return {
                     total: result.info.total,

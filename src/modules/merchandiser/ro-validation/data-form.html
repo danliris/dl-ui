@@ -36,7 +36,9 @@
           <au-textbox label="No RO" value.bind="data.CostCalculationGarment.RO_Number" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-textbox>
           <au-textbox label="Unit" value.bind="data.CostCalculationGarment.Unit.Name" read-only.bind="disabled" options.bind="length4"
             show.bind="hasCostCalculationGarment"></au-textbox>
-          <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
+          <au-textbox label="Artikel" value.bind="data.CostCalculationGarment.Article" read-only.bind="disabled" options.bind="length4"
+            show.bind="hasCostCalculationGarment"></au-textbox>
+          <au-textbox label="Description" value.bind="data.CostCalculationGarment.CommodityDescription" read-only.bind="disabled" options.bind="length4"
             show.bind="hasCostCalculationGarment"></au-textbox>
         </div>
         <div class="col-md-4">

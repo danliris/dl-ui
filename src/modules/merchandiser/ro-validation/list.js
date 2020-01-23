@@ -10,6 +10,8 @@ export class List {
     context = ["Rincian"];
     columns = [
         { field: "CostCalculationGarment.RO_Number", title: "No RO"},
+        { field: "BrandCode", title: "Kode Buyer" },
+        { field: "BrandName", title: "Nama Buyer" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
         { field: "CostCalculationGarment.UnitName", title: "Unit"},
         { field: "Total", title: "Kuantitas RO"}
@@ -32,10 +34,11 @@ export class List {
 
         return this.service.search(arg)
         .then(result => {
-            // result.data.forEach(data => {
-            // data.BuyerCode = data.Buyer.Code;
-            // data.BuyerName = data.Buyer.Name;
-            // });
+            result.data.forEach(data => {
+            data.BrandCode = data.CostCalculationGarment.BuyerBrand.Code;
+            data.BrandName = data.CostCalculationGarment.BuyerBrand.Name;  
+            data.UOMUnit = data.CostCalculationGarment.UOM.Unit;
+            });
             return {
             total: result.info.total,
             data: result.data
