@@ -18,7 +18,7 @@
         </au-datepicker>
         <au-autocomplete
             label="Asal Barang"
-            value.bind="selectedSource || data.ScrapSourceName"
+            value.bind="selectedSource"
             error.bind="error.ScrapSourceName"
             read-only.bind="readOnly "
             options.bind="controlOptions"
@@ -28,7 +28,7 @@
         </au-autocomplete>
         <au-autocomplete
             label="Gudang Tujuan"
-            value.bind="selectedDestination || data.ScrapDestinationName"
+            value.bind="selectedDestination"
             error.bind="error.ScrapDestinationName"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"

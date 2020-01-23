@@ -39,6 +39,10 @@ export class DataForm {
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
         this.options.isView = this.context.isView;
+        if(this.data){
+            this.selectedSource=this.data.ScrapSourceName;
+            this.selectedDestination= this.data.ScrapDestinationName;
+        }
     }
     itemsInfo = {
         columns: [
