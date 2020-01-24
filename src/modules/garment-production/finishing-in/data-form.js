@@ -239,4 +239,14 @@ export class DataForm {
     ROView=(ro) => {
         return `${ro.RONo}`;
     }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                qty += item.Quantity;
+            }
+        }
+        return qty;
+    }
 }
