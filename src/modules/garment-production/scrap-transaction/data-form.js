@@ -11,6 +11,7 @@ export class DataForm {
     @bindable selectedDestination;
     @bindable selectedSource;
     @bindable isEdit = false;
+    @bindable isCreate = false;
     @bindable isView = false;
     @bindable options = {};
     formOptions = {
@@ -38,7 +39,13 @@ export class DataForm {
         this.data.TransactionType = "IN";
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
+        console.log(this.options.isCreate);
         this.options.isView = this.context.isView;
+        if(this.data)
+        {
+            this.selectedSource= this.data.ScrapSourceName;
+            this.selectedDestination= this.data.ScrapDestinationName;
+        }
     }
     itemsInfo = {
         columns: [
@@ -64,27 +71,24 @@ export class DataForm {
         return DestinationLoader;
     }
     async selectedSourceChanged(newValue) {
-        this.data.Items.splice(0);
         if (newValue) {
             this.data.ScrapSourceId = newValue.Id;
             this.data.ScrapSourceName = newValue.Name;
-            
-            console.log(this.data.ScrapSourceName);
         }
     }
     async selectedDestinationChanged(newValue) {
-        this.data.Items.splice(0);
+       
+        
+        if (newValue && this.options.isCreate) {
+            this.data.Items.splice(0);
         let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "KG" }) });
         let uom = uomResult.data[0].Id;
 
-        if (newValue) {
             this.data.ScrapDestinationId = newValue.Id;
             this.data.ScrapDestinationName = newValue.Name;
-        }
-     
-        this.service.searchClassification({})
+            this.service.searchClassification({})
             .then((cls) => {
-               console.log(cls);
+               
                 for (var item of cls.data) {
                     this.data.Items.push({
                         ScrapClassificationId : item.Id,
@@ -95,5 +99,8 @@ export class DataForm {
                     });
                 }
             });
+        }
+     
+      
     }
 }

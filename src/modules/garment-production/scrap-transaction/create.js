@@ -8,6 +8,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+     
       
     }
 
@@ -16,6 +17,7 @@ export class Create {
         this.error = {};
         this.hasCancel=true;
         this.hasSave=true;
+        this.isCreate= true;
     }
     activate(params) {
 
@@ -35,13 +37,11 @@ export class Create {
     save(event) {
        
         var total=0;
-        console.log(this.data.Items);
         for(var i=0;i <this.data.Items.length ;i++)
         {
             console.log(this.data.Items[i].Quantity);
             total=total+ parseFloat( this.data.Items[i].Quantity);
         }
-       console.log(total);
         if(total ===0)
         {
             alert("Jumlah tidak boleh 0 semua");
