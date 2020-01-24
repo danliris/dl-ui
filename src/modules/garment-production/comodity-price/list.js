@@ -32,12 +32,14 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+
                 for(var a of result.data){
                     a.UnitCode=a.Unit.Code;
                     a.ComodityName=a.Comodity.Name;
+                    a.Price=a.Price.toLocaleString('en-EN');
                 }
                 return {
-                    total: result.info.total,
+                    total: result.info.count,
                     data: result.data
                 }
             });

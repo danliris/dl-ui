@@ -364,7 +364,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "C9": 1 },
+            permission: { "PGA": 1, "PG": 1, "GU": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -429,7 +429,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "PG": 1, "B7": 1, "C9": 1 },
+            permission: { "PGA": 1, "PG": 1, "GU": 1, "B7": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -507,7 +507,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: {  "PGA": 1, "C5": 1, "C9": 1 },
+            permission: {  "P": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },    
@@ -543,6 +543,19 @@ module.exports = [
         moduleId: './modules/merchandiser/report/garment-purchasing-quality-objective-report/index',
         nav: true,
         title: 'Laporan Sasaran Mutu Penjualan Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/profit-garment-by-section-report',
+        name: 'profit-garment-by-section-report',
+        moduleId: './modules/merchandiser/report/profit-garment-by-section-report/index',
+        nav: true,
+        title: 'Laporan Profit Garment Per Seksi',
         auth: true,
         settings: {
             group: "merchandiser",

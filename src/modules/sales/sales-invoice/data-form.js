@@ -26,6 +26,8 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
+  @bindable BuyerNPWP;
+  @bindable UseVat;
   @bindable getTempo;
 
   constructor(
@@ -53,6 +55,12 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
+    this.UseVat = this.data.UseVat;
+    this.BuyerNPWP = this.data.BuyerNPWP;
+
+    this.TotalPayment = this.data.TotalPayment;
+    this.data.TotalPayment = this.getTotalPayment;
+
     var doSalesId = this.data.DOSalesId;
     if (doSalesId) {
       this.selectedDOSales = await this.serviceProductionAzure.getDOSalesById(
@@ -76,14 +84,33 @@ export class DataForm {
     if (this.data.DueDate) {
       this.DueDate = this.data.DueDate;
     }
+
+    if (this.data.TotalPayment) {
+      this.TotalPayment = this.data.TotalPayment;
+      this.data.TotalPayment = this.getTotalPayment;
+    }
+
+    if (this.data.BuyerNPWP) {
+      this.BuyerNPWP = this.data.BuyerNPWP;
+    }
   }
 
-  get getTotalItem() {
+  get getTotalPayment() {
+    var totalPayment = 0;
     var result = 0;
-    for (var item of this.data.SalesInvoiceDetails) {
-      result += item.Amount;
+    if(this.data.SalesInvoiceDetails) {
+      for (var item of this.data.SalesInvoiceDetails) {
+        result += item.Amount;
+      } 
     }
-    return result * 0.1 + result;
+    if(this.data.UseVat) {    
+      totalPayment = result * 0.1 + result;
+    }
+    else {
+      totalPayment = result;
+    }
+    this.data.TotalPayment = totalPayment;
+    return totalPayment;
   }
 
   SalesInvoiceDateChanged(newValue, oldValue) {
@@ -106,10 +133,6 @@ export class DataForm {
       var dueTime = new Date(this.data.DueDate).getTime();
       this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
     }
-  }
-
-  errorChanged() {
-    console.log(this.error);
   }
 
   salesInvoiceDetailsInfo = {
@@ -143,7 +166,9 @@ export class DataForm {
       this.data.BuyerId = this.selectedDOSales.BuyerId;
       this.data.BuyerName = this.selectedDOSales.BuyerName;
       this.data.BuyerAddress = this.selectedDOSales.BuyerAddress;
-      this.data.BuyerNPWP = this.selectedDOSales.BuyerNPWP;
+      if(this.selectedDOSales.BuyerNPWP){
+        this.data.BuyerNPWP = this.selectedDOSales.BuyerNPWP;
+      }
       this.data.Disp = this.selectedDOSales.Disp;
       this.data.Op = this.selectedDOSales.Op;
       this.data.Sc = this.selectedDOSales.Sc;
@@ -192,6 +217,9 @@ export class DataForm {
   console() {
     console.log(this.data);
   }
+  errorChanged() {
+    console.log(this.error);
+  }
   salesInvoiceNoChanged(e) {
     console.log(this.data.SalesInvoiceNo);
   }
@@ -207,14 +235,17 @@ export class DataForm {
   tempoChanged(e) {
     console.log(this.getTempo);
   }
-  getTotalItemChanged(e) {
-    this.console.log(this.getTotalItem);
+  getTotalPaymentChanged(e) {
+    console.log(this.getTotalPayment);
   }
   useVatChanged(e) {
-    console.log(this.data.useVat);
+    console.log(this.data.UseVat);
   }
   remarkChanged(e) {
     console.log(this.data.Remark);
+  }
+  buyerNPWPChanged(e) {
+    console.log(this.data.BuyerNPWP);
   }
   idNoChanged(e) {
     console.log(this.data.IDNo);
