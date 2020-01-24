@@ -13,14 +13,18 @@ export class List {
       field: "SalesReceiptDate",
       title: "Tgl Pembayaran",
       formatter: (value, data, index) => {
-        return moment(value).format("DD-MMM-YYYY");
+        return moment.utc(value).local().format('DD MMM YYYY');
       }
     },
-    { field: "SalesReceiptDetails.CurrencyCode", title: "Kurs" },
-    { field: "SalesReceiptDetails.TotalAmount", title: "Total Harga" },
-    { field: "Paid", title: "Sudah Dibayar" },
-    { field: "TotalPaid", title: "Jumlah Pembayaran" },
-    { field: "Unpaid", title: "Belum Dibayar" }
+    {
+      field: "SalesReceiptDetails",
+      title: "Kurs",
+      formatter: (value, data, index) => {
+        var detail = value.find(i => true);
+        return detail.CurrencyCode;
+      }
+    },
+    { field: "TotalPaid", title: "Jumlah Pembayaran" }
   ];
 
   rowFormatter(data, index) {

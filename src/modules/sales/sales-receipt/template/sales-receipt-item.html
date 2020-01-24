@@ -7,7 +7,7 @@
             </au-autocomplete>
         </td>
         <td>
-            <au-textbox value.bind="getTempo" error.bind="error.Tempo" read-only.bind="true" change.delegate="getTempoChanged($event)">
+            <au-textbox value.bind="data.Tempo" error.bind="error.Tempo" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
@@ -27,8 +27,14 @@
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="getUnpaid" error.bind="error.Unpaid" read-only.bind="true">
+            <au-numeric value.bind="data.Unpaid" error.bind="error.Unpaid" read-only.bind="true">
             </au-numeric>
+        </td><td>
+            <au-numeric value.bind="data.OverPaid" error.bind="error.OverPaid" read-only.bind="true">
+            </au-numeric>
+        </td><td>
+            <au-checkbox value.bind="data.IsPaidOff" error.bind="error.IsPaidOff" read-only.bind="true">
+            </au-checkbox>
         </td>
         <td if.bind="!option.readOnly">
             <button if.bind="!option.readOnly" class="btn btn-danger pull-right"

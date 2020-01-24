@@ -149,7 +149,7 @@ export class DataForm {
 
   doSalesTableOptions = {}
 
-  salesInvoiceTypeOptions = ["", "BPF", "BPS", "BPP", "BRG"];
+  salesInvoiceTypeOptions = ["","BNG","BAB","BNS","RNG","BRG","BAG","BGS","RRG","BLL","BPF","BSF","RPF","BPR","BSR","RPR","BAV","BON","BGM","GPF","RGF","GPR","RGR","RON"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
