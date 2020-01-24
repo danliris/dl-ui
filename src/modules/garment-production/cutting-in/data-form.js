@@ -129,8 +129,10 @@ export class DataForm {
             } else {
                 const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
                 const comodityCode = comodityCodeResult.data[0];
-                const comodityResult = await this.coreService.getComodities({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
-                this.data.Comodity = comodityResult.data[0];
+                if (comodityCode) {
+                    const comodityResult = await this.coreService.getComodities({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+                    this.data.Comodity = comodityResult.data[0];
+                }
             }
             
             let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
