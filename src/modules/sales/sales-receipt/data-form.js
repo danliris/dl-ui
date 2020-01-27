@@ -92,9 +92,11 @@ export class DataForm {
       "Tempo (hari)",
       "Total Harga",
       "Kurs",
-      "Sudah Dibayar",
+      "Dibayar Sebelumnya",
       "Nominal",
-      "Sisa Bayar"
+      "Sisa Pembayaran",
+      "Kelebihan Bayar",
+      "Lunas",
     ],
     onAdd: function() {
       this.context.SalesReceiptDetailsCollection.bind();

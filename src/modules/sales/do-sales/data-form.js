@@ -120,7 +120,7 @@ export class DataForm {
     }.bind(this)
   };
 
-  doSalesTypeOptions = ["", "UP", "US", "JS", "USS", "JB", "UPS"];
+  doSalesTypeOptions = ["", "BL", "GL", "AF", "CN", "US", "USS", "UP", "UPS", "UK"];
   packingUomOptions = ["", "PCS", "ROLL", "PT"];
   lengthUomOptions = ["", "MTR"];
 
