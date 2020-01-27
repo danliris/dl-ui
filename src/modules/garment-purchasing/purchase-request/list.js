@@ -8,6 +8,7 @@ export class List {
   context = ["Rincian"]
 
   columns = [
+    { field: "SectionName", title: "Seksi" },
     { field: "PRNo", title: "Nomor PR" },
     {
       field: "Date", title: "Tanggal Validasi", formatter: function (value, data, index) {
@@ -47,6 +48,7 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
+        console.log(result)
         for (const data of result.data) {
           data.BuyerCode = data.Buyer.Code;
           data.BuyerName = data.Buyer.Name;
