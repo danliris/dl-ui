@@ -52,13 +52,13 @@ export class DataForm {
     this.context = context;
     this.data = context.data;
 
-    if(!this.data.Date){
+    if (!this.data.Date) {
 
       this.data.Date = new Date().toLocaleString();
     }
     this.error = context.error;
     this.itemsOptions = {
-      useIncomeTax: this.data.UseIncomeTax || false,
+      isUseIncomeTax: true,
       ScreenCost: this.data.CostCalculation ? this.data.CostCalculation.ScreenCost : 0,
       UnitName: this.data.CostCalculation ? this.data.CostCalculation.PreSalesContract.Unit.Name : ""
     };
@@ -67,6 +67,13 @@ export class DataForm {
       this.selectedCostCalculation = this.data.CostCalculation;
       this.isPrinting = this.data.CostCalculation.PreSalesContract.Unit.Name === "PRINTING";
 
+    }
+
+    if (this.data.Details) {
+
+      for (var item of this.data.Details) {
+        item.isUseIncomeTax = true;
+      }
     }
     // this.selectedBuyer = this.data.Buyer || null;
     // this.selectedOrderType = this.data.OrderType || null;
@@ -88,6 +95,7 @@ export class DataForm {
       this.data.ProductionOrderNo = newValue.ProductionOrderNo;
       this.itemsOptions.UnitName = newValue.PreSalesContract.Unit.Name;
       this.itemsOptions.ScreenCost = newValue.ScreenCost;
+      this.data.TransportFee = newValue.FreightCost;
 
       this.isPrinting = this.data.CostCalculation.PreSalesContract.Unit.Name === "PRINTING";
 
@@ -196,18 +204,18 @@ export class DataForm {
   selectedUseIncomeTaxChanged(newValue, oldValue) {
     this.data.UseIncomeTax = newValue
 
-    if(this.data.Details){
+    if (this.data.Details) {
 
       this.data.Details.map((detail) => {
-        detail.isUseIncomeTax = newValue
+        detail.isUseIncomeTax = true
       });
       // 
-      if(this.context.FPCollection){
+      if (this.context.FPCollection) {
 
         this.context.FPCollection.bind();
       }
     }
-    
+
   }
 
   @bindable isPrinting = false;
@@ -251,24 +259,24 @@ export class DataForm {
   }
 
   get detailHeader() {
-    if (!this.data.UseIncomeTax) {
+    // if (!this.data.UseIncomeTax) {
 
-      if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
+    //   if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
 
-        return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }];
-      } else {
+    //     return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }];
+    //   } else {
 
-        return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
-      }
+    //     return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
+    //   }
+    // }
+    // else {
+    if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
+      return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
+    } else {
+      return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
     }
-    else {
-      if (this.data.CostCalculation && this.data.CostCalculation.PreSalesContract.Unit.Name.toUpperCase() === "PRINTING") {
-        return [{ header: "Warna" }, { header: "Biaya Screen" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
-      } else {
-        return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
-      }
 
-    }
+    // }
   }
 
   itemsInfo = {
@@ -276,10 +284,10 @@ export class DataForm {
       this.data.Details.push({
         Currency: this.data.AccountBank.Currency,
         Color: '',
-        Price: 0,
+        Price: this.data.CostCalculation.ConfirmPrice,
         UseIncomeTax: false,
         ScreenCost: this.data.CostCalculation.ScreenCost,
-        isUseIncomeTax: this.data.UseIncomeTax || false
+        isUseIncomeTax: true
       });
     }.bind(this)
   }
