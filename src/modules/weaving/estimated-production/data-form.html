@@ -4,111 +4,74 @@
     .collection .panel-body {
       padding: 0px;
     }
+
   </style>
 
-  <au-input-form
-    title.bind="title"
-    with.bind="context"
-    options.bind="formOptions"
-    part="actions"
-  >
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" part="actions">
     <div class="col-md-12">
       <!-- PRODUCTION ESTIMATION NUMBER -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-2" style="white-space: nowrap;">
-          <au-textbox
-            label="No. Estimasi Produksi"
-            read-only="true"
-            show.bind="ePNumberVisibility"
-            options.bind="customOptions"
-          ></au-textbox>
+          <au-textbox label="No. Estimasi Produksi" read-only="true" options.bind="customOptions"></au-textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox
-            placeholder="No. Estimasi Produksi"
-            value.bind="data.EstimatedNumber"
-            error.bind="error.EstimatedNumber"
-            read-only.bind="true"
-            show.bind="ePNumberVisibility"
-            options.bind="customEstimatedControlOptions"
-          >
+          <au-textbox placeholder="No. Estimasi Produksi" value.bind="data.EstimatedNumber"
+            error.bind="error.EstimatedNumber" read-only.bind="true" options.bind="customEstimatedControlOptions">
           </au-textbox>
         </div>
-      </div>
+      </div> -->
 
-      <!-- PERIOD -->
+      <!-- Period -->
       <div class="row">
-        <div class="col-md-2">
-          <au-textbox
-            label="Periode"
-            read-only="true"
-            options.bind="customOptions"
-          ></au-textbox>
-        </div>
-        <div class="col-md-3">
-          <au-dropdown
-            value.bind="Month"
-            error.bind="error.Month"
-            read-only.bind="createOnly"
-            items.bind="months"
-          >
-          </au-dropdown>
-        </div>
-        <div class="col-md-3">
-          <au-dropdown
-            value.bind="Year"
-            error.bind="error.Year"
-            read-only.bind="createOnly"
-            items.bind="years"
-          >
+        <div class="col-md-3" style="white-space: nowrap;">
+          <au-dropdown label="Bulan" value.bind="Month" error.bind="error.Month" read-only.bind="readOnly"
+            items.bind="months" options.bind="controlOptions">
           </au-dropdown>
         </div>
       </div>
 
-      <!-- UNIT -->
       <div class="row">
-        <div class="col-md-2">
-          <au-textbox
-            label="Unit"
-            read-only="true"
-            options.bind="customOptions"
-          ></au-textbox>
+        <div class="col-md-3" style="white-space: nowrap;">
+          <au-dropdown label="Tahun" value.bind="Year" error.bind="error.Year" read-only.bind="readOnly"
+            items.bind="years" options.bind="controlOptions">
+          </au-dropdown>
         </div>
-        <div class="col-md-3">
-          <au-autocomplete
-            value.bind="data.Unit"
-            error.bind="error.Unit"
-            read-only.bind="createOnly"
-            loader.bind="units"
-            text="Name"
-          >
+      </div>
+
+      <!-- Unit -->
+      <div class="row">
+        <div class="col-md-3" style="white-space: nowrap;">
+          <au-autocomplete label="Unit" value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
+          loader.bind="units" text="Name"options.bind="controlOptions">
           </au-autocomplete>
         </div>
       </div>
 
+      <!-- <div class="row">
+        <div class="col-md-2">
+          <au-textbox label="Unit" read-only="true" options.bind="customOptions"></au-textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" read-only.bind="createOnly"
+            loader.bind="units" text="Name">
+          </au-autocomplete>
+        </div>
+      </div> -->
+
       <div class="row">
         <div class="col-md-1">
-          <button
-            class="btn btn-success btn-block"
-            click.delegate="searchOrderProductions()"
-            style="margin-bottom: 16px;"
-            show.bind="searchButton"
-          >
+          <button class="btn btn-success btn-block" click.delegate="searchOrderProductions()"
+            style="margin-bottom: 16px;" show.bind="searchButton">
             Cari
           </button>
         </div>
       </div>
 
       <div class="row" style="margin-bottom: 24px;">
-        <au-collection
-          view-model.ref="orderProductionsItems"
-          items.bind="data.EstimationProducts"
-          error.bind="error.EstimationProducts"
-          columns.bind="orderProductionsColumns"
-          options.bind="orderProductionsTableOptions"
-          read-only.bind="readOnly"
-          item-template="modules/weaving/estimated-production/templates/items"
-        >
+        <au-collection view-model.ref="orderProductionsItems" items.bind="data.EstimationProducts"
+          error.bind="error.EstimationProducts" columns.bind="orderProductionsColumns"
+          options.bind="orderProductionsTableOptions" read-only.bind="readOnly"
+          item-template="modules/weaving/estimated-production/templates/items">
         </au-collection>
       </div>
     </div>

@@ -1,8 +1,16 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 import moment from "moment";
-import { Service } from "./service";
+import {
+  Service
+} from "./service";
 var UnitLoader = require("../../../loader/unit-loader");
-import { Router } from "aurelia-router";
+import {
+  Router
+} from "aurelia-router";
 
 @inject(Service, Router)
 export class DataForm {
@@ -20,38 +28,29 @@ export class DataForm {
     saveText: "Simpan"
   };
 
-  customOptions = {
-    label: {
-      align: "left"
-    }
-  };
-
   //Options untuk No. Estimasi Produksi
-  customEstimatedControlOptions = {
+  controlOptions = {
+    label: {
+      length: 3
+    },
     control: {
-      length: 9
+      length: 6
     }
   };
 
-  months = [
-    "",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+  months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
   constructor(service, router) {
     this.service = service;
     this.router = router;
+
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
+
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
+    }
   }
 
   orderProductionsItems;
@@ -79,19 +78,42 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  orderProductionsColumns = [
-    { header: "Tanggal", value: "DateOrdered" },
-    { header: "No. SOP", value: "OrderNumber" },
+  orderProductionsColumns = [{
+      header: "Tanggal",
+      value: "DateOrdered"
+    },
+    {
+      header: "No. SOP",
+      value: "OrderNumber"
+    },
     {
       header: "No. Konstruksi",
       value: "ConstructionNumber"
     },
-    { header: "Total Gram", value: "TotalGramEstimation" },
-    { header: "Jumlah Order(Meter)", value: "WholeGrade" },
-    { header: "Grade A(%)", value: "GradeA" },
-    { header: "Grade B(%)", value: "GradeB" },
-    { header: "Grade C(%)", value: "GradeC" },
-    { header: "Grade D(%)", value: "GradeD" }
+    {
+      header: "Total Gram",
+      value: "TotalGramEstimation"
+    },
+    {
+      header: "Jumlah Order(Meter)",
+      value: "WholeGrade"
+    },
+    {
+      header: "Grade A(%)",
+      value: "GradeA"
+    },
+    {
+      header: "Grade B(%)",
+      value: "GradeB"
+    },
+    {
+      header: "Grade C(%)",
+      value: "GradeC"
+    },
+    {
+      header: "Grade D(%)",
+      value: "GradeD"
+    }
   ];
 
   get units() {
@@ -157,8 +179,7 @@ export class DataForm {
 
             if (
               this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
-            ) {
-            } else {
+            ) {} else {
               this.data.EstimationProducts.push(datum);
             }
           });

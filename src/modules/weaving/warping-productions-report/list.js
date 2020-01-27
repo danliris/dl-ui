@@ -28,8 +28,8 @@ export class List {
     this.router = router;
 
     this.currentYearItem = parseInt(moment().format('YYYY'));
-    this.minYearItem = this.currentYearItem - 5;
-    this.maxYearItem = this.currentYearItem + 5;
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
 
     for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
       this.years.push(i.toString());
@@ -157,7 +157,6 @@ export class List {
             result.data._ProcessedList.push(productionDatum);
             index++;
           }
-          console.log(result);
           return result;
         });
       }

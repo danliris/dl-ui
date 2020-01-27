@@ -6,9 +6,6 @@
           <au-textbox value.bind="data.OrderNumber" error.bind="error.OrderNumber" read-only.bind="detailEditOnly" show.bind="createOnly">
           </au-textbox>
         </div>
-        <div class="col-md-6">
-          <au-datepicker value.bind="data.DateOrdered" error.bind="error.DateOrdered" read-only.bind="detailEditOnly"show.bind="createOnly"></au-datepicker>
-        </div>
       </div> -->
 
       <div class="row">
@@ -19,12 +16,12 @@
               <textbox label="Periode" read-only="true"></textbox>
             </div>
             <div class="col-md-3">
-              <au-dropdown value.bind="Month" error.bind="error.Period.Month" read-only.bind="readOnly"
+              <au-dropdown value.bind="Month" error.bind="error.Period" read-only.bind="readOnly"
                 items.bind="months">
               </au-dropdown>
             </div>
             <div class="col-md-3">
-              <au-dropdown value.bind="Year" error.bind="error.Period.Year" read-only.bind="readOnly"
+              <au-dropdown value.bind="Year" error.bind="error.Period" read-only.bind="readOnly"
                 items.bind="years">
               </au-dropdown>
             </div>
@@ -64,18 +61,18 @@
               <textbox label="Komposisi Lusi(%)" read-only="true"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Poly" value.bind="data.WarpComposition.CompositionOfPoly"
+              <au-numeric placeholder="Poly" value.bind="data.WarpComposition.CompositionOfPoly"
                 error.bind="error.WarpComposition.CompositionOfPoly" read-only.bind="readOnly">
-              </au-textbox>
+              </au-numeric>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Cotton" value.bind="data.WarpComposition.CompositionOfCotton"
-                error.bind="error.WarpComposition.CompositionOfCotton" read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Cotton" value.bind="data.WarpComposition.CompositionOfCotton"
+                error.bind="error.WarpComposition.CompositionOfCotton" read-only.bind="readOnly"></au-numeric>
             </div>
 
             <div class="col-md-3">
-              <au-textbox placeholder="Lainnya" value.bind="data.WarpComposition.OtherComposition"
-                error.bind="error.WarpComposition.OtherComposition" read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Lainnya" value.bind="data.WarpComposition.OtherComposition"
+                error.bind="error.WarpComposition.OtherComposition" read-only.bind="readOnly"></au-numeric>
             </div>
           </div>
         </div>
@@ -121,17 +118,17 @@
               <textbox label="Komposisi Pakan(%)" read-only="true"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Poly" value.bind="data.WeftComposition.CompositionOfPoly"
+              <au-numeric placeholder="Poly" value.bind="data.WeftComposition.CompositionOfPoly"
                 error.bind="error.WeftComposition.CompositionOfPoly" read-only.bind="readOnly">
-              </au-textbox>
+              </au-numeric>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Cotton" value.bind="data.WeftComposition.CompositionOfCotton"
-                error.bind="error.WeftComposition.CompositionOfCotton" read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Cotton" value.bind="data.WeftComposition.CompositionOfCotton"
+                error.bind="error.WeftComposition.CompositionOfCotton" read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Lainnya" value.bind="data.WeftComposition.OtherComposition"
-                error.bind="error.WeftComposition.OtherComposition" read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Lainnya" value.bind="data.WeftComposition.OtherComposition"
+                error.bind="error.WeftComposition.OtherComposition" read-only.bind="readOnly"></au-numeric>
             </div>
           </div>
         </div>
