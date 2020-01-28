@@ -20,7 +20,14 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
-
+    controlOptions = {
+        label: {
+            length: 2
+        },
+        control: {
+            length: 5
+        }
+    }
     @computedFrom("data.Id")
     get isEdit() {
         this.readOnly=true;

@@ -10,7 +10,7 @@
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
         </div>
         <au-datepicker
-            label="Tgl. Masuk"
+            label="Tgl. Keluar"
             value.bind="data.TransactionDate"
             error.bind="error.TransactionDate"
             read-only.bind="readOnly"
@@ -18,16 +18,6 @@
         </au-datepicker>
         <au-autocomplete
             label="Asal Barang"
-            value.bind=" selectedSource"
-            error.bind="error.ScrapSourceName"
-            read-only.bind="readOnly "
-            options.bind="controlOptions"
-            loader.bind="sourceLoader"
-            text.bind = "sourceView"
-            placeholder="Source">
-        </au-autocomplete>
-        <au-autocomplete
-            label="Gudang Tujuan"
             value.bind=" selectedDestination"
             error.bind="error.ScrapDestinationName"
             read-only.bind="readOnly || isEdit"
@@ -48,7 +38,7 @@
           options.bind="itemsInfo.options"
           read-only.bind="readOnly"
           show.bind="selectedDestination || data.ScrapDestinationName "
-          item-template="modules/garment-production/scrap-transaction/template/item"
+          item-template="modules/garment-production/scrap-transaction-out/template/item"
           view-model.ref="ItemsCollection">
 </au-collection>
   </au-input-form>
