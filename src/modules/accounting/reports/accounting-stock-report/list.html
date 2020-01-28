@@ -1,5 +1,8 @@
 <template>
-    <h1 class="page-header">LAPORAN FLOW BAHAN BAKU</h1>
+    <h1 if.bind ="KtgrItem == ''" class="page-header">LAPORAN FLOW All</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN BAKU'" class="page-header">LAPORAN FLOW BAHAN BAKU</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN EMBALANCE'" class="page-header">LAPORAN FLOW BAHAN EMBALANCE</h1>
+    <h1 if.bind ="KtgrItem == 'BAHAN PENDUKUNG'" class="page-header">LAPORAN FLOW BAHAN PENDUKUNG</h1>
     <form class="form-horizontal">
         <au-dropdown 
               label="Unit" 
@@ -38,7 +41,8 @@
                         <td align="center" rowspan="3">PLANPO</td>
                         <td align="center" rowspan="3">NO ARTIKEL</td>
                         <td align="center" colspan="3" rowspan="2">SALDO AWAL</td>
-                        <td colspan="14">P E M A S U K A N</td>
+                        <td if.bind ="UnitItem != ''" colspan="14">P E M A S U K A N</td>
+                        <td if.bind ="UnitItem == ''" colspan="16">P E M A S U K A N</td>
                         <td colspan="18">P E N G E L U A R A N</td>
                         <td align="center" rowspan="2" colspan="3">SALDO AKHIR</td>
                         
@@ -89,6 +93,8 @@
                         <td>JUMLAH</td>
                         <td>SATUAN</td>
                         <td>HARGA</td>
+                        <td if.bind ="UnitItem == ''">JUMLAH</td>
+                        <td if.bind ="UnitItem == ''">HARGA</td>
                         <td>JUMLAH</td>
                         <td>HARGA</td>
                         <td>JUMLAH</td>

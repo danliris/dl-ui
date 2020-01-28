@@ -5,21 +5,26 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["Detail", "Cetak Kwitansi"];
+  context = ["Detail", "Cetak Kuitansi"];
 
   columns = [
-    { field: "SalesReceiptNo", title: "No. Kwitansi" },
+    { field: "SalesReceiptNo", title: "No. Kuitansi" },
     {
       field: "SalesReceiptDate",
       title: "Tgl Pembayaran",
       formatter: (value, data, index) => {
-        return moment(value).format("DD-MMM-YYYY");
+        return moment.utc(value).local().format('DD MMM YYYY');
       }
     },
-    { field: "TotalAmount", title: "Total Harga" },
-    { field: "Paid", title: "Sudah Dibayar" },
-    { field: "Nominal", title: "Jumlah Pembayaran" },
-    { field: "Unpaid", title: "Belum Dibayar" }
+    {
+      field: "SalesReceiptDetails",
+      title: "Kurs",
+      formatter: (value, data, index) => {
+        var detail = value.find(i => true);
+        return detail.CurrencyCode;
+      }
+    },
+    { field: "TotalPaid", title: "Jumlah Pembayaran" }
   ];
 
   rowFormatter(data, index) {
@@ -57,7 +62,7 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak Kwitansi":
+      case "Cetak Kuitansi":
         this.service.getSalesReceiptPdfById(data.Id);
         break;
     }
@@ -65,7 +70,7 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Kwitansi":
+      case "Cetak Kuitansi":
         return data;
       default:
         return true;

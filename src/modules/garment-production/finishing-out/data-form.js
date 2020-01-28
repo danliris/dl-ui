@@ -16,6 +16,7 @@ export class DataForm {
     @bindable selectedUnit;
     @bindable selectedUnitTo;
     @bindable itemOptions = {};
+    @bindable selectedFinishingTo;
 
     finishingToOptions = ['GUDANG JADI','SEWING'];
 
@@ -89,9 +90,25 @@ export class DataForm {
         return UnitLoader;
     }
 
+    selectedFinishingToChanged(newValue){
+        this.data.FinishingTo=newValue;
+        if(newValue=="GUDANG JADI"){
+            this.data.UnitTo=this.data.Unit;
+            this.selectedUnitTo=this.data.UnitTo;
+        }
+        else{
+            this.data.UnitTo=null;
+            this.selectedUnitTo=this.data.UnitTo;
+        }
+    }
+
     selectedUnitChanged(newValue){
         if(newValue){
             this.data.Unit=newValue;
+            if(this.selectedFinishingTo=="GUDANG JADI"){
+                this.data.UnitTo=this.data.Unit;
+                this.selectedUnitTo=this.data.UnitTo;
+            }
         }
         else{
             this.context.selectedROViewModel.editorValue = "";
@@ -180,7 +197,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id,"Items.Any(RemainingQuantity>0)":true})
             };
             return this.service.searchFinishingIn(info)
                 .then((result) => {
@@ -208,5 +225,26 @@ export class DataForm {
                 a.IsSave=false;
             }
         }
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave){
+                    if(this.data.IsDifferentSize){
+                        if(item.Details){
+                            for(var detail of item.Details){
+                                qty += detail.Quantity;
+                            }
+                        }
+                    }
+                    else{
+                        qty += item.Quantity;
+                    }
+                }
+            }
+        }
+        return qty;
     }
 }

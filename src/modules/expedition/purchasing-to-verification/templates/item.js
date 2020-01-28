@@ -55,7 +55,7 @@ export class Item {
 
             this.service.getCorrectionState(newV._id)
                 .then((correctionStateResponse) => {
-                    let correctionState = correctionStateResponse.data;
+                    let correctionState = correctionStateResponse.data ? correctionStateResponse.data : {};
                     console.log(correctionState);
                     return this.service.getURN(filter)
                         .then((response) => {

@@ -3,8 +3,11 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'cutting-ins';
 const preparingServiceUri = 'preparings';
 const uomServiceUri = 'master/uoms';
+const comodityServiceUri = 'master/garment-comodities';
 const comodityPriceserviceUri = 'comodity-prices';
 const costCalculationServiceUri = 'cost-calculation-garments';
+const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
+const sewingOutServiceUri = 'sewing-outs';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -50,6 +53,11 @@ class Service extends RestService {
         var endpoint = `${preparingServiceUri}/${id}`;
         return super.get(endpoint);
     }
+
+    readSewingOut(id) {
+        var endpoint = `${sewingOutServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
 }
 
 class CoreService extends RestService {
@@ -61,6 +69,11 @@ class CoreService extends RestService {
         var endpoint = `${uomServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    getComodities(info) {
+        var endpoint = `${comodityServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
 
 class SalesService extends RestService {
@@ -70,6 +83,11 @@ class SalesService extends RestService {
 
     getCostCalculationByRONo(info) {
         var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getHOrderKodeByNo(info) {
+        var endpoint = `${hOrderKodeByNoServiceUri}`;
         return super.list(endpoint, info);
     }
 }

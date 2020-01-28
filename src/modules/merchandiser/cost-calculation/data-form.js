@@ -211,6 +211,7 @@ export class DataForm {
       })
     }
 
+    this.costCalculationGarment_MaterialsInfo.options.CCId = this.data.Id;
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
@@ -286,6 +287,12 @@ export class DataForm {
 
     if ((oldValue && newValue) || (oldValue && !newValue)) {
       this.data.CostCalculationGarment_Materials.splice(0);
+    } else if (this.data.PreSCNoSource && this.data.PreSCNo !== this.data.PreSCNoSource) {
+      const materialsFromPRMaster = this.data.CostCalculationGarment_Materials.filter(m => m.PRMasterItemId > 0);
+      for (const materialFromPRmaster of materialsFromPRMaster) {
+        const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
+        this.data.CostCalculationGarment_Materials.splice(index, 1);
+      }
     }
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }

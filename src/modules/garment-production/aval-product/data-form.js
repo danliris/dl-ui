@@ -55,7 +55,8 @@ export class DataForm {
         var filter={};
         if(this.data.Unit){
             filter={
-                UnitId: this.data.Unit.Id
+                UnitId: this.data.Unit.Id,
+                "GarmentPreparingItem.Any(RemainingQuantity>0)":true
             }
         }
         return filter;
