@@ -123,7 +123,7 @@ export class DataForm {
         this.data.SewingDOId=null;
         this.data.SewingDONo=null;
         this.data.Price=0;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         if(newValue){
             this.data.Unit=newValue;
         }
@@ -137,7 +137,7 @@ export class DataForm {
             this.data.SewingDOId=null;
             this.data.SewingDONo=null;
             this.data.Price=0;
-            this.data.Items = [];
+            this.data.Items.splice(0);
         }
     }
 
