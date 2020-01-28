@@ -284,7 +284,7 @@ export class DataForm {
       this.data.Details.push({
         Currency: this.data.AccountBank.Currency,
         Color: '',
-        Price: this.data.CostCalculation.ConfirmPrice,
+        Price: 0,
         UseIncomeTax: false,
         ScreenCost: this.data.CostCalculation.ScreenCost,
         isUseIncomeTax: true
