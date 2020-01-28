@@ -20,7 +20,7 @@
             label="Asal Barang"
             value.bind=" selectedSource"
             error.bind="error.ScrapSourceName"
-            read-only.bind="readOnly "
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             loader.bind="sourceLoader"
             text.bind = "sourceView"
