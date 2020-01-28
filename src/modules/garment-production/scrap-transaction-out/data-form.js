@@ -55,6 +55,14 @@ export class DataForm {
         ]
     }
     itemsColumns = [""];
+    controlOptions = {
+        label: {
+            length: 2
+        },
+        control: {
+            length: 5
+        }
+    }
    
     destinationView = (unit) => {
         return `${unit.Code} - ${unit.Name}`;
