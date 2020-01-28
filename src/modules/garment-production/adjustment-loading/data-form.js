@@ -130,7 +130,6 @@ export class DataForm {
         else{
             this.data.Unit=null;
             this.selectedSewingDO=null;
-            this.selectedSewingDO=null;
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
@@ -179,7 +178,6 @@ export class DataForm {
                     a.Color=item.Color;
                     a.Size=item.Size;
                     a.Quantity=item.RemainingQuantity;
-                    a.SewingDORemainingQuantity=item.RemainingQuantity;
                     a.IsSave=true;
                     a.SewingDOItemId=item.Id;
                     a.RemainingQuantity=item.RemainingQuantity;
@@ -208,7 +206,7 @@ export class DataForm {
             "Kode Barang",
             "Keterangan",
             "Size",
-            "Jumlah",
+            "Jumlah Keluar",
             "Satuan",
             "Warna",
         ]
