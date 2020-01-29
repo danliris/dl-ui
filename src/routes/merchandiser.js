@@ -563,4 +563,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/open-po-master',
+        name: 'open-po-master',
+        moduleId: './modules/merchandiser/open-po-master/index',
+        nav: true,
+        title: 'Open PO Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
