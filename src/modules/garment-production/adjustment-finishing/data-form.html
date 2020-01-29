@@ -15,7 +15,7 @@
         <au-autocomplete
             value.bind="selectedUnit"
             error.bind="error.Unit"
-            label="Unit Adjustment Sewing"
+            label="Unit Adjustment Finishing"
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
@@ -51,7 +51,7 @@
         </au-textbox>
 
         <au-datepicker 
-            label="Tanggal Adjustment Sewing"
+            label="Tanggal Adjustment Finishing"
             value.bind="data.AdjustmentDate"
             error.bind="error.AdjustmentDate"
             read-only.bind="readOnly"
@@ -69,13 +69,13 @@
             columns.bind="itemsInfo.columns"
             read-only.bind="readOnly"
             options.bind="itemOptions"
-            item-template="modules/garment-production/adjustment-sewing/templates/item"
-            header-template="modules/garment-production/adjustment-sewing/templates/item-header"
+            item-template="modules/garment-production/adjustment-finishing/templates/item"
+            header-template="modules/garment-production/adjustment-finishing/templates/item-header"
             if.bind="selectedRO">
         </au-collection>
 
 
-        <p if.bind="data.Items"><b>Jumlah Total Adjustment Sewing: ${totalQuantity} PCS</b></p>
+        <p if.bind="data.Items"><b>Jumlah Total Adjustment Finishing: ${totalQuantity} PCS</b></p>
 
     </au-input-form>
     <div class="row"></div>
