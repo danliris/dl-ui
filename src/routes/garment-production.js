@@ -207,11 +207,24 @@ module.exports = [
         }
     },
     {
-        route: '/garment-production/scrap-transaction',
-        name: 'garment-production-scrap-transaction',
-        moduleId: './modules/garment-production/scrap-transaction/index',
+        route: '/garment-production/scrap-transaction-in',
+        name: 'garment-production-scrap-transaction-in',
+        moduleId: './modules/garment-production/scrap-transaction-in/index',
         nav: true,
         title: 'Penerimaan Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-transaction-out',
+        name: 'garment-production-scrap-transaction-out',
+        moduleId: './modules/garment-production/scrap-transaction-out/index',
+        nav: true,
+        title: 'Pengeluaran Barang Aval',
         auth: true,
         settings: {
             group: "g-production",
@@ -271,17 +284,43 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: '/garment-production/monitoring-finishing',
-    //     name: 'garment-production-monitoring-finishing',
-    //     moduleId: './modules/garment-production/monitoring-finishing/index',
-    //     nav: true,
-    //     title: 'Monitoring Finishing',
-    //     auth: true,
-    //     settings: {
-    //         group: "g-production",
-    //         permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // }
+    {
+        route: '/garment-production/adjustment-loading',
+        name: 'garment-production-adjustment-loading',
+        moduleId: './modules/garment-production/adjustment-loading/index',
+        nav: true,
+        title: 'Adjustment Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-sewing',
+        name: 'garment-production-adjustment-sewing',
+        moduleId: './modules/garment-production/adjustment-sewing/index',
+        nav: true,
+        title: 'Adjustment Sewing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-finishing',
+        name: 'garment-production-monitoring-finishing',
+        moduleId: './modules/garment-production/monitoring-finishing/index',
+        nav: true,
+        title: 'Monitoring Finishing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

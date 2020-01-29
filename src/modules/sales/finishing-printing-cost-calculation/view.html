@@ -135,7 +135,8 @@
 
               </tr>
               <tr>
-                <td class="label-td">Berat Kain RFD</td>
+                <td show.bind="!isPrinting" class="label-td">Berat Kain RFD</td>
+                <td show.bind="isPrinting" class="label-td">Berat Kain RFP</td>
                 <td>${data.RFDFabricWeight | numberFormat:'0,0.000'}</td>
               </tr>
               <tr>
@@ -271,6 +272,11 @@
 
             </tbody>
           </table>
+        </div>
+
+        <div show.bind="isPrinting">
+          <img src.bind="data.ImageFile || '#'" class="center-block" height="auto" width="60%">
+          
         </div>
       </div>
     </div>

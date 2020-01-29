@@ -108,8 +108,8 @@
           placeholder="input packing">
         </au-multiline>
 
-        <checkbox label="Kena Ppn?" value.bind="selectedUseIncomeTax" read-only.bind="readOnly">
-        </checkbox>
+        <!-- <checkbox label="Kena Ppn?" value.bind="selectedUseIncomeTax" read-only.bind="readOnly">
+        </checkbox> -->
 
         <au-autocomplete label="Syarat Pembayaran" value.bind="data.TermOfPayment" error.bind="error.TermOfPaymentID"
           read-only.bind="readOnly" loader.bind="termOfPaymentLoader" text="Name" key="Name"
@@ -130,7 +130,7 @@
           placeholder="input term of shipment">
         </au-textbox>
 
-        <au-textbox label="Ongkos Angkut" value.bind="data.TransportFee" read-only.bind="readOnly"
+        <au-textbox label="Ongkos Angkut" value.bind="data.TransportFee" read-only.bind="true"
           options.bind="controlOptions" placeholder="input ongkos angkut">
         </au-textbox>
 

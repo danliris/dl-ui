@@ -112,6 +112,13 @@ export class DataForm {
                 let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
+                } else {
+                    const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
+                    const comodityCode = comodityCodeResult.data[0];
+                    if (comodityCode) {
+                        const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+                        this.data.Comodity = comodityResult.data[0];
+                    }
                 }
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});

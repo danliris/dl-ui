@@ -149,7 +149,8 @@ export class DataForm {
         this.data.FinishingPrintingSalesContract.Quality.Name : "";
       this.data.SalesContractType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Type;
       this.data.Packing = this.data.FinishingPrintingSalesContract.Packing;
-
+      this.data.DeliveryDate = this.data.FinishingPrintingSalesContract.DeliverySchedule
+      this.account = this.data.FinishingPrintingSalesContract.CostCalculation.Sales;
     } else {
       this.data = {};
       this.data.Details = [];

@@ -54,6 +54,7 @@ export async function configure(aurelia) {
 
 
 
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);

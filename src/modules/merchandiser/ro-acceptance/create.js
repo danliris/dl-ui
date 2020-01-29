@@ -38,9 +38,12 @@ export class Create {
 
     columns = [
        "No RO",
+       "Kode Brand",
+       "Nama Buyer Brand",
        "Artikel",
        "Unit",
-       "Kuantitas RO",
+       "Kuantitas Order",
+       "Satuan",
     ];
 
     get costCalculationGarmentLoader() {
