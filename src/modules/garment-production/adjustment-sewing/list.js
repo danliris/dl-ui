@@ -22,7 +22,7 @@ export class List {
         }
         this.filter={
           CreatedBy: username,
-          AdjustmentType: "LOADING"
+          AdjustmentType: "SEWING"
         }
       }
 

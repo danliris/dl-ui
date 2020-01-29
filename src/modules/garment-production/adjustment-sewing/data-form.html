@@ -15,7 +15,7 @@
         <au-autocomplete
             value.bind="selectedUnit"
             error.bind="error.Unit"
-            label="Unit Adjustment Loading"
+            label="Unit Adjustment Sewing"
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
@@ -24,17 +24,16 @@
         </au-autocomplete>
 
         <au-autocomplete
-            value.bind="selectedSewingDO"
+            value.bind="selectedRO"
             error.bind="error.RONo"
             label="RO"
-            loader.bind="sewingDOLoader"
-            query.bind="filter"
-            show.bind="data.Unit"
+            loader.bind="roLoader"
             text.bind="ROView"
-            placeholder="nomor sewing DO"
+            show.bind="selectedUnit"
+            placeholder="Nomor RO"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
-            view-model.ref="selectedSewingDOViewModel">
+            view-model.ref="selectedROViewModel">
         </au-autocomplete>
 
         <au-textbox
@@ -52,7 +51,7 @@
         </au-textbox>
 
         <au-datepicker 
-            label="Tanggal Adjustment Loading"
+            label="Tanggal Adjustment Sewing"
             value.bind="data.AdjustmentDate"
             error.bind="error.AdjustmentDate"
             read-only.bind="readOnly"
@@ -72,11 +71,11 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/adjustment-loading/templates/item"
             header-template="modules/garment-production/adjustment-loading/templates/item-header"
-            if.bind="selectedSewingDO">
+            if.bind="selectedRO">
         </au-collection>
 
 
-        <p if.bind="data.Items"><b>Jumlah Total Adjustment Loading: ${totalQuantity} PCS</b></p>
+        <p if.bind="data.Items"><b>Jumlah Total Adjustment Sewing: ${totalQuantity} PCS</b></p>
 
     </au-input-form>
     <div class="row"></div>

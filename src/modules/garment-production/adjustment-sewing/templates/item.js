@@ -8,7 +8,7 @@ export class Item {
     this.error = this.context.error;		
     this.options = this.context.options;    
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
-    this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.Quantity;
+    this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 50/100)) * this.data.RemainingQuantity;
   }
 
   @computedFrom("data.Id")
@@ -21,7 +21,7 @@ export class Item {
   }
 
   qtyChanged(e) {
-    this.data.Quantity=e.srcElement.value;
-    this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 25/100)) * this.data.Quantity;
+    this.data.RemainingQuantity=e.srcElement.value;
+    this.data.Price=(this.data.BasicPrice + (this.data.ComodityPrice * 50/100)) * this.data.RemainingQuantity;
   }
 }

@@ -123,13 +123,12 @@ export class DataForm {
         this.data.SewingDOId=null;
         this.data.SewingDONo=null;
         this.data.Price=0;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         if(newValue){
             this.data.Unit=newValue;
         }
         else{
             this.data.Unit=null;
-            this.selectedSewingDO=null;
             this.selectedSewingDO=null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -138,7 +137,7 @@ export class DataForm {
             this.data.SewingDOId=null;
             this.data.SewingDONo=null;
             this.data.Price=0;
-            this.data.Items = [];
+            this.data.Items.splice(0);
         }
     }
 
@@ -179,7 +178,6 @@ export class DataForm {
                     a.Color=item.Color;
                     a.Size=item.Size;
                     a.Quantity=item.RemainingQuantity;
-                    a.SewingDORemainingQuantity=item.RemainingQuantity;
                     a.IsSave=true;
                     a.SewingDOItemId=item.Id;
                     a.RemainingQuantity=item.RemainingQuantity;
@@ -208,7 +206,7 @@ export class DataForm {
             "Kode Barang",
             "Keterangan",
             "Size",
-            "Jumlah",
+            "Jumlah Keluar",
             "Satuan",
             "Warna",
         ]
