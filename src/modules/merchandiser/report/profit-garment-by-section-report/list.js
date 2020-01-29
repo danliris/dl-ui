@@ -49,18 +49,11 @@ export class List {
                 this.data = result;
                 console.log(result);
 
-                this.CMPrice = 0;
-                this.FOBPrice = 0;
-
                 var datas = [];
                 for (var item of this.data){
 
-                    this.CMPrice = (item.CMPrice / item.CurrencyRate) * 1.05;
-                     
-                    this.FOBPrice = item.ConfirmPrice + this.CMPrice
-                    
-                    this.CMPrice=this.CMPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
-                    this.FOBPrice=this.FOBPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
+                    item.CMPrice=item.CMPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
+                    item.FOBPrice=item.FOBPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
                     
                     item.DeliveryDate=moment(item.DeliveryDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.DeliveryDate).format("DD MMM YYYY");                    
                     item.Quantity=item.Quantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
