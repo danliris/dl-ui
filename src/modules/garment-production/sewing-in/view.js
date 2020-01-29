@@ -24,6 +24,12 @@ export class View {
                 };
                 this.selectedUnitFrom=this.data.UnitFrom;
             }
+            else if(this.data.SewingFrom=="FINISHING"){
+                this.selectedFinishingOut={
+                    RONo:this.data.RONo
+                };
+                this.selectedUnitFrom=this.data.UnitFrom;
+            }
             if (this.data.Items) {
         //         let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
 

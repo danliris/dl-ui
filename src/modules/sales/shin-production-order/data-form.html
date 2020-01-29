@@ -57,7 +57,7 @@
             </div>
 
             <div class="col-sm-3">
-              <au-numeric format="0" value.bind="orderQuantity" read-only.bind="readOnly">
+              <au-numeric format="0" error.bind="error.OrderQuantity" value.bind="orderQuantity" read-only.bind="readOnly">
               </au-numeric>
             </div>
 
@@ -130,11 +130,11 @@
           </div>
 
           <datepicker label="Tanggal Delivery" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate"
-            read-only.bind="readOnly"></datepicker>
+            read-only.bind="true"></datepicker>
 
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete value.bind="account" label="Nama Staff Penjualan" text.bind="text"
-              error.bind="error.Account" read-only.bind="readOnly" loader.bind="accountLoader">
+              error.bind="error.Account" read-only.bind="true" loader.bind="accountLoader">
             </au-autocomplete>
           </div>
 
