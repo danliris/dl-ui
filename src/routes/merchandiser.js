@@ -563,4 +563,45 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/merchandiser/open-po-master',
+        name: 'open-po-master',
+        moduleId: './modules/merchandiser/open-po-master/index',
+        nav: true,
+        title: 'Open PO Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/md',
+        name: 'open-po-master-approval-md',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Md',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "md"
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/purchasing',
+        name: 'open-po-master-approval-purchasing',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "purchasing"
+        }
+    },
 ];
