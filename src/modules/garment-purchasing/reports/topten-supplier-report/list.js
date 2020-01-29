@@ -14,7 +14,7 @@ export class List {
     }
    
     unit=null;    
-    jnsSpl = false;
+    //jnsSpl = false;
     payMtd = " ";    
     category= " ";
     dateFrom = null;
@@ -22,7 +22,7 @@ export class List {
     @bindable JenisSpl;
     @bindable KtgrItem;
          
-    SupplierType = ['LOCAL', 'IMPORT'];
+    SupplierType = ['','LOCAL', 'IMPORT'];
     KategoriItem = ['','BAHAN BAKU', 'INTERLINING', 'BAHAN PENDUKUNG'];
    
     termPaymentLocal = ['', 'DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE']; 
@@ -38,7 +38,15 @@ export class List {
 
     JenisSplChanged(newvalue) {
         if (newvalue) {
-            this.jnsSpl = newvalue === "LOCAL" ? false : true;          
+            if(newvalue === "LOCAL"){
+            this.jnsSpl =  "false" ;  
+            }
+            else if (newvalue === "IMPORT"){
+                this.jnsSpl =  "true" ; 
+            }       
+            else{
+                this.jnsSpl =  null ; 
+            } 
         }
     }
 
@@ -71,7 +79,8 @@ export class List {
                 this.data=[];
 
                 for(var _data of result){
-
+                    
+                    _data.Amount=_data.Amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                     this.data.push(_data);
                 }
                   console.log(this.data);
@@ -106,6 +115,9 @@ export class List {
         this.unit = null;
         this.category = undefined; 
         this.suppliers = undefined;
+        this.jnsSpl = null;
+        this.JenisSpl ="";
+        this.KtgrItem="";
     }
 
     dateFromChanged(e) {
