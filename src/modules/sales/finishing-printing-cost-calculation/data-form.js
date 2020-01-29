@@ -123,6 +123,8 @@ export class DataForm {
     if (this.data.Date) {
       this.date = this.data.Date;
     }
+
+    this.imageSrc = this.data.ImageFile = this.isEdit || this.isCopy ? (this.data.ImageFile || "#") : "#";
   }
 
   get materialLoader() {
@@ -151,6 +153,19 @@ export class DataForm {
 
   salesText = (data) => {
     return `${data.profile.firstname} - ${data.profile.lastname}`
+  }
+
+
+  @bindable imageUpload;
+  @bindable imageSrc;
+  imageUploadChanged(newValue) {
+    let imageInput = document.getElementById('imageInput');
+    let reader = new FileReader();
+    reader.onload = event => {
+      let base64Image = event.target.result;
+      this.imageSrc = this.data.ImageFile = base64Image;
+    }
+    reader.readAsDataURL(imageInput.files[0]);
   }
 
   async dateChanged(n, o) {
