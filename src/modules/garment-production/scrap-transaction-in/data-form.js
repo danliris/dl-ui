@@ -57,7 +57,7 @@ export class DataForm {
     itemsInfo = {
         columns: [
             "Jenis Barang Aval",
-            "Quantity",
+            "Jumlah Masuk",
             "Satuan",
             "Keterangan"
         ]

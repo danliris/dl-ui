@@ -48,8 +48,8 @@ export class DataForm {
     itemsInfo = {
         columns: [
             "Jenis Barang Aval",
-            "Remaining Quantity",
-            "Quantity",
+            "Jumlah Tersedia",
+            "Jumlah Keluar",
             "Satuan",
             "Keterangan"
         ]
@@ -117,6 +117,7 @@ export class DataForm {
                         
                             item.RemainingQuantity = qty.Quantity + item.Quantity;
                             item.TransactionType = "OUT";
+                            item.IsEdit= true;
                         }
                     }
                 }
