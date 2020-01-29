@@ -18,7 +18,8 @@ export class DataForm {
   @bindable Month;
   @bindable Year;
 
-  yearFormat = "YYYY";
+  months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  
   years = [];
 
   formOptions = {
@@ -49,23 +50,31 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.Month = this.months[this.getMonth()];
+    // this.Month = this.months[this.getMonth()];
 
-    if (this.data.Id) {
-      if (this.readOnly) {
-        this.Month = this.data.Period.Month;
-        this.Year = this.data.Period.Year;
-        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
-      } else {
-        this.Month = this.data.Period.Month;
-        var yearData = this.data.Period.Year;
-        this.Year = this.getYears(yearData);
-        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
-      }
-    } else {
-      this.data.Period = {};
-      this.data.Period.Month = this.Month;
-      this.Year = this.getYears();
+    // if (this.data.Id) {
+    //   if (this.readOnly) {
+    //     this.Month = this.data.Period.Month;
+    //     this.Year = this.data.Period.Year;
+    //     this.FabricConstructionDocument = this.data.FabricConstructionDocument;
+    //   } else {
+    //     this.Month = this.data.Period.Month;
+    //     var yearData = this.data.Period.Year;
+    //     this.Year = this.getYears(yearData);
+    //     this.FabricConstructionDocument = this.data.FabricConstructionDocument;
+    //   }
+    // } else {
+    //   this.data.Period = {};
+    //   this.data.Period.Month = this.Month;
+    //   this.Year = this.getYears();
+    // }
+
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
+
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
     }
 
     this.cancelCallback = this.context.cancelCallback;
@@ -110,18 +119,18 @@ export class DataForm {
     this.data.Period.Year = newValue;
   }
 
-  getYears() {
-    var year = moment(new Date());
-    this.years.push(year.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-  }
+  // getYears() {
+  //   var year = moment(new Date());
+  //   this.years.push(year.year());
+  //   var nextYear = year.add(1, "years");
+  //   this.years.push(nextYear.year());
+  //   var nextYear = year.add(1, "years");
+  //   this.years.push(nextYear.year());
+  //   var nextYear = year.add(1, "years");
+  //   this.years.push(nextYear.year());
+  // }
 
-  getMonth() {
-    return new Date().getMonth() + 1;
-  }
+  // getMonth() {
+  //   return new Date().getMonth() + 1;
+  // }
 }

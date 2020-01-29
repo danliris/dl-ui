@@ -1,6 +1,12 @@
-import { inject } from "aurelia-framework";
-import { Service } from "./service";
-import { Router } from "aurelia-router";
+import {
+  inject
+} from "aurelia-framework";
+import {
+  Service
+} from "./service";
+import {
+  Router
+} from "aurelia-router";
 import moment from "moment";
 
 @inject(Router, Service)
@@ -8,8 +14,7 @@ export class List {
   context = ["detail"];
 
   columns = [
-    [
-      {
+    [{
         field: "OrderNumber",
         title: "No. SPP",
         rowspan: "2",
@@ -21,7 +26,7 @@ export class List {
         title: "Tanggal SPP",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return moment(value).format("DD MMMM YYYY");
         },
         sortable: true
@@ -31,7 +36,7 @@ export class List {
         title: "Unit",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.Name;
         }
       },
@@ -52,12 +57,11 @@ export class List {
         valign: "middle"
       }
     ],
-    [
-      {
+    [{
         field: "WarpComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfPoly;
         }
       },
@@ -65,7 +69,7 @@ export class List {
         field: "WarpComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfCotton;
         }
       },
@@ -73,7 +77,7 @@ export class List {
         field: "WarpComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.OtherComposition;
         }
       },
@@ -81,7 +85,7 @@ export class List {
         field: "WeftComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfPoly;
         }
       },
@@ -89,7 +93,7 @@ export class List {
         field: "WeftComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfCotton;
         }
       },
@@ -97,7 +101,7 @@ export class List {
         field: "WeftComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.OtherComposition;
         }
       }
@@ -155,7 +159,9 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { Id: data.Id });
+        this.router.navigateToRoute("view", {
+          Id: data.Id
+        });
         break;
     }
   }

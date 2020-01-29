@@ -26,28 +26,6 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    let errorIndex = 0;
-    var CodeRegEx = new RegExp("([1-9])");
-
-    if (!this.data.ReedSpace) {
-      this.data.ReedSpace = 0;
-    } else {
-      if (!CodeRegEx.test(this.data.ReedSpace)) {
-        this.error.ReedSpace = "Only Numbers (1-9) Allowed";
-        errorIndex++;
-      }
-    }
-    
-    if (!this.data.TotalEnds) {
-      this.data.TotalEnds = 0;
-    } else {
-      if (!CodeRegEx.test(this.data.TotalEnds)) {
-        this.error.TotalEnds = "Only Numbers (1-9) Allowed";
-        errorIndex++;
-      }
-    }
-
-    if (errorIndex == 0) {
     this.service
       .create(this.data)
       .then(result => {
@@ -56,6 +34,5 @@ export class Create {
       .catch(e => {
         this.error = e;
       });
-    }
   }
 }
