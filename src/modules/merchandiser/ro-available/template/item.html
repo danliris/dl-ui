@@ -14,6 +14,18 @@
         </td>
         <td>
             <au-textbox 
+                value.bind="data.BuyerBrand.Code"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.BuyerBrand.Name"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
                 value.bind="data.Article"
                 read-only.bind="true">
             </au-textbox>
@@ -28,6 +40,13 @@
             <au-textbox 
                 value.bind="data.Quantity" 
                 error.bind="error.Quantity"
+                read-only.bind="readOnly">
+            </au-textbox>
+        </td>
+        <td align='center'>
+            <au-textbox 
+                value.bind="data.UOM.Unit" 
+                error.bind="error.UOM.Unit"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>

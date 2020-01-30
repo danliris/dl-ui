@@ -53,12 +53,12 @@ export class DataForm {
         if (this.data.UnitFrom) {
             return {
                 UnitId: this.data.UnitFrom.Id,
-                CuttingFrom:"PREPARING"
+                CuttingFrom:"PREPARING", CuttingType:"MAIN FABRIC"
             };
         } else {
             return {
                 UnitId: 0,
-                CuttingFrom:"PREPARING"
+                CuttingFrom:"PREPARING", CuttingType:"MAIN FABRIC"
             };
         }
     }
@@ -141,6 +141,13 @@ export class DataForm {
                 
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
+                } else {
+                    const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
+                    const comodityCode = comodityCodeResult.data[0];
+                    if (comodityCode) {
+                        const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+                        this.data.Comodity = comodityResult.data[0];
+                    }
                 }
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
@@ -168,7 +175,7 @@ export class DataForm {
                     });
                 
 
-                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
+                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id , CuttingType:"MAIN FABRIC"}) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
@@ -204,11 +211,11 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.UnitFrom.Id})
             };
-            return this.service.getCuttingIn(infoCuttingIn)
+            return this.service.getCuttingInByRO(infoCuttingIn)
                 .then((result) => {
                     var infoEPO = {
                         keyword: keyword,
-                        filter: JSON.stringify({ ProductName:"PROCESS" })
+                        filter: JSON.stringify({ ProductName:"PROCESS"})
                       };
                     return this.purchasingService.getGarmentEPOByRONo(infoEPO)
                     .then((epo)=>{

@@ -52,10 +52,6 @@ export class View {
       total.TotalLengthConversion += detail.TotalLengthConversion;
     }
 
-    total.TotalPacking = numeral(total.TotalPacking).format("0,0.00");
-    total.TotalLength = numeral(total.TotalLength).format("0,0.00");
-    total.TotalLengthConversion = numeral(total.TotalLengthConversion).format("0,0.00");
-
     this.data.DOSalesDetails.push(total);
   }
 }

@@ -10,9 +10,14 @@ export class List {
         { field: "Section", title: "Seksi" },
         
         { field: "RO_Number", title: "No RO" },
+        { field: "BuyerCode", title: "Kode Agent" },
+        { field: "BuyerName", title: "Nama Buyer Agent" },
+        { field: "BrandCode", title: "Kode Brand" },
+        { field: "BrandName", title: "Nama Buyer Brand" },
         { field: "Article", title: "Artikel" },
         { field: "UnitName", title: "Unit" },
-        { field: "Quantity", title: "Kuantitas RO" },
+        { field: "Quantity", title: "Kuantitas Order" },
+        { field: "UOMUnit", title: "Satuan" },
         { field: "ROAcceptedDate", title: "Tgl. Penerimaan RO", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
@@ -38,10 +43,13 @@ export class List {
 
         return this.service.search(arg)
         .then(result => {
-            // result.data.forEach(data => {
-            // data.BuyerCode = data.Buyer.Code;
-            // data.BuyerName = data.Buyer.Name;
-            // });
+            result.data.forEach(data => {
+            data.BuyerCode = data.Buyer.Code;
+            data.BuyerName = data.Buyer.Name;
+            data.BrandCode = data.BuyerBrand.Code;
+            data.BrandName = data.BuyerBrand.Name;  
+            data.UOMUnit = data.UOM.Unit;
+            });
             return {
             total: result.info.total,
             data: result.data

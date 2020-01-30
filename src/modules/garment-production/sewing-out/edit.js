@@ -20,7 +20,8 @@ export class View {
             this.selectedUnitTo=this.data.UnitTo;
             this.selectedUnit=this.data.Unit;
             this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
-
+            this.selectedSewingTo=this.data.SewingTo;
+            
             let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
             if(priceResult.data.length>0){
                 this.data.Price= priceResult.data[0].Price;

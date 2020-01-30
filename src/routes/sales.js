@@ -24,7 +24,34 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },{
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-ppic',
+        name: 'finishing-printing-cost-calculation-approval-ppic',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-md',
+        name: 'finishing-printing-cost-calculation-approval-md',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval MD',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/shin-finishing-printing-sales-contract',
         name: 'shin-finishing-printing-sales-contract',
         moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
@@ -129,6 +156,32 @@ module.exports = [
         }
     },
     {
+        route: 'sales/shin-production-order',
+        name: 'shin-production-order',
+        moduleId: './modules/sales/shin-production-order/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-list-view',
+        name: 'shin-production-order-list-view',
+        moduleId: './modules/sales/shin-production-order-list-view/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
@@ -198,7 +251,7 @@ module.exports = [
         name: 'sales-receipt',
         moduleId: './modules/sales/sales-receipt/index',
         nav: true,
-        title: 'Kwitansi Penjualan',
+        title: 'Kuitansi Penjualan',
         auth: true,
         settings: {
             group: "sales",

@@ -101,10 +101,6 @@ export class DataForm {
     }
   }
 
-  errorChanged() {
-    console.log(this.error);
-  }
-
   doSalesDetailsInfo = {
     columns: [
       "Nama Barang",
@@ -124,8 +120,8 @@ export class DataForm {
     }.bind(this)
   };
 
-  doSalesTypeOptions = ["", "UP", "US", "JS", "USS", "JB", "UPS"];
-  packingUomOptions = ["", "PCS", "ROLL"];
+  doSalesTypeOptions = ["", "BL", "GL", "AF", "CN", "US", "USS", "UP", "UPS", "UK"];
+  packingUomOptions = ["", "PCS", "ROLL", "PT"];
   lengthUomOptions = ["", "MTR"];
 
   @bindable selectedProductionOrder;
@@ -260,6 +256,9 @@ export class DataForm {
 
   console() {
     console.log(this.data);
+  }
+  errorChanged() {
+    console.log(this.error);
   }
   doSalesNoChanged(e) {
     console.log(this.data.DOSalesNo);

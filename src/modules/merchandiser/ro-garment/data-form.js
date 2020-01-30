@@ -33,10 +33,6 @@ export class DataForm {
   CCG_M_AccessoriesInfo = {
     columns: [
       { header: "Product Code" },
-      { header: "Composition" },
-      { header: "Construction" },
-      { header: "Yarn" },
-      { header: "Width" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
@@ -233,9 +229,6 @@ export class DataForm {
       reader.onload = event => {
         let base64Document = event.target.result;
         const base64Content = base64Document.substring(base64Document.indexOf(',') + 1);
-        console.log(base64Content.length, ' characters');
-        console.log(base64Content.length * 6, ' bits');
-        console.log(base64Content.length * 6 / 8, ' bytes');
         if (base64Content.length * 6 / 8 > 52428800) {
           documentInput.value = "";
           this.data.DocumentsFile[index] = "";

@@ -55,7 +55,8 @@ export class DataForm {
         var filter={};
         if(this.data.Unit){
             filter={
-                UnitId: this.data.Unit.Id
+                UnitId: this.data.Unit.Id,
+                "GarmentPreparingItem.Any(RemainingQuantity>0)":true
             }
         }
         return filter;
@@ -137,5 +138,16 @@ export class DataForm {
 
     get roLoader() {
         return ROLoader;
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave)
+                    qty += item.Quantity;
+            }
+        }
+        return qty;
     }
 }
