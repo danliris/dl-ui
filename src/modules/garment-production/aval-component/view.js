@@ -25,8 +25,8 @@ export class View {
                 for (const item of this.data.Items) {
                     if (item.RemainingQuantity < item.Quantity) {
                         this.deleteCallback = null;
-                        break;
                     }
+                    item.IsSave=true;
                 }
             }
         }
