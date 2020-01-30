@@ -54,12 +54,14 @@ export class DataForm {
         if (this.data.UnitFrom) {
             return {
                 UnitId: this.data.UnitFrom.Id,
-                CuttingFrom:"PREPARING"
+                CuttingFrom:"PREPARING",
+                CuttingType:"MAIN FABRIC"
             };
         } else {
             return {
                 UnitId: 0,
-                CuttingFrom:"PREPARING"
+                CuttingFrom:"PREPARING",
+                CuttingType:"MAIN FABRIC"
             };
         }
     }
@@ -132,7 +134,7 @@ export class DataForm {
                     this.data.PriceSewing=0;
                 }
     
-                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id }) }))
+                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
