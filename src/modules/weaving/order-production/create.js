@@ -1,6 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
 
 @inject(Router, Service)
 export class Create {
@@ -10,6 +17,8 @@ export class Create {
     this.service = service;
     this.data = {};
     this.error = {};
+
+    this.createData = {};
   }
 
   activate(params) {}
@@ -27,92 +36,38 @@ export class Create {
   //Tombol "Simpan", menyimpan nilai masukan
   saveCallback(event) {
     this.error = {};
-    var CodeRegEx = new RegExp("([1-9])");
-    var CurrentDate = new Date();
-    this.data.DateOrdered = CurrentDate;
+    var errorIndex = 0;
 
-    if (this.data.Period) {
-      if (!this.data.Period.Month) {
-        this.data.Period.Month = "";
-      }
-      if (!this.data.Period.Year) {
-        this.data.Period.Year = "";
-      }
-    } else {
-      this.data.Period = "";
+    var currentDate = new Date();
+    this.data.Day = currentDate.getDate();
+
+    var sumWarp = this.data.WarpCompositionPoly + this.data.WarpCompositionCotton + this.data.WarpCompositionOthers;
+    if (sumWarp < 100) {
+      this.error.SumWarp = "Jumlah Komposisi Lusi Tidak Boleh Kurang Dari 100%";
+      errorIndex++;
+    } else if (sumWarp > 100) {
+      this.error.SumWarp = "Jumlah Komposisi Lusi Tidak Boleh Lebih Dari 100%";
+      errorIndex++;
     }
 
-    if (!this.data.FabricConstructionDocument) {
-      this.data.FabricConstructionDocument = {};
-      this.data.FabricConstructionDocument.Id = "";
-      this.data.FabricConstructionDocument.ConstructionNumber = "";
+    var sumWeft = this.data.WeftCompositionPoly + this.data.WeftCompositionCotton + this.data.WeftCompositionOthers;
+    if (sumWeft < 100) {
+      this.error.SumWeft = "Jumlah Komposisi Pakan Tidak Boleh Kurang Dari 100%";
+      errorIndex++;
+    } else if (sumWeft > 100) {
+      this.error.SumWeft = "Jumlah Komposisi Pakan Tidak Boleh Lebih Dari 100%";
+      errorIndex++;
     }
 
-    if (
-      this.WarpOrigin == null ||
-      this.WarpOrigin == undefined ||
-      this.WarpOrigin == ""
-    ) {
-      this.data.WarpOriginId = "";
-    } else{
-      this.data.WarpOriginId = this.WarpOrigin.Id
+    if (errorIndex == 0) {
+      this.service
+        .create(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
     }
-
-    if (
-      this.WeftOrigin == null ||
-      this.WeftOrigin == undefined ||
-      this.WeftOrigin == ""
-    ) {
-      this.data.WeftOriginId = "";
-    } else{
-      this.data.WeftOriginId = this.WeftOrigin.Id
-    }
-
-    if (!this.data.WarpComposition) {
-      this.data.WarpComposition = {};
-      this.data.WarpComposition.CompositionOfPoly = 0;
-      this.data.WarpComposition.CompositionOfCotton = 0;
-      this.data.WarpComposition.OtherComposition = 0;
-    }
-
-    if (!this.data.WeftComposition) {
-      this.data.WeftComposition = {};
-      this.data.WeftComposition.CompositionOfPoly = 0;
-      this.data.WeftComposition.CompositionOfCotton = 0;
-      this.data.WeftComposition.OtherComposition = 0;
-    }
-
-    if (!this.data.YarnType) {
-      this.data.YarnType = "";
-    }
-
-    if (!this.data.WholeGrade) {
-      this.data.WholeGrade = 0;
-    }
-
-    if (!this.data.WeavingUnit) {
-      this.data.WeavingUnit = {};
-      this.data.WeavingUnit.Id = 0;
-      this.data.WeavingUnit.Code = "";
-      this.data.WeavingUnit.Name = "";
-    } else {
-      var Unit = this.data.WeavingUnit;
-      this.data.WeavingUnit = {};
-      this.data.WeavingUnit.Id = Unit.Id;
-      this.data.WeavingUnit.Code = Unit.Code;
-      this.data.WeavingUnit.Name = Unit.Name;
-    }
-    
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-        this.error.ConstructionNumber =
-          e["FabricConstructionDocument.ConstructionNumber"];
-        this.error.WeavingUnit = e["WeavingUnit.Id"];
-      });
   }
 }

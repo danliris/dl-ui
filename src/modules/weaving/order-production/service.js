@@ -43,10 +43,20 @@ export class Service extends RestService {
 
   getUnitById(Id) {
     var config = Container.instance.get(Config);
-    var _endpoint = config.getEndpoint("core");
-    var _serviceUri = `master/units/${Id}`;
+    var unitEndpoint = config.getEndpoint("core");
+    var unitServiceUri = `master/units/${Id}`;
 
-    return _endpoint.find(_serviceUri).then(result => {
+    return unitEndpoint.find(unitServiceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  getSupplierById(Id) {
+    var config = Container.instance.get(Config);
+    var supplierEndpoint = config.getEndpoint("weaving");
+    var supplierServiceUri = `weaving/suppliers/get-supplier/${Id}`;
+
+    return supplierEndpoint.find(supplierServiceUri).then(result => {
       return result.data;
     });
   }
