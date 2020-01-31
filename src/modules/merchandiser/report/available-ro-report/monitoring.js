@@ -39,11 +39,11 @@ export class Monitoring {
     get filter() {
         return {
             section: (this.selectedSection || {}).Code,
-            roNo: (this.selectedROGarment || {}).RO_Number,
-            buyer: (this.selectedBuyer || {}).Code,
+            // roNo: (this.selectedROGarment || {}).RO_Number,
+            // buyer: (this.selectedBuyer || {}).Code,
             availableDateStart: this.selectedAvailableDateStart,
             availableDateEnd: this.selectedAvailableDateEnd,
-            status: this.selectedStatus
+            // status: this.selectedStatus
         };
     }
 
@@ -66,11 +66,11 @@ export class Monitoring {
 
     clear() {
         this.selectedSection = null;
-        this.selectedROGarment = null;
-        this.selectedBuyer = null;
+        // this.selectedROGarment = null;
+        // this.selectedBuyer = null;
         this.selectedAvailableDateStart = undefined;
         this.selectedAvailableDateEnd = undefined;
-        this.selectedStatus = this.statusList[0];
+        // this.selectedStatus = this.statusList[0];
         this.tableData = [];
     }
 
