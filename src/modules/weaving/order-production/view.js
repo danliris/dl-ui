@@ -21,24 +21,30 @@ export class View {
 
   async activate(params) {
     var Id = params.Id;
+    var mappedResult = {};  
     this.data = await this.service
       .getById(Id)
       .then(result => {
+        mappedResult = result;
         if (result.Period) {
-          result.Month = moment(result.Period).format("MMMM");
-          result.Year = moment(result.Period).format("YYYY");
+          moment.locale("id");
+          mappedResult.Month = moment(result.Period).format("MMMM");
+          mappedResult.Year = moment(result.Period).format("YYYY");
         }
-        return result;
+        return this.service.getConstructionById(mappedResult.ConstructionDocumentId);
+      }).then(constructionResult => {
+        mappedResult.Construction = constructionResult;
+        return this.service.getUnitById(mappedResult.UnitId);
+      }).then(unitResult => {
+        mappedResult.Unit = unitResult;
+        return this.service.getSupplierById(mappedResult.WarpOriginId);
+      }).then(warpResult => {
+        mappedResult.WarpOrigin = warpResult;
+        return this.service.getSupplierById(mappedResult.WeftOriginId);
+      }).then(weftResult => {
+        mappedResult.WeftOrigin = weftResult;
+        return mappedResult;
       });
-
-    if (this.data.Id) {
-      this.Month = this.data.Month;
-      this.Year = this.data.Year;
-      this.Construction = this.data.ConstructionNumber;
-      this.WarpOrigin = this.data.WarpOrigin;
-      this.WeftOrigin = this.data.WeftOrigin;
-      this.Unit = this.data.Unit;
-    }
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan

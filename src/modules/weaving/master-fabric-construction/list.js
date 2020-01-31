@@ -17,6 +17,7 @@ export class List {
       field: "DateCreated",
       title: "Tanggal Dibuat",
       formatter: function (value, data, index) {
+        moment.locale("id");
         return moment.utc(value).local().format('DD MMMM YYYY');
       }
     },

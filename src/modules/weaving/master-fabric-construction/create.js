@@ -1,6 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
 
 @inject(Router, Service)
 export class Create {
@@ -26,6 +33,13 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
+    if (!this.data.MaterialType) {
+      this.data.MaterialType = "";
+    }
+    if (!this.data.WovenType) {
+      this.data.WovenType = "";
+    }
+
     this.service
       .create(this.data)
       .then(result => {

@@ -38,9 +38,6 @@ export class Create {
     this.error = {};
     var errorIndex = 0;
 
-    var currentDate = new Date();
-    this.data.Day = currentDate.getDate();
-
     var sumWarp = this.data.WarpCompositionPoly + this.data.WarpCompositionCotton + this.data.WarpCompositionOthers;
     if (sumWarp < 100) {
       this.error.SumWarp = "Jumlah Komposisi Lusi Tidak Boleh Kurang Dari 100%";

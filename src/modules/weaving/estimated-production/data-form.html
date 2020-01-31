@@ -41,22 +41,11 @@
       <!-- Unit -->
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-autocomplete label="Unit" value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
-          loader.bind="units" text="Name"options.bind="controlOptions">
+          <au-autocomplete label="Unit" value.bind="data.Unit" error.bind="error.UnitId" read-only.bind="readOnly"
+            loader.bind="units" text="Name" options.bind="controlOptions">
           </au-autocomplete>
         </div>
       </div>
-
-      <!-- <div class="row">
-        <div class="col-md-2">
-          <au-textbox label="Unit" read-only="true" options.bind="customOptions"></au-textbox>
-        </div>
-        <div class="col-md-3">
-          <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" read-only.bind="createOnly"
-            loader.bind="units" text="Name">
-          </au-autocomplete>
-        </div>
-      </div> -->
 
       <div class="row">
         <div class="col-md-1">

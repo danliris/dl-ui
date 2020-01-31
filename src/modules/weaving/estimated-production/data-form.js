@@ -64,12 +64,6 @@ export class DataForm {
     if (this.data.EstimatedNumber) {
       this.orderProductionsTableOptions = {};
     }
-
-    if (!this.data.Period) {
-      this.data.Period = {};
-      this.data.Period.Month = this.Month;
-      this.Year = this.getYears();
-    }
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -121,77 +115,78 @@ export class DataForm {
   }
 
   MonthChanged(newValue) {
-    this.data.Period.Month = newValue;
+    this.data.Month = newValue;
   }
 
   YearChanged(newValue) {
-    this.data.Period.Year = newValue;
-  }
-
-  getYears() {
-    var year = moment(new Date());
-    this.years.push(year.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
+    this.data.Year = newValue;
   }
 
   async searchOrderProductions() {
     this.error = {};
-    var index = 0;
-    var emptyFieldName =
-      "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
+    // var errorIndex = 0;
+    // var emptyFieldName =
+    //   "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (!this.data.Period) {
-      index++;
-    } else {
-      if (!this.data.Period.Year) {
-        this.error.Year = "Periode Tahun Tidak Boleh Kosong";
-      }
+    if (!this.Month) {
+      this.error.Month = "Bulan Harus Diisi";
+    }
 
-      if (!this.data.Period.Month) {
-        this.error.Month = "Periode Bulan Tidak Boleh Kosong";
-      }
+    if (!this.Year) {
+      this.error.Year = "Tahun Harus Diisi";
     }
 
     if (!this.data.Unit) {
-      if (index == 0) {
-        emptyFieldName = "Unit Tidak Boleh Kosong";
-      }
-      index++;
+      this.error.UnitId = "Unit Harus Diisi";
     }
 
-    if (index > 0) {
-      window.alert(emptyFieldName);
-    } else {
-      await this.service
-        .searchSOP(
-          this.data.Period.Month,
-          this.data.Period.Year,
-          this.data.Unit
-        )
-        .then(result => {
-          //Print each datum on orderProductions Data and push to Items Collections
-          result.forEach((datum, i, data) => {
+    // if (!this.data.Period) {
+    //   errorIndex++;
+    // } else {
+    //   if (!this.data.Period.Year) {
+    //     this.error.Year = "Periode Tahun Tidak Boleh Kosong";
+    //   }
 
-            if (
-              this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
-            ) {} else {
-              this.data.EstimationProducts.push(datum);
-            }
-          });
+    //   if (!this.data.Period.Month) {
+    //     this.error.Month = "Periode Bulan Tidak Boleh Kosong";
+    //   }
+    // }
 
-          //Bind "Items" reference
-          this.context.orderProductionsItems.bind(this);
-        }).catch(e => {
+    // if (!this.data.Unit) {
+    //   if (errorIndex == 0) {
+    //     emptyFieldName = "Unit Tidak Boleh Kosong";
+    //   }
+    //   errorIndex++;
+    // }
 
-          window.alert('Data not found')
-          location.reload();
-        });
-    }
+    // if (errorIndex > 0) {
+    //   window.alert(emptyFieldName);
+    // } else {
+    //   await this.service
+    //     .searchSOP(
+    //       this.data.Period.Month,
+    //       this.data.Period.Year,
+    //       this.data.Unit
+    //     )
+    //     .then(result => {
+    //       //Print each datum on orderProductions Data and push to Items Collections
+    //       result.forEach((datum, i, data) => {
+
+    //         if (
+    //           this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
+    //         ) {} else {
+    //           this.data.EstimationProducts.push(datum);
+    //         }
+    //       });
+
+    //       //Bind "Items" reference
+    //       this.context.orderProductionsItems.bind(this);
+    //     }).catch(e => {
+
+    //       window.alert('Data not found')
+    //       location.reload();
+    //     });
+    // }
   }
 
   getMonth() {

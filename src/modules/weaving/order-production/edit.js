@@ -32,6 +32,9 @@ export class Edit {
           mappedResult.Month = moment(result.Period).format("MMMM");
           mappedResult.Year = moment(result.Period).format("YYYY");
         }
+        return this.service.getConstructionById(mappedResult.ConstructionDocumentId);
+      }).then(constructionResult => {
+        mappedResult.Construction = constructionResult;
         return this.service.getUnitById(mappedResult.UnitId);
       }).then(unitResult => {
         mappedResult.Unit = unitResult;
@@ -43,30 +46,6 @@ export class Edit {
         mappedResult.WeftOrigin = weftResult;
         return mappedResult;
       });
-    console.log(this.data);
-    if (this.data.Id) {
-      this.Month = this.data.Month;
-      this.Year = this.data.Year;
-      this.Construction = this.data.ConstructionNumber;
-      this.WarpOrigin = this.data.WarpOrigin;
-      this.WeftOrigin = this.data.WeftOrigin;
-      this.Unit = this.data.Unit;
-    }
-
-    // var dataResult;
-    // this.data = await this.service
-    //   .getById(Id)
-    //   .then(result => {
-    //     dataResult = result;
-    //     return this.service.getUnitById(result.WeavingUnit);
-    //   })
-    //   .then(unit => {
-    //     dataResult.WeavingUnit = unit;
-    //     return dataResult;
-    //   });
-    // if (typeof this.data.Period.Year === "string") {
-    //   this.Year = parseInt(this.data.Period.Year);
-    // }
   }
 
   cancelCallback(event) {
@@ -76,12 +55,8 @@ export class Edit {
   }
 
   saveCallback(event) {
-    debugger;
     this.error = {};
     var errorIndex = 0;
-
-    var currentDate = new Date();
-    this.data.Day = currentDate.getDate();
 
     var sumWarp = this.data.WarpCompositionPoly + this.data.WarpCompositionCotton + this.data.WarpCompositionOthers;
     if (sumWarp < 100) {
@@ -100,7 +75,7 @@ export class Edit {
       this.error.SumWeft = "Jumlah Komposisi Pakan Tidak Boleh Lebih Dari 100%";
       errorIndex++;
     }
-    console.log(this.data);
+    
     if (errorIndex == 0) {
       this.service
         .update(this.data)

@@ -75,12 +75,12 @@
           </div>
           <div class="col-md-3">
             <au-autocomplete placeholder="Asal Lusi" value.bind="WarpOrigin" error.bind="error.WarpOriginId"
-              read-only.bind="readOnly" loader.one-time="origins" text="Code">
+              read-only.bind="readOnly" loader.bind="origins" text="Code">
             </au-autocomplete>
           </div>
           <div class="col-md-3">
             <au-autocomplete placeholder="Asal Pakan" value.bind="WeftOrigin" error.bind="error.WeftOriginId"
-              read-only.bind="readOnly" loader.one-time="origins" text="Code">
+              read-only.bind="readOnly" loader.bind="origins" text="Code">
             </au-autocomplete>
           </div>
         </div>
@@ -105,7 +105,7 @@
       <div class="col-md-6">
         <div class="row" style="white-space: nowrap;">
           <div class="col-md-2">
-            <textbox label="Komposisi Lusi(%)" error.bind="error.SumWarp" read-only="true"></textbox>
+            <au-textbox label="Komposisi Lusi(%)" error.bind="error.SumWarp" read-only="true"></au-textbox>
           </div>
           <div class="col-md-3">
             <au-numeric value.bind="data.WarpCompositionPoly" error.bind="error.WarpCompositionPoly"
@@ -127,7 +127,7 @@
       <div class="col-md-6">
         <div class="row" style="white-space: nowrap;">
           <div class="col-md-2">
-            <textbox label="Komposisi Pakan(%)" error.bind="SumWeft" read-only="true"></textbox>
+            <au-textbox label="Komposisi Pakan(%)" error.bind="error.SumWeft" read-only="true"></au-textbox>
           </div>
           <div class="col-md-3">
             <au-numeric value.bind="data.WeftCompositionPoly" error.bind="error.WeftCompositionPoly"

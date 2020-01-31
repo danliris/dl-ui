@@ -44,6 +44,27 @@ export class DataForm {
     for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
       this.years.push(i.toString());
     }
+    
+    if (this.data.Month) {
+      this.Month = this.data.Month;
+    }
+
+    if (this.data.Year)
+      this.Year = this.data.Year;
+
+    if (this.data.Construction)
+      this.Construction = this.data.Construction;
+
+    if (this.data.WarpOrigin) {
+      this.WarpOrigin = this.data.WarpOrigin;
+    }
+
+    if (this.data.WeftOrigin)
+      this.WeftOrigin = this.data.WeftOrigin;
+
+    if (this.data.Unit) {
+      this.Unit = this.data.Unit;
+    }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;

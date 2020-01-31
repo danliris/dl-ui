@@ -41,6 +41,16 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getConstructionById(Id) {
+    var config = Container.instance.get(Config);
+    var constructionEndpoint = config.getEndpoint("weaving");
+    var constructionServiceUri = `weaving/fabric-constructions/get-construction/${Id}`;
+
+    return constructionEndpoint.find(constructionServiceUri).then(result => {
+      return result.data;
+    });
+  }
+
   getUnitById(Id) {
     var config = Container.instance.get(Config);
     var unitEndpoint = config.getEndpoint("core");

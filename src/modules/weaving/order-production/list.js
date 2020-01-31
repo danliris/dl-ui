@@ -23,11 +23,12 @@ export class List {
       },
       {
         field: "Period",
-        title: "Tanggal SPP",
+        title: "Periode",
         rowspan: "2",
         valign: "top",
         formatter: function (value, data, index) {
-          return moment(value).format("DD MMMM YYYY");
+          moment.locale("id");
+          return moment(value).format("MMMM YYYY");
         },
         sortable: true
       },
