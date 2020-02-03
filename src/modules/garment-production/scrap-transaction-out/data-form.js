@@ -108,13 +108,14 @@ export class DataForm {
             }else
             {
                 let remaingQtyResult = await this.service.searchRemaining(this.data.ScrapDestinationName);
+                
                 for(var item of this.data.Items)
                 {
                      for(var qty of remaingQtyResult.data)
                      { 
-                        if (item.ScrapClassificationId ===  qty.ScrapClassificationId)
+                          
+                        if (item.ScrapClassificationId ===  qty.ScrapClassificationId && this.data.ScrapDestinationId === qty.ScrapDestinationId )
                         {
-                        
                             item.RemainingQuantity = qty.Quantity + item.Quantity;
                             item.TransactionType = "OUT";
                             item.IsEdit= true;
