@@ -617,7 +617,7 @@ module.exports = [
         name: 'garment-purchase-order-reports-topten-supplier',
         moduleId: './modules/garment-purchasing/reports/topten-supplier-report/index',
         nav: true,
-        title: 'Laporan 10 Supplier Teratas',
+        title: 'Laporan Top Ten Supplier',
         auth: true,
         settings: {
             group: "g-purchasing",
