@@ -24,7 +24,7 @@
       <!-- Period -->
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-dropdown label="Bulan" value.bind="Month" error.bind="error.Month" read-only.bind="readOnly"
+          <au-dropdown label="Bulan" value.bind="data.Month" error.bind="error.Month" read-only.bind="readOnly"
             items.bind="months" options.bind="controlOptions">
           </au-dropdown>
         </div>
@@ -32,7 +32,7 @@
 
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-dropdown label="Tahun" value.bind="Year" error.bind="error.Year" read-only.bind="readOnly"
+          <au-dropdown label="Tahun" value.bind="data.Year" error.bind="error.Year" read-only.bind="readOnly"
             items.bind="years" options.bind="controlOptions">
           </au-dropdown>
         </div>
@@ -57,8 +57,8 @@
       </div>
 
       <div class="row" style="margin-bottom: 24px;">
-        <au-collection view-model.ref="orderProductionsItems" items.bind="data.EstimationProducts"
-          error.bind="error.EstimationProducts" columns.bind="orderProductionsColumns"
+        <au-collection view-model.ref="orderProductionsItems" items.bind="data.EstimationDetails"
+          error.bind="error.EstimationDetails" columns.bind="orderProductionsColumns"
           options.bind="orderProductionsTableOptions" read-only.bind="readOnly"
           item-template="modules/weaving/estimated-production/templates/items">
         </au-collection>

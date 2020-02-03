@@ -23,16 +23,9 @@ export class List {
     this.service = service;
     this.router = router;
     this.error = {};
-    // this.ShowHideByDatePeriod = false;
-    // this.ShowHideByDateRangePeriod = false;
-    // this.ShowHideMonthlyPeriod = false;
   }
 
   listDataFlag = false;
-
-  //   periods = ["", "Harian", "Rekap", "Bulanan"];
-
-  //   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
   operationStatusItems = ["", "PROCESSING", "FINISH"];
 
@@ -100,42 +93,6 @@ export class List {
     sortable: true,
   }
 
-  //   PeriodChanged(newValue) {
-  //     switch (newValue) {
-  //       case "":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Harian":
-  //         this.ShowHideByDatePeriod = true;
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Rekap":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = true;
-  //         this.ShowHideMonthlyPeriod = false;
-  //         this.MonthlyPeriod = "";
-  //         break;
-  //       case "Bulanan":
-  //         this.ShowHideByDatePeriod = false;
-  //         this.DatePeriod = "";
-  //         this.ShowHideByDateRangePeriod = false;
-  //         this.StartDatePeriod = "";
-  //         this.EndDatePeriod = "";
-  //         this.ShowHideMonthlyPeriod = true;
-  //     }
-  //   }
-
   loader = info => {
     let order = {};
     if (info.sort) order[info.sort] = info.order;
@@ -173,7 +130,6 @@ export class List {
       order: order
     };
 
-    //Get All
     return this.listDataFlag ? this.service.getReportData(arg).then(result => {
       for (var datum of result.data) {
         if (datum.PreparationDate) {
@@ -191,32 +147,6 @@ export class List {
       total: 0
     };
   }
-
-  // EndDatePeriodChanged(newValue) {
-  //   this.error.EndDatePeriod = "";
-  //   var parsedStartDate = Date.parse(this.StartDatePeriod);
-  //   var parsedEndDate = Date.parse(newValue);
-  //   if (this.StartDatePeriod) {
-  //     if (parsedStartDate > parsedEndDate) {
-  //       this.error.EndDatePeriod = "Tanggal Akhir Tidak Boleh Lebih Dahulu dari Tanggal Mulai";
-  //     } else {
-  //       this.error.EndDatePeriod = "";
-  //     }
-  //   }
-  // }
-
-  // StartDatePeriodChanged(newValue) {
-  //   this.error.StartDatePeriod = "";
-  //   var parsedStartDate = Date.parse(newValue);
-  //   var parsedEndDate = Date.parse(this.EndDatePeriod);
-  //   if (this.EndDatePeriod) {
-  //     if (parsedStartDate > parsedEndDate) {
-  //       this.error.StartDatePeriod = "Tanggal Mulai Tidak Boleh Lebih Lambat dari Tanggal Akhir";
-  //     } else {
-  //       this.error.StartDatePeriod = "";
-  //     }
-  //   }
-  // }
 
   get orders() {
     return OrderLoader;
@@ -264,7 +194,6 @@ export class List {
     var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
     var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
 
-    //Get All
     return this.listDataFlag ? this.service.getReportXls(OrderProductionContainer, MaterialTypeContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
       for (var datum of result) {
         if (datum.PreparationDate) {
