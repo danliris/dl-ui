@@ -79,7 +79,10 @@ export class View {
                 jsonPatch.push(
                     { op: "replace", path: `/IsValidatedROPPIC`, value: true },
                     { op: "replace", path: `/ValidationPPICBy`, value: this.me.username },
-                    { op: "replace", path: `/ValidationPPICDate`, value: new Date() }
+                    { op: "replace", path: `/ValidationPPICDate`, value: new Date() },
+                    { op: "replace", path: `/IsROAccepted`, value: true },
+                    { op: "replace", path: `/ROAcceptedBy`, value: this.me.username },
+                    { op: "replace", path: `/ROAcceptedDate`, value: new Date() },
                 );
             }
 
