@@ -166,7 +166,7 @@ export class DataForm {
       }
     }
 
-    if (!this.data.Unit.Id) {
+    if (!this.data.Unit) {
       errorIndex++;
     }
 
