@@ -4,47 +4,46 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUriEstimatedProduction = "weaving/estimation-productions";
-const serviceUriOrderDocument = "weaving/orders/order-by-period";
+const serviceUriEstimated = "weaving/estimation-productions";
+const serviceUriOrder = "weaving/orders/get-by-unit-period";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "weaving");
   }
 
-  searchSOP(month, year, unit, status) {
-    status = "OPEN-ORDER";
-    var endpoint =  `${serviceUriOrderDocument}/${month}/${year}/unit-name/${unit.Name}/unit-id/${unit.Id}/status/${status}`;
-    return super.get(endpoint);
+  searchOpenOrders(info) {
+    var endpoint =  `${serviceUriOrder}`;
+    return super.list(endpoint, info);
   }
 
-  searchEP(info) {
-    var endpoint = `${serviceUriEstimatedProduction}`;
+  searchEstimatedProductions(info) {
+    var endpoint = `${serviceUriEstimated}`;
     return super.list(endpoint);
   }
 
   getById(Id) {
-    var endpoint = `${serviceUriEstimatedProduction}/${Id}`;
+    var endpoint = `${serviceUriEstimated}/${Id}`;
     return super.get(endpoint);
   }
 
   create(data) {
-    var endpoint = `${serviceUriEstimatedProduction}`;
+    var endpoint = `${serviceUriEstimated}`;
     return super.post(endpoint, data);
   }
 
   update(data) {
-    var endpoint = `${serviceUriEstimatedProduction}/${data.Id}`;
+    var endpoint = `${serviceUriEstimated}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUriEstimatedProduction}/${data.Id}`;
+    var endpoint = `${serviceUriEstimated}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 
   getByCode(code) {
-    var endpoint = `${serviceUriEstimatedProduction}?keyword=${code}`;
+    var endpoint = `${serviceUriEstimated}?keyword=${code}`;
     return super.get(endpoint);
   }
 

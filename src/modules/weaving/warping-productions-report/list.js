@@ -28,8 +28,8 @@ export class List {
     this.router = router;
 
     this.currentYearItem = parseInt(moment().format('YYYY'));
-    this.minYearItem = this.currentYearItem - 5;
-    this.maxYearItem = this.currentYearItem + 5;
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
 
     for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
       this.years.push(i.toString());
@@ -48,20 +48,6 @@ export class List {
       length: 6
     }
   }
-
-  // groupBy(list, keyGetter) {
-  //   const map = new Map();
-  //   list.forEach((item) => {
-  //     const key = keyGetter(item);
-  //     const collection = map.get(key);
-  //     if (!collection) {
-  //       map.set(key, [item]);
-  //     } else {
-  //       collection.push(item);
-  //     }
-  //   });
-  //   return map;
-  // }
 
   searchWarpingProductions() {
     if (false) {
@@ -136,7 +122,6 @@ export class List {
 
           result.data._ProcessedList = [];
           var index = 1;
-          const reducer = (pv, cv) => previousValue + currentValue;
           for (var item of result.data.ProcessedList) {
             var productionDatum = {
               Day: index,
