@@ -232,5 +232,32 @@ module.exports = [
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
-      }
+      },
+
+      {
+        route: 'garment-receipt-correction-report',
+        name: 'garment-receipt-correction-report',
+        moduleId: './modules/garment-purchasing/garment-receipt-correction-report/index',
+        nav: true,
+        title: 'Laporan Koreksi Penerimaan',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-flow-detail-material/reports',
+        name: 'garment-flow-detail-material-report',
+        moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
+        nav: true,
+        title: 'Laporan Detail Flow Pengeluaran Bahan Baku',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

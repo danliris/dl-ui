@@ -112,6 +112,13 @@ export class DataForm {
                 let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
+                } else {
+                    const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
+                    const comodityCode = comodityCodeResult.data[0];
+                    if (comodityCode) {
+                        const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+                        this.data.Comodity = comodityResult.data[0];
+                    }
                 }
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
@@ -198,9 +205,11 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                if(item.Details){
-                    for(var detail of item.Details){
-                        qty += detail.CuttingOutQuantity;
+                if(item.IsSave){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            qty += detail.CuttingOutQuantity;
+                        }
                     }
                 }
             }

@@ -19,27 +19,29 @@ export class Edit {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+        this.hasCancel=true;
+        this.hasSave=true;
+        // this.cancelCallback = this.context.cancelCallback;
+        // this.deleteCallback = this.context.deleteCallback;
+        // this.editCallback = this.context.editCallback;
+        // this.saveCallback = this.context.saveCallback;
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    cancelCallback(event) {
+    cancel(event) {
         this.list();
     }
 
-    saveCallback(event) {
+    save(event) {
         // this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
 
         // this.data.rate = Number(this.data.rate).toFixed(4);
         this.service.update(this.data)
             .then(result => {
-                this.cancelCallback();
+                this.cancel();
             })
             .catch(e => {
                 this.error = e;

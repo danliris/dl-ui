@@ -139,6 +139,7 @@ export class DataForm {
                 //item.correctionNo = unitItem.correction.correctionNo;
                 item.purchaseOrderExternalNo = unitItem.EPONo;
                 item.purchaseRequestNo = unitItem.PRNo;
+                item.purchaseRequestId = unitItem.PRId;
                 dataItems.push(item);
             }
         }

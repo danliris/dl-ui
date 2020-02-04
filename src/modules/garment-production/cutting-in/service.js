@@ -3,8 +3,10 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'cutting-ins';
 const preparingServiceUri = 'preparings';
 const uomServiceUri = 'master/uoms';
+const comodityServiceUri = 'master/garment-comodities';
 const comodityPriceserviceUri = 'comodity-prices';
 const costCalculationServiceUri = 'cost-calculation-garments';
+const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
 const sewingOutServiceUri = 'sewing-outs';
 
 class Service extends RestService {
@@ -67,6 +69,11 @@ class CoreService extends RestService {
         var endpoint = `${uomServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    getComodities(info) {
+        var endpoint = `${comodityServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
 
 class SalesService extends RestService {
@@ -76,6 +83,11 @@ class SalesService extends RestService {
 
     getCostCalculationByRONo(info) {
         var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getHOrderKodeByNo(info) {
+        var endpoint = `${hOrderKodeByNoServiceUri}`;
         return super.list(endpoint, info);
     }
 }

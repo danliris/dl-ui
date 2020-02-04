@@ -23,20 +23,20 @@
             </au-numeric>
         </td>
         <td show.bind="!readOnly">
-            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength" format="0,0.0"
+            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength"
                 read-only.bind="readOnly"></au-numeric>
         </td>
         <td if.bind="readOnly">
-            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength" format="0,0.0"
+            <au-numeric value.bind="TotalLength" error.bind="error.TotalLength"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td show.bind="!readOnly">
-            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion" format="0,0.000"
+            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion"
                 read-only.bind="true"></au-numeric>
         </td>
         <td if.bind="readOnly">
-            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion" format="0,0.000"
+            <au-numeric value.bind="getTotalLengthConversion" error.bind="error.TotalLengthConversion"
                 read-only.bind="true">
             </au-numeric>
         </td>

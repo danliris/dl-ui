@@ -6,7 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = "sales/sales-receipts";
 const salesInvoiceServiceUri = "sales/sales-invoices";
-const bankServiceUri = "purchasingAzure/bank-expenditure-notes";
+const bankServiceUri = "master/account-banks";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
 
@@ -87,15 +87,9 @@ export class ServiceCore extends RestService {
     var info = { select: select };
     return super.get(endpoint, null, info);
   }
-}
-
-export class ServicePurchasingAzure extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "purchasingAzure");
-  }
 
   searchBank(info) {
-    var endpoint = `${bankrServiceUri}`;
+    var endpoint = `${bankServiceUri}`;
     return super.list(endpoint, info);
   }
 

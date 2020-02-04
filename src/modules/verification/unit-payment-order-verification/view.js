@@ -58,6 +58,7 @@ export class View {
         this.data.Vat = this.dataExpedition.IncomeTax;
         this.data.IncomeTax = this.dataExpedition.Vat;
         this.data.TotalPaid = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat);
+        console.log(this);
     }
 
     list() {
@@ -74,7 +75,8 @@ export class View {
 
         switch (arg.name) {
             case "Rincian Purchase Request":
-                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
+                // window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
+                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${data.purchaseRequestId}`);
                 break;
         }
     }

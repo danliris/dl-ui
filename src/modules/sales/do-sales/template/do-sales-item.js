@@ -2,7 +2,9 @@ import { inject, bindable } from "aurelia-framework";
 import numeral from "numeral";
 
 export class DOSalesItem {
+  @bindable TotalPacking;
   @bindable TotalLength;
+  @bindable getTotalLengthConversion;
 
   activate(context) {
     this.data = context.data;
@@ -21,7 +23,9 @@ export class DOSalesItem {
     
     this.TotalPacking = this.data.TotalPacking;
     this.TotalLength = this.data.TotalLength;
-    this.getTotalLengthConversion = this.TotalLength * 1.094;
+    
+    var totalLength = parseInt(this.TotalLength);
+    this.getTotalLengthConversion = totalLength * 1.094;
     this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
@@ -30,9 +34,10 @@ export class DOSalesItem {
   }
 
   TotalLengthChanged(newValue, oldValue) {
-    this.getTotalLengthConversion = this.TotalLength * 1.094;
-    this.data.TotalLengthConversion = this.getTotalLengthConversion;
     this.data.TotalLength = this.TotalLength;
+    var totalLength = parseInt(this.TotalLength);
+    this.getTotalLengthConversion = totalLength * 1.094;
+    this.data.TotalLengthConversion = this.getTotalLengthConversion;
   }
 
   TotalLengthConversionChanged(newValue, oldValue) {

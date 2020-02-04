@@ -229,7 +229,8 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                qty += item.Quantity;
+                if(item.IsSave)
+                    qty += item.Quantity;
             }
         }
         return qty;
