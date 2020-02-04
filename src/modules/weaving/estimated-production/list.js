@@ -13,7 +13,8 @@ export class List {
       field: "DateEstimated",
       title: "Tanggal Estimasi Produksi",
       formatter: function(value, data, index) {
-        return moment(new Date(value)).format("DD MMM YYYY");
+        moment.locale("id");
+        return moment(new Date(value)).format("DD MMMM YYYY");
       }
     }
   ];

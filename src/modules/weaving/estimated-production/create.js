@@ -11,10 +11,9 @@ import {
 
 @inject(Router, Service)
 export class Create {
-  ePNumberVisibility = false;
   searchButton = true;
-  createOnly = false;
-  error = {};
+  dataExist = false;
+  editable = false;
 
   constructor(router, service) {
     this.router = router;
@@ -44,7 +43,7 @@ export class Create {
     var orderProductionsDocumentError = [];
     var summedUpGrade = 0;
 
-    this.data.EstimationDetails.forEach(datum => {
+    this.data.EstimatedDetails.forEach(datum => {
       var errorEmptyIndex = 0;
       var errorCollection = {};
       if (
@@ -80,7 +79,7 @@ export class Create {
       }
     });
 
-    this.data.EstimationDetails.forEach(datum => {
+    this.data.EstimatedDetails.forEach(datum => {
       var gradeANum = datum.GradeA ? datum.GradeA : 0;
       var gradeBNum = datum.GradeB ? datum.GradeB : 0;
       var gradeCNum = datum.GradeC ? datum.GradeC : 0;
@@ -92,12 +91,12 @@ export class Create {
     });
 
     if (orderProductionsDocumentError.length > 0) {
-      this.error.EstimationDetails = orderProductionsDocumentError;
+      this.error.EstimatedDetails = orderProductionsDocumentError;
     } else {
       if (summedUpGrade != 100) {
         window.alert(summedUpGradeAlert);
       } else {
-        this.data.EstimationDetails = this.data.EstimationDetails.map(o => {
+        this.data.EstimatedDetails = this.data.EstimatedDetails.map(o => {
           let mappedDetail = {};
           mappedDetail.OrderId = o.Id;
           mappedDetail.GradeA = o.GradeA;
@@ -107,9 +106,6 @@ export class Create {
 
           return mappedDetail;
         });
-
-        console.log(this.data);
-        debugger
         
         this.service
           .create(this.data)

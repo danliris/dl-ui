@@ -27,6 +27,11 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getByIdEdit(Id) {
+    var endpoint = `${serviceUriEstimated}/edit/${Id}`;
+    return super.get(endpoint);
+  }
+
   create(data) {
     var endpoint = `${serviceUriEstimated}`;
     return super.post(endpoint, data);
