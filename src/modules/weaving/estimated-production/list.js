@@ -8,7 +8,7 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "EstimationNumber", title: "No Estimasi Produksi" },
+    { field: "EstimatedNumber", title: "No Estimasi Produksi" },
     {
       field: "DateEstimated",
       title: "Tanggal Estimasi Produksi",

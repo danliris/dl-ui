@@ -24,7 +24,7 @@
       <!-- Period -->
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-dropdown label="Bulan" value.bind="data.Month" error.bind="error.Month" read-only.bind="readOnly"
+          <au-dropdown label="Bulan" value.bind="Month" error.bind="error.Month" read-only.bind="readOnly"
             items.bind="months" options.bind="controlOptions">
           </au-dropdown>
         </div>
@@ -32,7 +32,7 @@
 
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-dropdown label="Tahun" value.bind="data.Year" error.bind="error.Year" read-only.bind="readOnly"
+          <au-dropdown label="Tahun" value.bind="Year" error.bind="error.Year" read-only.bind="readOnly"
             items.bind="years" options.bind="controlOptions">
           </au-dropdown>
         </div>
@@ -41,7 +41,7 @@
       <!-- Unit -->
       <div class="row">
         <div class="col-md-3" style="white-space: nowrap;">
-          <au-autocomplete label="Unit" value.bind="data.Unit" error.bind="error.UnitId" read-only.bind="readOnly"
+          <au-autocomplete label="Unit" value.bind="Unit" error.bind="error.UnitId" read-only.bind="readOnly"
             loader.bind="units" text="Name" options.bind="controlOptions">
           </au-autocomplete>
         </div>

@@ -169,11 +169,11 @@ export class List {
     }
 
     if (this.WeavingUnit) {
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var UnitIdContainer = this.WeavingUnit.Id;
     }
 
     var arg = {
-      weavingUnitId: WeavingUnitIdContainer,
+      unitId: UnitIdContainer,
       dateFrom: StartDatePeriodContainer,
       dateTo: EndDatePeriodContainer,
 
@@ -205,10 +205,10 @@ export class List {
       }
 
       if (this.WeavingUnit) {
-        var WeavingUnitContainer = this.WeavingUnit;
+        var UnitContainer = this.WeavingUnit;
       }
 
-      return this.listDataFlag ? this.service.getReportPdf(WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+      return this.listDataFlag ? this.service.getReportPdf(UnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
         return {
           data: result,
           total: length

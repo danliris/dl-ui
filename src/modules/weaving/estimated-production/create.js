@@ -1,6 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
 
 @inject(Router, Service)
 export class Create {
@@ -29,6 +36,7 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
+    this.data.Day = new Date().getDate();
     var summedUpGradeAlert =
       "- Jumlah Seluruh Grade Tidak Boleh Lebih Dari 100\n- Jumlah Seluruh Grade Tidak Boleh Kurang Dari 100\n- Jumlah Seluruh Grade Harus Tepat 100";
     var emptyGrade =
@@ -36,7 +44,7 @@ export class Create {
     var orderProductionsDocumentError = [];
     var summedUpGrade = 0;
 
-    this.data.EstimationProducts.forEach(datum => {
+    this.data.EstimationDetails.forEach(datum => {
       var errorEmptyIndex = 0;
       var errorCollection = {};
       if (
@@ -72,23 +80,37 @@ export class Create {
       }
     });
 
-    this.data.EstimationProducts.forEach(datum => {
-      var gradeANum = parseInt(datum.GradeA) ? parseInt(datum.GradeA) : 0;
-      var gradeBNum = parseInt(datum.GradeB) ? parseInt(datum.GradeB) : 0;
-      var gradeCNum = parseInt(datum.GradeC) ? parseInt(datum.GradeC) : 0;
-      var gradeDNum = parseInt(datum.GradeD) ? parseInt(datum.GradeD) : 0;
+    this.data.EstimationDetails.forEach(datum => {
+      var gradeANum = datum.GradeA ? datum.GradeA : 0;
+      var gradeBNum = datum.GradeB ? datum.GradeB : 0;
+      var gradeCNum = datum.GradeC ? datum.GradeC : 0;
+      var gradeDNum = datum.GradeD ? datum.GradeD : 0;
       summedUpGrade = 0;
 
       summedUpGrade =
         summedUpGrade + gradeANum + gradeBNum + gradeCNum + gradeDNum;
     });
-    
+
     if (orderProductionsDocumentError.length > 0) {
-      this.error.EstimationProducts = orderProductionsDocumentError;
+      this.error.EstimationDetails = orderProductionsDocumentError;
     } else {
       if (summedUpGrade != 100) {
         window.alert(summedUpGradeAlert);
       } else {
+        this.data.EstimationDetails = this.data.EstimationDetails.map(o => {
+          let mappedDetail = {};
+          mappedDetail.OrderId = o.Id;
+          mappedDetail.GradeA = o.GradeA;
+          mappedDetail.GradeB = o.GradeB;
+          mappedDetail.GradeC = o.GradeC;
+          mappedDetail.GradeD = o.GradeD;
+
+          return mappedDetail;
+        });
+
+        console.log(this.data);
+        debugger
+        
         this.service
           .create(this.data)
           .then(result => {
