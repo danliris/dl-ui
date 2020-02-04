@@ -16,6 +16,9 @@ import {
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable Month;
+  @bindable Year;
+  @bindable Unit;
 
   yearFormat = "YYYY";
   years = [];
@@ -41,6 +44,7 @@ export class DataForm {
     this.service = service;
     this.router = router;
 
+    moment.locale("id");
     this.currentYearItem = parseInt(moment().format('YYYY'));
     this.minYearItem = this.currentYearItem - 10;
     this.maxYearItem = this.currentYearItem + 10;
@@ -110,9 +114,65 @@ export class DataForm {
     return UnitLoader;
   }
 
+  MonthChanged(newValue) {
+    var monthInNumber = 0
+    switch (this.Month) {
+      case "Januari":
+        monthInNumber = 1;
+        break;
+      case "Februari":
+        monthInNumber = 2;
+        break;
+      case "Maret":
+        monthInNumber = 3;
+        break;
+      case "April":
+        monthInNumber = 4;
+        break;
+      case "Mei":
+        monthInNumber = 5;
+        break;
+      case "Juni":
+        monthInNumber = 6;
+        break;
+      case "Juli":
+        monthInNumber = 7;
+        break;
+      case "Agustus":
+        monthInNumber = 8;
+        break;
+      case "September":
+        monthInNumber = 9;
+        break;
+      case "Oktober":
+        monthInNumber = 10;
+        break;
+      case "November":
+        monthInNumber = 11;
+        break;
+      case "Desember":
+        monthInNumber = 12;
+        break;
+      default:
+        monthInNumber = 0;
+        break;
+    }
+
+    this.data.Month = monthInNumber
+  }
+
+  YearChanged(newValue) {
+    this.data.Year = parseInt(newValue);
+  }
+
+  UnitChanged(newValue) {
+    if (newValue.Id) {
+      this.data.UnitId = newValue.Id;
+    }
+  }
+
   async searchOrderProductions() {
     var errorIndex = 0;
-    var monthInNumber = 0
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
@@ -122,51 +182,9 @@ export class DataForm {
 
     if (!this.data.Month || this.data.Month == 0) {
       errorIndex++;
-    } else {
-      switch (this.data.Month) {
-        case "Januari":
-          monthInNumber = 1;
-          break;
-        case "Februari":
-          monthInNumber = 2;
-          break;
-        case "Maret":
-          monthInNumber = 3;
-          break;
-        case "April":
-          monthInNumber = 4;
-          break;
-        case "Mei":
-          monthInNumber = 5;
-          break;
-        case "Juni":
-          monthInNumber = 6;
-          break;
-        case "Juli":
-          monthInNumber = 7;
-          break;
-        case "Agustus":
-          monthInNumber = 8;
-          break;
-        case "September":
-          monthInNumber = 9;
-          break;
-        case "Oktober":
-          monthInNumber = 10;
-          break;
-        case "November":
-          monthInNumber = 11;
-          break;
-        case "Desember":
-          monthInNumber = 12;
-          break;
-        default:
-          monthInNumber = 0;
-          break;
-      }
     }
 
-    if (!this.data.Unit) {
+    if (!this.data.UnitId) {
       errorIndex++;
     }
 
@@ -174,40 +192,39 @@ export class DataForm {
       window.alert(emptyFieldName);
     } else {
       var arg = {
-        month: monthInNumber,
+        month: this.data.Month,
         year: this.data.Year,
-        unitId: this.data.Unit.Id,
+        unitId: this.data.UnitId,
       };
 
       await this.service
         .searchOpenOrders(arg).then(result => {
-          console.log(result)
           for (var datum of result.data) {
             if (datum.Period) {
               var Period = moment(datum.Period).format('MMMM YYYY');
-    
+
               datum.Period = Period;
             }
             this.data.EstimationDetails.push(datum);
           }
           this.context.orderProductionsItems.bind(this);
         });
-        // .then(result => {
-        //   //Print each datum on orderProductions Data and push to Items Collections
-        //   result.forEach((datum, i, data) => {
-        //     // if (this.data.EstimationDetails.find(o => o.Id == datum.Id)) {
+      // .then(result => {
+      //   //Print each datum on orderProductions Data and push to Items Collections
+      //   result.forEach((datum, i, data) => {
+      //     // if (this.data.EstimationDetails.find(o => o.Id == datum.Id)) {
 
-        //     // } else {
-        //     this.data.EstimationDetails.push(datum);
-        //     // }
-        //   });
+      //     // } else {
+      //     this.data.EstimationDetails.push(datum);
+      //     // }
+      //   });
 
-        //   //Bind "Items" reference
-        //   this.context.orderProductionsItems.bind(this);
-        // }).catch(e => {
-        //   window.alert('Data Tidak Ditemukan')
-        //   // location.reload();
-        // });
+      //   //Bind "Items" reference
+      //   this.context.orderProductionsItems.bind(this);
+      // }).catch(e => {
+      //   window.alert('Data Tidak Ditemukan')
+      //   // location.reload();
+      // });
     }
   }
 }

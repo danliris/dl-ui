@@ -19,7 +19,7 @@ export class Service extends RestService {
 
   searchEstimatedProductions(info) {
     var endpoint = `${serviceUriEstimated}`;
-    return super.list(endpoint);
+    return super.list(endpoint, info);
   }
 
   getById(Id) {

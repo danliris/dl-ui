@@ -81,33 +81,58 @@ export class Create {
   OrderDocumentChanged(newValue) {
     if (newValue) {
       let order = newValue;
-      let constructionId = newValue.ConstructionId;
-      let weavingUnitId = newValue.WeavingUnit;
+      // let constructionId = newValue.ConstructionId;
+      // let weavingUnitId = newValue.WeavingUnit;
 
       this.BeamsWarping.splice(0, this.BeamsWarping.length);
       this.beamsWarpingTableOptions.OrderId = order.Id;
 
-      this.service.getConstructionNumberById(constructionId)
-        .then(resultConstructionNumber => {
-          this.error.ConstructionNumber = "";
-          this.ConstructionNumber = resultConstructionNumber;
-          return this.service.getUnitById(weavingUnitId);
-        })
-        .then(resultWeavingUnit => {
-          this.error.WeavingUnit = "";
-          this.WeavingUnit = resultWeavingUnit.Name;
+      if (newValue.ConstructionNumber) {
+        this.error.ConstructionNumber = "";
+        this.ConstructionNumber = newValue.ConstructionNumber;
 
-          if (resultWeavingUnit.Id) {
-            this.showHideBeamsCollection = true;
-          }
-        })
-        .catch(e => {
-          this.ConstructionNumber = "";
-          this.WeavingUnit = "";
+        // var ConstructionNumberSplitted = newValue.ConstructionNumber.split(" ");
+        // var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2];
+        // this.data.PreparationMaterialType = WarpCode;
+      } else {
 
-          this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-          this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
-        });
+        this.ConstructionNumber = "";
+        this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+      }
+
+      if (newValue.Unit) {
+
+        this.error.WeavingUnit = "";
+        this.WeavingUnit = newValue.Unit;
+
+        this.showHideBeamsCollection = true;
+      } else {
+
+        this.WeavingUnit = "";
+        this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
+      }
+
+      // this.service.getConstructionNumberById(constructionId)
+      //   .then(resultConstructionNumber => {
+      //     this.error.ConstructionNumber = "";
+      //     this.ConstructionNumber = resultConstructionNumber;
+      //     return this.service.getUnitById(weavingUnitId);
+      //   })
+      //   .then(resultWeavingUnit => {
+      //     this.error.WeavingUnit = "";
+      //     this.WeavingUnit = resultWeavingUnit.Name;
+
+      //     if (resultWeavingUnit.Id) {
+      //       this.showHideBeamsCollection = true;
+      //     }
+      //   })
+      //   .catch(e => {
+      //     this.ConstructionNumber = "";
+      //     this.WeavingUnit = "";
+
+      //     this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+      //     this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
+      //   });
     }
   }
 
