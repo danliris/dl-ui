@@ -27,12 +27,12 @@ import {
     }
   
     getReportData(info) {
-      var endpoint = `${serviceUri}/get-warping-production-report`;
+      var endpoint = `${serviceUri}/get-warping-broken-report`;
       return super.list(endpoint, info);
     }
   
-    getReportPdf(month, year) {
-      var endpoint = `${serviceUri}/get-warping-production-report`;
+    getReportPdf(month, year, weavingUnitId) {
+      var endpoint = `${serviceUri}/get-warping-broken-report`;
       var query = '';
   
       if (month) {
@@ -43,9 +43,13 @@ import {
         if (query === '') query = `year=${(year)}`;
         else query = `${query}&year=${(year)}`;
       }
+      if (weavingUnitId) {
+        if (query === '') query = `weavingUnitId=${(weavingUnitId)}`;
+        else query = `${query}&weavingUnitId=${(weavingUnitId)}`;
+      }
   
       if (query !== '') {
-        endpoint = `${serviceUri}/get-warping-production-report?${query}`; 
+        endpoint = `${serviceUri}/get-warping-broken-report?${query}`; 
       }
       return super.getPdf(endpoint);
     }

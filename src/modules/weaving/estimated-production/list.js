@@ -29,7 +29,7 @@ export class List {
       order: order
     };
 
-    return this.service.searchEP(arg).then(result => {
+    return this.service.searchEstimatedProductions(arg).then(result => {
       return {
         total: result.info.total,
         data: result.data
