@@ -56,11 +56,11 @@ export class DataForm {
 
         if (this.data.Unit) {
             return {
-                UnitId: this.data.Unit.Id
+                UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC"
             };
         } else {
             return {
-                UnitId: 0
+                UnitId: 0, CuttingType:"MAIN FABRIC"
             };
         }
     }
@@ -215,7 +215,7 @@ export class DataForm {
                 this.data.Price=0;
             }
 
-            Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
+            Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id , CuttingType:"MAIN FABRIC"}) }))
                 .then(result => {
                     // (this.data.Items || []).splice(0);
                     this.data.Items = [];
@@ -255,5 +255,16 @@ export class DataForm {
 
     changeCheckedAll() {
         (this.data.Items || []).forEach(i => i.IsSave = this.context.checkedAll);
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave)
+                    qty += item.Quantity;
+            }
+        }
+        return qty;
     }
 }

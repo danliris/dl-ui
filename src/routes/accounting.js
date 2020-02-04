@@ -259,5 +259,18 @@ module.exports = [
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'garment-purchase-book-report',
+        name: 'garment-purchase-book-report',
+        moduleId: './modules/garment-purchasing/garment-purchase-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Harian Pembelian Term Of Payment',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];

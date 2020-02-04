@@ -14,10 +14,10 @@ export class Create {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
-    this.MaterialTypeName = this.data.MaterialTypeName;
+    this.MaterialType = this.data.MaterialType;
     this.ConstructionNumber = this.data.ConstructionNumber;
-    this.WarpTypeForm = this.data.WarpTypeForm;
-    this.WeftTypeForm = this.data.WeftTypeForm;
+    this.WarpType = this.data.WarpType;
+    this.WeftType = this.data.WeftType;
     this.TotalYarn = this.data.TotalYarn;
   }
 

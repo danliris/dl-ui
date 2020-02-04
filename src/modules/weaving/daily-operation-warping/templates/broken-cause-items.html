@@ -5,8 +5,8 @@
         </au-autocomplete>
       </td>
       <td class="col-sm-1" style="white-space: nowrap;">
-        <au-textbox placeholder="Jumlah Putus" value.bind="data.TotalBroken" error.bind="error.TotalBroken" read-only.bind="readOnly">
-        </au-textbox>
+        <au-numeric placeholder="Jumlah Putus" value.bind="data.TotalBroken" error.bind="error.TotalBroken" read-only.bind="readOnly">
+        </au-numeric>
       </td>
       <td class="col-sm-1" if.bind="!readOnly">
         <button class="btn btn-danger pull-right" click.delegate="onremove(brokenCauseData, $event)">
