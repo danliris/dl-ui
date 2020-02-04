@@ -289,7 +289,7 @@ export class DataForm {
                                 roList.push(a);
                             }
                             else{
-                                var dup= result.data.find(d=>d.RONo==a.RONo);
+                                var dup= roList.find(d=>d.RONo==a.RONo);
                                 if(!dup){
                                     roList.push(a);
                                 }
