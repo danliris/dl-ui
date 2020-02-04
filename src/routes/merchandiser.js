@@ -490,7 +490,7 @@ module.exports = [
         name: 'available-ro-report',
         moduleId: './modules/merchandiser/report/available-ro-report/index',
         nav: true,
-        title: 'Laporan Kesiapan RO',
+        title: 'Laporan Kecepatan Cek RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -517,6 +517,19 @@ module.exports = [
         moduleId: './modules/merchandiser/report/available-budget-report/index',
         nav: true,
         title: 'Laporan Kesiapan Budget',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "P": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-ro-garment-report',
+        name: 'available-ro-garment-report',
+        moduleId: './modules/merchandiser/report/available-ro-garment-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO',
         auth: true,
         settings: {
             group: "merchandiser",
