@@ -23,6 +23,8 @@ import {
     async activate(context) {
       this.data = context.data;
       this.error = context.error;
+
+      this.WarpingBrokenCauses = this.data.WarpingBrokenCauses;
   
       this.options = context.context.options;
       this.readOnly = context.options.readOnly;

@@ -181,7 +181,6 @@ export class DataForm {
 
       await this.service
         .searchOpenOrders(arg).then(result => {
-          console.log(result)
           for (var datum of result.data) {
             if (datum.Period) {
               var Period = moment(datum.Period).format('MMMM YYYY');
