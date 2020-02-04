@@ -37,9 +37,9 @@ export class Detail {
         this.readOnly = this.options.readOnly;
 
         if ((this.error && this.error.OverUsageReason) || (this.data && this.data.OverUsageReason)) {
-            this.isOverUsageReasonReadOnly = false;
+            this.isOverUsageReasonReadOnly = false || this.readOnly;
         } else {
-            this.isOverUsageReasonReadOnly = true;
+            this.isOverUsageReasonReadOnly = true || this.readOnly;
         }
     }
 

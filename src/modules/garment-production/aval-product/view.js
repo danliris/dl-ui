@@ -18,6 +18,9 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.selectedUnit=this.data.Unit;
+        for(var a of this.data.Items){
+            a.IsSave=true;
+        }
     }
 
     cancel(event) {

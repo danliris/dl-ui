@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Top Ten Pembelian ke Supplier</h1>
+    <h1 class="page-header">Laporan Top Ten Supplier</h1>
     <form class="form-horizontal">
         <!--<au-autocomplete  value.bind="unit" error.bind="error.unit" label="Unit"  loader.bind="unitLoader"></au-autocomplete>-->
         <au-autocomplete  value.bind="unit" label="Unit"  loader.bind="unitLoader" options.bind="controlOptions"></au-autocomplete>
@@ -17,6 +17,14 @@
                 items.bind="termPaymentImport"  
                 options.bind="controlOptions"
                 if.bind="jnsSpl">
+        </au-dropdown>
+
+        <au-dropdown
+                label="Term Pembayaran"
+                value.bind="payMtd"
+                items.bind="termPaymentLocal"  
+                options.bind="controlOptions"
+                if.bind="!jnsSpl">
         </au-dropdown>
         
         <au-dropdown 
