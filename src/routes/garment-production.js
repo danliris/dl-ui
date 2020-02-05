@@ -25,6 +25,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/scrap-classifications',
+        name: 'garment-production-scrap-classifications',
+        moduleId: './modules/garment-production/scrap-classification/index',
+        nav: true,
+        title: 'Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/scrap-destinations',
         name: 'garment-production-scrap-destinations',
         moduleId: './modules/garment-production/scrap-destination/index',
