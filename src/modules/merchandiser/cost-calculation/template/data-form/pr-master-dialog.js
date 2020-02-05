@@ -20,28 +20,26 @@ export class PRMasterDialog {
     options = {
         showColumns: false,
         showToggle: false,
-        pagination: false,
-        search: false,
         clickToSelect: true,
         height: 500
     }
 
     columns = [
         { field: "isSelected", radio: true, sortable: false, },
-        { field: "PRNo", title: "Nomor PR" },
-        { field: "RONo", title: "Nomor RO" },
-        { field: "Article", title: "Artikel" },
+        { field: "GarmentPurchaseRequest.PRNo", title: "Nomor PR" },
+        { field: "GarmentPurchaseRequest.RONo", title: "Nomor RO" },
+        { field: "GarmentPurchaseRequest.Article", title: "Artikel" },
         { field: "PO_SerialNumber", title: "No. PO" },
         { field: "Category.name", title: "Kategori" },
         { field: "Product.Code", title: "Kode Barang" },
-        { field: "Composition.Composition", title: "Komposisi" },
-        { field: "Const.Const", title: "Konstruksi" },
-        { field: "Yarn.Yarn", title: "Yarn" },
-        { field: "Width.Width", title: "Width" },
+        { field: "Composition.Composition", title: "Komposisi", sortable: false },
+        { field: "Const.Const", title: "Konstruksi", sortable: false },
+        { field: "Yarn.Yarn", title: "Yarn", sortable: false },
+        { field: "Width.Width", title: "Width", sortable: false },
         { field: "ProductRemark", title: "Keterangan" },
         { field: "Quantity", title: "Jumlah" },
         { field: "UomUnit", title: "Satuan" },
-        { field: "AvailableQuantity", title: "Jumlah Tersedia" },
+        { field: "AvailableQuantity", title: "Jumlah Tersedia", sortable: false },
     ];
 
     loader = (info) => {
@@ -52,64 +50,60 @@ export class PRMasterDialog {
             order[info.sort] = info.order;
 
         var arg = {
-            page: 1,
-            size: 25,
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
             keyword: info.search,
+            search: JSON.stringify(["PO_SerialNumber", "CategoryName", "ProductCode", "ProductName", "GarmentPurchaseRequest.PRNo", "GarmentPurchaseRequest.Article", "GarmentPurchaseRequest.RONo"]),
             order: order,
-            select: JSON.stringify({
-                "Id": "1", "PRType": "1", "SCId": "1", "SCNo": "1", "PRNo": "1", "RONo": "1", "Article": "1",
-                "Items.Id": "1", "Items.PO_SerialNumber": "1",
-                "Items.CategoryId": "1", "Items.CategoryName": "1",
-                "Items.ProductId": "1", "Items.ProductCode": "1", "Items.ProductName": "1",
-                "Items.ProductRemark": "1", "Items.Quantity": "1", "Items.BudgetPrice": "1",
-                "Items.UomId": "1", "Items.UomUnit": "1", "Items.PriceUomId": "1", "Items.PriceUomUnit": "1"
-            }),
+            select: "new( " +
+                "GarmentPurchaseRequest.Id as PRId, GarmentPurchaseRequest.PRType, GarmentPurchaseRequest.SCId, GarmentPurchaseRequest.SCNo, GarmentPurchaseRequest.PRNo, GarmentPurchaseRequest.RONo, GarmentPurchaseRequest.Article," +
+                "Id, PO_SerialNumber, CategoryId, CategoryName, ProductId, ProductCode, ProductName, ProductRemark, Quantity, BudgetPrice, UomId, UomUnit, PriceUomId, PriceUomUnit" +
+                ")",
             filter: JSON.stringify(this.filter),
         }
 
-        return this.prService.search(arg)
+        return this.prService.searchItems(arg)
             .then(result => {
                 result.data.map(data => {
                     return data;
                 });
 
                 let data = [];
-                let items = [];
                 for (const d of result.data) {
-                    for (const i of d.Items) {
-                        data.push(Object.assign({
-                            PRMasterId: d.Id,
-                            PRMasterItemId: i.Id,
-                            POMaster: i.PO_SerialNumber,
+                    data.push(Object.assign({
+                        PRMasterId: d.PRId,
+                        PRMasterItemId: d.Id,
+                        POMaster: d.PO_SerialNumber,
 
-                            PRNo: d.PRNo,
-                            RONo: d.RONo,
-                            Article: d.Article,
+                        PRNo: d.PRNo,
+                        RONo: d.RONo,
+                        Article: d.Article,
+                        "GarmentPurchaseRequest.PRNo": d.PRNo,
+                        "GarmentPurchaseRequest.RONo": d.RONo,
+                        "GarmentPurchaseRequest.Article": d.Article,
 
-                            Category: {
-                                Id: i.CategoryId,
-                                // code: i.CategoryCode,
-                                name: i.CategoryName,
-                            },
-                            Product: {
-                                Id: i.ProductId,
-                                Code: i.ProductCode,
-                                Name: i.ProductName,
-                            },
-                            Description: i.ProductRemark,
-                            Uom: {
-                                Id: i.UomId,
-                                Unit: i.UomUnit
-                            },
-                            BudgetPrice: i.BudgetPrice,
-                            PriceUom: {
-                                Id: i.PriceUomId,
-                                Unit: i.PriceUomUnit
-                            }
-                        }, i));
-                    }
+                        Category: {
+                            Id: d.CategoryId,
+                            // code: i.CategoryCode,
+                            name: d.CategoryName,
+                        },
+                        Product: {
+                            Id: d.ProductId,
+                            Code: d.ProductCode,
+                            Name: d.ProductName,
+                        },
+                        Description: d.ProductRemark,
+                        Uom: {
+                            Id: d.UomId,
+                            Unit: d.UomUnit
+                        },
+                        BudgetPrice: d.BudgetPrice,
+                        PriceUom: {
+                            Id: d.PriceUomId,
+                            Unit: d.PriceUomUnit
+                        }
+                    }, d));
                 }
-
 
                 let materialsFilter = {};
                 materialsFilter[`(CostCalculationGarmentId == ${this.CCId})`] = false;
@@ -140,10 +134,10 @@ export class PRMasterDialog {
 
                         if (fabricItemsProductIds.length) {
                             return this.coreService.getGarmentProductsByIds(fabricItemsProductIds)
-                                .then(result => {
+                                .then(garmentProductsResult => {
                                     data.filter(i => i.Category.name === "FABRIC")
                                         .forEach(i => {
-                                            const product = result.find(d => d.Id == i.Product.Id);
+                                            const product = garmentProductsResult.find(d => d.Id == i.Product.Id);
 
                                             i.Product = product;
                                             i.Composition = product;
@@ -153,13 +147,13 @@ export class PRMasterDialog {
                                         });
 
                                     return {
-                                        total: data.length,
+                                        total: result.info.total,
                                         data: data
                                     }
                                 });
                         } else {
                             return {
-                                total: data.length,
+                                total: result.info.total,
                                 data: data
                             }
                         }
@@ -170,9 +164,9 @@ export class PRMasterDialog {
     activate(params) {
         this.CCId = params.CCId;
         this.filter = {};
-        this.filter["PRType == \"MASTER\" || PRType == \"SAMPLE\""] = true;
-        this.filter["SCId"] = params.SCId;
-        this.filter["IsValidatedMD2"] = true;
+        this.filter["GarmentPurchaseRequest.PRType == \"MASTER\" || GarmentPurchaseRequest.PRType == \"SAMPLE\""] = true;
+        this.filter["GarmentPurchaseRequest.SCId"] = params.SCId;
+        this.filter["GarmentPurchaseRequest.IsValidatedMD2"] = true;
     }
 
     select() {
