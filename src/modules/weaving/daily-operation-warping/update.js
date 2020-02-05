@@ -327,23 +327,24 @@ export class Update {
       OperatorIdContainer = this.ProduceBeamsOperator.Id;
     }
     // if (this.WarpingBeamLengthPerOperator > 0) {
-    var totalBeamLengthProcessed = 0;
-    this.Histories.forEach(history => {
-      totalBeamLengthProcessed = totalBeamLengthProcessed + parseInt(history.WarpingBeamLengthPerOperator);
-    });
-
+    var lastBeamProduct = this.BeamProducts[0];
+    var currentBeamLengthProcessed = lastBeamProduct.WarpingTotalBeamLength;
+    // this.Histories.forEach(history => {
+    //   currentBeamLengthProcessed = currentBeamLengthProcessed + parseInt(history.WarpingBeamLengthPerOperator);
+    // });
+    
     if (!this.completeBeam) {
 
       //Validasi Untuk Produksi Beam
       if (this.WarpingBeamLengthPerOperator < this.data.AmountOfCones) {
 
         //Validasi Jika Jumlah Cone Yang Digunakan > (Jumlah Input Beam) + Total Beam yang Sudah Diproses di History
-        if (this.data.AmountOfCones > (this.WarpingBeamLengthPerOperator + totalBeamLengthProcessed)) {
+        if (this.data.AmountOfCones > (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
           WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
         }
 
         //Validasi Jika Jumlah Cone Yang Digunakan < (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
-        else if (this.data.AmountOfCones < (this.WarpingBeamLengthPerOperator + totalBeamLengthProcessed)) {
+        else if (this.data.AmountOfCones < (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
           this.error.WarpingBeamLengthPerOperator = "Input Panjang Beam + Total Panjang Beam yang Sudah Diproses Harus Lebih Kecil dari Jumlah Cone";
           errorIndex++
         }
@@ -363,7 +364,7 @@ export class Update {
     } else {
 
       //Validasi Untuk Selesai Beam
-      if (this.data.AmountOfCones == (this.WarpingBeamLengthPerOperator + totalBeamLengthProcessed)) {
+      if (this.data.AmountOfCones == (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
 
         //Validasi Jika Jumlah Cone == (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
         WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;

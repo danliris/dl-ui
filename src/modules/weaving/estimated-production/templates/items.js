@@ -1,4 +1,8 @@
-import { inject, BindingEngine } from "aurelia-framework";
+import {
+  inject,
+  BindingEngine
+} from "aurelia-framework";
+import moment from "moment";
 
 @inject(BindingEngine)
 export class Items {
@@ -20,7 +24,10 @@ export class Items {
     //     this.data.FabricConstructionDocument.TotalYarn
     //   );
     // }
-
+    if (this.data.DateOrdered) {
+      this.data.Period = moment(this.data.DateOrdered).format("MMMM YYYY");
+    }
+    
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }

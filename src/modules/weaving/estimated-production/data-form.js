@@ -61,8 +61,18 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    if (this.data.EstimatedNumber) {
-      this.orderProductionsTableOptions = {};
+    // if (this.data.EstimatedNumber) {
+    //   this.orderProductionsTableOptions = {};
+    // }
+
+    if (this.data.DateEstimated) {
+      moment.locale("id");
+      this.Month = moment(this.data.DateEstimated).format("MMMM");
+      this.Year = moment(this.data.DateEstimated).format("YYYY");
+    }
+
+    if(this.data.UnitName){
+      this.Unit = this.data.UnitName;
     }
     this.orderProductionsItems;
 
@@ -205,26 +215,10 @@ export class DataForm {
 
               datum.Period = Period;
             }
-            this.data.EstimationDetails.push(datum);
+            this.data.EstimatedDetails.push(datum);
           }
           this.context.orderProductionsItems.bind(this);
         });
-      // .then(result => {
-      //   //Print each datum on orderProductions Data and push to Items Collections
-      //   result.forEach((datum, i, data) => {
-      //     // if (this.data.EstimationDetails.find(o => o.Id == datum.Id)) {
-
-      //     // } else {
-      //     this.data.EstimationDetails.push(datum);
-      //     // }
-      //   });
-
-      //   //Bind "Items" reference
-      //   this.context.orderProductionsItems.bind(this);
-      // }).catch(e => {
-      //   window.alert('Data Tidak Ditemukan')
-      //   // location.reload();
-      // });
     }
   }
 }
