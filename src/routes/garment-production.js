@@ -16,7 +16,7 @@ module.exports = [
         name: 'garment-production-scrap-source',
         moduleId: './modules/garment-production/scrap-source/index',
         nav: true,
-        title: 'Master Jenis Barang Aval',
+        title: 'Master Asal Barang Aval',
         auth: true,
         settings: {
             group: "g-production",
@@ -29,7 +29,7 @@ module.exports = [
         name: 'garment-production-scrap-classifications',
         moduleId: './modules/garment-production/scrap-classification/index',
         nav: true,
-        title: 'Jenis Barang Aval',
+        title: 'Master Jenis Barang Aval',
         auth: true,
         settings: {
             group: "g-production",
