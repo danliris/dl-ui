@@ -12,9 +12,9 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },{
-        route: '/garment-production/scrap-classification',
-        name: 'garment-production-scrap-classification',
-        moduleId: './modules/garment-production/scrap-classification/index',
+        route: '/garment-production/scrap-source',
+        name: 'garment-production-scrap-source',
+        moduleId: './modules/garment-production/scrap-source/index',
         nav: true,
         title: 'Master Jenis Barang Aval',
         auth: true,
