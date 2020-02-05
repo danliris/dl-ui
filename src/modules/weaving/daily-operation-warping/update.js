@@ -311,7 +311,7 @@ export class Update {
     var WarpingBeamLengthUomIdContainer;
 
     this.error = {};
-    var errorIndex = 0;
+    // var errorIndex = 0;
 
     var IdContainer = this.data.Id;
     if (this.ProduceBeamsDate) {
@@ -323,59 +323,66 @@ export class Update {
     if (this.ProduceBeamsShift) {
       ShiftIdContainer = this.ProduceBeamsShift.Id;
     }
+
     if (this.ProduceBeamsOperator) {
       OperatorIdContainer = this.ProduceBeamsOperator.Id;
     }
-    // if (this.WarpingBeamLengthPerOperator > 0) {
-    var lastBeamProduct = this.BeamProducts[0];
-    var currentBeamLengthProcessed = lastBeamProduct.WarpingTotalBeamLength;
-    // this.Histories.forEach(history => {
-    //   currentBeamLengthProcessed = currentBeamLengthProcessed + parseInt(history.WarpingBeamLengthPerOperator);
-    // });
-    
-    if (!this.completeBeam) {
 
-      //Validasi Untuk Produksi Beam
-      if (this.WarpingBeamLengthPerOperator < this.data.AmountOfCones) {
-
-        //Validasi Jika Jumlah Cone Yang Digunakan > (Jumlah Input Beam) + Total Beam yang Sudah Diproses di History
-        if (this.data.AmountOfCones > (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
-          WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
-        }
-
-        //Validasi Jika Jumlah Cone Yang Digunakan < (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
-        else if (this.data.AmountOfCones < (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
-          this.error.WarpingBeamLengthPerOperator = "Input Panjang Beam + Total Panjang Beam yang Sudah Diproses Harus Lebih Kecil dari Jumlah Cone";
-          errorIndex++
-        }
-
-        //Validasi Jika Jumlah Cone Yang Digunakan == (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History (Harusnya Pilih Selesai)
-        else {
-          this.error.WarpingBeamLengthPerOperator = "Pilih Selesai Produksi Jika Input Panjang Beam + Total Panjang Beam Sama Dengan Jumlah Cone";
-          errorIndex++
-        }
-      }
-
-      //Validasi Jika Jumlah Input Beam (Input Beam Lebih Besar) > Jumlah Cone Yang Digunakan
-      else {
-        this.error.WarpingBeamLengthPerOperator = "Input Panjang Beam + Total Panjang Beam Harus Kurang Dari Jumlah Cone";
-        errorIndex++
-      }
-    } else {
-
-      //Validasi Untuk Selesai Beam
-      if (this.data.AmountOfCones == (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
-
-        //Validasi Jika Jumlah Cone == (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
-        WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
-      }
-
-      //Validasi Jika Jumlah Cone Yang Digunakan > (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
-      else {
-        this.error.WarpingBeamLengthPerOperator = "Proses Selesai, Input Panjang Beam + Total Panjang Beam Harus Sama Dengan Jumlah Cone";
-        errorIndex++
-      }
+    if (this.WarpingBeamLengthPerOperator > 0) {
+      WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
     }
+
+    // // if (this.WarpingBeamLengthPerOperator > 0) {
+    // var lastBeamProduct = this.BeamProducts[0];
+    // var currentBeamLengthProcessed = lastBeamProduct.WarpingTotalBeamLength;
+    // // this.Histories.forEach(history => {
+    // //   currentBeamLengthProcessed = currentBeamLengthProcessed + parseInt(history.WarpingBeamLengthPerOperator);
+    // // });
+
+    // if (!this.completeBeam) {
+
+    //   //Validasi Untuk Produksi Beam
+    //   if (this.WarpingBeamLengthPerOperator < this.data.AmountOfCones) {
+
+    //     //Validasi Jika Jumlah Cone Yang Digunakan > (Jumlah Input Beam) + Total Beam yang Sudah Diproses di History
+    //     if (this.data.AmountOfCones > (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
+    //       WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
+    //     }
+
+    //     //Validasi Jika Jumlah Cone Yang Digunakan < (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
+    //     else if (this.data.AmountOfCones < (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
+    //       this.error.WarpingBeamLengthPerOperator = "Input Panjang Beam + Total Panjang Beam yang Sudah Diproses Harus Lebih Kecil dari Jumlah Cone";
+    //       errorIndex++
+    //     }
+
+    //     //Validasi Jika Jumlah Cone Yang Digunakan == (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History (Harusnya Pilih Selesai)
+    //     else {
+    //       this.error.WarpingBeamLengthPerOperator = "Pilih Selesai Produksi Jika Input Panjang Beam + Total Panjang Beam Sama Dengan Jumlah Cone";
+    //       errorIndex++
+    //     }
+    //   }
+
+    //   //Validasi Jika Jumlah Input Beam (Input Beam Lebih Besar) > Jumlah Cone Yang Digunakan
+    //   else {
+    //     this.error.WarpingBeamLengthPerOperator = "Input Panjang Beam + Total Panjang Beam Harus Kurang Dari Jumlah Cone";
+    //     errorIndex++
+    //   }
+    // } else {
+
+    //   //Validasi Untuk Selesai Beam
+    //   if (this.data.AmountOfCones == (this.WarpingBeamLengthPerOperator + currentBeamLengthProcessed)) {
+
+    //     //Validasi Jika Jumlah Cone == (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
+    //     WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
+    //   }
+
+    //   //Validasi Jika Jumlah Cone Yang Digunakan > (Jumlah Input Beam + Total Beam) yang Sudah Diproses di History
+    //   else {
+    //     this.error.WarpingBeamLengthPerOperator = "Proses Selesai, Input Panjang Beam + Total Panjang Beam Harus Sama Dengan Jumlah Cone";
+    //     errorIndex++
+    //   }
+    // }
+
     if (this.WarpingBeamLengthUom) {
       WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
     }
@@ -428,25 +435,25 @@ export class Update {
       produceBeamData.PressRollUom = PressRollUomContainer;
       produceBeamData.IsFinishFlag = IsFinishFlagContainer;
 
-      if (errorIndex == 0) {
-        this.service.updateCompletedProcess(produceBeamData.Id, produceBeamData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
-          });
-      }
+      // if (errorIndex == 0) {
+      this.service.updateCompletedProcess(produceBeamData.Id, produceBeamData)
+        .then(result => {
+          location.reload();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+      // }
     } else {
-      if (errorIndex == 0) {
-        this.service.updateProduceBeamsProcess(produceBeamData.Id, produceBeamData)
-          .then(result => {
-            location.reload();
-          })
-          .catch(e => {
-            this.error = e;
-          });
-      }
+      // if (errorIndex == 0) {
+      this.service.updateProduceBeamsProcess(produceBeamData.Id, produceBeamData)
+        .then(result => {
+          location.reload();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+      // }
     }
   }
 
