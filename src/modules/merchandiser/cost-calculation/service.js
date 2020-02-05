@@ -169,6 +169,11 @@ class PurchasingService extends RestService {
         var endpoint = `${serviceUriPurchaseRequest}/dynamic`;
         return super.list(endpoint, info);
     }
+
+    searchItems(info) {
+        var endpoint = `${serviceUriPurchaseRequest}/items`;
+        return super.list(endpoint, info);
+    }
 }
 
 export { Service, PurchasingService }
