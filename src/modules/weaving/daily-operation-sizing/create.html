@@ -52,7 +52,7 @@
           <textbox label="Kode Resep" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Kode Resep" value.bind="RecipeCode" error.bind="error.RecipeCode"
+          <au-textbox placeholder="Kode Resep" value.bind="data.RecipeCode" error.bind="error.RecipeCode"
             read-only.bind="readOnly">
           </au-textbox>
         </div>
@@ -60,7 +60,7 @@
           <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-numeric placeholder="Ne Real" value.bind="NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
+          <au-numeric placeholder="Ne Real" value.bind="data.NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
           </au-numeric>
         </div>
       </div>
@@ -110,17 +110,28 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Beam Dihasilkan" read-only="true"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-numeric placeholder="Jumlah Beam Dihasilkan" value.bind="data.BeamProductResult" error.bind="error.BeamProductResult"
+            read-only.bind="readOnly">
+          </au-numeric>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
           <textbox label="Total Helai Benang Beam Warping" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Total Helai Benang Beam Warping" value.bind="YarnStrands" error.bind="error.YarnStrands"
+          <au-textbox placeholder="Total Helai Benang Beam Warping" value.bind="data.YarnStrands" error.bind="error.YarnStrands"
             read-only.bind="true"></au-textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Total Berat Kosong Beam Warping" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Total Berat Kosong Beam Warping" value.bind="EmptyWeight"
+          <au-textbox placeholder="Total Berat Kosong Beam Warping" value.bind="data.EmptyWeight"
             error.bind="error.EmptyWeight" read-only.bind="true"></au-textbox>
         </div>
       </div>
