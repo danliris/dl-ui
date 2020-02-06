@@ -277,17 +277,17 @@ export class Update {
       var WarpingBeamNumberContainer = this.StartWarpingBeamDocuments.Number;
     }
 
-    this.data = {};
-    this.data.Id = IdContainer;
-    this.data.StartDate = HistoryDateContainer;
-    this.data.StartTime = HistoryTimeContainer;
-    this.data.StartShift = ShiftContainer;
-    this.data.StartOperator = OperatorContainer;
-    this.data.WarpingBeamId = WarpingBeamIdContainer;
-    this.data.WarpingBeamNumber = WarpingBeamNumberContainer;
+    var updateStartData = {};
+    updateStartData.Id = IdContainer;
+    updateStartData.StartDate = HistoryDateContainer;
+    updateStartData.StartTime = HistoryTimeContainer;
+    updateStartData.StartShift = ShiftContainer;
+    updateStartData.StartOperator = OperatorContainer;
+    updateStartData.WarpingBeamId = WarpingBeamIdContainer;
+    updateStartData.WarpingBeamNumber = WarpingBeamNumberContainer;
 
     this.service
-      .updateStartProcess(this.data.Id, this.data)
+      .updateStartProcess(updateStartData.Id, updateStartData)
       .then(result => {
         location.reload();
       })
@@ -310,12 +310,16 @@ export class Update {
   }
 
   saveProduceBeams() {
+    debugger
     var HistoryDateContainer;
     var HistoryTimeContainer;
     var ShiftIdContainer;
     var OperatorIdContainer;
     var WarpingBeamLengthPerOperatorContainer;
     var WarpingBeamLengthUomIdContainer;
+
+    this.error = {};
+    var errorIndex = 0;
 
     var IdContainer = this.data.Id;
     if (this.ProduceBeamsDate) {
@@ -331,21 +335,40 @@ export class Update {
       OperatorIdContainer = this.ProduceBeamsOperator.Id;
     }
     if (this.WarpingBeamLengthPerOperator) {
-      WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
+      var totalBeamLengthProcessed = 0;
+      this.Histories.forEach(history => {
+        totalBeamLengthProcessed = totalBeamLengthProcessed + parseInt(history.WarpingBeamLengthPerOperator);
+      });
+
+      if (!this.completeBeam) {
+        if (this.WarpingBeamLengthPerOperator < this.data.AmountOfCones && this.data.AmountOfCones > (this.WarpingBeamLengthPerOperator + totalBeamLengthProcessed)) {
+          WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
+        } else {
+          this.error.WarpingBeamLengthPerOperator = "Panjang Beam Harus Kurang Dari Jumlah Cone";
+          errorIndex++
+        }
+      } else {
+        if (this.data.AmountOfCones == (this.WarpingBeamLengthPerOperator + totalBeamLengthProcessed)) {
+          WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
+        } else {
+          this.error.WarpingBeamLengthPerOperator = "Panjang Beam Sama Dengan Jumlah Cone";
+          errorIndex++
+        }
+      }
     }
     if (this.WarpingBeamLengthUom) {
       WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
     }
 
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.ProduceBeamsDate = HistoryDateContainer;
-    updateData.ProduceBeamsTime = HistoryTimeContainer;
-    updateData.ProduceBeamsShift = ShiftIdContainer;
-    updateData.ProduceBeamsOperator = OperatorIdContainer;
-    updateData.WarpingBeamLengthPerOperator = WarpingBeamLengthPerOperatorContainer;
-    updateData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
-    updateData.BrokenCauses = [];
+    var produceBeamData = {};
+    produceBeamData.Id = IdContainer;
+    produceBeamData.ProduceBeamsDate = HistoryDateContainer;
+    produceBeamData.ProduceBeamsTime = HistoryTimeContainer;
+    produceBeamData.ProduceBeamsShift = ShiftIdContainer;
+    produceBeamData.ProduceBeamsOperator = OperatorIdContainer;
+    produceBeamData.WarpingBeamLengthPerOperator = WarpingBeamLengthPerOperatorContainer;
+    produceBeamData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
+    produceBeamData.BrokenCauses = [];
 
     if (this.completeBeam) {
       var TentionContainer;
@@ -376,32 +399,36 @@ export class Update {
         var brokenCauseObject = {};
         brokenCauseObject.WarpingBrokenCauseId = o.WarpingBrokenCause.Id;
         brokenCauseObject.TotalBroken = o.TotalBroken;
-        updateData.BrokenCauses.push(brokenCauseObject);
+        produceBeamData.BrokenCauses.push(brokenCauseObject);
       });
 
-      updateData.Tention = TentionContainer;
-      updateData.MachineSpeed = MachineSpeedContainer;
-      updateData.PressRoll = PressRollContainer;
-      updateData.PressRollUom = PressRollUomContainer;
-      updateData.IsFinishFlag = IsFinishFlagContainer;
-      
-      this.service
-        .updateCompletedProcess(updateData.Id, updateData)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
+      produceBeamData.Tention = TentionContainer;
+      produceBeamData.MachineSpeed = MachineSpeedContainer;
+      produceBeamData.PressRoll = PressRollContainer;
+      produceBeamData.PressRollUom = PressRollUomContainer;
+      produceBeamData.IsFinishFlag = IsFinishFlagContainer;
+
+      if (this.errorIndex == 0) {
+        this.service
+          .updateCompletedProcess(produceBeamData.Id, produceBeamData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
     } else {
-      this.service
-        .updateProduceBeamsProcess(updateData.Id, updateData)
-        .then(result => {
-          location.reload();
-        })
-        .catch(e => {
-          this.error = e;
-        });
+      if (this.errorIndex == 0) {
+        this.service
+          .updateProduceBeamsProcess(produceData.Id, produceData)
+          .then(result => {
+            location.reload();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
     }
   }
 

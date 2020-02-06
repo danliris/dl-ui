@@ -34,6 +34,7 @@
                         <td>Satuan</td>
                         <td>No Surat Jalan</td>
                         <td>Supplier</td>
+                        <td>Ket. Kelebihan Barang</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,9 +53,10 @@
                                 <td align="center">${data.Items[0].UomCCUnit}</td>
                                 <td>${data.Items[0].DONo}</td>
                                 <td>${data.Items[0].SupplierName}</td>
+                                <td>${data.Items[0].OverUsageReason}</td>
                             </template>
                             <template else>
-                                <td repeat.for="i of 6"></td>
+                                <td repeat.for="i of 7"></td>
                             </template>
                         </tr>
                         <template if.bind="data.Items.length > 1">
@@ -65,6 +67,7 @@
                                 <td align="center">${data.Items[index+1].UomCCUnit}</td>
                                 <td>${data.Items[index+1].DONo}</td>
                                 <td>${data.Items[index+1].SupplierName}</td>
+                                <td>${data.Items[index+1].OverUsageReason}</td>
                             </tr>
                         </template>
                     </template>

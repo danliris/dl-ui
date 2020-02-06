@@ -14,11 +14,15 @@ var moment = require("moment");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable FabricConstructionDocument;
   @bindable Month;
   @bindable Year;
+  @bindable Construction;
+  @bindable Unit;
+  @bindable WarpOrigin;
+  @bindable WeftOrigin;
 
-  yearFormat = "YYYY";
+  months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
   years = [];
 
   formOptions = {
@@ -28,44 +32,38 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  months = [
-    "",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
-
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.Month = this.months[this.getMonth()];
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
 
-    if (this.data.Id) {
-      if (this.readOnly) {
-        this.Month = this.data.Period.Month;
-        this.Year = this.data.Period.Year;
-        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
-      } else {
-        this.Month = this.data.Period.Month;
-        var yearData = this.data.Period.Year;
-        this.Year = this.getYears(yearData);
-        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
-      }
-    } else {
-      this.data.Period = {};
-      this.data.Period.Month = this.Month;
-      this.Year = this.getYears();
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
+    }
+    
+    if (this.data.Month) {
+      this.Month = this.data.Month;
+    }
+
+    if (this.data.Year)
+      this.Year = this.data.Year;
+
+    if (this.data.Construction)
+      this.Construction = this.data.Construction;
+
+    if (this.data.WarpOrigin) {
+      this.WarpOrigin = this.data.WarpOrigin;
+    }
+
+    if (this.data.WeftOrigin)
+      this.WeftOrigin = this.data.WeftOrigin;
+
+    if (this.data.Unit) {
+      this.Unit = this.data.Unit;
     }
 
     this.cancelCallback = this.context.cancelCallback;
@@ -86,42 +84,83 @@ export class DataForm {
     return UnitLoader;
   }
 
-  FabricConstructionDocumentChanged(newValue) {
-    if (newValue) {
-      if (newValue.Id) {
-        this.data.FabricConstructionDocument = newValue;
-        this.data.FabricConstructionDocument.Id = newValue.Id;
-        this.data.FabricConstructionDocument.ConstructionNumber = newValue.ConstructionNumber;
-
-        var ConstructionNumberSplitted = newValue.ConstructionNumber.split(" ");
-        var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2]
-        var WeftCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 1]
-        var WarpWeftCode = WarpCode + "X" + WeftCode;
-        this.data.YarnType = WarpWeftCode;
-      }
-    }
-  }
-
   MonthChanged(newValue) {
-    this.data.Period.Month = newValue;
+    var MonthInNumber = 0;
+    switch (newValue) {
+      case "Januari":
+        MonthInNumber = 1;
+        break;
+      case "Februari":
+        MonthInNumber = 2;
+        break;
+      case "Maret":
+        MonthInNumber = 3;
+        break;
+      case "April":
+        MonthInNumber = 4;
+        break;
+      case "Mei":
+        MonthInNumber = 5;
+        break;
+      case "Juni":
+        MonthInNumber = 6;
+        break;
+      case "Juli":
+        MonthInNumber = 7;
+        break;
+      case "Agustus":
+        MonthInNumber = 8;
+        break;
+      case "September":
+        MonthInNumber = 9;
+        break;
+      case "Oktober":
+        MonthInNumber = 10;
+        break;
+      case "November":
+        MonthInNumber = 11;
+        break;
+      case "Desember":
+        MonthInNumber = 12;
+        break;
+      default:
+        MonthInNumber = 0;
+        break;
+    }
+    this.data.Month = MonthInNumber;
   }
 
   YearChanged(newValue) {
-    this.data.Period.Year = newValue;
+    this.data.Year = parseInt(newValue);
   }
 
-  getYears() {
-    var year = moment(new Date());
-    this.years.push(year.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
+  ConstructionChanged(newValue) {
+    if (newValue.Id) {
+      this.data.ConstructionDocumentId = newValue.Id;
+
+      var ConstructionNumberSplitted = newValue.ConstructionNumber.split(" ");
+      var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2]
+      var WeftCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 1]
+      var WarpWeftCode = WarpCode + " X " + WeftCode;
+      this.data.YarnType = WarpWeftCode;
+    }
   }
 
-  getMonth() {
-    return new Date().getMonth() + 1;
+  UnitChanged(newValue) {
+    if (newValue.Id) {
+      this.data.UnitId = newValue.Id;
+    }
+  }
+
+  WarpOriginChanged(newValue) {
+    if (newValue.Id) {
+      this.data.WarpOriginId = newValue.Id;
+    }
+  }
+
+  WeftOriginChanged(newValue) {
+    if (newValue.Id) {
+      this.data.WeftOriginId = newValue.Id;
+    }
   }
 }
