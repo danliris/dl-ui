@@ -4,10 +4,10 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
-  ePNumberVisibility = true;
   searchButton = false;
-  // readOnly=true;
-  createOnly = true;
+  dataExist = true;
+  editable = true;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -16,17 +16,9 @@ export class View {
 
   async activate(params) {
     var Id = params.Id;
-    var dataResult;
+    // var dataResult;
     this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.Unit);
-      })
-      .then(unit => {
-        dataResult.Unit = unit;
-        return dataResult;
-      });
+      .getById(Id);
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan

@@ -12,11 +12,37 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },{
-        route: '/garment-production/scrap-classification',
-        name: 'garment-production-scrap-classification',
-        moduleId: './modules/garment-production/scrap-classification/index',
+        route: '/garment-production/scrap-source',
+        name: 'garment-production-scrap-source',
+        moduleId: './modules/garment-production/scrap-source/index',
         nav: true,
         title: 'Master Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-classifications',
+        name: 'garment-production-scrap-classifications',
+        moduleId: './modules/garment-production/scrap-classification/index',
+        nav: true,
+        title: 'Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-destinations',
+        name: 'garment-production-scrap-destinations',
+        moduleId: './modules/garment-production/scrap-destination/index',
+        nav: true,
+        title: 'Master Tujuan Barang Aval',
         auth: true,
         settings: {
             group: "g-production",
@@ -129,19 +155,6 @@ module.exports = [
         }
     },
     {
-        route: '/garment-production/adjustment-loading',
-        name: 'garment-production-adjustment-loading',
-        moduleId: './modules/garment-production/adjustment-loading/index',
-        nav: true,
-        title: 'Adjustment Loading',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: '/garment-production/sewing-in',
         name: 'garment-production-sewing-in',
         moduleId: './modules/garment-production/sewing-in/index',
@@ -233,6 +246,45 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-loading',
+        name: 'garment-production-adjustment-loading',
+        moduleId: './modules/garment-production/adjustment-loading/index',
+        nav: true,
+        title: 'Adjustment Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-sewing',
+        name: 'garment-production-adjustment-sewing',
+        moduleId: './modules/garment-production/adjustment-sewing/index',
+        nav: true,
+        title: 'Adjustment Sewing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-finishing',
+        name: 'garment-production-adjustment-finishing',
+        moduleId: './modules/garment-production/adjustment-finishing/index',
+        nav: true,
+        title: 'Adjustment Finishing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/monitoring-prepare',
         name: 'garment-production-monitoring-prepare',
         moduleId: './modules/garment-production/monitoring-prepare/index',
@@ -277,32 +329,6 @@ module.exports = [
         moduleId: './modules/garment-production/monitoring-sewing/index',
         nav: true,
         title: 'Monitoring Sewing',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/garment-production/adjustment-loading',
-        name: 'garment-production-adjustment-loading',
-        moduleId: './modules/garment-production/adjustment-loading/index',
-        nav: true,
-        title: 'Adjustment Loading',
-        auth: true,
-        settings: {
-            group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/garment-production/adjustment-sewing',
-        name: 'garment-production-adjustment-sewing',
-        moduleId: './modules/garment-production/adjustment-sewing/index',
-        nav: true,
-        title: 'Adjustment Sewing',
         auth: true,
         settings: {
             group: "g-production",

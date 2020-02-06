@@ -1,5 +1,11 @@
-import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { Service } from "../service";
+import {
+  inject,
+  bindable,
+  BindingEngine
+} from "aurelia-framework";
+import {
+  Service
+} from "../service";
 
 var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
@@ -10,6 +16,7 @@ export class ItemsWarp {
   constructor(bindingEngine, service) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.Yarn = {};
   }
 
   get yarnsWarp() {
@@ -20,8 +27,13 @@ export class ItemsWarp {
     this.data = context.data;
     this.error = context.error;
 
-    this.Quantity = this.data.Quantity;
-    this.Information = this.data.Information;
+    // this.Quantity = this.data.Quantity;
+    // this.Information = this.data.Information;
+    this.Yarn.Name = this.data.YarnName;
+    // this.Yarn.Code = this.data.Code;
+    // this.Yarn.Quantity = this.data.Quantity;
+    // this.Yarn.Information = this.data.Information;
+    // this.Yarn.Type = this.data.Type;
     if (this.data.Yarn) {
       var retrieveValue = this.data.Yarn;
       this.data.YarnId = retrieveValue.Id;
@@ -34,14 +46,22 @@ export class ItemsWarp {
   }
 
   // Change on Kode Lusi, affected when Benang Lusi change
-  async YarnChanged(newValue) {    
+  async YarnChanged(newValue) {
     if (newValue) {
       this.data.Yarn = newValue;
 
+      this.data.Id = this.data.Id ? this.data.Id : "";
       this.data.YarnId = newValue.Id ? newValue.Id : "";
       this.data.Code = newValue.Code ? newValue.Code : "";
+      this.data.YarnName = newValue.Name ? newValue.Name : "";
       this.data.Quantity = 0;
       this.data.Information = "";
+      this.data.Type = "Warp";
+      if (this.options.Id) {
+        this.data.FabricConstructionDocumentId = this.options.Id;
+      }else{
+        this.data.FabricConstructionDocumentId = "";
+      }
     }
   }
 }

@@ -83,7 +83,7 @@ module.exports = [
         name: 'receipt-spb-monitoring',
         moduleId: './modules/purchasing/unit-before-spb-monitoring/index',
         nav: true,
-        title: 'Monitoring Bon Belum Terima SPB',
+        title: 'Monitoring Bon Belum Buat SPB',
         auth: true,
         settings: {
             group: "purchasing",

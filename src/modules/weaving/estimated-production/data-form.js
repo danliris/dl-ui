@@ -1,16 +1,24 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 import moment from "moment";
-import { Service } from "./service";
+import {
+  Service
+} from "./service";
 var UnitLoader = require("../../../loader/unit-loader");
-import { Router } from "aurelia-router";
+import {
+  Router
+} from "aurelia-router";
 
 @inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable error;
   @bindable Month;
   @bindable Year;
+  @bindable Unit;
 
   yearFormat = "YYYY";
   years = [];
@@ -20,38 +28,30 @@ export class DataForm {
     saveText: "Simpan"
   };
 
-  customOptions = {
-    label: {
-      align: "left"
-    }
-  };
-
   //Options untuk No. Estimasi Produksi
-  customEstimatedControlOptions = {
+  controlOptions = {
+    label: {
+      length: 3
+    },
     control: {
-      length: 9
+      length: 6
     }
   };
 
-  months = [
-    "",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+  months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
   constructor(service, router) {
     this.service = service;
     this.router = router;
+
+    moment.locale("id");
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
+
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
+    }
   }
 
   orderProductionsItems;
@@ -60,16 +60,19 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    this.Month = this.months[this.getMonth()];
 
-    if (this.data.EstimatedNumber) {
-      this.orderProductionsTableOptions = {};
+    // if (this.data.EstimatedNumber) {
+    //   this.orderProductionsTableOptions = {};
+    // }
+
+    if (this.data.DateEstimated) {
+      moment.locale("id");
+      this.Month = moment(this.data.DateEstimated).format("MMMM");
+      this.Year = moment(this.data.DateEstimated).format("YYYY");
     }
 
-    if (!this.data.Period) {
-      this.data.Period = {};
-      this.data.Period.Month = this.Month;
-      this.Year = this.getYears();
+    if(this.data.UnitName){
+      this.Unit = this.data.UnitName;
     }
     this.orderProductionsItems;
 
@@ -79,19 +82,42 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  orderProductionsColumns = [
-    { header: "Tanggal", value: "DateOrdered" },
-    { header: "No. SOP", value: "OrderNumber" },
+  orderProductionsColumns = [{
+      header: "Periode",
+      value: "Period"
+    },
+    {
+      header: "No. SOP",
+      value: "OrderNumber"
+    },
     {
       header: "No. Konstruksi",
       value: "ConstructionNumber"
     },
-    { header: "Total Gram", value: "TotalGramEstimation" },
-    { header: "Jumlah Order(Meter)", value: "WholeGrade" },
-    { header: "Grade A(%)", value: "GradeA" },
-    { header: "Grade B(%)", value: "GradeB" },
-    { header: "Grade C(%)", value: "GradeC" },
-    { header: "Grade D(%)", value: "GradeD" }
+    {
+      header: "Total Gram",
+      value: "TotalGram"
+    },
+    {
+      header: "Jumlah Order(Meter)",
+      value: "TotalOrder"
+    },
+    {
+      header: "Grade A(%)",
+      value: "GradeA"
+    },
+    {
+      header: "Grade B(%)",
+      value: "GradeB"
+    },
+    {
+      header: "Grade C(%)",
+      value: "GradeC"
+    },
+    {
+      header: "Grade D(%)",
+      value: "GradeD"
+    }
   ];
 
   get units() {
@@ -99,81 +125,100 @@ export class DataForm {
   }
 
   MonthChanged(newValue) {
-    this.data.Period.Month = newValue;
+    var monthInNumber = 0
+    switch (this.Month) {
+      case "Januari":
+        monthInNumber = 1;
+        break;
+      case "Februari":
+        monthInNumber = 2;
+        break;
+      case "Maret":
+        monthInNumber = 3;
+        break;
+      case "April":
+        monthInNumber = 4;
+        break;
+      case "Mei":
+        monthInNumber = 5;
+        break;
+      case "Juni":
+        monthInNumber = 6;
+        break;
+      case "Juli":
+        monthInNumber = 7;
+        break;
+      case "Agustus":
+        monthInNumber = 8;
+        break;
+      case "September":
+        monthInNumber = 9;
+        break;
+      case "Oktober":
+        monthInNumber = 10;
+        break;
+      case "November":
+        monthInNumber = 11;
+        break;
+      case "Desember":
+        monthInNumber = 12;
+        break;
+      default:
+        monthInNumber = 0;
+        break;
+    }
+
+    this.data.Month = monthInNumber
   }
 
   YearChanged(newValue) {
-    this.data.Period.Year = newValue;
+    this.data.Year = parseInt(newValue);
   }
 
-  getYears() {
-    var year = moment(new Date());
-    this.years.push(year.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1, "years");
-    this.years.push(nextYear.year());
+  UnitChanged(newValue) {
+    if (newValue.Id) {
+      this.data.UnitId = newValue.Id;
+    }
   }
 
   async searchOrderProductions() {
-    this.error = {};
-    var index = 0;
+    var errorIndex = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (!this.data.Period) {
-      index++;
-    } else {
-      if (!this.data.Period.Year) {
-        this.error.Year = "Periode Tahun Tidak Boleh Kosong";
-      }
-
-      if (!this.data.Period.Month) {
-        this.error.Month = "Periode Bulan Tidak Boleh Kosong";
-      }
+    if (!this.data.Year) {
+      errorIndex++;
     }
 
-    if (!this.data.Unit) {
-      if (index == 0) {
-        emptyFieldName = "Unit Tidak Boleh Kosong";
-      }
-      index++;
+    if (!this.data.Month || this.data.Month == 0) {
+      errorIndex++;
     }
 
-    if (index > 0) {
+    if (!this.data.UnitId) {
+      errorIndex++;
+    }
+
+    if (errorIndex > 0) {
       window.alert(emptyFieldName);
     } else {
+      var arg = {
+        month: this.data.Month,
+        year: this.data.Year,
+        unitId: this.data.UnitId,
+      };
+
       await this.service
-        .searchSOP(
-          this.data.Period.Month,
-          this.data.Period.Year,
-          this.data.Unit
-        )
-        .then(result => {
-          //Print each datum on orderProductions Data and push to Items Collections
-          result.forEach((datum, i, data) => {
+        .searchOpenOrders(arg).then(result => {
+          for (var datum of result.data) {
+            if (datum.Period) {
+              var Period = moment(datum.Period).format('MMMM YYYY');
 
-            if (
-              this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
-            ) {
-            } else {
-              this.data.EstimationProducts.push(datum);
+              datum.Period = Period;
             }
-          });
-
-          //Bind "Items" reference
+            this.data.EstimatedDetails.push(datum);
+          }
           this.context.orderProductionsItems.bind(this);
-        }).catch(e => {
-
-          window.alert('Data not found')
-          location.reload();
         });
     }
-  }
-
-  getMonth() {
-    return new Date().getMonth() + 1;
   }
 }

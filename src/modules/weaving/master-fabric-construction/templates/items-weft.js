@@ -10,6 +10,7 @@ export class ItemsWeft {
   constructor(bindingEngine, service) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.Yarn = {};
   }
 
   get yarnsWeft() {
@@ -20,8 +21,13 @@ export class ItemsWeft {
     this.data = context.data;
     this.error = context.error;
 
-    this.Quantity = this.data.Quantity;
-    this.Information = this.data.Information;
+    // this.Quantity = this.data.Quantity;
+    // this.Information = this.data.Information;
+    this.Yarn.Name = this.data.YarnName;
+    // this.Yarn.Code = this.data.Code;
+    // this.Yarn.Quantity = this.data.Quantity;
+    // this.Yarn.Information = this.data.Information;
+    // this.Yarn.Type = this.data.Type;
     if (this.data.Yarn) {
       var retrieveValue = this.data.Yarn;
       this.data.YarnId = retrieveValue.Id;
@@ -40,8 +46,15 @@ export class ItemsWeft {
 
       this.data.YarnId = newValue.Id ? newValue.Id : "";
       this.data.Code = newValue.Code ? newValue.Code : "";
+      this.data.YarnName = newValue.Name ? newValue.Name : "";
       this.data.Quantity = 0;
       this.data.Information = "";
+      this.data.Type = "Weft";
+      if (this.options.Id) {
+        this.data.FabricConstructionDocumentId = this.options.Id;
+      }else{
+        this.data.FabricConstructionDocumentId = "";
+      }
     }
   }
 }

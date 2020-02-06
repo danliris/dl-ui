@@ -22,7 +22,7 @@ export class List {
     @bindable JenisSpl;
     @bindable KtgrItem;
          
-    SupplierType = ['','LOCAL', 'IMPORT'];
+    SupplierType = ['LOCAL', 'IMPORT'];
     KategoriItem = ['','BAHAN BAKU', 'INTERLINING', 'BAHAN PENDUKUNG'];
    
     termPaymentLocal = ['', 'DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE']; 
@@ -38,15 +38,7 @@ export class List {
 
     JenisSplChanged(newvalue) {
         if (newvalue) {
-            if(newvalue === "LOCAL"){
-            this.jnsSpl =  "false" ;  
-            }
-            else if (newvalue === "IMPORT"){
-                this.jnsSpl =  "true" ; 
-            }       
-            else{
-                this.jnsSpl =  null ; 
-            } 
+            this.jnsSpl = newvalue === "LOCAL" ? false : true;          
         }
     }
 
