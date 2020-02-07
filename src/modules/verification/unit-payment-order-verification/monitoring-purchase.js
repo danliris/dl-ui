@@ -37,13 +37,13 @@ export class List {
             "name": "Barang sudah diterima Unit parsial",
             "value": 6
         }, {
-            "name": "Barang sudah diterima Unit",
+            "name": "Barang sudah diterima Unit semua",
             "value": 7
         }, {
-            "name": "Sebagian sudah dibuat SPB",
+            "name": "Sudah dibuat SPB Sebagian",
             "value": 8
         }, {
-            "name": "Complete",
+            "name": "Sudah dibuat SPB semua",
             "value": 9
         }];
 
@@ -77,12 +77,13 @@ export class List {
         var dateFormat = "DD MMM YYYY";
         var locale = 'id-ID';
         var moment = require('moment');
-        moment.locale(locale);
+        // moment.locale(locale);
         if (!this.poState)
             this.poState = this.poStates[0];
         this.service.searchPR({ prId: this.prId })
             .then(result => {
                 // console.log(data);
+                this.purchaseOrder = result.data.find((datum) => true).PurchaseRequestNo;
                 this.data = result.data.map(datum => {
                     datum.PurchaseRequestDate = moment(new Date(datum.PurchaseRequestDate)).format(dateFormat);
                     datum.InternalPurchaseOrderCreatedDate = moment(new Date(datum.InternalPurchaseOrderCreatedDate)).format(dateFormat);
@@ -97,7 +98,17 @@ export class List {
                     datum.UnitPaymentOrderDueDate = moment(new Date(datum.UnitPaymentOrderDueDate)).format(dateFormat);
                     datum.UnitPaymentOrderVATDate = moment(new Date(datum.UnitPaymentOrderVATDate)).format(dateFormat);
                     datum.UnitPaymentOrderIncomeTaxDate = moment(new Date(datum.UnitPaymentOrderIncomeTaxDate)).format(dateFormat);
-                    datum.CorrectionDate = moment(new Date(datum.CorrectionDate)).format(dateFormat);
+                    // datum.CorrectionDate = moment(new Date(datum.CorrectionDate)).format(dateFormat);
+                    let state = this.poStates.find(poState => {
+                        return poState.name == datum.InternalPurchaseOrderStatus
+                    });
+
+                    if (state)
+                        datum.Position = state.value;
+                    else
+                        datum.Position = 0;
+
+                    // console.log(datum);
 
                     return datum;
                 });
