@@ -98,12 +98,12 @@ export class DataForm {
       "Kelebihan Bayar",
       "Lunas",
     ],
-    onAdd: function() {
+    onAdd: function () {
       this.context.SalesReceiptDetailsCollection.bind();
       this.data.SalesReceiptDetails = this.data.SalesReceiptDetails || [];
       this.data.SalesReceiptDetails.push({});
     }.bind(this),
-    onRemove: function() {
+    onRemove: function () {
       this.context.SalesReceiptDetailsCollection.bind();
     }.bind(this)
   };
@@ -156,6 +156,10 @@ export class DataForm {
   }
   get bankLoader() {
     return BankLoader;
+  }
+
+  bankView = (bank) => {
+    return bank.AccountName ? `${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
   }
 
   errorChanged() {

@@ -8,7 +8,7 @@ import {
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceProductionAzure, ServiceCore } from "./service";
 
-var DOSalesLoader = require("../../../loader/do-sales-loader");
+var ShipmentDocumentLoader = require("../../../loader/shipment-document-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
 
 @containerless()
@@ -27,7 +27,7 @@ export class DataForm {
   @bindable SalesInvoiceDate;
   @bindable DueDate;
   @bindable BuyerNPWP;
-  @bindable UseVat;
+  @bindable VatType;
   @bindable getTempo;
 
   constructor(
@@ -55,17 +55,17 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.UseVat = this.data.UseVat;
+    this.VatType = this.data.VatType;
     this.BuyerNPWP = this.data.BuyerNPWP;
 
     this.TotalPayment = this.data.TotalPayment;
     this.data.TotalPayment = this.getTotalPayment;
 
-    var doSalesId = this.data.DOSalesId;
-    if (doSalesId) {
-      this.selectedDOSales = await this.serviceProductionAzure.getDOSalesById(
-        doSalesId,
-        this.doSalesFields
+    var shipmentDocumentId = this.data.ShipmentDocumentId;
+    if (shipmentDocumentId) {
+      this.selectedShipmentDocument = await this.serviceProductionAzure.getShipmentDocumentById(
+        shipmentDocumentId,
+        this.shipmentDocumentFields
       );
     }
 
@@ -98,16 +98,16 @@ export class DataForm {
   get getTotalPayment() {
     var totalPayment = 0;
     var result = 0;
-    if(this.data.SalesInvoiceDetails) {
+    if (this.data.SalesInvoiceDetails) {
       for (var item of this.data.SalesInvoiceDetails) {
         result += item.Amount;
-      } 
+      }
     }
-    if(this.data.UseVat) {    
-      totalPayment = result * 0.1 + result;
+    if (this.VatType == "PPN BUMN") {
+      totalPayment = result;
     }
     else {
-      totalPayment = result;
+      totalPayment = result * 0.1 + result;
     }
     this.data.TotalPayment = totalPayment;
     return totalPayment;
@@ -142,14 +142,15 @@ export class DataForm {
       "Banyak",
       "Satuan",
       "Jumlah",
-      "Harga Satuan",
+      "Harga",
       "Total"
     ]
   };
 
-  doSalesTableOptions = {}
+  shipmentDocumentTableOptions = {}
 
-  salesInvoiceTypeOptions = ["","BNG","BAB","BNS","RNG","BRG","BAG","BGS","RRG","BLL","BPF","BSF","RPF","BPR","BSR","RPR","BAV","BON","BGM","GPF","RGF","GPR","RGR","RON"];
+  salesInvoiceTypeOptions = ["", "BNG", "BAB", "BNS", "RNG", "BRG", "BAG", "BGS", "RRG", "BLL", "BPF", "BSF", "RPF", "BPR", "BSR", "RPR", "BAV", "BON", "BGM", "GPF", "RGF", "GPR", "RGR", "RON"];
+  VatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -158,36 +159,40 @@ export class DataForm {
     } else return true;
   }
 
-  @bindable selectedDOSales;
-  selectedDOSalesChanged(newValue, oldValue) {
-    if (this.selectedDOSales && this.selectedDOSales.Id) {
-      this.data.DOSalesId = this.selectedDOSales.Id;
-      this.data.DOSalesNo = this.selectedDOSales.DOSalesNo;
-      this.data.BuyerId = this.selectedDOSales.BuyerId;
-      this.data.BuyerName = this.selectedDOSales.BuyerName;
-      this.data.BuyerAddress = this.selectedDOSales.BuyerAddress;
-      if(this.selectedDOSales.BuyerNPWP){
-        this.data.BuyerNPWP = this.selectedDOSales.BuyerNPWP;
+  @bindable selectedShipmentDocument;
+  selectedShipmentDocumentChanged(newValue, oldValue) {
+    if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
+      this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
+      this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
+      this.data.BuyerId = this.selectedShipmentDocument.Buyer.Id;
+      this.data.BuyerName = this.selectedShipmentDocument.Buyer.Name;
+      this.data.BuyerAddress = this.selectedShipmentDocument.Buyer.Address;
+      if (this.selectedShipmentDocument.Buyer.NPWP) {
+        this.data.BuyerNPWP = this.selectedShipmentDocument.Buyer.NPWP;
       }
-      this.data.Disp = this.selectedDOSales.Disp;
-      this.data.Op = this.selectedDOSales.Op;
-      this.data.Sc = this.selectedDOSales.Sc;
-      if(!this.data.Id){
-      this.data.SalesInvoiceDetails = this.selectedDOSales.DOSalesDetails.map((item) => ({
-        UnitCode : item.UnitCode,
-        UnitName : item.UnitName
-      }));
+      if (!this.data.Id) {
+        this.data.SalesInvoiceDetails = [];
+        for (var detail of this.selectedShipmentDocument.Details) {
+          for (var item of detail.Items) {
+            for (var prItem of item.PackingReceiptItems) {
+              var siData = {
+                ProductCode: prItem.ProductCode,
+                ProductName: prItem.ProductName,
+                Quantity: prItem.Quantity
+              };
+              this.data.SalesInvoiceDetails.push(siData);
+            }
+          }
+        }
+        // console.log(this.data.SalesInvoiceDetails)
       }
     } else {
-      this.data.DOSalesId = null;
-      this.data.DOSalesNo = null;
+      this.data.ShipmentDocumentId = null;
+      this.data.ShipmentDocumentCode = null;
       this.data.BuyerId = null;
       this.data.BuyerName = null;
       this.data.BuyerAddress = null;
       this.data.BuyerNPWP = null;
-      this.data.Disp = null;
-      this.data.Op = null;
-      this.data.Sc = null;
     }
   }
 
@@ -206,48 +211,11 @@ export class DataForm {
     }
   }
 
-  get doSalesLoader() {
-    return DOSalesLoader;
+  get shipmentDocumentLoader() {
+    return ShipmentDocumentLoader;
   }
 
   get currencyLoader() {
     return CurrencyLoader;
-  }
-
-  console() {
-    console.log(this.data);
-  }
-  errorChanged() {
-    console.log(this.error);
-  }
-  salesInvoiceNoChanged(e) {
-    console.log(this.data.SalesInvoiceNo);
-  }
-  salesInvoiceTypeChanged(e) {
-    console.log(this.data.SalesInvoiceType);
-  }
-  deliveryOrderNoChanged(e) {
-    console.log(this.data.DeliveryOrderNo);
-  }
-  debtorIndexNoChanged(e) {
-    console.log(this.data.DebtorIndexNo);
-  }
-  tempoChanged(e) {
-    console.log(this.getTempo);
-  }
-  getTotalPaymentChanged(e) {
-    console.log(this.getTotalPayment);
-  }
-  useVatChanged(e) {
-    console.log(this.data.UseVat);
-  }
-  remarkChanged(e) {
-    console.log(this.data.Remark);
-  }
-  buyerNPWPChanged(e) {
-    console.log(this.data.BuyerNPWP);
-  }
-  idNoChanged(e) {
-    console.log(this.data.IDNo);
   }
 }

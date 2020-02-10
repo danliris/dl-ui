@@ -17,7 +17,7 @@ export class List {
       }
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "DOSalesNo", title: "No. DO Penjualan" }
+    { field: "ShipmentDocumentCode", title: "Kode Pengiriman" }
   ];
 
   rowFormatter(data, index) {
