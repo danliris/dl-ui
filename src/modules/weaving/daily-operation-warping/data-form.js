@@ -10,7 +10,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var MaterialLoader = require("../../../loader/weaving-material-type-loader");
 var Operator = require("../../../loader/weaving-operator-loader");
 

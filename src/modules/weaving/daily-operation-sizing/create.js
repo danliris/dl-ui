@@ -12,7 +12,7 @@ import {
 } from "./service";
 import moment from 'moment';
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Service, Router, BindingEngine)
@@ -202,13 +202,20 @@ export class Create {
     //   this.data.EmptyWeight = this.EmptyWeight;
     // }
 
-    this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
-    this.BeamDocument.forEach(doc => {
-      var BeamId = doc.Id;
-      this.data.BeamsWarping.push(BeamId);
+    this.data.BeamsWarping = this.BeamsWarping.map((o) => {
+      var beam = {};
+      beam.BeamDocumentId = o.BeamDocument.Id;
+      beam.YarnStrands = o.BeamDocument.YarnStrands;
+      beam.EmptyWeight = o.BeamDocument.EmptyWeight;
+
+      return beam;
     });
-console.log(this.data);
-debugger
+    // this.BeamDocument.forEach(doc => {
+    //   var BeamId = doc.Id;
+    //   this.data.BeamsWarping.push(BeamId);
+    // });
+    console.log(this.data);
+    debugger
     this.service
       .create(this.data)
       .then(result => {

@@ -119,17 +119,17 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    var dataResult;
+    // var dataResult;
     this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitId);
-      })
-      .then(unit => {
-        dataResult.WeavingUnit = unit.Name;
-        return dataResult;
-      });
+      .getById(Id);
+      // .then(result => {
+      //   dataResult = result;
+      //   return this.service.getUnitById(result.WeavingUnitId);
+      // })
+      // .then(unit => {
+      //   dataResult.WeavingUnit = unit.Name;
+      //   return dataResult;
+      // });
     if (this.data.Id) {
       var isAllBeamProcessedFlag;
       this.BeamProducts = this.data.DailyOperationWarpingBeamProducts;
