@@ -26,8 +26,6 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "IsValidatedMD1", title: "Approval Kabag MD", formatter: (value) => value ? "SUDAH" : "BELUM" },
-        { field: "IsValidatedPurchasing", title: "Approval Purchasing", formatter: (value) => value ? "SUDAH" : "BELUM" },
     ];
 
     loader = (info) => {

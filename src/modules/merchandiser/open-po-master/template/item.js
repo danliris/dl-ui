@@ -29,4 +29,8 @@ export class Item {
         this.context.headerContext.checkedAll = this.context.context.items.reduce((accItem, currItem) => accItem && currItem.IsSave, true);
         this.error = null;
     }
+
+    getStatus(isApproved) {
+        return isApproved ? "SUDAH" : "BELUM";
+    }
 }

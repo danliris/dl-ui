@@ -132,5 +132,19 @@
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
+        <td>
+            <au-textbox 
+                value.bind="getStatus(data.IsApprovedOpenPOMD)"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="getStatus(data.IsApprovedOpenPOPurchasing)"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
      </tr>
 </template>
