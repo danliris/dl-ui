@@ -1,12 +1,5 @@
 <template>
     <tr>
-        <td show.bind="!readOnly">
-            <au-checkbox 
-                value.bind="data.IsSave"
-                disabled.bind="readOnly" 
-                change.delegate="changeCheckBox()">
-            </au-checkbox>
-        </td>
         <td>
             <au-textbox 
                 value.bind="data.PO_SerialNumber"
