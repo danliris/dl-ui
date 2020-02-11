@@ -4,8 +4,8 @@
             <div class="col-md-2" style="padding:0"></div>
             <div class="col-md-8" style="padding:0">
 
-                <au-textbox label="No. Kuitansi Penjualan" value.bind="data.SalesReceiptNo"
-                    error.bind="error.SalesReceiptNo" if.bind="readOnly || isEdit" read-only.bind="true">
+                <au-textbox label="No. Kuitansi Penjualan" value.bind="data.SalesReceiptNo" if.bind="readOnly || isEdit"
+                    read-only.bind="true">
                 </au-textbox>
 
                 <au-dropdown label="Tipe Kuitansi Penjualan" value.bind="data.SalesReceiptType"
@@ -17,14 +17,16 @@
                     error.bind="error.SalesReceiptDate" read-only.bind="readOnly">
                 </au-datepicker>
 
-                <au-autocomplete label="Bank" placeholder="pilih bank" value.bind="selectedBank" error.bind="error.Bank"
-                    loader.bind="bankLoader" key="AccountName" text="AccountName" read-only.bind="readOnly"
-                    keypress.delegate="enterDelegate($event)" change.delegate="selectedBankChanged($event)">
+                <au-autocomplete label="Bank" placeholder="pilih bank" value.bind="selectedBank"
+                    error.bind="error.AccountName" loader.bind="bankLoader" key="AccountName" text.bind="bankView"
+                    read-only.bind="readOnly" keypress.delegate="enterDelegate($event)"
+                    change.delegate="selectedBankChanged($event)">
                 </au-autocomplete>
 
                 <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer"
-                    error.bind="error.Buyer" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly"
-                    keypress.delegate="enterDelegate($event)" change.delegate="selectedBuyerChanged($event)">
+                    error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name"
+                    read-only.bind="readOnly" keypress.delegate="enterDelegate($event)"
+                    change.delegate="selectedBuyerChanged($event)">
                 </au-autocomplete>
 
             </div>
@@ -42,8 +44,7 @@
         </au-collection>
 
         <div if.bind="error.Details.toString()">
-            <span style="color:red">-Detail harus diisi
-                .</span>
+            <span style="color:red">-Detail harus diisi-</span>
         </div>
 
         <au-textbox show.bind="SalesReceiptDate" label="Nominal keseluruhan :" value.bind="getTotalPaid"

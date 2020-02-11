@@ -2,6 +2,7 @@ import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
+import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
@@ -24,7 +25,19 @@ export class List {
         return detail.CurrencyCode;
       }
     },
-    { field: "TotalPaid", title: "Jumlah Pembayaran" }
+    {
+      field: "TotalPaid", title: "Jumlah Pembayaran", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
+    {
+      field: "SalesReceiptDetails",
+      title: "Lunas",
+      formatter: (value, data, index) => {
+        var detail = value.find(i => true);
+        return detail.IsPaidOff ? "Ya" : "Tidak";
+      }
+    }
   ];
 
   rowFormatter(data, index) {
