@@ -189,11 +189,11 @@ export class DataForm {
     itemsInfo = {
         columns: [
             "Kode Barang",
-            "Keterangan",
-            "Size",
+            "Nama Barang",
+            "RO",
+            "Plan PO",
             "Jumlah",
             "Satuan",
-            "Warna",
         ]
     }
 
