@@ -93,6 +93,8 @@ export class DataForm {
         { header: "Total" },
         { header: "Jumlah Tersedia" },
         { header: "Satuan" },
+        { header: "Approval Md" },
+        { header: "Approval Purchasing" },
     ]
 
     async selectedPRNoChanged(newValue) {
