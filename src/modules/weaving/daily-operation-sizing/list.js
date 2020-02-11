@@ -11,6 +11,14 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
+  tableOptions = {
+    search: true,
+    showToggle: false,
+    showColumns: false,
+    pagination: true,
+    sortable: true,
+  };
+
   context = ["detail"];
 
   columns = [{
@@ -67,7 +75,7 @@ export class List {
           }
         }
         return {
-          total: result.info.total,
+          total: result.data.length,
           data: result.data
         };
         //   let getUnitPromises = result.data.map(operation =>
@@ -100,6 +108,11 @@ export class List {
         //     total: result.info.total,
         //     data: result.data
         //   };
+      }else{
+        return {
+          total: 0,
+          data: {}
+        };
       }
     });
   };

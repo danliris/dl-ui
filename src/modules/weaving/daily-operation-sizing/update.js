@@ -17,8 +17,8 @@ var OperatorLoader = require("../../../loader/weaving-operator-loader");
 @inject(Router, Service, BindingEngine)
 export class Update {
   @bindable StartTime;
-  @bindable PauseTime;
-  @bindable ResumeTime;
+  // @bindable PauseTime;
+  // @bindable ResumeTime;
   @bindable FinishDoffTime;
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
@@ -32,8 +32,8 @@ export class Update {
     this.data = {};
 
     this.isStartDisabled = false;
-    this.isPauseDisabled = false;
-    this.isResumeDisabled = false;
+    // this.isPauseDisabled = false;
+    // this.isResumeDisabled = false;
     this.isProduceBeamDisabled = false;
     this.isDoffDisabled = false;
 
@@ -106,12 +106,8 @@ export class Update {
       header: "Grup"
     },
     {
-      value: "CausesBrokenBeam",
-      header: "Putus"
-    },
-    {
-      value: "Information",
-      header: "Informasi"
+      value: "BrokenPerShift",
+      header: "Putus Beam"
     },
     {
       value: "MachineStatus",
@@ -126,18 +122,18 @@ export class Update {
     var Id = params.Id;
     var dataResult;
     this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitId);
-      })
-      .then(unit => {
-        dataResult.WeavingDocument = unit;
-        return dataResult;
-      });
+      .getById(Id);
+      // .then(result => {
+      //   dataResult = result;
+      //   return this.service.getUnitById(result.WeavingUnitId);
+      // })
+      // .then(unit => {
+      //   dataResult.WeavingDocument = unit;
+      //   return dataResult;
+      // });
 
     if (this.data.Id) {
-      this.BeamsWarping = this.data.BeamsWarping;
+      this.BeamsWarping = this.data.DailyOperationSizingBeamsWarping;
       this.BeamProducts = this.data.DailyOperationSizingBeamProducts;
       this.Histories = this.data.DailyOperationSizingHistories;
       
@@ -158,48 +154,49 @@ export class Update {
       switch (lastMachineStatusHistory) {
         case "ENTRY":
           this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
+          // this.isPauseDisabled = true;
+          // this.isResumeDisabled = true;
           this.isProduceBeamDisabled = true;
-          this.isDoffDisabled = true;
+          // this.isDoffDisabled = true;
           break;
         case "START":
           this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
+          // this.isPauseDisabled = false;
+          // this.isResumeDisabled = true;
           this.isProduceBeamDisabled = false;
-          this.isDoffDisabled = true;
+          // this.isDoffDisabled = true;
           break;
-        case "STOP":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = false;
-          this.isProduceBeamDisabled = true;
-          this.isDoffDisabled = true;
-          break;
-        case "CONTINUE":
-          this.isStartDisabled = true;
-          this.isPauseDisabled = false;
-          this.isResumeDisabled = true;
-          this.isProduceBeamDisabled = false;
-          this.isDoffDisabled = true;
-          break;
+        // case "STOP":
+        //   this.isStartDisabled = true;
+        //   this.isPauseDisabled = true;
+        //   this.isResumeDisabled = false;
+        //   this.isProduceBeamDisabled = true;
+        //   this.isDoffDisabled = true;
+        //   break;
+        // case "CONTINUE":
+        //   this.isStartDisabled = true;
+        //   this.isPauseDisabled = false;
+        //   this.isResumeDisabled = true;
+        //   this.isProduceBeamDisabled = false;
+        //   this.isDoffDisabled = true;
+        //   break;
         case "COMPLETED":
           this.isStartDisabled = false;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
+          // this.isPauseDisabled = true;
+          // this.isResumeDisabled = true;
           this.isProduceBeamDisabled = true;
-          this.isDoffDisabled = false;
+          // this.isDoffDisabled = false;
           break;
         case "FINISH":
           this.isStartDisabled = true;
-          this.isPauseDisabled = true;
-          this.isResumeDisabled = true;
+          // this.isPauseDisabled = true;
+          // this.isResumeDisabled = true;
           this.isProduceBeamDisabled = true;
-          this.isDoffDisabled = true;
+          // this.isDoffDisabled = true;
           break;
         default:
-          this.error.CauseOfStopping = "Penyebab berhenti harus diisi";
+          this.isStartDisabled = true;
+          this.isProduceBeamDisabled = true;
           break;
       }
 
@@ -227,45 +224,45 @@ export class Update {
       this.showHideStartMenu = false;
     } else {
       this.showHideStartMenu = true;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = false;
+      // this.showHidePauseMenu = false;
+      // this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = false;
     }
   }
 
-  pause() {
-    this.PauseDate = undefined;
-    this.PauseTime = null;
-    this.PauseShift = undefined;
-    this.PauseOperator = undefined;
-    this.Information = undefined;
-    if (this.showHidePauseMenu === true) {
-      this.showHidePauseMenu = false;
-    } else {
-      this.showHideStartMenu = false;
-      this.showHidePauseMenu = true;
-      this.showHideResumeMenu = false;
-      this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = false;
-    }
-  }
+  // pause() {
+  //   this.PauseDate = undefined;
+  //   this.PauseTime = null;
+  //   this.PauseShift = undefined;
+  //   this.PauseOperator = undefined;
+  //   this.Information = undefined;
+  //   if (this.showHidePauseMenu === true) {
+  //     this.showHidePauseMenu = false;
+  //   } else {
+  //     this.showHideStartMenu = false;
+  //     this.showHidePauseMenu = true;
+  //     this.showHideResumeMenu = false;
+  //     this.showHideProduceBeamsMenu = false;
+  //     this.showHideDoffMenu = false;
+  //   }
+  // }
 
-  resume() {
-    this.ResumeDate = undefined;
-    this.ResumeTime = null;
-    this.ResumeShift = undefined;
-    this.ResumeOperator = undefined;
-    if (this.showHideResumeMenu === true) {
-      this.showHideResumeMenu = false;
-    } else {
-      this.showHideStartMenu = false;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = true;
-      this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = false;
-    }
-  }
+  // resume() {
+  //   this.ResumeDate = undefined;
+  //   this.ResumeTime = null;
+  //   this.ResumeShift = undefined;
+  //   this.ResumeOperator = undefined;
+  //   if (this.showHideResumeMenu === true) {
+  //     this.showHideResumeMenu = false;
+  //   } else {
+  //     this.showHideStartMenu = false;
+  //     this.showHidePauseMenu = false;
+  //     this.showHideResumeMenu = true;
+  //     this.showHideProduceBeamsMenu = false;
+  //     this.showHideDoffMenu = false;
+  //   }
+  // }
 
   produceBeams() {
     this.ProduceBeamsFinishCounter = null;
@@ -282,8 +279,8 @@ export class Update {
       this.showHideProduceBeamsMenu = false;
     } else {
       this.showHideStartMenu = false;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = false;
+      // this.showHidePauseMenu = false;
+      // this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = true;
       this.showHideDoffMenu = false;
     }
@@ -301,8 +298,8 @@ export class Update {
       this.showHideDoffMenu = false;
     } else {
       this.showHideStartMenu = false;
-      this.showHidePauseMenu = false;
-      this.showHideResumeMenu = false;
+      // this.showHidePauseMenu = false;
+      // this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = true;
     }
@@ -326,6 +323,7 @@ export class Update {
     var IdContainer = this.data.Id;
     if (this.StartSizingBeamDocuments) {
       var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
+      var SizingBeamNumberContainer = this.StartSizingBeamDocuments.Number;
     }
     if (this.StartSizingStartCounter) {
       var SizingStartCounterContainer = this.StartSizingStartCounter;
@@ -348,12 +346,14 @@ export class Update {
     var updateData = {};
     updateData.Id = IdContainer;
     updateData.SizingBeamId = SizingBeamIdContainer;
+    updateData.SizingBeamNumber = SizingBeamNumberContainer;
     updateData.CounterStart = SizingStartCounterContainer;
     updateData.StartDate = HistoryDateContainer;
     updateData.StartTime = HistoryTimeContainer;
     updateData.StartShift = ShiftContainer;
     updateData.StartOperator = OperatorContainer;
-
+console.log(updateData);
+debugger
     this.service
       .updateStart(updateData.Id, updateData)
       .then(result => {
@@ -364,132 +364,132 @@ export class Update {
       });
   }
 
-  PauseTimeChanged(newValue) {
-    this.service.getShiftByTime(newValue)
-      .then(result => {
-        this.error.PauseShift = "";
-        this.PauseShift = {};
-        this.PauseShift = result;
-      })
-      .catch(e => {
-        this.PauseShift = {};
-        this.error.PauseShift = " Shift tidak ditemukan ";
-      });
-  }
+  // PauseTimeChanged(newValue) {
+  //   this.service.getShiftByTime(newValue)
+  //     .then(result => {
+  //       this.error.PauseShift = "";
+  //       this.PauseShift = {};
+  //       this.PauseShift = result;
+  //     })
+  //     .catch(e => {
+  //       this.PauseShift = {};
+  //       this.error.PauseShift = " Shift tidak ditemukan ";
+  //     });
+  // }
 
-  savePause() {
-    this.error = {};
-    if (this.data.DailyOperationSizingHistories.length > 0) {
-      var LastDetails = this.data.DailyOperationSizingHistories[0];
-      var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
-      var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
-    }
+  // savePause() {
+  //   this.error = {};
+  //   if (this.data.DailyOperationSizingHistories.length > 0) {
+  //     var LastDetails = this.data.DailyOperationSizingHistories[0];
+  //     var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
+  //     var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
+  //   }
 
-    var IdContainer = this.data.Id;
-    if (this.PauseDate) {
-      var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
-    }
+  //   var IdContainer = this.data.Id;
+  //   if (this.PauseDate) {
+  //     var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
+  //   }
 
-    if (this.PauseTime) {
-      var HistoryTimeContainer = this.PauseTime;
-    }
+  //   if (this.PauseTime) {
+  //     var HistoryTimeContainer = this.PauseTime;
+  //   }
 
-    if (this.PauseShift) {
-      var ShiftContainer = this.PauseShift.Id;
-    }
+  //   if (this.PauseShift) {
+  //     var ShiftContainer = this.PauseShift.Id;
+  //   }
 
-    if (this.PauseOperator) {
-      var OperatorContainer = this.PauseOperator.Id;
-    }
+  //   if (this.PauseOperator) {
+  //     var OperatorContainer = this.PauseOperator.Id;
+  //   }
 
-    if (this.CauseOfStopping) {
-      switch (this.CauseOfStopping) {
-        case "Putus Beam":
-          LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
-          break;
-        case "Mesin Bermasalah":
-          LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
-          break;
-        default:
-          LastCausesBrokenBeam = LastCausesBrokenBeam;
-          LastCausesMachineTroubled = LastCausesMachineTroubled;
-          break;
-      }
-    } else {
-      this.error.CauseOfStopping = "Penyebab Berhenti Harus Diisi";
-    }
+  //   if (this.CauseOfStopping) {
+  //     switch (this.CauseOfStopping) {
+  //       case "Putus Beam":
+  //         LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
+  //         break;
+  //       case "Mesin Bermasalah":
+  //         LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
+  //         break;
+  //       default:
+  //         LastCausesBrokenBeam = LastCausesBrokenBeam;
+  //         LastCausesMachineTroubled = LastCausesMachineTroubled;
+  //         break;
+  //     }
+  //   } else {
+  //     this.error.CauseOfStopping = "Penyebab Berhenti Harus Diisi";
+  //   }
 
-    if (this.Information) {
-      var InformationContainer = this.Information;
-    }
+  //   if (this.Information) {
+  //     var InformationContainer = this.Information;
+  //   }
 
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.PauseDate = HistoryDateContainer;
-    updateData.PauseTime = HistoryTimeContainer;
-    updateData.PauseShift = ShiftContainer;
-    updateData.PauseOperator = OperatorContainer;
-    updateData.BrokenBeam = LastCausesBrokenBeam;
-    updateData.MachineTroubled = LastCausesMachineTroubled;
-    updateData.Information = InformationContainer;
+  //   var updateData = {};
+  //   updateData.Id = IdContainer;
+  //   updateData.PauseDate = HistoryDateContainer;
+  //   updateData.PauseTime = HistoryTimeContainer;
+  //   updateData.PauseShift = ShiftContainer;
+  //   updateData.PauseOperator = OperatorContainer;
+  //   updateData.BrokenBeam = LastCausesBrokenBeam;
+  //   updateData.MachineTroubled = LastCausesMachineTroubled;
+  //   updateData.Information = InformationContainer;
 
-    this.service
-      .updatePause(updateData.Id, updateData)
-      .then(result => {
-        location.reload();
-      })
-      .catch(e => {
-        if (this.error.CauseOfStopping) {
-          e.CauseOfStopping = this.error.CauseOfStopping;
-        }
-        this.error = e;
-      });
-  }
+  //   this.service
+  //     .updatePause(updateData.Id, updateData)
+  //     .then(result => {
+  //       location.reload();
+  //     })
+  //     .catch(e => {
+  //       if (this.error.CauseOfStopping) {
+  //         e.CauseOfStopping = this.error.CauseOfStopping;
+  //       }
+  //       this.error = e;
+  //     });
+  // }
 
-  ResumeTimeChanged(newValue) {
-    this.service.getShiftByTime(newValue)
-      .then(result => {
-        this.error.ResumeShift = "";
-        this.ResumeShift = {};
-        this.ResumeShift = result;
-      })
-      .catch(e => {
-        this.ResumeShift = {};
-        this.error.ResumeShift = " Shift tidak ditemukan ";
-      });
-  }
+  // ResumeTimeChanged(newValue) {
+  //   this.service.getShiftByTime(newValue)
+  //     .then(result => {
+  //       this.error.ResumeShift = "";
+  //       this.ResumeShift = {};
+  //       this.ResumeShift = result;
+  //     })
+  //     .catch(e => {
+  //       this.ResumeShift = {};
+  //       this.error.ResumeShift = " Shift tidak ditemukan ";
+  //     });
+  // }
 
-  saveResume() {
-    var IdContainer = this.data.Id;
-    if (this.ResumeDate) {
-      var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
-    }
-    if (this.ResumeTime) {
-      var HistoryTimeContainer = this.ResumeTime;
-    }
-    if (this.ResumeShift) {
-      var ShiftContainer = this.ResumeShift.Id;
-    }
-    if (this.ResumeOperator) {
-      var OperatorContainer = this.ResumeOperator.Id;
-    }
+  // saveResume() {
+  //   var IdContainer = this.data.Id;
+  //   if (this.ResumeDate) {
+  //     var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
+  //   }
+  //   if (this.ResumeTime) {
+  //     var HistoryTimeContainer = this.ResumeTime;
+  //   }
+  //   if (this.ResumeShift) {
+  //     var ShiftContainer = this.ResumeShift.Id;
+  //   }
+  //   if (this.ResumeOperator) {
+  //     var OperatorContainer = this.ResumeOperator.Id;
+  //   }
 
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.ResumeDate = HistoryDateContainer;
-    updateData.ResumeTime = HistoryTimeContainer;
-    updateData.ResumeShift = ShiftContainer;
-    updateData.ResumeOperator = OperatorContainer;
+  //   var updateData = {};
+  //   updateData.Id = IdContainer;
+  //   updateData.ResumeDate = HistoryDateContainer;
+  //   updateData.ResumeTime = HistoryTimeContainer;
+  //   updateData.ResumeShift = ShiftContainer;
+  //   updateData.ResumeOperator = OperatorContainer;
 
-    this.service
-      .updateResume(updateData.Id, updateData)
-      .then(result => {
-        location.reload();
-      })
-      .catch(e => {
-        this.error = e;
-      });
-  }
+  //   this.service
+  //     .updateResume(updateData.Id, updateData)
+  //     .then(result => {
+  //       location.reload();
+  //     })
+  //     .catch(e => {
+  //       this.error = e;
+  //     });
+  // }
 
   ProduceBeamsTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
