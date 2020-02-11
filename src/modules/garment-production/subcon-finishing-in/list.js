@@ -22,22 +22,22 @@ export class List {
         }
         this.filter={
           CreatedBy: username,
-          FinishingInType: "SEWING"
+          FinishingInType: "PEMBELIAN"
         }
       }
 
     context = ["Rincian"];
    
     columns = [
-        { field: "FinishingInNo", title: "No Finishing In" },
+        { field: "FinishingInNo", title: "No Finishing In Subkon" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalFinishingInQuantity", title: "Jumlah", sortable: false },
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
-        { field: "UnitCode", title: "Unit Finishing In" },
+        { field: "UnitCode", title: "Unit Finishing In Subkon" },
         { field: "FinishingInType", title: "Asal Barang" },
         { field: "UnitFromCode", title: "Unit Asal" },
-        { field: "FinishingInDate", title: "Tanggal Finishing In", formatter: value => moment(value).format("DD MMM YYYY") },
+        { field: "FinishingInDate", title: "Tanggal Finishing In Subkon", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "ProductList", title: "Kode Barang", sortable: false },
     ]
 
