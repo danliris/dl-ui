@@ -82,7 +82,7 @@ export class List {
                 if (result.data.length > 0) {
                     for (let kanban of result.data) {
                         if (kanban.OldKanbanId) {
-                            //searchOldKanban.push(this.service.getById(kanban.OldKanbanId))
+                            searchOldKanban.push(this.service.getOldById(kanban.OldKanbanId))
                         }
                     }
                 }
@@ -92,6 +92,7 @@ export class List {
                         // console.log(result);
                         // modify display data
                         for (var kanban of result.data) {
+                            console.log(oldKanbanResults)
                             kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
                             kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorTemplate : kanban.SelectedProductionOrderDetail.ColorRequest;
                             kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
