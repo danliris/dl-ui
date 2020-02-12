@@ -14,7 +14,7 @@ export class Service extends RestService {
     }
 
     xls(info) {
-        let endpoint = `${serviceUri}?${buildQueryString(info)}`;
+        let endpoint = `${serviceUri}/download?${buildQueryString(info)}`;
         return super.getXls(endpoint);
     }
 }

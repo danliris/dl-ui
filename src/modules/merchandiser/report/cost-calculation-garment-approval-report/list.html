@@ -1,7 +1,7 @@
 <template>
-    <h1 class="page-header">Monitoring Validasi Purchase Request Master</h1>
+    <h1 class="page-header">Monitoring Validasi Cost Calculation Garment</h1>
     <form class="form-horizontal">
-        <au-autocomplete  value.bind="unit" label="Unit"  loader.bind="unitLoader"></au-autocomplete>
+        <au-autocomplete  value.bind="unitName" label="Unit"  loader.bind="unitLoader"></au-autocomplete>
         <au-autocomplete 
             label="Seksi"
             value.bind="filterSection"
@@ -11,7 +11,7 @@
             key="SectionCode"
             aria-placeholder="Cari Seksi"
             options.bind="controlOptions">
-        </au-autocomplete>
+        </au-autocomplete>   
         <au-datepicker label="Tanggal Validasi Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Validasi Akhir" value.bind="dateTo"></au-datepicker>
         <div class="form-group">
@@ -32,13 +32,18 @@
                     <th class="text-center">Nomor RO</th>
                     <th class="text-center">Nama Staff</th>                    
                     <th class="text-center">Nama Unit</th>
-                    <th class="text-center">Tgl PR Master</th>
+                    <th class="text-center">Tgl Confirm</th>
                     <th class="text-center">Seksi</th>
+                    <th class="text-center">Kode Agent</th>
+                    <th class="text-center">Nama Agent Buyer</th>                    
                     <th class="text-center">Kode Brand</th>
                     <th class="text-center">Nama Brand Buyer</th>
+                    <th class="text-center">Komoditi</th>                    
                     <th class="text-center">Article / Style</th>
+                    <th class="text-center">Jumlah Order</th>
+                    <th class="text-center">Satuan</th>                    
                     <th class="text-center">Tgl Shipment</th>        
-                    <th class="text-center">Kadiv Merchandiser</th>     
+                    <th class="text-center">Valid Kadiv Merchandiser</th>   
                     <th class="text-center">Tgl Valid Kadiv Merchandiser</th>                            
                  </tr>
             </thead>
@@ -48,14 +53,19 @@
                         <td>${item.RO_Number}</td>
                         <td>${item.StaffName}</td>
                         <td>${item.UnitName}</td>
-                        <td>${item.PRDate}</td>                        
-                        <td>${item.SectionName}</td>
+                        <td>${item.ConfirmDate}</td>                        
+                        <td>${item.Section}</td>
                         <td>${item.BuyerCode}</td>
                         <td>${item.BuyerName}</td>
+                        <td>${item.BrandCode}</td>
+                        <td>${item.BrandName}</td>                        
+                        <td>${item.Comodity}</td>
                         <td>${item.Article}</td>
+                        <td class="text-right">${item.Quantity}</td>
+                        <td>${item.UOMUnit}</td>                        
                         <td>${item.DeliveryDate}</td>
-                        <td>${item.ValidatedKadiv}</td>
-                        <td>${item.ValidatedDate}</td>                                                
+                        <td>${item.ValidatedKadiv}</td> 
+                        <td>${item.ValidatedDate}</td>                         
                     </tr>
             </tbody>
 

@@ -3,17 +3,20 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
 var UnitLoader = require('../../../../loader/unit-loader');
+var SectionLoader = require('../../../../loader/garment-sections-loader');
 
 @inject(Router, Service)
 export class List {
-    
+    @bindable filterSection;
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
         this.today = new Date();
     }
    
-    unit=null;    
+    unit=null;
+    sectionName = null;    
     dateFrom = null;
     dateTo = null;
       
@@ -21,14 +24,31 @@ export class List {
         return UnitLoader;
     }
 
+    get sectionLoader() {
+        return SectionLoader;
+    }
+
+    sectionView = (section) => {
+        return `${section.Code}`
+    }
+
     activate() {
        
+    }
+
+    filterSectionChanged(newValue) {
+        var selectedSection = newValue;
+        if (selectedSection) {
+            this.SectionName = selectedSection.Name;
+
+        }
     }
 
     searching() {
         {
             var info = {
             unit : this.unit ? this.unit.Id : "",
+            sectionName : this.SectionName ? this.SectionName : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -55,6 +75,7 @@ export class List {
          {
             var filter = {
             unit : this.unit ? this.unit.Id : "",
+            sectionName : this.SectionName ? this.SectionName : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
            }
@@ -70,6 +91,7 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.unit = null;
+        this.sectionName = null;
         this.data = [];
     }
 
