@@ -214,8 +214,8 @@ export class Create {
     //   var BeamId = doc.Id;
     //   this.data.BeamsWarping.push(BeamId);
     // });
-    console.log(this.data);
-    debugger
+    // console.log(this.data);
+    // debugger
     this.service
       .create(this.data)
       .then(result => {

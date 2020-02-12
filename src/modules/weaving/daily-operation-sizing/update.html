@@ -44,13 +44,21 @@
         </div>
       </div>
 
-      <!-- Tipe Mesin -->
+      <!-- Tipe Mesin & Jumlah Beam Dihasilkan -->
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Tipe Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
           <au-textbox placeholder="Tipe Mesin" value.bind="data.MachineType" error.bind="error.MachineType"
+            read-only.bind="true">
+          </au-textbox>
+        </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Beam Dihasilkan" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="Jumlah Beam Dihasilkan" value.bind="data.BeamProductResult" error.bind="error.BeamProductResult"
             read-only.bind="true">
           </au-textbox>
         </div>
@@ -406,99 +414,64 @@
             </div>
           </div>
 
-          <div class="row" style="white-space: nowrap;">
-            <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveProduceBeam()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
-                      width: 96px; border: 1px solid #777777;">
-                Simpan
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row" id="doffMenu" show.bind="showHideDoffMenu">
-        <div class="col-md-12"
-          style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
-
-          <div class="row" style="margin-top: 16px; white-space: nowrap;">
+          <div class="row" style="white-space: nowrap;" show.bind="showHideCalculationField">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Tanggal Selesai" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-2">
-              <au-datepicker value.bind="FinishDoffDate" error.bind="error.FinishDoffDate">
-              </au-datepicker>
-            </div>
-          </div>
-
-          <div class="row" style="white-space: nowrap;">
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Waktu Selesai" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-2">
-              <au-timepicker value.bind="FinishDoffTime" error.bind="error.FinishDoffTime" read-only.bind="readOnly">
-            </div>
-            <div class="col-md-2 col-md-offset-2" style="text-align:left;">
-              <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="FinishDoffShift.Name" error.bind="error.FinishDoffShift"
-                read-only.bind="true">
-              </au-textbox>
-            </div>
-          </div>
-
-          <div class="row" style="white-space: nowrap;">
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Jumlah Putus Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-autocomplete placeholder="Operator" value.bind="FinishDoffOperator"
-                error.bind="error.FinishDoffOperator" read-only.bind="readOnly" loader.bind="operators" text="Username">
-              </au-autocomplete>
-            </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="FinishDoffOperator.Group"
-                error.bind="error.FinishDoffOperatorGroup" read-only.bind="true"></au-textbox>
+              <au-numeric placeholder="Jumlah Putus Beam" value.bind="BrokenPerShift"
+                error.bind="error.BrokenPerShift" read-only.bind="readOnly"></au-numeric>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Selesai Produksi Beam" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Kecepatan Mesin" value.bind="FinishDoffMachineSpeed"
-                error.bind="error.MachineSpeed" read-only.bind="readOnly">
-              </au-numeric>
+              <au-checkbox id="checkCompleteBeam" value.bind="completeBeam" change.delegate="completeBeamClicked($event)" error.bind="error.CompleteBeamCheck"></au-checkbox>
             </div>
           </div>
-
-          <div class="row" style="white-space: nowrap">
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
+          
+          <!-- Show Up if Complete -->
+          <div class="col-md-8"
+            style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;"
+            show.bind="showHideCompleteMenu">
+  
+            <div class="row" style="margin-top: 16px; white-space: nowrap">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-3">
+                <au-numeric placeholder="Kecepatan Mesin" value.bind="FinishDoffMachineSpeed"
+                  error.bind="error.MachineSpeed" read-only.bind="readOnly">
+                </au-numeric>
+              </div>
             </div>
-            <div class="col-md-3">
-              <au-numeric placeholder="Visco" value.bind="FinishDoffVisco" error.bind="error.Visco"
-                read-only.bind="readOnly"></au-numeric>
-            </div>
-            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
-              <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-3">
-              <au-numeric placeholder="TexSQ" value.bind="FinishDoffTexSQ" error.bind="error.TexSQ"
-                read-only.bind="readOnly">
-              </au-numeric>
+  
+            <div class="row" style="white-space: nowrap">
+              <div class="col-md-2" style="text-align:left;">
+                <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-3">
+                <au-numeric placeholder="Visco" value.bind="FinishDoffVisco" error.bind="error.Visco"
+                  read-only.bind="readOnly"></au-numeric>
+              </div>
+              <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+                <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
+              </div>
+              <div class="col-md-3">
+                <au-numeric placeholder="TexSQ" value.bind="FinishDoffTexSQ" error.bind="error.TexSQ"
+                  read-only.bind="readOnly">
+                </au-numeric>
+              </div>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveDoff()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
-                    width: 96px; border: 1px solid #777777;">
+              <button class="btn btn-default" click.delegate="saveProduceBeam()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                      width: 96px; border: 1px solid #777777;">
                 Simpan
               </button>
             </div>

@@ -187,20 +187,15 @@ export class Update {
   completeBeamClicked(event) {
     let targetValue = event.target.checked;
 
+    this.Tention = 0;
+    this.MachineSpeed = 0;
+    this.PressRoll = 0;
+    this.PressRollUom = "";
+
     if (targetValue) {
       this.showHideCompleteMenu = true;
-
-      this.Tention = 0;
-      this.MachineSpeed = 0;
-      this.PressRoll = 0;
-      this.PressRollUom = "";
     } else {
       this.showHideCompleteMenu = false;
-
-      this.Tention = 0;
-      this.MachineSpeed = 0;
-      this.PressRoll = 0;
-      this.PressRollUom = "";
     }
   }
 
