@@ -18,11 +18,8 @@ export class List {
       title: "Nama Operator"
     },
     {
-      field: "UnitId",
-      title: "Unit Weaving",
-      formatter: function (value, data, index) {
-        return value.Name;
-      }
+      field: "UnitName",
+      title: "Unit Weaving"
     },
     {
       field: "Group",
@@ -34,10 +31,10 @@ export class List {
     }
   ];
 
-  loader = info => {
+  loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
-
+    
     var arg = {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
@@ -54,29 +51,35 @@ export class List {
 
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
-        let getUnitPromises = result.data.map(datum =>
-          this.service.getUnitById(datum.UnitId)
-        );
+      //   let getUnitPromises = result.data.map(datum =>
+      //     this.service.getUnitById(datum.UnitId)
+      //   );
 
-        return Promise.all(getUnitPromises).then(units => {
-          for (var datum of result.data) {
-            if (units && units.length > 0) {
-              let unit = units.find(
-                unitResult => datum.UnitId == unitResult.Id
-              );
-              datum.UnitId = unit;
-            }
-          }
+      //   return Promise.all(getUnitPromises).then(units => {
+      //     for (var datum of result.data) {
+      //       if (units && units.length > 0) {
+      //         let unit = units.find(
+      //           unitResult => datum.UnitId == unitResult.Id
+      //         );
+      //         datum.UnitId = unit;
+      //       }
+      //     }
 
-          return {
-            total: result.info.total,
-            data: result.data
-          };
-        });
-      } else {
+      //     return {
+      //       total: result.info.total,
+      //       data: result.data
+      //     };
+      //   });
+      // } else {
         return {
           total: result.info.total,
           data: result.data
+        };
+      }else{
+        
+        return {
+          total: 0,
+          data: {}
         };
       }
     });

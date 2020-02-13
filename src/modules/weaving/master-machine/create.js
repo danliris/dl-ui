@@ -31,11 +31,15 @@ export class Create {
   saveCallback(event) {
     var postData = {}
 
-    if (this.data.MachineNumber) {
-      postData.MachineNumber = this.data.MachineNumber;
+    if (this.data.MachineNumberOne) {
+      postData.MachineNumber = this.data.MachineNumberOne;
+    } else if (this.data.MachineNumberOne && this.data.MachineNumberTwo) {
+      postData.MachineNumber = this.data.MachineNumberOne + " / " + this.data.MachineNumberTwo;
+    } else {
+      this.error.MachineNumberOne = "Nomor Mesin Wajib Diisi";
     }
 
-    if(this.data.Location){
+    if (this.data.Location) {
       postData.Location = this.data.Location;
     }
 
@@ -47,14 +51,27 @@ export class Create {
       postData.MachineTypeId = this.data.WeavingMachineType.Id;
     }
 
-    if(this.data.Cutmark){
+    if (this.data.Cutmark) {
       postData.Cutmark = this.data.Cutmark;
     }
 
     if (this.data.CutmarkUom) {
       postData.CutmarkUomId = this.data.CutmarkUom.Id;
     }
-    
+
+    if (this.data.Process) {
+      postData.Process = this.data.Process;
+    }
+
+    if (this.data.Area) {
+      postData.Area = this.data.Area;
+    }
+
+    if (this.data.Block) {
+      postData.Block = this.data.Block;
+    }
+    console.log(postData);
+    debugger
     this.service
       .create(postData)
       .then(result => {
