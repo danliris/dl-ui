@@ -139,17 +139,17 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  updatePause(Id, data) {
-    var status = "pause";
-    var endpoint = `${serviceUri}/${Id}/${status}`;
-    return super.put(endpoint, data);
-  }
+  // updatePause(Id, data) {
+  //   var status = "pause";
+  //   var endpoint = `${serviceUri}/${Id}/${status}`;
+  //   return super.put(endpoint, data);
+  // }
 
-  updateResume(Id, data) {
-    var status = "resume";
-    var endpoint = `${serviceUri}/${Id}/${status}`;
-    return super.put(endpoint, data);
-  }
+  // updateResume(Id, data) {
+  //   var status = "resume";
+  //   var endpoint = `${serviceUri}/${Id}/${status}`;
+  //   return super.put(endpoint, data);
+  // }
 
   updateProduceBeams(Id, data) {
     var status = "produce-beams";

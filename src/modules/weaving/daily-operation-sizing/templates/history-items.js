@@ -88,34 +88,34 @@ export class HistoryItems {
             }
         });
         break;
-      case "STOP":
-          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
-          .then(response => {
-              if (response.ok) {
-                this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
-                .then(result => {
-                  location.reload();
-                })
-                .catch(e => {
-                  this.error = e;
-          });
-              }
-          });
-        break;
-      case "CONTINUE":
-          this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
-          .then(response => {
-              if (response.ok) {
-                this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
-                .then(result => {
-                  location.reload();
-                })
-                .catch(e => {
-                  this.error = e;
-                });
-              }
-          });
-        break;
+      // case "STOP":
+      //     this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+      //     .then(response => {
+      //         if (response.ok) {
+      //           this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
+      //           .then(result => {
+      //             location.reload();
+      //           })
+      //           .catch(e => {
+      //             this.error = e;
+      //     });
+      //         }
+      //     });
+      //   break;
+      // case "CONTINUE":
+      //     this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+      //     .then(response => {
+      //         if (response.ok) {
+      //           this.service.deleteStopOrContinueOrFinish(sizingData.Id, sizingData)
+      //           .then(result => {
+      //             location.reload();
+      //           })
+      //           .catch(e => {
+      //             this.error = e;
+      //           });
+      //         }
+      //     });
+      //   break;
       case "COMPLETED":
         this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
           .then(response => {
