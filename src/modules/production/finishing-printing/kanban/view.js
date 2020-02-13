@@ -13,7 +13,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getOldById(this.data.OldKanbanId) : null;
 
     if (this.data.IsReprocess) {
       this.data.output = "Kanban Reproses";
