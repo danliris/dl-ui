@@ -429,7 +429,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "PG": 1, "GU": 1, "B7": 1, "C9": 1 },
+            permission: { "PGA": 1, "PG": 1, "P": 1, "GU": 1, "B7": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -481,7 +481,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "P": 1, "C9": 1 },
+            permission: { "P": 1, "B7": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -490,7 +490,7 @@ module.exports = [
         name: 'available-ro-report',
         moduleId: './modules/merchandiser/report/available-ro-report/index',
         nav: true,
-        title: 'Laporan Kesiapan RO',
+        title: 'Laporan Kecepatan Cek RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -517,6 +517,19 @@ module.exports = [
         moduleId: './modules/merchandiser/report/available-budget-report/index',
         nav: true,
         title: 'Laporan Kesiapan Budget',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "P": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/available-ro-garment-report',
+        name: 'available-ro-garment-report',
+        moduleId: './modules/merchandiser/report/available-ro-garment-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -561,6 +574,47 @@ module.exports = [
             group: "merchandiser",
             permission: { "PGA": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master',
+        name: 'open-po-master',
+        moduleId: './modules/merchandiser/open-po-master/index',
+        nav: true,
+        title: 'Open PO Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/md',
+        name: 'open-po-master-approval-md',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Md',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "md"
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/purchasing',
+        name: 'open-po-master-approval-purchasing',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "purchasing"
         }
     },
 ];

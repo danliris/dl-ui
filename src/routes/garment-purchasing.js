@@ -163,7 +163,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
+            permission: { "B7" : 1, "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -594,7 +594,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1},
+            permission: {"PG": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -607,7 +607,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1},
+            permission: {"PG": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -617,11 +617,37 @@ module.exports = [
         name: 'garment-purchase-order-reports-topten-supplier',
         moduleId: './modules/garment-purchasing/reports/topten-supplier-report/index',
         nav: true,
-        title: 'Laporan 10 Supplier Teratas',
+        title: 'Laporan Top Ten Supplier',
         auth: true,
         settings: {
             group: "g-purchasing",
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/pr-master-garment-validation-report',
+        name: 'pr-master-garment-validation-report',
+        moduleId: './modules/merchandiser/report/pr-master-garment-validation-report/index',
+        nav: true,
+        title: 'Monitoring Validasi PR Master',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "PG": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/cost-calculation-garment-approval-report',
+        name: 'cost-calculation-garment-approval-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-approval-report/index',
+        nav: true,
+        title: 'Monitoring Validasi Cost Calculation Garment',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "PG": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

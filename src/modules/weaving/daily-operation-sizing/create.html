@@ -52,7 +52,7 @@
           <textbox label="Kode Resep" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Kode Resep" value.bind="RecipeCode" error.bind="error.RecipeCode"
+          <au-textbox placeholder="Kode Resep" value.bind="data.RecipeCode" error.bind="error.RecipeCode"
             read-only.bind="readOnly">
           </au-textbox>
         </div>
@@ -60,7 +60,7 @@
           <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-numeric placeholder="Ne Real" value.bind="NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
+          <au-numeric placeholder="Ne Real" value.bind="data.NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
           </au-numeric>
         </div>
       </div>
@@ -105,6 +105,17 @@
         <div class="col-md-2">
           <au-textbox placeholder="Shift" value.bind="PreparationShift.Name" error.bind="error.PreparationShift" read-only.bind="true">
           </au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Jumlah Beam Dihasilkan" read-only="true"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-numeric placeholder="Jumlah Beam Dihasilkan" value.bind="data.BeamProductResult" error.bind="error.BeamProductResult"
+            read-only.bind="readOnly">
+          </au-numeric>
         </div>
       </div>
 

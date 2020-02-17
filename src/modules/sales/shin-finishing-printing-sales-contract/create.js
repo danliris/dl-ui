@@ -26,7 +26,7 @@ export class Create {
     }
 
     save() {
-        this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
+        this.data.RemainingQuantity = this.data.CostCalculation.PreSalesContract.OrderQuantity + (this.data.CostCalculation.PreSalesContract.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

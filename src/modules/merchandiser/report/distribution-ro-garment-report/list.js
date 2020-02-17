@@ -2,6 +2,7 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+var UnitLoader = require('../../../../loader/unit-loader');
 
 @inject(Router, Service)
 export class List {
@@ -12,9 +13,14 @@ export class List {
         this.today = new Date();
     }
    
+    unitName=null;
     dateFrom = null;
     dateTo = null;
-      
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
     activate() {
        
     }
@@ -24,7 +30,9 @@ export class List {
             dateFrom : this.dateFrom,
             dateTo : this.dateTo,
         }
-   
+        if (this.unitName) {
+           info.unitName = this.unitName.Name
+        }
         this.service.search(JSON.stringify(info))
             .then(result => {
                 this.data = result;
@@ -45,12 +53,16 @@ export class List {
             dateFrom : this.dateFrom,
             dateTo : this.dateTo,
         }
+        if (this.unitName) {
+           info.unitName = this.unitName.Name
+        }
         this.service.generateExcel(JSON.stringify(info));
     }
 
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
+        this.unitName = null;
         this.data = [];
     }
 

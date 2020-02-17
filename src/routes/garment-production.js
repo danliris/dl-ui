@@ -12,11 +12,37 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },{
-        route: '/garment-production/scrap-classification',
-        name: 'garment-production-scrap-classification',
+        route: '/garment-production/scrap-source',
+        name: 'garment-production-scrap-source',
+        moduleId: './modules/garment-production/scrap-source/index',
+        nav: true,
+        title: 'Master Asal Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-classifications',
+        name: 'garment-production-scrap-classifications',
         moduleId: './modules/garment-production/scrap-classification/index',
         nav: true,
         title: 'Master Jenis Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-destinations',
+        name: 'garment-production-scrap-destinations',
+        moduleId: './modules/garment-production/scrap-destination/index',
+        nav: true,
+        title: 'Master Tujuan Barang Aval',
         auth: true,
         settings: {
             group: "g-production",

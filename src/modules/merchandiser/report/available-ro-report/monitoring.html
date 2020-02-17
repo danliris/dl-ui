@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Laporan Kesiapan RO</h1>
+    <h1 class="page-header">Laporan Kecepatan Cek RO</h1>
     <form class="form-horizontal">
         <au-autocomplete
             value.bind="selectedSection"
@@ -9,7 +9,7 @@
             text="Code"
             options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete
+        <!--<au-autocomplete
             value.bind="selectedROGarment"
             label="Nomor RO"
             loader.bind="costCalculationGarmentLoader"
@@ -25,7 +25,7 @@
             placeholder="Cari Buyer"
             text="Name"
             options.bind="controlOptions">
-        </au-autocomplete>
+        </au-autocomplete>-->
         <au-datepicker
             value.bind="selectedAvailableDateStart"
             label="Tgl Kesiapan RO Awal"
@@ -36,12 +36,12 @@
             label="Tgl Kesiapan RO Akhir"
             options.bind="controlOptions">
         </au-datepicker>
-        <au-dropdown
+        <!--<au-dropdown
             value.bind="selectedStatus"
             label="Status"
             items.bind="statusList"
             options.bind="controlOptions">
-        </au-dropdown>
+        </au-dropdown>-->
         <div class="form-group">
             <div class.bind="'col-sm-'+controlOptions.label.length"></div>
             <div class.bind="'col-sm-'+controlOptions.control.length">
@@ -56,13 +56,14 @@
                 <thead>
                     <tr>
                         <th><label>No</label></th>
+                        <th><label>No RO</label></th>
                         <th><label>Tanggal Penerimaan RO</label></th>
                         <th><label>Tanggal Kesiapan RO</label></th>
-                        <th><label>No RO</label></th>
-                        <th><label>Artikel</label></th>
-                        <th><label>+/-<br/>Terima - Siap</label></th>
-                        <th><label>Buyer</label></th>
                         <th><label>Tanggal Shipment</label></th>
+                        <th><label>+/-<br/>Terima - Siap</label></th>
+                        <th><label>Kode Buyer</label></th>
+                        <th><label>Nama Buyer</label></th>
+                        <th><label>Artikel</label></th>
                         <th><label>Quantity</label></th>
                         <th><label>Satuan</label></th>
                         <th><label>User</label></th>
@@ -71,7 +72,7 @@
                 <tbody>
                     <!--No data to display-->
                     <tr if.bind="!tableData || tableData.length < 1">
-                        <td colspan="11">
+                        <td colspan="12">
                             <div class="alert alert-info"> Tidak ada data untuk ditampilkan. </div>
                         </td>
                     </tr>
@@ -83,25 +84,28 @@
                                 <au-textbox value.bind="i+1" read-only="true"></au-textbox>
                             </td>
                             <td align="center">
+                                <au-textbox value.bind="tableData[i].RONo" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
                                 <au-datepicker value.bind="tableData[i].AcceptedDate" read-only="true"></au-datepicker>
                             </td>
                             <td align="center">
                                 <au-datepicker value.bind="tableData[i].AvailableDate" read-only="true"></au-datepicker>
                             </td>
                             <td align="center">
-                                <au-textbox value.bind="tableData[i].RONo" read-only="true"></au-textbox>
-                            </td>
-                            <td align="center">
-                                <au-textbox value.bind="tableData[i].Article" read-only="true"></au-textbox>
+                                <au-datepicker value.bind="tableData[i].DeliveryDate" read-only="true"></au-datepicker>
                             </td>
                             <td align="center">
                                 <au-textbox value.bind="tableData[i].DateDiff" read-only="true"></au-textbox>
                             </td>
                             <td align="center">
-                                <au-textbox value.bind="tableData[i].Buyer" read-only="true"></au-textbox>
+                                <au-textbox value.bind="tableData[i].BuyerCode" read-only="true"></au-textbox>
                             </td>
                             <td align="center">
-                                <au-datepicker value.bind="tableData[i].DeliveryDate" read-only="true"></au-datepicker>
+                                <au-textbox value.bind="tableData[i].Buyer" read-only="true"></au-textbox>
+                            </td>                           
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].Article" read-only="true"></au-textbox>
                             </td>
                             <td align="center">
                                 <au-textbox value.bind="tableData[i].Quantity" read-only="true"></au-textbox>

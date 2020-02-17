@@ -19,72 +19,6 @@ export class List {
 
   years = [];
 
-  columns = [
-    [{
-        field: "ProductionDate",
-        title: "Tanggal Produksi",
-        rowspan: "2",
-        valign: "top"
-      },
-      {
-        title: "A",
-        valign: "top"
-      },
-      {
-        title: "B",
-        valign: "top"
-      },
-      {
-        title: "C",
-        valign: "top"
-      },
-      {
-        title: "D",
-        valign: "top"
-      },
-      {
-        title: "E",
-        valign: "top"
-      },
-      {
-        title: "F",
-        valign: "top"
-      },
-      {
-        title: "G",
-        valign: "top"
-      },
-      {
-        title: "Total"
-      }
-    ],
-    [{
-      field: "AGroupTotal",
-      valign: "middle"
-    }, {
-      field: "BGroupTotal",
-      valign: "middle"
-    }, {
-      field: "CGroupTotal",
-      valign: "middle"
-    }, {
-      field: "DGroupTotal",
-      valign: "middle"
-    }, {
-      field: "EGroupTotal",
-      valign: "middle"
-    }, {
-      field: "FGroupTotal",
-      valign: "middle"
-    }, {
-      field: "GGroupTotal",
-      valign: "middle"
-    }, {
-      field: "TotalAll",
-      valign: "middle"
-    }]
-  ];
-
   constructor(router, service) {
     this.service = service;
     this.router = router;
@@ -115,11 +49,11 @@ export class List {
     return UnitLoader;
   }
 
-  searchWarpingProductions() {
+  searchWarpingBrokens() {
+    this.error = {};
     if (false) {
       alert("");
     } else {
-      this.error = {};
       var errorIndex = 0;
       if (this.Year) {
         var YearContainer = this.Year;
@@ -131,6 +65,12 @@ export class List {
         var MonthContainer = this.Month;
       } else {
         this.error.Month = "Bulan Harus Diisi";
+        errorIndex++;
+      }
+      if (this.WeavingUnit) {
+        var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      } else {
+        this.error.WeavingUnit = "Unit Weaving Harus Diisi";
         errorIndex++;
       }
 
@@ -180,11 +120,59 @@ export class List {
 
       var arg = {
         month: MonthInNumber,
-        year: YearContainer
+        year: YearContainer,
+        weavingUnitId: WeavingUnitIdContainer
       };
       if (errorIndex == 0) {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
+          console.log(this.data);
+
+          result.data._BodyBrokenList = [];
+          var index = 1;
+          for (var item of result.data.BodyBrokens) {
+            console.log(item);
+            var brokenDatum = {
+              IndexNumber: index,
+              BrokenName: "",
+              _BrokenValueList: []
+            };
+
+            var valueBrokenEach = 0;
+            var totalBrokenValue = 0;
+            if (result.data.HeaderWarps.length > 0) {
+              for (var headerWarp of result.data.HeaderWarps) {
+
+                var brokenItemIndex = result.data.BodyBrokens.findIndex(o => 
+                  o.BrokenName == headerWarp.BrokenName && 
+                  o.WarpName == headerWarp.WarpName);
+                // debugger
+                if (brokenItemIndex >= 0) {
+                  valueBrokenEach = result.data.BodyBrokens[brokenItemIndex].BrokenValue;
+                  totalBrokenValue = totalBrokenValue + valueBrokenEach;
+
+                  brokenDatum.BrokenName = item.BrokenName;
+                  brokenDatum.TotalValue = totalBrokenValue;
+                  brokenDatum._BrokenValueList.push({
+                    Value: valueBrokenEach
+                  });
+                } else {
+                  brokenDatum._BrokenValueList.push({
+                    Value: 0
+                  });
+                }
+              }
+              // } else {
+              //   brokenDatum._BrokenValueList.push({
+              //     Value: 0
+              //   });
+            }
+
+            result.data._ProcessedList.push(brokenDatum);
+            index++;
+          }
+          console.log(result);
+          return result;
         });
       }
     }
@@ -196,6 +184,10 @@ export class List {
     this.MonthInNumber = null;
     this.Year = null;
     this.YearContainer = null;
+    this.WeavingUnit = null;
+    this.WeavingUnitIdContainer = null;
+
+    this.error = {};
     this.data = [];
   }
 
@@ -212,6 +204,12 @@ export class List {
       var MonthContainer = this.Month;
     } else {
       this.error.Month = "Bulan Harus Diisi";
+      errorIndex++;
+    }
+    if (this.WeavingUnit) {
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+    } else {
+      this.error.WeavingUnit = "Unit Weaving Harus Diisi";
       errorIndex++;
     }
 
@@ -260,7 +258,7 @@ export class List {
     }
 
     if (errorIndex == 0) {
-      this.service.getReportPdf(MonthInNumber, YearContainer);
+      this.service.getReportPdf(MonthInNumber, YearContainer, WeavingUnitIdContainer);
     }
   }
 }

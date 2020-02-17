@@ -38,7 +38,7 @@ export class List {
         }
       },
       {
-        field: "FabricConstructionDocument.ConstructionNumber",
+        field: "ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
         valign: "top"
@@ -65,7 +65,7 @@ export class List {
         valign: "middle"
       },
       {
-        field: "EstimatedProductionDocument.WholeGrade",
+        field: "TotalEstimatedProduction",
         title: "Total Estimasi Produksi",
         rowspan: "2",
         valign: "top"
@@ -77,67 +77,67 @@ export class List {
       }
     ],
     [{
-        field: "WarpComposition.CompositionOfPoly",
+        field: "WarpCompositionPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "WarpComposition.CompositionOfCotton",
+        field: "WarpCompositionCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "WarpComposition.OtherComposition",
+        field: "WarpCompositionOthers",
         title: "Lainnya",
         valign: "middle"
       },
       {
-        field: "WeftComposition.CompositionOfPoly",
+        field: "WeftCompositionPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "WeftComposition.CompositionOfCotton",
+        field: "WeftCompositionCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "WeftComposition.OtherComposition",
+        field: "WeftCompositionOthers",
         title: "Lainnya",
         valign: "middle"
       },
       {
-        field: "EstimatedProductionDocument.GradeA",
+        field: "EstimatedProductionGradeA",
         title: "Grade A",
         valign: "middle"
       },
       {
-        field: "EstimatedProductionDocument.GradeB",
+        field: "EstimatedProductionGradeB",
         title: "Grade B",
         valign: "middle"
       },
       {
-        field: "EstimatedProductionDocument.GradeC",
+        field: "EstimatedProductionGradeC",
         title: "Grade C",
         valign: "middle"
       },
       {
-        field: "EstimatedProductionDocument.GradeD",
+        field: "EstimatedProductionGradeD",
         title: "Grade D",
         valign: "middle"
       },
       {
-        field: "FabricConstructionDocument.AmountOfWarp",
+        field: "AmountOfWarp",
         title: "Lusi",
         valign: "middle"
       },
       {
-        field: "FabricConstructionDocument.AmountOfWeft",
+        field: "AmountOfWeft",
         title: "Pakan",
         valign: "middle"
       },
       {
-        field: "FabricConstructionDocument.TotalYarn",
+        field: "TotalYarn",
         title: "Total",
         valign: "middle"
       }
@@ -169,11 +169,11 @@ export class List {
     }
 
     if (this.WeavingUnit) {
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var UnitIdContainer = this.WeavingUnit.Id;
     }
 
     var arg = {
-      weavingUnitId: WeavingUnitIdContainer,
+      unitId: UnitIdContainer,
       dateFrom: StartDatePeriodContainer,
       dateTo: EndDatePeriodContainer,
 
@@ -205,10 +205,10 @@ export class List {
       }
 
       if (this.WeavingUnit) {
-        var WeavingUnitContainer = this.WeavingUnit;
+        var UnitContainer = this.WeavingUnit;
       }
 
-      return this.listDataFlag ? this.service.getReportPdf(WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
+      return this.listDataFlag ? this.service.getReportPdf(UnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
         return {
           data: result,
           total: length

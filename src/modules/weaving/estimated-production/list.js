@@ -8,12 +8,13 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "EstimationNumber", title: "No Estimasi Produksi" },
+    { field: "EstimatedNumber", title: "No Estimasi Produksi" },
     {
       field: "DateEstimated",
       title: "Tanggal Estimasi Produksi",
       formatter: function(value, data, index) {
-        return moment(new Date(value)).format("DD MMM YYYY");
+        moment.locale("id");
+        return moment(new Date(value)).format("DD MMMM YYYY");
       }
     }
   ];
@@ -29,7 +30,7 @@ export class List {
       order: order
     };
 
-    return this.service.searchEP(arg).then(result => {
+    return this.service.searchEstimatedProductions(arg).then(result => {
       return {
         total: result.info.total,
         data: result.data

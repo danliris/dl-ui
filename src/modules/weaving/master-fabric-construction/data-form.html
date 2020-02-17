@@ -3,6 +3,7 @@
     .collection .panel-body {
       padding: 0px;
     }
+
   </style>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" replaceable part="actions">
     <div class="col-md-12">
@@ -23,7 +24,7 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-            <au-textbox placeholder="Jenis Material" value.bind="MaterialTypeName" error.bind="error.MaterialTypeName"
+            <au-textbox placeholder="Jenis Material" value.bind="MaterialType" error.bind="error.MaterialType"
               read-only.bind="readOnly">
             </au-textbox>
           </div>
@@ -32,16 +33,18 @@
               read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Jumlah Lusi" value.bind="data.AmountOfWarp" error.bind="error.AmountOfWarp"
-              read-only.bind="readOnly"></au-textbox>
+            <au-numeric value.bind="data.AmountOfWarp" error.bind="error.AmountOfWarp"
+              read-only.bind="readOnly">
+            </au-numeric>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Jumlah Pakan" value.bind="data.AmountOfWeft" error.bind="error.AmountOfWeft"
-              read-only.bind="readOnly"></au-textbox>
+            <au-numeric value.bind="data.AmountOfWeft" error.bind="error.AmountOfWeft"
+              read-only.bind="readOnly">
+            </au-numeric>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Lebar" value.bind="data.Width" error.bind="error.Width" read-only.bind="readOnly">
-            </au-textbox>
+            <au-numeric value.bind="data.Width" error.bind="error.Width" read-only.bind="readOnly">
+            </au-numeric>
           </div>
         </div>
       </div>
@@ -51,11 +54,11 @@
           <textbox label="Jenis Lusi dan Pakan" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="padding-right: 4px;">
-          <au-textbox placeholder="Jenis Lusi" value.bind="WarpTypeForm" error.bind="error.WarpTypeForm"
+          <au-textbox placeholder="Jenis Lusi" value.bind="WarpType" error.bind="error.WarpType"
             read-only.bind="readOnlyAll"></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
-          <au-textbox placeholder="Jenis Pakan" value.bind="WeftTypeForm" error.bind="error.WeftTypeForm"
+          <au-textbox placeholder="Jenis Pakan" value.bind="WeftType" error.bind="error.WeftType"
             read-only.bind="readOnlyAll"></au-textbox>
         </div>
       </div>
@@ -65,8 +68,7 @@
           <textbox label="Reed Space" read-only.bind="readOnlyAll"></textbox>
         </div>
         <div class="col-md-2">
-          <au-numeric value.bind="data.ReedSpace" error.bind="error.ReedSpace"
-            read-only.bind="readOnly">
+          <au-numeric value.bind="data.ReedSpace" error.bind="error.ReedSpace" read-only.bind="readOnly">
           </au-numeric>
         </div>
       </div>
@@ -76,8 +78,7 @@
           <textbox label="Jumlah Helai Benang" read-only.bind="readOnlyAll"></textbox>
         </div>
         <div class="col-md-2">
-          <au-numeric value.bind="data.TotalEnds" error.bind="error.TotalEnds"
-            read-only.bind="readOnly">
+          <au-numeric value.bind="data.YarnStrandsAmount" error.bind="error.YarnStrandsAmount" read-only.bind="readOnly">
           </au-numeric>
         </div>
       </div>
@@ -95,14 +96,14 @@
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-6">
-            <au-collection items.bind="ItemsWarp" errors.bind="error.ItemsWarp" columns.bind="warpColumns"
-              add.bind="addItemsWarp" options.bind="ItemsWarpOptions" remove.bind="onremove"read-only.bind="readOnly"
+            <au-collection items.bind="ConstructionWarpsDetail" errors.bind="error.ConstructionWarpsDetail" columns.bind="warpColumns"
+              add.bind="addConstructionWarpsDetail" options.bind="ConstructionWarpsDetailOptions" remove.bind="onremove" read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-warp">
             </au-collection>
           </div>
           <div class="col-md-6">
-            <au-collection items.bind="ItemsWeft" errors.bind="error.ItemsWeft" columns.bind="weftColumns"
-              add.bind="addItemsWeft" options.bind="ItemsWeftOptions" remove.bind="onremove"read-only.bind="readOnly"
+            <au-collection items.bind="ConstructionWeftsDetail" errors.bind="error.ConstructionWeftsDetail" columns.bind="weftColumns"
+              add.bind="addConstructionWeftsDetail" options.bind="ConstructionWeftsDetailOptions" remove.bind="onremove" read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-weft">
             </au-collection>
           </div>

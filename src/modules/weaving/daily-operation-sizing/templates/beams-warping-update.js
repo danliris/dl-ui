@@ -6,7 +6,6 @@ import {
 import {
   Service
 } from "../service";
-var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(BindingEngine, Service)
 export class BeamsWarpingUpdate {
@@ -15,10 +14,6 @@ export class BeamsWarpingUpdate {
     this.service = service;
     this.bindingEngine = bindingEngine;
   }
-
-  // get beams() {
-  //   return BeamLoader;
-  // }
 
   async activate(context) {
     this.data = context.data;

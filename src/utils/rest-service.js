@@ -118,8 +118,8 @@ export class RestService {
       })
   }
 
-  patch(endpoint, data, header) {
-    var promise = this.endpoint.patch(endpoint, null, data);
+  patch(endpoint, data, info, header) {
+    var promise = this.endpoint.patch(endpoint, info, data);
     this.publish(promise);
     return promise
       .catch(e => {
