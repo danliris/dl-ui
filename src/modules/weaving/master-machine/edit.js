@@ -11,7 +11,7 @@ import {
 
 @inject(Router, Service)
 export class Edit {
-  readOnlyValue = true;
+  // readOnlyValue = true;
 
   constructor(router, service) {
     this.router = router;
@@ -20,39 +20,22 @@ export class Edit {
   }
 
   async activate(params) {
-
     var Id = params.Id;
     var dataResult;
-    var weavingUnit;
-    var weavingMachineUnit;
-    var cutmarkUom;
     this.data = await this.service
       .getById(Id)
       .then(result => {
         dataResult = result;
-        return this.service.getUnitById(dataResult.WeavingUnitId);
+        return this.service.getUnitById(dataResult.UnitId);
       })
       .then(unit => {
-        weavingUnit = unit;
+        dataResult.WeavingUnit = unit;
         return this.service.getMachineTypeById(dataResult.MachineTypeId);
       }).then(machineType => {
-        weavingMachineUnit = machineType;
-        
-        if (dataResult.CutmarkUomId != 0) {
-          return this.service.getUomById(dataResult.CutmarkUomId).then(uom => {
-            cutmarkUom = uom;
-            return dataResult
-          });
-        } else {
-          return dataResult;
-        }
+        dataResult.MachineType = machineType;
+        dataResult.Speed = machineType.Speed;
+        return dataResult;
       });
-
-    this.data.WeavingUnit = weavingUnit;
-    this.data.WeavingMachineType = weavingMachineUnit;
-    if (cutmarkUom) {
-      this.data.CutmarkUom = cutmarkUom;
-    }
   }
 
   cancelCallback(event) {
@@ -63,13 +46,18 @@ export class Edit {
 
   saveCallback(event) {
     this.error = {};
-    var updateData = {}
-
+    var updateData = {};
+    
     if (this.data.Id) {
       updateData.Id = this.data.Id;
     }
-    if (this.data.MachineNumber) {
-      updateData.MachineNumber = this.data.MachineNumber;
+
+    if (this.data.MachineNumberOne) {
+      updateData.MachineNumber = this.data.MachineNumberOne;
+    }
+
+    if (this.data.MachineNumberOne && this.data.MachineNumberTwo) {
+      updateData.MachineNumber = this.data.MachineNumberOne + "/" + this.data.MachineNumberTwo;
     }
 
     if (this.data.Location) {
@@ -80,18 +68,45 @@ export class Edit {
       updateData.WeavingUnitId = this.data.WeavingUnit.Id;
     }
 
-    if (this.data.WeavingMachineType) {
-      updateData.MachineTypeId = this.data.WeavingMachineType.Id;
+    if (this.data.MachineType) {
+      updateData.MachineTypeId = this.data.MachineType.Id;
+      if (this.data.MachineType.TypeName === "Sucker Muller" || this.data.MachineType.TypeName === "Kawa Moto") {
+        if (this.data.Cutmark) {
+          updateData.Cutmark = this.data.Cutmark;
+        } else{
+          this.error.Cutmark = "Jenis Mesin " + this.data.MachineType + ", Cutmark Harus Diisi";
+        }
+
+        if (this.data.CutmarkUom) {
+          updateData.CutmarkUom = this.data.CutmarkUom;
+        }else{
+          this.error.CutmarkUom = "Jenis Mesin " + this.data.MachineType + ", Satuan Cutmark Harus Diisi";
+        }
+      }
     }
 
-    if (this.data.Cutmark) {
-      updateData.Cutmark = this.data.Cutmark;
+    if(this.data.Speed){
+      updateData.Speed = this.data.Speed;
     }
 
-    if (this.data.CutmarkUom) {
-      updateData.CutmarkUomId = this.data.CutmarkUom.Id;
+    if(this.data.MachineUnit){
+      updateData.MachineUnit = this.data.MachineUnit;
     }
 
+    if (this.data.Process) {
+      updateData.Process = this.data.Process;
+    }
+
+    if (this.data.Area) {
+      updateData.Area = this.data.Area;
+    }
+
+    if (this.data.Block) {
+      updateData.Block = parseInt(this.data.Block);
+    }
+    
+    console.log(updateData);
+    debugger
     this.service
       .update(updateData)
       .then(result => {
@@ -100,10 +115,9 @@ export class Edit {
         });
       })
       .catch(e => {
-
         this.error = e;
-        this.error.WeavingUnit = e['WeavingUnitId'] ? 'Weaving Unit must not be empty' : '';
-        this.error.WeavingMachineType = e['MachineTypeId'] ? 'Machine Type must not be empty' : '';
+        // this.error.WeavingUnit = e['WeavingUnitId'] ? 'Weaving Unit must not be empty' : '';
+        // this.error.WeavingMachineType = e['MachineTypeId'] ? 'Machine Type must not be empty' : '';
       });
   }
 }
