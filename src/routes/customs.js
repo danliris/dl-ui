@@ -24,5 +24,18 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         },
+    },
+    {
+        route: '/customs/monitoring-out',
+        name: 'customs-report-in',
+        moduleId: './modules/customs/monitoring-out/index',
+        nav: true,
+        title: 'Laporan Pengeluaran',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
     }
 ]

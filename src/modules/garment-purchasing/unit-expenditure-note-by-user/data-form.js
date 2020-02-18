@@ -142,7 +142,7 @@ export class DataForm {
         return UnitDeliveryOrderLoader;
     }
 
-    unitDeliveryOrderChanged(newValue){
+    async unitDeliveryOrderChanged(newValue){
         var selectedUnitDeliveryOrder = newValue;
         this.dataItems = [];
         this.data.Items = [];
@@ -161,7 +161,6 @@ export class DataForm {
             this.data.UnitDONo = "";
         }
         else if(selectedUnitDeliveryOrder){
-            //console.log(selectedUnitDeliveryOrder);
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
             this.data.UnitDONo = selectedUnitDeliveryOrder.UnitDONo;
             this.data.UnitSender = selectedUnitDeliveryOrder.UnitSender;
@@ -192,6 +191,8 @@ export class DataForm {
                         return item && item.toString().trim().length > 0;
                     }).join(" - ");
             }
+            this.dataUnitDO=await this.service.getUnitDOId(this.data.UnitDOId);
+            this.data.RoJob=this.dataUnitDO.RONo;
             this.data.Items = [];
             for(var item of selectedUnitDeliveryOrder.Items){
                 var Items = {};
