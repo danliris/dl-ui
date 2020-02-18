@@ -54,23 +54,23 @@ export class Create {
       if (this.data.MachineType.TypeName === "Sucker Muller" || this.data.MachineType.TypeName === "Kawa Moto") {
         if (this.data.Cutmark) {
           postData.Cutmark = this.data.Cutmark;
-        } else{
+        } else {
           this.error.Cutmark = "Jenis Mesin " + this.data.MachineType + ", Cutmark Harus Diisi";
         }
 
         if (this.data.CutmarkUom) {
           postData.CutmarkUom = this.data.CutmarkUom;
-        }else{
+        } else {
           this.error.CutmarkUom = "Jenis Mesin " + this.data.MachineType + ", Satuan Cutmark Harus Diisi";
         }
       }
     }
 
-    if(this.data.Speed){
+    if (this.data.Speed) {
       postData.Speed = this.data.Speed;
     }
 
-    if(this.data.MachineUnit){
+    if (this.data.MachineUnit) {
       postData.MachineUnit = this.data.MachineUnit;
     }
 
@@ -84,10 +84,10 @@ export class Create {
 
     if (this.data.Block) {
       postData.Block = parseInt(this.data.Block);
+    // } else {
+    //   postData.Block = null;
     }
-    
-    console.log(postData);
-    debugger
+
     this.service
       .create(postData)
       .then(result => {
