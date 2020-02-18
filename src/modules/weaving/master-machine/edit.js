@@ -1,6 +1,5 @@
 import {
-  inject,
-  Lazy
+  inject
 } from "aurelia-framework";
 import {
   Router
@@ -11,7 +10,6 @@ import {
 
 @inject(Router, Service)
 export class Edit {
-  // readOnlyValue = true;
 
   constructor(router, service) {
     this.router = router;
@@ -105,8 +103,6 @@ export class Edit {
       updateData.Block = parseInt(this.data.Block);
     }
     
-    console.log(updateData);
-    debugger
     this.service
       .update(updateData)
       .then(result => {
@@ -116,8 +112,6 @@ export class Edit {
       })
       .catch(e => {
         this.error = e;
-        // this.error.WeavingUnit = e['WeavingUnitId'] ? 'Weaving Unit must not be empty' : '';
-        // this.error.WeavingMachineType = e['MachineTypeId'] ? 'Machine Type must not be empty' : '';
       });
   }
 }

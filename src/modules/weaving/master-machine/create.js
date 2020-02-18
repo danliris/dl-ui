@@ -84,8 +84,6 @@ export class Create {
 
     if (this.data.Block) {
       postData.Block = parseInt(this.data.Block);
-    // } else {
-    //   postData.Block = null;
     }
 
     this.service
@@ -96,8 +94,6 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
-        // this.error.WeavingMachineType = e['MachineTypeId'] ? 'Machine Type must not be empty' : '';
-        // this.error.WeavingUnit = e['WeavingUnitId'] ? 'Weaving Unit must not be empty' : '';
       });
   }
 }

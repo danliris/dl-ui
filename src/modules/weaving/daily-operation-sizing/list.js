@@ -78,36 +78,6 @@ export class List {
           total: result.data.length,
           data: result.data
         };
-        //   let getUnitPromises = result.data.map(operation =>
-        //     this.service.getUnitById(operation.WeavingUnitId)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(units => {
-        //     for (var datum of result.data) {
-        //       if (units && units.length > 0) {
-        //         let unit = units.find(
-        //           unitResult => datum.WeavingUnitId == unitResult.Id
-        //         );
-        //         datum.WeavingUnitId = unit.Name;
-        //       }
-        //       if (datum.DateTimeMachine) {
-        //         var DateMachine = moment(datum.DateTimeMachine).format('DD/MM/YYYY');
-        //         var TimeMachine = moment(datum.DateTimeMachine).format('LT');
-
-        //         datum.MachineDate = DateMachine;
-        //         datum.MachineTime = TimeMachine;
-        //       }
-        //     }
-        //     return {
-        //       total: result.info.total,
-        //       data: result.data
-        //     };
-        //   });
-        // } else {
-        //   return {
-        //     total: result.info.total,
-        //     data: result.data
-        //   };
       }else{
         return {
           total: 0,

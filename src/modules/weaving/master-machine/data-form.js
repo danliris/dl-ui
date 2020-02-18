@@ -1,20 +1,14 @@
 import {
-  inject,
-  bindable,
-  computedFrom
+  bindable
 } from "aurelia-framework";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineTypeLoader = require('../../../loader/weaving-machine-type-loader');
-// var UOMLoader = require("../../../loader/uom-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable WeavingUnit;
   @bindable MachineType;
-  // @bindable CutmarkUom;
-  // @bindable Speed;
-  // @bindable MachineUnit;
 
   formOptions = {
     cancelText: "Kembali",
@@ -26,8 +20,7 @@ export class DataForm {
   uoms = ["", "Meter", "Yard"];
   locations = ["", "Utara", "Timur", "Selatan", "Barat"];
   process = ["", "Warping", "Sizing", "Reaching", "Tying", "Loom"];
-  blocks = ["", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  // blocks = ["", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  blocks = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   areas = ["", "Weaving 1A", "Weaving 1B"];
 
   constructor() {}
@@ -43,10 +36,6 @@ export class DataForm {
     if(this.data.MachineType){
       this.MachineType = this.data.MachineType;
     }
-
-    // if (this.data.CutmarkUom) {
-    //   this.CutmarkUom = this.data.CutmarkUom;
-    // }
     
     if (this.data.MachineNumber) {
       let splittedMachineNumber = this.data.MachineNumber.split("/");
@@ -59,19 +48,6 @@ export class DataForm {
         this.longMachineNumber = false;
       }
     }
-
-    // if(this.data.Speed){
-    //   this.Speed = this.data.Speed;
-    // }
-
-    // if(this.data.MachineUnit){
-    //   this.MachineUnit = this.data.MachineUnit;
-    // }
-
-    // if(this.data.Block){
-    //   var block = this.data.Block;
-    //   this.data.Block = block.toString();
-    // }
 
     this.showHideKawaMotoSuckerMuller = false;
 
@@ -89,21 +65,9 @@ export class DataForm {
     return MachineTypeLoader;
   }
 
-  // get uoms() {
-  //   return UOMLoader;
-  // }
-
   WeavingUnitChanged(newValue) {
     this.data.WeavingUnit = newValue;
   }
-
-  // SpeedChanged(newValue){
-  //   this.data.Speed = newValue;
-  // }
-
-  // MachineUnitChanged(newValue){
-  //   this.data.MachineUnit = newValue;
-  // }
 
   MachineTypeChanged(newValue) {
     if (newValue.Id) {
@@ -117,14 +81,6 @@ export class DataForm {
         this.data.Cutmark = 0;
         this.data.CutmarkUom = "";
       }
-    // } else {
-    //   this.data.MachineType = newValue
-    //   this.data.Speed = 0;
-    //   this.data.MachineUnit = '';
     }
   }
-
-  // CutmarkUomChanged(newValue) {
-  //   this.data.CutmarkUom = newValue;
-  // }
 }

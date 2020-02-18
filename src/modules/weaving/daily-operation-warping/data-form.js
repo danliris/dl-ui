@@ -88,38 +88,6 @@ export class DataForm {
       this.PreparationWeavingUnit = "";
       this.error.PreparationWeavingUnit = " Unit Weaving Tidak Ditemukan ";
     }
-
-    // if (newValue.ConstructionId) {
-    //   this.service.getConstructionNumberById(newValue.ConstructionId)
-    //     .then(resultConstructionNumber => {
-    //       if (resultConstructionNumber) {
-    //         this.error.PreparationFabricConstruction = "";
-    //         this.PreparationFabricConstruction = resultConstructionNumber;
-
-    //         var ConstructionNumberSplitted = resultConstructionNumber.split(" ");
-    //         var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2];
-    //         this.data.PreparationMaterialType = WarpCode;
-    //       }
-    //     })
-    //     .catch(e => {
-    //       this.PreparationFabricConstruction = "";
-    //       this.error.PreparationFabricConstruction = " Nomor Konstruksi Tidak Ditemukan ";
-    //     });
-    // }
-
-    // if (newValue.WeavingUnit) {
-    //   this.service.getUnitById(newValue.WeavingUnit)
-    //     .then(resultWeavingUnit => {
-    //       if (resultWeavingUnit) {
-    //         this.error.PreparationWeavingUnit = "";
-    //         this.PreparationWeavingUnit = resultWeavingUnit.Name;
-    //       }
-    //     })
-    //     .catch(e => {
-    //       this.PreparationWeavingUnit = "";
-    //       this.error.PreparationWeavingUnit = " Unit Weaving Tidak Ditemukan ";
-    //     });
-    // }
   }
 
   BeamProductResultChanged(newValue) {

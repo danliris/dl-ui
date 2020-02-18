@@ -53,9 +53,12 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocument"
-            error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number"
-            query.bind="LoaderFilter">
+            error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="sizingBeamProducts" text="SizingBeamNumber"
+            query.bind="beamFilter">
           </au-autocomplete>
+          <!-- <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocument"
+            error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
+          </au-autocomplete> -->
         </div>
       </div>
 
