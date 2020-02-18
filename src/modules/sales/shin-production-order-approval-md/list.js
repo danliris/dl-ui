@@ -7,48 +7,19 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail", "print"]
+    context = ["detail"]
 
     columns = [
-        {
-            field: "toBeClosed", title: "Closed Checkbox", checkbox: true, sortable: false,
-            formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.isClosed;
-                return "";
-            }
-        },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.No", title: "No. Sales Contract" },
         { field: "FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo", title: "No. SPP" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Nama Buyer" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit"},
         {
             field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        {
-            field: "IsApprovedMD", title: "Validasi SPP",
-            formatter: function (value, data, index) {
-                return data.ApprovalMD.IsApproved ? "Sudah" : "Belum";
-            }
-        },
-        {
-            field: "IsClosed", title: "Status",
-            formatter: function (value, data, index) {
-                return data.isClosed ? "Closed" : "Open";
-            }
-        }
+        { field: "OrderQuantity", title: "Jumlah Order"},
     ];
-
-    rowFormatter(data, index) {
-        if (data.ApprovalMD.IsApproved)
-            return { classes: "success" };
-        else
-            return { classes: "danger" }
-    }
-
-
 
     loader = (info) => {
         var order = {};
@@ -59,6 +30,9 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            filter: JSON.stringify({
+                IsApprovedMD : false
+            })
             // select: ["orderNo", "salesContractNo", "buyer", "deliveryDate", "processType", "isClosed"]
         }
 
