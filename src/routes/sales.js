@@ -208,6 +208,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/shin-production-order-approval-md',
+        name: 'shin-production-order-approval-md',
+        moduleId: './modules/sales/shin-production-order-approval-md/index',
+        nav: true,
+        title: 'Validasi Surat Perintah Produksi (New) - Kabag MD',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
