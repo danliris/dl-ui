@@ -38,6 +38,8 @@
                     <th class="text-center">Article / Style</th>
                     <th class="text-center">Komoditi</th>
                     <th class="text-center">Deskripsi Garment</th>
+                    <th class="text-center">Fabric Allowance</th>      
+                    <th class="text-center">Acc Allowance</th> 
                     <th class="text-center">Tgl Shipment</th>      
                     <th class="text-center">Profit %</th>
                     <th class="text-center">Jumlah Order</th>
@@ -48,7 +50,8 @@
                 </tr>
             </thead>
             <tbody>
-                    <tr repeat.for="item of data">
+                <template repeat.for="Seksi of Sections">
+                    <tr repeat.for="item of Seksi.data">
                         <td class="text-center"> ${$index + 1}</td>
                         <td>${item.RO_Number}</td>
                         <td>${item.Section}</td>
@@ -60,6 +63,8 @@
                         <td>${item.Article}</td>
                         <td>${item.Comodity}</td>
                         <td>${item.ComodityDescription}</td>
+                        <td class="text-right">${item.FabAllow}</td>
+                        <td class="text-right">${item.AccAllow}</td>
                         <td>${item.DeliveryDate}</td>
                         <td class="text-right">${item.Profit}</td>
                         <td class="text-right">${item.Quantity}</td>
@@ -67,6 +72,25 @@
                         <td class="text-right">${item.ConfirmPrice}</strong></td>     
                         <td class="text-right">${item.CMPrice}</strong></td>     
                         <td class="text-right">${item.FOBPrice}</td>   
+                    </tr>
+                        <tr class="active">
+                        <td class="text-center">.</td>
+                        <td class="text-center"><strong>.</strong></td>                     
+                        <td class="text-center"><strong>.</strong></td>    
+                        <td class="text-center" colspan="9"><strong>S E K S I : ${Seksi.SECTION}</strong></td>
+                        <td class="text-center" colspan="4"><strong>SUB TOTAL</strong></td>
+                        <td class="text-center"><strong>.</strong></td>                     
+                        <td class="text-center"><strong>.</strong></td>    
+                        <td class="text-center"><strong>.</strong></td>                                             
+                        <td class="text-right"><strong>${Seksi.subTotal}</strong></td>                     
+                    </tr>
+                </template>
+                   <tr class="active">
+                        <td class="text-center" colspan="16"><strong>T O T A L . . . . . . :</strong></td>
+                        <td class="text-center"><strong>.</strong></td>                     
+                        <td class="text-center"><strong>.</strong></td>                                                                     
+                        <td class="text-center"><strong>.</strong></td>                                             
+                        <td class="text-right"><strong>${AmountTotal}</strong></td>                     
                     </tr>
             </tbody>
 

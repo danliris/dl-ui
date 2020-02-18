@@ -272,7 +272,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "C9": 1 },
+            permission: { "IE": 1, "PGA": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: 'sample'
         }
@@ -569,6 +569,32 @@ module.exports = [
         moduleId: './modules/merchandiser/report/profit-garment-by-section-report/index',
         nav: true,
         title: 'Laporan Profit Garment Per Seksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/profit-garment-by-comodity-report',
+        name: 'profit-garment-by-comodity-report',
+        moduleId: './modules/merchandiser/report/profit-garment-by-comodity-report/index',
+        nav: true,
+        title: 'Laporan Profit Garment Per Komoditi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/budget-export-garment-report',
+        name: 'budget-export-garment-report',
+        moduleId: './modules/merchandiser/report/budget-export-garment-report/index',
+        nav: true,
+        title: 'Monitoring Budget Export Garment',
         auth: true,
         settings: {
             group: "merchandiser",

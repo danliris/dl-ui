@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Laporan Penerimaan RO</h1>
+    <h1 class="page-header">Laporan Penerimaan RO Garment</h1>
     <form class="form-horizontal">
         <au-autocomplete
             value.bind="selectedSection"
@@ -9,7 +9,7 @@
             text="Code"
             options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete
+        <!--<au-autocomplete
             value.bind="selectedROGarment"
             label="Nomor RO"
             loader.bind="costCalculationGarmentLoader"
@@ -25,7 +25,7 @@
             placeholder="Cari Buyer"
             text="Name"
             options.bind="controlOptions">
-        </au-autocomplete>
+        </au-autocomplete>-->
         <au-datepicker
             value.bind="selectedAcceptedDateStart"
             label="Tgl Terima Awal"
@@ -49,10 +49,12 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th><label>No</label></th>
                         <th><label>Tanggal Terima</label></th>
                         <th><label>No RO</label></th>
                         <th><label>Artikel</label></th>
-                        <th><label>Buyer</label></th>
+                        <th><label>Kode Buyer</label></th>
+                        <th><label>Nama Buyer</label></th>
                         <th><label>Tanggal Shipment</label></th>
                         <th><label>Quantity</label></th>
                         <th><label>Satuan</label></th>
@@ -62,7 +64,7 @@
                 <tbody>
                     <!--No data to display-->
                     <tr if.bind="!tableData || tableData.length < 1">
-                        <td colspan="8">
+                        <td colspan="10">
                             <div class="alert alert-info"> Tidak ada data untuk ditampilkan. </div>
                         </td>
                     </tr>
@@ -70,6 +72,7 @@
                     <!--Data to display-->
                     <template repeat.for="data of tableData">
                         <tr>
+                            <td class="text-center"> ${$index + 1}</td>
                             <td align="center">
                                 <au-datepicker value.bind="data.AcceptedDate" read-only="true"></au-datepicker>
                             </td>
@@ -81,6 +84,9 @@
                             </td>
                             <td align="center">
                                 <au-textbox value.bind="data.Buyer" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="data.BuyerName" read-only="true"></au-textbox>
                             </td>
                             <td align="center">
                                 <au-datepicker value.bind="data.DeliveryDate" read-only="true"></au-datepicker>
