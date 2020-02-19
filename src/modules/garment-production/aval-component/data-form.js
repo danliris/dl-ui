@@ -47,7 +47,7 @@ export class DataForm {
             "Keterangan",
             "Jumlah Aval",
             "Satuan",
-        ].concat(this.data.AvalComponentType == "SEWING" ? ["Size"] : []);
+        ].concat(this.data.AvalComponentType == "SEWING" ? ["Size", "Warna"] : []);
     }
 
     @computedFrom("data.Unit")
@@ -133,7 +133,7 @@ export class DataForm {
             Promise.resolve(this.service.getSewingOut({
 
                 filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "CUTTING" }),
-                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details)) as Items)",
+                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details, Color)) as Items)",
 
             }))
                 .then(result => {
@@ -159,7 +159,8 @@ export class DataForm {
                                             SourceQuantity: detail.Quantity,
                                             Size: detail.Size,
                                             BasicPrice: item.BasicPrice,
-                                            ComodityPrice: this.data.Price
+                                            ComodityPrice: this.data.Price,
+                                            Color: item.Color
                                         });
                                     }
                                 });
@@ -170,7 +171,8 @@ export class DataForm {
                                         Quantity: item.RemainingQuantity,
                                         SourceQuantity: item.RemainingQuantity,
                                         BasicPrice: item.BasicPrice,
-                                        ComodityPrice: this.data.Price
+                                        ComodityPrice: this.data.Price,
+                                        Color: item.Color
                                     }));
                                 }
                             }
