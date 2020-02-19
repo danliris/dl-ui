@@ -26,7 +26,7 @@ export class Edit {
     }
 
     save() {
-        this.data.RemainingQuantity = this.data.OrderQuantity + (this.data.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
+        this.data.RemainingQuantity = this.data.CostCalculation.PreSalesContract.OrderQuantity + (this.data.CostCalculation.PreSalesContract.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

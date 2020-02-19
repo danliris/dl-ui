@@ -39,5 +39,11 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
+        <td if.bind="options.type == 'SEWING'"> 
+            <au-textbox
+                value.bind="data.Color"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
     </tr>
 </template>

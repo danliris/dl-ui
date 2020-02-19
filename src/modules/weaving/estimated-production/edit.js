@@ -4,10 +4,10 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Edit {
-  ePNumberVisibility = true;
-  searchButton = true;
-  // readOnly = true;
-  createOnly = true;
+  searchButton = false;
+  dataExist = true;
+  editable = true;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -18,15 +18,7 @@ export class Edit {
     var Id = params.Id;
     var dataResult;
     this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.Unit);
-      })
-      .then(unit => {
-        dataResult.Unit = unit;
-        return dataResult;
-      });
+      .getByIdEdit(Id);
   }
 
   cancelCallback(event) {
@@ -41,7 +33,7 @@ export class Edit {
     var orderProductionsDocumentError = [];
     var summedUpGrade = 0;
 
-    this.data.EstimationProducts.forEach(datum => {
+    this.data.EstimatedDetails.forEach(datum => {
       var errorEmptyIndex = 0;
       var errorCollection = {};
       if (
@@ -77,11 +69,11 @@ export class Edit {
       }
     });
 
-    this.data.EstimationProducts.forEach(datum => {
-      var gradeANum = parseInt(datum.GradeA) ? parseInt(datum.GradeA) : 0;
-      var gradeBNum = parseInt(datum.GradeB) ? parseInt(datum.GradeB) : 0;
-      var gradeCNum = parseInt(datum.GradeC) ? parseInt(datum.GradeC) : 0;
-      var gradeDNum = parseInt(datum.GradeD) ? parseInt(datum.GradeD) : 0;
+    this.data.EstimatedDetails.forEach(datum => {
+      var gradeANum = datum.GradeA ? datum.GradeA : 0;
+      var gradeBNum = datum.GradeB ? datum.GradeB : 0;
+      var gradeCNum = datum.GradeC ? datum.GradeC : 0;
+      var gradeDNum = datum.GradeD ? datum.GradeD : 0;
       summedUpGrade = 0;
 
       summedUpGrade =
@@ -94,6 +86,18 @@ export class Edit {
       if (summedUpGrade != 100) {
         window.alert(summedUpGradeAlert);
       } else {
+        this.data.EstimatedDetails = this.data.EstimatedDetails.map(o => {
+          let mappedDetail = {};
+          mappedDetail.Id = o.Id;
+          mappedDetail.OrderId = o.OrderId;
+          mappedDetail.GradeA = o.GradeA;
+          mappedDetail.GradeB = o.GradeB;
+          mappedDetail.GradeC = o.GradeC;
+          mappedDetail.GradeD = o.GradeD;
+
+          return mappedDetail;
+        });
+        
         this.service
           .update(this.data)
           .then(result => {

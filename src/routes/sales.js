@@ -52,6 +52,32 @@ module.exports = [
         }
     },
     {
+        route: '/sales/finishing-printing-cost-calculation-copy',
+        name: 'finishing-printing-cost-calculation-copy',
+        moduleId: './modules/sales/finishing-printing-cost-calculation/copy/index',
+        nav: true,
+        title: 'Copy Cost Calculation - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/sales/shin-finishing-printing-sales-contract-copy',
+        name: 'shin-finishing-printing-sales-contract-copy',
+        moduleId: './modules/sales/shin-finishing-printing-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { /*"A2": 1,*/ "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/shin-finishing-printing-sales-contract',
         name: 'shin-finishing-printing-sales-contract',
         moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
@@ -174,6 +200,19 @@ module.exports = [
         moduleId: './modules/sales/shin-production-order-list-view/index',
         nav: true,
         title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-approval-md',
+        name: 'shin-production-order-approval-md',
+        moduleId: './modules/sales/shin-production-order-approval-md/index',
+        nav: true,
+        title: 'Validasi Surat Perintah Produksi (New) - Kabag MD',
         auth: true,
         settings: {
             group: "sales",

@@ -38,8 +38,8 @@ export class Service extends RestService {
     var query = '';
 
     if (weavingUnit) {
-      if (query === '') query = `weavingUnitId=${weavingUnit.Id}`;
-      else query = `${query}&weavingUnitId=${weavingUnit.Id}`;
+      if (query === '') query = `unitId=${weavingUnit.Id}`;
+      else query = `${query}&unitId=${weavingUnit.Id}`;
     }
     if (dateFrom) {
       if (query === '') query = `dateFrom=${(dateFrom)}`;

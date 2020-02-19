@@ -8,20 +8,46 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C5": 1, "C9": 1 },
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
     {
         route: '/customs/monitoring-expenditure-good',
-        name: 'customs-report-in',
+        name: 'customs-report-expenditure-good',
         moduleId: './modules/customs/monitoring-barang-jadi/index',
         nav: true,
         title: 'Laporan Pengeluaran Barang Jadi',
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C5": 1, "C9": 1 },
+            permission: { "C9": 1,"B6": 1,"B1": 1  },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    {
+        route: '/customs/monitoring-out',
+        name: 'customs-report-out',
+        moduleId: './modules/customs/monitoring-out/index',
+        nav: true,
+        title: 'Laporan Pengeluaran',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1  },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    {
+        route: '/customs/traceable-in',
+        name: 'customs-report-in',
+        moduleId: './modules/customs/traceable-in/index',
+        nav: true,
+        title: 'Laporan Traceable Masuk',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
     }

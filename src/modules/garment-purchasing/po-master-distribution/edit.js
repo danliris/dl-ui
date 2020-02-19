@@ -1,13 +1,14 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service, DeliveryOrderService } from './service';
+import { Service, DeliveryOrderService, CostCalculationService } from './service';
 
-@inject(Router, Service, DeliveryOrderService)
+@inject(Router, Service, DeliveryOrderService, CostCalculationService)
 export class Edit {
-    constructor(router, service, doService) {
+    constructor(router, service, doService, CostCalculationService) {
         this.router = router;
         this.service = service;
         this.doService = doService;
+        this.ccService = CostCalculationService;
     }
 
     bind() {
@@ -37,6 +38,7 @@ export class Edit {
                 item.DODetailId = doDetail.Id;
                 item.EPONo = doItem.purchaseOrderExternal.no;
                 item.PRId = doDetail.pRId;
+                item.PRItemId = doDetail.pRItemId; // untuk filter CC saja
                 item.PRNo = doDetail.pRNo;
                 item.POSerialNumber = doDetail.poSerialNumber;
                 item.Product = doDetail.product;
@@ -52,6 +54,41 @@ export class Edit {
                 item.Remark = doDetail.product.Remark
 
             }
+
+            let ccFilter = {};
+            ccFilter['CostCalculationGarment.IsApprovedPPIC'] = true;
+            ccFilter['IsPRMaster'] = true;
+            ccFilter[this.data.Items.map(item => `PRMasterId == ${item.PRId}`).join(" or ")] = true;
+            ccFilter[this.data.Items.map(item => `PRMasterItemId == ${item.PRItemId}`).join(" or ")] = true;
+
+            const costCalculationMaterials = await this.ccService.readMaterials({
+                filter: JSON.stringify(ccFilter),
+                select: "new(Id, IsPRMaster, PRMasterId, PRMasterItemId, PO_SerialNumber, new(ProductId as Id, ProductCode as Code) as Product, BudgetQuantity, new(UOMPriceId as Id, UOMPriceName as Unit) as UOMPrice, CostCalculationGarment.Id as CostcalculationId, CostCalculationGarment.RO_Number, CostCalculationGarment.PreSCId)"
+            });
+
+            this.data.Items.forEach(item => {
+                const ccMaterials = costCalculationMaterials.data.filter(f => f.PRMasterId == item.PRId && f.PRMasterItemId == item.PRItemId);
+                (ccMaterials || []).forEach(material => {
+                    item.SCId = material.PreSCId;
+                    const detailByPOSerialNumber = (item.Details || []).findIndex(d => d.POSerialNumber === material.PO_SerialNumber);
+                    if (detailByPOSerialNumber < 0) {
+                        item.Details.push({
+                            Conversion: 1,
+                            // ParentProduct: item.Product,
+                            Uom: item.Uom,
+                            // SCId: material.PreSCId,
+    
+                            RONo: material.RO_Number,
+                            CostcalculationId: material.CostcalculationId,
+    
+                            POSerialNumber: material.PO_SerialNumber,
+                            Product: material.Product,
+                            QuantityCC: material.BudgetQuantity,
+                            UomCC: material.UOMPrice
+                        });
+                    }
+                });
+            });
         }
     }
 

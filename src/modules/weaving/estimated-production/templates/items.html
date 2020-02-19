@@ -13,49 +13,45 @@
       </au-textbox>
     </td>
     <td style="white-space: nowrap">
-      <au-textbox value.bind="data.TotalGram" read-only.bind="true">
-      </au-textbox>
+      <au-numeric value.bind="data.TotalGram" read-only.bind="true">
+      </au-numeric>
     </td>
     <td style="white-space: nowrap">
-      <au-textbox value.bind="data.TotalOrder" read-only.bind="true">
-      </au-textbox>
+      <au-numeric value.bind="data.TotalOrder" read-only.bind="true">
+      </au-numeric>
     </td>
 
     <td style="white-space: nowrap">
-      <au-textbox
+      <au-numeric
         value.bind="data.GradeA"
         read-only.bind="readOnly"
         error.bind="error.GradeA"
-        placeholder="Grade A(%)"
       >
-      </au-textbox>
+      </au-numeric>
     </td>
     <td style="white-space: nowrap">
-      <au-textbox
+      <au-numeric
         value.bind="data.GradeB"
         read-only.bind="readOnly"
         error.bind="error.GradeB"
-        placeholder="Grade B(%)"
       >
-      </au-textbox>
+      </au-numeric>
     </td>
     <td style="white-space: nowrap">
-      <au-textbox
+      <au-numeric
         value.bind="data.GradeC"
         read-only.bind="readOnly"
         error.bind="error.GradeC"
-        placeholder="Grade C(%)"
       >
-      </au-textbox>
+      </au-numeric>
     </td>
     <td style="white-space: nowrap">
-      <au-textbox
+      <au-numeric
         value.bind="data.GradeD"
         read-only.bind="readOnly"
         error.bind="error.GradeD"
-        placeholder="Grade D(%)"
       >
-      </au-textbox>
+      </au-numeric>
     </td>
   </tr>
 </template>

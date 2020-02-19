@@ -5,7 +5,8 @@
         if.one-way="context.hasCancel">Kembali</button>
       <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)"
+        if.one-way="context.hasDelete">Hapus</button>
     </div>
 
     <div class="row">
@@ -14,8 +15,8 @@
           if.bind="readOnly || isEdit" read-only.bind="true" change.delegate="doSalesNoChanged($event)">
         </au-textbox>
 
-        <au-dropdown label="Tipe DO Penjualan" value.bind="data.DOSalesType"
-          items.bind="doSalesTypeOptions" error.bind="error.DOSalesType" read-only.bind="readOnly || isEdit"
+        <au-dropdown label="Tipe DO Penjualan" value.bind="data.DOSalesType" items.bind="doSalesTypeOptions"
+          error.bind="error.DOSalesType" read-only.bind="readOnly || isEdit"
           change.delegate="doSalesTypeChanged($event)">
         </au-dropdown>
 
@@ -51,6 +52,11 @@
           loader.bind="buyersLoader" key="Address" text="Address" keypress.delegate="enterDelegate($event)"
           change.delegate="selectedDestinationBuyerChanged($event)">
         </au-autocomplete>
+
+        <au-textbox label="Kode Sales" value.bind="data.SalesCode" error.bind="error.SalesCode"
+          read-only.bind="readOnly" placeholder="Input Kode Sales" keypress.delegate="enterDelegate($event)"
+          change.delegate="salesCodeChanged($event)">
+        </au-textbox>
       </div>
 
       <div class="col-md-1" style="padding:0"></div>
@@ -63,11 +69,11 @@
           keypress.delegate="enterDelegate($event)" change.delegate="selectedMaterialConstructionFinishChanged($event)"
           placeholder="Pilih Konstruksi">
         </au-autocomplete>
-        
+
         <au-autocomplete value.bind="selectedStorage" label="Gudang" read-only.bind="readOnly"
-          error.bind="error.Storage" loader.bind="storageLoader" key="name" text.bind="storageView" query.bind="storageQuery"
-          keypress.delegate="enterDelegate($event)" change.delegate="selectedStorageChanged($event)"
-          placeholder="Pilih Gudang">
+          error.bind="error.Storage" loader.bind="storageLoader" key="name" text.bind="storageView"
+          query.bind="storageQuery" keypress.delegate="enterDelegate($event)"
+          change.delegate="selectedStorageChanged($event)" placeholder="Pilih Gudang">
         </au-autocomplete>
 
         <au-textbox label="Kepala Gudang" value.bind="data.HeadOfStorage" error.bind="error.HeadOfStorage"
