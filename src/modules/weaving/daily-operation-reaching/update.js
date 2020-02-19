@@ -80,17 +80,17 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    var dataResult;
+    // var dataResult;
     this.data = await this.service
-      .getById(Id)
-      .then(result => {
-        dataResult = result;
-        return this.service.getUnitById(result.WeavingUnitDocumentId);
-      })
-      .then(unit => {
-        dataResult.WeavingDocument = unit;
-        return dataResult;
-      });
+      .getById(Id);
+      // .then(result => {
+      //   dataResult = result;
+      //   return this.service.getUnitById(result.WeavingUnitDocumentId);
+      // })
+      // .then(unit => {
+      //   dataResult.WeavingDocument = unit;
+      //   return dataResult;
+      // });
     if (this.data.Id) {
       this.Log = this.data.ReachingHistories;
 

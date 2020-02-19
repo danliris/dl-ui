@@ -16,6 +16,7 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.longMachineNumber = true;
   }
 
   activate(params) {}
@@ -29,13 +30,18 @@ export class Create {
   }
 
   saveCallback(event) {
+    this.error = {};
     var postData = {}
 
-    if (this.data.MachineNumber) {
-      postData.MachineNumber = this.data.MachineNumber;
+    if (this.data.MachineNumberOne) {
+      postData.MachineNumber = this.data.MachineNumberOne;
     }
 
-    if(this.data.Location){
+    if (this.data.MachineNumberOne && this.data.MachineNumberTwo) {
+      postData.MachineNumber = this.data.MachineNumberOne + "/" + this.data.MachineNumberTwo;
+    }
+
+    if (this.data.Location) {
       postData.Location = this.data.Location;
     }
 
@@ -43,18 +49,43 @@ export class Create {
       postData.WeavingUnitId = this.data.WeavingUnit.Id;
     }
 
-    if (this.data.WeavingMachineType) {
-      postData.MachineTypeId = this.data.WeavingMachineType.Id;
+    if (this.data.MachineType) {
+      postData.MachineTypeId = this.data.MachineType.Id;
+      if (this.data.MachineType.TypeName === "Sucker Muller" || this.data.MachineType.TypeName === "Kawa Moto") {
+        if (this.data.Cutmark) {
+          postData.Cutmark = this.data.Cutmark;
+        } else {
+          this.error.Cutmark = "Jenis Mesin " + this.data.MachineType + ", Cutmark Harus Diisi";
+        }
+
+        if (this.data.CutmarkUom) {
+          postData.CutmarkUom = this.data.CutmarkUom;
+        } else {
+          this.error.CutmarkUom = "Jenis Mesin " + this.data.MachineType + ", Satuan Cutmark Harus Diisi";
+        }
+      }
     }
 
-    if(this.data.Cutmark){
-      postData.Cutmark = this.data.Cutmark;
+    if (this.data.Speed) {
+      postData.Speed = this.data.Speed;
     }
 
-    if (this.data.CutmarkUom) {
-      postData.CutmarkUomId = this.data.CutmarkUom.Id;
+    if (this.data.MachineUnit) {
+      postData.MachineUnit = this.data.MachineUnit;
     }
-    
+
+    if (this.data.Process) {
+      postData.Process = this.data.Process;
+    }
+
+    if (this.data.Area) {
+      postData.Area = this.data.Area;
+    }
+
+    if (this.data.Block) {
+      postData.Block = parseInt(this.data.Block);
+    }
+
     this.service
       .create(postData)
       .then(result => {
@@ -62,10 +93,7 @@ export class Create {
         this.list();
       })
       .catch(e => {
-
         this.error = e;
-        this.error.WeavingMachineType = e['MachineTypeId'] ? 'Machine Type must not be empty' : '';
-        this.error.WeavingUnit = e['WeavingUnitId'] ? 'Weaving Unit must not be empty' : '';
       });
   }
 }
