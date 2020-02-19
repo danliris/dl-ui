@@ -23,40 +23,39 @@ export class Create {
   @bindable BeamsSizing;
 
   beamsSizingColumns = [{
-      value: "BeamOrigin",
-      header: "Asal Beam"
-    }, {
-      value: "BeamNumber",
-      header: "No. Beam Sizing"
-    }, {
-      value: "CombNumber",
-      header: "No. Sisir"
-    }, {
-      value: "MachineNumber",
-      header: "No. Mesin"
-    }, {
-      value: "OperatorName",
-      header: "Operator"
-    }, {
-      value: "LoomGroupOperator",
-      header: "Grup Loom"
-    }, {
-      value: "MachineDate",
-      header: "Tanggal"
-    }, {
-      value: "MachineTime",
-      header: "Jam"
-    }, {
-      value: "Shift",
-      header: "Shift"
-    }, {
-      value: "Process",
-      header: "Proses"
-    }, {
-      value: "Information",
-      header: "Informasi"
-    }
-  ];
+    value: "BeamOrigin",
+    header: "Asal Beam"
+  }, {
+    value: "BeamNumber",
+    header: "No. Beam Sizing"
+  }, {
+    value: "CombNumber",
+    header: "No. Sisir"
+  }, {
+    value: "MachineNumber",
+    header: "No. Mesin"
+  }, {
+    value: "OperatorName",
+    header: "Operator"
+  }, {
+    value: "LoomGroupOperator",
+    header: "Grup Loom"
+  }, {
+    value: "MachineDate",
+    header: "Tanggal"
+  }, {
+    value: "MachineTime",
+    header: "Jam"
+  }, {
+    value: "Shift",
+    header: "Shift"
+  }, {
+    value: "Process",
+    header: "Proses"
+  }, {
+    value: "Information",
+    header: "Informasi"
+  }];
 
   constructor(service, router, bindingEngine) {
     this.router = router;
@@ -105,40 +104,76 @@ export class Create {
       this.BeamsSizing.splice(0, this.BeamsSizing.length);
       this.beamsSizingTableOptions.OrderId = order.Id;
 
-      this.service.getConstructionNumberById(constructionId)
-        .then(resultConstructionNumber => {
-          this.error.ConstructionNumber = "";
-          this.ConstructionNumber = resultConstructionNumber;
-          return this.service.getUnitById(weavingUnitId);
-        })
-        .then(resultWeavingUnit => {
-          this.error.WeavingUnit = "";
-          this.WeavingUnit = resultWeavingUnit.Name;
-          return this.service.getSupplierById(warpOriginId);
-        })
-        .then(resultWarpOrigin => {
-          this.error.WarpOrigin = "";
-          this.WarpOrigin = resultWarpOrigin;
-          return this.service.getSupplierById(weftOriginId);
-        }).then(resultWeftOrigin => {
-          this.error.WeftOrigin = "";
-          this.WeftOrigin = resultWeftOrigin;
+      if (newValue.ConstructionNumber) {
+        this.error.ConstructionNumber = "";
+        this.ConstructionNumber = newValue.ConstructionNumber;
+      } else {
+        this.ConstructionNumber = "";
+        this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+      }
 
-          if (resultWeftOrigin) {
-            this.showHideBeamsCollection = true;
-          }
-        })
-        .catch(e => {
-          this.ConstructionNumber = "";
-          this.WeavingUnit = "";
-          this.WarpOrigin = "";
-          this.WeftOrigin = "";
+      if (newValue.Unit) {
+        this.error.WeavingUnit = "";
+        this.WeavingUnit = newValue.Unit;
+      } else {
+        this.WeavingUnit = "";
+        this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+      }
 
-          this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-          this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
-          this.error.WarpOrigin = "Asal Lusi Tidak Ditemukan";
-          this.error.WeftOrigin = "Asal Pakan Tidak Ditemukan";
-        });
+      if (newValue.WarpOrigin) {
+        this.error.WarpOrigin = "";
+        this.WarpOrigin = newValue.WarpOrigin;
+      } else {
+        this.WarpOrigin = "";
+        this.error.WarpOrigin = " Asal Lusi Tidak Ditemukan "
+      }
+
+      if (newValue.WeftOrigin) {
+        this.error.WeftOrigin = "";
+        this.WeftOrigin = newValue.WeftOrigin;
+      } else {
+        this.WeftOrigin = "";
+        this.error.WeftOrigin = " Asal Pakan Tidak Ditemukan "
+      }
+
+      if (this.ConstructionNumber && this.WeavingUnit && this.WarpOrigin && this.WeftOrigin) {
+        this.showHideBeamsCollection = true;
+      }
+
+      // this.service.getConstructionNumberById(constructionId)
+      //   .then(resultConstructionNumber => {
+      //     this.error.ConstructionNumber = "";
+      //     this.ConstructionNumber = resultConstructionNumber;
+      //     return this.service.getUnitById(weavingUnitId);
+      //   })
+      //   .then(resultWeavingUnit => {
+      //     this.error.WeavingUnit = "";
+      //     this.WeavingUnit = resultWeavingUnit.Name;
+      //     return this.service.getSupplierById(warpOriginId);
+      //   })
+      //   .then(resultWarpOrigin => {
+      //     this.error.WarpOrigin = "";
+      //     this.WarpOrigin = resultWarpOrigin;
+      //     return this.service.getSupplierById(weftOriginId);
+      //   }).then(resultWeftOrigin => {
+      //     this.error.WeftOrigin = "";
+      //     this.WeftOrigin = resultWeftOrigin;
+
+      //     if (resultWeftOrigin) {
+      //       this.showHideBeamsCollection = true;
+      //     }
+      //   })
+      //   .catch(e => {
+      //     this.ConstructionNumber = "";
+      //     this.WeavingUnit = "";
+      //     this.WarpOrigin = "";
+      //     this.WeftOrigin = "";
+
+      //     this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+      //     this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
+      //     this.error.WarpOrigin = "Asal Lusi Tidak Ditemukan";
+      //     this.error.WeftOrigin = "Asal Pakan Tidak Ditemukan";
+      //   });
     }
   }
 
@@ -176,7 +211,8 @@ export class Create {
     }
 
     // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
-    this.BeamsSizing.forEach(doc => {debugger
+    this.BeamsSizing.forEach(doc => {
+      debugger
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};
 
