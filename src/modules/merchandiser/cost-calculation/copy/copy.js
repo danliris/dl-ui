@@ -1,13 +1,19 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service, PurchasingService } from "../service";
+import { RateService } from '../service-rate';
 
-@inject(Router, Service, PurchasingService)
+import numeral from 'numeral';
+numeral.defaultFormat("0,0.00");
+const rateNumberFormat = "0,0.000";
+
+@inject(Router, Service, PurchasingService, RateService)
 export class Copy {
-    constructor(router, service, prService) {
+    constructor(router, service, prService, rateService) {
         this.router = router;
         this.service = service;
         this.prService = prService;
+        this.rateService = rateService;
         this.data = {};
         this.error = {};
     }
@@ -31,6 +37,38 @@ export class Copy {
         this.data.PreSCNoSource = this.data.PreSCNo;
 
         if (this.data) {
+            let promises = [];
+
+            let wage = this.rateService.search({ filter: "{Name:\"OL\"}" })
+                .then(results => {
+                    let result = results.data[0] ? results.data[0] : this.defaultRate;
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+                    return result;
+                });
+            promises.push(wage);
+
+            let THR = this.rateService.search({ filter: "{Name:\"THR\"}" })
+                .then(results => {
+                    let result = results.data[0] ? results.data[0] : this.defaultRate;
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+                    return result;
+                });
+            promises.push(THR);
+
+            let rate = this.rateService.search({ filter: "{Name:\"USD\"}" })
+                .then(results => {
+                    let result = results.data[0] ? results.data[0] : this.defaultRate;
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+                    return result;
+                });
+            promises.push(rate);
+
+            let all = await Promise.all(promises);
+            this.data.Wage = all[0];
+            this.data.Wage.Value = this.data.Wage.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+            this.data.THR = all[1];
+            this.data.Rate = all[2];
+
             const prMasterIds = this.data.CostCalculationGarment_Materials
                 .filter((m, i) => m.PRMasterId > 0 && this.data.CostCalculationGarment_Materials.findIndex(d => d.PRMasterId === m.PRMasterId) === i)
                 .map(m => `Id==${m.PRMasterId}`);

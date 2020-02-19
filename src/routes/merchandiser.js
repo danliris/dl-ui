@@ -611,7 +611,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -624,7 +624,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
             type: "md"
         }
@@ -638,7 +638,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
             type: "purchasing"
         }
