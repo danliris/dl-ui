@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'customs-reports/beacukaitemp';
+const resource = 'beacukaitemps';
 
 module.exports = function (keyword, filter) {
 
