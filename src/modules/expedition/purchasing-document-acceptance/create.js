@@ -13,6 +13,35 @@ const DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Router, Service, PurchasingDocumentExpeditionService, PermissionHelper)
 export class Create {
+    columns2 = [
+        { field: "selected", checkbox: true, sortable: false },
+        {
+            field: 'VerifyDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
+                return  value ? moment(value).format('DD MMM YYYY'):"-";
+            },
+        },
+        { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
+        {
+            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        {
+            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },
+        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'DivisionName', title: 'Divisi' },
+        {
+            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        { field: 'Currency', title: 'Mata Uang' },
+    ];
+
     columns = [
         { field: "selected", checkbox: true, sortable: false },
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
@@ -87,12 +116,18 @@ export class Create {
     }
 
     changeRole(role) {
+
+        console.log(role);
         if (role.key !== this.activeRole.key) {
             this.activeRole = role;
             this.selectedItems.splice(0, this.selectedItems.length);
             this.documentData.splice(0, this.documentData.length);
             this.documentTable.refresh();
         }
+    }
+
+    changeTable(role){
+        this.code = role.key === "CASHIER"? true : false;      
     }
 
     determineActivationStrategy() {
