@@ -13,10 +13,9 @@ import {
 import moment from 'moment';
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-// var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var SizingBeamLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
+var SizingBeamProductLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -43,9 +42,9 @@ export class Create {
     this.error = {};
   }
 
-  LoaderFilter = {
-    "Type": "Sizing"
+  beamFilter = {
   };
+
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
@@ -67,8 +66,8 @@ export class Create {
     return OrderLoader;
   }
 
-  get beams() {
-    return SizingBeamLoader;
+  get sizingBeamProducts() {
+    return SizingBeamProductLoader;
   }
 
   get operators() {
@@ -77,26 +76,23 @@ export class Create {
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
-      this.LoaderFilter.OrderId = newValue.Id;
-      let constructionId = newValue.ConstructionId;
-      let weavingUnitId = newValue.WeavingUnit;
-      this.service.getConstructionNumberById(constructionId)
-        .then(resultConstructionNumber => {
-          this.error.ConstructionNumber = "";
-          this.ConstructionNumber = resultConstructionNumber;
-          return this.service.getUnitById(weavingUnitId);
-        })
-        .then(resultWeavingUnit => {
-          this.error.WeavingUnitDocument = "";
-          this.WeavingUnitDocument = resultWeavingUnit.Name;
-        })
-        .catch(e => {
-          this.ConstructionNumber = "";
-          this.WeavingUnitDocument = "";
+      this.beamFilter.OrderId = newValue.Id;
+      
+      if (newValue.ConstructionNumber) {
+        this.error.ConstructionNumber = "";
+        this.ConstructionNumber = newValue.ConstructionNumber;
+      } else {
+        this.ConstructionNumber = "";
+        this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
+      }
 
-          this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-          this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
-        });
+      if (newValue.Unit) {
+        this.error.WeavingUnit = "";
+        this.WeavingUnitDocument = newValue.Unit;
+      } else {
+        this.WeavingUnit = "";
+        this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
+      }
     }
   }
 
@@ -128,7 +124,7 @@ export class Create {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
     if (this.SizingBeamDocument) {
-      preparationData.SizingBeamId = this.SizingBeamDocument.Id
+      preparationData.SizingBeamId = this.SizingBeamDocument.SizingBeamId;
     }
     if (this.OperatorDocument) {
       preparationData.OperatorDocumentId = this.OperatorDocument.Id;

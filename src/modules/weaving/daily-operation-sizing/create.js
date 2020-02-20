@@ -44,8 +44,6 @@ export class Create {
 
     this.data = {};
     this.error = {};
-
-    // this.BeamsWarping = [];
   }
 
   formOptions = {
@@ -173,14 +171,6 @@ export class Create {
       this.data.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    // if (this.RecipeCode) {
-    //   this.data.RecipeCode = this.RecipeCode;
-    // }
-
-    // if (this.NeReal) {
-    //   this.data.NeReal = this.NeReal;
-    // }
-
     if (this.PreparationOperator) {
       this.data.PreparationOperator = this.PreparationOperator.Id;
     }
@@ -194,14 +184,6 @@ export class Create {
       this.data.PreparationTime = this.PreparationTime;
     }
 
-    // if (this.YarnStrands) {
-    //   this.data.YarnStrands = this.YarnStrands;
-    // }
-
-    // if (this.EmptyWeight) {
-    //   this.data.EmptyWeight = this.EmptyWeight;
-    // }
-
     this.data.BeamsWarping = this.BeamsWarping.map((o) => {
       var beam = {};
       beam.BeamDocumentId = o.BeamDocument.Id;
@@ -210,12 +192,7 @@ export class Create {
 
       return beam;
     });
-    // this.BeamDocument.forEach(doc => {
-    //   var BeamId = doc.Id;
-    //   this.data.BeamsWarping.push(BeamId);
-    // });
-    // console.log(this.data);
-    // debugger
+    
     this.service
       .create(this.data)
       .then(result => {

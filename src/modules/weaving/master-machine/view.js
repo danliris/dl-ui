@@ -1,6 +1,5 @@
 import {
-  inject,
-  Lazy
+  inject
 } from "aurelia-framework";
 import {
   Router
@@ -20,36 +19,20 @@ export class View {
 
     var Id = params.Id;
     var dataResult;
-    var weavingUnit;
-    var weavingMachineUnit;
-    var cutmarkUom;
     this.data = await this.service
       .getById(Id)
       .then(result => {
         dataResult = result;
-        return this.service.getUnitById(dataResult.WeavingUnitId);
+        return this.service.getUnitById(dataResult.UnitId);
       })
       .then(unit => {
-        weavingUnit = unit;
+        dataResult.WeavingUnit = unit;
         return this.service.getMachineTypeById(dataResult.MachineTypeId);
       }).then(machineType => {
-        weavingMachineUnit = machineType;
-        
-        if (dataResult.CutmarkUomId != 0) {
-          return this.service.getUomById(dataResult.CutmarkUomId).then(uom => {
-            cutmarkUom = uom;
-            return dataResult
-          });
-        } else {
+        dataResult.MachineType = machineType;
+        dataResult.Speed = machineType.Speed;
           return dataResult;
-        }
       });
-
-    this.data.WeavingUnit = weavingUnit;
-    this.data.WeavingMachineType = weavingMachineUnit;
-    if (cutmarkUom) {
-      this.data.CutmarkUom = cutmarkUom;
-    }
   }
 
   list() {

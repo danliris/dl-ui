@@ -96,17 +96,17 @@ export class Item {
 
                                     let correctQuantity = detail.deliveredQuantity;
                                     if (correctionState.IsHavingQuantityCorrection) {
-                                        correctQuantity = detail.QuantityCorrection;
+                                        correctQuantity = detail.QuantityCorrection || detail.deliveredQuantity;
                                     }
 
                                     let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(2));
                                     if (correctionState.IsHavingPricePerUnitCorrection) {
-                                        correctPricePerUnit = Number((detail.PricePerDealUnitCorrection).toFixed(2));
+                                        correctPricePerUnit = detail.PricePerDealUnitCorrection ? Number((detail.PricePerDealUnitCorrection).toFixed(2)) : Number((detail.pricePerDealUnit).toFixed(2));
                                     }
 
                                     let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(2));
                                     if (correctionState.IsHavingPriceTotalCorrection) {
-                                        correctPriceTotal = Number((detail.PriceTotalCorrection).toFixed(2));
+                                        correctPriceTotal = detail.PriceTotalCorrection ? Number((detail.PriceTotalCorrection).toFixed(2)) : Number((correctQuantity * correctPricePerUnit).toFixed(2));
                                     }
 
                                     // if (detail.QuantityCorrection > 0)

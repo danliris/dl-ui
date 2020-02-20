@@ -17,9 +17,6 @@ var OperatorLoader = require("../../../loader/weaving-operator-loader");
 @inject(Router, Service, BindingEngine)
 export class Update {
   @bindable StartTime;
-  // @bindable PauseTime;
-  // @bindable ResumeTime;
-  @bindable FinishDoffTime;
   @bindable ProduceBeamsTime;
   @bindable ProduceBeamsFinishCounter;
   @bindable ProduceBeamsBruto;
@@ -32,8 +29,6 @@ export class Update {
     this.data = {};
 
     this.isStartDisabled = false;
-    // this.isPauseDisabled = false;
-    // this.isResumeDisabled = false;
     this.isProduceBeamDisabled = false;
     this.isDoffDisabled = false;
 
@@ -123,17 +118,9 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    // var dataResult;
+    
     this.data = await this.service
       .getById(Id);
-    // .then(result => {
-    //   dataResult = result;
-    //   return this.service.getUnitById(result.WeavingUnitId);
-    // })
-    // .then(unit => {
-    //   dataResult.WeavingDocument = unit;
-    //   return dataResult;
-    // });
 
     if (this.data.Id) {
       this.BeamsWarping = this.data.DailyOperationSizingBeamsWarping;
@@ -225,45 +212,10 @@ export class Update {
       this.showHideStartMenu = false;
     } else {
       this.showHideStartMenu = true;
-      // this.showHidePauseMenu = false;
-      // this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = false;
     }
   }
-
-  // pause() {
-  //   this.PauseDate = undefined;
-  //   this.PauseTime = null;
-  //   this.PauseShift = undefined;
-  //   this.PauseOperator = undefined;
-  //   this.Information = undefined;
-  //   if (this.showHidePauseMenu === true) {
-  //     this.showHidePauseMenu = false;
-  //   } else {
-  //     this.showHideStartMenu = false;
-  //     this.showHidePauseMenu = true;
-  //     this.showHideResumeMenu = false;
-  //     this.showHideProduceBeamsMenu = false;
-  //     this.showHideDoffMenu = false;
-  //   }
-  // }
-
-  // resume() {
-  //   this.ResumeDate = undefined;
-  //   this.ResumeTime = null;
-  //   this.ResumeShift = undefined;
-  //   this.ResumeOperator = undefined;
-  //   if (this.showHideResumeMenu === true) {
-  //     this.showHideResumeMenu = false;
-  //   } else {
-  //     this.showHideStartMenu = false;
-  //     this.showHidePauseMenu = false;
-  //     this.showHideResumeMenu = true;
-  //     this.showHideProduceBeamsMenu = false;
-  //     this.showHideDoffMenu = false;
-  //   }
-  // }
 
   produceBeams() {
     this.ProduceBeamsFinishCounter = null;
@@ -280,29 +232,8 @@ export class Update {
       this.showHideProduceBeamsMenu = false;
     } else {
       this.showHideStartMenu = false;
-      // this.showHidePauseMenu = false;
-      // this.showHideResumeMenu = false;
       this.showHideProduceBeamsMenu = true;
       this.showHideDoffMenu = false;
-    }
-  }
-
-  finish() {
-    this.FinishDoffMachineSpeed = 0;
-    this.FinishDoffTexSQ = undefined;
-    this.FinishDoffVisco = undefined;
-    this.FinishDoffDate = undefined;
-    this.FinishDoffTime = null;
-    this.FinishDoffShift = undefined;
-    this.FinishDoffOperator = undefined;
-    if (this.showHideDoffMenu === true) {
-      this.showHideDoffMenu = false;
-    } else {
-      this.showHideStartMenu = false;
-      // this.showHidePauseMenu = false;
-      // this.showHideResumeMenu = false;
-      this.showHideProduceBeamsMenu = false;
-      this.showHideDoffMenu = true;
     }
   }
 
@@ -363,133 +294,6 @@ export class Update {
         this.error = e;
       });
   }
-
-  // PauseTimeChanged(newValue) {
-  //   this.service.getShiftByTime(newValue)
-  //     .then(result => {
-  //       this.error.PauseShift = "";
-  //       this.PauseShift = {};
-  //       this.PauseShift = result;
-  //     })
-  //     .catch(e => {
-  //       this.PauseShift = {};
-  //       this.error.PauseShift = " Shift tidak ditemukan ";
-  //     });
-  // }
-
-  // savePause() {
-  //   this.error = {};
-  //   if (this.data.DailyOperationSizingHistories.length > 0) {
-  //     var LastDetails = this.data.DailyOperationSizingHistories[0];
-  //     var LastCausesBrokenBeam = LastDetails.CausesBrokenBeam;
-  //     var LastCausesMachineTroubled = LastDetails.CausesMachineTroubled;
-  //   }
-
-  //   var IdContainer = this.data.Id;
-  //   if (this.PauseDate) {
-  //     var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
-  //   }
-
-  //   if (this.PauseTime) {
-  //     var HistoryTimeContainer = this.PauseTime;
-  //   }
-
-  //   if (this.PauseShift) {
-  //     var ShiftContainer = this.PauseShift.Id;
-  //   }
-
-  //   if (this.PauseOperator) {
-  //     var OperatorContainer = this.PauseOperator.Id;
-  //   }
-
-  //   if (this.CauseOfStopping) {
-  //     switch (this.CauseOfStopping) {
-  //       case "Putus Beam":
-  //         LastCausesBrokenBeam = LastCausesBrokenBeam + 1;
-  //         break;
-  //       case "Mesin Bermasalah":
-  //         LastCausesMachineTroubled = LastCausesMachineTroubled + 1;
-  //         break;
-  //       default:
-  //         LastCausesBrokenBeam = LastCausesBrokenBeam;
-  //         LastCausesMachineTroubled = LastCausesMachineTroubled;
-  //         break;
-  //     }
-  //   } else {
-  //     this.error.CauseOfStopping = "Penyebab Berhenti Harus Diisi";
-  //   }
-
-  //   if (this.Information) {
-  //     var InformationContainer = this.Information;
-  //   }
-
-  //   var updateData = {};
-  //   updateData.Id = IdContainer;
-  //   updateData.PauseDate = HistoryDateContainer;
-  //   updateData.PauseTime = HistoryTimeContainer;
-  //   updateData.PauseShift = ShiftContainer;
-  //   updateData.PauseOperator = OperatorContainer;
-  //   updateData.BrokenBeam = LastCausesBrokenBeam;
-  //   updateData.MachineTroubled = LastCausesMachineTroubled;
-  //   updateData.Information = InformationContainer;
-
-  //   this.service
-  //     .updatePause(updateData.Id, updateData)
-  //     .then(result => {
-  //       location.reload();
-  //     })
-  //     .catch(e => {
-  //       if (this.error.CauseOfStopping) {
-  //         e.CauseOfStopping = this.error.CauseOfStopping;
-  //       }
-  //       this.error = e;
-  //     });
-  // }
-
-  // ResumeTimeChanged(newValue) {
-  //   this.service.getShiftByTime(newValue)
-  //     .then(result => {
-  //       this.error.ResumeShift = "";
-  //       this.ResumeShift = {};
-  //       this.ResumeShift = result;
-  //     })
-  //     .catch(e => {
-  //       this.ResumeShift = {};
-  //       this.error.ResumeShift = " Shift tidak ditemukan ";
-  //     });
-  // }
-
-  // saveResume() {
-  //   var IdContainer = this.data.Id;
-  //   if (this.ResumeDate) {
-  //     var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
-  //   }
-  //   if (this.ResumeTime) {
-  //     var HistoryTimeContainer = this.ResumeTime;
-  //   }
-  //   if (this.ResumeShift) {
-  //     var ShiftContainer = this.ResumeShift.Id;
-  //   }
-  //   if (this.ResumeOperator) {
-  //     var OperatorContainer = this.ResumeOperator.Id;
-  //   }
-
-  //   var updateData = {};
-  //   updateData.Id = IdContainer;
-  //   updateData.ResumeDate = HistoryDateContainer;
-  //   updateData.ResumeTime = HistoryTimeContainer;
-  //   updateData.ResumeShift = ShiftContainer;
-  //   updateData.ResumeOperator = OperatorContainer;
-
-  //   this.service
-  //     .updateResume(updateData.Id, updateData)
-  //     .then(result => {
-  //       location.reload();
-  //     })
-  //     .catch(e => {
-  //       this.error = e;
-  //     });
-  // }
 
   ProduceBeamsTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
@@ -698,8 +502,7 @@ export class Update {
         updateData.TexSQ = FinishDoffViscoContainer;
         updateData.Visco = FinishDoffTexSQContainer;
         updateData.IsFinishFlag = IsFinishFlagContainer;
-        console.log(updateData);
-        debugger
+        
         this.service.updateFinishDoff(updateData.Id, updateData)
           .then(result => {
             location.reload();
@@ -708,8 +511,6 @@ export class Update {
             this.error = e;
           });
       } else {
-        console.log(updateData);
-        debugger
         this.service
           .updateProduceBeams(updateData.Id, updateData)
           .then(result => {

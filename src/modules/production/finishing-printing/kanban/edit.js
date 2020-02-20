@@ -28,7 +28,7 @@ export class Edit {
             }
           });
       });
-    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getOldById(this.data.OldKanbanId) : null;
     // this.data.Cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
 
     var currentIndex = 0, countDoneStep = 0;

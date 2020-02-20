@@ -63,6 +63,7 @@ export class DataForm {
       this.WeftOrigin = this.data.WeftOrigin;
 
     if (this.data.Unit) {
+      console.log(this.data.Unit)
       this.Unit = this.data.Unit;
     }
 
