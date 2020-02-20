@@ -298,6 +298,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-expenditure-good',
+        name: 'garment-production-adjustment-expenditure-good',
+        moduleId: './modules/garment-production/adjustment-expenditure-good/index',
+        nav: true,
+        title: 'Adjustment Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/monitoring-prepare',
         name: 'garment-production-monitoring-prepare',
         moduleId: './modules/garment-production/monitoring-prepare/index',
