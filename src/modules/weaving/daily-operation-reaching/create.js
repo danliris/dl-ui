@@ -13,7 +13,7 @@ import {
 import moment from 'moment';
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var SizingBeamProductLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
 @inject(Service, Router, BindingEngine)

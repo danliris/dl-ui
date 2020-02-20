@@ -11,12 +11,21 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
+  tableOptions = {
+    search: true,
+    showToggle: false,
+    showColumns: false,
+    pagination: true,
+    sortable: true
+  };
+
   constructor(router, service) {
     this.service = service;
     this.router = router;
   }
 
   context = ["detail"];
+
   columns = [{
       field: "MachineDate",
       title: "Tanggal"
@@ -44,8 +53,7 @@ export class List {
 
   loader = (info) => {
     var order = {};
-    if (info.sort)
-      order[info.sort] = info.order;
+    if (info.sort) order[info.sort] = info.order;
 
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
@@ -55,16 +63,23 @@ export class List {
     }
 
     return this.service.search(arg).then(result => {
-      for (var datum of result.data) {
-        if (datum.DateTimeMachine) {
-          datum.MachineDate = moment(datum.DateTimeMachine).format('DD/MM/YYYY');
-          datum.MachineTime = moment(datum.DateTimeMachine).format('LT');
+      if (result.data && result.data.length > 0) {
+        for (var datum of result.data) {
+          if (datum.DateTimeOperation) {
+            datum.MachineDate = moment(datum.DateTimeOperation).format('DD/MM/YYYY');
+            datum.MachineTime = moment(datum.DateTimeOperation).format('LT');
+          }
         }
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      } else {
+        return {
+          total: 0,
+          data: {}
+        };
       }
-      return {
-        total: result.info.total,
-        data: result.data
-      };
     });
   }
 

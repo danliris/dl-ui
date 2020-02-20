@@ -40,6 +40,10 @@ export class BeamsSizingPost {
     return OperatorLoader;
   }
 
+  // BeamOriginChanged(newValue){
+  //   if(newValue == "")
+  // }
+
   BeamDocumentChanged(newValue) {
     this.data.BeamDocument = newValue;
     
