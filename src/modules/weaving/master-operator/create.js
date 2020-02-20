@@ -16,13 +16,15 @@ export class Create {
   @bindable UnitId;
   @bindable Assignment;
 
+  groups = ["", "A", "B", "C", "D", "E", "F", "G"];
+
   assignments = ["", "Preparation", "AJL"];
 
   types = [];
 
-  preparationTypes = ["", "Warping", "Sizing"];
+  preparationTypes = ["", "Warping", "Sizing", "Reaching", "Tying"];
 
-  ajlTypes = ["", "Operator"];
+  ajlTypes = ["", "Operator", "Maintenance"];
 
   constructor(router, service) {
     this.router = router;

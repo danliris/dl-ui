@@ -38,12 +38,12 @@ export class List {
     this.router = router;
   }
 
-  loader = info => {
+  loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10),
+      page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
       order: order
@@ -58,10 +58,10 @@ export class List {
           }
         }
         return {
-          total: result.data.length,
+          total: result.info.total,
           data: result.data
         };
-      }else{
+      } else {
         return {
           total: 0,
           data: {}

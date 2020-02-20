@@ -80,6 +80,8 @@ export class Create {
 
     if (this.data.Area) {
       postData.Area = this.data.Area;
+    // }else{
+    //   this.error.Area = "Area Harus Diisi";
     }
 
     if (this.data.Block) {

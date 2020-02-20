@@ -16,30 +16,25 @@ var OrderLoader = require("../../../loader/weaving-order-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
+  @bindable BeamOrigin;
   @bindable MachineDocument;
   @bindable OrderDocument;
   @bindable PreparationOperator;
   @bindable PreparationTime;
-  @bindable BeamsSizing;
+  @bindable BeamsUsed;
 
-  beamsSizingColumns = [{
+  columns = [{
     value: "BeamOrigin",
     header: "Asal Beam"
   }, {
+    value: "LoomMachineNumber",
+    header: "No. Mesin Loom"
+  }, {
+    value: "TyingMachineNumber",
+    header: "No. Mesin Tying"
+  }, {
     value: "BeamNumber",
-    header: "No. Beam Sizing"
-  }, {
-    value: "CombNumber",
-    header: "No. Sisir"
-  }, {
-    value: "MachineNumber",
-    header: "No. Mesin"
-  }, {
-    value: "OperatorName",
-    header: "Operator"
-  }, {
-    value: "LoomGroupOperator",
-    header: "Grup Loom"
+    header: "No. Beam (Sizing)"
   }, {
     value: "MachineDate",
     header: "Tanggal"
@@ -49,6 +44,15 @@ export class Create {
   }, {
     value: "Shift",
     header: "Shift"
+  }, {
+    value: "OperatorTying",
+    header: "Operator Tying"
+  }, {
+    value: "OperatorName",
+    header: "Operator"
+  }, {
+    value: "GroupOperator",
+    header: "Grup Loom"
   }, {
     value: "Process",
     header: "Proses"
@@ -62,13 +66,11 @@ export class Create {
     this.service = service;
     this.bindingEngine = bindingEngine;
 
-    this.showHideBeamsCollection = false;
-    this.showHideCollectionError = false;
-
     this.data = {};
     this.error = {};
 
-    this.BeamsSizing = [];
+    this.showHideBeamsCollection = false;
+    this.BeamsUsed = [];
   }
 
   formOptions = {
@@ -76,7 +78,7 @@ export class Create {
     saveText: 'Simpan',
   };
 
-  beamsSizingTableOptions = {
+  beamsUsedTableOptions = {
 
   }
 
@@ -85,24 +87,20 @@ export class Create {
   }
 
   MachineDocumentChanged(newValue) {
-    if (newValue.MachineType == "Kawamoto" || newValue.MachineType == "Sucker Muller") {
+    if (newValue.MachineType == "Kawa Moto" || newValue.MachineType == "Sucker Muller") {
       this.error.MachineDocumentId = "";
       this.MachineDocument = newValue;
     } else {
-      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawamoto atau Sucker Muller ";
+      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawa Moto atau Sucker Muller ";
     }
   }
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
       let order = newValue;
-      let constructionId = newValue.ConstructionId;
-      let weavingUnitId = newValue.WeavingUnit;
-      let warpOriginId = newValue.WarpOrigin;
-      let weftOriginId = newValue.WeftOrigin;
 
-      this.BeamsSizing.splice(0, this.BeamsSizing.length);
-      this.beamsSizingTableOptions.OrderId = order.Id;
+      this.BeamsUsed.splice(0, this.BeamsUsed.length);
+      this.beamsUsedTableOptions.OrderId = order.Id;
 
       if (newValue.ConstructionNumber) {
         this.error.ConstructionNumber = "";
@@ -139,46 +137,7 @@ export class Create {
       if (this.ConstructionNumber && this.WeavingUnit && this.WarpOrigin && this.WeftOrigin) {
         this.showHideBeamsCollection = true;
       }
-
-      // this.service.getConstructionNumberById(constructionId)
-      //   .then(resultConstructionNumber => {
-      //     this.error.ConstructionNumber = "";
-      //     this.ConstructionNumber = resultConstructionNumber;
-      //     return this.service.getUnitById(weavingUnitId);
-      //   })
-      //   .then(resultWeavingUnit => {
-      //     this.error.WeavingUnit = "";
-      //     this.WeavingUnit = resultWeavingUnit.Name;
-      //     return this.service.getSupplierById(warpOriginId);
-      //   })
-      //   .then(resultWarpOrigin => {
-      //     this.error.WarpOrigin = "";
-      //     this.WarpOrigin = resultWarpOrigin;
-      //     return this.service.getSupplierById(weftOriginId);
-      //   }).then(resultWeftOrigin => {
-      //     this.error.WeftOrigin = "";
-      //     this.WeftOrigin = resultWeftOrigin;
-
-      //     if (resultWeftOrigin) {
-      //       this.showHideBeamsCollection = true;
-      //     }
-      //   })
-      //   .catch(e => {
-      //     this.ConstructionNumber = "";
-      //     this.WeavingUnit = "";
-      //     this.WarpOrigin = "";
-      //     this.WeftOrigin = "";
-
-      //     this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-      //     this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
-      //     this.error.WarpOrigin = "Asal Lusi Tidak Ditemukan";
-      //     this.error.WeftOrigin = "Asal Pakan Tidak Ditemukan";
-      //   });
     }
-  }
-
-  PreparationOperatorChanged(newValue) {
-    this.SizingGroup = newValue.Group;
   }
 
   PreparationTimeChanged(newValue) {
@@ -196,9 +155,13 @@ export class Create {
       });
   }
 
-  get addBeamsSizing() {
+  PreparationOperatorChanged(newValue) {
+    this.SizingGroup = newValue.Group;
+  }
+
+  get addBeamsUsed() {
     return event => {
-      this.BeamsSizing.push({});
+      this.BeamsUsed.push({});
     };
   }
 
@@ -210,8 +173,8 @@ export class Create {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    // this.BeamHistoryDocument = this.BeamsSizing.map((beam) => beam);
-    this.BeamsSizing.forEach(doc => {
+    // this.BeamHistoryDocument = this.BeamsUsed.map((beam) => beam);
+    this.BeamsUsed.forEach(doc => {
       debugger
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};
