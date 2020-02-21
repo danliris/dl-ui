@@ -20,6 +20,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.dataUnitDO=await this.service.getUnitDOId(this.data.UnitDOId);
+        this.data.RoJob=this.dataUnitDO.RONo;
         this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
         this.data.Storage.toString = function () {
             return [this.code, this.name]

@@ -33,6 +33,23 @@ module.exports = [{
     }
   },
   {
+    route: "weaving/monitoring-trouble-machine",
+    name: "monitoring-trouble-machine",
+    moduleId: "./modules/weaving/monitoring-trouble-machine/index",
+    nav: true,
+    title: "Monitoring Trouble Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/master-yarn-origin",
     name: "master-yarn-origin",
     moduleId: "./modules/weaving/master-yarn-origin/index",

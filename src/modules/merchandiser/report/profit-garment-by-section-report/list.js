@@ -49,20 +49,54 @@ export class List {
                 this.data = result;
                 console.log(result);
 
-                var datas = [];
-                for (var item of this.data){
-
-                    item.CMPrice=item.CMPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
-                    item.FOBPrice=item.FOBPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
+                var dataBySection = {};
+                var subTotalSection = {};
+    
+                  for (var data of result) {
+                       var SECTION = data.Section;
+                        if (!dataBySection[SECTION]) dataBySection[SECTION] = [];                 
+                            dataBySection[SECTION].push({            
+                            RO_Number : data.RO_Number,
+                            Section : data.Section,
+                            UnitName : data.UnitName,
+                            BuyerCode : data.BuyerCode,
+                            BuyerName : data.BuyerName,
+                            BrandCode : data.BrandCode,
+                            BrandName : data.BrandName,
+                            Article : data.Article,
+                            Comodity : data.Comodity,
+                            ComodityDescription : data.ComodityDescription,
+                            FabAllow : data.FabAllow,
+                            AccAllow : data.AccAllow,
+                            DeliveryDate : moment(data.DeliveryDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.DeliveryDate).format("DD MMM YYYY"),                          
+                            Profit : data.Profit.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),              
+                            Quantity : data.Quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),              
+                            UOMUnit : data.UOMUnit,
+                            ConfirmPrice : data.ConfirmPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
+                            CMPrice : data.CMPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
+                            FOBPrice : data.FOBPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
+                         });
                     
-                    item.DeliveryDate=moment(item.DeliveryDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.DeliveryDate).format("DD MMM YYYY");                    
-                    item.Quantity=item.Quantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    item.Profit=item.Profit.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    item.ConfirmPrice=item.ConfirmPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4});
-                             
-                    datas.push(item);
-                }
-                this.data = datas;
+                        if (!subTotalSection[SECTION]) {
+                           subTotalSection[SECTION] = 0;
+                           } 
+                           subTotalSection[SECTION] += data.FOBPrice;
+                        }    
+
+               var Sections = [];
+               this.AmountTotal = 0;
+                   
+               for (var data in dataBySection) {
+                   Sections.push({
+                   data: dataBySection[data],
+                   SECTION: dataBySection[data][0].Section,
+                   subTotal: (subTotalSection[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                });
+                   this.AmountTotal += subTotalSection[data];                                     
+               }
+               
+               this.AmountTotal = this.AmountTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.Sections = Sections;
 
                 });        
     }
@@ -82,7 +116,8 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.section = null;
-        this.data = [];
+        this.Sections = [];
+        this.AmountTotal = null;
     }
 
     dateFromChanged(e) {

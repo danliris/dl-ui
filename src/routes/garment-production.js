@@ -33,7 +33,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1},
+            //permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -189,7 +189,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1 },
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/subcon-finishing-in',
+        name: 'garment-production-subcon-finishing-in',
+        moduleId: './modules/garment-production/subcon-finishing-in/index',
+        nav: true,
+        title: 'Finishing In Subkon',
+        auth: true,
+        settings: {
+            group: "g-production",
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -202,7 +215,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1 },
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -228,7 +241,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -241,7 +254,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -277,6 +290,19 @@ module.exports = [
         moduleId: './modules/garment-production/adjustment-finishing/index',
         nav: true,
         title: 'Adjustment Finishing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-expenditure-good',
+        name: 'garment-production-adjustment-expenditure-good',
+        moduleId: './modules/garment-production/adjustment-expenditure-good/index',
+        nav: true,
+        title: 'Adjustment Barang Jadi',
         auth: true,
         settings: {
             group: "g-production",
@@ -345,7 +371,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

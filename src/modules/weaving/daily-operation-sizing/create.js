@@ -12,7 +12,7 @@ import {
 } from "./service";
 import moment from 'moment';
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Service, Router, BindingEngine)
@@ -44,8 +44,6 @@ export class Create {
 
     this.data = {};
     this.error = {};
-
-    // this.BeamsWarping = [];
   }
 
   formOptions = {
@@ -81,8 +79,6 @@ export class Create {
   OrderDocumentChanged(newValue) {
     if (newValue) {
       let order = newValue;
-      // let constructionId = newValue.ConstructionId;
-      // let weavingUnitId = newValue.WeavingUnit;
 
       this.BeamsWarping.splice(0, this.BeamsWarping.length);
       this.beamsWarpingTableOptions.OrderId = order.Id;
@@ -90,49 +86,20 @@ export class Create {
       if (newValue.ConstructionNumber) {
         this.error.ConstructionNumber = "";
         this.ConstructionNumber = newValue.ConstructionNumber;
-
-        // var ConstructionNumberSplitted = newValue.ConstructionNumber.split(" ");
-        // var WarpCode = ConstructionNumberSplitted[ConstructionNumberSplitted.length - 2];
-        // this.data.PreparationMaterialType = WarpCode;
       } else {
-
         this.ConstructionNumber = "";
         this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
       }
 
       if (newValue.Unit) {
-
         this.error.WeavingUnit = "";
         this.WeavingUnit = newValue.Unit;
 
         this.showHideBeamsCollection = true;
       } else {
-
         this.WeavingUnit = "";
         this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
       }
-
-      // this.service.getConstructionNumberById(constructionId)
-      //   .then(resultConstructionNumber => {
-      //     this.error.ConstructionNumber = "";
-      //     this.ConstructionNumber = resultConstructionNumber;
-      //     return this.service.getUnitById(weavingUnitId);
-      //   })
-      //   .then(resultWeavingUnit => {
-      //     this.error.WeavingUnit = "";
-      //     this.WeavingUnit = resultWeavingUnit.Name;
-
-      //     if (resultWeavingUnit.Id) {
-      //       this.showHideBeamsCollection = true;
-      //     }
-      //   })
-      //   .catch(e => {
-      //     this.ConstructionNumber = "";
-      //     this.WeavingUnit = "";
-
-      //     this.error.ConstructionNumber = " Nomor Konstruksi Tidak Ditemukan ";
-      //     this.error.WeavingUnit = " Unit Weaving Tidak Ditemukan ";
-      //   });
     }
   }
 
@@ -204,14 +171,6 @@ export class Create {
       this.data.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    if (this.RecipeCode) {
-      this.data.RecipeCode = this.RecipeCode;
-    }
-
-    if (this.NeReal) {
-      this.data.NeReal = this.NeReal;
-    }
-
     if (this.PreparationOperator) {
       this.data.PreparationOperator = this.PreparationOperator.Id;
     }
@@ -225,20 +184,15 @@ export class Create {
       this.data.PreparationTime = this.PreparationTime;
     }
 
-    if (this.YarnStrands) {
-      this.data.YarnStrands = this.YarnStrands;
-    }
+    this.data.BeamsWarping = this.BeamsWarping.map((o) => {
+      var beam = {};
+      beam.BeamDocumentId = o.BeamDocument.Id;
+      beam.YarnStrands = o.BeamDocument.YarnStrands;
+      beam.EmptyWeight = o.BeamDocument.EmptyWeight;
 
-    if (this.EmptyWeight) {
-      this.data.EmptyWeight = this.EmptyWeight;
-    }
-
-    this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
-    this.BeamDocument.forEach(doc => {
-      var BeamId = doc.Id;
-      this.data.BeamsWarping.push(BeamId);
+      return beam;
     });
-
+    
     this.service
       .create(this.data)
       .then(result => {

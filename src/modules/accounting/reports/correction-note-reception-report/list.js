@@ -11,6 +11,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.BC = ['BCDL', 'SELAIN BCDL'];
     }
     attached() {
     }
@@ -29,7 +30,8 @@ export class List {
             page: this.info.page,
             size: this.info.size,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
         };
 
         this.service.search(args)
@@ -73,10 +75,11 @@ export class List {
             page: this.info.page,
             size: this.info.size,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
         };
         
-        this.service.generateExcel(args.dateFrom, args.dateTo);
+        this.service.generateExcel(args.dateFrom, args.dateTo, args.jnsbc);
     }
 
     dateFromChanged(e) {

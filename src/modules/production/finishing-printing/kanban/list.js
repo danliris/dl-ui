@@ -82,7 +82,7 @@ export class List {
                 if (result.data.length > 0) {
                     for (let kanban of result.data) {
                         if (kanban.OldKanbanId) {
-                            searchOldKanban.push(this.service.getById(kanban.OldKanbanId))
+                            searchOldKanban.push(this.service.getOldById(kanban.OldKanbanId))
                         }
                     }
                 }

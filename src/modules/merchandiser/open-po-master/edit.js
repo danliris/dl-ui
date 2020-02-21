@@ -61,7 +61,8 @@ export class Edit {
                 if (confirm("Batalkan Open PO Master?")) {
                     const jsonPatch = [
                         { op: "replace", path: `/IsOpenPO`, value: false },
-                        { op: "replace", path: `/IsApprovedOpenPOPurchasing`, value: false },
+                        { op: "replace", path: `/OpenPOBy`, value: null },
+                        { op: "replace", path: `/OpenPODate`, value: new Date('0001-01-01') },
                     ];
 
                     this.service.patch({ id: JSON.stringify(ids) }, jsonPatch)

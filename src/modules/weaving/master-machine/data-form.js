@@ -1,18 +1,14 @@
 import {
-  inject,
-  bindable,
-  computedFrom
+  bindable
 } from "aurelia-framework";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineTypeLoader = require('../../../loader/weaving-machine-type-loader');
-var UOMLoader = require("../../../loader/uom-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable WeavingUnit;
-  @bindable WeavingMachineType;
-  @bindable CutmarkUom;
+  @bindable MachineType;
 
   formOptions = {
     cancelText: "Kembali",
@@ -21,7 +17,13 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  location = ["", "Utara", "Timur", "Selatan", "Barat"];
+  uoms = ["", "Meter", "Yard"];
+  locations = ["", "Utara", "Timur", "Selatan", "Barat"];
+  process = ["", "Warping", "Sizing", "Reaching", "Tying", "Loom"];
+  blocks = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  areas = [];
+  weaving1Areas = ["", "Weaving 1A", "Weaving 1B"];
+  weaving2Areas = ["", "Barat", "Timur"];
 
   constructor() {}
 
@@ -30,20 +32,27 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    if (this.data.WeavingMachineType) {
-      this.WeavingMachineType = this.data.WeavingMachineType;
-      this.data.Speed = this.WeavingMachineType.Speed;
-      this.data.MachineUnit = this.WeavingMachineType.MachineUnit;
-    }
     if (this.data.WeavingUnit) {
       this.WeavingUnit = this.data.WeavingUnit;
     }
+    if (this.data.MachineType) {
+      this.MachineType = this.data.MachineType;
+    }
 
-    if (this.data.CutmarkUom) {
-      this.CutmarkUom = this.data.CutmarkUom;
+    if (this.data.MachineNumber) {
+      let splittedMachineNumber = this.data.MachineNumber.split("/");
+      if (splittedMachineNumber.length > 1) {
+        this.data.MachineNumberOne = splittedMachineNumber[0];
+        this.data.MachineNumberTwo = splittedMachineNumber[1];
+        this.longMachineNumber = true;
+      } else {
+        this.data.MachineNumberOne = splittedMachineNumber[0];
+        this.longMachineNumber = false;
+      }
     }
 
     this.showHideKawaMotoSuckerMuller = false;
+    // this.isWeaving1or2 = false;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -59,17 +68,28 @@ export class DataForm {
     return MachineTypeLoader;
   }
 
-  get uoms() {
-    return UOMLoader;
-  }
-
   WeavingUnitChanged(newValue) {
+    // this.error = [];
+    // console.log(this);
+    // debugger
+    // this.error.WeavingUnitId = "";
     this.data.WeavingUnit = newValue;
+    if (newValue.Name === "WEAVING 1 (EX. WEAVING 2)") {
+      // this.isWeaving1or2 = true;
+      this.areas = this.weaving1Areas;
+    } else if (newValue.Name === "WEAVING 2") {
+      // this.isWeaving1or2 = true;
+      this.areas = this.weaving2Areas;
+    } else {
+      // this.isWeaving1or2 = false;
+      this.areas = [];
+      // this.error.WeavingUnitId = "Unit Weaving yang dipilih harus Weaving 1 atau Weaving 2";
+    }
   }
 
-  WeavingMachineTypeChanged(newValue) {
-    if (newValue) {
-      this.data.WeavingMachineType = newValue
+  MachineTypeChanged(newValue) {
+    if (newValue.Id) {
+      this.data.MachineType = newValue
       this.data.Speed = newValue.Speed;
       this.data.MachineUnit = newValue.MachineUnit;
       if (newValue.TypeName == "Kawa Moto" || newValue.TypeName == "Sucker Muller") {
@@ -77,16 +97,8 @@ export class DataForm {
       } else {
         this.showHideKawaMotoSuckerMuller = false;
         this.data.Cutmark = 0;
-        this.CutmarkUom = null;
+        this.data.CutmarkUom = "";
       }
-    } else {
-      this.data.WeavingMachineType = newValue
-      this.data.Speed = 0;
-      this.data.MachineUnit = '';
     }
-  }
-
-  CutmarkUomChanged(newValue) {
-    this.data.CutmarkUom = newValue;
   }
 }

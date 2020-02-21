@@ -182,6 +182,7 @@ export class DataForm {
   }
 
   async searchOrderProductions() {
+    this.data.EstimatedDetails = [];
     var errorIndex = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";

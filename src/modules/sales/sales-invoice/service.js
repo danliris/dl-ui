@@ -5,7 +5,7 @@ import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
 const serviceUri = "sales/sales-invoices";
-const doSalesServiceUri = "finishing-printing/do-sales-items";
+const shipmentDocumentServiceUri = "finishing-printing/inventory/fp-shipment-documents";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
 const uomServiceUri = "master/uoms";
@@ -61,13 +61,13 @@ export class ServiceProductionAzure extends RestService {
     super(http, aggregator, config, "production-azure");
   }
 
-  searchDOSales(info) {
-    var endpoint = `${doSalesServiceUri}`;
+  searchShipmentDocument(info) {
+    var endpoint = `${shipmentDocumentServiceUri}`;
     return super.list(endpoint, info);
   }
 
-  getDOSalesById(id, select) {
-    var endpoint = `${doSalesServiceUri}/${id}`;
+  getShipmentDocumentById(id, select) {
+    var endpoint = `${shipmentDocumentServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

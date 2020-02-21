@@ -23,9 +23,9 @@ export class DataForm {
 
   types = [];
 
-  preparationTypes = ["", "Warping", "Sizing"];
+  preparationTypes = ["", "Warping", "Sizing", "Reaching", "Tying"];
 
-  ajlTypes = ["", "Operator"];
+  ajlTypes = ["", "Operator", "Maintenance"];
 
   constructor() {}
 

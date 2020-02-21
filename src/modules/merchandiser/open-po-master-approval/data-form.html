@@ -84,15 +84,6 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th show.bind="!readOnly">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked.bind="checkedAll"
-                                    change.delegate="changeCheckedAll()"
-                                    disabled.bind="readOnly" />
-                            </label>
-                        </th>
                         <template repeat.for="column of itemsColumns">
                             <th><label>${column.header}</label></th>
                         </template>
@@ -110,8 +101,8 @@
                         if.bind="data.Items && data.Items.length > 0"
                         repeat.for="item of data.Items"
                         as-element="compose"
-                        view="modules/merchandiser/open-po-master/template/item.html"
-                        view-model="modules/merchandiser/open-po-master/template/item"
+                        view="modules/merchandiser/open-po-master-approval/template/item.html"
+                        view-model="modules/merchandiser/open-po-master-approval/template/item"
                         model.bind="{ data: item, error: error.Items[$index], context: { columns: itemsColumns, options: itemsOptions, items: data.Items }, headerContext: context }"
                         containerless>
                     </tr>

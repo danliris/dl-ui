@@ -2,17 +2,28 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class Create {
-    constructor(router, service) {
+    constructor(router, service, authService) {
         this.router = router;
         this.service = service;
+        this.authService = authService;
         this.data = {};
     }
 
     bind() {
         this.error = {};
+    }
+
+    activate() {
+        if (this.authService.authenticated) {
+            this.me = this.authService.getTokenPayload();
+        }
+        else {
+            this.me = null;
+        }
     }
 
     cancelCallback() {
@@ -48,6 +59,8 @@ export class Create {
                 if (confirm("Open PO Master?")) {
                     const jsonPatch = [
                         { op: "replace", path: `/IsOpenPO`, value: true },
+                        { op: "replace", path: `/OpenPOBy`, value: this.me.username },
+                        { op: "replace", path: `/OpenPODate`, value: new Date() },
                     ];
 
                     this.service.patch({ id: JSON.stringify(ids) }, jsonPatch)

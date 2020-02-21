@@ -1,11 +1,10 @@
 import { inject, bindable } from "aurelia-framework";
-import numeral from "numeral";
 
 var UomLoader = require("../../../../loader/uom-loader");
 
 export class SalesInvoce {
   @bindable Total;
-  @bindable UnitPrice;
+  @bindable Price;
 
   activate(context) {
     // this.context = context;
@@ -15,27 +14,27 @@ export class SalesInvoce {
     this.readOnly = context.options.readOnly;
 
     this.Total = this.data.Total;
-    this.UnitPrice = this.data.UnitPrice;
-    this.getAmount = this.Total * this.UnitPrice;
+    this.Price = this.data.Price;
+    this.getAmount = this.Total * this.Price;
     this.data.Amount = this.getAmount;
-    if(this.data.UomId && this.data.UomUnit){
+    if (this.data.UomId && this.data.UomUnit) {
       this.selectedUom = {
-        'Id' : this.data.UomId,
-        'Unit' : this.data.UomUnit
+        'Id': this.data.UomId,
+        'Unit': this.data.UomUnit
       };
     }
   }
 
   TotalChanged(newValue, oldValue) {
-    this.getAmount = this.Total * this.UnitPrice;
+    this.getAmount = this.Total * this.Price;
     this.data.Amount = this.getAmount;
     this.data.Total = this.Total;
   }
 
-  UnitPriceChanged(newValue, oldValue) {
-    this.getAmount = this.Total * this.UnitPrice;
+  PriceChanged(newValue, oldValue) {
+    this.getAmount = this.Total * this.Price;
     this.data.Amount = this.getAmount;
-    this.data.UnitPrice = this.UnitPrice;
+    this.data.Price = this.Price;
   }
 
   AmountChanged(newValue, oldValue) {

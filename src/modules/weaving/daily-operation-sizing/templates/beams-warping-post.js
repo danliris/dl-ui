@@ -24,7 +24,7 @@ export class BeamsWarpingPost {
     this.data = context.data;
     this.error = context.error;
 
-    this.BeamDocument = this.data.BeamDocument;
+    this.BeamDocument = this.data.BeamDocument;console.log(this.data.BeamDocument);
 
     this.options = context.context.options;
     this.OrderIdFilter = {
