@@ -7,7 +7,7 @@ const UnitLoader = require('../../../loader/garment-units-loader');
 @inject(Service,PurchasingService)
 export class DataForm {
     @bindable readOnly = false;
-    @bindable isEdit = false;
+    @bindable isView = false;
     @bindable title;
     @bindable data = {};
     // @bindable error = {};
@@ -180,14 +180,15 @@ export class DataForm {
                 
             }
             {
-                let buyerResult = await this.purchasingService.getBuyerCode({ size: 1, filter: JSON.stringify({ RONo:  newValue.RONo  }) });
+                console.log(newValue);
+                let buyerResult = await this.purchasingService.getBuyerCode({ size: 1, filter: JSON.stringify({ RONo:  newValue  }) });
                 this.data.BuyerCode = buyerResult.data[0].Buyer.Name;
               
                 for(var qty of this.data.Items)
-                {  console.log(qty);
+                {  
                     let remaingQtyResult = await this.service.searchRemaining(qty.FinishedGoodStockId);  
                     qty.Description= qty.Color;
-                    console.log(remaingQtyResult);
+                 
                     qty.RemainingQuantity= qty.Quantity + remaingQtyResult.Quantity;
                 }
             }
@@ -210,6 +211,16 @@ export class DataForm {
            
             "Size",
             "Jumlah Tersedia",
+            "Jumlah Keluar",
+            "Satuan",
+            "Keterangan",
+        ]
+    }
+
+    itemsInfoView = {
+        columns: [
+           
+            "Size",
             "Jumlah Keluar",
             "Satuan",
             "Keterangan",
