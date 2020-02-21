@@ -20,7 +20,7 @@ export class List {
         this.error = {};
     }
     @bindable type
-    Types = ["RO Job","Kode Barang", "No BC Masuk"];
+    Types = ["RO Job","Kode Barang", "No BC Masuk", "Tanggal BC Masuk"];
     bind(context) {
         console.log(context);
         this.context = context;
@@ -65,9 +65,9 @@ export class List {
             else if (newvalue === "Kode Barang") {
                 this.tipe = "ItemCode"; 
             } 
-        //     else{
-        //         this.tipe = "ComodityName";
-        // }
+            else{
+            this.tipe = "BCDate";
+        }
         }
     }
     
@@ -77,9 +77,9 @@ export class List {
             // page: this.info.page,
             // size: this.info.size,
             bcno : this.BCNo ? this.BCNo.BCNo : this.rojob? this.rojob.ROJob : this.itemcode? this.itemcode.ItemCode : "",
-            type : this.tipe ? this.tipe : ""
-            //dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            //dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            type : this.tipe ? this.tipe : "",
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
         }
         this.service.search(args)
                 .then(result => {
@@ -103,13 +103,13 @@ export class List {
                             this.rowCount[bc]++;
                         }
      
-                        if(!rowDoc[doc+bc+bon+po+ic+iname]){
-                            index++;
+                        if(!rowDoc[doc+bc+bon]){
+                            //index++;
                             //_data.count=index;
-                            rowDoc[doc+bc+bon+po+ic+iname]=1;
+                            rowDoc[doc+bc+bon]=1;
                         }
                         else{
-                            rowDoc[doc+bc+bon+po+ic+iname]++;
+                            rowDoc[doc+bc+bon]++;
                         }
                         _data.Sisa = _data.QtyReceipt - _data.QtyExpend
                     //_data.priceTotal=_data.priceTotal.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -119,9 +119,9 @@ export class List {
                     datas.push(_data);
                     }
                     for(var b of result.data){
-                        let bcno=result.data.find(o=> o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName ==b.BCType + b.BCNo +b.BonNo+b.PO + b.ItemCode + b.ItemName);
+                        let bcno=result.data.find(o=> o.BCType + o.BCNo + o.BonNo ==b.BCType + b.BCNo +b.BonNo);
                         if(bcno){
-                            bcno.docspan=rowDoc[b.BCNo+b.BCType+b.BonNo+b.PO + b.ItemCode + b.ItemName];
+                            bcno.docspan=rowDoc[b.BCNo+b.BCType+b.BonNo];
                         }
                         let bctipe=result.data.find(o=> o.BCType ==b.BCType);
                         if(bctipe){
@@ -145,7 +145,9 @@ export class List {
             if(Object.getOwnPropertyNames(this.error).length === 0){
                 let args = {
                     bcno : this.BCNo ? this.BCNo.BCNo : this.rojob? this.rojob.ROJob : this.itemcode? this.itemcode.ItemCode : "",
-                    type : this.tipe ? this.tipe : ""
+                    type : this.tipe ? this.tipe : "",
+                    dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                    dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
                 };
                 
                 this.service.generateExcel(args)
