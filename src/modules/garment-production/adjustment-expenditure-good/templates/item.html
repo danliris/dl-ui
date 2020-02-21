@@ -15,8 +15,9 @@
                 read-only.bind="true">
             </au-textbox>                    
         </td>
-        <td>
+        <td  if.bind="!readOnly">
             <au-numeric 
+               if.bind="!readOnly"
                 value.bind="data.RemainingQuantity"
                 read-only.bind="true"  format="0">
             </au-numeric>                       
@@ -39,7 +40,7 @@
         <td>
             <au-autocomplete
             value.bind="selectedColor"
-            error.bind="error.RONo"
+            error.bind="error.Color"
             loader.bind="garmentColorLoader"
             text.bind="colorView"
             query.bind="filter" 
