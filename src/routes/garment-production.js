@@ -224,7 +224,7 @@ module.exports = [
         name: 'garment-production-expenditure-good',
         moduleId: './modules/garment-production/expenditure-good/index',
         nav: true,
-        title: 'Barang Jadi',
+        title: 'Pengeluaran Barang Jadi',
         auth: true,
         settings: {
             group: "g-production",
