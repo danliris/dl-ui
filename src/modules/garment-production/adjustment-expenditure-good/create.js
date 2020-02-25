@@ -35,7 +35,7 @@ export class Create {
 
     saveCallback(event) {
         this.data.AdjustmentType="BARANG JADI";
-      console.log(this.data);
+        console.log(this.data.Items);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -43,12 +43,16 @@ export class Create {
             })
             .catch(e => {
                 this.error = e;
-                console.log(this.error);
-                if (typeof (this.error) == "string") {
-                    alert(this.error);
-                } else {
-                    alert("Missing Some Data");
-                }
+                console.log(this.data.Items);
             })
+            // .catch(e => {
+            //     this.error = e;
+            //     // console.log(this.error);
+            //     // if (typeof (this.error) == "string") {
+            //     //     alert(this.error);
+            //     // } else {
+            //     //     alert("Missing Some Data");
+            //     // }
+            // })
     }
 }

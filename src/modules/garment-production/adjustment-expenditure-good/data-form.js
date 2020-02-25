@@ -53,6 +53,7 @@ export class DataForm {
       
         if (this.data.Id ) {
             this.selectedRO= this.data.RONo;
+            this.data.AdjustmentType='BARANG JADI';
             this.data.Items.forEach(
                 item => {
                
