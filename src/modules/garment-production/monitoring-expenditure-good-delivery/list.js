@@ -24,9 +24,9 @@ export class List {
         this.service.search(info)
             .then(result => {
                 this.data=[];
-                console.log(result);
                 for(var _data of result){
                       
+                    _data.expenditureDate= moment(this.expenditureDate).format("YYYY-MM-DD")
                     this.data.push(_data);
 
                  }

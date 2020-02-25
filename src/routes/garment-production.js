@@ -384,7 +384,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-expenditure-good-delivery',
+        name: 'garment-production-monitoring-expenditure-good-delivery',
+        moduleId: './modules/garment-production/monitoring-expenditure-good-delivery/index',
+        nav: true,
+        title: 'Monitoring Pengiriman Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

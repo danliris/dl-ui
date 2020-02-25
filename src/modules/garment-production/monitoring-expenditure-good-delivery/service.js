@@ -4,9 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 // import { Container } from 'aurelia-dependency-injection';
 // import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-outs';
-const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
-const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
+const serviceUri = 'expenditure-goods'; 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -57,22 +55,5 @@ export class Service extends RestService {
         endpoint = `${serviceUri}/download?${query}`;
 
     return super.getXls(endpoint);
-    }
-}
-
-export class PurchasingService extends RestService {
-
-    constructor(http, aggregator, config, api){
-        super(http, aggregator, config, "purchasing-azure")
-    }
-
-    getUnitDeliveryOrderById(id) {
-        var endpoint = `${unitDeliveryOrderUri}/${id}`;
-        return super.get(endpoint);
-    }
-
-    getUnitExpenditureNoteById(id) {
-        var endpoint = `${unitExpenditureNoteUri}/${id}`;
-        return super.get(endpoint);
     }
 }
