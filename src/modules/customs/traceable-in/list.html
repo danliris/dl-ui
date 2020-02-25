@@ -56,10 +56,11 @@
                 options.bind="controlOptions">
             </au-autocomplete> -->
         <!-- <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest> -->
-        <!-- <au-datepicker
+        <au-datepicker
             value.bind="dateFrom"
             label="Dari Tgl"
             options.bind="controlOptions"
+            if.bind="type == 'Tanggal BC Masuk'"
             error.bind="error.date">
         </au-datepicker>
         
@@ -67,8 +68,9 @@
             value.bind="dateTo"
             label="Sampai Tgl"
             options.bind="controlOptions"
+            if.bind="type == 'Tanggal BC Masuk'"
             error.bind="error.date">
-        </au-datepicker> -->
+        </au-datepicker>
 
         <!-- <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> -->
@@ -129,15 +131,15 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="IN of data">
-                        <!-- <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.count}</td>
+                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.count}</td>
                         <td if.bind="item.rowspan" rowspan="${item.rowspan}">${IN.BCType}</td>
                         <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BCNo}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td> -->
-                        <td >${$index+1}</td>
+                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <!-- <td >${$index+1}</td>
                         <td >${IN.BCType}</td>
                         <td >${IN.BCNo}</td>
-                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
-                        <td >${IN.BonNo}</td>
+                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td> -->
+                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BonNo}</td>
                         <td >${IN.PO}</td>
                         <td >${IN.ItemCode}</td>
                         <td >${IN.ItemName}</td>
