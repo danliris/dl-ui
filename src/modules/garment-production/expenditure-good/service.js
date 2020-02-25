@@ -21,7 +21,7 @@ class Service extends RestService {
     }
 
     getFinishedGood(info) {
-        var endpoint = `${finishedGoodServiceUri}`;
+        var endpoint = `${finishedGoodServiceUri}/list`;
         return super.list(endpoint, info);
     }
 
