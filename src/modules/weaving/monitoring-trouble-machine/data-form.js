@@ -4,9 +4,8 @@ import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework
 
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require('../../../loader/weaving-machine-loader');
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-var OperatorLoader = require("../../../loader/weaving-operator-loader");
-var OrderLoader = require("../../../loader/weaving-order-loader");
+var OperatorNameLoader = require("../../../loader/weaving-operator-by-name-loader");
+var OrderbyNumberLoader = require("../../../loader/weaving-order-number-loader");
 
 export class DataForm {
   @bindable title;
@@ -77,16 +76,12 @@ export class DataForm {
     }
   }
    
-  get constructions() {
-    return ConstructionLoader;
-  }
-
   get units() {
     return UnitLoader;
   }
 
   get operators() {
-    return OperatorLoader;
+    return OperatorNameLoader;
   }
 
   get machines() {
@@ -94,6 +89,6 @@ export class DataForm {
   }
 
   get orders() { 
-    return OrderLoader;
+    return OrderbyNumberLoader;
   }
 }

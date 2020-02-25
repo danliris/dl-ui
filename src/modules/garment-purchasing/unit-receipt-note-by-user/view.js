@@ -66,7 +66,11 @@ export class View {
             }
             this.hasDelete = false;
         }
-        
+        let CorrectionResult = await this.service.getCorrection({ size: 1, filter: JSON.stringify({ DONo: this.data.DONo,  CorrectionType:"Jumlah"}) });
+        //let correction = CorrectionResult.data[0];
+        if(CorrectionResult.data.length>0){
+            this.hasDelete = false;
+        }
     }
 
     cancel(event) {

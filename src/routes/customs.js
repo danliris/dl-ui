@@ -50,5 +50,34 @@ module.exports = [
             permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
+    },
+
+  {
+        route: '/customs/traceable-out',
+        name: 'customs-report-out',
+        moduleId: './modules/customs/traceable-out/index',
+        nav: true,
+        title: 'Laporan Traceable Keluar',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+
+        route: '/customs/wip',
+        name: 'customs-report-in',
+        moduleId: './modules/customs/laporan-wip-position/index',
+        nav: true,
+        title : 'Laporan Posisi WIP',
+        auth : true,
+        settings : {
+            group : "customs",
+            permission : {"C9": 1,"B6": 1,"B1": 1},
+            iconClass : 'fa fa-dashboard'
+        }
     }
 ]

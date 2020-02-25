@@ -25,7 +25,7 @@ export class View {
     }
 
     approve(){
-        this.service.approveMD(this.data.Id)
+        this.service.approveSample(this.data.Id)
         .then(result => {
             this.list();
         });
