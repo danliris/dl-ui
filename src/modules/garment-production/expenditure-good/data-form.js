@@ -20,7 +20,7 @@ export class DataForm {
         this.salesService=salesService;
         this.purchasingService=purchasingService;
     }
-    expenditureTypes=["EXPORT","LAIN-LAIN","SAMPLE"];
+    expenditureTypes=["EXPORT","LAIN-LAIN","SISA"];
 
     formOptions = {
         cancelText: "Kembali",
