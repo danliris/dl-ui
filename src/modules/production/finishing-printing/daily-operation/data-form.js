@@ -2,7 +2,7 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
-var MachineLoader = require('../../../../loader/machines-loader');
+var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
 @inject(Service, BindingEngine, Element)
