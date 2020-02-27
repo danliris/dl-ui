@@ -30,8 +30,7 @@
                     error.bind="error.ExpenditureType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="expenditureTypes"
-                    options.bind="controlOptions"
-                    change.delegate="expenditureTypeChanged($event)">
+                    options.bind="controlOptions">
                 </au-dropdown>
 
                 <au-autocomplete
@@ -139,7 +138,7 @@
             if.bind="selectedRO && !isCreate">
         </au-collection>
 
-        <p if.bind="data.Items"><b>Jumlah Total Barang Jadi : ${totalQuantity} PCS</b></p>
+        <p if.bind="data.Items"><b>Jumlah Total Pengeluaran Barang Jadi : ${totalQuantity} PCS</b></p>
 
     </au-input-form>
     <div class="row"></div>
