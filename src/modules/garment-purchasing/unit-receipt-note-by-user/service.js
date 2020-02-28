@@ -8,6 +8,7 @@ import { Config } from "aurelia-api";
 const serviceUri = 'garment-unit-receipt-notes';
 const UnitDOserviceUri = 'garment-unit-delivery-orders';
 const UENserviceUri = 'garment-unit-expenditure-notes';
+const CorrectionServiceUri='garment-correction-quantity-notes';
 
 export class Service extends RestService {
 
@@ -83,5 +84,10 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
+    }
+
+    getCorrection(info){
+        var endpoint = `${CorrectionServiceUri}`;
+        return super.list(endpoint, info);
     }
 }

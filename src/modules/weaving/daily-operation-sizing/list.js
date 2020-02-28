@@ -16,8 +16,13 @@ export class List {
     showToggle: false,
     showColumns: false,
     pagination: true,
-    sortable: true,
+    sortable: true
   };
+
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
 
   context = ["detail"];
 
@@ -50,21 +55,16 @@ export class List {
     }
   ];
 
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
-  loader = info => {
+  loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10),
+      page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
       order: order
-    };
+    }
 
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
@@ -75,40 +75,10 @@ export class List {
           }
         }
         return {
-          total: result.data.length,
+          total: result.info.total,
           data: result.data
         };
-        //   let getUnitPromises = result.data.map(operation =>
-        //     this.service.getUnitById(operation.WeavingUnitId)
-        //   );
-
-        //   return Promise.all(getUnitPromises).then(units => {
-        //     for (var datum of result.data) {
-        //       if (units && units.length > 0) {
-        //         let unit = units.find(
-        //           unitResult => datum.WeavingUnitId == unitResult.Id
-        //         );
-        //         datum.WeavingUnitId = unit.Name;
-        //       }
-        //       if (datum.DateTimeMachine) {
-        //         var DateMachine = moment(datum.DateTimeMachine).format('DD/MM/YYYY');
-        //         var TimeMachine = moment(datum.DateTimeMachine).format('LT');
-
-        //         datum.MachineDate = DateMachine;
-        //         datum.MachineTime = TimeMachine;
-        //       }
-        //     }
-        //     return {
-        //       total: result.info.total,
-        //       data: result.data
-        //     };
-        //   });
-        // } else {
-        //   return {
-        //     total: result.info.total,
-        //     data: result.data
-        //   };
-      }else{
+      } else {
         return {
           total: 0,
           data: {}

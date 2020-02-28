@@ -5,7 +5,7 @@ import {
     Config
   } from "aurelia-api";
   
-  const resource = "weaving/daily-operations-loom/get-loom-beam-products";
+  const resource = "weaving/daily-operations-loom/get-loom-beam-products-by-order";
   
   module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);

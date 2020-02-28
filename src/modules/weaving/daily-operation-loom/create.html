@@ -5,64 +5,101 @@
     }
 
   </style>
-  <au-input-form title="Create: Operasional Mesin Harian Loom" options.bind="formOptions">
+  <au-input-form title="Create: Operasional Mesin Harian Loom"
+                 options.bind="formOptions">
     <div class="col-md-12">
-      <div class="row" style="white-space: nowrap">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="No. Order Produksi" read-only="true" style="display: inline-block"></textbox>
+      <div class="row"
+           style="white-space: nowrap">
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="No. Order Produksi"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Order Produksi" value.bind="OrderDocument"
-            error.bind="error.OrderDocumentId" read-only.bind="readOnly" loader.bind="orders" text="OrderNumber">
+          <au-autocomplete placeholder="No. Order Produksi"
+                           value.bind="OrderDocument"
+                           error.bind="error.OrderDocumentId"
+                           read-only.bind="readOnly"
+                           loader.bind="orders"
+                           text="OrderNumber">
           </au-autocomplete>
         </div>
       </div>
 
-      <div class="row" style="white-space: nowrap;">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
+      <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="No. Konstruksi"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber" error.bind="error.ConstructionNumber"
-            read-only.bind="true">
+          <au-textbox placeholder="No. Konstruksi"
+                      value.bind="ConstructionNumber"
+                      error.bind="error.ConstructionNumber"
+                      read-only.bind="true">
           </au-textbox>
         </div>
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Asal Lusi" read-only="true" style="display: inline-block"></textbox>
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="Asal Lusi"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Asal Lusi" value.bind="WarpOrigin" error.bind="error.WarpOrigin"
-            read-only.bind="true">
+          <au-textbox placeholder="Asal Lusi"
+                      value.bind="WarpOrigin"
+                      error.bind="error.WarpOrigin"
+                      read-only.bind="true">
           </au-textbox>
         </div>
       </div>
 
-      <div class="row" style="white-space: nowrap;">
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
+      <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="Unit Weaving"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
-            read-only.bind="true">
+          <au-textbox placeholder="Unit Weaving"
+                      value.bind="WeavingUnit"
+                      error.bind="error.WeavingUnit"
+                      read-only.bind="true">
           </au-textbox>
         </div>
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="Asal Pakan" read-only="true" style="display: inline-block"></textbox>
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="Asal Pakan"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Asal Pakan" value.bind="WeftOrigin" error.bind="error.WeftOrigin"
-            read-only.bind="true">
+          <au-textbox placeholder="Asal Pakan"
+                      value.bind="WeftOrigin"
+                      error.bind="error.WeftOrigin"
+                      read-only.bind="true">
           </au-textbox>
         </div>
       </div>
-      
-      <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;"
-        show.bind="showHideBeamsCollection">
-        <au-textbox error.bind="error.LoomBeamProducts" read-only="true"></au-textbox>
-        <au-collection items.bind="BeamsSizing" errors.bind="error.LoomBeamHistories" columns.bind="beamsSizingColumns"
-          add.bind="addBeamsSizing" remove.bind="onremove" read-only.bind="readOnly"
-          options.bind="beamsSizingTableOptions"
-          item-template="modules/weaving/daily-operation-loom/templates/beams-sizing-post">
+
+      <div class="row"
+           style="white-space: nowrap; overflow: auto; padding-right: 8px;"
+           show.bind="showHideBeamsCollection">
+        <au-textbox error.bind="error.LoomBeamProducts"
+                    read-only="true"></au-textbox>
+        <au-collection items.bind="BeamsUsed"
+                       errors.bind="error.LoomBeamHistories"
+                       columns.bind="columns"
+                       add.bind="addBeamsUsed"
+                       remove.bind="onremove"
+                       read-only.bind="readOnly"
+                       options.bind="beamsUsedTableOptions"
+                       item-template="modules/weaving/daily-operation-loom/templates/beams-sizing-post">
         </au-collection>
       </div>
     </div>

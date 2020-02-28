@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+            permission: { "E": 1, "K": 1, "C9": 1,  "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1,  "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -267,7 +267,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "C9": 1, "PG": 1 },
+            permission: { "C9": 1, "PG": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -650,7 +650,111 @@ module.exports = [
             permission: { "PG": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/accounting/reports/flow-penerimaan',
+        name: 'flow-penerimaan',
+        moduleId: './modules/accounting/reports/flow-penerimaan/index',
+        nav: true,
+        title: 'Laporan Flow Detail Penerimaan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-central-bill-reception/reports',
+        name: 'garment-central-bill-reception-report',
+        moduleId: './modules/accounting/reports/central-bill-reception-report/index',
+        nav: true,
+        title: 'Laporan Data Penerimaan Bon Pusat',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-central-bill-expenditure/reports',
+        name: 'garment-central-bill-expenditure-report',
+        moduleId: './modules/accounting/reports/central-bill-expenditure-report/index',
+        nav: true,
+        title: 'Laporan Data Pengeluaran Bon Pusat',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-correction-note-reception/reports',
+        name: 'garment-correction-note-reception-report',
+        moduleId: './modules/accounting/reports/correction-note-reception-report/index',
+        nav: true,
+        title: 'Laporan Data Penerimaan Nota Koreksi',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-correction-note-expenditure/reports',
+        name: 'garment-correction-note-expenditure-report',
+        moduleId: './modules/accounting/reports/correction-note-expenditure-report/index',
+        nav: true,
+        title: 'Laporan Data Pengeluaran Nota Koreksi',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-daily-purchase-order/reports',
+        name: 'garment-daily-purchase-order-report',
+        moduleId: './modules/accounting/reports/garment-daily-purchase-report/index',
+        nav: true,
+        title: 'Laporan Buku Harian Pembelian | Garment',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-purchase-order/purchase-book-report',
+        name: 'garment-purchasing-book-report',
+        moduleId: './modules/garment-purchasing/purchase-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Bahan Baku, Embalace, Umum',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"B1": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+      },
+      {
+          route: 'accounting/accounting-stock-report',
+          name: 'accounting-stock-report',
+          moduleId: './modules/accounting/reports/accounting-stock-report/index',
+          nav: true,
+          title: 'Laporan Stok Pembukuan',
+          auth: true,
+          settings: {
+              group: "g-purchasing",
+              permission: {"B1": 1, "C9": 1},
+              iconClass: 'fa fa-dashboard'
+          }
+        }
     // {
     //   route: 'garment-purchase-order/purchase-book-report',
     //   name: 'garment-purchasing-book-report',

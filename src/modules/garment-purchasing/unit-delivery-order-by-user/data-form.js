@@ -202,7 +202,7 @@ export class DataForm {
         this.RONo = null;
         this.data.Article = null;
         this.context.RONoHeaderViewModel.editorValue = "";
-        this.context.RONoViewModel.editorValue = "";
+       this.context.RONoViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -263,8 +263,10 @@ export class DataForm {
 
     RONoJobChanged(newValue){
         if(newValue){
+            console.log(newValue);
             this.data.Article =newValue.Article;
             this.data.RONo = newValue.RONo;
+            this.data.Items = [];
         }
         else{
             this.data.RONo =null;
@@ -276,6 +278,7 @@ export class DataForm {
 
     RONoChanged(newValue) {
         var selectedro = newValue;
+        console.log(selectedro);
         this.dataItems = [];
         this.data.Items = [];
         this.data.Article = this.isTransfer?this.data.Article :null;
@@ -293,7 +296,7 @@ export class DataForm {
         else if (newValue) {
             this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
             this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
-            if(this.isProses){
+            if(this.isProses || this.isTransfer){
                 Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
                     .then(result => {
                         if(result.data.length>0){

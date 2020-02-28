@@ -5,7 +5,7 @@ import {
   Config
 } from "aurelia-api";
 
-const resource = "weaving/daily-operations-warping/get-warping-beams";
+const resource = "weaving/daily-operations-warping/get-warping-beam-products-by-order";
 
 module.exports = function (keyword, filter) {
   var config = Container.instance.get(Config);

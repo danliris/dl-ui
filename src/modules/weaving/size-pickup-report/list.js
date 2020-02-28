@@ -91,36 +91,41 @@ export class List {
     {
       field: "SPU",
       title: "SPU"
-    }, {
-      field: "DateTimeMachineHistory",
-      title: "Waktu Doff",
-      formatter: function (value, data, index) {
-        return moment(value).format("HH:mm:ss");
-      }
     },
+    {
+      field: "Category",
+      title: "Kategori"
+    },
+    // {
+    //   field: "DateTimeMachineHistory",
+    //   title: "Waktu Doff",
+    //   formatter: function (value, data, index) {
+    //     return moment(value).format("HH:mm:ss");
+    //   }
+    // },
   ];
 
   controlOptions = {
     label: {
-      length: 4
+      length: 5
     },
     control: {
-      length: 6
+      length: 7
     }
   }
 
   startPeriodOptions = {
     label: {
-      length: 4
+      length: 5
     },
     control: {
-      length: 6
+      length: 7
     }
   }
 
   endPeriodOptions = {
     control: {
-      length: 6
+      length: 7
     }
   }
 
@@ -245,11 +250,13 @@ export class List {
     if (this.WeavingUnit) {
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
     }
+
     var SPUContainer;
     if (this.SPU) {
       switch (this.SPU) {
         case "Diatas Standar":
           SPUContainer = "Upper Limit";
+
           break;
         case "Dibawah Standar":
           SPUContainer = "Lower Limit";
@@ -278,6 +285,20 @@ export class List {
     };
 
     return this.listDataFlag ? this.service.getReportData(arg).then(result => {
+      for (var datum of result.data) {
+        switch (datum.Category) {
+          case "Upper Limit":
+            datum.Category = "Di Atas Standar";
+            break;
+          case "Lower Limit":
+            datum.Category = "Di Bawah Standar";
+            break;
+          case "Standard":
+            SPUContainer = "Sesuai Standar";
+            break;
+        }
+      }
+
       return {
         data: result.data,
         total: result.info.count
@@ -290,6 +311,7 @@ export class List {
 
   searchDailyOperations() {
     this.listDataFlag = true;
+    console.log(this);
 
     this.sizePickupsTable.refresh();
   }
@@ -297,11 +319,26 @@ export class List {
   reset() {
     this.listDataFlag = false;
 
+    this.SPU = null;
+    this.DatePeriod = null;
+    this.StartDatePeriod = null;
+    this.EndDatePeriod = null;
+    this.MonthlyPeriod = null;
+    this.Period = null;
+    this.WeavingUnit = undefined;
+    this.Shift = undefined;
+
+    this.ShowHideByDatePeriod = false;
+    this.ShowHideByDateRangePeriod = false;
+    this.ShowHideMonthlyPeriod = false;
+
     this.StartDatePeriodContainer = null;
     this.EndDatePeriodContainer = null;
     this.MonthContainer = null;
     this.ShiftIdContainer = null;
     this.WeavingUnitIdContainer = null;
+
+    console.log(this);
 
     this.sizePickupsTable.refresh();
   }

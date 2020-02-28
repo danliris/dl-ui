@@ -35,6 +35,36 @@ export class List {
         { field: 'Currency', title: 'Mata Uang' },
     ];
 
+    columns2 = 
+    
+    [
+        {
+            field: 'VerifyDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
+                return  value ? moment(value).format('DD MMM YYYY'):"-";
+            },
+        },
+        { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
+        {
+            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        {
+            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },
+        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'DivisionName', title: 'Divisi' },
+        {
+            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        { field: 'Currency', title: 'Mata Uang' },
+    ];
+
     constructor(router, service, purchasingDocumentExpeditionService, dialog, permissionHelper) {
         this.service = service;
         this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
@@ -63,6 +93,9 @@ export class List {
             this.activeRole = role;
             this.tableList.refresh();
         }
+    }
+    changeTable(role){
+        this.code = role.key === "CASHIER"? true : false;      
     }
 
     loader = (info) => {

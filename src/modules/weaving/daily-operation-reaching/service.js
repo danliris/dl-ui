@@ -59,7 +59,7 @@ export class Service extends RestService {
 
   search(info) {
     var endpoint = `${serviceUri}`;
-    return super.list(endpoint);
+    return super.list(endpoint, info);
   }
 
   getById(Id) {

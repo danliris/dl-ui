@@ -220,6 +220,32 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/expenditure-good',
+        name: 'garment-production-expenditure-good',
+        moduleId: './modules/garment-production/expenditure-good/index',
+        nav: true,
+        title: 'Pengeluaran Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/expenditure-good-return',
+        name: 'garment-production-expenditure-good-return',
+        moduleId: './modules/garment-production/expenditure-good-return/index',
+        nav: true,
+        title: 'Retur Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
         moduleId: './modules/garment-production/aval-component/index',
@@ -298,6 +324,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-expenditure-good',
+        name: 'garment-production-adjustment-expenditure-good',
+        moduleId: './modules/garment-production/adjustment-expenditure-good/index',
+        nav: true,
+        title: 'Adjustment Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/monitoring-prepare',
         name: 'garment-production-monitoring-prepare',
         moduleId: './modules/garment-production/monitoring-prepare/index',
@@ -358,7 +397,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-expenditure-good-delivery',
+        name: 'garment-production-monitoring-expenditure-good-delivery',
+        moduleId: './modules/garment-production/monitoring-expenditure-good-delivery/index',
+        nav: true,
+        title: 'Monitoring Pengiriman Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
