@@ -296,6 +296,7 @@ export class DataForm {
     }
 
     get totalQuantity() {
-        return this.dataDODetails.reduce((acc, cur) => acc += cur.Quantity, 0) - this.data.Items.filter(i => i.IsSave).reduce((acc, cur) => acc += cur.Quantity, 0);
+        this.data.TotalQuantity = this.dataDODetails.reduce((acc, cur) => acc += cur.Quantity, 0) - this.data.Items.filter(i => i.IsSave).reduce((acc, cur) => acc += cur.Quantity, 0);
+        return this.data.TotalQuantity;
     }
 }
