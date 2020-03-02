@@ -109,7 +109,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "unitReceiptNoteLoader"
                             text = "RONo"
-                            if.bind="!isProses && !isTransfer"
+                            if.bind="!isProses && !isTransfer && !isRemain && !isSample"
                             placeholder = "Cari Nomor RO"
                             query.bind = "filterRONoByUnit"
                             view-model.ref="RONoViewModel">
@@ -122,7 +122,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "roLoader"
                             text = "RONo"
-                            if.bind="isProses"
+                            if.bind="isProses || isRemain || isSample"
                             placeholder = "Cari Nomor RO"
                             view-model.ref="RONoViewModel">
                         </au-autocomplete>
@@ -134,8 +134,18 @@
                 <div class="row form-group">
                     <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="isTransfer">No RO JOB</label>
                     <div class = "col-sm-5">
-                       
                         <au-autocomplete
+                            disabled.bind="!(data.UnitSender && data.Storage)"
+                            value.bind = "RONoJob"
+                            error.bind = "error.RONo"
+                            read-only.bind = "readOnly || isEdit"
+                            loader.bind = "roLoader"
+                            text = "RONo"
+                            if.bind="isTransfer"
+                            placeholder = "Cari Nomor RO"
+                            view-model.ref="RONoViewModel">
+                        </au-autocomplete>
+                        <!-- <au-autocomplete
                             disabled.bind="!(data.UnitSender && data.Storage)"
                             value.bind = "RONo"
                             error.bind = "error.RONo"
@@ -144,10 +154,10 @@
                             text = "RONo"
                             if.bind="isTransfer"
                             placeholder = "Cari Nomor RO"
-                            view-model.ref="RONoViewModel">
-                    </div>
+                            view-model.ref="RONoViewModel">-->
+                    </div> 
                     <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
-                        <button class="btn btn-success" click.delegate="searchRONo()"  if.bind="isTransfer" disabled.bind="!RONo">Cari</button>
+                        <button class="btn btn-success" click.delegate="searchRONo()"  if.bind="isTransfer" disabled.bind="!data.RONo">Cari</button>
                     </div>
                 </div>
                 <au-textbox
