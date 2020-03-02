@@ -103,6 +103,7 @@
         <au-textbox
             if.bind="selectedRONo && !readOnly"
             value.one-way="totalQuantity"
+            error.bind="error.TotalQuantity"
             label="Sisa Jumlah SJ"
             read-only="true"
             options.bind="controlOptions">
