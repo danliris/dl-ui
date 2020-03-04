@@ -186,17 +186,31 @@ export class DataForm {
             Promise.resolve(this.service.getFinishedGood({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id}) }))
                     .then(result => {
                         for(var finGood of result.data){
+                            var item={};
                             if(finGood.Quantity>0){
-                                var item={};
-                                item.IsSave=true;
-                                item.FinishedGoodStockId=finGood.Id;
-                                item.Size=finGood.Size;
-                                item.StockQuantity=finGood.Quantity;
-                                item.Quantity=finGood.Quantity;
-                                item.Uom= finGood.Uom;
-                                item.colors=this.data.colors;
-                                item.BasicPrice=finGood.BasicPrice;
-                                this.data.Items.push(item);
+                                if(this.data.Items.length>0){
+                                    item.IsSave=true;
+                                    item.FinishedGoodStockId=finGood.Id;
+                                    item.Size=finGood.Size;
+                                    item.StockQuantity=finGood.Quantity;
+                                    item.Quantity=finGood.Quantity;
+                                    item.Uom= finGood.Uom;
+                                    item.colors=this.data.colors;
+                                    item.BasicPrice=finGood.BasicPrice;
+                                    this.data.Items.push(item);
+                                }
+                                else{
+                                    item.IsSave=true;
+                                    item.FinishedGoodStockId=finGood.Id;
+                                    item.Size=finGood.Size;
+                                    item.StockQuantity=finGood.Quantity;
+                                    item.Quantity=finGood.Quantity;
+                                    item.Uom= finGood.Uom;
+                                    item.colors=this.data.colors;
+                                    item.BasicPrice=finGood.BasicPrice;
+                                    this.data.Items.push(item);
+                                }
+                                
                             }
                         }
                     });
