@@ -117,7 +117,7 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
@@ -131,7 +131,7 @@ export class DataForm {
         this.data.Comodity=null;
         this.data.Buyer=null;
         this.data.ContractNo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.Price=0;
         this.data.Description ="";
         if(newValue) {
@@ -199,17 +199,14 @@ export class DataForm {
                                 this.data.Items.push(item);
                             }
                         }
-
                     });
             }
-        
-        
         else {
             this.context.selectedROViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
