@@ -3,7 +3,7 @@ import {
   bindable
 } from 'aurelia-framework';
 import {
-  Service
+  Service, ShiftService
 } from "./service";
 import {
   Router
@@ -13,27 +13,47 @@ import moment from 'moment';
 var ShiftLoader = require('../../../loader/weaving-shift-loader');
 var UnitLoader = require('../../../loader/unit-loader');
 
-@inject(Router, Service)
+@inject(Router, Service, ShiftService)
 export class List {
   @bindable Period;
+  // @bindable selectedShift;
 
-  constructor(router, service) {
+  constructor(router, service, ShiftService) {
     this.service = service;
+    this.shiftService = ShiftService;
     this.router = router;
     this.ShowHideByDatePeriod = false;
     this.ShowHideByDateRangePeriod = false;
     this.ShowHideMonthlyPeriod = false;
+
+    this.currentYearItem = parseInt(moment().format('YYYY'));
+    this.minYearItem = this.currentYearItem - 10;
+    this.maxYearItem = this.currentYearItem + 10;
+
+    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
+      this.years.push(i.toString());
+    }
   }
 
+
   listDataFlag = false;
+
+  // shifts = [""];
+
+  years = [];
 
   periods = ["", "Harian", "Rekap", "Bulanan"];
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-  pickups = ["", "Diatas Standar", "Dibawah Standar", "Sesuai Standar"]
+  pickups = ["", "Diatas Standar", "Dibawah Standar", "Sesuai Standar"];
 
-  columns = [{
+  columns = [
+    {
+      field: "OrderNumber",
+      title: "No SPP"
+    },
+    {
       field: "DateTimeMachineHistory",
       title: "Tanggal Selesai",
       formatter: function (value, data, index) {
@@ -137,6 +157,7 @@ export class List {
     sortable: true,
   }
 
+
   PeriodChanged(newValue) {
     switch (newValue) {
       case "":
@@ -199,6 +220,7 @@ export class List {
 
     if (this.MonthlyPeriod) {
       var MonthlyPeriodContainer = this.MonthlyPeriod;
+      
     }
 
     switch (MonthlyPeriodContainer) {
@@ -243,6 +265,10 @@ export class List {
         break;
     }
 
+    if (this.Year) { 
+      var YearContainer = this.Year;
+    }
+
     if (this.Shift) {
       var ShiftContainer = this.Shift.Id;
     }
@@ -277,12 +303,15 @@ export class List {
       dateFrom: StartDatePeriodContainer,
       dateTo: EndDatePeriodContainer,
       month: MonthlyPeriodContainer,
+      year: YearContainer,
 
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
       order: order
     };
+    console.log(arg);
+    // console.log(this);
 
     return this.listDataFlag ? this.service.getReportData(arg).then(result => {
       for (var datum of result.data) {
@@ -295,7 +324,7 @@ export class List {
             break;
           case "Standard":
             SPUContainer = "Sesuai Standar";
-            break;
+            break;       
         }
       }
 
@@ -308,12 +337,29 @@ export class List {
       total: 0
     };
   }
+  
+
+  // activate() {
+  //   Promise.resolve(this.shiftService.getShiftData({}))
+  //     .then(result => {
+  //       this.shiftData = result.data;
+  //       for (let i = 0; i < this.shiftData.length; i++) {
+  //         this.shifts.push(this.shiftData[i]);
+  //     }
+  //     });
+  // }
 
   searchDailyOperations() {
-    this.listDataFlag = true;
-    console.log(this);
-
-    this.sizePickupsTable.refresh();
+    if (this.Period == "Harian" && !this.DatePeriod) {
+      alert("Tanggal Harus Diisi")
+    } else if (this.Period == "Bulanan" && !this.MonthlyPeriod) {
+      alert("Bulan dan Tahun Harus Diisi");
+    } else if (this.Period == "Rekap" && !this.StartDatePeriod && !this.EndDatePeriod) {
+      alert("Tanggal Rekap Harus Diisi dengan Lengkap")
+    } else { 
+      this.listDataFlag = true;
+      this.sizePickupsTable.refresh();
+    }
   }
 
   reset() {
@@ -327,6 +373,7 @@ export class List {
     this.Period = null;
     this.WeavingUnit = undefined;
     this.Shift = undefined;
+    this.selectedShift = null;
 
     this.ShowHideByDatePeriod = false;
     this.ShowHideByDateRangePeriod = false;
@@ -337,8 +384,6 @@ export class List {
     this.MonthContainer = null;
     this.ShiftIdContainer = null;
     this.WeavingUnitIdContainer = null;
-
-    console.log(this);
 
     this.sizePickupsTable.refresh();
   }
