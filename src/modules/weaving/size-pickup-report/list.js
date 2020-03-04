@@ -371,6 +371,7 @@ export class List {
     this.EndDatePeriod = null;
     this.MonthlyPeriod = null;
     this.Period = null;
+    this.Year = null;
     this.WeavingUnit = undefined;
     this.Shift = undefined;
     this.selectedShift = null;
@@ -382,6 +383,7 @@ export class List {
     this.StartDatePeriodContainer = null;
     this.EndDatePeriodContainer = null;
     this.MonthContainer = null;
+    this.YearContainer = null;
     this.ShiftIdContainer = null;
     this.WeavingUnitIdContainer = null;
 
