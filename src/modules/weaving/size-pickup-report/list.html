@@ -17,7 +17,7 @@
   <div class="row" show.bind="ShowHideByDatePeriod">
     
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker label="Tanggal Input Sizing"
+      <au-datepicker label="Tanggal Produksi"
        value.bind="DatePeriod" 
        error.bind="error.DatePeriod"
        read-only.bind="readOnly"
@@ -56,11 +56,20 @@
 
   <div class="row" show.bind="ShowHideMonthlyPeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-dropdown label="Bulanan"
+      <au-dropdown label="Bulan"
        value.bind="MonthlyPeriod" 
        error.bind="error.MonthlyPeriod" 
        read-only.bind="readOnly"
        items.bind="months" 
+       options.bind="controlOptions">
+      </au-dropdown>
+    </div>
+    <div class="col-md-4" style="white-space: nowrap;">
+      <au-dropdown label="Tahun"
+       value.bind="Year" 
+       error.bind="error.Year" 
+       read-only.bind="readOnly"
+       items.bind="years" 
        options.bind="controlOptions">
       </au-dropdown>
     </div>
@@ -76,6 +85,13 @@
        text="Name" 
        options.bind="controlOptions"
       ></au-autocomplete>
+      <!-- <au-dropdown label="Shift"
+       value.bind="selectedShift" 
+       error.bind="error.Period" 
+       read-only.bind="readOnly"
+       items.bind="shifts" 
+       options.bind="controlOptions">
+      </au-dropdown> -->
     </div>
   </div>
 

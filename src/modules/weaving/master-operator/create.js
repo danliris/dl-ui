@@ -18,13 +18,15 @@ export class Create {
 
   groups = ["", "A", "B", "C", "D", "E", "F", "G"];
 
-  assignments = ["", "Preparation", "AJL"];
+  assignments = ["", "Inspecting", "Preparation", "AJL"];
 
   types = [];
 
   preparationTypes = ["", "Warping", "Sizing", "Reaching", "Tying"];
 
   ajlTypes = ["", "Operator", "Maintenance"];
+
+  inspectingType = ["", "Operator", "Maintenance"]
 
   constructor(router, service) {
     this.router = router;
@@ -56,7 +58,12 @@ export class Create {
       this.data.Assignment = "AJL";
       this.Assignment = "AJL";
       this.types = this.ajlTypes;
-    } else {
+    }else if (newValue === "Inspecting") {
+      this.data.Assignment = "Inspecting";
+      this.Assignment = "Inspecting";
+      this.types = this.inspectingType;
+    }
+    else {
       this.data.Assignment = "";
       this.Assignment = "";
       this.types = [];
