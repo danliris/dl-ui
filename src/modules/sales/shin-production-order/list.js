@@ -28,9 +28,15 @@ export class List {
             }
         },
         {
-            field: "IsApprovedMD", title: "Validasi SPP",
+            field: "IsApprovedMD", title: "Validasi MD",
             formatter: function (value, data, index) {
                 return data.ApprovalMD.IsApproved ? "Sudah" : "Belum";
+            }
+        },
+        {
+            field: "IsApprovedSample", title: "Validasi Sample",
+            formatter: function (value, data, index) {
+                return data.ApprovalSample.IsApproved ? "Sudah" : "Belum";
             }
         },
         {
@@ -42,7 +48,7 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        if (data.ApprovalMD.IsApproved)
+        if (data.ApprovalMD.IsApproved && data.ApprovalSample.IsApproved)
             return { classes: "success" };
         else
             return { classes: "danger" }

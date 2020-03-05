@@ -7,17 +7,29 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail"]
+    context = []
 
     columns = [
-        
         { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.No", title: "No. Sales Contract" },
         { field: "FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo", title: "No. SPP" },
         { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit"},
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit" },
+        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
         {
             field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
+            }
+        },
+        {
+            field: "IsApprovedMD", title: "Validasi MD",
+            formatter: function (value, data, index) {
+                return data.ApprovalMD.IsApproved ? "Sudah" : "Belum";
+            }
+        },
+        {
+            field: "IsApprovedSample", title: "Validasi Sample",
+            formatter: function (value, data, index) {
+                return data.ApprovalSample.IsApproved ? "Sudah" : "Belum";
             }
         },
         {
@@ -29,10 +41,10 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        if (data.isClosed)
-            return { classes: "danger" };
+        if (data.ApprovalMD.IsApproved && data.ApprovalSample.IsApproved)
+            return { classes: "success" };
         else
-            return {}
+            return { classes: "danger" }
     }
 
 

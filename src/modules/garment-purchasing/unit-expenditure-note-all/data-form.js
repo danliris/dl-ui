@@ -51,7 +51,7 @@ export class DataForm {
         }else if(this.data.ExpenditureType === "PROSES"){
             this.data.ExpenditureTo = "PROSES";
         }else if(this.data.ExpenditureType === "SISA"){
-            this.data.ExpenditureTo = "GUDANG PEMBELIAN";
+            this.data.ExpenditureTo = "GUDANG SISA";
         }
 
         if(this.data.ExpenditureType === "EXTERNAL"){
@@ -120,7 +120,7 @@ export class DataForm {
             }else if(this.data.ExpenditureType === "PROSES"){
                 this.data.ExpenditureTo = "PROSES";
             }else if(this.data.ExpenditureType === "SISA"){
-                this.data.ExpenditureTo = "GUDANG PEMBELIAN";
+                this.data.ExpenditureTo = "GUDANG SISA";
             }
         }
         this.context.DONoViewModel._suggestions=[];

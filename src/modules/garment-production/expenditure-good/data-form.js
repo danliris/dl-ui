@@ -20,7 +20,7 @@ export class DataForm {
         this.salesService=salesService;
         this.purchasingService=purchasingService;
     }
-    expenditureTypes=["EXPORT","LAIN-LAIN","SAMPLE"];
+    expenditureTypes=["EXPORT","LAIN-LAIN","SISA"];
 
     formOptions = {
         cancelText: "Kembali",
@@ -108,6 +108,7 @@ export class DataForm {
         this.data.Price=0;
         this.data.Buyer=null;
         this.data.ContractNo=null;
+        this.data.Description ="";
         if(newValue){
             this.data.Unit=newValue;
         }
@@ -120,6 +121,7 @@ export class DataForm {
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
+            this.data.Description ="";
         }
     }
 
@@ -131,6 +133,7 @@ export class DataForm {
         this.data.ContractNo=null;
         this.data.Items = [];
         this.data.Price=0;
+        this.data.Description ="";
         if(newValue) {
             this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
@@ -189,6 +192,7 @@ export class DataForm {
                                 item.FinishedGoodStockId=finGood.Id;
                                 item.Size=finGood.Size;
                                 item.StockQuantity=finGood.Quantity;
+                                item.Quantity=finGood.Quantity;
                                 item.Uom= finGood.Uom;
                                 item.colors=this.data.colors;
                                 item.BasicPrice=finGood.BasicPrice;
@@ -209,6 +213,7 @@ export class DataForm {
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
+            this.data.Description ="";
         }
     }
     itemsInfo = { 

@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'customs-reports/traceableout/master';
+const resource = 'viewfactbeacukais/master';
 
 module.exports = function (keyword, filter) {
 
