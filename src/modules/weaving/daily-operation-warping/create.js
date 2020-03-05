@@ -46,10 +46,10 @@ export class Create {
       errorIndex++;
     }
 
-    if (this.data.PreparationOperator == "" || this.data.PreparationOperator == undefined) {
-      this.error.PreparationOperator = "Operator Tidak Boleh Kosong";
-      errorIndex++;
-    }
+    // if (this.data.PreparationOperator == "" || this.data.PreparationOperator == undefined) {
+    //   this.error.PreparationOperator = "Operator Tidak Boleh Kosong";
+    //   errorIndex++;
+    // }
 
     if (this.data.PreparationDate == "" || this.data.PreparationDate == undefined) {
       this.error.PreparationDate = "Tanggal Pasang Tidak Boleh Kosong";
