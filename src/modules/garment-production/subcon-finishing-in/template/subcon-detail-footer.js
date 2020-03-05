@@ -4,7 +4,7 @@ export class SubconDetailFooter {
     }
 
     get totalQuantity() {
-        const totalQuantity = this.context.items.reduce((acc, cur) =>
+        const totalQuantity = this.context.items.filter(i => i.data.IsSave).reduce((acc, cur) =>
             acc += cur.data.Quantity, 0);
 
         return totalQuantity;

@@ -98,7 +98,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
                 keyword: keyword,
-                filter: JSON.stringify({ SupplierId: this.data.Supplier.Id, 'Items.Any(ProductCode.Contains("PRC001"))': true })
+                filter: JSON.stringify({ SupplierId: this.data.Supplier.Id })
             };
             return this.purchasingService.getGarmentURN(info)
                 .then((result) => {
@@ -170,7 +170,7 @@ export class DataForm {
                     this.itemsRONo = [""];
                     for (var item of result.items) {
                         for (var detail of item.fulfillments) {
-                            if (this.itemsRONo.indexOf(detail.rONo) < 0) {
+                            if (this.itemsRONo.indexOf(detail.rONo) < 0 && detail.product.Code === "PRC001") {
                                 this.itemsRONo.push(detail.rONo);
                             }
                         }
@@ -255,6 +255,17 @@ export class DataForm {
                             this.service.searchSubconCutting(subconCuttingInfo)
                                 .then(subconCuttingResult => {
                                     if (subconCuttingResult.data) {
+
+                                        let basicPriceByProduct = {};
+                                        for (const data of subconCuttingResult.data) {
+                                            basicPriceByProduct[data.Product.Code] = basicPriceByProduct[data.Product.Code] || {
+                                                basicPrice: 0,
+                                                amount: 0
+                                            };
+                                            basicPriceByProduct[data.Product.Code].basicPrice += data.BasicPrice;
+                                            basicPriceByProduct[data.Product.Code].amount++;
+                                        }
+
                                         for (const data of subconCuttingResult.data) {
                                             const item = {
                                                 IsFromSubconCutting: true,
@@ -266,9 +277,9 @@ export class DataForm {
                                                 // Comodity: data.Comodity,
                                                 Comodity: this.data.Comodity,
                                                 Color: data.Remark,
-                                                CuttingOutQuantity: data.Quantity,
-                                                Quantity: data.Quantity,
-                                                RemainingQuantity: data.Quantity,
+                                                CuttingOutQuantity: data.Quantity - data.FinishingInQuantity,
+                                                Quantity: data.Quantity - data.FinishingInQuantity,
+                                                RemainingQuantity: data.Quantity - data.FinishingInQuantity,
                                                 BasicPrice: data.BasicPrice,
                                                 Uom: this.uom
                                             };
@@ -276,6 +287,7 @@ export class DataForm {
                                             this.subconDetails.options.subconCuttingList[data.Product.Code] = {
                                                 Product: data.Product,
                                                 DesignColor: data.DesignColor,
+                                                BasicPrice: basicPriceByProduct[data.Product.Code].basicPrice / basicPriceByProduct[data.Product.Code].amount,
                                             };
                                         }
 

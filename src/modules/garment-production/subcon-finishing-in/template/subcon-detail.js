@@ -36,9 +36,11 @@ export class SubconDetail {
             const selectedSubconCutting = this.subconCuttingList[newValue];
             this.data.Product = selectedSubconCutting.Product;
             this.data.DesignColor = selectedSubconCutting.DesignColor;
+            this.data.BasicPrice = selectedSubconCutting.BasicPrice;
         } else {
             this.data.Product = null;
             this.data.DesignColor = null;
+            this.data.BasicPrice = 0;
         }
     }
 
