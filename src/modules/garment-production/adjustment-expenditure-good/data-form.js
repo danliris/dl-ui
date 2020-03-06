@@ -76,8 +76,8 @@ export class DataForm {
     get roLoader() {
         return (keyword) => {
             var info = {
-              keyword: keyword
-              //filter: JSON.stringify({UnitId: this.data.Unit.Id,"Items.Any(Quantity>0)":true})
+              keyword: keyword,
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, "Quantity>0":true})
             };
             return this.service.searchFinishedGoodStock(info)
                 .then((result) => {
@@ -155,33 +155,70 @@ export class DataForm {
                 
                 Promise.resolve(this.service.searchFinishedGoodStockComplete({ filter: JSON.stringify({ RONo: newValue.RONo, UnitCode: this.data.Unit.Code }) }))
                     .then(result => { 
-                        for(var finishingIn of result.data){
-                                let item={};
-                                    item.Quantity=finishingIn.Quantity;
+                        for(var finGood of result.data){
+                            var item={};
+                            if(finGood.Quantity>0){
+                                if(this.data.Items.length>0){
+                                    var duplicate= this.data.Items.find(a=>a.Size.Id==finGood.SizeId && a.Uom.Id==finGood.UomId);
+                                    
+                                    if(duplicate){
+                                        var idx= this.data.Items.indexOf(duplicate);
+                                        duplicate.Quantity+=finGood.Quantity;
+                                        duplicate.RemainingQuantity+=finGood.Quantity;
+                                        this.data.Items[idx]=duplicate;
+                                    }else{
+                                        item.IsSave=true;
+                                        item.Quantity=finGood.Quantity;
+                                        item.Uom= {
+                                            Id :finGood.UomId,
+                                            Code : finGood.UomCode,
+                                            Unit : finGood.UomUnit
+                                        }
+                                        item.Size= {
+                                            Id :finGood.SizeId,
+                                            Code : finGood.SizeCode,
+                                            Size : finGood.SizeName
+                                        }
+                                        item.Description ="";
+                                        item.RONo= this.data.RONo;
+                                        item.BasicPrice=finGood.BasicPrice;
+                                        item.ComodityPrice=this.data.Price;
+                                        item.FinishedGoodStockId=finGood.Id;
+                                        item.AdjustmentType='BARANG JADI';
+                                        item.RemainingQuantity= finGood.Quantity;
+                                        this.data.Items.push(item);
+                                    }
+                                }
+                                else{
+                                    item.IsSave=true;
+                                    item.Quantity=finGood.Quantity;
                                     item.Uom= {
-                                        Id :finishingIn.UomId,
-                                        Code : finishingIn.UomCode,
-                                        Unit : finishingIn.UomUnit
+                                        Id :finGood.UomId,
+                                        Code : finGood.UomCode,
+                                        Unit : finGood.UomUnit
                                     }
                                     item.Size= {
-                                        Id :finishingIn.SizeId,
-                                        Code : finishingIn.SizeCode,
-                                        Size : finishingIn.SizeName
+                                        Id :finGood.SizeId,
+                                        Code : finGood.SizeCode,
+                                        Size : finGood.SizeName
                                     }
                                     item.Description ="";
                                     item.RONo= this.data.RONo;
-                                    item.BasicPrice=finishingIn.BasicPrice;
+                                    item.BasicPrice=finGood.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
-                                    item.FinishedGoodStockId=finishingIn.Id;
+                                    item.FinishedGoodStockId=finGood.Id;
                                     item.AdjustmentType='BARANG JADI';
-                                    item.RemainingQuantity= finishingIn.Quantity;
+                                    item.RemainingQuantity= finGood.Quantity;
                                     this.data.Items.push(item);
+                                }
+                                
+                            }
                         }
                     });
                 
             }
+            else
             {
-                console.log(newValue);
                 let buyerResult = await this.purchasingService.getBuyerCode({ size: 1, filter: JSON.stringify({ RONo:  newValue  }) });
                 this.data.BuyerCode = buyerResult.data[0].Buyer.Name;
               
