@@ -51,6 +51,7 @@
               <au-autocomplete placeholder="Jenis Mesin"
                                value.bind="MachineType"
                                error.bind="error.MachineTypeId"
+                               query.bind="MachineUnitFilter"
                                read-only.bind="readOnly"
                                loader.one-time="machineTypes"
                                text="TypeName">
@@ -96,7 +97,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-2">
               <p style="white-space: nowrap;">Satuan</p>
             </div>
@@ -107,7 +108,7 @@
                           read-only.bind="true">
               </au-textbox>
             </div>
-          </div>
+          </div> -->
 
           <div class="row">
             <div class="col-md-2">
