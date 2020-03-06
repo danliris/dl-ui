@@ -127,6 +127,7 @@ export class List {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
           console.log(this.data);
+          debugger
 
           result.data._BodyBrokenList = [];
           var index = 1;
