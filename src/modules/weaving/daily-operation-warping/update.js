@@ -30,6 +30,8 @@ export class Update {
     this.error.error = {};
   }
 
+  uoms = [];
+
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
@@ -119,7 +121,7 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    
+
     this.data = await this.service
       .getById(Id);
     if (this.data.Id) {
@@ -162,6 +164,8 @@ export class Update {
           break;
       }
     }
+    var uomItems = await this.service.getYardMeterUoms();
+    this.uoms = uomItems;
   }
 
   get operators() {
@@ -170,10 +174,6 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
-  }
-
-  get uoms() {
-    return UOMLoader;
   }
 
   completeBeamClicked(event) {
@@ -246,6 +246,7 @@ export class Update {
     var WarpingBeamIdContainer;
     var WarpingBeamNumberContainer;
     var WarpingBeamLengthUomIdContainer;
+    var WarpingBeamLengthUomUnitContainer;
 
     this.error = {};
 
@@ -268,6 +269,7 @@ export class Update {
     }
     if (this.WarpingBeamLengthUom) {
       WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
+      WarpingBeamLengthUomUnitContainer = this.WarpingBeamLengthUom.Unit;
     }
 
     var updateStartData = {};
@@ -279,6 +281,7 @@ export class Update {
     updateStartData.WarpingBeamId = WarpingBeamIdContainer;
     updateStartData.WarpingBeamNumber = WarpingBeamNumberContainer;
     updateStartData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
+    updateStartData.WarpingBeamLengthUomUnit = WarpingBeamLengthUomIdContainer;
 
     this.service
       .updateStartProcess(updateStartData.Id, updateStartData)
@@ -338,7 +341,7 @@ export class Update {
     produceBeamData.ProduceBeamsShift = ShiftIdContainer;
     produceBeamData.ProduceBeamsOperator = OperatorIdContainer;
     produceBeamData.WarpingBeamLengthPerOperator = WarpingBeamLengthPerOperatorContainer;
-    
+
     produceBeamData.BrokenCauses = [];
 
     if (this.completeBeam) {
