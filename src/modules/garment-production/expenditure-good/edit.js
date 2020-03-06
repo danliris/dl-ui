@@ -20,6 +20,26 @@ export class View {
             this.selectedUnit=this.data.Unit;
             this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
         }
+
+        var items=[];
+        for(var item of this.data.Items){
+            if(items.length==0){
+                items.push(item);
+            }
+            else{
+                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                                    
+                if(duplicate){
+                    var idx= items.indexOf(duplicate);
+                    duplicate.Quantity+=item.Quantity;
+                    duplicate.StockQuantity+=item.Quantity;
+                    items[idx]=duplicate;
+                }else{
+                    items.push(item);
+                }
+            }
+        }
+        this.data.Items=items;
     }
 
     bind() {

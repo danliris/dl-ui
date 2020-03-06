@@ -189,25 +189,30 @@ export class DataForm {
                             var item={};
                             if(finGood.Quantity>0){
                                 if(this.data.Items.length>0){
-                                    item.IsSave=true;
-                                    item.FinishedGoodStockId=finGood.Id;
-                                    item.Size=finGood.Size;
-                                    item.StockQuantity=finGood.Quantity;
-                                    item.Quantity=finGood.Quantity;
-                                    item.Uom= finGood.Uom;
-                                    item.colors=this.data.colors;
-                                    item.BasicPrice=finGood.BasicPrice;
-                                    this.data.Items.push(item);
+                                    var duplicate= this.data.Items.find(a=>a.Size.Id==finGood.Size.Id && a.Uom.Id==finGood.Uom.Id);
+                                    
+                                    if(duplicate){
+                                        var idx= this.data.Items.indexOf(duplicate);
+                                        duplicate.Quantity+=finGood.Quantity;
+                                        duplicate.StockQuantity+=finGood.Quantity;
+                                        this.data.Items[idx]=duplicate;
+                                    }else{
+                                        item.IsSave=true;
+                                        item.Size=finGood.Size;
+                                        item.StockQuantity=finGood.Quantity;
+                                        item.Quantity=finGood.Quantity;
+                                        item.Uom= finGood.Uom;
+                                        item.colors=this.data.colors;
+                                        this.data.Items.push(item);
+                                    }
                                 }
                                 else{
                                     item.IsSave=true;
-                                    item.FinishedGoodStockId=finGood.Id;
                                     item.Size=finGood.Size;
                                     item.StockQuantity=finGood.Quantity;
                                     item.Quantity=finGood.Quantity;
                                     item.Uom= finGood.Uom;
                                     item.colors=this.data.colors;
-                                    item.BasicPrice=finGood.BasicPrice;
                                     this.data.Items.push(item);
                                 }
                                 
