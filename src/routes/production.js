@@ -83,7 +83,7 @@ module.exports = [
         name: 'snapshot-dailys',
         moduleId: './modules/production/finishing-printing/reports/daily-operation-snapshot/index',
         nav: true,
-        title: 'Laporan Daily Operatiom',
+        title: 'Laporan Daily Operation',
         auth: true,
         settings: {
             group: "production",
