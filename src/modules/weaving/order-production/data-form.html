@@ -71,15 +71,15 @@
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-2" style="white-space: nowrap">
-            <textbox label="Asal Benang" read-only="true"></textbox>
+            <textbox label="Asal Benang Satu" read-only="true"></textbox>
           </div>
           <div class="col-md-3">
-            <au-autocomplete placeholder="Asal Lusi" value.bind="WarpOrigin" error.bind="error.WarpOriginId"
+            <au-autocomplete placeholder="Asal Lusi Satu" value.bind="WarpOriginOne" error.bind="error.WarpOriginIdOne"
               read-only.bind="readOnly" loader.bind="origins" text="Code">
             </au-autocomplete>
           </div>
           <div class="col-md-3">
-            <au-autocomplete placeholder="Asal Pakan" value.bind="WeftOrigin" error.bind="error.WeftOriginId"
+            <au-autocomplete placeholder="Asal Pakan Satu" value.bind="WeftOriginOne" error.bind="error.WeftOriginIdOne"
               read-only.bind="readOnly" loader.bind="origins" text="Code">
             </au-autocomplete>
           </div>
@@ -94,6 +94,27 @@
           <div class="col-md-3">
             <au-autocomplete placeholder="Cari Unit" value.bind="Unit" error.bind="error.UnitId"
               read-only.bind="readOnly" loader.bind="units" text="Name">
+            </au-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asal Benang -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-2" style="white-space: nowrap">
+            <textbox label="Asal Benang Dua" read-only="true"></textbox>
+          </div>
+          <!-- <div class="col-md-3">
+            <au-autocomplete placeholder="Asal Pakan Satu" value.bind="WarpOriginTwo" error.bind="error.WarpOriginIdTwo"
+              read-only.bind="readOnly" loader.bind="origins" text="Code">
+            </au-autocomplete>
+          </div> -->
+          <div class="col-md-3">
+            <au-autocomplete placeholder="Asal Pakan Dua" value.bind="WeftOriginTwo" error.bind="error.WeftOriginIdTwo"
+              read-only.bind="readOnly" loader.bind="origins" text="Code">
             </au-autocomplete>
           </div>
         </div>

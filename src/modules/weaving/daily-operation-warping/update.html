@@ -222,13 +222,18 @@
                        style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete placeholder="Satuan Panjang Beam"
+              <!-- <au-autocomplete placeholder="Satuan Panjang Beam"
                                value.bind="WarpingBeamLengthUom"
                                error.bind="error.WarpingBeamLengthUomId"
                                read-only.bind="readOnly"
                                loader.bind="uoms"
                                text="Unit">
-              </au-autocomplete>
+              </au-autocomplete> -->
+              <au-dropdown value.bind="WarpingBeamLengthUom"
+                           error.bind="error.WarpingBeamLengthUomId"
+                           read-only.bind="readOnly"
+                           items.bind="uoms"
+                           text="Unit"></au-dropdown>
             </div>
           </div>
 

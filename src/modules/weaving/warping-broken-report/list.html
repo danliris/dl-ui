@@ -46,8 +46,8 @@
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center" style="vertical-align: middle;">
         <tr>
-          <td colspan.bind="2">Penyebab</td>
-          <td repeat.for="headerBroken of data.HeaderBrokens">${headerBroken.BrokenName}</td>
+          <td colspan="2">Penyebab</td>
+          <td rowspan="2" repeat.for="headerBroken of data.HeaderBrokens">${headerBroken.BrokenName}</td>
           <td rowspan="2">Total</td>
           <td rowspan="2">Max</td>
           <td rowspan="2">Min</td>
@@ -60,15 +60,20 @@
       </thead>
 
       <tbody align="center" style="vertical-align: middle;">      
-        <tr repeat.for="bodyBroken of data.BodyBrokens">
+        <!-- <div repeat.for -->
+        <tr repeat.for="bodyBroken of data.BodyBrokensValue">
           <td rowspan.bind="bodyBroken.YarnNameRowSpan">${bodyBroken.SupplierName}</td>
-          <td>${bodyBroken.YarnName}</td>
-          <td repeat.for="brokenEachYarn of report.BrokenEachYarn">${brokenEachYarn.TotalBrokenEachYarnValue}</td>
-          <td>${bodyBroken.TotalAllBroken}</td>
-          <td>${bodyBroken.MaxBroken}</td>
-          <td>${bodyBroken.MinBroken}</td>
-          <td>${bodyBroken.LastMonthAverageBroken}</td>
+          <!-- <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.YarnName}</td> -->
+          <!-- <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.TotalBrokenEachYarnValue}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.TotalAllBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.MaxBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.MinBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.LastMonthAverageBroken}</td> -->
         </tr>
+
+        <!-- <tr repeat.for="bodyBroken_ of data.BodyBrokensValue">
+          <td repeat.for="brokenEachYarn of bodyBroken_.ListOfYarn">${brokenEachYarn.YarnName}</td>
+        </tr> -->
       </tbody>
     </table>
   </div>

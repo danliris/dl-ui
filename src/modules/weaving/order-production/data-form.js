@@ -18,8 +18,10 @@ export class DataForm {
   @bindable Year;
   @bindable Construction;
   @bindable Unit;
-  @bindable WarpOrigin;
-  @bindable WeftOrigin;
+  @bindable WarpOriginOne;
+  // @bindable WarpOriginTwo;
+  @bindable WeftOriginOne;
+  @bindable WeftOriginTwo;
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
@@ -44,7 +46,7 @@ export class DataForm {
     for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
       this.years.push(i.toString());
     }
-    
+
     if (this.data.Month) {
       this.Month = this.data.Month;
     }
@@ -55,15 +57,23 @@ export class DataForm {
     if (this.data.Construction)
       this.Construction = this.data.Construction;
 
-    if (this.data.WarpOrigin) {
-      this.WarpOrigin = this.data.WarpOrigin;
+    if (this.data.WarpOriginOne) {
+      this.WarpOriginOne = this.data.WarpOriginOne;
     }
 
-    if (this.data.WeftOrigin)
-      this.WeftOrigin = this.data.WeftOrigin;
+    if (this.data.WeftOriginOne) {
+      this.WeftOriginOne = this.data.WeftOriginOne;
+    }
+
+    // if (this.data.WarpOriginTwo) {
+    //   this.WarpOriginTwo = this.data.WarpOriginTwo;
+    // }
+
+    if (this.data.WeftOriginTwo) {
+      this.WeftOriginTwo = this.data.WeftOriginTwo;
+    }
 
     if (this.data.Unit) {
-      console.log(this.data.Unit)
       this.Unit = this.data.Unit;
     }
 
@@ -153,15 +163,27 @@ export class DataForm {
     }
   }
 
-  WarpOriginChanged(newValue) {
+  WarpOriginOneChanged(newValue) {
     if (newValue.Id) {
-      this.data.WarpOriginId = newValue.Id;
+      this.data.WarpOriginIdOne = newValue.Id;
     }
   }
 
-  WeftOriginChanged(newValue) {
+  WeftOriginOneChanged(newValue) {
     if (newValue.Id) {
-      this.data.WeftOriginId = newValue.Id;
+      this.data.WeftOriginIdOne = newValue.Id;
+    }
+  }
+
+  // WarpOriginTwoChanged(newValue) {
+  //   if (newValue.Id) {
+  //     this.daWarpOriginTwota.WarpOriginIdTwo = newValue.Id;
+  //   }
+  // }
+
+  WeftOriginTwoChanged(newValue) {
+    if (newValue.Id) {
+      this.data.WeftOriginIdTwo = newValue.Id;
     }
   }
 }
