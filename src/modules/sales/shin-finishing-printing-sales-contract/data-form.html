@@ -180,14 +180,14 @@
       read-only.bind="readOnly" columns.bind="detailHeader"
       item-template="modules/sales/shin-finishing-printing-sales-contract/templates/detail-item"
       footer-template="modules/sales/shin-finishing-printing-sales-contract/templates/printing-detail-footer"
-      add.bind="itemsInfo.onAdd" options.bind="itemsOptions" view-model.ref="FPCollection">
+       options.bind="itemsOptions" view-model.ref="FPCollection">
     </au-collection>
 
     <au-collection if.bind="isExistAccountBank && !isPrinting" items.bind="data.Details" errors.bind="error.Details"
       read-only.bind="readOnly" columns.bind="detailHeader"
       item-template="modules/sales/shin-finishing-printing-sales-contract/templates/detail-item"
       footer-template="modules/sales/shin-finishing-printing-sales-contract/templates/detail-footer"
-      add.bind="itemsInfo.onAdd" options.bind="itemsOptions" view-model.ref="FPCollection">
+       options.bind="itemsOptions" view-model.ref="FPCollection">
     </au-collection>
 
 
