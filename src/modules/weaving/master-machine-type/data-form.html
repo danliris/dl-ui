@@ -26,13 +26,15 @@
           </div>
 
           <div class="row">
-            <au-textbox
-              label="Unit Mesin"
-              placeholder="Unit Mesin"
-              value.bind="data.MachineUnit"
+            <au-autocomplete label="Unit Mesin"
+              placeholder="Unit Mesin" 
+              value.bind="selectedUnit" 
               error.bind="error.MachineUnit"
               read-only.bind="readOnly"
-            ></au-textbox>
+              loader.bind="units" 
+              text="Name"
+              Options.bind ="customOptions"
+            ></au-autocomplete>
           </div>
         </div>
     </div>
