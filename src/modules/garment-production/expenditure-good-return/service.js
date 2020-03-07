@@ -4,6 +4,7 @@ const serviceUri = 'expenditure-good-returns';
 const comodityPriceserviceUri = 'comodity-prices';
 const expenditureGoodServiceUri = 'expenditure-goods';
 const serviceUriFinOut = 'finishing-outs';
+const finishedGoodServiceUri = 'finished-good-stocks';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -48,6 +49,11 @@ class Service extends RestService {
     searchFinishingOut(info) {
         var endpoint = `${serviceUriFinOut}`;
         return super.list(endpoint, info);
+    }
+    
+    getFinishedGoodById(id) {
+        var endpoint = `${finishedGoodServiceUri}/${id}`;
+        return super.get(endpoint);
     }
 
 }

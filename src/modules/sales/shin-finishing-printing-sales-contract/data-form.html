@@ -9,14 +9,17 @@
         <au-datepicker read-only.bind="true" label="Tanggal" value.bind="data.Date" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete label="No. Sales Contract" value.bind="selectedCostCalculation"
-          error.bind="error.CostCalculation" read-only.bind="readOnly" loader.bind="costCalculationLoader"
-          options.bind="controlOptions" query.bind="ccQuery" text.bind="costCalculationView"
-          placeholder="pilih Sales Contract">
+        <au-autocomplete label="No. Pre Sales Contract" value.bind="selectedPreSalesContract"
+          error.bind="error.PreSalesContract" read-only.bind="readOnly" loader.bind="preSalesContractLoader"
+          options.bind="controlOptions" query.bind="preSCQuery" text.bind="preSalesContractView"
+          placeholder="pilih Pre Sales Contract">
         </au-autocomplete>
 
-        <au-textbox label="No. SPP" value.bind="data.ProductionOrderNo" read-only="true" options.bind="controlOptions">
+        <au-textbox label="No. Sales Contract" value.bind="data.SalesContractNo" read-only="true" show.bind="data.Id" options.bind="controlOptions">
         </au-textbox>
+
+        <!-- <au-textbox label="No. SPP" value.bind="data.ProductionOrderNo" read-only="true" options.bind="controlOptions">
+        </au-textbox> -->
 
         <au-textbox label="Buyer" value.bind="data.Buyer" read-only="true" options.bind="controlOptions">
         </au-textbox>
@@ -28,22 +31,22 @@
           options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox label="Material" value.bind="data.Material" read-only="true" options.bind="controlOptions">
+        <au-textbox label="Material" value.bind="data.Material.Name" read-only="true" options.bind="controlOptions">
         </au-textbox>
 
-        <au-autocomplete label="Konstruksi Material" value.bind="data.MaterialConstruction"
+        <!-- <au-autocomplete label="Konstruksi Material" value.bind="data.MaterialConstruction"
           error.bind="error.MaterialConstructionID" read-only.bind="readOnly" loader.bind="materialConstructionLoader"
           key="Name" text="Name" options.bind="controlOptions" placeholder="pilih konstruksi finish">
-        </au-autocomplete>
+        </au-autocomplete> -->
         
         <au-autocomplete label="Nomor Benang Material" value.bind="data.YarnMaterial" error.bind="error.YarnMaterialID"
           read-only.bind="readOnly" loader.bind="yarnMaterialLoader" key="Name" text="Name"
           options.bind="controlOptions" placeholder="pilih nomor benang material">
         </au-autocomplete>
 
-        <au-textbox label="Lebar Finish" value.bind="data.MaterialWidth" error.bind="error.MaterialWidth"
+        <!-- <au-textbox label="Lebar Finish" value.bind="data.MaterialWidth" error.bind="error.MaterialWidth"
           read-only.bind="readOnly" options.bind="controlOptions" placeholder="input lebar finish">
-        </au-textbox>
+        </au-textbox> -->
 
 
         <div class="row">
@@ -64,7 +67,7 @@
             <!-- <au-autocomplete value.bind="data.UOM" error.bind="error.UOMID" read-only.bind="true"
               loader.bind="uomLoader" text="Unit" key="Unit" placeholder="pilih satuan">
             </au-autocomplete> -->
-            <au-textbox value.bind="data.UOM" read-only="true" options.bind="controlOptions">
+            <au-textbox value.bind="data.UOM.Unit" read-only="true" options.bind="controlOptions">
             </au-textbox>
 
           </div>

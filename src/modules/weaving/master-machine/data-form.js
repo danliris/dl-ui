@@ -27,10 +27,17 @@ export class DataForm {
 
   constructor() {}
 
-  bind(context) {
+
+  MachineUnitFilter = {
+  };
+  
+  bind (context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+
+    this.MachineUnitFilter = {
+    };
 
     if (this.data.WeavingUnit) {
       this.WeavingUnit = this.data.WeavingUnit;
@@ -73,7 +80,11 @@ export class DataForm {
     // console.log(this);
     // debugger
     // this.error.WeavingUnitId = "";
-    this.data.WeavingUnit = newValue;
+    
+    if (newValue) { 
+      this.data.WeavingUnit = newValue;
+      this.MachineUnitFilter.MachineUnit = newValue.Name;
+    }
     if (newValue.Name === "WEAVING 1 (EX. WEAVING 2)") {
       // this.isWeaving1or2 = true;
       this.areas = this.weaving1Areas;

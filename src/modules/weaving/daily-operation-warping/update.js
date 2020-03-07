@@ -30,6 +30,8 @@ export class Update {
     this.error.error = {};
   }
 
+  uoms = [];
+
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
@@ -119,7 +121,7 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    
+
     this.data = await this.service
       .getById(Id);
     if (this.data.Id) {
@@ -162,6 +164,8 @@ export class Update {
           break;
       }
     }
+    var uomItems = await this.service.getYardMeterUoms();
+    this.uoms = uomItems;
   }
 
   get operators() {
@@ -170,10 +174,6 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
-  }
-
-  get uoms() {
-    return UOMLoader;
   }
 
   completeBeamClicked(event) {
@@ -239,22 +239,37 @@ export class Update {
   }
 
   saveStart() {
+    var HistoryDateContainer;
+    var HistoryTimeContainer;
+    var ShiftContainer;
+    var OperatorContainer;
+    var WarpingBeamIdContainer;
+    var WarpingBeamNumberContainer;
+    var WarpingBeamLengthUomIdContainer;
+    var WarpingBeamLengthUomUnitContainer;
+
+    this.error = {};
+
     var IdContainer = this.data.Id;
     if (this.StartDate) {
-      var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
+      HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     }
     if (this.StartTime) {
-      var HistoryTimeContainer = this.StartTime;
+      HistoryTimeContainer = this.StartTime;
     }
     if (this.StartShift) {
-      var ShiftContainer = this.StartShift.Id;
+      ShiftContainer = this.StartShift.Id;
     }
     if (this.StartOperator) {
-      var OperatorContainer = this.StartOperator.Id;
+      OperatorContainer = this.StartOperator.Id;
     }
     if (this.StartWarpingBeamDocuments) {
-      var WarpingBeamIdContainer = this.StartWarpingBeamDocuments.Id;
-      var WarpingBeamNumberContainer = this.StartWarpingBeamDocuments.Number;
+      WarpingBeamIdContainer = this.StartWarpingBeamDocuments.Id;
+      WarpingBeamNumberContainer = this.StartWarpingBeamDocuments.Number;
+    }
+    if (this.WarpingBeamLengthUom) {
+      WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
+      WarpingBeamLengthUomUnitContainer = this.WarpingBeamLengthUom.Unit;
     }
 
     var updateStartData = {};
@@ -265,6 +280,8 @@ export class Update {
     updateStartData.StartOperator = OperatorContainer;
     updateStartData.WarpingBeamId = WarpingBeamIdContainer;
     updateStartData.WarpingBeamNumber = WarpingBeamNumberContainer;
+    updateStartData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
+    updateStartData.WarpingBeamLengthUomUnit = WarpingBeamLengthUomIdContainer;
 
     this.service
       .updateStartProcess(updateStartData.Id, updateStartData)
@@ -295,7 +312,6 @@ export class Update {
     var ShiftIdContainer;
     var OperatorIdContainer;
     var WarpingBeamLengthPerOperatorContainer;
-    var WarpingBeamLengthUomIdContainer;
 
     this.error = {};
 
@@ -318,10 +334,6 @@ export class Update {
       WarpingBeamLengthPerOperatorContainer = this.WarpingBeamLengthPerOperator;
     }
 
-    if (this.WarpingBeamLengthUom) {
-      WarpingBeamLengthUomIdContainer = this.WarpingBeamLengthUom.Id;
-    }
-
     var produceBeamData = {};
     produceBeamData.Id = IdContainer;
     produceBeamData.ProduceBeamsDate = HistoryDateContainer;
@@ -329,7 +341,7 @@ export class Update {
     produceBeamData.ProduceBeamsShift = ShiftIdContainer;
     produceBeamData.ProduceBeamsOperator = OperatorIdContainer;
     produceBeamData.WarpingBeamLengthPerOperator = WarpingBeamLengthPerOperatorContainer;
-    produceBeamData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
+
     produceBeamData.BrokenCauses = [];
 
     if (this.completeBeam) {

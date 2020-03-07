@@ -13,6 +13,7 @@ import UomLoader from "../../../loader/uom-loader";
 import QualityLoader from "../../../loader/quality-loader";
 import TermOfPaymentLoader from "../../../loader/term-of-payment-loader";
 import AccountBankLoader from "../../../loader/account-banks-loader";
+import PreSalesContractLoader from "../../../loader/finishing-printing-pre-sales-contract-loader";
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -22,11 +23,13 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable selectedCostCalculation;
+  @bindable selectedPreSalesContract;
   @bindable itemsOptions = {};
   lampHeader = [{ header: "Standar Lampu" }];
 
   pointSystemOptions = [10, 4];
-
+  dataCC = [];
+  isExport = false;
   filterMaterial = {
     "tags": { "$in": ["MATERIAL", "material", "Material"] }
   };
@@ -42,6 +45,11 @@ export class DataForm {
     "IsPosted": true,
     "IsSCCreated": false
   }
+
+  preSCQuery = {
+    "IsPosted": true
+  }
+
   constructor(bindingEngine, service, element) {
     this.bindingEngine = bindingEngine;
     this.element = element;
@@ -82,7 +90,77 @@ export class DataForm {
     this.selectedPointSystem = this.data.PointSystem || 10;
   }
 
-  isExport = false;
+  async selectedPreSalesContractChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.PreSalesContract = newValue;
+      this.data.Buyer = newValue.Buyer.Name;
+      this.data.Unit = newValue.Unit.Name;
+      this.data.SalesContractType = newValue.Type;
+      this.orderQuantity = newValue.OrderQuantity;
+      this.itemsOptions.UnitName = newValue.Unit.Name;
+      this.isPrinting = this.data.PreSalesContract.Unit.Name === "PRINTING";
+      if (newValue.Buyer.Type && (newValue.Buyer.Type.toLowerCase() == "ekspor" || newValue.Buyer.Type.toLowerCase() == "export")) {
+        this.filterpayment = {
+          "isExport": true
+        };
+        this.isExport = true;
+      } else {
+        this.filterpayment = {
+          "isExport": false
+        };
+        this.isExport = false;
+      }
+
+      this.dataCC = await this.service.getCCbyPreSC(this.data.PreSalesContract.Id);
+      if (this.dataCC.length > 0) {
+
+        this.data.Material = this.dataCC[0].Material;
+        this.data.UOM = this.dataCC[0].UOM;
+        this.data.TransportFee = this.dataCC[0].FreightCost;
+
+        this.itemsOptions.ScreenCost = this.dataCC[0].ScreenCost;
+      } else {
+        this.error.PreSalesContract = "This Pre Sales Contract doesn't have any Cost Calculation"
+      }
+    } else {
+      this.data.Buyer = null;
+      this.data.Unit = null;
+      this.data.SalesContractType = null;
+      this.isExport = false;
+      this.data.FromStock = false;
+      this.data.DispositionNumber = "";
+      this.data.Commodity = null;
+      this.data.CommodityDescription = "";
+      this.selectedOrderType = null;
+      this.data.Material = null;
+      this.data.MaterialConstruction = null;
+      this.data.YarnMaterial = null;
+      this.data.MaterialWidth = 0;
+      this.data.DesignMotive = null;
+      this.orderQuantity = 0;
+      this.data.UOM = null;
+      this.data.ShippingQuantityTolerance = 0;
+      this.data.Amount = 0;
+      this.data.Quality = null;
+      this.data.PieceLength = "";
+      this.data.Packing = "";
+      this.selectedUseIncomeTax = false;
+      this.data.TermOfPayment = null;
+      this.selectedAccountBank = null;
+      this.data.Agent = null;
+      this.data.TransportFee = "";
+      this.data.DeliveredTo = "";
+      this.data.DeliverySchedule = null;
+      this.data.ShipmentDescription = "";
+      this.data.Condition = "";
+      this.data.Commision = "";
+      this.data.PointSystem = 10;
+      this.data.PointLimit = 0;
+      this.data.Details = [];
+
+    }
+  }
+
   selectedCostCalculationChanged(newValue, oldValue) {
     if (newValue) {
       this.data.CostCalculation = newValue;
@@ -237,6 +315,19 @@ export class DataForm {
     if (newValue) {
       this.data.AccountBank = this.selectedAccountBank;
       this.isExistAccountBank = true;
+      this.data.Details = [];
+      if (this.dataCC.length > 0) {
+        for (var item of this.dataCC) {
+          this.data.Details.push({
+            Currency: this.data.AccountBank.Currency,
+            Color: item.Color,
+            Price: 0,
+            UseIncomeTax: false,
+            ScreenCost: this.itemsOptions.ScreenCost,
+            isUseIncomeTax: true
+          });
+        }
+      }
     } else {
       this.data.AccountBank = null;
       this.isExistAccountBank = false;
@@ -344,12 +435,20 @@ export class DataForm {
     return AccountBankLoader;
   }
 
+  get preSalesContractLoader() {
+    return PreSalesContractLoader;
+  }
+
   bankView(bank) {
     return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
   }
 
   costCalculationView(cc) {
     return cc.PreSalesContract.No;
+  }
+
+  preSalesContractView(preSC) {
+    return preSC.No;
   }
 
   controlOptions = {

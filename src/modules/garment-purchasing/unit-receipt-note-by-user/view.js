@@ -66,10 +66,18 @@ export class View {
             }
             this.hasDelete = false;
         }
-        let CorrectionResult = await this.service.getCorrection({ size: 1, filter: JSON.stringify({ DONo: this.data.DONo,  CorrectionType:"Jumlah"}) });
+        let CorrectionResult = await this.service.getCorrection({filter: JSON.stringify({ DONo: this.data.DONo,  CorrectionType:"Jumlah"}) });
         //let correction = CorrectionResult.data[0];
         if(CorrectionResult.data.length>0){
-            this.hasDelete = false;
+            for(let corrData of CorrectionResult.data){
+                for(let corrItem of corrData.Items){
+                    let dup= this.data.Items.find(a=>a.DODetailId==corrItem.DODetailId);
+                    if(dup){
+                        this.hasDelete = false;
+                        break;
+                    }
+                }
+            }
         }
     }
 

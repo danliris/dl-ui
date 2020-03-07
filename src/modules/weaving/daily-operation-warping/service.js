@@ -54,6 +54,16 @@ export class Service extends RestService {
     });
   }
 
+  getYardMeterUoms() {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/uoms/simple-warping-weaving`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
@@ -79,18 +89,6 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
-
-  // updatePauseProcess(Id, data) {
-  //   const process = 'pause-process';
-  //   var endpoint = `${serviceUri}/${Id}/${process}`;
-  //   return super.put(endpoint, data);
-  // }
-
-  // updateResumeProcess(Id, data) {
-  //   const process = 'resume-process';
-  //   var endpoint = `${serviceUri}/${Id}/${process}`;
-  //   return super.put(endpoint, data);
-  // }
 
   updateProduceBeamsProcess(Id, data) {
     const process = 'produce-beams-process';

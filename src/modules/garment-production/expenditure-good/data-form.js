@@ -117,7 +117,7 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
@@ -131,7 +131,7 @@ export class DataForm {
         this.data.Comodity=null;
         this.data.Buyer=null;
         this.data.ContractNo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.Price=0;
         this.data.Description ="";
         if(newValue) {
@@ -186,30 +186,46 @@ export class DataForm {
             Promise.resolve(this.service.getFinishedGood({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id}) }))
                     .then(result => {
                         for(var finGood of result.data){
+                            var item={};
                             if(finGood.Quantity>0){
-                                var item={};
-                                item.IsSave=true;
-                                item.FinishedGoodStockId=finGood.Id;
-                                item.Size=finGood.Size;
-                                item.StockQuantity=finGood.Quantity;
-                                item.Quantity=finGood.Quantity;
-                                item.Uom= finGood.Uom;
-                                item.colors=this.data.colors;
-                                item.BasicPrice=finGood.BasicPrice;
-                                this.data.Items.push(item);
+                                if(this.data.Items.length>0){
+                                    var duplicate= this.data.Items.find(a=>a.Size.Id==finGood.Size.Id && a.Uom.Id==finGood.Uom.Id);
+                                    
+                                    if(duplicate){
+                                        var idx= this.data.Items.indexOf(duplicate);
+                                        duplicate.Quantity+=finGood.Quantity;
+                                        duplicate.StockQuantity+=finGood.Quantity;
+                                        this.data.Items[idx]=duplicate;
+                                    }else{
+                                        item.IsSave=true;
+                                        item.Size=finGood.Size;
+                                        item.StockQuantity=finGood.Quantity;
+                                        item.Quantity=finGood.Quantity;
+                                        item.Uom= finGood.Uom;
+                                        item.colors=this.data.colors;
+                                        this.data.Items.push(item);
+                                    }
+                                }
+                                else{
+                                    item.IsSave=true;
+                                    item.Size=finGood.Size;
+                                    item.StockQuantity=finGood.Quantity;
+                                    item.Quantity=finGood.Quantity;
+                                    item.Uom= finGood.Uom;
+                                    item.colors=this.data.colors;
+                                    this.data.Items.push(item);
+                                }
+                                
                             }
                         }
-
                     });
             }
-        
-        
         else {
             this.context.selectedROViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
