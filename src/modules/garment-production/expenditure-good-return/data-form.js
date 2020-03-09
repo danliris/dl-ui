@@ -129,7 +129,7 @@ export class DataForm {
         this.data.Comodity=null;
         this.data.Buyer=null;
         this.data.ContractNo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.Price=0;
         if(newValue) {
             this.context.error.Items = [];
@@ -153,17 +153,41 @@ export class DataForm {
                                 let Qty= exGoodItem.Quantity-exGoodItem.ReturQuantity;
                                 if(Qty>0){
                                     var item={};
-                                    item.IsSave=true;
-                                    item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
-                                    item.ExpenditureGoodId=exGood.Id;
-                                    item.ExpenditureGoodItemId=exGoodItem.Id;
-                                    item.Size=exGoodItem.Size;
-                                    item.StockQuantity=Qty;
-                                    item.Quantity=Qty;
-                                    item.Uom= exGoodItem.Uom;
-                                    item.Description=exGoodItem.Description;
-                                    item.BasicPrice=exGoodItem.BasicPrice;
-                                    this.data.Items.push(item);
+                                    if(this.data.Items.length>0){
+                                        var duplicate= this.data.Items.find(a=>a.Size.Id==exGoodItem.Size.Id && a.Uom.Id==exGoodItem.Uom.Id);
+                                        
+                                        if(duplicate){
+                                            var idx= this.data.Items.indexOf(duplicate);
+                                            duplicate.Quantity+=Qty;
+                                            duplicate.StockQuantity+=Qty;
+                                            this.data.Items[idx]=duplicate;
+                                        }else{
+                                            item.IsSave=true;
+                                            item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
+                                            item.ExpenditureGoodId=exGood.Id;
+                                            item.ExpenditureGoodItemId=exGoodItem.Id;
+                                            item.Size=exGoodItem.Size;
+                                            item.StockQuantity=Qty;
+                                            item.Quantity=Qty;
+                                            item.Uom= exGoodItem.Uom;
+                                            item.Description=exGoodItem.Description;
+                                            item.BasicPrice=exGoodItem.BasicPrice;
+                                            this.data.Items.push(item);
+                                        }
+                                    }
+                                    else{
+                                        item.IsSave=true;
+                                        item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
+                                        item.ExpenditureGoodId=exGood.Id;
+                                        item.ExpenditureGoodItemId=exGoodItem.Id;
+                                        item.Size=exGoodItem.Size;
+                                        item.StockQuantity=Qty;
+                                        item.Quantity=Qty;
+                                        item.Uom= exGoodItem.Uom;
+                                        item.Description=exGoodItem.Description;
+                                        item.BasicPrice=exGoodItem.BasicPrice;
+                                        this.data.Items.push(item);
+                                    }
                                 }
                             }
                         }
@@ -177,7 +201,7 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
             this.data.Buyer=null;
             this.data.ContractNo=null;
