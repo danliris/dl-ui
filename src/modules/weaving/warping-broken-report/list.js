@@ -127,57 +127,98 @@ export class List {
         this.service.getReportData(arg).then(result => {
           this.data = result.data;
           console.log(this.data);
-          debugger
+          // debugger
 
-          result.data._BodyBrokenList = [];
-          var index = 1;
-          for (var item of result.data.BodyBrokens) {
-            console.log(item);
-            var brokenDatum = {
-              IndexNumber: index,
-              BrokenName: "",
-              _BrokenValueList: []
-            };
+          // result.MappedBodyBrokens=[];
+          // for(var datum of result.BodyBrokensValue){
+          //   var brokenDatum ={
+          //     SupplierName = "",
+          //     ListOfYarn = []
+          //   }
 
-            var valueBrokenEach = 0;
-            var totalBrokenValue = 0;
-            if (result.data.HeaderWarps.length > 0) {
-              for (var headerWarp of result.data.HeaderWarps) {
 
-                var brokenItemIndex = result.data.BodyBrokens.findIndex(o => 
-                  o.BrokenName == headerWarp.BrokenName && 
-                  o.WarpName == headerWarp.WarpName);
-                // debugger
-                if (brokenItemIndex >= 0) {
-                  valueBrokenEach = result.data.BodyBrokens[brokenItemIndex].BrokenValue;
-                  totalBrokenValue = totalBrokenValue + valueBrokenEach;
+          // }
+          // result.data._BodyBrokenList = [];
+          // var index = 1;
+          // for (var item of result.data.BodyBrokens) {
+          //   console.log(item);
+          //   var brokenDatum = {
+          //     IndexNumber: index,
+          //     BrokenName: "",
+          //     _BrokenValueList: []
+          //   };
 
-                  brokenDatum.BrokenName = item.BrokenName;
-                  brokenDatum.TotalValue = totalBrokenValue;
-                  brokenDatum._BrokenValueList.push({
-                    Value: valueBrokenEach
-                  });
-                } else {
-                  brokenDatum._BrokenValueList.push({
-                    Value: 0
-                  });
-                }
-              }
-              // } else {
-              //   brokenDatum._BrokenValueList.push({
-              //     Value: 0
-              //   });
-            }
+          //   var valueBrokenEach = 0;
+          //   var totalBrokenValue = 0;
+          //   if (result.data.HeaderWarps.length > 0) {
+          //     for (var headerWarp of result.data.HeaderWarps) {
 
-            result.data._ProcessedList.push(brokenDatum);
-            index++;
-          }
+          //       var brokenItemIndex = result.data.BodyBrokens.findIndex(o => 
+          //         o.BrokenName == headerWarp.BrokenName && 
+          //         o.WarpName == headerWarp.WarpName);
+          //       // debugger
+          //       if (brokenItemIndex >= 0) {
+          //         valueBrokenEach = result.data.BodyBrokens[brokenItemIndex].BrokenValue;
+          //         totalBrokenValue = totalBrokenValue + valueBrokenEach;
+
+          //         brokenDatum.BrokenName = item.BrokenName;
+          //         brokenDatum.TotalValue = totalBrokenValue;
+          //         brokenDatum._BrokenValueList.push({
+          //           Value: valueBrokenEach
+          //         });
+          //       } else {
+          //         brokenDatum._BrokenValueList.push({
+          //           Value: 0
+          //         });
+          //       }
+          //     }
+          //     // } else {
+          //     //   brokenDatum._BrokenValueList.push({
+          //     //     Value: 0
+          //     //   });
+          //   }
+
+          //   result.data._ProcessedList.push(brokenDatum);
+          //   index++;
+          // }
           console.log(result);
           return result;
         });
       }
     }
   }
+
+  // sampleData = [{
+  //   "SupplierName": "SPINNING II",
+  //   "ListOfYarn": [{
+  //       "YarnName": "Cotton34.5",
+  //       "BrokenEachYarn": [
+  //         238539.1304,
+  //         304347.8261,
+  //         217391.3043
+  //       ],
+  //       "TotalAllBroken": 7478434.7827,
+  //       "MaxBroken": 1565217.3913,
+  //       "MinBroken": 397565.2174,
+  //       "LastMonthAverageBroken": 0
+  //     },
+  //     {
+  //       "YarnName": "Spandex12/4",
+  //       "BrokenEachYarn": [
+  //         68580,
+  //         274320,
+  //         134615.3846,
+  //         96153.8462,
+  //         160020
+  //       ],
+  //       "TotalAllBroken": 7492907.692400001,
+  //       "MaxBroken": 822960,
+  //       "MinBroken": 384615.3846,
+  //       "LastMonthAverageBroken": 0
+  //     }
+  //   ],
+  //   "YarnNameRowSpan": 2
+  // }]
 
   reset() {
     this.Month = null;

@@ -18,6 +18,29 @@ export class View {
         this.selectedUnit=this.data.Unit;
         
         this.editCallback = null;
+
+        var items=[];
+        for(var item of this.data.Items){
+            if(items.length==0){
+                items.push(item);
+            }
+            else{
+                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                                    
+                if(duplicate){
+                    var idx= items.indexOf(duplicate);
+                    duplicate.Quantity+=item.Quantity;
+                    duplicate.RemainingQuantity+=item.Quantity;
+                    items[idx]=duplicate;
+                }else{
+                    items.push(item);
+                }
+            }
+            if(item.ReturQuantity>0){
+                this.deleteCallback=null;
+            }
+        }
+        this.data.Items=items;
     }
 
     cancelCallback(event) {
