@@ -70,6 +70,9 @@ export class DataForm {
       UnitName: this.data.PreSalesContract ? this.data.PreSalesContract.Unit.Name : ""
     };
 
+    if(this.data.dataCC){
+      this.dataCC = this.data.dataCC;
+    }
     if (this.data.PreSalesContract) {
       this.selectedPreSalesContract = this.data.PreSalesContract;
       this.isPrinting = this.data.PreSalesContract.Unit.Name === "PRINTING";
@@ -109,14 +112,14 @@ export class DataForm {
         };
         this.isExport = false;
       }
-
+      console.log("test2");
       this.dataCC = await this.service.getCCbyPreSC(this.data.PreSalesContract.Id);
       if (this.dataCC.length > 0) {
 
         this.data.Material = this.dataCC[0].Material;
         this.data.UOM = this.dataCC[0].UOM;
         this.data.TransportFee = this.dataCC[0].FreightCost;
-
+        this.data.Sales = this.dataCC[0].Sales;
         this.itemsOptions.ScreenCost = this.dataCC[0].ScreenCost;
       } else {
         this.error.PreSalesContract = "This Pre Sales Contract doesn't have any Cost Calculation"
@@ -314,8 +317,8 @@ export class DataForm {
     if (newValue) {
       this.data.AccountBank = this.selectedAccountBank;
       this.isExistAccountBank = true;
-
-      if(!this.data.Id){
+      console.log("test");
+      if(!this.data.Id || this.data.isCopy){
         this.data.Details = [];
         if (this.dataCC.length > 0) {
           for (var item of this.dataCC) {
@@ -324,7 +327,7 @@ export class DataForm {
               Color: item.Color,
               Price: 0,
               UseIncomeTax: false,
-              ScreenCost: this.itemsOptions.ScreenCost,
+              ScreenCost: this.dataCC[0].ScreenCost,
               CostCalculationId : item.Id,
               ProductionOrderNo : item.ProductionOrderNo,
               isUseIncomeTax: true

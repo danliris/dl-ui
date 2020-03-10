@@ -11,7 +11,7 @@ export class DetailItem {
     this.options = item.options;
     this.isPrinting = item.context.options.UnitName ?
      item.context.options.UnitName.toUpperCase() === "PRINTING" : false;
-    this.data.ScreenCost = item.context.options.ScreenCost;
+    // this.data.ScreenCost = item.context.options.ScreenCost;
     console.log(this.data)
   }
 

@@ -10,7 +10,7 @@
         </au-datepicker>
 
         <au-autocomplete label="No. Pre Sales Contract" value.bind="selectedPreSalesContract"
-          error.bind="error.PreSalesContract" read-only.bind="readOnly" loader.bind="preSalesContractLoader"
+          error.bind="error.PreSalesContract" read-only.bind="readOnly || !data.isCopy" loader.bind="preSalesContractLoader"
           options.bind="controlOptions" query.bind="preSCQuery" text.bind="preSalesContractView"
           placeholder="pilih Pre Sales Contract">
         </au-autocomplete>
