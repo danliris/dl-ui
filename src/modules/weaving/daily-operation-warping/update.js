@@ -281,7 +281,7 @@ export class Update {
     updateStartData.WarpingBeamId = WarpingBeamIdContainer;
     updateStartData.WarpingBeamNumber = WarpingBeamNumberContainer;
     updateStartData.WarpingBeamLengthUomId = WarpingBeamLengthUomIdContainer;
-    updateStartData.WarpingBeamLengthUomUnit = WarpingBeamLengthUomIdContainer;
+    updateStartData.WarpingBeamLengthUomUnit = WarpingBeamLengthUomUnitContainer;
 
     this.service
       .updateStartProcess(updateStartData.Id, updateStartData)
