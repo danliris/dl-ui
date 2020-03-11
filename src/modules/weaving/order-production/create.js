@@ -55,7 +55,7 @@ export class Create {
       this.error.SumWeft = "Jumlah Komposisi Pakan Tidak Boleh Lebih Dari 100%";
       errorIndex++;
     }
-
+    
     if (errorIndex == 0) {
       this.service
         .create(this.data)

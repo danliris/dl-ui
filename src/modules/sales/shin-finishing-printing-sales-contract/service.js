@@ -1,6 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'sales/finishing-printing-sales-contracts/shin';
-
+const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -35,6 +35,11 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getCCbyPreSC(preSCId) {
+        var endpoint = `${ccServiceUri}/by-presalescontract/${preSCId}`;
+        return super.get(endpoint);
     }
 
     // getSPPbySC(no, select) {

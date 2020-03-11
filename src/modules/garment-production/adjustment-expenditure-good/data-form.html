@@ -85,8 +85,19 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/adjustment-expenditure-good/templates/item"
             header-template="modules/garment-production/adjustment-expenditure-good/templates/item-header"
-            if.bind="selectedRO">
+            if.bind="selectedRO && isCreate">
         </au-collection>
+
+        <au-collection
+        items.bind="data.Items"
+        errors.bind="error.Items"
+        columns.bind="itemsInfoView.columns"
+        read-only.bind="readOnly"
+        options.bind="itemOptions"
+        item-template="modules/garment-production/adjustment-expenditure-good/templates/item"
+        header-template="modules/garment-production/adjustment-expenditure-good/templates/item-header"
+        if.bind="selectedRO && isView" >
+    </au-collection>
 
 
         <p if.bind="data.Items"><b>Jumlah Total Adjustment Barang Jadi: ${totalQuantity} PCS</b></p>

@@ -1,11 +1,11 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'finishing-ins';
-const serviceUriSewingOut = 'sewing-outs/complete';
+const subconFinishingInServiceUri = 'subcon-finishing-ins';
 const costCalculationServiceUri = 'cost-calculation-garments';
-const comodityPriceserviceUri = 'comodity-prices';
 const DOServiceUri = 'garment-delivery-orders';
-const URNServiceUri='garment-unit-receipt-notes';
+const URNServiceUri = 'garment-unit-receipt-notes';
+const subconCuttingUri = 'subcon-cuttings';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -17,18 +17,8 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getComodityPrice(info) {
-        var endpoint = `${comodityPriceserviceUri}`;
-        return super.list(endpoint, info);
-    }
-    
-    searchSewingOut(info) {
-        var endpoint = `${serviceUriSewingOut}`;
-        return super.list(endpoint, info);
-    }
-
     create(data) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${subconFinishingInServiceUri}`;
         return super.post(endpoint, data);
     }
 
@@ -37,21 +27,15 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
-    update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
-        return super.put(endpoint, data);
-    }
-
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${subconFinishingInServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
-    getSewingOutbyId(id) {
-        var endpoint = `${serviceUriSewingOut}/${id}`;
-        return super.get(endpoint);
+    searchSubconCutting(info) {
+        var endpoint = `${subconCuttingUri}`;
+        return super.list(endpoint, info);
     }
-
 }
 
 class PurchasingService extends RestService {
@@ -70,4 +54,15 @@ class PurchasingService extends RestService {
     }
 }
 
-export { Service,PurchasingService }
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculation(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, PurchasingService, SalesService }
