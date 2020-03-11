@@ -124,7 +124,8 @@ export class List {
             };
             this.weeks.push(week);
           }
-
+          console.log(this.data)
+          console.log(this.weeks)
           this.fillTable();
         });
     }
