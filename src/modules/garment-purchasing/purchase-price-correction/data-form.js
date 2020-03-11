@@ -172,7 +172,7 @@ export class DataForm {
     
                             correctionNoteItem.Product = detail.product;
     
-                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection).toFixed(2));
+                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection - detail.returQuantity).toFixed(2));
     
                             correctionNoteItem.Uom = detail.purchaseOrderUom;
     

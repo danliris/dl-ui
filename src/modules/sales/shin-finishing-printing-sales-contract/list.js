@@ -10,15 +10,15 @@ export class List {
     context = ["detail", "print"]
 
     columns = [
-        { field: "CostCalculation.PreSalesContract.No", title: "Nomor Sales Contract" },
-        { field: "CostCalculation.ProductionOrderNo", title: "No. SPP" },
-        { field: "CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
+        { field: "SalesContractNo", title: "Nomor Sales Contract" },
+        // { field: "CostCalculation.ProductionOrderNo", title: "No. SPP" },
+        { field: "PreSalesContract.Buyer.Name", title: "Buyer" },
         {
             field: "DeliverySchedule", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "CostCalculation.PreSalesContract.Unit.Name", title: "Unit" },
+        { field: "PreSalesContract.Unit.Name", title: "Unit" },
     ];
 
     loader = (info) => {

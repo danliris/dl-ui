@@ -17,20 +17,26 @@ export class List {
                 return "";
             }
         },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.No", title: "No. Sales Contract" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo", title: "No. SPP" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
+        { field: "FinishingPrintingSalesContract.SalesContractNo", title: "No. Sales Contract" },
+        { field: "ProductionOrderNo", title: "No. SPP" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.Buyer.Name", title: "Buyer" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.Unit.Name", title: "Unit" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
         {
             field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "IsApprovedMD", title: "Validasi SPP",
+            field: "IsApprovedMD", title: "Validasi MD",
             formatter: function (value, data, index) {
                 return data.ApprovalMD.IsApproved ? "Sudah" : "Belum";
+            }
+        },
+        {
+            field: "IsApprovedSample", title: "Validasi Sample",
+            formatter: function (value, data, index) {
+                return data.ApprovalSample.IsApproved ? "Sudah" : "Belum";
             }
         },
         {
@@ -42,7 +48,7 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        if (data.ApprovalMD.IsApproved)
+        if (data.ApprovalMD.IsApproved && data.ApprovalSample.IsApproved)
             return { classes: "success" };
         else
             return { classes: "danger" }

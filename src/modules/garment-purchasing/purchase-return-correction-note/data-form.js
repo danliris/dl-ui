@@ -148,18 +148,27 @@ console.log(detail)
 
                     correctionNoteItem.Product = detail.product;
 
-                    correctionNoteItem.Quantity = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
+                    // correctionNoteItem.Quantity = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
                     
-                    correctionNoteItem.Quantities = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
+                    // correctionNoteItem.Quantities = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
 
-                    correctionNoteItem.QuantityCheck=parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
+                    // correctionNoteItem.QuantityCheck=parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
                     
+                    correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection - detail.returQuantity).toFixed(2));
+                    
+                    correctionNoteItem.Quantities = parseFloat((detail.quantityCorrection - detail.returQuantity).toFixed(2));
+
+                    correctionNoteItem.QuantityCheck=parseFloat((detail.quantityCorrection - detail.returQuantity).toFixed(2));
+                    
+
                     correctionNoteItem.Uom = detail.purchaseOrderUom;
 
                     correctionNoteItem.PricePerDealUnitBefore = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
                     correctionNoteItem.PricePerDealUnitAfter = detail.pricePerDealUnitCorrection;
                     correctionNoteItem.PriceTotalBefore = parseFloat((detail.priceTotalCorrection).toFixed(2));
-                    correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
+                    // correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
+                    
+                    correctionNoteItem.PriceTotalAfter = parseFloat((detail.pricePerDealUnitCorrection*correctionNoteItem.Quantity).toFixed(2));
 
                     this.data.Items.push(correctionNoteItem);
                 }

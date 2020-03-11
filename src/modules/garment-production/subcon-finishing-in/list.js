@@ -4,30 +4,30 @@ import { Router } from 'aurelia-router';
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service,AuthService)
+@inject(Router, Service, AuthService)
 export class List {
     constructor(router, service, authService) {
         this.service = service;
         this.router = router;
-        this.authService=authService;
+        this.authService = authService;
     }
 
-    filter={};
-    
+    filter = {};
+
     activate(params) {
         let username = null;
         if (this.authService.authenticated) {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        this.filter={
-          CreatedBy: username,
-          FinishingInType: "PEMBELIAN"
+        this.filter = {
+            CreatedBy: username,
+            FinishingInType: "PEMBELIAN"
         }
-      }
+    }
 
     context = ["Rincian"];
-   
+
     columns = [
         { field: "FinishingInNo", title: "No Finishing In Subkon" },
         { field: "RONo", title: "RO" },
@@ -36,7 +36,6 @@ export class List {
         { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
         { field: "UnitCode", title: "Unit Finishing In Subkon" },
         { field: "FinishingInType", title: "Asal Barang" },
-        { field: "UnitFromCode", title: "Unit Asal" },
         { field: "FinishingInDate", title: "Tanggal Finishing In Subkon", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "ProductList", title: "Kode Barang", sortable: false },
     ]
@@ -51,15 +50,15 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter:JSON.stringify(this.filter)
+            filter: JSON.stringify(this.filter)
         }
 
         return this.service.search(arg)
             .then(result => {
-                
+
                 result.data.forEach(d => {
-                    d.UnitCode=d.Unit.Code;
-                    d.UnitFromCode=d.UnitFrom.Code;
+                    d.UnitCode = d.Unit.Code;
+                    d.UnitFromCode = d.UnitFrom.Code;
                     d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`;
                 });
                 return {

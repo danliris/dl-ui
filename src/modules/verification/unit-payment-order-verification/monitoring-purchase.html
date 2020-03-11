@@ -96,7 +96,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="PO of data" class="${PO.Position == 6 ?'danger': PO.Position == 4 || PO.Position == 3 || PO.Position == 9 ?'success':'primary'}">
+                    <tr repeat.for="PO of data" class="${ PO.Position == 4 || PO.Position == 3 || PO.Position == 9 ?'success':PO.Position == 8 || PO.Position == 6 ?'danger':'primary'}">
+                        
                         <td>${PO.InternalPurchaseOrderNo}</td>
                         <td>${PO.PurchaseRequestDate}</td>
                         <td>${PO.PurchaseRequestNo}</td>

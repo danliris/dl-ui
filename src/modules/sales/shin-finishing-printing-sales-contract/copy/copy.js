@@ -44,9 +44,10 @@ export class Copy {
         this.id = params.id;
         this.data = await this.service.getById(this.id);
         this.data.Date = new Date().toLocaleString();
-        this.copiedSPPFrom = this.data.CostCalculation.ProductionOrderNo;
-        this.data.SCNoSource = this.data.CostCalculation.PreSalesContract.No;
-
+        this.data.isCopy = true;
+        this.data.SCNoSource = this.data.SalesContractNo;
+        this.data.dataCC = await this.service.getCCbyPreSC(this.data.PreSalesContract.Id);
+        
 
     }
 
@@ -69,7 +70,7 @@ export class Copy {
 
     saveCallback(event) {
         this.clearDataProperties();
-        this.data.RemainingQuantity = this.data.CostCalculation.PreSalesContract.OrderQuantity + (this.data.CostCalculation.PreSalesContract.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
+        this.data.RemainingQuantity = this.data.PreSalesContract.OrderQuantity + (this.data.PreSalesContract.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
         this.service
             .create(this.data)
             .then(result => {

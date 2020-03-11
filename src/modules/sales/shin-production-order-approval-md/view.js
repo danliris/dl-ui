@@ -20,10 +20,6 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    edit(data) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
-
     print(){
         this.service.getPdfById(this.data.Id);
     }
@@ -35,10 +31,4 @@ export class View {
         });
     }
 
-    delete() {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
-            });
-    }
 }

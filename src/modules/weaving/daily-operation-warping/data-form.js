@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
 var MaterialLoader = require("../../../loader/weaving-material-type-loader");
-var Operator = require("../../../loader/weaving-operator-loader");
+// var Operator = require("../../../loader/weaving-operator-loader");
 
 @inject(Service, Router, BindingEngine)
 export class DataForm {
@@ -24,7 +24,7 @@ export class DataForm {
   @bindable BeamProductResult;
   @bindable AmountOfCones;
   @bindable ColourOfCone;
-  @bindable PreparationOperator;
+  // @bindable PreparationOperator;
   @bindable PreparationDate;
   @bindable PreparationTime;
   @bindable PreparationShift;
@@ -55,9 +55,9 @@ export class DataForm {
     return MaterialLoader;
   }
 
-  get operators() {
-    return Operator;
-  }
+  // get operators() {
+  //   return Operator;
+  // }
 
   // Bindable Method
   PreparationOrderChanged(newValue) {
@@ -102,9 +102,9 @@ export class DataForm {
     this.data.ColourOfCone = newValue;
   }
 
-  PreparationOperatorChanged(newValue) {
-    this.data.PreparationOperator = newValue.Id;
-  }
+  // PreparationOperatorChanged(newValue) {
+  //   this.data.PreparationOperator = newValue.Id;
+  // }
 
   PreparationDateChanged(newValue) {
     this.data.PreparationDate = moment(newValue).utcOffset("+07:00").format();

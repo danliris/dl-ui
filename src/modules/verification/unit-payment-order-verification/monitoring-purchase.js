@@ -40,7 +40,7 @@ export class List {
             "name": "Barang sudah diterima Unit semua",
             "value": 7
         }, {
-            "name": "Sudah dibuat SPB Sebagian",
+            "name": "Sudah dibuat SPB sebagian",
             "value": 8
         }, {
             "name": "Sudah dibuat SPB semua",
@@ -82,7 +82,6 @@ export class List {
             this.poState = this.poStates[0];
         this.service.searchPR({ prId: this.prId })
             .then(result => {
-                // console.log(data);
                 this.purchaseOrder = result.data.find((datum) => true).PurchaseRequestNo;
                 this.data = result.data.map(datum => {
                     datum.PurchaseRequestDate = moment(new Date(datum.PurchaseRequestDate)).format(dateFormat);
@@ -108,10 +107,12 @@ export class List {
                     else
                         datum.Position = 0;
 
-                    // console.log(datum);
-
+                    
+                    
                     return datum;
                 });
+                
+                
                 // this.isVerified(data).then(result => {
                 //     var dataPR = [];
                 //     var temp = {};

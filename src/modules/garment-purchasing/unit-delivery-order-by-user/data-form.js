@@ -265,11 +265,50 @@ export class DataForm {
         if(newValue){
             this.data.Article =newValue.Article;
             this.data.RONo = newValue.RONo;
+            this.data.Items = [];
+            this.dataItems = [];
+            Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
+                    .then(result => {
+                        if(result.data.length>0){
+                            for(var item of result.data){ 
+                                
+                                var Items = {};
+                                Items.URNItemId = item.Id;
+                                Items.URNNo = item.URNNo;
+                                Items.DODetailId = item.DODetailId;
+                                Items.URNId = item.URNId;
+                                Items.POItemId = item.POItemId;
+                                Items.EPOItemId = item.EPOItemId;
+                                Items.PRItemId = item.PRItemId;
+                                Items.RONo = item.RONo;
+                                Items.Article = item.Article;
+                                Items.POSerialNumber = item.POSerialNumber;
+                                Items.ProductId = item.ProductId;
+                                Items.ProductCode = item.ProductCode;
+                                Items.ProductName = item.ProductName;
+                                Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+                                Items.UomId = item.SmallUomId;
+                                Items.UomUnit = item.SmallUomUnit;
+                                Items.PricePerDealUnit = item.PricePerDealUnit;
+                                Items.DesignColor = item.DesignColor;
+                                Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                                //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                                Items.Quantity = Items.DefaultDOQuantity;
+                                Items.IsSave = Items.Quantity > 0;
+                                Items.IsDisabled = !(Items.Quantity > 0);
+                
+                                this.dataItems.push(Items);
+                            }
+                        }
+                        
+                        
+                    });
         }
         else{
             this.data.RONo =null;
             this.data.Article =null;
-            this.context.RONoJobViewModel.editorValue = "";
+            this.context.RONoViewModel.editorValue = "";
+            this.dataItems = [];
         }
             
     }
@@ -293,7 +332,7 @@ export class DataForm {
         else if (newValue) {
             this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
             this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
-            if(this.isProses){
+            //if(this.isProses || this.isTransfer){
                 Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
                     .then(result => {
                         if(result.data.length>0){
@@ -330,37 +369,37 @@ export class DataForm {
                         
                         
                     });
-            }
-            else{
-                for (var item of selectedro.Items) {
-                    var Items = {};
-                    Items.URNItemId = item.Id;
-                    Items.URNNo = item.URNNo;
-                    Items.DODetailId = item.DODetailId;
-                    Items.URNId = item.URNId;
-                    Items.POItemId = item.POItemId;
-                    Items.EPOItemId = item.EPOItemId;
-                    Items.PRItemId = item.PRItemId;
-                    Items.RONo = item.RONo;
-                    Items.Article = item.Article;
-                    Items.POSerialNumber = item.POSerialNumber;
-                    Items.ProductId = item.ProductId;
-                    Items.ProductCode = item.ProductCode;
-                    Items.ProductName = item.ProductName;
-                    Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
-                    Items.UomId = item.SmallUomId;
-                    Items.UomUnit = item.SmallUomUnit;
-                    Items.PricePerDealUnit = item.PricePerDealUnit;
-                    Items.DesignColor = item.DesignColor;
-                    Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
-                    //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
-                    Items.Quantity = Items.DefaultDOQuantity;
-                    Items.IsSave = Items.Quantity > 0;
-                    Items.IsDisabled = !(Items.Quantity > 0);
+            // }
+            // else{
+            //     for (var item of selectedro.Items) {
+            //         var Items = {};
+            //         Items.URNItemId = item.Id;
+            //         Items.URNNo = item.URNNo;
+            //         Items.DODetailId = item.DODetailId;
+            //         Items.URNId = item.URNId;
+            //         Items.POItemId = item.POItemId;
+            //         Items.EPOItemId = item.EPOItemId;
+            //         Items.PRItemId = item.PRItemId;
+            //         Items.RONo = item.RONo;
+            //         Items.Article = item.Article;
+            //         Items.POSerialNumber = item.POSerialNumber;
+            //         Items.ProductId = item.ProductId;
+            //         Items.ProductCode = item.ProductCode;
+            //         Items.ProductName = item.ProductName;
+            //         Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+            //         Items.UomId = item.SmallUomId;
+            //         Items.UomUnit = item.SmallUomUnit;
+            //         Items.PricePerDealUnit = item.PricePerDealUnit;
+            //         Items.DesignColor = item.DesignColor;
+            //         Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+            //         //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+            //         Items.Quantity = Items.DefaultDOQuantity;
+            //         Items.IsSave = Items.Quantity > 0;
+            //         Items.IsDisabled = !(Items.Quantity > 0);
     
-                    this.dataItems.push(Items);
-                }
-            }
+            //         this.dataItems.push(Items);
+            //     }
+            //}
             
         }
         
