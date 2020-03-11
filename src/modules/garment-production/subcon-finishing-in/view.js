@@ -21,6 +21,10 @@ export class View {
                 size: item.Size.Size,
                 uom: item.Uom.Unit
             }, item));
+
+            if (item.RemainingQuantity < item.Quantity) {
+                this.deleteCallback = null;
+            }
         }
 
         this.data.Supplier = {};
