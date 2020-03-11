@@ -1,18 +1,12 @@
-import { bindable, inject } from "aurelia-framework";
-import { Service } from "./service";
+import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
+import { Service } from "./service";
 
 @inject(Router, Service)
 export class Edit {
-  hasCancel = true;
-  hasSave = true;
-
-  @bindable data;
-  @bindable error;
-
   constructor(router, service) {
-    this.service = service;
     this.router = router;
+    this.service = service;
   }
 
   async activate(params) {
@@ -20,15 +14,15 @@ export class Edit {
     this.data = await this.service.getById(id);
   }
 
-  cancel(event) {
+  view(data) {
     this.router.navigateToRoute("view", { id: this.data.Id });
   }
 
-  save(event) {
+  save() {
     this.service
       .update(this.data)
       .then(result => {
-        this.cancel();
+        this.view();
       })
       .catch(e => {
         this.error = e;

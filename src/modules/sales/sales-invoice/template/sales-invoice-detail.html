@@ -1,0 +1,23 @@
+<template replace-part="item">
+    <tr>
+        <td>
+            <au-autocomplete value.bind="selectedShipmentDocument" error.bind="error.ShipmentDocumentCode"
+                read-only.bind="readOnly" loader.bind="shipmentDocumentLoader" key="Code" text="Code"
+                keypress.delegate="enterDelegate($event)" placeholder="Pilih No. Bon Pengiriman Barang">
+            </au-autocomplete>
+
+            <au-textbox error.bind="error.SalesInvoiceDetailItem" read-only.bind="true"></au-textbox>
+
+            <au-collection show.bind="selectedShipmentDocument" columns.bind="salesInvoiceDetailItemsInfo.columns" items.bind="data.SalesInvoiceDetailItems"
+                errors.bind="error.SalesInvoiceDetailItems" read-only.bind="readOnly"
+                options.bind="shipmentDocumentTableOptions"
+                item-template="modules/sales/sales-invoice/template/sales-invoice-detail-item"
+                view-model.ref="SalesInvoiceDetailItemsCollection">
+            </au-collection>
+        </td>
+        <td if.bind="!option.readOnly">
+            <button if.bind="!option.readOnly" class="btn btn-danger pull-right"
+                click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>
