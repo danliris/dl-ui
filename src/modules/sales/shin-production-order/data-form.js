@@ -127,30 +127,55 @@ export class DataForm {
     if (newVal) {
       console.log(newVal)
       this.data.FinishingPrintingSalesContract = newVal;
-      this.data.Buyer = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name;
-      this.data.Unit = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit ?
-        this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name : "";
-      this.data.BuyerType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Type;
-      this.data.ProcessType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name;
-      this.data.OrderNo = this.data.FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo;
-      this.data.OrderType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.OrderType.Name;
+      this.data.Buyer = this.data.FinishingPrintingSalesContract.PreSalesContract.Buyer.Name;
+      this.data.Unit = this.data.FinishingPrintingSalesContract.PreSalesContract.Unit ?
+        this.data.FinishingPrintingSalesContract.PreSalesContract.Unit.Name : "";
+      this.data.BuyerType = this.data.FinishingPrintingSalesContract.PreSalesContract.Buyer.Type;
+      this.data.ProcessType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.Name;
+      // this.data.OrderNo = this.data.FinishingPrintingSalesContract.ProductionOrderNo;
+      this.data.OrderType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.OrderType.Name;
 
-      this.data.Material = this.data.FinishingPrintingSalesContract.CostCalculation.Material.Name;
-      this.data.MaterialConstruction = this.data.FinishingPrintingSalesContract.MaterialConstruction.Name;
+      this.data.Material = this.data.FinishingPrintingSalesContract.Material.Name;
+      // this.data.MaterialConstruction = this.data.FinishingPrintingSalesContract.MaterialConstruction.Name;
       this.Material = this.data.Material;
       this.data.YarnMaterial = this.data.FinishingPrintingSalesContract.YarnMaterial.Name;
-      this.data.MaterialWidth = this.data.FinishingPrintingSalesContract.MaterialWidth;
-      this.orderQuantity = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.OrderQuantity;
+      // this.data.MaterialWidth = this.data.FinishingPrintingSalesContract.MaterialWidth;
+      if (this.data.Id) {
+
+        this.orderQuantity = this.data.OrderQuantity;
+      } else {
+
+        this.orderQuantity = this.data.FinishingPrintingSalesContract.PreSalesContract.OrderQuantity;
+      }
       this.data.OrderQuantity = this.orderQuantity;
-      this.data.UOM = this.data.FinishingPrintingSalesContract.CostCalculation.UOM.Unit;
+      this.data.UOM = this.data.FinishingPrintingSalesContract.UOM.Unit;
       this.shippingQuantityTolerance = this.data.FinishingPrintingSalesContract.ShippingQuantityTolerance;
       this.data.ShippingQuantityTolerance = this.shippingQuantityTolerance;
       this.data.Quality = this.data.FinishingPrintingSalesContract.Quality ?
         this.data.FinishingPrintingSalesContract.Quality.Name : "";
-      this.data.SalesContractType = this.data.FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Type;
+      this.data.SalesContractType = this.data.FinishingPrintingSalesContract.PreSalesContract.Type;
       this.data.Packing = this.data.FinishingPrintingSalesContract.Packing;
       this.data.DeliveryDate = this.data.FinishingPrintingSalesContract.DeliverySchedule
-      this.account = this.data.FinishingPrintingSalesContract.CostCalculation.Sales;
+      this.account = this.data.FinishingPrintingSalesContract.Sales;
+
+
+
+      if (!this.data.Id) {
+        this.data.Details = [];
+        for (var item of this.data.FinishingPrintingSalesContract.Details) {
+          var newDetail = {
+            Uom: this.data.FinishingPrintingSalesContract.UOM,
+            // uomId: this.data.uom._id,
+            ColorRequest: item.Color,
+            ColorTemplate: '',
+            Quantity: 0,
+            Printing: this.isPrinting,
+            ProductionOrderNo: item.ProductionOrderNo
+          };
+          this.data.Details.push(newDetail);
+        }
+      }
+
     } else {
       this.data = {};
       this.data.Details = [];
@@ -164,7 +189,7 @@ export class DataForm {
   }
 
   getSCText = (text) => {
-    return text.CostCalculation.PreSalesContract.No;
+    return text.SalesContractNo;
   }
 
   RUNChanged(e) {
@@ -256,7 +281,7 @@ export class DataForm {
   get addDetail() {
     return (event) => {
       var newDetail = {
-        Uom: this.data.FinishingPrintingSalesContract.CostCalculation.UOM,
+        Uom: this.data.FinishingPrintingSalesContract.UOM,
         // uomId: this.data.uom._id,
         ColorRequest: '',
         ColorTemplate: '',

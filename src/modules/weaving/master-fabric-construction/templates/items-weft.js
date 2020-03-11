@@ -11,6 +11,7 @@ export class ItemsWeft {
     this.service = service;
     this.bindingEngine = bindingEngine;
     this.Yarn = {};
+    this.formatData = "0,000.0000";
   }
 
   get yarnsWeft() {

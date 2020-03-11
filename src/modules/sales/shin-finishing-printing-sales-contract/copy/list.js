@@ -30,6 +30,6 @@ export class List {
     }
 
     salesContractView(sc) {
-        return sc.CostCalculation.ProductionOrderNo;
+        return sc.SalesContractNo;
     }
 }

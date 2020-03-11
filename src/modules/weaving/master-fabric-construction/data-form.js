@@ -23,6 +23,7 @@ export class DataForm {
 
   constructor(service) {
     this.service = service;
+    this.formatData = "0,000.0000";
   }
   ConstructionWarpsDetailOptions = {};
   ConstructionWeftsDetailOptions = {};

@@ -741,8 +741,8 @@ module.exports = [
             permission: {"B1": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-      },
-      {
+    },
+    {
           route: 'accounting/accounting-stock-report',
           name: 'accounting-stock-report',
           moduleId: './modules/accounting/reports/accounting-stock-report/index',
@@ -754,7 +754,7 @@ module.exports = [
               permission: {"B1": 1, "C9": 1},
               iconClass: 'fa fa-dashboard'
           }
-        }
+    },
     // {
     //   route: 'garment-purchase-order/purchase-book-report',
     //   name: 'garment-purchasing-book-report',
@@ -768,5 +768,18 @@ module.exports = [
     //       iconClass: 'fa fa-dashboard'
     //   }
     // }
+    {
+      route: 'garment-purchase-order/garment-intern-note-payment-status-report',
+      name: 'garment-intern-note-payment-status-report',
+      moduleId: './modules/garment-purchasing/reports/garment-intern-note-payment-status-report/index',
+      nav: true,
+      title: 'Laporan Status Bayar Nota Intern',
+      auth: true,
+      settings: {
+          group: "g-purchasing",
+          permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+          iconClass: 'fa fa-dashboard'
+      }
+    }
 
 ]
