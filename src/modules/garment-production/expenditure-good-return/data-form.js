@@ -20,7 +20,7 @@ export class DataForm {
         this.salesService=salesService;
         this.purchasingService=purchasingService;
     }
-    expenditureTypes=["EXPORT","LAIN-LAIN","SAMPLE"];
+    
 
     formOptions = {
         cancelText: "Kembali",
@@ -69,7 +69,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
             };
             return this.service.getExpenditureGood(info)
                 .then((result) => {
@@ -146,7 +146,7 @@ export class DataForm {
             else{
                 this.data.Price=0;
             }
-            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id}) }))
+            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"}) }))
                     .then(result => {
                         for(var exGood of result.data){
                             for(var exGoodItem of exGood.Items){
@@ -186,8 +186,8 @@ export class DataForm {
     itemsInfo = { 
         columns: [
             "Size",
-            "Jumlah Tersedia",
-            "Jumlah Keluar",
+            "Jumlah Pengeluaran",
+            "Jumlah Retur",
             "Satuan",
             "Keterangan",
         ]
@@ -196,7 +196,7 @@ export class DataForm {
     itemsInfoNotCreate = { 
         columns: [
             "Size",
-            "Jumlah Keluar",
+            "Jumlah Retur",
             "Satuan",
             "Keterangan",
         ]

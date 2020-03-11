@@ -61,7 +61,7 @@ export class List {
             { title: 'Kasir', colspan: 5 },
 
             { field: 'ExternalPurchaseOrderNo', title: 'PO Eksteranl', rowspan: 2, sortable: true },
-            { field: 'UnitPaymenOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
+            { field: 'UnitPaymentOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
             { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
 
             { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },

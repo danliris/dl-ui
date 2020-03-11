@@ -19,6 +19,15 @@ export class View {
         };
         this.selectedUnit=this.data.Unit;
         this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
+        this.editCallback=null;
+
+        for(var item of this.data.Items){
+            let finGood= await this.service.getFinishedGoodById(item.FinishedGoodStockId);
+
+            if(finGood.Quantity-item.Quantity<0){
+                this.deleteCallback=null;break;
+            }
+        }
     }
 
     cancelCallback(event) {

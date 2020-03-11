@@ -1,5 +1,6 @@
 <template>
-    <h1 class="page-header">Monitoring Pengeluaran Hasil Produksi</h1>
+        <require from="../../../lib/number-format-value-converter"></require>
+    <h1 class="page-header">Laporan Traceable Keluar</h1>
     <form class="form-horizontal">
 
 
@@ -9,7 +10,7 @@
         value.bind="BCNo"
         error.bind="error.Description"
         
-        label="No BC Keluar"
+        label="No Dokumen"
         loader.bind="bcnoLoader"
         query.bind="filterQuery"
         options.bind="controlOptions">
@@ -116,16 +117,16 @@
                 <tbody>
                     <tr repeat.for="IN of data">
                         <td >${$index+1}</td>
-                        <td >${IN.ExpenditureDate | dateFormat:'D MMM YYYY'}</td>
+                        <td >${IN.ExpenditureDate | dateFormat:'DD MMM YYYY'}</td>
                         <td >${IN.ExpenditureGoodId}</td>
                         <td >${IN.ComodityName}</td>
-                        <td >${IN.Qty}</td>
+                        <td >${IN.Qty | numberFormat: '0,000.00'}</td>
                         <td>${IN.UnitQtyName}</td>
                         <td >${IN.ExpenditureNo}</td>
                         <td >${IN.BuyerName}</td>
                         <td >${IN.BCType}</td>
                         <td>${IN.BCNo}</td>
-                        <td>${IN.BCDate | dateFormat:'D MMM YYYY' }</td>
+                        <td>${IN.BCDate | dateFormat:'DD MMM YYYY' }</td>
                         <td>${IN.RO}</td>
                     </tr>
                 </tbody>
@@ -164,11 +165,11 @@
                             <td >${IN.DestinationJob}</td>
                             <td >${IN.ItemCode}</td>
                             <td >${IN.ItemName}</td>
-                            <td >${IN.SmallestQuantity}</td>
+                            <td >${IN.SmallestQuantity | numberFormat: '0,000.00'}</td>
                             <td >${IN.UnitQtyName}</td>
                             <td >${IN.BCType}</td>
                             <td >${IN.BCNo}</td>
-                            <td>${IN.BCDate | dateFormat:'D MMM YYYY' }</td>  
+                            <td>${IN.BCDate | dateFormat:'DD MMM YYYY' }</td>  
                         </tr>
                     </tbody>
                 </table>

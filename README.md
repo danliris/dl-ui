@@ -19,9 +19,9 @@
 #### Weaving API Documentation https://com-danliris-service-weaving.azurewebsites.net/swagger/index.html
 ### 10. com-danliris-service-spinning [![Build Status](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_apis/build/status/DMS.Spinning-ASP.NET-CI?branchName=dev)](https://dev.azure.com/moonlay-danliris/DMS.Spinning/_build/latest?definitionId=5&branchName=dev)
 #### Spinning API Documentation https://com-danliris-service-spinning.azurewebsites.net/swagger/index.html
-### 11. com-danliris-service-merchandiser [![Build Status](https://travis-ci.com/danliris/com-danliris-service-merchandiser.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-merchandiser)
+### 11. com-danliris-service-merchandiser [![Build Status](https://travis-ci.com/danliris/com-danliris-service-merchandiser.svg?branch=dev)](https://travis-ci.com/danliris/com-danliris-service-merchandiser) [![Maintainability](https://api.codeclimate.com/v1/badges/0a3fba7ce44128e0b3c7/maintainability)](https://codeclimate.com/github/danliris/com-danliris-service-merchandiser/maintainability)
 ### 12. com-danliris-service-deal-tracking [![Build Status](https://travis-ci.org/danliris/com-danliris-service-deal-tracking.svg?branch=dev)](https://travis-ci.org/danliris/com-danliris-service-deal-tracking) [![Maintainability](https://api.codeclimate.com/v1/badges/cface468531352053923/maintainability)](https://codeclimate.com/github/danliris/com-danliris-service-deal-tracking/maintainability)
-### 13. com.danliris.service.support [![Build Status](https://travis-ci.org/danliris/com.danliris.service.support.svg?branch=dev)](https://travis-ci.org/danliris/com.danliris.service.support)
+### 13. com.danliris.service.support [![Build Status](https://travis-ci.org/danliris/com.danliris.service.support.svg?branch=dev)](https://travis-ci.org/danliris/com.danliris.service.support) [![Maintainability](https://api.codeclimate.com/v1/badges/1afc50a54aed0f751224/maintainability)](https://codeclimate.com/github/danliris/com.danliris.service.support/maintainability)
 
 
 # aurelia-skeleton-webpack

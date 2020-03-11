@@ -40,44 +40,41 @@
       </button>
     </div>
   </div>
-  <!-- if.bind="data.Headers.length > 0 && data.ProcessedList.length > 0" -->
-  <div class="table-responsive"if.bind="data.HeaderSuppliers.length > 0 &&data.HeaderWarps.length > 0 && data.BodyBrokens.length > 0">
+  
+  <!-- if.bind="data.HeaderSuppliers.length > 0 &&data.HeaderWarps.length > 0 && data.BodyBrokens.length > 0" -->
+  <div class="table-responsive">
     <table class="table table-bordered table-hover" border="1" id="myTable">
-      <thead align="center">
+      <thead align="center" style="vertical-align: middle;">
         <tr>
-          <td rowspan="3" style="vertical-align: middle;"> No</td>
-          <td>Jenis Benang</td>
-          <td repeat.for="headerSupplier of data.HeaderSuppliers" colspan.bind="headerSupplier.Span" >${supplier.Unit}</td>
+          <td colspan="2">Penyebab</td>
+          <td rowspan="2" repeat.for="headerBroken of data.HeaderBrokens">${headerBroken.BrokenName}</td>
+          <td rowspan="2">Total</td>
+          <td rowspan="2">Max</td>
+          <td rowspan="2">Min</td>
+          <td rowspan="2">Average</td>
         </tr>
         <tr>
-          <td>Jenis & No Benang</td>
-          <td rowspan="2" style="vertical-align: middle;" repeat.for="headerWarp of data.HeaderWarps">${headerWarp.WarpName}</td>
-        </tr>
-        <tr>
-          <td>Penyebab</td>
+          <td>Asal Benang</td>
+          <td>Jenis & No. Benang</td>
         </tr>
       </thead>
-      <tbody>
-        <tr repeat.for="bodyBroken of data._BodyBrokens">
-          <td>${bodyBroken.IndexNumber}</td>
-          <td>${bodyBroken.BrokenName}</td>
-          <td repeat.for="brokenValue of bodyBroken._BrokenValueList">${brokenValue.BrokenValue}</td>
+
+      <tbody align="center" style="vertical-align: middle;">      
+        <!-- <div repeat.for -->
+        <tr repeat.for="bodyBroken of data.BodyBrokensValue">
+          <td rowspan.bind="bodyBroken.YarnNameRowSpan">${bodyBroken.SupplierName}</td>
+          <!-- <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.YarnName}</td> -->
+          <!-- <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.TotalBrokenEachYarnValue}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.TotalAllBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.MaxBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.MinBroken}</td>
+          <td repeat.for="brokenEachYarn of bodyBroken.ListOfYarn">${brokenEachYarn.LastMonthAverageBroken}</td> -->
         </tr>
+
+        <!-- <tr repeat.for="bodyBroken_ of data.BodyBrokensValue">
+          <td repeat.for="brokenEachYarn of bodyBroken_.ListOfYarn">${brokenEachYarn.YarnName}</td>
+        </tr> -->
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan.bind="2" repeat.for="TotalBrokenValue of data._Footers.TotalBrokenValue">${TotalBrokenValue}</td>
-        </tr>
-        <tr >
-          <td colspan.bind="2"repeat.for="MaxBrokenValue of data._Footers.MaxBrokenValue">${MaxBrokenValue}</td>
-        </tr>
-        <tr >
-          <td colspan.bind="2"repeat.for="MinBrokenValue of data._Footers.MinBrokenValue">${MinBrokenValue}</td>
-        </tr>
-        <tr >
-          <td colspan.bind="2"repeat.for="LastMonthAverageBrokenValue of data._Footers.LastMonthAverageBrokenValue">${LastMonthAverageBrokenValue}</td>
-        </tr>
-      </tfoot>
     </table>
   </div>
   <div class="alert alert-info text-center" role="alert" if.bind="data.Headers && data.Headers.length === 0">

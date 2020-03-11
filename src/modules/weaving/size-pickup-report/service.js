@@ -14,6 +14,18 @@ import {
 var moment = require('moment');
 
 const serviceUri = 'weaving/daily-operations-sizing';
+const shiftUri = 'weaving/shifts';
+
+export class ShiftService extends RestService {
+  constructor(http, aggregator, config, api) {
+      super(http, aggregator, config, "weaving");
+  }
+
+  getShiftData(info) {
+      var endpoint = `${shiftUri}`;
+      return super.list(endpoint, info);
+  }
+}
 
 export class Service extends RestService {
 
