@@ -80,7 +80,7 @@ module.exports = [
     },
     {
         route: 'production/finishing-printing/reports/daily-operation-snapshot',
-        name: 'snapshot-dailys',
+        name: 'snapshot-dailies',
         moduleId: './modules/production/finishing-printing/reports/daily-operation-snapshot/index',
         nav: true,
         title: 'Laporan Daily Operation',
