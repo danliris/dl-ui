@@ -2,8 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "product-packings";
-const serviceUriProductSKU = "product-skus"
+const serviceUri = "inventory-movement-packings";
 
 export class Service extends RestService {
 
@@ -18,11 +17,6 @@ export class Service extends RestService {
 
     getById(id) {
         let endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
-    }
-
-    getSKUById(id) {
-        let endpoint = `${serviceUriProductSKU}/${id}`;
         return super.get(endpoint);
     }
 
