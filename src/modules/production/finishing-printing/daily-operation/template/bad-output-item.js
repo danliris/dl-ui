@@ -2,7 +2,7 @@ import { bindable } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 var BadOutputReasonLoader = require('../../../../../loader/bad-output-reason-loader');
-var MachineLoader = require('../../../../../loader/machines-loader');
+var MachineLoader = require('../../../../../loader/dyeing-printing-machines-loader');
 
 const resource = 'finishing-printing/daily-operations';
 
