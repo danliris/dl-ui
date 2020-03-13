@@ -11,6 +11,7 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.BC = ['','BCDL', 'SELAIN BCDL'];
     }
    
     unitName=null;    
@@ -45,7 +46,8 @@ export class List {
             supplierType : this.supplierType ? this.supplierType : "",
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
         }
         this.service.search(info)
             .then(result => {
