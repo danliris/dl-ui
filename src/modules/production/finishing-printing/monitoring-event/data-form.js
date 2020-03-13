@@ -3,7 +3,7 @@ import { Service } from './service';
 import { debug } from 'util';
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis')
-var MachineLoader = require('../../../../loader/machines-loader');
+var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var MachineEventLoader = require('../../../../loader/machine-event-loader');
 
