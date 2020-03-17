@@ -19,7 +19,7 @@
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.TyingOperator.Group"
+      <au-textbox value.bind="data.TyingOperatorGroup"
                   error.bind="error.TyingOperatorGroup"
                   read-only.bind="true">
       </au-textbox>
@@ -37,24 +37,24 @@
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.LoomOperator.Group"
+      <au-textbox value.bind="data.LoomOperatorGroup"
                   error.bind="error.LoomOperatorGroup"
                   read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
       <au-textbox value.bind="data.OperationDate"
-                     error.bind="error.MachineDate"
+                     error.bind="error.OperationDate"
                      read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.OperationTime"
-                     error.bind="error.MachineTime"
+      <au-textbox value.bind="data.PreparationTime"
+                     error.bind="error.PreparationTime"
                      read-only.bind="true">
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Shift.Name"
+      <au-textbox value.bind="data.PreparationShiftName"
                   error.bind="error.Shift"
                   read-only.bind="true">
       </au-textbox>
@@ -67,7 +67,7 @@
     </td>
     <td class="col-sm-1">
       <button class="btn btn-danger pull-right"
-              click.delegate="onremove(beamData, $event)">
+              click.delegate="onremove(beamData, $event)" style="align-items: center;">
         Hapus
       </button>
     </td>
