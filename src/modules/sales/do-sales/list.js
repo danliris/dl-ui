@@ -8,16 +8,9 @@ export class List {
   context = ["Detail", "Cetak DO Penjualan"];
 
   columns = [
-    // { field: "DOSalesNo", title: "No. DO Penjualan" },
-    // {
-    //   field: "DOSalesNo",
-    //   title: "Tgl DO Penjualan",
-    //   formatter: (value, data, index) => {
-    //     return moment(value).format("DD-MMM-YYYY");
-    //   }
-    // },
-    // { field: "DOSalesNo", title: "No. Surat Jalan" },
+    { field: "Code", title: "Kode Surat" },
     { field: "DOSalesNo", title: "Kode Pengiriman" },
+    { field: "DOSalesType", title: "Type DO" },
   ];
 
   rowFormatter(data, index) {

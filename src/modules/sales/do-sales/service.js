@@ -1,8 +1,8 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/do-sales";
-const salesContractServiceUri = "sales/finishing-printing-pre-sales-contracts";
-const productionOrderServiceUri = "sales/production-orders/shin";
+const salesContractServiceUri = "sales/finishing-printing-sales-contracts";
+const productionOrderServiceUri = "sales/production-orders";
 const buyerServiceUri = "master/buyers";
 
 export class Service extends RestService {
@@ -35,10 +35,20 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getPdfById(id) {
-    var endpoint = `${serviceUri}/pdf/${id}`;
+  getDOSalesPdfById(id) {
+    var endpoint = `${serviceUri}/doSalesPdf/${id}`;
     return super.getPdf(endpoint);
   }
+
+  // getDOSalesLocalPdfById(id) {
+  //   var endpoint = `${serviceUri}/doSalesLocalPdf/${id}`;
+  //   return super.getPdf(endpoint);
+  // }
+  
+  // getDOSalesExportPdfById(id) {
+  //   var endpoint = `${serviceUri}/doSalesExportPdf/${id}`;
+  //   return super.getPdf(endpoint);
+  // }
 
   searchSalesContract(info) {
     var endpoint = `${salesContractServiceUri}`;
@@ -51,8 +61,8 @@ export class Service extends RestService {
     return super.get(endpoint, null, info);
   }
 
-  getProductionOrderBySalesContractNo(salesContractNo) {
-    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractNo}`;
+  getProductionOrderBySalesContractId(salesContractId) {
+    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractId}`;
     return super.list(endpoint);
   }
 }
