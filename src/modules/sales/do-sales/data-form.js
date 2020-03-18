@@ -58,7 +58,7 @@ export class DataForm {
       this.fillEachBale = this.data.FillEachBale;
     }
 
-    if (this.data.DOSalesType == "Lokal" && !this.data.LocalSalesContract.Id) {
+    if (this.data.DOSalesType == "Lokal" && this.data.LocalSalesContract.Id) {
       this.selectedLocalSalesContract = await this.service.getSalesContractById(
         this.data.LocalSalesContract.Id,
         this.localSalesContractFields

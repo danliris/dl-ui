@@ -154,7 +154,7 @@
       </div>
     </div>
 
-    <au-textbox show.bind="error.LocalType" error.bind="error.LocalItem" read-only.bind="true"></au-textbox>
+    <au-textbox show.bind="DOSalesLocalItemsCollection" error.bind="error.LocalItem" read-only.bind="true"></au-textbox>
 
     <au-collection if.bind="data.DOSalesType =='Lokal'" columns.bind="doSalesLocalItemsInfo.columns"
       items.bind="data.DOSalesLocalItems" errors.one-way="error.DOSalesLocalItems" read-only.bind="readOnly"
