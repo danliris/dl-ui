@@ -59,65 +59,66 @@
         </div>
     </form>
     <br> </br>
-    <div class="table-responsive" if.bind="data">
-        <h4 if.bind="data"> <b>Preparing</b>  </h4>
-        <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="data"> <b>Jumlah Total Preparing :  ${totalQuantity}</b> </h5>
+    <div class="row">
+        <div class="col-md-6">
+                <div class="table-responsive" if.bind="data">
+                    <h4 if.bind="data"> <b>Preparing</b>  </h4>
+                    <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="data"> <b>Jumlah Total Preparing :  ${totalQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+                <div class="table-responsive" if.bind="cuttingData">
+                    <h4 if.bind="cuttingData"> <b>Cutting</b>  </h4>
+                    <table ref="cuttingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="cuttingData"> <b>Jumlah Total Cutting :  ${totalCutQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+                <div class="table-responsive" if.bind="loadingData">
+                    <h4 if.bind="loadingData"> <b>Loading</b>  </h4>
+                    <table ref="loadingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="loadingData"> <b>Jumlah Total Loading :  ${totalLoadingQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+        </div>
+            <div class="col-md-6">
+                <div class="table-responsive" if.bind="sewingData">
+                    <h4 if.bind="sewingData"> <b>Sewing</b>  </h4>
+                    <table ref="sewingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="sewingData"> <b>Jumlah Total Sewing :  ${totalSewingQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+                <div class="table-responsive" if.bind="finishingData">
+                    <h4 if.bind="finishingData"> <b>Finishing</b>  </h4>
+                    <table ref="finishingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="finishingData"> <b>Jumlah Total Finishing :  ${totalFinishingQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+                <div class="table-responsive">
+                    <h4 if.bind="expenditureData"> <b>Gudang Jadi</b>  </h4>
+                    <table if.bind="data" ref="expenditureTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
+                    <h5 if.bind="expenditureData"> <b>Jumlah Total Barang Jadi :  ${totalExpenditureQuantity}</b> </h5>
+                </div>
+                <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+                    Tidak ada data.
+                </div>
+            <hr/>
+        </div>
     </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
-  <br> </br>
-    <div class="table-responsive" if.bind="cuttingData">
-        <h4 if.bind="cuttingData"> <b>Cutting</b>  </h4>
-        <table ref="cuttingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="cuttingData"> <b>Jumlah Total Cutting :  ${totalCutQuantity}</b> </h5>
-    </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
-  <br> </br>
-    <div class="table-responsive" if.bind="loadingData">
-        <h4 if.bind="loadingData"> <b>Loading</b>  </h4>
-        <table ref="loadingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="loadingData"> <b>Jumlah Total Loading :  ${totalLoadingQuantity}</b> </h5>
-    </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
-  <br> </br>
-    <div class="table-responsive" if.bind="sewingData">
-        <h4 if.bind="sewingData"> <b>Sewing</b>  </h4>
-        <table ref="sewingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="sewingData"> <b>Jumlah Total Sewing :  ${totalSewingQuantity}</b> </h5>
-    </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
-  <br> </br>
-    <div class="table-responsive" if.bind="finishingData">
-        <h4 if.bind="finishingData"> <b>Finishing</b>  </h4>
-        <table ref="finishingTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="finishingData"> <b>Jumlah Total Finishing :  ${totalFinishingQuantity}</b> </h5>
-    </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
-  <br> </br>
-    <div class="table-responsive">
-        <h4 if.bind="expenditureData"> <b>Gudang Jadi</b>  </h4>
-        <table if.bind="data" ref="expenditureTable" class="table table-bordered table-hover" border="1" id="myTable"></table>
-        <h5 if.bind="expenditureData"> <b>Jumlah Total Barang Jadi :  ${totalExpenditureQuantity}</b> </h5>
-    </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-        Tidak ada data.
-    </div>
-  <hr/>
     </au-input-form>
     <div class="row"></div>
   </template>
