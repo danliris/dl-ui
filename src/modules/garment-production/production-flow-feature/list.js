@@ -91,7 +91,7 @@ export class List {
                                     this.cuttingData.push(dataItem);
                                 }
                                 else{
-                                    var same= this.cuttingData.find(s=>s.color==detail.Color);
+                                    var same= this.cuttingData.find(s=>s.color==detail.Color && s.CuttingNo==cutting.CutOutNo);
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["CuttingNo"]=cutting.CutOutNo;
@@ -136,7 +136,7 @@ export class List {
                                     this.loadingData.push(dataItem);
                                 }
                                 else{
-                                    var same= this.loadingData.find(s=>s.color==detail.Color);
+                                    var same= this.loadingData.find(s=>s.color==detail.Color && s.loadingNo==loading.LoadingNo);
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["loadingNo"]=loading.LoadingNo;
@@ -212,7 +212,7 @@ export class List {
                                         this.sewingData.push(dataItem);
                                     }
                                     else{
-                                        var same= this.sewingData.find(s=>s.color==item.Color);
+                                        var same= this.sewingData.find(s=>s.color==item.Color && s.sewingNo==sewing.SewingOutNo);
                                         if(!same){
                                             dataItem["color"]=item.Color;
                                             dataItem["sewingNo"]=sewing.SewingOutNo;
@@ -292,7 +292,7 @@ export class List {
                                             this.finishingData.push(dataItem);
                                         }
                                         else{
-                                            var same= this.finishingData.find(s=>s.color==item.Color);
+                                            var same= this.finishingData.find(s=>s.color==item.Color && s.finishingNo==finishing.FinishingOutNo);
                                             if(!same){
                                                 dataItem["color"]=item.Color;
                                                 dataItem["finishingNo"]=finishing.FinishingOutNo;
@@ -340,7 +340,7 @@ export class List {
                                                 this.expenditureData.push(dataItem);
                                             }
                                             else{
-                                                var same= this.expenditureData.find(s=>s.color==item.Description);
+                                                var same= this.expenditureData.find(s=>s.color==item.Description && s.expenditureNo==expenditure.ExpenditureGoodNo);
                                                 if(!same){
                                                     dataItem["color"]=item.Description;
                                                     dataItem["expenditureNo"]=expenditure.ExpenditureGoodNo;
@@ -392,6 +392,7 @@ export class List {
           fixedColumns: true,
           fixedNumber: 1
         };
+        bootstrapTableOptions.height = 150;
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         //CUTTING
@@ -411,6 +412,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapCuttingTableOptions.height = 150;
         $(this.cuttingTable).bootstrapTable('destroy').bootstrapTable(bootstrapCuttingTableOptions);
 
         //LOADING
@@ -430,6 +432,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapLoadingTableOptions.height = 150;
         $(this.loadingTable).bootstrapTable('destroy').bootstrapTable(bootstrapLoadingTableOptions);
         
         //SEWING
@@ -449,6 +452,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapSewingTableOptions.height = 150;
         $(this.sewingTable).bootstrapTable('destroy').bootstrapTable(bootstrapSewingTableOptions);
     
         //FINISHING
@@ -468,6 +472,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapFinishingTableOptions.height = 150;
         $(this.finishingTable).bootstrapTable('destroy').bootstrapTable(bootstrapFinishingTableOptions);
     
         //EXGOOD
@@ -487,6 +492,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapExpenditureTableOptions.height = 150;
         $(this.expenditureTable).bootstrapTable('destroy').bootstrapTable(bootstrapExpenditureTableOptions);
     
     }
