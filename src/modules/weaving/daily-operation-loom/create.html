@@ -136,7 +136,8 @@
 
           <!-- No Mesin Tying -->
           <div class="row"
-               style="white-space: nowrap;" show.bind="isTying">
+               style="white-space: nowrap;"
+               show.bind="isTying">
             <div class="col-md-2"
                  style="text-align:left;">
               <textbox label="No. Mesin Tying"
@@ -145,7 +146,7 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete value.bind="TyingMachineNumber"
-                               error.bind="error.TyingMachineNumber"
+                               error.bind="error.TyingMachineNumberId"
                                read-only.bind="readOnly"
                                loader.bind="machines"
                                text="MachineNumber"></au-autocomplete>
@@ -154,7 +155,8 @@
 
           <!-- Operator Tying dan Grup Tying -->
           <div class="row"
-               style="white-space: nowrap;"show.bind="isTying">
+               style="white-space: nowrap;"
+               show.bind="isTying">
             <div class="col-md-2"
                  style="text-align:left;">
               <textbox label="Operator Tying"
@@ -163,7 +165,7 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete value.bind="TyingOperator"
-                               error.bind="error.TyingOperator"
+                               error.bind="error.TyingOperatorId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -193,7 +195,7 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete value.bind="LoomMachineNumber"
-                               error.bind="error.LoomMachineNumber"
+                               error.bind="error.LoomMachineNumberId"
                                read-only.bind="readOnly"
                                loader.bind="machines"
                                text="MachineNumber"></au-autocomplete>
@@ -211,7 +213,7 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete value.bind="LoomOperator"
-                               error.bind="error.LoomOperator"
+                               error.bind="error.LoomOperatorId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -288,6 +290,23 @@
             </div>
           </div>
 
+          <!-- Proses -->
+          <div class="row"
+               style="white-space: nowrap;">
+            <div class="col-md-2"
+                 style="text-align:left;">
+              <textbox label="Proses"
+                       read-only="true"
+                       style="display:inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-dropdown value.bind="Process"
+                           error.bind="error.Process"
+                           items.bind="process">
+              </au-dropdown>
+            </div>
+          </div>
+
           <!-- Save Button for Update Start Phase -->
           <div class="row"
                style="white-space: nowrap;">
@@ -300,21 +319,21 @@
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row"
-           style="white-space: nowrap; overflow: auto; padding-right: 8px;">
-        <au-textbox error.bind="error.LoomBeamsUsed"
-                    read-only="true"></au-textbox>
-        <au-collection items.bind="LoomBeamsUsed"
-                       errors.bind="error.LoomBeamsUsed"
-                       columns.bind="columns"
-                       remove.bind="onremove"
-                       read-only.bind="readOnly"
-                       options.bind="loomBeamsUsedTableOptions"
-                       item-template="modules/weaving/daily-operation-loom/templates/beams-used-post">
-        </au-collection>
+          <div class="row"
+               style="white-space: nowrap; overflow: auto; padding-right: 8px;">
+            <au-textbox error.bind="error.LoomBeamsUsed"
+                        read-only="true"></au-textbox>
+            <au-collection items.bind="LoomBeamsUsed"
+                           errors.bind="error.LoomBeamsUsed"
+                           columns.bind="columns"
+                           remove.bind="onremove"
+                           read-only.bind="readOnly"
+                           options.bind="loomBeamsUsedTableOptions"
+                           item-template="modules/weaving/daily-operation-loom/templates/beams-used-post">
+            </au-collection>
+          </div>
+        </div>
       </div>
     </div>
   </au-input-form>
