@@ -20,6 +20,13 @@ export class SalesReceipt {
     this.TotalPaid = this.data.TotalPaid;
     this.getPaid = this.TotalPaid + this.Nominal;
 
+    var NotPaid = this.data.TotalPayment - this.data.TotalPaid;
+    if (NotPaid < 0) {
+      this.getNotPaid = 0;
+    } else {
+      this.getNotPaid = NotPaid;
+    }
+
     this.getUnpaid = this.TotalPayment - (this.TotalPaid + this.Nominal);
     if (this.getUnpaid < 0) {
       this.data.Paid = this.getPaid;
@@ -38,7 +45,6 @@ export class SalesReceipt {
       this.data.IsPaidOff = false;
     }
 
-    console.log(this.data.Paid)
     var dueTime = new Date(this.data.DueDate).getTime();
     var salesReceiptTime = new Date(context.context.options.SalesReceiptDate).getTime();
 
@@ -87,7 +93,7 @@ export class SalesReceipt {
     if (this.selectedSalesInvoice && this.selectedSalesInvoice.Id) {
       this.data.SalesInvoiceId = this.selectedSalesInvoice.Id;
       this.data.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
-      this.data.DueDate = this.selectedSalesInvoice.DueDate;    
+      this.data.DueDate = this.selectedSalesInvoice.DueDate;
       this.data.VatType = this.selectedSalesInvoice.VatType;
       this.data.CurrencyId = this.selectedSalesInvoice.CurrencyId;
       this.data.CurrencyCode = this.selectedSalesInvoice.CurrencyCode;
@@ -101,6 +107,12 @@ export class SalesReceipt {
       if (this.data.DueDate && this.SalesReceiptDate)
         this.getTempo = (dueTime - salesReceiptTime) / (1000 * 60 * 60 * 24);
       this.data.Tempo = this.getTempo;
+      var NotPaid = this.data.TotalPayment - this.data.TotalPaid;
+      if (NotPaid < 0) {
+        this.getNotPaid = 0;
+      } else {
+        this.getNotPaid = NotPaid;
+      }
     } else {
       this.data.SalesInvoiceId = null;
       this.data.SalesInvoiceNo = null;
