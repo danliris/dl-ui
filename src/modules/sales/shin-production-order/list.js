@@ -17,11 +17,11 @@ export class List {
                 return "";
             }
         },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.No", title: "No. Sales Contract" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.ProductionOrderNo", title: "No. SPP" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Buyer.Name", title: "Buyer" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.Unit.Name", title: "Unit" },
-        { field: "FinishingPrintingSalesContract.CostCalculation.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
+        { field: "FinishingPrintingSalesContract.SalesContractNo", title: "No. Sales Contract" },
+        { field: "ProductionOrderNo", title: "No. SPP" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.Buyer.Name", title: "Buyer" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.Unit.Name", title: "Unit" },
+        { field: "FinishingPrintingSalesContract.PreSalesContract.ProcessType.Name", title: "Jenis Proses" },
         {
             field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");

@@ -5,12 +5,12 @@
         <div class="col-md-6" style="padding:0">
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete value.bind="SalesContract" label="Nomor Sales Contract" error.bind="error.SalesContractNo"
-              read-only.bind="readOnly" loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak "
+              read-only.bind="data.Id" loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak "
               text.bind="getSCText">
             </au-autocomplete>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-textbox label="No. Order Produksi" value.bind="data.OrderNo" error.bind="error.orderNo" read-only="true"
+            <au-textbox label="No. Order Produksi" value.bind="data.ProductionOrderNo" error.bind="error.orderNo" read-only="true"
               if.bind="data.Id"></au-textbox>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
@@ -39,15 +39,18 @@
             </au-textbox>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-textbox label="Konstruksi Material" value.bind="data.MaterialConstruction" read-only="true">
-            </au-textbox>
+            <au-autocomplete label="Konstruksi Material" value.bind="data.MaterialConstruction"
+              error.bind="error.MaterialConstruction" read-only.bind="readOnly" loader.bind="materialConstructionLoader"
+              key="Name" text="Name" placeholder="pilih konstruksi finish">
+            </au-autocomplete>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
             <au-textbox label="No Benang Material" value.bind="data.YarnMaterial" read-only="true">
             </au-textbox>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-textbox label="Lebar Finish" value.bind="data.MaterialWidth" read-only="true">
+            <au-textbox label="Lebar Finish" value.bind="data.MaterialWidth" error.bind="error.MaterialWidth"
+              read-only.bind="readOnly" placeholder="input lebar finish">
             </au-textbox>
           </div>
 
@@ -57,7 +60,8 @@
             </div>
 
             <div class="col-sm-3">
-              <au-numeric format="0" error.bind="error.OrderQuantity" value.bind="orderQuantity" read-only.bind="readOnly">
+              <au-numeric format="0" error.bind="error.OrderQuantity" value.bind="orderQuantity"
+                read-only.bind="readOnly">
               </au-numeric>
             </div>
 
@@ -152,14 +156,13 @@
         if.bind="data.Unit && isPrinting" columns.bind="detailHeader"
         item-template="modules/sales/shin-production-order/templates/detail-item-printing"
         footer-template="modules/sales/shin-production-order/templates/detail-footer-printing"
-        add.bind="addDetail" view-model.ref="ItemsCollection">
+        view-model.ref="ItemsCollection">
       </au-collection>
 
       <au-collection items.bind="data.Details" errors.bind="error.Details" read-only.bind="readOnly"
         if.bind="data.FinishingPrintingSalesContract && !isPrinting" columns.bind="detailHeader"
         item-template="modules/sales/shin-production-order/templates/detail-item"
-        footer-template="modules/sales/shin-production-order/templates/detail-footer" add.bind="addDetail"
-        view-model.ref="ItemsCollection">
+        footer-template="modules/sales/shin-production-order/templates/detail-footer" view-model.ref="ItemsCollection">
       </au-collection>
 
       <div if.bind="error.LampStandards.toString()">
