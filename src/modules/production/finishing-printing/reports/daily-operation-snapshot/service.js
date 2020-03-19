@@ -36,13 +36,18 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(searchDate) {
+    generateExcel(month, year) {
         
         var endpoint = `${serviceUri}`;
         var query = '';
-        if (searchDate) {
-            if (query === '') query = `searchDate=${searchDate}`;
-            else query = `${query}&searchDate=${searchDate}`;
+        if (month) {
+            if (query === '') query = `month=${month}`;
+            else query = `${query}&month=${month}`;
+        }
+
+        if (year) {
+            if (query === '') query = `year=${year}`;
+            else query = `${query}&year=${year}`;
         }
         
         if (query !== '')

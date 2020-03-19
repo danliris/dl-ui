@@ -6,31 +6,30 @@ import {
   BindingEngine
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceSales, ServiceCore } from "./service";
+import { Service, ServiceCore } from "./service";
 
-var ProductionOrderLoader = require("../../../loader/production-order-azure-loader");
-var BuyersLoader = require("../../../loader/buyers-loader");
-var MaterialConstructionLoader = require("../../../loader/material-loader");
-var StorageLoader = require("../../../loader/storage-loader");
+import LocalSalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
+import ExportSalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
 
 @containerless()
-@inject(Service, ServiceSales, ServiceCore, BindingSignaler, BindingEngine)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  @bindable selectedStorage;
 
+  @bindable disp;
+  @bindable op;
+  @bindable sc;
+  @bindable fillEachBale;
   constructor(
     service,
-    serviceSales,
     serviceCore,
     bindingSignaler,
     bindingEngine
   ) {
     this.service = service;
-    this.serviceSales = serviceSales;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -40,131 +39,137 @@ export class DataForm {
   get isEdit() {
     return (this.data.Id || "").toString() !== "";
   }
-
-  storageQuery = {
-    "DivisionName" : "DYEING & PRINTING"
-  }
-
   async bind(context) {
+    // debugger
     this.context = context;
-    this.context._this = this;
     this.data = this.context.data;
     this.error = this.context.error;
 
-    var productionOrderId = this.data.ProductionOrderId;
-    if (productionOrderId) {
-      this.selectedProductionOrder = await this.serviceSales.getProductionOrderById(
-        productionOrderId,
-        this.productionOrderFields
-      );
+    if (this.data.Disp) {
+      this.disp = this.data.Disp;
+    }
+    if (this.data.Op) {
+      this.op = this.data.Op;
+    }
+    if (this.data.Sc) {
+      this.sc = this.data.Sc;
+    }
+    if (this.data.FillEachBale) {
+      this.fillEachBale = this.data.FillEachBale;
     }
 
-    var buyerId = this.data.BuyerId;
-    if (buyerId) {
-      this.selectedBuyer = await this.serviceCore.getBuyerById(
-        buyerId,
-        this.buyerFields
-      );
-    } else {
-      this.selectedBuyer = {
-        Id: this.data.BuyerId,
-        Code: this.data.BuyerCode,
-        Name: this.data.BuyerName,
-        Address: this.data.BuyerAddress,
-        Type: this.data.BuyerType,
-        NPWP: this.data.BuyerNPWP
-      };
-    }
-
-    var destinationBuyerId = this.data.DestinationBuyerId;
-    if (destinationBuyerId) {
-      this.selectedDestinationBuyer = await this.serviceCore.getBuyerById(
-        destinationBuyerId,
-        this.destinationBuyerFields
+    if (this.data.DOSalesType == "Lokal" && this.data.LocalSalesContract.Id) {
+      this.selectedLocalSalesContract = await this.service.getSalesContractById(
+        this.data.LocalSalesContract.Id,
+        this.localSalesContractFields
       );
     }
-
-    var materialConstructionId = this.data.MaterialConstructionFinishId;
-    if (materialConstructionId) {
-      this.selectedMaterialConstructionFinish = await this.serviceCore.getMaterialConstructionById(
-        materialConstructionId,
-        this.materialConstructionFields
-      );
+    else {
+      this.selectedLocalSalesContract = this.data.LocalSalesContract;
     }
 
-    var storageId = this.data.StorageId;
-    if (storageId) {
-      this.selectedStorage = await this.serviceCore.getStorageById(
-        storageId,
-        this.storageFields
+    if (this.data.DOSalesType == "Ekspor" && this.data.ExportSalesContract.Id) {
+      this.selectedExportSalesContract = await this.service.getSalesContractById(
+        this.data.ExportSalesContract.Id,
+        this.exportSalesContractFields
       );
     }
   }
 
-  doSalesDetailsInfo = {
+  doSalesLocalItemsInfo = {
     columns: [
-      "Nama Barang",
-      "Kode Barang",
-      "Keterangan Barang",
-      "Total Packing",
-      "Total Panjang (m)",
-      "Total Panjang (yard)"
+      "No SPP", "Material Konstruksi", "Jenis / Code", "Pcs / Roll / Pt", "Yds / Bale", "Mtr / Kg"
     ],
-    onAdd: function() {
-      this.context.DOSalesDetailsCollection.bind();
-      this.data.DOSalesDetails = this.data.DOSalesDetails || [];
-      this.data.DOSalesDetails.push({});
+    onAdd: function () {
+      this.context.DOSalesLocalItemsCollection.bind();
+      this.data.DOSalesLocalItems = this.data.DOSalesLocalItems || [];
+      this.data.DOSalesLocalItems.push({});
     }.bind(this),
-    onRemove: function() {
-      this.context.DOSalesDetailsCollection.bind();
+    onRemove: function () {
+      this.context.DOSalesLocalItemsCollection.bind();
     }.bind(this)
   };
 
-  doSalesTypeOptions = ["", "BL", "GL", "AF", "CN", "US", "USS", "UP", "UPS", "UK"];
+  localOptions = {};
+
+  doSalesTypeOptions = ["", "Lokal", "Ekspor"];
+  doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
+  doSalesExportOptions = ["", "KKF", "KKP"];
   packingUomOptions = ["", "PCS", "ROLL", "PT"];
-  lengthUomOptions = ["", "MTR"];
+  imperialUomOptions = ["", "YDS", "BALE"];
+  metricUomOptions = ["", "MTR", "KG"];
 
-  @bindable selectedProductionOrder;
-  async selectedProductionOrderChanged(newValue, oldValue) {
-    if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
-      this.data.ProductionOrderId = this.selectedProductionOrder.Id;
-      this.data.ProductionOrderNo = this.selectedProductionOrder.OrderNo;
+  @bindable selectedLocalSalesContract;
+  async selectedLocalSalesContractChanged(newValue, oldValue) {
+    if (this.selectedLocalSalesContract && this.selectedLocalSalesContract.Id) {
+      this.data.LocalSalesContract = this.selectedLocalSalesContract;
+      this.data.LocalMaterial = this.selectedLocalSalesContract.Material;
+      this.data.LocalMaterialConstruction = this.selectedLocalSalesContract.MaterialConstruction;
+      this.data.MaterialWidth = this.selectedLocalSalesContract.MaterialWidth;
 
-      var material =
-        this.selectedProductionOrder.Material &&
-        this.selectedProductionOrder.Material.Name
-          ? this.selectedProductionOrder.Material
-          : "";
+      if (this.selectedLocalSalesContract.Buyer.Id) {
+        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedLocalSalesContract.Buyer.Id);
+        this.data.LocalBuyer = this.selectedBuyer;
+      } else {
+        this.selectedBuyer = this.selectedLocalSalesContract.Buyer;
+        this.data.LocalBuyer = this.selectedLocalSalesContract.Buyer;
+      }
 
-      this.data.MaterialId = material.Id;
-      this.data.Material = material.Name;
-
-      if (!this.context.hasEdit) {
-        if (this.selectedProductionOrder.Buyer.Id) {
-          this.selectedBuyer = await this.serviceCore.getBuyerById(
-            this.selectedProductionOrder.Buyer.Id
-          );
-          this.data.BuyerId = this.selectedBuyer.Id;
-          this.data.BuyerCode = this.selectedBuyer.Code;
-          this.data.BuyerName = this.selectedBuyer.Name;
-          this.data.BuyerAddress = this.selectedBuyer.Address;
-          this.data.BuyerType = this.selectedBuyer.Type;
-          this.data.BuyerNPWP = this.selectedBuyer.NPWP;
-        } else {
-          this.selectedBuyer = this.selectedProductionOrder.Buyer;
-          this.data.BuyerId = this.selectedProductionOrder.Buyer.Id;
-          this.data.BuyerCode = this.selectedProductionOrder.Buyer.Code;
-          this.data.BuyerName = this.selectedProductionOrder.Buyer.Name;
-          this.data.BuyerAddress = this.selectedProductionOrder.Buyer.Address;
-          this.data.BuyerType = this.selectedProductionOrder.Buyer.Type;
-          this.data.BuyerNPWP = this.selectedProductionOrder.Buyer.NPWP;
+      if (!this.data.Id) {
+        var salesContract = await this.service.getProductionOrderBySalesContractId(this.data.LocalSalesContract.Id);
+        var scData = salesContract.data;
+        this.data.DOSalesLocalItems = [];
+        for (var item of scData) {
+          for (var detailItem of item.Details) {
+            var sc = {
+              Material: item.Material,
+              MaterialConstruction: item.MaterialConstruction,
+              MaterialWidth: item.MaterialWidth,
+              ColorRequest: detailItem.ColorRequest,
+              ColorTemplate: detailItem.ColorTemplate,
+              ProductionOrder: item,
+              ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
+            }
+            this.data.DOSalesLocalItems.push(sc);
+          }
         }
-        this.data.MaterialWidthFinish = this.selectedProductionOrder.FinishWidth;
       }
     } else {
-      this.data.ProductionOrderId = null;
-      this.data.ProductionOrderNo = null;
+      this.data.LocalSalesContract = null;
+      this.data.LocalBuyer = null;
     }
+  }
+
+  @bindable selectedExportSalesContract;
+  async selectedExportSalesContractChanged(newValue, oldValue) {
+    if (this.selectedExportSalesContract && this.selectedExportSalesContract.Id) {
+      this.data.ExportSalesContract = this.selectedExportSalesContract;
+
+      if (this.selectedExportSalesContract.Buyer.Id) {
+        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedExportSalesContract.Buyer.Id);
+        this.data.ExportBuyer = this.selectedBuyer
+      } else {
+        this.selectedBuyer = this.selectedExportSalesContract.Buyer;
+        this.data.ExportBuyer = this.selectedExportSalesContract.Buyer;
+      }
+
+    } else {
+      this.data.ExportSalesContract = null;
+      this.data.ExportBuyer = null;
+    }
+  }
+
+  dispChanged(newValue, OldValue) {
+    this.data.Disp = this.disp;
+  }
+  opChanged(newValue, OldValue) {
+    this.data.Op = this.op;
+  }
+  scChanged(newValue, OldValue) {
+    this.data.Sc = this.sc;
+  }
+  fillEachBaleChanged(newValue, OldValue) {
+    this.data.FillEachBale = this.fillEachBale;
   }
 
   enterDelegate(event) {
@@ -174,117 +179,17 @@ export class DataForm {
     } else return true;
   }
 
-  @bindable selectedBuyer;
-  selectedBuyerChanged(newValue, oldValue) {
-    if (this.selectedBuyer && this.selectedBuyer.Id) {
-      this.data.BuyerId = this.selectedBuyer.Id;
-      this.data.BuyerCode = this.selectedBuyer.Code;
-      this.data.BuyerName = this.selectedBuyer.Name;
-      this.data.BuyerAddress = this.selectedBuyer.Address;
-      this.data.BuyerType = this.selectedBuyer.Type;
-      this.data.BuyerNPWP = this.selectedBuyer.NPWP;
-    } else {
-      this.data.BuyerId = null;
-      this.data.BuyerCode = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
-      this.data.BuyerType = null;
-      this.data.BuyerNPWP = null;
-    }
+  localSalesContractNoView(sc) {
+    return sc.SalesContractNo;
+  }
+  exportSalesContractNoView(sc) {
+    return sc.SalesContractNo;
   }
 
-  @bindable selectedDestinationBuyer;
-  selectedDestinationBuyerChanged(newValue, oldValue) {
-    if (this.selectedDestinationBuyer && this.selectedDestinationBuyer.Id) {
-      this.data.DestinationBuyerId = this.selectedDestinationBuyer.Id;
-      this.data.DestinationBuyerCode = this.selectedDestinationBuyer.Code;
-      this.data.DestinationBuyerName = this.selectedDestinationBuyer.Name;
-      this.data.DestinationBuyerAddress = this.selectedDestinationBuyer.Address;
-      this.data.DestinationBuyerType = this.selectedDestinationBuyer.Type;
-      this.data.DestinationBuyerNPWP = this.selectedDestinationBuyer.NPWP;
-    }
+  get localSalesContractLoader() {
+    return LocalSalesContractLoader;
   }
-
-  @bindable selectedStorage;
-  selectedStorageChanged(newValue, oldValue) {
-    if (this.selectedStorage && this.selectedStorage._id) {
-      this.data.StorageId = this.selectedStorage._id;
-      this.data.StorageName = this.selectedStorage.name;
-      this.data.StorageDivision = this.selectedStorage.unit.division.Name;
-    } else {
-      this.data.StorageId = null;
-      this.data.StorageName = null;
-      this.data.StorageDivision = null;
-    }
-  }
-
-  @bindable selectedMaterialConstructionFinish;
-  selectedMaterialConstructionFinishChanged(newValue, oldValue) {
-    if (
-      this.selectedMaterialConstructionFinish &&
-      this.selectedMaterialConstructionFinish.Id
-    ) {
-      this.data.MaterialConstructionFinishId = this.selectedMaterialConstructionFinish.Id;
-      this.data.MaterialConstructionFinishName = this.selectedMaterialConstructionFinish.Name;
-    } else {
-      this.data.MaterialConstructionFinishId = null;
-      this.data.MaterialConstructionFinishName = null;
-    }
-  }
-
-  productionOrderTextFormatter = productionOrder => {
-    return `${productionOrder.OrderNo}`;
-  };
-
-  storageView = (storage) => {
-    return `${storage.unit.division.Name} - ${storage.name}`;
-}
-
-  get productionOrderLoader() {
-    return ProductionOrderLoader;
-  }
-  get buyersLoader() {
-    return BuyersLoader;
-  }
-  get materialConstructionFinishLoader() {
-    return MaterialConstructionLoader;
-  }
-
-  get storageLoader() {
-    return StorageLoader;
-  }
-
-  console() {
-    console.log(this.data);
-  }
-  errorChanged() {
-    console.log(this.error);
-  }
-  doSalesNoChanged(e) {
-    console.log(this.data.DOSalesNo);
-  }
-  doSalesTypeChanged(e) {
-    console.log(this.data.DOSalesType);
-  }
-  headOfStorageChanged(e) {
-    console.log(this.data.HeadOfStorage);
-  }
-  remarkChanged(e) {
-    console.log(this.data.Remark);
-  }
-  packingUomChanged(e) {
-    console.log(this.data.PackingUom);
-  }
-  lengthUomChanged(e) {
-    console.log(this.data.LengthUom);
-  }
-  dispChanged(e) {
-    console.log(this.data.Disp);
-  }
-  opChanged(e) {
-    console.log(this.data.Op);
-  }
-  scChanged(e) {
-    console.log(this.data.Sc);
+  get exportSalesContractLoader() {
+    return ExportSalesContractLoader;
   }
 }

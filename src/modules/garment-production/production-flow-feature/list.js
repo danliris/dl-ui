@@ -20,7 +20,29 @@ export class List {
     }
 
     get roLoader() {
-        return PreparingLoader;
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({})
+            };
+            return this.service.searchPreparing(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= roList.find(d=>d.RONo==a.RONo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                        }
+                        return roList;
+                    
+                });
+        }
     }
 
     async roNoChanged(newValue){
