@@ -47,7 +47,9 @@ export class List {
             status: this.poState?this.poState:"",
             ipoStatus:this.poIntState ?this.poIntState :"",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            dateFromEx : this.dateFromEx ? moment(this.dateFromEx).format("YYYY-MM-DD") : "",
+            dateToEx : this.dateToEx ? moment(this.dateToEx).format("YYYY-MM-DD") : ""
         };
 
     
@@ -72,7 +74,9 @@ export class List {
     this.poState="",
     this.poIntState="",
     this.dateFrom= "",
-    this.dateTo=""
+    this.dateTo="",
+    this.dateFromEx= "",
+    this.dateToEx="",
     this.data = [];
     this.info.page = 1;
     }
@@ -92,10 +96,12 @@ export class List {
             status: this.poState,
             ipoStatus:this.poIntState,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            dateFromEx : this.dateFromEx ? moment(this.dateFromEx).format("YYYY-MM-DD") : "",
+            dateToEx : this.dateToEx ? moment(this.dateToEx).format("YYYY-MM-DD") : ""
         };
         
-        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber, args.username, args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
+        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber, args.username, args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo, args.dateFromEx, args.dateToEx);
     }
 
     dateFromChanged(e) {

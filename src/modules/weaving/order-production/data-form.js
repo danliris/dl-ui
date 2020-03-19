@@ -178,13 +178,13 @@ export class DataForm {
 
   // WarpOriginTwoChanged(newValue) {
   //   if (newValue.Id) {
-  //     this.daWarpOriginTwota.WarpOriginIdTwo = newValue.Id;
+  //     this.data.WarpOriginIdTwo = newValue.Id;
   //   }
   // }
 
   WeftOriginTwoChanged(newValue) {
     if (newValue.Id) {
-      this.data.WeftOriginIdTwo = newValue;
+      this.data.WeftOriginIdTwo = newValue.Id;
     }
   }
 }

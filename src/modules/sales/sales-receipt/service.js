@@ -45,11 +45,6 @@ export class Service extends RestService {
     return super.getPdf(endpoint);
   }
 
-  getByCode(code) {
-    var endpoint = `${serviceUri}?keyword=${code}`;
-    return super.get(endpoint);
-  }
-
   searchSalesInvoice(info) {
     var endpoint = `${salesInvoiceServiceUri}`;
     return super.list(endpoint, info);
@@ -59,6 +54,11 @@ export class Service extends RestService {
     var endpoint = `${salesInvoiceServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
+  }
+
+  getSalesInvoiceByBuyerId(buyerId) {
+    var endpoint = `${salesInvoiceServiceUri}/filterByBuyer/${buyerId}`;
+    return super.list(endpoint);
   }
 }
 

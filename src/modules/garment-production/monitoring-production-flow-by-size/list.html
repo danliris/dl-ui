@@ -1,0 +1,84 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+    <style>
+        table>tbody>tr>td {
+            white-space: pre;
+        }
+    </style>
+
+    <h1 class="page-header">Monitoring Flow Produksi Per Size</h1>
+
+    <form class="form-horizontal">
+      <au-autocomplete 
+            value.bind="unit" 
+            label="Unit" 
+            loader.bind="unitLoader"
+            placeholder="Cari Nama Unit" 
+            read-only.bind="false" 
+            text.bind="unitView"
+            options.bind="controlOptions">
+      </au-autocomplete>
+      
+      <au-datepicker label="Periode" value.bind="date"></au-datepicker> 
+
+  <au-textbox 
+  label="No RO"
+  value.bind="ro"
+  read-only.bind="readOnly"
+></au-textbox>
+      <div class="form-group">
+          <label for="contact" class="col-sm-6 control-label"></label>
+          <div class="col-sm-3">
+              <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+              <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+          </div>
+      </div>
+
+      <div class="btn-group pull-left">
+          <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+      </div>
+  </form>
+  <br>
+</br>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <tr>
+                <td>RO</td>
+                <td>Kode Buyer</td>
+                <td>No Article</td>
+                <td>Komoditi</td>
+                <td>Jumlah Order</td>
+                <td>Ukuran</td>
+                <td>Hasil Potong</td>
+                <td>Hasil Loading</td>
+                <td>Hasil Sewing</td>
+                <td>Hasil Finishing</td>
+                <td>Barang Dalam Proses</td>
+            </tr>
+        </thead>
+        <tbody>
+            <require from="../../../lib/number-format-value-converter"></require>
+            <tr repeat.for="item of data">
+                <td class="text-center">${item.Ro}</td>
+                <td class="text-center">${item.BuyerCode}</td>
+                <td class="text-center">${item.Article}</td>
+                <td class="text-center">${item.Comodity}</td>
+                <td class="text-right">${item.QtyOrder}</td>
+                <td class="text-center">${item.Size}</td>
+                <td class="text-right">${item.QtyCutting}</td>
+                <td class="text-right">${item.QtyLoading}</td>
+                <td class="text-right">${item.QtySewing}</td>
+                <td class="text-right">${item.QtyFinishing}</td>
+                <td class="text-right">${item.Wip}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+  Tidak ada data.
+</div>
+<hr/>
+  </au-input-form>
+  <div class="row"></div>
+</template>

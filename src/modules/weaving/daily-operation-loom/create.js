@@ -65,6 +65,7 @@ export class Create {
   }];
 
   beamOrigins = ["REACHING", "TYING"];
+  process = ["Normal", "Reproses"];
 
   constructor(service, router, bindingEngine) {
     this.router = router;
@@ -180,7 +181,57 @@ export class Create {
 
   addBeam() {
     let beamUsed = {};
-    // if(this.)
+    if (this.BeamOrigin === "TYING") {
+      if (this.TyingMachineNumber) {
+        beamUsed.TyingMachineNumberId = this.TyingMachineNumber.Id;
+      } else {
+        this.error.TyingMachineNumberId = "No. Mesin Tying Harus Diisi";
+      }
+
+      if (this.TyingOperator) {
+        beamUsed.TyingOperatorId = this.TyingOperator.Id;
+      } else {
+        this.error.TyingOperatorId = "Operator Tying Harus Diisi";
+      }
+    }
+
+    if (this.LoomMachineNumber) {
+      beamUsed.LoomMachineNumberId = this.LoomMachineNumber.Id;
+    } else {
+      this.error.LoomMachineNumberId = "No. Mesin Loom Harus Diisi";
+    }
+
+    if (this.LoomOperator) {
+      beamUsed.LoomOperatorId = this.LoomOperator.Id;
+    } else {
+      this.error.LoomOperatorId = "Operator Loom Harus Diisi";
+    }
+
+    if (this.BeamNumber) {
+      beamUsed.BeamNumber = this.BeamNumber;
+    } else {
+      this.error.BeamNumber = "No. Beam Harus Diisi";
+    }
+
+    if (this.PreparationDate) {
+      beamUsed.PreparationDate = this.PreparationDate;
+    } else {
+      this.error.PreparationDate = "Tanggal Harus Diisi";
+    }
+
+    if (this.PreparationTime) {
+      beamUsed.PreparationTime = this.PreparationTime;
+    } else {
+      this.error.PreparationTime = "Jam Harus Diisi";
+    }
+
+    if (this.Process) {
+      beamUsed.Process = this.Process;
+    } else {
+      this.error.Process = "Proses Harus Diisi";
+    }
+
+    this.LoomBeamsUsed.push(beamUsed);
   }
 
   saveCallback(event) {
