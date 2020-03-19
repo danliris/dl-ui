@@ -36,14 +36,14 @@ export class Create {
 
   activate(params) {}
 
-  CoreAccountChanged(newValue) {
-    this.data.CoreAccount = {};
-    if (this.CoreAccount) {
-      this.data.CoreAccount.MongoId = newValue._id;
-      this.data.CoreAccount.Id = 0;
-      this.data.CoreAccount.Name = newValue.username;
-    }
-  }
+  // CoreAccountChanged(newValue) {
+  //   this.data.CoreAccount = {};
+  //   if (this.CoreAccount) {
+  //     this.data.CoreAccount.MongoId = newValue._id;
+  //     this.data.CoreAccount.Id = 0;
+  //     this.data.CoreAccount.Name = newValue.username;
+  //   }
+  // }
 
   UnitIdChanged(newValue) {
     this.data.UnitId = newValue;
@@ -80,15 +80,17 @@ export class Create {
 
   saveCallback(event) {
 
-    if (this.CoreAccount === null || this.CoreAccount === undefined) {
-      this.data.CoreAccount.MongoId = "";
+    // if (this.CoreAccount === null || this.CoreAccount === undefined) {
+    //   this.data.CoreAccount.MongoId = "";
+    //   this.data.CoreAccount.Id = 0;
+    //   this.data.CoreAccount.Name = "";
+    // } else {
+      this.data.CoreAccount = {};
+      this.data.CoreAccount.MongoId = 0;
       this.data.CoreAccount.Id = 0;
-      this.data.CoreAccount.Name = "";
-    } else {
-      this.data.CoreAccount.MongoId = this.CoreAccount._id;
-      this.data.CoreAccount.Id = 0;
-      this.data.CoreAccount.Name = this.CoreAccount.username;
-    }
+      this.data.CoreAccount.Name = this.CoreAccount;
+    // }
+    console.log(this.data);
 
     if (this.UnitId == undefined || this.UnitId == null || this.UnitId == "") {
       this.data.UnitId = 0;
