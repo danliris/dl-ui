@@ -73,6 +73,10 @@ export class Update {
     {
       value: "MachineStatus",
       header: "Status"
+    },
+    {
+      value:"ButtonAction",
+      header:"Action"
     }
   ];
 
@@ -233,6 +237,7 @@ export class Update {
           this.data.CombYarnStrandsProcessed = combYarnStrandsProcessed;
         }
       });
+      this.dataOptions = this.data;
     }
   }
 
@@ -315,7 +320,6 @@ export class Update {
       }
     });
     var sumOfReachingInYarnStrandsProcessed = reachingInYarnStrandsProcessed + newValue;
-
     if (sumOfReachingInYarnStrandsProcessed > this.data.SizingYarnStrands) {
       this.error.ReachingInStartYarnStrandsProcessed = " Helai Cucuk yang Dikerjakan Melebihi Jumlah Helai pada Beam Sizing ";
     } else if (sumOfReachingInYarnStrandsProcessed == this.data.SizingYarnStrands) {
