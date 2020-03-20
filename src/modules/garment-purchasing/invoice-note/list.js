@@ -25,7 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["InvoiceDate", "invoiceNo", "Supplier.Name", "Items.DeliveryOrderNo", "UseVat", "UseIncomeTax", "IsPayTax"],
+            select: ["InvoiceDate", "invoiceNo", "Supplier.Name", "Items.DeliveryOrderNo", "UseVat", "UseIncomeTax", "IsPayVat", "IsPayTax"],
             order: order
         }
 
@@ -78,7 +78,7 @@ export class List {
             case "Cetak Nota Pajak Pph":
                 return data.useIncomeTax && data.isPayTax;
             case "Cetak Nota Pajak Ppn":
-                return data.useVat && data.isPayTax;
+                return data.useVat && data.isPayVat;
             default:
                 return true;
         }
