@@ -59,9 +59,9 @@ export class Create {
     value: "Shift",
     header: "Shift"
   }, {
-    value: "Process",
-    header: "Proses"
-  }, {
+    //   value: "Process",
+    //   header: "Proses"
+    // }, {
     header: "Action"
   }];
 
@@ -146,6 +146,20 @@ export class Create {
     }
   }
 
+  get BeamProcessed() {
+    let result = 0;
+    // console.log(this.LoomBeamsUsed.length);
+
+    if (this.LoomBeamsUsed) {
+      if (this.LoomBeamsUsed.length > 0) {
+        result = this.LoomBeamsUsed.length;
+      }
+    }
+
+    this.data.BeamProcessed = result;
+    return result;
+  }
+
   showBeamMenu() {
     // this.TyingMachineNumber = null;
     // this.TyingOperator = null;
@@ -184,7 +198,7 @@ export class Create {
       });
   }
 
-  clearField(){
+  clearField() {
     this.TyingMachineDocument = undefined;
     this.TyingOperatorDocument = undefined;
     this.LoomMachineDocument = undefined;
@@ -198,6 +212,7 @@ export class Create {
 
   addBeam() {
     let beamUsed = {};
+    beamUsed.BeamOrigin = this.BeamOrigin;
     if (this.BeamOrigin === "TYING") {
       if (this.TyingMachineDocument) {
         beamUsed.TyingMachineId = this.TyingMachineDocument.Id;
@@ -255,12 +270,12 @@ export class Create {
       this.error.PreparationShift = "Jam Harus Diisi";
     }
 
-    if (this.Process) {
-      beamUsed.Process = this.Process;
-    } else {
-      this.error.Process = "Proses Harus Diisi";
-    }
-    
+    // if (this.Process) {
+    //   beamUsed.Process = this.Process;
+    // } else {
+    //   this.error.Process = "Proses Harus Diisi";
+    // }
+
     this.LoomBeamsUsed.push(beamUsed);
 
     this.clearField();
@@ -268,36 +283,63 @@ export class Create {
 
   saveCallback(event) {
     var preparationData = {};
-    preparationData.LoomBeamProducts = [];
-    preparationData.LoomBeamHistories = [];
+    preparationData.LoomItems = [];
+
     if (this.OrderDocument) {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
+    if (this.BeamProcessed) {
+      preparationData.BeamProcessed = parseInt(this.BeamProcessed);
+    }
 
-    this.LoomBeamsUsed.forEach(doc => {
-      var BeamHistoryDocument = {};
-      var BeamProductDocument = {};
+    this.LoomBeamsUsed.forEach(datum => {
+      // console.log(datum);
+      var LoomItem = {};
 
-      BeamProductDocument.BeamOrigin = doc.BeamOrigin;
-      BeamProductDocument.BeamDocumentId = doc.BeamDocument.ReachingBeamId;
-      BeamProductDocument.CombNumber = doc.CombNumber;
-      BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
-      BeamProductDocument.DateBeamProduct = doc.Date;
-      BeamProductDocument.TimeBeamProduct = doc.Time;
-      BeamProductDocument.LoomProcess = doc.LoomProcess;
+      if (datum.BeamOrigin) {
+        LoomItem.BeamOrigin = datum.BeamOrigin;
+      }
 
-      BeamHistoryDocument.BeamNumber = doc.BeamDocument.ReachingBeamNumber;
-      BeamHistoryDocument.MachineNumber = doc.MachineDocument.MachineNumber;
-      BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
-      BeamHistoryDocument.DateMachine = doc.Date;
-      BeamHistoryDocument.TimeMachine = doc.Time;
-      BeamHistoryDocument.ShiftDocumentId = doc.Shift.Id;
-      BeamHistoryDocument.Information = doc.Information;
+      if (datum.BeamProcessedId) {
+        LoomItem.BeamDocumentId = datum.BeamProcessedId;
+      }
 
-      preparationData.LoomBeamProducts.push(BeamProductDocument);
-      preparationData.LoomBeamHistories.push(BeamHistoryDocument);
+      if (datum.BeamNumber) {
+        LoomItem.BeamNumber = datum.BeamNumber;
+      }
+
+      if (datum.TyingMachineId) {
+        LoomItem.TyingMachineId = datum.TyingMachineId;
+      }
+
+      if (datum.TyingOperatorId) {
+        LoomItem.TyingOperatorId = datum.TyingOperatorId;
+      }
+
+      if (datum.LoomMachineId) {
+        LoomItem.LoomMachineId = datum.LoomMachineId;
+      }
+
+      if (datum.LoomOperatorId) {
+        LoomItem.LoomOperatorId = datum.LoomOperatorId;
+      }
+
+      if (datum.PreparationDate) {
+        LoomItem.PreparationDate = datum.PreparationDate;
+      }
+
+      if (datum.PreparationTime) {
+        LoomItem.PreparationTime = datum.PreparationTime;
+      }
+
+      if (datum.PreparationShiftId) {
+        LoomItem.PreparationShift = datum.PreparationShiftId;
+      }
+
+      preparationData.LoomItems.push(LoomItem);
     });
-
+    console.log(preparationData);
+    // debugger
     this.service
       .create(preparationData)
       .then(result => {
