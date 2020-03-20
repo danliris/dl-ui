@@ -476,6 +476,7 @@
       <div class="row"
            style="white-space: nowrap; overflow: auto;">
         <au-collection items.bind="Histories"
+                       options.bind="dataOptions"
                        errors.bind="error.Histories"
                        columns.bind="dailyOperationHistoriesColumns"
                        read-only.bind="true"

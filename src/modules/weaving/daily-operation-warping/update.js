@@ -28,6 +28,10 @@ export class Update {
     this.data = {};
     this.error = {};
     this.error.error = {};
+
+    this.isStartDisabled = false;
+    this.isProduceBeamDisabled = false;
+    this.isDoffDisabled = false;
   }
 
   uoms = [];
@@ -108,6 +112,10 @@ export class Update {
     {
       value: "OperationStatus",
       header: "Status Mesin"
+    },
+    {
+      value:"deleteAction",
+      header:"Action"
     }
   ];
 
@@ -166,6 +174,7 @@ export class Update {
     }
     var uomItems = await this.service.getYardMeterUoms();
     this.uoms = uomItems;
+    this.dataOptions = this.data;
   }
 
   get operators() {
