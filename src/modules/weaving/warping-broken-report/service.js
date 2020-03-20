@@ -31,7 +31,7 @@ import {
       return super.list(endpoint, info);
     }
   
-    getReportPdf(month, year, weavingUnitId) {
+    getReportXls(month, year, weavingUnitId) {
       var endpoint = `${serviceUri}/get-warping-broken-report`;
       var query = '';
   
@@ -51,7 +51,7 @@ import {
       if (query !== '') {
         endpoint = `${serviceUri}/get-warping-broken-report?${query}`; 
       }
-      return super.getPdf(endpoint);
+      return super.getXls(endpoint);
     }
   }
   

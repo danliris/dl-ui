@@ -221,4 +221,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "inventory/garment/leftover-warehouse/receipt/fabric",
+        name: "inventory/garment/leftover-warehouse/receipt/fabric",
+        moduleId: "modules/inventory/garment-leftover-warehouse/receipt/fabric/index",
+        nav: true,
+        title: "Penerimaan Gudang Sisa - FABRIC",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
