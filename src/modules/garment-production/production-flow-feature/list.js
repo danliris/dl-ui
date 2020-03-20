@@ -109,7 +109,8 @@ export class List {
                                 if (this.cuttingData.length==0){
                                     dataItem["color"]=detail.Color;
                                     dataItem["CuttingNo"]=cutting.CutOutNo;
-                                    dataItem["date"]=cutting.CutOutDate;
+                                    dataItem["date"]=cutting.CuttingOutDate;
+                                    dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                     this.cuttingData.push(dataItem);
                                 }
                                 else{
@@ -117,7 +118,7 @@ export class List {
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["CuttingNo"]=cutting.CutOutNo;
-                                        dataItem["date"]=cutting.CutOutDate;
+                                        dataItem["date"]=cutting.CuttingOutDate;
                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                         this.cuttingData.push(dataItem);
                                     }
@@ -187,7 +188,7 @@ export class List {
                             }
                         }
 
-                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo, SewingTo:"FINISHING"}) })
                         .then(result => {
                             this.sewingData=[];
                             this.sewingSizes=[];
@@ -266,7 +267,7 @@ export class List {
                                 }
                             }
 
-                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo, FinishingTo:"GUDANG JADI"}) })
                             .then(result => {
                                 this.finishingData=[];
                                 this.finishingSizes=[];
