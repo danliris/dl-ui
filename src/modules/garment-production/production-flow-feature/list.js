@@ -109,7 +109,8 @@ export class List {
                                 if (this.cuttingData.length==0){
                                     dataItem["color"]=detail.Color;
                                     dataItem["CuttingNo"]=cutting.CutOutNo;
-                                    dataItem["date"]=cutting.CutOutDate;
+                                    dataItem["date"]=cutting.CuttingOutDate;
+                                    dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                     this.cuttingData.push(dataItem);
                                 }
                                 else{
@@ -117,7 +118,7 @@ export class List {
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["CuttingNo"]=cutting.CutOutNo;
-                                        dataItem["date"]=cutting.CutOutDate;
+                                        dataItem["date"]=cutting.CuttingOutDate;
                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                         this.cuttingData.push(dataItem);
                                     }
@@ -187,7 +188,7 @@ export class List {
                             }
                         }
 
-                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo, SewingTo:"FINISHING"}) })
                         .then(result => {
                             this.sewingData=[];
                             this.sewingSizes=[];
@@ -266,7 +267,7 @@ export class List {
                                 }
                             }
 
-                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo, FinishingTo:"GUDANG JADI"}) })
                             .then(result => {
                                 this.finishingData=[];
                                 this.finishingSizes=[];
@@ -422,7 +423,7 @@ export class List {
         cutColumns.push({ field: 'CuttingNo', title: 'No Bon' });
         cutColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         cutColumns.push({ field: 'color', title: 'Warna' });
-
+        this.cuttingSizes.sort();
         for(let size of this.cuttingSizes) {
             cutColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -442,8 +443,8 @@ export class List {
         loadingColumns.push({ field: 'loadingNo', title: 'No Bon' });
         loadingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         loadingColumns.push({ field: 'color', title: 'Warna' });
-
-        for(let size of this.cuttingSizes) {
+        this.loadingSizes.sort();
+        for(let size of this.loadingSizes) {
             loadingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
@@ -462,7 +463,7 @@ export class List {
         sewingColumns.push({ field: 'sewingNo', title: 'No Bon' });
         sewingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         sewingColumns.push({ field: 'color', title: 'Warna' });
-
+        this.sewingSizes.sort();
         for(let size of this.sewingSizes) {
             sewingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -482,7 +483,7 @@ export class List {
         finishingColumns.push({ field: 'finishingNo', title: 'No Bon' });
         finishingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         finishingColumns.push({ field: 'color', title: 'Warna' });
-
+        this.finishingSizes.sort();
         for(let size of this.finishingSizes) {
             finishingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -502,7 +503,7 @@ export class List {
         expenditureColumns.push({ field: 'expenditureNo', title: 'No Bon' });
         expenditureColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         expenditureColumns.push({ field: 'color', title: 'Warna' });
-
+        this.expenditureSizes.sort();
         for(let size of this.expenditureSizes) {
             expenditureColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });

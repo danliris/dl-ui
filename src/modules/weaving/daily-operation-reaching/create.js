@@ -14,7 +14,6 @@ import moment from 'moment';
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
-var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var SizingBeamProductLoader = require("../../../loader/weaving-sizing-beam-by-order-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
@@ -22,7 +21,6 @@ export class Create {
   @bindable MachineDocument;
   @bindable WeavingDocument;
   @bindable OrderDocument;
-  @bindable OperatorDocument;
   @bindable PreparationTime;
   @bindable BeamsWarping;
 
@@ -70,10 +68,6 @@ export class Create {
     return SizingBeamProductLoader;
   }
 
-  get operators() {
-    return OperatorLoader;
-  }
-
   OrderDocumentChanged(newValue) {
     if (newValue) {
       this.beamFilter.OrderId = newValue.Id;
@@ -95,11 +89,6 @@ export class Create {
       }
     }
   }
-
-  OperatorDocumentChanged(newValue) {
-    this.SizingGroup = newValue.Group;
-  }
-
   PreparationTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
@@ -126,10 +115,6 @@ export class Create {
     if (this.SizingBeamDocument) {
       preparationData.SizingBeamId = this.SizingBeamDocument.SizingBeamId;
     }
-    if (this.OperatorDocument) {
-      preparationData.OperatorDocumentId = this.OperatorDocument.Id;
-    }
-
     if (this.PreparationDate) {
       var PreparationDateContainer = this.PreparationDate;
       preparationData.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
