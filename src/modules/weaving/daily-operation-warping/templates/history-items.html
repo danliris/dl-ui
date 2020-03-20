@@ -1,4 +1,13 @@
 <template>
+    <style>
+        #delete-button {
+            background-color: #d65151;
+            color: white;
+            white-space: nowrap;
+            width: 100px;
+            border: 1px solid #777777;
+          }
+      </style>
   <tr>
     <td style="white-space: nowrap">
       <au-textbox value.bind="data.WarpingBeamNumber" read-only.bind="true">
@@ -31,6 +40,13 @@
     <td style="white-space: nowrap">
       <au-textbox value.bind="data.MachineStatus" read-only.bind="true">
       </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <div if.bind="$first">
+        <button class="btn btn-default btn-danger" id="delete-button" click.delegate="delete()" disabled.bind="isDeleteDisabled">
+          Delete
+        </button>
+      </div>
     </td>
   </tr>
 </template>

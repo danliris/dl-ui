@@ -14,12 +14,15 @@
           read-only.bind="readOnly">
         </au-datepicker>
 
-        <au-autocomplete label="No. Bon Pengiriman Barang" value.bind="selectedShipmentDocument"
-          error.bind="error.ShipmentDocumentCode" read-only.bind="readOnly" loader.bind="shipmentDocumentLoader"
-          key="Code" text="Code" keypress.delegate="enterDelegate($event)"
-          placeholder="Pilih No. Bon Pengiriman Barang">
+        <au-autocomplete label="No. Bon Pengiriman Barang" value.bind="selectedShipmentDocument" error.bind="error.ShipmentDocumentCode"
+          read-only.bind="readOnly" loader.bind="shipmentDocumentLoader" key="Code" text="Code"
+          keypress.delegate="enterDelegate($event)" placeholder="Cari No. Bon Pengiriman Barang">
         </au-autocomplete>
 
+        <au-textbox label="Address" value.bind="selectedShipmentDocument.Buyer.Address" read-only.bind="true">
+        </au-textbox>
+        <!-- <au-textbox label="BuyerId" value.bind="selectedShipmentDocument.Buyer.Id" read-only.bind="true">
+        </au-textbox> -->
         <au-textbox label="Buyer" value.bind="selectedShipmentDocument.Buyer.Name" read-only.bind="true">
         </au-textbox>
 
@@ -76,10 +79,11 @@
 
     <au-collection show.bind="data.VatType" columns.bind="salesInvoiceDetailsInfo.columns"
       items.bind="data.SalesInvoiceDetails" errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly"
-      options.bind="shipmentDocumentTableOptions"
-      item-template="modules/sales/sales-invoice/template/sales-invoice-item"
+      add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice/template/sales-invoice-detail"
       view-model.ref="SalesInvoiceDetailsCollection">
     </au-collection>
+    <!-- <div add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"/> -->
 
     <div if.bind="error.Details.toString()">
       <span style="color:red">-Detail harus diisi-</span>

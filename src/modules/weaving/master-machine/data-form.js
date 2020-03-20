@@ -59,7 +59,7 @@ export class DataForm {
     }
 
     this.showHideKawaMotoSuckerMuller = false;
-    // this.isWeaving1or2 = false;
+    this.isWeavingUnitValid = false;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -75,25 +75,21 @@ export class DataForm {
     return MachineTypeLoader;
   }
 
-  WeavingUnitChanged(newValue) {
-    // this.error = [];
-    // console.log(this);
-    // debugger
-    // this.error.WeavingUnitId = "";
-    
+  WeavingUnitChanged(newValue) {    
     if (newValue) { 
       this.data.WeavingUnit = newValue;
       this.MachineUnitFilter.MachineUnit = newValue.Name;
     }
+
     if (newValue.Name === "WEAVING 1 (EX. WEAVING 2)") {
-      // this.isWeaving1or2 = true;
+      this.isWeavingUnitValid = true;
       this.areas = this.weaving1Areas;
     } else if (newValue.Name === "WEAVING 2") {
-      // this.isWeaving1or2 = true;
+      this.isWeavingUnitValid = true;
       this.areas = this.weaving2Areas;
     } else {
-      // this.isWeaving1or2 = false;
       this.areas = [];
+      this.isWeavingUnitValid = true;
       // this.error.WeavingUnitId = "Unit Weaving yang dipilih harus Weaving 1 atau Weaving 2";
     }
   }

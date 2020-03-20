@@ -472,7 +472,7 @@
         <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Reaching</h1>
       </div>
       <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="logColumns" read-only.bind="true"
+        <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="logColumns" read-only.bind="true" options.bind="dataOptions"
           item-template="modules/weaving/daily-operation-reaching/templates/log-items">
         </au-collection>
       </div>

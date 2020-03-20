@@ -21,7 +21,7 @@ export class View {
 
   async activate(params) {
     var Id = params.Id;
-    var mappedResult = {};  
+    var mappedResult = {};
     this.data = await this.service
       .getById(Id)
       .then(result => {
@@ -37,13 +37,21 @@ export class View {
         return this.service.getUnitById(mappedResult.UnitId);
       }).then(unitResult => {
         mappedResult.Unit = unitResult;
-        return this.service.getSupplierById(mappedResult.WarpOriginId);
-      }).then(warpResult => {
-        mappedResult.WarpOrigin = warpResult;
-        return this.service.getSupplierById(mappedResult.WeftOriginId);
-      }).then(weftResult => {
-        mappedResult.WeftOrigin = weftResult;
-        return mappedResult;
+        return this.service.getSupplierById(mappedResult.WarpOriginIdOne);
+      }).then(warpOneResult => {
+        mappedResult.WarpOriginOne = warpOneResult;
+        return this.service.getSupplierById(mappedResult.WeftOriginIdOne);
+      }).then(weftOneResult => {
+        mappedResult.WeftOriginOne = weftOneResult;
+        if (mappedResult.WeftOriginIdTwo != "00000000-0000-0000-0000-000000000000") {
+          return this.service.getSupplierById(mappedResult.WeftOriginIdTwo)
+            .then(weftTwoResult => {
+              mappedResult.WeftOriginTwo = weftTwoResult;
+              return mappedResult;
+            });
+        } else {
+          return mappedResult;
+        }
       });
   }
 

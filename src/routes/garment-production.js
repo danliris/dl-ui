@@ -415,6 +415,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/monitoring-production-flow-by-size',
+        name: 'garment-production-monitoring-production-flow-by-size',
+        moduleId: './modules/garment-production/monitoring-production-flow-by-size/index',
+        nav: true,
+        title: 'Monitoring Flow Produksi per Size',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/production-flow-feature',
         name: 'garment-production-production-flow-feature',
         moduleId: './modules/garment-production/production-flow-feature/index',

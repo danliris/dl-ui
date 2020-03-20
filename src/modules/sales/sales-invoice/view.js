@@ -1,7 +1,6 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
-import numeral from "numeral";
 
 @inject(Router, Service)
 export class View {

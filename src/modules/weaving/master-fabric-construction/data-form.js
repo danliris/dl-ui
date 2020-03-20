@@ -23,6 +23,7 @@ export class DataForm {
 
   constructor(service) {
     this.service = service;
+    this.formatData = "0,000.0000";
   }
   ConstructionWarpsDetailOptions = {};
   ConstructionWeftsDetailOptions = {};
@@ -105,15 +106,15 @@ export class DataForm {
   get ConstructionNumber() {
     var result = "";
     var MaterialName = this.data.MaterialType ? this.data.MaterialType : "";
-    // var Woven = this.data.WovenType ? this.data.WovenType : "";
+    var Woven = this.data.WovenType ? this.data.WovenType : "";
     var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
     var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
     var Width = this.data.Width ? this.data.Width : "";
     result =
       MaterialName +
       " " +
-      // Woven +
-      // " " +
+      Woven +
+      " " +
       Warp +
       " " +
       Weft +

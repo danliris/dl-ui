@@ -10,6 +10,8 @@ import { Service, ServiceCore } from "./service";
 
 var BuyersLoader = require("../../../loader/buyers-loader");
 var BankLoader = require("../../../loader/account-banks-loader");
+var CurrencyLoader = require("../../../loader/currency-loader");
+var SalesInvoiceLoader = require("../../../loader/sales-invoice-loader");
 
 @containerless()
 @inject(Service, ServiceCore, BindingSignaler, BindingEngine)
@@ -19,6 +21,7 @@ export class DataForm {
   @bindable data;
   @bindable error;
   @bindable SalesReceiptDate;
+  @bindable BuyerId;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
@@ -57,9 +60,22 @@ export class DataForm {
       );
     }
 
+    var currencyId = this.data.CurrencyId;
+    if (currencyId) {
+      this.selectedCurrency = await this.serviceCore.getCurrencyById(
+        currencyId,
+        this.currencyFields
+      );
+    }
+
     if (this.data.SalesReceiptDate) {
       this.salesInvoiceTableOptions.SalesReceiptDate = this.data.SalesReceiptDate;
       this.SalesReceiptDate = this.data.SalesReceiptDate;
+    }
+
+    if (this.data.BuyerId) {
+      this.salesInvoiceTableOptions.BuyerId = this.data.BuyerId;
+      this.BuyerId = this.data.BuyerId;
     }
 
     if (this.data.TotalPaid) {
@@ -86,31 +102,28 @@ export class DataForm {
     this.data.SalesReceiptDate = this.SalesReceiptDate;
   }
 
+  BuyerIdChanged(newValue, oldValue) {
+    if (newValue) {
+      this.salesInvoiceTableOptions.BuyerId = newValue;
+    }
+    this.data.BuyerId = this.BuyerId;
+  }
+
   salesReceiptDetailsInfo = {
     columns: [
-      "No. Jual",
+      "No. Faktur Jual",
       "Tempo (hari)",
       "Total Harga",
-      "Kurs",
-      "Dibayar Sebelumnya",
-      "Nominal",
       "Sisa Pembayaran",
-      "Kelebihan Bayar",
+      "Nominal Bayar",
+      "Akumulasi",
       "Lunas",
-    ],
-    onAdd: function () {
-      this.context.SalesReceiptDetailsCollection.bind();
-      this.data.SalesReceiptDetails = this.data.SalesReceiptDetails || [];
-      this.data.SalesReceiptDetails.push({});
-    }.bind(this),
-    onRemove: function () {
-      this.context.SalesReceiptDetailsCollection.bind();
-    }.bind(this)
+    ]
   };
 
   salesInvoiceTableOptions = {};
 
-  salesReceiptTypeOptions = ["", "A", "B", "C", "D"];
+  unitOptions = ["", "Dying", "Printing"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -120,11 +133,25 @@ export class DataForm {
   }
 
   @bindable selectedBuyer;
-  selectedBuyerChanged(newValue, oldValue) {
+  async selectedBuyerChanged(newValue, oldValue) {
     if (this.selectedBuyer && this.selectedBuyer.Id) {
       this.data.BuyerId = this.selectedBuyer.Id;
       this.data.BuyerName = this.selectedBuyer.Name;
       this.data.BuyerAddress = this.selectedBuyer.Address;
+      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(this.data.BuyerId);
+      var invoiceData = salesInvoice.data;
+      this.data.SalesReceiptDetails = [];
+      for(var item of invoiceData) {
+        var invoice = {
+          SalesInvoiceId : item.Id,
+          SalesInvoiceNo : item.SalesInvoiceNo,
+          DueDate : item.DueDate,
+          TotalPayment : item.TotalPayment,
+          TotalPaid : item.TotalPaid,
+        }
+        this.data.SalesReceiptDetails.push(invoice);
+        console.log(salesInvoice)
+      }
     } else {
       this.data.BuyerId = null;
       this.data.BuyerName = null;
@@ -151,15 +178,36 @@ export class DataForm {
     }
   }
 
+  @bindable selectedCurrency;
+  selectedCurrencyChanged(newValue, oldValue) {
+    if (this.selectedCurrency && this.selectedCurrency.Id) {
+      this.data.CurrencyId = this.selectedCurrency.Id;
+      this.data.CurrencyCode = this.selectedCurrency.Code;
+      this.data.CurrencyRate = this.selectedCurrency.Rate;
+      this.data.CurrencySymbol = this.selectedCurrency.Symbol;
+    } else {
+      this.data.CurrencyId = null;
+      this.data.CurrencyCode = null;
+      this.data.CurrencyRate = null;
+      this.data.CurrencySymbol = null;
+    }
+  }
+
   get buyersLoader() {
     return BuyersLoader;
   }
   get bankLoader() {
     return BankLoader;
   }
+  get currencyLoader() {
+    return CurrencyLoader;
+  }
+  get salesInvoiceLoader() {
+    return SalesInvoiceLoader;
+  }
 
   bankView = (bank) => {
-    return bank.AccountName ? `${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
+    return bank.AccountName ? `${bank.BankName} ${bank.AccountName} ${bank.AccountNumber} (${bank.Currency.Code})` : '';
   }
 
   errorChanged() {

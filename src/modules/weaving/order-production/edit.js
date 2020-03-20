@@ -38,13 +38,21 @@ export class Edit {
         return this.service.getUnitById(mappedResult.UnitId);
       }).then(unitResult => {
         mappedResult.Unit = unitResult;
-        return this.service.getSupplierById(mappedResult.WarpOriginId);
-      }).then(warpResult => {
-        mappedResult.WarpOrigin = warpResult;
-        return this.service.getSupplierById(mappedResult.WeftOriginId);
-      }).then(weftResult => {
-        mappedResult.WeftOrigin = weftResult;
-        return mappedResult;
+        return this.service.getSupplierById(mappedResult.WarpOriginIdOne);
+      }).then(warpOneResult => {
+        mappedResult.WarpOriginOne = warpOneResult;
+        return this.service.getSupplierById(mappedResult.WeftOriginIdOne);
+      }).then(weftOneResult => {
+        mappedResult.WeftOriginOne = weftOneResult;
+        if (mappedResult.WeftOriginIdTwo != "00000000-0000-0000-0000-000000000000") {
+          return this.service.getSupplierById(mappedResult.WeftOriginIdTwo)
+            .then(weftTwoResult => {
+              mappedResult.WeftOriginTwo = weftTwoResult;
+              return mappedResult;
+            });
+        } else {
+          return mappedResult;
+        }
       });
   }
 
@@ -57,6 +65,7 @@ export class Edit {
   saveCallback(event) {
     this.error = {};
     var errorIndex = 0;
+    var updateData ={};
 
     var sumWarp = this.data.WarpCompositionPoly + this.data.WarpCompositionCotton + this.data.WarpCompositionOthers;
     if (sumWarp < 100) {
@@ -75,13 +84,33 @@ export class Edit {
       this.error.SumWeft = "Jumlah Komposisi Pakan Tidak Boleh Lebih Dari 100%";
       errorIndex++;
     }
+
+    updateData.Id = this.data.Id;
+    updateData.Year = this.data.Year;
+    updateData.Month = this.data.Month;
+    updateData.ConstructionDocumentId = this.data.Construction.Id;
+    updateData.YarnType = this.data.YarnType;
+    updateData.WarpOriginIdOne = this.data.WarpOriginIdOne;
+    updateData.WarpCompositionPoly = this.data.WarpCompositionPoly;
+    updateData.WarpCompositionCotton = this.data.WarpCompositionCotton;
+    updateData.WarpCompositionOthers = this.data.WarpCompositionOthers;
+    updateData.WeftOriginIdOne = this.data.WeftOriginIdOne;
+    updateData.WeftOriginIdTwo = this.data.WeftOriginIdTwo;
+    updateData.WeftCompositionPoly = this.data.WeftCompositionPoly;
+    updateData.WeftCompositionCotton = this.data.WeftCompositionCotton;
+    updateData.WeftCompositionOthers = this.data.WeftCompositionOthers;
+    updateData.AllGrade = this.data.AllGrade;
+    updateData.UnitId = this.data.UnitId;
+
+    console.log(updateData);
+    debugger
     
     if (errorIndex == 0) {
       this.service
-        .update(this.data)
+        .update(updateData)
         .then(result => {
           this.router.navigateToRoute("view", {
-            Id: this.data.Id
+            Id: updateData.Id
           });
         })
         .catch(e => {

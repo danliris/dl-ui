@@ -741,8 +741,8 @@ module.exports = [
             permission: {"B1": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-      },
-      {
+    },
+    {
           route: 'accounting/accounting-stock-report',
           name: 'accounting-stock-report',
           moduleId: './modules/accounting/reports/accounting-stock-report/index',
@@ -754,7 +754,7 @@ module.exports = [
               permission: {"B1": 1, "C9": 1},
               iconClass: 'fa fa-dashboard'
           }
-        }
+    },
     // {
     //   route: 'garment-purchase-order/purchase-book-report',
     //   name: 'garment-purchasing-book-report',
@@ -768,5 +768,70 @@ module.exports = [
     //       iconClass: 'fa fa-dashboard'
     //   }
     // }
+    {
+      route: 'garment-purchase-order/garment-intern-note-payment-status-report',
+      name: 'garment-intern-note-payment-status-report',
+      moduleId: './modules/garment-purchasing/reports/garment-intern-note-payment-status-report/index',
+      nav: true,
+      title: 'Laporan Status Bayar Nota Intern',
+      auth: true,
+      settings: {
+          group: "g-purchasing",
+          permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+          iconClass: 'fa fa-dashboard'
+      }
+    },
+    {
+        route: 'garment-receipt-correction-report',
+        name: 'garment-receipt-correction-report',
+        moduleId: './modules/garment-purchasing/garment-receipt-correction-report/index',
+        nav: true,
+        title: 'Laporan Koreksi Penerimaan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-flow-detail-material/reports',
+        name: 'garment-flow-detail-material-report',
+        moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
+        nav: true,
+        title: 'Laporan Detail Flow Pengeluaran Bahan Baku',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-purchase-book-report',
+        name: 'garment-purchase-book-report',
+        moduleId: './modules/garment-purchasing/garment-purchase-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Harian Pembelian Term Of Payment',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-stock-report',
+        name: 'garment-stock-report',
+        moduleId: './modules/garment-purchasing/reports/garment-stock-report/index',
+        nav: true,
+        title: 'Laporan Stock Gudang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 
 ]

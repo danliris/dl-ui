@@ -46,8 +46,11 @@
                     options.bind="controlOptions">
                 </au-autocomplete>
             
-                <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-                <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+                <au-datepicker label="Tanggal Awal PR" value.bind="dateFrom"></au-datepicker>
+                <au-datepicker label="Tanggal Akhir PR" value.bind="dateTo"></au-datepicker>
+                
+                <au-datepicker label="Tanggal Awal PO EX." value.bind="dateFromEx"></au-datepicker>
+                <au-datepicker label="Tanggal Akhir PO EX" value.bind="dateToEx"></au-datepicker>
 
                 <au-dropdown label="Status PO Internal" value.bind="poIntState" items.bind="poIntStates">
                 </au-dropdown>
@@ -78,7 +81,7 @@
                         <td colspan="2">B U Y E R</td>
                         <td rowspan="3">SHIPMENT GMT</td>
                         <td colspan="9">PO EXTERN</td>
-                        <td colspan="2">SUPPLIER</td>
+                        <td colspan="3">SUPPLIER</td>
                         <td rowspan="3">STATUS</td>
                         <td rowspan="3">KODE BARANG</td>
                         <td rowspan="3">NAMA BARANG</td>
@@ -90,7 +93,7 @@
                        
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                        
-                        <td colspan="5">SURAT JALAN</td>
+                        <td colspan="7">SURAT JALAN</td>
                         <td colspan="2">BEA CUKAI</td>
                         <td colspan="4">BON PENERIMAAN</td>
                         <td colspan="10">I N V O I C E</td>
@@ -118,6 +121,7 @@
 
                         <td rowspan="2">KODE</td>
                         <td rowspan="2">NAMA</td>
+                        <td rowspan="2">JENIS SUPPLIER</td>
                         
                         <td rowspan="2">BUDGET</td>
                         <td rowspan="2">BELI</td>
@@ -134,6 +138,8 @@
                         <td rowspan="2">DATANG BARANG</td>
                         <td rowspan="2">QTY DATANG</td>
                         <td rowspan="2">SATUAN</td>
+                        <td rowspan="2">NO. BON</td>
+                        <td rowspan="2">NO. BON KECIL</td>
 
                         <td rowspan="2">NOMOR</td>
                         <td rowspan="2">TGL</td>
@@ -191,6 +197,7 @@
                         <td>${item.paymentDueDays}</td>
                         <td>${item.supplierCode}</td>
                         <td>${item.supplierName}</td>
+                        <td>${item.SupplierImport}</td>
                         <td>${item.status}</td>
                         <td>${item.productCode}</td>
                         <td>${item.productName}</td>
@@ -213,6 +220,8 @@
                         <td>${item.arrivalDate}</td>
                         <td align="right">${item.doQty}</td>
                         <td>${item.doUomUnit}</td>
+                        <td>${item.Bon}</td>
+                        <td>${item.BonSmall}</td>
                         <td>${item.bcNo}</td>
                         <td>${item.bcDate}</td>
                         <td>${item.receiptNo}</td>

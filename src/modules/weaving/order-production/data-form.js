@@ -38,7 +38,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
+    // console.log(this.data.WeftOriginTwo)
     this.currentYearItem = parseInt(moment().format('YYYY'));
     this.minYearItem = this.currentYearItem - 10;
     this.maxYearItem = this.currentYearItem + 10;
@@ -170,6 +170,7 @@ export class DataForm {
   }
 
   WeftOriginOneChanged(newValue) {
+    
     if (newValue.Id) {
       this.data.WeftOriginIdOne = newValue.Id;
     }
@@ -177,7 +178,7 @@ export class DataForm {
 
   // WarpOriginTwoChanged(newValue) {
   //   if (newValue.Id) {
-  //     this.daWarpOriginTwota.WarpOriginIdTwo = newValue.Id;
+  //     this.data.WarpOriginIdTwo = newValue.Id;
   //   }
   // }
 
