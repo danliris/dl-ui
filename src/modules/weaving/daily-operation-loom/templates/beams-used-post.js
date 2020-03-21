@@ -11,7 +11,7 @@ var MachineLoader = require("../../../../loader/weaving-machine-loader");
 var OperatorLoader = require("../../../../loader/weaving-operator-loader");
 
 @inject(BindingEngine, Service)
-export class BeamsSizingPost {
+export class BeamsUsedPost {
   @bindable BeamOrigin
   @bindable BeamDocument
   @bindable MachineDocument

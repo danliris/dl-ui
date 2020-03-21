@@ -1,8 +1,7 @@
 import {
   inject,
   bindable,
-  BindingEngine,
-  Lazy
+  BindingEngine
 } from "aurelia-framework";
 import {
   Router
@@ -12,54 +11,61 @@ import {
 } from "./service";
 import moment from 'moment';
 var OrderLoader = require("../../../loader/weaving-order-loader");
+var OperatorLoader = require("../../../loader/weaving-operator-loader");
+var MachineLoader = require("../../../loader/weaving-machine-loader");
 
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
-  @bindable BeamOrigin;
-  @bindable MachineDocument;
   @bindable OrderDocument;
-  @bindable PreparationOperator;
+  @bindable BeamOrigin;
+  @bindable TyingMachineNumber;
+  @bindable LoomMachineNumber;
+  @bindable TyingOperator;
+  @bindable LoomOperator;
+  @bindable BeamDocument;
   @bindable PreparationTime;
-  @bindable BeamsUsed;
+  @bindable LoomBeamsUsed;
 
   columns = [{
-    value: "BeamOrigin",
-    header: "Asal Beam"
-  }, {
-    value: "LoomMachineNumber",
-    header: "No. Mesin Loom"
+    value: "BeamNumber",
+    header: "No. Beam"
   }, {
     value: "TyingMachineNumber",
     header: "No. Mesin Tying"
   }, {
-    value: "BeamNumber",
-    header: "No. Beam (Sizing)"
+    value: "TyingOperator",
+    header: "Operator Tying"
   }, {
-    value: "MachineDate",
+    value: "TyingOperatorGroup",
+    header: "Grup Tying"
+  }, {
+    value: "LoomMachineNumber",
+    header: "No. Mesin Loom"
+  }, {
+    value: "LoomOperator",
+    header: "Operator Tying"
+  }, {
+    value: "LoomOperatorGroup",
+    header: "Grup Loom"
+  }, {
+    value: "OperationDate",
     header: "Tanggal"
   }, {
-    value: "MachineTime",
+    value: "OperationTime",
     header: "Jam"
   }, {
     value: "Shift",
     header: "Shift"
   }, {
-    value: "OperatorTying",
-    header: "Operator Tying"
-  }, {
-    value: "OperatorName",
-    header: "Operator"
-  }, {
-    value: "GroupOperator",
-    header: "Grup Loom"
-  }, {
     value: "Process",
     header: "Proses"
   }, {
-    value: "Information",
-    header: "Informasi"
+    header: "Action"
   }];
+
+  beamOrigins = ["REACHING", "TYING"];
+  process = ["Normal", "Reproses"];
 
   constructor(service, router, bindingEngine) {
     this.router = router;
@@ -69,8 +75,8 @@ export class Create {
     this.data = {};
     this.error = {};
 
-    this.showHideBeamsCollection = false;
-    this.BeamsUsed = [];
+    this.showHideAddBeam = false;
+    this.LoomBeamsUsed = [];
   }
 
   formOptions = {
@@ -78,7 +84,7 @@ export class Create {
     saveText: 'Simpan',
   };
 
-  beamsUsedTableOptions = {
+  loomBeamsUsedTableOptions = {
 
   }
 
@@ -86,21 +92,20 @@ export class Create {
     return OrderLoader;
   }
 
-  MachineDocumentChanged(newValue) {
-    if (newValue.MachineType == "Kawa Moto" || newValue.MachineType == "Sucker Muller") {
-      this.error.MachineDocumentId = "";
-      this.MachineDocument = newValue;
-    } else {
-      this.error.MachineDocumentId = " Tipe Mesin Bukan Kawa Moto atau Sucker Muller ";
-    }
+  get operators() {
+    return OperatorLoader;
+  }
+
+  get machines() {
+    return MachineLoader;
   }
 
   OrderDocumentChanged(newValue) {
     if (newValue) {
       let order = newValue;
 
-      this.BeamsUsed.splice(0, this.BeamsUsed.length);
-      this.beamsUsedTableOptions.OrderId = order.Id;
+      this.LoomBeamsUsed.splice(0, this.LoomBeamsUsed.length);
+      this.loomBeamsUsedTableOptions.OrderId = order.Id;
 
       if (newValue.ConstructionNumber) {
         this.error.ConstructionNumber = "";
@@ -133,10 +138,29 @@ export class Create {
         this.WeftOrigin = "";
         this.error.WeftOrigin = " Asal Pakan Tidak Ditemukan "
       }
+    }
+  }
 
-      if (this.ConstructionNumber && this.WeavingUnit && this.WarpOrigin && this.WeftOrigin) {
-        this.showHideBeamsCollection = true;
-      }
+  showBeamMenu() {
+    this.TyingMachineNumber = undefined;
+    this.TyingOperator = undefined;
+    this.LoomMachineNumber = undefined;
+    this.LoomOperator = undefined;
+    this.PreparationDate = undefined;
+    this.PreparationTime = null;
+    this.PreparationShift = undefined;
+    if (this.showHideAddBeam === true) {
+      this.showHideAddBeam = false;
+    } else {
+      this.showHideAddBeam = true;
+    }
+  }
+
+  BeamOriginChanged(newValue) {
+    if (newValue === "REACHING") {
+      this.isTying = true;
+    } else {
+      this.isTying = false;
     }
   }
 
@@ -155,14 +179,59 @@ export class Create {
       });
   }
 
-  PreparationOperatorChanged(newValue) {
-    this.SizingGroup = newValue.Group;
-  }
+  addBeam() {
+    let beamUsed = {};
+    if (this.BeamOrigin === "TYING") {
+      if (this.TyingMachineNumber) {
+        beamUsed.TyingMachineNumberId = this.TyingMachineNumber.Id;
+      } else {
+        this.error.TyingMachineNumberId = "No. Mesin Tying Harus Diisi";
+      }
 
-  get addBeamsUsed() {
-    return event => {
-      this.BeamsUsed.push({});
-    };
+      if (this.TyingOperator) {
+        beamUsed.TyingOperatorId = this.TyingOperator.Id;
+      } else {
+        this.error.TyingOperatorId = "Operator Tying Harus Diisi";
+      }
+    }
+
+    if (this.LoomMachineNumber) {
+      beamUsed.LoomMachineNumberId = this.LoomMachineNumber.Id;
+    } else {
+      this.error.LoomMachineNumberId = "No. Mesin Loom Harus Diisi";
+    }
+
+    if (this.LoomOperator) {
+      beamUsed.LoomOperatorId = this.LoomOperator.Id;
+    } else {
+      this.error.LoomOperatorId = "Operator Loom Harus Diisi";
+    }
+
+    if (this.BeamNumber) {
+      beamUsed.BeamNumber = this.BeamNumber;
+    } else {
+      this.error.BeamNumber = "No. Beam Harus Diisi";
+    }
+
+    if (this.PreparationDate) {
+      beamUsed.PreparationDate = this.PreparationDate;
+    } else {
+      this.error.PreparationDate = "Tanggal Harus Diisi";
+    }
+
+    if (this.PreparationTime) {
+      beamUsed.PreparationTime = this.PreparationTime;
+    } else {
+      this.error.PreparationTime = "Jam Harus Diisi";
+    }
+
+    if (this.Process) {
+      beamUsed.Process = this.Process;
+    } else {
+      this.error.Process = "Proses Harus Diisi";
+    }
+
+    this.LoomBeamsUsed.push(beamUsed);
   }
 
   saveCallback(event) {
@@ -173,8 +242,7 @@ export class Create {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
 
-    // this.BeamHistoryDocument = this.BeamsUsed.map((beam) => beam);
-    this.BeamsUsed.forEach(doc => {
+    this.LoomBeamsUsed.forEach(doc => {
       debugger
       var BeamHistoryDocument = {};
       var BeamProductDocument = {};

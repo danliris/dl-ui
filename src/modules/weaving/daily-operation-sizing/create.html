@@ -104,37 +104,6 @@
           </au-numeric>
         </div>
       </div>
-
-      <div class="row"
-           style="white-space: nowrap;">
-        <div class="col-md-2"
-             style="text-align:left;">
-          <textbox label="Operator"
-                   read-only="true"
-                   style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-3">
-          <au-autocomplete placeholder="Operator"
-                           value.bind="PreparationOperator"
-                           error.bind="error.PreparationOperator"
-                           read-only.bind="readOnly"
-                           loader.bind="operators"
-                           text="Username"></au-autocomplete>
-        </div>
-        <div class="col-md-2 col-md-offset-1"
-             style="text-align:left;">
-          <textbox label="Grup Sizing"
-                   read-only="true"
-                   style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-3">
-          <au-textbox placeholder="Grup Sizing"
-                      value.bind="SizingGroup"
-                      error.bind="error.SizingGroup"
-                      read-only.bind="true"></au-textbox>
-        </div>
-      </div>
-
       <div class="row"
            style="white-space: nowrap;">
         <div class="col-md-2"

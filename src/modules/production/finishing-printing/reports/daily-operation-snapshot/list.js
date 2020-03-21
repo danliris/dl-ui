@@ -14,8 +14,27 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        let dateNow = new Date();
+        this.monthNow = dateNow.getMonth();
+        this.month = this.monthList[this.monthNow];
+
+        this.yearNow = dateNow.getFullYear();
+        this.year = this.yearNow;
+        for (var i = this.yearNow - 4; i <= this.yearNow; i++) {
+            this.yearList.push(i);
+        }
     }
 
+    controlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        },
+    };
+    monthList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    yearList = [];
     tableOptions = {
         search: false,
         showToggle: false,
@@ -30,6 +49,8 @@ export class List {
     Kanban = null;
     filterKanban = null;
     kanbanId = null;
+    month = "";
+    year = 0;
 
     columns = [
         [
@@ -147,9 +168,9 @@ export class List {
         //    var htmltable= document.getElementById('myTable');
         //    var html = htmltable.outerHTML;
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        var searchDate = this.searchDate ? moment(this.searchDate).format("DD MMM YYYY HH:mm") : null;
-
-        this.service.generateExcel(searchDate);
+        // var searchDate = this.searchDate ? moment(this.searchDate).format("DD MMM YYYY HH:mm") : null;
+        let currMonth = this.monthList.indexOf(this.month) + 1;
+        this.service.generateExcel(currMonth, this.year);
     }
 
     get machineLoader() {

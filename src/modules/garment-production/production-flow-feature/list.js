@@ -20,7 +20,29 @@ export class List {
     }
 
     get roLoader() {
-        return PreparingLoader;
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({})
+            };
+            return this.service.searchPreparing(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= roList.find(d=>d.RONo==a.RONo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                        }
+                        return roList;
+                    
+                });
+        }
     }
 
     async roNoChanged(newValue){
@@ -87,15 +109,16 @@ export class List {
                                 if (this.cuttingData.length==0){
                                     dataItem["color"]=detail.Color;
                                     dataItem["CuttingNo"]=cutting.CutOutNo;
-                                    dataItem["date"]=cutting.CutOutDate;
+                                    dataItem["date"]=cutting.CuttingOutDate;
+                                    dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                     this.cuttingData.push(dataItem);
                                 }
                                 else{
-                                    var same= this.cuttingData.find(s=>s.color==detail.Color);
+                                    var same= this.cuttingData.find(s=>s.color==detail.Color && s.CuttingNo==cutting.CutOutNo);
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["CuttingNo"]=cutting.CutOutNo;
-                                        dataItem["date"]=cutting.CutOutDate;
+                                        dataItem["date"]=cutting.CuttingOutDate;
                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                         this.cuttingData.push(dataItem);
                                     }
@@ -136,7 +159,7 @@ export class List {
                                     this.loadingData.push(dataItem);
                                 }
                                 else{
-                                    var same= this.loadingData.find(s=>s.color==detail.Color);
+                                    var same= this.loadingData.find(s=>s.color==detail.Color && s.loadingNo==loading.LoadingNo);
                                     if(!same){
                                         dataItem["color"]=detail.Color;
                                         dataItem["loadingNo"]=loading.LoadingNo;
@@ -165,7 +188,7 @@ export class List {
                             }
                         }
 
-                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                        this.service.searchSewing({ filter: JSON.stringify({ RONo: this.RONo, SewingTo:"FINISHING"}) })
                         .then(result => {
                             this.sewingData=[];
                             this.sewingSizes=[];
@@ -212,7 +235,7 @@ export class List {
                                         this.sewingData.push(dataItem);
                                     }
                                     else{
-                                        var same= this.sewingData.find(s=>s.color==item.Color);
+                                        var same= this.sewingData.find(s=>s.color==item.Color && s.sewingNo==sewing.SewingOutNo);
                                         if(!same){
                                             dataItem["color"]=item.Color;
                                             dataItem["sewingNo"]=sewing.SewingOutNo;
@@ -244,7 +267,7 @@ export class List {
                                 }
                             }
 
-                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo}) })
+                            this.service.searchFinishing({ filter: JSON.stringify({ RONo: this.RONo, FinishingTo:"GUDANG JADI"}) })
                             .then(result => {
                                 this.finishingData=[];
                                 this.finishingSizes=[];
@@ -292,7 +315,7 @@ export class List {
                                             this.finishingData.push(dataItem);
                                         }
                                         else{
-                                            var same= this.finishingData.find(s=>s.color==item.Color);
+                                            var same= this.finishingData.find(s=>s.color==item.Color && s.finishingNo==finishing.FinishingOutNo);
                                             if(!same){
                                                 dataItem["color"]=item.Color;
                                                 dataItem["finishingNo"]=finishing.FinishingOutNo;
@@ -340,7 +363,7 @@ export class List {
                                                 this.expenditureData.push(dataItem);
                                             }
                                             else{
-                                                var same= this.expenditureData.find(s=>s.color==item.Description);
+                                                var same= this.expenditureData.find(s=>s.color==item.Description && s.expenditureNo==expenditure.ExpenditureGoodNo);
                                                 if(!same){
                                                     dataItem["color"]=item.Description;
                                                     dataItem["expenditureNo"]=expenditure.ExpenditureGoodNo;
@@ -392,6 +415,7 @@ export class List {
           fixedColumns: true,
           fixedNumber: 1
         };
+        bootstrapTableOptions.height = 150;
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         //CUTTING
@@ -399,7 +423,7 @@ export class List {
         cutColumns.push({ field: 'CuttingNo', title: 'No Bon' });
         cutColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         cutColumns.push({ field: 'color', title: 'Warna' });
-
+        this.cuttingSizes.sort();
         for(let size of this.cuttingSizes) {
             cutColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -411,6 +435,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapCuttingTableOptions.height = 150;
         $(this.cuttingTable).bootstrapTable('destroy').bootstrapTable(bootstrapCuttingTableOptions);
 
         //LOADING
@@ -418,8 +443,8 @@ export class List {
         loadingColumns.push({ field: 'loadingNo', title: 'No Bon' });
         loadingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         loadingColumns.push({ field: 'color', title: 'Warna' });
-
-        for(let size of this.cuttingSizes) {
+        this.loadingSizes.sort();
+        for(let size of this.loadingSizes) {
             loadingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
@@ -430,6 +455,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapLoadingTableOptions.height = 150;
         $(this.loadingTable).bootstrapTable('destroy').bootstrapTable(bootstrapLoadingTableOptions);
         
         //SEWING
@@ -437,7 +463,7 @@ export class List {
         sewingColumns.push({ field: 'sewingNo', title: 'No Bon' });
         sewingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         sewingColumns.push({ field: 'color', title: 'Warna' });
-
+        this.sewingSizes.sort();
         for(let size of this.sewingSizes) {
             sewingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -449,6 +475,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapSewingTableOptions.height = 150;
         $(this.sewingTable).bootstrapTable('destroy').bootstrapTable(bootstrapSewingTableOptions);
     
         //FINISHING
@@ -456,7 +483,7 @@ export class List {
         finishingColumns.push({ field: 'finishingNo', title: 'No Bon' });
         finishingColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         finishingColumns.push({ field: 'color', title: 'Warna' });
-
+        this.finishingSizes.sort();
         for(let size of this.finishingSizes) {
             finishingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -468,6 +495,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapFinishingTableOptions.height = 150;
         $(this.finishingTable).bootstrapTable('destroy').bootstrapTable(bootstrapFinishingTableOptions);
     
         //EXGOOD
@@ -475,7 +503,7 @@ export class List {
         expenditureColumns.push({ field: 'expenditureNo', title: 'No Bon' });
         expenditureColumns.push({ field: 'date', title: 'Tanggal', formatter: value => moment(value).format("DD MMM YYYY") });
         expenditureColumns.push({ field: 'color', title: 'Warna' });
-
+        this.expenditureSizes.sort();
         for(let size of this.expenditureSizes) {
             expenditureColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
@@ -487,6 +515,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 1
         };
+        bootstrapExpenditureTableOptions.height = 150;
         $(this.expenditureTable).bootstrapTable('destroy').bootstrapTable(bootstrapExpenditureTableOptions);
     
     }

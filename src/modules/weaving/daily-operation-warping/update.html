@@ -209,7 +209,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="No. Beam Warping"
                                value.bind="StartWarpingBeamDocuments"
-                               error.bind="error.error.WarpingBeamId"
+                               error.bind="error.error.BeamStatus"
                                read-only.bind="readOnly"
                                loader.bind="beams"
                                text="Number">
@@ -476,6 +476,7 @@
       <div class="row"
            style="white-space: nowrap; overflow: auto;">
         <au-collection items.bind="Histories"
+                       options.bind="dataOptions"
                        errors.bind="error.Histories"
                        columns.bind="dailyOperationHistoriesColumns"
                        read-only.bind="true"

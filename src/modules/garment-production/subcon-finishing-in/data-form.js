@@ -160,6 +160,8 @@ export class DataForm {
     }
 
     async selectedURNChanged(newValue, oldValue) {
+        this.selectedRONo = null;
+
         if (newValue) {
             this.data.DOId = newValue.DOId;
             this.data.DONo = newValue.DONo;
@@ -180,7 +182,6 @@ export class DataForm {
         } else {
             this.data.DOId = 0;
             this.data.DONo = null;
-            this.selectedRONo = null;
         }
     }
 
