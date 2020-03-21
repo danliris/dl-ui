@@ -137,6 +137,7 @@ export class DataForm {
     } else {
       this.data.LocalSalesContract = null;
       this.data.LocalBuyer = null;
+      this.data.DOSalesLocalItems = [];
     }
   }
 
