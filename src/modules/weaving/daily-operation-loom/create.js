@@ -45,7 +45,7 @@ export class Create {
     header: "No. Mesin Loom"
   }, {
     value: "LoomOperator",
-    header: "Operator Tying"
+    header: "Operator Loom"
   }, {
     value: "LoomOperatorGroup",
     header: "Grup Loom"
@@ -59,9 +59,6 @@ export class Create {
     value: "Shift",
     header: "Shift"
   }, {
-    //   value: "Process",
-    //   header: "Proses"
-    // }, {
     header: "Action"
   }];
 
@@ -148,7 +145,6 @@ export class Create {
 
   get BeamProcessed() {
     let result = 0;
-    // console.log(this.LoomBeamsUsed.length);
 
     if (this.LoomBeamsUsed) {
       if (this.LoomBeamsUsed.length > 0) {
@@ -270,12 +266,6 @@ export class Create {
       this.error.PreparationShift = "Jam Harus Diisi";
     }
 
-    // if (this.Process) {
-    //   beamUsed.Process = this.Process;
-    // } else {
-    //   this.error.Process = "Proses Harus Diisi";
-    // }
-
     this.LoomBeamsUsed.push(beamUsed);
 
     this.clearField();
@@ -293,7 +283,6 @@ export class Create {
     }
 
     this.LoomBeamsUsed.forEach(datum => {
-      // console.log(datum);
       var LoomItem = {};
 
       if (datum.BeamOrigin) {
@@ -338,8 +327,7 @@ export class Create {
 
       preparationData.LoomItems.push(LoomItem);
     });
-    console.log(preparationData);
-    // debugger
+    
     this.service
       .create(preparationData)
       .then(result => {

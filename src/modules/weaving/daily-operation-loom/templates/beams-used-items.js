@@ -9,7 +9,7 @@ import {
   import moment from 'moment';
   
   @inject(Service, BindingEngine)
-  export class BeamProductItems {
+  export class BeamsUsedItems {
   
     constructor(service, bindingEngine) {
       this.service = service;
@@ -21,13 +21,13 @@ import {
   
       this.error = context.error || {};
   
-      if (this.data.LatestDateTimeBeamProduct) {
-        var DateBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('DD/MM/YYYY');
-        var TimeBeamProduct = moment(this.data.LatestDateTimeBeamProduct).format('LT');
+      // if (this.data.LatestDateTimeProcessed) {
+      //   var LastDateProcessed = moment(this.data.LatestDateTimeProcessed).format('DD/MM/YYYY');
+      //   var LastTimeProcessed = moment(this.data.LatestDateTimeProcessed).format('LT');
   
-        this.data.LatestBeamProductDate = DateBeamProduct;
-        this.data.LatestBeamProductTime = TimeBeamProduct;
-      }
+      //   this.data.LastDateProcessed = LastDateProcessed;
+      //   this.data.LastTimeProcessed = LastTimeProcessed;
+      // }
   
       this.options = context.context.options;
       this.readOnly = context.options.readOnly;

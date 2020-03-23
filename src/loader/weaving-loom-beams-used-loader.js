@@ -5,7 +5,7 @@ import {
     Config
   } from "aurelia-api";
   
-  const resource = "weaving/daily-operations-loom/get-loom-beam-products-by-order";
+  const resource = "weaving/daily-operations-loom/get-loom-beams-used";
   
   module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);
@@ -19,8 +19,7 @@ import {
         page : 1
       })
       .then(results => {
-        return results.data.map(beam => {
-  
+        return results.data.map(beam => {  
           return beam;
         });
       });
