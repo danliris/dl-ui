@@ -50,8 +50,8 @@
         </div>
         <div class="col-md-3">
           <au-textbox placeholder="Asal Lusi"
-                      value.bind="WarpOrigin"
-                      error.bind="error.WarpOrigin"
+                      value.bind="WarpOriginOne"
+                      error.bind="error.WarpOriginOne"
                       read-only.bind="true">
           </au-textbox>
         </div>
@@ -80,8 +80,8 @@
         </div>
         <div class="col-md-3">
           <au-textbox placeholder="Asal Pakan"
-                      value.bind="WeftOrigin"
-                      error.bind="error.WeftOrigin"
+                      value.bind="WeftOriginOne"
+                      error.bind="error.WeftOriginOne"
                       read-only.bind="true">
           </au-textbox>
         </div>
@@ -91,15 +91,15 @@
            style="white-space: nowrap;">
         <div class="col-md-2"
              style="text-align:left;">
-          <textbox label="Jumlah Beam Dihasilkan"
+          <textbox label="Jumlah Beam Diproses"
                    read-only="true"></textbox>
         </div>
         <div class="col-md-2">
-          <au-numeric placeholder="Jumlah Beam Dihasilkan"
-                      value.bind="BeamProductResult"
-                      error.bind="error.BeamProductResult"
-                      read-only.bind="readOnly">
-          </au-numeric>
+          <au-textbox placeholder="Jumlah Beam Diproses"
+                      value.bind="BeamProcessed"
+                      error.bind="error.BeamProcessed"
+                      read-only.bind="true">
+          </au-textbox>
         </div>
       </div>
       <div class="row"
@@ -145,11 +145,13 @@
                        style="display:inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete value.bind="TyingMachineNumber"
+              <au-autocomplete placeholder="No. Mesin Tying"
+                               value.bind="TyingMachineDocument"
                                error.bind="error.TyingMachineNumberId"
                                read-only.bind="readOnly"
-                               loader.bind="machines"
-                               text="MachineNumber"></au-autocomplete>
+                               loader.one-time="machines"
+                               text="MachineNumber">
+              </au-autocomplete>
             </div>
           </div>
 
@@ -164,7 +166,8 @@
                        style="display:inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete value.bind="TyingOperator"
+              <au-autocomplete placeholder="Operator Tying"
+                               value.bind="TyingOperatorDocument"
                                error.bind="error.TyingOperatorId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
@@ -178,7 +181,7 @@
             </div>
             <div class="col-md-3">
               <au-textbox placeholder="Grup Tying"
-                          value.bind="TyingOperator.Group"
+                          value.bind="TyingOperatorDocument.Group"
                           error.bind="error.TyingOperator"
                           read-only.bind="true"></au-textbox>
             </div>
@@ -194,7 +197,8 @@
                        style="display:inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete value.bind="LoomMachineNumber"
+              <au-autocomplete placeholder="No. Mesin Loom"
+                               value.bind="LoomMachineDocument"
                                error.bind="error.LoomMachineNumberId"
                                read-only.bind="readOnly"
                                loader.bind="machines"
@@ -212,7 +216,8 @@
                        style="display:inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete value.bind="LoomOperator"
+              <au-autocomplete placeholder="Operator Loom"
+                               value.bind="LoomOperatorDocument"
                                error.bind="error.LoomOperatorId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
@@ -226,7 +231,7 @@
             </div>
             <div class="col-md-3">
               <au-textbox placeholder="Grup Loom"
-                          value.bind="LoomOperator.Group"
+                          value.bind="LoomOperatorDocument.Group"
                           error.bind="error.LoomOperator"
                           read-only.bind="true"></au-textbox>
             </div>
@@ -237,7 +242,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Tanggal Mulai"
+              <textbox label="Tanggal Pasang"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -253,7 +258,8 @@
                        style="display:inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-autocomplete value.bind="BeamDocument"
+              <au-autocomplete placeholder="No. Beam"
+                               value.bind="BeamDocument"
                                error.bind="error.LoomBeamId"
                                read-only.bind="readOnly"
                                loader.bind="beams"
@@ -266,7 +272,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Waktu Mulai"
+              <textbox label="Waktu Pasang"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -313,7 +319,7 @@
             <div class="col-md-12">
               <button class="btn btn-default"
                       click.delegate="addBeam()"
-                      style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+                      style="float: right; background-color: #01C8A2; color:white; white-space: nowrap;
                   width: 96px; border: 1px solid #777777;">
                 Tambah
               </button>
@@ -321,7 +327,7 @@
           </div>
 
           <div class="row"
-               style="white-space: nowrap; overflow: auto; padding-right: 8px;">
+               style="white-space: nowrap; padding-right: 8px;">
             <au-textbox error.bind="error.LoomBeamsUsed"
                         read-only="true"></au-textbox>
             <au-collection items.bind="LoomBeamsUsed"
