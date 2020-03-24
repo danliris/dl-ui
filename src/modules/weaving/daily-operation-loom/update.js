@@ -11,7 +11,7 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var LoomBeamProductsLoader = require("../../../loader/weaving-loom-beams-used-loader");
+var LoomBeamsUsedLoader = require("../../../loader/weaving-loom-beams-used-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
@@ -27,9 +27,10 @@ export class Update {
     this.data = {};
 
     this.isStartDisabled = false;
-    this.isFinishDisabled = false;
+    this.isReprocessDisabled = false;
+    this.isProduceGreigeDisabled = false;
 
-    this.showHideCalculationField = false;
+    this.isTying = false;
   }
 
   formOptions = {
@@ -91,7 +92,7 @@ export class Update {
       header: "Operator Tying"
     },
     {
-      value: "TyingOperatorGrup",
+      value: "TyingGrup",
       header: "Grup Tying"
     },
     {
@@ -102,7 +103,7 @@ export class Update {
       header: "Operator Loom"
     },
     {
-      value: "LoomOperatorGrup",
+      value: "LoomGrup",
       header: "Grup Loom"
     },
     {
@@ -135,96 +136,77 @@ export class Update {
 
   async activate(params) {
     var Id = params.Id;
-    var dataResult;
     this.data = await this.service
       .getById(Id);
-    // .then(result => {
-    //   dataResult = result;
-    //   return this.service.getUnitById(result.WeavingUnitId);
-    // })
-    // .then(unit => {
-    //   dataResult.WeavingDocument = unit;
-    //   dataResult.WeavingUnitName = unit.Name;
-    //   return dataResult;
-    // });
 
     if (this.data.Id) {
       this.OperationIdFilter = {
         "LoomOperationId": this.data.Id
       };
 
-      this.BeamsUsed = this.data.DailyOperationLoomBeamsUsed;
       this.Histories = this.data.DailyOperationLoomBeamHistories;
+      let isOnProcessBeam = (this.Histories.indexOf('ON-PROCESS-BEAM') > -1);
 
-      var lastLoomHistory = this.Histories[0];
-      var lastMachineStatusHistory = lastLoomHistory.MachineStatus;
-      switch (lastMachineStatusHistory) {
-        case "ENTRY":
-          this.isStartDisabled = false;
-          this.isFinishDisabled = true;
-          break;
-        case "START":
-          this.isStartDisabled = true;
-          this.isFinishDisabled = false;
-          break;
-        case "COMPLETED":
-          var isAllBeamProcessed = 0;
-          this.BeamsUsed.forEach(beamProduct => {
-            if (beamProduct.BeamUsedStatus == "ON-PROCESS") {
-              isAllBeamProcessed++;
-            }
-          });
-          if (isAllBeamProcessed == 0) {
-            this.isStartDisabled = true;
-            this.isFinishDisabled = true;
-          } else {
-            this.isStartDisabled = false;
-            this.isFinishDisabled = true;
-          }
-          break;
-        default:
-          this.isStartDisabled = true;
-          this.isFinishDisabled = true;
-          break;
-      }
+      this.BeamsUsed = this.data.DailyOperationLoomBeamsUsed;
+      var isAllBeamProcessed = 0;
+      this.BeamsUsed.forEach(beamUsed => {
+        if (beamUsed.BeamUsedStatus == "COMPLETED") {
+          isAllBeamProcessed++;
+        }
+      });
 
-      // this.dataOptions = this.data;
+      // if (isOnProcessBeam === true) {
+      //   if (isAllBeamProcessed === this.data.BeamProcessed) {
+      //     this.isStartDisabled = false;
+      //     this.isReprocessDisabled = false;
+      //     this.isProduceGreigeDisabled = false;
+      //     console.log("true, ga ada yg diproses gan");
+      //   } else {
+      //     this.isStartDisabled = true;
+      //     this.isReprocessDisabled = false;
+      //     this.isProduceGreigeDisabled = false;
+      //     console.log("true, masih ada yg diproses gan");
+      //   }
+      // } else {
+      //   console.log("false gan");
+      //   this.isStartDisabled = false;
+      //   this.isReprocessDisabled = true;
+      //   this.isProduceGreigeDisabled = true;
+      // }
     }
   }
-
-  causes = ["", "Putus Beam", "Mesin Bermasalah"];
 
   get operators() {
     return OperatorLoader;
   }
 
   get loomBeamsUsed() {
-    return LoomBeamProductsLoader;
+    return LoomBeamsUsedLoader;
+  }
+
+  get loomBeamsUsedProcessed() {
+    return LoomBeamsUsedLoader;
   }
 
   start() {
+    // console.log("StartLoomBeamDocuments :", this.StartLoomBeamDocuments);
+    // console.log("StartTyingOperator :", this.StartTyingOperator);
+    // console.log("StartLoomOperator :", this.StartLoomOperator);
+    // console.log("StartDate :", this.StartDate);
+    // console.log("StartTime :", this.StartTime);
+    // console.log("StartShift :", this.StartShift);
+    this.StartLoomBeamDocuments = null;
+    this.StartTyingOperator = undefined;
+    this.StartLoomOperator = undefined;
     this.StartDate = undefined;
     this.StartTime = null;
     this.StartShift = undefined;
-    this.StartOperator = undefined;
+
     if (this.showHideStartMenu === true) {
       this.showHideStartMenu = false;
     } else {
       this.showHideStartMenu = true;
-      this.showHideFinishMenu = false;
-    }
-  }
-
-  finish() {
-    this.FinishFinishDate = undefined;
-    this.FinishFinishTime = null;
-    this.FinishFinishShift = undefined;
-    this.FinishFinishOperator = undefined;
-    if (this.showHideFinishMenu === true) {
-      this.showHideFinishMenu = false;
-    } else {
-      this.showHideStartMenu = false;
-      this.showHideFinishMenu = true;
+      this.showHideProduceGreigeMenu = false;
     }
   }
 
@@ -241,9 +223,16 @@ export class Update {
       });
   }
 
-  StartLoomBeamDocumentsChanged(newValue) {
-    if (newValue.MachineNumber) {
-      this.StartMachineNumber = newValue.MachineNumber;
+  async StartLoomBeamDocumentsChanged(newValue) {
+    console.log(newValue);
+    if (newValue.Id) {
+      this.StartLoomMachine = newValue.LoomMachineNumber;
+      if (newValue.BeamOrigin === "TYING") {
+        this.isTying = true;
+        this.StartTyingMachine = newValue.TyingMachineNumber;
+        this.StartTyingOperator = await this.service
+          .getOperatorById(newValue.TyingOperatorId);
+      }
     }
   }
 
@@ -288,6 +277,32 @@ export class Update {
       .catch(e => {
         this.error = e;
       });
+  }
+
+  reprocess() {
+    this.StartDate = undefined;
+    this.StartTime = null;
+    this.StartShift = undefined;
+    this.StartOperator = undefined;
+    if (this.showHideStartMenu === true) {
+      this.showHideStartMenu = false;
+    } else {
+      this.showHideStartMenu = true;
+      this.showHideProduceGreigeMenu = false;
+    }
+  }
+
+  produceGreige() {
+    this.FinishFinishDate = undefined;
+    this.FinishFinishTime = null;
+    this.FinishFinishShift = undefined;
+    this.FinishFinishOperator = undefined;
+    if (this.showHideProduceGreigeMenu === true) {
+      this.showHideProduceGreigeMenu = false;
+    } else {
+      this.showHideStartMenu = false;
+      this.showHideProduceGreigeMenu = true;
+    }
   }
 
   FinishTimeChanged(newValue) {

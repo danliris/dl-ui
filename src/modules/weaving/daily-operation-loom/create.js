@@ -263,7 +263,7 @@ export class Create {
       beamUsed.PreparationShiftId = this.PreparationShift.Id;
       beamUsed.PreparationShiftName = this.PreparationShift.Name;
     } else {
-      this.error.PreparationShift = "Jam Harus Diisi";
+      this.error.PreparationShift = "Shift Harus Diisi";
     }
 
     this.LoomBeamsUsed.push(beamUsed);
@@ -299,14 +299,17 @@ export class Create {
 
       if (datum.TyingMachineId) {
         LoomItem.TyingMachineId = datum.TyingMachineId;
+        LoomItem.TyingMachineNumber = datum.TyingMachineNumber;
       }
 
       if (datum.TyingOperatorId) {
         LoomItem.TyingOperatorId = datum.TyingOperatorId;
+        LoomItem.TyingOperatorName = datum.TyingOperator;
       }
 
       if (datum.LoomMachineId) {
         LoomItem.LoomMachineId = datum.LoomMachineId;
+        LoomItem.LoomMachineNumber = datum.LoomMachineNumber;
       }
 
       if (datum.LoomOperatorId) {

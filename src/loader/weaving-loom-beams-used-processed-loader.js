@@ -5,12 +5,12 @@ import {
     Config
   } from "aurelia-api";
   
-  const resource = "weaving/daily-operations-loom/get-loom-beams-used";
+  const resource = "weaving/daily-operations-loom/get-loom-beams-used-processed";
   
   module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("weaving");
-    
+  
     return endpoint
       .find(resource, {
         keyword: keyword,

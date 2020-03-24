@@ -64,6 +64,16 @@ export class Service extends RestService {
     });
   }
 
+  getOperatorById(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/operators/${value}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
