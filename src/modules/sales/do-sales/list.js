@@ -6,16 +6,23 @@ import moment from "moment";
 @inject(Router, Service)
 export class List {
   context = ["Detail", "Cetak DO Penjualan"];
-  
+
   columns = [
     { field: "DOSalesNo", title: "No. DO" },
     { field: "DOSalesType", title: "Type DO" },
-    { field: "Buyer.Name", title: "Buyer" },
     {
-        field: "Accepted", title: "Diterima",
-        formatter: function (value, data, index) {
-            return data.Accepted ? "Sudah" : "Belum";
-        }
+      field: "Date",
+      title: "Tanggal",
+      formatter: (value, data, index) => {
+        return moment.utc(value).local().format('DD MMM YYYY');
+      }
+    },
+    { field: "SalesContract.Buyer.Name", title: "Buyer" },
+    {
+      field: "Accepted", title: "Diterima",
+      formatter: function (value, data, index) {
+        return data.Accepted ? "Sudah" : "Belum";
+      }
     },
   ];
 
