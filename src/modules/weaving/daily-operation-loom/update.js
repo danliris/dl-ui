@@ -12,13 +12,17 @@ import {
 } from "./service";
 import moment from 'moment';
 var LoomBeamsUsedLoader = require("../../../loader/weaving-loom-beams-used-loader");
+var LoomBeamsUsedProcessedLoader = require("../../../loader/weaving-loom-beams-used-processed-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class Update {
+  @bindable StartLoomBeamDocument;
   @bindable StartTime;
-  @bindable StartLoomBeamDocuments;
-  @bindable FinishTime;
+  @bindable ReprocessLoomBeamDocument;
+  @bindable ReprocessTime;
+  @bindable ProduceGreigeLoomBeamDocument;
+  @bindable ProduceGreigeTime;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -185,17 +189,17 @@ export class Update {
   }
 
   get loomBeamsUsedProcessed() {
-    return LoomBeamsUsedLoader;
+    return LoomBeamsUsedProcessedLoader;
   }
 
   start() {
-    // console.log("StartLoomBeamDocuments :", this.StartLoomBeamDocuments);
+    // console.log("StartLoomBeamDocument :", this.StartLoomBeamDocument);
     // console.log("StartTyingOperator :", this.StartTyingOperator);
     // console.log("StartLoomOperator :", this.StartLoomOperator);
     // console.log("StartDate :", this.StartDate);
     // console.log("StartTime :", this.StartTime);
     // console.log("StartShift :", this.StartShift);
-    this.StartLoomBeamDocuments = null;
+    this.StartLoomBeamDocument = null;
     this.StartTyingOperator = undefined;
     this.StartLoomOperator = undefined;
     this.StartDate = undefined;
@@ -206,6 +210,7 @@ export class Update {
       this.showHideStartMenu = false;
     } else {
       this.showHideStartMenu = true;
+      this.showHideReprocessMenu = false;
       this.showHideProduceGreigeMenu = false;
     }
   }
@@ -223,7 +228,7 @@ export class Update {
       });
   }
 
-  async StartLoomBeamDocumentsChanged(newValue) {
+  async StartLoomBeamDocumentChanged(newValue) {
     console.log(newValue);
     if (newValue.Id) {
       this.StartLoomMachine = newValue.LoomMachineNumber;
@@ -239,35 +244,46 @@ export class Update {
   saveStart() {
     this.error = {};
     var IdContainer = this.data.Id;
+    var StartBeamIdContainer;
+    var StartBeamNumberContainer;
+    var StartTyingOperatorIdContainer;
+    var StartTyingOperatorNameContainer;
+    var StartLoomOperatorIdContainer;
+    var StartDateContainer;
+    var StartTimeContainer;
+    var StartShiftIdContainer;
+
+    if (this.StartLoomBeamDocument) {
+      StartBeamIdContainer = this.StartLoomBeamDocument.BeamDocumentId;
+      StartBeamNumberContainer = this.StartLoomBeamDocument.BeamNumber;
+    }
+    if (this.StartTyingOperator) {
+      StartTyingOperatorIdContainer = this.StartTyingOperator.Id;
+      StartTyingOperatorNameContainer = this.StartTyingOperator.Username;
+    }
+    if (this.StartLoomOperator) {
+      StartLoomOperatorIdContainer = this.StartLoomOperator.Id;
+    }
     if (this.StartDate) {
-      var StartDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
+      StartDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     }
     if (this.StartTime) {
-      var StartTimeContainer = this.StartTime;
+      StartTimeContainer = this.StartTime;
     }
     if (this.StartShift) {
-      var StartShiftIdContainer = this.StartShift.Id;
-    }
-    if (this.StartOperator) {
-      var StartOperatorIdContainer = this.StartOperator.Id;
-    }
-    if (this.StartLoomBeamDocuments) {
-      var StartBeamNumberContainer = this.StartLoomBeamDocuments.BeamNumber;
-      var StartBeamIdContainer = this.StartLoomBeamDocuments.Id;
-    }
-    if (this.StartMachineNumber) {
-      var StartMachineNumberContainer = this.StartMachineNumber;
+      StartShiftIdContainer = this.StartShift.Id;
     }
 
     var startData = {};
     startData.Id = IdContainer;
-    startData.StartBeamProductId = StartBeamIdContainer;
-    startData.StartBeamNumber = StartBeamNumberContainer;
-    startData.StartMachineNumber = StartMachineNumberContainer;
-    startData.StartDateMachine = StartDateContainer;
-    startData.StartTimeMachine = StartTimeContainer;
+    startData.StartBeamUsedId = StartBeamIdContainer;
+    startData.StartBeamUsedNumber = StartBeamNumberContainer;
+    startData.StartTyingOperatorDocumentId = StartTyingOperatorIdContainer;
+    startData.StartTyingOperatorName = StartTyingOperatorNameContainer;
+    startData.StartLoomOperatorDocumentId = StartLoomOperatorIdContainer;
+    startData.StartDate = StartDateContainer;
+    startData.StartTime = StartTimeContainer;
     startData.StartShiftDocumentId = StartShiftIdContainer;
-    startData.StartOperatorDocumentId = StartOperatorIdContainer;
 
     this.service
       .updateStart(startData.Id, startData)
@@ -280,82 +296,271 @@ export class Update {
   }
 
   reprocess() {
-    this.StartDate = undefined;
-    this.StartTime = null;
-    this.StartShift = undefined;
-    this.StartOperator = undefined;
-    if (this.showHideStartMenu === true) {
-      this.showHideStartMenu = false;
+    // console.log("ReprocessLoomBeamDocument :", this.ReprocessLoomBeamDocument);
+    // console.log("ReprocessTyingOperator :", this.ReprocessTyingOperator);
+    // console.log("ReprocessLoomOperator :", this.ReprocessLoomOperator);
+    // console.log("ReprocessDate :", this.ReprocessDate);
+    // console.log("ReprocessTime :", this.ReprocessTime);
+    // console.log("ReprocessShift :", this.ReprocessShift);
+    // console.log("Information :", this.Information);
+    this.ReprocessLoomBeamDocument = null;
+    this.ReprocessTyingOperator = undefined;
+    this.ReprocessLoomOperator = undefined;
+    this.ReprocessDate = undefined;
+    this.ReprocessTime = null;
+    this.ReprocessShift = undefined;
+    this.Information = undefined;
+
+    if (this.showHideReprocessMenu === true) {
+      this.showHideReprocessMenu = false;
     } else {
-      this.showHideStartMenu = true;
+      this.showHideStartMenu = false;
+      this.showHideReprocessMenu = true;
       this.showHideProduceGreigeMenu = false;
     }
   }
 
+  ReprocessTimeChanged(newValue) {
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.ReprocessShift = "";
+        this.ReprocessShift = {};
+        this.ReprocessShift = result;
+      })
+      .catch(e => {
+        this.ReprocessShift = {};
+        this.error.ReprocessShift = " Shift tidak ditemukan ";
+      });
+  }
+
+  async ReprocessLoomBeamDocumentChanged(newValue) {
+    console.log(newValue);
+    if (newValue.Id) {
+      this.ReprocessLoomMachine = newValue.LoomMachineNumber;
+      if (newValue.BeamOrigin === "TYING") {
+        this.isTying = true;
+        this.ReprocessTyingMachine = newValue.TyingMachineNumber;
+        this.ReprocessTyingOperator = await this.service
+          .getOperatorById(newValue.TyingOperatorId);
+      }
+    }
+  }
+
+  saveReprocess() {
+    this.error = {};
+    var IdContainer = this.data.Id;
+    var ReprocessBeamIdContainer;
+    var ReprocessBeamNumberContainer;
+    var ReprocessTyingOperatorIdContainer;
+    var ReprocessTyingOperatorNameContainer;
+    var ReprocessLoomOperatorIdContainer;
+    var ReprocessDateContainer;
+    var ReprocessTimeContainer;
+    var ReprocessShiftIdContainer;
+    var InformationContainer;
+
+    if (this.ReprocessLoomBeamDocument) {
+      ReprocessBeamIdContainer = this.ReprocessLoomBeamDocument.BeamDocumentId;
+      ReprocessBeamNumberContainer = this.ReprocessLoomBeamDocument.BeamNumber;
+    }
+    if (this.ReprocessTyingOperator) {
+      ReprocessTyingOperatorIdContainer = this.ReprocessTyingOperator.Id;
+      ReprocessTyingOperatorNameContainer = this.ReprocessTyingOperator.Username;
+    }
+    if (this.ReprocessLoomOperator) {
+      ReprocessLoomOperatorIdContainer = this.ReprocessLoomOperator.Id;
+    }
+    if (this.ReprocessDate) {
+      ReprocessDateContainer = moment(this.ReprocessDate).utcOffset("+07:00").format();
+    }
+    if (this.ReprocessTime) {
+      ReprocessTimeContainer = this.ReprocessTime;
+    }
+    if (this.ReprocessShift) {
+      ReprocessShiftIdContainer = this.ReprocessShift.Id;
+    }
+    if (this.Information) {
+      InformationContainer = this.Information;
+    }
+
+    var reprocessData = {};
+    reprocessData.Id = IdContainer;
+    reprocessData.ReprocessBeamUsedId = ReprocessBeamIdContainer;
+    reprocessData.ReprocessBeamUsedNumber = ReprocessBeamNumberContainer;
+    reprocessData.ReprocessTyingOperatorDocumentId = ReprocessTyingOperatorIdContainer;
+    reprocessData.ReprocessTyingOperatorName = ReprocessTyingOperatorNameContainer;
+    reprocessData.ReprocessLoomOperatorDocumentId = ReprocessLoomOperatorIdContainer;
+    reprocessData.ReprocessDate = ReprocessDateContainer;
+    reprocessData.ReprocessTime = ReprocessTimeContainer;
+    reprocessData.ReprocessShiftDocumentId = ReprocessShiftIdContainer;
+    reprocessData.InformationContainer = InformationContainer;
+
+    this.service
+      .updateReprocess(reprocessData.Id, reprocessData)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
+
   produceGreige() {
-    this.FinishFinishDate = undefined;
-    this.FinishFinishTime = null;
-    this.FinishFinishShift = undefined;
-    this.FinishFinishOperator = undefined;
+    // console.log("ProduceGreigeLoomBeamDocument :", this.ProduceGreigeLoomBeamDocument);
+    // console.log("ProduceGreigeTyingOperator :", this.ProduceGreigeTyingOperator);
+    // console.log("ProduceGreigeLoomOperator :", this.ProduceGreigeLoomOperator);
+    // console.log("ProduceGreigeDate :", this.ProduceGreigeDate);
+    // console.log("ProduceGreigeTime :", this.ProduceGreigeTime);
+    // console.log("ProduceGreigeShift :", this.ProduceGreigeShift);
+    // console.log("ProduceGreigeCounter :", this.ProduceGreigeCounter);
+    // console.log("ProduceGreigeUomDocument :", this.ProduceGreigeUomDocument);
+    // console.log("ProduceGreigeMachineSpeed :", this.ProduceGreigeMachineSpeed);
+    // console.log("ProduceGreigeSCMPX :", this.ProduceGreigeSCMPX);
+    // console.log("ProduceGreigeEfficiency :", this.ProduceGreigeEfficiency);
+    // console.log("ProduceGreigeF :", this.ProduceGreigeF);
+    // console.log("ProduceGreigeW :", this.ProduceGreigeW);
+    // console.log("ProduceGreigeL :", this.ProduceGreigeL);
+    // console.log("ProduceGreigeT :", this.ProduceGreigeT);
+    // console.log("ProduceGreigeIsCompletedProduction :", this.ProduceGreigeIsCompletedProduction);
+    this.ProduceGreigeLoomBeamDocument = null;
+    this.ProduceGreigeTyingOperator = undefined;
+    this.ProduceGreigeLoomOperator = undefined;
+    this.ProduceGreigeDate = undefined;
+    this.ProduceGreigeTime = null;
+    this.ProduceGreigeShift = undefined;
+    this.ProduceGreigeCounter = 0;
+    this.ProduceGreigeUomDocument = undefined;
+    this.ProduceGreigeMachineSpeed = 0;
+    this.ProduceGreigeSCMPX = 0;
+    this.ProduceGreigeEfficiency = 0;
+    this.ProduceGreigeF = 0;
+    this.ProduceGreigeW = 0;
+    this.ProduceGreigeL = 0;
+    this.ProduceGreigeT = 0;
+    this.ProduceGreigeIsCompletedProduction = undefined;
     if (this.showHideProduceGreigeMenu === true) {
       this.showHideProduceGreigeMenu = false;
     } else {
       this.showHideStartMenu = false;
+      this.showHideReprocessMenu = false;
       this.showHideProduceGreigeMenu = true;
     }
   }
 
-  FinishTimeChanged(newValue) {
+  ProduceGreigeTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
-        this.error.FinishShift = "";
-        this.FinishShift = {};
-        this.FinishShift = result;
+        this.error.ProduceGreigeShift = "";
+        this.ProduceGreigeShift = {};
+        this.ProduceGreigeShift = result;
       })
       .catch(e => {
-        this.FinishShift = {};
-        this.error.FinishShift = " Shift tidak ditemukan ";
+        this.ProduceGreigeShift = {};
+        this.error.ProduceGreigeShift = " Shift tidak ditemukan ";
       });
   }
 
-  saveFinish() {
+  saveProduceGreige() {    
+    this.error = {};
     var IdContainer = this.data.Id;
+    var ProduceGreigeBeamIdContainer;
+    var ProduceGreigeBeamNumberContainer;
+    var ProduceGreigeTyingOperatorIdContainer;
+    var ProduceGreigeTyingOperatorNameContainer;
+    var ProduceGreigeLoomOperatorIdContainer;
+    var ProduceGreigeDateContainer;
+    var ProduceGreigeTimeContainer;
+    var ProduceGreigeShiftIdContainer;
+    var ProduceGreigeCounterContainer;
+    var ProduceGreigeUomDocumentIdContainer;
+    var ProduceGreigeUomUnitContainer;
+    var ProduceGreigeMachineSpeedContainer;
+    var ProduceGreigeSCMPXContainer;
+    var ProduceGreigeEfficiencyContainer;
+    var ProduceGreigeFContainer;
+    var ProduceGreigeWContainer;
+    var ProduceGreigeLContainer;
+    var ProduceGreigeTContainer;
+    var ProduceGreigeIsCompletedProductionContainer;
 
-    if (this.data.DailyOperationLoomBeamHistories.length > 0) {
-      var LastHistory = this.data.DailyOperationLoomBeamHistories[0];
+    if (this.ProduceGreigeLoomBeamDocument) {
+      ProduceGreigeBeamIdContainer = this.ProduceGreigeLoomBeamDocument.BeamDocumentId;
+      ProduceGreigeBeamNumberContainer = this.ProduceGreigeLoomBeamDocument.BeamNumber;
+    }
+    if (this.ProduceGreigeTyingOperator) {
+      ProduceGreigeTyingOperatorIdContainer = this.ProduceGreigeTyingOperator.Id;
+      ProduceGreigeTyingOperatorNameContainer = this.ProduceGreigeTyingOperator.Username;
+    }
+    if (this.ProduceGreigeLoomOperator) {
+      ProduceGreigeLoomOperatorIdContainer = this.ProduceGreigeLoomOperator.Id;
+    }
+    if (this.ProduceGreigeDate) {
+      ProduceGreigeDateContainer = moment(this.ProduceGreigeDate).utcOffset("+07:00").format();
+    }
+    if (this.ProduceGreigeTime) {
+      ProduceGreigeTimeContainer = this.ProduceGreigeTime;
+    }
+    if (this.ProduceGreigeShift) {
+      ProduceGreigeShiftIdContainer = this.ProduceGreigeShift.Id;
+    }
+    if (this.ProduceGreigeCounter) {
+      ProduceGreigeCounterContainer = this.ProduceGreigeCounter;
+    }
+    if (this.ProduceGreigeUomDocument) {
+      ProduceGreigeUomDocumentIdContainer = this.ProduceGreigeUomDocument.Id;
+    }
+    if (this.ProduceGreigeUomUnit) {
+      ProduceGreigeUomUnitContainer = this.ProduceGreigeUomUnit;
+    }
+    if (this.ProduceGreigeMachineSpeed) {
+      ProduceGreigeMachineSpeedContainer = this.ProduceGreigeMachineSpeed;
+    }
+    if (this.ProduceGreigeSCMPX) {
+      ProduceGreigeSCMPXContainer = this.ProduceGreigeSCMPX;
+    }
+    if (this.ProduceGreigeEfficiency) {
+      ProduceGreigeEfficiencyContainer = this.ProduceGreigeEfficiency;
+    }
+    if (this.ProduceGreigeF) {
+      ProduceGreigeFContainer = this.ProduceGreigeF;
+    }
+    if (this.ProduceGreigeW) {
+      ProduceGreigeWContainer = this.ProduceGreigeW;
+    }
+    if (this.ProduceGreigeL) {
+      ProduceGreigeLContainer = this.ProduceGreigeL;
+    }
+    if (this.ProduceGreigeT) {
+      ProduceGreigeTContainer = this.ProduceGreigeT;
+    }
+    if (this.ProduceGreigeIsCompletedProduction) {
+      ProduceGreigeIsCompletedProductionContainer = this.ProduceGreigeIsCompletedProduction;
     }
 
-    var beamProductBeamId = ""
-    this.BeamsUsed.forEach(beamProduct => {
-      if (beamProduct.BeamNumber == LastHistory.BeamNumber) {
-        beamProductBeamId = beamProduct.BeamDocumentId;
-      }
-    });
-    if (this.FinishDate) {
-      var HistoryDateContainer = moment(this.FinishDate).utcOffset("+07:00").format();
-    }
-    if (this.FinishTime) {
-      var HistoryTimeContainer = this.FinishTime;
-    }
-    if (this.FinishShift) {
-      var ShiftContainer = this.FinishShift.Id;
-    }
-    if (this.FinishOperator) {
-      var OperatorContainer = this.FinishOperator.Id;
-    }
-
-    var updateData = {};
-    updateData.Id = IdContainer;
-    updateData.FinishBeamProductBeamId = beamProductBeamId;
-    updateData.FinishBeamNumber = LastHistory.BeamNumber;;
-    updateData.FinishMachineNumber = LastHistory.MachineNumber;;
-    updateData.FinishDateMachine = HistoryDateContainer;
-    updateData.FinishTimeMachine = HistoryTimeContainer;
-    updateData.FinishShiftDocumentId = ShiftContainer;
-    updateData.FinishOperatorDocumentId = OperatorContainer;
+    var produceGreigeData = {};
+    produceGreigeData.Id = IdContainer;
+    produceGreigeData.ProduceGreigeBeamUsedId = ProduceGreigeBeamIdContainer;
+    produceGreigeData.ProduceGreigeBeamUsedNumber = ProduceGreigeBeamNumberContainer;
+    produceGreigeData.ProduceGreigeTyingOperatorDocumentId = ProduceGreigeTyingOperatorIdContainer;
+    produceGreigeData.ProduceGreigeTyingOperatorName = ProduceGreigeTyingOperatorNameContainer;
+    produceGreigeData.ProduceGreigeLoomOperatorDocumentId = ProduceGreigeLoomOperatorIdContainer;
+    produceGreigeData.ProduceGreigeDate = ProduceGreigeDateContainer;
+    produceGreigeData.ProduceGreigeTime = ProduceGreigeTimeContainer;
+    produceGreigeData.ProduceGreigeShiftDocumentId = ProduceGreigeShiftIdContainer;
+    produceGreigeData.ProduceGreigeCounter = ProduceGreigeCounterContainer;
+    produceGreigeData.ProduceGreigeUomDocumentId = ProduceGreigeUomDocumentIdContainer;
+    produceGreigeData.ProduceGreigeUomUnit = ProduceGreigeUomUnitContainer;
+    produceGreigeData.ProduceGreigeMachineSpeed = ProduceGreigeMachineSpeedContainer;
+    produceGreigeData.ProduceGreigeSCMPX = ProduceGreigeSCMPXContainer;
+    produceGreigeData.ProduceGreigeEfficiency = ProduceGreigeEfficiencyContainer;
+    produceGreigeData.ProduceGreigeF = ProduceGreigeFContainer;
+    produceGreigeData.ProduceGreigeW = ProduceGreigeWContainer;
+    produceGreigeData.ProduceGreigeL = ProduceGreigeLContainer;
+    produceGreigeData.ProduceGreigeT = ProduceGreigeTContainer;
+    produceGreigeData.ProduceGreigeIsCompletedProduction = ProduceGreigeIsCompletedProductionContainer;
 
     this.service
-      .updateFinish(updateData.Id, updateData)
+      .updateProduceGreige(produceGreigeData.Id, produceGreigeData)
       .then(result => {
         location.reload();
       })

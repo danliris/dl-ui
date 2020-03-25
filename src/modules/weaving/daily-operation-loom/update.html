@@ -153,8 +153,8 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete placeholder="No. Beam"
-                               value.bind="StartLoomBeamDocuments"
-                               error.bind="error.StartBeamDocumentId"
+                               value.bind="StartLoomBeamDocument"
+                               error.bind="error.StartBeamUsedId"
                                read-only.bind="readOnly"
                                loader.bind="loomBeamsUsed"
                                text="BeamNumber"
@@ -192,7 +192,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Tying"
                                value.bind="StartTyingOperator"
-                               error.bind="error.StartTyingOperator"
+                               error.bind="error.StartTyingOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -206,7 +206,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Tying"
                           value.bind="StartTyingOperator.Group"
-                          error.bind="error.StartTyingOperatorGroup"
+                          error.bind="error.StartTyingOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -238,7 +238,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Loom"
                                value.bind="StartLoomOperator"
-                               error.bind="error.StartLoomOperator"
+                               error.bind="error.StartLoomOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -252,7 +252,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Loom"
                           value.bind="StartLoomOperatorGroup.Group"
-                          error.bind="error.StartLoomOperatorGroup"
+                          error.bind="error.StartLoomOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -294,7 +294,7 @@
             <div class="col-md-2">
               <au-textbox placeholder="Shift"
                           value.bind="StartShift.Name"
-                          error.bind="error.StartShift"
+                          error.bind="error.StartShiftDocumentId"
                           read-only.bind="true">
               </au-textbox>
             </div>
@@ -331,8 +331,8 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete placeholder="No. Beam"
-                               value.bind="ReprocessLoomBeamDocuments"
-                               error.bind="error.ReprocessBeamDocumentId"
+                               value.bind="ReprocessLoomBeamDocument"
+                               error.bind="error.ReprocessBeamUsedId"
                                read-only.bind="readOnly"
                                loader.bind="loomBeamsUsedProcessed"
                                text="BeamNumber"
@@ -370,7 +370,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Tying"
                                value.bind="ReprocessTyingOperator"
-                               error.bind="error.ReprocessTyingOperator"
+                               error.bind="error.ReprocessTyingOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -384,7 +384,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Tying"
                           value.bind="ReprocessTyingOperator.Group"
-                          error.bind="error.ReprocessTyingOperatorGroup"
+                          error.bind="error.ReprocessTyingOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -416,7 +416,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Loom"
                                value.bind="ReprocessLoomOperator"
-                               error.bind="error.ReprocessLoomOperator"
+                               error.bind="error.ReprocessLoomOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -430,7 +430,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Loom"
                           value.bind="ReprocesstLoomOperatorGroup.Group"
-                          error.bind="error.ReprocessLoomOperatorGroup"
+                          error.bind="error.ReprocessLoomOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -439,7 +439,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Tanggal Mulai"
+              <textbox label="Tanggal Reproses"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -454,7 +454,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Waktu Mulai"
+              <textbox label="Waktu Reproses"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -487,9 +487,10 @@
                        style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-timepicker value.bind="Information"
-                             error.bind="error.Information"
-                             read-only.bind="readOnly">
+              <au-textbox placeholder="Informasi"
+                          value.bind="Information"
+                          error.bind="error.Information"
+                          read-only.bind="readOnly"></au-textbox>
             </div>
           </div>
 
@@ -524,8 +525,8 @@
             </div>
             <div class="col-md-2">
               <au-autocomplete placeholder="No. Beam"
-                               value.bind="ProduceGreigeLoomBeamDocuments"
-                               error.bind="error.ProduceGreigeBeamDocumentId"
+                               value.bind="ProduceGreigeLoomBeamDocument"
+                               error.bind="error.ProduceGreigeBeamUsedId"
                                read-only.bind="readOnly"
                                loader.bind="loomBeamsUsedProcessed"
                                text="BeamNumber"
@@ -563,7 +564,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Tying"
                                value.bind="ProduceGreigeTyingOperator"
-                               error.bind="error.ProduceGreigeTyingOperator"
+                               error.bind="error.ProduceGreigeTyingOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -577,7 +578,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Tying"
                           value.bind="ProduceGreigeTyingOperator.Group"
-                          error.bind="error.ProduceGreigeTyingOperatorGroup"
+                          error.bind="error.ProduceGreigeTyingOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -609,7 +610,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="Operator Loom"
                                value.bind="ProduceGreigeLoomOperator"
-                               error.bind="error.ProduceGreigeLoomOperator"
+                               error.bind="error.ProduceGreigeLoomOperatorDocumentId"
                                read-only.bind="readOnly"
                                loader.bind="operators"
                                text="Username"></au-autocomplete>
@@ -623,7 +624,7 @@
             <div class="col-md-3">
               <au-textbox placeholder="Grup Loom"
                           value.bind="ProduceGreigeLoomOperatorGroup.Group"
-                          error.bind="error.ProduceGreigeLoomOperatorGroup"
+                          error.bind="error.ProduceGreigeLoomOperatorDocumentId"
                           read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -632,7 +633,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Tanggal Mulai"
+              <textbox label="Tanggal Produksi"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -647,7 +648,7 @@
                style="white-space: nowrap;">
             <div class="col-md-2"
                  style="text-align:left;">
-              <textbox label="Waktu Mulai"
+              <textbox label="Waktu Produksi"
                        read-only="true"
                        style="display: inline-block"></textbox>
             </div>
@@ -669,6 +670,142 @@
                           read-only.bind="true">
               </au-textbox>
             </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+            <div class="col-md-2"
+                 style="text-align:left;">
+              <textbox label="Counter"
+                       read-only="true"
+                       style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-numeric value.bind="ProduceGreigeCounter"
+                          error.bind="error.ProduceGreigeCounter"
+                          read-only.bind="readOnly">
+            </div>
+            <div class="col-md-2 col-md-offset-1"
+                 style="text-align:left;">
+              <textbox label="Satuan"
+                       read-only="true"
+                       style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-autocomplete placeholder="Satuan"
+                               value.bind="ProduceGreigeUomDocument"
+                               error.bind="error.ProduceGreigeUomDocumentId"
+                               read-only.bind="true">
+                </au-textbox>
+            </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+            <div class="col-md-2"
+                 style="text-align:left;">
+              <textbox label="Kecepatan Mesin"
+                       read-only="true"
+                       style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-numeric value.bind="ProduceGreigeMachineSpeed"
+                          error.bind="error.ProduceGreigeMachineSpeed"
+                          read-only.bind="readOnly">
+            </div>
+            <div class="col-md-2 col-md-offset-1"
+                 style="text-align:left;">
+              <textbox label="S/CMPX"
+                       read-only="true"
+                       style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-numeric value.bind="ProduceGreigeSCMPX"
+                          error.bind="error.ProduceGreigeSCMPX"
+                          read-only.bind="readOnly">
+            </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+            <div class="col-md-2"
+                 style="text-align:left;">
+              <textbox label="Efisiensi"
+                       read-only="true"
+                       style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-numeric value.bind="ProduceGreigeEfficiency"
+                          error.bind="error.ProduceGreigeEfficiency"
+                          read-only.bind="readOnly">
+            </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+               <div class="col-md-2"
+                    style="text-align:left;">
+                 <textbox label="F"
+                          read-only="true"
+                          style="display: inline-block"></textbox>
+               </div>
+               <div class="col-md-2">
+                 <au-numeric value.bind="ProduceGreigeF"
+                             error.bind="error.ProduceGreigeF"
+                             read-only.bind="readOnly">
+               </div>
+               <div class="col-md-2 col-md-offset-1"
+                    style="text-align:left;">
+                 <textbox label="W"
+                          read-only="true"
+                          style="display: inline-block"></textbox>
+               </div>
+               <div class="col-md-2">
+                 <au-numeric value.bind="ProduceGreigeW"
+                             error.bind="error.ProduceGreigeW"
+                             read-only.bind="readOnly">
+               </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+               <div class="col-md-2"
+                    style="text-align:left;">
+                 <textbox label="L"
+                          read-only="true"
+                          style="display: inline-block"></textbox>
+               </div>
+               <div class="col-md-2">
+                 <au-numeric value.bind="ProduceGreigeL"
+                             error.bind="error.ProduceGreigeL"
+                             read-only.bind="readOnly">
+               </div>
+               <div class="col-md-2 col-md-offset-1"
+                    style="text-align:left;">
+                 <textbox label="T"
+                          read-only="true"
+                          style="display: inline-block"></textbox>
+               </div>
+               <div class="col-md-2">
+                 <au-numeric value.bind="ProduceGreigeT"
+                             error.bind="error.ProduceGreigeT"
+                             read-only.bind="readOnly">
+               </div>
+          </div>
+
+          <div class="row"
+               style="white-space: nowrap;">
+               <div class="col-md-2"
+                    style="text-align:left;">
+                 <textbox label="Selesai Produksi"
+                          read-only="true"
+                          style="display: inline-block"></textbox>
+               </div>
+               <div class="col-md-2">
+                 <au-checkbox value.bind="ProduceGreigeIsCompletedProduction"
+                             error.bind="error.ProduceGreigeIsCompletedProduction"
+                             read-only.bind="readOnly">
+               </div>
           </div>
 
           <div class="row"
