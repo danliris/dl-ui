@@ -40,8 +40,7 @@ export class List {
                     temps.buyerCode = prs.BuyerCode;
                     this.temp.push(temps);
                 }
-                let qtyloading=0;
-                for(var pr of result.sort()){
+                for(var pr of result){
                     
                
                     if (_temp.code == pr.Ro) {
