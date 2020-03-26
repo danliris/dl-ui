@@ -27,15 +27,15 @@
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="Length" error.bind="error.Length" format="0,0.00"
+            <au-numeric value.bind="Weight" error.bind="error.Weight" format="0,0.00"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="getConvertionValue" error.bind="error.ConvertionValue" format="0,0.00"
-                read-only.bind="true"></au-numeric>
+            <au-numeric value.bind="data.ConvertionValue" error.bind="error.ConvertionValue" format="0,0.00"
+                read-only.bind="true">
+            </au-numeric>
         </td>
-
         <td if.bind="!options.readOnly">
             <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)">-</button>
