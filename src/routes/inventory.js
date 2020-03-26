@@ -247,4 +247,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: 'inventory/reports/inventory-dystuff-report',
+        name: 'inventory/reports/inventory-dystuff-report',
+        moduleId: './modules/inventory/reports/inventory-dystuff-report/index',
+        nav: true,
+        title: 'Laporan Stock Gudang Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
