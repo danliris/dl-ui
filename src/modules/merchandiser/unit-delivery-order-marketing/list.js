@@ -11,16 +11,14 @@ export class List {
     columns = [
 
         { field: "UnitDONo", title: "No. Delivery Order" },
-        { field: "RONo", title: "No. RO" },
-        { field: "Article", title: "Artikel" },
         {
             field: "UnitDODate", title: "Tanggal DeliveryOrder", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "UnitDOType", title: "Jenis Delivery Order" },
-        { field: "UnitRequestName", title: "Unit Yang Meminta" },
+        { field: "UnitSenderName", title: "Unit Yang Mengirim" },
         { field: "StorageName", title: "Gudang Yang Mengirim" },
+        { field: "CreatedBy", title: "User" },
     ];
 
     loader = (info) => {
@@ -32,7 +30,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({'UnitDOType=="MARKETING"': false})
+            filter: JSON.stringify({UnitDOType:"MARKETING"})
         }
 
         return this.service.search(arg)
@@ -40,16 +38,6 @@ export class List {
                 var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
-                data.data.forEach(s => {
-                    s.toString = function () {
-                        var str = "<ul>";
-                        for (var item of s.Items) {
-                            str += `<li>${item.RONo}</li>`;
-                        }
-                        str += "</ul>";
-                        return str;
-                    }
-                });
                 return {
                     total: result.info.total,
                     data: result.data
