@@ -38,16 +38,6 @@ export class List {
                 var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
-                data.data.forEach(s => {
-                    s.toString = function () {
-                        var str = "<ul>";
-                        for (var item of s.Items) {
-                            str += `<li>${item.RONo}</li>`;
-                        }
-                        str += "</ul>";
-                        return str;
-                    }
-                });
                 return {
                     total: result.info.total,
                     data: result.data

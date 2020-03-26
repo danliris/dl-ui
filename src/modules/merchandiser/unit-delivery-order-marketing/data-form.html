@@ -56,7 +56,7 @@
                 </au-autocomplete>
                 
             </div>
-            <div class="col-md-6" >
+            <div class="col-md-6" if.bind="!readOnly">
                 <h4>Tambah Data Barang</h4>
                 <au-autocomplete
                     disabled.bind="!data.UnitSender || !data.Storage"

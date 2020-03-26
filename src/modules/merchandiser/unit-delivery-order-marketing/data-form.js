@@ -99,17 +99,6 @@ export class DataForm {
         return storageFilter;
     }
 
-    @computedFrom("data.UnitSender", "data.UnitDOType", "data.Storage")
-    get filterRONoByUnit() {
-        var rONoFilter = {};
-        if (this.data.UnitSender && this.data.Storage) {
-            rONoFilter.UnitId = this.data.UnitSender.Id;
-            rONoFilter.Type = this.data.UnitDOType;
-            rONoFilter.StorageId = this.data.Storage._id;
-        }
-        return rONoFilter;
-    }
-
     @computedFrom("data.UnitSender", "data.UnitDOType", "data.RONo", "data.Storage")
     get filterRONoAddProductByUnit() {
         var rONoFilter = {}
@@ -318,8 +307,7 @@ export class DataForm {
             "Keterangan Barang",
             "RO Asal",
             "Jumlah DO Awal",
-            "Satuan",
-            "Tipe Fabric"
+            "Satuan"
         ],
     };
 
