@@ -1,18 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 
-const serviceUri = "finishing-printing/do-sales-items";
+const serviceUri = "sales/do-sales";
+const salesContractServiceUri = "sales/finishing-printing-sales-contracts";
 const productionOrderServiceUri = "sales/production-orders";
 const buyerServiceUri = "master/buyers";
-const storageServiceUri = "master/storages";
-const materialConstructionServiceUri = "master/material-constructions";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "production-azure");
+    super(http, aggregator, config, "sales");
   }
 
   search(info) {
@@ -40,31 +35,25 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getPdfById(id) {
-    var endpoint = `${serviceUri}/pdf/${id}`;
+  getDOSalesPdfById(id) {
+    var endpoint = `${serviceUri}/doSalesPdf/${id}`;
     return super.getPdf(endpoint);
   }
 
-  getByCode(code) {
-    var endpoint = `${serviceUri}?keyword=${code}`;
-    return super.get(endpoint);
-  }
-}
-
-export class ServiceSales extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "sales");
-  }
-
-  searchProductionOrder(info) {
-    var endpoint = `${productionOrderServiceUri}`;
+  searchSalesContract(info) {
+    var endpoint = `${salesContractServiceUri}`;
     return super.list(endpoint, info);
   }
 
-  getProductionOrderById(id, select) {
-    var endpoint = `${productionOrderServiceUri}/${id}`;
+  getSalesContractById(id, select) {
+    var endpoint = `${salesContractServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
+  }
+
+  getProductionOrderBySalesContractId(salesContractId) {
+    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractId}`;
+    return super.list(endpoint);
   }
 }
 
@@ -80,28 +69,6 @@ export class ServiceCore extends RestService {
 
   getBuyerById(id, select) {
     var endpoint = `${buyerServiceUri}/${id}`;
-    var info = { select: select };
-    return super.get(endpoint, null, info);
-  }
-
-  searchStorage(info) {
-    var endpoint = `${storageServiceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  getStorageById(id, select) {
-    var endpoint = `${storageServiceUri}/${id}`;
-    var info = { select: select };
-    return super.get(endpoint, null, info);
-  }
-
-  searchMaterialConstruction(info) {
-    var endpoint = `${materialConstructionServiceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  getMaterialConstructionById(id, select) {
-    var endpoint = `${materialConstructionServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

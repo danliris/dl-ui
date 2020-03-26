@@ -104,37 +104,6 @@
           </au-numeric>
         </div>
       </div>
-
-      <div class="row"
-           style="white-space: nowrap;">
-        <div class="col-md-2"
-             style="text-align:left;">
-          <textbox label="Operator"
-                   read-only="true"
-                   style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-3">
-          <au-autocomplete placeholder="Operator"
-                           value.bind="PreparationOperator"
-                           error.bind="error.PreparationOperator"
-                           read-only.bind="readOnly"
-                           loader.bind="operators"
-                           text="Username"></au-autocomplete>
-        </div>
-        <div class="col-md-2 col-md-offset-1"
-             style="text-align:left;">
-          <textbox label="Grup Sizing"
-                   read-only="true"
-                   style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-3">
-          <au-textbox placeholder="Grup Sizing"
-                      value.bind="SizingGroup"
-                      error.bind="error.SizingGroup"
-                      read-only.bind="true"></au-textbox>
-        </div>
-      </div>
-
       <div class="row"
            style="white-space: nowrap;">
         <div class="col-md-2"
@@ -208,19 +177,20 @@
                       error.bind="error.YarnStrands"
                       read-only.bind="true"></au-textbox>
         </div>
-        <div class="col-md-2"
-             style="text-align:left;">
+        <!-- <div class="col-md-2"
+             style="text-align:left; display:none">
           <textbox label="Total Berat Kosong Beam Warping"
                    read-only="true"
                    style="display: inline-block"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4"
+             style="display:none;">
           <au-textbox placeholder="Total Berat Kosong Beam Warping"
                       value.bind="EmptyWeight"
                       error.bind="error.EmptyWeight"
                       read-only.bind="true"></au-textbox>
-        </div>
-      </div>
+        </div> -->
+      </div> 
 
       <div class="row"
            style="white-space: nowrap; overflow: auto; padding-right: 8px;"

@@ -2,7 +2,7 @@
     <tr>
         <td>
             <au-autocomplete value.bind="selectedSalesInvoice" error.bind="error.SalesInvoiceNo"
-                read-only.bind="readOnly" loader.bind="salesInvoiceLoader" key="SalesInvoiceNo" text="SalesInvoiceNo"
+                read-only.bind="true" loader.bind="salesInvoiceLoader" key="SalesInvoiceNo" text="SalesInvoiceNo"
                 change.delegate="selectedSalesInvoiceChanged($event)" placeholder="Pilih No. Faktur Penjualan">
             </au-autocomplete>
         </td>
@@ -16,12 +16,7 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="selectedSalesInvoice.CurrencyCode" error.bind="error.CurrencyCode"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric value.bind="selectedSalesInvoice.TotalPaid" error.bind="error.TotalPaid" read-only.bind="true">
+            <au-numeric value.bind="getNotPaid" read-only.bind="true">
             </au-numeric>
         </td>
         <td>
@@ -29,20 +24,12 @@
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.Unpaid" error.bind="error.Unpaid" read-only.bind="true">
+            <au-numeric value.bind="getPaid" read-only.bind="true">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.OverPaid" error.bind="error.OverPaid" read-only.bind="true">
-            </au-numeric>
-        </td>
-        <td>
-            <au-checkbox show.bind="Nominal" value.bind="data.IsPaidOff" read-only.bind="true">
+            <au-checkbox show.bind="Nominal" value.bind="data.IsPaidOff" read-only.bind="readOnly">
             </au-checkbox>
-        </td>
-        <td if.bind="!option.readOnly">
-            <button if.bind="!option.readOnly" class="btn btn-danger pull-right"
-                click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>

@@ -7,7 +7,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUriPreparing = 'preparings';
 const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
 const costCalculationServiceUri = 'cost-calculation-garments';
-const serviceUriCutting= 'cutting-outs';
+const serviceUriCutting= 'cutting-outs/complete';
 const serviceUriLoading= 'loadings/complete';
 const serviceUriSewing = 'sewing-outs/complete';
 const serviceUriFinishing = 'finishing-outs/complete';

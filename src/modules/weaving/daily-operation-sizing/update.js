@@ -235,6 +235,14 @@ export class Update {
       this.showHideProduceBeamsMenu = true;
       this.showHideDoffMenu = false;
     }
+    if(this.data.DailyOperationSizingBeamProducts){
+      this.service.getBeamsById(this.data.DailyOperationSizingBeamProducts[0].SizingBeamId)
+        .then(result =>{
+          this.data.SizingBeamProductLast = result
+        }).catch(e=> {
+          console.log(e);
+        });      
+    }
   }
 
   StartTimeChanged(newValue) {
@@ -336,9 +344,13 @@ export class Update {
       let yarnStrands;
       let neReal;
       let bruto = newValue;
-      if (dataContainer.EmptyWeight) {
-        emptyWeight = dataContainer.EmptyWeight;
+      
+      if(dataContainer.SizingBeamProductLast.EmptyWeight){
+        emptyWeight = dataContainer.SizingBeamProductLast.EmptyWeight;
       }
+      // if (dataContainer.EmptyWeight) {
+      //   emptyWeight = dataContainer.EmptyWeight;
+      // }
       if (dataContainer.MachineType) {
         machineType = dataContainer.MachineType;
       }

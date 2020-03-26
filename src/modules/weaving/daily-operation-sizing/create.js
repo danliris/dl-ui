@@ -13,14 +13,14 @@ import {
 import moment from 'moment';
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var OrderLoader = require("../../../loader/weaving-order-by-number-loader");
-var OperatorLoader = require("../../../loader/weaving-operator-loader");
+// var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
   @bindable MachineDocument;
   @bindable OrderDocument;
-  @bindable PreparationOperator;
+  // @bindable PreparationOperator;
   @bindable PreparationTime;
   @bindable BeamsWarping;
 
@@ -30,10 +30,12 @@ export class Create {
   }, {
     value: "YarnStrands",
     header: "Helai Benang Beam Warping"
-  }, {
-    value: "EmptyWeight",
-    header: "Berat Kosong Beam Warping"
-  }];
+  }, 
+  // {
+  //   value: "EmptyWeight",
+  //   header: "Berat Kosong Beam Warping"
+  // }
+];
 
   constructor(service, router, bindingEngine) {
     this.router = router;
@@ -63,9 +65,9 @@ export class Create {
     return OrderLoader;
   }
 
-  get operators() {
-    return OperatorLoader;
-  }
+  // get operators() {
+  //   return OperatorLoader;
+  // }
 
   MachineDocumentChanged(newValue) {
     if (newValue.MachineType === "Kawa Moto" || newValue.MachineType === "Sucker Muller") {
@@ -103,9 +105,9 @@ export class Create {
     }
   }
 
-  PreparationOperatorChanged(newValue) {
-    this.SizingGroup = newValue.Group;
-  }
+  // PreparationOperatorChanged(newValue) {
+  //   this.SizingGroup = newValue.Group;
+  // }
 
   PreparationTimeChanged(newValue) {
     this.PreparationTime = newValue;
@@ -169,10 +171,6 @@ export class Create {
 
     if (this.OrderDocument) {
       this.data.OrderDocumentId = this.OrderDocument.Id;
-    }
-
-    if (this.PreparationOperator) {
-      this.data.PreparationOperator = this.PreparationOperator.Id;
     }
 
     if (this.PreparationDate) {

@@ -1,8 +1,4 @@
-import { inject, Lazy } from "aurelia-framework";
-import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 
 const serviceUri = "sales/sales-invoices";
 const shipmentDocumentServiceUri = "finishing-printing/inventory/fp-shipment-documents";
@@ -48,11 +44,6 @@ export class Service extends RestService {
   getSalesInvoicePdfById(id) {
     var endpoint = `${serviceUri}/salesInvoicePdf/${id}`;
     return super.getPdf(endpoint);
-  }
-
-  getByCode(code) {
-    var endpoint = `${serviceUri}?keyword=${code}`;
-    return super.get(endpoint);
   }
 }
 
