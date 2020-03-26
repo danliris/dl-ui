@@ -166,6 +166,17 @@
           </div>
 
           <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Berat Kosong Beam Sizing " read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-textbox placeholder="Berat Kosong Beam Sizing" value.bind="StartSizingBeamDocuments.EmptyWeight"
+              read-only.bind="true">
+            </au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
               <button class="btn btn-default" click.delegate="saveStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
               width: 96px; border: 1px solid #777777;">
