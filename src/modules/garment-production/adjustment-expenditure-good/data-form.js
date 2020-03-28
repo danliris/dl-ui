@@ -153,7 +153,7 @@ export class DataForm {
                     this.data.Price=0;
                 }
                 
-                Promise.resolve(this.service.searchFinishedGoodStockComplete({ filter: JSON.stringify({ RONo: newValue.RONo, UnitCode: this.data.Unit.Code }) }))
+                Promise.resolve(this.service.searchFinishedGoodStockComplete({ filter: JSON.stringify({ RONo: newValue.RONo, UnitCode: this.data.Unit.Code, "Quantity>0":true }) }))
                     .then(result => { 
                         for(var finGood of result.data){
                             var item={};
