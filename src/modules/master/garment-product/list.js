@@ -10,10 +10,11 @@ export class List {
     columns = [
     { field: "Code", title: "Kode Barang" },
     { field: "Name", title: "Nama Barang" },
-    { field: "Uom.Unit", title: "Satuan Default" },
-    // { field: "currency.code", title: "Mata Uang" },
-    // { field: "price", title: "Harga Barang" },
-    { field: "Tags", title: "Tags" },
+    { field: "Composition", title: "Komposisi" },
+    { field: "Const", title: "Konstruksi" },
+    { field: "Yarn", title: "Komposisi" },
+    { field: "Width", title: "Komposisi" },
+    { field: "UomUnit", title: "Satuan Default" },
   ];
 
   loader = (info) => {
