@@ -643,4 +643,17 @@ module.exports = [
             type: "purchasing"
         }
     },
+    {
+        route: '/merchandiser/unit-delivery-order-marketing',
+        name: 'unit-delivery-order-marketing',
+        moduleId: './modules/merchandiser/unit-delivery-order-marketing/index',
+        nav: true,
+        title: 'DO Marketing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    }
 ];

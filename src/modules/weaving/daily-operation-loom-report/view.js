@@ -11,8 +11,6 @@ import {
   Service
 } from "./service";
 import moment from 'moment';
-var LoomBeamProductsLoader = require("../../../loader/weaving-loom-beam-products-loader");
-var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service, BindingEngine)
 export class View {
