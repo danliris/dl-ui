@@ -23,12 +23,10 @@ export class Edit {
         var id = params.id;
        
         this.data = await this.service.getById(id);
-        
         var supplierId=this.data.supplier._id ? this.data.supplier._id : this.data.supplier.Id;
         var currencyCode=this.data.currency.code ? this.data.currency.code : this.data.currency.Code;
         var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${supplierId}`, "currency" : `${currencyCode}` });
         var items = [];
-       
         this.data.deliveryOrders= this.data.items;
         for(var a of this.data.deliveryOrders){
             a["selected"] = true;
@@ -48,11 +46,11 @@ export class Edit {
             var quantity = 0;
             var totPrice = 0;
             for(var b of a.items){
-            //     for(var c of b.fulfillments){
-            //         quantity += c.deliveredQuantity;
-            //         var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-            //         totPrice += priceTemp;
-            //     }
+                for(var c of b.fulfillments){
+                    quantity += c.doQuantity;
+                    var priceTemp = c.doQuantity * c.pricePerDealUnit;
+                    totPrice += priceTemp;
+                }
              }
             a["quantity"] = quantity;
             a["price"] = totPrice;
