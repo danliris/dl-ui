@@ -346,6 +346,21 @@ module.exports = [
         settings: {
             group: "g-production",
             permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+           
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-prepare-bookkeeping',
+        name: 'garment-production-monitoring-prepare-bookkeeping',
+        moduleId: './modules/garment-production/monitoring-prepare-bookkeeping/index',
+        nav: true,
+        title: 'Monitoring Prepare Pembukuan',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            // permission: {"C9": 1, "B1":1},
             iconClass: 'fa fa-dashboard'
         }
     },
