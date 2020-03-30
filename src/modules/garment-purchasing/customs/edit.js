@@ -23,13 +23,10 @@ export class Edit {
         var id = params.id;
        
         this.data = await this.service.getById(id);
-        console.log(this.data)
         var supplierId=this.data.supplier._id ? this.data.supplier._id : this.data.supplier.Id;
         var currencyCode=this.data.currency.code ? this.data.currency.code : this.data.currency.Code;
         var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${supplierId}`, "currency" : `${currencyCode}` });
         var items = [];
-       
-        console.log(dataDelivery)
         this.data.deliveryOrders= this.data.items;
         for(var a of this.data.deliveryOrders){
             a["selected"] = true;
