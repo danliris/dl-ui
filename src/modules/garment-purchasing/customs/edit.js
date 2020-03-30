@@ -23,7 +23,10 @@ export class Edit {
         var id = params.id;
        
         this.data = await this.service.getById(id);
-        var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
+        
+        var supplierId=this.data.supplier._id ? this.data.supplier._id : this.data.supplier.Id;
+        var currencyCode=this.data.currency.code ? this.data.currency.code : this.data.currency.Code;
+        var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${supplierId}`, "currency" : `${currencyCode}` });
         var items = [];
        
         this.data.deliveryOrders= this.data.items;
