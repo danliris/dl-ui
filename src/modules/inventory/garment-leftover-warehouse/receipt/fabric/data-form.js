@@ -44,8 +44,13 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
-    unitExpenditureNoteFilter = {
-        ExpenditureType: "SISA"
+    @computedFrom("data.UnitFrom")
+    get unitExpenditureNoteFilter() {
+        return {
+            IsReceived: false,
+            ExpenditureType: "SISA",
+            UnitSenderId: (this.data.UnitFrom || {}).Id || 0
+        };
     }
 
     bind(context) {
