@@ -378,6 +378,20 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/monitoring-cutting-bookkeeping',
+        name: 'garment-production-monitoring-cutting-bookkeeping',
+        moduleId: './modules/garment-production/monitoring-cutting-bookkeeping/index',
+        nav: true,
+        title: 'Monitoring Cutting Pembukuan',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            // permission: {"C9": 1, "B1":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/monitoring-loading',
         name: 'garment-production-monitoring-loading',
         moduleId: './modules/garment-production/monitoring-loading/index',
@@ -387,6 +401,20 @@ module.exports = [
         settings: {
             group: "g-production",
             permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/monitoring-loading-bookkeeping',
+        name: 'garment-production-monitoring-loading-bookkeeping',
+        moduleId: './modules/garment-production/monitoring-loading-bookkeeping/index',
+        nav: true,
+        title: 'Monitoring Loading Pembukuan',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            // permission: {"C9": 1, "B1":1},
             iconClass: 'fa fa-dashboard'
         }
     },
