@@ -64,11 +64,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/preparing-alluser',
+        name: 'preparing',
+        moduleId: './modules/garment-production/preparing_alluser/index',
+        nav: true,
+        title: 'Preparing (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/delivery-return',
         name: 'garment-production-delivery-return',
         moduleId: './modules/garment-production/delivery-return/index',
         nav: true,
         title: 'Retur Proses',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/delivery-return-alluser',
+        name: 'garment-production-delivery-return-alluser',
+        moduleId: './modules/garment-production/delivery-return-alluser/index',
+        nav: true,
+        title: 'Retur Proses (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -90,11 +116,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/aval-product-alluser',
+        name: 'aval-product',
+        moduleId: './modules/garment-production/aval-product-alluser/index',
+        nav: true,
+        title: 'Barang Aval (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/cutting-in',
         name: 'garment-production-cutting-in',
         moduleId: './modules/garment-production/cutting-in/index',
         nav: true,
         title: 'Cutting-In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/cutting-in-alluser',
+        name: 'garment-production-cutting-in-alluser',
+        moduleId: './modules/garment-production/cutting-in-alluser/index',
+        nav: true,
+        title: 'Cutting-In (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -116,11 +168,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/cutting-out-alluser',
+        name: 'garment-production-cutting-out-alluser',
+        moduleId: './modules/garment-production/cutting-out-alluser/index',
+        nav: true,
+        title: 'Cutting-Out (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/subcon-cutting-out',
         name: 'garment-production-subcon-cutting-out',
         moduleId: './modules/garment-production/subcon-cutting-out/index',
         nav: true,
         title: 'Cutting-Out Subkon',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/subcon-cutting-out-alluser',
+        name: 'garment-production-subcon-cutting-out-alluser',
+        moduleId: './modules/garment-production/subcon-cutting-out-alluser/index',
+        nav: true,
+        title: 'Cutting-Out Subkon (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -142,11 +220,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/sewing-do-alluser',
+        name: 'garment-production-sewing-do-alluser',
+        moduleId: './modules/garment-production/sewing-do-alluser/index',
+        nav: true,
+        title: 'Sewing DO (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/loading',
         name: 'garment-production-loading',
         moduleId: './modules/garment-production/loading/index',
         nav: true,
         title: 'Loading',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/loading-alluser',
+        name: 'garment-production-loading-alluser',
+        moduleId: './modules/garment-production/loading-alluser/index',
+        nav: true,
+        title: 'Loading (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -168,11 +272,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/sewing-in-alluser',
+        name: 'garment-production-sewing-in-alluse',
+        moduleId: './modules/garment-production/sewing-in-alluser/index',
+        nav: true,
+        title: 'Sewing In (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/sewing-out',
         name: 'garment-production-sewing-out',
         moduleId: './modules/garment-production/sewing-out/index',
         nav: true,
         title: 'Sewing Out',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/sewing-out-alluser',
+        name: 'garment-production-sewing-out-alluser',
+        moduleId: './modules/garment-production/sewing-out-alluser/index',
+        nav: true,
+        title: 'Sewing Out (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -194,11 +324,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/finishing-in-alluser',
+        name: 'garment-production-finishing-in-alluser',
+        moduleId: './modules/garment-production/finishing-in-alluser/index',
+        nav: true,
+        title: 'Finishing In (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/subcon-finishing-in',
         name: 'garment-production-subcon-finishing-in',
         moduleId: './modules/garment-production/subcon-finishing-in/index',
         nav: true,
         title: 'Finishing In Subkon',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/subcon-finishing-in-alluser',
+        name: 'garment-production-subcon-finishing-in-alluser',
+        moduleId: './modules/garment-production/subcon-finishing-in-alluser/index',
+        nav: true,
+        title: 'Finishing In Subkon (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -220,11 +376,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/finishing-out-alluser',
+        name: 'garment-production-finishing-out-alluser',
+        moduleId: './modules/garment-production/finishing-out-alluser/index',
+        nav: true,
+        title: 'Finishing Out (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/expenditure-good',
         name: 'garment-production-expenditure-good',
         moduleId: './modules/garment-production/expenditure-good/index',
         nav: true,
         title: 'Pengeluaran Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/expenditure-good-alluser',
+        name: 'garment-production-expenditure-good-alluser',
+        moduleId: './modules/garment-production/expenditure-good-alluser/index',
+        nav: true,
+        title: 'Pengeluaran Barang Jadi (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -246,11 +428,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/expenditure-good-return-alluser',
+        name: 'garment-production-expenditure-good-return-alluser',
+        moduleId: './modules/garment-production/expenditure-good-return-alluser/index',
+        nav: true,
+        title: 'Retur Barang Jadi (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/aval-component',
         name: 'garment-production-aval-component',
         moduleId: './modules/garment-production/aval-component/index',
         nav: true,
         title: 'Aval Komponen',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/aval-component-alluser',
+        name: 'garment-production-aval-component-alluser',
+        moduleId: './modules/garment-production/aval-component-alluser/index',
+        nav: true,
+        title: 'Aval Komponen (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
