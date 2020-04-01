@@ -44,8 +44,13 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
-    unitExpenditureNoteFilter = {
-        ExpenditureType: "SISA"
+    @computedFrom("data.UnitFrom")
+    get unitExpenditureNoteFilter() {
+        return {
+            IsReceived: false,
+            ExpenditureType: "SISA",
+            UnitSenderId: (this.data.UnitFrom || {}).Id || 0
+        };
     }
 
     bind(context) {
@@ -63,6 +68,14 @@ export class DataForm {
                 item.ProductName = item.Product.Name;
                 item.UomUnit = item.Uom.Unit;
             }
+
+            this.garmentPurchasingService.getUnitExpenditureNoteById(this.data.UENId)
+                .then(dataUnitExpenditureNote => {
+                    this.garmentPurchasingService.getUnitDeliveryOrderById(dataUnitExpenditureNote.UnitDOId)
+                        .then(dataUnitDeliveryOrder => {
+                            this.data.ROJob = dataUnitDeliveryOrder.RONo;
+                        });
+                });
         }
     }
 
@@ -74,31 +87,37 @@ export class DataForm {
         if (newValue) {
             this.garmentPurchasingService.getUnitExpenditureNoteById(newValue.Id)
                 .then(dataUnitExpenditureNote => {
-                    this.data.UENId = dataUnitExpenditureNote.Id;
-                    this.data.UENNo = dataUnitExpenditureNote.UENNo;
-                    this.data.StorageFrom = dataUnitExpenditureNote.Storage;
-                    this.data.StorageFromName = dataUnitExpenditureNote.Storage.name;
-                    this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
+                    this.garmentPurchasingService.getUnitDeliveryOrderById(dataUnitExpenditureNote.UnitDOId)
+                        .then(dataUnitDeliveryOrder => {
+                            this.data.UENId = dataUnitExpenditureNote.Id;
+                            this.data.UENNo = dataUnitExpenditureNote.UENNo;
+                            this.data.StorageFrom = dataUnitExpenditureNote.Storage;
+                            this.data.StorageFromName = dataUnitExpenditureNote.Storage.name;
+                            this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
 
-                    for (const item of dataUnitExpenditureNote.Items) {
-                        this.data.Items.push({
-                            UENItemId: item.Id,
-                            Product: {
-                                Id: item.ProductId,
-                                Code: item.ProductCode,
-                                Name: item.ProductName
-                            },
-                            ProductCode: item.ProductCode,
-                            ProductName: item.ProductName,
-                            ProductRemark: item.ProductRemark,
-                            Quantity: item.Quantity,
-                            Uom: {
-                                Id: item.UomId,
-                                Unit: item.UomUnit
-                            },
-                            UomUnit: item.UomUnit
-                        });
-                    }
+                            for (const item of dataUnitExpenditureNote.Items) {
+                                this.data.Items.push({
+                                    UENItemId: item.Id,
+                                    POSerialNumber: item.POSerialNumber,
+                                    Product: {
+                                        Id: item.ProductId,
+                                        Code: item.ProductCode,
+                                        Name: item.ProductName
+                                    },
+                                    ProductCode: item.ProductCode,
+                                    ProductName: item.ProductName,
+                                    ProductRemark: item.ProductRemark,
+                                    Quantity: item.Quantity,
+                                    Uom: {
+                                        Id: item.UomId,
+                                        Unit: item.UomUnit
+                                    },
+                                    UomUnit: item.UomUnit
+                                });
+                            }
+
+                            this.data.ROJob = dataUnitDeliveryOrder.RONo;
+                        })
                 });
         }
     }
