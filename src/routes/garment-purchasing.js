@@ -799,7 +799,7 @@ module.exports = [
         name: 'garment-flow-detail-material-report',
         moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
         nav: true,
-        title: 'Laporan Detail Flow Pengeluaran Bahan Baku',
+        title: 'Laporan Detail Flow Pengeluaran',
         auth: true,
         settings: {
             group: "g-purchasing",
