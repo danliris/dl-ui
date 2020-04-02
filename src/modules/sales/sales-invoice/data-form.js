@@ -6,19 +6,13 @@ import {
   BindingEngine
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceProductionAzure, ServiceCore } from "./service";
+import { Service, ServiceCore } from "./service";
 
-var ShipmentDocumentLoader = require("../../../loader/shipment-document-loader");
+var BuyersLoader = require("../../../loader/buyers-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
 
 @containerless()
-@inject(
-  Service,
-  // ServiceProductionAzure,
-  ServiceCore,
-  BindingSignaler,
-  BindingEngine
-)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -26,17 +20,12 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
+  @bindable BuyerId;
   @bindable BuyerNPWP;
   @bindable VatType;
   @bindable getTempo;
 
-  constructor(
-    service,
-    // serviceProductionAzure,
-    serviceCore,
-    bindingSignaler,
-    bindingEngine
-  ) {
+  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
     // this.serviceProductionAzure = serviceProductionAzure;
     this.serviceCore = serviceCore;
@@ -77,6 +66,14 @@ export class DataForm {
       );
     }
 
+    var buyerId = this.data.BuyerId;
+    if (buyerId) {
+      this.selectedBuyer = await this.serviceCore.getBuyerById(
+        buyerId,
+        this.buyerFields
+      );
+    }
+
     if (this.data.SalesInvoiceDate) {
       this.SalesInvoiceDate = this.data.SalesInvoiceDate;
     }
@@ -90,6 +87,11 @@ export class DataForm {
       this.data.TotalPayment = this.getTotalPayment;
     }
 
+    if (this.data.BuyerId) {
+      this.selectedBuyer.Id = this.data.BuyerId;
+      this.BuyerId = this.data.BuyerId;
+    }
+
     if (this.data.BuyerNPWP) {
       this.BuyerNPWP = this.data.BuyerNPWP;
     }
@@ -100,9 +102,10 @@ export class DataForm {
     var result = 0;
     if (this.data.SalesInvoiceDetails) {
       for (var detail of this.data.SalesInvoiceDetails) {
-        for (var item of this.detail.SalesInvoiceDetailItems) {
-        result += item.Amount;
-      }}
+        for (var item of detail.SalesInvoiceItems) {
+          result += item.Amount;
+        }
+      }
     }
     if (this.VatType == "PPN BUMN") {
       totalPayment = result;
@@ -138,14 +141,14 @@ export class DataForm {
 
   salesInvoiceDetailsInfo = {
     columns: ["No. Bon Pengiriman Barang"],
-    // onAdd: function () {
-    //   this.context.SalesInvoiceDetailsCollection.bind();
-    //   this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
-    //   this.data.SalesInvoiceDetails.push({});
-    // }.bind(this),
-    // onRemove: function () {
-    //   this.context.SalesInvoiceDetailsCollection.bind();
-    // }.bind(this)
+    onAdd: function () {
+      this.context.SalesInvoiceDetailsCollection.bind();
+      this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
+      this.data.SalesInvoiceDetails.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.SalesInvoiceDetailsCollection.bind();
+    }.bind(this)
   };
 
   shipmentDocumentTableOptions = {}
@@ -212,11 +215,27 @@ export class DataForm {
     }
   }
 
-  // get shipmentDocumentLoader() {
-  //   return ShipmentDocumentLoader;
-  // }
+  @bindable selectedBuyer;
+  selectedBuyerChanged(newValue, oldValue) {
+    if (this.selectedBuyer && this.selectedBuyer.Id) {
+      this.data.BuyerId = this.selectedBuyer.Id;
+      this.data.BuyerName = this.selectedBuyer.Name;
+      this.data.BuyerAddress = this.selectedBuyer.Address;
+      if (this.selectedBuyer.NPWP) {
+        this.data.BuyerNPWP = this.selectedBuyer.NPWP;
+      }
+    } else {
+      this.data.BuyerId = null;
+      this.data.BuyerName = null;
+      this.data.BuyerAddress = null;
+      this.data.BuyerNPWP = null;
+    }
+  }
 
   get currencyLoader() {
     return CurrencyLoader;
+  }
+  get buyersLoader() {
+    return BuyersLoader;
   }
 }

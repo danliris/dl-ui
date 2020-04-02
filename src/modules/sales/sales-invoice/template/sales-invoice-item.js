@@ -2,7 +2,7 @@ import { inject, bindable } from "aurelia-framework";
 
 var UomLoader = require("../../../../loader/uom-loader");
 
-export class SalesInvoiceDetailItem {
+export class SalesInvoiceItem {
   @bindable Total;
   @bindable Price;
 

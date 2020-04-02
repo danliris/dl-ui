@@ -21,22 +21,28 @@ export class SalesInvoiceDetail {
     this.bindingEngine = bindingEngine;
   }
 
-  async bind(context) {
-    this.context = context;
-    this.context._this = this;
-    this.data = this.context.data;
-    this.error = this.context.error;
+  activate(item) {
+    // debugger
+    this.data = item.data;
+    this.error = item.error;
+    this.options = item.options;
 
     var shipmentDocumentId = this.data.ShipmentDocumentId;
     if (shipmentDocumentId) {
-      this.selectedShipmentDocument = await this.serviceProductionAzure.getShipmentDocumentById(
+      this.selectedShipmentDocument = this.serviceProductionAzure.getShipmentDocumentById(
         shipmentDocumentId,
         this.shipmentDocumentFields
       );
     }
+
+    if (this.data.ShipmentDocumentId) {
+      this.selectedShipmentDocument.Id = this.data.ShipmentDocumentId;
+      this.ShipmentDocumentId = this.data.ShipmentDocumentId;
+    }
+
   }
 
-  salesInvoiceDetailItemsInfo = {
+  salesInvoiceItemsInfo = {
     columns: [
       "Kode Barang",
       "Nama Barang",
@@ -57,39 +63,38 @@ export class SalesInvoiceDetail {
 
   @bindable selectedShipmentDocument;
   selectedShipmentDocumentChanged(newValue, oldValue) {
+
+    // this.selectedShipmentDocument = newValue;
+    // if (newValue) {
+
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
       this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
       this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
-      this.data.BuyerId = this.selectedShipmentDocument.Buyer.Id;
-      this.data.BuyerName = this.selectedShipmentDocument.Buyer.Name;
-      this.data.BuyerAddress = this.selectedShipmentDocument.Buyer.Address;
-      if (this.selectedShipmentDocument.Buyer.NPWP) {
-        this.data.BuyerNPWP = this.selectedShipmentDocument.Buyer.NPWP;
-      }
       if (!this.data.Id) {
-        this.data.SalesInvoiceDetails = [];
+        this.data.SalesInvoiceItems = [];
         for (var detail of this.selectedShipmentDocument.Details) {
           for (var item of detail.Items) {
             for (var prItem of item.PackingReceiptItems) {
               var siData = {
-                ProductCode: prItem.ProductCode,
+                // ProductCode: prItem.ProductCode,
                 ProductName: prItem.ProductName,
                 Quantity: prItem.Quantity
               };
-              this.data.SalesInvoiceDetails.push(siData);
+              this.data.SalesInvoiceItems.push(siData);
             }
           }
         }
-        console.log(this.selectedShipmentDocument.Buyer)
+        console.log(prItem)
       }
     } else {
       this.data.ShipmentDocumentId = null;
       this.data.ShipmentDocumentCode = null;
-      this.data.BuyerId = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
-      this.data.BuyerNPWP = null;
     }
+  }
+
+  handleDataTypeChange() {
+    this.data.DefaultValue = "";
+    this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
   }
 
   get shipmentDocumentLoader() {

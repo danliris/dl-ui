@@ -37,12 +37,12 @@ export class Service extends RestService {
   }
 
   getDeliveryOrderPdfById(id) {
-    var endpoint = `${serviceUri}/deliveryOrderPdf/${id}`;
+    var endpoint = `${serviceUri}/delivery-order-pdf/${id}`;
     return super.getPdf(endpoint);
   }
   
   getSalesInvoicePdfById(id) {
-    var endpoint = `${serviceUri}/salesInvoicePdf/${id}`;
+    var endpoint = `${serviceUri}/sales-invoice-pdf/${id}`;
     return super.getPdf(endpoint);
   }
 }
