@@ -73,14 +73,23 @@ export class DataForm {
             this.selectedProductionOrder.Code = this.data.productionOrder.code;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.productionOrderQuantity;
-            this.selectedProductionOrder.Material = this.data.material;
-            this.selectedProductionOrder.MaterialConstruction = this.data.materialConstruction;
-            this.selectedProductionOrder.FinishWidth = this.data.materialWidth;
+            this.selectedProductionOrder.Material = {};
+            this.selectedProductionOrder.Material.Id = this.data.material.id;
+            this.selectedProductionOrder.Material.Code = this.data.material.code;
+            this.selectedProductionOrder.Material.Name = this.data.material.name;
+            this.selectedProductionOrder.MaterialConstruction = {};
+            this.selectedProductionOrder.MaterialConstruction.Id = this.data.materialConstruction.id;
+            this.selectedProductionOrder.MaterialConstruction.Code = this.data.materialConstruction.code;
+            this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
+            this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrderQuantity;
         }
 
         if (this.data.unit) {
-            this.selectedUnit = this.data.unit;
+            this.selectedUnit = {};
+            this.selectedUnit.Id = this.data.unit.id;
+            this.selectedUnit.Code = this.data.unit.code;
+            this.selectedUnit.Name = this.data.unit.name;
             this.isPrinting = this.data.unit.name === "PRINTING";
         }
 
@@ -104,7 +113,7 @@ export class DataForm {
             this.sppQty = this.selectedProductionOrder.OrderQuantity;
             this.selectedMaterial = this.selectedProductionOrder.Material;
             this.selectedMaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
-            this.data.materialWidth = this.selectedProductionOrder.FinishWidth;
+            this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
         }
         else {
             this.data.productionOrder = {};
@@ -121,14 +130,20 @@ export class DataForm {
     @bindable selectedMaterial;
     selectedMaterialChanged(newValue, oldValue) {
         if (this.selectedMaterial && this.selectedMaterial.Id) {
-            this.data.material = this.selectedMaterial;
+            this.data.material = {};
+            this.data.material.id = this.selectedMaterial.Id;
+            this.data.material.name = this.selectedMaterial.Name;
+            this.data.material.code = this.selectedMaterial.Code;
         }
     }
 
     @bindable selectedMaterialConstruction;
     selectedMaterialConstructionChanged(newValue, oldValue) {
         if (this.selectedMaterialConstruction && this.selectedMaterialConstruction.Id) {
-            this.data.materialConstruction = this.selectedMaterialConstruction;
+            this.data.materialConstruction = {};
+            this.data.materialConstruction.id = this.selectedMaterialConstruction.Id;
+            this.data.materialConstruction.code = this.selectedMaterialConstruction.Code;
+            this.data.materialConstruction.name = this.selectedMaterialConstruction.Name;
         }
     }
 
@@ -136,7 +151,10 @@ export class DataForm {
     @bindable isPrinting = false;
     selectedUnitChanged(newValue, oldValue) {
         if (this.selectedUnit && this.selectedUnit.Id) {
-            this.data.unit = this.selectedUnit;
+            this.data.unit = {};
+            this.data.unit.id = this.selectedUnit.Id;
+            this.data.unit.code = this.selectedUnit.Code;
+            this.data.unit.name = this.selectedUnit.Name;
             this.isPrinting = this.data.unit.name === "PRINTING";
         } else {
             this.data.Unit = {};

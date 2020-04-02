@@ -24,11 +24,11 @@
           read-only.bind="true"></au-numeric>
 
         <au-autocomplete value.bind="selectedMaterial" label="Material" read-only.bind="true"
-          error.bind="error.material" loader.bind="materialLoader" text="name">
+          error.bind="error.material" loader.bind="materialLoader" text="Name">
         </au-autocomplete>
 
         <au-autocomplete value.bind="selectedMaterialConstruction" label="Konstruksi Material" read-only.bind="true"
-          error.bind="error.materialConstruction" loader.bind="materialConstructionLoader" text="name">
+          error.bind="error.materialConstruction" loader.bind="materialConstructionLoader" text="Name">
         </au-autocomplete>
 
         <au-textbox label="Lebar Material" value.bind="data.materialWidth" error.bind="error.materialWidth"
@@ -36,7 +36,7 @@
         </au-textbox>
 
         <au-autocomplete value.bind="selectedUnit" label="Unit" read-only.bind="readOnly" error.bind="error.unit"
-          loader.bind="unitLoader" query.bind="unitQuery" text="name">
+          loader.bind="unitLoader" query.bind="unitQuery" text="Name">
         </au-autocomplete>
 
         <au-textbox label="Warna" value.bind="data.color" error.bind="error.color" read-only.bind="readOnly">
