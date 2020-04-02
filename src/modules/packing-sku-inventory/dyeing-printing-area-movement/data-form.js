@@ -81,7 +81,7 @@ export class DataForm {
             this.selectedProductionOrder.MaterialConstruction.Id = this.data.materialConstruction.id;
             this.selectedProductionOrder.MaterialConstruction.Code = this.data.materialConstruction.code;
             this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
-            this.selectedProductionOrder.FinishWidth = this.data.materialWidth;
+            this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrderQuantity;
         }
 
@@ -113,7 +113,7 @@ export class DataForm {
             this.sppQty = this.selectedProductionOrder.OrderQuantity;
             this.selectedMaterial = this.selectedProductionOrder.Material;
             this.selectedMaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
-            this.data.materialWidth = this.selectedProductionOrder.FinishWidth;
+            this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
         }
         else {
             this.data.productionOrder = {};
