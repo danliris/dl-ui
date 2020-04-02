@@ -13,6 +13,7 @@ export class DataForm {
 
     @bindable readOnly = false;
     @bindable title;
+    @bindable selectedUnitFrom;
     @bindable selectedUnitExpenditureNote;
 
     controlOptions = {
@@ -59,6 +60,10 @@ export class DataForm {
         this.error = context.error;
 
         if (this.data && this.data.Id) {
+            this.selectedUnitFrom = {
+                Code: this.data.UnitFrom.Code,
+                Name: this.data.UnitFrom.Name
+            };
             this.selectedUnitExpenditureNote = {
                 UENNo: this.data.UENNo
             };
@@ -77,6 +82,14 @@ export class DataForm {
                         });
                 });
         }
+    }
+
+    selectedUnitFromChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.UnitFrom = newValue;
+
+        this.selectedUnitExpenditureNote = null;
     }
 
     selectedUnitExpenditureNoteChanged(newValue) {
@@ -119,6 +132,14 @@ export class DataForm {
                             this.data.ROJob = dataUnitDeliveryOrder.RONo;
                         })
                 });
+        } else {
+            this.data.UENId = 0;
+            this.data.UENNo = null;
+            this.data.StorageFrom = null;
+            this.data.StorageFromName = null;
+            delete this.data.ExpenditureDate;
+            this.data.ROJob = null;
+            this.context.UnitExpenditureNoteViewModel.editorValue = "";
         }
     }
 }
