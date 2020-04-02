@@ -1,8 +1,10 @@
-
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+// import { Container } from 'aurelia-dependency-injection';
+// import { Config } from "aurelia-api";
 
-
-const serviceUri = 'monitoringFlowProduction';
+const serviceUri = 'preparings';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
 const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
 export class Service extends RestService {
@@ -12,50 +14,52 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/bySize`;
+        var endpoint = `${serviceUri}/monitoring`;
         var query = '';
 
-        if (info.date && info.date !== "") {
-            if (query === '') query = `date=${info.date}`;
-            else query = `${query}&date=${info.date}`;
+        if (info.dateFrom && info.dateFrom !== "") {
+            if (query === '') query = `dateFrom=${info.dateFrom}`;
+            else query = `${query}&dateFrom=${info.dateFrom}`;
         }
-      
+        if (info.dateTo && info.dateTo !== "") {
+            if (query === '') query = `dateTo=${info.dateTo}`;
+            else query = `${query}&dateTo=${info.dateTo}`;
+        }
         if (info.unit && info.unit !== "") {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
         }
-        if (info.ro && info.ro !== "") {
-            if (query === '') query = `ro=${info.ro}`;
-            else query = `${query}&ro=${info.ro}`;
-        }
         if (query !== '')
-        endpoint = `${serviceUri}/bySize?${query}`;
+        endpoint = `${serviceUri}/monitoring?${query}`;
 
-        return super.get(endpoint);
+    return super.get(endpoint);
 
+      
     }
 
     generateExcel(info) {
-        var endpoint = `${serviceUri}/download?unit=${info.unit}&date=${info.date}`;
+        var endpoint = `${serviceUri}/download?unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&type=${info.type}`;
         console.log(endpoint);
         var query = '';
-        
-        if (info.date && info.date !== "") {
-            if (query === '') query = `date=${info.date}`;
-            else query = `${query}&date=${info.date}`;
+        if (info.dateFrom && info.dateFrom !== "") {
+            if (query === '') query = `dateFrom=${info.dateFrom}`;
+            else query = `${query}&dateFrom=${info.dateFrom}`;
         }
-      
+        if (info.dateTo && info.dateTo !== "") {
+            if (query === '') query = `dateTo=${info.dateTo}`;
+            else query = `${query}&dateTo=${info.dateTo}`;
+        }
         if (info.unit && info.unit !== "") {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
         }
-        if (info.ro && info.ro !== "") {
-            if (query === '') query = `ro=${info.ro}`;
-            else query = `${query}&ro=${info.ro}`;
+        if (info.type && info.type !== "") {
+            if (query === '') query = `type=${info.type}`;
+            else query = `${query}&type=${info.type}`;
         }
         if (query !== '')
         endpoint = `${serviceUri}/download?${query}`;
-
+        console.log(endpoint);
     return super.getXls(endpoint);
     }
 }
