@@ -11,7 +11,7 @@ export class List {
 
     columns = [
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
