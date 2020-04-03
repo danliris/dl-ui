@@ -63,5 +63,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'packing-sku-inventory/inspection-im-balance',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
+        nav: true,
+        title: 'Saldo IM',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
