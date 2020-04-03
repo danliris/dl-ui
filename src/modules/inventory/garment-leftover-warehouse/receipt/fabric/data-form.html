@@ -5,7 +5,7 @@
             options.bind="controlOptions" if.bind="readOnly || isEdit">
         </au-textbox>
 
-        <au-autocomplete label="Unit Asal" placeholder="Pilih Unit" value.bind="data.UnitFrom"
+        <au-autocomplete label="Unit Asal" placeholder="Pilih Unit" value.bind="selectedUnitFrom"
             error.bind="error.UnitFrom" loader.bind="unitLoader" text.bind="unitView"
             read-only.bind="readOnly || isEdit" options.bind="controlOptions">
         </au-autocomplete>
@@ -13,11 +13,14 @@
         <au-autocomplete label="No Bon Pengeluaran Unit" placeholder="Pilih No Bon Pengeluaran Unit"
             value.bind="selectedUnitExpenditureNote" error.bind="error.UENNo" loader.bind="unitExpenditureNoteLoader"
             text="UENNo" read-only.bind="readOnly || isEdit" query.bind="unitExpenditureNoteFilter"
-            options.bind="controlOptions">
+            options.bind="controlOptions" view-model.ref="UnitExpenditureNoteViewModel">
         </au-autocomplete>
 
         <au-textbox label="Gudang Asal" value.bind="data.StorageFromName" error.bind="error.StorageFromName"
             read-only="true" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox label="RO Job" value.bind="data.ROJob" read-only="true" options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker label="Tgl Pengeluaran Unit" value.bind="data.ExpenditureDate" error.bind="error.ExpenditureDate"

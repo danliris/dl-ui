@@ -36,13 +36,14 @@ export class Edit {
             a["arrivalDate"]=a.deliveryOrder.arrivalDate;
             a["quantity"] = a.quantity;
             a["price"] = a.deliveryOrder.totalAmount;
+            a["doId"]=a.deliveryOrder.Id;
            
             items.push(a);
         }
         for(var a of dataDelivery.data){
+            a["doId"]=a.Id;
             a["selected"] = false;
             a["isView"] = true;
-           
             var quantity = 0;
             var totPrice = 0;
             for(var b of a.items){
@@ -54,9 +55,12 @@ export class Edit {
              }
             a["quantity"] = quantity;
             a["price"] = totPrice;
+            a.Id=0;
+            a._id=0;
             items.push(a);
         }
         this.data.deliveryOrders = items;
+
         this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
         this.data.validateDate = moment(this.data.validateDate).format("YYYY-MM-DD");
     }
@@ -94,12 +98,21 @@ export class Edit {
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
-                if(a && a.selected){
+                if(a){
+                    var deliveryOrder={};
+                    deliveryOrder.doNo=a.doNo;
+                    deliveryOrder.Id=a.doId;
+                    deliveryOrder.doDate=a.doDate;
+                    deliveryOrder.totalAmount=a.totalAmount;
+                    deliveryOrder.arrivalDate=a.arrivalDate;
+                    a.deliveryOrder=deliveryOrder;
+                    //items.push({deliveryOrder : deliveryOrder});
                     items.push(a);
                     isSelectedData = true;
                 }
             }
             dataCustoms.deliveryOrders = items;
+            dataCustoms.items=items;
         }
         if(isSelectedData){
             this.service.update(dataCustoms)
@@ -109,7 +122,7 @@ export class Edit {
                 })
                 .catch(e => {
                     this.error = e;
-                    if(e.deliveryOrders.lenght > 0){
+                    if(e.deliveryOrders.length > 0){
                         var itemErrors = [];
                         for(var a of this.data.deliveryOrders){
                             var error = {};
