@@ -290,8 +290,12 @@ export class DataForm {
     } else if (this.data.PreSCNoSource && this.data.PreSCNo !== this.data.PreSCNoSource) {
       const materialsFromPRMaster = this.data.CostCalculationGarment_Materials.filter(m => m.PRMasterItemId > 0);
       for (const materialFromPRmaster of materialsFromPRMaster) {
-        const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
-        this.data.CostCalculationGarment_Materials.splice(index, 1);
+        // const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
+        // this.data.CostCalculationGarment_Materials.splice(index, 1);
+        materialFromPRmaster.IsPRMaster = null;
+        materialFromPRmaster.PRMasterId = 0;
+        materialFromPRmaster.PRMasterItemId = 0;
+        materialFromPRmaster.POMaster = null;
       }
     }
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
