@@ -30,12 +30,10 @@ export class Create {
   }, {
     value: "YarnStrands",
     header: "Helai Benang Beam Warping"
-  }, 
-  // {
-  //   value: "EmptyWeight",
-  //   header: "Berat Kosong Beam Warping"
-  // }
-];
+  }, {
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam Warping"
+  }];
 
   constructor(service, router, bindingEngine) {
     this.router = router;

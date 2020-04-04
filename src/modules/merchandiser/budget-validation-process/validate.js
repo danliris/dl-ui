@@ -38,8 +38,6 @@ export class Create {
         { header: "Qty", value: "BudgetQuantityString" },
         { header: "Satuan", value: "UOMPriceUnit" },
         { header: "Shipment", value: "DeliveryDate" },
-        { header: "Seksi", value: "Section" },
-        { header: "Staf Merchandiser", value: "CreatedBy" },     
         { header: "Status", value: "Status" },
     ];
 

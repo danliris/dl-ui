@@ -168,7 +168,10 @@ export class DataForm {
         if (_selectedCurrency) {
             if (_selectedCurrency.Id) {
                 this.data.Currency = _selectedCurrency;
+                this.data.Currency.Rate=_selectedCurrency.rate?_selectedCurrency.rate:_selectedCurrency.Rate;
+                var CurrencyRate = parseInt(this.data.Currency.Rate ? this.data.Currency.Rate : 1, 10);
                 this.data.Currency.Code=_selectedCurrency.Code? _selectedCurrency.Code:_selectedCurrency.code;
+                this.data.CurrencyRate = CurrencyRate;
                 //var today=new Date();
                 var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
                 this.kurs=kurs[0];
@@ -178,9 +181,6 @@ export class DataForm {
                 }
                 this.options.kurs = this.kurs;
 
-                this.data.Currency.Rate = this.kurs.Rate;
-                const CurrencyRate = parseInt(this.data.Currency.Rate ? this.data.Currency.Rate : 1, 10);
-                this.data.CurrencyRate = CurrencyRate;
             }
             else {
                 this.data.Currency = null;
@@ -511,11 +511,6 @@ export class DataForm {
                         a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                 }
-                
-                if (a.UENItemId) {
-                    a.RemainingBudget = parseFloat((a.BudgetFromUEN - parseFloat(a.budgetUsed.toFixed(4))).toFixed(4));
-                }
-
                 if(a.RemainingBudget<0){
                     a.IsOverBudget=true;
                 }

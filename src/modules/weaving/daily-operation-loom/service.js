@@ -64,16 +64,6 @@ export class Service extends RestService {
     });
   }
 
-  getOperatorById(value) {
-    var config = Container.instance.get(Config);
-    var _endpoint = config.getEndpoint("weaving");
-    var _serviceUri = `weaving/operators/${value}`;
-
-    return _endpoint.find(_serviceUri).then(result => {
-      return result.data;
-    });
-  }
-
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
@@ -85,27 +75,21 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  updateReprocess(Id, data) {
-    const process = 'reprocess';
+  updatePause(Id, data) {
+    const process = 'pause';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  updateProduceGreige(Id, data) {
-    const process = 'produce-greige';
+  updateResume(Id, data) {
+    const process = 'resume';
     var endpoint = `${serviceUri}/${Id}/${process}`;
     return super.put(endpoint, data);
   }
 
-  // updatePause(Id, data) {
-  //   const process = 'pause';
-  //   var endpoint = `${serviceUri}/${Id}/${process}`;
-  //   return super.put(endpoint, data);
-  // }
-
-  // updateResume(Id, data) {
-  //   const process = 'resume';
-  //   var endpoint = `${serviceUri}/${Id}/${process}`;
-  //   return super.put(endpoint, data);
-  // }
+  updateFinish(Id, data) {
+    const process = 'finish';
+    var endpoint = `${serviceUri}/${Id}/${process}`;
+    return super.put(endpoint, data);
+  }
 }

@@ -153,9 +153,4 @@ export class Service extends RestService {
                 return result.data;
             });
     }
-
-    getUENById(id) {
-        var endpoint = `garment-unit-expenditure-notes/${id}`;
-        return super.get(endpoint);
-    }
 }

@@ -179,9 +179,4 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/${Id}/${data.HistoryId}/${data.BeamProductId}/${status}`;
     return super.put(endpoint, data);
   }
-
-  getBeamsById(Id){
-    var endpoint = `weaving/beams/${Id}`;
-    return super.get(endpoint);
-  }
 }

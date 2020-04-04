@@ -26,7 +26,6 @@ export class DataForm {
       { header: "Yarn" },
       { header: "Width" },
       { header: "Description", value: "Description" },
-      { header: "Detil Barang", value: "Detil Barang" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
     ]
@@ -35,7 +34,6 @@ export class DataForm {
     columns: [
       { header: "Product Code" },
       { header: "Description", value: "Description" },
-      { header: "Detil Barang", value: "Detil Barang" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
     ]

@@ -240,8 +240,8 @@ export class DataForm {
         this.context.vatVM.editorValue = "";
         
         this.options.useVat=selectedUseVat;
-        if (!this.data.useVat) {
-            this.data.isPayVat = false
+        if (!this.data.useIncomeTax && !this.data.useVat) {
+            this.data.isPayTax = false
         }
         if (this.context.error.useVat) {
             this.context.error.useVat = "";
@@ -259,7 +259,7 @@ export class DataForm {
         //this.incomeTax={};
 
         this.options.useIncomeTax=selectedUseIncomeTax;
-        if (!this.data.useIncomeTax) {
+        if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
         if (this.context.error.useIncomeTax) {

@@ -8,22 +8,9 @@ export class List {
   context = ["Detail", "Cetak DO Penjualan"];
 
   columns = [
-    { field: "DOSalesNo", title: "No. DO" },
+    { field: "Code", title: "Kode Surat" },
+    { field: "DOSalesNo", title: "Kode Pengiriman" },
     { field: "DOSalesType", title: "Type DO" },
-    {
-      field: "Date",
-      title: "Tanggal",
-      formatter: (value, data, index) => {
-        return moment.utc(value).local().format('DD MMM YYYY');
-      }
-    },
-    { field: "SalesContract.Buyer.Name", title: "Buyer" },
-    {
-      field: "Accepted", title: "Diterima",
-      formatter: function (value, data, index) {
-        return data.Accepted ? "Sudah" : "Belum";
-      }
-    },
   ];
 
   rowFormatter(data, index) {

@@ -105,19 +105,6 @@ module.exports = [
         }
     },
     {
-        route: "inventory/finishing-printing/shin-fp-shipment-document",
-        name: "inventory/finishing-printing/shin-fp-shipment-document",
-        moduleId: "modules/inventory/finishing-printing/shin-fp-shipment-document/index",
-        nav: true,
-        title: "Pengiriman Barang Gudang Jadi (Copy)",
-        auth: true,
-        settings: {
-            group: "Inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
         route: "inventory/finishing-printing/reports/fp-shipment-document-report",
         name: "inventory/finishing-printing/reports/fp-shipment-document-report",
         moduleId: "modules/inventory/finishing-printing/reports/fp-shipment-document-report/index",
@@ -273,17 +260,4 @@ module.exports = [
     //         iconClass: "fa fa-dashboard"
     //     }
     // },
-    {
-        route: 'inventory/reports/inventory-dystuff-report',
-        name: 'inventory/reports/inventory-dystuff-report',
-        moduleId: './modules/inventory/reports/inventory-dystuff-report/index',
-        nav: true,
-        title: 'Laporan Stock Gudang Dyeing Printing',
-        auth: true,
-        settings: {
-            group: "Inventory",
-            permission: { "*": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    }
 ]

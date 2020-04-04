@@ -11,9 +11,7 @@ export class List {
         { field: "Article", title: "Artikel" },
         { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
-        { field: "ConfirmPrice", title: "Harga Konfirmasi" },
-        { field: "Section", title: "Seksi" },
-        { field: "CreatedBy", title: "Staf Merchandiser" }
+        { field: "ConfirmPrice", title: "Harga Konfirmasi" }
     ];
 
     loader = (info) => {

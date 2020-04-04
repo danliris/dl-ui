@@ -209,7 +209,7 @@
             <div class="col-md-3">
               <au-autocomplete placeholder="No. Beam Warping"
                                value.bind="StartWarpingBeamDocuments"
-                               error.bind="error.error.BeamStatus"
+                               error.bind="error.error.WarpingBeamId"
                                read-only.bind="readOnly"
                                loader.bind="beams"
                                text="Number">
@@ -348,23 +348,7 @@
               </au-numeric>
             </div>
           </div>
-        <div class="row"
-              style="white-space: nowrap">
-          <div class="col-md-2"
-                style="text-align:left;">
-            <textbox label="No. Beam Warping Produksi"
-                      read-only="true"
-                      style="display: inline-block"></textbox>
-          </div>
-          <div class="col-md-2">
-              <au-autocomplete placeholder="No. Beam Warping"
-                               value.bind="BeamsToProduct"
-                               read-only.bind="readOnly"
-                               loader.bind = "beamsOnProcess"
-                               text="WarpingBeamNumber">
-              </au-autocomplete>
-          </div>
-        </div>
+
           <div class="row"
                style="white-space: nowrap">
             <div class="col-md-2"

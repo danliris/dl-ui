@@ -30,8 +30,6 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "SectionName", title: "Penanggung Jawab Seksi" },
-        { field: "CreatedBy", title: "Staf Merchandiser" },    
     ];
 
     controlOptions = {

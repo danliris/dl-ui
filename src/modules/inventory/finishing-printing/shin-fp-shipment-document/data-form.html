@@ -28,11 +28,11 @@
                                     read-only.bind="readOnly"
                                     options.bind="smallControlOptions"></au-textbox>
 
-                        <!-- <au-textbox label="Sesuai DO. No"
+                        <au-textbox label="Sesuai DO. No"
                                     value.bind="data.DeliveryCode"
                                     error.bind="error.DeliveryCode"
                                     read-only.bind="readOnly"
-                                    options.bind="smallControlOptions"></au-textbox> -->
+                                    options.bind="smallControlOptions"></au-textbox>
 
                         <au-textbox label="Kode Barang"
                                     value.bind="data.ProductIdentity"
@@ -40,34 +40,16 @@
                                     read-only.bind="readOnly"
                                     options.bind="smallControlOptions"></au-textbox>
 
-                        <!-- <au-autocomplete value.bind="data.Buyer"
-                                    error.bind="error.Buyer"
-                                    label="Buyer"
-                                    loader.one-time="buyerLoader"
-                                    placeholder="Cari Buyer"
-                                    read-only.bind="readOnly"
-                                    key="Name"
-                                    text="Name"
-                                    change.delegate="buyerChanged($event)"
-                                    options.bind="mediumControlOptions"></au-autocomplete> -->
-                        
-                                    
-                                    <!-- text.bind="doSalesView" -->
-
-                        <au-autocomplete value.bind="selectedDOSales" 
-                                         error.bind="error.DOSales"
-                                         label="Berdasarkan DO No." 
-                                         loader.one-time="doSalesLoader"
-                                         key="DOSalesNo"
-                                         text="DOSalesNo"
-                                         change.delegate="selectedDOSalesChanged($event)"
-                                         placeholder="Pilih DO"
+                        <au-autocomplete value.bind="data.Buyer"
+                                         error.bind="error.Buyer"
+                                         label="Buyer"
+                                         loader.one-time="buyerLoader"
+                                         placeholder="Cari Buyer"
                                          read-only.bind="readOnly"
+                                         key="Name"
+                                         text="Name"
+                                         change.delegate="buyerChanged($event)"
                                          options.bind="mediumControlOptions"></au-autocomplete>
-
-                        <au-textbox label="Nama Buyer"
-                                    value.bind="data.Buyer.Name"
-                                    read-only.bind="true"></au-textbox>
 
                         <au-textbox label="Tipe Buyer"
                                     value.bind="data.Buyer.Type"

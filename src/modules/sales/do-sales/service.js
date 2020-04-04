@@ -40,6 +40,16 @@ export class Service extends RestService {
     return super.getPdf(endpoint);
   }
 
+  // getDOSalesLocalPdfById(id) {
+  //   var endpoint = `${serviceUri}/doSalesLocalPdf/${id}`;
+  //   return super.getPdf(endpoint);
+  // }
+  
+  // getDOSalesExportPdfById(id) {
+  //   var endpoint = `${serviceUri}/doSalesExportPdf/${id}`;
+  //   return super.getPdf(endpoint);
+  // }
+
   searchSalesContract(info) {
     var endpoint = `${salesContractServiceUri}`;
     return super.list(endpoint, info);

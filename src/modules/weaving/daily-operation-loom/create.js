@@ -13,7 +13,6 @@ import moment from 'moment';
 var OrderLoader = require("../../../loader/weaving-order-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
-var BeamLoader = require("../../../loader/weaving-sizing-beam-loader");
 
 @inject(Service, Router, BindingEngine)
 export class Create {
@@ -45,7 +44,7 @@ export class Create {
     header: "No. Mesin Loom"
   }, {
     value: "LoomOperator",
-    header: "Operator Loom"
+    header: "Operator Tying"
   }, {
     value: "LoomOperatorGroup",
     header: "Grup Loom"
@@ -58,6 +57,9 @@ export class Create {
   }, {
     value: "Shift",
     header: "Shift"
+  }, {
+    value: "Process",
+    header: "Proses"
   }, {
     header: "Action"
   }];
@@ -98,10 +100,6 @@ export class Create {
     return MachineLoader;
   }
 
-  get beams() {
-    return BeamLoader;
-  }
-
   OrderDocumentChanged(newValue) {
     if (newValue) {
       let order = newValue;
@@ -125,45 +123,32 @@ export class Create {
         this.error.WeavingUnitDocument = " Unit Weaving Tidak Ditemukan ";
       }
 
-      if (newValue.WarpOriginOne) {
-        this.error.WarpOriginOne = "";
-        this.WarpOriginOne = newValue.WarpOriginOne;
+      if (newValue.WarpOrigin) {
+        this.error.WarpOrigin = "";
+        this.WarpOrigin = newValue.WarpOrigin;
       } else {
-        this.WarpOriginOne = "";
-        this.error.WarpOriginOne = " Asal Lusi Tidak Ditemukan "
+        this.WarpOrigin = "";
+        this.error.WarpOrigin = " Asal Lusi Tidak Ditemukan "
       }
 
-      if (newValue.WeftOriginOne) {
-        this.error.WeftOriginOne = "";
-        this.WeftOriginOne = newValue.WeftOriginOne;
+      if (newValue.WeftOrigin) {
+        this.error.WeftOrigin = "";
+        this.WeftOrigin = newValue.WeftOrigin;
       } else {
-        this.WeftOriginOne = "";
-        this.error.WeftOriginOne = " Asal Pakan Tidak Ditemukan "
+        this.WeftOrigin = "";
+        this.error.WeftOrigin = " Asal Pakan Tidak Ditemukan "
       }
     }
-  }
-
-  get BeamProcessed() {
-    let result = 0;
-
-    if (this.LoomBeamsUsed) {
-      if (this.LoomBeamsUsed.length > 0) {
-        result = this.LoomBeamsUsed.length;
-      }
-    }
-
-    this.data.BeamProcessed = result;
-    return result;
   }
 
   showBeamMenu() {
-    // this.TyingMachineNumber = null;
-    // this.TyingOperator = null;
-    // this.LoomMachineNumber = null;
-    // this.LoomOperator = null;
-    // this.PreparationDate = null;
-    // this.PreparationTime = null;
-    // this.PreparationShift = null;
+    this.TyingMachineNumber = undefined;
+    this.TyingOperator = undefined;
+    this.LoomMachineNumber = undefined;
+    this.LoomOperator = undefined;
+    this.PreparationDate = undefined;
+    this.PreparationTime = null;
+    this.PreparationShift = undefined;
     if (this.showHideAddBeam === true) {
       this.showHideAddBeam = false;
     } else {
@@ -172,7 +157,7 @@ export class Create {
   }
 
   BeamOriginChanged(newValue) {
-    if (newValue === "TYING") {
+    if (newValue === "REACHING") {
       this.isTying = true;
     } else {
       this.isTying = false;
@@ -194,57 +179,38 @@ export class Create {
       });
   }
 
-  clearField() {
-    this.TyingMachineDocument = undefined;
-    this.TyingOperatorDocument = undefined;
-    this.LoomMachineDocument = undefined;
-    this.LoomOperatorDocument = undefined;
-    this.PreparationDate = undefined;
-    this.PreparationTime = undefined;
-    this.PreparationShift = undefined;
-    this.error.PreparationShift = undefined;
-    this.BeamDocument = undefined;
-  }
-
   addBeam() {
     let beamUsed = {};
-    beamUsed.BeamOrigin = this.BeamOrigin;
     if (this.BeamOrigin === "TYING") {
-      if (this.TyingMachineDocument) {
-        beamUsed.TyingMachineId = this.TyingMachineDocument.Id;
-        beamUsed.TyingMachineNumber = this.TyingMachineDocument.MachineNumber;
+      if (this.TyingMachineNumber) {
+        beamUsed.TyingMachineNumberId = this.TyingMachineNumber.Id;
       } else {
         this.error.TyingMachineNumberId = "No. Mesin Tying Harus Diisi";
       }
 
-      if (this.TyingOperatorDocument) {
-        beamUsed.TyingOperatorId = this.TyingOperatorDocument.Id;
-        beamUsed.TyingOperator = this.TyingOperatorDocument.Username;
-        beamUsed.TyingOperatorGroup = this.TyingOperatorDocument.Group;
+      if (this.TyingOperator) {
+        beamUsed.TyingOperatorId = this.TyingOperator.Id;
       } else {
         this.error.TyingOperatorId = "Operator Tying Harus Diisi";
       }
     }
-    if (this.LoomMachineDocument) {
-      beamUsed.LoomMachineId = this.LoomMachineDocument.Id;
-      beamUsed.LoomMachineNumber = this.LoomMachineDocument.MachineNumber;
+
+    if (this.LoomMachineNumber) {
+      beamUsed.LoomMachineNumberId = this.LoomMachineNumber.Id;
     } else {
       this.error.LoomMachineNumberId = "No. Mesin Loom Harus Diisi";
     }
 
-    if (this.LoomOperatorDocument) {
-      beamUsed.LoomOperatorId = this.LoomOperatorDocument.Id;
-      beamUsed.LoomOperator = this.LoomOperatorDocument.Username;
-      beamUsed.LoomOperatorGroup = this.LoomOperatorDocument.Group;
+    if (this.LoomOperator) {
+      beamUsed.LoomOperatorId = this.LoomOperator.Id;
     } else {
       this.error.LoomOperatorId = "Operator Loom Harus Diisi";
     }
 
-    if (this.BeamDocument) {
-      beamUsed.BeamNumber = this.BeamDocument.Number;
-      beamUsed.BeamProcessedId = this.BeamDocument.Id;
+    if (this.BeamNumber) {
+      beamUsed.BeamNumber = this.BeamNumber;
     } else {
-      this.error.LoomBeamId = "No. Beam Harus Diisi";
+      this.error.BeamNumber = "No. Beam Harus Diisi";
     }
 
     if (this.PreparationDate) {
@@ -259,78 +225,48 @@ export class Create {
       this.error.PreparationTime = "Jam Harus Diisi";
     }
 
-    if (this.PreparationShift) {
-      beamUsed.PreparationShiftId = this.PreparationShift.Id;
-      beamUsed.PreparationShiftName = this.PreparationShift.Name;
+    if (this.Process) {
+      beamUsed.Process = this.Process;
     } else {
-      this.error.PreparationShift = "Shift Harus Diisi";
+      this.error.Process = "Proses Harus Diisi";
     }
 
     this.LoomBeamsUsed.push(beamUsed);
-
-    this.clearField();
   }
 
   saveCallback(event) {
     var preparationData = {};
-    preparationData.LoomItems = [];
-
+    preparationData.LoomBeamProducts = [];
+    preparationData.LoomBeamHistories = [];
     if (this.OrderDocument) {
       preparationData.OrderDocumentId = this.OrderDocument.Id;
     }
-    if (this.BeamProcessed) {
-      preparationData.BeamProcessed = parseInt(this.BeamProcessed);
-    }
 
-    this.LoomBeamsUsed.forEach(datum => {
-      var LoomItem = {};
+    this.LoomBeamsUsed.forEach(doc => {
+      debugger
+      var BeamHistoryDocument = {};
+      var BeamProductDocument = {};
 
-      if (datum.BeamOrigin) {
-        LoomItem.BeamOrigin = datum.BeamOrigin;
-      }
+      BeamProductDocument.BeamOrigin = doc.BeamOrigin;
+      BeamProductDocument.BeamDocumentId = doc.BeamDocument.ReachingBeamId;
+      BeamProductDocument.CombNumber = doc.CombNumber;
+      BeamProductDocument.MachineDocumentId = doc.MachineDocument.Id;
+      BeamProductDocument.DateBeamProduct = doc.Date;
+      BeamProductDocument.TimeBeamProduct = doc.Time;
+      BeamProductDocument.LoomProcess = doc.LoomProcess;
 
-      if (datum.BeamProcessedId) {
-        LoomItem.BeamDocumentId = datum.BeamProcessedId;
-      }
+      BeamHistoryDocument.BeamNumber = doc.BeamDocument.ReachingBeamNumber;
+      BeamHistoryDocument.MachineNumber = doc.MachineDocument.MachineNumber;
+      BeamHistoryDocument.OperatorDocumentId = doc.OperatorDocument.Id;
+      BeamHistoryDocument.DateMachine = doc.Date;
+      BeamHistoryDocument.TimeMachine = doc.Time;
+      BeamHistoryDocument.ShiftDocumentId = doc.Shift.Id;
+      BeamHistoryDocument.Information = doc.Information;
 
-      if (datum.BeamNumber) {
-        LoomItem.BeamNumber = datum.BeamNumber;
-      }
-
-      if (datum.TyingMachineId) {
-        LoomItem.TyingMachineId = datum.TyingMachineId;
-        LoomItem.TyingMachineNumber = datum.TyingMachineNumber;
-      }
-
-      if (datum.TyingOperatorId) {
-        LoomItem.TyingOperatorId = datum.TyingOperatorId;
-        LoomItem.TyingOperatorName = datum.TyingOperator;
-      }
-
-      if (datum.LoomMachineId) {
-        LoomItem.LoomMachineId = datum.LoomMachineId;
-        LoomItem.LoomMachineNumber = datum.LoomMachineNumber;
-      }
-
-      if (datum.LoomOperatorId) {
-        LoomItem.LoomOperatorId = datum.LoomOperatorId;
-      }
-
-      if (datum.PreparationDate) {
-        LoomItem.PreparationDate = datum.PreparationDate;
-      }
-
-      if (datum.PreparationTime) {
-        LoomItem.PreparationTime = datum.PreparationTime;
-      }
-
-      if (datum.PreparationShiftId) {
-        LoomItem.PreparationShift = datum.PreparationShiftId;
-      }
-
-      preparationData.LoomItems.push(LoomItem);
+      preparationData.LoomBeamProducts.push(BeamProductDocument);
+      preparationData.LoomBeamHistories.push(BeamHistoryDocument);
     });
-    
+
     this.service
       .create(preparationData)
       .then(result => {

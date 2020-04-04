@@ -14,14 +14,14 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "OperationDate",
+      field: "MachineDate",
       title: "Tanggal"
     }, {
-      field: "OperationTime",
+      field: "MachineTime",
       title: "Jam"
     },
     {
-      field: "WeavingUnitName",
+      field: "WeavingUnit",
       title: "Unit Weaving"
     },
     {
@@ -65,9 +65,9 @@ export class List {
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
         for (var datum of result.data) {
-          if (datum.DateTimeOperation) {
-            datum.OperationDate = moment(datum.DateTimeOperation).format('DD/MM/YYYY');
-            datum.OperationTime = moment(datum.DateTimeOperation).format('LT');
+          if (datum.DateTimeMachine) {
+            datum.MachineDate = moment(datum.DateTimeMachine).format('DD/MM/YYYY');
+            datum.MachineTime = moment(datum.DateTimeMachine).format('LT');
           }
         }
         return {
@@ -90,6 +90,7 @@ export class List {
       case "detail":
         this.router.navigateToRoute("update", {
           Id: data.Id
+          // Id: 1
         });
         break;
     }
