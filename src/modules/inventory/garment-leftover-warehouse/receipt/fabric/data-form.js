@@ -14,6 +14,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedUnitExpenditureNote;
+    @bindable selectedUnit;
 
     controlOptions = {
         label: {
@@ -45,7 +46,8 @@ export class DataForm {
     }
 
     unitExpenditureNoteFilter = {
-        ExpenditureType: "SISA"
+        ExpenditureType: "SISA",
+        IsReceived:false
     }
 
     bind(context) {
@@ -64,6 +66,10 @@ export class DataForm {
                 item.UomUnit = item.Uom.Unit;
             }
         }
+    }
+
+    selectedUnitChanged(newValue){
+        
     }
 
     selectedUnitExpenditureNoteChanged(newValue) {

@@ -5,7 +5,7 @@
             options.bind="controlOptions" if.bind="readOnly || isEdit">
         </au-textbox>
 
-        <au-autocomplete label="Unit Asal" placeholder="Pilih Unit" value.bind="data.UnitFrom"
+        <au-autocomplete label="Unit Asal" placeholder="Pilih Unit" value.bind="selectedUnit"
             error.bind="error.UnitFrom" loader.bind="unitLoader" text.bind="unitView"
             read-only.bind="readOnly || isEdit" options.bind="controlOptions">
         </au-autocomplete>
