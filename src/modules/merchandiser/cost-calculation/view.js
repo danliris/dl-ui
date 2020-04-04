@@ -31,6 +31,7 @@ export class View {
     }
   };
 
+  CM_Price = 0;
   costCalculationGarment_MaterialsInfo = {
     columns: [
       { header: "Kategori", value: "Category" },
@@ -106,6 +107,9 @@ export class View {
       });
     }
     
+    this.CM_Price = (CM_Price  * 1.05) / this.data.Rate.Value;
+    this.CM_Price = US + this.CM_Price.toLocaleString('en-EN', { minimumFractionDigits: 4});
+
     let FOB_Price = this.data.ConfirmPrice;
     let CNF_Price=_confirmPrice;
     let CIF_Price=_confirmPrice;

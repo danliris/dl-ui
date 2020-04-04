@@ -8,8 +8,7 @@ import {
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
 
-import LocalSalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
-import ExportSalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
+import SalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
 
 @containerless()
 @inject(Service, ServiceCore, BindingSignaler, BindingEngine)
@@ -23,6 +22,10 @@ export class DataForm {
   @bindable op;
   @bindable sc;
   @bindable fillEachBale;
+  @bindable LengthUom;
+  @bindable WeightUom;
+  @bindable selectedSalesContract;
+  
   constructor(
     service,
     serviceCore,
@@ -58,67 +61,79 @@ export class DataForm {
       this.fillEachBale = this.data.FillEachBale;
     }
 
-    if (this.data.DOSalesType == "Lokal" && this.data.LocalSalesContract.Id) {
-      this.selectedLocalSalesContract = await this.service.getSalesContractById(
-        this.data.LocalSalesContract.Id,
-        this.localSalesContractFields
+    // if (this.data.SalesContract) {
+    //   this.selectedSalesContract = this.data.SalesContract;
+    // }
+
+    var salesContract = this.data.SalesContract;
+    if (salesContract) {
+      this.selectedSalesContract = await this.service.getSalesContractById(
+        salesContract.Id,
+        this.salesContractFields
       );
     }
     else {
-      this.selectedLocalSalesContract = this.data.LocalSalesContract;
+      this.selectedSalesContract = this.data.SalesContract;
     }
 
-    if (this.data.DOSalesType == "Ekspor" && this.data.ExportSalesContract.Id) {
-      this.selectedExportSalesContract = await this.service.getSalesContractById(
-        this.data.ExportSalesContract.Id,
-        this.exportSalesContractFields
-      );
+    if (this.data.LengthUom) {
+      this.detailOptions.LengthUom = this.data.LengthUom;
+      this.LengthUom = this.data.LengthUom;
+    }
+
+    if (this.data.WeightUom) {
+      this.detailOptions.WeightUom = this.data.WeightUom;
+      this.WeightUom = this.data.WeightUom;
     }
   }
 
   doSalesLocalItemsInfo = {
     columns: [
-      "No SPP", "Material Konstruksi", "Jenis / Code", "Pcs / Roll / Pt", "Yds / Bale", "Mtr / Kg"
+      "No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi"
     ],
-    onAdd: function () {
-      this.context.DOSalesLocalItemsCollection.bind();
-      this.data.DOSalesLocalItems = this.data.DOSalesLocalItems || [];
-      this.data.DOSalesLocalItems.push({});
-    }.bind(this),
     onRemove: function () {
-      this.context.DOSalesLocalItemsCollection.bind();
+      this.context.ItemsCollection.bind();
     }.bind(this)
   };
 
-  localOptions = {};
+  doSalesExportItemsInfo = {
+    columns: [
+      "No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Berat", "Hasil Konversi"
+    ],
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this)
+  };
+
+  detailOptions = {};
 
   doSalesTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
   doSalesExportOptions = ["", "KKF", "KKP"];
   packingUomOptions = ["", "PCS", "ROLL", "PT"];
-  imperialUomOptions = ["", "YDS", "BALE"];
-  metricUomOptions = ["", "MTR", "KG"];
+  lengthUomOptions = ["", "YDS", "MTR"];
+  weightUomOptions = ["", "BALE", "KG"];
 
-  @bindable selectedLocalSalesContract;
-  async selectedLocalSalesContractChanged(newValue, oldValue) {
-    if (this.selectedLocalSalesContract && this.selectedLocalSalesContract.Id) {
-      this.data.LocalSalesContract = this.selectedLocalSalesContract;
-      this.data.LocalMaterial = this.selectedLocalSalesContract.Material;
-      this.data.LocalMaterialConstruction = this.selectedLocalSalesContract.MaterialConstruction;
-      this.data.MaterialWidth = this.selectedLocalSalesContract.MaterialWidth;
+  async selectedSalesContractChanged(newValue, oldValue) {
+    // if (this.selectedSalesContract && this.selectedSalesContract.Id) {
+    if (newValue) {
+      this.data.SalesContract = this.selectedSalesContract;
+      this.data.Material = this.selectedSalesContract.Material;
+      this.data.MaterialConstruction = this.selectedSalesContract.MaterialConstruction;
+      this.data.MaterialWidth = this.selectedSalesContract.MaterialWidth;
 
-      if (this.selectedLocalSalesContract.Buyer.Id) {
-        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedLocalSalesContract.Buyer.Id);
-        this.data.LocalBuyer = this.selectedBuyer;
+      if (this.selectedSalesContract.Buyer.Id) {
+        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedSalesContract.Buyer.Id);
+        this.data.Buyer = this.selectedBuyer;
       } else {
-        this.selectedBuyer = this.selectedLocalSalesContract.Buyer;
-        this.data.LocalBuyer = this.selectedLocalSalesContract.Buyer;
+        this.selectedBuyer = this.selectedSalesContract.Buyer;
+        this.data.Buyer = this.selectedSalesContract.Buyer;
       }
 
       if (!this.data.Id) {
-        var salesContract = await this.service.getProductionOrderBySalesContractId(this.data.LocalSalesContract.Id);
+        var salesContract = await this.service.getProductionOrderBySalesContractId(this.data.SalesContract.Id);
         var scData = salesContract.data;
-        this.data.DOSalesLocalItems = [];
+        this.data.DOSalesDetailItems = [];
         for (var item of scData) {
           for (var detailItem of item.Details) {
             var sc = {
@@ -130,32 +145,14 @@ export class DataForm {
               ProductionOrder: item,
               ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
             }
-            this.data.DOSalesLocalItems.push(sc);
+            this.data.DOSalesDetailItems.push(sc);
           }
         }
       }
     } else {
-      this.data.LocalSalesContract = null;
-      this.data.LocalBuyer = null;
-    }
-  }
-
-  @bindable selectedExportSalesContract;
-  async selectedExportSalesContractChanged(newValue, oldValue) {
-    if (this.selectedExportSalesContract && this.selectedExportSalesContract.Id) {
-      this.data.ExportSalesContract = this.selectedExportSalesContract;
-
-      if (this.selectedExportSalesContract.Buyer.Id) {
-        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedExportSalesContract.Buyer.Id);
-        this.data.ExportBuyer = this.selectedBuyer
-      } else {
-        this.selectedBuyer = this.selectedExportSalesContract.Buyer;
-        this.data.ExportBuyer = this.selectedExportSalesContract.Buyer;
-      }
-
-    } else {
-      this.data.ExportSalesContract = null;
-      this.data.ExportBuyer = null;
+      this.data.SalesContract = null;
+      this.data.Buyer = null;
+      this.data.DOSalesDetailItems = [];
     }
   }
 
@@ -172,6 +169,20 @@ export class DataForm {
     this.data.FillEachBale = this.fillEachBale;
   }
 
+  LengthUomChanged(newValue, oldValue) {
+    if (newValue) {
+      this.detailOptions.LengthUom = newValue;
+    }
+    this.data.LengthUom = this.LengthUom;
+  }
+
+  WeightUomChanged(newValue, oldValue) {
+    if (newValue) {
+      this.detailOptions.WeightUom = newValue;
+    }
+    this.data.WeightUom = this.WeightUom;
+  }
+
   enterDelegate(event) {
     if (event.charCode === 13) {
       event.preventDefault();
@@ -179,17 +190,11 @@ export class DataForm {
     } else return true;
   }
 
-  localSalesContractNoView(sc) {
-    return sc.SalesContractNo;
-  }
-  exportSalesContractNoView(sc) {
+  salesContractNoView(sc) {
     return sc.SalesContractNo;
   }
 
-  get localSalesContractLoader() {
-    return LocalSalesContractLoader;
-  }
-  get exportSalesContractLoader() {
-    return ExportSalesContractLoader;
+  get salesContractLoader() {
+    return SalesContractLoader;
   }
 }

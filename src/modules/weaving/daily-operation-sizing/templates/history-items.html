@@ -55,11 +55,11 @@
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <div if.bind="$first">
+      <div if.bind="data.ShowDeleteButton">
         <!-- <button class="btn btn-default" id="edit-button" click.delegate="edit()" disabled.bind="isEditDisabled">
           Edit
         </button> -->
-        <button class="btn btn-default" id="delete-button" click.delegate="delete()" disabled.bind="isDeleteDisabled">
+        <button class="btn btn-default" id="delete-button" click.delegate="delete(data)" disabled.bind="isDeleteDisabled">
           Delete
         </button>
       </div>

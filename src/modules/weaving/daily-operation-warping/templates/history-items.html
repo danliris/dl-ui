@@ -42,9 +42,11 @@
       </au-textbox>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <div if.bind="$first">
-        <button class="btn btn-default btn-danger" id="delete-button" click.delegate="delete()" disabled.bind="isDeleteDisabled">
-          Delete
+      <!-- <div if.bind="$first"> -->
+      <!-- <div if.bind="showButtonDeleteId.findIndex( function ( element ) { return element.Id === data.Id; } ) > -1"> -->
+      <div if.bind="data.ShowDeleteButton">
+        <button class="btn btn-default btn-danger" id="delete-button" click.delegate="delete(data)" disabled.bind="isDeleteDisabled">
+          Delete 
         </button>
       </div>
     </td>
