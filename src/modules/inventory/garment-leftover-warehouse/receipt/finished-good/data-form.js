@@ -35,6 +35,7 @@ export class DataForm {
     }
 
 
+
     get expenditureGoodLoader() {
         return (keyword) => {
             var info = {
@@ -53,6 +54,15 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
+    
+    selectedUnitChanged(newValue){
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.UnitFrom=null;
+        }
+    }
 
     bind(context) {
         this.context = context;

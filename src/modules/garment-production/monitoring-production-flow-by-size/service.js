@@ -30,6 +30,7 @@ export class Service extends RestService {
         }
         if (query !== '')
         endpoint = `${serviceUri}/bySize?${query}`;
+
         return super.get(endpoint);
 
     }

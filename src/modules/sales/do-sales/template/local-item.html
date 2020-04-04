@@ -1,4 +1,4 @@
-<template>
+<template replace-part="item">
     <tr>
         <td>
             <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder" read-only.bind="true">
@@ -22,20 +22,20 @@
                 placeholder="Input Jenis / Code"></au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.TotalPacking" error.bind="error.TotalPacking" format="0,0"
+            <au-numeric value.bind="data.Packing" error.bind="error.Packing" format="0,0"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.TotalImperial" error.bind="error.TotalImperial" format="0,0"
+            <au-numeric value.bind="Length" error.bind="error.Length" format="0,0.00"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.TotalMetric" error.bind="error.TotalMetric" format="0,0"
-                read-only.bind="readOnly">
-            </au-numeric>
+            <au-numeric value.bind="getConvertionValue" error.bind="error.ConvertionValue" format="0,0.00"
+                read-only.bind="true"></au-numeric>
         </td>
+
         <td if.bind="!options.readOnly">
             <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)">-</button>

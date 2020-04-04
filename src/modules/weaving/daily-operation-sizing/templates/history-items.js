@@ -11,6 +11,7 @@ import {
 } from "aurelia-router";
 import { Dialog } from '../../../../au-components/dialog/dialog'
 import moment from "moment";
+import _ from "underscore";
 
 // var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
@@ -40,11 +41,26 @@ export class HistoryItems {
 
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+
+    var historyGroupByBeamId = _.groupBy(this.options.DailyOperationSizingHistories,"SizingBeamNumber");
+    var historyShowDeleteButton = [];
+    for(var key in historyGroupByBeamId){
+      if(this.options.DailyOperationSizingHistories.length > 1)
+      {
+        if(key != "Belum ada Beam yang Diproses"){
+          historyShowDeleteButton.push(historyGroupByBeamId[key][0]);
+        }
+      }else{
+        historyShowDeleteButton.push(historyGroupByBeamId[key][0]);        
+      }
+    }
+    var historyWithDeleteButton = this.options.DailyOperationSizingHistories.map(x => { return historyShowDeleteButton.findIndex(y =>y.Id == x.Id) > -1 ? Object.assign(x,{ShowDeleteButton : true}) : Object.assign(x,{ShowDeleteButton : false}) });
+    this.options.DailyOperationSizingHistories = historyWithDeleteButton;
   }
 
-  delete() {
+  delete(param) {
     let operationId = this.options.Id;
-    let lastBeamProduct = this.options.DailyOperationSizingBeamProducts[0];
+    let lastBeamProduct = _.findWhere(this.options.DailyOperationSizingBeamProducts, {SizingBeamNumber:param.SizingBeamNumber});
     let lastBeamProductId = "";
     if (lastBeamProduct != null || lastBeamProduct != undefined) {
       lastBeamProductId = lastBeamProduct.Id;

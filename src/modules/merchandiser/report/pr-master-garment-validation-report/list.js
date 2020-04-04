@@ -62,7 +62,7 @@ export class List {
                   for (var item of this.data){
                        item.PRDate=moment(item.PRDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.ConfirmDate).format("DD MMM YYYY");
                        item.DeliveryDate=moment(item.DeliveryDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.DeliveryDate).format("DD MMM YYYY");                    
-                       item.ValidatedDate=moment(item.ValidatedDate).format("DD MMM YYYY")=="01 Jan 0001" ? "-" : moment(item.DeliveryDate).format("DD MMM YYYY");                    
+                       item.ValidatedDate=moment(item.ValidatedDate).format("DD MMM YYYY")=="01 Jan 0001" ? "-" : moment(item.ValidatedDate).format("DD MMM YYYY");                    
           
                       datas.push(item);
                   }

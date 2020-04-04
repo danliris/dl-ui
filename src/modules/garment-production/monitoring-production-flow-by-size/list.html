@@ -40,44 +40,12 @@
   </form>
   <br>
 </br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover" border="1" id="myTable">
-        <thead align="center">
-            <tr>
-                <td>RO</td>
-                <td>Kode Buyer</td>
-                <td>No Article</td>
-                <td>Komoditi</td>
-                <td>Jumlah Order</td>
-                <td>Ukuran</td>
-                <td>Hasil Potong</td>
-                <td>Hasil Loading</td>
-                <td>Hasil Sewing</td>
-                <td>Hasil Finishing</td>
-                <td>Barang Dalam Proses</td>
-            </tr>
-        </thead>
-        <tbody>
-            <require from="../../../lib/number-format-value-converter"></require>
-            <tr repeat.for="item of data">
-                <td class="text-center">${item.Ro}</td>
-                <td class="text-center">${item.BuyerCode}</td>
-                <td class="text-center">${item.Article}</td>
-                <td class="text-center">${item.Comodity}</td>
-                <td class="text-right">${item.QtyOrder}</td>
-                <td class="text-center">${item.Size}</td>
-                <td class="text-right">${item.QtyCutting}</td>
-                <td class="text-right">${item.QtyLoading}</td>
-                <td class="text-right">${item.QtySewing}</td>
-                <td class="text-right">${item.QtyFinishing}</td>
-                <td class="text-right">${item.Wip}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-  Tidak ada data.
-</div>
+ 
+    <table ref="table"  border="1" id="myTable"></table>
+ 
+    <div class="alert alert-info text-center"  role="alert" if.bind="data.length === 0">
+        Tidak ada data.
+    </div>
 <hr/>
   </au-input-form>
   <div class="row"></div>
