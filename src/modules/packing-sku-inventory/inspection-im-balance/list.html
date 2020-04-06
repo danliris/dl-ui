@@ -20,8 +20,8 @@
           <textbox label="Shift" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="ShiftValue" error.bind="error.Shift" read-only.bind="readOnly"
-            loader.bind="shift" text="ShiftText"></au-autocomplete>
+          <au-dropdown value.bind="ShiftValue" error.bind="error.Shift" read-only.bind="readOnly"
+            items.bind="shift" text="ShiftText"></au-dropdown>
         </div>
       </div>
     
@@ -30,18 +30,18 @@
           <textbox label="unit" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="UnitValue" error.bind="error.Unit" read-only.bind="readOnly"
-            loader.bind="unit" text="UnitText"></au-autocomplete>
+          <au-dropdown value.bind="UnitValue" error.bind="error.Unit" read-only.bind="readOnly"
+            items.bind="unit" text="UnitText"></au-dropdown>
         </div>
       </div>
       
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-4">
-          <button class="btn btn-primary" click.delegate="exportToExcel()"
+          <button class="btn btn-primary" click.delegate="ExportToExcel()"
             style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
             Print Laporan
           </button>
-          <button class="btn btn-success" click.delegate="search()"
+          <button class="btn btn-success" click.delegate="searching()"
             style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
             Cari
           </button>
@@ -54,6 +54,7 @@
     <au-table data.bind="loader"
               columns.bind="columns"
               sortable.bind="true"
+              view-model.ref="table"
               page-size="25">
     </au-table>
 </template>

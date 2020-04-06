@@ -12,57 +12,31 @@ export class List {
     context = ["Rincian"];
     
     columns = [
-        { field: "Material", title: "Material" },
-        { field: "NoSP", title: "No SP" },
-        { field: "SumAwal", title: "Sum of AWAL" },
-        { field: "SumMsk", title: "Sum of MSK"},
-        { field: "SumKeluar", title :"Sum of KELUAR"},
-        { field: "SumAkhir", title :"Sum of AKHIR"}
+        { field: "material", title: "Material" },
+        { field: "noOrder", title: "No SP" },
+        { field: "sumOfAwal", title: "Sum of AWAL" },
+        { field: "sumOfMasuk", title: "Sum of MSK"},
+        { field: "sumOfKeluar", title :"Sum of KELUAR"},
+        { field: "sumOfAkhir", title :"Sum of AKHIR"}
     ];
-    loader = (info) => {
-        let order = {};
-
-        let dataDummy = [
-            {
-                "Material":"1",
-                "NoSP":"2020-03-16",
-                "SumAwal":"SIANG",
-                "SumMsk":"P",
-                "SumKeluar":"TRANSIT",
-                "SumAkhir":"P/2020/0261"
-            },
-            {
-                "Material":"2",
-                "NoSP":"2020-03-16",
-                "SumAwal":"SIANG",
-                "SumMsk":"P",
-                "SumKeluar":"TRANSIT",
-                "SumAkhir":"P/2020/0556"
-            },
-                {
-                "Material":"3",
-                "NoSP":"2020-03-16",
-                "SumAwal":"SIANG",
-                "SumMsk":"P",
-                "SumKeluar":"TRANSIT",
-                "SumAkhir":"P/2020/0787"
-            }
-        ];
-        var result = {}
-        result["total"] = dataDummy.length;
-        result["data"] = dataDummy;
-        var resProm = Promise.resolve().then(x=> {return result});
-
-        return resProm;
-    }
-
-    get shift(){
-        return GroupLoader;
+    loader = (info)=> {
+        this.info = {};
+        var searchDate = this.DateReport ? moment(this.DateReport).format("DD MMM YYYY HH:mm") : null;
         
+        return this.listDataFlag ? (
+
+            this.service.getReport(searchDate, this.ShiftValue, this.UnitValue)
+                .then((result) => {
+                    return {
+                        data: result
+                    }
+                })
+        ) : { total: 0, data: {} };
     }
-    get unit(){
-        return UnitLoader;
-    }
+
+    shift=  ["","PAGI", "SIANG"];  
+        
+    unit = ["","DYEING", "PRINTING"];  
 
     constructor(router, service) {
         this.service = service;
@@ -77,5 +51,21 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
+    }
+    searching() {
+        this.listDataFlag = true;
+
+        this.table.refresh();
+    }
+    reset(){
+        this.DateReport = null;
+        this.ShiftValue = null;
+        this.UnitValue = null;
+
+    }
+    ExportToExcel() {
+
+        var searchDate = this.DateReport ? moment(this.DateReport).format("DD MMM YYYY HH:mm") : null;
+        this.service.getExcel(searchDate, this.ShiftValue, this.UnitValue);
     }
 }
