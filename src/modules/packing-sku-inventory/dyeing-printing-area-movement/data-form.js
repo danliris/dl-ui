@@ -72,6 +72,8 @@ export class DataForm {
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.Code = this.data.productionOrder.code;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.OrderType = {};
+            this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.productionOrderQuantity;
             this.selectedProductionOrder.Material = {};
             this.selectedProductionOrder.Material.Id = this.data.material.id;
@@ -109,7 +111,7 @@ export class DataForm {
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.code = this.selectedProductionOrder.Code;
-
+            this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
             this.sppQty = this.selectedProductionOrder.OrderQuantity;
             this.selectedMaterial = this.selectedProductionOrder.Material;
             this.selectedMaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
