@@ -13,6 +13,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedExpenditureGood;
+    @bindable selectedUnitFrom;
 
     controlOptions = {
         label: {
@@ -35,11 +36,12 @@ export class DataForm {
     }
 
 
+
     get expenditureGoodLoader() {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.UnitFrom.Id, ExpenditureType:"SISA"})
+              filter: JSON.stringify({UnitId: this.data.UnitFrom.Id, ExpenditureType:"SISA", IsReceived:false})
             };
             return this.garmentProductionService.getExpenditureGood(info)
                 .then((result) => {
@@ -53,6 +55,14 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
+    
+    selectedUnitFromChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.UnitFrom = newValue;
+
+        this.selectedExpenditureGood = null;
+    }
 
     bind(context) {
         this.context = context;
@@ -60,6 +70,10 @@ export class DataForm {
         this.error = context.error;
 
         if (this.data && this.data.Id) {
+            this.selectedUnitFrom = {
+                Code: this.data.UnitFrom.Code,
+                Name: this.data.UnitFrom.Name
+            };
             this.selectedExpenditureGood = {
                 ExpenditureGoodNo: this.data.ExpenditureGoodNo
             };
@@ -109,6 +123,21 @@ export class DataForm {
                         });
                     }
                 });
+        } else {
+            this.data.ExpenditureGoodId = null;
+            this.data.ExpenditureGoodNo = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity = null;
+            this.data.ComodityName = null;
+            this.data.ExpenditureDesc = null;
+            this.data.Invoice = null;
+            this.data.Carton = null;
+            this.data.ContractNo = null;
+            this.data.Buyer = null;
+            this.data.BuyerName = null;
+            delete this.data.ExpenditureDate;
+            this.context.ExpenditureGoodViewModel.editorValue = "";
         }
     }
 }
