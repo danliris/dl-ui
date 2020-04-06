@@ -85,6 +85,9 @@ export class DataForm {
             this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
             this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrderQuantity;
+            this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Name = this.data.buyer;
+            this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
         }
 
         if (this.data.unit) {
@@ -116,6 +119,8 @@ export class DataForm {
             this.selectedMaterial = this.selectedProductionOrder.Material;
             this.selectedMaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
             this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
+            this.data.buyer = this.selectedProductionOrder.Buyer.Name;
+            this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;
         }
         else {
             this.data.productionOrder = {};
