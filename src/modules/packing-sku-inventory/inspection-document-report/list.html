@@ -10,7 +10,7 @@
           <textbox label="Tanggal" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-datepicker value.bind="DateReport" error.bind="error.DateReport" read-only.bind="readOnly">
+          <au-datepicker value.bind="DateReport" error.bind="error.DateReport" read-only.bind="readOnly"  options.bind="controlOptions">
           </au-datepicker>
         </div>
       </div>
@@ -20,8 +20,8 @@
           <textbox label="Group" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="GroupValue" error.bind="error.Group" read-only.bind="readOnly"
-            loader.bind="groups" text="GroupText"></au-autocomplete>
+          <au-dropdown value.bind="GroupValue" error.bind="error.Group" read-only.bind="readOnly"
+            items.bind="groups" text="GroupText" options.bind="controlOptions"></au-dropdown>
         </div>
       </div>
     
@@ -30,8 +30,8 @@
           <textbox label="Mutasi" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="MutasiValue" error.bind="error.Mutasi" read-only.bind="readOnly"
-            loader.bind="mutasi" text="MutasiText"></au-autocomplete>
+          <au-dropdown value.bind="MutasiValue" error.bind="error.Mutasi" read-only.bind="readOnly"
+          items.bind="mutasi" text="MutasiText" options.bind="controlOptions"></au-dropdown>
         </div>
       </div>
 
@@ -40,8 +40,8 @@
           <textbox label="Zona" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="ZonaValue" error.bind="error.Zona" read-only.bind="readOnly"
-            loader.bind="zona" text="ZonaText"></au-autocomplete>
+          <au-dropdown value.bind="ZonaValue" error.bind="error.Zona" read-only.bind="readOnly"
+          items.bind="zona" text="ZonaText" options.bind="controlOptions"></au-dropdown>
         </div>
       </div>
 
@@ -50,18 +50,18 @@
           <textbox label="Keterangan" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <au-autocomplete value.bind="KeteranganValue" error.bind="error.Keterangan" read-only.bind="readOnly"
-            loader.bind="keterangan" text="KeteranganText"></au-autocomplete>
+          <au-dropdown value.bind="KeteranganValue" error.bind="error.Keterangan" read-only.bind="readOnly"
+          items.bind="keterangan" text="KeteranganText" options.bind="controlOptions"></au-dropdown>
         </div>
       </div>
 
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-4">
-          <button class="btn btn-primary" click.delegate="exportToExcel()"
+          <button class="btn btn-primary" click.delegate="ExportToExcel()"
             style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
             Print Laporan
           </button>
-          <button class="btn btn-success" click.delegate="searchDailyOperationLooms()"
+          <button class="btn btn-success" click.delegate="searching()"
             style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
             Cari
           </button>
@@ -74,6 +74,7 @@
     <au-table data.bind="loader"
               columns.bind="columns"
               sortable.bind="true"
+              view-model.ref="table"
               page-size="25">
     </au-table>
 </template>
