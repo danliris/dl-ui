@@ -41,7 +41,7 @@ export class List {
 
     groups=  ["","PAGI", "SIANG"];  
         
-    mutasi = ["","PROD", "TRANSIT","PACK","GUDANG JADI","SHIP","AVAL","LAB"];  
+    zona = ["","PROD", "TRANSIT","PACK","GUDANG JADI","SHIP","AVAL","LAB"];  
 
     constructor(router, service) {
         this.service = service;
