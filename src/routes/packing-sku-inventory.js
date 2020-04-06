@@ -102,5 +102,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
+        name: 'dyeing-printing-goods-warehouse',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+        nav: true,
+        title: 'Bon Gudang Barang Jadi Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
