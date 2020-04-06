@@ -72,6 +72,8 @@ export class DataForm {
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.Code = this.data.productionOrder.code;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.OrderType = {};
+            this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.productionOrderQuantity;
             this.selectedProductionOrder.Material = {};
             this.selectedProductionOrder.Material.Id = this.data.material.id;
@@ -83,6 +85,9 @@ export class DataForm {
             this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
             this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrderQuantity;
+            this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Name = this.data.buyer;
+            this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
         }
 
         if (this.data.unit) {
@@ -109,11 +114,13 @@ export class DataForm {
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.code = this.selectedProductionOrder.Code;
-
+            this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
             this.sppQty = this.selectedProductionOrder.OrderQuantity;
             this.selectedMaterial = this.selectedProductionOrder.Material;
             this.selectedMaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
             this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
+            this.data.buyer = this.selectedProductionOrder.Buyer.Name;
+            this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;
         }
         else {
             this.data.productionOrder = {};

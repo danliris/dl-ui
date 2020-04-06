@@ -91,6 +91,20 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/quality-control/defect',
+        name: 'fabric-quality-control',
+        moduleId: './modules/packing-sku-inventory/fabric-quality-control/index',
+        nav: true,
+        title: 'Pencatatan Pemeriksaan Kain',
+
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/transit-area-note',
         name: 'transit-area-note',
         moduleId: './modules/packing-sku-inventory/transit-area-note/index',
