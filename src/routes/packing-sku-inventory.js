@@ -50,5 +50,31 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-area-movement',
+        name: 'dyeing-printing-area-movement',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-area-movement/index',
+        nav: true,
+        title: 'Inspection Material Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/transit-area-note',
+        name: 'transit-area-note',
+        moduleId: './modules/packing-sku-inventory/transit-area-note/index',
+        nav: true,
+        title: 'Bon Transit Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
