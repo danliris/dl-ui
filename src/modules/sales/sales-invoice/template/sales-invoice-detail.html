@@ -2,7 +2,7 @@
     <tr>
         <td>
             <au-autocomplete value.bind="selectedShipmentDocument" error.bind="error.ShipmentDocumentCode"
-                read-only.bind="readOnly" loader.one-time="shipmentDocumentLoader" text="Code"
+                read-only.bind="readOnly" loader.one-time="shipmentDocumentLoader" text="Code" query.bind="shipmentQuery"
                 keypress.delegate="enterDelegate($event)" placeholder="Pilih No. Bon Pengiriman Barang">
             </au-autocomplete>
 
@@ -15,8 +15,8 @@
                 view-model.ref="SalesInvoiceItemsCollection">
             </au-collection>
         </td>
-        <td if.bind="!option.readOnly">
-            <button if.bind="!option.readOnly" class="btn btn-danger pull-right"
+        <td if.bind="!readOnly">
+            <button if.bind="!readOnly" class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>

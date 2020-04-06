@@ -20,7 +20,7 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
-  @bindable BuyerId;
+  // @bindable BuyerId;
   @bindable BuyerNPWP;
   @bindable VatType;
   @bindable getTempo;
@@ -45,7 +45,10 @@ export class DataForm {
     this.error = this.context.error;
 
     this.VatType = this.data.VatType;
-    this.BuyerNPWP = this.data.BuyerNPWP;
+    if (this.data.Buyer) {
+
+      this.BuyerNPWP = this.data.Buyer.NPWP;
+    }
 
     this.TotalPayment = this.data.TotalPayment;
     this.data.TotalPayment = this.getTotalPayment;
@@ -58,20 +61,20 @@ export class DataForm {
     //   );
     // }
 
-    var currencyId = this.data.CurrencyId;
-    if (currencyId) {
+    if (this.data.Currency && this.data.Currency.Id) {
       this.selectedCurrency = await this.serviceCore.getCurrencyById(
-        currencyId,
-        this.currencyFields
+        this.data.Currency.Id
       );
     }
 
-    var buyerId = this.data.BuyerId;
-    if (buyerId) {
+    if (this.data.Buyer && this.data.Buyer.Id) {
       this.selectedBuyer = await this.serviceCore.getBuyerById(
-        buyerId,
-        this.buyerFields
+        this.data.Buyer.Id
       );
+    }
+
+    if (this.data.Buyer && this.data.Buyer.NPWP) {
+      this.BuyerNPWP = this.data.Buyer.NPWP;
     }
 
     if (this.data.SalesInvoiceDate) {
@@ -87,14 +90,6 @@ export class DataForm {
       this.data.TotalPayment = this.getTotalPayment;
     }
 
-    if (this.data.BuyerId) {
-      this.selectedBuyer.Id = this.data.BuyerId;
-      this.BuyerId = this.data.BuyerId;
-    }
-
-    if (this.data.BuyerNPWP) {
-      this.BuyerNPWP = this.data.BuyerNPWP;
-    }
   }
 
   get getTotalPayment() {
@@ -150,7 +145,7 @@ export class DataForm {
       this.context.SalesInvoiceDetailsCollection.bind();
     }.bind(this)
   };
-
+  itemOptions = {};
   shipmentDocumentTableOptions = {}
 
   salesInvoiceTypeOptions = ["", "BNG", "BAB", "BNS", "RNG", "BRG", "BAG", "BGS", "RRG", "BLL", "BPF", "BSF", "RPF", "BPR", "BSR", "RPR", "BAV", "BON", "BGM", "GPF", "RGF", "GPR", "RGR", "RON"];
@@ -203,32 +198,35 @@ export class DataForm {
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
     if (this.selectedCurrency && this.selectedCurrency.Id) {
-      this.data.CurrencyId = this.selectedCurrency.Id;
-      this.data.CurrencyCode = this.selectedCurrency.Code;
-      this.data.CurrencyRate = this.selectedCurrency.Rate;
-      this.data.CurrencySymbol = this.selectedCurrency.Symbol;
+      this.data.Currency = {};
+      this.data.Currency.Id = this.selectedCurrency.Id;
+      this.data.Currency.Code = this.selectedCurrency.Code;
+      this.data.Currency.Rate = this.selectedCurrency.Rate;
+      this.data.Currency.Symbol = this.selectedCurrency.Symbol;
     } else {
-      this.data.CurrencyId = null;
-      this.data.CurrencyCode = null;
-      this.data.CurrencyRate = null;
-      this.data.CurrencySymbol = null;
+      this.data.Currency.Id = null;
+      this.data.Currency.Code = null;
+      this.data.Currency.Rate = null;
+      this.data.Currency.Symbol = null;
     }
   }
 
   @bindable selectedBuyer;
   selectedBuyerChanged(newValue, oldValue) {
     if (this.selectedBuyer && this.selectedBuyer.Id) {
-      this.data.BuyerId = this.selectedBuyer.Id;
-      this.data.BuyerName = this.selectedBuyer.Name;
-      this.data.BuyerAddress = this.selectedBuyer.Address;
+      this.data.Buyer = {};
+      this.data.Buyer.Id = this.selectedBuyer.Id;
+      this.data.Buyer.Name = this.selectedBuyer.Name;
+      this.data.Buyer.Address = this.selectedBuyer.Address;
       if (this.selectedBuyer.NPWP) {
-        this.data.BuyerNPWP = this.selectedBuyer.NPWP;
+        this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
       }
+      this.itemOptions.BuyerId = this.data.BuyerId;
     } else {
-      this.data.BuyerId = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
-      this.data.BuyerNPWP = null;
+      this.data.Buyer.Id = null;
+      this.data.Buyer.Name = null;
+      this.data.Buyer.Address = null;
+      this.data.Buyer.NPWP = null;
     }
   }
 
