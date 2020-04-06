@@ -1,11 +1,8 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-
+import UnitLoader from "../../../loader/unit-loader";
 var moment = require('moment');
-var MachineLoader = require("../../../loader/machines-loader");
-var KanbanLoader = require("../../../loader/kanban-loader");
-
 @inject(Router, Service)
 export class List {
 
@@ -33,35 +30,18 @@ export class List {
     }
 
     listDataFlag = false;
-    zone = null;
     date = null;
-    group = null;
-    mutation = null;
-
-    groups = ["", "PAGI", "SIANG"];
-    mutations = ["", "AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
-    zones = ["", "IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
+    shift = null;
+    unit = null;
+    shifts = ["", "PAGI", "SIANG"];
 
     columns = [
-        {
-            field: "date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "group", title: "Group" },
-        { field: "unitName", title: "Unit" },
-        { field: "sourceArea", title: "Masuk Dari" },
-        { field: "productionOrderNo", title: "No. SPP" },
-        { field: "cartNo", title: "No. Kereta" },
-        { field: "materialName", title: "Material" },
-        { field: "materialConstructionName", title: "Konstruksi Material" },
-        { field: "materialWidth", title: "Lebar Material" },
-        { field: "status", title: "Keterangan" },
-        { field: "grade", title: "Grade" },
-        { field: "motif", title: "Motif" },
-        { field: "color", title: "Warna" },
-        { field: "meterLength", title: "Mtr" },
-        { field: "yardsLength", title: "Yds" }
+        { field: "material", title: "Material" },
+        { field: "prodcutionOrderNo", title: "No. SPP" },
+        { field: "startSum", title: "Sum. Of AWAL" },
+        { field: "inSum", title: "Sum. Of MASUK" },
+        { field: "outSum", title: "Sum. Of KELUAR" },
+        { field: "endSum", title: "Sum. Of AKHIR" },
     ];
 
     // activate() {
@@ -93,6 +73,8 @@ export class List {
     }
 
     loader = (info) => {
+        //hapus klo dah fix backend
+        this.listDataFlag = false;
 
         this.info = {};
         var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
@@ -117,28 +99,22 @@ export class List {
 
     reset() {
         this.listDataFlag = false;
-        this.zone = null;
         this.date = null;
-        this.group = null;
-        this.mutation = null;
+        this.shift = null;
+        this.unit = null;
         this.error = '';
     }
 
     ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        // var searchDate = this.searchDate ? moment(this.searchDate).format("DD MMM YYYY HH:mm") : null;
+
         var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
-        this.service.generateExcel(searchDate, this.zone, this.group, this.mutation);
+
+        //uncommment klo dah fix backend
+        // this.service.generateExcel(searchDate, this.zone, this.group, this.mutation);
     }
 
-    get machineLoader() {
-        return MachineLoader;
+    unitQuery = { "DivisionName.toUpper()": "DYEING & PRINTING" };
+    get unitLoader() {
+        return UnitLoader;
     }
-
-    get kanbanLoader() {
-        return KanbanLoader;
-    }
-
 }

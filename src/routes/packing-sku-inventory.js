@@ -89,5 +89,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'packing-sku-inventory/transit-balance-summary',
+        name: 'transit-balance-summary',
+        moduleId: './modules/packing-sku-inventory/transit-balance-summary/index',
+        nav: true,
+        title: 'Saldo Transit',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
