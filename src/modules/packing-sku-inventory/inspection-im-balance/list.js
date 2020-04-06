@@ -78,12 +78,4 @@ export class List {
                 break;
         }
     }
-
-    create() {
-        this.router.navigateToRoute('create');
-    }
-
-    post() {
-        this.router.navigateToRoute('post');
-    }
 }

@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "inventory-document-packings";
+const serviceUri = "inspection-document";
 
 export class Service extends RestService {
 
@@ -14,6 +14,8 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
+
+    getReport(dateReport)
 
     getById(id) {
         let endpoint = `${serviceUri}/${id}`;
