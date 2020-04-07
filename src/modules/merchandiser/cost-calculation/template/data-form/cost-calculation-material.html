@@ -25,6 +25,9 @@
     </style>
     
     <tr>
+        <td>
+            <au-textbox value.bind="data.MaterialIndex + 1" options.bind="controlOptions" read-only="true"></au-textbox>
+        </td>
         <!-- prmaster -->
         <td>
             <button class="btn btn-primary" click.delegate="clickPRMaster()">+</button>
