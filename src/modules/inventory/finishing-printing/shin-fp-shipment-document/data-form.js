@@ -39,6 +39,7 @@ export class DataForm {
     }
 
     async bind(context) {
+        // debugger
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -47,73 +48,82 @@ export class DataForm {
         // this.selectedBuyer = this.data.Buyer || undefined;
         // this.selectedStorage = this.data.Storage || undefined;
 
-        var doSalesId = this.data.DOSalesId;
+        var doSalesId = this.data.DOSales.Id;
         if (doSalesId) {
             this.selectedDOSales = await this.service.getDOSalesById(
-                doSalesId,
-                this.doSalesFields
+                doSalesId
             );
         }
-        if (this.data.Buyer) {
-            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
-            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
-        }
-
         if (this.data.Storage) {
             this.detailOptions.selectedStorageCode = this.data.Buyer.Code;
         }
     }
 
     @bindable selectedDOSales;
-    async selectedDOSalesChanged(newValue, oldValue) {
-        // if (this.selectedDOSales && this.selectedDOSales.Id) {
+    async doSalesChanged(newValue, oldValue) {
+        if (this.selectedDOSales && this.selectedDOSales.Id) {
             
-        if (newValue) {
+        // if (newValue) {
             this.data.DOSales = this.selectedDOSales;
             this.data.DOSalesId = this.selectedDOSales.Id;
             this.data.DOSalesNo = this.selectedDOSales.DOSalesNo;
-
             
-
             var buyer = this.selectedDOSales.SalesContract.Buyer;
             if (buyer) {
                 this.selectedBuyer = await this.service.getBuyerById(buyer.Id);
                 this.data.Buyer = this.selectedBuyer;
+                this.data.Buyer.Id = this.selectedBuyer.Id;
                 this.data.Buyer.Name = this.selectedBuyer.Name;
                 this.data.Buyer.Type = this.selectedBuyer.Type;
               } else {
                 this.selectedBuyer = this.buyer;
                 this.data.Buyer = this.selectedBuyer;
+                this.data.Buyer.Id = this.selectedBuyer.Name;
                 this.data.Buyer.Name = this.selectedBuyer.Name;
                 this.data.Buyer.Type = this.selectedBuyer.Type;
               }
+
+            if (this.data.Buyer) {
+                this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
+                this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
+                this.data.Details = [];
+            } else {
+                console.log("here 1");
+                this.data.Details = [];
+                this.data.Buyer = undefined;
+                this.detailOptions.selectedBuyerName = undefined;
+                this.detailOptions.selectedBuyerId = undefined;
+            }
+
         } else {
             this.data.DOSalesId = null;
             this.data.DOSalesNo = null;
+            this.data.Buyer.Name = null;
+            this.data.Buyer.Type = null;
         }
     }
 
     @bindable detailOptions = {};
 
-    @bindable selectedBuyer;
-    buyerChanged(e) {
-        // this.data.Buyer = newValue;
-        // console.log(newValue && )
-        if (this.data.Buyer) {
-            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
-            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
-            this.data.Details = [];
-            // if (!this.context.buyerReadOnly) {
-            //     this.data.details = [];
-            // }
-        } else {
-            console.log("here 1");
-            this.data.Details = [];
-            this.data.Buyer = undefined;
-            this.detailOptions.selectedBuyerName = undefined;
-            this.detailOptions.selectedBuyerId = undefined;
-        }
-    }
+    // @bindable selectedBuyer;
+    // buyerChanged(e) {
+    //     // this.data.Buyer = newValue;
+    //     // console.log(newValue && )
+    //     if (this.data.Buyer) {
+    //         this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
+    //         this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
+    //         this.data.Details = [];
+    //         // if (!this.context.buyerReadOnly) {
+    //         //     this.data.details = [];
+    //         // }
+    //     } else {
+    //         console.log("here 1");
+    //         this.data.Details = [];
+    //         this.data.Buyer = undefined;
+    //         this.detailOptions.selectedBuyerName = undefined;
+    //         this.detailOptions.selectedBuyerId = undefined;
+    //     }
+    // }
 
     @bindable selectedStorage;
     storageChanged(e) {
@@ -167,4 +177,4 @@ export class DataForm {
         // console.log();
         return this.data.DOSales && this.data.Storage;
     }
-} 
+}
