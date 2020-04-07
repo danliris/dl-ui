@@ -1,5 +1,8 @@
 <template>
     <tr>
+        <td>
+            <au-textbox value.bind="data.MaterialIndex + 1" options.bind="controlOptions" read-only="true"></au-textbox>
+        </td>
         <td class="col-md-1">
             <au-textbox value.bind="data.Category.name" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
         </td>
