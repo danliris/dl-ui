@@ -102,5 +102,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'packing-sku-inventory/packing-area-note',
+        name: 'packing-area-note',
+        moduleId: './modules/packing-sku-inventory/packing-area-note/index',
+        nav: true,
+        title: 'Bon Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
