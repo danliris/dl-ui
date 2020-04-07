@@ -39,7 +39,6 @@ export class List {
     mutation = null;
 
     groups = ["", "PAGI", "SIANG"];
-    mutations = ["", "AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
     zones = ["", "IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
 
     columns = [
@@ -49,19 +48,19 @@ export class List {
             }
         },
         { field: "group", title: "Group" },
-        { field: "unitName", title: "Unit" },
-        { field: "sourceArea", title: "Masuk Dari" },
+        { field: "activity", title: "Aktivitas" },
+        { field: "mutation", title: "Mutasi" },
         { field: "productionOrderNo", title: "No. SPP" },
         { field: "cartNo", title: "No. Kereta" },
-        { field: "materialName", title: "Material" },
-        { field: "materialConstructionName", title: "Konstruksi Material" },
-        { field: "materialWidth", title: "Lebar Material" },
-        { field: "status", title: "Keterangan" },
-        { field: "grade", title: "Grade" },
+        { field: "construction", title: "Konstruksi" },
         { field: "motif", title: "Motif" },
         { field: "color", title: "Warna" },
-        { field: "meterLength", title: "Mtr" },
-        { field: "yardsLength", title: "Yds" }
+        { field: "grade", title: "Grade" },
+        { field: "qtyPackaging", title: "Qty Packaging" },
+        { field: "packaging", title: "Packaging" },
+        { field: "productionOrderQuantity", title: "Qty" },
+        { field: "uomUnit", title: "Satuan" },
+        { field: "balance", title: "Saldo" }
     ];
 
     // activate() {
@@ -99,7 +98,7 @@ export class List {
         return this.listDataFlag ? (
 
             // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
-            this.service.getReport(searchDate, this.zone, this.group, this.mutation)
+            this.service.getReport(searchDate, this.zone, this.group)
                 .then((result) => {
                     return {
                         data: result
@@ -130,7 +129,7 @@ export class List {
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
         // var searchDate = this.searchDate ? moment(this.searchDate).format("DD MMM YYYY HH:mm") : null;
         var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
-        this.service.generateExcel(searchDate, this.zone, this.group, this.mutation);
+        this.service.generateExcel(searchDate, this.zone, this.group);
     }
 
     get machineLoader() {
