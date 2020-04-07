@@ -88,9 +88,9 @@ export class ro {
     }
 
     fabricColumns = [
-        { header: "Kode Barang" },
-        { header: "Keterangan" },
-        { header: "Jumlah Aval" },
-        { header: "Satuan" },
+        "Kode Barang" ,
+        "Keterangan" ,
+        "Jumlah Aval" ,
+        "Satuan" ,
     ]
 }
