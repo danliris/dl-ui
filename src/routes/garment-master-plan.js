@@ -302,5 +302,18 @@ module.exports = [
             permission: { "B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/cc-garment-embroidery-validation-report',
+        name: 'cc-garment-embroidery-validation-report',
+        moduleId: './modules/merchandiser/report/ccg-embroidery-approval-report/index',
+        nav: true,
+        title: 'Display Approval Cost Calculation Garment Embroidery Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]
