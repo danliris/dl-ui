@@ -2,7 +2,7 @@ import { inject, bindable } from "aurelia-framework";
 
 var UomLoader = require("../../../../loader/uom-loader");
 
-export class SalesInvoiceDetailItem {
+export class SalesInvoiceItem {
   @bindable Total;
   @bindable Price;
 
@@ -17,10 +17,11 @@ export class SalesInvoiceDetailItem {
     this.Price = this.data.Price;
     this.getAmount = this.Total * this.Price;
     this.data.Amount = this.getAmount;
-    if (this.data.UomId && this.data.UomUnit) {
+
+    if (this.data.Uom) {
       this.selectedUom = {
-        'Id': this.data.UomId,
-        'Unit': this.data.UomUnit
+        'Id': this.data.Uom.Id,
+        'Unit': this.data.Uom.Unit
       };
     }
   }
@@ -44,11 +45,12 @@ export class SalesInvoiceDetailItem {
   @bindable selectedUom;
   selectedUomChanged(newValue, oldValue) {
     if (this.selectedUom && this.selectedUom.Id) {
-      this.data.UomId = this.selectedUom.Id;
-      this.data.UomUnit = this.selectedUom.Unit;
+      this.data.Uom = {};
+      this.data.Uom.Id = this.selectedUom.Id;
+      this.data.Uom.Unit = this.selectedUom.Unit;
     } else {
-      this.data.UomId = null;
-      this.data.UomUnit = null;
+      this.data.Uom.Id = null;
+      this.data.Uom.Unit = null;
     }
   }
 
@@ -56,8 +58,8 @@ export class SalesInvoiceDetailItem {
     return UomLoader;
   }
 
-  handleDataTypeChange() {
-    this.data.DefaultValue = "";
-    this.data.UomUnit = this.selectedUom.Unit;
-  }
+  // handleDataTypeChange() {
+  //   this.data.DefaultValue = "";
+  //   this.data.UomUnit = this.selectedUom.Unit;
+  // }
 }

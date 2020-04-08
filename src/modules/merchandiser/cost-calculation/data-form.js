@@ -59,6 +59,7 @@ export class DataForm {
 
   costCalculationGarment_MaterialsInfo = {
     columns: [
+      { header: "No." },
       { header: "PR Master" },
       { header: "No. PO" },
       { header: "Kategori", value: "Category" },
@@ -93,6 +94,10 @@ export class DataForm {
         SMV_Total: this.data.SMV_Total,
         Efficiency: this.data.Efficiency
       });
+      this.data.CostCalculationGarment_Materials.forEach((m, i) => m.MaterialIndex = i);
+    }.bind(this),
+    onRemove: function () {
+      this.data.CostCalculationGarment_Materials.forEach((m, i) => m.MaterialIndex = i);
     }.bind(this),
     options: {}
   }
