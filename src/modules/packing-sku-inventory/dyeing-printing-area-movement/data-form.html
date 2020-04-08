@@ -20,6 +20,9 @@
         <au-textbox label="No. Kereta" value.bind="data.cartNo" error.bind="error.CartNo" read-only.bind="readOnly">
         </au-textbox>
 
+        <au-textbox label="Buyer" value.bind="data.buyer" error.bind="error.Buyer" read-only.bind="true">
+        </au-textbox>
+
         <au-numeric label="Qty SPP" format="0" value.bind="sppQty" error.bind="error.ProductionOrderQuantity"
           read-only.bind="true"></au-numeric>
 
@@ -31,7 +34,7 @@
           error.bind="error.MaterialConstruction" loader.bind="materialConstructionLoader" text="Name">
         </au-autocomplete>
 
-        <au-textbox label="Lebar Material" value.bind="data.MaterialWidth" error.bind="error.materialWidth"
+        <au-textbox label="Lebar Material" value.bind="data.materialWidth" error.bind="error.materialWidth"
           read-only.bind="true">
         </au-textbox>
 

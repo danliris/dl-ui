@@ -480,11 +480,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/scrap-transaction-in-alluser',
+        name: 'garment-production-scrap-transaction-in-alluser',
+        moduleId: './modules/garment-production/scrap-transaction-in-alluser/index',
+        nav: true,
+        title: 'Penerimaan Barang Aval (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/scrap-transaction-out',
         name: 'garment-production-scrap-transaction-out',
         moduleId: './modules/garment-production/scrap-transaction-out/index',
         nav: true,
         title: 'Pengeluaran Barang Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/scrap-transaction-out-alluser',
+        name: 'garment-production-scrap-transaction-out-alluser',
+        moduleId: './modules/garment-production/scrap-transaction-out-alluser/index',
+        nav: true,
+        title: 'Pengeluaran Barang Aval (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -506,11 +532,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-loading-alluser',
+        name: 'garment-production-adjustment-loading-alluser',
+        moduleId: './modules/garment-production/adjustment-loading-alluser/index',
+        nav: true,
+        title: 'Adjustment Loading (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/adjustment-sewing',
         name: 'garment-production-adjustment-sewing',
         moduleId: './modules/garment-production/adjustment-sewing/index',
         nav: true,
         title: 'Adjustment Sewing',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-sewing-alluser',
+        name: 'garment-production-adjustment-sewing-alluser',
+        moduleId: './modules/garment-production/adjustment-sewing-alluser/index',
+        nav: true,
+        title: 'Adjustment Sewing (Semua User)',
         auth: true,
         settings: {
             group: "g-production",
@@ -532,11 +584,37 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-finishing-alluser',
+        name: 'garment-production-adjustment-finishing-alluser',
+        moduleId: './modules/garment-production/adjustment-finishing-alluser/index',
+        nav: true,
+        title: 'Adjustment Finishing (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/adjustment-expenditure-good',
         name: 'garment-production-adjustment-expenditure-good',
         moduleId: './modules/garment-production/adjustment-expenditure-good/index',
         nav: true,
         title: 'Adjustment Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-expenditure-good-alluser',
+        name: 'garment-production-adjustment-expenditure-good-alluser',
+        moduleId: './modules/garment-production/adjustment-expenditure-good-alluser/index',
+        nav: true,
+        title: 'Adjustment Barang Jadi (Semua User)',
         auth: true,
         settings: {
             group: "g-production",

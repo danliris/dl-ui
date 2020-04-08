@@ -41,7 +41,7 @@ export class Service extends RestService {
   }
 
   getSalesReceiptPdfById(id) {
-    var endpoint = `${serviceUri}/salesReceiptPdf/${id}`;
+    var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
   }
 
@@ -57,7 +57,7 @@ export class Service extends RestService {
   }
 
   getSalesInvoiceByBuyerId(buyerId) {
-    var endpoint = `${salesInvoiceServiceUri}/filterByBuyer/${buyerId}`;
+    var endpoint = `${salesInvoiceServiceUri}/filter-by-buyer/${buyerId}`;
     return super.list(endpoint);
   }
 }
