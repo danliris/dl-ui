@@ -17,7 +17,7 @@ export class List {
       }
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "ShipmentDocumentCode", title: "Kode Pengiriman" }
+    { field: "VatType", title: "Jenis PPN" }
   ];
 
   rowFormatter(data, index) {

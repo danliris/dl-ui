@@ -7,7 +7,6 @@ export class SalesInvoiceItem {
   @bindable Price;
 
   activate(context) {
-    // this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
@@ -57,9 +56,4 @@ export class SalesInvoiceItem {
   get uomLoader() {
     return UomLoader;
   }
-
-  // handleDataTypeChange() {
-  //   this.data.DefaultValue = "";
-  //   this.data.UomUnit = this.selectedUom.Unit;
-  // }
 }

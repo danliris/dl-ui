@@ -20,14 +20,12 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
-  // @bindable BuyerId;
   @bindable BuyerNPWP;
   @bindable VatType;
   @bindable getTempo;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
-    // this.serviceProductionAzure = serviceProductionAzure;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -52,14 +50,6 @@ export class DataForm {
 
     this.TotalPayment = this.data.TotalPayment;
     this.data.TotalPayment = this.getTotalPayment;
-
-    // var shipmentDocumentId = this.data.ShipmentDocumentId;
-    // if (shipmentDocumentId) {
-    //   this.selectedShipmentDocument = await this.serviceProductionAzure.getShipmentDocumentById(
-    //     shipmentDocumentId,
-    //     this.shipmentDocumentFields
-    //   );
-    // }
 
     if (this.data.Currency && this.data.Currency.Id) {
       this.selectedCurrency = await this.serviceCore.getCurrencyById(
@@ -157,43 +147,6 @@ export class DataForm {
       return false;
     } else return true;
   }
-
-  // @bindable selectedShipmentDocument;
-  // selectedShipmentDocumentChanged(newValue, oldValue) {
-  //   if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
-  //     this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
-  //     this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
-  //     this.data.BuyerId = this.selectedShipmentDocument.Buyer.Id;
-  //     this.data.BuyerName = this.selectedShipmentDocument.Buyer.Name;
-  //     this.data.BuyerAddress = this.selectedShipmentDocument.Buyer.Address;
-  //     if (this.selectedShipmentDocument.Buyer.NPWP) {
-  //       this.data.BuyerNPWP = this.selectedShipmentDocument.Buyer.NPWP;
-  //     }
-  //     if (!this.data.Id) {
-  //       this.data.SalesInvoiceDetails = [];
-  //       for (var detail of this.selectedShipmentDocument.Details) {
-  //         for (var item of detail.Items) {
-  //           for (var prItem of item.PackingReceiptItems) {
-  //             var siData = {
-  //               ProductCode: prItem.ProductCode,
-  //               ProductName: prItem.ProductName,
-  //               Quantity: prItem.Quantity
-  //             };
-  //             this.data.SalesInvoiceDetails.push(siData);
-  //           }
-  //         }
-  //       }
-  //       console.log(this.selectedShipmentDocument.Buyer)
-  //     }
-  //   } else {
-  //     this.data.ShipmentDocumentId = null;
-  //     this.data.ShipmentDocumentCode = null;
-  //     this.data.BuyerId = null;
-  //     this.data.BuyerName = null;
-  //     this.data.BuyerAddress = null;
-  //     this.data.BuyerNPWP = null;
-  //   }
-  // }
 
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
