@@ -42,8 +42,10 @@
               <tr>
                   <td>NO RO JOB</td>
                   <td>ARTICLE</td>
+                  <td>KODE BUYER</td>
                   <td>QTY ORDER</td>
                   <td>STYLE</td>
+                  <td>HARGA (M)</td>
                   <td>STOCK AWAL</td>
                   <td>HASIL SEWING</td>
                   <td>BARANG KELUAR</td>
@@ -57,8 +59,10 @@
               <tr repeat.for="item of data">
                   <td class="text-center">${item.roJob}</td>
                   <td class="text-center">${item.article}</td>
+                  <td class="text-center">${item.buyerCode}</td>
                   <td class="text-center">${item.qtyOrder}</td>
                   <td class="text-center">${item.style}</td>
+                  <td class="text-center">${item.price}</td>
                   <td class="text-center">${item.stock}</td>
                   <td class="text-right">${item.loadingQtyPcs}</td> 
                   <td class="text-center">${item.sewingOutQtyPcs}</td>
