@@ -1,7 +1,7 @@
-import {inject} from './aurelia-framework';
+import {inject} from 'aurelia-framework';
 import {Service} from "./service";
-import {Router} from './aurelia-router';
-import moment from './moment';
+import {Router} from 'aurelia-router';
+import moment from 'moment';
 const UnitLoader = require('../../../loader/garment-units-loader');
 
 @inject(Router, Service)
@@ -39,8 +39,6 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             type:"bookkeeping"
-      
-      
         }
         this.service.generateExcel(info);
     }
