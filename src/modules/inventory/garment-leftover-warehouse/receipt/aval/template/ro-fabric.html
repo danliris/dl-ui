@@ -1,0 +1,44 @@
+<template>
+    <tr>
+        <td class="col-sm-10">
+            <au-autocomplete
+                value.bind="selectedRO"
+                error.bind="error.RONo"
+                loader.bind="roLoader"
+                read-only.bind="readOnly"
+                placeholder="Nomor RO"
+                text="RONo">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-1">
+            <div>
+                <button class="btn btn-info pull-right" if.bind= "data.FabricItems" click.delegate="toggle()">i</button>
+            </div>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+        <tr if.bind="error.ItemCount">
+            <div class="form-group has-error" if.bind="error.ItemCount">
+                <p if.bind="error.ItemCount" class="help-block text-center">${error.ItemCount}</p>
+            </div>
+        </tr>
+        <tr show.bind="data.FabricItems">
+            <td colspan="15">
+                <au-collection 
+                    items.bind="data.FabricItems" 
+                    errors.bind="error.Items" 
+                    columns.bind="fabricColumns"
+                    read-only.bind="readOnly" 
+                    add.bind="addItems" 
+                    remove.bind="removeItems"
+                    options.bind="itemOptions"
+                    item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/fabric-item"
+                    header-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/fabric-item-header" >
+                </au-collection>
+                <!-- <hr style="border: 5px solid #173250; border-radius: 0px 0px 5px 5px;"> -->
+            </td>
+        </tr>
+     </tr>
+</template>
+

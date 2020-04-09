@@ -9,19 +9,19 @@ export class List {
     context = ["Rincian"];
     
     columns = [
-        { field: "dateReport", title: "Tanggal" },
+        { field: "date", title: "Tanggal" },
         { field: "group", title: "Group" },
         { field: "activities", title: "Aktivitas" },
         { field: "mutation", title: "Mutasi"},
         { field: "noOrder", title :"No. SPP"},
         { field: "construction", title :"Konstruksi"},
         { field: "motif", title :"Motif"},
-        { field: "colour", title :"Warna"},
+        { field: "color", title :"Warna"},
         { field: "grade", title :"Grade"},
-        { field: "qtyPackaging", title :"Qty Packaging"},
+        { field: "qtyPacking", title :"Qty Packaging"},
         { field: "packaging", title :"Packaging"},
         { field: "qty", title :"Qty"},
-        { field: "unitPackage", title :"Satuan"},
+        { field: "satuan", title :"Satuan"},
         { field: "balance", title :"Saldo"},        
     ];
     loader = (info)=> {
@@ -30,7 +30,7 @@ export class List {
         
         return this.listDataFlag ? (
 
-            this.service.getReport(searchDate, this.GroupValue, this.MutasiValue)
+            this.service.getReport(searchDate, this.GroupValue, this.ZonaValue)
                 .then((result) => {
                     return {
                         data: result
@@ -65,12 +65,12 @@ export class List {
     reset(){
         this.DateReport = null;
         this.GroupValue = null;
-        this.MutasiValue = null;
+        this.ZonaValue = null;
 
     }
     ExportToExcel() {
 
         var searchDate = this.DateReport ? moment(this.DateReport).format("DD MMM YYYY HH:mm") : null;
-        this.service.getExcel(searchDate, this.GroupValue, this.MutasiValue);
+        this.service.getExcel(searchDate, this.GroupValue, this.ZonaValue);
     }
 }
