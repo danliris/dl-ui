@@ -18,32 +18,12 @@
                         <au-textbox label="NO." value.bind="data.ShipmentNumber" error.bind="error.ShipmentNumber"
                                 read-only.bind="readOnly" options.bind="smallControlOptions"></au-textbox>
 
-                        <!-- <au-textbox label="Sesuai DO. No"
-                                    value.bind="data.DeliveryCode"
-                                    error.bind="error.DeliveryCode"
-                                    read-only.bind="readOnly"
-                                    options.bind="smallControlOptions"></au-textbox> -->
-
                         <au-textbox label="Kode Barang" value.bind="data.ProductIdentity"
                                 error.bind="error.ProductIdentity" read-only.bind="readOnly"
                                 options.bind="smallControlOptions"></au-textbox>
 
-                        <!-- <au-autocomplete value.bind="data.Buyer"
-                                    error.bind="error.Buyer"
-                                    label="Buyer"
-                                    loader.one-time="buyerLoader"
-                                    placeholder="Cari Buyer"
-                                    read-only.bind="readOnly"
-                                    key="Name"
-                                    text="Name"
-                                    change.delegate="buyerChanged($event)"
-                                    options.bind="mediumControlOptions"></au-autocomplete> -->
-
-
-                        <!-- text.bind="doSalesView" -->
-
-                        <au-autocomplete value.bind="selectedDOSales" error.bind="error.DOSales"
-                                label="Berdasarkan DO No." loader.one-time="doSalesLoader" key="DOSalesNo"
+                        <au-autocomplete value.bind="selectedDOSales" error.bind="error.DOSalesNo"
+                                label="Berdasarkan DO No." loader.bind="doSalesLoader" key="DOSalesNo"
                                 text="DOSalesNo" change.delegate="doSalesChanged($event)" placeholder="Pilih DO"
                                 read-only.bind="readOnly" options.bind="mediumControlOptions"></au-autocomplete>
 

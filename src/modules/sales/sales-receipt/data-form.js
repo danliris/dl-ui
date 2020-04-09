@@ -20,8 +20,19 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  @bindable SalesReceiptDate;
-  @bindable BuyerId;
+  // @bindable BuyerId;
+
+  mediumControlOptions = {
+    control: {
+      length: 6
+    }
+  };
+
+  smallControlOptions = {
+    control: {
+      length: 2
+    }
+  };
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
@@ -44,28 +55,25 @@ export class DataForm {
     this.TotalPaid = this.data.TotalPaid;
     this.data.TotalPaid = this.getTotalPaid;
 
-    var buyerId = this.data.BuyerId;
-    if (buyerId) {
+    if (this.data.Buyer && this.data.Buyer.Id) {
       this.selectedBuyer = await this.serviceCore.getBuyerById(
-        buyerId,
-        this.buyerFields
+        this.data.Buyer.Id
       );
+      // this.selectedBuyer = this.data.Buyer;
     }
 
-    var bankId = this.data.BankId;
-    if (bankId) {
+    if (this.data.Bank && this.data.Bank.Id) {
       this.selectedBank = await this.serviceCore.getBankById(
-        bankId,
-        this.bankFields
+        this.data.Bank.Id
       );
+      // this.selectedBank = this.data.Bank;
     }
 
-    var currencyId = this.data.CurrencyId;
-    if (currencyId) {
+    if (this.data.Currency && this.data.Currency.Id) {
       this.selectedCurrency = await this.serviceCore.getCurrencyById(
-        currencyId,
-        this.currencyFields
+        this.data.Currency.Id
       );
+      // this.selectedCurrency = this.data.Currency;
     }
 
     if (this.data.SalesReceiptDate) {
@@ -73,10 +81,10 @@ export class DataForm {
       this.SalesReceiptDate = this.data.SalesReceiptDate;
     }
 
-    if (this.data.BuyerId) {
-      this.salesInvoiceTableOptions.BuyerId = this.data.BuyerId;
-      this.BuyerId = this.data.BuyerId;
-    }
+    // if (this.data.Buyer.Id) {
+    //   this.salesInvoiceTableOptions.Buyer.Id = this.data.Buyer.Id;
+    //   this.Buyer.Id = this.data.Buyer.Id;
+    // }
 
     if (this.data.TotalPaid) {
       this.TotalPaid = this.data.TotalPaid;
@@ -95,19 +103,12 @@ export class DataForm {
     return result;
   }
 
-  SalesReceiptDateChanged(newValue, oldValue) {
-    if (newValue) {
-      this.salesInvoiceTableOptions.SalesReceiptDate = newValue;
-    }
-    this.data.SalesReceiptDate = this.SalesReceiptDate;
-  }
-
-  BuyerIdChanged(newValue, oldValue) {
-    if (newValue) {
-      this.salesInvoiceTableOptions.BuyerId = newValue;
-    }
-    this.data.BuyerId = this.BuyerId;
-  }
+  // BuyerIdChanged(newValue, oldValue) {
+  //   if (newValue) {
+  //     this.salesInvoiceTableOptions.Buyer.Id = newValue;
+  //   }
+  //   this.data.Buyer.Id = this.Buyer.Id;
+  // }
 
   salesReceiptDetailsInfo = {
     columns: [
@@ -115,7 +116,7 @@ export class DataForm {
       "Tempo (hari)",
       "Total Harga",
       "Sisa Pembayaran",
-      "Nominal Bayar",
+      "Total Pembayaran",
       "Akumulasi",
       "Lunas",
     ]
@@ -123,7 +124,7 @@ export class DataForm {
 
   salesInvoiceTableOptions = {};
 
-  unitOptions = ["", "Dying", "Printing"];
+  unitOptions = ["", "SPINNING 1", "SPINNING 2", "WEAVING 2", "WEAVING 3", "DYIENG (EX FINISHING)", "PRINTING"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -132,64 +133,75 @@ export class DataForm {
     } else return true;
   }
 
+  @bindable SalesReceiptDate;
+  SalesReceiptDateChanged(newValue, oldValue) {
+    if (this.SalesReceiptDate) {
+      this.salesInvoiceTableOptions.SalesReceiptDate = this.SalesReceiptDate;
+    }
+    this.data.SalesReceiptDate = this.SalesReceiptDate;
+  }
+
   @bindable selectedBuyer;
   async selectedBuyerChanged(newValue, oldValue) {
     if (this.selectedBuyer && this.selectedBuyer.Id) {
-      this.data.BuyerId = this.selectedBuyer.Id;
-      this.data.BuyerName = this.selectedBuyer.Name;
-      this.data.BuyerAddress = this.selectedBuyer.Address;
-      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(this.data.BuyerId);
+      this.data.Buyer = {};
+      this.data.Buyer.Id = this.selectedBuyer.Id;
+      this.data.Buyer.Name = this.selectedBuyer.Name;
+      this.data.Buyer.Address = this.selectedBuyer.Address;
+      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(this.data.Buyer.Id);
       var invoiceData = salesInvoice.data;
       this.data.SalesReceiptDetails = [];
-      for(var item of invoiceData) {
+      for (var item of invoiceData) {
         var invoice = {
-          SalesInvoiceId : item.Id,
-          SalesInvoiceNo : item.SalesInvoiceNo,
-          DueDate : item.DueDate,
-          TotalPayment : item.TotalPayment,
-          TotalPaid : item.TotalPaid,
+          SalesInvoiceId: item.Id,
+          SalesInvoiceNo: item.SalesInvoiceNo,
+          DueDate: item.DueDate,
+          TotalPayment: item.TotalPayment,
+          TotalPaid: item.TotalPaid,
+          // CurrencyCode: item.Currency.Code,
         }
         this.data.SalesReceiptDetails.push(invoice);
-        console.log(salesInvoice)
       }
     } else {
-      this.data.BuyerId = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
+      this.data.Buyer.Id = null;
+      this.data.Buyer.Name = null;
+      this.data.Buyer.Address = null;
     }
   }
 
   @bindable selectedBank;
   selectedBankChanged(newValue, oldValue) {
     if (this.selectedBank && this.selectedBank.Id) {
-      this.data.BankId = this.selectedBank.Id;
+      this.data.Bank = {};
+      this.data.Bank.Id = this.selectedBank.Id;
       this.data.AccountCOA = this.selectedBank.AccountCOA;
-      this.data.AccountName = this.selectedBank.AccountName;
-      this.data.AccountNumber = this.selectedBank.AccountNumber;
-      this.data.BankName = this.selectedBank.BankName;
-      this.data.BankCode = this.selectedBank.BankCode;
+      this.data.Bank.AccountName = this.selectedBank.AccountName;
+      this.data.Bank.AccountNumber = this.selectedBank.AccountNumber;
+      this.data.Bank.BankName = this.selectedBank.BankName;
+      this.data.Bank.Code = this.selectedBank.BankCode;
     } else {
-      this.data.BankId = null;
+      this.data.Bank.Id = null;
       this.data.AccountCOA = null;
-      this.data.AccountName = null;
-      this.data.AccountNumber = null;
-      this.data.BankName = null;
-      this.data.BankAddress = null;
+      this.data.Bank.AccountName = null;
+      this.data.Bank.AccountNumber = null;
+      this.data.Bank.BankName = null;
+      this.data.Bank.Code = null;
     }
   }
 
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
     if (this.selectedCurrency && this.selectedCurrency.Id) {
-      this.data.CurrencyId = this.selectedCurrency.Id;
-      this.data.CurrencyCode = this.selectedCurrency.Code;
-      this.data.CurrencyRate = this.selectedCurrency.Rate;
-      this.data.CurrencySymbol = this.selectedCurrency.Symbol;
+      this.data.Currency = {};
+      this.data.Currency.Id = this.selectedCurrency.Id;
+      this.data.Currency.Code = this.selectedCurrency.Code;
+      this.data.Currency.Rate = this.selectedCurrency.Rate;
+      this.data.Currency.Symbol = this.selectedCurrency.Symbol;
     } else {
-      this.data.CurrencyId = null;
-      this.data.CurrencyCode = null;
-      this.data.CurrencyRate = null;
-      this.data.CurrencySymbol = null;
+      this.data.Currency.Id = null;
+      this.data.Currency.Code = null;
+      this.data.Currency.Rate = null;
+      this.data.Currency.Symbol = null;
     }
   }
 
@@ -208,9 +220,5 @@ export class DataForm {
 
   bankView = (bank) => {
     return bank.AccountName ? `${bank.BankName} ${bank.AccountName} ${bank.AccountNumber} (${bank.Currency.Code})` : '';
-  }
-
-  errorChanged() {
-    console.log(this.error);
   }
 }

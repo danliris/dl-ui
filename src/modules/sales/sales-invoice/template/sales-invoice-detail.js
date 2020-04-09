@@ -50,7 +50,7 @@ export class SalesInvoiceDetail {
     columns: [
       "Kode Barang",
       "Nama Barang",
-      "Kuantiti",
+      "Banyak",
       "Jumlah",
       "Satuan",
       "Harga",
@@ -81,7 +81,8 @@ export class SalesInvoiceDetail {
           var siData = {
             ProductName: item.ProductName,
             Quantity: item.Quantity,
-            Total: item.Length
+            QuantityUOM: item.QuantityUOM,
+            Total: item.Total
           };
           this.data.SalesInvoiceItems.push(siData);
         }
@@ -102,11 +103,6 @@ export class SalesInvoiceDetail {
       this.data.ShipmentDocumentId = null;
       this.data.ShipmentDocumentCode = null;
     }
-  }
-
-  handleDataTypeChange() {
-    this.data.DefaultValue = "";
-    this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
   }
 
   get shipmentDocumentLoader() {
