@@ -56,6 +56,7 @@ export class PurchasingDispositionItem {
         this.GetDisposition();
 
         this.GetTax();
+
     }
     // @computedFrom("data.EPONo")
     // get incomeTax() {
@@ -219,10 +220,10 @@ export class PurchasingDispositionItem {
                 var ppn=0;
                 var pph=0;
                 if(this.data.UseIncomeTax){
-                    pph= detail.PaidPrice*(this.data.IncomeTax.rate/100);
+                    pph=parseFloat(detail.PaidPrice) *(parseFloat(this.data.IncomeTax.rate)/100);
                 }
                 if(this.data.UseVat){
-                    ppn= detail.PaidPrice*0.1;
+                    ppn= parseFloat(detail.PaidPrice)*0.1;
                 }
                 this.incomeTaxValue+=pph;
                 this.vatValue+=ppn;

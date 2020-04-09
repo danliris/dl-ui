@@ -15,7 +15,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data)
+    
     if(this.data.Currency){
         this.selectedCurrency=this.data.Currency;
     }
