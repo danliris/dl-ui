@@ -94,7 +94,7 @@ export class DataForm {
             this.data.Items.splice(0);
             this.data.RONo = selectedPreparing.RONo;
             this.data.Article = selectedPreparing.Article;
-            var filterPreparing = {"RONo": selectedPreparing.RONo, "UnitId": this.data.Unit.Id}
+            var filterPreparing = {"RONo": selectedPreparing.RONo, "UnitId": this.data.Unit.Id,"GarmentPreparingItem.Any(RemainingQuantity>0)":true}
             var info = {filter : JSON.stringify(filterPreparing), size: 2147483647}
             var dataForItem = await this.service.getPreparing(info);
             for(var dataHeader of dataForItem.data){

@@ -194,11 +194,19 @@ module.exports = [
         }
     },
     {
+
         route: '/garment-production/subcon-cutting-out-alluser',
         name: 'garment-production-subcon-cutting-out-alluser',
         moduleId: './modules/garment-production/subcon-cutting-out-alluser/index',
         nav: true,
         title: 'Cutting-Out Subkon (Semua User)',
+
+        route: '/garment-production/aval-component',
+        name: 'garment-production-aval-component',
+        moduleId: './modules/garment-production/aval-component/index',
+        nav: true,
+        title: 'Aval Komponen',
+
         auth: true,
         settings: {
             group: "g-production",
@@ -319,7 +327,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -371,7 +380,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -397,7 +407,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -423,6 +434,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
+
             permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -450,6 +462,10 @@ module.exports = [
         settings: {
             group: "g-production",
             permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
+
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -579,7 +595,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -605,7 +622,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -726,7 +744,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -739,7 +758,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            //permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
