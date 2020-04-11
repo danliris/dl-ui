@@ -181,6 +181,7 @@ export class DataForm {
                 }
                 this.options.kurs = this.kurs;
 
+                this.data.BudgetRate = this.kurs.Rate;
             }
             else {
                 this.data.Currency = null;
@@ -511,6 +512,11 @@ export class DataForm {
                         a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                 }
+                
+                if (a.UENItemId) {
+                    a.RemainingBudget = parseFloat((a.BudgetFromUEN - parseFloat(a.budgetUsed.toFixed(4))).toFixed(4));
+                }
+
                 if(a.RemainingBudget<0){
                     a.IsOverBudget=true;
                 }

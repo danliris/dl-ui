@@ -141,7 +141,7 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getDOSalesById(id, select) {
+    getDOSalesById(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("sales");
         var _serviceUri = `sales/do-sales/${id}`;

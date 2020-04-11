@@ -598,6 +598,19 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
+            permission: { "PGA": 1, "PG": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/cc-ro-garment-history-report',
+        name: 'cc-ro-garment-history-report',
+        moduleId: './modules/merchandiser/report/cc-ro-garment-history-by-section-report/index',
+        nav: true,
+        title: 'Monitoring History Cost Calculatin & Budget Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
             permission: { "PGA": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
