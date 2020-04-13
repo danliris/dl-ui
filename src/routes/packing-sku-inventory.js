@@ -52,19 +52,6 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-document-report',
-        name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
-        nav: true,
-        title: 'Laporan Bon Inspection',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'packing-sku-inventory/dyeing-printing-area-movement',
         name: 'dyeing-printing-area-movement',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-area-movement/index',
@@ -97,6 +84,19 @@ module.exports = [
         nav: true,
         title: 'Pencatatan Pemeriksaan Kain',
 
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/inspection-document-report',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        nav: true,
+        title: 'Bon Insepection Material Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
