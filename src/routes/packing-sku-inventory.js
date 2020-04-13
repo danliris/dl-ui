@@ -65,9 +65,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-area-movement',
-        name: 'dyeing-printing-area-movement',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-area-movement/index',
+        route: 'packing-sku-inventory/inspection-material',
+        name: 'inspection-material',
+        moduleId: './modules/packing-sku-inventory/inspection-material/index',
         nav: true,
         title: 'Inspection Material Dyeing/Printing',
         auth: true,
