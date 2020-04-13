@@ -105,6 +105,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/transit-area-input',
+        name: 'transit-area-input',
+        moduleId: './modules/packing-sku-inventory/transit-area-input/index',
+        nav: true,
+        title: 'Penerimaan Transit Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/transit-area-note',
         name: 'transit-area-note',
         moduleId: './modules/packing-sku-inventory/transit-area-note/index',

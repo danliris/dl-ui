@@ -4,7 +4,7 @@ import { Service, SalesService } from "./service";
 import { Dialog } from '../../../au-components/dialog/dialog';
 import { FabricGradeTestEditor } from './dialogs/fabric-grade-test-editor';
 
-let DyeingPrintingAreaMovementLoader = require("../../../loader/dyeing-printing-area-movement-loader");
+let DyeingPrintingAreaMovementLoader = require("../../../loader/inspection-material-loader");
 
 @containerless()
 @inject(Service, Dialog, BindingSignaler, BindingEngine, SalesService)
