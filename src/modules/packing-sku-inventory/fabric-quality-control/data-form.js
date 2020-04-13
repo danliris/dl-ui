@@ -44,6 +44,8 @@ export class DataForm {
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
 
+    imQuery = {"IsChecked" : false};
+
     constructor(service, dialog, bindingSignaler, bindingEngine, salesService) {
         this.service = service;
         this.dialog = dialog;
