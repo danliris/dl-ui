@@ -42,6 +42,12 @@ export class View {
             }
         }
         this.data.Items=items;
+
+        
+        if(this.data.IsReceived){
+            this.deleteCallback=null;
+            this.editCallback=null;
+        }
     }
 
     cancelCallback(event) {
