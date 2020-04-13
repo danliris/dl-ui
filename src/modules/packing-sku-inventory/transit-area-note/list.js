@@ -13,7 +13,7 @@ export class List {
 
         this.service = service;
         this.router = router;
-        
+
     }
 
     controlOptions = {
@@ -24,7 +24,7 @@ export class List {
             length: 4,
         },
     };
-    
+
     tableOptions = {
         search: false,
         showToggle: false,
@@ -38,9 +38,9 @@ export class List {
     group = null;
     mutation = null;
 
-    groups = ["","PAGI", "SIANG"];
-    mutations = ["","AWAL","MASUK","KELUAR","ADJ MASUK", "ADJ KELUAR"];
-    zones = ["","IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
+    groups = ["", "PAGI", "SIANG"];
+    mutations = ["", "AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
+    zones = ["", "IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
 
     columns = [
         {
@@ -117,12 +117,10 @@ export class List {
 
     reset() {
         this.listDataFlag = false;
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.Machine = null;
-        this.Kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
+        this.zone = null;
+        this.date = null;
+        this.group = null;
+        this.mutation = null;
         this.error = '';
     }
 

@@ -59,6 +59,7 @@ export class DataForm {
 
   costCalculationGarment_MaterialsInfo = {
     columns: [
+      { header: "No." },
       { header: "PR Master" },
       { header: "No. PO" },
       { header: "Kategori", value: "Category" },
@@ -93,6 +94,10 @@ export class DataForm {
         SMV_Total: this.data.SMV_Total,
         Efficiency: this.data.Efficiency
       });
+      this.data.CostCalculationGarment_Materials.forEach((m, i) => m.MaterialIndex = i);
+    }.bind(this),
+    onRemove: function () {
+      this.data.CostCalculationGarment_Materials.forEach((m, i) => m.MaterialIndex = i);
     }.bind(this),
     options: {}
   }
@@ -290,8 +295,12 @@ export class DataForm {
     } else if (this.data.PreSCNoSource && this.data.PreSCNo !== this.data.PreSCNoSource) {
       const materialsFromPRMaster = this.data.CostCalculationGarment_Materials.filter(m => m.PRMasterItemId > 0);
       for (const materialFromPRmaster of materialsFromPRMaster) {
-        const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
-        this.data.CostCalculationGarment_Materials.splice(index, 1);
+        // const index = this.data.CostCalculationGarment_Materials.indexOf(materialFromPRmaster);
+        // this.data.CostCalculationGarment_Materials.splice(index, 1);
+        materialFromPRmaster.IsPRMaster = null;
+        materialFromPRmaster.PRMasterId = 0;
+        materialFromPRmaster.PRMasterItemId = 0;
+        materialFromPRmaster.POMaster = null;
       }
     }
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;

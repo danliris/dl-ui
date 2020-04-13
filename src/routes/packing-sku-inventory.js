@@ -52,6 +52,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/inspection-document-report',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        nav: true,
+        title: 'Laporan Bon Inspection',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/dyeing-printing-area-movement',
         name: 'dyeing-printing-area-movement',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-area-movement/index',
@@ -65,11 +78,78 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/inspection-im-balance',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
+        nav: true,
+        title: 'Saldo IM',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/quality-control/defect',
+        name: 'fabric-quality-control',
+        moduleId: './modules/packing-sku-inventory/fabric-quality-control/index',
+        nav: true,
+        title: 'Pencatatan Pemeriksaan Kain',
+
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/transit-area-note',
         name: 'transit-area-note',
         moduleId: './modules/packing-sku-inventory/transit-area-note/index',
         nav: true,
         title: 'Bon Transit Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/transit-balance-summary',
+        name: 'transit-balance-summary',
+        moduleId: './modules/packing-sku-inventory/transit-balance-summary/index',
+        nav: true,
+        title: 'Saldo Transit',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/packing-area-note',
+        name: 'packing-area-note',
+        moduleId: './modules/packing-sku-inventory/packing-area-note/index',
+        nav: true,
+        title: 'Bon Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+       
+        route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
+        name: 'dyeing-printing-goods-warehouse',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+        nav: true,
+        title: 'Bon Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
