@@ -77,6 +77,7 @@ export class PurchasingDispositionItem {
                 for(var pay of paid){
                     this.paidDisposition+=pay.price;
                 }
+                this.paidDisposition=this.paidDisposition>0?this.paidDisposition+this.vatValue-this.incomeTaxValue:this.paidDisposition;
             }
 
             var filterDispo= {
