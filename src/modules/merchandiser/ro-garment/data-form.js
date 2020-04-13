@@ -55,12 +55,17 @@ export class DataForm {
   }
   RO_Garment_SizeBreakdownsInfo = {
     columns: [
+      { header: "No.", value: "SizeBreakdownIndex" },
       { header: "Color", value: "Color" },
       { header: "Size Range", value: "RO_Garment_SizeBreakdowns_Detail" },
     ],
     options: { readOnly: this.readOnly },
     onAdd: function () {
       this.data.RO_Garment_SizeBreakdowns.push({});
+      this.data.RO_Garment_SizeBreakdowns.forEach((m, i) => m.SizeBreakdownIndex = i);
+    }.bind(this),
+    onRemove: function () {
+      this.data.RO_Garment_SizeBreakdowns.forEach((m, i) => m.SizeBreakdownIndex = i);
     }.bind(this)
   };
 

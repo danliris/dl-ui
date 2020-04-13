@@ -1,5 +1,9 @@
 <template>
     <tr>
+        <td class="col-md-1">
+            <au-textbox value.bind="data.SizeBreakdownDetailIndex + 1" options.bind="controlOptions" read-only="true">
+            </au-textbox>
+        </td>
         <td class="col-md-${readOnly ? 7 : 8}">
             <au-textbox placeholder="Isi Keterangan" value.bind="data.Information" error.bind="error.Information" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
         </td>
