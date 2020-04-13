@@ -7,14 +7,14 @@
         <td>
             <au-textbox value.bind="data.ConstructionName" read-only.bind="true"></au-textbox>
             <au-textbox value.bind="data.Material" error.bind="error.Material" read-only.bind="true"
-                show.bind=!data.ProductionOrder></au-textbox>
+                show.bind="!data.ProductionOrder"></au-textbox>
             <au-textbox value.bind="data.MaterialConstruction" error.bind="error.MaterialConstruction"
-                read-only.bind="true" show.bind=!data.ProductionOrder></au-textbox>
-            <au-textbox value.bind="data.MaterialWidth" read-only.bind="true" show.bind=!data.ProductionOrder>
+                read-only.bind="true" show.bind="!data.ProductionOrder"></au-textbox>
+            <au-textbox value.bind="data.MaterialWidth" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
-            <au-textbox value.bind="data.ColorRequest" read-only.bind="true" show.bind=!data.ProductionOrder>
+            <au-textbox value.bind="data.ColorRequest" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
-            <au-textbox value.bind="data.ColorTemplate" read-only.bind="true" show.bind=!data.ProductionOrder>
+            <au-textbox value.bind="data.ColorTemplate" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
         </td>
         <td>
