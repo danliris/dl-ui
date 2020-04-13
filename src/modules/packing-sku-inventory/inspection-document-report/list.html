@@ -11,7 +11,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Tanggal" read-only="true"></textbox>
           </div>
-          <div class="col-md-2" style="text-align:left;">
+          <div class="col-md-3" style="text-align:left;">
             <au-datepicker value.bind="DateReport" error.bind="error.DateReport" read-only.bind="readOnly"  options.bind="controlOptions">
             </au-datepicker>
           </div>
@@ -21,7 +21,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Group" read-only="true"></textbox>
           </div>
-          <div class="col-md-2" style="text-align:left;">
+          <div class="col-md-3" style="text-align:left;">
             <au-dropdown value.bind="GroupValue" error.bind="error.Group" read-only.bind="readOnly"
               items.bind="groups" text="GroupText" options.bind="controlOptions"></au-dropdown>
           </div>
@@ -31,7 +31,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Mutasi" read-only="true"></textbox>
           </div>
-          <div class="col-md-2" style="text-align:left;">
+          <div class="col-md-3" style="text-align:left;">
             <au-dropdown value.bind="MutasiValue" error.bind="error.Mutasi" read-only.bind="readOnly"
             items.bind="mutasi" text="MutasiText" options.bind="controlOptions"></au-dropdown>
           </div>
@@ -41,7 +41,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Zona" read-only="true"></textbox>
           </div>
-          <div class="col-md-2" style="text-align:left;">
+          <div class="col-md-3" style="text-align:left;">
             <au-dropdown value.bind="ZonaValue" error.bind="error.Zona" read-only.bind="readOnly"
             items.bind="zona" text="ZonaText" options.bind="controlOptions"></au-dropdown>
           </div>
@@ -51,7 +51,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Keterangan" read-only="true"></textbox>
           </div>
-          <div class="col-md-2" style="text-align:left;">
+          <div class="col-md-3" style="text-align:left;">
             <au-dropdown value.bind="KeteranganValue" error.bind="error.Keterangan" read-only.bind="readOnly"
             items.bind="keterangan" text="KeteranganText" options.bind="controlOptions"></au-dropdown>
           </div>
@@ -64,7 +64,7 @@
               Cari
             </button>
             <button class="btn font-weight-bold" click.delegate="reset()"
-              style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
+              style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777; font-weight:bold;">
               Kembali
             </button>
           </div>
