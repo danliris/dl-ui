@@ -61,7 +61,6 @@ export class DataForm {
 
         this.data.UnitFrom = newValue;
 
-        this.context.ExpenditureGoodViewModel.editorValue = "";
         this.selectedExpenditureGood = null;
 
     }
