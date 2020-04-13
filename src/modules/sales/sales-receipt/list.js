@@ -18,13 +18,7 @@ export class List {
       }
     },
     {
-      field: "SalesReceiptDetails",
-      title: "Kurs",
-      formatter: (value, data, index) => {
-        var detail = value.find(i => true);
-        return detail.CurrencyCode;
-      }
-    },
+      field: "Currency.Code", title: "Kurs"},
     {
       field: "TotalPaid", title: "Jumlah Pembayaran", formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');

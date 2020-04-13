@@ -62,6 +62,7 @@ export class DataForm {
         this.data.UnitFrom = newValue;
 
         this.selectedExpenditureGood = null;
+
     }
 
     bind(context) {
@@ -79,9 +80,42 @@ export class DataForm {
             };
             this.data.ComodityName = this.data.Comodity.Name;
             this.data.BuyerName = this.data.Buyer.Name;
+            this.data.DataItems=[];
             for (const item of this.data.Items) {
-                item.SizeName = item.Size.Name;
-                item.UomUnit = item.Uom.Unit;
+                if(this.data.DataItems.length>0){
+                    var duplicate= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                    
+                    if(duplicate){
+                        var idx= this.data.Items.indexOf(duplicate);
+                        duplicate.Quantity+=item.Quantity;
+                        this.data.DataItems[idx]=duplicate;
+                    }else{
+                        item.Size={
+                            Id: item.Size.Id,
+                            Name: item.Size.Name
+                        };
+                        item.SizeName=item.Size.Name;
+                        item.Quantity=item.Quantity;
+                        item.Uom= item.Uom;
+                        item.UomUnit= item.Uom.Unit;
+                        item.Remark= item.Description
+                        this.data.DataItems.push(item);
+                    }
+                }
+                else{
+                    item.Size={
+                        Id: item.Size.Id,
+                        Name: item.Size.Name
+                    };
+                    item.SizeName=item.Size.Name;
+                    item.Quantity=item.Quantity;
+                    item.Uom= item.Uom;
+                    item.UomUnit= item.Uom.Unit;
+                    this.data.DataItems.push(item);
+                }
+            
+                // item.SizeName = item.Size.Name;
+                // item.UomUnit = item.Uom.Unit;
             }
         }
     }
@@ -89,6 +123,7 @@ export class DataForm {
     selectedExpenditureGoodChanged(newValue) {
         if (this.data.Id) return;
 
+        this.data.DataItems.splice(0);
         this.data.Items.splice(0);
 
         if (newValue) {
@@ -107,7 +142,7 @@ export class DataForm {
                     this.data.ContractNo = exGood.ContractNo;
                     this.data.Buyer = exGood.Buyer;
                     this.data.BuyerName = exGood.Buyer.Name;
-
+                    //this.data.DataItems=[];
                     for (const item of exGood.Items) {
                         this.data.Items.push({
                             ExpenditureGoodItemId: item.Id,
@@ -121,6 +156,39 @@ export class DataForm {
                             UomUnit: item.Uom.Unit,
                             Remark: item.Description
                         });
+
+                        if(this.data.DataItems){
+                            var duplicate= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                            
+                            if(duplicate){
+                                var idx= this.data.Items.indexOf(duplicate);
+                                duplicate.Quantity+=item.Quantity;
+                                this.data.DataItems[idx]=duplicate;
+                            }else{
+                                item.Size={
+                                    Id: item.Size.Id,
+                                    Name: item.Size.Size
+                                };
+                                item.SizeName=item.Size.Name;
+                                item.Quantity=item.Quantity;
+                                item.Uom= item.Uom;
+                                item.UomUnit= item.Uom.Unit;
+                                item.Remark= item.Description;
+                                this.data.DataItems.push(item);
+                            }
+                        }
+                        else{
+                            item.Size={
+                                Id: item.Size.Id,
+                                Name: item.Size.Size
+                            };
+                            item.SizeName=item.Size.Name;
+                            item.Quantity=item.Quantity;
+                            item.Uom= item.Uom;
+                            item.UomUnit= item.Uom.Unit;
+                            item.Remark= item.Description;
+                            this.data.DataItems.push(item);
+                        }
                     }
                 });
         } else {
