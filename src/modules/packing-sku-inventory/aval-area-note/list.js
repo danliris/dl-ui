@@ -80,11 +80,11 @@ export class List {
       title: "No. Kereta"
     },
     {
-      field: "type",
+      field: "productionOrderType",
       title: "Jenis"
     },
     {
-      field: "quantity",
+      field: "productionOrderQuantity",
       title: "Qty"
     },
     {
