@@ -118,6 +118,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/inspection-document-report',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        nav: true,
+        title: 'Bon Insepection Material Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/transit-area-note',
         name: 'transit-area-note',
         moduleId: './modules/packing-sku-inventory/transit-area-note/index',
@@ -157,7 +170,7 @@ module.exports = [
         }
     },
     {
-       
+
         route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
         name: 'dyeing-printing-goods-warehouse',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
@@ -171,7 +184,7 @@ module.exports = [
         }
     },
     {
-       
+
         route: 'packing-sku-inventory/aval-area-note',
         name: 'aval-area-note',
         moduleId: './modules/packing-sku-inventory/aval-area-note/index',
