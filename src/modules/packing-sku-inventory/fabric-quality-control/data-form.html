@@ -30,7 +30,7 @@
         </div>
 
         <au-autocomplete value.bind="selectedAreaMovement" label="Nomor Bon" read-only.bind="readOnly || isEdit" error.bind="error.DyeingPrintingAreaMovementBonNo"
-          loader.bind="dyeingPrintingAreaMovementLoader" text.bind="areaMovementTextFormatter">
+          loader.bind="dyeingPrintingAreaMovementLoader" query.bind="imQuery" text.bind="areaMovementTextFormatter">
         </au-autocomplete>
 
         <div class="row">

@@ -4,7 +4,7 @@ import { Service, SalesService } from "./service";
 import { Dialog } from '../../../au-components/dialog/dialog';
 import { FabricGradeTestEditor } from './dialogs/fabric-grade-test-editor';
 
-let DyeingPrintingAreaMovementLoader = require("../../../loader/dyeing-printing-area-movement-loader");
+let DyeingPrintingAreaMovementLoader = require("../../../loader/inspection-material-loader");
 
 @containerless()
 @inject(Service, Dialog, BindingSignaler, BindingEngine, SalesService)
@@ -43,6 +43,8 @@ export class DataForm {
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
+
+    imQuery = {"IsChecked" : false};
 
     constructor(service, dialog, bindingSignaler, bindingEngine, salesService) {
         this.service = service;
