@@ -170,5 +170,19 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+       
+        route: 'packing-sku-inventory/inventory-document-aval',
+        name: 'inventory-document-aval',
+        moduleId: './modules/packing-sku-inventory/inventory-document-aval/index',
+        nav: true,
+        title: 'Dokumen Inventori Aval',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
