@@ -52,9 +52,22 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-area-movement',
-        name: 'dyeing-printing-area-movement',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-area-movement/index',
+        route: 'packing-sku-inventory/inspection-document-report',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        nav: true,
+        title: 'Laporan Bon Inspection',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/inspection-material',
+        name: 'inspection-material',
+        moduleId: './modules/packing-sku-inventory/inspection-material/index',
         nav: true,
         title: 'Inspection Material Dyeing/Printing',
         auth: true,
@@ -84,6 +97,19 @@ module.exports = [
         nav: true,
         title: 'Pencatatan Pemeriksaan Kain',
 
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/transit-area-input',
+        name: 'transit-area-input',
+        moduleId: './modules/packing-sku-inventory/transit-area-input/index',
+        nav: true,
+        title: 'Penerimaan Transit Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -144,7 +170,7 @@ module.exports = [
         }
     },
     {
-       
+
         route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
         name: 'dyeing-printing-goods-warehouse',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
@@ -158,7 +184,7 @@ module.exports = [
         }
     },
     {
-       
+
         route: 'packing-sku-inventory/aval-area-note',
         name: 'aval-area-note',
         moduleId: './modules/packing-sku-inventory/aval-area-note/index',

@@ -5,24 +5,14 @@
                 value.bind="selectedRO"
                 error.bind="error.RONo"
                 loader.bind="roLoader"
-                read-only.bind="readOnly"
+                read-only.bind="readOnly||isEdit"
                 placeholder="Nomor RO"
                 text="RONo">
             </au-autocomplete>
         </td>
-        <td class="col-sm-1">
-            <div>
-                <button class="btn btn-info pull-right" if.bind= "data.FabricItems" click.delegate="toggle()">i</button>
-            </div>
-        </td>
-        <td if.bind="!readOnly">
+        <td if.bind="isCreate">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
-        <tr if.bind="error.ItemCount">
-            <div class="form-group has-error" if.bind="error.ItemCount">
-                <p if.bind="error.ItemCount" class="help-block text-center">${error.ItemCount}</p>
-            </div>
-        </tr>
         <tr show.bind="data.FabricItems">
             <td colspan="15">
                 <au-collection 

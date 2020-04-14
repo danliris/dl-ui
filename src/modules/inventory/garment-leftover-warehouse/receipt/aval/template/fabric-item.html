@@ -16,15 +16,21 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.DesignColor"
+                value.bind="data.ProductRemark"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td class="bg-primary">
             <au-numeric
-                value.bind="data.TotalCuttingOut"
+                value.bind="data.Quantity"
                 read-only.bind="true">
             </au-numeric>
+        </td>
+        <td class="bg-primary">
+            <au-textbox
+                value.bind="data.Uom.Unit"
+                read-only.bind="true">
+            </au-textbox>
         </td>
     </tr>
     
