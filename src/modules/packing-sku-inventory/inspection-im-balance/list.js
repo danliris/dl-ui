@@ -10,7 +10,12 @@ const UnitLoader = require("../../../loader/inspection-unit-loader");
 @inject(Router, Service)
 export class List {
     context = ["Rincian"];
-    
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false,
+        pagination: false
+    }
     columns = [
         { field: "material", title: "Material" },
         { field: "noOrder", title: "No SP" },
