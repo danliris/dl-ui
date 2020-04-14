@@ -52,37 +52,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-document-report',
-        name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
-        nav: true,
-        title: 'Laporan Bon Inspection',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'packing-sku-inventory/inspection-material',
         name: 'inspection-material',
         moduleId: './modules/packing-sku-inventory/inspection-material/index',
         nav: true,
         title: 'Inspection Material Dyeing/Printing',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'packing-sku-inventory/inspection-im-balance',
-        name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
-        nav: true,
-        title: 'Saldo IM',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -197,18 +171,31 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
+    // {
        
-        route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
-        name: 'dyeing-printing-accepting-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+    //     route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
+    //     name: 'dyeing-printing-accepting-packaging',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+    //     nav: true,
+    //     title: 'Penerimaan Packing Area Dyeing Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    {
+        route: 'packing-sku-inventory/inspection-im-balance',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
         nav: true,
-        title: 'Penerimaan Packing Area Dyeing Printing',
+        title: 'Saldo IM',
         auth: true,
         settings: {
             group: "ps-inventory",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
 ];
