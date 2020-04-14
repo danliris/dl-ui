@@ -13,6 +13,13 @@ const KeteranganLoader = require('../../../loader/inspection-keterangan-loader')
 export class List {
     context = ["Rincian"];
     
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false,
+        pagination: false
+    }
+
     columns = [
         // { field: "index", title: "No" },
         {
@@ -28,7 +35,6 @@ export class List {
         { field: "material", title :"Material"},
         { field: "keterangan", title :"Ket"},
         { field: "status", title :"Status"},
-        { field: "lebar", title :"Lebar"},
         { field: "motif", title :"Motif"},
         { field: "warna", title :"Warna"},
         { field: "mtr", title :"Mtr"},
