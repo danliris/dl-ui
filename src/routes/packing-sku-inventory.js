@@ -79,11 +79,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/transit-area-input',
-        name: 'transit-area-input',
-        moduleId: './modules/packing-sku-inventory/transit-area-input/index',
+        route: 'packing-sku-inventory/inspection-document-report',
+        name: 'product-packing',
+        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
         nav: true,
-        title: 'Penerimaan Transit Area Dyeing/Printing',
+        title: 'Bon Inspection Material Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -92,11 +92,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-document-report',
-        name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        route: 'packing-sku-inventory/transit-area-input',
+        name: 'transit-area-input',
+        moduleId: './modules/packing-sku-inventory/transit-area-input/index',
         nav: true,
-        title: 'Bon Insepection Material Dyeing/Printing',
+        title: 'Penerimaan Transit Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -171,20 +171,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
+    {
        
-    //     route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
-    //     name: 'dyeing-printing-accepting-packaging',
-    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
-    //     nav: true,
-    //     title: 'Penerimaan Packing Area Dyeing Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "ps-inventory",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+        route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
+        name: 'dyeing-printing-accepting-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+        nav: true,
+        title: 'Penerimaan Packing Area Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',
