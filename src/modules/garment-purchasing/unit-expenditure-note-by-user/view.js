@@ -91,6 +91,11 @@ export class View {
                 }
             }
         }
+
+        if(this.data.IsReceived){
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }
     }
 
     cancel(event) {
