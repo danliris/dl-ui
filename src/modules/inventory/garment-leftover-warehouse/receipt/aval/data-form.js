@@ -23,9 +23,20 @@ export class DataForm {
         }
     };
 
+    footerOptions = {
+        label: {
+            length: 3
+        },
+        control: {
+            length: 2
+        }
+    };
+
     itemsColumns = [
         { header: "Nomor RO", value: "RONo" },
     ]
+
+    avalTypes=["AVAL FABRIC", "AVAL ACCESSORIES"];
 
     get unitLoader() {
         return UnitLoader;
@@ -43,6 +54,7 @@ export class DataForm {
         this.Options = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
+            isEdit: this.context.isEdit,
             checkedAll: this.context.isCreate == true ? false : true 
         }
 
@@ -51,11 +63,57 @@ export class DataForm {
                 Code: this.data.UnitFrom.Code,
                 Name: this.data.UnitFrom.Name
             };
+            var roList=[];
             for (const item of this.data.Items) {
-                item.ProductCode = item.Product.Code;
-                item.ProductName = item.Product.Name;
-                item.UomUnit = item.Uom.Unit;
+                var detail={};
+                if(roList.length==0){
+                    detail.RONo=item.RONo;
+                    detail.FabricItems=[];
+                    detail.FabricItems.push({
+                        Product:item.Product,
+                        ProductRemark:item.ProductRemark,
+                        Quantity:item.Quantity,
+                        Uom:item.Uom,
+                        GarmentAvalProductId:item.GarmentAvalProductId,
+                        GarmentAvalProductItemId:item.GarmentAvalProductItemId,
+                        IsSave:true
+                    });
+                    roList.push(detail);
+                }
+                else{
+                    var dup=roList.find(a=>a.RONo==item.RONo);
+                    if(!dup){
+                        detail.RONo=item.RONo;
+                        detail.FabricItems=[];
+                        detail.FabricItems.push({
+                            Product:item.Product,
+                            ProductRemark:item.ProductRemark,
+                            Quantity:item.Quantity,
+                            Uom:item.Uom,
+                            GarmentAvalProductId:item.GarmentAvalProductId,
+                            GarmentAvalProductItemId:item.GarmentAvalProductItemId,
+                            IsSave:true
+                        });
+                        roList.push(detail);
+                    }
+                    else{
+                        var idx= roList.indexOf(dup);
+                        dup.FabricItems.push({
+                            Product:item.Product,
+                            ProductRemark:item.ProductRemark,
+                            Quantity:item.Quantity,
+                            Uom:item.Uom,
+                            GarmentAvalProductId:item.GarmentAvalProductId,
+                            GarmentAvalProductItemId:item.GarmentAvalProductItemId,
+                            IsSave:true
+                        });
+                        
+                        roList[idx]=dup;
+                        
+                    }
+                }
             }
+            this.data.ROList=roList;
         }
     }
 
@@ -81,5 +139,18 @@ export class DataForm {
             this.error = null;
             //this.Options.error = null;
      };
+    }
+
+    get totalQuantity(){
+        var qty=0;
+        if(this.data.ROList){
+            for(var item of this.data.ROList){
+                for(var detail of item.FabricItems){
+                    if(detail.IsSave)
+                        qty += detail.Quantity;
+                }
+            }
+        }
+        return qty;
     }
 }

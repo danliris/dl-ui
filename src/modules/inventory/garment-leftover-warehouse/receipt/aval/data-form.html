@@ -3,7 +3,7 @@
 
         <au-textbox 
             label="No Bon Penerimaan" 
-            value.bind="data.ReceiptNoteNo" 
+            value.bind="data.AvalReceiptNo" 
             read-only="true"
             options.bind="controlOptions" 
             if.bind="readOnly || isEdit">
@@ -20,6 +20,15 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-dropdown
+            label="Tipe Aval"
+            value.bind="data.AvalType"
+            error.bind="error.AvalType"
+            read-only.bind="readOnly || isEdit"
+            items.bind="avalTypes"
+            options.bind="controlOptions">
+        </au-dropdown>
+
         <au-datepicker 
             label="Tgl Penerimaan Gudang" 
             value.bind="data.ReceiptDate" 
@@ -35,12 +44,14 @@
             read-only.bind="readOnly" 
             options.bind="controlOptions">
         </au-multiline>
-
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
         <au-collection 
                 items.bind="data.ROList" 
-                errors.bind="error.ROList" 
+                errors.bind="error.Items" 
                 columns.bind="itemsColumns"
-                read-only.bind="readOnly" 
+                read-only.bind="readOnly || isEdit" 
                 add.bind="addItems" 
                 remove.bind="removeItems"
                 options.bind="Options"
@@ -48,5 +59,19 @@
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/ro-fabric">
         </au-collection>
 
+        <au-numeric 
+            label="TOTAL AVAL FABRIC (MTR)" 
+            value.bind="totalQuantity" 
+            read-only.bind="true"
+            options.bind="footerOptions"
+            if.bind="data.ROList">
+        </au-numeric>
+        <au-numeric 
+            label="TOTAL AVAL FABRIC (KG)" 
+            value.bind="data.TotalAval" 
+            read-only.bind="readOnly"
+            options.bind="footerOptions"
+            if.bind="data.ROList">
+        </au-numeric>
     </au-input-form>
 </template>
