@@ -12,7 +12,6 @@ export class Item {
     // }
 
     activate(context) {
-        console.log(context)
         this.context = context;
         this.data = context.data;
         this.error = context.error;
