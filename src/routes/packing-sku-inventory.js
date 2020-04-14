@@ -158,7 +158,6 @@ module.exports = [
         }
     },
     {
-
         route: 'packing-sku-inventory/aval-area-note',
         name: 'aval-area-note',
         moduleId: './modules/packing-sku-inventory/aval-area-note/index',

@@ -11,7 +11,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Tanggal" read-only="true"></textbox>
           </div>
-          <div class="col-md-3" style="text-align:left;">
+          <div class="col-md-4" style="text-align:left;">
             <au-datepicker value.bind="DateReport" error.bind="error.DateReport" read-only.bind="readOnly">
             </au-datepicker>
           </div>
@@ -21,7 +21,7 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="Shift" read-only="true"></textbox>
           </div>
-          <div class="col-md-3" style="text-align:left;">
+          <div class="col-md-4" style="text-align:left;">
             <au-dropdown value.bind="ShiftValue" error.bind="error.Shift" read-only.bind="readOnly"
               items.bind="shift" text="ShiftText"></au-dropdown>
           </div>
@@ -31,21 +31,23 @@
           <div class="col-md-1" style="white-space: nowrap;">
             <textbox label="unit" read-only="true"></textbox>
           </div>
-          <div class="col-md-3" style="text-align:left;">
+          <div class="col-md-4" style="text-align:left;">
             <au-dropdown value.bind="UnitValue" error.bind="error.Unit" read-only.bind="readOnly"
               items.bind="unit" text="UnitText"></au-dropdown>
           </div>
         </div>
         
         <div class="row" style="margin-top: 20px;">
+           <div class="col-md-1" style="white-space: nowrap;">
+          </div>
           <div class="col-md-4 text-center">
             <button class="btn btn-success" click.delegate="searching()"
               style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
               Cari
             </button>
-            <button class="btn" click.delegate="reset()"
-              style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777; font-weight:bold">
-              Kembali
+            <button class="btn btn-success" click.delegate="reset()"
+              style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
+              Reset
             </button>
           </div>
         </div>
@@ -57,10 +59,9 @@
               sortable.bind="false"
               view-model.ref="table"
               options.bind="tableOptions">
+              <div slot="toolbar" class="btn-group">
+                <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+            </div>
     </au-table>
     <br/>
-    <button class="btn btn-success" click.delegate="ExportToExcel()"
-            style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
-            Excel
-          </button>
 </template>
