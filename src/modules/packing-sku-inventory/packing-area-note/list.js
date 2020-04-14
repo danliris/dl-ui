@@ -40,7 +40,7 @@ export class List {
 
     groups = ["", "PAGI", "SIANG"];
     zones = ["", "IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
-
+    mutations = ["", "AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
     columns = [
         {
             field: "date", title: "Tanggal", formatter: function (value, data, index) {
@@ -98,7 +98,7 @@ export class List {
         return this.listDataFlag ? (
 
             // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
-            this.service.getReport(searchDate, this.zone, this.group)
+            this.service.getReport(searchDate, this.zone, this.group, this.mutation)
                 .then((result) => {
                     return {
                         data: result
@@ -129,7 +129,7 @@ export class List {
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
         // var searchDate = this.searchDate ? moment(this.searchDate).format("DD MMM YYYY HH:mm") : null;
         var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
-        this.service.generateExcel(searchDate, this.zone, this.group);
+        this.service.generateExcel(searchDate, this.zone, this.group, this.mutation);
     }
 
     get machineLoader() {
