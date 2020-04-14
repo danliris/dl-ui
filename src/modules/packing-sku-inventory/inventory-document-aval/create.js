@@ -47,32 +47,41 @@ export class Create {
   }
 
   saveCallback(event) {
-    this.CreateData = {};
-    // this.CreateData
+    let CreateData = {};
+    CreateData.Area = "AVAL";
 
-    this.data.CoreAccount = {};
-    this.data.CoreAccount.MongoId = 0;
-    this.data.CoreAccount.Id = 0;
-    this.data.CoreAccount.Name = this.CoreAccount;
-
-    if (this.UnitId == undefined || this.UnitId == null || this.UnitId == "") {
-      this.data.UnitId = 0;
+    if (this.BonNo === undefined || this.BonNo === null || this.BonNo === "") {
+      CreateData.Id = "";
     } else {
-      this.data.UnitId = this.UnitId.Id;
+      CreateData.Id = this.BonNo.id;
     }
 
-    if (this.Assignment === undefined || this.Assignment === null || this.Assignment === "") {
-      this.Assignment = "";
+    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
+      CreateData.Shift = "";
     } else {
-      this.data.Assignment = this.Assignment;
+      CreateData.Shift = this.data.Shift;
     }
 
-    if (this.data.Type === undefined || this.data.Type === null || this.data.Type === "") {
-      this.data.Type = "";
+    if (this.Uom === undefined || this.Uom === null || this.Uom === "") {
+      CreateData.UOMUnit = "";
+    } else {
+      CreateData.UOMUnit = this.Uom.Unit;
+    }
+
+    if (this.data.ProductionOrderQuantity === undefined || this.data.ProductionOrderQuantity === null || this.data.ProductionOrderQuantity === "") {
+      CreateData.ProductionOrderQuantity = null;
+    } else {
+      CreateData.ProductionOrderQuantity = this.data.ProductionOrderQuantity;
+    }
+
+    if (this.data.QtyKg === undefined || this.data.QtyKg === null || this.data.QtyKg === "") {
+      CreateData.QtyKg = "";
+    } else {
+      CreateData.QtyKg = this.data.QtyKg;
     }
 
     this.service
-      .create(this.data)
+      .create(CreateData)
       .then(result => {
 
         this.list();

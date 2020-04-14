@@ -73,43 +73,37 @@ export class List {
       keyword: info.search,
       order: order
     }
+    
+    return this.service.search(arg)
+    .then(result => {
+        var data = {}
+        data.total = result.total;
+        data.data = result.data;
+        return data;
+    });
 
-    // return this.service.search(arg).then(result => {
-      //   if (result.data.length > 0) {
-      //     return {
-      //       total: result.data.length,
-      //       data: result.data
-      //     }
-      //   } else {
-      //     return {
-      //       total: 0,
-      //       data: {}
-      //     }
-      //   }
-
-      return {
-        data: [{
-          Id: 1,
-          Date: "2020-04-05 17:00:00.0000000 +00:00",
-          BonNo: "IM.20.0009",
-          Shift: "PAGI",
-          CartNo: "12",
-          UnitCode: "F1",
-          Area: "IM",
-          ProductionOrderType: "SOLID",
-          UOMUnit: "YDS",
-          ProductionOrderQuantity: "3,13",
-          ProductionOrderKg: "1"
-        }]
-      }
-    // });
+    // return {
+    //   data: [{
+    //     Id: 1,
+    //     Date: "2020-04-05 17:00:00.0000000 +00:00",
+    //     BonNo: "IM.20.0009",
+    //     Shift: "PAGI",
+    //     CartNo: "12",
+    //     UnitCode: "F1",
+    //     Area: "IM",
+    //     ProductionOrderType: "SOLID",
+    //     UOMUnit: "YDS",
+    //     ProductionOrderQuantity: "3,13",
+    //     ProductionOrderKg: "1"
+    //   }]
+    // }
   }
 
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "Update":
+      case "View":
         this.router.navigateToRoute("view", {
           Id: data.Id
         });

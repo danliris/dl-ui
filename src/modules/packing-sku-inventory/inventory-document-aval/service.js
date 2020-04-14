@@ -28,7 +28,7 @@ export class Service extends RestService {
   }
 
   create(data) {
-    let endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}/${data.Id}`;
     return super.post(endpoint, data);
   }
 

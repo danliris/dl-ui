@@ -3,7 +3,7 @@ import {
     bindable,
     computedFrom
   } from "aurelia-framework";
-  var DyeingPrintingUomLoader = require("../../../loader/dyeing-printing-area-movement-loader");
+  var InspectionMaterialLoader = require("../../../loader/inspection-material-loader");
   var UomLoader = require("../../../loader/uom-loader");
   
   export class DataForm {
@@ -13,12 +13,12 @@ import {
     formOptions = {
       cancelText: "Kembali",
       saveText: "Simpan",
-      deleteText: "Hapus",
-      editText: "Ubah"
+      // deleteText: "Hapus",
+      // editText: "Ubah"
     };
   
-    get notes() {
-      return DyeingPrintingUomLoader;
+    get inspectionMaterials() {
+      return InspectionMaterialLoader;
     }
   
     get uoms() {
