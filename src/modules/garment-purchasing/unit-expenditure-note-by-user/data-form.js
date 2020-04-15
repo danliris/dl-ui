@@ -83,12 +83,16 @@ export class DataForm {
 
     @computedFrom("data.ExpenditureType")
     get filterUnitDeliveryOrder() {
-        var unitDeliveryOrderFilter = {}
-        unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
-        unitDeliveryOrderFilter.IsUsed = false;
+        var unitDeliveryOrderFilter = {
+            IsUsed : false
+        };
+        
         if(this.data.ExpenditureType === "EXTERNAL"){
-            unitDeliveryOrderFilter.UnitDOType = "RETUR";
-            unitDeliveryOrderFilter.IsUsed = false;
+            unitDeliveryOrderFilter[`UnitDOType== "RETUR" || UnitDOType== "MARKETING"`]=true;
+            //unitDeliveryOrderFilter[`UnitDOType== "MARKETING"`]=true;
+        }
+        else{
+            unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
         }
         return unitDeliveryOrderFilter;
     }
@@ -161,6 +165,12 @@ export class DataForm {
             this.data.UnitDONo = "";
         }
         else if(selectedUnitDeliveryOrder){
+            if(newValue.UnitDOType== "MARKETING"){
+                this.data.ExpenditureTo="PENJUALAN";
+            }
+            else if(newValue.UnitDOType== "RETUR"){
+                this.data.ExpenditureTo = "PEMBELIAN";
+            }
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
             this.data.UnitDONo = selectedUnitDeliveryOrder.UnitDONo;
             this.data.UnitSender = selectedUnitDeliveryOrder.UnitSender;
