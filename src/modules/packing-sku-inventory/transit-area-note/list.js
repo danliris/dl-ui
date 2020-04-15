@@ -56,7 +56,7 @@ export class List {
         { field: "materialName", title: "Material" },
         { field: "materialConstructionName", title: "Konstruksi Material" },
         { field: "materialWidth", title: "Lebar Material" },
-        { field: "status", title: "Keterangan" },
+        { field: "remark", title: "Keterangan" },
         { field: "grade", title: "Grade" },
         { field: "motif", title: "Motif" },
         { field: "color", title: "Warna" },

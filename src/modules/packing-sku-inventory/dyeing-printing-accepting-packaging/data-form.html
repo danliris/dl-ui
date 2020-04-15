@@ -1,0 +1,40 @@
+<template>
+
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+        <au-autocomplete value.bind="selectedNoBon" label="No Bon" read-only.bind="readOnly"
+          error.bind="error.NoBon" loader.bind="NoBonLoader" text="NoBon">
+        </au-autocomplete>
+
+        <au-textbox label="No. SPP" value.bind="data.noSpp" error.bind="error.noSpp" read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Unit" value.bind="data.unit" error.bind="error.unit" read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Material" value.bind="data.material" error.bind="error.material" read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Motif" value.bind="data.motif" error.bind="error.motif" read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Warna" value.bind="data.warna" error.bind="error.warna" read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Grade" value.bind="gradeValue" error.bind="error.grade" read-only.bind="false">
+        </au-textbox>
+
+        <au-textbox label="Satuan" value.bind="data.satuan" error.bind="error.satuan" read-only.bind="true">
+        </au-textbox>
+
+        <au-numeric label="Saldo" format="0" value.bind="saldoValue" error.bind="error.saldoValue"
+          read-only.bind="false"></au-numeric>
+
+        <template replaceable part="actions"></template>
+      </au-input-form>
+    </div>
+  </div>
+
+</template>
