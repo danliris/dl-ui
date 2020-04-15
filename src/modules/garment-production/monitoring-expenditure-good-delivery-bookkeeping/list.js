@@ -29,6 +29,7 @@ export class List {
                       
                     _data.expenditureDate= moment(_data.expenditureDate).format("YYYY-MM-DD");
                     _data.price=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data.qty=_data.qty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     this.data.push(_data);
 
                  }
