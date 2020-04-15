@@ -56,9 +56,7 @@ export class Service extends RestService {
             if (query === '') query = `mutation=${mutation}`;
             else query = `${query}&mutation=${mutation}`;
         }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-            
+       
         
         if (query !== '')
             endpoint = `${endpoint}?${query}`;
