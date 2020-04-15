@@ -158,11 +158,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/aval-area-note',
-        name: 'aval-area-note',
-        moduleId: './modules/packing-sku-inventory/aval-area-note/index',
+        route: 'packing-sku-inventory/aval-area-input',
+        name: 'aval-area-input',
+        moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Bon Aval Area',
+        title: 'Penerimaan Aval Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -171,11 +171,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inventory-document-aval',
-        name: 'inventory-document-aval',
-        moduleId: './modules/packing-sku-inventory/inventory-document-aval/index',
+        route: 'packing-sku-inventory/aval-area-note',
+        name: 'aval-area-note',
+        moduleId: './modules/packing-sku-inventory/aval-area-note/index',
         nav: true,
-        title: 'Dokumen Inventori Aval',
+        title: 'Bon Aval Area',
         auth: true,
         settings: {
             group: "ps-inventory",

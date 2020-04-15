@@ -1,7 +1,6 @@
 import {
   inject,
-  bindable,
-  Lazy
+  bindable
 } from "aurelia-framework";
 import {
   Router
@@ -21,12 +20,14 @@ export class Create {
     this.data = {};
   }
 
-  activate(params) {}
+  activate(params) {
+    this.canEdit = false;
+  }
 
   BonNoChanged(newValue) {
     if (newValue.id) {
       this.data.CartNo = newValue.cartNo;
-      this.data.UnitCode = newValue.unitName;
+      this.data.UnitName = newValue.unitName;
       this.data.Area = newValue.area;
       this.data.ProductionOrderType = newValue.productionOrderType;
     }
@@ -71,13 +72,13 @@ export class Create {
     if (this.data.ProductionOrderQuantity === undefined || this.data.ProductionOrderQuantity === null || this.data.ProductionOrderQuantity === "") {
       CreateData.ProductionOrderQuantity = null;
     } else {
-      CreateData.ProductionOrderQuantity = this.data.ProductionOrderQuantity;
+      CreateData.ProductionOrderQuantity = parseInt(this.data.ProductionOrderQuantity);
     }
 
     if (this.data.QtyKg === undefined || this.data.QtyKg === null || this.data.QtyKg === "") {
       CreateData.QtyKg = "";
     } else {
-      CreateData.QtyKg = this.data.QtyKg;
+      CreateData.QtyKg = parseInt(this.data.QtyKg);
     }
 
     this.service

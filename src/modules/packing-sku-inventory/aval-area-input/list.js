@@ -16,48 +16,49 @@ export class List {
     this.router = router;
   }
 
-  context = ["Update"];
+  context = ["detail"];
+  
   columns = [{
-      field: "Date",
+      field: "date",
       title: "Tanggal",
       formatter: function (value, data, index) {
         return moment.utc(value).local().format('DD MMMM YYYY');
       }
     },
     {
-      field: "BonNo",
+      field: "bonNo",
       title: "No. Bon"
     },
     {
-      field: "Shift",
+      field: "shift",
       title: "Shift"
     },
     {
-      field: "CartNo",
+      field: "cartNo",
       title: "No. Kereta"
     },
     {
-      field: "UnitCode",
+      field: "unitCode",
       title: "Unit"
     },
     {
-      field: "Area",
+      field: "area",
       title: "Area"
     },
     {
-      field: "ProductionOrderType",
+      field: "productionOrderType",
       title: "Jenis"
     },
     {
-      field: "UOMUnit",
+      field: "uomUnit",
       title: "Satuan"
     },
     {
-      field: "ProductionOrderQuantity",
+      field: "productionOrderQuantity",
       title: "Qty Satuan"
     },
     {
-      field: "ProductionOrderKg",
+      field: "qtyKg",
       title: "Qty KG"
     }
   ];
@@ -103,9 +104,9 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "View":
+      case "detail":
         this.router.navigateToRoute("view", {
-          Id: data.Id
+          id: data.id
         });
         break;
     }

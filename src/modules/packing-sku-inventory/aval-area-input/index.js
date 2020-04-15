@@ -5,28 +5,28 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Dokumen Inventori Aval"
+          title: "List Penerimaan Aval - Dyeing & Printing"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Dokumen Inventori Aval"
+          title: "Create: Penerimaan Aval - Dyeing & Printing"
         },
         {
-          route: 'view/:Id',
+          route: 'view/:id',
           moduleId: './view',
           name: 'view',
           nav: false,
-          title: 'View: Dokumen Inventori Aval'
+          title: 'View: Penerimaan Aval - Dyeing & Printing'
         },
         {
-          route: 'edit/:Id',
+          route: 'edit/:id',
           moduleId: './edit',
           name: 'edit',
           nav: false,
-          title: 'Edit: Dokumen Inventori Aval'
+          title: 'Edit: Penerimaan Aval - Dyeing & Printing'
         }
       ]);
   
