@@ -629,17 +629,17 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/open-po-master-approval/md',
-        name: 'open-po-master-approval-md',
+        route: '/merchandiser/open-po-master-approval/kabag-md',
+        name: 'open-po-master-approval-kabag-md',
         moduleId: './modules/merchandiser/open-po-master-approval/index',
         nav: true,
-        title: 'Approval Open PO Master - Md',
+        title: 'Approval Open PO Master - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
-            type: "md"
+            type: "kabag_md"
         }
     },
     {
@@ -654,6 +654,20 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
             type: "purchasing"
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/kadiv-md',
+        name: 'open-po-master-approval-kadiv-md',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Kadiv Md',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "kadiv_md"
         }
     },
     {
