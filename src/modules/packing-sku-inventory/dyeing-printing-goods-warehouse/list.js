@@ -39,6 +39,13 @@ export class List {
         ) : { total: 0, data: {} };
     }
 
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false,
+        pagination: false
+    }
+    
     groups=  ["","PAGI", "SIANG"];  
         
     zona = ["","PROD", "TRANSIT","PACK","GUDANG JADI","SHIP","AVAL","LAB"];  
