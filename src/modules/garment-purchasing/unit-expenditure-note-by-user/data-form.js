@@ -136,6 +136,7 @@ export class DataForm {
         this.data.Storage = null;
         this.isItem = false;
         this.data.StorageRequest = null;
+        this.data.RoJob=null;
         this.error = null;
         this.context.error.Items = [];
         this.context.error = [];
@@ -239,6 +240,7 @@ export class DataForm {
         }
         else{
             this.data = null;
+            this.data.RoJob=null;
             this.selectedUnitDeliveryOrder = null;
             this.data.UnitRequest = null;
             this.data.UnitSender = null;
