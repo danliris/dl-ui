@@ -60,7 +60,9 @@ export class List {
 
             { title: 'Kasir', colspan: 5 },
 
-            { field: 'ExternalPurchaseOrderNo', title: 'PO Eksteranl', rowspan: 2, sortable: true },
+            { field: 'ExternalPurchaseOrderNo', title: 'PO Eksternal', rowspan: 2, sortable: true },
+            { field: 'DONo', title: 'Nomor Surat Jalan', rowspan: 2, sortable: true },
+            { field: 'UrnNo', title: 'Nomor Bon Terima', rowspan: 2, sortable: true },
             { field: 'UnitPaymentOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
             { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
 
