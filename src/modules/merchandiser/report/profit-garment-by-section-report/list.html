@@ -46,7 +46,8 @@
                     <th class="text-center">Satuan</th>                            
                     <th class="text-center">Confirm Price</th>
                     <th class="text-center">CM Price</th>
-                    <th class="text-center">FOB Price</th>        
+                    <th class="text-center">FOB Price</th>     
+                    <th class="text-center">Amount</th>     
                 </tr>
             </thead>
             <tbody>
@@ -71,7 +72,7 @@
                         <td>${item.UOMUnit}</td>
                         <td class="text-right">${item.ConfirmPrice}</strong></td>     
                         <td class="text-right">${item.CMPrice}</strong></td>     
-                        <td class="text-right">${item.FOBPrice}</td>   
+                        <td class="text-right">${item.Amount}</td>   
                     </tr>
                         <tr class="active">
                         <td class="text-center">.</td>
@@ -79,7 +80,8 @@
                         <td class="text-center"><strong>.</strong></td>    
                         <td class="text-center" colspan="9"><strong>S E K S I : ${Seksi.SECTION}</strong></td>
                         <td class="text-center" colspan="4"><strong>SUB TOTAL</strong></td>
-                        <td class="text-center"><strong>.</strong></td>                     
+                        <td class="text-center"><strong>.</strong></td>    
+                        <td class="text-center"><strong>.</strong></td>    
                         <td class="text-center"><strong>.</strong></td>    
                         <td class="text-center"><strong>.</strong></td>                                             
                         <td class="text-right"><strong>${Seksi.subTotal}</strong></td>                     
@@ -88,6 +90,7 @@
                    <tr class="active">
                         <td class="text-center" colspan="16"><strong>T O T A L . . . . . . :</strong></td>
                         <td class="text-center"><strong>.</strong></td>                     
+                        <td class="text-center"><strong>.</strong></td>                                                                     
                         <td class="text-center"><strong>.</strong></td>                                                                     
                         <td class="text-center"><strong>.</strong></td>                                             
                         <td class="text-right"><strong>${AmountTotal}</strong></td>                     

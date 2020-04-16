@@ -22,7 +22,6 @@ export class SalesInvoiceDetail {
   }
   shipmentQuery = {};
   activate(item) {
-    // debugger
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
