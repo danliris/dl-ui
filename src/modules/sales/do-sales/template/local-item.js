@@ -8,7 +8,6 @@ export class LocalItem {
         this.error = context.error;
         this.options = context.options;
         this.LengthUom = context.context.options.LengthUom;
-        console.log(this.LengthUom)
 
         if (!this.data.Packing) {
             this.data.Packing = 0;
