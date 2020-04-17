@@ -69,6 +69,7 @@
         <au-numeric 
             label="TOTAL AVAL FABRIC (KG)" 
             value.bind="data.TotalAval" 
+            error.bind="error.TotalAval"
             read-only.bind="readOnly"
             options.bind="footerOptions"
             if.bind="data.ROList">
