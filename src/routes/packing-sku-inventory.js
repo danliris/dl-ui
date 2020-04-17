@@ -210,7 +210,18 @@ module.exports = [
         }
     },
     {
-       
+        route: 'packing-sku-inventory/shipping-area-note',
+        name: 'shipping-area-note',
+        moduleId: './modules/packing-sku-inventory/shipping-area-note/index',
+        nav: true,
+        title: 'Bon Shipping Area',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
         route: 'packing-sku-inventory/shipment-area-input',
         name: 'shipment-area-input',
         moduleId: './modules/packing-sku-inventory/shipment-area-input/index',
