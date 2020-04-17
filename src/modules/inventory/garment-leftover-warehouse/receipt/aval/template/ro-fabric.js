@@ -69,6 +69,7 @@ export class ro {
     }
 
     async selectedROChanged(newValue) {
+        this.data.FabricItems.splice(0);
         if (newValue) {
             this.data.RONo=newValue.RONo;
             Promise.resolve(this.garmentProductionService.getAvalProduct({ filter: JSON.stringify({RONo:this.data.RONo,UnitId: this.data.UnitId, "GarmentAvalProductItem.Any(IsReceived==false)":true})}))
