@@ -35,6 +35,7 @@
                         <th><label>Tgl Shipment</label></th>   
                         <th><label>Kode Barang</label></th>
                         <th><label>Keterangan</label></th>
+                        <th><label>Detail Barang</label></th>
                         <th><label>Quantity</label></th>
                         <th><label>Satuan Barang</label></th>
                         <th><label>Harga</label></th>
@@ -45,7 +46,7 @@
                 <tbody>
                     <!--No data to display-->
                     <tr if.bind="!tableData || tableData.length < 1">
-                        <td colspan="18">
+                        <td colspan="19">
                             <div class="alert alert-info"> Tidak ada data untuk ditampilkan. </div>
                         </td>
                     </tr>
@@ -128,6 +129,12 @@
                             <td width="30%">
                                 <au-textbox
                                     value.bind="tableData[index].Description"
+                                    read-only="true">
+                                </au-textbox>
+                            </td>
+                            <td width="30%">
+                                <au-textbox
+                                    value.bind="tableData[index].ProductRemark"
                                     read-only="true">
                                 </au-textbox>
                             </td>

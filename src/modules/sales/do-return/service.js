@@ -11,7 +11,7 @@ const buyerServiceUri = "master/buyers";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "production-azure");
+    super(http, aggregator, config, "sales");
   }
 
   search(info) {
