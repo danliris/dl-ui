@@ -27,11 +27,6 @@ export class DataForm {
         this.service = service;
     }
 
-    @computedFrom("data.id")
-    get isEdit() {
-        return (this.data.id || '').toString() != '';
-    }
-
     get NoBonLoader() {
         return BonLoader;
     }
@@ -60,8 +55,6 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-
-       
     }
 }
 
