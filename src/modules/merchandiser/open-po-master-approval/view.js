@@ -35,11 +35,14 @@ export class View {
 
             if (this.data.Items) {
                 switch (this.type) {
-                    case "md":
+                    case "kabag_md":
                         this.data.Items = this.data.Items.filter(i => i.IsOpenPO && !i.IsApprovedOpenPOMD);
                         break;
                     case "purchasing":
                         this.data.Items = this.data.Items.filter(i => i.IsOpenPO && i.IsApprovedOpenPOMD && !i.IsApprovedOpenPOPurchasing);
+                        break;
+                    case "kadiv_md":
+                        this.data.Items = this.data.Items.filter(i => i.IsOpenPO && i.IsApprovedOpenPOMD && i.IsApprovedOpenPOPurchasing && !i.IsApprovedOpenPOKadivMd);
                         break;
                 }
     
@@ -66,7 +69,7 @@ export class View {
 
             const jsonPatch = [];
             switch (this.type) {
-                case "md":
+                case "kabag_md":
                     jsonPatch.push(
                         { op: "replace", path: `/IsApprovedOpenPOMD`, value: true },
                         { op: "replace", path: `/ApprovedOpenPOMDBy`, value: this.me.username },
@@ -81,6 +84,14 @@ export class View {
                         { op: "replace", path: `/ApprovedOpenPOPurchasingDate`, value: new Date() },
                     );
                     ids = (this.data.Items || []).filter(i => i.IsOpenPO && i.IsApprovedOpenPOMD && !i.IsApprovedOpenPOPurchasing).map(i => i.Id);
+                    break;
+                case "kadiv_md":
+                    jsonPatch.push(
+                        { op: "replace", path: `/IsApprovedOpenPOKadivMd`, value: true },
+                        { op: "replace", path: `/ApprovedOpenPOKadivMdBy`, value: this.me.username },
+                        { op: "replace", path: `/ApprovedOpenPOKadivMdDate`, value: new Date() },
+                    );
+                    ids = (this.data.Items || []).filter(i => i.IsOpenPO && i.IsApprovedOpenPOMD && i.IsApprovedOpenPOPurchasing && !i.IsApprovedOpenPOKadivMd).map(i => i.Id);
                     break;
             }
 
