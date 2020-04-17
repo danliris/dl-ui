@@ -38,7 +38,7 @@ export class DataForm {
     get isEdit() {
         return (this.data.id || '').toString() != '';
     }
-    imQuery = {"IsChecked" : true}
+    imQuery = { "IsChecked": true }
     get inspectionAreaLoader() {
         return InspectionAreaLoader;
     }
@@ -81,20 +81,23 @@ export class DataForm {
     @bindable selectedInspectionMaterial;
     @bindable balance;
     selectedInspectionMaterialChanged(n, o) {
-        this.data.inspectionAreaId = this.selectedInspectionMaterial.id;
-        this.data.bonNo = this.selectedInspectionMaterial.bonNo;
-        this.data.productionOrderNo = this.selectedInspectionMaterial.productionOrderNo;
-        this.data.cartNo = this.selectedInspectionMaterial.cartNo;
-        this.data.unit = this.selectedInspectionMaterial.unitName;
-        this.data.material = this.selectedInspectionMaterial.materialName;
-        this.data.materialConstruction = this.selectedInspectionMaterial.materialConstructionName;
-        this.isPrinting = this.data.unit === "PRINTING";
-        this.data.materialWidth = this.selectedInspectionMaterial.materialWidth;
-        this.data.uomUnit = this.selectedInspectionMaterial.uomUnit;
-        this.balance = this.selectedInspectionMaterial.balance;
-        this.data.color = this.selectedInspectionMaterial.color;
-        this.data.motif = this.selectedInspectionMaterial.motif;
-        this.data.balance = this.balance;
+        if (this.selectedInspectionMaterial) {
+            this.data.inspectionAreaId = this.selectedInspectionMaterial.id;
+            this.data.bonNo = this.selectedInspectionMaterial.bonNo;
+            this.data.productionOrderNo = this.selectedInspectionMaterial.productionOrderNo;
+            this.data.cartNo = this.selectedInspectionMaterial.cartNo;
+            this.data.unit = this.selectedInspectionMaterial.unitName;
+            this.data.material = this.selectedInspectionMaterial.materialName;
+            this.data.materialConstruction = this.selectedInspectionMaterial.materialConstructionName;
+            this.isPrinting = this.data.unit === "PRINTING";
+            this.data.materialWidth = this.selectedInspectionMaterial.materialWidth;
+            this.data.uomUnit = this.selectedInspectionMaterial.uomUnit;
+            this.balance = this.selectedInspectionMaterial.balance;
+            this.data.color = this.selectedInspectionMaterial.color;
+            this.data.motif = this.selectedInspectionMaterial.motif;
+            this.data.balance = this.balance;
+        }
+
     }
 }
 
