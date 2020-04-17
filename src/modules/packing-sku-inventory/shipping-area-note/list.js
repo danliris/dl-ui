@@ -41,10 +41,8 @@ export class List {
   listDataFlag = false;
   zone = null;
   date = null;
-  group = null;
   mutation = null;
 
-  groups = ["", "PAGI", "SIANG"];
   mutations = ["", "AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
   zones = ["", "IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
 
@@ -56,44 +54,48 @@ export class List {
       }
     },
     {
-      field: "group",
-      title: "Group"
+      field: "deliveryOrderSalesNo ",
+      title: "No. DO"
     },
     {
       field: "bonNo",
       title: "No. Bon"
     },
     {
-      field: "unit",
-      title: "Unit"
-    },
-    {
-      field: "mutation",
-      title: "Mutasi"
-    },
-    {
       field: "productionOrderNo",
       title: "No. SPP"
     },
     {
-      field: "cartNo",
-      title: "No. Kereta"
+      field: "construction",
+      title: "Konstruksi"
     },
     {
-      field: "productionOrderType",
-      title: "Jenis"
+      field: "motif",
+      title: "Motif"
     },
     {
-      field: "productionOrderQuantity",
-      title: "Qty"
+      field: "color",
+      title: "Warna"
     },
     {
-      field: "uomUnit",
-      title: "Satuan"
+      field: "grade",
+      title: "Grade"
     },
     {
-      field: "massKg",
-      title: "KG"
+      field: "packagingQty",
+      title: "Qty Packing"
+    },
+    {
+      field: "packagingUnit",
+      title: "Packing"
+    },
+    {
+      field: "mtrLength",
+      title: "MTR"
+    },
+    {
+      field: "ydsLength",
+      title: "YDS"
     }
   ];
 
@@ -129,18 +131,17 @@ export class List {
 
     this.info = {};
     var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
-    return this.listDataFlag ? (
-
-      this.service.getReport(searchDate, this.group, this.mutation, this.zone)
+    return this.listDataFlag ?
+      // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
+      this.service.getReport(searchDate, this.mutation, this.zone)
       .then((result) => {
         return {
           data: result
-        }
-      })
-    ) : {
-      total: 0,
-      data: {}
-    };
+        };
+      }) : {
+        data: {},
+        total: 0
+      };
   }
 
   searching() {
@@ -153,7 +154,6 @@ export class List {
   reset() {
     this.listDataFlag = false;
     this.date = null;
-    this.group = null;
     this.mutation = null;
     this.zone = null;
     this.error = '';
