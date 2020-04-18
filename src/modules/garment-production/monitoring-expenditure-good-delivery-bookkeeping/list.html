@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Monitoring Sewing</h1>
+      <h1 class="page-header">Monitoring Bon Pengiriman Barang Jadi</h1>
   
       <form class="form-horizontal">
         <au-autocomplete 
@@ -40,34 +40,32 @@
       <table class="table table-bordered table-hover" border="1" id="myTable">
           <thead align="center">
               <tr>
-                  <td>NO RO JOB</td>
-                  <td>ARTICLE</td>
-                  <td>KODE BUYER</td>
-                  <td>QTY ORDER</td>
-                  <td>STYLE</td>
-                  <td>HARGA (M)</td>
-                  <td>STOCK AWAL</td>
-                  <td>HASIL SEWING</td>
-                  <td>BARANG KELUAR</td>
-                  <td>SISA</td>
-                  <td>SATUAN</td>
+                  <td>NO BON</td>
+                  <td>TIPE PENGELUARAN</td>
+                  <td>TGL</td>
+                  <td>RO</td>
+                  <td>BUYER & ARTICLE</td>
+                  <td>COLOUR</td>
+                  <td>NAMA</td>
+                  <td>HARGA (PCS)</td>
+                  <td>QTY</td>
+                  <td>INVOICE</td>
               </tr>
           </thead>
    
           <tbody>
               <require from="../../../lib/number-format-value-converter"></require>
               <tr repeat.for="item of data">
-                  <td class="text-center">${item.roJob}</td>
-                  <td class="text-center">${item.article}</td>
-                  <td class="text-center">${item.buyerCode}</td>
-                  <td class="text-right">${item.qtyOrder}</td>
-                  <td class="text-center">${item.style}</td>
+                  <td class="text-left">${item.expenditureGoodNo}</td>
+                  <td class="text-left">${item.expenditureGoodType}</td>
+                  <td class="text-left">${item.expenditureDate}</td>
+                  <td class="text-center">${item.roNo}</td>
+                  <td class="text-left">${item.buyerArticle}</td>
+                  <td class="text-left">${item.colour}</td> 
+                  <td class="text-left">${item.name}</td>
                   <td class="text-right">${item.price}</td>
-                  <td class="text-right">${item.stock}</td>
-                  <td class="text-right">${item.loadingQtyPcs}</td> 
-                  <td class="text-right">${item.sewingOutQtyPcs}</td>
-                  <td class="text-right">${item.remainQty}</td>
-                  <td class="text-center">${item.uomUnit}</td>
+                  <td class="text-right">${item.qty}</td>
+                  <td class="text-left">${item.invoice}</td>
               </tr>
           </tbody>
       </table>
