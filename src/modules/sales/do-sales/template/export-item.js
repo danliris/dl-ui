@@ -9,8 +9,6 @@ export class ExportItem {
         this.options = context.options;
         this.WeightUom = context.context.options.WeightUom;
 
-        console.log("this.WeightUom " + this.WeightUom);
-
         if (!this.data.Packing) {
             this.data.Packing = 0;
         }

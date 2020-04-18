@@ -158,6 +158,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/aval-area-input',
+        name: 'aval-area-input',
+        moduleId: './modules/packing-sku-inventory/aval-area-input/index',
+        nav: true,
+        title: 'Penerimaan Aval Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/aval-area-note',
         name: 'aval-area-note',
         moduleId: './modules/packing-sku-inventory/aval-area-note/index',
@@ -171,7 +184,6 @@ module.exports = [
         }
     },
     {
-       
         route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
         name: 'dyeing-printing-accepting-packaging',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
@@ -190,6 +202,31 @@ module.exports = [
         moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
         nav: true,
         title: 'Saldo IM',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/shipping-area-note',
+        name: 'shipping-area-note',
+        moduleId: './modules/packing-sku-inventory/shipping-area-note/index',
+        nav: true,
+        title: 'Bon Shipping Area',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },{
+        route: 'packing-sku-inventory/shipment-area-input',
+        name: 'shipment-area-input',
+        moduleId: './modules/packing-sku-inventory/shipment-area-input/index',
+        nav: true,
+        title: 'Penerimaan Shipment Area Dyeing Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

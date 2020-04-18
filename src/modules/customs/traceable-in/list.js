@@ -122,13 +122,14 @@ export class List {
                         var PEBDate = _data.PEBDate.toString();
                         var EksporQty = _data.EksporQty.toString();
                         var SampleQty = _data.SampleQty.toString();
+                        var Sisa = _data.Sisa.toString();
 
                         _data.PEBDate = moment(_data.PEBDate).format("DD MMM YYYY") == "01 Jan 1970" ? "-" : moment(_data.PEBDate).format("DD MMM YYYY")
-                        if(!rowDoc[invo + EksporQty + BjQty + proQty]){
-                            rowDoc[invo + EksporQty + BjQty + proQty]=1;
+                        if(!rowDoc[invo + EksporQty + BjQty + proQty + po]){
+                            rowDoc[invo + EksporQty + BjQty + proQty + po]=1;
                         }
                         else{
-                            rowDoc[invo + EksporQty + BjQty + proQty]++;
+                          rowDoc[invo + EksporQty + BjQty + proQty + po]++;
                         }
                         if (!rowDoc[PEB+invo+ROJob+doc+bon+bc+po]){
                             rowDoc[PEB + invo + ROJob + doc + bon + bc + po]=1
@@ -144,20 +145,20 @@ export class List {
                         else {
                             rowDoc[PEB + invo]++
                         }
-                        if (!rowDoc[ROJob + BjQty + proQty]){
-                            rowDoc[ROJob + BjQty + proQty] = 1
+                        if (!rowDoc[ROJob + invo + po]){
+                            rowDoc[ROJob + invo + po] = 1
                         }else{
-                            rowDoc[ROJob + BjQty + proQty]++
+                            rowDoc[ROJob + invo + po]++
                         }
-                        if (!rowDoc[doc + bc + bon + PEB + invo]) {
-                            rowDoc[doc + bc + bon + PEB + invo] = 1
+                        if (!rowDoc[doc + bc + bon]) {
+                            rowDoc[doc + bc + bon] = 1
                         } else {
-                            rowDoc[doc + bc + bon + PEB + invo]++
+                            rowDoc[doc + bc + bon]++
                         }
-                        if (!rowDoc[po + ic + iname + satreceipt + buk + QtyBuk]){
-                            rowDoc[po + ic + iname + satreceipt + buk + QtyBuk ] = 1
+                      if (!rowDoc[po + ic + iname + satreceipt + buk + QtyBuk + bon + Sisa]){
+                            rowDoc[po + ic + iname + satreceipt + buk + QtyBuk + bon + Sisa] = 1
                         }else{
-                            rowDoc[po + ic + iname + satreceipt + buk + QtyBuk]++
+                            rowDoc[po + ic + iname + satreceipt + buk + QtyBuk + bon + Sisa]++
                         }
                         if (!rowDoc[bon + po + ic + iname + satreceipt]) {
                             rowDoc[bon + po + ic + iname + satreceipt] = 1
@@ -188,27 +189,27 @@ export class List {
                             //console.log(rowDoc[b.BCNo + b.BCType + b.BonNo])
                             bcno2.bcnospan = rowDoc[b.PEB + b.Invoice];
                         }
-                        let ro = result.data.find(o => o.ROJob + o.BJQty + o.ProduksiQty == b.ROJob + b.BJQty + b.ProduksiQty)
+                        let ro = result.data.find(o => o.ROJob + o.Invoice + o.PO == b.ROJob + b.Invoice + b.PO)
                         if(ro){
-                            ro.rospan = rowDoc[b.ROJob + b.BJQty + b.ProduksiQty];
+                            ro.rospan = rowDoc[b.ROJob + b.Invoice + b.PO];
                         }
-                        let bcdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PEB + o.Invoice== b.BCNo + b.BCType + b.BonNo + b.PEB + b.Invoice)
+                        let bcdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo== b.BCNo + b.BCType + b.BonNo)
                         if (bcdoc) {
-                            bcdoc.bcdocspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PEB + b.Invoice];
+                            bcdoc.bcdocspan = rowDoc[b.BCNo + b.BCType + b.BonNo];
                         }
-                        let po = result.data.find(o => o.PO + o.ItemCode + o.ItemName + o.SatuanReceipt + o.QtyBUK + o.BUK == b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt + b.QtyBUK + b.BUK )
+                      let po = result.data.find(o => o.PO + o.ItemCode + o.ItemName + o.SatuanReceipt + o.QtyBUK + o.BUK + o.BonNo + o.Sisa == b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt + b.QtyBUK + b.BUK + b.BonNo + b.Sisa)
                         if(po){
-                            po.docspanpo = rowDoc[b.PO + b.ItemCode + b.ItemName  + b.SatuanReceipt + b.BUK +b.QtyBUK]
+                            po.docspanpo = rowDoc[b.PO + b.ItemCode + b.ItemName  + b.SatuanReceipt + b.BUK +b.QtyBUK + b.BonNo + b.Sisa]
                         }
-                        let ekspor = result.data.find(o=>o.Invoice + o.EksporQty + o.BJQty + o.ProduksiQty == b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty)
+                        let ekspor = result.data.find(o=>o.Invoice + o.EksporQty + o.BJQty + o.ProduksiQty + o.PO == b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty + b.PO)
                         if(ekspor){
-                            ekspor.docsekspor = rowDoc[b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty]
+                            ekspor.docsekspor = rowDoc[b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty + b.PO]
                         }
                         let bukspan = result.data.find(o => o.BonNo + o.PO + o.ItemCode + o.ItemName + o.SatuanReceipt == b.BonNo + b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt)
                        // console.log(bukspan)
                         if(bukspan){
                             //console.log(b.BUK + b.QtyBUK + b.PO)
-                            bukspan.docspanpo2 = rowDoc[b.BonNo + b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt]
+                          bukspan.docspanpo2 = rowDoc[b.BonNo + b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt]
                             //b.docspanbuk = rowDoc[b.BUK + b.QtyBUK + b.PO]
                         }
 
@@ -218,7 +219,7 @@ export class List {
                     //this.info.total= result.info.total;
                      this.data = result.data;
                      
-                     //console.log(this.data);
+                     console.log(this.data);
 
                  
                  
