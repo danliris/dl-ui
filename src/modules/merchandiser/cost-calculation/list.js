@@ -22,10 +22,10 @@ export class List {
         { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" },
-        { field: "IsApprovedMD", title: "Approval Kabag MD" },
+        { field: "IsApprovedMD", title: "Approval Kabag Md" },
         { field: "IsApprovedIE", title: "Approval IE" },
         { field: "IsApprovedPurchasing", title: "Approval Purchasing" },
-        { field: "IsApprovedKadivMD", title: "Approval Kadiv MD" },
+        { field: "IsApprovedKadivMD", title: "Approval Kadiv Md" },
     ];
 
     rowFormatter(data, index) {

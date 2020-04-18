@@ -25,7 +25,7 @@ export class List {
         { field: "UOMUnit", title: "Satuan" },
         { field: "CostCalculationGarment.IsValidatedROSample", title: "Approval Sample"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
-        { field: "CostCalculationGarment.IsValidatedROMD", title: "Approval Kabag MD"
+        { field: "CostCalculationGarment.IsValidatedROMD", title: "Approval Kabag Md"
             , formatter: (value) => value === true ? "SUDAH" : "BELUM"},
     ];
 
