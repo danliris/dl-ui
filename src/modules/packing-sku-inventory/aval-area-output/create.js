@@ -26,7 +26,7 @@ export class Create {
 
   BonNoChanged(newValue) {
     if (newValue.id) {
-      
+
     }
   }
 
@@ -48,11 +48,11 @@ export class Create {
       CreateData.Id = this.BonNo.id;
     }
 
-    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
-      CreateData.Shift = "";
-    } else {
-      CreateData.Shift = this.data.Shift;
-    }
+    // if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
+    //   CreateData.Shift = "";
+    // } else {
+    //   CreateData.Shift = this.data.Shift;
+    // }
 
     // if (this.Uom === undefined || this.Uom === null || this.Uom === "") {
     //   CreateData.UOMUnit = "";

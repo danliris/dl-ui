@@ -5,21 +5,21 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Penerimaan Gudang Aval - Dyeing & Printing"
+          title: "List Dokumen Keluar Aval - Dyeing & Printing"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Penerimaan Gudang Aval - Dyeing & Printing"
+          title: "Create: Dokumen Keluar Aval - Dyeing & Printing"
         },
         {
           route: 'view/:id',
           moduleId: './view',
           name: 'view',
           nav: false,
-          title: 'View: Penerimaan Gudang Aval - Dyeing & Printing'
+          title: 'View: Dokumen Keluar Aval - Dyeing & Printing'
         },
         // {
         //   route: 'edit/:id',

@@ -32,10 +32,10 @@ export class View {
     });
   }
 
-//   delete() {
-//     this.service.delete(this.data)
-//       .then(result => {
-//         this.list();
-//       });
-//   }
+  // delete() {
+  //   this.service.delete(this.data)
+  //     .then(result => {
+  //       this.list();
+  //     });
+  // }
 }

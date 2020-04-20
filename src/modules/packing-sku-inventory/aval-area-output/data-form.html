@@ -28,22 +28,6 @@
 
       <div class="row"
            style="white-space: nowrap;">
-        <div class="col-md-2">
-          <textbox label="Shift"
-                   read-only="true"
-                   style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-2">
-          <au-dropdown value.bind="data.Shift"
-                       error.bind="error.Shift"
-                       read-only.bind="readOnly"
-                       items.bind="shifts">
-          </au-dropdown>
-        </div>
-      </div>
-
-      <div class="row"
-           style="white-space: nowrap;">
         <div class="col-md-2"
              style="text-align:left;">
           <textbox label="No. Bon"
@@ -62,6 +46,22 @@
       </div>
 
       <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Zona"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown value.bind="data.Area"
+                       error.bind="error.Area"
+                       read-only.bind="readOnly"
+                       items.bind="areas">
+          </au-dropdown>
+        </div>
+      </div>
+
+      <div class="row"
            style="white-space: nowrap; overflow: auto;">
         <au-collection items.bind="DyeingPrintingItems"
                        add.bind="addItems"
@@ -69,7 +69,7 @@
                        errors.bind="error.DyeingPrintingItems"
                        columns.bind="dyeingPrintingItemsColumns"
                        read-only.bind="readOnly"
-                       item-template="modules/packing-sku-inventory/aval-area-input/templates/items">
+                       item-template="modules/packing-sku-inventory/aval-area-output/templates/items">
         </au-collection>
       </div>
 

@@ -41,7 +41,7 @@ import {
       return InspectionMaterialLoader;
     }
   
-    shifts = ["", "PAGI", "SIANG"];
+    areas = ["", "IM", "TRANSIT", "PACKING", "GUDANG BARANG JADI", "SHIPPING"];
 
     dyeingPrintingItemsColumns = [
       {
