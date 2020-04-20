@@ -54,6 +54,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                this.totalQuantity=result.info.totalQty;
                 return {
                     total: result.info.count,
                     data: result.data

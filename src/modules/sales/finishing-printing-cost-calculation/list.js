@@ -20,7 +20,7 @@ export class List {
         { field: "PreSalesContract.Unit.Name", title: "Unit" },
         { field: "PreSalesContract.OrderQuantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" },
-        { field: "IsApprovedMD", title: "Approval MD" },
+        { field: "IsApprovedMD", title: "Approval Md" },
         { field: "IsApprovedPPIC", title: "Approval PPIC" },
     ];
 
