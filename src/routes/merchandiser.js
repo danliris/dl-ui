@@ -60,7 +60,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kabag MD',
+        title: 'Approval PR Master - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -88,7 +88,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kadiv MD',
+        title: 'Approval PR Master - Kadiv Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -254,7 +254,7 @@ module.exports = [
         name: 'ro-validation-kabagmd',
         moduleId: './modules/merchandiser/ro-validation/index',
         nav: true,
-        title: 'Validasi RO - Kabag MD',
+        title: 'Validasi RO - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",

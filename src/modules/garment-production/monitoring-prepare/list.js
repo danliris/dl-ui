@@ -26,7 +26,13 @@ export class List {
                 this.data=[];
                 console.log(result);
                 for(var _data of result){
-                      
+                    _data.stock=_data.stock.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.receipt=_data.receipt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.mainFabricExpenditure=_data.mainFabricExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.nonMainFabricExpenditure=_data.nonMainFabricExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.expenditure=_data.expenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.aval=_data.aval.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+                    _data.remainQty=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
                     this.data.push(_data);
 
                  }

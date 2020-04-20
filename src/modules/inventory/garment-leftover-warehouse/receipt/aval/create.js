@@ -31,6 +31,12 @@ export class Create {
         var dataSave=this.data;
         if(this.data.AvalType=="AVAL FABRIC"){
             for(var item of this.data.ROList){
+                var saved= item.FabricItems.find(a=>a.IsSave==true);
+                if(!saved){
+                    var notItem={};
+                    notItem.RONo="error";
+                    Items.push(notItem);
+                }
                 for(var detail of item.FabricItems){
                     var itemSave={};
                     if(detail.IsSave){

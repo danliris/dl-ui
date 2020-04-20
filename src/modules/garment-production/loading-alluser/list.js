@@ -55,7 +55,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                
+                this.totalQuantity=result.info.totalQty;
                 result.data.forEach(d => {
                     d.UnitName=d.Unit.Name;
                     d.UnitFromName=d.UnitFrom.Name;
