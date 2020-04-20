@@ -105,9 +105,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/transit-area-note',
-        name: 'transit-area-note',
-        moduleId: './modules/packing-sku-inventory/transit-area-note/index',
+        route: 'packing-sku-inventory/transit-area-output',
+        name: 'transit-area-output',
+        moduleId: './modules/packing-sku-inventory/transit-area-output/index',
         nav: true,
         title: 'Bon Transit Area Dyeing/Printing',
         auth: true,
@@ -126,7 +126,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -205,7 +205,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
