@@ -9,11 +9,13 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
+    readOnlyNoBon =true;
     async activate(params) {
+        
         var id = params.id;
         this.data = await this.service.getById(id);
-        //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
+        this.selectedBon = this.data;
+        // this.context.selectedBon = this.data;
         this.canEdit=true;
         
     }

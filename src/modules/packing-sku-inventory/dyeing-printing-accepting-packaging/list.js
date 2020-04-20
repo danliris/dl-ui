@@ -61,9 +61,6 @@ export class List {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
-            case "print":
-                this.service.getPdfById(data.id);
-                break;
         }
     }
 

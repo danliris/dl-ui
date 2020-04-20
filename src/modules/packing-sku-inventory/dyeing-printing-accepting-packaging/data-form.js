@@ -30,25 +30,39 @@ export class DataForm {
     get NoBonLoader() {
         return BonLoader;
     }
-    
-    bonBind(){
-        console.log(this.context);
+    packUnitData = ["","PACK","PIECE","POTONGAN"];
+
+    // bonBind(){
         
-        this.data = this.context.selectedNoBon;
-    //     this.data.saldo = this.saldoValue;
-    //     this.data.grade = this.selectedBon.grade;
-        console.log(this.data);
-    }
-    setBalance(context){
-        console.log(context);
-        this.data.saldo = context.saldo;
-    }
+    //     this.data = this.context.selectedNoBon;
+    //     this.data.packagingQty = this.packQtyValue;
+    //     this.data.packagingUnit = this.packUnitValue;
+
+    //     this.data.area = "PACK";
+    //     console.log(this.data);
+    // }
+    // setPackQty(){
+    //     this.data.packagingQty = this.packQtyValue;
+    //     console.log(this.data);
+    // }
+
+    // setUnitQty(){
+    //     this.data.packagingUnit = this.packUnitValue;
+    //     console.log(this.data);
+    // }
 
     bind(context) {
         this.context = context;
-        this.data = this.context.data;
-
-        this.data.area = "PACK";
+        // this.data = this.context.data;
+        
+        if(this.data){
+            
+            this.selectedNoBon = this.data;
+            this.context.selectedBon = this.data;
+            this.context.packQtyValue = this.data.packagingQty;
+            this.context.packUnitValue = this.data.packagingUnit;
+            // console.log(this);
+        }
 
         this.error = this.context.error;
         this.cancelCallback = this.context.cancelCallback;

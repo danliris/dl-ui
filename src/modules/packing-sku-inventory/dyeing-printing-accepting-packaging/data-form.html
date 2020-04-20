@@ -4,8 +4,8 @@
     <div class="col-md-6">
       <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-autocomplete value.bind="selectedNoBon" label="No Bon" read-only.bind="readOnly"
-          error.bind="error.NoBon" loader.bind="NoBonLoader" text="noBon" change.delegate="bonBind()">
+        <au-autocomplete value.bind="selectedNoBon" label="No Bon" read-only.bind="readOnlyNoBon"
+          error.bind="error.NoBon" loader.bind="NoBonLoader" text="noBon" >
         </au-autocomplete>
 
         <au-textbox label="No. SPP" value.bind="selectedNoBon.noSpp.no" error.bind="error.noSpp" read-only.bind="true">
@@ -23,14 +23,20 @@
         <au-textbox label="Warna" value.bind="selectedNoBon.warna" error.bind="error.warna" read-only.bind="true">
         </au-textbox>
 
-        <au-textbox label="Grade" value.bind="selectedNoBon.grade" error.bind="error.grade" change.delegate="setGrade()" read-only.bind="false">
+        <au-textbox label="Grade" value.bind="selectedNoBon.grade" error.bind="error.grade" read-only.bind="true">
         </au-textbox>
 
         <au-textbox label="Satuan" value.bind="selectedNoBon.satuan" error.bind="error.satuan" read-only.bind="true">
         </au-textbox>
 
-        <au-numeric label="Saldo" format="0" value.bind="saldoValue" error.bind="error.saldoValue"
-          read-only.bind="false" change.delegate="setBalance(context)"></au-numeric>
+        <au-numeric label="Saldo" format="0" value.bind="selectedNoBon.saldo" error.bind="error.saldoValue"
+          read-only.bind="true"></au-numeric>
+
+        <au-numeric label="QTY Packaging" format="0" value.bind="packQtyValue" error.bind="error.packagingQty"
+          read-only.bind="readOnly" ></au-numeric>
+
+        <au-dropdown label="Packaging" value.bind="packUnitValue" error.bind="error.packagingUnit" read-only.bind="readOnly"
+          items.bind="packUnitData" c></au-dropdown>
 
         <template replaceable part="actions"></template>
       </au-input-form>
