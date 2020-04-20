@@ -16,19 +16,7 @@ export class List {
             }
         },
         { field: "bonNo", title: "No. Bon" },
-        { field: "shift", title: "Shift" },
-        { field: "productionOrderNo", title: "No. SPP" },
-        { field: "cartNo", title: "No. Kereta" },
-        { field: "unitName", title: "Unit" },
-        { field: "materialName", title: "Material" },
-        { field: "materialConstructionName", title: "Konstruksi Material" },
-        { field: "materialWidth", title: "Lebar Material" },
-        { field: "color", title: "Warna" },
-        { field: "motif", title: "Motif" },
-        { field: "remark", title: "Keterangan" },
-        { field: "meterLength", title: "Mtr" },
-        { field: "yardsLength", title: "Yds" },
-        { field: "balance", title: "Saldo" }
+        { field: "shift", title: "Shift" }
     ];
 
     loader = (info) => {
