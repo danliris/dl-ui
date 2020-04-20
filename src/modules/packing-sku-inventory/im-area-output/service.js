@@ -1,5 +1,5 @@
 import { RestService } from '../../../utils/rest-service';
-const serviceUri = 'inspection-material';
+const serviceUri = 'output-inspection-material';
 const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 
@@ -35,6 +35,13 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    generateExcel(id) {
+        
+        var endpoint = `${serviceUri}/xls/${id}`;
+       
+        return super.getXls(endpoint);
     }
 
     // getSPPbySC(no, select) {

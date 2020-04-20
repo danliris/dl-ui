@@ -52,9 +52,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-material',
-        name: 'inspection-material',
-        moduleId: './modules/packing-sku-inventory/inspection-material/index',
+        route: 'packing-sku-inventory/im-area-input',
+        name: 'im-area-input',
+        moduleId: './modules/packing-sku-inventory/im-area-input/index',
         nav: true,
         title: 'Inspection Material Dyeing/Printing',
         auth: true,
@@ -79,9 +79,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-document-report',
+        route: 'packing-sku-inventory/im-area-output',
         name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        moduleId: './modules/packing-sku-inventory/im-area-output/index',
         nav: true,
         title: 'Bon Inspection Material Dyeing/Printing',
         auth: true,

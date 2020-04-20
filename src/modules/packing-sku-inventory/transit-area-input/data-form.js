@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 
-let InspectionAreaLoader = require("../../../loader/inspection-material-loader");
+let InspectionAreaLoader = require("../../../loader/input-inspection-material-loader");
 
 import UnitLoader from "../../../loader/unit-loader";
 export class DataForm {
