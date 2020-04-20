@@ -22,7 +22,7 @@
 
         <au-dropdown
             label="Tipe Aval"
-            value.bind="data.AvalType"
+            value.bind="selectedType"
             error.bind="error.AvalType"
             read-only.bind="readOnly || isEdit"
             items.bind="avalTypes"
@@ -55,16 +55,28 @@
                 add.bind="addItems" 
                 remove.bind="removeItems"
                 options.bind="Options"
-                show.bind="data.UnitFrom"
+                show.bind="data.UnitFrom && isFabric"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/ro-fabric">
+        </au-collection>
+
+        <au-collection 
+                items.bind="data.Items" 
+                errors.bind="error.Items" 
+                columns.bind="accItemsColumns"
+                read-only.bind="readOnly || isEdit" 
+                add.bind="addItemsAcc" 
+                remove.bind="removeItems"
+                options.bind="Options"
+                show.bind="isAccessories"
+                item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/accessories-item">
         </au-collection>
 
         <au-numeric 
             label="TOTAL AVAL FABRIC (MTR)" 
-            value.bind="totalQuantity" 
+            value.one-way="totalQuantity" 
             read-only.bind="true"
             options.bind="footerOptions"
-            if.bind="data.ROList">
+            if.bind="isFabric">
         </au-numeric>
         <au-numeric 
             label="TOTAL AVAL FABRIC (KG)" 
@@ -72,7 +84,7 @@
             error.bind="error.TotalAval"
             read-only.bind="readOnly"
             options.bind="footerOptions"
-            if.bind="data.ROList">
+            show.bind="isFabric">
         </au-numeric>
     </au-input-form>
 </template>
