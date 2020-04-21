@@ -45,31 +45,9 @@ export class Service extends RestService {
   }
 }
 
-export class ServiceSales extends RestService {
+export class ServiceFinishingPrinting extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "sales");
-  }
-
-  searchSalesContract(info) {
-    var endpoint = `${salesContractServiceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  getSalesContractById(id, select) {
-    var endpoint = `${salesContractServiceUri}/${id}`;
-    var info = { select: select };
-    return super.get(endpoint, null, info);
-  }
-
-  getProductionOrderBySalesContractNo(salesContractNo) {
-    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractNo}`;
-    return super.list(endpoint);
-  }
-}
-
-export class ServiceCore extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "core");
+    super(http, aggregator, config, "productionAzure");
   }
 
   searchBuyer(info) {

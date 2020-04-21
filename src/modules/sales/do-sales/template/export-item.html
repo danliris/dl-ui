@@ -1,7 +1,8 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder" read-only.bind="true">
+            <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder"
+                read-only.bind="true">
             </au-textbox>
         </td>
         <td>
@@ -22,13 +23,11 @@
                 placeholder="Input Jenis / Code"></au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Packing" error.bind="error.Packing" format="0,0"
-                read-only.bind="readOnly">
+            <au-numeric value.bind="data.Packing" error.bind="error.Packing" format="0,0" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="Weight" error.bind="error.Weight" format="0,0.00"
-                read-only.bind="readOnly">
+            <au-numeric value.bind="Weight" error.bind="error.Weight" format="0,0.00" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>

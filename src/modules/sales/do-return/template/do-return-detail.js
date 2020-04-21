@@ -5,12 +5,12 @@ import { Service } from './../service';
 var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 
 @inject(Service, BindingEngine, BindingSignaler)
-export class ReturnItem {
+export class DoReturnDetail {
 
     returntOptions = {};
 
     returnDetailsInfo = {
-        columns: ["Ex. DO Penjualan"],
+        columns: ["No. Bon Pengiriman Barang"],
         onRemove: function () {
             this.context.ReturnDetailsCollection.bind();
         }.bind(this)
@@ -31,6 +31,7 @@ export class ReturnItem {
             this.data.SalesInvoiceId = null;
             this.data.SalesInvoiceNo = null;
         }
+        console.log(this.selectedSalesInvoice)
     }
 
     get salesInvoiceLoader() {

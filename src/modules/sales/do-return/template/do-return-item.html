@@ -11,14 +11,11 @@
         </td>
         <td>
             <au-textbox value.bind="data.Quantity" read-only.bind="true"></au-textbox>
+            <au-textbox value.bind="data.QuantityUOM" read-only.bind="true" show.bind="!data.QuantityUOM">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.PackingUom" read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric value.bind="Total" error.bind="error.Total" read-only.bind="true" format="0,0">
+            <au-numeric value.bind="Total" read-only.bind="true" format="0,0">
             </au-numeric>
         </td>
         <td>
