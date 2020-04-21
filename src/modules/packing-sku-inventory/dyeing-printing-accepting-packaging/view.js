@@ -13,7 +13,7 @@ export class View {
     async activate(params) {
         
         var id = params.id;
-        this.data = await this.service.getById(id);
+        this.data = await this.service.getDummy(id);
         this.selectedBon = this.data;
         // this.context.selectedBon = this.data;
         this.canEdit=true;

@@ -188,7 +188,20 @@ module.exports = [
         name: 'dyeing-printing-accepting-packaging',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
         nav: true,
-        title: 'Penerimaan Packing Area Dyeing Printing',
+        title: 'Penerimaan Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-packaging-note',
+        name: 'dyeing-printing-packaging-note',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-packaging-note/index',
+        nav: true,
+        title: 'Dokumen Keluar Packaging Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

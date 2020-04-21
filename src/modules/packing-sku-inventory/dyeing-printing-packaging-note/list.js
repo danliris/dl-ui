@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    // context = ["detail"]
+    context = ["detail"]
 
     columns = [
         {
@@ -24,6 +24,8 @@ export class List {
         { field: "warna", title: "Warna" },
         { field: "motif", title: "Motif" },
         { field: "grade", title: "Grade" },
+        { field: "qtyPackaging", title: "Qty Packaging" },
+        { field: "unitPackaging", title: "Packaging" },
         { field: "mtr", title: "Mtr" },
         { field: "yds", title: "Yds" },
         { field: "saldo", title: "Saldo" },

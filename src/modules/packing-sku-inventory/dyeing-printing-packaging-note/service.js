@@ -1,5 +1,5 @@
 import { RestService } from '../../../utils/rest-service';
-const serviceUri = 'dyeing-printing-accepting-packaging';
+const serviceUri = 'dyeing-printing-packaging-note';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
