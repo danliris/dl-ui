@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
-let InspectionAreaLoader = require("../../../loader/output-inspection-material-loader");
+
+let InspectionAreaLoader = require("../../../loader/input-inspection-material-loader");
 
 @inject(Service)
 export class DataForm {
@@ -22,9 +23,10 @@ export class DataForm {
             length: 4,
         },
     };
-    imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. SPP", "No. Kereta","Buyer", "Material", "Unit",  "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
     shifts = ["PAGI", "SIANG"];
+    detailOptions = {};
+    destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
@@ -37,7 +39,6 @@ export class DataForm {
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
-
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
@@ -47,7 +48,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
 
-        this.data.area = "TRANSIT";
+        this.data.area = "INSPECTION MATERIAL";
 
         this.error = this.context.error;
 
@@ -60,22 +61,28 @@ export class DataForm {
             this.selectedInspectionMaterial = {};
             this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         }
+
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders || [];
+        this.data.inspectionMaterialProductionOrders.push({})
     };
 
     @bindable selectedInspectionMaterial;
     selectedInspectionMaterialChanged(n, o) {
         if (this.selectedInspectionMaterial) {
-            this.data.outputInspectionMaterialId = this.selectedInspectionMaterial.id;
+            this.data.inputInspectionMaterialId = this.selectedInspectionMaterial.id;
             if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders;
+                this.data.inspectionMaterialProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders.filter(s => s.isChecked == true && s.hasOutputDocument == false);
             }
 
+            this.detailOptions.destinationArea = this.data.destinationArea;
         }
 
+    }
+
+    ExportToExcel() {
+        this.service.generateExcel(this.data.id);
     }
 }
 

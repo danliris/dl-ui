@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
-let InspectionAreaLoader = require("../../../loader/output-inspection-material-loader");
+
+let TransitAreaLoader = require("../../../loader/input-transit-loader");
 
 @inject(Service)
 export class DataForm {
@@ -22,16 +23,17 @@ export class DataForm {
             length: 4,
         },
     };
-    imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. SPP", "No. Kereta","Buyer", "Material", "Unit",  "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
     shifts = ["PAGI", "SIANG"];
+    detailOptions = {};
+    destinationAreas = ["GUDANG JADI"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
     }
 
-    get inspectionAreaLoader() {
-        return InspectionAreaLoader;
+    get transitAreaLoader() {
+        return TransitAreaLoader;
     }
 
     areaMovementTextFormatter = (areaInput) => {
@@ -60,6 +62,7 @@ export class DataForm {
             this.selectedInspectionMaterial = {};
             this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         }
+
     }
     addItemCallback = (e) => {
         this.data.transitProductionOrders = this.data.transitProductionOrders || [];
@@ -69,13 +72,18 @@ export class DataForm {
     @bindable selectedInspectionMaterial;
     selectedInspectionMaterialChanged(n, o) {
         if (this.selectedInspectionMaterial) {
-            this.data.outputInspectionMaterialId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders;
+            this.data.inputTransitId = this.selectedInspectionMaterial.id;
+            if (this.selectedInspectionMaterial.transitProductionOrders) {
+                this.data.transitProductionOrders = this.selectedInspectionMaterial.transitProductionOrders.filter(s => s.hasOutputDocument == false);
             }
 
+            this.detailOptions.destinationArea = this.data.destinationArea;
         }
 
+    }
+
+    ExportToExcel() {
+        this.service.generateExcel(this.data.id);
     }
 }
 

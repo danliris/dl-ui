@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'inspection-material';
+const resource = 'input-inspection-material';
 
 module.exports = function (keyword, filter) {
 

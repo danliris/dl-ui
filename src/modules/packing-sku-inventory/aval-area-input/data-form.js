@@ -3,7 +3,7 @@ import {
     bindable,
     computedFrom
   } from "aurelia-framework";
-  var InspectionMaterialLoader = require("../../../loader/inspection-material-loader");
+  var InspectionMaterialLoader = require("../../../loader/input-inspection-material-loader");
   var UomLoader = require("../../../loader/uom-loader");
   
   export class DataForm {
