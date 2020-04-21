@@ -15,29 +15,8 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "deliveryOrderSalesNo", title: "No. DO" },
         { field: "bonNo", title: "No. Bon" },
-        { field: "productionOrderNo", title: "No. SPP" },
-        { field: "buyerName", title: "Buyer" },
-        { field: "construction", title: "Material" },
-        { field: "motif", title: "Motif" },
-        { field: "color", title: "Warna" },
-        { field: "grade", title: "Grade" },
-        { field: "packingQty", title: "QTY" },
-        { field: "packingUom", title: "Packing" },
-        { field: "packingBalance", title: "QTY2" },
-        { field: "uomUnit", title: "Satuan" },
-        {
-            field: "meterLength", title: "Mtr", formatter: function (value, data, index) {
-                return Number(value).toFixed(2);
-            }
-        },
-        {
-            field: "yardsLength", title: "Yds", formatter: function (value, data, index) {
-                return Number(value).toFixed(2);
-            }
-        }
-
+        { field: "shift", title: "Shift" }
     ];
 
     loader = (info) => {
