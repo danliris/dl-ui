@@ -73,9 +73,58 @@ export class List {
         this.service.search(info)
             .then(result => {
                 this.data=[];
+                this.jan_qty =0 ;
+                this.feb_qty =0 ;
+                this.mar_qty =0 ;
+                this.apr_qty =0 ;
+                this.mei_qty =0 ;
+                this.jun_qty =0 ;
+                this.jul_qty=0;
+                this.aug_qty=0;
+                this.sep_qty=0;
+                this.oct_qty=0;
+                this.nov_qty=0;
+                this.dec_qty=0;
 
+                this.jan_nom =0 ;
+                this.feb_nom =0 ;
+                this.mar_nom =0 ;
+                this.apr_nom =0 ;
+                this.mei_nom =0 ;
+                this.jun_nom =0 ;
+                this.jul_nom=0;
+                this.aug_nom=0;
+                this.sep_nom=0;
+                this.oct_nom=0;
+                this.nov_nom=0;
+                this.dec_nom=0;
+                var subTotalSupplier1 = {};
                 for(var _data of result){
-                    
+                    this.jan_qty += _data.Qty_Jan;
+                    this.feb_qty += _data.Qty_Feb;
+                    this.mar_qty += _data.Qty_Mar;
+                    this.apr_qty += _data.Qty_Apr;
+                    this.mei_qty += _data.Qty_Mei;
+                    this.jun_qty += _data.Qty_Jun;
+                    this.jul_qty += _data.Qty_Jul;
+                    this.aug_qty += _data.Qty_Aug;
+                    this.sep_qty += _data.Qty_Sep;
+                    this.nov_qty += _data.Qty_Nov;
+                    this.dec_qty += _data.Qty_Dec;
+
+                    this.jan_nom += _data.Nominal_Jan;
+                    this.feb_nom += _data.Nominal_Feb;
+                    this.mar_nom += _data.Nominal_Mar;
+                    this.apr_nom += _data.Nominal_Apr;
+                    this.mei_nom += _data.Nominal_Mei;
+                    this.jun_nom += _data.Nominal_Jun;
+                    this.jul_nom += _data.Nominal_Jul;
+                    this.aug_nom += _data.Nominal_Aug;
+                    this.sep_nom += _data.Nominal_Sep;
+                    this.oct_nom += _data.Nominal_Oct;
+                    this.nov_nom += _data.Nominal_Nov;
+                    this.dec_nom += _data.Nominal_Dec;
+
                     _data.Qty_Jan=_data.Qty_Jan.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                     _data.Qty_Feb=_data.Qty_Feb.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                     _data.Qty_Mar=_data.Qty_Mar.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -103,13 +152,44 @@ export class List {
 
                     this.data.push(_data);
                 }
-                  console.log(this.data);
-                 
+
+                this.jan_qty = this.jan_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.feb_qty = this.feb_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.mar_qty = this.mar_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.apr_qty = this.apr_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.mei_qty = this.mei_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.jun_qty = this.jun_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.jul_qty = this.jul_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.aug_qty = this.aug_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.sep_qty = this.sep_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.oct_qty = this.oct_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.nov_qty = this.nov_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.dec_qty = this.dec_qty.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                this.jan_nom = this.jan_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.feb_nom = this.feb_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.mar_nom = this.mar_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.apr_nom = this.apr_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.mei_nom = this.mei_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.jun_nom = this.jun_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.jul_nom = this.jul_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.aug_nom = this.aug_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.sep_nom = this.sep_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.oct_nom = this.oct_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.nov_nom = this.nov_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                this.dec_nom = this.dec_nom.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                console.log(this.jan_qty);
+            
+                
                 
                
              })
+             
         }
     }
+
+    
 
     ExportToExcel() {
         {

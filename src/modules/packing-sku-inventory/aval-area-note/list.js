@@ -131,11 +131,8 @@ export class List {
     var searchDate = this.date ? moment(this.date).format("DD MMM YYYY HH:mm") : null;
     return this.listDataFlag ? (
 
-      // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
       this.service.getReport(searchDate, this.group, this.mutation, this.zone)
       .then((result) => {
-        // result = [];
-
         return {
           data: result
         }
@@ -160,6 +157,8 @@ export class List {
     this.mutation = null;
     this.zone = null;
     this.error = '';
+    
+    this.table.refresh();
   }
 
   ExportToExcel() {

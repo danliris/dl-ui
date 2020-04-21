@@ -6,7 +6,6 @@ export class ItemHeader {
       this.error = context.error;
       this.options = this.context.options;
       var count = 0;
-      console.log(this.columns)
       if(this.data.length>0){
         for(var item of this.data){
           if(item.data.IsSave == true){

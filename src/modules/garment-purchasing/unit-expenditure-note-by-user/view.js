@@ -52,8 +52,10 @@ export class View {
                 item.IsSave = true;
             }
         }
-        if(this.data.ExpenditureType === "EXTERNAL"){
-            this.hasDelete=false;
+        if(this.data.ExpenditureType === "EXTERNAL" ){
+            if(this.data.ExpenditureTo!="PENJUALAN"){
+                this.hasDelete=false;
+            }
             this.hasEdit=false;
         }
         if(this.data.IsPreparing){
@@ -90,6 +92,11 @@ export class View {
                     this.hasDelete = false;
                 }
             }
+        }
+
+        if(this.data.IsReceived){
+            this.hasEdit = false;
+            this.hasDelete = false;
         }
     }
 

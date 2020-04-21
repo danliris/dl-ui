@@ -4,8 +4,8 @@ import { Service, SalesService } from "./service";
 import { Dialog } from '../../../au-components/dialog/dialog';
 import { FabricGradeTestEditor } from './dialogs/fabric-grade-test-editor';
 
-let DyeingPrintingAreaMovementLoader = require("../../../loader/dyeing-printing-area-movement-loader");
-
+let InspectionMaterialLoader = require("../../../loader/input-inspection-material-loader");
+let InspectionMaterialSPPLoader = require("../../../loader/input-inspection-material-production-order-loader");
 @containerless()
 @inject(Service, Dialog, BindingSignaler, BindingEngine, SalesService)
 export class DataForm {
@@ -44,6 +44,8 @@ export class DataForm {
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
 
+    imSPPQuery = { "IsChecked": false };
+
     constructor(service, dialog, bindingSignaler, bindingEngine, salesService) {
         this.service = service;
         this.dialog = dialog;
@@ -73,18 +75,21 @@ export class DataForm {
         this.selectedPointLimit = this.data.pointLimit;
         this.selectedFabricGradeTest = this.data.fabricGradeTests.length > 0 ? this.data.fabricGradeTests[0] : null;
 
-        if(this.data.dyeingPrintingAreaMovementId){
-            this.selectedAreaMovement = {};
-            this.selectedAreaMovement.id =  this.data.dyeingPrintingAreaMovementId;
-            this.selectedAreaMovement.bonNo =  this.data.dyeingPrintingAreaMovementBonNo;
-            this.selectedAreaMovement.bonNo =  this.data.dyeingPrintingAreaMovementBonNo;
-            this.selectedAreaMovement.productionOrderId = this.data.productionOrderId;
-            this.selectedAreaMovement.cartNo = this.data.cartNo;
-            this.selectedAreaMovement.color = this.data.color;
-            this.selectedAreaMovement.uomUnit = this.data.uom;
-            this.selectedAreaMovement.shift = this.data.shiftIm;
+        if (this.data.inspectionMaterialId) {
+            this.selectedIM = {};
+            this.selectedIM.id = this.data.inspectionMaterialId;
+            this.selectedIM.bonNo = this.data.inspectionMaterialBonNo;
+            this.selectedIM.shift = this.data.shiftIm;
+
+            this.selectedIMSPP = {};
+            this.selectedIMSPP.productionOrder = {};
+            this.selectedIMSPP.productionOrder.id = this.data.productionOrderId;
+            this.selectedIMSPP.productionOrder.no = this.data.productionOrderNo;
+            this.selectedIMSPP.cartNo = this.data.cartNo;
+            this.selectedIMSPP.color = this.data.color;
+            this.selectedIMSPP.uomUnit = this.data.uom;
         }
-       
+
     }
 
     testo = (info) => {
@@ -157,14 +162,14 @@ export class DataForm {
     get sppNo() {
         if (!this.productionOrder)
             return "-";
-        return `${this.productionOrder.OrderNo} - ${this.selectedAreaMovement.cartNo}`
+        return `${this.productionOrder.OrderNo} - ${this.selectedIM.cartNo}`
     }
 
     @computedFrom("productionOrder.OrderQuantity", "productionOrder.Uom.Unit")
     get orderQuantity() {
         if (!this.productionOrder)
             return "-";
-        return `${this.productionOrder.OrderQuantity} ${this.selectedAreaMovement.uomUnit}`
+        return `${this.productionOrder.OrderQuantity} ${this.productionOrder.Uom.Unit}`
     }
 
     @computedFrom("productionOrder.packingInstruction")
@@ -174,18 +179,11 @@ export class DataForm {
         return `${this.productionOrder.PackingInstruction}`
     }
 
-    @computedFrom("selectedAreaMovement.color")
+    @computedFrom("selectedIMSPP.color")
     get colorRequest() {
-        if (!this.selectedAreaMovement)
+        if (!this.selectedIMSPP)
             return "-";
-        return `${this.selectedAreaMovement.color}`
-    }
-
-    @computedFrom("selectedAreaMovement.productionOrderNo")
-    get colorRequest() {
-        if (!this.selectedAreaMovement)
-            return "-";
-        return `${this.selectedAreaMovement.color}`
+        return `${this.selectedIMSPP.color}`
     }
 
     @computedFrom("data.pointSystem")
@@ -367,23 +365,23 @@ export class DataForm {
         }
     }
     __fabricGradeTestCreateCallback() {
-        if (!this.selectedAreaMovement) {
+        if (!this.selectedIM) {
             this.error = this.error || {};
-            this.error.DyeingPrintingAreaMovementBonNo = "Harap isi Bon No";
+            this.error.InspectionMaterialBonNo = "Harap isi Bon No";
         }
         else {
             this.error = this.error || {};
-            this.error.DyeingPrintingAreaMovementBonNo = null;
+            this.error.InspectionMaterialBonNo = null;
             this.__fabricGradeTestShowEditorDialog();
         }
     }
 
     __fabricGradeTestShowEditorDialog() {
-        if (this.selectedAreaMovement)
+        if (this.selectedIM)
             this.dialog.show(FabricGradeTestEditor)
                 .then(response => {
                     if (!response.wasCancelled) {
-                        this.selectedFabricGradeTest = new FabricGradeTest(this.selectedAreaMovement.productionOrderType);
+                        this.selectedFabricGradeTest = new FabricGradeTest(this.selectedIM.productionOrderType);
 
                         this.selectedFabricGradeTest.pcsNo = response.output.PcsNo;
                         this.selectedFabricGradeTest.initLength = response.output.PcsLength;
@@ -405,8 +403,8 @@ export class DataForm {
 
     fabricGradeTestLoader = (info) => {
         var count = this.data.fabricGradeTests.count
-        var data = this.data.fabricGradeTests; 
-        
+        var data = this.data.fabricGradeTests;
+
         return {
             total: count,
             data: data
@@ -414,32 +412,44 @@ export class DataForm {
     };
 
 
-
-    @bindable selectedAreaMovement;
+    @bindable inspectionMaterialSPPItems = [];
+    @bindable selectedIM;
     @bindable productionOrder;
     @bindable salesContract;
-    async selectedAreaMovementChanged(newValue, oldValue) {
+    @bindable selectedIMSPP;
+    async selectedIMChanged(newValue, oldValue) {
         if (newValue) {
-            this.productionOrder = await this.salesService.getProductionOrderById(this.selectedAreaMovement.productionOrderId);
+            this.inspectionMaterialSPPItems = this.selectedIM.inspectionMaterialProductionOrders;
+            this.data.inspectionMaterialBonNo = this.selectedIM.bonNo;
+            this.data.inspectionMaterialId = this.selectedIM.id;
+            this.data.shiftIm = this.selectedIM.shift;
+            this.imSPPQuery.DyeingPrintingAreaInputId = this.data.inspectionMaterialId;
+        }
+        else
+            this.data.inspectionMaterialId = 0;
+    }
+
+    async selectedIMSPPChanged(newValue, oldValue) {
+        if (newValue) {
+            this.productionOrder = await this.salesService.getProductionOrderById(this.selectedIMSPP.productionOrder.id);
             this.salesContract = await this.salesService.getSalesContractById(this.productionOrder.FinishingPrintingSalesContract.Id);
-            
+
             this.data.buyer = this.productionOrder.Buyer.Name;
             this.data.buyerAddress = this.productionOrder.Buyer.Address;
-            this.data.cartNo = this.selectedAreaMovement.cartNo;
-            this.data.color = this.selectedAreaMovement.color;
+            this.data.cartNo = this.selectedIMSPP.cartNo;
+            this.data.color = this.selectedIMSPP.color;
             this.data.construction = `${this.productionOrder.Material.Name} / ${this.productionOrder.MaterialConstruction.Name} / ${this.productionOrder.MaterialWidth}`;
             this.data.isUsed = false;
-            this.data.shiftIm = this.selectedAreaMovement.shift;
-            this.data.dyeingPrintingAreaMovementBonNo = this.selectedAreaMovement.bonNo;
-            this.data.dyeingPrintingAreaMovementId = this.selectedAreaMovement.id;
             this.data.orderQuantity = this.productionOrder.OrderQuantity;
             this.data.packingInstruction = this.productionOrder.PackingInstruction;
             this.data.productionOrderNo = this.productionOrder.OrderNo;
             this.data.productionOrderType = this.productionOrder.OrderType.Name;
-            this.data.uom = this.selectedAreaMovement.uomUnit;
+            this.data.uom = this.selectedIMSPP.uomUnit;
+            this.data.inspectionMaterialProductionOrderId = this.selectedIMSPP.id;
+            this.data.productionOrderId = this.productionOrder.Id;
 
             if (this.salesContract) {
-                
+
                 if (this.salesContract.PointSystem === 4 || this.salesContract.PointSystem === 10) {
                     this.selectedPointSystem = this.data.pointSystem || 10;
                     this.selectedPointLimit = this.data.pointLimit || 0;
@@ -449,10 +459,10 @@ export class DataForm {
                 }
                 // })
             }
-            if(!this.data.id){
-                
+            if (!this.data.id) {
+
                 this.data.fabricGradeTests = [];
-                if(this.selectedFabricGradeTest){
+                if (this.selectedFabricGradeTest) {
                     this.selectedPcsNo = null;
                     this.selectedPcsLength = 0;
                     this.selectedPcsWidth = 0;
@@ -463,18 +473,27 @@ export class DataForm {
                 this.fabricGradeTestTable.refresh();
                 this.totalTable.refresh();
             }
-                
+
         }
         else
-            this.data.dyeingPrintingAreaMovementId = 0;
+            this.data.inspectionMaterialProductionOrderId = 0;
     }
 
-    areaMovementTextFormatter = (areaMovement) => {
-        return `${areaMovement.bonNo}`
+    imTextFormatter = (im) => {
+        return `${im.bonNo}`
     }
 
-    get dyeingPrintingAreaMovementLoader() {
-        return DyeingPrintingAreaMovementLoader;
+    imSPPTextFormatter = (imSPP) => {
+        console.log(imSPP)
+        return `${imSPP.productionOrder.no}`
+    }
+
+    get inspectionMaterialLoader() {
+        return InspectionMaterialLoader;
+    }
+
+    get inspectionMaterialSPPLoader() {
+        return InspectionMaterialSPPLoader;
     }
 }
 
