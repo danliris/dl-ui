@@ -69,7 +69,7 @@ export class DataForm {
     @bindable selectedInspectionMaterial;
     selectedInspectionMaterialChanged(n, o) {
         if (this.selectedInspectionMaterial) {
-            this.data.outputInspectionMaterialId = this.selectedInspectionMaterial.id;
+            this.data.outputId = this.selectedInspectionMaterial.id;
             if (this.selectedInspectionMaterial.preTransitProductionOrders) {
                 this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
             }
