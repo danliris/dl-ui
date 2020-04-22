@@ -100,7 +100,6 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF": 
-            console.log(pr)
                 this.service.getPdfById(data.Id,buyer); 
                 break;
         }
