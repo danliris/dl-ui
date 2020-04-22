@@ -10,10 +10,10 @@ export class Service extends RestService {
         super(http, aggregator, config, "packing-inventory");
     }
 
-    getReport(sdate, zone, group) {
+    getReport(sdate, zone, group, mutation) {
         var endpoint = `${serviceUri}`;
         var query = '';
-        
+
         if (sdate) {
             if (query === '') query = `searchDate=${(sdate)}`;
             else query = `${query}&searchDate=${(sdate)}`;
@@ -26,14 +26,18 @@ export class Service extends RestService {
             if (query === '') query = `group=${group}`;
             else query = `${query}&group=${group}`;
         }
+        if (mutation) {
+            if (query === '') query = `mutation=${mutation}`;
+            else query = `${query}&mutation=${mutation}`;
+        }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
-            
+
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, zone, group) {
-        
+    generateExcel(sdate, zone, group, mutation) {
+
         var endpoint = `${serviceUri}/xls`;
         var query = '';
         if (sdate) {
@@ -48,10 +52,10 @@ export class Service extends RestService {
             if (query === '') query = `group=${group}`;
             else query = `${query}&group=${group}`;
         }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-            
-        
+        if (mutation) {
+            if (query === '') query = `mutation=${mutation}`;
+            else query = `${query}&mutation=${mutation}`;
+        }
         if (query !== '')
             endpoint = `${endpoint}?${query}`;
 

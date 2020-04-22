@@ -56,6 +56,8 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                
+                this.totalQuantity=result.info.totalQty;
                 result.data.forEach(d => {
                     d.UnitName = d.Unit.Name
                     d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
@@ -63,7 +65,7 @@ export class List {
                 });
                 return {
                     total: result.info.total,
-                    data: result.data
+                    data: result.data,
                 }
             });
     }

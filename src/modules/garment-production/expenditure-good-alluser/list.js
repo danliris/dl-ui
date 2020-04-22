@@ -59,6 +59,7 @@ export class List {
         }
         return this.service.search(arg)
         .then(result => {
+            this.totalQuantity=result.info.totalQty;
             result.data.forEach(s => {
                 s.UnitCode=s.Unit.Code;
                 s.BuyerName=s.Buyer.Name;
