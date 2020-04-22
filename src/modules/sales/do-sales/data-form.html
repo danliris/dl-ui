@@ -26,8 +26,7 @@
 
               <au-autocomplete label="No. Sales Contract" value.bind="selectedSalesContract"
                 read-only.bind="readOnly || isEdit" error.bind="error.SalesContract" loader.one-time="salesContractLoader"
-                text.bind="salesContractNoView" keypress.delegate="enterDelegate($event)"
-                change.delegate="selectedSalesContractChanged($event)" placeholder=" Pilih No. Sales Contract">
+                text.bind="salesContractNoView" keypress.delegate="enterDelegate($event)" placeholder=" Pilih No. Sales Contract">
               </au-autocomplete>
 
               <au-textbox label="Buyer" value.bind="data.Buyer.Name" read-only.bind="true">
@@ -107,8 +106,7 @@
 
               <au-autocomplete label="No. Sales Contract" value.bind="selectedSalesContract"
                 read-only.bind="readOnly || isEdit" error.bind="error.SalesContract" loader.one-time="salesContractLoader"
-                text.bind="salesContractNoView" keypress.delegate="enterDelegate($event)"
-                change.delegate="selectedSalesContractChanged($event)" placeholder=" Pilih No. Sales Contract">
+                text.bind="salesContractNoView" keypress.delegate="enterDelegate($event)" placeholder=" Pilih No. Sales Contract">
               </au-autocomplete>
 
               <au-textbox label="Order Untuk" value.bind="selectedSalesContract.MaterialConstruction.Name"

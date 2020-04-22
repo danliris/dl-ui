@@ -158,7 +158,7 @@ export class DataForm {
           DueDate: item.DueDate,
           TotalPayment: item.TotalPayment,
           TotalPaid: item.TotalPaid,
-          // CurrencyCode: item.Currency.Code,
+          Currency: item.Currency,
         }
         this.data.SalesReceiptDetails.push(invoice);
       }
