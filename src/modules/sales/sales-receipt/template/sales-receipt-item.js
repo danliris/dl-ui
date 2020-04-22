@@ -53,14 +53,15 @@ export class SalesReceipt {
       this.data.Tempo = this.getTempo;
     }
 
-    if (this.data.SalesInvoiceId && this.data.SalesInvoiceNo) {
-      this.selectedSalesInvoice = {
-        Id: this.data.SalesInvoiceId,
-        SalesInvoiceNo: this.data.SalesInvoiceNo,
-        TotalPayment: this.data.TotalPayment,
-        TotalPaid: this.data.TotalPaid,
-      };
-    }
+    // if (this.data.SalesInvoiceId && this.data.SalesInvoiceNo) {
+    //   this.selectedSalesInvoice = {
+    //     SalesInvoiceId: this.data.SalesInvoiceId,
+    //     SalesInvoiceNo: this.data.SalesInvoiceNo,
+    //     TotalPayment: this.data.TotalPayment,
+    //     TotalPaid: this.data.TotalPaid,
+    //     Currency: this.data.Currency,
+    //   };
+    // }
   }
 
   NominalChanged(newValue, oldValue) {
@@ -87,37 +88,37 @@ export class SalesReceipt {
       this.data.PreviousPayment = this.TotalPaid;
   }
 
-  @bindable selectedSalesInvoice;
-  selectedSalesInvoiceChanged(newValue, oldValue) {
-    if (this.selectedSalesInvoice && this.selectedSalesInvoice.Id) {
-      this.data.SalesInvoice = this.selectedSalesInvoice;
-      this.data.SalesInvoice.Id = this.selectedSalesInvoice.Id;
-      this.data.SalesInvoice.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
-      this.data.DueDate = this.selectedSalesInvoice.DueDate;
-      this.data.VatType = this.selectedSalesInvoice.VatType;
-      this.data.TotalPaid = this.selectedSalesInvoice.TotalPaid;
-      this.data.SalesInvoiceDetails = this.selectedSalesInvoice.SalesInvoiceDetails;
-      var dueTime = new Date(this.data.DueDate).getTime();
-      var salesReceiptTime = new Date(this.SalesReceiptDate).getTime();
-      if (this.data.DueDate && this.SalesReceiptDate)
-        this.getTempo = (dueTime - salesReceiptTime) / (1000 * 60 * 60 * 24);
-      this.data.Tempo = this.getTempo;
-      var NotPaid = this.data.TotalPayment - this.data.TotalPaid;
-      if (NotPaid < 0) {
-        this.getNotPaid = 0;
-      } else {
-        this.getNotPaid = NotPaid;
-      }
-    } else {
-      this.data.SalesInvoice.Id = null;
-      this.data.SalesInvoice.SalesInvoiceNo = null;
-      this.data.DueDate = null;
-      this.data.VatType = null;
-      this.data.TotalPayment = null;
-      this.data.TotalPaid = null;
-      this.data.SalesInvoiceDetails = null;
-    }
-  }
+  // @bindable selectedSalesInvoice;
+  // selectedSalesInvoiceChanged(newValue, oldValue) {
+  //   if (this.selectedSalesInvoice && this.selectedSalesInvoice.Id) {
+  //     this.data.SalesInvoice = this.selectedSalesInvoice;
+  //     this.data.SalesInvoice.Id = this.selectedSalesInvoice.Id;
+  //     this.data.SalesInvoice.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
+  //     this.data.DueDate = this.selectedSalesInvoice.DueDate;
+  //     this.data.VatType = this.selectedSalesInvoice.VatType;
+  //     this.data.TotalPaid = this.selectedSalesInvoice.TotalPaid;
+  //     this.data.SalesInvoiceDetails = this.selectedSalesInvoice.SalesInvoiceDetails;
+  //     var dueTime = new Date(this.data.DueDate).getTime();
+  //     var salesReceiptTime = new Date(this.SalesReceiptDate).getTime();
+  //     if (this.data.DueDate && this.SalesReceiptDate)
+  //       this.getTempo = (dueTime - salesReceiptTime) / (1000 * 60 * 60 * 24);
+  //     this.data.Tempo = this.getTempo;
+  //     var NotPaid = this.data.TotalPayment - this.data.TotalPaid;
+  //     if (NotPaid < 0) {
+  //       this.getNotPaid = 0;
+  //     } else {
+  //       this.getNotPaid = NotPaid;
+  //     }
+  //   } else {
+  //     this.data.SalesInvoice.Id = null;
+  //     this.data.SalesInvoice.SalesInvoiceNo = null;
+  //     this.data.DueDate = null;
+  //     this.data.VatType = null;
+  //     this.data.TotalPayment = null;
+  //     this.data.TotalPaid = null;
+  //     this.data.SalesInvoiceDetails = null;
+  //   }
+  // }
 
   get salesInvoiceLoader() {
     return SalesInvoiceLoader;

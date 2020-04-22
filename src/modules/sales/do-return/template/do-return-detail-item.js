@@ -5,7 +5,7 @@ import { ServiceProductionAzure } from "./../service";
 var ShipmentDocumentLoader = require("../../../../loader/shin-shipment-document-loader");
 
 @inject(ServiceProductionAzure, BindingSignaler, BindingEngine)
-export class SalesInvoiceDetail {
+export class DoReturnDetailItem {
   @bindable data;
   @bindable error;
 
@@ -50,7 +50,6 @@ export class SalesInvoiceDetail {
       "Kode Barang",
       "Nama Barang",
       "Banyak",
-      "Satuan Packing",
       "Jumlah",
       "Satuan",
       "Harga Satuan",
@@ -67,6 +66,9 @@ export class SalesInvoiceDetail {
 
   @bindable selectedShipmentDocument;
   async selectedShipmentDocumentChanged(newValue, oldValue) {
+
+    // this.selectedShipmentDocument = newValue;
+    // if (newValue) {
     var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(this.selectedShipmentDocument.Id);
 
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
@@ -78,11 +80,23 @@ export class SalesInvoiceDetail {
           var siData = {
             ProductName: item.ProductName,
             Quantity: item.Quantity,
-            PackingUom: item.QuantityUOM,
+            QuantityUOM: item.QuantityUOM,
             Total: item.Total
           };
           this.data.SalesInvoiceItems.push(siData);
         }
+        // for (var detail of this.selectedShipmentDocument.Details) {
+        //   for (var item of detail.Items) {
+        //     for (var prItem of item.PackingReceiptItems) {
+        //       var siData = {
+        //         // ProductCode: prItem.ProductCode,
+        //         ProductName: prItem.ProductName,
+        //         Quantity: prItem.Quantity
+        //       };
+        //       this.data.SalesInvoiceItems.push(siData);
+        //     }
+        //   }
+        // }
       }
     } else {
       this.data.ShipmentDocumentId = null;
