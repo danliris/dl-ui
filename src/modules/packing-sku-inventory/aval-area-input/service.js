@@ -9,7 +9,7 @@ import {
   RestService
 } from '../../../utils/rest-service';
 
-const serviceUri = "aval-area-input";
+const serviceUri = "input-aval";
 
 export class Service extends RestService {
 

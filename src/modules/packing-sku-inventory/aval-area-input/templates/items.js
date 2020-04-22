@@ -6,19 +6,26 @@ import {
   import {
     Service
   } from "../service";
-//   var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
+  var UomLoader = require("../../../../loader/uom-loader");
   
   @inject(BindingEngine, Service)
   export class Items {
+    @bindable UomUnit
   
     constructor(bindingEngine, service) {
       this.service = service;
       this.bindingEngine = bindingEngine;
     }
+
+    avalTypes = ["KAIN KOTOR", "TALI KOTOR", "PANCINGAN", "AVAL A", "AVAL B", "SAMBUNGAN"]
   
-    // get beams() {
-    //   return WarpingBeamByOrderLoader;
-    // }
+    get uoms() {
+      return UomLoader;
+    }
+
+    UomUnitChanged(newValue){
+      this.data.UomUnit = newValue.Unit;
+    }
   
     async activate(context) {
       this.data = context.data;
@@ -30,6 +37,14 @@ import {
     //   };
       
       this.readOnly = context.options.readOnly;
+
+      if(this.data){
+        this.data.AvalType = this.data.avalType;
+        this.data.AvalCartNo = this.data.avalCartNo;
+        this.UomUnit = this.data.uomUnit;
+        this.data.Quantity = this.data.quantity;
+        this.data.QuantityKg = this.data.quantityKg;
+      }
     }
   }
   

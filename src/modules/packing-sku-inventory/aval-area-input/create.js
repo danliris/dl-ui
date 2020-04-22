@@ -8,44 +8,51 @@ import {
 import {
   Service
 } from "./service";
+import {
+  activationStrategy
+} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
   @bindable BonNo;
-  @bindable Uom;
+  // @bindable Uom;
 
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.error = {};
   }
 
-  activate(params) {
-    // this.canEdit = false;
+  // activate(params) {
+
+  // }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace; //replace the viewmodel with a new instance
+    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+    // or activationStrategy.noChange to explicitly use the default behavior
   }
 
   BonNoChanged(newValue) {
     if (newValue.id) {
-      
+      this.data.BonNo = newValue.bonNo;
+      this.data.OutputInspectionMaterialId = newValue.id;
     }
   }
 
-  list() {
-    this.router.navigateToRoute("list");
+  back() {
+    this.router.navigateToRoute('list');
   }
 
-  cancelCallback(event) {
-    this.list();
-  }
-
-  saveCallback(event) {
+  save() {
     let CreateData = {};
-    CreateData.Area = "AVAL";
+    CreateData.Area = this.data.Area;
 
-    if (this.BonNo === undefined || this.BonNo === null || this.BonNo === "") {
-      CreateData.Id = "";
+    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
+      CreateData.Date = "";
     } else {
-      CreateData.Id = this.BonNo.id;
+      CreateData.Date = this.data.Date;
     }
 
     if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
@@ -54,32 +61,35 @@ export class Create {
       CreateData.Shift = this.data.Shift;
     }
 
-    // if (this.Uom === undefined || this.Uom === null || this.Uom === "") {
-    //   CreateData.UOMUnit = "";
-    // } else {
-    //   CreateData.UOMUnit = this.Uom.Unit;
-    // }
+    if (this.data.BonNo === undefined || this.data.BonNo === null || this.data.BonNo === "") {
+      CreateData.BonNo = "";
+    } else {
+      CreateData.BonNo = this.data.BonNo;
+      CreateData.OutputInspectionMaterialId = this.data.OutputInspectionMaterialId;
+    }
 
-    // if (this.data.ProductionOrderQuantity === undefined || this.data.ProductionOrderQuantity === null || this.data.ProductionOrderQuantity === "") {
-    //   CreateData.ProductionOrderQuantity = null;
-    // } else {
-    //   CreateData.ProductionOrderQuantity = parseInt(this.data.ProductionOrderQuantity);
-    // }
+    if(this.data.AvalProductionOrders.length > 0){
+      CreateData.AvalProductionOrders = this.data.AvalProductionOrders;
+    }else{
+      CreateData.AvalProductionOrders = [{}];
+    }
 
-    // if (this.data.QtyKg === undefined || this.data.QtyKg === null || this.data.QtyKg === "") {
-    //   CreateData.QtyKg = "";
-    // } else {
-    //   CreateData.QtyKg = parseInt(this.data.QtyKg);
-    // }
-
-    this.service
-      .create(CreateData)
+    console.log(CreateData);
+    debugger
+    this.service.create(CreateData)
       .then(result => {
-
-        this.list();
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', {}, {
+          replace: true,
+          trigger: true
+        });
       })
       .catch(e => {
-        this.error = e;
-      });
+        if (e.statusCode == 500) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        } else {
+          this.error = e;
+        }
+      })
   }
 }

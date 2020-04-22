@@ -5,28 +5,28 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Penerimaan Gudang Aval - Dyeing & Printing"
+          title: 'List: Aval - Dyeing & Printing'
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Penerimaan Gudang Aval - Dyeing & Printing"
+          title: 'Create: Aval - Dyeing & Printing'
         },
         {
           route: 'view/:id',
           moduleId: './view',
           name: 'view',
           nav: false,
-          title: 'View: Penerimaan Gudang Aval - Dyeing & Printing'
+          title: 'View: Aval - Dyeing & Printing'
         },
         // {
         //   route: 'edit/:id',
         //   moduleId: './edit',
         //   name: 'edit',
         //   nav: false,
-        //   title: 'Edit: Penerimaan Aval - Dyeing & Printing'
+        // title: 'Edit: Aval - Dyeing & Printing'
         // }
       ]);
   
