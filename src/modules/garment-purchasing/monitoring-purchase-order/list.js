@@ -94,11 +94,11 @@ export class List {
             ipoStatus:this.poIntState,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-            dateFromEx : this.dateFromEx ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateToEx : this.dateToEx ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateFromEx : this.dateFromEx ? moment(this.dateFromEx).format("YYYY-MM-DD") : "",
+            dateToEx : this.dateToEx ? moment(this.dateToEx).format("YYYY-MM-DD") : ""
         };
         console.log(this.doNo);
-        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber,  args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
+        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber,  args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo, args.dateFromEx, args.dateToEx);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
