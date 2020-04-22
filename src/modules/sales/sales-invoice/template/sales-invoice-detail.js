@@ -50,9 +50,10 @@ export class SalesInvoiceDetail {
       "Kode Barang",
       "Nama Barang",
       "Banyak",
+      "Satuan Packing",
       "Jumlah",
       "Satuan",
-      "Harga",
+      "Harga Satuan",
       "Total Harga"
     ]
   };
@@ -66,9 +67,6 @@ export class SalesInvoiceDetail {
 
   @bindable selectedShipmentDocument;
   async selectedShipmentDocumentChanged(newValue, oldValue) {
-
-    // this.selectedShipmentDocument = newValue;
-    // if (newValue) {
     var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(this.selectedShipmentDocument.Id);
 
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
@@ -80,23 +78,11 @@ export class SalesInvoiceDetail {
           var siData = {
             ProductName: item.ProductName,
             Quantity: item.Quantity,
-            QuantityUOM: item.QuantityUOM,
+            PackingUom: item.QuantityUOM,
             Total: item.Total
           };
           this.data.SalesInvoiceItems.push(siData);
         }
-        // for (var detail of this.selectedShipmentDocument.Details) {
-        //   for (var item of detail.Items) {
-        //     for (var prItem of item.PackingReceiptItems) {
-        //       var siData = {
-        //         // ProductCode: prItem.ProductCode,
-        //         ProductName: prItem.ProductName,
-        //         Quantity: prItem.Quantity
-        //       };
-        //       this.data.SalesInvoiceItems.push(siData);
-        //     }
-        //   }
-        // }
       }
     } else {
       this.data.ShipmentDocumentId = null;

@@ -40,7 +40,7 @@ export class List {
             { field: "shiftIm", title: "Shift" },
             { field: "operatorIm", title: "Operator" },
             { field: "machineNoIm", title: "No. Mesin" },
-            { field: "dyeingPrintingAreaMovementBonNo", title: "No. Bon" },
+            { field: "inspectionMaterialBonNo", title: "No. Bon" },
             { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
             { field: "cartNo", title: "No. Kereta" },
