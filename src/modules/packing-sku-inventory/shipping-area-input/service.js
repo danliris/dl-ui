@@ -1,5 +1,5 @@
 import { RestService } from '../../../utils/rest-service';
-const serviceUri = 'shipment-area-input';
+const serviceUri = 'input-shipping';
 const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 

@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
-let InspectionAreaLoader = require("../../../loader/pre-input-transit-loader");
+let PreShippingAreaLoader = require("../../../loader/pre-input-transit-loader");
 
 @inject(Service)
 export class DataForm {
@@ -23,15 +23,15 @@ export class DataForm {
         },
     };
     imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. SPP", "No. Kereta","Buyer", "Material", "Unit",  "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. DO", "No. SPP", "Buyer", "Konstruksi", "Jenis",  "Warna", "Motif", "Grade", "Packing", "QTY Packing", "QTY", "Satuan"];
     shifts = ["PAGI", "SIANG"];
-    areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
+    areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
     }
 
-    get inspectionAreaLoader() {
-        return InspectionAreaLoader;
+    get preShippingAreaLoader() {
+        return PreShippingAreaLoader;
     }
 
     areaMovementTextFormatter = (areaInput) => {
@@ -47,7 +47,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
 
-        this.data.area = "TRANSIT";
+        this.data.area = "SHIPPING";
 
         this.error = this.context.error;
 
@@ -57,21 +57,21 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
 
         if (this.data.bonNo) {
-            this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+            this.selectedPreShipping = {};
+            this.selectedPreShipping.bonNo = this.data.bonNo;
         }
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.data.shippingProductionOrders = this.data.shippingProductionOrders || [];
+        this.data.shippingProductionOrders.push({})
     };
 
-    @bindable selectedInspectionMaterial;
-    selectedInspectionMaterialChanged(n, o) {
-        if (this.selectedInspectionMaterial) {
-            this.data.outputId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.preTransitProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
+    @bindable selectedPreShipping;
+    selectedPreShippingChanged(n, o) {
+        if (this.selectedPreShipping) {
+            this.data.outputInspectionMaterialId = this.selectedPreShipping.id;
+            if (this.selectedPreShipping.preShippingProductionOrders) {
+                this.data.shippingProductionOrders = this.selectedInspectionMaterial.preShippingProductionOrders;
             }
 
         }
