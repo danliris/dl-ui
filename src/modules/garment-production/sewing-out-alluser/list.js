@@ -58,6 +58,7 @@ export class List {
         }
         return this.service.search(arg)
         .then(result => {
+            this.totalQuantity=result.info.totalQty;
             var data = {};
             data.total = result.info.total;
             data.data = result.data;

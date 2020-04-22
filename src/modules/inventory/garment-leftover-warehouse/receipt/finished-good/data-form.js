@@ -98,7 +98,7 @@ export class DataForm {
                         item.Quantity=item.Quantity;
                         item.Uom= item.Uom;
                         item.UomUnit= item.Uom.Unit;
-                        item.Remark= item.Description
+                        item.Remark= item.Description;
                         this.data.DataItems.push(item);
                     }
                 }
@@ -111,6 +111,7 @@ export class DataForm {
                     item.Quantity=item.Quantity;
                     item.Uom= item.Uom;
                     item.UomUnit= item.Uom.Unit;
+                    item.Remark= item.Description;
                     this.data.DataItems.push(item);
                 }
             
