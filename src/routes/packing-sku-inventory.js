@@ -131,9 +131,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/packing-area-note',
-        name: 'packing-area-note',
-        moduleId: './modules/packing-sku-inventory/packing-area-note/index',
+        route: 'packing-sku-inventory/dyeing-printing-out-packaging',
+        name: 'dyeing-printing-out-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
         nav: true,
         title: 'Bon Packing Area Dyeing/Printing',
         auth: true,
@@ -184,9 +184,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
-        name: 'dyeing-printing-accepting-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+        name: 'dyeing-printing-in-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
         nav: true,
         title: 'Penerimaan Packing Area Dyeing/Printing',
         auth: true,
