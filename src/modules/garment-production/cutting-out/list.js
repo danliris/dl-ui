@@ -1,15 +1,16 @@
 import { inject } from 'aurelia-framework';
-import { Service } from "./service";
+import { Service,PurchasingService } from "./service";
 import { Router } from 'aurelia-router';
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service,AuthService)
+@inject(Router, Service,AuthService,PurchasingService)
 export class List {
-    constructor(router, service,authService) {
+    constructor(router, service,authService,purchasingService) {
         this.service = service;
         this.router = router;
         this.authService=authService;
+        this.purchasingService=purchasingService;
     }
 
     filter={};
@@ -23,7 +24,7 @@ export class List {
           CreatedBy: username
         }
       }
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
 
     columns = [
         { field: "CutOutNo", title: "No Cutting Out" },
@@ -85,12 +86,22 @@ export class List {
         });
     }
 
-    contextClickCallback(event) {
+    async contextClickCallback(event) {
+
         var arg = event.detail;
         var data = arg.data;
+        let pr = await this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: data.RONo }) });
+        var buyer="";
+        if(pr.data.length>0){
+            buyer = pr.data[0].Buyer.Code;
+        }
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF": 
+            console.log(pr)
+                this.service.getPdfById(data.Id,buyer); 
                 break;
         }
     }
