@@ -53,6 +53,7 @@ export class Create {
             }
             dataSave.Items= Items;
         }
+        console.log(dataSave)
         this.service.create(dataSave)
             .then(result => {
                 alert("Data berhasil dibuat");
