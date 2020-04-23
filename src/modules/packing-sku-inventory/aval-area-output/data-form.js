@@ -3,7 +3,7 @@ import {
     bindable,
     computedFrom
   } from "aurelia-framework";
-  var InspectionMaterialLoader = require("../../../loader/output-inspection-material-loader");
+  var InspectionMaterialLoader = require("../../../loader/input-inspection-material-loader");
   
   export class DataForm {
     @bindable title;
@@ -18,15 +18,6 @@ import {
       // deleteText: "Hapus",
       // editText: "Ubah"
     };
-
-    controlOptions = {
-        label: {
-            length: 4,
-        },
-        control: {
-            length: 4,
-        },
-    };
   
     constructor() {}
 
@@ -40,12 +31,9 @@ import {
       this.editCallback = this.context.editCallback;
       this.saveCallback = this.context.saveCallback;
 
-      this.data.Area = "GUDANG AVAL";
         if (this.data.id) {
           this.data.Date = this.data.date;
           this.data.Shift = this.data.shift;
-          this.BonNo = this.data.bonNo;
-          this.data.AvalProductionOrders = this.data.avalProductionOrders;
         }
     }
   
@@ -53,7 +41,7 @@ import {
       return InspectionMaterialLoader;
     }
   
-    shifts = ["PAGI", "SIANG"];
+    areas = ["", "IM", "TRANSIT", "PACKING", "GUDANG BARANG JADI", "SHIPPING"];
 
     dyeingPrintingItemsColumns = [
       {
@@ -83,8 +71,8 @@ import {
     }
 
     addItems = (e) => {
-      this.data.AvalProductionOrders = this.data.AvalProductionOrders || [];
-      this.data.AvalProductionOrders.push({});
+      this.DyeingPrintingItems = this.DyeingPrintingItems || [];
+      this.DyeingPrintingItems.push({});
     }
   
     // @computedFrom("data.id")

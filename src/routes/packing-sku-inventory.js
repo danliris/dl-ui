@@ -162,7 +162,20 @@ module.exports = [
         name: 'aval-area-input',
         moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Penerimaan Aval Area Dyeing/Printing',
+        title: 'Penerimaan Gudang Aval Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/aval-area-output',
+        name: 'aval-area-output',
+        moduleId: './modules/packing-sku-inventory/aval-area-output/index',
+        nav: true,
+        title: 'Dokumen Keluar Gudang Aval Dyeing Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

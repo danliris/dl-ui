@@ -1,0 +1,78 @@
+<template>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+
+  </style>
+  <au-input-form title.bind="title"
+                 with.bind="context"
+                 options.bind="formOptions"
+                 part="actions">
+    <div class="col-md-12">
+
+      <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Tanggal"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-datepicker value.bind="data.Date"
+                         error.bind="error.Date"
+                         read-only.bind="readOnly">
+          </au-datepicker>
+        </div>
+      </div>
+
+      <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2"
+             style="text-align:left;">
+          <textbox label="No. Bon"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-autocomplete placeholder="No. Bon"
+                           value.bind="BonNo"
+                           error.bind="error.BonNo"
+                           read-only.bind="readOnly"
+                           loader.bind="inspectionMaterials"
+                           text="bonNo">
+          </au-autocomplete>
+        </div>
+      </div>
+
+      <div class="row"
+           style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Zona"
+                   read-only="true"
+                   style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown value.bind="data.Area"
+                       error.bind="error.Area"
+                       read-only.bind="readOnly"
+                       items.bind="areas">
+          </au-dropdown>
+        </div>
+      </div>
+
+      <div class="row"
+           style="white-space: nowrap; overflow: auto;">
+        <au-collection items.bind="DyeingPrintingItems"
+                       add.bind="addItems"
+                       options.bind="itemOptions"
+                       errors.bind="error.DyeingPrintingItems"
+                       columns.bind="dyeingPrintingItemsColumns"
+                       read-only.bind="readOnly"
+                       item-template="modules/packing-sku-inventory/aval-area-output/templates/items">
+        </au-collection>
+      </div>
+
+    </div>
+  </au-input-form>
+</template>

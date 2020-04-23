@@ -32,27 +32,27 @@ export class List {
     {
       field: "shift",
       title: "Shift"
+    },
+    {
+      field: "cartNo",
+      title: "No. Kereta"
+    },
+    {
+      field: "productionOrderType",
+      title: "Jenis"
+    },
+    {
+      field: "uomUnit",
+      title: "Satuan"
+    },
+    {
+      field: "productionOrderQuantity",
+      title: "Qty Satuan"
+    },
+    {
+      field: "qtyKg",
+      title: "Qty KG"
     }
-    // {
-    //   field: "avalCartNo",
-    //   title: "No. Kereta"
-    // },
-    // {
-    //   field: "productionOrderType",
-    //   title: "Jenis"
-    // },
-    // {
-    //   field: "uomUnit",
-    //   title: "Satuan"
-    // },
-    // {
-    //   field: "productionOrderQuantity",
-    //   title: "Qty Satuan"
-    // },
-    // {
-    //   field: "qtyKg",
-    //   title: "Qty KG"
-    // }
   ];
 
   loader = (info) => {
