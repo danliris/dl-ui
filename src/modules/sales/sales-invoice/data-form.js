@@ -72,7 +72,6 @@ export class DataForm {
       this.TotalPayment = this.data.TotalPayment;
       this.data.TotalPayment = this.getTotalPayment;
     }
-
   }
 
   get getTotalPayment() {
