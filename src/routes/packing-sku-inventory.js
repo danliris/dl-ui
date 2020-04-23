@@ -144,6 +144,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/dyeing-printing-in-warehouses',
+        name: 'dyeing-printing-in-warehouses',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-warehouses/index',
+        nav: true,
+        title: 'Penerimaan Gudang Barang Jadi Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
 
         route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
         name: 'dyeing-printing-goods-warehouse',
