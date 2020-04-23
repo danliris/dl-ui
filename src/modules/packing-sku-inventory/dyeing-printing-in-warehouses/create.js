@@ -26,14 +26,7 @@ export class Create {
     }
 
     save() {
-        console.log(this);
-        if(this.selectedNoBon){
-            this.data = this.selectedNoBon
-            this.data.area = "PACK";
-            this.data.packagingQty = this.packQtyValue;
-            this.data.packagingUnit = this.packUnitValue;
-        }
-
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

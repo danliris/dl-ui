@@ -48,7 +48,10 @@ export class DataForm {
         { field: "material", title: "Material" },
         { field: "warna", title: "Warna" },
         { field: "motif", title: "Motif" },
+        { field: "jenis", title: "Jenis" },        
         { field: "grade", title: "Grade" },
+        { field: "packagingQty", title: "QTY Packaging" },
+        { field: "packagingUnit", title: "Packaging" },                      
         { field: "satuan", title: "Satuan" },
         { field: "saldo", title: "Saldo" },
     ];

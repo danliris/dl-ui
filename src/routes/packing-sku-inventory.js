@@ -131,11 +131,24 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/packing-area-note',
-        name: 'packing-area-note',
-        moduleId: './modules/packing-sku-inventory/packing-area-note/index',
+        route: 'packing-sku-inventory/dyeing-printing-out-packaging',
+        name: 'dyeing-printing-out-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
         nav: true,
         title: 'Bon Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-in-warehouses',
+        name: 'dyeing-printing-in-warehouses',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-warehouses/index',
+        nav: true,
+        title: 'Penerimaan Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -197,11 +210,24 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
-        name: 'dyeing-printing-accepting-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+        name: 'dyeing-printing-in-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
         nav: true,
-        title: 'Penerimaan Packing Area Dyeing Printing',
+        title: 'Penerimaan Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-packaging-note',
+        name: 'dyeing-printing-packaging-note',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-packaging-note/index',
+        nav: true,
+        title: 'Dokumen Keluar Packaging Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

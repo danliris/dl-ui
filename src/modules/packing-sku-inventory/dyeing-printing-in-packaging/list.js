@@ -15,7 +15,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "noBon", title: "No Bon" },
+        { field: "bonNo", title: "No Bon" },
         { field: "noSpp", title: "No. SPP" },
         { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
@@ -40,14 +40,33 @@ export class List {
             order: order,
         }
 
-        // return this.service.search(arg)
-        return this.service.getListDummy(arg)
+        return this.service.search(arg)
             .then(result => {
                 var data = {}
-                data.total = result.length;
-                data.data = result;
+                data.total = result.total;
+                // data.data = result.data;
+                data.data = [];
+                result.data.forEach((item,index)=>{
+                    item.packagingProductionOrders.forEach((i,ind)=>{
+                        var dataView = {};
+                        dataView.id = item.id;
+                        dataView.date = item.date;
+                        dataView.bonNo = item.bonNo;
+                        dataView.noSpp = i.productionOrder.no,
+                        dataView.buyer = i.buyer,
+                        dataView.shift = item.shift,
+                        dataView.material = i.material,
+                        dataView.unit = i.unit,
+                        dataView.warna = i.color,
+                        dataView.motif = i.motif,
+                        dataView.grade = i.grade,
+                        dataView.mtr = i.mtrLength,
+                        dataView.yds = i.ydsLength,
+                        dataView.saldo = i.balance
+                        data.data.push(dataView);
+                    });
+                });
                 return data;
-                console.log(result);
             });
     }
 
@@ -64,6 +83,9 @@ export class List {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
+            case "print":
+                this.service.getPdfById(data.id);
+                break;
         }
     }
 
@@ -75,7 +97,6 @@ export class List {
                 return true;
         }
     }
-
 
     create() {
         this.router.navigateToRoute('create');
