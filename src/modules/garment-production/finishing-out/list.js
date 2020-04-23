@@ -78,7 +78,7 @@ export class List {
         });
     }
 
-    contextClickCallback(event) {
+    async contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
         let pr = await this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: data.RONo }) });
