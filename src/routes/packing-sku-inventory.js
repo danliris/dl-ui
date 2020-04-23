@@ -223,11 +223,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/shipping-area-note',
-        name: 'shipping-area-note',
-        moduleId: './modules/packing-sku-inventory/shipping-area-note/index',
+        route: 'packing-sku-inventory/shipping-area-output',
+        name: 'shipping-area-output',
+        moduleId: './modules/packing-sku-inventory/shipping-area-output/index',
         nav: true,
-        title: 'Bon Shipping Area',
+        title: 'Bon Keluar Shipping Area',
         auth: true,
         settings: {
             group: "ps-inventory",
