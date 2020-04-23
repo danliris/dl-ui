@@ -47,7 +47,6 @@ export class List {
                 data.total = result.length;
                 data.data = result;
                 return data;
-                console.log(result);
             });
     }
 

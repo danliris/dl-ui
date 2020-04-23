@@ -12,22 +12,11 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        this.destinationArea = this.contextOptions.destinationArea;
-
-        if (this.destinationArea == "TRANSIT") {
-            this.remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
-            this.data.status = "NOT OK";
-        } else if (this.destinationArea == "PACKING") {
-            this.remarks = [
-                "A", "B", "C", "BS", "Aval 1"
-            ];
-            this.data.status = "OK";
-        } else {
-            this.remarks = [
-                "Aval 2"
-            ];
-            this.data.status = "OK";
+        
+        if (this.data.balance) {
+            this.data.previousBalance = this.data.balance;
         }
+        
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;

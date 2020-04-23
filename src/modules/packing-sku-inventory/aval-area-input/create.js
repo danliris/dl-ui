@@ -74,8 +74,6 @@ export class Create {
       CreateData.AvalProductionOrders = [{}];
     }
 
-    console.log(CreateData);
-    debugger
     this.service.create(CreateData)
       .then(result => {
         alert("Data berhasil dibuat");
