@@ -36,13 +36,13 @@ export class List {
         return numeral(value).format("0,000.00");
       },
     },
-    {
-      field: "SalesReceiptDetails",
-      title: "Lunas",
-      formatter: function (value, data, index) {
-        return data.IsPaidOff ? "Ya" : "Tidak";
-      },
-    },
+    // {
+    //   field: "SalesReceiptDetails",
+    //   title: "Lunas",
+    //   formatter: function (value, data, index) {
+    //     return data.IsPaidOff ? "Ya" : "Tidak";
+    //   },
+    // },
   ];
 
   rowFormatter(data, index) {
