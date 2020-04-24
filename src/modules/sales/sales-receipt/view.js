@@ -24,7 +24,7 @@ export class View {
   }
 
   delete() {
-    this.service.delete(this.data).then(result => {
+    this.service.delete(this.data).then((result) => {
       this.list();
     });
   }

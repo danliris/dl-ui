@@ -45,6 +45,6 @@ export class ExportItem {
       this.getConvertionValue = 0;
     }
     this.data.ConvertionValue = this.getConvertionValue;
-    this.data.Length = this.Length;
+    this.data.Weight = this.Weight;
   }
 }
