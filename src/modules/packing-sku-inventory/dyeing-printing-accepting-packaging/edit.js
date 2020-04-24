@@ -35,7 +35,6 @@ export class Edit {
             this.data.packagingQty = this.packQtyValue;
             this.data.packagingUnit = this.packUnitValue;
         
-        console.log(this);
         this.service.update(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

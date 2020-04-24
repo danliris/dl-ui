@@ -13,7 +13,10 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
-
+        
+        if(this.data.balance){
+            this.data.previousBalance = this.data.balance;
+        }
         if (this.destinationArea == "TRANSIT") {
             this.remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
             this.data.status = "NOT OK";

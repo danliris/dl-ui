@@ -26,7 +26,6 @@ export class Create {
     }
 
     save() {
-        console.log(this);
         if(this.selectedNoBon){
             this.data = this.selectedNoBon
             this.data.area = "PACK";

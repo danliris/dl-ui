@@ -20,7 +20,6 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
     // this.canEdit = true;
-        console.log(this.data);
   }
 
   list() {

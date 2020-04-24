@@ -484,7 +484,6 @@ export class DataForm {
     }
 
     imSPPTextFormatter = (imSPP) => {
-        console.log(imSPP)
         return `${imSPP.productionOrder.no}`
     }
 
