@@ -21,14 +21,14 @@ export class CartItem {
             this.remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
             this.data.status = "NOT OK";
 
-            if (!this.data.id)
+            if (this.data.isChecked)
                 this.data.balance = this.data.initLength;
         } else if (this.destinationArea == "PACKING") {
             this.remarks = [
                 "A", "B", "C", "BS", "Aval 1"
             ];
             this.data.status = "OK";
-            if (!this.data.id)
+            if (this.data.isChecked)
                 this.data.balance = this.data.initLength;
         } else {
             this.remarks = [
@@ -36,10 +36,10 @@ export class CartItem {
             ];
             this.data.status = "OK";
 
-            if (!this.data.id)
+            if (this.data.isChecked)
                 this.data.balance = this.data.avalLength;
-            
-                this.isAval = true;
+
+            this.isAval = true;
         }
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
