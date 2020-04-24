@@ -2,7 +2,7 @@ import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import numeral from 'numeral';
+import numeral from "numeral";
 
 @inject(Router, Service)
 export class List {
@@ -11,27 +11,38 @@ export class List {
   columns = [
     { field: "SalesReceiptNo", title: "No. Kuitansi" },
     {
+      field: "Buyer.Name",
+      title: "Buyer",
+    },
+    {
       field: "SalesReceiptDate",
       title: "Tgl Pembayaran",
       formatter: (value, data, index) => {
-        return moment.utc(value).local().format('DD MMM YYYY');
-      }
+        return moment.utc(value).local().format("DD MMM YYYY");
+      },
     },
     {
-      field: "Currency.Code", title: "Kurs"},
-    {
-      field: "TotalPaid", title: "Jumlah Pembayaran", formatter: function (value, data, index) {
-        return numeral(value).format('0,000.00');
-      }
+      field: "OriginAccountNumber",
+      title: "Rek. Bank Asal",
     },
     {
-      field: "SalesReceiptDetails",
-      title: "Lunas",
-      formatter: (value, data, index) => {
-        var detail = value.find(i => true);
-        return detail.IsPaidOff ? "Ya" : "Tidak";
-      }
-    }
+      field: "Currency.Code",
+      title: "Kurs",
+    },
+    {
+      field: "TotalPaid",
+      title: "Jumlah Pembayaran",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+    },
+    // {
+    //   field: "SalesReceiptDetails",
+    //   title: "Lunas",
+    //   formatter: function (value, data, index) {
+    //     return data.IsPaidOff ? "Ya" : "Tidak";
+    //   },
+    // },
   ];
 
   rowFormatter(data, index) {
@@ -39,17 +50,17 @@ export class List {
     else return {};
   }
 
-  loader = info => {
+  loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      order: order
+      order: order,
     };
 
-    return this.service.search(arg).then(result => {
+    return this.service.search(arg).then((result) => {
       var data = {};
       data.total = result.info.total;
       data.data = result.data;

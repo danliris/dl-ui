@@ -28,8 +28,8 @@
               read-only.bind="true">
             </au-textbox>
 
-            <au-textbox if.bind="selectedBuyer && !selectedBuyer.NPWP" label="NPWP Buyer" value.bind="data.Buyer.NPWP"  error.bind="error.BuyerNPWP"
-              read-only.bind="readOnly || isEdit" keypress.delegate="enterDelegate($event)"
+            <au-textbox if.bind="selectedBuyer && !selectedBuyer.NPWP" label="NPWP Buyer" value.bind="data.Buyer.NPWP"
+              error.bind="error.BuyerNPWP" read-only.bind="readOnly || isEdit" keypress.delegate="enterDelegate($event)"
               placeholder="Input NPWP Buyer">
             </au-textbox>
 
@@ -42,10 +42,6 @@
           </div>
 
           <div class="col-md-6">
-
-            <!-- <au-textbox label="No. Index Debitur" value.bind="data.DebtorIndexNo" error.bind="error.DebtorIndexNo"
-          read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input No. Index Debitur">
-        </au-textbox> -->
 
             <au-autocomplete label="Mata Uang" value.bind="selectedCurrency" error.bind="error.CurrencyCode"
               read-only.bind="readOnly" loader.one-time="currencyLoader" key="Code" text="Code"

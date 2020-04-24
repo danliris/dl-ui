@@ -106,5 +106,4 @@ export class ServiceCore extends RestService {
     var info = { select: select };
     return super.get(endpoint, null, info);
   }
-
 }

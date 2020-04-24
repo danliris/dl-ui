@@ -38,7 +38,6 @@ export class DataForm {
     return (this.data.Id || "").toString() !== "";
   }
   async bind(context) {
-    // debugger
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
