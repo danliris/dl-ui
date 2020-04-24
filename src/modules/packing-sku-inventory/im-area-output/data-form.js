@@ -51,15 +51,17 @@ export class DataForm {
         this.data.area = "INSPECTION MATERIAL";
 
         this.error = this.context.error;
-
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-
         if (this.data.bonNo) {
             this.selectedInspectionMaterial = {};
             this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        }
+
+        if (this.data.destinationArea) {
+            this.destinationArea = this.data.destinationArea;
         }
 
     }
@@ -76,9 +78,23 @@ export class DataForm {
                 this.data.inspectionMaterialProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders.filter(s => s.isChecked == true && s.hasOutputDocument == false);
             }
 
-            this.detailOptions.destinationArea = this.data.destinationArea;
         }
 
+    }
+
+
+    @bindable destinationArea;
+    destinationAreaChanged(n, o) {
+        if (this.destinationArea) {
+            this.data.destinationArea = this.destinationArea;
+            this.detailOptions.destinationArea = this.data.destinationArea;
+
+            if (!this.data.id) {
+
+                this.selectedInspectionMaterial = null;
+                this.data.inspectionMaterialProductionOrders = [];
+            }
+        }
     }
 
     ExportToExcel() {

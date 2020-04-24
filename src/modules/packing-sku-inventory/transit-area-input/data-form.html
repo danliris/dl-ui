@@ -14,7 +14,7 @@
 
     <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="inspectionAreaLoader"
-      text.bind="areaMovementTextFormatter" query.bind="imQuery">
+      text.bind="areaMovementTextFormatter">
     </au-autocomplete>
 
     <au-collection columns.bind="itemColumns" items.bind="data.transitProductionOrders"

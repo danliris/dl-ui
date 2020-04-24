@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
-let InspectionAreaLoader = require("../../../loader/output-inspection-material-loader");
+let InspectionAreaLoader = require("../../../loader/pre-input-transit-loader");
 
 @inject(Service)
 export class DataForm {
@@ -69,9 +69,9 @@ export class DataForm {
     @bindable selectedInspectionMaterial;
     selectedInspectionMaterialChanged(n, o) {
         if (this.selectedInspectionMaterial) {
-            this.data.outputInspectionMaterialId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders;
+            this.data.outputId = this.selectedInspectionMaterial.id;
+            if (this.selectedInspectionMaterial.preTransitProductionOrders) {
+                this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
             }
 
         }

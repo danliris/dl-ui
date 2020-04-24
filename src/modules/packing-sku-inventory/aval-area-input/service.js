@@ -9,7 +9,7 @@ import {
   RestService
 } from '../../../utils/rest-service';
 
-const serviceUri = "inventory-document-aval";
+const serviceUri = "input-aval";
 
 export class Service extends RestService {
 
@@ -32,23 +32,13 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
-  update(data) {
-    let endpoint = `${serviceUri}/${data.id}`;
-    return super.put(endpoint, data);
-  }
+  // update(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.put(endpoint, data);
+  // }
 
-  delete(data) {
-    let endpoint = `${serviceUri}/${data.id}`;
-    return super.delete(endpoint, data);
-  }
-
-  // getUomByName(name) {
-  //   var config = Container.instance.get(Config);
-  //   var _endpoint = config.getEndpoint("core");
-  //   var _serviceUri = `master/uoms/${name}`;
-
-  //   return _endpoint.find(_serviceUri).then(result => {
-  //     return result.data;
-  //   });
+  // delete(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.delete(endpoint, data);
   // }
 }

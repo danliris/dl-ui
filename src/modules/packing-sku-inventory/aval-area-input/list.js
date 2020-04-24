@@ -32,35 +32,27 @@ export class List {
     {
       field: "shift",
       title: "Shift"
-    },
-    {
-      field: "cartNo",
-      title: "No. Kereta"
-    },
-    {
-      field: "unitCode",
-      title: "Unit"
-    },
-    {
-      field: "area",
-      title: "Area"
-    },
-    {
-      field: "productionOrderType",
-      title: "Jenis"
-    },
-    {
-      field: "uomUnit",
-      title: "Satuan"
-    },
-    {
-      field: "productionOrderQuantity",
-      title: "Qty Satuan"
-    },
-    {
-      field: "qtyKg",
-      title: "Qty KG"
     }
+    // {
+    //   field: "avalCartNo",
+    //   title: "No. Kereta"
+    // },
+    // {
+    //   field: "productionOrderType",
+    //   title: "Jenis"
+    // },
+    // {
+    //   field: "uomUnit",
+    //   title: "Satuan"
+    // },
+    // {
+    //   field: "productionOrderQuantity",
+    //   title: "Qty Satuan"
+    // },
+    // {
+    //   field: "qtyKg",
+    //   title: "Qty KG"
+    // }
   ];
 
   loader = (info) => {
@@ -90,8 +82,6 @@ export class List {
     //     BonNo: "IM.20.0009",
     //     Shift: "PAGI",
     //     CartNo: "12",
-    //     UnitCode: "F1",
-    //     Area: "IM",
     //     ProductionOrderType: "SOLID",
     //     UOMUnit: "YDS",
     //     ProductionOrderQuantity: "3,13",
