@@ -82,6 +82,7 @@ export class DataForm {
             this.selectedIM.shift = this.data.shiftIm;
 
             this.selectedIMSPP = {};
+            this.selectedIMSPP.id = this.data.inspectionMaterialProductionOrderId;
             this.selectedIMSPP.productionOrder = {};
             this.selectedIMSPP.productionOrder.id = this.data.productionOrderId;
             this.selectedIMSPP.productionOrder.no = this.data.productionOrderNo;

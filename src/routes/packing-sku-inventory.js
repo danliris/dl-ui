@@ -223,19 +223,6 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-packaging-note',
-        name: 'dyeing-printing-packaging-note',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-packaging-note/index',
-        nav: true,
-        title: 'Dokumen Keluar Packaging Area Dyeing/Printing',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',
         moduleId: './modules/packing-sku-inventory/inspection-im-balance/index',
