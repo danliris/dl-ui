@@ -22,6 +22,23 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  getPreAval(info) {
+    var endpoint = `${serviceUri}/pre-aval`;
+    // var query = '';
+
+    // if (date) {
+    //   if (query === '') query = `date=${(date)}`;
+    //   else query = `${query}&date=${(date)}`;
+    // }
+    // if (shift) {
+    //   if (query === '') query = `shift=${shift}`;
+    //   else query = `${query}&shift=${shift}`;
+    // }
+    // if (query !== '')
+    //   endpoint = `${serviceUri}?${query}`;
+    return super.list(endpoint, info);
+  }
+
   getById(id) {
     let endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
