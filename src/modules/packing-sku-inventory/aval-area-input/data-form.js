@@ -28,7 +28,7 @@ export class DataForm {
     },
     control: {
       length: 4,
-    },
+    }
   };
 
   // tableOptions = {
@@ -52,6 +52,8 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
+    this.isEditable = false;
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -74,6 +76,7 @@ export class DataForm {
 
   Date = null;
   Shift = null;
+  DummyResult=[{},{},{},{},{},{}]
 
   searching() {
     if (this.data.Date) {
