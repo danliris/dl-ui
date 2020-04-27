@@ -6,6 +6,7 @@ import {
   Service
 } from "./service";
 var InspectionAreaLoader = require("../../../loader/pre-input-aval-loader");
+var UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service)
 export class DataForm {
@@ -70,6 +71,10 @@ export class DataForm {
 
   get inspectionMaterials() {
     return InspectionAreaLoader;
+  }
+
+  get uoms() {
+    return UomLoader;
   }
 
   shifts = ["PAGI", "SIANG"];
