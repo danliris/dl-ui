@@ -1,40 +1,56 @@
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
-import { BindingSignaler } from 'aurelia-templating-resources';
-import { Service } from './../service';
+import {
+  inject,
+  bindable,
+  computedFrom,
+  BindingEngine,
+} from "aurelia-framework";
+import { BindingSignaler } from "aurelia-templating-resources";
+import { Service } from "./../service";
 
 var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DoReturnDetail {
+  returntOptions = {};
 
-    returntOptions = {};
+  returnDetailsInfo = {
+    columns: ["No. Bon Pengiriman Barang"],
+    onRemove: function () {
+      this.context.ReturnDetailsCollection.bind();
+    }.bind(this),
+  };
 
-    returnDetailsInfo = {
-        columns: ["No. Bon Pengiriman Barang"],
-        onRemove: function () {
-            this.context.ReturnDetailsCollection.bind();
-        }.bind(this)
-    };
+  activate(context) {
+    this.data = context.data;
+    this.error = context.error;
+    this.options = context.options;
+  }
 
-    activate(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.options = context.options;
-    }
-
-    @bindable selectedSalesInvoice;
-    selectedSalesInvoiceChanged(newValue, oldValue) {
-        if (this.selectedSalesInvoice && this.selectedSalesInvoice.SalesInvoiceId) {
-            this.data.SalesInvoiceId = this.selectedSalesInvoice.SalesInvoiceId;
-            this.data.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
-        } else {
-            this.data.SalesInvoiceId = null;
-            this.data.SalesInvoiceNo = null;
+  @bindable selectedSalesInvoice;
+  selectedSalesInvoiceChanged(newValue, oldValue) {
+    if (this.selectedSalesInvoice && this.selectedSalesInvoice.SalesInvoiceId) {
+      this.data.SalesInvoiceId = this.selectedSalesInvoice.SalesInvoiceId;
+      this.data.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
+      var SalesInvoiceData = this.selectedSalesInvoice;
+      if (!this.data.Id) {
+        this.data.DoReturnDetailItems = [];
+        this.data.DoReturnItems = [];
+        for (var detailItem of SalesInvoiceData) {
+          var drdi = {
+            selectedShipmentDocument: detailItem.ShipmentDocument,
+          };
         }
-        console.log(this.selectedSalesInvoice)
+        this.data.DoReturnDetailItems.push(drdi);
+      }
+      
+      console.log(this.selectedSalesInvoice)
+    } else {
+      this.data.SalesInvoiceId = null;
+      this.data.SalesInvoiceNo = null;
     }
+  }
 
-    get salesInvoiceLoader() {
-        return SalesInvoiceLoader;
-    }
+  get salesInvoiceLoader() {
+    return SalesInvoiceLoader;
+  }
 }

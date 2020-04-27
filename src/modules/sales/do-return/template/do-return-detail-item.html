@@ -1,4 +1,4 @@
-<template replace-part="item">
+<template>
     <tr>
         <td>
             <au-autocomplete value.bind="selectedShipmentDocument" error.bind="error.ShipmentDocumentCode"
@@ -7,8 +7,9 @@
             </au-autocomplete>
 
             <au-textbox error.bind="error.SalesInvoiceItem" read-only.bind="true"></au-textbox>
-
-            <au-collection show.bind="selectedShipmentDocument" columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.SalesInvoiceItems"
+           
+            <!-- show.bind="selectedShipmentDocument"  -->
+            <au-collection columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.SalesInvoiceItems"
                 errors.bind="error.SalesInvoiceItems" read-only.bind="readOnly"
                 options.bind="shipmentDocumentTableOptions"
                 item-template="modules/sales/sales-invoice/template/sales-invoice-item"

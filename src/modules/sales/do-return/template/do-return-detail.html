@@ -2,11 +2,11 @@
     <tr>
         <td>
             <au-autocomplete placeholder="Input No. Faktur Penjualan" value.bind="selectedSalesInvoice"
-                error.bind="error.SalesInvoice" loader.one-time="salesInvoiceLoader" key="SalesInvoiceNo"
+                error.bind="error.SalesInvoiceNo" loader.one-time="salesInvoiceLoader" key="SalesInvoiceNo"
                 text="SalesInvoiceNo" read-only.bind="readOnly">
             </au-autocomplete>
 
-            <au-textbox error.bind="error.ReturnItem" read-only.bind="true"></au-textbox>
+            <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
 
             <au-collection columns.bind="returnDetailsInfo.columns"
                 remove.bind="returnDetailsInfo.onRemove" items.bind="data.ReturnItems" errors.one-way="error.ReturnItems"
