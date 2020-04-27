@@ -76,9 +76,11 @@
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
+    <!-- <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
       error.bind="error.TotalPayment" read-only.bind="true">
-    </au-textbox>
+    </au-textbox> -->
+
+    Nominal keseluruhan : ${getTotalPayment} ${selectedCurrency.Code}
 
   </au-input-form>
 </template>
