@@ -127,7 +127,6 @@ export class DataForm {
     }.bind(this),
   };
   itemOptions = {};
-  shipmentDocumentTableOptions = {};
 
   salesInvoiceTypeOptions = [
     "",

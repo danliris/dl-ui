@@ -131,32 +131,35 @@ export class DataForm {
   }
 
   @bindable selectedBuyer;
-  async selectedBuyerChanged(newValue, oldValue) {
+  // async 
+  selectedBuyerChanged(newValue, oldValue) {
     // if (this.selectedBuyer && this.selectedBuyer.Id) {
     if (newValue) {
       this.data.Buyer = {};
       this.data.Buyer.Id = this.selectedBuyer.Id;
       this.data.Buyer.Name = this.selectedBuyer.Name;
       this.data.Buyer.Address = this.selectedBuyer.Address;
-      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
-        this.data.Buyer.Id
-      );
-      if (this.selectedBuyer && this.selectedBuyer.Id) {
-        var invoiceData = salesInvoice.data;
-        if (!this.data.Id) {
-          this.data.SalesReceiptDetails = [];
-          for (var item of invoiceData) {
-            var invoice = {
-              SalesInvoice: item,
-              Currency: item.Currency,
-              DueDate: item.DueDate,
-              TotalPayment: item.TotalPayment,
-              TotalPaid: item.TotalPaid,
-            };
-            this.data.SalesReceiptDetails.push(invoice);
-          }
-        }
-      }
+      // var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+      //   this.data.Buyer.Id
+      // );
+      // if (this.selectedBuyer && this.selectedBuyer.Id) {
+      //   var invoiceData = salesInvoice.data;
+      //   if (!this.data.Id) {
+      //     this.data.SalesReceiptDetails = [];
+      //     for (var item of invoiceData) {
+      //       if (item.Currency.Id == this.data.Bank.CurrencyId) {
+      //         var invoice = {
+      //           SalesInvoice: item,
+      //           Currency: item.Currency,
+      //           DueDate: item.DueDate,
+      //           TotalPayment: item.TotalPayment,
+      //           TotalPaid: item.TotalPaid,
+      //         };
+      //         this.data.SalesReceiptDetails.push(invoice);
+      //       }
+      //     }
+      //   }
+      // }
     } else {
       this.data.Buyer.Id = null;
       this.data.Buyer.Name = null;
@@ -165,7 +168,7 @@ export class DataForm {
   }
 
   @bindable selectedBank;
-  selectedBankChanged(newValue, oldValue) {
+  async selectedBankChanged(newValue, oldValue) {
     // if (this.selectedBank && this.selectedBank.Id) {
     if (newValue) {
       this.data.Bank = {};
@@ -175,6 +178,30 @@ export class DataForm {
       this.data.Bank.AccountNumber = this.selectedBank.AccountNumber;
       this.data.Bank.BankName = this.selectedBank.BankName;
       this.data.Bank.Code = this.selectedBank.BankCode;
+      this.data.Bank.CurrencyId = this.selectedBank.Currency.Id;
+
+      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+        this.data.Buyer.Id
+      );
+      if (this.selectedBuyer && this.selectedBuyer.Id) {
+        var invoiceData = salesInvoice.data;
+        if (!this.data.Id) {
+          this.data.SalesReceiptDetails = [];
+          for (var item of invoiceData) {
+            if (item.Currency.Id == this.data.Bank.CurrencyId) {
+              var invoice = {
+                SalesInvoice: item,
+                Currency: item.Currency,
+                DueDate: item.DueDate,
+                TotalPayment: item.TotalPayment,
+                TotalPaid: item.TotalPaid,
+              };
+              this.data.SalesReceiptDetails.push(invoice);
+            }
+          }
+        }
+      }
+      
     } else {
       this.data.Bank.Id = null;
       this.data.AccountCOA = null;
