@@ -1,0 +1,31 @@
+<template>
+
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+    <au-dropdown label="Area" value.bind="data.area" error.bind="error.Area" read-only.bind="readOnly"
+      items.bind="areas" show.bind="false"></au-dropdown>
+
+    <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
+      read-only.bind="readOnly" label="Tanggal">
+    </au-datepicker>
+
+    <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
+      read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
+
+    <br/>
+    <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+    <br/>
+    <!-- <au-collection columns.bind="columns" items.bind="data.packagingProductionOrders"
+      errors.one-way="error.packagingOrders" remove.bind="onremove" add.bind="addItemCallback()"
+      data.bind="loader"  selectable.bind="true"
+      read-only.bind="readOnly" item-template="modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/template/item">
+    </au-collection> -->
+    <au-table view-model.ref="table" data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"
+    context-show.call="contextShowCallback(index, context, data)" options.bind="tableOptions" selections.bind="dataIsChecked"
+    selectable.bind="true">
+
+    <template replaceable part="actions"></template>
+  </au-input-form>
+
+
+</template>
