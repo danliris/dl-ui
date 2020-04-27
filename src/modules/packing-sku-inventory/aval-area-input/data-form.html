@@ -7,9 +7,10 @@
     table {
       border-collapse: collapse;
       margin-top: 24px;
+      margin-bottom: 24px;
     }
 
-    table.leftTable {
+    /* table.leftTable {
       width: 70%;
       margin-left: 25%;
       margin-right: 5%;
@@ -19,6 +20,11 @@
       width: 70%;
       margin-left: 5%;
       margin-right: 25%;
+    } */
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     table,
@@ -29,9 +35,9 @@
       text-align: left;
     }
 
-    th.avalTypesHeader {
+    /* th.avalTypesHeader {
       width: 160px;
-    }
+    } */
   </style>
 
   <au-input-form
@@ -66,6 +72,73 @@
     </div>
 
     <div class="row">
+      <table>
+        <tr>
+          <th rowspan="2">SAMBUNGAN</th>
+          <th>Jml MTR</th>
+          <th rowspan="2">AVAL A</th>
+          <th>Jml MTR</th>
+          <th rowspan="2">AVAL B</th>
+          <th>Jml MTR</th>
+        </tr>
+        <tr>
+          <td>
+            <au-numeric
+              value.bind="data.AvalJointValue"
+              error.bind="error.AvalJointValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+          <td>
+            <au-numeric
+              value.bind="data.AvalAValue"
+              error.bind="error.AvalAValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+          <td>
+            <au-numeric
+              value.bind="data.AvalBValue"
+              error.bind="error.AvalBValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+        </tr>
+        <tr>
+          <th rowspan="2">PANCINGAN</th>
+          <th>Jml MTR</th>
+          <th rowspan="2">TALI KOTOR</th>
+          <th>Jml MTR</th>
+          <th rowspan="2">KAIN KOTOR</th>
+          <th>Jml MTR</th>
+        </tr>
+        <tr>
+          <td>
+            <au-numeric
+              value.bind="data.AvalInducementValue"
+              error.bind="error.AvalInducementValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+          <td>
+            <au-numeric
+              value.bind="data.AvalDirtyRopeValue"
+              error.bind="error.AvalDirtyRopeValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+          <td>
+            <au-numeric
+              value.bind="data.AvalDirtyClothValue"
+              error.bind="error.AvalDirtyClothValue"
+              read-only.bind="true"
+            ></au-numeric>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- <div class="row">
       <div class="col-md-6">
         <table class="leftTable">
           <tr>
@@ -84,7 +157,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalJointCartNo"
+                error.bind="error.AvalJointCartNo"
+                read-only.bind="readOnly || isAvalJointEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Satuan</p>
             </td>
@@ -93,7 +180,7 @@
                 placeholder="Satuan"
                 value.bind="AvalJointUom"
                 error.bind="error.AvalJointUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalJointEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -107,7 +194,7 @@
               <au-numeric
                 value.bind="data.AvalJointQty"
                 error.bind="error.AvalJointQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalJointEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -119,7 +206,7 @@
               <au-numeric
                 value.bind="data.AvalJointQtyKg"
                 error.bind="error.AvalJointQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalJointEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -144,7 +231,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalACartNo"
+                error.bind="error.AvalACartNo"
+                read-only.bind="readOnly || isAvalAEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Satuan</p>
             </td>
@@ -153,7 +254,7 @@
                 placeholder="Satuan"
                 value.bind="AvalAUom"
                 error.bind="error.AvalAUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalAEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -167,7 +268,7 @@
               <au-numeric
                 value.bind="data.AvalAQty"
                 error.bind="error.AvalAQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalAEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -179,7 +280,7 @@
               <au-numeric
                 value.bind="data.AvalAQtyKg"
                 error.bind="error.AvalAQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalAEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -206,7 +307,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalInducementCartNo"
+                error.bind="error.AvalInducementCartNo"
+                read-only.bind="readOnly || isAvalInducementEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Satuan</p>
             </td>
@@ -215,7 +330,7 @@
                 placeholder="Satuan"
                 value.bind="AvalInducementUom"
                 error.bind="error.AvalInducementUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalInducementEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -229,7 +344,7 @@
               <au-numeric
                 value.bind="data.AvalInducementQty"
                 error.bind="error.AvalInducementQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalInducementEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -241,7 +356,7 @@
               <au-numeric
                 value.bind="data.AvalInducementQtyKg"
                 error.bind="error.AvalInducementQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalInducementEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -266,7 +381,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalBCartNo"
+                error.bind="error.AvalBCartNo"
+                read-only.bind="readOnly || isAvalBEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Satuan</p>
             </td>
@@ -275,7 +404,7 @@
                 placeholder="Satuan"
                 value.bind="AvalBUom"
                 error.bind="error.AvalBUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalBEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -289,7 +418,7 @@
               <au-numeric
                 value.bind="data.AvalBQty"
                 error.bind="error.AvalBQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalBEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -301,7 +430,7 @@
               <au-numeric
                 value.bind="data.AvalBQtyKg"
                 error.bind="error.AvalBQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalBEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -328,7 +457,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalDirtyRopeCartNo"
+                error.bind="error.AvalDirtyRopeCartNo"
+                read-only.bind="readOnly || isAvalDirtyRopeEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Satuan</p>
             </td>
@@ -337,7 +480,7 @@
                 placeholder="Satuan"
                 value.bind="AvalDirtyRopeUom"
                 error.bind="error.AvalDirtyRopeUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyRopeEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -351,7 +494,7 @@
               <au-numeric
                 value.bind="data.AvalDirtyRopeQty"
                 error.bind="error.AvalDirtyRopeQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyRopeEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -363,7 +506,7 @@
               <au-numeric
                 value.bind="data.AvalDirtyRopeQtyKg"
                 error.bind="error.AvalDirtyRopeQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyRopeEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -388,7 +531,21 @@
             </th>
           </tr>
           <tr>
-            <td rowspan="3"></td>
+            <td rowspan="4"></td>
+            <td>
+              <p>No. Kereta</p>
+            </td>
+            <td>
+              <au-textbox
+                placeholder="No. Kereta"
+                value.bind="data.AvalDirtyClothCartNo"
+                error.bind="error.AvalDirtyClothCartNo"
+                read-only.bind="readOnly || isAvalDirtyClothEditable"
+              >
+              </au-textbox>
+            </td>
+          </tr>
+          <tr>
             <td>
               <p>Qty</p>
             </td>
@@ -397,7 +554,7 @@
                 placeholder="Satuan"
                 value.bind="AvalDirtyClothUom"
                 error.bind="error.AvalDirtyClothUom"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyClothEditable"
                 loader.bind="uoms"
                 text="Unit"
               ></au-autocomplete>
@@ -411,7 +568,7 @@
               <au-numeric
                 value.bind="data.AvalDirtyClothQty"
                 error.bind="error.AvalDirtyClothQty"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyClothEditable"
               ></au-numeric>
             </td>
           </tr>
@@ -423,40 +580,33 @@
               <au-numeric
                 value.bind="data.AvalDirtyClothQtyKg"
                 error.bind="error.AvalDirtyClothQtyKg"
-                read-only.bind="readOnly || isEditable"
+                read-only.bind="readOnly || isAvalDirtyClothEditable"
               ></au-numeric>
             </td>
           </tr>
         </table>
       </div>
-    </div>
+    </div> -->
 
-    <!-- <au-collection items.bind="data.AvalProductionOrders"
-                   options.bind="itemOptions"
-                   errors.bind="error.AvalProductionOrders"
-                   columns.bind="dyeingPrintingItemsColumns"
-                   read-only.bind="readOnly"
-                   item-template="modules/packing-sku-inventory/aval-area-input/templates/items">
-    </au-collection> -->
+    <au-collection
+      show.bind="isHasData"
+      items.bind="data.DyeingPrintingItems"
+      add.bind="addItems"
+      options.bind="itemOptions"
+      errors.bind="error.AvalProductionOrders"
+      columns.bind="dyeingPrintingItemsColumns"
+      read-only.bind="readOnly"
+      item-template="modules/packing-sku-inventory/aval-area-input/templates/items"
+    >
+    </au-collection>
+    <div
+      class="alert alert-info text-center"
+      role="alert"
+      if.bind="isHasData == false"
+    >
+      There is no data found in the list.
+    </div>
 
     <template replaceable part="actions"></template>
   </au-input-form>
 </template>
-
-<!-- <br>
-    
-    <au-table view-model.ref="table"
-              data.bind="loader"
-              columns.bind="dyeingPrintingItemsColumns"
-              sortable.bind="false"
-              options.bind="tableOptions">
-    </au-table> -->
-
-<!-- <au-autocomplete options.bind="controlOptions"
-                     value.bind="BonNo"
-                     label="Nomor Bon"
-                     read-only.bind="readOnly || isEdit"
-                     error.bind="error.BonNo"
-                     loader.bind="inspectionMaterials"
-                     text="bonNo">
-    </au-autocomplete> -->

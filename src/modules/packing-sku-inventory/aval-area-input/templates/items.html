@@ -17,7 +17,7 @@
 
     <td style="white-space: nowrap">
       <au-autocomplete placeholder="Satuan"
-                       value.bind="UomUnit"
+                       value.bind="data.AvalUomUnit"
                        read-only.bind="readOnly"
                        loader.bind="uoms"
                        text="Unit">
@@ -25,15 +25,15 @@
     </td>
 
     <td style="white-space: nowrap">
-      <au-numeric placeholder="Qty Satuan"
-                  value.bind="data.Quantity"
+      <au-numeric 
+                  value.bind="data.AvalQuantity"
                   read-only.bind="readOnly">
       </au-numeric>
     </td>
 
     <td style="white-space: nowrap">
-      <au-numeric placeholder="Qty KG"
-                  value.bind="data.QuantityKg"
+      <au-numeric 
+                  value.bind="data.AvalQuantityKg"
                   read-only.bind="readOnly">
       </au-numeric>
     </td>

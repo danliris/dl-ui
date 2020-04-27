@@ -1,16 +1,7 @@
-import {
-  inject,
-  bindable
-} from "aurelia-framework";
-import {
-  Router
-} from "aurelia-router";
-import {
-  Service
-} from "./service";
-import {
-  activationStrategy
-} from 'aurelia-router';
+import { inject, bindable } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
@@ -42,52 +33,64 @@ export class Create {
   }
 
   back() {
-    this.router.navigateToRoute('list');
+    this.router.navigateToRoute("list");
   }
 
   save() {
     let CreateData = {};
     CreateData.Area = this.data.Area;
+    CreateData.AvalProductionIds = this.data.AvalProductionIds;
 
-    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
-      CreateData.Date = "";
+    // if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
+    //   CreateData.Date = "";
+    // } else {
+    //   CreateData.Date = this.data.Date;
+    // }
+
+    // if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
+    //   CreateData.Shift = "";
+    // } else {
+    //   CreateData.Shift = this.data.Shift;
+    // }
+
+    if (this.data.DyeingPrintingItems.length > 0) {
+      CreateData.AvalProductionOrders = this.data.DyeingPrintingItems.map(
+        (item) => {
+          var remappedItems = {};
+          remappedItems.AvalCartNo = item.AvalCartNo;
+          remappedItems.AvalQuantity = item.AvalQuantity;
+          remappedItems.AvalQuantityKg = item.AvalQuantityKg;
+          remappedItems.AvalType = item.AvalType;
+          remappedItems.AvalUomUnit = item.AvalUomUnit.Unit;
+
+          return remappedItems;
+        }
+      );
     } else {
-      CreateData.Date = this.data.Date;
-    }
-
-    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
-      CreateData.Shift = "";
-    } else {
-      CreateData.Shift = this.data.Shift;
-    }
-
-    if (this.data.BonNo === undefined || this.data.BonNo === null || this.data.BonNo === "") {
-      CreateData.BonNo = "";
-    } else {
-      CreateData.BonNo = this.data.BonNo;
-      CreateData.OutputInspectionMaterialId = this.data.OutputInspectionMaterialId;
-    }
-
-    if(this.data.AvalProductionOrders.length > 0){
-      CreateData.AvalProductionOrders = this.data.AvalProductionOrders;
-    }else{
       CreateData.AvalProductionOrders = [{}];
     }
 
-    this.service.create(CreateData)
-      .then(result => {
+    console.log(CreateData);
+    debugger;
+    this.service
+      .create(CreateData)
+      .then((result) => {
         alert("Data berhasil dibuat");
-        this.router.navigateToRoute('create', {}, {
-          replace: true,
-          trigger: true
-        });
+        this.router.navigateToRoute(
+          "create",
+          {},
+          {
+            replace: true,
+            trigger: true,
+          }
+        );
       })
-      .catch(e => {
+      .catch((e) => {
         if (e.statusCode == 500) {
           alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
         } else {
           this.error = e;
         }
-      })
+      });
   }
 }

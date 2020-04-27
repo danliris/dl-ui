@@ -1,10 +1,5 @@
-import {
-  inject,
-  bindable,
-} from "aurelia-framework";
-import {
-  Service
-} from "./service";
+import { inject, bindable } from "aurelia-framework";
+import { Service } from "./service";
 var InspectionAreaLoader = require("../../../loader/pre-input-aval-loader");
 var UomLoader = require("../../../loader/uom-loader");
 
@@ -14,7 +9,7 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  @bindable DyeingPrintingItems;
+  // @bindable DyeingPrintingItems;
 
   formOptions = {
     cancelText: "Kembali",
@@ -29,19 +24,10 @@ export class DataForm {
     },
     control: {
       length: 4,
-    }
+    },
   };
 
-  // tableOptions = {
-  //   search: false,
-  //   showToggle: false,
-  //   showColumns: false,
-  //   pagination: false
-  // }
-
-  itemOptions = {
-
-  }
+  itemOptions = {};
 
   constructor(service) {
     this.service = service;
@@ -53,19 +39,17 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.isEditable = false;
-
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
 
+    this.isHasData = false;
+
     this.data.Area = "GUDANG AVAL";
     if (this.data.id) {
       this.data.Date = this.data.date;
       this.data.Shift = this.data.shift;
-      this.BonNo = this.data.bonNo;
-      this.data.AvalProductionOrders = this.data.avalProductionOrders;
     }
   }
 
@@ -81,7 +65,6 @@ export class DataForm {
 
   Date = null;
   Shift = null;
-  DummyResult=[{},{},{},{},{},{}]
 
   searching() {
     if (this.data.Date) {
@@ -94,57 +77,101 @@ export class DataForm {
     var arg = {
       filter: {
         Date: this.Date,
-        Shift: this.Shift
-      }
+        Shift: this.Shift,
+      },
     };
-    
-    this.service.getPreAval(arg)
-      .then(result => {
-        if (result.length > 0) {
-          this.data.AvalProductionOrders = result;
-        } else {
-          this.data.AvalProductionOrders = [];
-        }
-      });
+
+    this.data.AvalProductionIds = [];
+
+    this.service.getPreAval(arg).then((result) => {
+      if (result.data.length > 0) {
+        result.data.forEach((dyeingPrintingArea) => {
+          dyeingPrintingArea.preAvalProductionOrders.forEach(
+            (productionOrder) => {
+              this.data.AvalProductionIds.push(productionOrder.id);
+              console.log(this.data.AvalProductionIds);
+
+              this.data.AvalJointValue += productionOrder.avalConnectionLength;
+              if (this.data.AvalJointValue > 0) {
+                this.isAvalJointEditable = false;
+              }
+
+              this.data.AvalAValue += productionOrder.avalALength;
+              if (this.data.AvalAValue > 0) {
+                this.isAvalAEditable = false;
+              }
+
+              // this.data.AvalInducementValue += productionOrder.avalInducementLength;
+              // if(this.data.AvalInducementValue > 0){
+              //   this.isAvalInducementEditable = false;
+              // }
+
+              this.data.AvalBValue += productionOrder.avalBLength;
+              if (this.data.AvalBValue > 0) {
+                this.isAvalBEditable = false;
+              }
+
+              // this.data.AvalDirtyRopeValue += productionOrder.avalDirtyRopeLength;
+              // if(this.data.AvalDirtyRopeValue > 0){
+              //   this.isAvalDirtyRopeEditable = false;
+              // }
+
+              // this.data.AvalDirtyClothValue += productionOrder.avalDirtyClothLength;
+              // if(this.data.AvalDirtyClothValue > 0){
+              //   this.isAvalDirtyClothEditable = false;
+              // }
+
+              this.isHasData = true;
+            }
+          );
+        });
+      } else {
+        this.isHasData = false;
+      }
+    });
   }
 
   reset() {
-    this.data.Date = null;
+    this.data.Date = undefined;
     this.data.Shift = null;
-    this.data.AvalProductionOrders = [];
 
-    this.error = '';
+    this.data.AvalJointValue = 0;
+    this.data.AvalAValue = 0;
+    this.data.AvalBValue = 0;
+    this.data.AvalInducementValue = 0;
+    this.data.AvalDirtyRopeValue = 0;
+    this.data.AvalDirtyClothValue = 0;
+
+    this.error = "";
   }
 
-  dyeingPrintingItemsColumns = [{
-      value: "productionOrderType",
-      header: "Jenis"
+  dyeingPrintingItemsColumns = [
+    {
+      value: "avalType",
+      header: "Jenis",
     },
     {
-      value: "cartNo",
-      header: "No. Kereta"
+      value: "avalCartNo",
+      header: "No. Kereta",
     },
     {
-      value: "uomUnit",
-      header: "Satuan"
+      value: "avalUomUnit",
+      header: "Satuan",
     },
     {
-      value: "productionOrderQuantity",
-      header: "Qty Satuan"
+      value: "avalQuantity",
+      header: "Qty Satuan",
     },
     {
-      value: "qtyKg",
-      header: "Qty KG"
-    }
+      value: "avalQuantityKg",
+      header: "Qty KG",
+    },
   ];
 
-  // addItems = (e) => {
-  //   this.data.AvalProductionOrders = this.data.AvalProductionOrders || [];
-  //   this.data.AvalProductionOrders.push({});
-  // }
+  itemOptions = {};
 
-  // @computedFrom("data.id")
-  // get isEdit() {
-  //     return (this.data.id || '').toString() != '';
-  // }
+  addItems = (e) => {
+    this.data.DyeingPrintingItems = this.data.DyeingPrintingItems || [];
+    this.data.DyeingPrintingItems.push({});
+  };
 }
