@@ -39,6 +39,19 @@
             options.bind="controlOptions"
             items.bind="statusItems">
         </au-dropdown>
+        <au-dropdown
+            value.bind="SupplierType"
+            label="Jenis Supplier"
+            options.bind="controlOptions"
+            items.bind="supplierType">
+        </au-dropdown>
+        <au-dropdown
+            value.bind="PaymentMethod"
+            label="Cara Pembayaran"
+            options.bind="controlOptions"
+            items.bind="paymentMethod">
+        </au-dropdown>
+       
 
         <au-datepicker
             value.bind="dateFromDue"
