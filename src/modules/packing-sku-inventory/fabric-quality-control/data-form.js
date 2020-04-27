@@ -28,7 +28,9 @@ export class DataForm {
     total = {
         initLength: 0,
         width: 0,
-        aval: 0,
+        avalA: 0,
+        avalB: 0,
+        avalConnection: 0,
         sample: 0,
     }
 
@@ -101,7 +103,9 @@ export class DataForm {
         var grandTotal = {};
         grandTotal.grade = "Grand Total";
         grandTotal.initLength = 0;
-        grandTotal.aval = 0;
+        grandTotal.avalA = 0;
+        grandTotal.avalB = 0;
+        grandTotal.avalConnection = 0;
         grandTotal.sample = 0;
         data.reduce(function (res, value) {
             let grade = value.grade;
@@ -110,18 +114,24 @@ export class DataForm {
                     grade: grade,
                     initLength: 0,
                     width: 0,
-                    aval: 0,
+                    avalA: 0,
+                    avalB: 0,
+                    avalConnection: 0,
                     sample: 0,
                 };
                 result.push(res[grade])
             }
             res[grade].initLength += value.initLength;
             res[grade].width += value.width;
-            res[grade].aval += value.avalLength;
+            res[grade].avalA += value.avalALength;
+            res[grade].avalB += value.avalBLength;
+            res[grade].avalConnection += value.avalConnectionLength;
             res[grade].sample += value.sampleLength;
 
             grandTotal.initLength += value.initLength;
-            grandTotal.aval += value.avalLength;
+            grandTotal.avalA += value.avalALength;
+            grandTotal.avalB += value.avalBLength;
+            grandTotal.avalConnection += value.avalConnectionLength;
             grandTotal.sample += value.sampleLength;
             return res;
         }, {});
@@ -137,7 +147,9 @@ export class DataForm {
     testoColumns = [
         { field: "grade", title: "Grade" },
         { field: "initLength", title: "Total Panjang (Meter)" },
-        { field: "aval", title: "Total Aval (Meter)" },
+        { field: "avalA", title: "Total Aval A (Meter)" },
+        { field: "avalB", title: "Total Aval B (Meter)" },
+        { field: "avalConnection", title: "Total Aval Sambungan (Meter)" },
         { field: "sample", title: "Total Sample (Meter)" },
     ]
 
@@ -234,13 +246,31 @@ export class DataForm {
     @bindable selectedFabricGradeTestError;
     @bindable selectedPointSystem;
     @bindable selectedPointLimit;
-    @bindable selectedAvalLength;
+    @bindable selectedAvalALength;
+    @bindable selectedAvalBLength;
+    @bindable selectedAvalConnectionLength;
     @bindable selectedSampleLength;
     @bindable subs;
-    selectedAvalLengthChanged() {
+    selectedAvalALengthChanged() {
         if (!this.selectedFabricGradeTest)
             return;
-        this.selectedFabricGradeTest.avalLength = this.selectedAvalLength;
+        this.selectedFabricGradeTest.avalALength = this.selectedAvalALength;
+        this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
+        this.totalTable.refresh();
+    }
+    selectedAvalBLengthChanged() {
+        if (!this.selectedFabricGradeTest)
+            return;
+        this.selectedFabricGradeTest.avalBLength = this.selectedAvalBLength;
+        this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
+        this.totalTable.refresh();
+    }
+    selectedAvalConnectionLengthChanged() {
+        if (!this.selectedFabricGradeTest)
+            return;
+        this.selectedFabricGradeTest.avalConnectionLength = this.selectedAvalConnectionLength;
         this.computeGrade(this.selectedFabricGradeTest);
         this.fabricGradeTestTable.refresh();
         this.totalTable.refresh();
@@ -274,7 +304,9 @@ export class DataForm {
             this.selectedPcsLength = this.selectedFabricGradeTest.initLength;
             this.selectedPcsWidth = this.selectedFabricGradeTest.width;
 
-            this.selectedAvalLength = this.selectedFabricGradeTest.avalLength;
+            this.selectedAvalALength = this.selectedFabricGradeTest.avalALength;
+            this.selectedAvalBLength = this.selectedFabricGradeTest.avalBLength;
+            this.selectedAvalConnectionLength = this.selectedFabricGradeTest.avalConnectionLength;
             this.selectedSampleLength = this.selectedFabricGradeTest.sampleLength;
 
             this.subs = [];
@@ -301,7 +333,7 @@ export class DataForm {
             return;
         var multiplier = this.fabricGradeTestMultiplier;
         var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.a * multiplier.A) + (c.score.b * multiplier.B) + (c.score.c * multiplier.C) + (c.score.d * multiplier.D)) }, 0);
-        var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
+        var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalALength - fabricGradeTest.avalBLength - fabricGradeTest.avalConnectionLength - fabricGradeTest.sampleLength;
         var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
         var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
         var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
@@ -506,7 +538,9 @@ class FabricGradeTest {
         this.width = 0;
 
         this.initLength = 0;
-        this.avalLength = 0;
+        this.avalALength = 0;
+        this.avalBLength = 0;
+        this.avalConnectionLength = 0;
         this.sampleLength = 0;
         this.finalLength = 0;
 

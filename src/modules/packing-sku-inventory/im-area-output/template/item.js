@@ -5,6 +5,7 @@ export class CartItem {
     @bindable product;
     isAval = false;
     remarks = [];
+    avalItems = [];
     activate(context) {
 
         this.context = context;
@@ -13,7 +14,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
-
+        this.isShowing = false;
         if (this.data.balance) {
             this.data.previousBalance = this.data.balance;
         }
@@ -37,9 +38,26 @@ export class CartItem {
             this.data.status = "OK";
 
             if (this.data.isChecked)
-                this.data.balance = this.data.avalLength;
+                this.data.balance = this.data.avalALength + this.data.avalBLength + this.data.avalConnectionLength;
 
             this.isAval = true;
+            this.avalColumns = ["Jenis Aval", "Panjang"];
+            this.data.avalItems = [];
+            var avalAItem = {
+                type : "Aval A",
+                length : this.data.avalALength
+            };
+            this.data.avalItems.push(avalAItem);
+            var avalBItem = {
+                type : "Aval B",
+                length : this.data.avalBLength
+            };
+            this.data.avalItems.push(avalBItem);
+            var avalConnectionItem = {
+                type : "Aval Sambungan",
+                length : this.data.avalConnectionLength
+            };
+            this.data.avalItems.push(avalConnectionItem);
         }
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
@@ -77,6 +95,13 @@ export class CartItem {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
+
+    toggle() {
+        if (!this.isShowing)
+          this.isShowing = true;
+        else
+          this.isShowing = !this.isShowing;
+      }
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
