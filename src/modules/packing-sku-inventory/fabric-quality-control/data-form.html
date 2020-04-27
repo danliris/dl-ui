@@ -39,7 +39,8 @@
         </au-autocomplete>
 
         <au-autocomplete value.bind="selectedIMSPP" label="Nomor SPP" read-only.bind="readOnly || isEdit"
-          error.bind="error.ProductionOrderNo" query.bind="imSPPQuery" loader.bind="inspectionMaterialSPPLoader" text.bind="imSPPTextFormatter">
+          error.bind="error.ProductionOrderNo" query.bind="imSPPQuery" loader.bind="inspectionMaterialSPPLoader"
+          text.bind="imSPPTextFormatter">
         </au-autocomplete>
 
         <div class="row">
@@ -119,7 +120,11 @@
 
         <div class="row">
           <div class="col-md-6">
-            <au-numeric label="Aval (Meter)" value.bind="selectedAvalLength" error.bind="error.AvalLength"
+            <au-numeric label="Aval A (Meter)" value.bind="selectedAvalALength" error.bind="error.AvalALength"
+              read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+            <au-numeric label="Aval B (Meter)" value.bind="selectedAvalBLength" error.bind="error.AvalBLength"
+              read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+            <au-numeric label="Aval Sambungan (Meter)" value.bind="selectedAvalConnectionLength" error.bind="error.AvalConnectionLength"
               read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
           </div>
           <div class="col-md-6">

@@ -65,6 +65,7 @@ export class List {
         },
         { field: 'BankExpenditureNoteNo', title: 'No Bukti Pengeluaran Bank DPP+PPN' },
         
+        
     ];
 
     controlOptions = {
@@ -90,6 +91,9 @@ export class List {
         this.selectSupplier = ['code', 'name'];
         this.selectDivision = ['code', 'name'];
         this.statusItems = ['', 'LUNAS', 'SUDAH BAYAR DPP+PPN', 'SUDAH BAYAR PPH', 'BELUM BAYAR'];
+        this.supplierType = ['', 'LOCAL', 'IMPORT' ]
+        this.paymentMethod = ['', 'CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 
+                              'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI']
     }
 
     loader = (info) => {
@@ -114,7 +118,12 @@ export class List {
         if (this.division) {
             arg.divisionCode = this.division.Code;
         }
-
+        if (this.SupplierType != '') {
+            arg.SupplierType = this.SupplierType;
+        }
+        if (this.PaymentMethod != '') {
+            arg.PaymentMethod = this.PaymentMethod;
+        }
         if (this.status != '') {
             arg.status = this.status;
         }
@@ -230,7 +239,7 @@ export class List {
                             'No Bukti Pengeluaran Bank PPH': data.BankExpenditureNotePPHNo?data.BankExpenditureNotePPHNo :'-' ,
                             'Tanggal Bayar DPP+PPN': data.BankExpenditureNoteDate ? moment(data.BankExpenditureNoteDate).format('DD MMM YYYY') : '-',
                             'No Bukti Pengeluaran Bank DPP+PPN': data.BankExpenditureNoteNo ? data.BankExpenditureNoteNo :'-',
-                            
+                            'Jenis Supplier': data.SupplierImport ? data.SupplierImport :'-',
                         });
                     }
 
@@ -272,6 +281,8 @@ export class List {
         this.supplier = undefined;
         this.division = undefined;
         this.status = '';
+        this.SupplierType ='';
+        this.PaymentMethod='';
         this.dateFromDue = undefined;
         this.dateToDue = undefined;
         this.dateFrom = undefined;
