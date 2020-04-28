@@ -1,5 +1,6 @@
 import { inject, bindable } from "aurelia-framework";
 import { Service } from "./service";
+import moment from "moment";
 var InspectionAreaLoader = require("../../../loader/pre-input-aval-loader");
 var UomLoader = require("../../../loader/uom-loader");
 
@@ -47,10 +48,10 @@ export class DataForm {
     this.isHasData = false;
 
     this.data.Area = "GUDANG AVAL";
-    if (this.data.id) {
-      this.data.Date = this.data.date;
-      this.data.Shift = this.data.shift;
-    }
+    // if (this.data.id) {
+    //   this.data.Date = this.data.date;
+    //   this.data.Shift = this.data.shift;
+    // }
   }
 
   get inspectionMaterials() {
@@ -67,73 +68,7 @@ export class DataForm {
   Shift = null;
 
   searching() {
-    if (this.data.Date) {
-      this.Date = this.data.Date;
-    }
-    if (this.data.Shift) {
-      this.Shift = this.data.Shift;
-    }
-
-    var arg = {
-      filter: {
-        Date: this.Date,
-        Shift: this.Shift,
-      },
-    };
-
-    this.data.AvalProductionIds = [];
-
-    this.service.getPreAval(arg).then((result) => {
-      if (result.data.length > 0) {
-        result.data.forEach((dyeingPrintingArea) => {
-          dyeingPrintingArea.preAvalProductionOrders.forEach(
-            (productionOrder) => {
-              this.data.AvalProductionIds.push(productionOrder.id);
-              console.log(this.data.AvalProductionIds);
-
-              this.data.AvalJointValue += productionOrder.avalConnectionLength;
-              if (this.data.AvalJointValue > 0) {
-                this.isAvalJointEditable = false;
-              }
-
-              this.data.AvalAValue += productionOrder.avalALength;
-              if (this.data.AvalAValue > 0) {
-                this.isAvalAEditable = false;
-              }
-
-              // this.data.AvalInducementValue += productionOrder.avalInducementLength;
-              // if(this.data.AvalInducementValue > 0){
-              //   this.isAvalInducementEditable = false;
-              // }
-
-              this.data.AvalBValue += productionOrder.avalBLength;
-              if (this.data.AvalBValue > 0) {
-                this.isAvalBEditable = false;
-              }
-
-              // this.data.AvalDirtyRopeValue += productionOrder.avalDirtyRopeLength;
-              // if(this.data.AvalDirtyRopeValue > 0){
-              //   this.isAvalDirtyRopeEditable = false;
-              // }
-
-              // this.data.AvalDirtyClothValue += productionOrder.avalDirtyClothLength;
-              // if(this.data.AvalDirtyClothValue > 0){
-              //   this.isAvalDirtyClothEditable = false;
-              // }
-
-              this.isHasData = true;
-            }
-          );
-        });
-      } else {
-        this.isHasData = false;
-      }
-    });
-  }
-
-  reset() {
-    this.data.Date = undefined;
-    this.data.Shift = null;
+    var errorIndex = 0;
 
     this.data.AvalJointValue = 0;
     this.data.AvalAValue = 0;
@@ -142,7 +77,117 @@ export class DataForm {
     this.data.AvalDirtyRopeValue = 0;
     this.data.AvalDirtyClothValue = 0;
 
-    this.error = "";
+    if (
+      this.data.Date == undefined ||
+      this.data.Date == null ||
+      this.data.Date == "" ||
+      isNaN(this.data.Date)
+    ) {
+      this.error.Date = "Tanggal Harus Diisi";
+      errorIndex++;
+    } else {
+      this.Date = this.data.Date
+        ? moment(this.data.Date).format("DD MMM YYYY HH:mm")
+        : null;
+      this.error.Date = "";
+    }
+
+    if (
+      this.data.Shift == undefined ||
+      this.data.Shift == null ||
+      this.data.Shift == ""
+    ) {
+      this.error.Shift = "Shift Harus Diisi";
+      errorIndex++;
+    } else {
+      this.Shift = this.data.Shift;
+      this.error.Shift = "";
+    }
+
+    if (errorIndex == 0) {
+      // var arg = {
+      //   filter: {
+      //     Date: this.Date,
+      //     Shift: this.Shift,
+      //   },
+      // };
+
+      this.data.DyeingPrintingMovementIds = [];
+      this.data.AvalProductionOrderIds = [];
+
+      this.service.getPreAval(this.Date, this.Shift).then((result) => {
+        console.log(result);
+        if (result.length > 0) {
+          result.forEach((dyeingPrintingArea) => {
+            this.data.DyeingPrintingMovementIds.push(dyeingPrintingArea.id);
+            console.log("DyeingPrintingMovementIds", this.data.DyeingPrintingMovementIds);
+            dyeingPrintingArea.preAvalProductionOrders.forEach(
+              (productionOrder) => {
+                this.data.AvalProductionOrderIds.push(productionOrder.id);
+                console.log("AvalProductionOrderIds", this.data.AvalProductionOrderIds);
+
+                this.data.AvalJointValue +=
+                  productionOrder.avalConnectionLength;
+                if (this.data.AvalJointValue > 0) {
+                  this.isAvalJointEditable = false;
+                }
+
+                this.data.AvalAValue += productionOrder.avalALength;
+                if (this.data.AvalAValue > 0) {
+                  this.isAvalAEditable = false;
+                }
+
+                // this.data.AvalInducementValue += productionOrder.avalInducementLength;
+                // if(this.data.AvalInducementValue > 0){
+                //   this.isAvalInducementEditable = false;
+                // }
+
+                this.data.AvalBValue += productionOrder.avalBLength;
+                if (this.data.AvalBValue > 0) {
+                  this.isAvalBEditable = false;
+                }
+
+                // this.data.AvalDirtyRopeValue += productionOrder.avalDirtyRopeLength;
+                // if(this.data.AvalDirtyRopeValue > 0){
+                //   this.isAvalDirtyRopeEditable = false;
+                // }
+
+                // this.data.AvalDirtyClothValue += productionOrder.avalDirtyClothLength;
+                // if(this.data.AvalDirtyClothValue > 0){
+                //   this.isAvalDirtyClothEditable = false;
+                // }
+
+                this.isHasData = true;
+              }
+            );
+          });
+        } else {
+          this.isHasData = false;
+        }
+      });
+    } else {
+      this.error.Date;
+      this.error.Shift;
+    }
+  }
+
+  reset() {
+    this.data.Date = undefined;
+
+    this.Date = null;
+    this.Shift = null;
+
+    this.data.AvalJointValue = 0;
+    this.data.AvalAValue = 0;
+    this.data.AvalBValue = 0;
+    this.data.AvalInducementValue = 0;
+    this.data.AvalDirtyRopeValue = 0;
+    this.data.AvalDirtyClothValue = 0;
+
+    this.isHasData = false;
+
+    this.error.Date = "";
+    this.error.Shift = "";
   }
 
   dyeingPrintingItemsColumns = [
