@@ -1,0 +1,14 @@
+<template replace-part="avalItem">
+    <tr>
+        <td>
+            <au-textbox value.bind="data.type" read-only.bind="true" error.bind="error.Type"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.length" format="0.00" read-only.bind="true"
+                error.bind="error.Length" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+    </tr>
+</template>

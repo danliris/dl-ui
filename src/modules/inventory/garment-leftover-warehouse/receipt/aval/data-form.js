@@ -77,25 +77,11 @@ export class DataForm {
                 Name: this.data.UnitFrom.Name
             };
             var roList=[];
-            for (const item of this.data.Items) {
-                var detail={};
-                if(roList.length==0){
-                    detail.RONo=item.RONo;
-                    detail.FabricItems=[];
-                    detail.FabricItems.push({
-                        Product:item.Product,
-                        ProductRemark:item.ProductRemark,
-                        Quantity:item.Quantity,
-                        Uom:item.Uom,
-                        GarmentAvalProductId:item.GarmentAvalProductId,
-                        GarmentAvalProductItemId:item.GarmentAvalProductItemId,
-                        IsSave:true
-                    });
-                    roList.push(detail);
-                }
-                else{
-                    var dup=roList.find(a=>a.RONo==item.RONo);
-                    if(!dup){
+            if(this.data.AvalType==="AVAL FABRIC")
+            {
+                for (const item of this.data.Items) {
+                    var detail={};
+                    if(roList.length==0){
                         detail.RONo=item.RONo;
                         detail.FabricItems=[];
                         detail.FabricItems.push({
@@ -110,24 +96,43 @@ export class DataForm {
                         roList.push(detail);
                     }
                     else{
-                        var idx= roList.indexOf(dup);
-                        dup.FabricItems.push({
-                            Product:item.Product,
-                            ProductRemark:item.ProductRemark,
-                            Quantity:item.Quantity,
-                            Uom:item.Uom,
-                            GarmentAvalProductId:item.GarmentAvalProductId,
-                            GarmentAvalProductItemId:item.GarmentAvalProductItemId,
-                            IsSave:true
-                        });
-                        
-                        roList[idx]=dup;
-                        
+                        var dup=roList.find(a=>a.RONo==item.RONo);
+                        if(!dup){
+                            detail.RONo=item.RONo;
+                            detail.FabricItems=[];
+                            detail.FabricItems.push({
+                                Product:item.Product,
+                                ProductRemark:item.ProductRemark,
+                                Quantity:item.Quantity,
+                                Uom:item.Uom,
+                                GarmentAvalProductId:item.GarmentAvalProductId,
+                                GarmentAvalProductItemId:item.GarmentAvalProductItemId,
+                                IsSave:true
+                            });
+                            roList.push(detail);
+                        }
+                        else{
+                            var idx= roList.indexOf(dup);
+                            dup.FabricItems.push({
+                                Product:item.Product,
+                                ProductRemark:item.ProductRemark,
+                                Quantity:item.Quantity,
+                                Uom:item.Uom,
+                                GarmentAvalProductId:item.GarmentAvalProductId,
+                                GarmentAvalProductItemId:item.GarmentAvalProductItemId,
+                                IsSave:true
+                            });
+                            
+                            roList[idx]=dup;
+                            
+                        }
                     }
                 }
+                this.data.ROList=roList;
             }
-            this.data.ROList=roList;
         }
+            
+
     }
 
     selectedTypeChanged(newValue){
@@ -137,11 +142,14 @@ export class DataForm {
             this.isAccessories= this.data.AvalType==="AVAL ACCESSORIES";
 
         }
-        if(this.data.ROList)
+        if(this.data.ROList && !this.data.Id)
             this.data.ROList.splice(0);
 
-        this.data.Items.splice(0);
-        this.data.TotalAval=0;
+        if(!this.data.Id){
+
+            this.data.Items.splice(0);
+            this.data.TotalAval=0;
+        }
     }
 
     selectedUnitFromChanged(newValue){

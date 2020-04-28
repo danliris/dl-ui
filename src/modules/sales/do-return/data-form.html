@@ -1,17 +1,10 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
-    <div slot="actions" class="btn-group">
-      <button class="btn btn-default" click.delegate="context.cancel($event)"
-        if.one-way="context.hasCancel">Kembali</button>
-      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
-      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)"
-        if.one-way="context.hasDelete">Hapus</button>
-    </div>
-
     <div class="row">
+      <div class="col-md-8">
+        <au-textbox label="No. Retur" value.bind="data.DOReturnNo" if.bind="readOnly || isEdit" read-only.bind="true">
+        </au-textbox>
 
-      <div class="col-md-8" style="padding:0">
         <au-dropdown label="Seri DO Retur" value.bind="data.ReturnType" items.bind="doSalesReturnOptions"
           error.bind="error.ReturnType" read-only.bind="readOnly || isEdit">
         </au-dropdown>
@@ -35,16 +28,14 @@
         <au-multiline label="Catatan" value.bind="data.ReturnRemark" error.bind="error.ReturnRemark"
           read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
         </au-multiline>
-
       </div>
     </div>
 
-    <au-textbox show.bind="error.LocalType" error.bind="error.LocalType" read-only.bind="true"></au-textbox>
     <au-textbox show.bind="error.ReturnType" error.bind="error.ReturnType" read-only.bind="true"></au-textbox>
 
     <au-collection columns.bind="doSalesReturnsInfo.columns" items.bind="data.DOSalesReturns"
-      errors.one-way="error.DOSalesReturns" add.bind="doSalesReturnsInfo.onAdd"
-      remove.bind="doSalesReturnsInfo.onRemove" read-only.bind="readOnly"
-      item-template="modules/sales/do-sales/template/return-item" view-model.ref="DOSalesReturnsCollection">
+      errors.one-way="error.DOSalesReturns" read-only.bind="readOnly" options.bind="detailOptions"
+      add.bind="doSalesReturnsInfo.onAdd" remove.bind="doSalesReturnsInfo.onRemove"
+      item-template="modules/sales/do-return/template/do-return-detail" view-model.ref="ItemsCollection">
     </au-collection>
 </template>

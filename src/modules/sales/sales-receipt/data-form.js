@@ -3,7 +3,7 @@ import {
   inject,
   containerless,
   computedFrom,
-  BindingEngine
+  BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
@@ -11,6 +11,7 @@ import { Service, ServiceCore } from "./service";
 var BuyersLoader = require("../../../loader/buyers-loader");
 var BankLoader = require("../../../loader/account-banks-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
+var UnitLoader = require("../../../loader/unit-loader");
 var SalesInvoiceLoader = require("../../../loader/sales-invoice-loader");
 
 @containerless()
@@ -20,18 +21,17 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  // @bindable BuyerId;
 
   mediumControlOptions = {
     control: {
-      length: 6
-    }
+      length: 6,
+    },
   };
 
   smallControlOptions = {
     control: {
-      length: 2
-    }
+      length: 2,
+    },
   };
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
@@ -56,16 +56,14 @@ export class DataForm {
     this.data.TotalPaid = this.getTotalPaid;
 
     if (this.data.Buyer && this.data.Buyer.Id) {
-      this.selectedBuyer = await this.serviceCore.getBuyerById(
-        this.data.Buyer.Id
-      );
-      // this.selectedBuyer = this.data.Buyer;
+      // this.selectedBuyer = await this.serviceCore.getBuyerById(
+      //   this.data.Buyer.Id
+      // );
+      this.selectedBuyer = this.data.Buyer;
     }
 
     if (this.data.Bank && this.data.Bank.Id) {
-      this.selectedBank = await this.serviceCore.getBankById(
-        this.data.Bank.Id
-      );
+      this.selectedBank = await this.serviceCore.getBankById(this.data.Bank.Id);
       // this.selectedBank = this.data.Bank;
     }
 
@@ -76,15 +74,15 @@ export class DataForm {
       // this.selectedCurrency = this.data.Currency;
     }
 
+    if (this.data.Unit && this.data.Unit.Id) {
+      this.selectedUnit = await this.serviceCore.getUnitById(this.data.Unit.Id);
+      // this.selectedUnit = this.data.Unit;
+    }
+
     if (this.data.SalesReceiptDate) {
       this.salesInvoiceTableOptions.SalesReceiptDate = this.data.SalesReceiptDate;
       this.SalesReceiptDate = this.data.SalesReceiptDate;
     }
-
-    // if (this.data.Buyer.Id) {
-    //   this.salesInvoiceTableOptions.Buyer.Id = this.data.Buyer.Id;
-    //   this.Buyer.Id = this.data.Buyer.Id;
-    // }
 
     if (this.data.TotalPaid) {
       this.TotalPaid = this.data.TotalPaid;
@@ -103,13 +101,6 @@ export class DataForm {
     return result;
   }
 
-  // BuyerIdChanged(newValue, oldValue) {
-  //   if (newValue) {
-  //     this.salesInvoiceTableOptions.Buyer.Id = newValue;
-  //   }
-  //   this.data.Buyer.Id = this.Buyer.Id;
-  // }
-
   salesReceiptDetailsInfo = {
     columns: [
       "No. Faktur Jual",
@@ -119,12 +110,10 @@ export class DataForm {
       "Total Pembayaran",
       "Akumulasi",
       "Lunas",
-    ]
+    ],
   };
 
   salesInvoiceTableOptions = {};
-
-  unitOptions = ["", "SPINNING 1", "SPINNING 2", "WEAVING 2", "WEAVING 3", "DYIENG (EX FINISHING)", "PRINTING"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -142,26 +131,35 @@ export class DataForm {
   }
 
   @bindable selectedBuyer;
-  async selectedBuyerChanged(newValue, oldValue) {
-    if (this.selectedBuyer && this.selectedBuyer.Id) {
+  // async 
+  selectedBuyerChanged(newValue, oldValue) {
+    // if (this.selectedBuyer && this.selectedBuyer.Id) {
+    if (newValue) {
       this.data.Buyer = {};
       this.data.Buyer.Id = this.selectedBuyer.Id;
       this.data.Buyer.Name = this.selectedBuyer.Name;
       this.data.Buyer.Address = this.selectedBuyer.Address;
-      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(this.data.Buyer.Id);
-      var invoiceData = salesInvoice.data;
-      this.data.SalesReceiptDetails = [];
-      for (var item of invoiceData) {
-        var invoice = {
-          SalesInvoiceId: item.Id,
-          SalesInvoiceNo: item.SalesInvoiceNo,
-          DueDate: item.DueDate,
-          TotalPayment: item.TotalPayment,
-          TotalPaid: item.TotalPaid,
-          // CurrencyCode: item.Currency.Code,
-        }
-        this.data.SalesReceiptDetails.push(invoice);
-      }
+      // var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+      //   this.data.Buyer.Id
+      // );
+      // if (this.selectedBuyer && this.selectedBuyer.Id) {
+      //   var invoiceData = salesInvoice.data;
+      //   if (!this.data.Id) {
+      //     this.data.SalesReceiptDetails = [];
+      //     for (var item of invoiceData) {
+      //       if (item.Currency.Id == this.data.Bank.CurrencyId) {
+      //         var invoice = {
+      //           SalesInvoice: item,
+      //           Currency: item.Currency,
+      //           DueDate: item.DueDate,
+      //           TotalPayment: item.TotalPayment,
+      //           TotalPaid: item.TotalPaid,
+      //         };
+      //         this.data.SalesReceiptDetails.push(invoice);
+      //       }
+      //     }
+      //   }
+      // }
     } else {
       this.data.Buyer.Id = null;
       this.data.Buyer.Name = null;
@@ -170,8 +168,9 @@ export class DataForm {
   }
 
   @bindable selectedBank;
-  selectedBankChanged(newValue, oldValue) {
-    if (this.selectedBank && this.selectedBank.Id) {
+  async selectedBankChanged(newValue, oldValue) {
+    // if (this.selectedBank && this.selectedBank.Id) {
+    if (newValue) {
       this.data.Bank = {};
       this.data.Bank.Id = this.selectedBank.Id;
       this.data.AccountCOA = this.selectedBank.AccountCOA;
@@ -179,6 +178,30 @@ export class DataForm {
       this.data.Bank.AccountNumber = this.selectedBank.AccountNumber;
       this.data.Bank.BankName = this.selectedBank.BankName;
       this.data.Bank.Code = this.selectedBank.BankCode;
+      this.data.Bank.CurrencyId = this.selectedBank.Currency.Id;
+
+      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+        this.data.Buyer.Id
+      );
+      if (this.selectedBuyer && this.selectedBuyer.Id) {
+        var invoiceData = salesInvoice.data;
+        if (!this.data.Id) {
+          this.data.SalesReceiptDetails = [];
+          for (var item of invoiceData) {
+            if (item.Currency.Id == this.data.Bank.CurrencyId) {
+              var invoice = {
+                SalesInvoice: item,
+                Currency: item.Currency,
+                DueDate: item.DueDate,
+                TotalPayment: item.TotalPayment,
+                TotalPaid: item.TotalPaid,
+              };
+              this.data.SalesReceiptDetails.push(invoice);
+            }
+          }
+        }
+      }
+      
     } else {
       this.data.Bank.Id = null;
       this.data.AccountCOA = null;
@@ -191,7 +214,8 @@ export class DataForm {
 
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
-    if (this.selectedCurrency && this.selectedCurrency.Id) {
+    // if (this.selectedCurrency && this.selectedCurrency.Id) {
+    if (newValue) {
       this.data.Currency = {};
       this.data.Currency.Id = this.selectedCurrency.Id;
       this.data.Currency.Code = this.selectedCurrency.Code;
@@ -205,6 +229,19 @@ export class DataForm {
     }
   }
 
+  @bindable selectedUnit;
+  selectedUnitChanged(newValue, oldValue) {
+    // if (this.selectedUnit && this.selectedUnit.Id) {
+    if (newValue) {
+      this.data.Unit = {};
+      this.data.Unit.Id = this.selectedUnit.Id;
+      this.data.Unit.Name = this.selectedUnit.Name;
+    } else {
+      this.data.Unit.Id = null;
+      this.data.Unit.Name = null;
+    }
+  }
+
   get buyersLoader() {
     return BuyersLoader;
   }
@@ -214,11 +251,16 @@ export class DataForm {
   get currencyLoader() {
     return CurrencyLoader;
   }
+  get unitLoader() {
+    return UnitLoader;
+  }
   get salesInvoiceLoader() {
     return SalesInvoiceLoader;
   }
 
   bankView = (bank) => {
-    return bank.AccountName ? `${bank.BankName} ${bank.AccountName} ${bank.AccountNumber} (${bank.Currency.Code})` : '';
-  }
+    return bank.AccountName
+      ? `${bank.BankName} ${bank.AccountName} ${bank.AccountNumber} (${bank.Currency.Code})`
+      : "";
+  };
 }

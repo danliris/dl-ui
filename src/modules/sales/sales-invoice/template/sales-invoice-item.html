@@ -11,17 +11,19 @@
         </td>
         <td>
             <au-textbox value.bind="data.Quantity" read-only.bind="true"></au-textbox>
-            <au-textbox value.bind="data.QuantityUOM" read-only.bind="true" show.bind="!data.QuantityUOM">
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="Total" read-only.bind="true" format="0,0">
+            <au-textbox value.bind="data.PackingUom" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="Total" error.bind="error.Total" read-only.bind="true" format="0,0">
             </au-numeric>
         </td>
         <td>
             <au-autocomplete placeholder="pilih Satuan" value.bind="selectedUom" error.bind="error.UomUnit"
-                loader.one-time="uomLoader" key="Unit" text="Unit" read-only.bind="readOnly"
-                change.delegate="selectedUomChanged($event)">
+                loader.one-time="uomLoader" key="Unit" text="Unit" read-only.bind="readOnly">
             </au-autocomplete>
         </td>
         <td>

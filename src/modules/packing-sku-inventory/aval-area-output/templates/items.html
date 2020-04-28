@@ -1,0 +1,35 @@
+<template>
+  <tr>
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="Jenis" value.bind="data.productionOrderType" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="No. Kereta" value.bind="data.cartNo" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="Satuan" value.bind="data.uomUnit" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="Qty Satuan" value.bind="data.productionOrderQuantity" read-only.bind="readOnly">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="Qty KG" value.bind="data.qtyKg" read-only.bind="readOnly">
+      </au-textbox>
+    </td>
+
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">
+        -
+      </button>
+    </td>
+    
+  </tr>
+</template>

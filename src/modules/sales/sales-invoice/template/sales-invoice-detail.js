@@ -1,5 +1,5 @@
-import { inject, bindable, BindingEngine } from 'aurelia-framework';
-import { BindingSignaler } from 'aurelia-templating-resources';
+import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { BindingSignaler } from "aurelia-templating-resources";
 import { ServiceProductionAzure } from "./../service";
 
 var ShipmentDocumentLoader = require("../../../../loader/shin-shipment-document-loader");
@@ -9,13 +9,9 @@ export class SalesInvoiceDetail {
   @bindable data;
   @bindable error;
 
-  shipmentDocumentTableOptions = {}
+  shipmentDocumentTableOptions = {};
 
-  constructor(
-    serviceProductionAzure,
-    bindingSignaler,
-    bindingEngine
-  ) {
+  constructor(serviceProductionAzure, bindingSignaler, bindingEngine) {
     this.serviceProductionAzure = serviceProductionAzure;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -27,16 +23,6 @@ export class SalesInvoiceDetail {
     this.options = item.options;
     this.BuyerId = item.context.options.BuyerId;
     this.shipmentQuery = { "BuyerId": this.BuyerId };
-
-
-    // var shipmentDocumentId = this.data.ShipmentDocumentId;
-    // console.log(this.data);
-    // if (shipmentDocumentId) {
-    //   this.selectedShipmentDocument = this.serviceProductionAzure.getShipmentDocumentById(
-    //     shipmentDocumentId
-    //   );
-    //   console.log(this.selectedShipmentDocument)
-    // }
 
     if (this.data.ShipmentDocumentId) {
       this.selectedShipmentDocument = {};
@@ -50,11 +36,12 @@ export class SalesInvoiceDetail {
       "Kode Barang",
       "Nama Barang",
       "Banyak",
+      "Satuan Packing",
       "Jumlah",
       "Satuan",
-      "Harga",
-      "Total Harga"
-    ]
+      "Harga Satuan",
+      "Total Harga",
+    ],
   };
 
   enterDelegate(event) {
@@ -66,10 +53,9 @@ export class SalesInvoiceDetail {
 
   @bindable selectedShipmentDocument;
   async selectedShipmentDocumentChanged(newValue, oldValue) {
-
-    // this.selectedShipmentDocument = newValue;
-    // if (newValue) {
-    var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(this.selectedShipmentDocument.Id);
+    var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(
+      this.selectedShipmentDocument.Id
+    );
 
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
       this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
@@ -80,23 +66,11 @@ export class SalesInvoiceDetail {
           var siData = {
             ProductName: item.ProductName,
             Quantity: item.Quantity,
-            QuantityUOM: item.QuantityUOM,
-            Total: item.Total
+            PackingUom: item.QuantityUOM,
+            Total: item.Total,
           };
           this.data.SalesInvoiceItems.push(siData);
         }
-        // for (var detail of this.selectedShipmentDocument.Details) {
-        //   for (var item of detail.Items) {
-        //     for (var prItem of item.PackingReceiptItems) {
-        //       var siData = {
-        //         // ProductCode: prItem.ProductCode,
-        //         ProductName: prItem.ProductName,
-        //         Quantity: prItem.Quantity
-        //       };
-        //       this.data.SalesInvoiceItems.push(siData);
-        //     }
-        //   }
-        // }
       }
     } else {
       this.data.ShipmentDocumentId = null;

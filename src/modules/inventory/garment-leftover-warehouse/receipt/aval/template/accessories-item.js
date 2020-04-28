@@ -7,6 +7,10 @@ export class items {
     @bindable selectedProduct;
     @bindable selectedUom;
 
+    filter={
+        'Name.Contains("FABRIC")':false
+    };
+
     get uomLoader() {
         return UomLoader;
     }
