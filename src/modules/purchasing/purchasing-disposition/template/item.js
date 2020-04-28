@@ -75,9 +75,9 @@ export class PurchasingDispositionItem {
             var paid= await this.service.searchPaymentDispo(this.data.EPOId);
             if(paid){
                 for(var pay of paid){
-                    this.paidDisposition+=pay.price;
+                    this.paidDisposition+=pay.payToSupplier;
                 }
-                this.paidDisposition=this.paidDisposition>0?this.paidDisposition+this.vatValue-this.incomeTaxValue:this.paidDisposition;
+                //this.paidDisposition=this.paidDisposition>0?this.paidDisposition+this.vatValue-this.incomeTaxValue:this.paidDisposition;
             }
 
             var filterDispo= {
