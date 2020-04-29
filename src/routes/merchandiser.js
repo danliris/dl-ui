@@ -356,6 +356,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/ro-garment-copy',
+        name: 'ro-garment-copy',
+        moduleId: './modules/merchandiser/ro-garment/copy/index',
+        nav: true,
+        title: 'Copy RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: 'merchandiser/monitoring-ro-job-order',
         name: 'merchandiser-monitoring-ro-job-order',
         moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
