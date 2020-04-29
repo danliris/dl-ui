@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'output-packaging/list-bon-out';
+const resource = 'output-packaging/list-production-order-in';
 
 module.exports = function (keyword, filter) {
 

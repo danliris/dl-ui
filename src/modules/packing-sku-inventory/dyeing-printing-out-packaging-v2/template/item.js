@@ -1,9 +1,15 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
+import {Dialog} from '../../../../components/dialog/dialog';
+import{PackingDetails} from '../dialogs/packaging-details';
+var ProductionOrderLoader = require('../../../../loader/output-packaging-loader');
 
+@inject(Dialog)
 export class CartItem {
     @bindable product;
-
+    @bindable detailShow;
+    constructor(dialog){
+        this.dialog = dialog;
+    }
     remarks = [];
     activate(context) {
 
@@ -12,13 +18,14 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        this.destinationArea = this.contextOptions.destinationArea;
+        // this.destinationArea = this.contextOptions.destinationArea;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
-        if (this.data.productionOrder && this.data.productionOrder.id) {
+        if (this.data.productionOrder) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.productionOrderNo = this.data.productionOrder.no;
             this.selectedProductionOrder.OrderType = {};
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.OrderQuantity = this.data.balance;
@@ -44,8 +51,38 @@ export class CartItem {
             }
         }
     }
-
-
+    @bindable selectedProductionOrder;
+    selectedProductionOrderChanged(newValue, oldValue) {
+        if (this.selectedProductionOrder) {
+            this.data.productionOrder = {};
+            this.data.productionOrder.id = this.selectedProductionOrder.Id;
+            this.data.productionOrder.no = this.selectedProductionOrder.productionOrder.no;
+            this.data.productionOrderNo = this.selectedProductionOrder.productionOrder.no;
+            this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
+            
+            if (this.selectedProductionOrder.construction) {
+                this.data.construction = this.selectedProductionOrder.construction;
+            } else {
+                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
+            }
+            this.data.buyer = this.selectedProductionOrder.buyer;
+            this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
+            this.data.color = this.selectedProductionOrder.color;
+            this.data.motif = this.selectedProductionOrder.motif;
+            this.data.uomUnit = this.selectedProductionOrder.uomUnit;
+            this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
+            this.data.balance = this.selectedProductionOrder.balance;
+            if (this.selectedProductionOrder.productionOrder.no.charAt(0) === 'P') {
+                this.data.unit = "PRINTING"
+            } else {
+                this.data.unit = "DYEING"
+            }
+            // this.data.selectedProductionOrder.push(this.selectedProductionOrder);
+        }
+        else {
+            this.data.productionOrder = {};
+        }
+    }
     controlOptions = {
         control: {
             length: 12
@@ -54,5 +91,18 @@ export class CartItem {
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
+    }
+    detailPackaging(datas,e) {
+        // console.log(datas);
+        // this.dialog.prompt("prompt title", "prompt message")
+        //     .then(response => {
+        //         console.log(response);
+        //     });
+        this.dialog.show(PackingDetails, {})
+        .then(response => {
+            console.log(response);
+            // return re
+        });
+        // this.dialog.open({viewModel: PackingDetails})
     }
 }

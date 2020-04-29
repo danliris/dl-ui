@@ -1,0 +1,12 @@
+<template replace-part="packagingProductionOrdersDetails">
+    <tr>
+        <td>
+            <au-textbox value.bind="data.selectedSpp.productionOrderNo" error.bind="error.ProductionOrder"
+                 read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

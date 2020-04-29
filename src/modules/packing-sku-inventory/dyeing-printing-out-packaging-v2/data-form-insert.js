@@ -24,10 +24,25 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo"];
-    shifts = ["PAGI", "SIANG"];
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+
+    
+    
+    columns = [
+        { field: "noSpp", title: "No. SPP" },  
+        { field: "buyer", title: "Buyer" },        
+        { field: "shift", title: "Shift" },
+        { field: "material", title: "Material" },
+        { field: "unit", title: "Unit" },        
+        { field: "warna", title: "Warna" },        
+        { field: "motif", title: "Motif" },
+        { field: "grade", title: "Grade" },           
+        { field: "saldo", title: "Saldo" }
+    ];
+    shifts = ["","PAGI", "SIANG"];
     detailOptions = {};
-    destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
+    destinationAreas = ["","INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
     constructor(service) {
         this.service = service;
     }
@@ -45,14 +60,13 @@ export class DataForm {
     }
 
     bind(context) {
-
         this.context = context;
         this.data = this.context.data;
 
         this.data.area = "PACKING";
 
         this.error = this.context.error;
-        this.detailShow = false;
+
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -62,24 +76,12 @@ export class DataForm {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
+
     }
     addItemCallback = (e) => {
-        this.data.PackagingProductionOrders = this.data.PackagingProductionOrders || [];
-        this.data.PackagingProductionOrders.push({})
+        this.data.selectedProductionOrder = this.data.selectedProductionOrder || [];
+        this.data.selectedProductionOrder.push({})
     };
-
-    @bindable selectedPackaging;
-    selectedPackagingChanged(n, o) {
-        if (this.selectedPackaging) {
-            this.data.inputPackagingId = this.selectedPackaging.id;
-            if (this.selectedPackaging.packagingProductionOrders) {
-                this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-            }
-
-            this.detailOptions.destinationArea = this.data.destinationArea;
-        }
-        
-    }
 
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
