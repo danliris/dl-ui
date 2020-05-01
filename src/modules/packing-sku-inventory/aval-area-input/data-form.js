@@ -1,7 +1,6 @@
 import { inject, bindable } from "aurelia-framework";
 import { Service } from "./service";
 import moment from "moment";
-var InspectionAreaLoader = require("../../../loader/pre-input-aval-loader");
 var UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service)
@@ -54,10 +53,6 @@ export class DataForm {
     // }
   }
 
-  get inspectionMaterials() {
-    return InspectionAreaLoader;
-  }
-
   get uoms() {
     return UomLoader;
   }
@@ -105,12 +100,6 @@ export class DataForm {
     }
 
     if (errorIndex == 0) {
-      // var arg = {
-      //   filter: {
-      //     Date: this.Date,
-      //     Shift: this.Shift,
-      //   },
-      // };
 
       this.data.DyeingPrintingMovementIds = [];
       this.data.AvalProductionOrderIds = [];
@@ -120,11 +109,9 @@ export class DataForm {
         if (result.length > 0) {
           result.forEach((dyeingPrintingArea) => {
             this.data.DyeingPrintingMovementIds.push(dyeingPrintingArea.id);
-            console.log("DyeingPrintingMovementIds", this.data.DyeingPrintingMovementIds);
             dyeingPrintingArea.preAvalProductionOrders.forEach(
               (productionOrder) => {
                 this.data.AvalProductionOrderIds.push(productionOrder.id);
-                console.log("AvalProductionOrderIds", this.data.AvalProductionOrderIds);
 
                 this.data.AvalJointValue +=
                   productionOrder.avalConnectionLength;
@@ -212,8 +199,6 @@ export class DataForm {
       header: "Qty KG",
     },
   ];
-
-  itemOptions = {};
 
   addItems = (e) => {
     this.data.DyeingPrintingItems = this.data.DyeingPrintingItems || [];

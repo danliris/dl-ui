@@ -9,7 +9,7 @@ import {
   RestService
 } from '../../../utils/rest-service';
 
-const serviceUri = "aval-area-output";
+const serviceUri = "output-aval";
 
 export class Service extends RestService {
 
@@ -20,6 +20,25 @@ export class Service extends RestService {
   search(info) {
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
+  }
+
+  getAvailableAval(searchDate, searchShift) {
+    var endpoint = `${serviceUri}/available-aval`;
+    var query = "";
+
+    if (searchDate) {
+      if (query === "") query = `searchDate=${searchDate}`;
+      else query = `${query}&searchDate=${searchDate}`;
+    }
+    if (searchShift) {
+      if (query === "") query = `searchShift=${searchShift}`;
+      else query = `${query}&searchShift=${searchShift}`;
+    }
+    if (query !== "") {
+      endpoint = `${serviceUri}/available-aval?${query}`;
+    }
+    
+    return super.get(endpoint);
   }
 
   getById(id) {

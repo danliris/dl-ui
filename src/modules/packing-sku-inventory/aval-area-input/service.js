@@ -29,7 +29,7 @@ export class Service extends RestService {
     if (query !== "") {
       endpoint = `${serviceUri}/pre-aval?${query}`;
     }
-    console.log(endpoint);
+    
     return super.get(endpoint);
   }
 

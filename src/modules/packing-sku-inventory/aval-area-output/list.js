@@ -25,10 +25,10 @@ export class List {
         return moment.utc(value).local().format('DD MMMM YYYY');
       }
     },
-    {
-      field: "bonNo",
-      title: "No. Bon"
-    },
+    // {
+    //   field: "bonNo",
+    //   title: "No. Bon"
+    // },
     {
       field: "shift",
       title: "Shift"
