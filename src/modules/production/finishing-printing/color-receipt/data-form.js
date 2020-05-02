@@ -40,7 +40,6 @@ export class DataForm {
     get totalDetail() {
         if(!this.data.Id || !this.readOnly){
             if (this.data.ColorReceiptItems) {
-                console.log("test")
                 this.data.DyeStuffReactives = [];
                 this.sumItem = this.data.ColorReceiptItems.reduce((a, b) => +a + +b.Quantity, 0);
                 if (this.sumItem > 0) {
