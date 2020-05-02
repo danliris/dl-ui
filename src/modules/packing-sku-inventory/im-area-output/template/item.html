@@ -1,0 +1,70 @@
+<template replace-part="inspectionMaterialProductionOrders">
+    <tr>
+        <td>
+            <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
+                loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">
+            </au-autocomplete>
+            <button show.bind="isAval" class="btn btn-info pull-right" click.delegate="toggle()">i</button>
+        </td>
+        <td>
+            <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.construction" read-only.bind="true" error.bind="error.CartNo"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.color" read-only.bind="true" error.bind="error.Color"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.motif" read-only.bind="true" error.bind="error.Motif"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-dropdown value.bind="data.remark" items.bind="remarks" read-only.bind="readOnly"
+                error.bind="error.Remark" options.bind="controlOptions">
+            </au-dropdown>
+        </td>
+        <td>
+            <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly || isAval"
+                error.bind="error.Balance" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+    </tr>
+    <tr if.bind="isShowing">
+        <td>
+            <au-collection columns.bind="avalColumns" items.bind="data.avalItems" read-only.bind="true"
+                item-template="modules/packing-sku-inventory/im-area-output/template/avalItem" show.bind="isAval">
+            </au-collection>
+
+        </td>
+        <td colspan="3"></td>
+    </tr>
+</template>

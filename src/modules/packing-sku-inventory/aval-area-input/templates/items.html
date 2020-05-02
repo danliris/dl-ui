@@ -1,0 +1,50 @@
+<template>
+  <tr>
+    <td style="white-space: nowrap">
+      <au-dropdown placeholder="Jenis"
+                  value.bind="data.AvalType"
+                  read-only.bind="readOnly"
+                  items.bind="avalTypes">
+      </au-dropdown>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox placeholder="No. Kereta"
+                  value.bind="data.AvalCartNo"
+                  read-only.bind="readOnly">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-autocomplete placeholder="Satuan"
+                       value.bind="UomUnit"
+                       read-only.bind="readOnly"
+                       loader.bind="uoms"
+                       text="Unit">
+      </au-autocomplete>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-numeric placeholder="Qty Satuan"
+                  value.bind="data.Quantity"
+                  read-only.bind="readOnly">
+      </au-numeric>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-numeric placeholder="Qty KG"
+                  value.bind="data.QuantityKg"
+                  read-only.bind="readOnly">
+      </au-numeric>
+    </td>
+
+    <td class="col-sm-1"
+        if.bind="!readOnly">
+      <button class="btn btn-danger pull-right"
+              click.delegate="onremove(data, $event)">
+        -
+      </button>
+    </td>
+
+  </tr>
+</template>

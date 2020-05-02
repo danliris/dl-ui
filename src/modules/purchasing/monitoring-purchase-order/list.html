@@ -43,10 +43,16 @@
                     key="code">
                 </au-autocomplete>-->
 
-                <au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
+                <au-datepicker label="Tanggal Awal PR" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
                 </au-datepicker>
 
-                <au-datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateMin">
+                <au-datepicker label="Tanggal Akhir PR" value.bind="dateTo" min.bind="dateMin">
+                </au-datepicker>
+
+                <au-datepicker label="Tanggal Awal PO" value.bind="dateFromPO" change.delegate="dateFromPOChanged($event)">
+                </au-datepicker>
+                                
+                <au-datepicker label="Tanggal Akhir PO" value.bind="dateToPO" min.bind="dateMin">
                 </au-datepicker>
 
                 <au-dropdown label="Status" value.bind="poState" items.bind="poStates">
@@ -73,8 +79,10 @@
                         <td rowspan="3">BUDGET</td>
                         <td rowspan="3">NAMA BARANG</td>
                         <td rowspan="3">KODE BARANG</td>
-                        <td rowspan="3">JUMLAH</td>
-                        <td rowspan="3">SATUAN</td>
+                        <td rowspan="3">JUMLAH PR</td>
+                        <td rowspan="3">SATUAN PR</td>
+                        <td rowspan="3">JUMLAH PO</td>
+                        <td rowspan="3">SATUAN PO</td>
                         <td colspan="3">HARGA</td>
                         <td colspan="2">SUPPLIER</td>
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
@@ -146,6 +154,8 @@
                         <td>${item.productCode}</td>
                         <td align="right">${item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
                         <td>${item.uom}</td>
+                        <td align="right">${item.epoQty.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+                        <td>${item.Uomepo}</td>
                         <td align="right">${item.pricePerDealUnit}</td>
                         <td align="right">${item.priceTotal}</td>
                         <td>${item.currencyCode}</td>

@@ -7,7 +7,7 @@ var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
 var AccountLoader = require('../../../loader/account-loader');
-var PurchaseOrderLoader = require('../../../loader/purchase-request-by-user-loader');
+var PurchaseOrderLoader = require('../../../loader/purchase-request-all-loader');
 var EPOLoader = require('../../../loader/purchase-order-external-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 
@@ -60,6 +60,8 @@ export class List {
             status: this.poState,
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            dateToPO: this.dateToPO ? moment(this.dateToPO).format("MM/DD/YYYY") : "",
+            dateFromPO: this.dateFromPO ? moment(this.dateFromPO).format("MM/DD/YYYY") : "",
 
         };
         // var dateFormat = "DD MMM YYYY";
@@ -115,6 +117,8 @@ export class List {
         this.poState ="";
         this.budget = "";
         this.staffName = "";
+        this.dateFromPO = null;
+        this.dateToPO = null;
         //this.data = [];
     }
 
@@ -132,6 +136,8 @@ export class List {
             status: this.poState,
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            dateToPO: this.dateToPO ? moment(this.dateToPO).format("MM/DD/YYYY") : "",
+            dateFromPO: this.dateFromPO ? moment(this.dateFromPO).format("MM/DD/YYYY") : "",
 
         };
         
@@ -146,6 +152,16 @@ export class List {
         if (_startDate > _endDate || !this.dateTo) {
             this.dateTo = e.srcElement.value;
         }
+
+    }
+    dateFromPOChanged(e) {
+      var _startDate = new Date(e.srcElement.value);
+      var _endDate = new Date(this.dateToPO);
+      this.dateMin = moment(_startDate).format("YYYY-MM-DD");
+
+      if (_startDate > _endDate || !this.dateTo) {
+        this.dateToPO = e.srcElement.value;
+      }
 
     }
     changePage(e) {

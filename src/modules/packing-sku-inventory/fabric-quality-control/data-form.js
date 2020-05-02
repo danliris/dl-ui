@@ -4,8 +4,8 @@ import { Service, SalesService } from "./service";
 import { Dialog } from '../../../au-components/dialog/dialog';
 import { FabricGradeTestEditor } from './dialogs/fabric-grade-test-editor';
 
-let DyeingPrintingAreaMovementLoader = require("../../../loader/inspection-material-loader");
-
+let InspectionMaterialLoader = require("../../../loader/input-inspection-material-loader");
+let InspectionMaterialSPPLoader = require("../../../loader/input-inspection-material-production-order-loader");
 @containerless()
 @inject(Service, Dialog, BindingSignaler, BindingEngine, SalesService)
 export class DataForm {
@@ -28,7 +28,9 @@ export class DataForm {
     total = {
         initLength: 0,
         width: 0,
-        aval: 0,
+        avalA: 0,
+        avalB: 0,
+        avalConnection: 0,
         sample: 0,
     }
 
@@ -44,7 +46,7 @@ export class DataForm {
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
 
-    imQuery = {"IsChecked" : false};
+    imSPPQuery = { "IsChecked": false };
 
     constructor(service, dialog, bindingSignaler, bindingEngine, salesService) {
         this.service = service;
@@ -75,18 +77,22 @@ export class DataForm {
         this.selectedPointLimit = this.data.pointLimit;
         this.selectedFabricGradeTest = this.data.fabricGradeTests.length > 0 ? this.data.fabricGradeTests[0] : null;
 
-        if(this.data.dyeingPrintingAreaMovementId){
-            this.selectedAreaMovement = {};
-            this.selectedAreaMovement.id =  this.data.dyeingPrintingAreaMovementId;
-            this.selectedAreaMovement.bonNo =  this.data.dyeingPrintingAreaMovementBonNo;
-            this.selectedAreaMovement.bonNo =  this.data.dyeingPrintingAreaMovementBonNo;
-            this.selectedAreaMovement.productionOrderId = this.data.productionOrderId;
-            this.selectedAreaMovement.cartNo = this.data.cartNo;
-            this.selectedAreaMovement.color = this.data.color;
-            this.selectedAreaMovement.uomUnit = this.data.uom;
-            this.selectedAreaMovement.shift = this.data.shiftIm;
+        if (this.data.inspectionMaterialId) {
+            this.selectedIM = {};
+            this.selectedIM.id = this.data.inspectionMaterialId;
+            this.selectedIM.bonNo = this.data.inspectionMaterialBonNo;
+            this.selectedIM.shift = this.data.shiftIm;
+
+            this.selectedIMSPP = {};
+            this.selectedIMSPP.id = this.data.inspectionMaterialProductionOrderId;
+            this.selectedIMSPP.productionOrder = {};
+            this.selectedIMSPP.productionOrder.id = this.data.productionOrderId;
+            this.selectedIMSPP.productionOrder.no = this.data.productionOrderNo;
+            this.selectedIMSPP.cartNo = this.data.cartNo;
+            this.selectedIMSPP.color = this.data.color;
+            this.selectedIMSPP.uomUnit = this.data.uom;
         }
-       
+
     }
 
     testo = (info) => {
@@ -97,7 +103,9 @@ export class DataForm {
         var grandTotal = {};
         grandTotal.grade = "Grand Total";
         grandTotal.initLength = 0;
-        grandTotal.aval = 0;
+        grandTotal.avalA = 0;
+        grandTotal.avalB = 0;
+        grandTotal.avalConnection = 0;
         grandTotal.sample = 0;
         data.reduce(function (res, value) {
             let grade = value.grade;
@@ -106,18 +114,24 @@ export class DataForm {
                     grade: grade,
                     initLength: 0,
                     width: 0,
-                    aval: 0,
+                    avalA: 0,
+                    avalB: 0,
+                    avalConnection: 0,
                     sample: 0,
                 };
                 result.push(res[grade])
             }
             res[grade].initLength += value.initLength;
             res[grade].width += value.width;
-            res[grade].aval += value.avalLength;
+            res[grade].avalA += value.avalALength;
+            res[grade].avalB += value.avalBLength;
+            res[grade].avalConnection += value.avalConnectionLength;
             res[grade].sample += value.sampleLength;
 
             grandTotal.initLength += value.initLength;
-            grandTotal.aval += value.avalLength;
+            grandTotal.avalA += value.avalALength;
+            grandTotal.avalB += value.avalBLength;
+            grandTotal.avalConnection += value.avalConnectionLength;
             grandTotal.sample += value.sampleLength;
             return res;
         }, {});
@@ -133,7 +147,9 @@ export class DataForm {
     testoColumns = [
         { field: "grade", title: "Grade" },
         { field: "initLength", title: "Total Panjang (Meter)" },
-        { field: "aval", title: "Total Aval (Meter)" },
+        { field: "avalA", title: "Total Aval A (Meter)" },
+        { field: "avalB", title: "Total Aval B (Meter)" },
+        { field: "avalConnection", title: "Total Aval Sambungan (Meter)" },
         { field: "sample", title: "Total Sample (Meter)" },
     ]
 
@@ -159,14 +175,14 @@ export class DataForm {
     get sppNo() {
         if (!this.productionOrder)
             return "-";
-        return `${this.productionOrder.OrderNo} - ${this.selectedAreaMovement.cartNo}`
+        return `${this.productionOrder.OrderNo} - ${this.selectedIM.cartNo}`
     }
 
     @computedFrom("productionOrder.OrderQuantity", "productionOrder.Uom.Unit")
     get orderQuantity() {
         if (!this.productionOrder)
             return "-";
-        return `${this.productionOrder.OrderQuantity} ${this.selectedAreaMovement.uomUnit}`
+        return `${this.productionOrder.OrderQuantity} ${this.productionOrder.Uom.Unit}`
     }
 
     @computedFrom("productionOrder.packingInstruction")
@@ -176,18 +192,11 @@ export class DataForm {
         return `${this.productionOrder.PackingInstruction}`
     }
 
-    @computedFrom("selectedAreaMovement.color")
+    @computedFrom("selectedIMSPP.color")
     get colorRequest() {
-        if (!this.selectedAreaMovement)
+        if (!this.selectedIMSPP)
             return "-";
-        return `${this.selectedAreaMovement.color}`
-    }
-
-    @computedFrom("selectedAreaMovement.productionOrderNo")
-    get colorRequest() {
-        if (!this.selectedAreaMovement)
-            return "-";
-        return `${this.selectedAreaMovement.color}`
+        return `${this.selectedIMSPP.color}`
     }
 
     @computedFrom("data.pointSystem")
@@ -237,13 +246,31 @@ export class DataForm {
     @bindable selectedFabricGradeTestError;
     @bindable selectedPointSystem;
     @bindable selectedPointLimit;
-    @bindable selectedAvalLength;
+    @bindable selectedAvalALength;
+    @bindable selectedAvalBLength;
+    @bindable selectedAvalConnectionLength;
     @bindable selectedSampleLength;
     @bindable subs;
-    selectedAvalLengthChanged() {
+    selectedAvalALengthChanged() {
         if (!this.selectedFabricGradeTest)
             return;
-        this.selectedFabricGradeTest.avalLength = this.selectedAvalLength;
+        this.selectedFabricGradeTest.avalALength = this.selectedAvalALength;
+        this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
+        this.totalTable.refresh();
+    }
+    selectedAvalBLengthChanged() {
+        if (!this.selectedFabricGradeTest)
+            return;
+        this.selectedFabricGradeTest.avalBLength = this.selectedAvalBLength;
+        this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
+        this.totalTable.refresh();
+    }
+    selectedAvalConnectionLengthChanged() {
+        if (!this.selectedFabricGradeTest)
+            return;
+        this.selectedFabricGradeTest.avalConnectionLength = this.selectedAvalConnectionLength;
         this.computeGrade(this.selectedFabricGradeTest);
         this.fabricGradeTestTable.refresh();
         this.totalTable.refresh();
@@ -277,7 +304,9 @@ export class DataForm {
             this.selectedPcsLength = this.selectedFabricGradeTest.initLength;
             this.selectedPcsWidth = this.selectedFabricGradeTest.width;
 
-            this.selectedAvalLength = this.selectedFabricGradeTest.avalLength;
+            this.selectedAvalALength = this.selectedFabricGradeTest.avalALength;
+            this.selectedAvalBLength = this.selectedFabricGradeTest.avalBLength;
+            this.selectedAvalConnectionLength = this.selectedFabricGradeTest.avalConnectionLength;
             this.selectedSampleLength = this.selectedFabricGradeTest.sampleLength;
 
             this.subs = [];
@@ -304,7 +333,7 @@ export class DataForm {
             return;
         var multiplier = this.fabricGradeTestMultiplier;
         var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.a * multiplier.A) + (c.score.b * multiplier.B) + (c.score.c * multiplier.C) + (c.score.d * multiplier.D)) }, 0);
-        var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
+        var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalALength - fabricGradeTest.avalBLength - fabricGradeTest.avalConnectionLength - fabricGradeTest.sampleLength;
         var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
         var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
         var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
@@ -369,23 +398,23 @@ export class DataForm {
         }
     }
     __fabricGradeTestCreateCallback() {
-        if (!this.selectedAreaMovement) {
+        if (!this.selectedIM) {
             this.error = this.error || {};
-            this.error.DyeingPrintingAreaMovementBonNo = "Harap isi Bon No";
+            this.error.InspectionMaterialBonNo = "Harap isi Bon No";
         }
         else {
             this.error = this.error || {};
-            this.error.DyeingPrintingAreaMovementBonNo = null;
+            this.error.InspectionMaterialBonNo = null;
             this.__fabricGradeTestShowEditorDialog();
         }
     }
 
     __fabricGradeTestShowEditorDialog() {
-        if (this.selectedAreaMovement)
+        if (this.selectedIM)
             this.dialog.show(FabricGradeTestEditor)
                 .then(response => {
                     if (!response.wasCancelled) {
-                        this.selectedFabricGradeTest = new FabricGradeTest(this.selectedAreaMovement.productionOrderType);
+                        this.selectedFabricGradeTest = new FabricGradeTest(this.selectedIM.productionOrderType);
 
                         this.selectedFabricGradeTest.pcsNo = response.output.PcsNo;
                         this.selectedFabricGradeTest.initLength = response.output.PcsLength;
@@ -407,8 +436,8 @@ export class DataForm {
 
     fabricGradeTestLoader = (info) => {
         var count = this.data.fabricGradeTests.count
-        var data = this.data.fabricGradeTests; 
-        
+        var data = this.data.fabricGradeTests;
+
         return {
             total: count,
             data: data
@@ -416,32 +445,44 @@ export class DataForm {
     };
 
 
-
-    @bindable selectedAreaMovement;
+    @bindable inspectionMaterialSPPItems = [];
+    @bindable selectedIM;
     @bindable productionOrder;
     @bindable salesContract;
-    async selectedAreaMovementChanged(newValue, oldValue) {
+    @bindable selectedIMSPP;
+    async selectedIMChanged(newValue, oldValue) {
         if (newValue) {
-            this.productionOrder = await this.salesService.getProductionOrderById(this.selectedAreaMovement.productionOrderId);
+            this.inspectionMaterialSPPItems = this.selectedIM.inspectionMaterialProductionOrders;
+            this.data.inspectionMaterialBonNo = this.selectedIM.bonNo;
+            this.data.inspectionMaterialId = this.selectedIM.id;
+            this.data.shiftIm = this.selectedIM.shift;
+            this.imSPPQuery.DyeingPrintingAreaInputId = this.data.inspectionMaterialId;
+        }
+        else
+            this.data.inspectionMaterialId = 0;
+    }
+
+    async selectedIMSPPChanged(newValue, oldValue) {
+        if (newValue) {
+            this.productionOrder = await this.salesService.getProductionOrderById(this.selectedIMSPP.productionOrder.id);
             this.salesContract = await this.salesService.getSalesContractById(this.productionOrder.FinishingPrintingSalesContract.Id);
-            
+
             this.data.buyer = this.productionOrder.Buyer.Name;
             this.data.buyerAddress = this.productionOrder.Buyer.Address;
-            this.data.cartNo = this.selectedAreaMovement.cartNo;
-            this.data.color = this.selectedAreaMovement.color;
+            this.data.cartNo = this.selectedIMSPP.cartNo;
+            this.data.color = this.selectedIMSPP.color;
             this.data.construction = `${this.productionOrder.Material.Name} / ${this.productionOrder.MaterialConstruction.Name} / ${this.productionOrder.MaterialWidth}`;
             this.data.isUsed = false;
-            this.data.shiftIm = this.selectedAreaMovement.shift;
-            this.data.dyeingPrintingAreaMovementBonNo = this.selectedAreaMovement.bonNo;
-            this.data.dyeingPrintingAreaMovementId = this.selectedAreaMovement.id;
             this.data.orderQuantity = this.productionOrder.OrderQuantity;
             this.data.packingInstruction = this.productionOrder.PackingInstruction;
             this.data.productionOrderNo = this.productionOrder.OrderNo;
             this.data.productionOrderType = this.productionOrder.OrderType.Name;
-            this.data.uom = this.selectedAreaMovement.uomUnit;
+            this.data.uom = this.selectedIMSPP.uomUnit;
+            this.data.inspectionMaterialProductionOrderId = this.selectedIMSPP.id;
+            this.data.productionOrderId = this.productionOrder.Id;
 
             if (this.salesContract) {
-                
+
                 if (this.salesContract.PointSystem === 4 || this.salesContract.PointSystem === 10) {
                     this.selectedPointSystem = this.data.pointSystem || 10;
                     this.selectedPointLimit = this.data.pointLimit || 0;
@@ -451,10 +492,10 @@ export class DataForm {
                 }
                 // })
             }
-            if(!this.data.id){
-                
+            if (!this.data.id) {
+
                 this.data.fabricGradeTests = [];
-                if(this.selectedFabricGradeTest){
+                if (this.selectedFabricGradeTest) {
                     this.selectedPcsNo = null;
                     this.selectedPcsLength = 0;
                     this.selectedPcsWidth = 0;
@@ -465,18 +506,26 @@ export class DataForm {
                 this.fabricGradeTestTable.refresh();
                 this.totalTable.refresh();
             }
-                
+
         }
         else
-            this.data.dyeingPrintingAreaMovementId = 0;
+            this.data.inspectionMaterialProductionOrderId = 0;
     }
 
-    areaMovementTextFormatter = (areaMovement) => {
-        return `${areaMovement.bonNo}`
+    imTextFormatter = (im) => {
+        return `${im.bonNo}`
     }
 
-    get dyeingPrintingAreaMovementLoader() {
-        return DyeingPrintingAreaMovementLoader;
+    imSPPTextFormatter = (imSPP) => {
+        return `${imSPP.productionOrder.no}`
+    }
+
+    get inspectionMaterialLoader() {
+        return InspectionMaterialLoader;
+    }
+
+    get inspectionMaterialSPPLoader() {
+        return InspectionMaterialSPPLoader;
     }
 }
 
@@ -489,7 +538,9 @@ class FabricGradeTest {
         this.width = 0;
 
         this.initLength = 0;
-        this.avalLength = 0;
+        this.avalALength = 0;
+        this.avalBLength = 0;
+        this.avalConnectionLength = 0;
         this.sampleLength = 0;
         this.finalLength = 0;
 

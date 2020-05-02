@@ -53,6 +53,7 @@ export class List {
 
     validate() {
         let dayDiff = moment(this.endDate).diff(moment(this.startDate), "days");
+        let dayDiffPO = moment(this.endDatePO).diff(moment(this.startDatePO), "days");
         console.log(dayDiff);
 
         this.error = {};
@@ -60,6 +61,11 @@ export class List {
             this.error.date = "Tanggal awal dan tanggal akhir harus diisi"
         } else if (dayDiff > 30) {
             this.error.dateDiff = "Selisih tanggal tidak boleh lebih dari 30 hari";
+        }
+        if (!this.startDatePO || !this.endDatePO) {
+          this.error.datePO = "Tanggal awal dan tanggal akhir harus diisi"
+        } else if (dayDiffPO > 30) {
+          this.error.dateDiffPO = "Selisih tanggal tidak boleh lebih dari 30 hari";
         }
     }
     //  string supplierId, long prId = 0, long poExtId = 0, [FromQuery] int page = 1, [FromQuery] int size = 25
@@ -74,6 +80,8 @@ export class List {
             status: this.poState ? this.poState : "",
             startDate: this.startDate ? moment(this.startDate).format("MM/DD/YYYY") : "",
             endDate: this.endDate ? moment(this.endDate).format("MM/DD/YYYY") : "",
+            startDatePO: this.startDatePO ? moment(this.startDatePO).format("MM/DD/YYYY") : "",
+            endDatePO: this.endDatePO ? moment(this.endDatePO).format("MM/DD/YYYY") : "",
             supplierId: this.supplier ? this.supplier._id.toString() : "",
             prId: this.pr ? this.pr._id : 0,
             poExtId: this.epo ? this.epo._id : 0,
@@ -155,6 +163,8 @@ export class List {
         this.poState = undefined;
         this.budget = undefined;
         this.staffName = undefined;
+        this.startDatePO = undefined;
+        this.endDatePO = undefined;
         //this.data = [];
     }
 
@@ -168,6 +178,8 @@ export class List {
             status: this.poState ? this.poState : "",
             startDate: this.startDate ? moment(this.startDate).format("MM/DD/YYYY") : "",
             endDate: this.endDate ? moment(this.endDate).format("MM/DD/YYYY") : "",
+            startDatePO: this.startDatePO ? moment(this.startDatePO).format("MM/DD/YYYY") : "",
+            endDatePO: this.endDatePO ? moment(this.endDatePO).format("MM/DD/YYYY") : "",
             supplierId: this.supplier ? this.supplier._id.toString() : "",
             prId: this.pr ? this.pr._id : 0,
             poExtId: this.purchaseOrder ? this.purchaseOrder._id : 0,
@@ -189,6 +201,16 @@ export class List {
             this.endDate = e.srcElement.value;
         }
     }
+
+    startDatePOChanged(e) {
+      var _startDate = new Date(e.srcElement.value);
+      var _endDate = new Date(this.endDatePO);
+      this.dateMin = moment(_startDate).format("YYYY-MM-DD");
+
+      if (_startDate > _endDate || !this.endDate) {
+        this.endDatePO = e.srcElement.value;
+      }
+    } 
 
     changePage(e) {
         var page = e.detail;

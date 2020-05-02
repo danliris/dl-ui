@@ -70,14 +70,25 @@
                                  text.bind="accountView">
                 </au-autocomplete>
 
-                <au-datepicker label="Tanggal Awal"
+                <au-datepicker label="Tanggal Awal PR"
                                value.bind="startDate"
                                change.delegate="startDateChanged($event)">
                 </au-datepicker>
 
-                <au-datepicker label="Tanggal Akhir"
+                <au-datepicker label="Tanggal Akhir PR"
                                error.bind="error.date + error.dateDiff"
                                value.bind="endDate"
+                               min.bind="dateMin">
+                </au-datepicker>
+
+                <au-datepicker label="Tanggal Awal PO" 
+                               value.bind="startDatePO" 
+                               change.delegate="startDatePOChanged($event)">
+                </au-datepicker>
+                
+                <au-datepicker label="Tanggal Akhir PO" 
+                               error.bind="error.datePO + error.dateDiffPO" 
+                               value.bind="endDatePO"
                                min.bind="dateMin">
                 </au-datepicker>
 
@@ -125,8 +136,10 @@
                         <td rowspan="3">BUDGET</td>
                         <td rowspan="3">NAMA BARANG</td>
                         <td rowspan="3">KODE BARANG</td>
-                        <td rowspan="3">JUMLAH</td>
-                        <td rowspan="3">SATUAN</td>
+                        <td rowspan="3">JUMLAH PR</td>
+                        <td rowspan="3">SATUAN PR</td>
+                        <td rowspan="3">JUMLAH PO</td>
+                        <td rowspan="3">SATUAN PO</td>
                         <td colspan="3">HARGA</td>
                         <td colspan="2">SUPPLIER</td>
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
@@ -198,6 +211,8 @@
                         <td>${item.ProductCode}</td>
                         <td align="right">${item.OrderQuantity}</td>
                         <td>${item.UOMUnit}</td>
+                        <td align="right">${item.ExternalPurchaseOrderQuantity}</td>
+                        <td>${item.ExternalPurchaseOrderUomUnit}</td>
                         <td align="right">${item.Price}</td>
                         <td align="right">${item.PriceTotal}</td>
                         <td>${item.CurrencyCode}</td>

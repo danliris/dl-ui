@@ -22,7 +22,7 @@ export class Service extends RestService {
     // }
 
     generateExcel(args) {
-        var endpoint = `${serviceUri}/download?prNo=${args.prNo}&supplierId=${args.supplierId}&divisionCode=${args.divisionCode}&unitId=${args.unitId}&categoryId=${args.categoryId}&epoNo=${args.epoNo}&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}&status=${args.status}&budgetId=${args.budgetId}&staff=${args.staff}`;
+      var endpoint = `${serviceUri}/download?prNo=${args.prNo}&supplierId=${args.supplierId}&divisionCode=${args.divisionCode}&unitId=${args.unitId}&categoryId=${args.categoryId}&epoNo=${args.epoNo}&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}&dateFromPO=${args.dateFromPO}&dateToPO=${args.dateToPO}&status=${args.status}&budgetId=${args.budgetId}&staff=${args.staff}`;
         return super.getXls(endpoint);
     }
 

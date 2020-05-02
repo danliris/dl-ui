@@ -8,6 +8,7 @@ const serviceUri = "sales/sales-receipts";
 const salesInvoiceServiceUri = "sales/sales-invoices";
 const bankServiceUri = "master/account-banks";
 const buyerServiceUri = "master/buyers";
+const unitServiceUri = "master/units";
 const currencyServiceUri = "master/currencies";
 
 export class Service extends RestService {
@@ -95,6 +96,17 @@ export class ServiceCore extends RestService {
 
   getBankById(id, select) {
     var endpoint = `${bankServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchUnit(info) {
+    var endpoint = `${unitServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getUnitById(id, select) {
+    var endpoint = `${unitServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

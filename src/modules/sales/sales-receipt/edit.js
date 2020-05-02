@@ -22,10 +22,10 @@ export class Edit {
   save() {
     this.service
       .update(this.data)
-      .then(result => {
+      .then((result) => {
         this.view();
       })
-      .catch(e => {
+      .catch((e) => {
         this.error = e;
       });
   }

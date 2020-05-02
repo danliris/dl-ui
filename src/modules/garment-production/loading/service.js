@@ -44,6 +44,24 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getPdfById(id,buyer) {
+        var endpoint = `${serviceUri}/${id}/${buyer}`;
+        return super.getPdf(endpoint);
+    }
+
 }
 
-export { Service }
+const serviceUriPR = 'garment-purchase-requests';
+
+class PurchasingService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    getGarmentPR(info) {
+        var endpoint = `${serviceUriPR}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service,PurchasingService }

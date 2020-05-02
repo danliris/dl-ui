@@ -52,9 +52,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-material',
-        name: 'inspection-material',
-        moduleId: './modules/packing-sku-inventory/inspection-material/index',
+        route: 'packing-sku-inventory/im-area-input',
+        name: 'im-area-input',
+        moduleId: './modules/packing-sku-inventory/im-area-input/index',
         nav: true,
         title: 'Inspection Material Dyeing/Printing',
         auth: true,
@@ -79,9 +79,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/inspection-document-report',
+        route: 'packing-sku-inventory/im-area-output',
         name: 'product-packing',
-        moduleId: './modules/packing-sku-inventory/inspection-document-report/index',
+        moduleId: './modules/packing-sku-inventory/im-area-output/index',
         nav: true,
         title: 'Bon Inspection Material Dyeing/Printing',
         auth: true,
@@ -105,9 +105,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/transit-area-note',
-        name: 'transit-area-note',
-        moduleId: './modules/packing-sku-inventory/transit-area-note/index',
+        route: 'packing-sku-inventory/transit-area-output',
+        name: 'transit-area-output',
+        moduleId: './modules/packing-sku-inventory/transit-area-output/index',
         nav: true,
         title: 'Bon Transit Area Dyeing/Printing',
         auth: true,
@@ -126,16 +126,29 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-out-packaging',
+        name: 'dyeing-printing-out-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
+        nav: true,
+        title: 'Bon Packing Area Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
-        route: 'packing-sku-inventory/packing-area-note',
-        name: 'packing-area-note',
-        moduleId: './modules/packing-sku-inventory/packing-area-note/index',
+        route: 'packing-sku-inventory/dyeing-printing-in-warehouses',
+        name: 'dyeing-printing-in-warehouses',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-warehouses/index',
         nav: true,
-        title: 'Bon Packing Area Dyeing/Printing',
+        title: 'Penerimaan Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -162,7 +175,20 @@ module.exports = [
         name: 'aval-area-input',
         moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Penerimaan Aval Area Dyeing/Printing',
+        title: 'Penerimaan Gudang Aval Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/aval-area-output',
+        name: 'aval-area-output',
+        moduleId: './modules/packing-sku-inventory/aval-area-output/index',
+        nav: true,
+        title: 'Dokumen Keluar Gudang Aval Dyeing Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -184,11 +210,11 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-accepting-packaging',
-        name: 'dyeing-printing-accepting-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-accepting-packaging/index',
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+        name: 'dyeing-printing-in-packaging',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
         nav: true,
-        title: 'Penerimaan Packing Area Dyeing Printing',
+        title: 'Penerimaan Packing Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -205,33 +231,34 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/shipping-area-input',
+        name: 'shipping-area-input',
+        moduleId: './modules/packing-sku-inventory/shipping-area-input/index',
+        nav: true,
+        title: 'Penerimaan Shipping Area Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
-        route: 'packing-sku-inventory/shipping-area-note',
-        name: 'shipping-area-note',
-        moduleId: './modules/packing-sku-inventory/shipping-area-note/index',
+        route: 'packing-sku-inventory/shipping-area-output',
+        name: 'shipping-area-output',
+        moduleId: './modules/packing-sku-inventory/shipping-area-output/index',
         nav: true,
-        title: 'Bon Shipping Area',
+        title: 'Bon Keluar Shipping Area',
         auth: true,
         settings: {
             group: "ps-inventory",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },{
-        route: 'packing-sku-inventory/shipment-area-input',
-        name: 'shipment-area-input',
-        moduleId: './modules/packing-sku-inventory/shipment-area-input/index',
-        nav: true,
-        title: 'Penerimaan Shipment Area Dyeing Printing',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    }
 ];
