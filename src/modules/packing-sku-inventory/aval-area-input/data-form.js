@@ -100,18 +100,23 @@ export class DataForm {
     }
 
     if (errorIndex == 0) {
-
       this.data.DyeingPrintingMovementIds = [];
-      this.data.AvalProductionOrderIds = [];
 
       this.service.getPreAval(this.Date, this.Shift).then((result) => {
-        console.log(result);
         if (result.length > 0) {
           result.forEach((dyeingPrintingArea) => {
-            this.data.DyeingPrintingMovementIds.push(dyeingPrintingArea.id);
+            var DyeingPrintingMovementIds = {};
+            DyeingPrintingMovementIds.DyeingPrintingAreaMovementId = dyeingPrintingArea.id;
+            DyeingPrintingMovementIds.AvalProductionOrderIds = [];
+
+            // this.data.DyeingPrintingMovementIds.DyeingPrintingAreaMovementId = dyeingPrintingArea.id;
+            // this.data.DyeingPrintingMovementIds.AvalProductionOrderIds = [];
+
             dyeingPrintingArea.preAvalProductionOrders.forEach(
               (productionOrder) => {
-                this.data.AvalProductionOrderIds.push(productionOrder.id);
+                DyeingPrintingMovementIds.AvalProductionOrderIds.push(
+                  productionOrder.id
+                );
 
                 this.data.AvalJointValue +=
                   productionOrder.avalConnectionLength;
@@ -147,8 +152,13 @@ export class DataForm {
                 this.isHasData = true;
               }
             );
+
+            this.data.DyeingPrintingMovementIds.push(DyeingPrintingMovementIds);
           });
+
+          console.log(this.data);
         } else {
+
           this.isHasData = false;
         }
       });

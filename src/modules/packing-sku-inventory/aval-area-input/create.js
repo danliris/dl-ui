@@ -39,29 +39,34 @@ export class Create {
   save() {
     let CreateData = {};
     CreateData.Area = this.data.Area;
-    CreateData.AvalProductionIds = this.data.AvalProductionIds;
 
-    // if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
-    //   CreateData.Date = "";
-    // } else {
-    //   CreateData.Date = this.data.Date;
-    // }
+    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
+      CreateData.Date = "";
+    } else {
+      CreateData.Date = this.data.Date;
+    }
 
-    // if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
-    //   CreateData.Shift = "";
-    // } else {
-    //   CreateData.Shift = this.data.Shift;
-    // }
+    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
+      CreateData.Shift = "";
+    } else {
+      CreateData.Shift = this.data.Shift;
+    }
+
+    if(this.data.DyeingPrintingMovementIds.length > 0){
+      CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
+    }else{
+      CreateData.DyeingPrintingMovementIds = [{}];
+    }
 
     if (this.data.DyeingPrintingItems.length > 0) {
       CreateData.AvalProductionOrders = this.data.DyeingPrintingItems.map(
         (item) => {
           var remappedItems = {};
+          remappedItems.AvalType = item.AvalType;
           remappedItems.AvalCartNo = item.AvalCartNo;
+          remappedItems.AvalUomUnit = item.AvalUomUnit.Unit;
           remappedItems.AvalQuantity = item.AvalQuantity;
           remappedItems.AvalQuantityKg = item.AvalQuantityKg;
-          remappedItems.AvalType = item.AvalType;
-          remappedItems.AvalUomUnit = item.AvalUomUnit.Unit;
 
           return remappedItems;
         }
