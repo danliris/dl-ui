@@ -80,10 +80,17 @@ export class PackagingItem {
                 this.data.unit = "DYEING"
             }
             // this.data.selectedProductionOrder.push(this.selectedProductionOrder);
+            this.data.packagingProductionOrdersDetails = this.data.packagingProductionOrdersDetails||[];
+            this.data.packagingProductionOrdersDetails.push({
+                productionOrderNo : this.data.productionOrder.no,
+                balance : this.data.balance,
+                usedBalance : this.data.balance
+            });
         }
         else {
             this.data.productionOrder = {};
         }
+        
     }
     controlOptions = {
         control: {

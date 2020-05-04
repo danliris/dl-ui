@@ -21,8 +21,9 @@ export class DataForm {
         },
     };
     // itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Jumlah Order", "Saldo"];
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo","Terpakai"];
-    itemColumnsDetail = ["No. SPP", "Jenis", "Qty Packaging", "Packaging", "Panjang"];
+    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang"];    
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo","Terpakai"];
+    itemColumnsDetail = ["No. SPP", "Saldo Awal", "Saldo Terpakai"];
     
     shifts = ["","PAGI", "SIANG"];
     detailOptions = {};
@@ -54,7 +55,8 @@ export class DataForm {
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
-        console.log(this.data.packagingProductionOrders);
+        
+        console.log(this.data.packagingProductionOrdersDetails);
     };
     
 }
