@@ -1,71 +1,56 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
-var moment = require("moment");
+import moment from "moment";
 
 @inject(Router, Service)
 export class List {
+  context = ["Detail", "Cetak Surat Jalan", "Cetak DO Retur"];
+
+  columns = [
+    { field: "SalesInvoiceNo", title: "No. DO Retur" },
+    {
+      field: "Buyer.Name",
+      title: "Buyer",
+    },
+    {
+      field: "SalesInvoiceDate",
+      title: "Tgl DO Retur",
+      formatter: (value, data, index) => {
+        return moment(value).format("DD-MMM-YYYY");
+      },
+    },
+    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
+    { field: "VatType", title: "Jenis PPN" },
+  ];
+
   rowFormatter(data, index) {
-    if (data.accepted) return { classes: "success" };
+    if (data.isClosed) return { classes: "danger" };
     else return {};
   }
 
-  dataToBeCompleted = [];
+  loader = (info) => {
+    var order = {};
+    if (info.sort) order[info.sort] = info.order;
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order,
+    };
+
+    return this.service.search(arg).then((result) => {
+      var data = {};
+      data.total = result.info.total;
+      data.data = result.data;
+      return data;
+    });
+  };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
   }
-
-  bind() {
-    this.setContext();
-    this.setColumns();
-  }
-
-  setContext() {
-    this.context = ["Detail", "Cetak DO Penjualan"];
-  }
-
-  setColumns() {
-    this.columns = [
-      { field: "DOSalesNo", title: "No. DO Penjualan" },
-      {
-        field: "DOSalesDate",
-        title: "Tanggal",
-        formatter: (value, data) => {
-          return moment(value).format("DD-MMM-YYYY");
-        }
-      },
-      { field: "BuyerName", title: "Buyer" },
-      { field: "ProductionOrderNo", title: "No. SPP" },
-      {
-        field: "Accepted",
-        title: "Diterima",
-        formatter: function(value, row, index) {
-          return value ? "SUDAH" : "BELUM";
-        }
-      }
-    ];
-  }
-
-  loadData = info => {
-    var order = {};
-    if (info.sort) order[info.sort] = info.order;
-
-    var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
-      order: order
-    };
-
-    return this.service.search(arg).then(result => {
-      return {
-        total: result.info.total,
-        data: result.data
-      };
-    });
-  };
 
   contextClickCallback(event) {
     var arg = event.detail;
@@ -74,15 +59,20 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak DO Penjualan":
-        this.service.getPdfById(data.Id);
+      case "Cetak Surat Jalan":
+        this.service.getDeliveryOrderPdfById(data.Id);
+        break;
+      case "Cetak DO Retur":
+        this.service.getSalesInvoicePdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak DO Penjualan":
+      case "Cetak Surat Jalan":
+        return data;
+      case "Cetak DO Retur":
         return data;
       default:
         return true;

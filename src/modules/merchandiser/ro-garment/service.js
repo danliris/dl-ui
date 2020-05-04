@@ -42,6 +42,11 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    getCostCalculationGarment(info) {
+        var endpoint = `${costCalculationGarmentServiceUri}/dynamic`;
+        return super.list(endpoint, info);
+    }
+
     getCostCalculationGarmentById(id) {
         var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
         return super.get(endpoint);

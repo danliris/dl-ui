@@ -23,7 +23,7 @@ export class Create {
   save(event) {
     this.service
       .create(this.data)
-      .then(result => {
+      .then((result) => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
           "create",
@@ -32,7 +32,7 @@ export class Create {
         );
         // this.__goToList();
       })
-      .catch(error => {
+      .catch((error) => {
         this.error = error;
       });
   }
