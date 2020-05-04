@@ -247,6 +247,19 @@ module.exports = [
         }
     },
     {
+        route: '/expedition/sales-receipt',
+        name: 'sales-receipt',
+        moduleId: './modules/expedition/sales-receipt/index',
+        nav: true,
+        title: 'Kuitansi Penjualan',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B9": 1, "C9": 1, "B4": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/expedition/pph-bank-expenditure-note',
         name: 'pph-bank-expenditure-note',
         moduleId: './modules/expedition/pph-bank-expenditure-note/index',
