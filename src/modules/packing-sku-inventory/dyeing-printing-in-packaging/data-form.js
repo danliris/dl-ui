@@ -1,7 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
+import {EventAggregator} from 'aurelia-event-aggregator';
 let PackagingAreaLoader = require("../../../loader/input-packaging-loader");
 
+@inject(EventAggregator)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -21,10 +23,12 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Qty Order"];
     shifts = ["PAGI", "SIANG"];
     groups = ["GROUP A", "GROUP B"];
-    constructor(service) {
+    constructor(eventAggregator,service) {
+        this.eventAggregator = eventAggregator;
         this.service = service;
     }
 
@@ -38,6 +42,12 @@ export class DataForm {
     }
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
+    }
+    activate(context){
+        this.subscriber = this.eventAggregator.subscribe('eventDataBon', payload => {
+            this.productionOrderList = payload;
+            // console.log(payload);
+         });
     }
     bind(context) {
         this.context = context;
@@ -56,6 +66,10 @@ export class DataForm {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
+        // this.subscriber = this.eventAggregator.subscribe('eventDataBon', payload => {
+        //     this.productionOrderList = payload;
+        //     // console.log(payload);
+        //  });
     }
 
     @bindable selectedPackaging;
@@ -63,15 +77,21 @@ export class DataForm {
         if (this.selectedPackaging) {
             this.data.inputPackagingId = this.selectedPackaging.id;
             if (this.selectedPackaging.packagingProductionOrders) {
-                this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+                // this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+                this.eventAggregator.publish("eventDataBon",this.selectedPackaging);
             }
             this.data.bonNo = this.selectedPackaging.bonNo;
         }
+        // console.log(this);
     }
     
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
     }
+    addItemCallback = (e) => {
+        this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
+        this.data.packagingProductionOrders.push({})
+    };
 }
 
 

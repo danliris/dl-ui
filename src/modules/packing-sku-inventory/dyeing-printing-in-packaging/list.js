@@ -17,6 +17,7 @@ export class List {
         },
         { field: "bonNo", title: "No Bon" },
         { field: "noSpp", title: "No. SPP" },
+        { field: "qtyOrder", title: "Qty Order" },        
         { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
         { field: "group", title: "Group" },
@@ -27,7 +28,6 @@ export class List {
         { field: "grade", title: "Grade" },
         { field: "mtr", title: "Mtr" },
         { field: "yds", title: "Yds" },
-        { field: "qtyProduction", title: "Quantity" },
         { field: "saldo", title: "Saldo" },
     ];
 
@@ -54,6 +54,8 @@ export class List {
                         dataView.id = item.id;
                         dataView.date = item.date;
                         dataView.bonNo = item.bonNo;
+                        dataView.group = item.group;
+                        dataView.qtyOrder = item.qtyOrder;
                         dataView.noSpp = i.productionOrder.no,
                         dataView.buyer = i.buyer,
                         dataView.shift = item.shift,
@@ -68,6 +70,7 @@ export class List {
                         data.data.push(dataView);
                     });
                 });
+                console.log(result);
                 return data;
             });
     }

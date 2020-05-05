@@ -1,9 +1,15 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {DataForm} from '../data-form';
 
+var ProductionOrderLoader = require('../../../../loader/input-packaging-production-order-loader');
+@inject(EventAggregator,DataForm)
 export class CartItem {
     @bindable product;
-
+    constructor(eventAggregator,dataForm){
+        this.eventAggregator = eventAggregator;
+        this.dataForm = dataForm;
+    }
     activate(context) {
 
         this.context = context;
@@ -11,7 +17,9 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        
+        this.productionOrderListItem = []
+        console.log(this);
+
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -49,7 +57,19 @@ export class CartItem {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
-
+    get productionOrderList(){
+        // return (keyword) => {
+        //     console.log(keyword);
+        //     var data;
+        //     this.subscriber = this.eventAggregator.subscribe('eventDataBon', payload => {
+        //         this.productionOrderListItem = payload;
+        //         data = payload;
+        //         console.log("data masuk");
+        //         console.log(payload);
+        //     });
+        //     return Promise.resolve().then(result => {return data;});
+        //   }
+    }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
