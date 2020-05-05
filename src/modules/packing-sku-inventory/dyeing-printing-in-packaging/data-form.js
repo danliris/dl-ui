@@ -23,6 +23,7 @@ export class DataForm {
     };
     itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
     shifts = ["PAGI", "SIANG"];
+    groups = ["GROUP A", "GROUP B"];
     constructor(service) {
         this.service = service;
     }

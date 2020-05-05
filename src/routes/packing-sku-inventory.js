@@ -133,7 +133,7 @@ module.exports = [
     {
         route: 'packing-sku-inventory/dyeing-printing-out-packaging',
         name: 'dyeing-printing-out-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging-v2/index',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
         nav: true,
         title: 'Bon Packing Area Dyeing/Printing',
         auth: true,
@@ -209,23 +209,10 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
-    //     name: 'dyeing-printing-in-packaging',
-    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
-    //     nav: true,
-    //     title: 'Penerimaan Packing Area Dyeing/Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "ps-inventory",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
     {
         route: 'packing-sku-inventory/dyeing-printing-in-packaging',
         name: 'dyeing-printing-in-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
         nav: true,
         title: 'Penerimaan Packing Area Dyeing/Printing',
         auth: true,
@@ -235,6 +222,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+    //     name: 'dyeing-printing-in-packaging',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
+    //     nav: true,
+    //     title: 'Penerimaan Packing Area Dyeing/Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',

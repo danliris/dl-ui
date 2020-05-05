@@ -19,6 +19,7 @@ export class List {
         { field: "noSpp", title: "No. SPP" },
         { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
+        { field: "group", title: "Group" },
         { field: "material", title: "Material" },
         { field: "unit", title: "Unit" },        
         { field: "warna", title: "Warna" },
@@ -26,6 +27,7 @@ export class List {
         { field: "grade", title: "Grade" },
         { field: "mtr", title: "Mtr" },
         { field: "yds", title: "Yds" },
+        { field: "qtyProduction", title: "Quantity" },
         { field: "saldo", title: "Saldo" },
     ];
 

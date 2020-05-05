@@ -25,6 +25,7 @@ export class DataForm {
     };
     itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo"];
     shifts = ["PAGI", "SIANG"];
+    groups = ["GROUP A", "GROUP B"];
     detailOptions = {};
     destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
     constructor(service) {
