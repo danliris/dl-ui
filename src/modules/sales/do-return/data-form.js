@@ -3,57 +3,51 @@ import {
   inject,
   containerless,
   computedFrom,
-  BindingEngine
+  BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceFinishingPrinting } from "./service";
+import { Service } from "./service";
 
 @containerless()
-@inject(Service, ServiceFinishingPrinting, BindingSignaler, BindingEngine)
+@inject(Service, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable data;
   @bindable error;
 
-  constructor(
-    service,
-    serviceFinishingPrinting,
-    bindingSignaler,
-    bindingEngine
-  ) {
+  constructor(service, bindingSignaler, bindingEngine) {
     this.service = service;
-    this.serviceFinishingPrinting = serviceFinishingPrinting;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
   }
-  
+
   @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || "").toString() !== "";
   }
-  
+
   async bind(context) {
     this.context = context;
+    this.context._this = this;
     this.data = this.context.data;
     this.error = this.context.error;
   }
 
-  doSalesReturnOptions = ["", "FR", "PR"];
-
-  doSalesReturnsInfo = {
+  doReturnDetailsInfo = {
     columns: ["Ex. Faktur Penjualan"],
     onAdd: function () {
-      this.context.ItemsCollection.bind();
-      this.data.DOSalesReturns = this.data.DOSalesReturns || [];
-      this.data.DOSalesReturns.push({});
+      this.context.DOReturnDetailsCollection.bind();
+      this.data.DOReturnDetails = this.data.DOReturnDetails || [];
+      this.data.DOReturnDetails.push({});
     }.bind(this),
     onRemove: function () {
-      this.context.ItemsCollection.bind();
-    }.bind(this)
+      this.context.DOReturnDetailsCollection.bind();
+    }.bind(this),
   };
+  itemOptions = {};
 
-  detailOptions = {};
+  doReturnTypeOptions = ["", "FR", "PR"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {

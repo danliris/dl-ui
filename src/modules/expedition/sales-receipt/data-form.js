@@ -6,7 +6,7 @@ import {
   BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceCore } from "./service";
+import { Service, ServiceSales, ServiceCore } from "./service";
 
 var BuyersLoader = require("../../../loader/buyers-loader");
 var BankLoader = require("../../../loader/account-banks-loader");
@@ -15,7 +15,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 var SalesInvoiceLoader = require("../../../loader/sales-invoice-loader");
 
 @containerless()
-@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
+@inject(Service, ServiceSales, ServiceCore, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -34,8 +34,9 @@ export class DataForm {
     },
   };
 
-  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
+  constructor(service, serviceSales,serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
+    this.serviceSales = serviceSales;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -139,7 +140,7 @@ export class DataForm {
       this.data.Buyer.Id = this.selectedBuyer.Id;
       this.data.Buyer.Name = this.selectedBuyer.Name;
       this.data.Buyer.Address = this.selectedBuyer.Address;
-      // var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+      // var salesInvoice = await this.serviceSales.getSalesInvoiceByBuyerId(
       //   this.data.Buyer.Id
       // );
       // if (this.selectedBuyer && this.selectedBuyer.Id) {
@@ -180,7 +181,7 @@ export class DataForm {
       this.data.Bank.Code = this.selectedBank.BankCode;
       this.data.Bank.CurrencyId = this.selectedBank.Currency.Id;
 
-      var salesInvoice = await this.service.getSalesInvoiceByBuyerId(
+      var salesInvoice = await this.serviceSales.getSalesInvoiceByBuyerId(
         this.data.Buyer.Id
       );
       if (this.selectedBuyer && this.selectedBuyer.Id) {

@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "sales/sales-receipts";
+const serviceUri = "sales-receipts";
 const salesInvoiceServiceUri = "sales/sales-invoices";
 const bankServiceUri = "master/account-banks";
 const buyerServiceUri = "master/buyers";
@@ -13,7 +13,7 @@ const currencyServiceUri = "master/currencies";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "sales");
+    super(http, aggregator, config, "finance");
   }
 
   search(info) {
@@ -44,6 +44,12 @@ export class Service extends RestService {
   getSalesReceiptPdfById(id) {
     var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
+  }
+}
+
+export class ServiceSales extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "sales");
   }
 
   searchSalesInvoice(info) {
