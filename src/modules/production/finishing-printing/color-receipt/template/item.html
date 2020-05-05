@@ -2,7 +2,7 @@
     <tr>
         <td>
             <au-autocomplete value.bind="selectedProduct" error.bind="error.Product" loader.bind="productLoader"
-                text="Name" read-only.bind="readOnly" options.bind="controlOptions">
+                text="Name" read-only.bind="readOnly" query.bind="productQuery" options.bind="controlOptions">
             </au-autocomplete>
         </td>
         <td>
