@@ -642,6 +642,19 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: 'garment-leftover-warehouse-buyer',
+        name: 'garment-leftover-warehouse-buyer',
+        moduleId: './modules/master/garment-leftover-warehouse-buyer/index',
+        nav: true,
+        title: 'Buyer Gudang Sisa Garment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1, "A2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
 
