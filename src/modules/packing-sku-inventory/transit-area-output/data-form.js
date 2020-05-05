@@ -23,7 +23,7 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
     destinationAreas = ["GUDANG JADI", "GUDANG AVAL"];
@@ -45,6 +45,9 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
+
+    groups = ["A", "B"];
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -63,6 +66,9 @@ export class DataForm {
             this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         }
 
+        if (this.data.destinationArea) {
+            this.destinationArea = this.data.destinationArea;
+        }
     }
     addItemCallback = (e) => {
         this.data.transitProductionOrders = this.data.transitProductionOrders || [];
@@ -77,8 +83,6 @@ export class DataForm {
                 this.data.transitProductionOrders = this.selectedInspectionMaterial.transitProductionOrders.filter(s => s.hasOutputDocument == false);
             }
 
-
-            this.detailOptions.destinationArea = this.data.destinationArea;
         }
 
     }
@@ -87,6 +91,25 @@ export class DataForm {
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
     }
+
+    @bindable destinationArea;
+    destinationAreaChanged(n, o) {
+        if (this.destinationArea) {
+            this.data.destinationArea = this.destinationArea;
+            this.detailOptions.destinationArea = this.data.destinationArea;
+            if (this.readOnly) {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+            } else {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
+            }
+            if (!this.data.id) {
+
+                this.selectedInspectionMaterial = null;
+                this.data.transitProductionOrders = [];
+            }
+
+        }
+    }
+
+
 }
-
-
