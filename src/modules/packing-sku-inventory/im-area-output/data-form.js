@@ -23,7 +23,7 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
     destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL"];
@@ -31,7 +31,7 @@ export class DataForm {
     constructor(service) {
         this.service = service;
     }
-
+    groups = ["A", "B"];
     get inspectionAreaLoader() {
         return InspectionAreaLoader;
     }
@@ -88,7 +88,21 @@ export class DataForm {
         if (this.destinationArea) {
             this.data.destinationArea = this.destinationArea;
             this.detailOptions.destinationArea = this.data.destinationArea;
+            if (this.destinationArea === "TRANSIT") {
+                if (this.readOnly) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Qty Keluar"];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
+                }
 
+            } else {
+                if (this.readOnly) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Keluar"];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                }
+
+            }
             if (!this.data.id) {
 
                 this.selectedInspectionMaterial = null;
