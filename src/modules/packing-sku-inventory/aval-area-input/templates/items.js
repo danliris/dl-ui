@@ -33,5 +33,13 @@ export class Items {
     //   };
 
     this.readOnly = context.options.readOnly;
+
+    if(this.data.id){
+      this.data.AvalType = this.data.avalType;
+      this.data.AvalCartNo = this.data.avalCartNo;
+      this.data.AvalUomUnit = this.data.avalUomUnit;
+      this.data.AvalQuantity = this.data.avalQuantity;
+      this.data.AvalQuantityKg = this.data.avalQuantityKg;
+    }
   }
 }

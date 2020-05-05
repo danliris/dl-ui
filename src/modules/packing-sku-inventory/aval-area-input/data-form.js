@@ -50,7 +50,10 @@ export class DataForm {
     if (this.data.id) {
       this.data.Date = this.data.date;
       this.data.Shift = this.data.shift;
-      this.data.DyeingPrintingItems = this.data.avalItems;
+      if (this.data.avalItems.length > 0) {
+        this.data.DyeingPrintingItems = this.data.avalItems;
+        this.isHasData = true;
+      }
     }
   }
 
