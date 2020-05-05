@@ -1,19 +1,15 @@
 <template>
     <tr>
         <td>
-            <au-autocomplete value.bind="selectedShipmentDocument" error.bind="error.ShipmentDocumentCode"
-                read-only.bind="readOnly" loader.one-time="shipmentDocumentLoader" text="Code" query.bind="shipmentQuery"
-                keypress.delegate="enterDelegate($event)" placeholder="Pilih No. Bon Pengiriman Barang">
-            </au-autocomplete>
+            <au-textbox value.bind="data.ShipmentDocumentCode" read-only.bind="true"></au-textbox>
+            <au-textbox value.bind="data.ShipmentDocumentId" read-only.bind="true"></au-textbox>
 
             <au-textbox error.bind="error.SalesInvoiceItem" read-only.bind="true"></au-textbox>
-           
-            <!-- show.bind="selectedShipmentDocument"  -->
-            <au-collection columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.SalesInvoiceItems"
-                errors.bind="error.SalesInvoiceItems" read-only.bind="readOnly"
-                options.bind="shipmentDocumentTableOptions"
+
+            <au-collection columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.DOReturnItems"
+                errors.bind="error.DOReturnItems" read-only.bind="readOnly" options.bind="shipmentDocumentTableOptions"
                 item-template="modules/sales/sales-invoice/template/sales-invoice-item"
-                view-model.ref="SalesInvoiceItemsCollection">
+                view-model.ref="ReturnDetailItemsCollection">
             </au-collection>
         </td>
         <td if.bind="!readOnly">

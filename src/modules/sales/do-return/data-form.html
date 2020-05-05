@@ -5,12 +5,11 @@
         <au-textbox label="No. Retur" value.bind="data.DOReturnNo" if.bind="readOnly || isEdit" read-only.bind="true">
         </au-textbox>
 
-        <au-dropdown label="Seri DO Retur" value.bind="data.Type" items.bind="doSalesReturnOptions"
+        <au-dropdown label="Seri DO Retur" value.bind="data.Type" items.bind="doReturnTypeOptions"
           error.bind="error.Type" read-only.bind="readOnly || isEdit">
         </au-dropdown>
 
-        <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date"
-          read-only.bind="readOnly">
+        <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly">
         </au-datepicker>
 
         <au-textbox label="Dari Bagian/Retur Dari" value.bind="data.ReturnFrom" error.bind="error.ReturnFrom"
