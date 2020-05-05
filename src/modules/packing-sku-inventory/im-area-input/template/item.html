@@ -7,6 +7,11 @@
             </au-autocomplete>
         </td>
         <td>
+            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true" error.bind="error.ProductionOrder"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="readOnly" error.bind="error.CartNo"
                 options.bind="controlOptions">
             </au-textbox>
@@ -41,11 +46,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
-            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true" error.bind="error.ProductionOrder"
-                options.bind="controlOptions">
-            </au-numeric>
-        </td>
+        
         <td>
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
                 options.bind="controlOptions">
