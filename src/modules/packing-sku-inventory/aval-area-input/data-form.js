@@ -47,10 +47,11 @@ export class DataForm {
     this.isHasData = false;
 
     this.data.Area = "GUDANG AVAL";
-    // if (this.data.id) {
-    //   this.data.Date = this.data.date;
-    //   this.data.Shift = this.data.shift;
-    // }
+    if (this.data.id) {
+      this.data.Date = this.data.date;
+      this.data.Shift = this.data.shift;
+      this.data.DyeingPrintingItems = this.data.avalItems;
+    }
   }
 
   get uoms() {
@@ -103,19 +104,20 @@ export class DataForm {
       this.data.DyeingPrintingMovementIds = [];
 
       this.service.getPreAval(this.Date, this.Shift).then((result) => {
+        // console.log("result", result);
         if (result.length > 0) {
           result.forEach((dyeingPrintingArea) => {
             var DyeingPrintingMovementIds = {};
-            DyeingPrintingMovementIds.DyeingPrintingAreaMovementId = dyeingPrintingArea.id;
-            DyeingPrintingMovementIds.AvalProductionOrderIds = [];
-
-            // this.data.DyeingPrintingMovementIds.DyeingPrintingAreaMovementId = dyeingPrintingArea.id;
-            // this.data.DyeingPrintingMovementIds.AvalProductionOrderIds = [];
+            DyeingPrintingMovementIds.DyeingPrintingAreaMovementId =
+              dyeingPrintingArea.id;
+            DyeingPrintingMovementIds.ProductionOrderIds = [];
 
             dyeingPrintingArea.preAvalProductionOrders.forEach(
               (productionOrder) => {
-                DyeingPrintingMovementIds.AvalProductionOrderIds.push(
-                  productionOrder.id
+                // console.log(productionOrder);
+                // console.log(productionOrder.productionOrder.id);
+                DyeingPrintingMovementIds.ProductionOrderIds.push(
+                  productionOrder.productionOrder.id
                 );
 
                 this.data.AvalJointValue +=
@@ -155,10 +157,7 @@ export class DataForm {
 
             this.data.DyeingPrintingMovementIds.push(DyeingPrintingMovementIds);
           });
-
-          console.log(this.data);
         } else {
-
           this.isHasData = false;
         }
       });

@@ -13,6 +13,8 @@ export class Create {
     this.service = service;
     this.data = {};
     this.error = {};
+
+    this.isShowed = true;
   }
 
   // activate(params) {
@@ -59,7 +61,7 @@ export class Create {
     }
 
     if (this.data.DyeingPrintingItems.length > 0) {
-      CreateData.AvalProductionOrders = this.data.DyeingPrintingItems.map(
+      CreateData.AvalItems = this.data.DyeingPrintingItems.map(
         (item) => {
           var remappedItems = {};
           remappedItems.AvalType = item.AvalType;
@@ -72,7 +74,7 @@ export class Create {
         }
       );
     } else {
-      CreateData.AvalProductionOrders = [{}];
+      CreateData.AvalItems = [{}];
     }
 
     console.log(CreateData);

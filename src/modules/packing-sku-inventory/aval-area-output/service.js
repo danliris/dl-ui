@@ -1,18 +1,10 @@
-import {
-  inject,
-  Lazy
-} from 'aurelia-framework';
-import {
-  HttpClient
-} from 'aurelia-fetch-client';
-import {
-  RestService
-} from '../../../utils/rest-service';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
+import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "output-aval";
 
 export class Service extends RestService {
-
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "packing-inventory");
   }
@@ -37,7 +29,7 @@ export class Service extends RestService {
     if (query !== "") {
       endpoint = `${serviceUri}/available-aval?${query}`;
     }
-    
+
     return super.get(endpoint);
   }
 
@@ -49,6 +41,12 @@ export class Service extends RestService {
   create(data) {
     let endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
+  }
+
+  generateExcel(id) {
+    var endpoint = `${serviceUri}/xls/${id}`;
+
+    return super.getXls(endpoint);
   }
 
   // update(data) {
