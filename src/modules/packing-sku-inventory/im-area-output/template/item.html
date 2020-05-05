@@ -7,6 +7,11 @@
             <button show.bind="isAval" class="btn btn-info pull-right" click.delegate="toggle()">i</button>
         </td>
         <td>
+            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
+                error.bind="error.ProductionOrder" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
                 options.bind="controlOptions">
             </au-textbox>
@@ -37,19 +42,29 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.status" read-only.bind="true" error.bind="error.Status"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-dropdown value.bind="data.remark" items.bind="remarks" read-only.bind="readOnly"
                 error.bind="error.Remark" options.bind="controlOptions">
             </au-dropdown>
         </td>
-        <td>
+        <!-- <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td show.bind="!readOnly">
+            <au-numeric value.bind="data.previousBalance" format="0.00" read-only.bind="true"
+                error.bind="error.PreviousBalance" options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td>
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly || isAval"
