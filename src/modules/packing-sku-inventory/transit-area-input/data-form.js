@@ -22,13 +22,16 @@ export class DataForm {
             length: 4,
         },
     };
-    imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. SPP", "No. Kereta","Buyer", "Material", "Unit",  "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    imQuery = { "DestinationArea": "TRANSIT" }
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
     }
+
+
+    groups = ["A", "B"];
 
     get inspectionAreaLoader() {
         return InspectionAreaLoader;

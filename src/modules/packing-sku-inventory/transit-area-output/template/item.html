@@ -6,10 +6,15 @@
             </au-autocomplete>
         </td>
         <td>
+            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
+                error.bind="error.ProductionOrder" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <!-- <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
                 options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td>
             <au-textbox value.bind="data.construction" read-only.bind="true" error.bind="error.CartNo"
                 options.bind="controlOptions">
@@ -45,15 +50,20 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
-            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
-                options.bind="controlOptions">
-            </au-textbox>
+        <td show.bind="!readOnly">
+            <au-numeric value.bind="data.previousBalance" format="0.00" read-only.bind="true"
+                error.bind="error.PreviousBalance" options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td>
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
     </tr>
 </template>
