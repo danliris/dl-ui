@@ -7,10 +7,12 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUriPreparing = 'preparings';
 const serviceUriCuttingIn= 'cutting-ins';
 const serviceUriCuttingOut= 'cutting-outs';
-const serviceUriLoading= 'loadings/complete';
-const serviceUriSewing = 'sewing-outs/complete';
-const serviceUriFinishing = 'finishing-outs/complete';
-const serviceUriExpenditure = 'expenditure-goods/complete';
+const serviceUriLoading= 'loadings';
+const serviceUriSewingIn = 'sewing-ins';
+const serviceUriSewingOut = 'sewing-outs';
+const serviceUriFinishingIn = 'finishing-ins';
+const serviceUriFinishingOut = 'finishing-outs';
+const serviceUriExpenditure = 'expenditure-goods';
 
 export class Service extends RestService {
 
@@ -38,13 +40,23 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    searchSewing(info) {
-        var endpoint = `${serviceUriSewing}`;
+    searchSewingIn(info) {
+        var endpoint = `${serviceUriSewingIn}`;
         return super.list(endpoint, info);
     }
 
-    searchFinishing(info) {
-        var endpoint = `${serviceUriFinishing}`;
+    searchSewingOut(info) {
+        var endpoint = `${serviceUriSewingOut}`;
+        return super.list(endpoint, info);
+    }
+
+    searchFinishingIn(info) {
+        var endpoint = `${serviceUriFinishingIn}`;
+        return super.list(endpoint, info);
+    }
+    
+    searchFinishingOut(info) {
+        var endpoint = `${serviceUriFinishingOut}`;
         return super.list(endpoint, info);
     }
 
@@ -52,4 +64,39 @@ export class Service extends RestService {
         var endpoint = `${serviceUriExpenditure}`;
         return super.list(endpoint, info);
     }
+
+    updateDate(data,type) {
+        var uri="";
+        if (type=="PREPARING"){
+            uri= serviceUriPreparing;
+        }
+        else if(type=="CUTTING IN"){
+            uri=serviceUriCuttingIn;
+        }
+        else if(type=="CUTTING OUT"){
+            uri=serviceUriCuttingOut;
+        }
+        else if(type=="LOADING"){
+            uri=serviceUriLoading;
+        }
+        else if(type=="SEWING IN"){
+            uri=serviceUriSewingIn;
+        }
+        else if(type=="SEWING OUT"){
+            uri=serviceUriSewingOut;
+        }
+        else if(type=="FINISHING IN"){
+            uri=serviceUriFinishingIn;
+        }
+        else if(type=="FINISHING OUT"){
+            uri=serviceUriFinishingOut;
+        }
+        else if(type=="PENGELUARAN GUDANG JADI"){
+            uri=serviceUriExpenditure;
+        }
+        var endpoint = `${uri}/update-dates`;
+        return super.put(endpoint, data);
+    }
+
+    
 }
