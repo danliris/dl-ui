@@ -57,11 +57,9 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        console.log(this);
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
-            console.log(this);
         }
 
     }
