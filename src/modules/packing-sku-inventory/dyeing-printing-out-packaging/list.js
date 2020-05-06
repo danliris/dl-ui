@@ -16,10 +16,11 @@ export class List {
             }
         },
         { field: "bonNo", title: "No. Bon" },
-        { field: "noSpp", title: "No. SPP" },  
+        { field: "noSpp", title: "No. SPP" },
+        { field: "qtyOrder", title: "QTY Order" },  
         { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
-        { field: "groups", title: "Groups" },
+        { field: "group", title: "Group" },
         { field: "material", title: "Material" },
         { field: "unit", title: "Unit" },        
         { field: "warna", title: "Warna" },        
@@ -29,9 +30,9 @@ export class List {
         { field: "packagingQty", title: "Qty Packaging" },        
         { field: "packagingUnit", title: "Packaging" },        
         { field: "mtr", title: "Mtr" },        
-        { field: "yds", title: "Yds" },
-        { field: "qtyOrder", title: "Quantity" },             
-        { field: "saldo", title: "Saldo" }
+        { field: "yds", title: "Yds" },        
+        { field: "saldo", title: "Saldo" },
+        { field: "keterangan", title: "Keterangan" }
     ];
 
     loader = (info) => {
@@ -52,6 +53,7 @@ export class List {
                 data.data = [];
                 result.data.forEach((item,index)=>{
                     item.packagingProductionOrders.forEach((i,ind)=>{
+                        console.log(item);
                         var dataView = {};
                         dataView.id = item.id;
                         dataView.date = item.date;
@@ -61,6 +63,9 @@ export class List {
                         dataView.shift = item.shift,
                         dataView.material = i.construction,
                         dataView.unit = i.unit,
+                        dataView.qtyOrder = i.qtyOrder,
+                        dataView.group = item.group,
+                        dataView.keterangan = i.keterangan,
                         dataView.warna = i.color,
                         dataView.motif = i.motif,
                         dataView.grade = i.grade,
@@ -73,6 +78,7 @@ export class List {
                         data.data.push(dataView);
                     });
                 });
+                console.log(data);
                 return data;
             });
     }

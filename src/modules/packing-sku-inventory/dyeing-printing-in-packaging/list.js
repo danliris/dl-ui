@@ -55,7 +55,7 @@ export class List {
                         dataView.date = item.date;
                         dataView.bonNo = item.bonNo;
                         dataView.group = item.group;
-                        dataView.qtyOrder = item.qtyOrder;
+                        dataView.qtyOrder = i.qtyOrder;
                         dataView.noSpp = i.productionOrder.no,
                         dataView.buyer = i.buyer,
                         dataView.shift = item.shift,
@@ -70,7 +70,6 @@ export class List {
                         data.data.push(dataView);
                     });
                 });
-                console.log(result);
                 return data;
             });
     }

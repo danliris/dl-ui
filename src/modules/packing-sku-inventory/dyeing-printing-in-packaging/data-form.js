@@ -24,9 +24,9 @@ export class DataForm {
         },
     };
     // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Qty Order"];
+    itemColumns = ["No. SPP", "Qty Order","Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan","Qty Masuk"];
     shifts = ["PAGI", "SIANG"];
-    groups = ["GROUP A", "GROUP B"];
+    groups = ["A", "B"];
     constructor(eventAggregator,service) {
         this.eventAggregator = eventAggregator;
         this.service = service;
@@ -43,12 +43,7 @@ export class DataForm {
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
-    activate(context){
-        this.subscriber = this.eventAggregator.subscribe('eventDataBon', payload => {
-            this.productionOrderList = payload;
-            // console.log(payload);
-         });
-    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -65,24 +60,19 @@ export class DataForm {
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
+            this.data.packagingProductionOrders = [];
         }
-        // this.subscriber = this.eventAggregator.subscribe('eventDataBon', payload => {
-        //     this.productionOrderList = payload;
-        //     // console.log(payload);
-        //  });
+
     }
 
     @bindable selectedPackaging;
     selectedPackagingChanged(n, o) {
-        if (this.selectedPackaging) {
-            this.data.inputPackagingId = this.selectedPackaging.id;
-            if (this.selectedPackaging.packagingProductionOrders) {
-                // this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-                this.eventAggregator.publish("eventDataBon",this.selectedPackaging);
+        if(n!=o){
+            if (this.selectedPackaging) {
+                this.data.inputPackagingId = this.selectedPackaging.id;
+                this.data.bonNo = this.selectedPackaging.bonNo;
             }
-            this.data.bonNo = this.selectedPackaging.bonNo;
         }
-        // console.log(this);
     }
     
     ExportToExcel() {
@@ -90,7 +80,7 @@ export class DataForm {
     }
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
-        this.data.packagingProductionOrders.push({})
+        this.data.packagingProductionOrders.push({});
     };
 }
 
