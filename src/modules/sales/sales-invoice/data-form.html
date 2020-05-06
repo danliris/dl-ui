@@ -18,8 +18,7 @@
             </au-datepicker>
 
             <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer"
-              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly"
-              keypress.delegate="enterDelegate($event)" change.delegate="selectedBuyerChanged($event)">
+              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly">
             </au-autocomplete>
 
             <au-textbox label="Buyer Address" value.bind="selectedBuyer.Address" read-only.bind="true">
@@ -29,8 +28,8 @@
               read-only.bind="true">
             </au-textbox>
 
-            <au-textbox if.bind="selectedBuyer && !selectedBuyer.NPWP" label="NPWP Buyer" value.bind="data.BuyerNPWP"
-              read-only.bind="readOnly || isEdit" keypress.delegate="enterDelegate($event)"
+            <au-textbox if.bind="selectedBuyer && !selectedBuyer.NPWP" label="NPWP Buyer" value.bind="data.Buyer.NPWP"
+              error.bind="error.BuyerNPWP" read-only.bind="readOnly || isEdit" keypress.delegate="enterDelegate($event)"
               placeholder="Input NPWP Buyer">
             </au-textbox>
 
@@ -43,10 +42,6 @@
           </div>
 
           <div class="col-md-6">
-
-            <!-- <au-textbox label="No. Index Debitur" value.bind="data.DebtorIndexNo" error.bind="error.DebtorIndexNo"
-          read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input No. Index Debitur">
-        </au-textbox> -->
 
             <au-autocomplete label="Mata Uang" value.bind="selectedCurrency" error.bind="error.CurrencyCode"
               read-only.bind="readOnly" loader.one-time="currencyLoader" key="Code" text="Code"
@@ -69,7 +64,7 @@
             </au-multiline>
           </div>
         </div>
-    </div>
+      </div>
     </div>
     <au-textbox show.bind="error.SalesInvoiceDetail" error.bind="error.SalesInvoiceDetail" read-only.bind="true">
     </au-textbox>
@@ -81,9 +76,11 @@
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
+    <!-- <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
       error.bind="error.TotalPayment" read-only.bind="true">
-    </au-textbox>
+    </au-textbox> -->
+
+    Nominal keseluruhan : ${getTotalPayment} ${selectedCurrency.Code}
 
   </au-input-form>
 </template>

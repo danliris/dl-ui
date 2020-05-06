@@ -3,7 +3,7 @@ import {
   inject,
   containerless,
   computedFrom,
-  BindingEngine
+  BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
@@ -20,7 +20,6 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
-  @bindable BuyerNPWP;
   @bindable VatType;
   @bindable getTempo;
 
@@ -43,11 +42,6 @@ export class DataForm {
     this.error = this.context.error;
 
     this.VatType = this.data.VatType;
-    if (this.data.Buyer) {
-
-      this.BuyerNPWP = this.data.Buyer.NPWP;
-    }
-
     this.TotalPayment = this.data.TotalPayment;
     this.data.TotalPayment = this.getTotalPayment;
 
@@ -64,9 +58,8 @@ export class DataForm {
     }
 
     if (this.data.Buyer && this.data.Buyer.NPWP) {
-      this.BuyerNPWP = this.data.Buyer.NPWP;
+      this.selectedBuyer.NPWP = this.data.Buyer.NPWP;
     }
-
     if (this.data.SalesInvoiceDate) {
       this.SalesInvoiceDate = this.data.SalesInvoiceDate;
     }
@@ -79,7 +72,6 @@ export class DataForm {
       this.TotalPayment = this.data.TotalPayment;
       this.data.TotalPayment = this.getTotalPayment;
     }
-
   }
 
   get getTotalPayment() {
@@ -94,8 +86,7 @@ export class DataForm {
     }
     if (this.VatType == "PPN BUMN") {
       totalPayment = result;
-    }
-    else {
+    } else {
       totalPayment = result * 0.1 + result;
     }
     this.data.TotalPayment = totalPayment;
@@ -133,12 +124,36 @@ export class DataForm {
     }.bind(this),
     onRemove: function () {
       this.context.SalesInvoiceDetailsCollection.bind();
-    }.bind(this)
+    }.bind(this),
   };
   itemOptions = {};
-  shipmentDocumentTableOptions = {}
 
-  salesInvoiceTypeOptions = ["", "BNG", "BAB", "BNS", "RNG", "BRG", "BAG", "BGS", "RRG", "BLL", "BPF", "BSF", "RPF", "BPR", "BSR", "RPR", "BAV", "BON", "BGM", "GPF", "RGF", "GPR", "RGR", "RON"];
+  salesInvoiceTypeOptions = [
+    "",
+    "BNG",
+    "BAB",
+    "BNS",
+    "RNG",
+    "BRG",
+    "BAG",
+    "BGS",
+    "RRG",
+    "BLL",
+    "BPF",
+    "BSF",
+    "RPF",
+    "BPR",
+    "BSR",
+    "RPR",
+    "BAV",
+    "BON",
+    "BGM",
+    "GPF",
+    "RGF",
+    "GPR",
+    "RGR",
+    "RON",
+  ];
   VatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN"];
 
   enterDelegate(event) {
@@ -170,14 +185,14 @@ export class DataForm {
       this.data.Buyer = {};
       this.data.Buyer.Id = this.selectedBuyer.Id;
       this.data.Buyer.Name = this.selectedBuyer.Name;
+      this.data.Buyer.Code = this.selectedBuyer.Code;
       this.data.Buyer.Address = this.selectedBuyer.Address;
-      if (this.selectedBuyer.NPWP) {
-        this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
-      }
-      this.itemOptions.BuyerId = this.data.BuyerId;
+      this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
+      this.itemOptions.BuyerId = this.data.Buyer.Id;
     } else {
       this.data.Buyer.Id = null;
       this.data.Buyer.Name = null;
+      this.data.Buyer.Code = null;
       this.data.Buyer.Address = null;
       this.data.Buyer.NPWP = null;
     }

@@ -3,7 +3,7 @@ import {
   inject,
   containerless,
   computedFrom,
-  BindingEngine
+  BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
@@ -25,13 +25,8 @@ export class DataForm {
   @bindable LengthUom;
   @bindable WeightUom;
   @bindable selectedSalesContract;
-  
-  constructor(
-    service,
-    serviceCore,
-    bindingSignaler,
-    bindingEngine
-  ) {
+
+  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
@@ -43,7 +38,6 @@ export class DataForm {
     return (this.data.Id || "").toString() !== "";
   }
   async bind(context) {
-    // debugger
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
@@ -68,11 +62,9 @@ export class DataForm {
     var salesContract = this.data.SalesContract;
     if (salesContract) {
       this.selectedSalesContract = await this.service.getSalesContractById(
-        salesContract.Id,
-        this.salesContractFields
+        salesContract.Id
       );
-    }
-    else {
+    } else {
       this.selectedSalesContract = this.data.SalesContract;
     }
 
@@ -89,20 +81,30 @@ export class DataForm {
 
   doSalesLocalItemsInfo = {
     columns: [
-      "No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi"
+      "No SPP",
+      "Material Konstruksi",
+      "Jenis / Code",
+      "Jumlah Packing",
+      "Panjang",
+      "Hasil Konversi",
     ],
     onRemove: function () {
       this.context.ItemsCollection.bind();
-    }.bind(this)
+    }.bind(this),
   };
 
   doSalesExportItemsInfo = {
     columns: [
-      "No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Berat", "Hasil Konversi"
+      "No SPP",
+      "Material Konstruksi",
+      "Jenis / Code",
+      "Jumlah Packing",
+      "Berat",
+      "Hasil Konversi",
     ],
     onRemove: function () {
       this.context.ItemsCollection.bind();
-    }.bind(this)
+    }.bind(this),
   };
 
   detailOptions = {};
@@ -117,13 +119,16 @@ export class DataForm {
   async selectedSalesContractChanged(newValue, oldValue) {
     // if (this.selectedSalesContract && this.selectedSalesContract.Id) {
     if (newValue) {
+      this.data.SalesContract = {};
       this.data.SalesContract = this.selectedSalesContract;
       this.data.Material = this.selectedSalesContract.Material;
       this.data.MaterialConstruction = this.selectedSalesContract.MaterialConstruction;
       this.data.MaterialWidth = this.selectedSalesContract.MaterialWidth;
 
       if (this.selectedSalesContract.Buyer.Id) {
-        this.selectedBuyer = await this.serviceCore.getBuyerById(this.selectedSalesContract.Buyer.Id);
+        this.selectedBuyer = await this.serviceCore.getBuyerById(
+          this.selectedSalesContract.Buyer.Id
+        );
         this.data.Buyer = this.selectedBuyer;
       } else {
         this.selectedBuyer = this.selectedSalesContract.Buyer;
@@ -131,7 +136,9 @@ export class DataForm {
       }
 
       if (!this.data.Id) {
-        var salesContract = await this.service.getProductionOrderBySalesContractId(this.data.SalesContract.Id);
+        var salesContract = await this.service.getProductionOrderBySalesContractId(
+          this.data.SalesContract.Id
+        );
         var scData = salesContract.data;
         this.data.DOSalesDetailItems = [];
         for (var item of scData) {
@@ -144,7 +151,7 @@ export class DataForm {
               ColorTemplate: detailItem.ColorTemplate,
               ProductionOrder: item,
               ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
-            }
+            };
             this.data.DOSalesDetailItems.push(sc);
           }
         }
@@ -170,16 +177,20 @@ export class DataForm {
   }
 
   LengthUomChanged(newValue, oldValue) {
-    if (newValue) {
-      this.detailOptions.LengthUom = newValue;
+    if (this.LengthUom && this.data.SalesContract) {
+      this.detailOptions.LengthUom = {};
+      this.detailOptions.LengthUom = this.LengthUom;
     }
+    this.data.LengthUom = {};
     this.data.LengthUom = this.LengthUom;
   }
 
   WeightUomChanged(newValue, oldValue) {
-    if (newValue) {
-      this.detailOptions.WeightUom = newValue;
+    if (this.WeightUom && this.data.SalesContract) {
+      this.detailOptions.WeightUom = {};
+      this.detailOptions.WeightUom = this.WeightUom;
     }
+    this.data.WeightUom = {};
     this.data.WeightUom = this.WeightUom;
   }
 

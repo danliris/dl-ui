@@ -60,7 +60,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kabag MD',
+        title: 'Approval PR Master - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -88,7 +88,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kadiv MD',
+        title: 'Approval PR Master - Kadiv Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -254,7 +254,7 @@ module.exports = [
         name: 'ro-validation-kabagmd',
         moduleId: './modules/merchandiser/ro-validation/index',
         nav: true,
-        title: 'Validasi RO - Kabag MD',
+        title: 'Validasi RO - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -348,6 +348,19 @@ module.exports = [
         moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
         nav: true,
         title: 'Copy Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment-copy',
+        name: 'ro-garment-copy',
+        moduleId: './modules/merchandiser/ro-garment/copy/index',
+        nav: true,
+        title: 'Copy RO Garment',
         auth: true,
         settings: {
             group: "merchandiser",

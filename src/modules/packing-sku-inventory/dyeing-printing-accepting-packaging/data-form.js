@@ -17,12 +17,18 @@ export class DataForm {
     }
     controlOptions = {
         label: {
-            length: 4,
+            length: 3,
         },
         control: {
-            length: 4,
+            length: 3,
         },
     };
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false,
+        pagination: false
+    }
     constructor(service) {
         this.service = service;
     }
@@ -30,25 +36,25 @@ export class DataForm {
     get NoBonLoader() {
         return BonLoader;
     }
-    
-    bonBind(){
-        console.log(this.context);
-        
-        this.data = this.context.selectedNoBon;
-    //     this.data.saldo = this.saldoValue;
-    //     this.data.grade = this.selectedBon.grade;
-        console.log(this.data);
+    get NoBonDummy(){
+
     }
-    setBalance(context){
-        console.log(context);
-        this.data.saldo = context.saldo;
-    }
+    shiftData = ["","PAGI","SIANG"];
+
+    columnsSpp=[
+        { field: "noSpp", title: "No. SPP" },
+        { field: "buyer", title: "Buyer" },
+        { field: "unit", title: "Unit" },                
+        { field: "material", title: "Material" },
+        { field: "warna", title: "Warna" },
+        { field: "motif", title: "Motif" },
+        { field: "grade", title: "Grade" },
+        { field: "satuan", title: "Satuan" },
+        { field: "saldo", title: "Saldo" },
+    ];
 
     bind(context) {
         this.context = context;
-        this.data = this.context.data;
-
-        this.data.area = "PACK";
 
         this.error = this.context.error;
         this.cancelCallback = this.context.cancelCallback;

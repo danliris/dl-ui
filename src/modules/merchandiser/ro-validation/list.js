@@ -10,7 +10,7 @@ export class List {
     context = ["Rincian"];
     columns = [
         { field: "CostCalculationGarment.RO_Number", title: "No RO"},
-         { field: "CostCalculationGarment.ValidationMDDate", title: "Tgl. Valid RO MD", formatter: function (value, data, index) {
+         { field: "CostCalculationGarment.ValidationMDDate", title: "Tgl. Valid RO Md", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

@@ -1,0 +1,36 @@
+<template replace-part="item">
+    <tr>
+        <!-- <td>
+            <au-textbox value.bind="data.SalesInvoiceNo" error.bind="error.SalesInvoiceNo" read-only.bind="true">
+            </au-textbox>
+        </td> -->
+        <td>
+            <au-textbox value.bind="data.SalesInvoice.no" error.bind="error.SalesInvoiceNo" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.Tempo" error.bind="error.Tempo" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.TotalPayment" error.bind="error.TotalPayment" read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="getNotPaid" read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="Nominal" error.bind="error.Nominal" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="getPaid" read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-checkbox show.bind="Nominal" value.bind="data.IsPaidOff" read-only.bind="readOnly">
+            </au-checkbox>
+        </td>
+    </tr>
+</template>

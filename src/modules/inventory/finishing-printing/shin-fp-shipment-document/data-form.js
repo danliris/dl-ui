@@ -41,9 +41,10 @@ export class DataForm {
         this.error = this.context.error;
 
         if (this.data.DOSales && this.data.DOSales.Id) {
-            this.selectedDOSales = await this.service.getDOSalesById(
-                this.data.DOSales.Id
-            );
+            // this.selectedDOSales = await this.service.getDOSalesById(
+            //     this.data.DOSales.Id
+            // );
+            this.selectedDOSales = this.data.DOSales;
         }
         if (this.data.Storage) {
             this.detailOptions.selectedStorageCode = this.data.Buyer.Code;

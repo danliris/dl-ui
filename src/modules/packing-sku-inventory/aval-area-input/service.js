@@ -1,18 +1,10 @@
-import {
-  inject,
-  Lazy
-} from 'aurelia-framework';
-import {
-  HttpClient
-} from 'aurelia-fetch-client';
-import {
-  RestService
-} from '../../../utils/rest-service';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
+import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "inventory-document-aval";
+const serviceUri = "input-aval";
 
 export class Service extends RestService {
-
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "packing-inventory");
   }
@@ -20,6 +12,25 @@ export class Service extends RestService {
   search(info) {
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
+  }
+
+  getPreAval(searchDate, searchShift) {
+    var endpoint = `${serviceUri}/pre-aval`;
+    var query = "";
+
+    if (searchDate) {
+      if (query === "") query = `searchDate=${searchDate}`;
+      else query = `${query}&searchDate=${searchDate}`;
+    }
+    if (searchShift) {
+      if (query === "") query = `searchShift=${searchShift}`;
+      else query = `${query}&searchShift=${searchShift}`;
+    }
+    if (query !== "") {
+      endpoint = `${serviceUri}/pre-aval?${query}`;
+    }
+    
+    return super.get(endpoint);
   }
 
   getById(id) {
@@ -32,23 +43,13 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
-  update(data) {
-    let endpoint = `${serviceUri}/${data.id}`;
-    return super.put(endpoint, data);
-  }
+  // update(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.put(endpoint, data);
+  // }
 
-  delete(data) {
-    let endpoint = `${serviceUri}/${data.id}`;
-    return super.delete(endpoint, data);
-  }
-
-  // getUomByName(name) {
-  //   var config = Container.instance.get(Config);
-  //   var _endpoint = config.getEndpoint("core");
-  //   var _serviceUri = `master/uoms/${name}`;
-
-  //   return _endpoint.find(_serviceUri).then(result => {
-  //     return result.data;
-  //   });
+  // delete(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.delete(endpoint, data);
   // }
 }

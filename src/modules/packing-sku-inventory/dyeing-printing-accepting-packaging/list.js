@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail"]
+    // context = ["detail"]
 
     columns = [
         {
@@ -16,12 +16,13 @@ export class List {
             }
         },
         { field: "noBon", title: "No Bon" },
-        { field: "shift", title: "Shift" },
         { field: "noSpp", title: "No. SPP" },
-        { field: "unit", title: "Unit" },
+        { field: "buyer", title: "Buyer" },
+        { field: "shift", title: "Shift" },
         { field: "material", title: "Material" },
-        { field: "motif", title: "Motif" },
+        { field: "unit", title: "Unit" },        
         { field: "warna", title: "Warna" },
+        { field: "motif", title: "Motif" },
         { field: "grade", title: "Grade" },
         { field: "mtr", title: "Mtr" },
         { field: "yds", title: "Yds" },
@@ -39,11 +40,12 @@ export class List {
             order: order,
         }
 
-        return this.service.search(arg)
+        // return this.service.search(arg)
+        return this.service.getListDummy(arg)
             .then(result => {
                 var data = {}
-                data.total = result.total;
-                data.data = result.data;
+                data.total = result.length;
+                data.data = result;
                 return data;
             });
     }
@@ -60,9 +62,6 @@ export class List {
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "print":
-                this.service.getPdfById(data.id);
                 break;
         }
     }

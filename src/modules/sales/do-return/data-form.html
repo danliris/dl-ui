@@ -1,22 +1,15 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
-    <div slot="actions" class="btn-group">
-      <button class="btn btn-default" click.delegate="context.cancel($event)"
-        if.one-way="context.hasCancel">Kembali</button>
-      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
-      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)"
-        if.one-way="context.hasDelete">Hapus</button>
-    </div>
-
     <div class="row">
+      <div class="col-md-8">
+        <au-textbox label="No. Retur" value.bind="data.DOReturnNo" if.bind="readOnly || isEdit" read-only.bind="true">
+        </au-textbox>
 
-      <div class="col-md-8" style="padding:0">
-        <au-dropdown label="Seri DO Retur" value.bind="data.ReturnType" items.bind="doSalesReturnOptions"
-          error.bind="error.ReturnType" read-only.bind="readOnly || isEdit">
+        <au-dropdown label="Seri DO Retur" value.bind="data.Type" items.bind="doSalesReturnOptions"
+          error.bind="error.Type" read-only.bind="readOnly || isEdit">
         </au-dropdown>
 
-        <au-datepicker label="Tanggal" value.bind="data.ReturnDate" error.bind="error.ReturnDate"
+        <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date"
           read-only.bind="readOnly">
         </au-datepicker>
 
@@ -24,27 +17,27 @@
           read-only.bind="readOnly" placeholder="Input Nama Bagian" keypress.delegate="enterDelegate($event)">
         </au-textbox>
 
-        <au-textbox label="No. LTKP" value.bind="data.LTKPNo" error.bind="error.LTKPNo" read-only.bind="readOnly"
+        <au-textbox label="No. LTKP" value.bind="data.LKTPNo" error.bind="error.LKTPNo" read-only.bind="readOnly"
           placeholder="Input No. LTKP" keypress.delegate="enterDelegate($event)">
         </au-textbox>
 
-        <au-textbox label="Kepala Gudang" value.bind="data.ReturnHeadOfStorage" error.bind="error.ReturnHeadOfStorage"
+        <au-textbox label="Kepala Gudang" value.bind="data.HeadOfStorage" error.bind="error.HeadOfStorage"
           read-only.bind="readOnly" placeholder="Input Nama Kepala Gudang" keypress.delegate="enterDelegate($event)">
         </au-textbox>
 
         <au-multiline label="Catatan" value.bind="data.ReturnRemark" error.bind="error.ReturnRemark"
           read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
         </au-multiline>
-
       </div>
     </div>
+    <au-textbox show.bind="error.DOReturnDetail" error.bind="error.DOReturnDetail" read-only.bind="true">
+    </au-textbox>
 
-    <au-textbox show.bind="error.LocalType" error.bind="error.LocalType" read-only.bind="true"></au-textbox>
-    <au-textbox show.bind="error.ReturnType" error.bind="error.ReturnType" read-only.bind="true"></au-textbox>
-
-    <au-collection columns.bind="doSalesReturnsInfo.columns" items.bind="data.DOSalesReturns"
-      errors.one-way="error.DOSalesReturns" add.bind="doSalesReturnsInfo.onAdd"
-      remove.bind="doSalesReturnsInfo.onRemove" read-only.bind="readOnly"
-      item-template="modules/sales/do-sales/template/return-item" view-model.ref="DOSalesReturnsCollection">
+    <au-collection columns.bind="doReturnDetailsInfo.columns" items.bind="data.DOReturnDetails"
+      errors.bind="error.DOReturnDetails" read-only.bind="readOnly" add.bind="doReturnDetailsInfo.onAdd"
+      remove.bind="doReturnDetailsInfo.onRemove" item-template="modules/sales/do-return/template/do-return-detail"
+      view-model.ref="DOReturnDetailsCollection" options.bind="itemOptions">
     </au-collection>
+
+  </au-input-form>
 </template>

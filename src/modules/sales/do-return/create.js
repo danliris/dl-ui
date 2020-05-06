@@ -1,39 +1,29 @@
-import { bindable, inject } from "aurelia-framework";
-import { Service } from "./service";
+import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
+import { Service } from "./service";
 import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
-  hasCancel = true;
-  hasSave = true;
-
-  @bindable data;
-  @bindable error;
-
   constructor(router, service) {
-    this.service = service;
     this.router = router;
+    this.service = service;
+    this.data = {};
+    this.error = {};
   }
 
-  created(owner, self) {
-    this.data = { DOSalesDetails: [] };
-  }
-
-  cancel(event) {
-    this.__goToList();
+  back() {
+    this.router.navigateToRoute("list");
   }
 
   determineActivationStrategy() {
-    return activationStrategy.replace; //replace the viewmodel with a new instance
-    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-    // or activationStrategy.noChange to explicitly use the default behavior
+    return activationStrategy.replace;
   }
 
   save(event) {
     this.service
       .create(this.data)
-      .then(result => {
+      .then((result) => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
           "create",
@@ -42,12 +32,8 @@ export class Create {
         );
         // this.__goToList();
       })
-      .catch(error => {
+      .catch((error) => {
         this.error = error;
       });
-  }
-
-  __goToList() {
-    this.router.navigateToRoute("list");
   }
 }

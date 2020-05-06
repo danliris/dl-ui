@@ -1,13 +1,7 @@
-import { inject, Lazy } from "aurelia-framework";
-import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 
-const serviceUri = "finishing-printing/do-sales-items";
-const salesContractServiceUri = "sales/finishing-printing-pre-sales-contracts";
-const productionOrderServiceUri = "sales/production-orders/shin";
-const buyerServiceUri = "master/buyers";
+const serviceUri = "sales/do-return";
+const salesInvoiceServiceUri = "sales/sales-invoices";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -43,42 +37,14 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
   }
-}
 
-export class ServiceSales extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "sales");
-  }
-
-  searchSalesContract(info) {
-    var endpoint = `${salesContractServiceUri}`;
+  searchSalesInvoice(info) {
+    var endpoint = `${salesInvoiceServiceUri}`;
     return super.list(endpoint, info);
   }
 
-  getSalesContractById(id, select) {
-    var endpoint = `${salesContractServiceUri}/${id}`;
-    var info = { select: select };
-    return super.get(endpoint, null, info);
-  }
-
-  getProductionOrderBySalesContractNo(salesContractNo) {
-    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractNo}`;
-    return super.list(endpoint);
-  }
-}
-
-export class ServiceCore extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "core");
-  }
-
-  searchBuyer(info) {
-    var endpoint = `${buyerServiceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  getBuyerById(id, select) {
-    var endpoint = `${buyerServiceUri}/${id}`;
+  getSalesInvoiceById(id, select) {
+    var endpoint = `${salesInvoiceServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

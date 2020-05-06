@@ -1,5 +1,12 @@
 <template>
-    <require from="./data-form"></require>
-    <data-form title="Buat Dokumen Inventori Aval" error.bind="error" data.bind="data"></data-form>
-  </template>
-  
+  <h1 class="page-header">Buat Penerimaan Aval Dyeing/Printing</h1>
+  <require from="./data-form"></require>
+  <block>
+      <data-form data.bind="data" error.bind="error" ></data-form>
+      <hr/>
+      <div class="btn-group pull-right">
+          <button class="btn btn-default" click.delegate="back()">Kembali</button>
+          <button class="btn btn-success" click.delegate="save()">Simpan</button>
+      </div>
+  </block>
+</template>

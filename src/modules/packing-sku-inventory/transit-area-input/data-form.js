@@ -1,9 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
+let InspectionAreaLoader = require("../../../loader/pre-input-transit-loader");
 
-let InspectionAreaLoader = require("../../../loader/inspection-material-loader");
-
-import UnitLoader from "../../../loader/unit-loader";
+@inject(Service)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -23,28 +22,30 @@ export class DataForm {
             length: 4,
         },
     };
-    unitQuery = { "DivisionName.toUpper()": "DYEING & PRINTING" };
+    imQuery = { "DestinationArea": "TRANSIT" }
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima"];
     shifts = ["PAGI", "SIANG"];
-    mutations = ["AWAL", "MASUK", "KELUAR", "ADJ MASUK", "ADJ KELUAR"];
-    uomUnits = ["MTR", "YDS"];
-    areas = ["IM", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"];
-    remarks = ["ACC BUYER", "KEP. PROD", "PERBAIKAN", "AVAL KARANTINA", "A", "B", "BS", "TS",
-        "AVAL1", "AVAL2", "KG"];
+    areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
+    }
+
+
+    groups = ["A", "B"];
+
+    get inspectionAreaLoader() {
+        return InspectionAreaLoader;
+    }
+
+    areaMovementTextFormatter = (areaInput) => {
+        return `${areaInput.bonNo}`
     }
 
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
     }
-    imQuery = { "IsChecked": true }
-    get inspectionAreaLoader() {
-        return InspectionAreaLoader;
-    }
-    areaMovementTextFormatter = (areaMovement) => {
-        return `${areaMovement.bonNo}`
-    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -60,42 +61,22 @@ export class DataForm {
 
         if (this.data.bonNo) {
             this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.id = this.data.inspectionAreaId;
             this.selectedInspectionMaterial.bonNo = this.data.bonNo;
-            this.selectedInspectionMaterial.productionOrderNo = this.data.productionOrderNo;
-            this.selectedInspectionMaterial.cartNo = this.data.cartNo;
-            this.selectedInspectionMaterial.unitName = this.data.unit;
-            this.selectedInspectionMaterial.materialName = this.data.material;
-            this.selectedInspectionMaterial.materialConstructionName = this.data.materialConstruction;
-            this.isPrinting = this.data.unit === "PRINTING";
-            this.selectedInspectionMaterial.materialWidth = this.data.materialWidth;
-            this.selectedInspectionMaterial.uomUnit = this.data.uomUnit;
-            this.selectedInspectionMaterial.balance = this.balance;
-            this.selectedInspectionMaterial.color = this.data.color;
-            this.selectedInspectionMaterial.motif = this.data.motif;
-            this.selectedInspectionMaterial.balance = this.data.balance;
         }
     }
+    addItemCallback = (e) => {
+        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
+        this.data.transitProductionOrders.push({})
+    };
 
-    @bindable isPrinting;
     @bindable selectedInspectionMaterial;
-    @bindable balance;
     selectedInspectionMaterialChanged(n, o) {
         if (this.selectedInspectionMaterial) {
-            this.data.inspectionAreaId = this.selectedInspectionMaterial.id;
-            this.data.bonNo = this.selectedInspectionMaterial.bonNo;
-            this.data.productionOrderNo = this.selectedInspectionMaterial.productionOrderNo;
-            this.data.cartNo = this.selectedInspectionMaterial.cartNo;
-            this.data.unit = this.selectedInspectionMaterial.unitName;
-            this.data.material = this.selectedInspectionMaterial.materialName;
-            this.data.materialConstruction = this.selectedInspectionMaterial.materialConstructionName;
-            this.isPrinting = this.data.unit === "PRINTING";
-            this.data.materialWidth = this.selectedInspectionMaterial.materialWidth;
-            this.data.uomUnit = this.selectedInspectionMaterial.uomUnit;
-            this.balance = this.selectedInspectionMaterial.balance;
-            this.data.color = this.selectedInspectionMaterial.color;
-            this.data.motif = this.selectedInspectionMaterial.motif;
-            this.data.balance = this.balance;
+            this.data.outputId = this.selectedInspectionMaterial.id;
+            if (this.selectedInspectionMaterial.preTransitProductionOrders) {
+                this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
+            }
+
         }
 
     }
