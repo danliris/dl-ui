@@ -1,35 +1,51 @@
 <template>
   <tr>
-    <td style="white-space: nowrap">
-      <au-textbox placeholder="Jenis" value.bind="data.productionOrderType" read-only.bind="true">
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.AvalType"
+        read-only.bind="readOnly"
+        error.bind="error.AvalType"
+      >
       </au-textbox>
     </td>
 
-    <td style="white-space: nowrap">
-      <au-textbox placeholder="No. Kereta" value.bind="data.cartNo" read-only.bind="true">
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.AvalCartNo"
+        read-only.bind="readOnly"
+        error.bind="error.AvalCartNo"
+      >
       </au-textbox>
     </td>
 
-    <td style="white-space: nowrap">
-      <au-textbox placeholder="Satuan" value.bind="data.uomUnit" read-only.bind="true">
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.AvalUomUnit"
+        read-only.bind="readOnly"
+        error.bind="error.AvalUomUnit"
+      >
       </au-textbox>
     </td>
 
-    <td style="white-space: nowrap">
-      <au-textbox placeholder="Qty Satuan" value.bind="data.productionOrderQuantity" read-only.bind="readOnly">
-      </au-textbox>
+    <td style="white-space: nowrap;">
+      <au-numeric value.bind="data.AvalQuantity" read-only.bind="readOnly"
+      error.bind="error.AvalQuantity">
+      </au-numeric>
     </td>
 
-    <td style="white-space: nowrap">
-      <au-textbox placeholder="Qty KG" value.bind="data.qtyKg" read-only.bind="readOnly">
-      </au-textbox>
+    <td style="white-space: nowrap;">
+      <au-numeric value.bind="data.AvalQuantityKg" read-only.bind="readOnly"
+      error.bind="error.AvalQuantityKg">
+      </au-numeric>
     </td>
 
     <td class="col-sm-1" if.bind="!readOnly">
-      <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(data, $event)"
+      >
         -
       </button>
     </td>
-    
   </tr>
 </template>
