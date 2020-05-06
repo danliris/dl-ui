@@ -36,7 +36,7 @@ export class PurchasingDispositionItem {
             
             this.TotalPaidPrice=0;
             for(var a of EPOPrice){
-                this.TotalPaidPrice+=a.price;
+                this.TotalPaidPrice+=a.payToSupplier;
             }
             
             this.VerifiedPaidPrice=0;
