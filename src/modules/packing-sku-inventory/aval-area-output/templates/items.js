@@ -6,7 +6,6 @@ import {
   import {
     Service
   } from "../service";
-//   var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
   
   @inject(BindingEngine, Service)
   export class Items {
@@ -15,10 +14,6 @@ import {
       this.service = service;
       this.bindingEngine = bindingEngine;
     }
-  
-    // get beams() {
-    //   return WarpingBeamByOrderLoader;
-    // }
   
     async activate(context) {
       this.data = context.data;

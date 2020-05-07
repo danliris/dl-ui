@@ -175,7 +175,7 @@ module.exports = [
         name: 'aval-area-input',
         moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Penerimaan Gudang Aval Dyeing Printing',
+        title: 'Penerimaan Aval Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -188,7 +188,7 @@ module.exports = [
         name: 'aval-area-output',
         moduleId: './modules/packing-sku-inventory/aval-area-output/index',
         nav: true,
-        title: 'Dokumen Keluar Gudang Aval Dyeing Printing',
+        title: 'Bon Aval Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -196,19 +196,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'packing-sku-inventory/aval-area-note',
-        name: 'aval-area-note',
-        moduleId: './modules/packing-sku-inventory/aval-area-note/index',
-        nav: true,
-        title: 'Bon Aval Area',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'packing-sku-inventory/aval-area-note',
+    //     name: 'aval-area-note',
+    //     moduleId: './modules/packing-sku-inventory/aval-area-note/index',
+    //     nav: true,
+    //     title: 'Bon Aval Area',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/dyeing-printing-in-packaging',
         name: 'dyeing-printing-in-packaging',

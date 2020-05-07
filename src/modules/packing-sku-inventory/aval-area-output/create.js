@@ -24,12 +24,6 @@ export class Create {
     // this.canEdit = false;
   }
 
-  BonNoChanged(newValue) {
-    if (newValue.id) {
-
-    }
-  }
-
   list() {
     this.router.navigateToRoute("list");
   }

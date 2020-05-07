@@ -4,20 +4,22 @@
       <au-dropdown placeholder="Jenis"
                   value.bind="data.AvalType"
                   read-only.bind="readOnly"
-                  items.bind="avalTypes">
+                  items.bind="avalTypes"
+                  error.bind="error.AvalType">
       </au-dropdown>
     </td>
 
     <td style="white-space: nowrap">
       <au-textbox placeholder="No. Kereta"
                   value.bind="data.AvalCartNo"
-                  read-only.bind="readOnly">
+                  read-only.bind="readOnly"
+                  error.bind="error.AvalCartNo">
       </au-textbox>
     </td>
 
     <td style="white-space: nowrap">
       <au-autocomplete placeholder="Satuan"
-                       value.bind="UomUnit"
+                       value.bind="data.AvalUomUnit"
                        read-only.bind="readOnly"
                        loader.bind="uoms"
                        text="Unit">
@@ -25,15 +27,15 @@
     </td>
 
     <td style="white-space: nowrap">
-      <au-numeric placeholder="Qty Satuan"
-                  value.bind="data.Quantity"
+      <au-numeric 
+                  value.bind="data.AvalQuantity"
                   read-only.bind="readOnly">
       </au-numeric>
     </td>
 
     <td style="white-space: nowrap">
-      <au-numeric placeholder="Qty KG"
-                  value.bind="data.QuantityKg"
+      <au-numeric 
+                  value.bind="data.AvalQuantityKg"
                   read-only.bind="readOnly">
       </au-numeric>
     </td>
