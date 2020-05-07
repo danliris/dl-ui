@@ -13,7 +13,6 @@ export class DoReturnDetailItem {
     this.error = item.error;
     this.options = item.options;
 
-    console.log(this.data);
     if (this.data) {
       this.data.DOReturnItems = this.data.SalesInvoiceItems;
     }
