@@ -16,7 +16,9 @@ export class CartItem {
         }
     }
 
-
+    productQuery = {
+        "Tags" : "Dye Stuff Printing"
+    }
     controlOptions = {
         control: {
             length: 12

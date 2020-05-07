@@ -6,6 +6,11 @@
             </au-autocomplete>
         </td>
         <td>
+            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true" error.bind="error.ProductionOrder"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
                 options.bind="controlOptions">
             </au-textbox>
