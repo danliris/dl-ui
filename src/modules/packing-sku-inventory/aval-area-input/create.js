@@ -1,12 +1,10 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
-import { activationStrategy } from "aurelia-router";
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
-  @bindable BonNo;
-  // @bindable Uom;
 
   constructor(router, service) {
     this.router = router;
@@ -17,21 +15,17 @@ export class Create {
     this.isShowed = true;
   }
 
-  // activate(params) {
-
-  // }
-
-  determineActivationStrategy() {
-    return activationStrategy.replace; //replace the viewmodel with a new instance
-    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-    // or activationStrategy.noChange to explicitly use the default behavior
-  }
-
   BonNoChanged(newValue) {
     if (newValue.id) {
       this.data.BonNo = newValue.bonNo;
       this.data.OutputInspectionMaterialId = newValue.id;
     }
+  }
+
+  determineActivationStrategy() {
+      return activationStrategy.replace; //replace the viewmodel with a new instance
+      // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+      // or activationStrategy.noChange to explicitly use the default behavior
   }
 
   back() {
@@ -77,8 +71,6 @@ export class Create {
       CreateData.AvalItems = [{}];
     }
 
-    console.log(CreateData);
-    debugger;
     this.service
       .create(CreateData)
       .then((result) => {

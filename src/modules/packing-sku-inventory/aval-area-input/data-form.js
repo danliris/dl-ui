@@ -107,7 +107,6 @@ export class DataForm {
       this.data.DyeingPrintingMovementIds = [];
 
       this.service.getPreAval(this.Date, this.Shift).then((result) => {
-        // console.log("result", result);
         if (result.length > 0) {
           result.forEach((dyeingPrintingArea) => {
             var DyeingPrintingMovementIds = {};
@@ -117,8 +116,6 @@ export class DataForm {
 
             dyeingPrintingArea.preAvalProductionOrders.forEach(
               (productionOrder) => {
-                // console.log(productionOrder);
-                // console.log(productionOrder.productionOrder.id);
                 DyeingPrintingMovementIds.ProductionOrderIds.push(
                   productionOrder.productionOrder.id
                 );

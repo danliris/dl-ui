@@ -1,13 +1,7 @@
-import {
-  inject,
-  bindable
-} from "aurelia-framework";
-import {
-  Router
-} from "aurelia-router";
-import {
-  Service
-} from "./service";
+import { inject, bindable } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -18,62 +12,85 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
-  }
+    this.error = {};
 
-  activate(params) {
-    // this.canEdit = false;
+    this.isShowed = true;
   }
 
   list() {
     this.router.navigateToRoute("list");
   }
 
-  cancelCallback(event) {
-    this.list();
+  determineActivationStrategy() {
+      return activationStrategy.replace; //replace the viewmodel with a new instance
+      // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+      // or activationStrategy.noChange to explicitly use the default behavior
   }
 
-  saveCallback(event) {
-    let CreateData = {};
-    CreateData.Area = "AVAL";
+  back() {
+    this.router.navigateToRoute("list");
+  }
 
-    if (this.BonNo === undefined || this.BonNo === null || this.BonNo === "") {
-      CreateData.Id = "";
+  save() {
+    let CreateData = {};
+    CreateData.Area = this.data.Area;
+    CreateData.DestinationArea = this.data.DestinationArea;
+
+    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
+      CreateData.Date = "";
     } else {
-      CreateData.Id = this.BonNo.id;
+      CreateData.Date = this.data.Date;
     }
 
-    // if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
-    //   CreateData.Shift = "";
-    // } else {
-    //   CreateData.Shift = this.data.Shift;
-    // }
+    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
+      CreateData.Shift = "";
+    } else {
+      CreateData.Shift = this.data.Shift;
+    }
 
-    // if (this.Uom === undefined || this.Uom === null || this.Uom === "") {
-    //   CreateData.UOMUnit = "";
-    // } else {
-    //   CreateData.UOMUnit = this.Uom.Unit;
-    // }
+    if(this.data.DyeingPrintingMovementIds.length > 0){
+      CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
+    }else{
+      CreateData.DyeingPrintingMovementIds = [];
+    }
 
-    // if (this.data.ProductionOrderQuantity === undefined || this.data.ProductionOrderQuantity === null || this.data.ProductionOrderQuantity === "") {
-    //   CreateData.ProductionOrderQuantity = null;
-    // } else {
-    //   CreateData.ProductionOrderQuantity = parseInt(this.data.ProductionOrderQuantity);
-    // }
+    if (this.data.DyeingPrintingItems.length > 0) {
+      CreateData.AvalItems = this.data.DyeingPrintingItems.map(
+        (item) => {
+          var remappedItems = {};
+          remappedItems.AvalItemId = item.AvalItemId;
+          remappedItems.AvalType = item.AvalType;
+          remappedItems.AvalCartNo = item.AvalCartNo;
+          remappedItems.AvalUomUnit = item.AvalUomUnit;
+          remappedItems.AvalQuantity = item.AvalQuantity;
+          remappedItems.AvalQuantityKg = item.AvalQuantityKg;
 
-    // if (this.data.QtyKg === undefined || this.data.QtyKg === null || this.data.QtyKg === "") {
-    //   CreateData.QtyKg = "";
-    // } else {
-    //   CreateData.QtyKg = parseInt(this.data.QtyKg);
-    // }
+          return remappedItems;
+        }
+      );
+    } else {
+      CreateData.AvalItems = [{}];
+    }
 
     this.service
       .create(CreateData)
-      .then(result => {
-
-        this.list();
+      .then((result) => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          {
+            replace: true,
+            trigger: true,
+          }
+        );
       })
-      .catch(e => {
-        this.error = e;
+      .catch((e) => {
+        if (e.statusCode == 500) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        } else {
+          this.error = e;
+        }
       });
   }
 }

@@ -25,34 +25,34 @@ export class List {
         return moment.utc(value).local().format('DD MMMM YYYY');
       }
     },
-    // {
-    //   field: "bonNo",
-    //   title: "No. Bon"
-    // },
+    {
+      field: "bonNo",
+      title: "No. Bon"
+    },
     {
       field: "shift",
       title: "Shift"
-    },
-    {
-      field: "cartNo",
-      title: "No. Kereta"
-    },
-    {
-      field: "productionOrderType",
-      title: "Jenis"
-    },
-    {
-      field: "uomUnit",
-      title: "Satuan"
-    },
-    {
-      field: "productionOrderQuantity",
-      title: "Qty Satuan"
-    },
-    {
-      field: "qtyKg",
-      title: "Qty KG"
     }
+    // {
+    //   field: "avalCartNo",
+    //   title: "No. Kereta"
+    // },
+    // {
+    //   field: "productionOrderType",
+    //   title: "Jenis"
+    // },
+    // {
+    //   field: "uomUnit",
+    //   title: "Satuan"
+    // },
+    // {
+    //   field: "productionOrderQuantity",
+    //   title: "Qty Satuan"
+    // },
+    // {
+    //   field: "qtyKg",
+    //   title: "Qty KG"
+    // }
   ];
 
   loader = (info) => {
