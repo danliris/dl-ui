@@ -35,17 +35,13 @@ export class Create {
   save() {
     let CreateData = {};
     CreateData.Area = this.data.Area;
+    CreateData.Shift = this.data.Shift;
+    CreateData.Group = this.data.Group;
 
     if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
       CreateData.Date = "";
     } else {
       CreateData.Date = this.data.Date;
-    }
-
-    if (this.data.Shift === undefined || this.data.Shift === null || this.data.Shift === "") {
-      CreateData.Shift = "";
-    } else {
-      CreateData.Shift = this.data.Shift;
     }
 
     if(this.data.DyeingPrintingMovementIds.length > 0){

@@ -62,6 +62,15 @@
       items.bind="shifts"
     ></au-dropdown>
 
+    <au-dropdown
+      options.bind="controlOptions"
+      label="Group"
+      value.bind="data.Group"
+      error.bind="error.Group"
+      read-only.bind="readOnly"
+      items.bind="groups"
+    ></au-dropdown>
+
     <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">
