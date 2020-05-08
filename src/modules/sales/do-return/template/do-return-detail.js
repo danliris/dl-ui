@@ -48,13 +48,20 @@ export class DoReturnDetail {
       var salesInvoice = await this.service
         .getSalesInvoiceById(newValue.Id)
         .then((result) => result);
-      this.data.SalesInvoice = salesInvoice;
+
+      this.data.SalesInvoice = this.selectedSalesInvoice;
       if (salesInvoice) {
-        this.data.DOReturnDetailItems = salesInvoice.SalesInvoiceDetails.map(
-          (detail) => detail
-        );
+        var data = salesInvoice.SalesInvoiceDetails;
+        for (var detailItem of data) {
+          delete detailItem.Id;
+          for (var item of detailItem.SalesInvoiceItems) {
+            delete item.Id;
+          }
+        }
+        this.data.DOReturnDetailItems = data.map((detail) => detail);
       }
-    } else {
+    } 
+    else {
       this.data.DOReturnDetailItems = [];
     }
   }

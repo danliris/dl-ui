@@ -5,23 +5,23 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["Detail", "Cetak Surat Jalan", "Cetak DO Retur"];
+  context = ["Detail", "Cetak DO Retur"];
 
   columns = [
-    { field: "SalesInvoiceNo", title: "No. DO Retur" },
+    { field: "DOReturnNo", title: "No. DO Retur" },
+    // {
+    //   field: "Buyer.Name",
+    //   title: "Buyer",
+    // },
     {
-      field: "Buyer.Name",
-      title: "Buyer",
-    },
-    {
-      field: "SalesInvoiceDate",
+      field: "Date",
       title: "Tgl DO Retur",
       formatter: (value, data, index) => {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "ReturnFrom", title: "Retur Dari" },
+    { field: "LKTPNo", title: "No. LKtP" },
   ];
 
   rowFormatter(data, index) {
@@ -59,19 +59,14 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak Surat Jalan":
-        this.service.getDeliveryOrderPdfById(data.Id);
-        break;
       case "Cetak DO Retur":
-        this.service.getSalesInvoicePdfById(data.Id);
+        this.service.getPdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Surat Jalan":
-        return data;
       case "Cetak DO Retur":
         return data;
       default:

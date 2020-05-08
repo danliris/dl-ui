@@ -14,6 +14,8 @@ export class DoReturnItem {
     this.Price = this.data.Price;
     this.getAmount = this.Total * this.Price;
     this.data.Amount = this.getAmount;
+
+    console.log(this.data)
   }
 
   TotalChanged(newValue, oldValue) {
