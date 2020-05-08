@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
-let PreShippingAreaLoader = require("../../../loader/pre-input-transit-loader");
+let PreShippingAreaLoader = require("../../../loader/pre-input-shipping-loader");
 
 @inject(Service)
 export class DataForm {
@@ -22,8 +22,8 @@ export class DataForm {
             length: 4,
         },
     };
-    imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. DO", "No. SPP", "Buyer", "Konstruksi", "Jenis",  "Warna", "Motif", "Grade", "Packing", "QTY Packing", "QTY", "Satuan"];
+    imQuery = { "DestinationArea": "TRANSIT" }
+    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Konstruksi", "Jenis", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {
@@ -34,10 +34,14 @@ export class DataForm {
         return PreShippingAreaLoader;
     }
 
+
+    groups = ["A", "B"];
+
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
 
+    detailOptions = {};
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
@@ -70,10 +74,9 @@ export class DataForm {
     selectedPreShippingChanged(n, o) {
         if (this.selectedPreShipping) {
             this.data.outputInspectionMaterialId = this.selectedPreShipping.id;
-            if (this.selectedPreShipping.preShippingProductionOrders) {
-                this.data.shippingProductionOrders = this.selectedInspectionMaterial.preShippingProductionOrders;
-            }
 
+            this.detailOptions.dyeingPrintingAreaInputId = this.selectedPreShipping.id;
+            console.log(this.detailOptions);
         }
 
     }

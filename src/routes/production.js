@@ -444,6 +444,19 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/strike-off',
+        name: 'strike-off',
+        moduleId: './modules/production/finishing-printing/strike-off/index',
+        nav: true,
+        title: 'Strike Off',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     // {
     //     route: 'production/finishing-printing/cost-calculation',
