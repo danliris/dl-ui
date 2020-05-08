@@ -25,8 +25,7 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save() {
-        
+    save() {        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

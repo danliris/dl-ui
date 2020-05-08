@@ -17,17 +17,19 @@ export class List {
         },
         { field: "bonNo", title: "No. Bon" },
         { field: "noSpp", title: "No. SPP" },  
+        { field: "qtyOrder", title: "QTY Order" },  
+        { field: "saldo", title: "Saldo" },          
         { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
+        { field: "group", title: "Group" },        
         { field: "material", title: "Konstruksi" },
         { field: "packagingType", title: "Jenis" },   
         { field: "warna", title: "Warna" },        
         { field: "motif", title: "Motif" },
         { field: "grade", title: "Grade" },        
         { field: "packagingUnit", title: "Packaging" },                
-        { field: "packagingQty", title: "Qty Packaging" },        
-        { field: "quantity", title: "Qty" },               
-        { field: "uomUnit", title: "satuan" }
+        { field: "packagingQty", title: "Qty Packaging" },                  
+        { field: "uomUnit", title: "satuan" },
     ];
 
     loader = (info) => {
@@ -55,6 +57,7 @@ export class List {
                         dataView.noSpp = i.productionOrder.no,
                         dataView.buyer = i.buyer,
                         dataView.shift = item.shift,
+                        dataView.group = item.group,
                         dataView.material = i.construction,
                         dataView.unit = i.unit,
                         dataView.warna = i.color,
@@ -64,8 +67,9 @@ export class List {
                         dataView.uomUnit = i.uomUnit,
                         dataView.saldo = i.balance,
                         dataView.packagingType= i.packagingType,
-                        dataView.packagingQty = i.packagingQTY,
-                        dataView.packagingUnit = i.packagingUnit
+                        dataView.packagingQty = i.packagingQty,
+                        dataView.packagingUnit = i.packagingUnit,
+                        dataView.qtyOrder = i.qtyOrder,
                         data.data.push(dataView);
                     });
                 });

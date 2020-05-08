@@ -1,8 +1,14 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
+import{DataForm} from '../data-form';
 
+@inject(DataForm)
 export class CartItem {
     @bindable product;
+
+    constructor(dataForm){
+        this.dataForm = dataForm;
+    }
 
     remarks = [];
     activate(context) {
@@ -15,6 +21,8 @@ export class CartItem {
         this.destinationArea = this.contextOptions.destinationArea;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
+        this.productionOrderListItem = this.dataForm.selectedWarehouses.warehousesProductionOrders;
+
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -54,5 +62,44 @@ export class CartItem {
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
+    }
+    get productionOrderList(){
+        return (keyword) => {
+            return Promise.resolve().then(result => {return this.productionOrderListItem;});
+          }
+    }
+    @bindable selectedProductionOrder;
+    selectedProductionOrderChanged(newValue, oldValue) {
+        if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
+            this.data.productionOrder = {};
+            this.data.productionOrder.id = this.selectedProductionOrder.id;
+            this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
+            this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
+            this.data.balance = this.selectedProductionOrder.balance;
+            this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
+            if (this.selectedProductionOrder.construction) {
+                this.data.construction = this.selectedProductionOrder.construction;
+            } else {
+                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
+            }
+            this.data.material = this.data.construction;
+            this.data.buyer = this.selectedProductionOrder.buyer;
+            this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
+            this.data.color = this.selectedProductionOrder.color;
+            this.data.packagingType = this.selectedProductionOrder.packagingType;
+            this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;
+            this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+            this.data.motif = this.selectedProductionOrder.motif;
+            this.data.uomUnit = this.selectedProductionOrder.uomUnit;
+            this.data.grade = this.selectedProductionOrder.grade;
+            if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {
+                this.data.unit = "PRINTING"
+            } else {
+                this.data.unit = "DYEING"
+            }
+        }
+        else {
+            this.data.productionOrder = {};
+        }
     }
 }
