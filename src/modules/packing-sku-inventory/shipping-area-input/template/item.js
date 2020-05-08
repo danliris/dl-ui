@@ -1,9 +1,10 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
+var ProductionOrderLoader = require('../../../../loader/pre-input-shipping-production-order-loader');
 var DOSalesLoader = require('../../../../loader/do-sales-loader');
 export class CartItem {
     @bindable product;
 
+    sppQuery = {};
     activate(context) {
 
         this.context = context;
@@ -11,6 +12,11 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        this.dyeingPrintingAreaInputId = this.contextOptions.dyeingPrintingAreaInputId;
+        
+
+        this.sppQuery.dyeingPrintingAreaInputId = this.dyeingPrintingAreaInputId;
+        console.log(this.contextOptions);
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -39,7 +45,7 @@ export class CartItem {
         if(this.data.deliveryOrderSales){
             this.selectedDOSales = {};
             this.selectedDOSales.Id = this.data.deliveryOrderSales.id;
-            this.selectedDOSales.DoNO = this.data.deliveryOrderSales.no;
+            this.selectedDOSales.DOSalesNo = this.data.deliveryOrderSales.no;
         }
     }
 
@@ -93,7 +99,7 @@ export class CartItem {
         if (this.selectedDOSales) {
             this.data.deliveryOrderSales = {};
             this.data.deliveryOrderSales.id = this.selectedDOSales.Id;
-            this.data.deliveryOrderSales.no = this.selectedDOSales.DoNO;
+            this.data.deliveryOrderSales.no = this.selectedDOSales.DOSalesNo;
         }
     }
 }

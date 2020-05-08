@@ -2,13 +2,19 @@
     <tr>
         <td>
             <au-autocomplete value.bind="selectedDOSales" error.bind="error.DeliveryOrderSales"
-                loader.bind="doSalesLoader" text="DoNO" read-only.bind="readOnly" options.bind="controlOptions">
+                loader.bind="doSalesLoader" text="DOSalesNo" read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
         </td>
         <td>
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
-                loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">
+                loader.bind="productionOrderLoader" text="OrderNo" query.bind="sppQuery" read-only.bind="readOnly"
+                options.bind="controlOptions">
             </au-autocomplete>
+        </td>
+        <td>
+            <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
+                error.bind="error.ProductionOrder" options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
@@ -41,14 +47,14 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.packing" read-only.bind="true" error.bind="error.Packing"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
             <au-numeric value.bind="data.qtyPacking" read-only.bind="true" error.bind="error.QtyPacking"
                 options.bind="controlOptions" format="0.00">
             </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.packing" read-only.bind="true" error.bind="error.Packing"
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td>
             <au-numeric value.bind="data.qty" format="0.00" read-only.bind="true" error.bind="error.Qty"
@@ -59,6 +65,9 @@
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
