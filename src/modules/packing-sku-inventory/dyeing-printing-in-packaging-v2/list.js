@@ -17,10 +17,8 @@ export class List {
         },
         { field: "bonNo", title: "No Bon" },
         { field: "noSpp", title: "No. SPP" },
-        { field: "qtyOrder", title: "Qty Order" },        
         { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
-        { field: "group", title: "Group" },
         { field: "material", title: "Material" },
         { field: "unit", title: "Unit" },        
         { field: "warna", title: "Warna" },
@@ -54,8 +52,6 @@ export class List {
                         dataView.id = item.id;
                         dataView.date = item.date;
                         dataView.bonNo = item.bonNo;
-                        dataView.group = item.group;
-                        dataView.qtyOrder = i.qtyOrder;
                         dataView.noSpp = i.productionOrder.no,
                         dataView.buyer = i.buyer,
                         dataView.shift = item.shift,

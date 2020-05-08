@@ -1,21 +1,10 @@
 <template replace-part="packagingProductionOrders">
     <tr>
         <td>
-            <!-- <au-textbox value.bind="data.productionOrder.no" read-only.bind="true" error.bind="error.productionOrder.no"
-                options.bind="controlOptions">
-            </au-textbox> -->
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
-                
-                 text="productionOrderNo" read-only.bind="false"
-                loader.bind="productionOrderList"
-                options.bind="controlOptions">
+                loader.bind="productionOrderLoader" text="productionOrderNo" read-only.bind="false" options.bind="controlOptions">
             </au-autocomplete>
         </td>
-        <td>
-                <au-numeric value.bind="data.qtyOrder" format="0.00" read-only.bind="true" error.bind="error.QtyOrder"
-                    options.bind="controlOptions">
-                </au-numeric>
-            </td>
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
@@ -27,7 +16,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.construction" read-only.bind="true" error.bind="error.Material"
+            <au-textbox value.bind="data.construction" read-only.bind="true" error.bind="error.Construction"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
@@ -52,12 +41,18 @@
             </au-textbox>
         </td>
         <td>
-                <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+                <au-numeric value.bind="data.usedBalance" format="0.00" read-only.bind="true" error.bind="error.UsedBalance"
                     options.bind="controlOptions">
                 </au-numeric>
             </td>
         <td if.bind="!options.readOnly">
-                <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-            </td>
+                <button class="btn btn-info pull-right" click.delegate="detailPackaging(data,$event)">i</button>
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
     </tr>
 </template>

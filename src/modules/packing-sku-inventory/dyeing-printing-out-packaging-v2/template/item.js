@@ -1,15 +1,17 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
-import{DataForm} from '../data-form';
+import {Dialog} from '../../../../components/dialog/dialog';
+import{PackagingDetails} from './packaging-details';
+import{DialogService} from 'aurelia-dialog';
+var ProductionOrderLoader = require('../../../../loader/output-packaging-loader');
 
-@inject(DataForm)
-export class CartItem {
+@inject(Dialog,DialogService)
+export class PackagingItem {
     @bindable product;
-
-    constructor(dataForm){
-        this.dataForm = dataForm;
+    @bindable detailShow;
+    constructor(dialog,dialogService){
+        this.dialog = dialog;
+        this.dialogService = dialogService;
     }
-
     remarks = [];
     activate(context) {
 
@@ -18,15 +20,14 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        this.destinationArea = this.contextOptions.destinationArea;
+        // this.destinationArea = this.contextOptions.destinationArea;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
-        this.productionOrderListItem = this.dataForm.selectedWarehouses.warehousesProductionOrders;
-
-        if (this.data.productionOrder && this.data.productionOrder.id) {
+        if (this.data.productionOrder) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.productionOrderNo = this.data.productionOrder.no;
             this.selectedProductionOrder.OrderType = {};
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.OrderQuantity = this.data.balance;
@@ -52,8 +53,38 @@ export class CartItem {
             }
         }
     }
-
-
+    @bindable selectedProductionOrder;
+    selectedProductionOrderChanged(newValue, oldValue) {
+        if (this.selectedProductionOrder) {
+            this.data.productionOrder = {};
+            this.data.productionOrder.id = this.selectedProductionOrder.Id;
+            this.data.productionOrder.no = this.selectedProductionOrder.productionOrder.no;
+            this.data.productionOrderNo = this.selectedProductionOrder.productionOrder.no;
+            this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
+            
+            if (this.selectedProductionOrder.construction) {
+                this.data.construction = this.selectedProductionOrder.construction;
+            } else {
+                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
+            }
+            this.data.buyer = this.selectedProductionOrder.buyer;
+            this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
+            this.data.color = this.selectedProductionOrder.color;
+            this.data.motif = this.selectedProductionOrder.motif;
+            this.data.uomUnit = this.selectedProductionOrder.uomUnit;
+            this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
+            this.data.balance = this.selectedProductionOrder.balance;
+            if (this.selectedProductionOrder.productionOrder.no.charAt(0) === 'P') {
+                this.data.unit = "PRINTING"
+            } else {
+                this.data.unit = "DYEING"
+            }
+            // this.data.selectedProductionOrder.push(this.selectedProductionOrder);
+        }
+        else {
+            this.data.productionOrder = {};
+        }
+    }
     controlOptions = {
         control: {
             length: 12
@@ -63,43 +94,11 @@ export class CartItem {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
-    get productionOrderList(){
-        return (keyword) => {
-            return Promise.resolve().then(result => {return this.productionOrderListItem;});
-          }
-    }
-    @bindable selectedProductionOrder;
-    selectedProductionOrderChanged(newValue, oldValue) {
-        if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
-            this.data.productionOrder = {};
-            this.data.productionOrder.id = this.selectedProductionOrder.id;
-            this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
-            this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
-            this.data.balance = this.selectedProductionOrder.balance;
-            this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
-            if (this.selectedProductionOrder.construction) {
-                this.data.construction = this.selectedProductionOrder.construction;
-            } else {
-                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
-            }
-            this.data.material = this.data.construction;
-            this.data.buyer = this.selectedProductionOrder.buyer;
-            this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
-            this.data.color = this.selectedProductionOrder.color;
-            this.data.packagingType = this.selectedProductionOrder.packagingType;
-            this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;
-            this.data.packagingQty = this.selectedProductionOrder.packagingQty;
-            this.data.motif = this.selectedProductionOrder.motif;
-            this.data.uomUnit = this.selectedProductionOrder.uomUnit;
-            this.data.grade = this.selectedProductionOrder.grade;
-            if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {
-                this.data.unit = "PRINTING"
-            } else {
-                this.data.unit = "DYEING"
-            }
-        }
-        else {
-            this.data.productionOrder = {};
-        }
+    detailPackaging(datas,e) {
+
+        this.dialogService.open({viewModel: 'modules/packing-sku-inventory/dyeing-printing-out-packaging-v2/dialogs/packaging-details',model:datas}).then(response =>            
+        {
+            
+        })
     }
 }

@@ -1,13 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 
-let PackagingAreaLoader = require("../../../loader/output-packaging-loader");
-
-@inject(Service)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
-    @bindable readOnlyKeterangan;
     @bindable data;
     @bindable error;
     formOptions = {
@@ -24,22 +20,18 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
-    shifts = ["PAGI", "SIANG"];
-    groups = ["A", "B"];
+    // itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Jumlah Order", "Saldo"];
+    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang"];    
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo","Terpakai"];
+    itemColumnsDetail = ["No. SPP", "Saldo Awal", "Saldo Terpakai"];
+    
+    shifts = ["","PAGI", "SIANG"];
     detailOptions = {};
-    destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
+    destinationAreas = ["","INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
     constructor(service) {
         this.service = service;
     }
 
-    get packagingAreaLoader() {
-        return PackagingAreaLoader;
-    }
-
-    areaMovementTextFormatter = (areaInput) => {
-        return `${areaInput.bonNo}`
-    }
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
@@ -52,34 +44,21 @@ export class DataForm {
         this.data.area = "PACKING";
 
         this.error = this.context.error;
-
+        this.detailShow = true;
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        if (this.data.bonNo) {
-            this.selectedPackaging = {};
-            this.selectedPackaging.bonNo = this.data.bonNo;
-        }
+
 
     }
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
+        
+        console.log(this.data.packagingProductionOrdersDetails);
     };
-
-    @bindable selectedPackaging;
-    selectedPackagingChanged(n, o) {
-        this.detailOptions.destinationArea = this.data.destinationArea;
-        if(n){
-            this.data.bonNoInput = n.bonNo;
-        }
-        // console.log(n);
-    }
-
-    ExportToExcel() {
-        this.service.generateExcel(this.data.id);
-    }
+    
 }
 
 

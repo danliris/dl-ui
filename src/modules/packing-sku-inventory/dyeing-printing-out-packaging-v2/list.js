@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    // context = ["detail"]
+    context = ["detail"]
 
     columns = [
         {
@@ -15,20 +15,21 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "bonNo", title: "No Bon" },
-        { field: "noSpp", title: "No. SPP" },
-        { field: "qtyOrder", title: "Qty Order" },        
-        { field: "buyer", title: "Buyer" },
+        { field: "bonNo", title: "No. Bon" },
+        { field: "noSpp", title: "No. SPP" },  
+        { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
-        { field: "group", title: "Group" },
         { field: "material", title: "Material" },
         { field: "unit", title: "Unit" },        
-        { field: "warna", title: "Warna" },
+        { field: "warna", title: "Warna" },        
         { field: "motif", title: "Motif" },
-        { field: "grade", title: "Grade" },
-        { field: "mtr", title: "Mtr" },
-        { field: "yds", title: "Yds" },
-        { field: "saldo", title: "Saldo" },
+        // { field: "packagingType", title: "Jenis" },
+        { field: "grade", title: "Grade" },        
+        // { field: "packagingQty", title: "Qty Packaging" },        
+        // { field: "packagingUnit", title: "Packaging" },        
+        // { field: "mtr", title: "Mtr" },        
+        // { field: "yds", title: "Yds" },        
+        { field: "saldo", title: "Saldo" }
     ];
 
     loader = (info) => {
@@ -46,7 +47,6 @@ export class List {
             .then(result => {
                 var data = {}
                 data.total = result.total;
-                // data.data = result.data;
                 data.data = [];
                 result.data.forEach((item,index)=>{
                     item.packagingProductionOrders.forEach((i,ind)=>{
@@ -54,19 +54,20 @@ export class List {
                         dataView.id = item.id;
                         dataView.date = item.date;
                         dataView.bonNo = item.bonNo;
-                        dataView.group = item.group;
-                        dataView.qtyOrder = i.qtyOrder;
                         dataView.noSpp = i.productionOrder.no,
                         dataView.buyer = i.buyer,
                         dataView.shift = item.shift,
-                        dataView.material = i.material,
+                        dataView.material = i.construction,
                         dataView.unit = i.unit,
                         dataView.warna = i.color,
                         dataView.motif = i.motif,
                         dataView.grade = i.grade,
                         dataView.mtr = i.mtrLength,
                         dataView.yds = i.ydsLength,
-                        dataView.saldo = i.balance
+                        dataView.saldo = i.balance,
+                        dataView.packagingType= i.packagingType,
+                        dataView.packagingQty = i.packagingQTY,
+                        dataView.packagingUnit = i.packagingUnit
                         data.data.push(dataView);
                     });
                 });
@@ -101,6 +102,7 @@ export class List {
                 return true;
         }
     }
+
 
     create() {
         this.router.navigateToRoute('create');
