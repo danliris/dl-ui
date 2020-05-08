@@ -38,6 +38,11 @@
     /* th.avalTypesHeader {
       width: 160px;
     } */
+    
+    .btn-primary {
+    background-color: #3c8dbc;
+    margin-bottom: 4px;
+}
   </style>
 
   <au-input-form
@@ -155,6 +160,9 @@
         </tr>
       </table>
     </div> -->
+    <br>
+    <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+    <br>
 
     <au-collection
       show.bind="isHasData"

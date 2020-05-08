@@ -64,6 +64,10 @@ export class DataForm {
 
   groups = ["A", "B"];
 
+  ExportToExcel() {
+      this.service.generateExcelReportById(this.data.id);
+  }
+
   Date = null;
   Shift = null;
   Group = null;

@@ -42,6 +42,11 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  generateExcelReportById(id) {
+    let endpoint = `${serviceUri}/xls/${id}`;
+    return super.getXls(endpoint);
+  }
+
   create(data) {
     let endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
