@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'shipment-area-input/pre-shipment';
+const resource = 'input-shipping/pre-shipping';
 
 module.exports = function (keyword, filter) {
 
