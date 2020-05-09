@@ -8,15 +8,16 @@ import numeral from 'numeral';
 export class List {
     context = ["Rincian"];
     columns = [
+        { field: "DocumentNo", title: "No. Memo" },
+        { field: "SalesInvoiceNo", title: "No. Memo" },
         {
             field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "DocumentNo", title: "No. Dokumen Jurnal" },
-        { field: "Description", title: "Description" },
-        { field: "ReferenceNo", title: "No. Referensi" },
-        { field: "Status", title: "Status" }
+        { field: "MemoType", title: "Jenis Memo" },
+        { field: "CurrencyCodes", title: "Mata Uang" },
+        { field: "BuyerName", title: "Buyer" }
     ];
 
     loader = (info) => {
@@ -34,17 +35,17 @@ export class List {
             order: order
         };
 
-        // return this.service.search(arg)
-        //     .then(result => {
-        //         return {
-        //             total: result.info.total,
-        //             data: result.data
-        //         }
-        //     });
-        return {
-            total: 0,
-            data: []
-        }
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
+        // return {
+        //     total: 0,
+        //     data: []
+        // }
     }
 
     constructor(router, service) {

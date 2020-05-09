@@ -3,6 +3,13 @@
                    with.bind="context"
                    options.bind="formOptions">
 
+        <au-textbox value.bind="data.DocumentNo"
+                    if.bind="data.DocumentNo"
+                    label="No Memo"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox>
+
         <au-autocomplete placeholder="pilih no faktur penjualan"
                          value.bind="data.SalesInvoice"
                          error.bind="error.SalesInvoice"

@@ -1,6 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "journal-transactions";
+const serviceUri = "memos";
 
 export class Service extends RestService {
 
