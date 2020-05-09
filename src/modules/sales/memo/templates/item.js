@@ -1,4 +1,4 @@
-import { bindable } from 'aurelia-framework';
+import { bindable, computedFrom } from 'aurelia-framework';
 
 var CurrencyLoader = require('../../../../loader/currency-loader');
 
@@ -24,9 +24,8 @@ export class Item {
         this.data.Currency = newValue;
     }
 
-    // @computedFrom("data.Currency")
+    @computedFrom("data.Currency && data.PaymentAmount && data.Interest")
     get getTotal() {
-        return this.data.Currency ? this.data.PaymentAmount * this.data.Currency.Rate + (this.data.PaymentAmount * this.data.Currency.Rate * this.data.Interest) : 0;
-        // return 10;
+        return this.data.Currency ? this.data.PaymentAmount * this.data.Currency.Rate + (this.data.PaymentAmount * this.data.Currency.Rate * this.data.Interest / 100) : 0;
     }
 }

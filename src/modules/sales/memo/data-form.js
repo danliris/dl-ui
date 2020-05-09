@@ -50,8 +50,8 @@ export class DataForm {
         { header: "Mata Uang", value: "Currency" },
         { header: "Kurs", value: "CurrencyRate" },
         { header: "Bunga\n(%)", value: "Interest" },
-        { header: "Total" }
-    ]
+        { header: "Total", value:"Total" }
+    ];
 
     get addItems() {
         return (event) => {

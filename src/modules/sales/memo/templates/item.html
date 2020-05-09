@@ -2,7 +2,7 @@
     <tr>
         <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
         <td>
-            <au-numeric value.bind="data.PaymenAmount"
+            <au-numeric value.bind="data.PaymentAmount"
                         error.bind="error.PaymentAmount"
                         read-only.bind="readOnly"
                         format="0,0.0000"
@@ -35,6 +35,7 @@
         <td>
             <au-numeric value.bind="getTotal"
                         read-only.bind="true"
+                        format="0,0.0000"
                         options.bind="controlOptions">
             </au-numeric>
         </td>
