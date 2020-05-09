@@ -1,0 +1,20 @@
+<template>
+    <require from="../../../../lib/number-format-value-converter"></require>
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+        <au-textbox label="Kode" error.bind="error.Code" value.bind="data.Code"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-collection columns.bind="itemColumns" items.bind="data.StrikeOffItems"
+            errors.one-way="error.StrikeOffItems" add.bind="addItemCallback" remove.bind="onremove"
+            read-only.bind="readOnly" item-template="modules/production/finishing-printing/strike-off/template/item">
+        </au-collection>
+        
+
+    </au-input-form>
+</template>

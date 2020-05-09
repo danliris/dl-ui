@@ -32,7 +32,6 @@ export class View {
                         }
                     })
             })
-        console.log(this.data);
     }
 
     list() {

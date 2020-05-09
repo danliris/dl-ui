@@ -3,19 +3,17 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './service';
 var StorageLoader = require('../../../../loader/storage-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
+var DOSalesLoader = require('../../../../loader/do-sales-loader');
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DataForm {
     @bindable readOnly = false;
-    // @bindable buyerReadOnly = false;
     @bindable data;
     @bindable error;
     @bindable packing;
-    // @bindable isNewStructure = true;
-
     @bindable title;
 
-    // buyerFields = ["_id", "code", "name", "address", "type"];
+    @bindable detailOptions = {};
 
     mediumControlOptions = {
         control: {
@@ -41,56 +39,64 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        // this.detailOptions = {};
-        // console.log(this.data.Details)
-        // this.selectedBuyer = this.data.Buyer || undefined;
-        // this.selectedStorage = this.data.Storage || undefined;
 
-        if (this.data.Buyer) {
-            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
-            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
+        if (this.data.DOSales && this.data.DOSales.Id) {
+            // this.selectedDOSales = await this.service.getDOSalesById(
+            //     this.data.DOSales.Id
+            // );
+            this.selectedDOSales = this.data.DOSales;
         }
-
         if (this.data.Storage) {
             this.detailOptions.selectedStorageCode = this.data.Buyer.Code;
         }
     }
 
-    @bindable detailOptions = {};
-    @bindable selectedBuyer;
-    buyerChanged(e) {
-        // this.data.Buyer = newValue;
-        // console.log(newValue && )
-        if (this.data.Buyer) {
-            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
-            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
-            this.data.Details = [];
-            // if (!this.context.buyerReadOnly) {
-            //     this.data.details = [];
-            // }
+    @bindable selectedDOSales;
+    async doSalesChanged(newValue, oldValue) {
+        if (this.selectedDOSales && this.selectedDOSales.Id) {
+            this.data.DOSales = {};
+            this.data.DOSales.Id = this.selectedDOSales.Id;
+            this.data.DOSales.DOSalesNo = this.selectedDOSales.DOSalesNo;
+
+            var buyer = this.selectedDOSales.SalesContract.Buyer;
+            if (buyer) {
+                this.data.Buyer = {};
+                this.selectedBuyer = await this.service.getBuyerById(buyer.Id);
+                this.data.Buyer.Id = this.selectedBuyer.Id;
+                this.data.Buyer.Name = this.selectedBuyer.Name;
+                this.data.Buyer.Type = this.selectedBuyer.Type;
+            } else {
+                this.data.Buyer.Id = this.buyer.Id;
+                this.data.Buyer.Name = this.buyer.Name;
+                this.data.Buyer.Type = this.buyer.Type;
+            }
+
+            if (this.data.Buyer) {
+                this.data.Details = [];
+                this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
+                this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
+            } else {
+                this.data.Details = [];
+                this.detailOptions.selectedBuyerName = undefined;
+                this.detailOptions.selectedBuyerId = undefined;
+            }
+
         } else {
-            console.log("here 1");
-            this.data.Details = [];
-            this.data.Buyer = undefined;
-            this.detailOptions.selectedBuyerName = undefined;
-            this.detailOptions.selectedBuyerId = undefined;
+            this.data.DOSales.Id = null;
+            this.data.DOSales.DOSalesNo = null;
+            this.data.Buyer.Name = null;
+            this.data.Buyer.Type = null;
         }
     }
 
     @bindable selectedStorage;
     storageChanged(e) {
-        // this.data.Storage = newValue;
         if (this.data.Storage) {
             this.detailOptions.selectedStorageCode = this.data.Storage.code;
             this.detailOptions.selectedStorageId = this.data.Storage._id;
-            // this.data.Storage = newValue;
             this.data.Details = [];
-            // if (!this.context.buyerReadOnly) {
-            //     this.data.details = [];
-            // }
         }
         else {
-            console.log("here 2");
             this.data.Details = [];
             this.data.Storage = undefined;
             this.detailOptions.selectedStorageCode = "";
@@ -116,9 +122,12 @@ export class DataForm {
         return BuyerLoader;
     }
 
-    @computedFrom("data.Buyer", "data.Storage")
-    get detailVisibility() {
-        // console.log();
-        return this.data.Buyer && this.data.Storage;
+    get doSalesLoader() {
+        return DOSalesLoader;
     }
-} 
+
+    @computedFrom("data.DOSales", "data.Storage")
+    get detailVisibility() {
+        return this.data.DOSales && this.data.Storage;
+    }
+}

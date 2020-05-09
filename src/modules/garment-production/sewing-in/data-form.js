@@ -324,7 +324,7 @@ export class DataForm {
                 this.data.Price=0;
             }
 
-            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id }) }))
+            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "SEWING", UnitId:this.data.UnitFrom.Id, "GarmentSewingOutItem.Any(RemainingQuantity>0)":true}) }))
                     .then(result => {
                         for(var sewingOut of result.data){
                             for(var sewingOutItem of sewingOut.Items){
@@ -430,7 +430,7 @@ export class DataForm {
                 this.data.Price=0;
             }
 
-            Promise.resolve(this.service.searchFinishingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", UnitId:this.data.UnitFrom.Id }) }))
+            Promise.resolve(this.service.searchFinishingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, FinishingTo: "SEWING", UnitId:this.data.UnitFrom.Id,"GarmentFinishingOutItem.Any(RemainingQuantity>0)":true  }) }))
                     .then(result => {
                         for(var finishingOut of result.data){
                             for(var finishingOutItem of finishingOut.Items){

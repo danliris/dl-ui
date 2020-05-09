@@ -5,19 +5,23 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["Detail","Cetak Surat Jalan","Cetak Faktur Penjualan"];
+  context = ["Detail", "Cetak Surat Jalan", "Cetak Faktur Penjualan"];
 
   columns = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
+    {
+      field: "Buyer.Name",
+      title: "Buyer",
+    },
     {
       field: "SalesInvoiceDate",
       title: "Tgl Faktur Penjualan",
       formatter: (value, data, index) => {
         return moment(value).format("DD-MMM-YYYY");
-      }
+      },
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "ShipmentDocumentCode", title: "Kode Pengiriman" }
+    { field: "VatType", title: "Jenis PPN" },
   ];
 
   rowFormatter(data, index) {
@@ -25,17 +29,17 @@ export class List {
     else return {};
   }
 
-  loader = info => {
+  loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      order: order
+      order: order,
     };
 
-    return this.service.search(arg).then(result => {
+    return this.service.search(arg).then((result) => {
       var data = {};
       data.total = result.info.total;
       data.data = result.data;
@@ -54,7 +58,7 @@ export class List {
     switch (arg.name) {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
-        break;     
+        break;
       case "Cetak Surat Jalan":
         this.service.getDeliveryOrderPdfById(data.Id);
         break;
@@ -78,5 +82,4 @@ export class List {
   create() {
     this.router.navigateToRoute("create");
   }
-
 }

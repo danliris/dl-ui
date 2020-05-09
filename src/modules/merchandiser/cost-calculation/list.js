@@ -7,7 +7,7 @@ import { AuthService } from "aurelia-authentication";
 @inject(Router, Service, AuthService)
 export class List {
     dataToBePosted = [];
-    context = ["Detail", "Cetak Cost Calculation", "Cetak Budget"];
+    context = ["Detail", "Cetak Cost Calculation", "Cetak Budget", "Cetak Cost Calculation (DRAFT)", "Cetak Budget (DRAFT)"];
     columns = [
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
@@ -22,10 +22,10 @@ export class List {
         { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" },
-        { field: "IsApprovedMD", title: "Approval Kabag MD" },
+        { field: "IsApprovedMD", title: "Approval Kabag Md" },
         { field: "IsApprovedIE", title: "Approval IE" },
         { field: "IsApprovedPurchasing", title: "Approval Purchasing" },
-        { field: "IsApprovedKadivMD", title: "Approval Kadiv MD" },
+        { field: "IsApprovedKadivMD", title: "Approval Kadiv Md" },
     ];
 
     rowFormatter(data, index) {
@@ -111,9 +111,11 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak Cost Calculation":
+            case "Cetak Cost Calculation (DRAFT)":
                 this.service.getPdfById(data.Id)
                 break;
             case "Cetak Budget":
+            case "Cetak Budget (DRAFT)":
                 this.service.getBudgetById(data.Id)
                 break;
         }
@@ -124,6 +126,9 @@ export class List {
             case "Cetak Cost Calculation":
             case "Cetak Budget":
                 return data.IsPosted;
+            case "Cetak Cost Calculation (DRAFT)":
+            case "Cetak Budget (DRAFT)":
+                return !data.IsPosted;
             default:
                 return true;
         }

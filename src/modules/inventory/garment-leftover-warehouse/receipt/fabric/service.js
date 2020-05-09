@@ -34,6 +34,7 @@ class Service extends RestService {
 }
 
 const unitExpenditureNoteUri = 'garment-unit-expenditure-notes';
+const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
 
 class GarmentPurchasingService extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -42,6 +43,11 @@ class GarmentPurchasingService extends RestService {
 
     getUnitExpenditureNoteById(id) {
         var endpoint = `${unitExpenditureNoteUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDeliveryOrderById(id) {
+        var endpoint = `${unitDeliveryOrderUri}/${id}`;
         return super.get(endpoint);
     }
 }

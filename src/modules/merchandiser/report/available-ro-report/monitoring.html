@@ -57,6 +57,8 @@
                     <tr>
                         <th><label>No</label></th>
                         <th><label>No RO</label></th>
+                        <th><label>Tanggal Validasi RO Md</label></th>
+                        <th><label>Tanggal Validasi RO Sample</label></th>
                         <th><label>Tanggal Penerimaan RO</label></th>
                         <th><label>Tanggal Kesiapan RO</label></th>
                         <th><label>Tanggal Shipment</label></th>
@@ -72,7 +74,7 @@
                 <tbody>
                     <!--No data to display-->
                     <tr if.bind="!tableData || tableData.length < 1">
-                        <td colspan="12">
+                        <td colspan="14">
                             <div class="alert alert-info"> Tidak ada data untuk ditampilkan. </div>
                         </td>
                     </tr>
@@ -85,6 +87,12 @@
                             </td>
                             <td align="center">
                                 <au-textbox value.bind="tableData[i].RONo" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-datepicker value.bind="tableData[i].ValidatedMDDate" read-only="true"></au-datepicker>
+                            </td>
+                            <td align="center">
+                                <au-datepicker value.bind="tableData[i].ValidatedSampleDate" read-only="true"></au-datepicker>
                             </td>
                             <td align="center">
                                 <au-datepicker value.bind="tableData[i].AcceptedDate" read-only="true"></au-datepicker>

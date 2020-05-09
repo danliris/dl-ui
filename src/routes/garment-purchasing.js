@@ -660,7 +660,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "B1": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -790,7 +790,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -799,11 +799,11 @@ module.exports = [
         name: 'garment-flow-detail-material-report',
         moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
         nav: true,
-        title: 'Laporan Detail Flow Pengeluaran Bahan Baku',
+        title: 'Laporan Detail Flow Pengeluaran',
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -829,7 +829,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-cmt-report',
+        name: 'garment-cmt-report',
+        moduleId: './modules/garment-purchasing/reports/garment-report-cmt/index',
+        nav: true,
+        title: 'Laporan Realisasi CMT',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
     }

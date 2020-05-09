@@ -8,10 +8,15 @@
             error.bind="error.Section"
             loader.bind="sectionLoader"
             text.bind = "sectionView"
-            key="SectionCode"
             aria-placeholder="Cari Seksi"
             options.bind="controlOptions">
-        </au-autocomplete>   
+        </au-autocomplete>  
+        <au-textbox
+            label="Penanggung Jawab Seksi"
+            value.bind="sectionname"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox> 
         <au-datepicker label="Tanggal Shipment Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Shipment Akhir" value.bind="dateTo"></au-datepicker>
         <div class="form-group">

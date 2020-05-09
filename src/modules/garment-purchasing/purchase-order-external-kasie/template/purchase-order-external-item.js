@@ -94,7 +94,10 @@ export class PurchaseOrderItem {
         var totalDealPrice = (this.data.remainingBudget-parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4);
         //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
         //this.data.RemainingBudget=totalDealPrice;
-        
+
+        if (this.data.UENItemId) {
+          totalDealPrice = parseFloat((this.data.BudgetFromUEN - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
+        }
         if (totalDealPrice <0) {
           this.data.IsOverBudget = true;
         } else {

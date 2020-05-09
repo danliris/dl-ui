@@ -102,60 +102,140 @@
         </div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="doReport">
+                <!-- <thead align="center">
+                    <tr>
+                    <td>No</td>
+                    <td>BC Keluar</td>
+                    <td>Tanggal BC Keluar</td>
+                    <td>Invoice</td>
+                    <td>Qty Ekspor</td>
+                    <td>BJ Qty</td>
+                    <td>Produksi Qty</td>
+                    <td>No BUK</td>
+                    <td>Qty BUK</td>
+                    <td>Satuan BUK</td>
+                    <td>RO Job</td>
+                    <td>No PO</td>
+                    <td>Kode Barang</td>
+                    <td>Nama Barang</td>
+                    <td>Qty Terima</td>
+                    <td>Satuan Terima</td>
+                    <td>Sisa</td>
+                    <td>No BC Masuk</td>
+                    <td>Tgl BC Masuk</td>
+                    <td>No Bon Pusat</td>
+                    <td>Jenis BC Masuk</td>   
+                    </tr>
+                </thead> -->
                 <thead align="center">
                     <tr>
                         <td>No</td>
                         <td>Jenis BC</td>
-                    <td>No BC</td>
-                    <td>Tanggal BC</td>
-                    <td>No Bon</td>
-                    <td>PO</td>
-                    <td>Kode Barang</td>
-                    <td>Nama Barang</td>
-                    <td>Qty</td>
-                    <td>Satuan</td>
-                    <td>RO Job</td>
-                    <td>No BUK</td>
-                    <td>Qty</td>
-                    <td>Satuan</td>
-                    <td>Produksi Qty</td>
-                    <td>BJ Qty</td>
-                    <td>Invoice</td>
-                    <!-- <td>WIP</td> -->
-                    <td>BC Keluar</td>
-                    <td>Tgl BC Keluar</td>
-                    <td>Ekspor Qty</td>
-                    <td>Sample Qty</td>
-                        
+                        <td>No BC</td>
+                        <td>Tanggal BC</td>
+                        <td>No Bon</td>
+                        <td>PO</td>
+                        <td>Kode Barang</td>
+                        <td>Nama Barang</td>
+                        <td>Qty Terima</td>
+                        <td>Satuan</td>
+                        <td>RO Job</td>
+                        <td>No BUK</td>
+                        <td>Qty BUK</td>
+                        <td>Satuan</td>
+                        <td>Sisa</td>
+                        <td>Produksi Qty</td>
+                        <td>BJ Qty</td>
+                        <td>Invoice</td>
+                        <td>BC Keluar</td>
+                        <td>Tgl BC Keluar</td>
+                        <td>Ekspor Qty</td>
+                        <td>Sample Qty</td>
+                
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="IN of data">
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.count}</td>
-                        <td if.bind="IN.rowspan" rowspan="${IN.rowspan}">${IN.BCType}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.BCNo}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
-                        <!-- <td >${$index+1}</td>
+                         <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.count}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCType}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCNo}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BonNo}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.PO}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemCode}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemName}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ReceiptQty}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.SatuanReceipt}</td>
+                        <td if.bind="IN.rospan" rowspan="${IN.rospan}">${IN.ROJob}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.BUK}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.QtyBUK}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.SatuanBUK}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.Sisa}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.ProduksiQty}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.BJQty}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.Invoice}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEB}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEBDate}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.EksporQty}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.SampleQty}</td>
+                        <!-- <td >${IN.count}</td>
                         <td >${IN.BCType}</td>
                         <td >${IN.BCNo}</td>
-                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td> -->
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.BonNo}</td>
+                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <td >${IN.BonNo}</td> 
                         <td >${IN.PO}</td>
                         <td >${IN.ItemCode}</td>
                         <td >${IN.ItemName}</td>
-                        <td>${IN.ReceiptQty}</td>
-                        <td>${IN.SatuanReceipt}</td>
-                        <td>${IN.ROJob}</td>
-                        <td>${IN.BUK}</td>
-                        <td>${IN.QtyBUK}</td>
-                        <td>${IN.SatuanBUK}</td>
-                        <td>${IN.ProduksiQty}</td>
-                        <td>${IN.BJQty}</td>
-                        <td>${IN.Invoice}</td>
-                        <td>${IN.PEB}</td>
-                        <td>${IN.PEBDate}</td>
-                        <td>${IN.EksporQty}</td>
-                        <td>${IN.SampleQty}</td>
+                        <td >${IN.ReceiptQty}</td>
+                        <td >${IN.SatuanReceipt}</td> 
+                        <td >${IN.ROJob}</td>
+                        <td >${IN.BUK}</td>
+                        <td >${IN.QtyBUK}</td>
+                        <td >${IN.SatuanBUK}</td>
+                        <td >${IN.Sisa}</td>
+                        <td >${IN.ProduksiQty}</td>
+                        <td >${IN.BJQty}</td>
+                        <td >${IN.Invoice}</td>
+                        <td >${IN.PEB}</td>
+                        <td >${IN.PEBDate}</td>
+                        <td >${IN.EksporQty}</td>
+                        <td >${IN.SampleQty}</td> -->
+
+                        <!-- <td >${$index + 1}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEB}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEBDate}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.Invoice}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.EksporQty}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.BJQty}</td>
+                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.ProduksiQty}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.BUK}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.QtyBUK}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.SatuanBUK}</td>
+                        <td if.bind="IN.rospan" rowspan="${IN.rospan}">${IN.ROJob}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.PO}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemCode}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemName}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ReceiptQty}</td>
+                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.SatuanReceipt}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCNo}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BonNo}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCType}</td> -->
+                        <!-- <td >${$index+1}</td>
+                        <td >${IN.BCType}</td>
+                        <td >${IN.BCNo}</td>
+                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <!--<td>${SJ['Satuan Barang']}</td>-->
                     </tr>
                 </tbody>

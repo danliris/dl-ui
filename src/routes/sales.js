@@ -43,7 +43,7 @@ module.exports = [
         name: 'finishing-printing-cost-calculation-approval-md',
         moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
         nav: true,
-        title: 'Cost Calculation - Dyeing & Printing - Approval MD',
+        title: 'Cost Calculation - Dyeing & Printing - Approval Md',
         auth: true,
         settings: {
             group: "sales",
@@ -212,7 +212,7 @@ module.exports = [
         name: 'shin-production-order-approval-md',
         moduleId: './modules/sales/shin-production-order-approval-md/index',
         nav: true,
-        title: 'Validasi Surat Perintah Produksi (New) - Kabag MD',
+        title: 'Validasi Surat Perintah Produksi (New) - Kabag Md',
         auth: true,
         settings: {
             group: "sales",
@@ -286,11 +286,11 @@ module.exports = [
         }
     },
     {
-        route: 'sales/sales-invoice',
-        name: 'sales-invoice',
-        moduleId: './modules/sales/sales-invoice/index',
+        route: 'sales/do-return',
+        name: 'do-return',
+        moduleId: './modules/sales/do-return/index',
         nav: true,
-        title: 'Faktur Penjualan',
+        title: 'DO Retur',
         auth: true,
         settings: {
             group: "sales",
@@ -299,11 +299,11 @@ module.exports = [
         }
     },
     {
-        route: 'sales/sales-receipt',
-        name: 'sales-receipt',
-        moduleId: './modules/sales/sales-receipt/index',
+        route: 'sales/sales-invoice',
+        name: 'sales-invoice',
+        moduleId: './modules/sales/sales-invoice/index',
         nav: true,
-        title: 'Kuitansi Penjualan',
+        title: 'Faktur Penjualan',
         auth: true,
         settings: {
             group: "sales",

@@ -38,6 +38,8 @@ export class Create {
         { header: "Qty", value: "BudgetQuantityString" },
         { header: "Satuan", value: "UOMPriceUnit" },
         { header: "Shipment", value: "DeliveryDate" },
+        { header: "Seksi", value: "Section" },
+        { header: "Staf Merchandiser", value: "CreatedBy" },     
         { header: "Status", value: "Status" },
     ];
 
@@ -50,7 +52,7 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        // Filter yang sudah Approved MD dan IE serta sudah Validasi Purchasing
+        // Filter yang sudah Approved Md dan IE serta sudah Validasi Purchasing
         // Saat disimpan maka IsApprovedPPIC menjadi true
         // , dan sebagian Material value IsPosted menjadi true
         return {

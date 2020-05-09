@@ -13,7 +13,7 @@
                 <au-autocomplete 
                     label="Unit Asal" 
                     placeholder="Pilih Unit" 
-                    value.bind="data.UnitFrom"
+                    value.bind="selectedUnitFrom"
                     error.bind="error.UnitFrom" 
                     loader.bind="unitLoader" 
                     text.bind="unitView"
@@ -29,7 +29,8 @@
                     text="ExpenditureGoodNo" 
                     read-only.bind="readOnly || isEdit" 
                     show.bind="data.UnitFrom"
-                    options.bind="controlOptions">
+                    options.bind="controlOptions"
+                    view-model.ref="ExpenditureGoodViewModel">
                 </au-autocomplete>
 
                 <au-textbox 
@@ -126,7 +127,7 @@
 
         <au-collection 
             columns.bind="itemsColumns" 
-            items.bind="data.Items" 
+            items.bind="data.DataItems" 
             errors.bind="error.Items"
             read-only.bind="true">
         </au-collection>

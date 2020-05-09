@@ -373,6 +373,17 @@
                 error.bind="error.ProduceBeamsSizingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
+          
+          <div class="row" style="white-space:nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="No. Beam Sizing" read-only="true" style="display:inline-block;"></textbox>
+            </div>
+            <div class="col-md-4" style="text-align:left;">
+              <au-autocomplete placeholder="No. Beam Sizing" value.bind="FinishSizingBeamDocuments"
+                error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beamsOnProcess" text="SizingBeamNumber">
+              </au-autocomplete>
+            </div>
+          </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">

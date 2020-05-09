@@ -11,6 +11,7 @@ import {
   Service
 } from "./service";
 import moment from "moment";
+import _ from "underscore";
 var WarpingBeamLoader = require("../../../loader/weaving-warping-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 var UOMLoader = require("../../../loader/uom-loader");
@@ -19,6 +20,7 @@ var UOMLoader = require("../../../loader/uom-loader");
 export class Update {
   @bindable StartTime;
   @bindable ProduceBeamsTime;
+  @bindable BeamsToProduct;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -32,6 +34,7 @@ export class Update {
     this.isStartDisabled = false;
     this.isProduceBeamDisabled = false;
     this.isDoffDisabled = false;
+    
   }
 
   uoms = [];
@@ -141,40 +144,94 @@ export class Update {
         isAllBeamProcessedFlag = false;
       }
 
-      this.Histories = this.data.DailyOperationWarpingHistories;
-      var lastWarpingHistory = this.Histories[0];
-      var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus;
-      switch (lastWarpingHistoryStatus) {
-        case "ENTRY":
-          this.isStartDisabled = false;
-          this.isProduceBeamDisabled = true;
-          break;
-        case "START":
-          this.isStartDisabled = true;
-          this.isProduceBeamDisabled = false;
-          break;
-        case "ON-PROCESS-BEAM":
-          this.isStartDisabled = true;
-          this.isProduceBeamDisabled = false;
-          break;
-        case "COMPLETED":
-          if (isAllBeamProcessedFlag == true) {
-            this.isStartDisabled = true;
-            this.isProduceBeamDisabled = true;
-          } else {
-            this.isStartDisabled = false;
-            this.isProduceBeamDisabled = true;
+      //this section for disable or enabled mulai and produksi beam
+      var beamWarpingProductFinish = [];
+      for(var i =0;i<this.data.DailyOperationWarpingBeamProducts.length;i++){
+        var tempBeams = this.data.DailyOperationWarpingBeamProducts[i];
+        if(tempBeams.WarpingBeamStatus == "ROLLED-UP"){
+          beamWarpingProductFinish.push(tempBeams);          
           }
-          break;
-        default:
-          this.isStartDisabled = false;
-          this.isProduceBeamDisabled = false;
-          break;
       }
+
+      var isFinished = this.data.OperationStatus;
+      var beamSizingMustProduce = this.data.BeamProductResult;
+      
+      if(this.data.DailyOperationWarpingBeamProducts.length < beamSizingMustProduce)
+      {
+        this.isStartDisabled = false;
+      }else{
+        this.isStartDisabled = true;
+      }
+
+      if(beamWarpingProductFinish.length < beamSizingMustProduce && 
+        this.data.DailyOperationWarpingBeamProducts.length != 0 &&
+        this.data.DailyOperationWarpingBeamProducts.length != beamWarpingProductFinish.length)
+        {
+          this.isProduceBeamDisabled = false;
+        }
+        else
+        {
+          this.isProduceBeamDisabled = true;
+        }
+
+      // if(beamWarpingProductFinish.length == 0){
+      //   this.isStartDisabled = false;
+      //   this.isProduceBeamDisabled = true;
+      // }else if(beamWarpingProductFinish.length < beamSizingMustProduce)
+      // {
+      //   this.isStartDisabled = false;
+      //   this.isProduceBeamDisabled = false;
+      // } 
+      // else if(beamWarpingProductFinish.length == beamSizingMustProduce){
+      //   if (isAllBeamProcessedFlag == true && isFinished=="FINISH") {
+      //     this.isStartDisabled = true;
+      //     this.isProduceBeamDisabled = true;
+      //   } else {
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = true;
+      //   }
+      // }else{
+      //   this.isStartDisabled = true;
+      //   this.isProduceBeamDisabled = true;
+      // }
+
+
+      this.Histories = this.data.DailyOperationWarpingHistories;
+      // var lastWarpingHistory = this.Histories[0];
+      // var lastWarpingHistoryStatus = lastWarpingHistory.MachineStatus;
+      // switch (lastWarpingHistoryStatus) {
+      //   case "ENTRY":
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = true;
+      //     break;
+      //   case "START":
+      //     this.isStartDisabled = true;
+      //     this.isProduceBeamDisabled = false;
+      //     break;
+      //   case "ON-PROCESS-BEAM":
+      //     this.isStartDisabled = true;
+      //     this.isProduceBeamDisabled = false;
+      //     break;
+      //   case "COMPLETED":
+      //     if (isAllBeamProcessedFlag == true) {
+      //       this.isStartDisabled = true;
+      //       this.isProduceBeamDisabled = true;
+      //     } else {
+      //       this.isStartDisabled = false;
+      //       this.isProduceBeamDisabled = true;
+      //     }
+      //     break;
+      //   default:
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = false;
+      //     break;
+      // }
     }
     var uomItems = await this.service.getYardMeterUoms();
     this.uoms = uomItems;
     this.dataOptions = this.data;
+    
+    
   }
 
   get operators() {
@@ -183,6 +240,17 @@ export class Update {
 
   get beams() {
     return WarpingBeamLoader;
+  }
+
+  get beamsOnProcess(){
+    var beamProcess = []
+    for(var i = 0 ; i < this.data.DailyOperationWarpingBeamProducts.length ; i++ ){
+      var beamWarpingProcessing = this.data.DailyOperationWarpingBeamProducts[i];
+      if(beamWarpingProcessing.WarpingBeamStatus == "ON-PROCESS"){
+        beamProcess.push(beamWarpingProcessing);
+      }
+    }
+    return beamProcess
   }
 
   completeBeamClicked(event) {
@@ -390,6 +458,7 @@ export class Update {
       produceBeamData.PressRoll = PressRollContainer;
       produceBeamData.PressRollUom = PressRollUomContainer;
       produceBeamData.IsFinishFlag = IsFinishFlagContainer;
+      produceBeamData.ProduceBeamsId = this.BeamsToProduct.Id;
 
       this.service.updateCompletedProcess(produceBeamData.Id, produceBeamData)
         .then(result => {

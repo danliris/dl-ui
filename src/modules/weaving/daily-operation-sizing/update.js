@@ -147,31 +147,85 @@ export class Update {
         }
       }
 
-      var lastSizingHistory = this.Histories[0];
-      var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
-      switch (lastMachineStatusHistory) {
-        case "ENTRY":
-          this.isStartDisabled = false;
-          this.isProduceBeamDisabled = true;
-          break;
-        case "START":
-          this.isStartDisabled = true;
-          this.isProduceBeamDisabled = false;
-          break;
-        case "COMPLETED":
-          if (isAllBeamProcessedFlag == true) {
-            this.isStartDisabled = true;
-            this.isProduceBeamDisabled = true;
-          } else {
-            this.isStartDisabled = false;
-            this.isProduceBeamDisabled = true;
+
+      var beamSizingProductFinish = [];
+      for(var i =0;i<this.data.DailyOperationSizingBeamProducts.length;i++){
+        var tempBeams = this.data.DailyOperationSizingBeamProducts[i];
+        if(tempBeams.SizingBeamStatus == "ROLLED-UP"){
+          beamSizingProductFinish.push(tempBeams);          
           }
-          break;
-        default:
-          this.isStartDisabled = false;
-          this.isProduceBeamDisabled = false;
-          break;
       }
+      this.BeamSizingFinish = beamSizingProductFinish;
+      var isFinished = this.data.OperationStatus;
+      var beamSizingMustProduce = this.data.BeamProductResult;
+      
+      if(this.data.DailyOperationSizingBeamProducts.length < beamSizingMustProduce)
+      {
+        this.isStartDisabled = false;
+      }else{
+        this.isStartDisabled = true;
+      }
+
+      if(beamSizingProductFinish.length < beamSizingMustProduce && 
+        this.data.DailyOperationSizingBeamProducts.length != 0 &&
+        this.data.DailyOperationSizingBeamProducts.length != beamSizingProductFinish.length)
+        {
+          this.isProduceBeamDisabled = false;
+        }
+        else
+        {
+          this.isProduceBeamDisabled = true;
+        }
+
+      // var beamSizingProduct = this.data.DailyOperationSizingBeamProducts;
+      // var isFinished = this.data.OperationStatus;
+      // var beamSizingMustProduce = this.data.BeamProductResult;
+
+      // if(beamSizingProduct.length == 0){
+      //   this.isStartDisabled = false;
+      //   this.isProduceBeamDisabled = true;
+      // }else if(beamSizingProduct.length < beamSizingMustProduce)
+      // {
+      //   this.isStartDisabled = false;
+      //   this.isProduceBeamDisabled = false;
+      // } 
+      // else if(beamSizingProduct.length == beamSizingMustProduce){
+      //   if (isAllBeamProcessedFlag == true && isFinished=="FINISH") {
+      //     this.isStartDisabled = true;
+      //     this.isProduceBeamDisabled = true;
+      //   } else {
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = true;
+      //   }
+      // }else{
+      //   this.isStartDisabled = true;
+      //   this.isProduceBeamDisabled = true;
+      // }
+      // var lastSizingHistory = this.Histories[0];
+      // var lastMachineStatusHistory = lastSizingHistory.MachineStatus;
+      // switch (lastMachineStatusHistory) {
+      //   case "ENTRY":
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = true;
+      //     break;
+      //   case "START":
+      //     this.isStartDisabled = true;
+      //     this.isProduceBeamDisabled = false;
+      //     break;
+      //   case "COMPLETED":
+      //     if (isAllBeamProcessedFlag == true) {
+      //       this.isStartDisabled = true;
+      //       this.isProduceBeamDisabled = true;
+      //     } else {
+      //       this.isStartDisabled = false;
+      //       this.isProduceBeamDisabled = true;
+      //     }
+      //     break;
+      //   default:
+      //     this.isStartDisabled = false;
+      //     this.isProduceBeamDisabled = false;
+      //     break;
+      // }
 
       this.dataOptions = this.data;
       this.completeBeam = false;
@@ -186,6 +240,17 @@ export class Update {
 
   get beams() {
     return SizingBeamLoader;
+  }
+
+  get beamsOnProcess(){
+    var beamProcess = []
+    for(var i = 0 ; i < this.data.DailyOperationSizingBeamProducts.length ; i++ ){
+      var beamSizingProcessing = this.data.DailyOperationSizingBeamProducts[i];
+      if(beamSizingProcessing.SizingBeamStatus == "ON-PROCESS"){
+        beamProcess.push(beamSizingProcessing);
+      }
+    }
+    return beamProcess
   }
 
   completeBeamClicked(event) {
@@ -488,6 +553,8 @@ export class Update {
       updateData.ProduceBeamDate = HistoryDateContainer;
       updateData.ProduceBeamTime = HistoryTimeContainer;
       updateData.BrokenPerShift = BrokenPerShiftContainer;
+      updateData.SizingBeamId = this.FinishSizingBeamDocuments.SizingBeamId;
+      updateData.SizingBeamNumber = this.FinishSizingBeamDocuments.SizingBeamNumber;
 
       if (this.completeBeam) {
         var FinishDoffMachineSpeedContainer;
@@ -504,7 +571,7 @@ export class Update {
         if (this.FinishDoffTexSQ) {
           FinishDoffTexSQContainer = this.FinishDoffTexSQ;
         }
-        if (this.data.BeamProductResult == this.BeamProducts.length) {
+        if (this.data.BeamProductResult == this.BeamSizingFinish.length) {
           IsFinishFlagContainer = true
         } else {
           IsFinishFlagContainer = false;
@@ -514,7 +581,7 @@ export class Update {
         updateData.TexSQ = FinishDoffViscoContainer;
         updateData.Visco = FinishDoffTexSQContainer;
         updateData.IsFinishFlag = IsFinishFlagContainer;
-        
+
         this.service.updateFinishDoff(updateData.Id, updateData)
           .then(result => {
             location.reload();

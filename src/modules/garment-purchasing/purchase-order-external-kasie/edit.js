@@ -20,8 +20,20 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
         var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
         this.kurs=kurs[0];
+
+        if (!this.readOnly && (this.data.EPONo || "").includes("-R") && this.data.UENId) {
+            const uen = await this.service.getUENById(this.data.UENId);
+            this.kurs.Rate = this.data.BudgetRate || this.kurs.Rate;
+            for (const item of this.data.Items) {
+                const uenItem = uen.Items.find(i => i.Id == item.UENItemId);
+                item.BudgetFromUEN = (uenItem.Quantity / uenItem.Conversion) * uenItem.PricePerDealUnit * this.kurs.Rate;
+            }
+        } else {
+            this.data.BudgetRate = this.kurs.Rate;
+        }
 
         if(this.data.Currency){
             this.selectedCurrency=this.data.Currency;

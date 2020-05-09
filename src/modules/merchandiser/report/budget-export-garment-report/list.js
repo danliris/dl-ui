@@ -39,7 +39,8 @@ export class List {
     filterSectionChanged(newValue) {
         var selectedSection = newValue;
         if (selectedSection) {
-            this.sectionCode = selectedSection.Code;
+            this.sectioncode = selectedSection.Code;
+            this.sectionname = selectedSection.Name;  
         }
     }
 
@@ -52,8 +53,8 @@ export class List {
         if (this.unitName) {
            info.unitName = this.unitName.Name
         }
-        if (this.section) {
-           info.section = this.sectionCode
+        if (this.sectioncode) {
+           info.section = this.sectioncode
         }
         this.service.search(JSON.stringify(info))
             .then(result => {
@@ -116,8 +117,8 @@ export class List {
         if (this.unitName) {
            info.unitName = this.unitName.Name
         }
-        if (this.section) {
-           info.section = this.sectionCode
+        if (this.sectioncode) {
+           info.section = this.sectioncode
         }
         this.service.generateExcel(JSON.stringify(info));
     }
@@ -127,6 +128,8 @@ export class List {
         this.dateTo = null;
         this.unitName = null;
         this.section = null;
+        this.sectioncode = null;
+        this.sectionname = null;
         this.RONos = [];
         this.AmountTotal = null;    
     }

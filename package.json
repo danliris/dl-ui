@@ -108,6 +108,7 @@
     "react-bootstrap": "0.30.7",
     "react-dom": "15.4.1",
     "react-dynamic-number": "1.4.5",
+    "underscore": "^1.9.2",
     "xlsx": "^0.13.0"
   },
   "devDependencies": {

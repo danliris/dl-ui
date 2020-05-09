@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = "finishing-printing/inventory/fp-shipment-documents";
+const serviceUri = "finishing-printing/inventory/fp-shipment-documents/new";
 const inventoryServiceUri = "inventory/inventory-summary";
 const productServiceUri = "master/product";
 
@@ -129,6 +129,22 @@ export class Service extends RestService {
         var info = {
             productName: productName
         }
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    searchDOSales(info) {
+        var endpoint = `sales/do-sales`;
+        return super.list(endpoint, info);
+    }
+
+    getDOSalesById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("sales");
+        var _serviceUri = `sales/do-sales/${id}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {

@@ -498,9 +498,13 @@ export class DataForm {
 
     get roLoader() {
         return (keyword) => {
+            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false"});
+            if(this.isRemain || this.isSample){
+                filter= JSON.stringify({});
+            }
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false"})
+              filter: filter
             };
             var ro=[];
             return this.service.getGarmentEPOByRONo(info)
