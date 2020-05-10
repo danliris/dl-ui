@@ -49,10 +49,10 @@
             </au-autocomplete>
 
             <au-datepicker label="Tgl. Jatuh Tempo" value.bind="DueDate" error.bind="error.DueDate"
-              read-only.bind="readOnly">
+              read-only.bind="true">
             </au-datepicker>
 
-            <au-textbox label="Tempo" value.bind="getTempo" read-only.bind="true">
+            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly">
             </au-textbox>
 
             <au-dropdown label="Jenis PPN" value.bind="data.VatType" items.bind="VatTypeOptions"
