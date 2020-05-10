@@ -22,6 +22,7 @@ export class DataForm {
   @bindable DueDate;
   @bindable VatType;
   @bindable getTempo;
+  @bindable Tempo;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
@@ -72,6 +73,11 @@ export class DataForm {
       this.TotalPayment = this.data.TotalPayment;
       this.data.TotalPayment = this.getTotalPayment;
     }
+    if(this.data.Tempo){
+      this.Tempo = this.data.Tempo;
+    }
+
+    console.log(this);
   }
 
   get getTotalPayment() {
@@ -94,24 +100,52 @@ export class DataForm {
   }
 
   SalesInvoiceDateChanged(newValue, oldValue) {
-    if (this.SalesInvoiceDate && this.DueDate) {
+    if (this.SalesInvoiceDate && this.Tempo) {
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
-      this.data.DueDate = this.DueDate;
+      this.data.Tempo = this.Tempo;
+      var milisecondTemp = (1000 * 60 * 60 * 24* this.data.Tempo);
 
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
-      var dueTime = new Date(this.data.DueDate).getTime();
-      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
+      var dueDate = new Date();
+      dueDate.setTime(salesInvoiceTime + milisecondTemp);
+      this.data.DueDate = new Date(dueDate);
+      this.DueDate = new Date(dueDate);
+      this.getTempo = this.Tempo;      
     }
   }
-
   DueDateChanged(newValue, oldValue) {
+
     if (this.SalesInvoiceDate && this.DueDate) {
+
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
+
       this.data.DueDate = this.DueDate;
 
+
+
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+
       var dueTime = new Date(this.data.DueDate).getTime();
+
       this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
+      this.Tempo = this.getTempo;
+
+    }
+
+  }
+
+  TempoChanged(newValue, oldValue) {
+    if (this.SalesInvoiceDate && this.Tempo) {
+      this.data.SalesInvoiceDate = this.SalesInvoiceDate;
+      this.data.Tempo = this.Tempo;
+      var milisecondTemp = (1000 * 60 * 60 * 24* this.data.Tempo);
+
+      var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+      var dueDate = new Date();
+      dueDate.setTime(salesInvoiceTime + milisecondTemp);
+      this.data.DueDate = new Date(dueDate);
+      this.DueDate = new Date(dueDate);
+      this.getTempo = this.Tempo;
     }
   }
 
