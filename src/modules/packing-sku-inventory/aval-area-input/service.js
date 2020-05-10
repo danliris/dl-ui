@@ -14,7 +14,7 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getPreAval(searchDate, searchShift) {
+  getPreAval(searchDate, searchShift, searchGroup) {
     var endpoint = `${serviceUri}/pre-aval`;
     var query = "";
 
@@ -25,6 +25,10 @@ export class Service extends RestService {
     if (searchShift) {
       if (query === "") query = `searchShift=${searchShift}`;
       else query = `${query}&searchShift=${searchShift}`;
+    }
+    if (searchGroup) {
+      if (query === "") query = `searchGroup=${searchGroup}`;
+      else query = `${query}&searchGroup=${searchGroup}`;
     }
     if (query !== "") {
       endpoint = `${serviceUri}/pre-aval?${query}`;

@@ -286,11 +286,11 @@ module.exports = [
         }
     },
     {
-        route: 'sales/do-return',
-        name: 'do-return',
-        moduleId: './modules/sales/do-return/index',
+        route: 'sales/sales-invoice',
+        name: 'sales-invoice',
+        moduleId: './modules/sales/sales-invoice/index',
         nav: true,
-        title: 'DO Retur',
+        title: 'Faktur Penjualan',
         auth: true,
         settings: {
             group: "sales",
@@ -299,11 +299,11 @@ module.exports = [
         }
     },
     {
-        route: 'sales/sales-invoice',
-        name: 'sales-invoice',
-        moduleId: './modules/sales/sales-invoice/index',
+        route: 'sales/do-return',
+        name: 'do-return',
+        moduleId: './modules/sales/do-return/index',
         nav: true,
-        title: 'Faktur Penjualan',
+        title: 'DO Retur',
         auth: true,
         settings: {
             group: "sales",

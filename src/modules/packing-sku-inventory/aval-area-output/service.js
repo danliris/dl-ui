@@ -14,7 +14,7 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getAvailableAval(searchDate, searchShift) {
+  getAvailableAval(searchDate, searchShift, searchGroup) {
     var endpoint = `${serviceUri}/available-aval`;
     var query = "";
 
@@ -26,6 +26,10 @@ export class Service extends RestService {
       if (query === "") query = `searchShift=${searchShift}`;
       else query = `${query}&searchShift=${searchShift}`;
     }
+    if (searchGroup) {
+      if (query === "") query = `searchGroup=${searchGroup}`;
+      else query = `${query}&searchGroup=${searchGroup}`;
+    }
     if (query !== "") {
       endpoint = `${serviceUri}/available-aval?${query}`;
     }
@@ -36,6 +40,11 @@ export class Service extends RestService {
   getById(id) {
     let endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
+  }
+
+  generateExcelReportById(id) {
+    let endpoint = `${serviceUri}/xls/${id}`;
+    return super.getXls(endpoint);
   }
 
   create(data) {
