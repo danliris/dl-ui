@@ -26,29 +26,69 @@ export class List {
       title: "No. Bon",
     },
     {
+      field: "doNo",
+      title: "No. DO",
+    },
+    {
+      field: "productionOrderNo",
+      title: "No. SPP",
+    },
+    {
+      field: "productionOrderOrderQuantity",
+      title: "Qty Order",
+    },
+    {
+      field: "buyer",
+      title: "Buyer",
+    },
+    {
+      field: "group",
+      title: "Group",
+    },
+    {
       field: "shift",
       title: "Shift",
     },
-    // {
-    //   field: "avalCartNo",
-    //   title: "No. Kereta"
-    // },
-    // {
-    //   field: "productionOrderType",
-    //   title: "Jenis"
-    // },
-    // {
-    //   field: "uomUnit",
-    //   title: "Satuan"
-    // },
-    // {
-    //   field: "productionOrderQuantity",
-    //   title: "Qty Satuan"
-    // },
-    // {
-    //   field: "qtyKg",
-    //   title: "Qty KG"
-    // }
+    {
+      field: "construction",
+      title: "Konstruksi",
+    },
+    {
+      field: "typeORpackagingType",
+      title: "Jenis",
+    },
+    {
+      field: "color",
+      title: "Warna",
+    },
+    {
+      field: "motif",
+      title: "Motif",
+    },
+    {
+      field: "grade",
+      title: "Grade",
+    },
+    {
+      field: "packagingQty",
+      title: "QTY Packing",
+    },
+    {
+      field: "packingORpackingInstruction",
+      title: "Packing",
+    },
+    {
+      field: "uomUnit",
+      title: "Satuan",
+    },
+    {
+      field: "outQuantity",
+      title: "QTY Keluar",
+    },
+    {
+      field: "balance",
+      title: "Saldo",
+    }
   ];
 
   loader = (info) => {

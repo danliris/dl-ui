@@ -6,6 +6,9 @@ import {
   import {
     Service
   } from "../service";
+
+  let ProductionOrderLoader = require("../../../../loader/production-order-loader");
+  let DOSalesLoader = require("../../../../loader/do-sales-loader");
   
   @inject(BindingEngine, Service)
   export class Items {
@@ -34,6 +37,14 @@ import {
         this.data.AvalQuantity = this.data.avalQuantity;
         this.data.AvalQuantityKg = this.data.avalQuantityKg;
       }
+    }
+
+    get productionOrders() {
+        return ProductionOrderLoader;
+    }
+
+    get dos() {
+        return DOSalesLoader;
     }
   }
   

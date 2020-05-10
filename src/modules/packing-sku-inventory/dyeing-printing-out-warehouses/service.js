@@ -2,7 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "output-aval";
+const serviceUri = "output-warehouses";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
@@ -14,27 +14,32 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getAvailableAval(searchDate, searchShift, searchGroup) {
-    var endpoint = `${serviceUri}/available-aval`;
-    var query = "";
+  // getAvailableGoods(searchDate, searchShift, searchGroup) {
+  //   var endpoint = `${serviceUri}/available-goods`;
+  //   var query = "";
 
-    if (searchDate) {
-      if (query === "") query = `searchDate=${searchDate}`;
-      else query = `${query}&searchDate=${searchDate}`;
-    }
-    if (searchShift) {
-      if (query === "") query = `searchShift=${searchShift}`;
-      else query = `${query}&searchShift=${searchShift}`;
-    }
-    if (searchGroup) {
-      if (query === "") query = `searchGroup=${searchGroup}`;
-      else query = `${query}&searchGroup=${searchGroup}`;
-    }
-    if (query !== "") {
-      endpoint = `${serviceUri}/available-aval?${query}`;
-    }
+  //   if (searchDate) {
+  //     if (query === "") query = `searchDate=${searchDate}`;
+  //     else query = `${query}&searchDate=${searchDate}`;
+  //   }
+  //   if (searchShift) {
+  //     if (query === "") query = `searchShift=${searchShift}`;
+  //     else query = `${query}&searchShift=${searchShift}`;
+  //   }
+  //   if (searchGroup) {
+  //     if (query === "") query = `searchGroup=${searchGroup}`;
+  //     else query = `${query}&searchGroup=${searchGroup}`;
+  //   }
+  //   if (query !== "") {
+  //     endpoint = `${serviceUri}/available-aval?${query}`;
+  //   }
 
-    return super.get(endpoint);
+  //   return super.get(endpoint);
+  // }  
+
+  search(info) {
+    let endpoint = `${serviceUri}/available-goods`;
+    return super.list(endpoint, info);
   }
 
   getById(id) {
