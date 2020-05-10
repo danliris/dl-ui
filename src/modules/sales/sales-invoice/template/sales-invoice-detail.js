@@ -1,20 +1,24 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { ServiceProductionAzure } from "./../service";
-
+import { DataForm } from "./../data-form";
 var ShipmentDocumentLoader = require("../../../../loader/shin-shipment-document-loader");
 
-@inject(ServiceProductionAzure, BindingSignaler, BindingEngine)
+@inject(ServiceProductionAzure, BindingSignaler, BindingEngine,DataForm)
+
 export class SalesInvoiceDetail {
   @bindable data;
   @bindable error;
+  @bindable typeFaktur;
 
   shipmentDocumentTableOptions = {};
 
-  constructor(serviceProductionAzure, bindingSignaler, bindingEngine) {
+  constructor(serviceProductionAzure, bindingSignaler, bindingEngine,dataForm) {
+    
     this.serviceProductionAzure = serviceProductionAzure;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
+    this.dataForm = dataForm;
   }
   shipmentQuery = {};
   activate(item) {
@@ -29,6 +33,9 @@ export class SalesInvoiceDetail {
       this.selectedShipmentDocument.Id = this.data.ShipmentDocumentId;
       this.selectedShipmentDocument.Code = this.data.ShipmentDocumentCode;
     }
+    if(this.dataForm.data.SalesInvoiceType){
+      this.typeFaktur = this.dataForm.data.SalesInvoiceType;
+    }
   }
 
   salesInvoiceItemsInfo = {
@@ -39,6 +46,7 @@ export class SalesInvoiceDetail {
       "Satuan Packing",
       "Jumlah",
       "Satuan",
+      "Nilai Konversi",
       "Harga Satuan",
       "Total Harga",
     ],
@@ -56,7 +64,13 @@ export class SalesInvoiceDetail {
     var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(
       this.selectedShipmentDocument.Id
     );
-
+    var dataProductIdentity = await this.serviceProductionAzure.searchGroupedProductWithProductIdentity(
+      this.selectedShipmentDocument.Id
+    );
+    // console.log("select change");
+    // console.log(this.selectedShipmentDocument);
+    // console.log(dataGroup);
+    // console.log(dataGroup2);
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
       this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
       this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
@@ -68,6 +82,7 @@ export class SalesInvoiceDetail {
             Quantity: item.Quantity,
             PackingUom: item.QuantityUOM,
             Total: item.Total,
+            ProductCode : dataProductIdentity.ProductIdentity
           };
           this.data.SalesInvoiceItems.push(siData);
         }
