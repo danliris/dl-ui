@@ -9,8 +9,8 @@
             <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
 
             <au-collection columns.bind="returnDetailsInfo.columns" remove.bind="returnDetailsInfo.onRemove"
-                items.bind="data.DOReturnDetailItems" errors.one-way="error.DOReturnDetailItems"
-                read-only.bind="readOnly" view-model.ref="ReturnDetailsCollection" options.bind="returnOptions"
+                items.bind="data.DOReturnDetailItems" errors.bind="error.DOReturnDetailItems"
+                read-only.bind="readOnly" view-model.ref="ReturnDetailsCollection" options.two-way="returnOptions"
                 item-template="modules/sales/do-return/template/do-return-detail-item">
             </au-collection>
         </td>

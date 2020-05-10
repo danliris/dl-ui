@@ -4,9 +4,9 @@
             <au-textbox value.bind="data.ShipmentDocumentCode" read-only.bind="true"></au-textbox>
             <au-textbox error.bind="error.SalesInvoiceItem" read-only.bind="true"></au-textbox>
 
-            <au-collection columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.DOReturnItems"
-                errors.bind="error.DOReturnItems" read-only.bind="readOnly" options.bind="shipmentDocumentTableOptions"
-                item-template="modules/sales/sales-invoice/template/sales-invoice-item"
+            <au-collection columns.bind="doReturnItemsInfo.columns" items.bind="data.DOReturnItems"
+                errors.bind="error.DOReturnItems" read-only.bind="readOnly" options.two-way="shipmentDocumentTableOptions"
+                item-template="modules/sales/do-return/template/do-return-item"
                 view-model.ref="ReturnDetailItemsCollection">
             </au-collection>
         </td>
