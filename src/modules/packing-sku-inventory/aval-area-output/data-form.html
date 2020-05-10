@@ -38,6 +38,11 @@
     /* th.avalTypesHeader {
       width: 160px;
     } */
+    
+    .btn-primary {
+    background-color: #3c8dbc;
+    margin-bottom: 4px;
+}
   </style>
 
   <au-input-form
@@ -64,6 +69,15 @@
 
     <au-dropdown
       options.bind="controlOptions"
+      label="Group"
+      value.bind="data.Group"
+      error.bind="error.Group"
+      read-only.bind="readOnly"
+      items.bind="groups"
+    ></au-dropdown>
+
+    <au-dropdown
+      options.bind="controlOptions"
       label="Zona"
       value.bind="data.DestinationArea"
       error.bind="error.DestinationArea"
@@ -71,7 +85,7 @@
       items.bind="destinationAreas"
     ></au-dropdown>
 
-    <div class="form-group">
+    <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">
           Cari
@@ -80,7 +94,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row" show.bind="isShowed">
       <table>
         <tr>
           <th rowspan="2">SAMBUNGAN</th>
@@ -145,467 +159,19 @@
           </td>
         </tr>
       </table>
-    </div>
-
-    <!-- <div class="row">
-      <div class="col-md-6">
-        <table class="leftTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>SAMBUNGAN</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalJointValue"
-                error.bind="error.AvalJointValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalJointCartNo"
-                error.bind="error.AvalJointCartNo"
-                read-only.bind="readOnly || isAvalJointEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Satuan</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalJointUom"
-                error.bind="error.AvalJointUom"
-                read-only.bind="readOnly || isAvalJointEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalJointQty"
-                error.bind="error.AvalJointQty"
-                read-only.bind="readOnly || isAvalJointEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalJointQtyKg"
-                error.bind="error.AvalJointQtyKg"
-                read-only.bind="readOnly || isAvalJointEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-6">
-        <table class="rightTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>AVAL A</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalAValue"
-                error.bind="error.AvalAValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalACartNo"
-                error.bind="error.AvalACartNo"
-                read-only.bind="readOnly || isAvalAEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Satuan</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalAUom"
-                error.bind="error.AvalAUom"
-                read-only.bind="readOnly || isAvalAEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalAQty"
-                error.bind="error.AvalAQty"
-                read-only.bind="readOnly || isAvalAEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalAQtyKg"
-                error.bind="error.AvalAQtyKg"
-                read-only.bind="readOnly || isAvalAEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <table class="leftTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>PANCINGAN</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalInducementValue"
-                error.bind="error.AvalInducementValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalInducementCartNo"
-                error.bind="error.AvalInducementCartNo"
-                read-only.bind="readOnly || isAvalInducementEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Satuan</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalInducementUom"
-                error.bind="error.AvalInducementUom"
-                read-only.bind="readOnly || isAvalInducementEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalInducementQty"
-                error.bind="error.AvalInducementQty"
-                read-only.bind="readOnly || isAvalInducementEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalInducementQtyKg"
-                error.bind="error.AvalInducementQtyKg"
-                read-only.bind="readOnly || isAvalInducementEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-6">
-        <table class="rightTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>AVAL B</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalBValue"
-                error.bind="error.AvalBValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalBCartNo"
-                error.bind="error.AvalBCartNo"
-                read-only.bind="readOnly || isAvalBEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Satuan</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalBUom"
-                error.bind="error.AvalBUom"
-                read-only.bind="readOnly || isAvalBEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalBQty"
-                error.bind="error.AvalBQty"
-                read-only.bind="readOnly || isAvalBEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalBQtyKg"
-                error.bind="error.AvalBQtyKg"
-                read-only.bind="readOnly || isAvalBEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <table class="leftTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>TALI KOTOR</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalDirtyRopeValue"
-                error.bind="error.AvalDirtyRopeValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalDirtyRopeCartNo"
-                error.bind="error.AvalDirtyRopeCartNo"
-                read-only.bind="readOnly || isAvalDirtyRopeEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Satuan</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalDirtyRopeUom"
-                error.bind="error.AvalDirtyRopeUom"
-                read-only.bind="readOnly || isAvalDirtyRopeEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalDirtyRopeQty"
-                error.bind="error.AvalDirtyRopeQty"
-                read-only.bind="readOnly || isAvalDirtyRopeEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalDirtyRopeQtyKg"
-                error.bind="error.AvalDirtyRopeQtyKg"
-                read-only.bind="readOnly || isAvalDirtyRopeEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-6">
-        <table class="rightTable">
-          <tr>
-            <th class="avalTypesHeader">
-              <p>KAIN KOTOR</p>
-            </th>
-            <th>
-              <p>Jml MTR</p>
-            </th>
-            <th>
-              <au-numeric
-                value.bind="data.AvalDirtyClothValue"
-                error.bind="error.AvalDirtyClothValue"
-                read-only.bind="true"
-              ></au-numeric>
-            </th>
-          </tr>
-          <tr>
-            <td rowspan="4"></td>
-            <td>
-              <p>No. Kereta</p>
-            </td>
-            <td>
-              <au-textbox
-                placeholder="No. Kereta"
-                value.bind="data.AvalDirtyClothCartNo"
-                error.bind="error.AvalDirtyClothCartNo"
-                read-only.bind="readOnly || isAvalDirtyClothEditable"
-              >
-              </au-textbox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-autocomplete
-                placeholder="Satuan"
-                value.bind="AvalDirtyClothUom"
-                error.bind="error.AvalDirtyClothUom"
-                read-only.bind="readOnly || isAvalDirtyClothEditable"
-                loader.bind="uoms"
-                text="Unit"
-              ></au-autocomplete>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalDirtyClothQty"
-                error.bind="error.AvalDirtyClothQty"
-                read-only.bind="readOnly || isAvalDirtyClothEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Qty KG</p>
-            </td>
-            <td>
-              <au-numeric
-                value.bind="data.AvalDirtyClothQtyKg"
-                error.bind="error.AvalDirtyClothQtyKg"
-                read-only.bind="readOnly || isAvalDirtyClothEditable"
-              ></au-numeric>
-            </td>
-          </tr>
-        </table>
-      </div>
     </div> -->
+    <br>
+    <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+    <br>
 
     <au-collection
       show.bind="isHasData"
       items.bind="data.DyeingPrintingItems"
-      add.bind="addItems"
       options.bind="itemOptions"
       errors.bind="error.AvalProductionOrders"
       columns.bind="dyeingPrintingItemsColumns"
       read-only.bind="readOnly"
-      item-template="modules/packing-sku-inventory/aval-area-input/templates/items"
+      item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
     >
     </au-collection>
     <div

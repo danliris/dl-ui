@@ -1,0 +1,22 @@
+<template replace-part="StrikeOffItems">
+    <tr>
+        <td>
+            <au-autocomplete value.bind="selectedColorReceipt" error.bind="error.ColorReceipt" loader.bind="colorReceiptLoader"
+                text="ColorCode" read-only.bind="readOnly"  options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+            <button class="btn btn-info pull-right" click.delegate="toggle()">i</button>
+            
+        </td>
+    </tr>
+    <tr if.bind="isShowing">
+        <td colspan="2">
+            <au-collection columns.bind="colorReceiptColumns" items.bind="data.ColorReceipt.ColorReceiptItems" read-only.bind="true"
+                item-template="modules/production/finishing-printing/strike-off/template/color">
+            </au-collection>
+
+        </td>
+    </tr>
+</template>

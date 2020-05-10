@@ -8,6 +8,9 @@
 
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
       read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
+    
+    <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
+      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
 
     <au-autocomplete options.bind="controlOptions" value.bind="selectedWarehouses" label="Nomor Bon"
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="warehousesAreaLoader"
@@ -18,6 +21,7 @@
     <br>
     <au-collection columns.bind="itemColumns" items.bind="data.warehousesProductionOrders"
       errors.one-way="error.WarehousesProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
+      add.bind="addItemCallback"
       item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item">
     </au-collection>
 
