@@ -62,6 +62,15 @@
             <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
               keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
             </au-multiline>
+
+            <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly">
+            </au-textbox>
+
+            <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit"
+              read-only.bind="readOnly" loader.one-time="unitLoader" key="Code" text="Name"
+              keypress.delegate="enterDelegate($event)" placeholder="Pilih Unit">
+            </au-autocomplete>
+            </au-dropdown>
           </div>
         </div>
       </div>
