@@ -67,6 +67,10 @@ export class ServiceProductionAzure extends RestService {
     var endpoint = `${shipmentDocumentServiceUri}/product-names/${shipmentDocumentId}`;
     return super.get(endpoint);
   }
+  searchGroupedProductWithProductIdentity(shipmentDocumentId) {
+    var endpoint = `${shipmentDocumentServiceUri}/${shipmentDocumentId}`;
+    return super.get(endpoint);
+  }
 }
 
 export class ServiceCore extends RestService {

@@ -10,6 +10,7 @@ import { Service, ServiceCore } from "./service";
 
 var BuyersLoader = require("../../../loader/buyers-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
+var UnitLoader = require("../../../loader/unit-loader");
 
 @containerless()
 @inject(Service, ServiceCore, BindingSignaler, BindingEngine)
@@ -23,6 +24,7 @@ export class DataForm {
   @bindable VatType;
   @bindable getTempo;
   @bindable Tempo;
+  @bindable Sales;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
@@ -44,6 +46,7 @@ export class DataForm {
 
     this.VatType = this.data.VatType;
     this.TotalPayment = this.data.TotalPayment;
+    this.Sales = this.data.Sales;
     this.data.TotalPayment = this.getTotalPayment;
 
     if (this.data.Currency && this.data.Currency.Id) {
@@ -76,8 +79,13 @@ export class DataForm {
     if(this.data.Tempo){
       this.Tempo = this.data.Tempo;
     }
+    if(this.data.Sales){
+      this.Sales = this.data.Sales;
+    }
+    if(this.data.Unit){
+      this.selectedUnit = this.data.Unit;
+    }
 
-    console.log(this);
   }
 
   get getTotalPayment() {
@@ -232,10 +240,28 @@ export class DataForm {
     }
   }
 
+  @bindable selectedUnit
+  selectedUnitChanged(n,o){
+    if(this.selectedUnit && this.selectedUnit.Id){
+      this.data.Unit = {};
+        this.data.Unit.Id = this.selectedUnit.Id;
+        this.data.Unit.Code = this.selectedUnit.Code;
+        this.data.Unit.Name = this.selectedUnit.Name;
+      }else{
+        this.data.Unit.Id = null;
+        this.data.Unit.Code = null;
+        this.data.Unit.Name = null;
+      }
+    }
+
   get currencyLoader() {
     return CurrencyLoader;
   }
   get buyersLoader() {
     return BuyersLoader;
   }
+  get unitLoader() {
+    return UnitLoader;
+  }
+  
 }
