@@ -17,7 +17,7 @@ export class Service extends RestService {
         var query = `?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
 
 
-        let endpoint = `${serviceUri}/downloads/xls${query}`;
+        let endpoint = `${serviceUri}/xls${query}`;
         return super.getXls(endpoint);
     }
 }
