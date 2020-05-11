@@ -22,7 +22,6 @@ export class DataForm {
   @bindable SalesInvoiceDate;
   @bindable DueDate;
   @bindable VatType;
-  @bindable getTempo;
   @bindable Tempo;
   @bindable Sales;
 
@@ -61,10 +60,8 @@ export class DataForm {
       );
     }
 
-    if(this.data.Unit&& this.data.Unit.Id){
-      this.selectedUnit = await this.serviceCore.getUnitById(
-        this.data.Unit.Id
-      )
+    if (this.data.Unit && this.data.Unit.Id) {
+      this.selectedUnit = await this.serviceCore.getUnitById(this.data.Unit.Id);
     }
 
     if (this.data.Buyer && this.data.Buyer.NPWP) {
@@ -85,13 +82,16 @@ export class DataForm {
       this.TotalPayment = this.data.TotalPayment;
       this.data.TotalPayment = this.getTotalPayment;
     }
-    if(this.data.Tempo){
-      this.Tempo = this.data.Tempo;
+
+    var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+    var dueTime = new Date(this.data.DueDate).getTime();
+
+    if (salesInvoiceTime && dueTime) {
+      this.Tempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
     }
-    if(this.data.Sales){
+    if (this.data.Sales) {
       this.Sales = this.data.Sales;
     }
-    console.log(this);
   }
 
   get getTotalPayment() {
@@ -117,49 +117,34 @@ export class DataForm {
     if (this.SalesInvoiceDate && this.Tempo) {
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
       this.data.Tempo = this.Tempo;
-      var milisecondTemp = (1000 * 60 * 60 * 24* this.data.Tempo);
+      var milisecondTemp = 1000 * 60 * 60 * 24 * this.data.Tempo;
 
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
       var dueDate = new Date();
       dueDate.setTime(salesInvoiceTime + milisecondTemp);
       this.data.DueDate = new Date(dueDate);
       this.DueDate = new Date(dueDate);
-      this.getTempo = this.Tempo;      
     }
   }
+
   DueDateChanged(newValue, oldValue) {
-
     if (this.SalesInvoiceDate && this.DueDate) {
-
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
-
       this.data.DueDate = this.DueDate;
-
-
-
-      var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
-
-      var dueTime = new Date(this.data.DueDate).getTime();
-
-      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
-      this.Tempo = this.getTempo;
-
     }
-
   }
 
   TempoChanged(newValue, oldValue) {
     if (this.SalesInvoiceDate && this.Tempo) {
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
       this.data.Tempo = this.Tempo;
-      var milisecondTemp = (1000 * 60 * 60 * 24* this.data.Tempo);
+      var milisecondTemp = 1000 * 60 * 60 * 24 * this.data.Tempo;
 
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
       var dueDate = new Date();
       dueDate.setTime(salesInvoiceTime + milisecondTemp);
       this.data.DueDate = new Date(dueDate);
       this.DueDate = new Date(dueDate);
-      this.getTempo = this.Tempo;
     }
   }
 
@@ -248,19 +233,19 @@ export class DataForm {
     }
   }
 
-  @bindable selectedUnit
-  selectedUnitChanged(n,o){
-    if(this.selectedUnit && this.selectedUnit.Id){
+  @bindable selectedUnit;
+  selectedUnitChanged(n, o) {
+    if (this.selectedUnit && this.selectedUnit.Id) {
       this.data.Unit = {};
-        this.data.Unit.Id = this.selectedUnit.Id;
-        this.data.Unit.Code = this.selectedUnit.Code;
-        this.data.Unit.Name = this.selectedUnit.Name;
-      }else{
-        this.data.Unit.Id = null;
-        this.data.Unit.Code = null;
-        this.data.Unit.Name = null;
-      }
+      this.data.Unit.Id = this.selectedUnit.Id;
+      this.data.Unit.Code = this.selectedUnit.Code;
+      this.data.Unit.Name = this.selectedUnit.Name;
+    } else {
+      this.data.Unit.Id = null;
+      this.data.Unit.Code = null;
+      this.data.Unit.Name = null;
     }
+  }
 
   get currencyLoader() {
     return CurrencyLoader;
@@ -271,5 +256,4 @@ export class DataForm {
   get unitLoader() {
     return UnitLoader;
   }
-  
 }

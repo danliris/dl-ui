@@ -58,7 +58,7 @@
               read-only.bind="true">
             </au-datepicker>
 
-            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly">
+            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly" placeholder="Input Tempo (hari)">
             </au-textbox>
 
             <au-dropdown label="Jenis PPN" value.bind="data.VatType" items.bind="VatTypeOptions"
@@ -72,9 +72,9 @@
             <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly">
             </au-textbox>
 
-            <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit"
-              read-only.bind="readOnly" loader.one-time="unitLoader" key="Code" text="Name"
-              keypress.delegate="enterDelegate($event)" placeholder="Pilih Unit">
+            <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit" read-only.bind="readOnly"
+              loader.one-time="unitLoader" key="Code" text="Name" keypress.delegate="enterDelegate($event)"
+              placeholder="Pilih Unit">
             </au-autocomplete>
             </au-dropdown>
           </div>
