@@ -230,11 +230,13 @@ export class DataForm {
       this.data.Buyer.Address = null;
       this.data.Buyer.NPWP = null;
       this.data.Buyer.NIK = null;
+      this.itemOptions.BuyerId = null;
+      this.data.SalesInvoiceDetails = [];
     }
   }
 
   @bindable selectedUnit;
-  selectedUnitChanged(n, o) {
+  selectedUnitChanged(newValue, oldValue) {
     if (this.selectedUnit && this.selectedUnit.Id) {
       this.data.Unit = {};
       this.data.Unit.Id = this.selectedUnit.Id;

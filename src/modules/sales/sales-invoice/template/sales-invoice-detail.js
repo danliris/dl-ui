@@ -28,6 +28,7 @@ export class SalesInvoiceDetail {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
+    this.BuyerId = null;
     this.BuyerId = item.context.options.BuyerId;
     this.shipmentQuery = { BuyerId: this.BuyerId };
 
