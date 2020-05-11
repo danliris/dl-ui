@@ -13,12 +13,14 @@ export class DoReturnDetailItem {
     this.error = item.error;
     this.options = item.options;
 
-    if (this.data) {
-      this.data.DOReturnItems = this.data.SalesInvoiceItems;
+    if(!this.data.Id) {
+      if (this.data) {
+        this.data.DOReturnItems = this.data.SalesInvoiceItems;
+      }
     }
   }
 
-  salesInvoiceItemsInfo = {
+  doReturnItemsInfo = {
     columns: [
       "Kode Barang",
       "Nama Barang",

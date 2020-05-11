@@ -349,5 +349,18 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'sales/sales-invoices-report',
+        name: 'sales-invoices-report',
+        moduleId: './modules/sales/reports/sales-invoices-report/index',
+        nav: true,
+        title: 'Laporan Pembayaran Faktur',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];

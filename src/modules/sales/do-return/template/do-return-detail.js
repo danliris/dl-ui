@@ -50,17 +50,19 @@ export class DoReturnDetail {
         .then((result) => result);
 
       this.data.SalesInvoice = this.selectedSalesInvoice;
-      if (salesInvoice) {
-        var data = salesInvoice.SalesInvoiceDetails;
-        for (var detailItem of data) {
-          delete detailItem.Id;
-          for (var item of detailItem.SalesInvoiceItems) {
-            delete item.Id;
+      if (!this.data.Id) {
+        if (salesInvoice) {
+          var data = salesInvoice.SalesInvoiceDetails;
+          for (var detailItem of data) {
+            delete detailItem.Id;
+            for (var item of detailItem.SalesInvoiceItems) {
+              delete item.Id;
+            }
           }
+          this.data.DOReturnDetailItems = data.map((detail) => detail);
         }
-        this.data.DOReturnDetailItems = data.map((detail) => detail);
+      } 
       }
-    } 
     else {
       this.data.DOReturnDetailItems = [];
     }
