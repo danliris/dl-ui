@@ -222,6 +222,7 @@ export class DataForm {
       this.data.Buyer.Address = this.selectedBuyer.Address;
       this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
       this.data.Buyer.NIK = this.selectedBuyer.NIK;
+      this.data.SalesInvoiceDetails = [];
       this.itemOptions.BuyerId = this.data.Buyer.Id;
     } else {
       this.data.Buyer.Id = null;
@@ -230,8 +231,8 @@ export class DataForm {
       this.data.Buyer.Address = null;
       this.data.Buyer.NPWP = null;
       this.data.Buyer.NIK = null;
-      this.itemOptions.BuyerId = null;
       this.data.SalesInvoiceDetails = [];
+      this.itemOptions.BuyerId = null;
     }
   }
 

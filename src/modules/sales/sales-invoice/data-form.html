@@ -18,7 +18,7 @@
             </au-datepicker>
 
             <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer"
-              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly">
+              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly || isEdit">
             </au-autocomplete>
 
             <au-textbox label="Buyer Address" value.bind="selectedBuyer.Address" read-only.bind="true">
