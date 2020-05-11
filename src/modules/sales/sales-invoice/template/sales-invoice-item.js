@@ -66,7 +66,7 @@ export class SalesInvoiceItem {
         this.data.ConvertValue = parseInt(this.data.Total / (10936/10000));
         this.data.ConvertUnit = "MTR";
       }else{
-        this.data.ConvertValue = null;
+        this.data.ConvertValue = 0;
         this.data.ConvertUnit= null;
       }
     } else {
