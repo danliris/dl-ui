@@ -61,6 +61,12 @@ export class DataForm {
       );
     }
 
+    if(this.data.Unit&& this.data.Unit.Id){
+      this.selectedUnit = await this.serviceCore.getUnitById(
+        this.data.Unit.Id
+      )
+    }
+
     if (this.data.Buyer && this.data.Buyer.NPWP) {
       this.selectedBuyer.NPWP = this.data.Buyer.NPWP;
     }
@@ -85,10 +91,7 @@ export class DataForm {
     if(this.data.Sales){
       this.Sales = this.data.Sales;
     }
-    if(this.data.Unit){
-      this.selectedUnit = this.data.Unit;
-    }
-
+    console.log(this);
   }
 
   get getTotalPayment() {
