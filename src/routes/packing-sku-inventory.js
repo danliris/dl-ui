@@ -56,7 +56,7 @@ module.exports = [
         name: 'im-area-input',
         moduleId: './modules/packing-sku-inventory/im-area-input/index',
         nav: true,
-        title: 'Inspection Material Dyeing/Printing',
+        title: 'Penerimaan IM Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -74,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -83,7 +83,7 @@ module.exports = [
         name: 'product-packing',
         moduleId: './modules/packing-sku-inventory/im-area-output/index',
         nav: true,
-        title: 'Bon Inspection Material Dyeing/Printing',
+        title: 'Pencatatan Keluar IM Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
