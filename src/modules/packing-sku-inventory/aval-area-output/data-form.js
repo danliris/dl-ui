@@ -164,7 +164,6 @@ export class DataForm {
           // });
 
           this.data.DyeingPrintingItems = result;
-          console.log(this.data);
         } else {
           this.isHasData = false;
         }

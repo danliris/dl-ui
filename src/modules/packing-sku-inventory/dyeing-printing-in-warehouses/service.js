@@ -12,14 +12,37 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
+    getPreWarehouse(searchDate, searchShift, searchGroup) {
+      var endpoint = `${serviceUri}/pre-warehouse`;
+      var query = "";
+  
+      if (searchDate) {
+        if (query === "") query = `searchDate=${searchDate}`;
+        else query = `${query}&searchDate=${searchDate}`;
+      }
+      if (searchShift) {
+        if (query === "") query = `searchShift=${searchShift}`;
+        else query = `${query}&searchShift=${searchShift}`;
+      }
+      if (searchGroup) {
+        if (query === "") query = `searchGroup=${searchGroup}`;
+        else query = `${query}&searchGroup=${searchGroup}`;
+      }
+      if (query !== "") {
+        endpoint = `${serviceUri}/pre-warehouse?${query}`;
+      }
+  
+      return super.get(endpoint);
     }
 
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
+    }
+
+    getById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
     }
 
     update(data) {

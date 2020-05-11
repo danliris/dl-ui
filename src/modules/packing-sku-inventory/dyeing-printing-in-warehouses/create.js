@@ -1,43 +1,61 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service } from './service';
-import { activationStrategy } from 'aurelia-router';
+import { inject, Lazy } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
-    isCreate = true;
+  isCreate = true;
 
-    constructor(router, service) {
-        this.router = router;
-        this.service = service;
-        this.data = {};
-        this.error = {};
-    }
+  constructor(router, service) {
+    this.router = router;
+    this.service = service;
+    this.data = {};
+    this.error = {};
 
+    this.isShowed = true;
+  }
 
-    back() {
-        this.router.navigateToRoute('list');
-    }
+  back() {
+    this.router.navigateToRoute("list");
+  }
 
-    determineActivationStrategy() {
-        return activationStrategy.replace; //replace the viewmodel with a new instance
-        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-        // or activationStrategy.noChange to explicitly use the default behavior
-    }
+  determineActivationStrategy() {
+    return activationStrategy.replace; //replace the viewmodel with a new instance
+    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+    // or activationStrategy.noChange to explicitly use the default behavior
+  }
 
-    save() {
-        
-        this.service.create(this.data)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
-                    this.error = e;
-                }
-            })
-    }
+  save() {
+    console.log(this.data);
+    debugger;
+    let CreateData = {};
+    CreateData.Area = this.data.Area;
+    CreateData.Date = this.data.Date;
+    CreateData.Shift = this.data.Shift;
+    CreateData.Group = this.data.Group;
+    CreateData.WarehousesProductionOrders = this.data.warehousesProductionOrders.map(
+      (productionOrder) => {
+          
+      }
+    );
+
+    this.service
+      .create(this.data)
+      .then((result) => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          { replace: true, trigger: true }
+        );
+      })
+      .catch((e) => {
+        if (e.statusCode == 500) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        } else {
+          this.error = e;
+        }
+      });
+  }
 }
