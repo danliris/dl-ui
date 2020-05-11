@@ -135,7 +135,7 @@ module.exports = [
     //     name: 'dyeing-printing-in-packaging',
     //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
     //     nav: true,
-    //     title: 'Penerimaan Packing Area Dyeing/Printing',
+    //     title: 'Penerimaan Packing Area Dyeing/Printing V1',
     //     auth: true,
     //     settings: {
     //         group: "ps-inventory",
@@ -144,8 +144,8 @@ module.exports = [
     //     }
     // },
     {
-        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
-        name: 'dyeing-printing-in-packaging',
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging-v2',
+        name: 'dyeing-printing-in-packaging-v2',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
         nav: true,
         title: 'Penerimaan Packing Dyeing/Printing',

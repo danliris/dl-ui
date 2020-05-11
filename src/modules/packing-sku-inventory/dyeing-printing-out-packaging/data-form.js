@@ -24,7 +24,7 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
+    itemColumns = ["Select","No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
     shifts = ["PAGI", "SIANG"];
     groups = ["A", "B"];
     detailOptions = {};
@@ -57,11 +57,18 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        if (this.data.bonNo) {
-            this.selectedPackaging = {};
-            this.selectedPackaging.bonNo = this.data.bonNo;
+        // if(this.data.id){
+        //     this.callbackId = await this.service.getById(this.data.id);
+        // }
+        if(this.data.packagingProductionOrders)
+        {
+            this.selectedPackaging = this.data;
+            // this.selectedPackaging.bonNo = this.data.bonNo;                        
         }
-
+        // console.log(this);
+    }
+    async activate(context){
+        // console.log(context);
     }
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
@@ -73,8 +80,11 @@ export class DataForm {
         this.detailOptions.destinationArea = this.data.destinationArea;
         if(n){
             this.data.bonNoInput = n.bonNo;
+            this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
         }
-        // console.log(n);
+        // if(this.selectedPackaging){
+        //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+        // }
     }
 
     ExportToExcel() {
