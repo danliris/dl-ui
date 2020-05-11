@@ -64,6 +64,9 @@ export class DataForm {
     if (this.data.Buyer && this.data.Buyer.NPWP) {
       this.selectedBuyer.NPWP = this.data.Buyer.NPWP;
     }
+    if (this.data.Buyer && this.data.Buyer.NIK) {
+      this.selectedBuyer.NIK = this.data.Buyer.NIK;
+    }
     if (this.data.SalesInvoiceDate) {
       this.SalesInvoiceDate = this.data.SalesInvoiceDate;
     }
@@ -230,6 +233,7 @@ export class DataForm {
       this.data.Buyer.Code = this.selectedBuyer.Code;
       this.data.Buyer.Address = this.selectedBuyer.Address;
       this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
+      this.data.Buyer.NIK = this.selectedBuyer.NIK;
       this.itemOptions.BuyerId = this.data.Buyer.Id;
     } else {
       this.data.Buyer.Id = null;
@@ -237,6 +241,7 @@ export class DataForm {
       this.data.Buyer.Code = null;
       this.data.Buyer.Address = null;
       this.data.Buyer.NPWP = null;
+      this.data.Buyer.NIK = null;
     }
   }
 

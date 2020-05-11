@@ -67,10 +67,6 @@ export class SalesInvoiceDetail {
     var dataProductIdentity = await this.serviceProductionAzure.searchGroupedProductWithProductIdentity(
       this.selectedShipmentDocument.Id
     );
-    // console.log("select change");
-    // console.log(this.selectedShipmentDocument);
-    // console.log(dataGroup);
-    // console.log(dataGroup2);
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
       this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
       this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;

@@ -58,7 +58,6 @@ export class SalesInvoiceItem {
       this.data.Uom = {};
       this.data.Uom.Id = this.selectedUom.Id;
       this.data.Uom.Unit = this.selectedUom.Unit;
-      // console.log(newValue);
       if(newValue.Unit =="MTR"){
         this.data.ConvertValue = parseInt(this.data.Total * (10936/10000));
         this.data.ConvertUnit = "YARD";
@@ -96,7 +95,7 @@ export class SalesInvoiceItem {
     var findType= refType.filter((data)=> {
       return data.code == this.dataForm.data.SalesInvoiceType;
     });
-    console.log(findType);
+    
     if(findType.length>0){
       if(findType[0].entity == "dyeing")
       {isdyeing = 1;}
