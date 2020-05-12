@@ -1,10 +1,11 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/sales-invoices";
-const shipmentDocumentServiceUri = "finishing-printing/inventory/fp-shipment-documents/new";
+const shipmentDocumentServiceUri =
+  "finishing-printing/inventory/fp-shipment-documents/new";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
-const unitServiceUri ="master/units";
+const unitServiceUri = "master/units";
 const uomServiceUri = "master/uoms";
 
 export class Service extends RestService {
@@ -46,7 +47,6 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/sales-invoice-pdf/${id}`;
     return super.getPdf(endpoint);
   }
-
 }
 
 export class ServiceProductionAzure extends RestService {
@@ -101,7 +101,7 @@ export class ServiceCore extends RestService {
     var info = { select: select };
     return super.get(endpoint, null, info);
   }
-  getUnitById(id,select){
+  getUnitById(id, select) {
     var endpoint = `${unitServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
