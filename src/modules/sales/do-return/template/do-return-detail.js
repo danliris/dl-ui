@@ -11,42 +11,60 @@ var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DoReturnDetail {
-  returntOptions = {};
+  @bindable data;
+  @bindable error;
+
+  returnOptions = {};
 
   returnDetailsInfo = {
     columns: ["No. Bon Pengiriman Barang"],
     onRemove: function () {
-      this.context.ReturnDetailsCollection.bind();
+      this.ReturnDetailsCollection.bind();
     }.bind(this),
   };
+
+  constructor(service, bindingEngine, bindingSignaler) {
+    this.service = service;
+  }
 
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+
+    this.selectedSalesInvoice = this.data.SalesInvoice || null;
+  }
+
+  enterDelegate(event) {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      return false;
+    } else return true;
   }
 
   @bindable selectedSalesInvoice;
-  selectedSalesInvoiceChanged(newValue, oldValue) {
-    if (this.selectedSalesInvoice && this.selectedSalesInvoice.SalesInvoiceId) {
-      this.data.SalesInvoiceId = this.selectedSalesInvoice.SalesInvoiceId;
-      this.data.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
-      var SalesInvoiceData = this.selectedSalesInvoice;
+  async selectedSalesInvoiceChanged(newValue, oldValue) {
+    if (newValue) {
+      var salesInvoice = await this.service
+        .getSalesInvoiceById(newValue.Id)
+        .then((result) => result);
+
+      this.data.SalesInvoice = this.selectedSalesInvoice;
       if (!this.data.Id) {
-        this.data.DoReturnDetailItems = [];
-        this.data.DoReturnItems = [];
-        for (var detailItem of SalesInvoiceData) {
-          var drdi = {
-            selectedShipmentDocument: detailItem.ShipmentDocument,
-          };
+        if (salesInvoice) {
+          var data = salesInvoice.SalesInvoiceDetails;
+          for (var detailItem of data) {
+            delete detailItem.Id;
+            for (var item of detailItem.SalesInvoiceItems) {
+              delete item.Id;
+            }
+          }
+          this.data.DOReturnDetailItems = data.map((detail) => detail);
         }
-        this.data.DoReturnDetailItems.push(drdi);
+      } 
       }
-      
-      console.log(this.selectedSalesInvoice)
-    } else {
-      this.data.SalesInvoiceId = null;
-      this.data.SalesInvoiceNo = null;
+    else {
+      this.data.DOReturnDetailItems = [];
     }
   }
 
