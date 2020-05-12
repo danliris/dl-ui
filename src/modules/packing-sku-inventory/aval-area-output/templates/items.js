@@ -6,7 +6,6 @@ import {
   import {
     Service
   } from "../service";
-//   var WarpingBeamByOrderLoader = require("../../../../loader/weaving-warping-beam-by-order-loader");
   
   @inject(BindingEngine, Service)
   export class Items {
@@ -15,10 +14,6 @@ import {
       this.service = service;
       this.bindingEngine = bindingEngine;
     }
-  
-    // get beams() {
-    //   return WarpingBeamByOrderLoader;
-    // }
   
     async activate(context) {
       this.data = context.data;
@@ -30,6 +25,15 @@ import {
     //   };
       
       this.readOnly = context.options.readOnly;
+// console.log(this.data);
+      if(this.data.avalInputId || this.data.id){
+        this.data.AvalItemId = this.data.avalItemId;
+        this.data.AvalType = this.data.avalType;
+        this.data.AvalCartNo = this.data.avalCartNo;
+        this.data.AvalUomUnit = this.data.avalUomUnit;
+        this.data.AvalQuantity = this.data.avalQuantity;
+        this.data.AvalQuantityKg = this.data.avalQuantityKg;
+      }
     }
   }
   

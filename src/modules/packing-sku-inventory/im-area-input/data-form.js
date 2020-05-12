@@ -20,12 +20,14 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Jumlah Order", "Saldo"];
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
     }
+
+    groups = ["A", "B"];
 
     @computedFrom("data.id")
     get isEdit() {

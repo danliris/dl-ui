@@ -29,7 +29,7 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";      
+      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";    
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
       var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
@@ -50,7 +50,6 @@ export async function configure(aurelia) {
       var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
       var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
       var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
-
 
 
       config.registerEndpoint('auth', auth);

@@ -1,18 +1,10 @@
-import {
-  inject,
-  Lazy
-} from 'aurelia-framework';
-import {
-  HttpClient
-} from 'aurelia-fetch-client';
-import {
-  RestService
-} from '../../../utils/rest-service';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
+import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "aval-area-output";
+const serviceUri = "output-aval";
 
 export class Service extends RestService {
-
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "packing-inventory");
   }
@@ -22,14 +14,48 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  getAvailableAval(searchDate, searchShift, searchGroup) {
+    var endpoint = `${serviceUri}/available-aval`;
+    var query = "";
+
+    if (searchDate) {
+      if (query === "") query = `searchDate=${searchDate}`;
+      else query = `${query}&searchDate=${searchDate}`;
+    }
+    if (searchShift) {
+      if (query === "") query = `searchShift=${searchShift}`;
+      else query = `${query}&searchShift=${searchShift}`;
+    }
+    if (searchGroup) {
+      if (query === "") query = `searchGroup=${searchGroup}`;
+      else query = `${query}&searchGroup=${searchGroup}`;
+    }
+    if (query !== "") {
+      endpoint = `${serviceUri}/available-aval?${query}`;
+    }
+
+    return super.get(endpoint);
+  }
+
   getById(id) {
     let endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
+  generateExcelReportById(id) {
+    let endpoint = `${serviceUri}/xls/${id}`;
+    return super.getXls(endpoint);
+  }
+
   create(data) {
     let endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
+  }
+
+  generateExcel(id) {
+    var endpoint = `${serviceUri}/xls/${id}`;
+
+    return super.getXls(endpoint);
   }
 
   // update(data) {

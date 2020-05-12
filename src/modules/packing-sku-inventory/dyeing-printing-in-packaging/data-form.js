@@ -1,7 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
+import {EventAggregator} from 'aurelia-event-aggregator';
 let PackagingAreaLoader = require("../../../loader/input-packaging-loader");
 
+@inject(EventAggregator)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -21,9 +23,12 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Qty Order","Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan","Qty Masuk"];
     shifts = ["PAGI", "SIANG"];
-    constructor(service) {
+    groups = ["A", "B"];
+    constructor(eventAggregator,service) {
+        this.eventAggregator = eventAggregator;
         this.service = service;
     }
 
@@ -38,6 +43,7 @@ export class DataForm {
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -54,23 +60,28 @@ export class DataForm {
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
+            this.data.packagingProductionOrders = [];
         }
+
     }
 
     @bindable selectedPackaging;
     selectedPackagingChanged(n, o) {
-        if (this.selectedPackaging) {
-            this.data.inputPackagingId = this.selectedPackaging.id;
-            if (this.selectedPackaging.packagingProductionOrders) {
-                this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+        if(n!=o){
+            if (this.selectedPackaging) {
+                this.data.inputPackagingId = this.selectedPackaging.id;
+                this.data.bonNo = this.selectedPackaging.bonNo;
             }
-            this.data.bonNo = this.selectedPackaging.bonNo;
         }
     }
     
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
     }
+    addItemCallback = (e) => {
+        this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
+        this.data.packagingProductionOrders.push({});
+    };
 }
 
 

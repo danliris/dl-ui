@@ -23,8 +23,9 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Konstruksi", "Jenis", "Warna", "Motif", "Grade", "Packaging", "Qty Packaging", "Satuan", "QTY"];
+    itemColumns = ["No. SPP","QTY Order","QTY Masuk", "Buyer", "Konstruksi", "Jenis", "Warna", "Motif", "Grade", "Packaging", "Qty Packaging", "Satuan"];
     shifts = ["PAGI", "SIANG"];
+    groups = ["A","B"];
     detailOptions = {};
 
     constructor(service) {
@@ -63,8 +64,8 @@ export class DataForm {
 
     }
     addItemCallback = (e) => {
-        this.data.WarehousesProductionOrders = this.data.WarehousesProductionOrders || [];
-        this.data.WarehousesProductionOrders.push({})
+        this.data.warehousesProductionOrders = this.data.warehousesProductionOrders || [];
+        this.data.warehousesProductionOrders.push({})
     };
 
     @bindable selectedWarehouses;
@@ -72,13 +73,18 @@ export class DataForm {
         if (this.selectedWarehouses) {
             this.data.inputWarehousesId = this.selectedWarehouses.id;
             if (this.selectedWarehouses.warehousesProductionOrders) {
-                this.data.warehousesProductionOrders = this.selectedWarehouses.warehousesProductionOrders;
+                // this.data.warehousesProductionOrders = this.selectedWarehouses.warehousesProductionOrders;
                 this.data.bonNo = this.selectedWarehouses.bonNo;
             }
 
             this.detailOptions.destinationArea = this.data.destinationArea;
         }
-        
+        if(n!=o){
+            if (this.selectedWarehouses) {
+                this.data.inputWarehousesId = this.selectedWarehouses.id;
+                this.data.bonNo = this.selectedWarehouses.bonNo;
+            }
+        }
     }
 
     ExportToExcel() {

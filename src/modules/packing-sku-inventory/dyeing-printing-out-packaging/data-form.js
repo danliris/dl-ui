@@ -7,6 +7,7 @@ let PackagingAreaLoader = require("../../../loader/output-packaging-loader");
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable readOnlyKeterangan;
     @bindable data;
     @bindable error;
     formOptions = {
@@ -23,8 +24,9 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
     shifts = ["PAGI", "SIANG"];
+    groups = ["A", "B"];
     detailOptions = {};
     destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
     constructor(service) {
@@ -55,7 +57,6 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
@@ -63,21 +64,17 @@ export class DataForm {
 
     }
     addItemCallback = (e) => {
-        this.data.PackagingProductionOrders = this.data.PackagingProductionOrders || [];
-        this.data.PackagingProductionOrders.push({})
+        this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
+        this.data.packagingProductionOrders.push({});
     };
 
     @bindable selectedPackaging;
     selectedPackagingChanged(n, o) {
-        if (this.selectedPackaging) {
-            this.data.inputPackagingId = this.selectedPackaging.id;
-            if (this.selectedPackaging.packagingProductionOrders) {
-                this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-            }
-
-            this.detailOptions.destinationArea = this.data.destinationArea;
+        this.detailOptions.destinationArea = this.data.destinationArea;
+        if(n){
+            this.data.bonNoInput = n.bonNo;
         }
-        
+        // console.log(n);
     }
 
     ExportToExcel() {

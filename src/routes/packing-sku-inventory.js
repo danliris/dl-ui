@@ -157,12 +157,11 @@ module.exports = [
         }
     },
     {
-
-        route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
-        name: 'dyeing-printing-goods-warehouse',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+        route: 'packing-sku-inventory/dyeing-printing-out-warehouses',
+        name: 'dyeing-printing-out-warehouses',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-warehouses/index',
         nav: true,
-        title: 'Bon Gudang Barang Jadi Dyeing/Printing',
+        title: 'Bon Keluar Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -170,12 +169,26 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+
+    //     route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
+    //     name: 'dyeing-printing-goods-warehouse',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+    //     nav: true,
+    //     title: 'Bon Gudang Barang Jadi Dyeing/Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/aval-area-input',
         name: 'aval-area-input',
         moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Penerimaan Gudang Aval Dyeing Printing',
+        title: 'Penerimaan Aval Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -188,7 +201,7 @@ module.exports = [
         name: 'aval-area-output',
         moduleId: './modules/packing-sku-inventory/aval-area-output/index',
         nav: true,
-        title: 'Dokumen Keluar Gudang Aval Dyeing Printing',
+        title: 'Bon Aval Area Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -196,19 +209,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'packing-sku-inventory/aval-area-note',
-        name: 'aval-area-note',
-        moduleId: './modules/packing-sku-inventory/aval-area-note/index',
-        nav: true,
-        title: 'Bon Aval Area',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'packing-sku-inventory/aval-area-note',
+    //     name: 'aval-area-note',
+    //     moduleId: './modules/packing-sku-inventory/aval-area-note/index',
+    //     nav: true,
+    //     title: 'Bon Aval Area',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/dyeing-printing-in-packaging',
         name: 'dyeing-printing-in-packaging',
@@ -222,6 +235,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+    //     name: 'dyeing-printing-in-packaging',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
+    //     nav: true,
+    //     title: 'Penerimaan Packing Area Dyeing/Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',
