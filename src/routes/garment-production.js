@@ -816,7 +816,7 @@ module.exports = [
         name: 'garment-production-monitoring-production-flow-by-size-bookkeeping',
         moduleId: './modules/garment-production/monitoring-production-flow-by-size-bookkeeping/index',
         nav: true,
-        title: 'Monitoring Flow Produksi per Size',
+        title: 'Monitoring Flow Produksi per Size Pembukuan',
         auth: true,
         settings: {
             group: "g-production",
