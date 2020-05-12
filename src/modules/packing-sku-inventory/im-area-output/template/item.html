@@ -1,5 +1,9 @@
 <template replace-part="inspectionMaterialProductionOrders">
     <tr>
+        <td show.bind="!readOnly">
+            <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
         <td>
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
                 loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">
@@ -51,11 +55,11 @@
                 error.bind="error.Remark" options.bind="controlOptions">
             </au-dropdown>
         </td>
-        <!-- <td>
-            <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td> -->
+        <td show.bind="isTransit">
+            <au-dropdown value.bind="data.grade" items.bind="remarksGrade" read-only.bind="readOnly"
+                error.bind="error.Grade" options.bind="controlOptions">
+            </au-dropdown>
+        </td>
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
                 options.bind="controlOptions">
@@ -66,20 +70,25 @@
                 error.bind="error.PreviousBalance" options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
-            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly || isAval"
-                error.bind="error.Balance" options.bind="controlOptions">
+        <td show.bind="!isAval">
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td show.bind="isAval">
+            <au-numeric value.bind="totalBalance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+                options.bind="controlOptions">
             </au-numeric>
         </td>
 
     </tr>
     <tr if.bind="isShowing">
-        <td>
-            <au-collection columns.bind="avalColumns" items.bind="data.avalItems" read-only.bind="true"
+        <td show.bind="!readOnly"></td>
+        <td colspan="14">
+            <au-collection columns.bind="avalColumns" items.bind="data.avalItems" read-only.bind="readOnly"
                 item-template="modules/packing-sku-inventory/im-area-output/template/avalItem" show.bind="isAval">
             </au-collection>
 
         </td>
-        <td colspan="3"></td>
     </tr>
 </template>
