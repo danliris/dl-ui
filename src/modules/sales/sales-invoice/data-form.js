@@ -104,7 +104,7 @@ export class DataForm {
         }
       }
     }
-    if (this.VatType == "PPN BUMN") {
+    if (this.data.VatType == "PPN BUMN") {
       totalPayment = result;
     } else {
       totalPayment = result * 0.1 + result;
@@ -222,7 +222,6 @@ export class DataForm {
       this.data.Buyer.Address = this.selectedBuyer.Address;
       this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
       this.data.Buyer.NIK = this.selectedBuyer.NIK;
-      this.data.SalesInvoiceDetails = [];
       this.itemOptions.BuyerId = this.data.Buyer.Id;
     } else {
       this.data.Buyer.Id = null;
@@ -231,8 +230,8 @@ export class DataForm {
       this.data.Buyer.Address = null;
       this.data.Buyer.NPWP = null;
       this.data.Buyer.NIK = null;
-      this.data.SalesInvoiceDetails = [];
       this.itemOptions.BuyerId = null;
+      this.data.SalesInvoiceDetails = [];
     }
   }
 

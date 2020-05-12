@@ -18,7 +18,7 @@
             </au-datepicker>
 
             <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer"
-              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly || isEdit">
+              error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly">
             </au-autocomplete>
 
             <au-textbox label="Buyer Address" value.bind="selectedBuyer.Address" read-only.bind="true">
@@ -91,11 +91,9 @@
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <!-- <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
+    <au-textbox show.bind="data.VatType && selectedBuyer && selectedCurrency" label="Total Bayar : ${selectedCurrency.Code}" value.bind="getTotalPayment"
       error.bind="error.TotalPayment" read-only.bind="true">
-    </au-textbox> -->
-
-    Nominal keseluruhan : ${getTotalPayment} ${selectedCurrency.Code}
+    </au-textbox>
 
   </au-input-form>
 </template>
