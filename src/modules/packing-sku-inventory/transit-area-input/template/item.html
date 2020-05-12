@@ -1,5 +1,9 @@
 <template replace-part="transitProductionOrders">
     <tr>
+        <td show.bind="!readOnly">
+            <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
         <td>
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
                 loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">

@@ -96,7 +96,7 @@ module.exports = [
         name: 'transit-area-input',
         moduleId: './modules/packing-sku-inventory/transit-area-input/index',
         nav: true,
-        title: 'Penerimaan Transit Area Dyeing/Printing',
+        title: 'Penerimaan Transit Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -109,7 +109,7 @@ module.exports = [
         name: 'transit-area-output',
         moduleId: './modules/packing-sku-inventory/transit-area-output/index',
         nav: true,
-        title: 'Bon Transit Area Dyeing/Printing',
+        title: 'Pencatatan Keluar Transit Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

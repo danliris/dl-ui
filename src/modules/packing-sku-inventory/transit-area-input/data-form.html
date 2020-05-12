@@ -15,13 +15,15 @@
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly" items.bind="groups"></au-dropdown>
 
-    <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
+    <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="inspectionAreaLoader"
       text.bind="areaMovementTextFormatter">
-    </au-autocomplete>
+    </au-autocomplete> -->
 
     <au-collection columns.bind="itemColumns" items.bind="data.transitProductionOrders"
       errors.one-way="error.TransitProductionOrders" read-only.bind="readOnly"
+      options.bind="detailOptions"
+      header-template="modules/packing-sku-inventory/transit-area-input/template/item-header"
       item-template="modules/packing-sku-inventory/transit-area-input/template/item">
     </au-collection>
 
