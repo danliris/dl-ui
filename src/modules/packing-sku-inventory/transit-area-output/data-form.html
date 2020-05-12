@@ -23,6 +23,8 @@
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="transitAreaLoader"
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
+
+    <au-textbox show.bind="error" read-only.bind="true" value.bind="error.TransitProductionOrders" style="color: red;"></au-textbox>
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>

@@ -76,7 +76,6 @@ export class DataForm {
             this.data.outputInspectionMaterialId = this.selectedPreShipping.id;
 
             this.detailOptions.dyeingPrintingAreaInputId = this.selectedPreShipping.id;
-            console.log(this.detailOptions);
         }
 
     }

@@ -20,6 +20,7 @@
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
 
+    <au-textbox show.bind="error" read-only.bind="true" value.bind="error.TransitProductionOrders" style="color: red;"></au-textbox>
     <au-collection columns.bind="itemColumns" items.bind="data.transitProductionOrders"
       errors.one-way="error.TransitProductionOrders" read-only.bind="readOnly"
       options.bind="detailOptions"

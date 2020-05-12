@@ -70,15 +70,23 @@
                 error.bind="error.PreviousBalance" options.bind="controlOptions">
             </au-numeric>
         </td>
+        <!-- <td>
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly || isAval" error.bind="error.Balance"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td> -->
         <td show.bind="!isAval">
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isAval">
-            <au-numeric value.bind="totalBalance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+            <au-numeric value.bind="totalBalanceAval" format="0.00" read-only.bind="true" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
+            <au-textbox show.bind="false" value.bind="totalBalance"  read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
 
     </tr>
