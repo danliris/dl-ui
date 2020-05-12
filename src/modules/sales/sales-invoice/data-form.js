@@ -88,7 +88,6 @@ export class DataForm {
     if(this.data.Sales){
       this.Sales = this.data.Sales;
     }
-    console.log(this);
   }
 
   get getTotalPayment() {

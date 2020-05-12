@@ -130,12 +130,38 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+    //     name: 'dyeing-printing-in-packaging',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
+    //     nav: true,
+    //     title: 'Penerimaan Packing Area Dyeing/Printing V1',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging-v2',
+        name: 'dyeing-printing-in-packaging-v2',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
+        nav: true,
+        title: 'Penerimaan Packing Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'packing-sku-inventory/dyeing-printing-out-packaging',
         name: 'dyeing-printing-out-packaging',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
         nav: true,
-        title: 'Bon Packing Area Dyeing/Printing',
+        title: 'Pencatatan Keluar Packing Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -215,32 +241,6 @@ module.exports = [
     //     moduleId: './modules/packing-sku-inventory/aval-area-note/index',
     //     nav: true,
     //     title: 'Bon Aval Area',
-    //     auth: true,
-    //     settings: {
-    //         group: "ps-inventory",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    {
-        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
-        name: 'dyeing-printing-in-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
-        nav: true,
-        title: 'Penerimaan Packing Area Dyeing/Printing',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    // {
-    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
-    //     name: 'dyeing-printing-in-packaging',
-    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
-    //     nav: true,
-    //     title: 'Penerimaan Packing Area Dyeing/Printing',
     //     auth: true,
     //     settings: {
     //         group: "ps-inventory",

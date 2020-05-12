@@ -26,7 +26,26 @@ export class Create {
     }
 
     save() {        
-        this.service.create(this.data)
+        //validation for checked
+        var validation = [];
+        this.data.packagingProductionOrders.forEach(element => {
+            var ischecked = element.isCheckedSPP;
+            var qtyKeluar = element.qtyOut;
+            var nomorSpp = element.productionOrderNo;
+
+            if(ischecked && qtyKeluar <=0){
+                // alert("Qty Keluar harus diisi jika di pilih, No SPP : "+nomorSpp);
+                // return 0;
+                validation.push({
+                    NomorSpp : nomorSpp
+                });
+            }
+        });
+        if(validation.length!=0){
+            alert("Qty Keluar harus diisi jika di pilih, No SPP : "+validation[0].NomorSpp);
+        }else{
+            // console.log(this.data);
+            this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -38,5 +57,6 @@ export class Create {
                     this.error = e;
                 }
             })
+        }
     }
 }
