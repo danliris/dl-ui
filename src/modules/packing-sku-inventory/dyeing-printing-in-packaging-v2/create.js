@@ -27,6 +27,7 @@ export class Create {
 
     save() {
         this.data.packagingProductionOrders = this.table.selections;
+        // console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

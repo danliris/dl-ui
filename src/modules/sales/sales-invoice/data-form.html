@@ -33,7 +33,13 @@
               placeholder="Input NPWP Buyer">
             </au-textbox>
 
-            <au-textbox label="NIK" value.bind="data.IDNo" read-only.bind="readOnly" placeholder="Input NIK">
+            <au-textbox if.bind="selectedBuyer && selectedBuyer.NIK" label="NIK Buyer" value.bind="selectedBuyer.NIK"
+              read-only.bind="true">
+            </au-textbox>
+
+            <au-textbox if.bind="selectedBuyer && !selectedBuyer.NIK" label="NIK Buyer" value.bind="data.Buyer.NIK"
+              error.bind="error.BuyerNIK" read-only.bind="readOnly || isEdit" keypress.delegate="enterDelegate($event)"
+              placeholder="Input NIK Buyer">
             </au-textbox>
 
             <au-textbox label="No. Surat Jalan" value.bind="data.DeliveryOrderNo" error.bind="error.DeliveryOrderNo"
@@ -52,7 +58,7 @@
               read-only.bind="true">
             </au-datepicker>
 
-            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly">
+            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly" placeholder="Input Tempo (hari)">
             </au-textbox>
 
             <au-dropdown label="Jenis PPN" value.bind="data.VatType" items.bind="VatTypeOptions"
@@ -66,9 +72,9 @@
             <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly">
             </au-textbox>
 
-            <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit"
-              read-only.bind="readOnly" loader.one-time="unitLoader" key="Code" text="Name"
-              keypress.delegate="enterDelegate($event)" placeholder="Pilih Unit">
+            <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit" read-only.bind="readOnly"
+              loader.one-time="unitLoader" key="Code" text="Name" keypress.delegate="enterDelegate($event)"
+              placeholder="Pilih Unit">
             </au-autocomplete>
             </au-dropdown>
           </div>
@@ -85,11 +91,9 @@
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <!-- <au-textbox show.bind="data.VatType&& selectedBuyer" label="Total Bayar :" value.bind="getTotalPayment"
+    <au-textbox show.bind="data.VatType && selectedBuyer && selectedCurrency" label="Total Bayar : ${selectedCurrency.Code}" value.bind="getTotalPayment"
       error.bind="error.TotalPayment" read-only.bind="true">
-    </au-textbox> -->
-
-    Nominal keseluruhan : ${getTotalPayment} ${selectedCurrency.Code}
+    </au-textbox>
 
   </au-input-form>
 </template>

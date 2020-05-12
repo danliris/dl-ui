@@ -31,13 +31,18 @@ export class DataForm {
         showColumns: false,
         pagination: false
     }
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
+    itemColumns = ["No. SPP", "Qty Order","Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan","Qty Masuk"];
+    
+    groups = ["","A", "B"];
 
     columns = [
         {
             field: "isChecked", title: "isChecked Checkbox", checkbox: true, sortable: false,
         },
         { field: "productionOrder.no", title: "No. SPP" },
+        { field: "qtyOrder", title: "Qty Order" },
+        
         { field: "buyer", title: "Buyer" },
         { field: "unit", title: "Unit" },                
         { field: "construction", title: "Material" },
@@ -45,7 +50,7 @@ export class DataForm {
         { field: "motif", title: "Motif" },
         { field: "grade", title: "Grade" },
         { field: "uomUnit", title: "Satuan" },
-        { field: "balance", title: "Saldo" },
+        { field: "balance", title: "Qty Masuk" },
     ];
 
     shifts = ["","PAGI", "SIANG"];
@@ -82,7 +87,7 @@ export class DataForm {
                 data.total = result.total;
                 data.data = result.data;
                 // this.data = result;
-                // console.log(data);
+                console.log(data);
                 return data;
             });
     }

@@ -26,7 +26,7 @@ export class DataForm {
     itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
-    destinationAreas = ["GUDANG JADI", "GUDANG AVAL"];
+    destinationAreas = ["INSPECTION MATERIAL", "PACKING", "GUDANG JADI", "GUDANG AVAL"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
@@ -61,13 +61,19 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        if (this.data.bonNo) {
-            this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.bonNo = this.data.bonNo;
-        }
+        // if (this.data.bonNo) {
+        //     this.selectedInspectionMaterial = {};
+        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // }
 
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
+            this.detailOptions.destinationArea = this.data.destinationArea;
+            if (this.readOnly) {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+            } else {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
+            }
         }
     }
     addItemCallback = (e) => {
@@ -75,17 +81,17 @@ export class DataForm {
         this.data.transitProductionOrders.push({})
     };
 
-    @bindable selectedInspectionMaterial;
-    selectedInspectionMaterialChanged(n, o) {
-        if (this.selectedInspectionMaterial) {
-            this.data.inputTransitId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.transitProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.transitProductionOrders.filter(s => s.hasOutputDocument == false);
-            }
+    // @bindable selectedInspectionMaterial;
+    // selectedInspectionMaterialChanged(n, o) {
+    //     if (this.selectedInspectionMaterial) {
+    //         this.data.inputTransitId = this.selectedInspectionMaterial.id;
+    //         if (this.selectedInspectionMaterial.transitProductionOrders) {
+    //             this.data.transitProductionOrders = this.selectedInspectionMaterial.transitProductionOrders.filter(s => s.hasOutputDocument == false);
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 
 
     ExportToExcel() {
@@ -102,11 +108,11 @@ export class DataForm {
             } else {
                 this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
             }
-            if (!this.data.id) {
+            // if (!this.data.id) {
 
-                this.selectedInspectionMaterial = null;
-                this.data.transitProductionOrders = [];
-            }
+            //     this.selectedInspectionMaterial = null;
+            //     this.data.transitProductionOrders = [];
+            // }
 
         }
     }

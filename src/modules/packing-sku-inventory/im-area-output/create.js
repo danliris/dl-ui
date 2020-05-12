@@ -14,6 +14,12 @@ export class Create {
         this.error = {};
     }
 
+    async activate(params) {
+        this.data = {};
+        this.data.inspectionMaterialProductionOrders = await this.service.getProductionOrderInput();
+        
+    }
+
 
     back() {
         this.router.navigateToRoute('list');
@@ -26,7 +32,7 @@ export class Create {
     }
 
     save() {
-        
+        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.IsSave === true);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
