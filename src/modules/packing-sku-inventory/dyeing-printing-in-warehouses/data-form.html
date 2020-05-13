@@ -1,4 +1,9 @@
-<template>
+<template
+  ><style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style>
   <au-input-form
     title.bind="title"
     with.bind="context"
@@ -38,8 +43,9 @@
       read-only.bind="readOnly"
       options.bind="detailOptions"
       header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-header"
-      item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item">
+      item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item"
     >
+      >
     </au-collection>
     <!-- view-model.ref="ItemsCollection" -->
 
