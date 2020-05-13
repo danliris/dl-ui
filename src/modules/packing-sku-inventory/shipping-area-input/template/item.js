@@ -16,7 +16,6 @@ export class CartItem {
         
 
         this.sppQuery.dyeingPrintingAreaInputId = this.dyeingPrintingAreaInputId;
-        console.log(this.contextOptions);
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
