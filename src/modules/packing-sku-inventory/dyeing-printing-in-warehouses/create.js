@@ -32,6 +32,8 @@ export class Create {
 
   save() {
     let errorIndex = 0;
+    this.error = {};
+    debugger
 
     if (
       this.data.date === null ||
@@ -70,9 +72,7 @@ export class Create {
       this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
         (s) => s.IsSave === true
       );
-      console.log(this.data);
-      console.log(this.error);
-      debugger;
+      
       this.service
         .create(this.data)
         .then((result) => {
