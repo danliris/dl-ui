@@ -43,6 +43,8 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
+
+        this.selectedSalesInvoice = this.data.SalesInvoice;
     }
 
     columns = [
@@ -52,6 +54,19 @@ export class DataForm {
         { header: "Bunga\n(%)", value: "Interest" },
         { header: "Total", value:"Total" }
     ];
+
+    @bindable selectedSalesInvoice;
+    selectedSalesInvoiceChanged(newValue, oldValue) {
+        this.data.SalesInvoice = newValue
+        
+        if (newValue && this.isCreate) {
+            this.data.Buyer = newValue.Buyer;
+        } else {
+            if (this.isCreate) {
+                delete this.data.Buyer;
+            }
+        }
+    }
 
     get addItems() {
         return (event) => {

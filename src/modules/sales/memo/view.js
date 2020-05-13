@@ -11,6 +11,8 @@ export class View {
         this.dialog = dialog;
     }
 
+    isView = true;
+
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
