@@ -13,8 +13,6 @@ export class Create {
     this.data = {};
   }
 
-  isCreate = true;
-
   activate(params) { }
 
   list() {
