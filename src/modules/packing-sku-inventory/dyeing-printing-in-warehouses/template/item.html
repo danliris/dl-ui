@@ -1,18 +1,21 @@
 <template replace-part="warehousesProductionOrders">
   <tr>
-    <td>
-        <au-checkbox 
-            value.bind="data.Select"
-            read-only.bind="readOnly">
-        </au-checkbox>
+    <td show.bind="!readOnly">
+      <au-checkbox
+        value.bind="data.IsSave"
+        disabled.bind="readOnly"
+        change.delegate="changeCheckBox()"
+      >
+      </au-checkbox>
     </td>
     <td>
       <au-autocomplete
-        value.bind="data.productionOrderNo"
+        value.bind="selectedProductionOrder"
         error.bind="error.ProductionOrder"
-        loader.bind="productionOrderList"
-        text="productionOrderNo"
+        loader.bind="productionOrderLoader"
+        text="OrderNo"
         read-only.bind="true"
+        options.bind="controlOptions"
       >
       </au-autocomplete>
     </td>
@@ -22,6 +25,7 @@
         format="0.00"
         read-only.bind="true"
         error.bind="error.QtyOrder"
+        options.bind="controlOptions"
       >
       </au-numeric>
     </td>
@@ -31,6 +35,7 @@
         format="0.00"
         read-only.bind="true"
         error.bind="error.Balance"
+        options.bind="controlOptions"
       >
       </au-numeric>
     </td>
@@ -39,6 +44,7 @@
         value.bind="data.buyer"
         read-only.bind="true"
         error.bind="error.Buyer"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -47,6 +53,7 @@
         value.bind="data.construction"
         read-only.bind="true"
         error.bind="error.Construction"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -55,6 +62,7 @@
         value.bind="data.packagingType"
         read-only.bind="true"
         error.bind="error.PackagingType"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -63,6 +71,7 @@
         value.bind="data.color"
         read-only.bind="true"
         error.bind="error.Color"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -71,6 +80,7 @@
         value.bind="data.motif"
         read-only.bind="true"
         error.bind="error.Motif"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -79,6 +89,7 @@
         value.bind="data.grade"
         read-only.bind="true"
         error.bind="error.Grade"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -87,6 +98,7 @@
         value.bind="data.packagingUnit"
         read-only.bind="true"
         error.bind="error.PackagingUnit"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
@@ -95,6 +107,7 @@
         value.bind="data.packagingQty"
         read-only.bind="true"
         error.bind="error.PackagingQty"
+        options.bind="controlOptions"
       >
       </au-numeric>
     </td>
@@ -104,16 +117,9 @@
         value.bind="data.uomUnit"
         read-only.bind="true"
         error.bind="error.UomUnit"
+        options.bind="controlOptions"
       >
       </au-textbox>
     </td>
-    <!-- <td if.bind="!options.readOnly">
-      <button
-        class="btn btn-danger pull-right"
-        click.delegate="onremove(data, $event)"
-      >
-        -
-      </button>
-    </td> -->
   </tr>
 </template>
