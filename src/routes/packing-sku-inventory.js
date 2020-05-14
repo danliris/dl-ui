@@ -253,7 +253,7 @@ module.exports = [
         name: 'shipping-area-input',
         moduleId: './modules/packing-sku-inventory/shipping-area-input/index',
         nav: true,
-        title: 'Penerimaan Shipping Area Dyeing Printing',
+        title: 'Penerimaan Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -266,7 +266,7 @@ module.exports = [
         name: 'shipping-area-output',
         moduleId: './modules/packing-sku-inventory/shipping-area-output/index',
         nav: true,
-        title: 'Bon Keluar Shipping Area',
+        title: 'Pencatatan Keluar Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
