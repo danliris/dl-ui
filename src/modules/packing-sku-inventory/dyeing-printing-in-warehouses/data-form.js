@@ -1,95 +1,98 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
-
-let WarehousesAreaLoader = require("../../../loader/input-warehouses-loader");
 
 @inject(Service)
 export class DataForm {
-    @bindable title;
-    @bindable readOnly;
-    @bindable data;
-    @bindable error;
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
-    controlOptions = {
-        label: {
-            length: 4,
-        },
-        control: {
-            length: 4,
-        },
-    };
-    itemColumns = ["No. SPP","QTY Order","QTY Masuk", "Buyer", "Konstruksi", "Jenis", "Warna", "Motif", "Grade", "Packaging", "Qty Packaging", "Satuan"];
-    shifts = ["PAGI", "SIANG"];
-    groups = ["A","B"];
-    detailOptions = {};
+  @bindable title;
+  @bindable readOnly;
+  @bindable data;
+  @bindable error;
+  // @bindable ItemsCollection;
 
-    constructor(service) {
-        this.service = service;
-    }
+  formOptions = {
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  };
 
-    get warehousesAreaLoader() {
-        return WarehousesAreaLoader;
-    }
+  controlOptions = {
+    label: {
+      length: 4,
+    },
+    control: {
+      length: 4,
+    },
+  };
 
-    areaMovementTextFormatter = (areaInput) => {
-        return `${areaInput.bonNo}`
-    }
-    @computedFrom("data.id")
-    get isEdit() {
-        return (this.data.id || '').toString() != '';
-    }
+  itemColumns = [
+    "No. SPP",
+    "QTY Order",
+    "QTY Masuk",
+    "Buyer",
+    "Konstruksi",
+    "Jenis",
+    "Warna",
+    "Motif",
+    "Grade",
+    "Packaging",
+    "Qty Packaging",
+    "Satuan",
+  ];
+  shifts = ["PAGI", "SIANG"];
 
-    bind(context) {
-        this.context = context;
-        this.data = this.context.data;
+  constructor(service) {
+    this.service = service;
+  }
 
-        this.data.area = "GUDANG JADI";
+  detailOptions = {};
+  groups = ["A", "B"];
 
-        this.error = this.context.error;
+  areaMovementTextFormatter = (areaInput) => {
+    return `${areaInput.bonNo}`;
+  };
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+  @computedFrom("data.id")
+  get isEdit() {
+    return (this.data.id || "").toString() != "";
+  }
 
-        if (this.data.bonNo) {
-            this.selectedWarehouses = {};
-            this.selectedWarehouses.bonNo = this.data.bonNo;
-        }
+  bind(context) {
+    this.context = context;
+    this.data = this.context.data;
 
-    }
-    addItemCallback = (e) => {
-        this.data.warehousesProductionOrders = this.data.warehousesProductionOrders || [];
-        this.data.warehousesProductionOrders.push({})
-    };
+    this.data.area = "GUDANG JADI";
 
-    @bindable selectedWarehouses;
-    selectedWarehousesChanged(n, o) {
-        if (this.selectedWarehouses) {
-            this.data.inputWarehousesId = this.selectedWarehouses.id;
-            if (this.selectedWarehouses.warehousesProductionOrders) {
-                // this.data.warehousesProductionOrders = this.selectedWarehouses.warehousesProductionOrders;
-                this.data.bonNo = this.selectedWarehouses.bonNo;
-            }
+    this.error = this.context.error;
 
-            this.detailOptions.destinationArea = this.data.destinationArea;
-        }
-        if(n!=o){
-            if (this.selectedWarehouses) {
-                this.data.inputWarehousesId = this.selectedWarehouses.id;
-                this.data.bonNo = this.selectedWarehouses.bonNo;
-            }
-        }
-    }
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
+  }
 
-    ExportToExcel() {
-        this.service.generateExcel(this.data.id);
-    }
+  addItemCallback = (e) => {
+    this.data.warehousesProductionOrders =
+      this.data.warehousesProductionOrders || [];
+    this.data.warehousesProductionOrders.push({});
+  };
+
+  // @bindable selectedWarehouses;
+  // selectedWarehousesChanged(n, o) {
+  //   if (this.selectedWarehouses) {
+  //     this.data.inputWarehousesId = this.selectedWarehouses.id;
+  //     if (this.selectedWarehouses.warehousesProductionOrders) {
+  //       // this.data.warehousesProductionOrders = this.selectedWarehouses.warehousesProductionOrders;
+  //       this.data.bonNo = this.selectedWarehouses.bonNo;
+  //     }
+
+  //     this.detailOptions.destinationArea = this.data.destinationArea;
+  //   }
+  //   if (n != o) {
+  //     if (this.selectedWarehouses) {
+  //       this.data.inputWarehousesId = this.selectedWarehouses.id;
+  //       this.data.bonNo = this.selectedWarehouses.bonNo;
+  //     }
+  //   }
+  // }
 }
-
-

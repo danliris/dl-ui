@@ -18,6 +18,7 @@ export class CartItem {
         this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
+        
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -70,6 +71,12 @@ export class CartItem {
             return Promise.resolve().then(result => {return this.productionOrderListItem;});
           }
     }
+
+    @bindable isCheckedSPP;
+    isCheckedSPPChanged(e){
+        this.data.isCheckedSPP = this.isCheckedSPP;
+    }
+
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {

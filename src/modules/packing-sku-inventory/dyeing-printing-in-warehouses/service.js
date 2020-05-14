@@ -1,46 +1,72 @@
-import { RestService } from '../../../utils/rest-service';
-const serviceUri = 'input-warehouses';
+import { RestService } from "../../../utils/rest-service";
+const serviceUri = "input-warehouses";
 
 export class Service extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "packing-inventory");
+  }
 
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "packing-inventory");
-    }
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
+  }
 
-    search(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
+  // getPreWarehouse(searchDate, searchShift, searchGroup) {
+  //   var endpoint = `${serviceUri}/pre-warehouse`;
+  //   var query = "";
 
-    getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
-    }
+  //   if (searchDate) {
+  //     if (query === "") query = `searchDate=${searchDate}`;
+  //     else query = `${query}&searchDate=${searchDate}`;
+  //   }
+  //   if (searchShift) {
+  //     if (query === "") query = `searchShift=${searchShift}`;
+  //     else query = `${query}&searchShift=${searchShift}`;
+  //   }
+  //   if (searchGroup) {
+  //     if (query === "") query = `searchGroup=${searchGroup}`;
+  //     else query = `${query}&searchGroup=${searchGroup}`;
+  //   }
+  //   if (query !== "") {
+  //     endpoint = `${serviceUri}/pre-warehouse?${query}`;
+  //   }
 
-    create(data) {
-        var endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
-    }
+  //   return super.get(endpoint);
+  // }
 
-    update(data) {
-        var endpoint = `${serviceUri}/${data.id}`;
-        return super.put(endpoint, data);
-    }
+  getProductionOrderOutput(){
+      var endpoint = `${serviceUri}/output-production-orders`;
 
-    delete(data) {
-        var endpoint = `${serviceUri}/${data.id}`;
-        return super.delete(endpoint, data);
-    }
+      return super.get(endpoint);
+  }
 
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
-        return super.getPdf(endpoint);
-    }
+  create(data) {
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
 
-    generateExcel(id) {
-        
-        var endpoint = `${serviceUri}/xls/${id}`;
-       
-        return super.getXls(endpoint);
-    }
+  getById(id) {
+    var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  update(data) {
+    var endpoint = `${serviceUri}/${data.id}`;
+    return super.put(endpoint, data);
+  }
+
+  delete(data) {
+    var endpoint = `${serviceUri}/${data.id}`;
+    return super.delete(endpoint, data);
+  }
+
+  getPdfById(id) {
+    var endpoint = `${serviceUri}/pdf/${id}`;
+    return super.getPdf(endpoint);
+  }
+
+  generateExcel(id) {
+    var endpoint = `${serviceUri}/xls/${id}`;
+    return super.getXls(endpoint);
+  }
 }

@@ -26,7 +26,7 @@ export class CartItem {
             this.selectedProductionOrder.Details[0].ColorRequest = this.data.color;
             this.selectedProductionOrder.DesignCode = this.data.motif;
             this.selectedProductionOrder.Uom = {};
-            this.selectedProductionOrder.Uom.Unit = this.data.unit;
+            this.selectedProductionOrder.Uom.Unit = this.data.uomUnit;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"

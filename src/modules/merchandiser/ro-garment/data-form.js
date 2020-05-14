@@ -156,6 +156,8 @@ export class DataForm {
   }
 
   async costCalculationGarmentChanged(newValue) {
+    this.isCopy = false;
+
     if (newValue && newValue.Id) {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
