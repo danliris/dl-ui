@@ -11,7 +11,7 @@ export class DialogDetailView {
     }
 
     activate(params) {
-        console.log(params);
+        // console.log(params);
         this.data = params.data;
         // this.table.refresh();
     }
