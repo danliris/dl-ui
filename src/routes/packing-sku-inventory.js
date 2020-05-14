@@ -235,19 +235,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'packing-sku-inventory/aval-area-note',
-    //     name: 'aval-area-note',
-    //     moduleId: './modules/packing-sku-inventory/aval-area-note/index',
-    //     nav: true,
-    //     title: 'Bon Aval Area',
-    //     auth: true,
-    //     settings: {
-    //         group: "ps-inventory",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
     {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',

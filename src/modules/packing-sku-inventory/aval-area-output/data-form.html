@@ -166,10 +166,10 @@
 
     <au-collection
       show.bind="isHasData"
-      items.bind="data.DyeingPrintingItems"
-      options.bind="itemOptions"
-      errors.bind="error.AvalProductionOrders"
       columns.bind="dyeingPrintingItemsColumns"
+      items.bind="data.DyeingPrintingItems"
+      errors.bind="error.AvalProductionOrders"
+      options.bind="itemOptions"
       read-only.bind="readOnly"
       item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
     >
