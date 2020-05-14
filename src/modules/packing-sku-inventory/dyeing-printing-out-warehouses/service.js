@@ -2,7 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "output-warehouses";
+const serviceUri = "output-warehouse";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
@@ -10,57 +10,44 @@ export class Service extends RestService {
   }
 
   search(info) {
-    let endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
+      var endpoint = `${serviceUri}`;
+      return super.list(endpoint, info);
   }
 
-  // getAvailableGoods(searchDate, searchShift, searchGroup) {
-  //   var endpoint = `${serviceUri}/available-goods`;
-  //   var query = "";
-
-  //   if (searchDate) {
-  //     if (query === "") query = `searchDate=${searchDate}`;
-  //     else query = `${query}&searchDate=${searchDate}`;
-  //   }
-  //   if (searchShift) {
-  //     if (query === "") query = `searchShift=${searchShift}`;
-  //     else query = `${query}&searchShift=${searchShift}`;
-  //   }
-  //   if (searchGroup) {
-  //     if (query === "") query = `searchGroup=${searchGroup}`;
-  //     else query = `${query}&searchGroup=${searchGroup}`;
-  //   }
-  //   if (query !== "") {
-  //     endpoint = `${serviceUri}/available-aval?${query}`;
-  //   }
-
-  //   return super.get(endpoint);
-  // }  
-
-  search(info) {
-    let endpoint = `${serviceUri}/available-goods`;
-    return super.list(endpoint, info);
-  }
-
-  getById(id) {
-    let endpoint = `${serviceUri}/${id}`;
-    return super.get(endpoint);
-  }
-
-  generateExcelReportById(id) {
-    let endpoint = `${serviceUri}/xls/${id}`;
-    return super.getXls(endpoint);
+  getProductionOrderInput(){
+      var endpoint = `${serviceUri}/input-production-orders`;
+      return super.get(endpoint);
   }
 
   create(data) {
-    let endpoint = `${serviceUri}`;
-    return super.post(endpoint, data);
+      var endpoint = `${serviceUri}`;
+      return super.post(endpoint, data);
+  }
+
+  getById(id) {
+      var endpoint = `${serviceUri}/${id}`;
+      return super.get(endpoint);
+  }
+
+  update(data) {
+      var endpoint = `${serviceUri}/${data.id}`;
+      return super.put(endpoint, data);
+  }
+
+  delete(data) {
+      var endpoint = `${serviceUri}/${data.id}`;
+      return super.delete(endpoint, data);
+  }
+
+  getPdfById(id) {
+      var endpoint = `${serviceUri}/pdf/${id}`;
+      return super.getPdf(endpoint);
   }
 
   generateExcel(id) {
-    var endpoint = `${serviceUri}/xls/${id}`;
-
-    return super.getXls(endpoint);
+      
+      var endpoint = `${serviceUri}/xls/${id}`;
+      return super.getXls(endpoint);
   }
 
   // update(data) {

@@ -33,7 +33,6 @@ export class Create {
   save() {
     let errorIndex = 0;
     this.error = {};
-    debugger
 
     if (
       this.data.date === null ||
@@ -92,41 +91,4 @@ export class Create {
         });
     }
   }
-
-  // save() {
-  //   let CreateData = {};
-  //   CreateData.Area = this.data.Area;
-  //   CreateData.Date = this.data.Date;
-  //   CreateData.Shift = this.data.Shift;
-  //   CreateData.Group = this.data.Group;
-  //   CreateData.WarehousesProductionOrders = [];
-  //   this.data.warehousesProductionOrders.forEach(datum => {
-  //     if(datum.select = true){
-  //       console.log(datum);
-  //       CreateData.WarehousesProductionOrders.push(datum);
-  //     }
-  //   });
-
-  //   console.log(CreateData);
-
-  // debugger
-
-  // this.service
-  //   .create(this.data)
-  //   .then((result) => {
-  //     alert("Data berhasil dibuat");
-  //     this.router.navigateToRoute(
-  //       "create",
-  //       {},
-  //       { replace: true, trigger: true }
-  //     );
-  //   })
-  //   .catch((e) => {
-  //     if (e.statusCode == 500) {
-  //       alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-  //     } else {
-  //       this.error = e;
-  //     }
-  //   });
-  // }
 }

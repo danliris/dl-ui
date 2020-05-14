@@ -9,6 +9,15 @@
       </au-checkbox>
     </td>
     <td>
+      <au-textbox
+        value.bind="data.doNo"
+        read-only.bind="true"
+        error.bind="error.doNo"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <td>
       <au-autocomplete
         value.bind="selectedProductionOrder"
         error.bind="error.ProductionOrder"
@@ -119,11 +128,21 @@
       >
       </au-textbox>
     </td>
+    <td show.bind="!readOnly">
+      <au-numeric
+        value.bind="data.previousBalance"
+        format="0.00"
+        read-only.bind="true"
+        error.bind="error.PreviousBalance"
+        options.bind="controlOptions"
+      >
+      </au-numeric>
+    </td>
     <td>
       <au-numeric
         value.bind="data.balance"
         format="0.00"
-        read-only.bind="true"
+        read-only.bind="readOnly"
         error.bind="error.Balance"
         options.bind="controlOptions"
       >

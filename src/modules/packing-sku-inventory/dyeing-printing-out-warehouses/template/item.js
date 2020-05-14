@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-let ProductionOrderLoader = require("../../../../loader/production-order-azure-loader");
+let ProductionOrderLoader = require("../../../../loader/production-order-loader");
 
-// @inject(DataForm)
+// @inject(BindingEngine, Service)
 export class Item {
   @bindable product;
 
@@ -11,6 +11,10 @@ export class Item {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
+        
+    if (this.data.balance) {
+        this.data.previousBalance = this.data.balance;
+    }
 
     if (this.data.productionOrder && this.data.productionOrder.id) {
       this.selectedProductionOrder = {};
