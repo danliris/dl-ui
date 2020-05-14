@@ -44,7 +44,15 @@ export class Create {
         if(validation.length!=0){
             alert("Qty Keluar harus diisi jika di pilih, No SPP : "+validation[0].NomorSpp);
         }else{
+            var packagingProductionOrdersSelected =[]
+            this.data.packagingProductionOrders.forEach(element =>{
+                if(element.isCheckedSPP){
+                    packagingProductionOrdersSelected.push(element)
+                }
+            });
+            this.data.packagingProductionOrders = packagingProductionOrdersSelected;
             // console.log(this.data);
+            
             this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

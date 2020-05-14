@@ -43,7 +43,11 @@ export class List {
     setValue() {
         this.arg.buyerId = this.selectedBuyer ? this.selectedBuyer.Id : null;
         this.arg.salesInvoiceId = this.selectedSalesInvoice ? this.selectedSalesInvoice.Id : null;
-        this.arg.isPaidOff = this.selectedStatus || this.selectedStatus.value;
+        this.arg.isPaidOff = this.selectedStatus ? this.selectedStatus.value : null;
+        console.log(this.arg.isPaidOff)
+        console.log(this.selectedStatus)
+        console.log(this.selectedStatus.value)
+        
         this.arg.dateFrom = this.startDate && this.startDate != "Invalid Date" ? moment(this.startDate).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.endDate && this.endDate != "Invalid Date" ? moment(this.endDate).format("YYYY-MM-DD") : null;
     }
@@ -95,7 +99,7 @@ export class List {
 
     search() {
         this.listDataFlag = true;
-        console.log(this);
+        // console.log(this);
         this.table.refresh();
 
         // this.setValue();
@@ -109,7 +113,7 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        console.log(data);
+        // console.log(data);
         switch (arg.name) {
             case "Rincian":
                 // this.router.navigateToRoute('view', { id: data.orderNo });
