@@ -286,6 +286,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
         route: "inventory/garment/leftover-warehouse/expenditure/fabric",
         name: "inventory/garment/leftover-warehouse/expenditure/fabric",
         moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/fabric/index",
