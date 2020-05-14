@@ -285,5 +285,18 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: "inventory/garment/leftover-warehouse/expenditure/finished-good",
+        name: "inventory/garment/leftover-warehouse/expenditure/finished-good",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/finished-good/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - BARANG JADI",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
