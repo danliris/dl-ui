@@ -12,14 +12,19 @@
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
       read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
 
-    <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
-      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="preShippingAreaLoader"
-      text.bind="areaMovementTextFormatter" query.bind="imQuery">
-    </au-autocomplete>
+    <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
+      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
 
-    <au-collection columns.bind="itemColumns" items.bind="data.shippingProductionOrders"
-      errors.one-way="error.ShippingProductionOrders"
-      read-only.bind="readOnly" item-template="modules/packing-sku-inventory/shipping-area-input/template/item">
+    <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedPreShipping" label="Nomor Bon"
+      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="preShippingAreaLoader"
+      text.bind="areaMovementTextFormatter">
+    </au-autocomplete> -->
+
+    <au-textbox show.bind="error" read-only.bind="true" value.bind="error.ShippingProductionOrders" style="color: red;"></au-textbox>
+    <au-collection columns.bind="itemColumns" items.bind="data.shippingProductionOrders" options.bind="detailOptions"
+      errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly"
+      header-template="modules/packing-sku-inventory/shipping-area-input/template/item-header"
+      item-template="modules/packing-sku-inventory/shipping-area-input/template/item">
     </au-collection>
 
     <template replaceable part="actions"></template>

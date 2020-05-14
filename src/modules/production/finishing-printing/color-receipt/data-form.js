@@ -28,7 +28,7 @@ export class DataForm {
 
     }
     isRegular = false;
-    types = ["PRINTING REAKTIF REGULER", "PRINTING REAKTIF DISCHARGE/CABUT WARNA", "PIGMENT"];
+    types = ["PRINTING REAKTIF", "PRINTING REAKTIF RESIST", "PRINTING PIGMENT"];
     clothes = ["Cotton", "Rayon"];
     @computedFrom("data.Id")
     get isEdit() {
@@ -44,7 +44,7 @@ export class DataForm {
                 this.sumItem = this.data.ColorReceiptItems.reduce((a, b) => +a + +b.Quantity, 0);
                 if (this.sumItem > 0) {
                     this.showDyeStuff = true;
-                    if (this.data.Type === "PRINTING REAKTIF REGULER") {
+                    if (this.data.Type === "PRINTING REAKTIF") {
                         if (this.data.Cloth === "Cotton") {
                             if (0 <= this.sumItem && this.sumItem <= 5) {
                                 this.data.DyeStuffReactives.push({
@@ -178,7 +178,7 @@ export class DataForm {
     
                             }
                         }
-                    } else if (this.data.Type === "PRINTING REAKTIF DISCHARGE/CABUT WARNA") {
+                    } else if (this.data.Type === "PRINTING REAKTIF RESIST") {
                         if (0 <= this.sumItem && this.sumItem <= 5) {
                             this.data.DyeStuffReactives.push({
                                 Name: "Urea",
@@ -416,12 +416,12 @@ export class DataForm {
     typeChanged(n, o) {
         if (this.type) {
             this.data.Type = this.type;
-            if (this.data.Type === "PRINTING REAKTIF REGULER") {
+            if (this.data.Type === "PRINTING REAKTIF") {
                 this.isRegular = true;
                 this.dyeStuffColumns = ["DyeStuff Reaktif", "Total"];
             } else {
                 this.isRegular = false;
-                if (this.data.Type === "PRINTING REAKTIF DISCHARGE/CABUT WARNA") {
+                if (this.data.Type === "PRINTING REAKTIF RESIST") {
                     this.data.Cloth = "Cotton";
                     this.dyeStuffColumns = ["DyeStuff Reaktif", "Total"];
                 } else {

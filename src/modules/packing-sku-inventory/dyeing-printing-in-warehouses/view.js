@@ -8,6 +8,8 @@ export class View {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+
+        this.isShowed = false;
     }
 
     async activate(params) {
@@ -22,14 +24,14 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    edit(data) {
-        this.router.navigateToRoute('edit', { id: this.data.id });
-    }
+    // edit(data) {
+    //     this.router.navigateToRoute('edit', { id: this.data.id });
+    // }
 
-    delete() {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
-            });
-    }
+    // delete() {
+    //     this.service.delete(this.data)
+    //         .then(result => {
+    //             this.list();
+    //         });
+    // }
 }

@@ -286,6 +286,18 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+        route: "inventory/garment/leftover-warehouse/expenditure/fabric",
+        name: "inventory/garment/leftover-warehouse/expenditure/fabric",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/fabric/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - FABRIC",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
     {
         route: "inventory/garment/leftover-warehouse/expenditure/finished-good",
         name: "inventory/garment/leftover-warehouse/expenditure/finished-good",

@@ -54,7 +54,7 @@
         <au-collection show.bind="data.SalesReceiptDate && data.Buyer" columns.bind="salesReceiptDetailsInfo.columns"
             items.bind="data.SalesReceiptDetails" errors.bind="error.SalesReceiptDetails" read-only.bind="readOnly"
             options.bind="salesInvoiceTableOptions"
-            item-template="modules/sales/sales-receipt/template/sales-receipt-item"
+            item-template="modules/expedition/sales-receipt/template/sales-receipt-item"
             view-model.ref="SalesReceiptDetailsCollection">
         </au-collection>
 

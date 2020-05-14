@@ -56,7 +56,7 @@ module.exports = [
         name: 'im-area-input',
         moduleId: './modules/packing-sku-inventory/im-area-input/index',
         nav: true,
-        title: 'Inspection Material Dyeing/Printing',
+        title: 'Penerimaan IM Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -74,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -83,7 +83,7 @@ module.exports = [
         name: 'product-packing',
         moduleId: './modules/packing-sku-inventory/im-area-output/index',
         nav: true,
-        title: 'Bon Inspection Material Dyeing/Printing',
+        title: 'Pencatatan Keluar IM Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -96,7 +96,7 @@ module.exports = [
         name: 'transit-area-input',
         moduleId: './modules/packing-sku-inventory/transit-area-input/index',
         nav: true,
-        title: 'Penerimaan Transit Area Dyeing/Printing',
+        title: 'Penerimaan Transit Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -109,7 +109,7 @@ module.exports = [
         name: 'transit-area-output',
         moduleId: './modules/packing-sku-inventory/transit-area-output/index',
         nav: true,
-        title: 'Bon Transit Area Dyeing/Printing',
+        title: 'Pencatatan Keluar Transit Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -130,12 +130,38 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'packing-sku-inventory/dyeing-printing-in-packaging',
+    //     name: 'dyeing-printing-in-packaging',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
+    //     nav: true,
+    //     title: 'Penerimaan Packing Area Dyeing/Printing V1',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    {
+        route: 'packing-sku-inventory/dyeing-printing-in-packaging-v2',
+        name: 'dyeing-printing-in-packaging-v2',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/index',
+        nav: true,
+        title: 'Penerimaan Packing Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'packing-sku-inventory/dyeing-printing-out-packaging',
         name: 'dyeing-printing-out-packaging',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-out-packaging/index',
         nav: true,
-        title: 'Bon Packing Area Dyeing/Printing',
+        title: 'Pencatatan Keluar Packing Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -157,12 +183,11 @@ module.exports = [
         }
     },
     {
-
-        route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
-        name: 'dyeing-printing-goods-warehouse',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+        route: 'packing-sku-inventory/dyeing-printing-out-warehouses',
+        name: 'dyeing-printing-out-warehouses',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-warehouses/index',
         nav: true,
-        title: 'Bon Gudang Barang Jadi Dyeing/Printing',
+        title: 'Bon Keluar Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -170,6 +195,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+
+    //     route: 'packing-sku-inventory/dyeing-printing-goods-warehouse',
+    //     name: 'dyeing-printing-goods-warehouse',
+    //     moduleId: './modules/packing-sku-inventory/dyeing-printing-goods-warehouse/index',
+    //     nav: true,
+    //     title: 'Bon Gudang Barang Jadi Dyeing/Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "ps-inventory",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'packing-sku-inventory/aval-area-input',
         name: 'aval-area-input',
@@ -196,32 +235,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'packing-sku-inventory/aval-area-note',
-    //     name: 'aval-area-note',
-    //     moduleId: './modules/packing-sku-inventory/aval-area-note/index',
-    //     nav: true,
-    //     title: 'Bon Aval Area',
-    //     auth: true,
-    //     settings: {
-    //         group: "ps-inventory",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    {
-        route: 'packing-sku-inventory/dyeing-printing-in-packaging',
-        name: 'dyeing-printing-in-packaging',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-in-packaging/index',
-        nav: true,
-        title: 'Penerimaan Packing Area Dyeing/Printing',
-        auth: true,
-        settings: {
-            group: "ps-inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
     {
         route: 'packing-sku-inventory/inspection-im-balance',
         name: 'product-packing',
@@ -240,7 +253,7 @@ module.exports = [
         name: 'shipping-area-input',
         moduleId: './modules/packing-sku-inventory/shipping-area-input/index',
         nav: true,
-        title: 'Penerimaan Shipping Area Dyeing Printing',
+        title: 'Penerimaan Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -253,7 +266,7 @@ module.exports = [
         name: 'shipping-area-output',
         moduleId: './modules/packing-sku-inventory/shipping-area-output/index',
         nav: true,
-        title: 'Bon Keluar Shipping Area',
+        title: 'Pencatatan Keluar Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

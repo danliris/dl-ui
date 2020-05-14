@@ -50,6 +50,7 @@ export class DataForm {
     if (this.data.id) {
       this.data.Date = this.data.date;
       this.data.Shift = this.data.shift;
+      this.data.Group = this.data.group;
       if (this.data.avalItems.length > 0) {
         this.data.DyeingPrintingItems = this.data.avalItems;
         this.isHasData = true;
@@ -62,9 +63,12 @@ export class DataForm {
   }
 
   shifts = ["PAGI", "SIANG"];
+  
+  groups = ["A", "B"];
 
   Date = null;
   Shift = null;
+  Group = null;
 
   searching() {
     var errorIndex = 0;
@@ -103,11 +107,22 @@ export class DataForm {
       this.error.Shift = "";
     }
 
+    if (
+      this.data.Group == undefined ||
+      this.data.Group == null ||
+      this.data.Group == ""
+    ) {
+      this.error.Group = "Group Harus Diisi";
+      errorIndex++;
+    } else {
+      this.Group = this.data.Group;
+      this.error.Group = "";
+    }
+
     if (errorIndex == 0) {
       this.data.DyeingPrintingMovementIds = [];
 
-      this.service.getPreAval(this.Date, this.Shift).then((result) => {
-        // console.log("result", result);
+      this.service.getPreAval(this.Date, this.Shift, this.Group).then((result) => {
         if (result.length > 0) {
           result.forEach((dyeingPrintingArea) => {
             var DyeingPrintingMovementIds = {};
@@ -117,8 +132,6 @@ export class DataForm {
 
             dyeingPrintingArea.preAvalProductionOrders.forEach(
               (productionOrder) => {
-                // console.log(productionOrder);
-                // console.log(productionOrder.productionOrder.id);
                 DyeingPrintingMovementIds.ProductionOrderIds.push(
                   productionOrder.productionOrder.id
                 );

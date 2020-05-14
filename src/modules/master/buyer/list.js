@@ -7,6 +7,7 @@ export class List {
   context = ["detail"];
   columns = [
     { field: "Code", title: "Kode" },
+    { field: "NIK", title: "NIK" },    
     { field: "Name", title: "Nama" },
     { field: "Address", title: "Alamat" },
     { field: "City", title: "Kota" },
@@ -25,7 +26,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code", "Name", "Address", "City", "Country", "Contact", "Tempo","Type"],
+      select: ["Code","NIK", "Name", "Address", "City", "Country", "Contact", "Tempo","Type"],
       order: order
     }
 

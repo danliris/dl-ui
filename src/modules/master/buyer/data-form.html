@@ -16,6 +16,13 @@
         ></au-textbox>
 
         <au-textbox 
+          label="NIK"
+          value.bind="data.NIK"
+          error.bind="error.NIK"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
+        <au-textbox 
           label="Nama"
           value.bind="data.Name"
           error.bind="error.name"
