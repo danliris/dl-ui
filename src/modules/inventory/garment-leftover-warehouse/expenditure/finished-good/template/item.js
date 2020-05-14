@@ -67,6 +67,9 @@ export class items {
     }
 
     selectedStockChanged(newValue){
+        this.data.StockId=0;
+        this.data.RONo="";
+        this.data.StockQuantity=0;
         if(newValue){
             this.data.StockId=newValue.Id;
             this.data.RONo=newValue.RONo;
@@ -75,7 +78,18 @@ export class items {
     }
 
     selectedUnitChanged(newValue){
-        this.data.Unit=newValue;
-
+        this.data.StockId=0;
+        this.data.RONo="";
+        this.data.StockQuantity=0;
+        this.selectedStock=null;
+        if(newValue)
+            this.data.Unit=newValue;
+        else{
+            this.data.StockId=0;
+            this.data.RONo="";
+            this.data.StockQuantity=0;
+            this.data.Unit=null;
+            this.selectedStock=null;
+        }
     }
 }
