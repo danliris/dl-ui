@@ -23,7 +23,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "ReferenceType", title: "No. Referensi" },
+    { field: "ReferenceNo", title: "No. Referensi" },
     { field: "bankView", title: "Bank" },
     { field: "Status", title: "Status" },
     { field: "SourceType", title: "Jenis" }
