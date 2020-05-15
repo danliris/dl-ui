@@ -75,12 +75,13 @@ export class List {
                             ConfirmPrice : data.ConfirmPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
                             CMPrice : data.CMPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
                             FOBPrice : data.FOBPrice.toLocaleString('en-EN',{minimumFractionDigits: 4, maximumFractionDigits: 4}),
+                            Amount : data.Amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2}),
                          });
                     
                         if (!subTotalSection[SECTION]) {
                            subTotalSection[SECTION] = 0;
                            } 
-                           subTotalSection[SECTION] += data.FOBPrice;
+                           subTotalSection[SECTION] += data.Amount;
                         }    
 
                var Sections = [];

@@ -74,12 +74,12 @@
     <div class="col-md-10">
       <div class="row" show.bind="hasCCG_M_Fabric">
         <au-collection title="Fabric" items.bind="CCG_M_Fabric" columns.bind="CCG_M_FabricInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
-          read-only.bind="readOnly">
+          read-only.bind="readOnly || isCopy">
         </au-collection>
       </div>
       <div class="row" show.bind="hasCCG_M_Accessories">
         <au-collection title="Accessories Dan Lain-Lain" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
-          read-only.bind="readOnly">
+          read-only.bind="readOnly || isCopy">
         </au-collection>
       </div>
       <!-- <div class="row" show.bind="hasCCG_M_Rate">
@@ -99,7 +99,9 @@
         <au-collection title="Size Breakdown" 
           errors.bind="error.SizeBreakdownItems"
           items.bind="data.RO_Garment_SizeBreakdowns" columns.bind="RO_Garment_SizeBreakdownsInfo.columns"
-          options.bind="RO_Garment_SizeBreakdownsInfo.options" add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" 
+          options.bind="RO_Garment_SizeBreakdownsInfo.options"
+          add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" 
+          remove.bind="RO_Garment_SizeBreakdownsInfo.onRemove" 
           item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown"
           footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" 
           read-only.bind="readOnly">

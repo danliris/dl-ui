@@ -19,7 +19,8 @@
             options.bind="controlOptions">
       </au-autocomplete>
       
-      <au-datepicker label="Periode" value.bind="date"></au-datepicker> 
+      <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+      <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
 
   <au-textbox 
   label="No RO"
@@ -45,7 +46,7 @@
         <thead align="center">
             <tr>
                 <td rowspan="3">RO</td>
-                <td rowspan="2">ARTIKEL</td>
+                <td rowspan="3">ARTIKEL</td>
                 <td rowspan="3">KOMODITI</td>
                 <td rowspan="3">JUMLAH ORDER</td>
                 <td colspan="8">CUTTING</td>
@@ -65,8 +66,8 @@
                 <td rowspan="2">Saldo Akhir WIP Cutting</td>
 
                 <td rowspan="2">Saldo Awal Loading</td>
+                <td rowspan="2">Loading In</td>
                 <td rowspan="2">Loading Out (WIP Sewing)</td>
-                <td rowspan="2">Loading In Transfer</td>
                 <td rowspan="2">Adjs Loading</td>
                 <td rowspan="2">Saldo Akhir Loading</td>
 
@@ -109,16 +110,52 @@
             <require from="../../../lib/number-format-value-converter"></require>
             <tr repeat.for="item of data">
                 <td class="text-center">${item.Ro}</td>
-                <td class="text-center">${item.BuyerCode}</td>
                 <td class="text-center">${item.Article}</td>
                 <td class="text-center">${item.Comodity}</td>
                 <td class="text-right">${item.QtyOrder}</td>
-                <td class="text-center">${item.Size}</td>
-                <td class="text-right">${item.QtyCutting}</td>
+                <td class="text-center">${item.BeginingBalanceCuttingQty}</td>
+                <td class="text-right">${item.QtyCuttingIn}</td>
+                <td class="text-right">${item.QtyCuttingOut}</td>
+                <td class="text-right">${item.QtyCuttingTransfer}</td>
+                <td class="text-right">${item.QtyCuttingsubkon}</td>
+                <td class="text-right">${item.AvalCutting}</td>
+                <td class="text-right">${item.AvalSewing}</td>
+                <td class="text-right">${item.EndBalancCuttingeQty}</td>
+                <td class="text-center">${item.BeginingBalanceLoadingQty}</td>
+                <td class="text-right">${item.QtyLoadingIn}</td>
                 <td class="text-right">${item.QtyLoading}</td>
-                <td class="text-right">${item.QtySewing}</td>
-                <td class="text-right">${item.QtyFinishing}</td>
-                <td class="text-right">${item.Wip}</td>
+                <td class="text-right">${item.QtyLoadingAdjs}</td>
+                <td class="text-right">${item.EndBalanceLoadingQty}</td>
+                <td class="text-center">${item.BeginingBalanceSewingQty}</td>
+                <td class="text-right">${item.QtySewingIn}</td>
+                <td class="text-right">${item.QtySewingOut}</td>
+                <td class="text-right">${item.QtySewingInTransfer}</td>
+                <td class="text-right">${item.WipSewingOut}</td>
+                <td class="text-right">${item.WipFinishingOut}</td>
+                <td class="text-right">${item.QtySewingRetur}</td>
+                <td class="text-right">${item.QtySewingAdj}</td>
+                <td class="text-right">${item.EndBalanceSewingQty}</td>
+                <td class="text-center">${item.BeginingBalanceFinishingQty}</td>
+                <td class="text-right">${item.FinishingInQty}</td>
+                <td class="text-right">${item.BeginingBalanceSubconQty}</td>
+                <td class="text-right">${item.SubconInQty}</td>
+                <td class="text-right">${item.SubconOutQty}</td>
+                <td class="text-right">${item.EndBalanceSubconQty}</td>
+                <td class="text-right">${item.FinishingOutQty}</td>
+                <td class="text-right">${item.FinishingInTransferQty}</td>
+                <td class="text-right">${item.FinishingAdjQty}</td>
+                <td class="text-right">${item.FinishingReturQty}</td>
+                <td class="text-right">${item.EndBalanceFinishingQty}</td>
+                <td class="text-right">${item.BeginingBalanceExpenditureGood}</td>
+                <td class="text-right">${item.FinishingInExpenditure}</td>
+                
+                <td class="text-right">${item.FinishingInTransferQty}</td>
+                <td class="text-right">${item.ExpenditureGoodRetur}</td>
+                <td class="text-right">${item.ExportQty}</td>
+                <td class="text-right">${item.OtherQty}</td>
+                <td class="text-right">${item.SampleQty}</td>
+                <td class="text-right">${item.ExpenditureGoodAdj}</td>
+                <td class="text-right">${item.EndBalanceExpenditureGood}</td>
             </tr>
         </tbody>
     </table>

@@ -3,22 +3,17 @@ import {
   inject,
   containerless,
   computedFrom,
-  BindingEngine
+  BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceProductionAzure, ServiceCore } from "./service";
+import { Service, ServiceCore } from "./service";
 
-var ShipmentDocumentLoader = require("../../../loader/shipment-document-loader");
+var BuyersLoader = require("../../../loader/buyers-loader");
 var CurrencyLoader = require("../../../loader/currency-loader");
+var UnitLoader = require("../../../loader/unit-loader");
 
 @containerless()
-@inject(
-  Service,
-  // ServiceProductionAzure,
-  ServiceCore,
-  BindingSignaler,
-  BindingEngine
-)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -26,19 +21,12 @@ export class DataForm {
   @bindable error;
   @bindable SalesInvoiceDate;
   @bindable DueDate;
-  @bindable BuyerNPWP;
   @bindable VatType;
-  @bindable getTempo;
+  @bindable Tempo;
+  @bindable Sales;
 
-  constructor(
-    service,
-    // serviceProductionAzure,
-    serviceCore,
-    bindingSignaler,
-    bindingEngine
-  ) {
+  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
-    // this.serviceProductionAzure = serviceProductionAzure;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
@@ -56,27 +44,32 @@ export class DataForm {
     this.error = this.context.error;
 
     this.VatType = this.data.VatType;
-    this.BuyerNPWP = this.data.BuyerNPWP;
-
     this.TotalPayment = this.data.TotalPayment;
+    this.Sales = this.data.Sales;
     this.data.TotalPayment = this.getTotalPayment;
 
-    // var shipmentDocumentId = this.data.ShipmentDocumentId;
-    // if (shipmentDocumentId) {
-    //   this.selectedShipmentDocument = await this.serviceProductionAzure.getShipmentDocumentById(
-    //     shipmentDocumentId,
-    //     this.shipmentDocumentFields
-    //   );
-    // }
-
-    var currencyId = this.data.CurrencyId;
-    if (currencyId) {
+    if (this.data.Currency && this.data.Currency.Id) {
       this.selectedCurrency = await this.serviceCore.getCurrencyById(
-        currencyId,
-        this.currencyFields
+        this.data.Currency.Id
       );
     }
 
+    if (this.data.Buyer && this.data.Buyer.Id) {
+      this.selectedBuyer = await this.serviceCore.getBuyerById(
+        this.data.Buyer.Id
+      );
+    }
+
+    if (this.data.Unit && this.data.Unit.Id) {
+      this.selectedUnit = await this.serviceCore.getUnitById(this.data.Unit.Id);
+    }
+
+    if (this.data.Buyer && this.data.Buyer.NPWP) {
+      this.selectedBuyer.NPWP = this.data.Buyer.NPWP;
+    }
+    if (this.data.Buyer && this.data.Buyer.NIK) {
+      this.selectedBuyer.NIK = this.data.Buyer.NIK;
+    }
     if (this.data.SalesInvoiceDate) {
       this.SalesInvoiceDate = this.data.SalesInvoiceDate;
     }
@@ -90,8 +83,14 @@ export class DataForm {
       this.data.TotalPayment = this.getTotalPayment;
     }
 
-    if (this.data.BuyerNPWP) {
-      this.BuyerNPWP = this.data.BuyerNPWP;
+    var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
+    var dueTime = new Date(this.data.DueDate).getTime();
+
+    if (salesInvoiceTime && dueTime) {
+      this.Tempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
+    }
+    if (this.data.Sales) {
+      this.Sales = this.data.Sales;
     }
   }
 
@@ -100,14 +99,14 @@ export class DataForm {
     var result = 0;
     if (this.data.SalesInvoiceDetails) {
       for (var detail of this.data.SalesInvoiceDetails) {
-        for (var item of this.detail.SalesInvoiceDetailItems) {
-        result += item.Amount;
-      }}
+        for (var item of detail.SalesInvoiceItems) {
+          result += item.Amount;
+        }
+      }
     }
-    if (this.VatType == "PPN BUMN") {
+    if (this.data.VatType == "PPN BUMN") {
       totalPayment = result;
-    }
-    else {
+    } else {
       totalPayment = result * 0.1 + result;
     }
     this.data.TotalPayment = totalPayment;
@@ -115,13 +114,16 @@ export class DataForm {
   }
 
   SalesInvoiceDateChanged(newValue, oldValue) {
-    if (this.SalesInvoiceDate && this.DueDate) {
+    if (this.SalesInvoiceDate && this.Tempo) {
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
-      this.data.DueDate = this.DueDate;
+      this.data.Tempo = this.Tempo;
+      var milisecondTemp = 1000 * 60 * 60 * 24 * this.data.Tempo;
 
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
-      var dueTime = new Date(this.data.DueDate).getTime();
-      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
+      var dueDate = new Date();
+      dueDate.setTime(salesInvoiceTime + milisecondTemp);
+      this.data.DueDate = new Date(dueDate);
+      this.DueDate = new Date(dueDate);
     }
   }
 
@@ -129,28 +131,62 @@ export class DataForm {
     if (this.SalesInvoiceDate && this.DueDate) {
       this.data.SalesInvoiceDate = this.SalesInvoiceDate;
       this.data.DueDate = this.DueDate;
+    }
+  }
+
+  TempoChanged(newValue, oldValue) {
+    if (this.SalesInvoiceDate && this.Tempo) {
+      this.data.SalesInvoiceDate = this.SalesInvoiceDate;
+      this.data.Tempo = this.Tempo;
+      var milisecondTemp = 1000 * 60 * 60 * 24 * this.data.Tempo;
 
       var salesInvoiceTime = new Date(this.data.SalesInvoiceDate).getTime();
-      var dueTime = new Date(this.data.DueDate).getTime();
-      this.getTempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
+      var dueDate = new Date();
+      dueDate.setTime(salesInvoiceTime + milisecondTemp);
+      this.data.DueDate = new Date(dueDate);
+      this.DueDate = new Date(dueDate);
     }
   }
 
   salesInvoiceDetailsInfo = {
     columns: ["No. Bon Pengiriman Barang"],
-    // onAdd: function () {
-    //   this.context.SalesInvoiceDetailsCollection.bind();
-    //   this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
-    //   this.data.SalesInvoiceDetails.push({});
-    // }.bind(this),
-    // onRemove: function () {
-    //   this.context.SalesInvoiceDetailsCollection.bind();
-    // }.bind(this)
+    onAdd: function () {
+      this.context.SalesInvoiceDetailsCollection.bind();
+      this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
+      this.data.SalesInvoiceDetails.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.SalesInvoiceDetailsCollection.bind();
+    }.bind(this),
   };
+  itemOptions = {};
 
-  shipmentDocumentTableOptions = {}
-
-  salesInvoiceTypeOptions = ["", "BNG", "BAB", "BNS", "RNG", "BRG", "BAG", "BGS", "RRG", "BLL", "BPF", "BSF", "RPF", "BPR", "BSR", "RPR", "BAV", "BON", "BGM", "GPF", "RGF", "GPR", "RGR", "RON"];
+  salesInvoiceTypeOptions = [
+    "",
+    "BNG",
+    "BAB",
+    "BNS",
+    "RNG",
+    "BRG",
+    "BAG",
+    "BGS",
+    "RRG",
+    "BLL",
+    "BPF",
+    "BSF",
+    "RPF",
+    "BPR",
+    "BSR",
+    "RPR",
+    "BAV",
+    "BON",
+    "BGM",
+    "GPF",
+    "RGF",
+    "GPR",
+    "RGR",
+    "RON",
+  ];
   VatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN"];
 
   enterDelegate(event) {
@@ -160,63 +196,66 @@ export class DataForm {
     } else return true;
   }
 
-  // @bindable selectedShipmentDocument;
-  // selectedShipmentDocumentChanged(newValue, oldValue) {
-  //   if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
-  //     this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
-  //     this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
-  //     this.data.BuyerId = this.selectedShipmentDocument.Buyer.Id;
-  //     this.data.BuyerName = this.selectedShipmentDocument.Buyer.Name;
-  //     this.data.BuyerAddress = this.selectedShipmentDocument.Buyer.Address;
-  //     if (this.selectedShipmentDocument.Buyer.NPWP) {
-  //       this.data.BuyerNPWP = this.selectedShipmentDocument.Buyer.NPWP;
-  //     }
-  //     if (!this.data.Id) {
-  //       this.data.SalesInvoiceDetails = [];
-  //       for (var detail of this.selectedShipmentDocument.Details) {
-  //         for (var item of detail.Items) {
-  //           for (var prItem of item.PackingReceiptItems) {
-  //             var siData = {
-  //               ProductCode: prItem.ProductCode,
-  //               ProductName: prItem.ProductName,
-  //               Quantity: prItem.Quantity
-  //             };
-  //             this.data.SalesInvoiceDetails.push(siData);
-  //           }
-  //         }
-  //       }
-  //       console.log(this.selectedShipmentDocument.Buyer)
-  //     }
-  //   } else {
-  //     this.data.ShipmentDocumentId = null;
-  //     this.data.ShipmentDocumentCode = null;
-  //     this.data.BuyerId = null;
-  //     this.data.BuyerName = null;
-  //     this.data.BuyerAddress = null;
-  //     this.data.BuyerNPWP = null;
-  //   }
-  // }
-
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
     if (this.selectedCurrency && this.selectedCurrency.Id) {
-      this.data.CurrencyId = this.selectedCurrency.Id;
-      this.data.CurrencyCode = this.selectedCurrency.Code;
-      this.data.CurrencyRate = this.selectedCurrency.Rate;
-      this.data.CurrencySymbol = this.selectedCurrency.Symbol;
+      this.data.Currency = {};
+      this.data.Currency.Id = this.selectedCurrency.Id;
+      this.data.Currency.Code = this.selectedCurrency.Code;
+      this.data.Currency.Rate = this.selectedCurrency.Rate;
+      this.data.Currency.Symbol = this.selectedCurrency.Symbol;
     } else {
-      this.data.CurrencyId = null;
-      this.data.CurrencyCode = null;
-      this.data.CurrencyRate = null;
-      this.data.CurrencySymbol = null;
+      this.data.Currency.Id = null;
+      this.data.Currency.Code = null;
+      this.data.Currency.Rate = null;
+      this.data.Currency.Symbol = null;
     }
   }
 
-  // get shipmentDocumentLoader() {
-  //   return ShipmentDocumentLoader;
-  // }
+  @bindable selectedBuyer;
+  selectedBuyerChanged(newValue, oldValue) {
+    if (this.selectedBuyer && this.selectedBuyer.Id) {
+      this.data.Buyer = {};
+      this.data.Buyer.Id = this.selectedBuyer.Id;
+      this.data.Buyer.Name = this.selectedBuyer.Name;
+      this.data.Buyer.Code = this.selectedBuyer.Code;
+      this.data.Buyer.Address = this.selectedBuyer.Address;
+      this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
+      this.data.Buyer.NIK = this.selectedBuyer.NIK;
+      this.itemOptions.BuyerId = this.data.Buyer.Id;
+    } else {
+      this.data.Buyer.Id = null;
+      this.data.Buyer.Name = null;
+      this.data.Buyer.Code = null;
+      this.data.Buyer.Address = null;
+      this.data.Buyer.NPWP = null;
+      this.data.Buyer.NIK = null;
+      this.itemOptions.BuyerId = null;
+      this.data.SalesInvoiceDetails = [];
+    }
+  }
+
+  @bindable selectedUnit;
+  selectedUnitChanged(newValue, oldValue) {
+    if (this.selectedUnit && this.selectedUnit.Id) {
+      this.data.Unit = {};
+      this.data.Unit.Id = this.selectedUnit.Id;
+      this.data.Unit.Code = this.selectedUnit.Code;
+      this.data.Unit.Name = this.selectedUnit.Name;
+    } else {
+      this.data.Unit.Id = null;
+      this.data.Unit.Code = null;
+      this.data.Unit.Name = null;
+    }
+  }
 
   get currencyLoader() {
     return CurrencyLoader;
+  }
+  get buyersLoader() {
+    return BuyersLoader;
+  }
+  get unitLoader() {
+    return UnitLoader;
   }
 }

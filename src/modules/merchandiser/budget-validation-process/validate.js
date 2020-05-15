@@ -52,7 +52,7 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        // Filter yang sudah Approved MD dan IE serta sudah Validasi Purchasing
+        // Filter yang sudah Approved Md dan IE serta sudah Validasi Purchasing
         // Saat disimpan maka IsApprovedPPIC menjadi true
         // , dan sebagian Material value IsPosted menjadi true
         return {

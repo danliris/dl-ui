@@ -50,7 +50,7 @@ export class Edit {
                 if (item.IsOpenPO && item.IsSave && item.IsApprovedOpenPOMD) {
                     errorCount++;
                     this.error.Items[i] = {
-                        PO_SerialNumber: "Open PO Master sudah di-Approve MD"
+                        PO_SerialNumber: "Open PO Master sudah di-Approve Md"
                     };
                 }
             }

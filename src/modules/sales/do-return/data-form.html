@@ -1,205 +1,42 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
-    <div slot="actions" class="btn-group">
-      <button class="btn btn-default" click.delegate="context.cancel($event)"
-        if.one-way="context.hasCancel">Kembali</button>
-      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
-      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)"
-        if.one-way="context.hasDelete">Hapus</button>
-    </div>
-
     <div class="row">
-      <div class="col-md-12" style="padding:0">
+      <div class="col-md-8">
+        <au-textbox label="No. Retur" value.bind="data.DOReturnNo" if.bind="readOnly || isEdit" read-only.bind="true">
+        </au-textbox>
 
-        <!-- DO template -->
-        <div class="col-md-10" style="padding:0">
-          <au-textbox label="No. DO Penjualan" value.bind="data.DOSalesNo" error.bind="error.DOSalesNo"
-            if.bind="readOnly || isEdit" read-only.bind="true">
-          </au-textbox>
-          <au-dropdown label="Tipe DO Penjualan" value.bind="data.DOSalesType" items.bind="doSalesTypeOptions"
-            error.bind="error.DOSalesType" read-only.bind="readOnly || isEdit">
-          </au-dropdown>
-        </div>
+        <au-dropdown label="Seri DO Retur" value.bind="data.Type" items.bind="doReturnTypeOptions"
+          error.bind="error.Type" read-only.bind="readOnly || isEdit">
+        </au-dropdown>
 
-        <!-- Local -->
-        <div class="col-md-10" style="padding:0" if.bind="data.DOSalesType =='Lokal'">
-          <div class="row" style="padding-left:14.8%">
-            <div class="col-md-6">
-              <au-dropdown label="Seri DO Lokal" value.bind="data.LocalType" items.bind="doSalesLocalOptions"
-                error.bind="error.LocalType" read-only.bind="readOnly || isEdit">
-              </au-dropdown>
+        <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly">
+        </au-datepicker>
 
-              <au-datepicker label="Tanggal" value.bind="data.LocalDate" error.bind="error.LocalDate"
-                read-only.bind="readOnly">
-              </au-datepicker>
+        <au-textbox label="Dari Bagian/Retur Dari" value.bind="data.ReturnFrom" error.bind="error.ReturnFrom"
+          read-only.bind="readOnly" placeholder="Input Nama Bagian" keypress.delegate="enterDelegate($event)">
+        </au-textbox>
 
-              <au-autocomplete label="No. Sales Contract" value.bind="selectedLocalSalesContract"
-                read-only.bind="readOnly || isEdit" error.bind="error.LocalSalesContract"
-                loader.bind="localSalesContractLoader" text.bind="localSalesContractNoView"
-                keypress.delegate="enterDelegate($event)" change.delegate="selectedLocalSalesContractChanged($event)"
-                placeholder=" Pilih No. Sales Contract">
-              </au-autocomplete>
+        <au-textbox label="No. LTKP" value.bind="data.LKTPNo" error.bind="error.LKTPNo" read-only.bind="readOnly"
+          placeholder="Input No. LTKP" keypress.delegate="enterDelegate($event)">
+        </au-textbox>
 
-              <au-textbox label="Buyer"
-                value.bind="selectedLocalSalesContract.CostCalculation.PreSalesContract.Buyer.Name"
-                read-only.bind="true">
-              </au-textbox>
+        <au-textbox label="Kepala Gudang" value.bind="data.HeadOfStorage" error.bind="error.HeadOfStorage"
+          read-only.bind="readOnly" placeholder="Input Nama Kepala Gudang" keypress.delegate="enterDelegate($event)">
+        </au-textbox>
 
-              <au-textbox label="Alamat"
-                value.bind="selectedLocalSalesContract.CostCalculation.PreSalesContract.Buyer.Address"
-                read-only.bind="true">
-              </au-textbox>
-
-              <au-textbox label="Dikirm Kepada" value.bind="data.DestinationBuyerName"
-                error.bind="error.DestinationBuyerName" read-only.bind="readOnly" placeholder="Input Buyer Tujuan"
-                keypress.delegate="enterDelegate($event)">
-              </au-textbox>
-
-              <au-textbox label="Alamat Tujuan" value.bind="data.DestinationBuyerAddress"
-                error.bind="error.DestinationBuyerAddress" read-only.bind="readOnly" placeholder="Input Alamat Tujuan"
-                keypress.delegate="enterDelegate($event)">
-              </au-textbox>
-
-              <au-textbox label="Nama Sales" value.bind="data.SalesName" error.bind="error.SalesName"
-                read-only.bind="readOnly" placeholder="Input Nama Sales" keypress.delegate="enterDelegate($event)">
-              </au-textbox>
-            </div>
-
-            <div class="col-md-6">
-              <au-textbox label="Kepala Gudang" value.bind="data.LocalHeadOfStorage"
-                error.bind="error.LocalHeadOfStorage" read-only.bind="readOnly" placeholder="Input Kepala Gudang"
-                keypress.delegate="enterDelegate($event)">
-              </au-textbox>
-
-              <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomOptions"
-                error.bind="error.PackingUom" read-only.bind="readOnly" placeholder="Pilih Satuan Packing">
-              </au-dropdown>
-
-              <au-dropdown label="Satuan Imperial" value.bind="data.ImperialUom" items.bind="imperialUomOptions"
-                error.bind="error.ImperialUom" read-only.bind="readOnly" placeholder="Pilih Satuan Imperial">
-              </au-dropdown>
-
-              <au-dropdown label="Satuan Metrik" value.bind="data.MetricUom" items.bind="metricUomOptions"
-                error.bind="error.MetrichUom" read-only.bind="readOnly" placeholder="Pilih Satuan Metrik">
-              </au-dropdown>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <au-numeric label="Disp" value.bind="data.Disp" error.bind="error.Disp" read-only.bind="readOnly"
-                    placeholder="Input Disp" keypress.delegate="enterDelegate($event)">
-                  </au-numeric>
-                </div>
-                <div class="col-md-6">
-                  <au-numeric label="Op" value.bind="data.Op" error.bind="error.Op" read-only.bind="readOnly"
-                    placeholder="Input Op" keypress.delegate="enterDelegate($event)">
-                  </au-numeric>
-                </div>
-                <div class="col-md-6">
-                  <au-numeric label="Sc" value.bind="data.Sc" error.bind="error.Sc" read-only.bind="readOnly"
-                    placeholder="Input Sc" keypress.delegate="enterDelegate($event)">
-                  </au-numeric>
-                </div>
-              </div>
-
-              <au-multiline label="Catatan" value.bind="data.LocalRemark" error.bind="error.LocalRemark"
-                read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
-              </au-multiline>
-            </div>
-          </div>
-        </div>
-
-        <!-- Retur -->
-        <div class="col-md-10" style="padding:0" if.bind="data.DOSalesType =='Retur'">
-          <au-dropdown label="Seri DO Retur" value.bind="data.ReturnType" items.bind="doSalesReturnOptions"
-            error.bind="error.ReturnType" read-only.bind="readOnly || isEdit">
-          </au-dropdown>
-
-          <au-datepicker label="Tanggal" value.bind="data.ReturnDate" error.bind="error.ReturnDate"
-            read-only.bind="readOnly">
-          </au-datepicker>
-
-          <au-textbox label="Dari Bagian/Retur Dari" value.bind="data.ReturnFrom" error.bind="error.ReturnFrom"
-            read-only.bind="readOnly" placeholder="Input Nama Bagian" keypress.delegate="enterDelegate($event)">
-          </au-textbox>
-
-          <au-textbox label="No. LTKP" value.bind="data.LTKPNo" error.bind="error.LTKPNo" read-only.bind="readOnly"
-            placeholder="Input No. LTKP" keypress.delegate="enterDelegate($event)">
-          </au-textbox>
-
-          <au-textbox label="Kepala Gudang" value.bind="data.ReturnHeadOfStorage" error.bind="error.ReturnHeadOfStorage"
-            read-only.bind="readOnly" placeholder="Input Nama Kepala Gudang" keypress.delegate="enterDelegate($event)">
-          </au-textbox>
-
-          <au-multiline label="Catatan" value.bind="data.ReturnRemark" error.bind="error.ReturnRemark"
-            read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
-          </au-multiline>
-        </div>
-
-        <!-- Ekspor -->
-        <div class="col-md-10" style="padding:0" if.bind="data.DOSalesType =='Ekspor'">
-          <au-dropdown label="Seri DO Ekspor" value.bind="data.ExportType" items.bind="doSalesExportOptions"
-            error.bind="error.ExportType" read-only.bind="readOnly || isEdit">
-          </au-dropdown>
-
-          <au-datepicker label="Tanggal" value.bind="data.ExportDate" error.bind="error.ExportDate"
-            read-only.bind="readOnly">
-          </au-datepicker>
-
-          <au-textbox label="Dikerjakan Oleh" value.bind="data. DoneBy" error.bind="error.DoneBy"
-            read-only.bind="readOnly" placeholder="Input Dikerjakan Oleh" keypress.delegate="enterDelegate($event)">
-          </au-textbox>
-
-          <au-autocomplete label="No. Sales Contract" value.bind="selectedExportSalesContract"
-            read-only.bind="readOnly || isEdit" error.bind="error.ExportSalesContract"
-            loader.bind="exportSalesContractLoader" text.bind="exportSalesContractNoView"
-            keypress.delegate="enterDelegate($event)" change.delegate="selectedExportSalesContractChanged($event)"
-            placeholder=" Pilih No. Sales Contract">
-          </au-autocomplete>
-
-          <au-textbox label="Order Untuk" value.bind="selectedExportSalesContract.MaterialConstruction.Name"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox label="Buyer" value.bind="selectedExportSalesContract.CostCalculation.PreSalesContract.Buyer.Name"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox label="Panjang Satuan" value.bind="selectedExportSalesContract.PieceLength" read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox label="Cap Komposisi Persen" value.bind="selectedExportSalesContract.Commodity.Name"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox label="Jumlah Order"
-            value.bind="selectedExportSalesContract.CostCalculation.PreSalesContract.OrderQuantity"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-numeric label="Isi tiap Bale" value.bind="data.FillEachBale" error.bind="error.FillEachBale"
-            read-only.bind="readOnly" placeholder="Input Isi tiap Bale" keypress.delegate="enterDelegate($event)">
-          </au-numeric>
-
-          <au-multiline label="Catatan" value.bind="data.ExportRemark" error.bind="error.ExportRemark"
-            read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
-          </au-multiline>
-        </div>
+        <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
+          keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
+        </au-multiline>
       </div>
     </div>
-    </div>
+    <au-textbox show.bind="error.DOReturnDetail" error.bind="error.DOReturnDetail" read-only.bind="true">
+    </au-textbox>
 
-    <au-textbox show.bind="error.LocalType" error.bind="error.LocalType" read-only.bind="true"></au-textbox>
-    <au-textbox show.bind="error.ReturnType" error.bind="error.ReturnType" read-only.bind="true"></au-textbox>
+    <au-collection columns.bind="doReturnDetailsInfo.columns" items.bind="data.DOReturnDetails"
+      errors.bind="error.DOReturnDetails" read-only.bind="readOnly" add.bind="doReturnDetailsInfo.onAdd"
+      remove.bind="doReturnDetailsInfo.onRemove" item-template="modules/sales/do-return/template/do-return-detail"
+      view-model.ref="DOReturnDetailsCollection" options.bind="itemOptions">
+    </au-collection>
 
-    <au-collection if.bind="data.DOSalesType =='Lokal' && selectedLocalSalesContract"
-      columns.bind="doSalesLocalsInfo.columns" items.bind="data.DOSalesLocals" errors.one-way="error.DOSalesLocals"
-      read-only.bind="readOnly" options.bind="localOptions" item-template="modules/sales/do-sales/template/local-item"
-      view-model.ref="DOSalesLocalsCollection">
-    </au-collection>
-    <au-collection if.bind="data.DOSalesType =='Retur'" columns.bind="doSalesReturnsInfo.columns"
-      items.bind="data.DOSalesReturns" errors.one-way="error.DOSalesReturns" add.bind="doSalesReturnsInfo.onAdd"
-      remove.bind="doSalesReturnsInfo.onRemove" read-only.bind="readOnly"
-      item-template="modules/sales/do-sales/template/return-item" view-model.ref="DOSalesReturnsCollection">
-    </au-collection>
+  </au-input-form>
 </template>

@@ -1,20 +1,21 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder" read-only.bind="true">
+            <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder"
+                read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.ConstructionName" read-only.bind="true"></au-textbox>
             <au-textbox value.bind="data.Material" error.bind="error.Material" read-only.bind="true"
-                show.bind=!data.ProductionOrder></au-textbox>
+                show.bind="!data.ProductionOrder"></au-textbox>
             <au-textbox value.bind="data.MaterialConstruction" error.bind="error.MaterialConstruction"
-                read-only.bind="true" show.bind=!data.ProductionOrder></au-textbox>
-            <au-textbox value.bind="data.MaterialWidth" read-only.bind="true" show.bind=!data.ProductionOrder>
+                read-only.bind="true" show.bind="!data.ProductionOrder"></au-textbox>
+            <au-textbox value.bind="data.MaterialWidth" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
-            <au-textbox value.bind="data.ColorRequest" read-only.bind="true" show.bind=!data.ProductionOrder>
+            <au-textbox value.bind="data.ColorRequest" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
-            <au-textbox value.bind="data.ColorTemplate" read-only.bind="true" show.bind=!data.ProductionOrder>
+            <au-textbox value.bind="data.ColorTemplate" read-only.bind="true" show.bind="!data.ProductionOrder">
             </au-textbox>
         </td>
         <td>
@@ -22,17 +23,15 @@
                 placeholder="Input Jenis / Code"></au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Packing" error.bind="error.Packing" format="0,0"
-                read-only.bind="readOnly">
+            <au-numeric value.bind="data.Packing" error.bind="error.Packing" format="0,0" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="Length" error.bind="error.Length" format="0,0.00"
-                read-only.bind="readOnly">
+            <au-numeric value.bind="Length" error.bind="error.Length" format="0,0.00" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="getConvertionValue" error.bind="error.ConvertionValue" format="0,0.00"
+            <au-numeric value.bind="data.ConvertionValue" error.bind="error.ConvertionValue" format="0,0.00"
                 read-only.bind="true"></au-numeric>
         </td>
 

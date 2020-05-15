@@ -30,6 +30,7 @@ export class List {
         { field: "UnitFromCode", title: "Unit Asal" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
+        { field: "TotalCuttingOutQuantity", title: "Jumlah Out", sortable: false },
         { field: "CuttingOutDate", title: "Tanggal Cutting Out", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "Items", title: "Kode Barang", sortable: false},
         { field: "CreatedBy", title: "Staff", sortable: false},
@@ -52,6 +53,7 @@ export class List {
           }
         return this.service.search(arg)
         .then(result => {
+            this.totalQuantity=result.info.totalQty;
             var data = {};
             data.total = result.info.total;
             result.data.forEach(s => {

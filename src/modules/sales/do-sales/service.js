@@ -36,7 +36,7 @@ export class Service extends RestService {
   }
 
   getDOSalesPdfById(id) {
-    var endpoint = `${serviceUri}/doSalesPdf/${id}`;
+    var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
   }
 
@@ -52,7 +52,7 @@ export class Service extends RestService {
   }
 
   getProductionOrderBySalesContractId(salesContractId) {
-    var endpoint = `${productionOrderServiceUri}/filterBySalesContract/${salesContractId}`;
+    var endpoint = `${productionOrderServiceUri}/filter-by-sales-contract/${salesContractId}`;
     return super.list(endpoint);
   }
 }

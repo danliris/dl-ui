@@ -167,7 +167,7 @@ export class DataForm {
             else{
                 this.data.Price=0;
             }
-            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING" }) }))
+            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true }) }))
                     .then(result => {
                         for(var sewingOut of result.data){
                             for(var sewingOutItem of sewingOut.Items){

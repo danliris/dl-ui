@@ -20,6 +20,10 @@ export class View {
         this.selectedUnit=this.data.Unit;
         for(var a of this.data.Items){
             a.IsSave=true;
+            if(a.IsReceived){
+                this.hasEdit=false;
+                this.hasDelete=false;
+            }
         }
     }
 

@@ -47,13 +47,12 @@ export class DataForm {
         var selectedBeacukai = newValue;
        
         if (selectedBeacukai) {
-            if (selectedBeacukai.BonNo) {
+            if (selectedBeacukai.BCId) {
                 this.data.beacukaiNo = selectedBeacukai.BCNo;
-                this.data.beacukaiDate = selectedBeacukai.BCDate;
-                this.data.customType = selectedBeacukai.BCType;
-                this.data.arrivalDate = selectedBeacukai.TglDatang;
-                this.data.billNo=selectedBeacukai.BonNo;
-                this.data.arrivalDate = selectedBeacukai.TglDatang;
+                this.data.beacukaiDate = selectedBeacukai.TglBCNo;
+                this.data.customType = selectedBeacukai.JenisBC;
+                this.data.billNo=selectedBeacukai.BCId;
+                this.data.arrivalDate = selectedBeacukai.Hari;
                 this.context.beacukaiAU.editorValue="";
             }else {
                 this.data.beacukaiDate = null;
@@ -180,7 +179,7 @@ export class DataForm {
     }
     customsView = (customs) => {
        if(customs.BCNo)
-       return `${customs.BCNo} - ${customs.BCType}- ${customs.BCDate}`;
+       return `${customs.BCNo} - ${customs.JenisBC}- ${customs.TglBCNo.toString()}`;
     }
     currencyView = (currency) => {
         if(this.data.Id)

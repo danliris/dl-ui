@@ -55,12 +55,17 @@ export class DataForm {
   }
   RO_Garment_SizeBreakdownsInfo = {
     columns: [
+      { header: "No.", value: "SizeBreakdownIndex" },
       { header: "Color", value: "Color" },
       { header: "Size Range", value: "RO_Garment_SizeBreakdowns_Detail" },
     ],
     options: { readOnly: this.readOnly },
     onAdd: function () {
       this.data.RO_Garment_SizeBreakdowns.push({});
+      this.data.RO_Garment_SizeBreakdowns.forEach((m, i) => m.SizeBreakdownIndex = i);
+    }.bind(this),
+    onRemove: function () {
+      this.data.RO_Garment_SizeBreakdowns.forEach((m, i) => m.SizeBreakdownIndex = i);
     }.bind(this)
   };
 
@@ -68,6 +73,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable readOnly;
+  @bindable isCopy;
   disabled = true;
   shown = false;
 
@@ -132,7 +138,14 @@ export class DataForm {
     this.readOnly = this.context.readOnly ? this.context.readOnly : false;
     this.RO_Garment_SizeBreakdownsInfo.options.readOnly = this.readOnly;
     if (this.data.CostCalculationGarment) {
-      this.costCalculationGarment = this.data.CostCalculationGarment;
+      if (this.isCopy) {
+        if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
+          this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
+          this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+        }
+      } else {
+        this.costCalculationGarment = this.data.CostCalculationGarment;
+      }
     }
     this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
     this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
@@ -143,6 +156,8 @@ export class DataForm {
   }
 
   async costCalculationGarmentChanged(newValue) {
+    this.isCopy = false;
+
     if (newValue && newValue.Id) {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
@@ -167,6 +182,9 @@ export class DataForm {
 
   @computedFrom('data.CostCalculationGarment')
   get hasCostCalculationGarment() {
+    if (this.isCopy) {
+      return true;
+    }
     return this.data.CostCalculationGarment && this.data.CostCalculationGarment.Id;
   }
 

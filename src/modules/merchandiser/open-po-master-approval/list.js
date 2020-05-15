@@ -72,13 +72,17 @@ export class List {
         const type = parentInstruction.config.settings.type;
 
         switch (type) {
-            case "md":
+            case "kabag_md":
                 this.filter = {};
                 this.filter["Items.Any(IsOpenPO==true && IsApprovedOpenPOMD==false)"] = true;
                 break;
             case "purchasing":
                 this.filter = {};
                 this.filter["Items.Any(IsOpenPO==true && IsApprovedOpenPOMD==true && IsApprovedOpenPOPurchasing==false)"] = true;
+                break;
+            case "kadiv_md":
+                this.filter = {};
+                this.filter["Items.Any(IsOpenPO==true && IsApprovedOpenPOMD==true && IsApprovedOpenPOPurchasing==true && IsApprovedOpenPOKadivMd==false)"] = true;
                 break;
             default:
                 break;

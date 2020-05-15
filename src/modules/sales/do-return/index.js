@@ -6,29 +6,29 @@ export class Index {
         moduleId: "./list",
         name: "list",
         nav: true,
-        title: "List: DO Penjualan"
+        title: "List: DO Retur",
       },
       {
         route: "view/:id",
         moduleId: "./view",
         name: "view",
         nav: false,
-        title: "View: DO Penjualan"
+        title: "View: DO Retur",
       },
       {
         route: "edit/:id",
         moduleId: "./edit",
         name: "edit",
         nav: false,
-        title: "Edit: DO Penjualan"
+        title: "Edit: DO Retur",
       },
       {
         route: "create",
         moduleId: "./create",
         name: "create",
         nav: true,
-        title: "Create: DO Penjualan"
-      }
+        title: "Create: DO Retur",
+      },
     ]);
     this.router = router;
   }

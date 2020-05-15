@@ -21,7 +21,7 @@ export class List {
             }
         },
         {
-            field: "IsApprovedMD", title: "Validasi MD",
+            field: "IsApprovedMD", title: "Validasi Md",
             formatter: function (value, data, index) {
                 return data.ApprovalMD.IsApproved ? "Sudah" : "Belum";
             }

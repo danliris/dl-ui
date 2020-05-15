@@ -18,14 +18,15 @@ export class List {
     searching() {
         var info = {
             unit : this.unit ? this.unit.Id : "",
-            date : this.date ? moment(this.date).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             ro : this.ro ?this.ro:""
         }
         this.service.search(info)
             .then(result => {
                 this.data=[];
                 for(var _data of result){
-                      
+                      console.log(_data);
                     this.data.push(_data);
 
                  }
@@ -35,7 +36,8 @@ export class List {
     ExportToExcel() {
         var info = {
             unit : this.unit ? this.unit.Id : "",
-            date : this.date ? moment(this.date).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             ro : this.ro ?this.ro:""
         }
         this.service.generateExcel(info);

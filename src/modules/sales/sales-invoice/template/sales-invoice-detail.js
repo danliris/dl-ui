@@ -1,51 +1,58 @@
-import { inject, bindable, BindingEngine } from 'aurelia-framework';
-import { BindingSignaler } from 'aurelia-templating-resources';
+import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { BindingSignaler } from "aurelia-templating-resources";
 import { ServiceProductionAzure } from "./../service";
+import { DataForm } from "./../data-form";
+var ShipmentDocumentLoader = require("../../../../loader/shin-shipment-document-loader");
 
-var ShipmentDocumentLoader = require("../../../../loader/shipment-document-loader");
-
-@inject(ServiceProductionAzure, BindingSignaler, BindingEngine)
+@inject(ServiceProductionAzure, BindingSignaler, BindingEngine, DataForm)
 export class SalesInvoiceDetail {
   @bindable data;
   @bindable error;
+  @bindable typeFaktur;
 
-  shipmentDocumentTableOptions = {}
+  shipmentDocumentTableOptions = {};
 
   constructor(
     serviceProductionAzure,
     bindingSignaler,
-    bindingEngine
+    bindingEngine,
+    dataForm
   ) {
     this.serviceProductionAzure = serviceProductionAzure;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
+    this.dataForm = dataForm;
   }
+  shipmentQuery = {};
+  activate(item) {
+    this.data = item.data;
+    this.error = item.error;
+    this.options = item.options;
+    this.BuyerId = item.context.options.BuyerId;
+    this.shipmentQuery = { BuyerId: this.BuyerId };
 
-  async bind(context) {
-    this.context = context;
-    this.context._this = this;
-    this.data = this.context.data;
-    this.error = this.context.error;
-
-    var shipmentDocumentId = this.data.ShipmentDocumentId;
-    if (shipmentDocumentId) {
-      this.selectedShipmentDocument = await this.serviceProductionAzure.getShipmentDocumentById(
-        shipmentDocumentId,
-        this.shipmentDocumentFields
-      );
+    if (this.data.ShipmentDocumentId) {
+      this.selectedShipmentDocument = {};
+      this.selectedShipmentDocument.Id = this.data.ShipmentDocumentId;
+      this.selectedShipmentDocument.Code = this.data.ShipmentDocumentCode;
+    }
+    if (this.dataForm.data.SalesInvoiceType) {
+      this.typeFaktur = this.dataForm.data.SalesInvoiceType;
     }
   }
 
-  salesInvoiceDetailItemsInfo = {
+  salesInvoiceItemsInfo = {
     columns: [
       "Kode Barang",
       "Nama Barang",
       "Banyak",
+      "Satuan Packing",
       "Jumlah",
       "Satuan",
-      "Harga",
-      "Total"
-    ]
+      "Nilai Konversi",
+      "Harga Satuan",
+      "Total Harga",
+    ],
   };
 
   enterDelegate(event) {
@@ -56,39 +63,32 @@ export class SalesInvoiceDetail {
   }
 
   @bindable selectedShipmentDocument;
-  selectedShipmentDocumentChanged(newValue, oldValue) {
+  async selectedShipmentDocumentChanged(newValue, oldValue) {
+    var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(
+      this.selectedShipmentDocument.Id
+    );
+    var dataProductIdentity = await this.serviceProductionAzure.searchGroupedProductWithProductIdentity(
+      this.selectedShipmentDocument.Id
+    );
     if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
       this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
       this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
-      this.data.BuyerId = this.selectedShipmentDocument.Buyer.Id;
-      this.data.BuyerName = this.selectedShipmentDocument.Buyer.Name;
-      this.data.BuyerAddress = this.selectedShipmentDocument.Buyer.Address;
-      if (this.selectedShipmentDocument.Buyer.NPWP) {
-        this.data.BuyerNPWP = this.selectedShipmentDocument.Buyer.NPWP;
-      }
       if (!this.data.Id) {
-        this.data.SalesInvoiceDetails = [];
-        for (var detail of this.selectedShipmentDocument.Details) {
-          for (var item of detail.Items) {
-            for (var prItem of item.PackingReceiptItems) {
-              var siData = {
-                ProductCode: prItem.ProductCode,
-                ProductName: prItem.ProductName,
-                Quantity: prItem.Quantity
-              };
-              this.data.SalesInvoiceDetails.push(siData);
-            }
-          }
+        this.data.SalesInvoiceItems = [];
+        for (var item of dataGroup) {
+          var siData = {
+            ProductName: item.ProductName,
+            Quantity: item.Quantity,
+            PackingUom: item.QuantityUOM,
+            Total: item.Total,
+            ProductCode: dataProductIdentity.ProductIdentity,
+          };
+          this.data.SalesInvoiceItems.push(siData);
         }
-        console.log(this.selectedShipmentDocument.Buyer)
       }
     } else {
       this.data.ShipmentDocumentId = null;
       this.data.ShipmentDocumentCode = null;
-      this.data.BuyerId = null;
-      this.data.BuyerName = null;
-      this.data.BuyerAddress = null;
-      this.data.BuyerNPWP = null;
     }
   }
 

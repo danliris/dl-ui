@@ -20,7 +20,9 @@ export class List {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        
+        this.filter={
+          CreatedBy: username
+        }
       }
 
     context = ["Rincian"];
@@ -30,15 +32,14 @@ export class List {
         { field: "Article", title: "No Artikel" },
         { field: "TotalQuantity", title: "Jumlah" },
         { field: "RONo", title: "RO" },
-        { field: "Unit.Code", title: "Unit"},
+        { field: "UnitCode", title: "Unit"},
         {
             field: "SewingDODate", title: "Tgl Sewing DO", formatter: function (value, data, index) {
               return moment(value).format("DD MMM YYYY")
             },
         },
         
-        { field: "Items", title: "Kode Barang", sortable: false },
-        { field: "CreatedBy", title: "Staff", sortable: false },
+        { field: "ProductList", title: "Kode Barang", sortable: false },
     ]
 
     loader = (info) => {
@@ -58,28 +59,14 @@ export class List {
           }
         return this.service.search(arg)
         .then(result => {
+            this.totalQuantity=result.info.totalQty;
             var data = {};
             data.total = result.info.total;
             data.data = result.data;
-            data.data.forEach(s => {
-                if(s.Items){
-                s.Items.toString = function () {
-                    var str = "<ul>";
-                    var products = [];
-                    for (var item of s.Items) {
-                        products.push(item.Product.Code)
-                    }
-                    var Products = products.filter(distinct);
-                    for(var product of Products){
-                    str += `<li>${product}</li>`;
-                    }
-                    str += "</ul>";
-                    return str;
-                        }
-                }
-                else{
-                s.Items = "-";
-                }
+            result.data.forEach(s => {
+                s.UnitCode=s.Unit.Code;
+                s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
+                
             });
 
             return {

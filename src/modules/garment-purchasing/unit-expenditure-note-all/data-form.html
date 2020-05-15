@@ -100,6 +100,15 @@
                     if.bind = "isTransfer "
                     options.bind="controlOptions">
                 </au-textbox>
+
+                <au-textbox
+                    label="RO Job"
+                    value.bind="data.RoJob"
+                    error.bind="error.RoJob"
+                    show.bind="data.RoJob"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-textbox>
             </div>
     </div>
 
@@ -112,8 +121,8 @@
             options.bind="options"
             read-only.bind="readOnly" 
             show.bind="isItem && !isExternal"
-            header-template="modules/garment-purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-header"
-            item-template="modules/garment-purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item">
+            header-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-header"
+            item-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item">
         </au-collection>
 
         <au-collection 
@@ -123,8 +132,8 @@
             options.bind="options"
             read-only.bind="readOnly" 
             show.bind="isItem && isExternal"
-            header-template="modules/garment-purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-external-header"
-            item-template="modules/garment-purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item">
+            header-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-external-header"
+            item-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item">
         </au-collection>
   </au-input-form>
 </template>

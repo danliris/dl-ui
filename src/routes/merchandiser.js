@@ -60,7 +60,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kabag MD',
+        title: 'Approval PR Master - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -88,7 +88,7 @@ module.exports = [
         name: 'approve-purchase-request-master',
         moduleId: './modules/merchandiser/approve-pr-master/index',
         nav: true,
-        title: 'Approval PR Master - Kadiv MD',
+        title: 'Approval PR Master - Kadiv Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -254,7 +254,7 @@ module.exports = [
         name: 'ro-validation-kabagmd',
         moduleId: './modules/merchandiser/ro-validation/index',
         nav: true,
-        title: 'Validasi RO - Kabag MD',
+        title: 'Validasi RO - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -348,6 +348,19 @@ module.exports = [
         moduleId: './modules/merchandiser/garment-sales-contract/copy/index',
         nav: true,
         title: 'Copy Sales Contract Per RO',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/ro-garment-copy',
+        name: 'ro-garment-copy',
+        moduleId: './modules/merchandiser/ro-garment/copy/index',
+        nav: true,
+        title: 'Copy RO Garment',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -603,6 +616,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/cc-ro-garment-history-report',
+        name: 'cc-ro-garment-history-report',
+        moduleId: './modules/merchandiser/report/cc-ro-garment-history-by-section-report/index',
+        nav: true,
+        title: 'Monitoring History Cost Calculatin & Budget Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/merchandiser/open-po-master',
         name: 'open-po-master',
         moduleId: './modules/merchandiser/open-po-master/index',
@@ -616,17 +642,17 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/open-po-master-approval/md',
-        name: 'open-po-master-approval-md',
+        route: '/merchandiser/open-po-master-approval/kabag-md',
+        name: 'open-po-master-approval-kabag-md',
         moduleId: './modules/merchandiser/open-po-master-approval/index',
         nav: true,
-        title: 'Approval Open PO Master - Md',
+        title: 'Approval Open PO Master - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
-            type: "md"
+            type: "kabag_md"
         }
     },
     {
@@ -641,6 +667,20 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard',
             type: "purchasing"
+        }
+    },
+    {
+        route: '/merchandiser/open-po-master-approval/kadiv-md',
+        name: 'open-po-master-approval-kadiv-md',
+        moduleId: './modules/merchandiser/open-po-master-approval/index',
+        nav: true,
+        title: 'Approval Open PO Master - Kadiv Md',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard',
+            type: "kadiv_md"
         }
     },
     {

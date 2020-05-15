@@ -1,0 +1,22 @@
+<template>
+    <tr>
+        <td>
+            <au-autocomplete placeholder="Input No. Faktur Penjualan" value.bind="selectedSalesInvoice"
+                error.bind="error.SalesInvoiceNo" loader.bind="salesInvoiceLoader" key="SalesInvoiceNo"
+                text="SalesInvoiceNo" read-only.bind="readOnly" keypress.delegate="enterDelegate($event)">
+            </au-autocomplete>
+
+            <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
+
+            <au-collection columns.bind="returnDetailsInfo.columns" remove.bind="returnDetailsInfo.onRemove"
+                items.bind="data.DOReturnDetailItems" errors.bind="error.DOReturnDetailItems"
+                read-only.bind="readOnly" view-model.ref="ReturnDetailsCollection" options.two-way="returnOptions"
+                item-template="modules/sales/do-return/template/do-return-detail-item">
+            </au-collection>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
+                click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>
