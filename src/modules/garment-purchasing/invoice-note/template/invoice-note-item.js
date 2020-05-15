@@ -35,7 +35,7 @@ export class DeliveryOrderItem {
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
-    
+    console.log(context);
     if(this.data.deliveryOrder){
       // this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
       this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});

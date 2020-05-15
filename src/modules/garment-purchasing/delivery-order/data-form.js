@@ -42,6 +42,7 @@ export class DataForm {
         var hasItems=true;
         if (this.data.items.length==0)
             hasItems=false;
+        console.log(context);
         // if (this.data.totalQuantity)
         //     this.data.totalQuantity=this.data.totalQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
         // if (this.data.totalAmount)
