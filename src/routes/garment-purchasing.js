@@ -844,7 +844,7 @@ module.exports = [
           group: "g-purchasing",
           permission: { "B1": 1, "C9": 1 },
           iconClass: 'fa fa-dashboard'
-        {
+        }
      },
         route: 'garment-cmt-report',
         name: 'garment-cmt-report',
