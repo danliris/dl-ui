@@ -23,7 +23,7 @@ export class DataForm {
         },
     };
     imQuery = { "DestinationArea": "TRANSIT" }
-    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Packing", "QTY Packing", "Satuan", "QTY In"];
+    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Satuan", "QTY In"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {

@@ -45,7 +45,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.packingType" read-only.bind="true" error.bind="error.PackingType"
+            <au-textbox value.bind="data.productionOrder.type" read-only.bind="true" error.bind="error.PackingType"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
@@ -53,16 +53,6 @@
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
             </au-textbox>
-        </td>
-        <td>
-            <au-textbox value.bind="data.packing" read-only.bind="true" error.bind="error.Packing"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric value.bind="data.qtyPacking" read-only.bind="true" error.bind="error.QtyPacking"
-                options.bind="controlOptions" format="0.00">
-            </au-numeric>
         </td>
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
@@ -73,9 +63,6 @@
             <au-numeric value.bind="data.qty" format="0.00" read-only.bind="true" error.bind="error.Qty"
                 options.bind="controlOptions">
             </au-numeric>
-        </td>
-        <td if.bind="!options.readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
