@@ -70,8 +70,10 @@ export class List {
                 filter.SewingInNo=this.no;
             else if(isSewOut)
                 filter.SewingOutNo=this.no;
-            else if(isFinIn)
+            else if(isFinIn){
+                filter["FinishingInType!='PEMBELIAN'"]=true;
                 filter.FinishingInNo=this.no;
+            }
             else if(isFinOut)
                 filter.FinishingOutNo=this.no;
             else if(isExGood)
@@ -288,6 +290,7 @@ export class List {
             dataUpdate.date=this.date ? this.date : null;
             this.service.updateDate(dataUpdate,this.selectedProcess )
             .then(result => {
+                alert("Data berhasil diubah");
                 this.searching();
             })
             .catch(e => {
