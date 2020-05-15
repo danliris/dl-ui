@@ -43,7 +43,7 @@ export class DataForm {
     "Grade",
     "Satuan",
     "Saldo",
-    "Qty Keluar"
+    "Qty Keluar",
   ];
 
   shifts = ["PAGI", "SIANG"];
@@ -73,6 +73,47 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+
+    if (this.data.destinationArea) {
+      this.destinationArea = this.data.destinationArea;
+      this.detailOptions.destinationArea = this.data.destinationArea;
+      if (this.readOnly) {
+        this.itemColumns = [
+          "No. DO",
+          "No. SPP",
+          "Qty Order",
+          "Material",
+          "Unit",
+          "Buyer",
+          "Warna",
+          "Motif",
+          "Qty Packaging",
+          "Packaging",
+          "Jenis",
+          "Grade",
+          "Satuan",
+          "Qty Keluar",
+        ];
+      } else {
+        itemColumns = [
+          "No. DO",
+          "No. SPP",
+          "Qty Order",
+          "Material",
+          "Unit",
+          "Buyer",
+          "Warna",
+          "Motif",
+          "Qty Packaging",
+          "Packaging",
+          "Jenis",
+          "Grade",
+          "Satuan",
+          "Saldo",
+          "Qty Keluar",
+        ];
+      }
+    }
   }
 
   addItemCallback = (e) => {
@@ -82,6 +123,6 @@ export class DataForm {
   };
 
   ExportToExcel() {
-      this.service.generateExcelReportById(this.data.id);
+    this.service.generateExcel(this.data.id);
   }
 }

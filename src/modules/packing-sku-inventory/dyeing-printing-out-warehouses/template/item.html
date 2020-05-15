@@ -9,13 +9,15 @@
       </au-checkbox>
     </td>
     <td>
-      <au-textbox
-        value.bind="data.doNo"
-        read-only.bind="true"
-        error.bind="error.doNo"
+      <au-autocomplete
+        value.bind="selectedDeliveryOrderSales"
+        error.bind="error.DeliveryOrderSales"
+        loader.bind="doSalesLoader"
+        text="DOSalesNo"
+        read-only.bind="readOnly"
         options.bind="controlOptions"
       >
-      </au-textbox>
+      </au-autocomplete>
     </td>
     <td>
       <au-autocomplete

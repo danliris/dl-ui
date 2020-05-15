@@ -7,8 +7,6 @@ export class View {
   constructor(router, service) {
     this.router = router;
     this.service = service;
-
-    this.isShowed = false;
   }
 
   async activate(params) {
