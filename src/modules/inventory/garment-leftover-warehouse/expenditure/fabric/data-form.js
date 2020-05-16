@@ -32,14 +32,14 @@ export class DataForm {
             columns: this.readOnly ? [
                 "Unit",
                 "PO No",
-                "Jumlah Keluar",
-                "Satuan"
+                "Satuan",
+                "Jumlah Keluar"
             ] : [
                 "Unit",
                 "PO No",
+                "Satuan",
                 "Jumlah Stock",
-                "Jumlah Keluar",
-                "Satuan"
+                "Jumlah Keluar"
             ],
             onAdd: function () {
                 this.data.Items.push({});
