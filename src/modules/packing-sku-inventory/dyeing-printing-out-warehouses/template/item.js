@@ -1,7 +1,8 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-let ProductionOrderLoader = require("../../../../loader/production-order-azure-loader");
+let ProductionOrderLoader = require("../../../../loader/production-order-loader");
+let DOSalesLoader = require("../../../../loader/do-sales-loader");
 
-// @inject(DataForm)
+// @inject(BindingEngine, Service)
 export class Item {
   @bindable product;
 
@@ -11,6 +12,10 @@ export class Item {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
+        
+    if (this.data.balance) {
+        this.data.previousBalance = this.data.balance;
+    }
 
     if (this.data.productionOrder && this.data.productionOrder.id) {
       this.selectedProductionOrder = {};
@@ -41,6 +46,13 @@ export class Item {
         this.data.unit = "DYEING";
       }
     }
+      
+    if(this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo){
+      this.selectedDeliveryOrderSales = {};
+
+      this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
+      this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
+    }
   }
 
   changeCheckBox() {
@@ -60,6 +72,10 @@ export class Item {
     return ProductionOrderLoader;
   }
 
+  get doSalesLoader() {
+    return DOSalesLoader;
+  }
+
   @bindable selectedProductionOrder;
   selectedProductionOrderChanged(newValue, oldValue) {
     if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
@@ -74,6 +90,7 @@ export class Item {
       } else {
         this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`;
       }
+      this.data.material = this.data.construction;
       this.data.material = this.data.construction;
       this.data.buyer = this.selectedProductionOrder.buyer;
       this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
@@ -92,6 +109,14 @@ export class Item {
       }
     } else {
       this.data.productionOrder = {};
+    }
+  }
+
+  @bindable selectedDeliveryOrderSales
+  selectedDeliveryOrderSalesChanged(newValue, oldValue){
+    if(this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id){
+      this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
+      this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
     }
   }
 

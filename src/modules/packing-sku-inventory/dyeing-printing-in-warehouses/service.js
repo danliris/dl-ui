@@ -1,5 +1,5 @@
 import { RestService } from "../../../utils/rest-service";
-const serviceUri = "input-warehouses";
+const serviceUri = "input-warehouse";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -11,32 +11,8 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  // getPreWarehouse(searchDate, searchShift, searchGroup) {
-  //   var endpoint = `${serviceUri}/pre-warehouse`;
-  //   var query = "";
-
-  //   if (searchDate) {
-  //     if (query === "") query = `searchDate=${searchDate}`;
-  //     else query = `${query}&searchDate=${searchDate}`;
-  //   }
-  //   if (searchShift) {
-  //     if (query === "") query = `searchShift=${searchShift}`;
-  //     else query = `${query}&searchShift=${searchShift}`;
-  //   }
-  //   if (searchGroup) {
-  //     if (query === "") query = `searchGroup=${searchGroup}`;
-  //     else query = `${query}&searchGroup=${searchGroup}`;
-  //   }
-  //   if (query !== "") {
-  //     endpoint = `${serviceUri}/pre-warehouse?${query}`;
-  //   }
-
-  //   return super.get(endpoint);
-  // }
-
   getProductionOrderOutput(){
       var endpoint = `${serviceUri}/output-production-orders`;
-
       return super.get(endpoint);
   }
 
@@ -69,4 +45,14 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/xls/${id}`;
     return super.getXls(endpoint);
   }
+
+  // update(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.put(endpoint, data);
+  // }
+
+  // delete(data) {
+  //   let endpoint = `${serviceUri}/${data.id}`;
+  //   return super.delete(endpoint, data);
+  // }
 }

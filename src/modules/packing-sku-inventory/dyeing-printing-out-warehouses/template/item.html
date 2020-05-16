@@ -10,6 +10,17 @@
     </td>
     <td>
       <au-autocomplete
+        value.bind="selectedDeliveryOrderSales"
+        error.bind="error.DeliveryOrderSales"
+        loader.bind="doSalesLoader"
+        text="DOSalesNo"
+        read-only.bind="readOnly"
+        options.bind="controlOptions"
+      >
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-autocomplete
         value.bind="selectedProductionOrder"
         error.bind="error.ProductionOrder"
         loader.bind="productionOrderLoader"
@@ -119,11 +130,21 @@
       >
       </au-textbox>
     </td>
+    <td show.bind="!readOnly">
+      <au-numeric
+        value.bind="data.previousBalance"
+        format="0.00"
+        read-only.bind="true"
+        error.bind="error.PreviousBalance"
+        options.bind="controlOptions"
+      >
+      </au-numeric>
+    </td>
     <td>
       <au-numeric
         value.bind="data.balance"
         format="0.00"
-        read-only.bind="true"
+        read-only.bind="readOnly"
         error.bind="error.Balance"
         options.bind="controlOptions"
       >
