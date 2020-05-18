@@ -71,6 +71,9 @@ export class CartItem {
             this.remarks = [
                 "A", "B", "C", "BS", "Aval 1"
             ];
+            this.remarksGrade = [
+                "A", "B", "C", "BS", "Aval 1"
+            ];
             this.data.status = "OK";
             this.isTransit = false;
             this.isAval = false;

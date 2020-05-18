@@ -91,6 +91,12 @@ export class DataForm {
 
         }
 
+        if (this.data.deliveryOrder) {
+            this.selectedDO = {};
+            this.selectedDO.Id = this.data.deliveryOrder.id;
+            this.selectedDO.DOSalesNo = this.data.deliveryOrder.no;
+        }
+
     }
     addItemCallback = (e) => {
         this.data.transitProductionOrders = this.data.transitProductionOrders || [];
@@ -112,12 +118,16 @@ export class DataForm {
 
     }
     shippingQuery = {
-        DestinationArea : "PENJUALAN"
+        DestinationArea: "PENJUALAN"
     };
     @bindable selectedDO;
     async selectedDOChanged(n, o) {
         if (this.selectedDO) {
-            this.data.shippingProductionOrders = await this.service.getProductionOrderFromInput(this.selectedDO.Id);
+            this.data.deliveryOrder = {};
+            this.data.deliveryOrder.id = this.selectedDO.Id;
+            this.data.deliveryOrder.no = this.selectedDO.DOSalesNo;
+            if (!this.isEdit)
+                this.data.shippingProductionOrders = await this.service.getProductionOrderFromInput(this.selectedDO.Id);
         }
     }
 
