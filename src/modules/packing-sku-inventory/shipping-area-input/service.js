@@ -37,6 +37,12 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getProductionOrderOutput(){
+        var endpoint = `${serviceUri}/output-production-orders`;
+
+        return super.get(endpoint);
+    }
+
     // getSPPbySC(no, select) {
     //     var config = Container.instance.get(Config);
     //     var _endpoint = config.getEndpoint("production");

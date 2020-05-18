@@ -1,5 +1,10 @@
 <template replace-part="packagingProductionOrders">
     <tr>
+        <td >
+        <!-- <td> -->
+            <au-checkbox value.bind="data.isCheckedSPP" error.bind="error.isCheckedSPP" options.bind="controlOptions" if.bind="!options.readOnly">
+            </au-checkbox>
+        </td>
         <td>
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
                 loader.bind="productionOrderList" text="productionOrderNo" read-only.bind="readOnly" options.bind="controlOptions">
@@ -75,9 +80,9 @@
                     options.bind="controlOptions">
                 </au-textbox>
         </td>
-        <td if.bind="!options.readOnly">
+        <!-- <td if.bind="!options.readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-        </td>
+        </td> -->
 
     </tr>
 </template>

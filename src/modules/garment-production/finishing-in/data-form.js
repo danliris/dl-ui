@@ -13,6 +13,7 @@ export class DataForm {
     @bindable selectedSewingOut;
     @bindable itemOptions = {};
     @bindable selectedUnit;
+    @bindable selectedUnitFrom;
 
     constructor(service) {
         this.service = service;
@@ -99,12 +100,13 @@ export class DataForm {
         return SewingOutLoader;
     }
 
-    @computedFrom("data.Unit")
+    @computedFrom("data.Unit","data.UnitFrom")
     get filter(){
-        if (this.data.Unit) {
+        if (this.data.Unit && this.data.UnitFrom) {
             return {
                 UnitToId: this.data.Unit.Id,
-                SewingTo: "FINISHING"
+                SewingTo: "FINISHING",
+                UnitId: this.data.UnitFrom.Id,
             };
         } else {
             return {
@@ -121,10 +123,11 @@ export class DataForm {
         this.data.UnitFrom=null;
         this.data.SewingOutId=null;
         this.data.SewingOutNo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.Price=0;
         if(newValue){
             this.data.Unit=newValue;
+            this.selectedUnitFrom=this.data.Unit;
         }
         else{
             this.data.Unit=null;
@@ -136,7 +139,33 @@ export class DataForm {
             this.data.UnitFrom=null;
             this.data.SewingOutId=null;
             this.data.SewingOutNo=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
+            this.data.Price=0;
+        }
+    }
+
+    selectedUnitFromChanged(newValue){
+        this.selectedSewingOut=null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity=null;
+        this.data.SewingOutId=null;
+        this.data.SewingOutNo=null;
+        this.data.Items.splice(0);
+        this.data.Price=0;
+        if(newValue){
+            this.data.UnitFrom=newValue;
+        }
+        else{
+            this.data.UnitFrom=null;
+            this.selectedSewingOut=null;
+            this.selectedSewingOut=null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.Comodity=null;
+            this.data.SewingOutId=null;
+            this.data.SewingOutNo=null;
+            this.data.Items.splice(0);
             this.data.Price=0;
         }
     }
@@ -148,7 +177,7 @@ export class DataForm {
         this.data.UnitFrom=null;
         this.data.SewingOutId=null;
         this.data.SewingOutNo=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.Price=0;
         if(newValue) {
             this.context.error.Items = [];
@@ -167,9 +196,11 @@ export class DataForm {
             else{
                 this.data.Price=0;
             }
-            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true }) }))
+            Promise.resolve(this.service.searchSewingOut({ filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, UnitId: this.data.UnitFrom.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true }) }))
                     .then(result => {
+                        var date=result.data[0].SewingOutDate;
                         for(var sewingOut of result.data){
+                            this.data.FinishingInDate= sewingOut.SewingOutDate> date?sewingOut.SewingOutDate: date;
                             for(var sewingOutItem of sewingOut.Items){
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
@@ -221,7 +252,7 @@ export class DataForm {
             this.data.UnitFrom=null;
             this.data.SewingOutId=null;
             this.data.SewingOutNo=null;
-            this.data.Items = [];
+            this.data.Items.splice(0);
             this.data.Price=0;
         }
     }

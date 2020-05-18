@@ -23,7 +23,7 @@ export class DataForm {
         },
     };
     imQuery = { "DestinationArea": "TRANSIT" }
-    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Konstruksi", "Jenis", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY", "Satuan"];
+    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Satuan", "QTY In"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {
@@ -60,26 +60,25 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        if (this.data.bonNo) {
-            this.selectedPreShipping = {};
-            this.selectedPreShipping.bonNo = this.data.bonNo;
-        }
+        // if (this.data.bonNo) {
+        //     this.selectedPreShipping = {};
+        //     this.selectedPreShipping.bonNo = this.data.bonNo;
+        // }
     }
     addItemCallback = (e) => {
         this.data.shippingProductionOrders = this.data.shippingProductionOrders || [];
         this.data.shippingProductionOrders.push({})
     };
 
-    @bindable selectedPreShipping;
-    selectedPreShippingChanged(n, o) {
-        if (this.selectedPreShipping) {
-            this.data.outputInspectionMaterialId = this.selectedPreShipping.id;
+    // @bindable selectedPreShipping;
+    // selectedPreShippingChanged(n, o) {
+    //     if (this.selectedPreShipping) {
+    //         this.data.outputInspectionMaterialId = this.selectedPreShipping.id;
 
-            this.detailOptions.dyeingPrintingAreaInputId = this.selectedPreShipping.id;
-            console.log(this.detailOptions);
-        }
+    //         this.detailOptions.dyeingPrintingAreaInputId = this.selectedPreShipping.id;
+    //     }
 
-    }
+    // }
 }
 
 

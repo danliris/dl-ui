@@ -30,7 +30,7 @@ export class DataForm {
         this.service = service;
     }
 
-
+    detailOptions = {};
     groups = ["A", "B"];
 
     get inspectionAreaLoader() {
@@ -59,27 +59,27 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        if (this.data.bonNo) {
-            this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.bonNo = this.data.bonNo;
-        }
+        // if (this.data.bonNo) {
+        //     this.selectedInspectionMaterial = {};
+        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // }
     }
     addItemCallback = (e) => {
         this.data.transitProductionOrders = this.data.transitProductionOrders || [];
         this.data.transitProductionOrders.push({})
     };
 
-    @bindable selectedInspectionMaterial;
-    selectedInspectionMaterialChanged(n, o) {
-        if (this.selectedInspectionMaterial) {
-            this.data.outputId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.preTransitProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
-            }
+    // @bindable selectedInspectionMaterial;
+    // selectedInspectionMaterialChanged(n, o) {
+    //     if (this.selectedInspectionMaterial) {
+    //         this.data.outputId = this.selectedInspectionMaterial.id;
+    //         if (this.selectedInspectionMaterial.preTransitProductionOrders) {
+    //             this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 }
 
 

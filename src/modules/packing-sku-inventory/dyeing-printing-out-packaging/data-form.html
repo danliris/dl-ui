@@ -25,7 +25,6 @@
     <br>
     <au-collection columns.bind="itemColumns" items.bind="data.packagingProductionOrders"
       errors.one-way="error.PackagingProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
-      add.bind="addItemCallback"
       item-template="modules/packing-sku-inventory/dyeing-printing-out-packaging/template/item">
     </au-collection>
 

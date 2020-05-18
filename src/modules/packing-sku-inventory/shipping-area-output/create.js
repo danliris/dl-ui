@@ -26,7 +26,7 @@ export class Create {
     }
 
     save() {
-        
+        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.IsSave === true);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

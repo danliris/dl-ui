@@ -36,6 +36,11 @@ export class List {
                 var data = {}
                 data.total = result.total;
                 data.data = result.data;
+                for (var item of data.data) {
+                    if (item.destinationArea === "PENJUALAN") {
+                        item.bonNo = "-";
+                    }
+                }
                 return data;
             });
     }

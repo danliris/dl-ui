@@ -17,7 +17,8 @@
                          text="SalesInvoiceNo"
                          label="No Faktur Penjualan"
                          read-only.bind="readOnly || isEdit"
-                         options.bind="controlOptions"></au-autocomplete>
+                         options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-dropdown label="Jenis Memo"
                      value.bind="data.MemoType"
@@ -34,17 +35,24 @@
                        options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete placeholder="pilih buyer"
+        <!-- <au-autocomplete placeholder="pilih buyer"
                          value.bind="data.Buyer"
                          error.bind="error.Buyer"
                          loader.one-time="buyerLoader"
                          text="Name"
                          label="Buyer"
                          read-only.bind="readOnly || isEdit"
-                         options.bind="controlOptions"></au-autocomplete>
+                         options.bind="controlOptions"></au-autocomplete> -->
 
-        <au-textbox if.bind="data.Buyer && data.Buyer.Code"
-                    value.bind="data.Buyer.Code"
+        <au-textbox if.bind="data.SalesInvoice && data.SalesInvoice.Buyer && data.SalesInvoice.Buyer.Id"
+                    value.bind="data.SalesInvoice.Buyer.Name"
+                    label="Buyer"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox if.bind="data.SalesInvoice && data.SalesInvoice.Buyer && data.SalesInvoice.Buyer.Id"
+                    value.bind="data.SalesInvoice.Buyer.Code"
                     label="Kode Buyer"
                     read-only.bind="true"
                     options.bind="controlOptions">

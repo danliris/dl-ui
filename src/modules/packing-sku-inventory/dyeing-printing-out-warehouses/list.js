@@ -10,7 +10,6 @@ export class List {
     this.router = router;
   }
 
-  // context = ["detail", "print"];
   context = ["detail"];
 
   columns = [
@@ -18,83 +17,18 @@ export class List {
       field: "date",
       title: "Tanggal",
       formatter: function (value, data, index) {
-        return moment.utc(value).local().format("DD MMMM YYYY");
+        return moment(value).format("DD MMM YYYY");
       },
     },
-    {
-      field: "bonNo",
-      title: "No. Bon",
-    },
-    {
-      field: "doNo",
-      title: "No. DO",
-    },
-    {
-      field: "productionOrderNo",
-      title: "No. SPP",
-    },
-    {
-      field: "productionOrderOrderQuantity",
-      title: "Qty Order",
-    },
-    {
-      field: "buyer",
-      title: "Buyer",
-    },
-    {
-      field: "group",
-      title: "Group",
-    },
-    {
-      field: "shift",
-      title: "Shift",
-    },
-    {
-      field: "construction",
-      title: "Konstruksi",
-    },
-    {
-      field: "typeORpackagingType",
-      title: "Jenis",
-    },
-    {
-      field: "color",
-      title: "Warna",
-    },
-    {
-      field: "motif",
-      title: "Motif",
-    },
-    {
-      field: "grade",
-      title: "Grade",
-    },
-    {
-      field: "packagingQty",
-      title: "QTY Packing",
-    },
-    {
-      field: "packingORpackingInstruction",
-      title: "Packing",
-    },
-    {
-      field: "uomUnit",
-      title: "Satuan",
-    },
-    {
-      field: "outQuantity",
-      title: "QTY Keluar",
-    },
-    {
-      field: "balance",
-      title: "Saldo",
-    }
+    { field: "bonNo", title: "No. Bon" },
+    { field: "shift", title: "Shift" },
+    { field: "destinationArea", title: "Area Tujuan" },
+    { field: "group", title: "Group" },
   ];
 
   loader = (info) => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
-
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
@@ -108,20 +42,6 @@ export class List {
       data.data = result.data;
       return data;
     });
-
-    // return {
-    //   data: [{
-    //     Id: 1,
-    //     Date: "2020-04-05 17:00:00.0000000 +00:00",
-    //     BonNo: "IM.20.0009",
-    //     Shift: "PAGI",
-    //     CartNo: "12",
-    //     ProductionOrderType: "SOLID",
-    //     UOMUnit: "YDS",
-    //     ProductionOrderQuantity: "3,13",
-    //     ProductionOrderKg: "1"
-    //   }]
-    // }
   };
 
   contextCallback(event) {
@@ -133,9 +53,6 @@ export class List {
           id: data.id,
         });
         break;
-      // case "print":
-      //   this.service.generateReportById(data.id);
-      //   break;
     }
   }
 

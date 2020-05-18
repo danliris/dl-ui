@@ -12,6 +12,9 @@
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
       read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
 
+    <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
+      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
+      
     <br/>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br/>

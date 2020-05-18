@@ -1,92 +1,105 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
-import { activationStrategy } from 'aurelia-router';
+import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
-  @bindable BonNo;
-  @bindable Uom;
+  isCreate = true;
 
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
     this.error = {};
-
-    this.isShowed = true;
   }
 
-  list() {
-    this.router.navigateToRoute("list");
-  }
-
-  determineActivationStrategy() {
-      return activationStrategy.replace; //replace the viewmodel with a new instance
-      // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-      // or activationStrategy.noChange to explicitly use the default behavior
+  async activate(params) {
+    this.data = {};
+    this.data.warehousesProductionOrders = await this.service.getProductionOrderInput();
+    // debugger
   }
 
   back() {
     this.router.navigateToRoute("list");
   }
 
+  determineActivationStrategy() {
+    return activationStrategy.replace; //replace the viewmodel with a new instance
+    // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+    // or activationStrategy.noChange to explicitly use the default behavior
+  }
+
   save() {
-    let CreateData = {};
-    CreateData.Area = this.data.Area;
-    CreateData.Shift = this.data.Shift;
-    CreateData.Group = this.data.Group;
-    CreateData.DestinationArea = this.data.DestinationArea;
+    let errorIndex = 0;
+    this.error = {};
 
-    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
-      CreateData.Date = "";
-    } else {
-      CreateData.Date = this.data.Date;
-    }
-
-    if(this.data.DyeingPrintingMovementIds.length > 0){
-      CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
+    if (
+      this.data.date === null ||
+      this.data.date === undefined ||
+      this.data.date === ""
+    ) {
+      this.error.Date = "Tanggal Harus Diisi!";
+      errorIndex++;
     }else{
-      CreateData.DyeingPrintingMovementIds = [];
+      this.error.Date = "";
+    }
+    
+    if (
+      this.data.shift === null ||
+      this.data.shift === undefined ||
+      this.data.shift === ""
+    ) {
+      this.error.Shift = "Shift Harus Diisi!";
+      errorIndex++;
+    }else{
+      this.error.Shift = "";
     }
 
-    if (this.data.DyeingPrintingItems.length > 0) {
-      CreateData.AvalItems = this.data.DyeingPrintingItems.map(
-        (item) => {
-          var remappedItems = {};
-          remappedItems.AvalItemId = item.AvalItemId;
-          remappedItems.AvalType = item.AvalType;
-          remappedItems.AvalCartNo = item.AvalCartNo;
-          remappedItems.AvalUomUnit = item.AvalUomUnit;
-          remappedItems.AvalQuantity = item.AvalQuantity;
-          remappedItems.AvalQuantityKg = item.AvalQuantityKg;
+    if (
+      this.data.group === null ||
+      this.data.group === undefined ||
+      this.data.group === ""
+    ) {
+      this.error.Group = "Group Harus Diisi!";
+      errorIndex++;
+    }else{
+      this.error.Group;
+    }
 
-          return remappedItems;
-        }
+    if (
+      this.data.destinationArea === null ||
+      this.data.destinationArea === undefined ||
+      this.data.destinationArea === ""
+    ) {
+      this.error.DestinationArea = "Zona Harus Diisi!";
+      errorIndex++;
+    }else{
+      this.error.DestinationArea;
+    }
+
+    if (errorIndex === 0) {
+      this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
+        (s) => s.IsSave === true
       );
-    } else {
-      CreateData.AvalItems = [{}];
-    }
-    console.log();
-    this.service
-      .create(CreateData)
-      .then((result) => {
-        alert("Data berhasil dibuat");
-        this.router.navigateToRoute(
-          "create",
-          {},
-          {
-            replace: true,
-            trigger: true,
+      
+      this.service
+        .create(this.data)
+        .then((result) => {
+          alert("Data berhasil dibuat");
+          this.router.navigateToRoute(
+            "create",
+            {},
+            { replace: true, trigger: true }
+          );
+        })
+        .catch((e) => {
+          if (e.statusCode == 500) {
+            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+          } else {
+            this.error = e;
           }
-        );
-      })
-      .catch((e) => {
-        if (e.statusCode == 500) {
-          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-        } else {
-          this.error = e;
-        }
-      });
+        });
+    }
   }
 }
