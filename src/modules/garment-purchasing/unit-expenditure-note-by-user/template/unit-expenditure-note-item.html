@@ -50,5 +50,12 @@
                 read-only.bind="true">
             </au-dropdown>
         </td>
+        <td if.bind="ExpenditureType == 'SISA'">
+            <au-dropdown 
+                value.bind="data.ItemStatus" 
+                items.bind="itemStatusOptions"
+                read-only.bind="readOnly">
+            </au-dropdown>
+        </td>
     </tr>
 </template>
