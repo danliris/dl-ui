@@ -45,4 +45,20 @@ export class Create {
                 }
             })
     }
+
+    reject() {
+        this.data.transitProductionOrders = this.data.transitProductionOrders.filter(s => s.IsSave === true);
+        this.service.reject(this.data)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
+            })
+    }
 }
