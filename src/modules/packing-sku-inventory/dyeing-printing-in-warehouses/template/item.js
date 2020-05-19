@@ -18,7 +18,7 @@ export class Item {
       this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
       this.selectedProductionOrder.OrderType = {};
       this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
-      this.selectedProductionOrder.OrderQuantity = this.data.balance;
+      this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
       this.selectedProductionOrder.Construction = this.data.construction;
       this.selectedProductionOrder.Buyer = {};
       this.selectedProductionOrder.Buyer.Name = this.data.buyer;
@@ -30,7 +30,6 @@ export class Item {
       this.selectedProductionOrder.Unit = this.data.unit;
       this.selectedProductionOrder.Uom = {};
       this.selectedProductionOrder.Uom.Unit = this.data.unit;
-      this.selectedProductionOrder.OrderQuantity = this.data.balance;
       this.selectedProductionOrder.Construction = this.data.construction;
       this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
       this.selectedProductionOrder.PackagingUnit = this.data.packagingUnit;

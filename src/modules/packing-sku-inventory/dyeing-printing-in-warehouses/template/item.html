@@ -21,7 +21,7 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.qtyOrder"
+        value.bind="data.productionOrder.orderQuantity"
         format="0.00"
         read-only.bind="true"
         error.bind="error.QtyOrder"
@@ -128,6 +128,15 @@
         options.bind="controlOptions"
       >
       </au-numeric>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.area"
+        read-only.bind="true"
+        error.bind="error.Area"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
     </td>
   </tr>
 </template>

@@ -46,6 +46,11 @@ export class Service extends RestService {
     return super.getXls(endpoint);
   }
 
+  reject(data) {
+    var endpoint = `${serviceUri}/reject`;
+    return super.post(endpoint, data);
+  }
+
   // update(data) {
   //   let endpoint = `${serviceUri}/${data.id}`;
   //   return super.put(endpoint, data);
