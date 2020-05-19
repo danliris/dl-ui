@@ -22,7 +22,8 @@ export class List {
         }
         this.filter={
           CreatedBy: username,
-          FinishingInType: "SEWING"
+          "FinishingInType!='PEMBELIAN'":true,
+
         }
       }
 
