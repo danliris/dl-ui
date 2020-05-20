@@ -75,7 +75,7 @@ export class ItemSPP {
         }
     }
 
-    itemColumns = ["Buyer","Qty Order", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
+    itemColumns = ["Buyer","Qty Order", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","Panjang Per Packing","QTY Keluar","Keterangan"];
     
     removeItems() {
         this.bind();
