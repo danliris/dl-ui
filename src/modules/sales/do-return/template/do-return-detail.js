@@ -1,7 +1,6 @@
 import {
   inject,
   bindable,
-  computedFrom,
   BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
@@ -54,24 +53,23 @@ export class DoReturnDetail {
   @bindable selectedSalesInvoice;
   async selectedSalesInvoiceChanged(newValue, oldValue) {
     if (newValue) {
-
-      this.data.SalesInvoice=this.selectedSalesInvoice;
+      this.data.SalesInvoice = this.selectedSalesInvoice;
 
       var salesInvoice = await this.service.getSalesInvoiceById(newValue.Id);
-      
+
       var temp_detailItem = [];
       var temp_doReturnItem = [];
 
       for (var detail of salesInvoice.SalesInvoiceDetails) {
-
-        var sd = await this.serviceProductionAzure.getShipmentDocumentById(detail.ShipmentDocumentId);
+        var sd = await this.serviceProductionAzure.getShipmentDocumentById(
+          detail.ShipmentDocumentId
+        );
         if (!this.data.Id) {
           var detailItemData = {
             DOSales: sd.DOSales,
           };
 
           temp_detailItem.push(detailItemData);
-
 
           for (var item of detail.SalesInvoiceItems) {
             var itemData = {
@@ -90,10 +88,9 @@ export class DoReturnDetail {
       }
       this.data.DOReturnDetailItems = temp_detailItem;
       this.data.DOReturnItems = temp_doReturnItem;
-      
-    }
-    else {
+    } else {
       this.data.DOReturnDetailItems = [];
+      this.data.DOReturnItems = [];
     }
   }
 
