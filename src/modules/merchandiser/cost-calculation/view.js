@@ -108,7 +108,7 @@ export class View {
       });
     }
     
-    this.CM_Price = (CM_Price  * 1.05) / this.data.Rate.Value;
+    this.CM_Price = ((CM_Price  * 1.05) / this.data.Rate.Value) + _confirmPrice;
     this.CM_Price = US + this.CM_Price.toLocaleString('en-EN', { minimumFractionDigits: 4});
 
     let FOB_Price = this.data.ConfirmPrice;
