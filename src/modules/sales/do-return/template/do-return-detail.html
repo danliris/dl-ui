@@ -8,11 +8,16 @@
 
             <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
 
-            <au-collection columns.bind="returnDetailsInfo.columns" remove.bind="returnDetailsInfo.onRemove"
-                items.bind="data.DOReturnDetailItems" errors.bind="error.DOReturnDetailItems"
-                read-only.bind="readOnly" view-model.ref="ReturnDetailsCollection" options.two-way="returnOptions"
+            <au-collection columns.bind="returnDetailsInfo.columns" items.bind="data.DOReturnDetailItems"
+                errors.bind="error.DOReturnDetailItems" read-only.bind="readOnly"
                 item-template="modules/sales/do-return/template/do-return-detail-item">
             </au-collection>
+
+            <au-collection columns.bind="doReturnItemsInfo.columns" items.bind="data.DOReturnItems"
+                errors.bind="error.DOReturnItems" read-only.bind="readOnly" view-model.ref="ReturnDetailItemsCollection"
+                options.two-way="itemOptions" item-template="modules/sales/do-return/template/do-return-item">
+            </au-collection>
+
         </td>
         <td if.bind="!options.readOnly">
             <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
