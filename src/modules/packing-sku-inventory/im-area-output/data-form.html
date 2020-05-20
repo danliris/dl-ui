@@ -27,7 +27,7 @@
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
     <au-collection columns.bind="itemColumns" view-model.ref="ItemsCollection"
-      items.bind="data.inspectionMaterialProductionOrders" errors.one-way="error.InspectionMaterialProductionOrders"
+      items.bind="data.inspectionMaterialProductionOrders" errors.bind="error.InspectionMaterialProductionOrders"
       options.bind="detailOptions" read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/im-area-output/template/item-header"
       item-template="modules/packing-sku-inventory/im-area-output/template/item">
