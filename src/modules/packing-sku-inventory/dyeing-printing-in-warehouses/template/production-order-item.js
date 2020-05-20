@@ -1,5 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-export class CartItem {
+export class ProductionOrderItem {
     @bindable product;
 
     // isAval = false;

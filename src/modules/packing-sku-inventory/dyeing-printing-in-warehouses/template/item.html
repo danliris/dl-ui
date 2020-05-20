@@ -21,15 +21,24 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.productionOrder.orderQuantity"
+        value.bind="data.productionOrderOrderQuantity"
         format="0.00"
         read-only.bind="true"
-        error.bind="error.QtyOrder"
+        error.bind="error.productionOrderOrderQuantity"
         options.bind="controlOptions"
       >
       </au-numeric>
     </td>
     <td>
+      <au-textbox
+        value.bind="data.productionOrderType"
+        read-only.bind="true"
+        error.bind="error.productionOrderType"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <!-- <td>
       <au-textbox
         value.bind="data.construction"
         read-only.bind="true"
@@ -74,7 +83,7 @@
       >
       </au-textbox>
     </td>
-    <!-- <td>
+    <td>
       <au-numeric
         value.bind="data.packagingQty"
         read-only.bind="true"
@@ -88,15 +97,6 @@
         value.bind="data.packagingType"
         read-only.bind="true"
         error.bind="error.PackagingType"
-        options.bind="controlOptions"
-      >
-      </au-textbox>
-    </td> -->
-    <td>
-      <au-textbox
-        value.bind="data.productionOrder.type"
-        read-only.bind="true"
-        error.bind="error.productionOrder.type"
         options.bind="controlOptions"
       >
       </au-textbox>
@@ -137,7 +137,7 @@
         options.bind="controlOptions"
       >
       </au-textbox>
-    </td>
+    </td> -->
     <td>
       <button class="btn btn-info pull-right" click.delegate="toggle()">
         i
@@ -147,8 +147,8 @@
   <tr if.bind="isShowing">
       <!-- <td show.bind="!readOnly"></td> -->
       <td colspan="14">
-          <au-collection columns.bind="packingColumns" items.bind="data.packingItems" read-only.bind="readOnly"
-              item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/packingItem">
+          <au-collection columns.bind="itemColumns" items.bind="data.productionOrderItems" read-only.bind="readOnly"
+              item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/production-order-item">
           </au-collection>
           <!-- show.bind="isAval" -->
       </td>
