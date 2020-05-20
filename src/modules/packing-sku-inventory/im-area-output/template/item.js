@@ -12,7 +12,6 @@ export class CartItem {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        console.log(this.error)
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;

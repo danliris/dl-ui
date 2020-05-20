@@ -53,7 +53,6 @@ export class DataForm {
         this.data.area = "INSPECTION MATERIAL";
 
         this.error = this.context.error;
-        console.log(this.context)
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
