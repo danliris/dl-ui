@@ -41,7 +41,8 @@ export class DataForm {
     "Jenis",
     "Grade",
     "Satuan",
-    "Qty Masuk"
+    "Qty Masuk",
+    "Zona Asal"
   ];
 
   shifts = ["PAGI", "SIANG"];
