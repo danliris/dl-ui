@@ -12,8 +12,11 @@ export class Item {
     this.options = context.options;
     this.contextOptions = context.context.options;
 
+    this.isShowing = false;
+
     if (this.data.productionOrder && this.data.productionOrder.id) {
       this.selectedProductionOrder = {};
+      this.selectedProductionOrder.PackingItems = [];
       this.selectedProductionOrder.Id = this.data.productionOrder.id;
       this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
       this.selectedProductionOrder.OrderType = {};
@@ -31,9 +34,25 @@ export class Item {
       this.selectedProductionOrder.Uom = {};
       this.selectedProductionOrder.Uom.Unit = this.data.unit;
       this.selectedProductionOrder.Construction = this.data.construction;
-      this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
+
+      this.selectedProductionOrder.PackagingQty = this.data.packagingQty;
       this.selectedProductionOrder.PackagingUnit = this.data.packagingUnit;
       this.selectedProductionOrder.PackagingType = this.data.packagingType;
+
+      // var dummyPackings = [
+      //   {
+      //     packagingQty: this.data.packagingQty,
+      //     packagingType: this.data.packagingType,
+      //     qty: this.data.balance / this.data.packagingQty,
+      //   },
+      //   {
+      //     packagingQty: this.data.packagingQty * 5,
+      //     packagingType: this.data.packagingType,
+      //     qty: this.data.balance / this.data.packagingQty,
+      //   },
+      // ];
+
+      // this.selectedProductionOrder.PackingItems = dummyPackings;
       if (this.selectedProductionOrder.OrderNo.charAt(0) === "P") {
         this.data.unit = "PRINTING";
       } else {
@@ -42,11 +61,20 @@ export class Item {
     }
   }
 
+  bind() {
+    this.packingColumns = ["Qty Packing", "Jenis Packing", "Qty"];
+  }
+
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce(
       (acc, curr) => acc && curr.data.IsSave,
       true
     );
+  }
+
+  toggle() {
+    if (!this.isShowing) this.isShowing = true;
+    else this.isShowing = !this.isShowing;
   }
 
   controlOptions = {
@@ -63,6 +91,7 @@ export class Item {
   selectedProductionOrderChanged(newValue, oldValue) {
     if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
       this.data.productionOrder = {};
+      this.data.packingItems = [];
       this.data.productionOrder.id = this.selectedProductionOrder.id;
       this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
       this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
@@ -77,9 +106,13 @@ export class Item {
       this.data.buyer = this.selectedProductionOrder.buyer;
       this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
       this.data.color = this.selectedProductionOrder.color;
-      this.data.packagingType = this.selectedProductionOrder.packagingType;
-      this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;
-      this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+
+      // this.data.packagingType = this.selectedProductionOrder.packagingType;
+      // this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;
+      // this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+
+      // this.data.packingItems = this.selectedProductionOrder.PackingItems;
+
       this.data.motif = this.selectedProductionOrder.motif;
       this.data.unit = this.selectedProductionOrder.unit;
       this.data.uomUnit = this.selectedProductionOrder.uomUnit;

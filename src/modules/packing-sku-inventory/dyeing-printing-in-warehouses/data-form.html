@@ -38,10 +38,11 @@
 
     <au-collection
       columns.bind="itemColumns"
+      view-model.ref="ItemsCollection"
       items.bind="data.warehousesProductionOrders"
       errors.one-way="error.WarehousesProductionOrders"
-      read-only.bind="readOnly"
       options.bind="detailOptions"
+      read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-header"
       item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item"
     >

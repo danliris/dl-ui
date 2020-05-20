@@ -36,13 +36,14 @@ export class DataForm {
     "Buyer",
     "Warna",
     "Motif",
-    "Qty Packaging",
-    "Packaging",
+    // "Qty Packaging",
+    // "Packaging",
     "Jenis",
     "Grade",
     "Satuan",
     "Qty Masuk",
-    "Zona Asal"
+    "Zona Asal",
+    ""
   ];
 
   shifts = ["PAGI", "SIANG"];
@@ -71,6 +72,10 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+
+    if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+    }
   }
 
   addItemCallback = (e) => {

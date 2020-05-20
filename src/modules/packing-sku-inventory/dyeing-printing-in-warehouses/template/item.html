@@ -74,7 +74,7 @@
       >
       </au-textbox>
     </td>
-    <td>
+    <!-- <td>
       <au-numeric
         value.bind="data.packagingQty"
         read-only.bind="true"
@@ -91,7 +91,7 @@
         options.bind="controlOptions"
       >
       </au-textbox>
-    </td>
+    </td> -->
     <td>
       <au-textbox
         value.bind="data.productionOrder.type"
@@ -138,5 +138,19 @@
       >
       </au-textbox>
     </td>
+    <td>
+      <button class="btn btn-info pull-right" click.delegate="toggle()">
+        i
+      </button>
+    </td>
+  </tr>
+  <tr if.bind="isShowing">
+      <!-- <td show.bind="!readOnly"></td> -->
+      <td colspan="14">
+          <au-collection columns.bind="packingColumns" items.bind="data.packingItems" read-only.bind="readOnly"
+              item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/packingItem">
+          </au-collection>
+          <!-- show.bind="isAval" -->
+      </td>
   </tr>
 </template>
