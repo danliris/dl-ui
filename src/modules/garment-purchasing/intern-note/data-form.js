@@ -46,6 +46,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options = this.options ? this.options : {};
+        console.log(context);
 
         if(this.data.supplier){
             this.options.supplierId = this.data.supplier.Id;      

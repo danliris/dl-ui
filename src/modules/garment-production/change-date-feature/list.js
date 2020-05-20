@@ -70,13 +70,18 @@ export class List {
                 filter.SewingInNo=this.no;
             else if(isSewOut)
                 filter.SewingOutNo=this.no;
-            else if(isFinIn)
+            else if(isFinIn){
                 filter.FinishingInNo=this.no;
+            }
             else if(isFinOut)
                 filter.FinishingOutNo=this.no;
             else if(isExGood)
                 filter.ExpenditureGoodNo=this.no;
         }
+        if(isFinIn){
+            filter[`FinishingInType != "PEMBELIAN"`]=true;
+        }
+        
         let args = {
             page: this.info.page,
             size: this.info.size,
@@ -288,6 +293,7 @@ export class List {
             dataUpdate.date=this.date ? this.date : null;
             this.service.updateDate(dataUpdate,this.selectedProcess )
             .then(result => {
+                alert("Data berhasil diubah");
                 this.searching();
             })
             .catch(e => {

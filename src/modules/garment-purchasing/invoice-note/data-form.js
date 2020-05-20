@@ -63,6 +63,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        console.log(context);
         if(this.data.Id)
         {
             this.readO=true;

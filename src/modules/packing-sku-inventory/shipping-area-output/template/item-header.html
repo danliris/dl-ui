@@ -1,9 +1,9 @@
 <template >
     <tr>
-        <th>
+        <th show.bind="!readOnly">
             <au-checkbox 
                 value.bind="options.checkedAll"
-                disabled.bind="readOnly || isExternal"
+                disabled.bind="readOnly"
                 change.delegate=changeCheckedAll()>
             </au-checkbox>
         </th>

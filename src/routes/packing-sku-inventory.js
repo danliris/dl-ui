@@ -187,7 +187,7 @@ module.exports = [
         name: 'dyeing-printing-out-warehouses',
         moduleId: './modules/packing-sku-inventory/dyeing-printing-out-warehouses/index',
         nav: true,
-        title: 'Bon Keluar Gudang Barang Jadi Dyeing/Printing',
+        title: 'Pencatatan Keluar Gudang Barang Jadi Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -214,7 +214,7 @@ module.exports = [
         name: 'aval-area-input',
         moduleId: './modules/packing-sku-inventory/aval-area-input/index',
         nav: true,
-        title: 'Penerimaan Aval Area Dyeing/Printing',
+        title: 'Penerimaan Aval Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -227,7 +227,7 @@ module.exports = [
         name: 'aval-area-output',
         moduleId: './modules/packing-sku-inventory/aval-area-output/index',
         nav: true,
-        title: 'Bon Aval Area Dyeing/Printing',
+        title: 'Pencatatan Keluar Aval Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -253,7 +253,7 @@ module.exports = [
         name: 'shipping-area-input',
         moduleId: './modules/packing-sku-inventory/shipping-area-input/index',
         nav: true,
-        title: 'Penerimaan Shipping Area Dyeing Printing',
+        title: 'Penerimaan Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -266,7 +266,7 @@ module.exports = [
         name: 'shipping-area-output',
         moduleId: './modules/packing-sku-inventory/shipping-area-output/index',
         nav: true,
-        title: 'Bon Keluar Shipping Area',
+        title: 'Pencatatan Keluar Shipping Dyeing/Printing',
         auth: true,
         settings: {
             group: "ps-inventory",

@@ -39,7 +39,7 @@ export class DoReturnDetail {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-
+    
     this.selectedSalesInvoice = this.data.SalesInvoice || null;
   }
 
