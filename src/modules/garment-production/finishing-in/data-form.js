@@ -69,7 +69,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitToId: this.data.Unit.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true})
+              filter: JSON.stringify({UnitToId: this.data.Unit.Id,UnitId: this.data.UnitFrom.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true})
             };
             return this.service.searchSewingOut(info)
                 .then((result) => {
@@ -125,11 +125,13 @@ export class DataForm {
         this.data.SewingOutNo=null;
         this.data.Items.splice(0);
         this.data.Price=0;
+        this.context.selectedSewingOutViewModel.editorValue = "";
         if(newValue){
             this.data.Unit=newValue;
             this.selectedUnitFrom=this.data.Unit;
         }
         else{
+            this.context.selectedSewingOutViewModel.editorValue = "";
             this.data.Unit=null;
             this.selectedSewingOut=null;
             this.selectedSewingOut=null;
@@ -153,10 +155,12 @@ export class DataForm {
         this.data.SewingOutNo=null;
         this.data.Items.splice(0);
         this.data.Price=0;
+        this.context.selectedSewingOutViewModel.editorValue = "";
         if(newValue){
             this.data.UnitFrom=newValue;
         }
         else{
+            this.context.selectedSewingOutViewModel.editorValue = "";
             this.data.UnitFrom=null;
             this.selectedSewingOut=null;
             this.selectedSewingOut=null;
@@ -201,6 +205,7 @@ export class DataForm {
                         var date=result.data[0].SewingOutDate;
                         for(var sewingOut of result.data){
                             this.data.FinishingInDate= sewingOut.SewingOutDate> date?sewingOut.SewingOutDate: date;
+                            date=this.data.FinishingInDate 
                             for(var sewingOutItem of sewingOut.Items){
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
