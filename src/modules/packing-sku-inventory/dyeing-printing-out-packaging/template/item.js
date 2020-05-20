@@ -111,4 +111,15 @@ export class CartItem {
             this.data.productionOrder = {};
         }
     }
+    
+    @bindable saldoPerPackaging
+    saldoPerPackagingChanged(newValue,olderValue){
+        if(this.data.qtyOut != 0){
+            this.data.qtyOut = this.data.packagingQTY * this.saldoPerPackaging;
+        }else{
+            this.saldoPerPackaging = this.data.qtyOut/this.data.packagingQTY;
+        }
+    }
+
+
 }

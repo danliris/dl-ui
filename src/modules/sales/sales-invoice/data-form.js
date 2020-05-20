@@ -187,7 +187,9 @@ export class DataForm {
     "RGR",
     "RON",
   ];
-  VatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN"];
+  vatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN", "PPN Retail"];
+  deliveryOrderTypeOptions = ["", "BAV", "BLL", "BON", "BGM", "BPF", "BPR"];
+  paymentTypeOptions = ["", "Meter", "Yard"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {

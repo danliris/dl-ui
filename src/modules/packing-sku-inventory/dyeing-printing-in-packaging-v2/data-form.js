@@ -75,8 +75,10 @@ export class DataForm {
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
+            // page: parseInt(info.offset / info.limit, 10) + 1,
+            page: 1,            
+            // size: info.limit,
+            size: 9999,            
             keyword: info.search,
             order: order,
         }
