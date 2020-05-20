@@ -35,7 +35,7 @@ export class DataForm {
   }
 
   doReturnDetailsInfo = {
-    columns: ["Ex. Faktur Penjualan"],
+    columns: ["No. Faktur Penjualan"],
     onAdd: function () {
       this.context.DOReturnDetailsCollection.bind();
       this.data.DOReturnDetails = this.data.DOReturnDetails || [];
