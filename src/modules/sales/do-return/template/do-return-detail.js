@@ -90,6 +90,7 @@ export class DoReturnDetail {
       this.data.DOReturnItems = temp_doReturnItem;
     } else {
       this.data.DOReturnDetailItems = [];
+      this.data.DOReturnItems = [];
     }
   }
 

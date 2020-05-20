@@ -1,12 +1,12 @@
 <template>
     <tr>
         <td>
+            <au-textbox show.bind="!data.ShipmentDocumentCode" value.bind="data.ShipmentDocumentId" read-only.bind="true"></au-textbox>
             <au-textbox value.bind="data.ShipmentDocumentCode" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.ProductName"
-                        read-only.bind="true">
+            <au-textbox value.bind="data.ProductName" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
