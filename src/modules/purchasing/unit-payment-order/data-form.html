@@ -102,6 +102,14 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
+
+                <au-datepicker 
+                    label="Tanggal PIB" 
+                    value.bind="data.pibDate" 
+                    error.bind="error.pibDate" 
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-datepicker>
           
                 <au-textbox 
                     label="No. PIB" 
@@ -110,21 +118,20 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-textbox>
-                <!--<au-datepicker 
-                    label="Tanggal Jatuh Tempo" 
-                    value.bind="data.dueDate" 
-                    error.bind="error.dueDate" 
-                    read-only.bind="readOnly"
-                    options.bind="controlOptions">
-                </au-datepicker>-->
-                        
-                <au-multiline 
-                    label="Keterangan" 
-                    value.bind="data.remark"
-                    placeholder="tambah keterangan" 
-                    read-only.bind="readOnly"
-                    options.bind="controlOptions">
-                </au-multiline>
+
+                <au-numeric label="Bea Masuk" value.bind="data.importDuty" error.bind="error.importDuty"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+                <au-numeric label="PPN" value.bind="data.totalVatAmount" error.bind="error.totalVatAmount"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+                <au-numeric label="PPH" value.bind="data.totalIncomeTaxAmount" error.bind="error.totalIncomeTaxAmount"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+
             </div>
             <div class="col-md-6">  
                 <au-checkbox 
@@ -216,6 +223,9 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
+                <au-multiline label="Keterangan" value.bind="data.remark" placeholder="tambah keterangan" read-only.bind="readOnly"
+                  options.bind="controlOptions">
+                </au-multiline>
             </div>
         </div>
 

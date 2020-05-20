@@ -44,6 +44,12 @@ export class Service extends RestService {
         return super.getXls(endpoint);
     }
 
+    getProductionOrderFromInput(id){
+        var endpoint = `${serviceUri}/input-production-orders/${id}`;
+
+        return super.get(endpoint);
+    }
+
     // getSPPbySC(no, select) {
     //     var config = Container.instance.get(Config);
     //     var _endpoint = config.getEndpoint("production");

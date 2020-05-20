@@ -34,7 +34,9 @@ export class DetailFooter {
                 else return 0
               });
             return qty
-              .reduce((prev, curr, index) => { return prev +  parseFloat(curr) }, 0);
+              .reduce((prev, curr, index) => { 
+                console.log(prev)
+                return prev +  parseFloat(curr) }, 0);
           }
           else {
             return 0

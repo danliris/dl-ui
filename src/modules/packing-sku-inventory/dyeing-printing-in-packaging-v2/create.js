@@ -41,4 +41,20 @@ export class Create {
                 }
             })
     }
+    reject(){
+        this.data.packagingProductionOrders = this.table.selections;
+        // console.log(this.data);
+        this.service.reject(this.data)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
+            });
+    }
 }

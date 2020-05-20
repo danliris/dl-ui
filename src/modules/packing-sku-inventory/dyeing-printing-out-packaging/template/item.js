@@ -9,12 +9,14 @@ export class CartItem {
     }
     remarks = [];
     activate(context) {
+        
         this.context = context;
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        this.destinationArea = this.contextOptions.destinationArea;
+        // console.log(this);
+        this.destinationArea = this.dataForm.data.destinationArea;
         this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
@@ -61,11 +63,11 @@ export class CartItem {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
-    get productionOrderList(){
-        return (keyword) => {
-            return Promise.resolve().then(result => {return this.productionOrderListItem;});
-          }
-    }
+    // get productionOrderList(){
+    //     return (keyword) => {
+    //         return Promise.resolve().then(result => {return this.productionOrderListItem;});
+    //       }
+    // }
     get productionOrderList(){
         return (keyword) => {
             return Promise.resolve().then(result => {return this.productionOrderListItem;});
@@ -109,4 +111,15 @@ export class CartItem {
             this.data.productionOrder = {};
         }
     }
+    
+    @bindable saldoPerPackaging
+    saldoPerPackagingChanged(newValue,olderValue){
+        if(this.data.qtyOut != 0){
+            this.data.qtyOut = this.data.packagingQTY * this.saldoPerPackaging;
+        }else{
+            this.saldoPerPackaging = this.data.qtyOut/this.data.packagingQTY;
+        }
+    }
+
+
 }

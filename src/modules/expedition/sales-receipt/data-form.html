@@ -57,16 +57,16 @@
             item-template="modules/expedition/sales-receipt/template/sales-receipt-item"
             view-model.ref="SalesReceiptDetailsCollection">
         </au-collection>
+        
+        <au-textbox show.bind="error.NominalNotNull" error.bind="error.NominalNotNull" read-only.bind="true">
+        </au-textbox>
 
         <!-- <au-numeric show.bind="data.SalesReceiptDate && data.Buyer && selectedCurrency.Code" label="Nominal keseluruhan : ${selectedCurrency.Code}"
-            value.bind="getTotalPaid" error.bind="error.getTotalPaid" read-only.bind="true" options.bind="smallControlOptions">
+            value.bind="getTotalPaid" read-only.bind="true" options.bind="smallControlOptions">
             </au-numeric> -->
 
-            Nominal keseluruhan : ${getTotalPaid} ${selectedCurrency.Code}
+        Nominal keseluruhan : ${getTotalPaid} ${selectedCurrency.Code}
 
-        <div if.bind="error.Details.toString()">
-            <span style="color:red">-Detail harus diisi-</span>
-        </div>
 
 
 

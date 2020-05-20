@@ -9,7 +9,7 @@ export class List {
     this.service = service;
     this.router = router;
   }
-  
+
   context = ["detail"];
 
   columns = [
@@ -71,7 +71,7 @@ export class List {
     switch (arg.name) {
       case "detail":
         this.router.navigateToRoute("view", {
-          id: data.id
+          id: data.id,
         });
         break;
     }

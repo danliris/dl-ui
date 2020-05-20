@@ -21,7 +21,7 @@ export class List {
       },
     },
     { field: "ReturnFrom", title: "Retur Dari" },
-    { field: "LKTPNo", title: "No. LKtP" },
+    { field: "LTKPNo", title: "No. LTKP" },
   ];
 
   rowFormatter(data, index) {

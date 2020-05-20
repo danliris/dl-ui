@@ -2,8 +2,6 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
-const StockLoader = require('../../../../../loader/garment-leftover-warehouse-stock-loader');
-
 @inject(Router, Service)
 export class Edit {
     isEdit = true;
@@ -11,10 +9,6 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-    }
-
-    get stockLoader() {
-        return StockLoader;
     }
 
     async activate(params) {

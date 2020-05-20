@@ -205,6 +205,7 @@ export class List {
                 search: JSON.stringify([ "DONo" ]),
                 order: {"DONo": "asc"}
             };
+            console.log(info);
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
                     return result.data.map(data => {
