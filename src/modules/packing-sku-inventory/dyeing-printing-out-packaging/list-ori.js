@@ -16,23 +16,23 @@ export class List {
             }
         },
         { field: "bonNo", title: "No. Bon" },
-        // { field: "noSpp", title: "No. SPP" },  
-        // { field: "buyer", title: "Buyer" },        
+        { field: "noSpp", title: "No. SPP" },
+        { field: "qtyOrder", title: "QTY Order" },  
+        { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
         { field: "group", title: "Group" },
-        { field: "destinationArea", title: "Area Tujuan" },
-        
-        // { field: "material", title: "Material" },
-        // { field: "unit", title: "Unit" },        
-        // { field: "warna", title: "Warna" },        
-        // { field: "motif", title: "Motif" },
-        // { field: "packagingType", title: "Jenis" },
-        // { field: "grade", title: "Grade" },        
-        // { field: "packagingQty", title: "Qty Packaging" },        
-        // { field: "packagingUnit", title: "Packaging" },        
-        // { field: "mtr", title: "Mtr" },        
-        // { field: "yds", title: "Yds" },        
-        // { field: "saldo", title: "Saldo" }
+        { field: "material", title: "Material" },
+        { field: "unit", title: "Unit" },        
+        { field: "warna", title: "Warna" },        
+        { field: "motif", title: "Motif" },
+        { field: "packagingType", title: "Jenis" },
+        { field: "grade", title: "Grade" },        
+        { field: "packagingQty", title: "Qty Packaging" },        
+        { field: "packagingUnit", title: "Packaging" },        
+        { field: "mtr", title: "Mtr" },        
+        { field: "yds", title: "Yds" },        
+        { field: "saldo", title: "Saldo" },
+        { field: "keterangan", title: "Keterangan" }
     ];
 
     loader = (info) => {
@@ -53,6 +53,7 @@ export class List {
                 data.data = [];
                 result.data.forEach((item,index)=>{
                     item.packagingProductionOrders.forEach((i,ind)=>{
+                        console.log(item);
                         var dataView = {};
                         dataView.id = item.id;
                         dataView.date = item.date;
@@ -62,6 +63,9 @@ export class List {
                         dataView.shift = item.shift,
                         dataView.material = i.construction,
                         dataView.unit = i.unit,
+                        dataView.qtyOrder = i.qtyOrder,
+                        dataView.group = item.group,
+                        dataView.keterangan = i.keterangan,
                         dataView.warna = i.color,
                         dataView.motif = i.motif,
                         dataView.grade = i.grade,
@@ -74,6 +78,7 @@ export class List {
                         data.data.push(dataView);
                     });
                 });
+                console.log(data);
                 return data;
             });
     }
