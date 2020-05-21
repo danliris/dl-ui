@@ -81,6 +81,7 @@ export class CartItem {
             if (this.data.DyeStuffItems && this.data.DyeStuffItems.length > 0) {
                 var vNum = this.viscositasNumber;
                 this.data.ChemicalItems = [];
+                let idx = 0;
                 this.sumItem = this.data.DyeStuffItems.reduce((a, b) => +a + +b.Quantity, 0);
                 if (this.sumItem > 0) {
                     this.showChemical = true;
@@ -89,65 +90,77 @@ export class CartItem {
                             if (0 <= this.sumItem && this.sumItem <= 5) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 100
+                                    Quantity: 100,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 20
+                                    Quantity: 20,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 800
+                                    Quantity: 800,
+                                    Index: idx++
                                 });
 
                             } else if (5.01 <= this.sumItem && this.sumItem <= 20) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 100
+                                    Quantity: 100,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 20
+                                    Quantity: 20,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 750
+                                    Quantity: 750,
+                                    Index: idx++
                                 });
 
                             } else if (20.01 <= this.sumItem && this.sumItem <= 40) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 150
+                                    Quantity: 150,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 30
+                                    Quantity: 30,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 700
+                                    Quantity: 700,
+                                    Index: idx++
                                 });
 
                             } else {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 150
+                                    Quantity: 150,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 30
+                                    Quantity: 30,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 650
+                                    Quantity: 650,
+                                    Index: idx++
                                 });
 
                             }
@@ -155,65 +168,77 @@ export class CartItem {
                             if (0 <= this.sumItem && this.sumItem <= 5) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 150
+                                    Quantity: 150,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 25
+                                    Quantity: 25,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 800
+                                    Quantity: 800,
+                                    Index: idx++
                                 });
 
                             } else if (5.01 <= this.sumItem && this.sumItem <= 20) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 150
+                                    Quantity: 150,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 25
+                                    Quantity: 25,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 750
+                                    Quantity: 750,
+                                    Index: idx++
                                 });
 
                             } else if (20.01 <= this.sumItem && this.sumItem <= 40) {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 200
+                                    Quantity: 200,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 30
+                                    Quantity: 30,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 700
+                                    Quantity: 700,
+                                    Index: idx++
                                 });
 
                             } else {
                                 this.data.ChemicalItems.push({
                                     Name: "Urea",
-                                    Quantity: 250
+                                    Quantity: 250,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Soda Kue",
-                                    Quantity: 30
+                                    Quantity: 30,
+                                    Index: idx++
                                 });
 
                                 this.data.ChemicalItems.push({
                                     Name: "Thickener Reaktif",
-                                    Quantity: 650
+                                    Quantity: 650,
+                                    Index: idx++
                                 });
 
                             }
@@ -222,85 +247,101 @@ export class CartItem {
                         if (0 <= this.sumItem && this.sumItem <= 5) {
                             this.data.ChemicalItems.push({
                                 Name: "Urea",
-                                Quantity: 100
+                                Quantity: 100,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Soda Kue",
-                                Quantity: 20
+                                Quantity: 20,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Reaktif",
-                                Quantity: 800
+                                Quantity: 800,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Resist",
-                                Quantity: 8
+                                Quantity: 8,
+                                Index: idx++
                             });
 
                         } else if (5.01 <= this.sumItem && this.sumItem <= 20) {
                             this.data.ChemicalItems.push({
                                 Name: "Urea",
-                                Quantity: 100
+                                Quantity: 100,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Soda Kue",
-                                Quantity: 20
+                                Quantity: 20,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Reaktif",
-                                Quantity: 750
+                                Quantity: 750,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Resist",
-                                Quantity: 8
+                                Quantity: 8,
+                                Index: idx++
                             });
 
                         } else if (20.01 <= this.sumItem && this.sumItem <= 40) {
                             this.data.ChemicalItems.push({
                                 Name: "Urea",
-                                Quantity: 150
+                                Quantity: 150,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Soda Kue",
-                                Quantity: 30
+                                Quantity: 30,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Reaktif",
-                                Quantity: 700
+                                Quantity: 700,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Resist",
-                                Quantity: 8
+                                Quantity: 8,
+                                Index: idx++
                             });
 
                         } else {
                             this.data.ChemicalItems.push({
                                 Name: "Urea",
-                                Quantity: 150
+                                Quantity: 150,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Soda Kue",
-                                Quantity: 30
+                                Quantity: 30,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Reaktif",
-                                Quantity: 650
+                                Quantity: 650,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Resist",
-                                Quantity: 8
+                                Quantity: 8,
+                                Index: idx++
                             });
 
                         }
@@ -308,105 +349,125 @@ export class CartItem {
                         if (0 <= this.sumItem && this.sumItem <= 5) {
                             this.data.ChemicalItems.push({
                                 Name: "Binder",
-                                Quantity: 100
+                                Quantity: 100,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Fixer",
-                                Quantity: 10
+                                Quantity: 10,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Printogen",
-                                Quantity: 15
+                                Quantity: 15,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Luprimol",
-                                Quantity: 5
+                                Quantity: 5,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Pigment",
-                                Quantity: 800
+                                Quantity: 800,
+                                Index: idx++
                             });
 
                         } else if (5.01 <= this.sumItem && this.sumItem <= 20) {
                             this.data.ChemicalItems.push({
                                 Name: "Binder",
-                                Quantity: 100
+                                Quantity: 100,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Fixer",
-                                Quantity: 10
+                                Quantity: 10,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Printogen",
-                                Quantity: 15
+                                Quantity: 15,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Luprimol",
-                                Quantity: 5
+                                Quantity: 5,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Pigment",
-                                Quantity: 800
+                                Quantity: 800,
+                                Index: idx++
                             });
 
                         } else if (20.01 <= this.sumItem && this.sumItem <= 40) {
                             this.data.ChemicalItems.push({
                                 Name: "Binder",
-                                Quantity: 150
+                                Quantity: 150,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Fixer",
-                                Quantity: 10
+                                Quantity: 10,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Printogen",
-                                Quantity: 15
+                                Quantity: 15,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Luprimol",
-                                Quantity: 5
+                                Quantity: 5,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Pigment",
-                                Quantity: 700
+                                Quantity: 700,
+                                Index: idx++
                             });
 
                         } else {
                             this.data.ChemicalItems.push({
                                 Name: "Binder",
-                                Quantity: 200
+                                Quantity: 200,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Fixer",
-                                Quantity: 10
+                                Quantity: 10,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Printogen",
-                                Quantity: 15
+                                Quantity: 15,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Luprimol",
-                                Quantity: 5
+                                Quantity: 5,
+                                Index: idx++
                             });
 
                             this.data.ChemicalItems.push({
                                 Name: "Thickener Pigment",
-                                Quantity: 700
+                                Quantity: 700,
+                                Index: idx++
                             });
 
                         }
@@ -417,12 +478,14 @@ export class CartItem {
                     this.data.ChemicalItems.push({
                         Name: "Air",
                         Quantity: waterQty,
+                        Index: idx++
                     });
 
                     this.data.ChemicalItems.push({
                         Name: "Vicositas",
                         Quantity: vNum,
-                        Vicositas: true
+                        Vicositas: true,
+                        Index: idx++
                     });
                 } else {
                     this.showChemical = false;
