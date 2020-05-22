@@ -82,6 +82,7 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
+      filter: JSON.stringify({ DOSalesCategory: this.activeRole.key }),
     };
 
     return this.service.search(arg).then((result) => {

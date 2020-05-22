@@ -132,7 +132,7 @@ export class Create {
   packingUomWeavingOptions = ["", "PCS", "BALE"];
   packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
   lengthUomOptions = ["", "YDS", "MTR"];
-  // weightUomOptions = ["", "BALE", "KG"];
+  weightUomOptions = ["", "BALE", "KG"];
 
   doSalesSpinningLocalOptions = ["", "BL", "CN"];
   doSalesSpinningExportOptions = ["", "BE"];

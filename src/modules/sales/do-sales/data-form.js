@@ -9,9 +9,12 @@ import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
 
 import SalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
+import { SPINNING, WEAVING, DYEINGPRINTING } from '../do-sales/shared/permission-constant';
+import { PermissionHelper } from '../../../utils/permission-helper';
+var StorageLoader = require('../../../loader/storage-loader');
 
 @containerless()
-@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine, PermissionHelper)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -26,11 +29,14 @@ export class DataForm {
   @bindable WeightUom;
   @bindable selectedSalesContract;
 
-  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
+  constructor(service, serviceCore, bindingSignaler, bindingEngine, permissionHelper) {
     this.service = service;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
+
+    this.permissions = permissionHelper.getUserPermissions();
+    this.initPermission();
   }
 
   @computedFrom("data.Id")
@@ -41,7 +47,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    
+
 
     if (this.data.Disp) {
       this.disp = this.data.Disp;
@@ -60,8 +66,9 @@ export class DataForm {
     //   this.selectedSalesContract = this.data.SalesContract;
     // }
 
-    var RoleType = this.data.code;
-    console.log(RoleType);
+    
+
+    
 
     var salesContract = this.data.SalesContract;
     if (salesContract) {
@@ -212,4 +219,65 @@ export class DataForm {
   get salesContractLoader() {
     return SalesContractLoader;
   }
+
+  initPermission() {
+    this.roles = [SPINNING, WEAVING, DYEINGPRINTING];
+    this.accessCount = 0;
+
+    for (let i = this.roles.length - 1; i >= 0; i--) {
+      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+        this.roles[i].hasPermission = true;
+        this.accessCount++;
+        this.activeRole = this.roles[i];
+        this.code = true;
+        //this.data.doSalesCategory="SPINNING";
+      }
+    }
+
+  }
+
+  changeRole(role) {
+
+    if (role.key !== this.activeRole.key) {
+      this.activeRole = role;
+      // this.selectedItems.splice(0, this.selectedItems.length);
+      // this.documentData.splice(0, this.documentData.length);
+      //this.documentTable.refresh();
+    }
+  }
+
+  changeTable(role) {
+    if (role.key === "SPINNING") {
+
+      this.code = true;
+      this.code1 = false;
+      this.code2 = false;
+      this.data.DOSalesCategory="SPINNING";
+
+    } else if (role.key === "WEAVING") {
+
+      this.code = false;
+      this.code1 = true;
+      this.code2 = false;
+      this.data.DOSalesCategory="WEAVING";
+    } else {
+
+      this.code = false;
+      this.code1 = false;
+      this.code2 = true;
+      this.data.DOSalesCategory="DYEINGPRINTING";
+    }
+  }
+
+  
+  storageView = (storage) => {
+
+    return `${storage.unit.name} - ${storage.name}`
+  }
+
+  get storageLoader() {
+    
+    return StorageLoader;
+    
+}
 }
