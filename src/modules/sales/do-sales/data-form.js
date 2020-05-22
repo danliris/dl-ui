@@ -41,6 +41,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    
 
     if (this.data.Disp) {
       this.disp = this.data.Disp;
@@ -58,6 +59,9 @@ export class DataForm {
     // if (this.data.SalesContract) {
     //   this.selectedSalesContract = this.data.SalesContract;
     // }
+
+    var RoleType = this.data.code;
+    console.log(RoleType);
 
     var salesContract = this.data.SalesContract;
     if (salesContract) {
