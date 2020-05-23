@@ -25,42 +25,43 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save() {        
+    save() {
         console.log(this.data);
         var bodyRequest = {};
         bodyRequest.area = this.data.area;
-        bodyRequest.date= this.data.date;
+        bodyRequest.date = this.data.date;
         bodyRequest.destinationArea = this.data.destinationArea;
         bodyRequest.group = this.data.group;
-        bodyRequest.id= this.data.id;
+        bodyRequest.id = this.data.id;
         bodyRequest.shift = this.data.shift;
-        bodyRequest.bonNoInput= this.data.bonNoInput;
+        bodyRequest.bonNoInput = this.data.bonNoInput;
         bodyRequest.packagingProductionOrders = [];
         this.data.packagingProductionOrders.forEach(element => {
-            element.PackagingList.forEach(item=> {
+            element.PackagingList.forEach(item => {
                 var itemSpp = {};
-                itemSpp.productionOrderNo= item.productionOrderNo,
-                itemSpp.productionOrder = item.productionOrder,
-                itemSpp.balance = item.balance,
-                itemSpp.buyer=item.buyer,
-                itemSpp.color= item.color,
-                itemSpp.construction= item.construction,
-                itemSpp.grade= item.grade,
-                itemSpp.keterangan = item.keterangan,
-                itemSpp.motif = item.motif,
-                itemSpp.packagingQTY= item.packagingQTY,
-                itemSpp.packagingType= item.packagingType,
-                itemSpp.packagingUnit = item.packagingUnit,
-                itemSpp.packingInstruction = item.packingInstruction,
-                itemSpp.qtyOrder = item.qtyOrder,
-                itemSpp.qtyOut = item.qtyOut,
-                itemSpp.unit= item.unit,
-                itemSpp.uomUnit= item.uomUnit,
-                itemSpp.cartNo= item.cartNo,
-                itemSpp.remark= item.remark,
-                itemSpp.status= item.status,
-                itemSpp.material= item.material,
-                itemSpp.id = item.id
+                itemSpp.productionOrderNo = item.productionOrderNo,
+                    itemSpp.productionOrder = item.productionOrder,
+                    itemSpp.balance = item.balance,
+                    itemSpp.buyerId = item.buyerId,
+                    itemSpp.buyer = item.buyer,
+                    itemSpp.color = item.color,
+                    itemSpp.construction = item.construction,
+                    itemSpp.grade = item.grade,
+                    itemSpp.keterangan = item.keterangan,
+                    itemSpp.motif = item.motif,
+                    itemSpp.packagingQTY = item.packagingQTY,
+                    itemSpp.packagingType = item.packagingType,
+                    itemSpp.packagingUnit = item.packagingUnit,
+                    itemSpp.packingInstruction = item.packingInstruction,
+                    itemSpp.qtyOrder = item.qtyOrder,
+                    itemSpp.qtyOut = item.qtyOut,
+                    itemSpp.unit = item.unit,
+                    itemSpp.uomUnit = item.uomUnit,
+                    itemSpp.cartNo = item.cartNo,
+                    itemSpp.remark = item.remark,
+                    itemSpp.status = item.status,
+                    itemSpp.material = item.material,
+                    itemSpp.id = item.id
                 bodyRequest.packagingProductionOrders.push(itemSpp);
             });
         });
@@ -92,8 +93,8 @@ export class Create {
         //     });
         //     this.data.packagingProductionOrders = packagingProductionOrdersSelected;
         //     // console.log(this.data);
-            
-            this.service.create(bodyRequest)
+
+        this.service.create(bodyRequest)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

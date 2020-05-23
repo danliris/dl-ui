@@ -31,6 +31,7 @@ export class CartItem {
             this.selectedProductionOrder.OrderQuantity = this.data.balance;
             this.selectedProductionOrder.Construction = this.data.construction;
             this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
             this.selectedProductionOrder.Buyer.Name = this.data.buyer;
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
             this.selectedProductionOrder.Details = [];
@@ -94,6 +95,7 @@ export class CartItem {
                 this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
             }
             this.data.material = this.data.construction;
+            this.data.buyerId = this.selectedProductionOrder.buyerId;
             this.data.buyer = this.selectedProductionOrder.buyer;
             this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
             this.data.color = this.selectedProductionOrder.color;

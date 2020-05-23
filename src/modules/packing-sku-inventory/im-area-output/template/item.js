@@ -40,6 +40,9 @@ export class CartItem {
             this.remarks = [
                 "Aval 2"
             ];
+            this.remarksGrade = [
+                "Aval 2"
+            ];
             this.data.status = "OK";
 
             // if (this.data.isChecked)
