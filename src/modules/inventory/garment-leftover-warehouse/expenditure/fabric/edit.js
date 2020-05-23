@@ -18,7 +18,7 @@ export class Edit {
         const stockIds = this.data.Items.map(i => `Id==${i.StockId}`).join("||");
         let filter = {};
         filter[stockIds] = true;
-        const stocksResult = await this.service.searchStock({ filter: filter });
+        const stocksResult = await this.service.searchStock({ filter: JSON.stringify(filter) });
 
         for (const item of this.data.Items) {
             item.Stock = stocksResult.data.find(i => i.Id == item.StockId) || {};
