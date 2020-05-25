@@ -20,7 +20,7 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "ReturnFrom", title: "Retur Dari" },
+    { field: "ReturnFrom.Name", title: "Retur Dari" },
     { field: "LTKPNo", title: "No. LTKP" },
   ];
 

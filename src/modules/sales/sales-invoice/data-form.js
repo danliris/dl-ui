@@ -166,29 +166,42 @@ export class DataForm {
     "BNG",
     "BAB",
     "BNS",
-    "RNG",
+    // "RNG",
     "BRG",
     "BAG",
     "BGS",
-    "RRG",
+    // "RRG",
     "BLL",
     "BPF",
     "BSF",
-    "RPF",
+    // "RPF",
     "BPR",
     "BSR",
-    "RPR",
+    // "RPR",
     "BAV",
     "BON",
     "BGM",
     "GPF",
-    "RGF",
+    // "RGF",
     "GPR",
-    "RGR",
+    // "RGR",
     "RON",
+    "BMK",
+    // Retur
+    "RNG",
+    "RRG",
+    "RPF",
+    "RPR",
+    "RGF",
+    "RGR",
   ];
-  vatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN", "PPN Retail"];
-  deliveryOrderTypeOptions = ["", "BAV", "BLL", "BON", "BGM", "BPF", "BPR"];
+  vatTypeOptions = [
+    "",
+    "PPN Umum",
+    "PPN Kawasan Berikat",
+    "PPN BUMN",
+    "PPN Retail",
+  ];
   paymentTypeOptions = ["", "Meter", "Yard"];
 
   enterDelegate(event) {
