@@ -1,13 +1,13 @@
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
-import{DataForm} from '../data-form';
+import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 
-@inject(Service, BindingEngine, BindingSignaler,DataForm)
+@inject(Service, BindingEngine, BindingSignaler, DataForm)
 export class ItemSPP {
 
-    constructor(service, bindingSignaler, bindingEngine,dataForm) {
+    constructor(service, bindingSignaler, bindingEngine, dataForm) {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
@@ -46,6 +46,7 @@ export class ItemSPP {
             this.selectedProductionOrder.OrderQuantity = this.data.balance;
             this.selectedProductionOrder.Construction = this.data.construction;
             this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
             this.selectedProductionOrder.Buyer.Name = this.data.buyer;
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
             this.selectedProductionOrder.Details = [];
@@ -75,8 +76,8 @@ export class ItemSPP {
         }
     }
 
-    itemColumns = ["Buyer","Qty Order", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
-    
+    itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+
     removeItems() {
         this.bind();
     }
@@ -86,34 +87,35 @@ export class ItemSPP {
         this.data.PackagingList = this.data.PackagingList || [];
         this.data.PackagingList.push({
             productionOrderNo: this.selectedProductionOrder.productionOrderNo,
-            productionOrder : this.selectedProductionOrder.productionOrder,
-            balance : this.selectedProductionOrder.balance,
-            buyer:this.selectedProductionOrder.buyer,
+            productionOrder: this.selectedProductionOrder.productionOrder,
+            balance: this.selectedProductionOrder.balance,
+            buyerId: this.selectedProductionOrder.buyerId,
+            buyer: this.selectedProductionOrder.buyer,
             color: this.selectedProductionOrder.color,
             construction: this.selectedProductionOrder.construction,
             grade: this.selectedProductionOrder.grade,
-            keterangan : this.selectedProductionOrder.keterangan,
-            motif : this.selectedProductionOrder.motif,
+            keterangan: this.selectedProductionOrder.keterangan,
+            motif: this.selectedProductionOrder.motif,
             packagingQTY: this.selectedProductionOrder.packagingQTY,
             packagingType: this.selectedProductionOrder.packagingType,
-            packagingUnit : this.selectedProductionOrder.packagingUnit,
-            packingInstruction : this.selectedProductionOrder.packingInstruction,
-            qtyOrder : this.selectedProductionOrder.qtyOrder,
-            qtyOut : this.selectedProductionOrder.qtyOut,
+            packagingUnit: this.selectedProductionOrder.packagingUnit,
+            packingInstruction: this.selectedProductionOrder.packingInstruction,
+            qtyOrder: this.selectedProductionOrder.qtyOrder,
+            qtyOut: this.selectedProductionOrder.qtyOut,
             unit: this.selectedProductionOrder.unit,
             uomUnit: this.selectedProductionOrder.uomUnit,
             cartNo: this.selectedProductionOrder.cartNo,
             remark: this.selectedProductionOrder.remark,
             status: this.selectedProductionOrder.status,
             material: this.selectedProductionOrder.material,
-            id : this.selectedProductionOrder.id
+            id: this.selectedProductionOrder.id
         });
     };
 
-    get productionOrderList(){
+    get productionOrderList() {
         return (keyword) => {
-            return Promise.resolve().then(result => {return this.productionOrderListItem;});
-          }
+            return Promise.resolve().then(result => { return this.productionOrderListItem; });
+        }
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
@@ -130,6 +132,7 @@ export class ItemSPP {
                 this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
             }
             this.data.material = this.data.construction;
+            this.data.buyerId = this.selectedProductionOrder.buyerId;
             this.data.buyer = this.selectedProductionOrder.buyer;
             this.data.packingInstruction = this.selectedProductionOrder.packingInstruction;
             this.data.color = this.selectedProductionOrder.color;

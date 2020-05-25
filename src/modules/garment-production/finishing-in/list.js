@@ -22,9 +22,10 @@ export class List {
         }
         this.filter={
           CreatedBy: username,
-          "FinishingInType!='PEMBELIAN'":true,
+         // "FinishingInType!='PEMBELIAN'":true,
 
         }
+        this.filter[`FinishingInType != "PEMBELIAN"`]=true;
       }
 
     context = ["Rincian"];

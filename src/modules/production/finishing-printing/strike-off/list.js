@@ -30,9 +30,9 @@ export class List {
                         let listColor = [];
 
                         for (let detail of datum.StrikeOffItems) {
-                            let existColor = listColor.find((color) => color == '- ' + detail.ColorReceipt.ColorCode);
+                            let existColor = listColor.find((color) => color == '- ' + detail.ColorCode);
                             if (!existColor) {
-                                listColor.push('- ' + detail.ColorReceipt.ColorCode);
+                                listColor.push('- ' + detail.ColorCode);
                             }
                         }
 
