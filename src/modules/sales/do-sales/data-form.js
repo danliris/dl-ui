@@ -62,13 +62,26 @@ export class DataForm {
       this.fillEachBale = this.data.FillEachBale;
     }
 
+    if (this.data.DOSalesCategory === "SPINNING") {
+      this.code = true;
+      this.code1 = false;
+      this.code2 = false;
+
+    } else if (this.data.DOSalesCategory === "WEAVING") {
+
+      this.code = false;
+      this.code1 = true;
+      this.code2 = false;
+    }
+    else {
+
+      this.code = false;
+      this.code1 = false;
+      this.code2 = true;
+    }
     // if (this.data.SalesContract) {
     //   this.selectedSalesContract = this.data.SalesContract;
     // }
-
-    
-
-    
 
     var salesContract = this.data.SalesContract;
     if (salesContract) {
@@ -123,7 +136,11 @@ export class DataForm {
   doSalesTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
   doSalesExportOptions = ["", "KKF", "KKP"];
-  packingUomOptions = ["", "PCS", "ROLL", "PT"];
+
+  packingUomOptions = ["", "DOS"];
+  packingUomWeavingOptions = ["", "PCS", "BALE"];
+  packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
+
   lengthUomOptions = ["", "YDS", "MTR"];
   weightUomOptions = ["", "BALE", "KG"];
 
@@ -229,55 +246,22 @@ export class DataForm {
         this.roles[i].hasPermission = true;
         this.accessCount++;
         this.activeRole = this.roles[i];
-        this.code = true;
-        //this.data.doSalesCategory="SPINNING";
+
+
       }
     }
 
   }
 
-  changeRole(role) {
-
-    if (role.key !== this.activeRole.key) {
-      this.activeRole = role;
-      // this.selectedItems.splice(0, this.selectedItems.length);
-      // this.documentData.splice(0, this.documentData.length);
-      //this.documentTable.refresh();
-    }
-  }
-
-  changeTable(role) {
-    if (role.key === "SPINNING") {
-
-      this.code = true;
-      this.code1 = false;
-      this.code2 = false;
-      this.data.DOSalesCategory="SPINNING";
-
-    } else if (role.key === "WEAVING") {
-
-      this.code = false;
-      this.code1 = true;
-      this.code2 = false;
-      this.data.DOSalesCategory="WEAVING";
-    } else {
-
-      this.code = false;
-      this.code1 = false;
-      this.code2 = true;
-      this.data.DOSalesCategory="DYEINGPRINTING";
-    }
-  }
-
-  
   storageView = (storage) => {
 
     return `${storage.unit.name} - ${storage.name}`
+
   }
 
   get storageLoader() {
-    
+
     return StorageLoader;
-    
-}
+
+  }
 }
