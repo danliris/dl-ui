@@ -15,9 +15,9 @@
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly" items.bind="groups"></au-dropdown>
       
-    <br/>
+    <!-- <br/>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
-    <br/>
+    <br/> -->
     <!-- <au-collection columns.bind="columns" items.bind="data.packagingProductionOrders"
       errors.one-way="error.packagingOrders" remove.bind="onremove" add.bind="addItemCallback()"
       data.bind="loader"  selectable.bind="true"
@@ -25,7 +25,7 @@
     </au-collection> -->
     <au-table view-model.ref="table" data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"
     context-show.call="contextShowCallback(index, context, data)" options.bind="tableOptions" selections.bind="dataIsChecked"
-    selectable.bind="true">
+    selectable.bind="true" read-only.bind="readOnly">
 
     <template replaceable part="actions"></template>
   </au-input-form>
