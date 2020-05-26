@@ -482,7 +482,7 @@ export class CartItem {
                     });
 
                     this.data.ChemicalItems.push({
-                        Name: "Vicositas",
+                        Name: "Viscositas",
                         Quantity: vNum,
                         Vicositas: true,
                         Index: idx++
