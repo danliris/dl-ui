@@ -46,6 +46,7 @@ export class CartItem {
             this.selectedProductionOrder.PackagingUnit = this.data.packagingUnit;
             this.selectedProductionOrder.PackagingType = this.data.packagingType;
             this.selectedProductionOrder.grade = this.data.grade;
+            this.selectedProductionOrder.qtyOut = this.data.qtyOut;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
@@ -102,6 +103,7 @@ export class CartItem {
             this.data.motif = this.selectedProductionOrder.motif;
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
+            this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
             if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
