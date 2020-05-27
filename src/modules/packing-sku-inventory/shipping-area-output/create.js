@@ -15,6 +15,7 @@ export class Create {
     }
 
 
+    shippingProductionOrders = [];
     back() {
         this.router.navigateToRoute('list');
     }
@@ -26,7 +27,7 @@ export class Create {
     }
 
     save() {
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.IsSave === true);
+        this.data.shippingProductionOrders = this.data.displayShippingProductionOrders;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
