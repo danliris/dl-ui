@@ -66,6 +66,11 @@ export class DataForm {
         //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         // }
 
+
+        if (this.data.transitProductionOrders) {
+            this.transitProductionOrders = this.data.transitProductionOrders;
+        }
+
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
             this.detailOptions.destinationArea = this.data.destinationArea;
@@ -77,8 +82,8 @@ export class DataForm {
         }
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.transitProductionOrders = this.transitProductionOrders || [];
+        this.transitProductionOrders.push({})
     };
 
     // @bindable selectedInspectionMaterial;

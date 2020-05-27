@@ -9,12 +9,13 @@
           error.bind="error.DOReturnType" read-only.bind="readOnly || isEdit">
         </au-dropdown>
 
-        <au-datepicker label="Tanggal" value.bind="data.DOReturnDate" error.bind="error.DOReturnDate" read-only.bind="readOnly">
+        <au-datepicker label="Tanggal" value.bind="data.DOReturnDate" error.bind="error.DOReturnDate"
+          read-only.bind="readOnly">
         </au-datepicker>
 
-        <au-textbox label="Dari Bagian/Retur Dari" value.bind="data.ReturnFrom" error.bind="error.ReturnFrom"
-          read-only.bind="readOnly" placeholder="Input Nama Bagian" keypress.delegate="enterDelegate($event)">
-        </au-textbox>
+        <au-autocomplete label="Dari Bagian/Retur Dari" placeholder="Pilih Nama" value.bind="selectedReturnFrom"
+              error.bind="error.ReturnFrom" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly">
+            </au-autocomplete>
 
         <au-textbox label="No. LTKP" value.bind="data.LTKPNo" error.bind="error.LTKPNo" read-only.bind="readOnly"
           placeholder="Input No. LTKP" keypress.delegate="enterDelegate($event)">

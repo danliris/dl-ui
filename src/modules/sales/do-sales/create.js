@@ -18,7 +18,7 @@ import { BindingSignaler } from "aurelia-templating-resources";
 import SalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
 
 @containerless()
-@inject(Router, Service, PermissionHelper,ServiceCore)
+@inject(Router, Service, PermissionHelper, ServiceCore)
 export class Create {
   @bindable title;
   @bindable readOnly;
@@ -45,18 +45,24 @@ export class Create {
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
-  }
 
+  }
 
   @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || "").toString() !== "";
   }
+
+  activate(params) {
+    this.activeRole = {};
+    this.activeRole.key = params.activeRole;
+    this.changeTable(this.activeRole);
+  }
+
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
 
     if (this.data.Disp) {
       this.disp = this.data.Disp;
@@ -124,7 +130,7 @@ export class Create {
   };
 
   detailOptions = {};
-  doSalesDyeingTypeOptions = ["", "Lokal","Ekspor"];
+  doSalesDyeingTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
   //doSalesExportOptions = ["", "KKF", "KKP"];
@@ -141,8 +147,8 @@ export class Create {
   doSalesWeavingExportOptions = ["", "KKG"];
 
   doSalesDyeingLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
-  
-  doSalesDyeingExportOptions =["","KKP", "KKF"]
+
+  doSalesDyeingExportOptions = ["", "KKP", "KKF"]
 
   async selectedSalesContractChanged(newValue, oldValue) {
     // if (this.selectedSalesContract && this.selectedSalesContract.Id) {
@@ -247,8 +253,7 @@ export class Create {
         this.roles[i].hasPermission = true;
         this.accessCount++;
         this.activeRole = this.roles[i];
-        this.code = true;
-        this.data.doSalesCategory="SPINNING";
+
       }
     }
 
@@ -258,9 +263,7 @@ export class Create {
 
     if (role.key !== this.activeRole.key) {
       this.activeRole = role;
-      // this.selectedItems.splice(0, this.selectedItems.length);
-      // this.documentData.splice(0, this.documentData.length);
-      //this.documentTable.refresh();
+
     }
   }
 
@@ -270,20 +273,20 @@ export class Create {
       this.code = true;
       this.code1 = false;
       this.code2 = false;
-      this.data.DOSalesCategory="SPINNING";
+      this.data.DOSalesCategory = "SPINNING";
 
     } else if (role.key === "WEAVING") {
 
       this.code = false;
       this.code1 = true;
       this.code2 = false;
-      this.data.DOSalesCategory="WEAVING";
+      this.data.DOSalesCategory = "WEAVING";
     } else {
 
       this.code = false;
       this.code1 = false;
       this.code2 = true;
-      this.data.DOSalesCategory="DYEINGPRINTING";
+      this.data.DOSalesCategory = "DYEINGPRINTING";
     }
   }
 
@@ -296,7 +299,7 @@ export class Create {
   }
 
   save(event) {
-    //console.log(this.data);
+
     this.service
       .create(this.data)
       .then((result) => {
@@ -314,13 +317,13 @@ export class Create {
   }
 
   storageView = (storage) => {
-    
+
     return `${storage.unit.name} - ${storage.name}`
-}
+  }
 
   get storageLoader() {
-    
+
     return StorageLoader;
-    
-}
+
+  }
 }

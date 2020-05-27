@@ -22,12 +22,12 @@
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="inspectionAreaLoader"
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
-    <au-textbox show.bind="error" read-only.bind="true" value.bind="error.InspectionMaterialProductionOrders" style="color: red;"></au-textbox>
+    <au-textbox show.bind="error.InspectionMaterialProductionOrder" read-only.bind="true" value.bind="error.InspectionMaterialProductionOrder" style="color: red;"></au-textbox>
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
     <au-collection columns.bind="itemColumns" view-model.ref="ItemsCollection"
-      items.bind="data.inspectionMaterialProductionOrders" errors.bind="error.InspectionMaterialProductionOrders"
+      items.bind="inspectionMaterialProductionOrders" errors.bind="error.InspectionMaterialProductionOrders"
       options.bind="detailOptions" read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/im-area-output/template/item-header"
       item-template="modules/packing-sku-inventory/im-area-output/template/item">

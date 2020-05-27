@@ -15,14 +15,18 @@
     .tab.active {
       border-color: #173250 !important;
     }
+
+    .context-menu {
+      cursor: context-menu;
+    }
+
   </style>
   <template if.bind="accessCount > 1">
     <div class="row">
       <template repeat.for="role of roles">
         <div if.bind="role.hasPermission"
-             class="col-sm-${accessCount === 3 ? 4 : 6} tab ${activeRole.key === role.key ? 'active' : ''}"
-             click.delegate="changeRole(role)"
-             click.trigger="changeTable(role)">
+             class="col-sm-${accessCount === 3 ? 4 : 6} tab ${activeRole.key === role.key ? 'active' : ''} context-menu"
+             >
           ${role.label}
         </div>
       </template>

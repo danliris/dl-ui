@@ -5,7 +5,7 @@ import moment from "moment";
 import { SPINNING, WEAVING, DYEINGPRINTING } from '../do-sales/shared/permission-constant';
 import { PermissionHelper } from '../../../utils/permission-helper';
 
-@inject(Router, Service,PermissionHelper)
+@inject(Router, Service, PermissionHelper)
 export class List {
   context = ["Detail", "Cetak DO Penjualan"];
 
@@ -93,7 +93,7 @@ export class List {
     });
   };
 
-  constructor(router, service,permissionHelper) {
+  constructor(router, service, permissionHelper) {
     this.service = service;
     this.router = router;
 
@@ -110,40 +110,40 @@ export class List {
         this.roles[i].hasPermission = true;
         this.accessCount++;
         this.activeRole = this.roles[i];
-        
-        this.code=true;
+
+        this.code = true;
       }
     }
   }
 
   changeRole(role) {
     if (role.key !== this.activeRole.key) {
-      
+
       this.activeRole = role;
       this.tableList.refresh();
     }
   }
   changeTable(role) {
 
-    if (role.key === "SPINNING"){
+    if (role.key === "SPINNING") {
 
-      this.code=true;
-      this.code1=false;
-      this.code2=false;
+      this.code = true;
+      this.code1 = false;
+      this.code2 = false;
 
-    }else if(role.key === "WEAVING"){
+    } else if (role.key === "WEAVING") {
 
-      this.code=false;
-      this.code1=true;
-      this.code2=false;
+      this.code = false;
+      this.code1 = true;
+      this.code2 = false;
 
-    }else{
+    } else {
 
-      this.code=false;
-      this.code1=false;
-      this.code2=true;
+      this.code = false;
+      this.code1 = false;
+      this.code2 = true;
     }
-    
+
   }
 
   contextClickCallback(event) {
@@ -169,6 +169,7 @@ export class List {
   }
 
   create() {
-    this.router.navigateToRoute("create");
+    this.router.navigateToRoute("create", { activeRole: this.activeRole.key });
+
   }
 }

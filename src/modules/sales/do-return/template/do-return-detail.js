@@ -1,8 +1,4 @@
-import {
-  inject,
-  bindable,
-  BindingEngine,
-} from "aurelia-framework";
+import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceProductionAzure } from "./../service";
 
@@ -16,6 +12,19 @@ export class DoReturnDetail {
   detailItemOptions = {};
   itemOptions = {};
 
+  constructor(service, serviceProductionAzure, bindingEngine, bindingSignaler) {
+    this.service = service;
+    this.serviceProductionAzure = serviceProductionAzure;
+  }
+
+  activate(context) {
+    this.data = context.data;
+    this.error = context.error;
+    this.options = context.options;
+
+    this.selectedSalesInvoice = this.data.SalesInvoice || null;
+  }
+
   returnDetailsInfo = {
     columns: ["Ex. DO Penjualan"],
   };
@@ -28,20 +37,10 @@ export class DoReturnDetail {
       "Pcs/Roll/Pt",
       "Mtr/Yds",
     ],
+    onRemove: function () {
+      this.context.ReturnItemsCollection.bind();
+    }.bind(this),
   };
-
-  constructor(service, serviceProductionAzure, bindingEngine, bindingSignaler) {
-    this.service = service;
-    this.serviceProductionAzure = serviceProductionAzure;
-  }
-
-  activate(context) {
-    this.data = context.data;
-    this.error = context.error;
-    this.options = context.options;
-    
-    this.selectedSalesInvoice = this.data.SalesInvoice || null;
-  }
 
   enterDelegate(event) {
     if (event.charCode === 13) {
