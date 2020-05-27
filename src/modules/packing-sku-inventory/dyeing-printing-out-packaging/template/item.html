@@ -47,7 +47,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.packagingQTY" read-only.bind="readOnly" error.bind="error.PackagingQty" change.delegate="saldoPerPackagingChanged"
+            <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly" error.bind="error.PackagingQty" change.delegate="inputPackagingQTYChanged"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
