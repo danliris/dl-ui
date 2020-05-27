@@ -15,7 +15,6 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         // console.log(this);
-        //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
         var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
         var mappedGroup = _.map(groupObj);
         var packagingProductionOrdersGroup = [];
@@ -23,10 +22,12 @@ export class View {
             var headData = element[0]
             headData.PackagingList = element;
             packagingProductionOrdersGroup.push(headData);
+            console.log(headData);
         });
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
         // console.log(sort);
         // console.log(mappedGroup);
+        console.log(this);
         this.canEdit=true;
         
     }

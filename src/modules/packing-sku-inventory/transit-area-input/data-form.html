@@ -20,8 +20,8 @@
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
 
-    <au-textbox show.bind="error" read-only.bind="true" value.bind="error.TransitProductionOrders" style="color: red;"></au-textbox>
-    <au-collection columns.bind="itemColumns" items.bind="data.transitProductionOrders"
+    <au-textbox show.bind="error.TransitProductionOrder" read-only.bind="true" value.bind="error.TransitProductionOrder" style="color: red;"></au-textbox>
+    <au-collection columns.bind="itemColumns" items.bind="transitProductionOrders"
       errors.one-way="error.TransitProductionOrders" read-only.bind="readOnly"
       options.bind="detailOptions"
       header-template="modules/packing-sku-inventory/transit-area-input/template/item-header"

@@ -63,7 +63,7 @@ export class DataForm {
         // }
         if(this.data.packagingProductionOrders)
         {
-            console.log(this.data.packagingProductionOrders)
+            // console.log(this.data.packagingProductionOrders)
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;                        
         }

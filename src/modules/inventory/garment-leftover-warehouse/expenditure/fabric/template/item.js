@@ -83,7 +83,9 @@ export class Item {
             this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" }) })
                 .then(result => {
                     if (result.statusCode == 200) {
-                        this.data.Stocks = result.data;
+                        const uomUnits = this.context.context.items.filter(i => i.data.Unit.Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
+
+                        this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
                         this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
                     }
                 });
@@ -95,6 +97,9 @@ export class Item {
             this.data.Stock = this.data.Stocks.find(d => d.Uom.Unit == newValue);
 
             if (this.data.Stock) {
+                const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.Stock.Id) || { Quantity: 0 };
+                this.data.Stock.Quantity += existingItem.Quantity;
+
                 this.data.StockId = this.data.Stock.Id;
                 this.data.Quantity = this.data.Stock.Quantity;
                 this.data.Uom = this.data.Stock.Uom;
