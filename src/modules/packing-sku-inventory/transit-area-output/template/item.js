@@ -13,7 +13,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         
-        if (this.data.balance) {
+        if (this.data.balance && !this.data.previousBalance) {
             this.data.previousBalance = this.data.balance;
         }
         
