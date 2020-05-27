@@ -47,7 +47,7 @@ export class Create {
     }
 
     reject() {
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.IsSave === true);
+        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
         this.service.reject(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
