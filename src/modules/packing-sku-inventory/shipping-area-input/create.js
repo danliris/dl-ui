@@ -16,7 +16,7 @@ export class Create {
 
     async activate(params) {
         this.data = {};
-        this.data.shippingProductionOrders = await this.service.getProductionOrderOutput();
+        this.shippingProductionOrders = await this.service.getProductionOrderOutput();
 
     }
 
@@ -31,7 +31,7 @@ export class Create {
     }
 
     save() {
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.IsSave === true);
+        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
