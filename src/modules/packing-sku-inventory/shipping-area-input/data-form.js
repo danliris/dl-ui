@@ -60,14 +60,19 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
+
+        if (this.data.shippingProductionOrders) {
+            this.shippingProductionOrders = this.data.shippingProductionOrders;
+        }
+
         // if (this.data.bonNo) {
         //     this.selectedPreShipping = {};
         //     this.selectedPreShipping.bonNo = this.data.bonNo;
         // }
     }
     addItemCallback = (e) => {
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders || [];
-        this.data.shippingProductionOrders.push({})
+        this.shippingProductionOrders = this.shippingProductionOrders || [];
+        this.shippingProductionOrders.push({})
     };
 
     // @bindable selectedPreShipping;
