@@ -19,25 +19,10 @@ export class SalesInvoiceItem {
     this.options = context.options;
     this.readOnly = context.options.readOnly;
     this.PaymentType = context.context.options.PaymentType;
-
     this.QuantityItem = this.data.QuantityItem;
     this.ConvertValue = this.data.ConvertValue;
     this.Price = this.data.Price;
-
-    if (this.PaymentType == "MTR") {
-      this.getAmount = this.QuantityItem * this.Price;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
-    } else if (this.PaymentType == "YARD") {
-      this.getAmount = this.ConvertValue * this.Price;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
-    } else {
-      this.getAmount = 0;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
-    }
-    this.data.Amount = this.getAmount;
+    this.getAmount = this.data.Amount;
   }
 
   PriceChanged(newValue, oldValue) {
