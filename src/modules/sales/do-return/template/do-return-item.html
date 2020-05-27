@@ -1,7 +1,8 @@
 <template>
     <tr>
         <td>
-            <au-textbox show.bind="!data.ShipmentDocumentCode" value.bind="data.ShipmentDocumentId" read-only.bind="true"></au-textbox>
+            <au-textbox show.bind="!data.ShipmentDocumentCode" value.bind="data.ShipmentDocumentId"
+                read-only.bind="true"></au-textbox>
             <au-textbox value.bind="data.ShipmentDocumentCode" read-only.bind="true">
             </au-textbox>
         </td>
@@ -14,8 +15,8 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly">
-            </au-textbox>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0,0">
+            </au-numeric>
             <au-textbox value.bind="data.PackingUom" read-only.bind="true">
             </au-textbox>
         </td>
@@ -24,6 +25,10 @@
             </au-numeric>
             <au-autocomplete value.bind="data.Uom" key="Unit" text="Unit" read-only.bind="true">
             </au-autocomplete>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
+                click.delegate="onremove(data, $event)">-</button>
         </td>
 
     </tr>

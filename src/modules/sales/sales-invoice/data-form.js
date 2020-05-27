@@ -24,6 +24,7 @@ export class DataForm {
   @bindable VatType;
   @bindable Tempo;
   @bindable Sales;
+  @bindable selectedPaymentType;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine) {
     this.service = service;
@@ -55,9 +56,10 @@ export class DataForm {
     }
 
     if (this.data.Buyer && this.data.Buyer.Id) {
-      this.selectedBuyer = await this.serviceCore.getBuyerById(
-        this.data.Buyer.Id
-      );
+      // this.selectedBuyer = await this.serviceCore.getBuyerById(
+      //   this.data.Buyer.Id
+      // );
+      this.selectedBuyer = this.data.Buyer;
     }
 
     if (this.data.Unit && this.data.Unit.Id) {
@@ -89,8 +91,13 @@ export class DataForm {
     if (salesInvoiceTime && dueTime) {
       this.Tempo = (dueTime - salesInvoiceTime) / (1000 * 60 * 60 * 24);
     }
+
     if (this.data.Sales) {
       this.Sales = this.data.Sales;
+    }
+
+    if (this.data.PaymentType) {
+      this.selectedPaymentType = this.data.PaymentType;
     }
   }
 
@@ -111,6 +118,13 @@ export class DataForm {
     }
     this.data.TotalPayment = totalPayment;
     return totalPayment;
+  }
+
+  selectedPaymentTypeChanged(newValue, oldValue) {
+    if (this.selectedPaymentType) {
+      this.data.PaymentType = this.selectedPaymentType;
+      this.itemOptions.PaymentType = this.data.PaymentType;
+    }
   }
 
   SalesInvoiceDateChanged(newValue, oldValue) {
@@ -166,30 +180,43 @@ export class DataForm {
     "BNG",
     "BAB",
     "BNS",
-    "RNG",
+    // "RNG",
     "BRG",
     "BAG",
     "BGS",
-    "RRG",
+    // "RRG",
     "BLL",
     "BPF",
     "BSF",
-    "RPF",
+    // "RPF",
     "BPR",
     "BSR",
-    "RPR",
+    // "RPR",
     "BAV",
     "BON",
     "BGM",
     "GPF",
-    "RGF",
+    // "RGF",
     "GPR",
-    "RGR",
+    // "RGR",
     "RON",
+    "BMK",
+    // Retur
+    "RNG",
+    "RRG",
+    "RPF",
+    "RPR",
+    "RGF",
+    "RGR",
   ];
-  vatTypeOptions = ["", "PPN Umum", "PPN Kawasan Berikat", "PPN BUMN", "PPN Retail"];
-  deliveryOrderTypeOptions = ["", "BAV", "BLL", "BON", "BGM", "BPF", "BPR"];
-  paymentTypeOptions = ["", "Meter", "Yard"];
+  vatTypeOptions = [
+    "",
+    "PPN Umum",
+    "PPN Kawasan Berikat",
+    "PPN BUMN",
+    "PPN Retail",
+  ];
+  paymentTypeOptions = ["", "MTR", "YARD"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -225,6 +252,7 @@ export class DataForm {
       this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
       this.data.Buyer.NIK = this.selectedBuyer.NIK;
       this.itemOptions.BuyerId = this.data.Buyer.Id;
+      this.itemOptions.HasSalesInvoice = false;
     } else {
       this.data.Buyer.Id = null;
       this.data.Buyer.Name = null;
@@ -233,6 +261,7 @@ export class DataForm {
       this.data.Buyer.NPWP = null;
       this.data.Buyer.NIK = null;
       this.itemOptions.BuyerId = null;
+      this.itemOptions.HasSalesInvoice = false;
       this.data.SalesInvoiceDetails = [];
     }
   }
