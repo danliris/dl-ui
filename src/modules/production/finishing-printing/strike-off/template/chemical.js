@@ -10,6 +10,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         
+        this.isVicositas = this.data.Vicositas;
     }
 
     controlOptions = {

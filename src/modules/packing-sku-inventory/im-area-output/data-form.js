@@ -49,7 +49,7 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        
+
         this.data.area = "INSPECTION MATERIAL";
 
         this.error = this.context.error;
@@ -61,9 +61,14 @@ export class DataForm {
         //     this.selectedInspectionMaterial = {};
         //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         // }
+
+        if (this.data.inspectionMaterialProductionOrders) {
+            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        }
+
         this.detailOptions = {
-            isEdit : this.isEdit,
-            destinationArea : this.destinationArea
+            isEdit: this.isEdit,
+            destinationArea: this.destinationArea
         }
         // this.detailOptions.isEdit = this.isEdit;
         // this.detailOptions.destinationArea = this.data.destinationArea;
@@ -91,8 +96,8 @@ export class DataForm {
         }
     }
     addItemCallback = (e) => {
-        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders || [];
-        this.data.inspectionMaterialProductionOrders.push({})
+        this.inspectionMaterialProductionOrders = this.inspectionMaterialProductionOrders || [];
+        this.inspectionMaterialProductionOrders.push({})
     };
 
     // @bindable selectedInspectionMaterial;

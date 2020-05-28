@@ -21,15 +21,24 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.qtyOrder"
+        value.bind="data.productionOrderOrderQuantity"
         format="0.00"
         read-only.bind="true"
-        error.bind="error.QtyOrder"
+        error.bind="error.productionOrderOrderQuantity"
         options.bind="controlOptions"
       >
       </au-numeric>
     </td>
     <td>
+      <au-textbox
+        value.bind="data.productionOrderType"
+        read-only.bind="true"
+        error.bind="error.productionOrderType"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <!-- <td>
       <au-textbox
         value.bind="data.construction"
         read-only.bind="true"
@@ -94,15 +103,6 @@
     </td>
     <td>
       <au-textbox
-        value.bind="data.productionOrder.type"
-        read-only.bind="true"
-        error.bind="error.productionOrder.type"
-        options.bind="controlOptions"
-      >
-      </au-textbox>
-    </td>
-    <td>
-      <au-textbox
         value.bind="data.grade"
         read-only.bind="true"
         error.bind="error.Grade"
@@ -129,5 +129,28 @@
       >
       </au-numeric>
     </td>
+    <td>
+      <au-textbox
+        value.bind="data.area"
+        read-only.bind="true"
+        error.bind="error.Area"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td> -->
+    <td>
+      <button class="btn btn-info pull-right" click.delegate="toggle()">
+        i
+      </button>
+    </td>
+  </tr>
+  <tr if.bind="isShowing">
+      <!-- <td show.bind="!readOnly"></td> -->
+      <td colspan="14">
+          <au-collection columns.bind="itemColumns" items.bind="data.productionOrderItems" read-only.bind="readOnly"
+              item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/production-order-item">
+          </au-collection>
+          <!-- show.bind="isAval" -->
+      </td>
   </tr>
 </template>

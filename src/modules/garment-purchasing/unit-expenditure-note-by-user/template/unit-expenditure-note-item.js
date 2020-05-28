@@ -9,7 +9,10 @@ export class UnitExpenditureNoteItem {
     this.options = this.context.options;    
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
     this.isExternal= this.context.context.options.isExternal;
+    this.ExpenditureType = this.context.context.options.ExpenditureType;
   }
+
+  itemStatusOptions = ['REJECT', 'NON REJECT'];
 
   @computedFrom("data.Id")
     get isEdit() {

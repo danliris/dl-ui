@@ -73,6 +73,10 @@ export class DataForm {
             this.selectedShipping.bonNo = this.data.bonNo;
         }
 
+        if (this.data.shippingProductionOrders) {
+            this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
+        }
+
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
 
@@ -91,10 +95,16 @@ export class DataForm {
 
         }
 
+        if (this.data.deliveryOrder) {
+            this.selectedDO = {};
+            this.selectedDO.Id = this.data.deliveryOrder.id;
+            this.selectedDO.DOSalesNo = this.data.deliveryOrder.no;
+        }
+
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.data.displayShippingProductionOrders = this.data.displayShippingProductionOrders || [];
+        this.data.displayShippingProductionOrders.push({})
     };
 
     @bindable selectedShipping;
@@ -102,7 +112,7 @@ export class DataForm {
         if (this.selectedShipping) {
             this.data.inputShippingId = this.selectedShipping.id;
             if (this.selectedShipping.shippingProductionOrders) {
-                this.data.shippingProductionOrders = this.selectedShipping.shippingProductionOrders.filter(s => !s.hasNextAreaDocument);
+                this.data.displayShippingProductionOrders = this.selectedShipping.shippingProductionOrders.filter(s => !s.hasNextAreaDocument);
                 this.data.bonNo = this.selectedShipping.bonNo;
                 this.data.deliveryOrder = this.selectedShipping.deliveryOrder;
                 this.data.inputShippingId == this.selectedShipping.id;
@@ -112,12 +122,16 @@ export class DataForm {
 
     }
     shippingQuery = {
-        DestinationArea : "PENJUALAN"
+        DestinationArea: "PENJUALAN"
     };
     @bindable selectedDO;
     async selectedDOChanged(n, o) {
         if (this.selectedDO) {
-            this.data.shippingProductionOrders = await this.service.getProductionOrderFromInput(this.selectedDO.Id);
+            this.data.deliveryOrder = {};
+            this.data.deliveryOrder.id = this.selectedDO.Id;
+            this.data.deliveryOrder.no = this.selectedDO.DOSalesNo;
+            if (!this.isEdit)
+                this.data.displayShippingProductionOrders = await this.service.getProductionOrderFromInput(this.selectedDO.Id);
         }
     }
 

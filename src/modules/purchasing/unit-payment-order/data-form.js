@@ -53,6 +53,7 @@ export class DataForm {
         this.hasCreate=true;
         if(this.data)
             this.hasCreate=false;
+        //console.log(this.context);
     }
 
     @computedFrom("data._id")

@@ -48,13 +48,67 @@ export class DataForm {
         } else {
             this.itemColumns = ["Kode Warna"];
         }
+
+        if (this.data.Type) {
+            this.type = this.data.Type;
+        }
+
+        if (this.data.Cloth) {
+            this.cloth = this.data.Cloth;
+        }
     }
 
     itemColumns = ["Kode Warna", ""];
+    isRegular = false;
+    types = ["PRINTING REAKTIF", "PRINTING REAKTIF RESIST", "PRINTING PIGMENT"];
+    clothes = ["Cotton", "Rayon"];
 
     addItemCallback = (e) => {
         this.data.StrikeOffItems = this.data.StrikeOffItems || [];
         this.data.StrikeOffItems.push({})
     };
 
+    @bindable ItemsCollection;
+    detailOptions = {};
+    @bindable type;
+    typeChanged(n, o) {
+        if (this.type) {
+            this.data.Type = this.type;
+            this.detailOptions.Type = this.data.Type;
+            if (this.data.Type === "PRINTING REAKTIF") {
+                this.isRegular = true;
+                this.dyeStuffColumns = ["DyeStuff Reaktif", "Total"];
+            } else {
+                this.isRegular = false;
+                if (this.data.Type === "PRINTING REAKTIF RESIST") {
+                    this.data.Cloth = "Cotton";
+                    this.detailOptions.Cloth = this.data.Cloth;
+                    this.dyeStuffColumns = ["DyeStuff Reaktif", "Total"];
+                } else {
+                    this.dyeStuffColumns = ["DyeStuff Pigment", "Total"];
+                    this.data.Cloth = null;
+                }
+            }
+
+            this.ItemsCollection.bind();
+        } else {
+            this.data.Type = null;
+            this.data.StrikeOffItems = [];
+        }
+    }
+
+    @bindable cloth;
+    clothChanged(n, o) {
+        if (this.cloth) {
+            this.data.Cloth = this.cloth;
+            this.detailOptions.Cloth = this.data.Cloth;
+
+            this.ItemsCollection.bind();
+        } else {
+            this.data.Cloth = null;
+
+            if (!this.data.Type)
+                this.data.StrikeOffItems = [];
+        }
+    }
 }

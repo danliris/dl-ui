@@ -2,6 +2,9 @@ import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/do-return";
 const salesInvoiceServiceUri = "sales/sales-invoices";
+const shipmentDocumentServiceUri =
+  "finishing-printing/inventory/fp-shipment-documents/new";
+  const buyerServiceUri = "master/buyers";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -45,6 +48,49 @@ export class Service extends RestService {
 
   getSalesInvoiceById(id, select) {
     var endpoint = `${salesInvoiceServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+}
+
+export class ServiceProductionAzure extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "production-azure");
+  }
+
+  searchShipmentDocument(info) {
+    var endpoint = `${shipmentDocumentServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getShipmentDocumentById(id, select) {
+    var endpoint = `${shipmentDocumentServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchGroupedProduct(shipmentDocumentId) {
+    var endpoint = `${shipmentDocumentServiceUri}/product-names/${shipmentDocumentId}`;
+    return super.get(endpoint);
+  }
+  searchGroupedProductWithProductIdentity(shipmentDocumentId) {
+    var endpoint = `${shipmentDocumentServiceUri}/${shipmentDocumentId}`;
+    return super.get(endpoint);
+  }
+}
+
+export class ServiceCore extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "core");
+  }
+
+  searchBuyer(info) {
+    var endpoint = `${buyerServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getBuyerById(id, select) {
+    var endpoint = `${buyerServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

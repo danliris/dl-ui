@@ -31,10 +31,13 @@
     <au-textbox show.bind="!isSales" options.bind="controlOptions" value.bind="data.deliveryOrder.no" label="Nomor DO"
       read-only.bind="true" error.bind="error.DeliveryOrder">
     </au-textbox>
+
+    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true" value.bind="error.ShippingProductionOrder"
+      style="color: red;"></au-textbox>
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
-    <au-collection columns.bind="itemColumns" items.bind="data.shippingProductionOrders"
+    <au-collection columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders"
       errors.one-way="error.ShippingProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/shipping-area-output/template/item-header"
       item-template="modules/packing-sku-inventory/shipping-area-output/template/item">

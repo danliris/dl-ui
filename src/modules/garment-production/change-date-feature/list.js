@@ -71,7 +71,6 @@ export class List {
             else if(isSewOut)
                 filter.SewingOutNo=this.no;
             else if(isFinIn){
-                filter["FinishingInType!='PEMBELIAN'"]=true;
                 filter.FinishingInNo=this.no;
             }
             else if(isFinOut)
@@ -79,6 +78,10 @@ export class List {
             else if(isExGood)
                 filter.ExpenditureGoodNo=this.no;
         }
+        if(isFinIn){
+            filter[`FinishingInType != "PEMBELIAN"`]=true;
+        }
+        
         let args = {
             page: this.info.page,
             size: this.info.size,

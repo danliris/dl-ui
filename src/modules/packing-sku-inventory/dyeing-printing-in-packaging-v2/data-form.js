@@ -64,7 +64,13 @@ export class DataForm {
     }
 
     get packagingAreaLoader() {
-        return PackagingAreaLoader;
+        // if(this.data.packagingProductionOrders.length!= 0){
+        //     return Promise.resolve().then(data=>{
+        //         return this.data.packagingProductionOrders;
+        //     });
+        // }else{
+            return PackagingAreaLoader;
+        // }
     }
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
@@ -75,21 +81,36 @@ export class DataForm {
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
+            // page: parseInt(info.offset / info.limit, 10) + 1,
+            page: 1,            
+            // size: info.limit,
+            size: 9999,            
             keyword: info.search,
             order: order,
         }
-
-        return this.service.listProductionOrderIn(arg)
-            .then(result => {
-                var data = {}
-                data.total = result.total;
-                data.data = result.data;
-                // this.data = result;
-                console.log(data);
+        console.log(this);
+        if(this.data.PackagingProductionOrders== null){
+            // console.log("packing is null");
+            return this.service.listProductionOrderIn(arg)
+                .then(result => {
+                    var data = {}
+                    data.total = result.total;
+                    data.data = result.data;
+                    // this.data = result;
+                    // console.log(data);
+                    return data;
+                });
+        }
+        else{
+            // console.log("packing is exist");
+            return Promise.resolve().then(result => {
+                var data={};
+                data.data = this.data.PackagingProductionOrders;
+                data.total = 10;
+                // data.total = this.data.PackagingProductionOrders.length;
                 return data;
             });
+        }
     }
 
     bind(context) {
@@ -104,16 +125,23 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        console.log(this.dataIsChecked);
+        // console.log(this);
+        if(this.data.packagingProductionOrders)
+        {
+            this.data.PackagingProductionOrders = this.data.packagingProductionOrders;
+        }
         this.data.packagingProductionOrders = this.dataIsChecked;
+        
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
     }
+
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
     }
+
     addItemCallback = (e) => {
         this.data.PackagingProductionOrders = this.data.PackagingProductionOrders || [];
         this.data.PackagingProductionOrders.push({})
