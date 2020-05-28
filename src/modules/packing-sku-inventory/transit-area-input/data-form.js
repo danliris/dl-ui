@@ -63,10 +63,14 @@ export class DataForm {
         //     this.selectedInspectionMaterial = {};
         //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         // }
+
+        if(this.data.transitProductionOrders){
+            this.transitProductionOrders = this.data.transitProductionOrders;
+        }
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.transitProductionOrders = this.transitProductionOrders || [];
+        this.transitProductionOrders.push({})
     };
 
     // @bindable selectedInspectionMaterial;
@@ -80,6 +84,7 @@ export class DataForm {
     //     }
 
     // }
+
 }
 
 

@@ -46,7 +46,7 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
 
@@ -63,7 +63,8 @@ export class DataForm {
         // }
         if(this.data.packagingProductionOrders)
         {
-            console.log(this.data.packagingProductionOrders)
+            // console.log(this.data.packagingProductionOrders)
+            console.log("trigger");
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;                        
         }
