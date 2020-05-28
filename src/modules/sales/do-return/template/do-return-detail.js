@@ -43,10 +43,14 @@ export class DoReturnDetail {
       "Mtr/Yds",
     ],
     onRemove: function () {
-      this.context.ReturnItemsCollection.bind();
+      if (this.ItemCollections) {
+        this.ItemCollections.bind();
+      }
+      // this.context.ReturnItemsCollection.bind();
     }.bind(this),
   };
 
+  @bindable ItemCollections;
   enterDelegate(event) {
     if (event.charCode === 13) {
       event.preventDefault();

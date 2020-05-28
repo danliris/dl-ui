@@ -23,8 +23,8 @@
     </au-textbox>
 
     <au-autocomplete show.bind="isSales" options.bind="controlOptions" value.bind="selectedDO" label="Nomor DO"
-      read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" loader.bind="doSalesLoader"
-      text.bind="doTextFormatter">
+      read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" query.bind="doSalesQuery"
+      loader.bind="doSalesLoader" text.bind="doTextFormatter">
     </au-autocomplete>
 
     <au-autocomplete show.bind="!isSales" options.bind="controlOptions" value.bind="selectedShipping" label="Nomor Bon"

@@ -12,9 +12,9 @@ export class Item {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
-        
+
     if (this.data.balance) {
-        this.data.previousBalance = this.data.balance;
+      this.data.previousBalance = this.data.balance;
     }
 
     if (this.data.productionOrder && this.data.productionOrder.id) {
@@ -46,14 +46,16 @@ export class Item {
         this.data.unit = "DYEING";
       }
     }
-      
-    if(this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo){
+
+    if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
     }
   }
+
+  doSalesQuery = { DOSalesCategory: "DYEINGPRINTING" };
 
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce(
@@ -112,9 +114,9 @@ export class Item {
     }
   }
 
-  @bindable selectedDeliveryOrderSales
-  selectedDeliveryOrderSalesChanged(newValue, oldValue){
-    if(this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id){
+  @bindable selectedDeliveryOrderSales;
+  selectedDeliveryOrderSalesChanged(newValue, oldValue) {
+    if (this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id) {
       this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
       this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
     }
