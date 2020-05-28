@@ -14,7 +14,7 @@ export class CartItem {
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
         this.isSales = this.contextOptions.isSales;
-        if (this.data.qty) {
+        if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
         }
         // if(this.data.deliveryOrderSales){
@@ -31,6 +31,7 @@ export class CartItem {
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.Construction = this.data.construction;
             this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
             this.selectedProductionOrder.Buyer.Name = this.data.buyer;
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
             this.selectedProductionOrder.Details = [];
@@ -78,6 +79,7 @@ export class CartItem {
             } else {
                 this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
             }
+            this.data.buyerId = this.selectedProductionOrder.Buyer.Id;
             this.data.buyer = this.selectedProductionOrder.Buyer.Name;
             this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;

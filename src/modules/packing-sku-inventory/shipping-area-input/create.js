@@ -16,8 +16,8 @@ export class Create {
 
     async activate(params) {
         this.data = {};
-        this.data.shippingProductionOrders = await this.service.getProductionOrderOutput();
-        
+        this.shippingProductionOrders = await this.service.getProductionOrderOutput();
+
     }
 
     back() {
@@ -31,8 +31,24 @@ export class Create {
     }
 
     save() {
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.IsSave === true);
+        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
         this.service.create(this.data)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
+            })
+    }
+
+    reject() {
+        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+        this.service.reject(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

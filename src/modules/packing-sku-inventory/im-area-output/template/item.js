@@ -18,12 +18,12 @@ export class CartItem {
         this.isEdit = this.contextOptions.isEdit;
         this.isShowing = false;
 
-        
-        
+
+
     }
 
     bind() {
-        if (this.data.balance) {
+        if (this.data.balance && !this.data.previousBalance) {
             this.data.previousBalance = this.data.balance;
         }
         if (this.destinationArea == "TRANSIT") {
@@ -38,6 +38,9 @@ export class CartItem {
             //     this.data.balance = this.data.initLength;
         } else if (this.destinationArea == "GUDANG AVAL") {
             this.remarks = [
+                "Aval 2"
+            ];
+            this.remarksGrade = [
                 "Aval 2"
             ];
             this.data.status = "OK";
@@ -104,14 +107,14 @@ export class CartItem {
     }
     get totalBalance() {
         if (this.isAval) {
-            if (!this.isEdit){
+            if (!this.isEdit) {
 
                 this.data.balance = this.data.avalItems.reduce((a, b) => +a + +b.length, 0);
                 this.totalBalanceAval = this.data.avalItems.reduce((a, b) => +a + +b.length, 0);;
             }
 
             this.totalBalanceAval = this.data.avalItems.reduce((a, b) => +a + +b.length, 0);
-            
+
         }
     }
 

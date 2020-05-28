@@ -1,4 +1,4 @@
-import { inject, bindable } from "aurelia-framework";
+import { bindable } from "aurelia-framework";
 
 var UomLoader = require("../../../../loader/uom-loader");
 
@@ -19,8 +19,8 @@ export class DoReturnItem {
 
     if (this.data.Uom) {
       this.selectedUom = {
-        'Id': this.data.Uom.Id,
-        'Unit': this.data.Uom.Unit
+        Id: this.data.Uom.Id,
+        Unit: this.data.Uom.Unit,
       };
     }
   }

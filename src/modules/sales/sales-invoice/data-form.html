@@ -17,7 +17,7 @@
               error.bind="error.SalesInvoiceDate" read-only.bind="readOnly">
             </au-datepicker>
 
-            <au-autocomplete label="Buyer" placeholder="pilih buyer" value.bind="selectedBuyer"
+            <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="selectedBuyer"
               error.bind="error.BuyerName" loader.bind="buyersLoader" key="Name" text="Name" read-only.bind="readOnly">
             </au-autocomplete>
 
@@ -42,40 +42,45 @@
               placeholder="Input NIK Buyer">
             </au-textbox>
 
-            <au-textbox label="No. Surat Jalan" value.bind="data.DeliveryOrderNo" error.bind="error.DeliveryOrderNo"
-              read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input No. Surat Jalan">
+            <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly" placeholder="Input Nama Sales">
             </au-textbox>
+
           </div>
 
           <div class="col-md-6">
 
-            <au-autocomplete label="Mata Uang" value.bind="selectedCurrency" error.bind="error.CurrencyCode"
-              read-only.bind="readOnly" loader.one-time="currencyLoader" key="Code" text="Code"
-              keypress.delegate="enterDelegate($event)" placeholder="Pilih Mata Uang">
-            </au-autocomplete>
-
-            <au-datepicker label="Tgl. Jatuh Tempo" value.bind="DueDate" error.bind="error.DueDate"
+            <au-textbox label="No. Surat Jalan" value.bind="data.DeliveryOrderNo" if.bind="readOnly || isEdit"
               read-only.bind="true">
-            </au-datepicker>
-
-            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly" placeholder="Input Tempo (hari)">
-            </au-textbox>
-
-            <au-dropdown label="Jenis PPN" value.bind="data.VatType" items.bind="VatTypeOptions"
-              error.bind="error.VatType" read-only.bind="readOnly || isEdit">
-            </au-dropdown>
-
-            <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
-              keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
-            </au-multiline>
-
-            <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly">
             </au-textbox>
 
             <au-autocomplete label="Unit" value.bind="selectedUnit" error.bind="error.Unit" read-only.bind="readOnly"
               loader.one-time="unitLoader" key="Code" text="Name" keypress.delegate="enterDelegate($event)"
               placeholder="Pilih Unit">
             </au-autocomplete>
+
+            <au-autocomplete label="Mata Uang" value.bind="selectedCurrency" error.bind="error.CurrencyCode"
+              read-only.bind="readOnly" loader.one-time="currencyLoader" key="Code" text="Code"
+              keypress.delegate="enterDelegate($event)" placeholder="Pilih Mata Uang">
+            </au-autocomplete>
+
+            <au-dropdown label="Pembayaran dalam satuan" value.bind="selectedPaymentType"
+              items.bind="paymentTypeOptions" error.bind="error.PaymentType" read-only.bind="readOnly">
+            </au-dropdown>
+
+            <au-textbox label="Tempo" value.bind="Tempo" read-only.bind="readOnly" placeholder="Input Tempo (hari)">
+            </au-textbox>
+
+            <au-datepicker label="Tgl. Jatuh Tempo" value.bind="DueDate" error.bind="error.DueDate"
+              read-only.bind="true">
+            </au-datepicker>
+
+            <au-dropdown label="Jenis PPN" value.bind="data.VatType" items.bind="vatTypeOptions"
+              error.bind="error.VatType" read-only.bind="readOnly || isEdit">
+            </au-dropdown>
+
+            <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
+              keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
+            </au-multiline>
             </au-dropdown>
           </div>
         </div>
@@ -84,15 +89,17 @@
     <au-textbox show.bind="error.SalesInvoiceDetail" error.bind="error.SalesInvoiceDetail" read-only.bind="true">
     </au-textbox>
 
-    <au-collection show.bind="data.VatType && selectedBuyer" columns.bind="salesInvoiceDetailsInfo.columns"
-      items.bind="data.SalesInvoiceDetails" errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly"
-      add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
+    <au-collection show.bind="data.VatType && selectedBuyer && selectedPaymentType"
+      columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
+      remove.bind="salesInvoiceDetailsInfo.onRemove"
       item-template="modules/sales/sales-invoice/template/sales-invoice-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <au-textbox show.bind="data.VatType && selectedBuyer && selectedCurrency" label="Total Bayar : ${selectedCurrency.Code}" value.bind="getTotalPayment"
-      error.bind="error.TotalPayment" read-only.bind="true">
+    <au-textbox show.bind="data.VatType && selectedBuyer && selectedCurrency"
+      label="Total Bayar : ${selectedCurrency.Code}" value.bind="getTotalPayment" error.bind="error.TotalPayment"
+      read-only.bind="true">
     </au-textbox>
 
   </au-input-form>

@@ -68,10 +68,17 @@ export class Create {
     }
 
     if (errorIndex === 0) {
-      this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
+      var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
         (s) => s.IsSave === true
       );
 
+      this.data.mappedWarehousesProductionOrders = [];
+      selectedProductionOrders.forEach((datum) => {
+        datum.productionOrderItems.forEach((datumItem) => {
+          this.data.mappedWarehousesProductionOrders.push(datumItem);
+        });
+      });
+      
       this.service
         .create(this.data)
         .then((result) => {
@@ -130,9 +137,17 @@ export class Create {
     }
 
     if (errorIndex === 0) {
-      this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
+      var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
         (s) => s.IsSave === true
       );
+
+      this.data.mappedWarehousesProductionOrders = [];
+      selectedProductionOrders.forEach((datum) => {
+        datum.productionOrderItems.forEach((datumItem) => {
+          this.data.mappedWarehousesProductionOrders.push(datumItem);
+        });
+      });
+      
       this.service
         .reject(this.data)
         .then((result) => {

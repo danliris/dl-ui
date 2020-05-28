@@ -1,41 +1,50 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { ServiceProductionAzure } from "./../service";
+import { ServicePackingInventory } from "./../service";
 import { DataForm } from "./../data-form";
-var ShipmentDocumentLoader = require("../../../../loader/shin-shipment-document-loader");
+let ShippingOutSalesLoader = require("../../../../loader/output-shipping-sales-loader");
 
-@inject(ServiceProductionAzure, BindingSignaler, BindingEngine, DataForm)
+@inject(ServicePackingInventory, BindingSignaler, BindingEngine, DataForm)
 export class SalesInvoiceDetail {
   @bindable data;
   @bindable error;
   @bindable typeFaktur;
 
-  shipmentDocumentTableOptions = {};
+  shippingOutTableOptions = {};
 
   constructor(
-    serviceProductionAzure,
+    servicePackingInventory,
     bindingSignaler,
     bindingEngine,
     dataForm
   ) {
-    this.serviceProductionAzure = serviceProductionAzure;
+    this.servicePackingInventory = servicePackingInventory;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
     this.dataForm = dataForm;
   }
-  shipmentQuery = {};
+  shippingQuery = {};
   activate(item) {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
     this.BuyerId = item.context.options.BuyerId;
-    this.shipmentQuery = { BuyerId: this.BuyerId };
+    this.HasSalesInvoice = item.context.options.HasSalesInvoice;
 
-    if (this.data.ShipmentDocumentId) {
-      this.selectedShipmentDocument = {};
-      this.selectedShipmentDocument.Id = this.data.ShipmentDocumentId;
-      this.selectedShipmentDocument.Code = this.data.ShipmentDocumentCode;
+    this.PaymentType = item.context.options.PaymentType;
+    this.shippingOutTableOptions.PaymentType = this.PaymentType;
+
+    this.shippingQuery = {
+      BuyerId: this.BuyerId,
+      HasSalesInvoice: this.HasSalesInvoice,
+    };
+
+    if (this.data) {
+      this.selectedShippingOut = {};
+      this.selectedShippingOut.id = this.data.ShippingOutId;
+      this.selectedShippingOut.bonNo = this.data.BonNo;
     }
+
     if (this.dataForm.data.SalesInvoiceType) {
       this.typeFaktur = this.dataForm.data.SalesInvoiceType;
     }
@@ -62,37 +71,48 @@ export class SalesInvoiceDetail {
     } else return true;
   }
 
-  @bindable selectedShipmentDocument;
-  async selectedShipmentDocumentChanged(newValue, oldValue) {
-    var dataGroup = await this.serviceProductionAzure.searchGroupedProduct(
-      this.selectedShipmentDocument.Id
-    );
-    var dataProductIdentity = await this.serviceProductionAzure.searchGroupedProductWithProductIdentity(
-      this.selectedShipmentDocument.Id
-    );
-    if (this.selectedShipmentDocument && this.selectedShipmentDocument.Id) {
-      this.data.ShipmentDocumentId = this.selectedShipmentDocument.Id;
-      this.data.ShipmentDocumentCode = this.selectedShipmentDocument.Code;
+  @bindable selectedShippingOut;
+  async selectedShippingOutChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.ShippingOutId = this.selectedShippingOut.id;
+      this.data.BonNo = this.selectedShippingOut.bonNo;
+
       if (!this.data.Id) {
         this.data.SalesInvoiceItems = [];
-        for (var item of dataGroup) {
+        var shippingOut = this.selectedShippingOut.shippingProductionOrders;
+        for (var item of shippingOut) {
+          if (item.uomUnit == "MTR") {
+            var convertValue = parseInt(item.qty * (10936 / 10000));
+            var convertUnit = "YARD";
+          } else if (item.uomUnit == "YARD") {
+            var convertValue = parseInt(item.qty / (10936 / 10000));
+            var convertUnit = "MTR";
+          } else {
+            var convertValue = 0;
+            var convertUnit = null;
+          }
           var siData = {
-            ProductName: item.ProductName,
-            Quantity: item.Quantity,
-            PackingUom: item.QuantityUOM,
-            Total: item.Total,
-            ProductCode: dataProductIdentity.ProductIdentity,
+            ProductId: item.id,
+            ProductCode: "ProductCode????",
+            ProductName: item.construction + " / " + item.color,
+            QuantityPacking: item.qtyPacking,
+            PackingUom: item.packing,
+            QuantityItem: item.qty,
+            ItemUom: item.uomUnit,
+            ConvertValue: convertValue,
+            ConvertUnit: convertUnit,
           };
           this.data.SalesInvoiceItems.push(siData);
         }
       }
     } else {
-      this.data.ShipmentDocumentId = null;
-      this.data.ShipmentDocumentCode = null;
+      this.data.ShippingOutId = null;
+      this.data.BonNo = null;
+      this.data.SalesInvoiceItems = [];
     }
   }
 
-  get shipmentDocumentLoader() {
-    return ShipmentDocumentLoader;
+  get shippingOutSalesLoader() {
+    return ShippingOutSalesLoader;
   }
 }

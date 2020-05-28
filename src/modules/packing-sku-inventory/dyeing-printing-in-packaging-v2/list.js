@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    // context = ["detail"]
+    context = ["detail"]
 
     columns = [
         {
@@ -77,6 +77,7 @@ export class List {
     }
 
     contextClickCallback(event) {
+        console.log("clicked");
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {

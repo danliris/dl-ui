@@ -14,19 +14,38 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        // console.log(await this.service.getById(id));
+        // console.log(this.data);
         // console.log(this);
-        //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
         var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
+        // console.log(groupObj);
         var mappedGroup = _.map(groupObj);
+        // console.log(mappedGroup);
+        
         var packagingProductionOrdersGroup = [];
         mappedGroup.forEach((element,index) => {
-            var headData = element[0]
-            headData.PackagingList = element;
-            packagingProductionOrdersGroup.push(headData);
+            var headData = {};
+            
+            element.forEach((x,i)=>{
+                if(i==0){
+                    // console.log(x);
+                    headData = x;
+                    headData.PackagingList = [];
+                    // console.log(headData);
+                }
+                // console.log(x);
+                headData.PackagingList.push(x);
+            });
+            // var headData = element[0]
+            // console.log(headData);
+            // console.log(element);
+            // console.log(headData);
+        //     headData.PackagingList = element;
+        //     packagingProductionOrdersGroup.push(headData);
         });
-        this.data.packagingProductionOrders = packagingProductionOrdersGroup;
-        // console.log(sort);
-        // console.log(mappedGroup);
+        // console.log(packagingProductionOrdersGroup);
+        // this.data.packagingProductionOrders = packagingProductionOrdersGroup;
+        
         this.canEdit=true;
         
     }
