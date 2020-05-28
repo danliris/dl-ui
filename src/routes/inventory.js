@@ -311,5 +311,17 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },{
+        route: "inventory/garment/leftover-warehouse/expenditure/aval",
+        name: "inventory/garment/leftover-warehouse/expenditure/aval",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/aval/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - AVAL",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     },
 ]

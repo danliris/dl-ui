@@ -141,14 +141,10 @@ export class DataForm {
             this.data.destinationArea = this.destinationArea;
             if (this.destinationArea === "PENJUALAN") {
                 this.isSales = true;
-                if (this.readOnly) {
-                    this.itemColumns = ["No. SPP", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Satuan", "Qty IN"];
-                } else {
-                    this.itemColumns = ["No. SPP", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Satuan", "Saldo", "Qty IN"];
-                }
+                this.itemColumns = ["No. SPP", "Buyer", "Material", "Unit", "Warna", "Motif", "Jenis", "Grade", "Qty Packing", "Packing", "Qty Keluar"];
             } else {
                 this.isSales = false;
-                this.itemColumns = ["No. SPP", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Satuan", "Qty IN", "SJ"];
+                this.itemColumns = ["No. SPP", "Buyer", "Material", "Unit", "Warna", "Motif", "Jenis", "Grade", "Qty Packing", "Packing", "Qty Keluar", "SJ"];
             }
             this.detailOptions.isSales = this.isSales;
         }

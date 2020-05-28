@@ -4,6 +4,7 @@ import{DataForm} from '../data-form'
 @inject(DataForm)
 export class CartItem {
     @bindable product;
+    
     constructor(dataForm){
         this.dataForm = dataForm;
     }
@@ -42,16 +43,19 @@ export class CartItem {
             this.selectedProductionOrder.Uom.Unit = this.data.unit;
             this.selectedProductionOrder.OrderQuantity = this.data.balance;
             this.selectedProductionOrder.Construction = this.data.construction;
-            this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
             this.selectedProductionOrder.PackagingUnit = this.data.packagingUnit;
-            this.selectedProductionOrder.PackagingType = this.data.packagingType;
+            this.selectedProductionOrder.PackagingType = this.data.packagingType;            
             this.selectedProductionOrder.grade = this.data.grade;
+            this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
             this.selectedProductionOrder.qtyOut = this.data.qtyOut;
+            this.inputPackagingQTY = this.data.packagingQTY;
+            this.saldoPerPackaging = this.data.qtyOut/this.data.packagingQTY;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
                 this.data.unit = "DYEING"
             }
+            console.log(this);
         }
     }
 
@@ -104,6 +108,9 @@ export class CartItem {
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
             this.data.qtyOut = this.selectedProductionOrder.qtyOut;
+            this.inputPackagingQTY = this.selectedProductionOrder.PackagingQty;
+            this.data.packagingQTY = this.selectedProductionOrder.PackagingQty;
+            // this.data.
             // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
             if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
@@ -118,12 +125,17 @@ export class CartItem {
     
     @bindable saldoPerPackaging
     saldoPerPackagingChanged(newValue,olderValue){
-        if(this.data.qtyOut != 0){
-            this.data.qtyOut = this.data.packagingQTY * this.saldoPerPackaging;
-        }else{
-            this.saldoPerPackaging = this.data.qtyOut/this.data.packagingQTY;
+        if(this.dataForm.context.isCreate){
+            this.data.qtyOut = this.data.packagingQTY * newValue;
+            this.data.packagingQTY = this.inputPackagingQTY;
         }
     }
-
-
+    @bindable inputPackagingQTY
+    inputPackagingQTYChanged(newValue,olderValue)
+    {       
+        if(this.dataForm.context.isCreate){
+            this.data.qtyOut = this.saldoPerPackaging * newValue;
+            this.data.packagingQTY = this.inputPackagingQTY;
+        }
+    }
 }
