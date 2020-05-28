@@ -41,8 +41,8 @@ export class SalesInvoiceDetail {
 
     if (this.data) {
       this.selectedShippingOut = {};
+      this.selectedShippingOut.id = this.data.ShippingOutId;
       this.selectedShippingOut.bonNo = this.data.BonNo;
-      this.selectedShippingOut = this.data;
     }
 
     if (this.dataForm.data.SalesInvoiceType) {
@@ -92,6 +92,7 @@ export class SalesInvoiceDetail {
             var convertUnit = null;
           }
           var siData = {
+            ProductId: item.id,
             ProductCode: "ProductCode????",
             ProductName: item.construction + " / " + item.color,
             QuantityPacking: item.qtyPacking,
