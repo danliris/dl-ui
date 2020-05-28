@@ -20,17 +20,17 @@
             </au-numeric>
         </td>
         <td>
+            <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-textbox value.bind="data.construction" read-only.bind="true" error.bind="error.CartNo"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
-            <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
@@ -45,18 +45,16 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.productionOrder.type" read-only.bind="true" error.bind="error.PackingType"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
-                options.bind="controlOptions">
+            <au-numeric value.bind="data.qtyPacking" format="0.00" read-only.bind="true" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.packing" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
@@ -64,5 +62,11 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td>
+            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+
     </tr>
 </template>
