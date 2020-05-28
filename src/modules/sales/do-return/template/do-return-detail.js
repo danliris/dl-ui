@@ -1,10 +1,10 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceProductionAzure } from "./../service";
+import { Service, ServicePackingInventory } from "./../service";
 
 var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 
-@inject(Service, ServiceProductionAzure, BindingEngine, BindingSignaler)
+@inject(Service, ServicePackingInventory, BindingEngine, BindingSignaler)
 export class DoReturnDetail {
   @bindable data;
   @bindable error;
@@ -12,9 +12,14 @@ export class DoReturnDetail {
   detailItemOptions = {};
   itemOptions = {};
 
-  constructor(service, serviceProductionAzure, bindingEngine, bindingSignaler) {
+  constructor(
+    service,
+    servicePackingInventory,
+    bindingEngine,
+    bindingSignaler
+  ) {
     this.service = service;
-    this.serviceProductionAzure = serviceProductionAzure;
+    this.servicePackingInventory = servicePackingInventory;
   }
 
   activate(context) {
@@ -60,26 +65,28 @@ export class DoReturnDetail {
       var temp_doReturnItem = [];
 
       for (var detail of salesInvoice.SalesInvoiceDetails) {
-        var sd = await this.serviceProductionAzure.getShipmentDocumentById(
-          detail.ShipmentDocumentId
+        var so = await this.servicePackingInventory.getByShippingOutputId(
+          detail.ShippingOutId
         );
         if (!this.data.Id) {
           var detailItemData = {
-            DOSales: sd.DOSales,
+            DOSalesId: so.deliveryOrder.id,
+            DOSalesNo: so.deliveryOrder.no,
           };
 
           temp_detailItem.push(detailItemData);
 
           for (var item of detail.SalesInvoiceItems) {
             var itemData = {
-              ShipmentDocumentId: detail.ShipmentDocumentId,
-              ShipmentDocumentCode: detail.ShipmentDocumentCode,
-              ProductName: item.ProductName,
+              ShippingOutId: detail.ShippingOutId,
+              BonNo: detail.BonNo,
+              ProductId: item.ProductId,
               ProductCode: item.ProductCode,
-              Quantity: item.Quantity,
+              ProductName: item.ProductName,
+              QuantityPacking: item.QuantityPacking,
+              QuantityItem: item.QuantityItem,
               PackingUom: item.PackingUom,
-              Total: item.Total,
-              Uom: item.Uom,
+              ItemUom: item.ItemUom,
             };
             temp_doReturnItem.push(itemData);
           }
