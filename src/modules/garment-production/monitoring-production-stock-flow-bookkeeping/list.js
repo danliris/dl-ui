@@ -106,7 +106,13 @@ export class List {
                     _data.EndBalanceExpenditureGoodPrice = _data.EndBalanceExpenditureGoodPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.FinishingInExpenditure = _data.FinishingInExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.FinishingInExpenditurepPrice = _data.FinishingInExpenditurepPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                      console.log(_data);
+                    _data.FareNew = _data.FareNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.LoadingNew = _data.LoadingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.CuttingNew = _data.CuttingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.SewingNew = _data.SewingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.FinishingNew = _data.FinishingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.ExpenditureNew = _data.ExpenditureNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+                    console.log(_data);
 
                     this.data.push(_data);
 
@@ -119,7 +125,8 @@ export class List {
             unit : this.unit ? this.unit.Id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            ro : this.ro ?this.ro:""
+            ro : this.ro ?this.ro:"",
+            type :"bookkeeping"
         }
         this.service.generateExcel(info);
     }
