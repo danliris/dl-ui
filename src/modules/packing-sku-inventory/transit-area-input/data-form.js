@@ -22,13 +22,16 @@ export class DataForm {
             length: 4,
         },
     };
-    imQuery = {"DestinationArea" : "TRANSIT"}
-    itemColumns = ["No. SPP", "No. Kereta","Buyer", "Material", "Unit",  "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    imQuery = { "DestinationArea": "TRANSIT" }
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
     }
+
+    detailOptions = {};
+    groups = ["A", "B"];
 
     get inspectionAreaLoader() {
         return InspectionAreaLoader;
@@ -56,27 +59,32 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        if (this.data.bonNo) {
-            this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // if (this.data.bonNo) {
+        //     this.selectedInspectionMaterial = {};
+        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // }
+
+        if(this.data.transitProductionOrders){
+            this.transitProductionOrders = this.data.transitProductionOrders;
         }
     }
     addItemCallback = (e) => {
-        this.data.transitProductionOrders = this.data.transitProductionOrders || [];
-        this.data.transitProductionOrders.push({})
+        this.transitProductionOrders = this.transitProductionOrders || [];
+        this.transitProductionOrders.push({})
     };
 
-    @bindable selectedInspectionMaterial;
-    selectedInspectionMaterialChanged(n, o) {
-        if (this.selectedInspectionMaterial) {
-            this.data.outputId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.preTransitProductionOrders) {
-                this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
-            }
+    // @bindable selectedInspectionMaterial;
+    // selectedInspectionMaterialChanged(n, o) {
+    //     if (this.selectedInspectionMaterial) {
+    //         this.data.outputId = this.selectedInspectionMaterial.id;
+    //         if (this.selectedInspectionMaterial.preTransitProductionOrders) {
+    //             this.data.transitProductionOrders = this.selectedInspectionMaterial.preTransitProductionOrders;
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
+
 }
 
 

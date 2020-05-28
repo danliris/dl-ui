@@ -1,40 +1,99 @@
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
-import { BindingSignaler } from 'aurelia-templating-resources';
-import { Service } from './../service';
+import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { BindingSignaler } from "aurelia-templating-resources";
+import { Service, ServiceProductionAzure } from "./../service";
 
 var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 
-@inject(Service, BindingEngine, BindingSignaler)
+@inject(Service, ServiceProductionAzure, BindingEngine, BindingSignaler)
 export class DoReturnDetail {
+  @bindable data;
+  @bindable error;
 
-    returntOptions = {};
+  detailItemOptions = {};
+  itemOptions = {};
 
-    returnDetailsInfo = {
-        columns: ["No. Bon Pengiriman Barang"],
-        onRemove: function () {
-            this.context.ReturnDetailsCollection.bind();
-        }.bind(this)
-    };
+  constructor(service, serviceProductionAzure, bindingEngine, bindingSignaler) {
+    this.service = service;
+    this.serviceProductionAzure = serviceProductionAzure;
+  }
 
-    activate(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.options = context.options;
-    }
+  activate(context) {
+    this.data = context.data;
+    this.error = context.error;
+    this.options = context.options;
 
-    @bindable selectedSalesInvoice;
-    selectedSalesInvoiceChanged(newValue, oldValue) {
-        if (this.selectedSalesInvoice && this.selectedSalesInvoice.SalesInvoiceId) {
-            this.data.SalesInvoiceId = this.selectedSalesInvoice.SalesInvoiceId;
-            this.data.SalesInvoiceNo = this.selectedSalesInvoice.SalesInvoiceNo;
-        } else {
-            this.data.SalesInvoiceId = null;
-            this.data.SalesInvoiceNo = null;
+    this.selectedSalesInvoice = this.data.SalesInvoice || null;
+  }
+
+  returnDetailsInfo = {
+    columns: ["Ex. DO Penjualan"],
+  };
+
+  doReturnItemsInfo = {
+    columns: [
+      "Ex. Bon Pengiriman Barang Jadi",
+      "Konstruksi",
+      "Jenis/Kode",
+      "Pcs/Roll/Pt",
+      "Mtr/Yds",
+    ],
+    onRemove: function () {
+      this.context.ReturnItemsCollection.bind();
+    }.bind(this),
+  };
+
+  enterDelegate(event) {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      return false;
+    } else return true;
+  }
+
+  @bindable selectedSalesInvoice;
+  async selectedSalesInvoiceChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.SalesInvoice = this.selectedSalesInvoice;
+
+      var salesInvoice = await this.service.getSalesInvoiceById(newValue.Id);
+
+      var temp_detailItem = [];
+      var temp_doReturnItem = [];
+
+      for (var detail of salesInvoice.SalesInvoiceDetails) {
+        var sd = await this.serviceProductionAzure.getShipmentDocumentById(
+          detail.ShipmentDocumentId
+        );
+        if (!this.data.Id) {
+          var detailItemData = {
+            DOSales: sd.DOSales,
+          };
+
+          temp_detailItem.push(detailItemData);
+
+          for (var item of detail.SalesInvoiceItems) {
+            var itemData = {
+              ShipmentDocumentId: detail.ShipmentDocumentId,
+              ShipmentDocumentCode: detail.ShipmentDocumentCode,
+              ProductName: item.ProductName,
+              ProductCode: item.ProductCode,
+              Quantity: item.Quantity,
+              PackingUom: item.PackingUom,
+              Total: item.Total,
+              Uom: item.Uom,
+            };
+            temp_doReturnItem.push(itemData);
+          }
         }
-        console.log(this.selectedSalesInvoice)
+      }
+      this.data.DOReturnDetailItems = temp_detailItem;
+      this.data.DOReturnItems = temp_doReturnItem;
+    } else {
+      this.data.DOReturnDetailItems = [];
+      this.data.DOReturnItems = [];
     }
+  }
 
-    get salesInvoiceLoader() {
-        return SalesInvoiceLoader;
-    }
+  get salesInvoiceLoader() {
+    return SalesInvoiceLoader;
+  }
 }

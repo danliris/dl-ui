@@ -13,6 +13,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.hasNextAreaDocument === false);
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
         this.canEdit=true;
         

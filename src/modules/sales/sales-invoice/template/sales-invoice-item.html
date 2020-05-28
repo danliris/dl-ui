@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <au-textbox value.bind="data.ProductCode" error.bind="error.ProductCode" read-only.bind="readOnly"
+            <au-textbox value.bind="data.ProductCode" error.bind="error.ProductCode" read-only.bind="true"
                 placeholder="Input Kode">
             </au-textbox>
         </td>
@@ -10,21 +10,26 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.Quantity" read-only.bind="true"></au-textbox>
-            </au-textbox>
+            <au-numeric value.bind="data.QuantityPacking" read-only.bind="true" format="0,0">
+            </au-numeric>
         </td>
         <td>
             <au-textbox value.bind="data.PackingUom" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="Total" error.bind="error.Total" read-only.bind="true" format="0,0">
+            <au-numeric value.bind="QuantityItem" read-only.bind="true" format="0,0">
             </au-numeric>
         </td>
         <td>
-            <au-autocomplete placeholder="pilih Satuan" value.bind="selectedUom" error.bind="error.UomUnit"
-                loader.one-time="uomLoader" key="Unit" text="Unit" read-only.bind="readOnly">
-            </au-autocomplete>
+            <au-textbox value.bind="data.ItemUom" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.ConvertValue" read-only.bind="true">
+            </au-textbox>
+            <au-textbox value.bind="data.ConvertUnit" read-only.bind="true">
+            </au-textbox>
         </td>
         <td>
             <au-numeric value.bind="Price" error.bind="error.Price" read-only.bind="readOnly" format="0,0.00">

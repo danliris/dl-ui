@@ -129,5 +129,18 @@ module.exports = [
             iconClass: 'fa fa-clone'
         }
     },
+  {
+        route: 'balance-debt',
+        name: 'balance-debt',
+        moduleId: './modules/accounting/balance-debt/index',
+        nav: true,
+        title: 'Saldo Hutang Garment',
+        auth: true,
+        settings: {
+          group: "accounting",
+          permission: { "B1": 1, "C9": 1 },
+          iconClass: 'fa fa-dashboard'
+        }
+    },
     
 ];

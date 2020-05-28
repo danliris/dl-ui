@@ -1,59 +1,47 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { SalesInvoiceDetail } from "./sales-invoice-detail";
+import { DataForm } from "./../data-form";
 
-var UomLoader = require("../../../../loader/uom-loader");
-
+@inject(SalesInvoiceDetail, DataForm, BindingEngine)
 export class SalesInvoiceItem {
-  @bindable Total;
+  @bindable QuantityItem;
   @bindable Price;
+
+  constructor(salesInvoiceDetail, dataForm, bindingEngine) {
+    this.salesInvoiceDetail = salesInvoiceDetail;
+    this.dataForm = dataForm;
+    this.bindingEngine = bindingEngine;
+  }
 
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     this.readOnly = context.options.readOnly;
-
-    this.Total = this.data.Total;
+    this.PaymentType = context.context.options.PaymentType;
+    this.QuantityItem = this.data.QuantityItem;
+    this.ConvertValue = this.data.ConvertValue;
     this.Price = this.data.Price;
-    this.getAmount = this.Total * this.Price;
-    this.data.Amount = this.getAmount;
-
-    if (this.data.Uom) {
-      this.selectedUom = {
-        'Id': this.data.Uom.Id,
-        'Unit': this.data.Uom.Unit
-      };
-    }
-  }
-
-  TotalChanged(newValue, oldValue) {
-    this.getAmount = this.Total * this.Price;
-    this.data.Amount = this.getAmount;
-    this.data.Total = this.Total;
+    this.getAmount = this.data.Amount;
   }
 
   PriceChanged(newValue, oldValue) {
-    this.getAmount = this.Total * this.Price;
-    this.data.Amount = this.getAmount;
-    this.data.Price = this.Price;
+    if (this.PaymentType == "MTR") {
+      this.getAmount = this.QuantityItem * this.Price;
+      this.data.Amount = this.getAmount;
+      this.data.Price = this.Price;
+    } else if (this.PaymentType == "YARD") {
+      this.getAmount = this.ConvertValue * this.Price;
+      this.data.Amount = this.getAmount;
+      this.data.Price = this.Price;
+    } else {
+      this.getAmount = 0;
+      this.data.Amount = this.getAmount;
+      this.data.Price = this.Price;
+    }
   }
 
   AmountChanged(newValue, oldValue) {
     this.data.Amount = this.getAmount;
-  }
-
-  @bindable selectedUom;
-  selectedUomChanged(newValue, oldValue) {
-    if (this.selectedUom && this.selectedUom.Id) {
-      this.data.Uom = {};
-      this.data.Uom.Id = this.selectedUom.Id;
-      this.data.Uom.Unit = this.selectedUom.Unit;
-    } else {
-      this.data.Uom.Id = null;
-      this.data.Uom.Unit = null;
-    }
-  }
-
-  get uomLoader() {
-    return UomLoader;
   }
 }

@@ -7,6 +7,7 @@ let PackagingAreaLoader = require("../../../loader/output-packaging-loader");
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable readOnlyKeterangan;
     @bindable data;
     @bindable error;
     formOptions = {
@@ -23,8 +24,10 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo"];
+    // itemColumns = ["Select","No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
+    itemColumns =["Daftar Surat Perintah Produksi"];
     shifts = ["PAGI", "SIANG"];
+    groups = ["A", "B"];
     detailOptions = {};
     destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
     constructor(service) {
@@ -43,7 +46,7 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
 
@@ -55,29 +58,38 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-
-        if (this.data.bonNo) {
-            this.selectedPackaging = {};
-            this.selectedPackaging.bonNo = this.data.bonNo;
+        // if(this.data.id){
+        //     this.callbackId = await this.service.getById(this.data.id);
+        // }
+        if(this.data.packagingProductionOrders)
+        {
+            // console.log(this.data.packagingProductionOrders)
+            console.log("trigger");
+            this.selectedPackaging = this.data;
+            this.selectedPackaging.bonNo = this.data.bonNo;                        
         }
-
+        // console.log(this);
+    }
+    async activate(context){
+        // console.log(context);
     }
     addItemCallback = (e) => {
-        this.data.PackagingProductionOrders = this.data.PackagingProductionOrders || [];
-        this.data.PackagingProductionOrders.push({})
+        this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
+        this.data.packagingProductionOrders.push({});
     };
 
     @bindable selectedPackaging;
     selectedPackagingChanged(n, o) {
-        if (this.selectedPackaging) {
-            this.data.inputPackagingId = this.selectedPackaging.id;
-            if (this.selectedPackaging.packagingProductionOrders) {
-                this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-            }
-
-            this.detailOptions.destinationArea = this.data.destinationArea;
-        }
+        this.detailOptions.destinationArea = this.data.destinationArea;
+        this.data.bonNoInput = n.bonNo;
         
+        // if(n){
+        //     this.data.bonNoInput = n.bonNo;
+        //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+        // }
+        // if(this.selectedPackaging){
+        //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+        // }
     }
 
     ExportToExcel() {

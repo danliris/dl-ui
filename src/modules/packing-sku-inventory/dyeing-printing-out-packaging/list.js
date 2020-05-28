@@ -16,20 +16,9 @@ export class List {
             }
         },
         { field: "bonNo", title: "No. Bon" },
-        { field: "noSpp", title: "No. SPP" },  
-        { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
-        { field: "material", title: "Material" },
-        { field: "unit", title: "Unit" },        
-        { field: "warna", title: "Warna" },        
-        { field: "motif", title: "Motif" },
-        { field: "packagingType", title: "Jenis" },
-        { field: "grade", title: "Grade" },        
-        { field: "packagingQty", title: "Qty Packaging" },        
-        { field: "packagingUnit", title: "Packaging" },        
-        { field: "mtr", title: "Mtr" },        
-        { field: "yds", title: "Yds" },        
-        { field: "saldo", title: "Saldo" }
+        { field: "group", title: "Group" },
+        { field: "destinationArea", title: "Area Tujuan" }
     ];
 
     loader = (info) => {
@@ -49,28 +38,34 @@ export class List {
                 data.total = result.total;
                 data.data = [];
                 result.data.forEach((item,index)=>{
-                    item.packagingProductionOrders.forEach((i,ind)=>{
+                    // item.packagingProductionOrders.forEach((i,ind)=>{
+                        console.log(item);
                         var dataView = {};
                         dataView.id = item.id;
                         dataView.date = item.date;
                         dataView.bonNo = item.bonNo;
-                        dataView.noSpp = i.productionOrder.no,
-                        dataView.buyer = i.buyer,
+                        // dataView.noSpp = i.productionOrder.no,
+                        // dataView.buyer = i.buyer,
                         dataView.shift = item.shift,
-                        dataView.material = i.construction,
-                        dataView.unit = i.unit,
-                        dataView.warna = i.color,
-                        dataView.motif = i.motif,
-                        dataView.grade = i.grade,
-                        dataView.mtr = i.mtrLength,
-                        dataView.yds = i.ydsLength,
-                        dataView.saldo = i.balance,
-                        dataView.packagingType= i.packagingType,
-                        dataView.packagingQty = i.packagingQTY,
-                        dataView.packagingUnit = i.packagingUnit
+                        // dataView.material = i.construction,
+                        // dataView.unit = i.unit,
+                        // dataView.qtyOrder = i.qtyOrder,
+                        dataView.group = item.group,
+                        // dataView.keterangan = i.keterangan,
+                        // dataView.warna = i.color,
+                        // dataView.motif = i.motif,
+                        // dataView.grade = i.grade,
+                        // dataView.mtr = i.mtrLength,
+                        // dataView.yds = i.ydsLength,
+                        // dataView.saldo = i.balance,
+                        // dataView.packagingType= i.packagingType,
+                        // dataView.packagingQty = i.packagingQTY,
+                        // dataView.packagingUnit = i.packagingUnit
+                        dataView.destinationArea = item.destinationArea
                         data.data.push(dataView);
-                    });
+                    // });
                 });
+                console.log(data);
                 return data;
             });
     }

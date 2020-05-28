@@ -1,13 +1,10 @@
-import { inject, Lazy } from "aurelia-framework";
-import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 
-const serviceUri = "finishing-printing/do-sales-items";
-const salesContractServiceUri = "sales/finishing-printing-pre-sales-contracts";
-const productionOrderServiceUri = "sales/production-orders/shin";
-const buyerServiceUri = "master/buyers";
+const serviceUri = "sales/do-return";
+const salesInvoiceServiceUri = "sales/sales-invoices";
+const shipmentDocumentServiceUri =
+  "finishing-printing/inventory/fp-shipment-documents/new";
+  const buyerServiceUri = "master/buyers";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -43,11 +40,48 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
   }
+
+  searchSalesInvoice(info) {
+    var endpoint = `${salesInvoiceServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getSalesInvoiceById(id, select) {
+    var endpoint = `${salesInvoiceServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
 }
 
-export class ServiceFinishingPrinting extends RestService {
+export class ServiceProductionAzure extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "productionAzure");
+    super(http, aggregator, config, "production-azure");
+  }
+
+  searchShipmentDocument(info) {
+    var endpoint = `${shipmentDocumentServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getShipmentDocumentById(id, select) {
+    var endpoint = `${shipmentDocumentServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchGroupedProduct(shipmentDocumentId) {
+    var endpoint = `${shipmentDocumentServiceUri}/product-names/${shipmentDocumentId}`;
+    return super.get(endpoint);
+  }
+  searchGroupedProductWithProductIdentity(shipmentDocumentId) {
+    var endpoint = `${shipmentDocumentServiceUri}/${shipmentDocumentId}`;
+    return super.get(endpoint);
+  }
+}
+
+export class ServiceCore extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "core");
   }
 
   searchBuyer(info) {

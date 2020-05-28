@@ -231,7 +231,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -402,7 +402,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -425,6 +425,45 @@ module.exports = [
         moduleId: './modules/production/finishing-printing/direct-labor-cost/index',
         nav: true,
         title: 'Biaya Upah Tenaga Kerja Langsung',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/color-receipt',
+        name: 'color-receipt',
+        moduleId: './modules/production/finishing-printing/color-receipt/index',
+        nav: true,
+        title: 'Resep Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/strike-off',
+        name: 'strike-off',
+        moduleId: './modules/production/finishing-printing/strike-off/index',
+        nav: true,
+        title: 'Strike Off',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/dyestuff-chemical-usage-receipt',
+        name: 'dyestuff-chemical-usage-receipt',
+        moduleId: './modules/production/finishing-printing/dyestuff-chemical-usage-receipt/index',
+        nav: true,
+        title: 'Resep Pemakaian Dyestuff & Chemical',
         auth: true,
         settings: {
             group: "production",

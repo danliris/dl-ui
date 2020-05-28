@@ -22,6 +22,11 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    reject(data) {
+        var endpoint = `${serviceUri}/reject`;
+        return super.post(endpoint, data);
+    }
+
     update(data) {
         var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
@@ -35,6 +40,12 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getProductionOrderOutput(){
+        var endpoint = `${serviceUri}/output-production-orders`;
+
+        return super.get(endpoint);
     }
 
     // getSPPbySC(no, select) {

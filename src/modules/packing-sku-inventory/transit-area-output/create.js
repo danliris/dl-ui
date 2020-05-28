@@ -14,6 +14,11 @@ export class Create {
         this.error = {};
     }
 
+    async activate(params) {
+        this.data = {};
+        this.transitProductionOrders = await this.service.getProductionOrderInput();
+        
+    }
 
     back() {
         this.router.navigateToRoute('list');
@@ -26,7 +31,7 @@ export class Create {
     }
 
     save() {
-        
+        this.data.transitProductionOrders = this.transitProductionOrders;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

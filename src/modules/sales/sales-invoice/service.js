@@ -1,9 +1,10 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/sales-invoices";
-const shipmentDocumentServiceUri = "finishing-printing/inventory/fp-shipment-documents/new";
+const shippingOutServiceUri = "output-shipping";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
+const unitServiceUri = "master/units";
 const uomServiceUri = "master/uoms";
 
 export class Service extends RestService {
@@ -47,25 +48,24 @@ export class Service extends RestService {
   }
 }
 
-export class ServiceProductionAzure extends RestService {
+export class ServicePackingInventory extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "production-azure");
+    super(http, aggregator, config, "packing-inventory");
   }
 
-  searchShipmentDocument(info) {
-    var endpoint = `${shipmentDocumentServiceUri}`;
+  searchOutputShipping(info) {
+    var endpoint = `${shippingOutServiceUri}`;
     return super.list(endpoint, info);
   }
 
-  getShipmentDocumentById(id, select) {
-    var endpoint = `${shipmentDocumentServiceUri}/${id}`;
-    var info = { select: select };
-    return super.get(endpoint, null, info);
+  getByShippingOutputId(id) {
+    var endpoint = `${shippingOutServiceUri}/${id}`;
+    return super.get(endpoint);
   }
 
-  searchGroupedProduct(shipmentDocumentId) {
-    var endpoint = `${shipmentDocumentServiceUri}/product-names/${shipmentDocumentId}`;
-    return super.get(endpoint);
+  salesLoaderOutputShipping(info) {
+    var endpoint = `${shippingOutServiceUri}/sales-loader`;
+    return super.list(endpoint, info);
   }
 }
 
@@ -92,6 +92,11 @@ export class ServiceCore extends RestService {
 
   getCurrencyById(id, select) {
     var endpoint = `${currencyServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+  getUnitById(id, select) {
+    var endpoint = `${unitServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

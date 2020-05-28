@@ -56,8 +56,40 @@
                 read-only.bind="readOnly" placeholder="Input Kepala Gudang" keypress.delegate="enterDelegate($event)">
               </au-textbox>
 
+              <au-autocomplete label="Gudang"
+                               value.bind="data.Storage"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.Storage"
+                               loader.one-time="storageLoader"
+                               text.bind="storageView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih Gudang"
+                               options.bind="controlOptions"
+                               if.bind="code">
+              </au-autocomplete>
+
+              <au-autocomplete label="Gudang"
+                               value.bind="data.Storage"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.Storage"
+                               loader.one-time="storageLoader"
+                               text.bind="storageView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih Gudang"
+                               options.bind="controlOptions"
+                               if.bind="code1">
+              </au-autocomplete>
+
               <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomOptions"
-                error.bind="error.PackingUom" read-only.bind="readOnly" placeholder="Pilih Satuan Packing">
+                error.bind="error.PackingUom" read-only.bind="readOnly" placeholder="Pilih Satuan Packing" if.bind="code">
+              </au-dropdown>
+
+              <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomWeavingOptions"
+                error.bind="error.PackingUom" read-only.bind="readOnly" placeholder="Pilih Satuan Packing" if.bind="code1">
+              </au-dropdown>
+
+              <au-dropdown label="Satuan Packing" value.bind="data.PackingUom" items.bind="packingUomDyeingOptions"
+                error.bind="error.PackingUom" read-only.bind="readOnly" placeholder="Pilih Satuan Packing" if.bind="code2">
               </au-dropdown>
 
               <au-dropdown show.bind="selectedSalesContract" label="Satuan Panjang" value.bind="LengthUom"
@@ -168,4 +200,5 @@
       options.bind="detailOptions" item-template="modules/sales/do-sales/template/export-item"
       view-model.ref="ItemsCollection">
     </au-collection>
+    </au-input-form>
 </template>

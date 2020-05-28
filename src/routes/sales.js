@@ -285,19 +285,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'sales/do-return',
-    //     name: 'do-return',
-    //     moduleId: './modules/sales/do-return/index',
-    //     nav: true,
-    //     title: 'DO Retur',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
     {
         route: 'sales/sales-invoice',
         name: 'sales-invoice',
@@ -312,11 +299,11 @@ module.exports = [
         }
     },
     {
-        route: 'sales/sales-receipt',
-        name: 'sales-receipt',
-        moduleId: './modules/sales/sales-receipt/index',
+        route: 'sales/do-return',
+        name: 'do-return',
+        moduleId: './modules/sales/do-return/index',
         nav: true,
-        title: 'Kuitansi Penjualan',
+        title: 'DO Retur',
         auth: true,
         settings: {
             group: "sales",
@@ -362,5 +349,5 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
 ];

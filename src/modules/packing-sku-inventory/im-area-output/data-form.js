@@ -23,7 +23,8 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo"];
+    itemColumns = [];
+    // itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
     destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL"];
@@ -31,7 +32,7 @@ export class DataForm {
     constructor(service) {
         this.service = service;
     }
-
+    groups = ["A", "B"];
     get inspectionAreaLoader() {
         return InspectionAreaLoader;
     }
@@ -44,6 +45,7 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
+    @bindable ItemsCollection;
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -55,45 +57,89 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        if (this.data.bonNo) {
-            this.selectedInspectionMaterial = {};
-            this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // if (this.data.bonNo) {
+        //     this.selectedInspectionMaterial = {};
+        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
+        // }
+
+        if (this.data.inspectionMaterialProductionOrders) {
+            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        }
+
+        this.detailOptions = {
+            isEdit: this.isEdit,
+            destinationArea: this.destinationArea
+        }
+        // this.detailOptions.isEdit = this.isEdit;
+        // this.detailOptions.destinationArea = this.data.destinationArea;
+        if (this.destinationArea === "TRANSIT") {
+            if (this.readOnly) {
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Qty Keluar"];
+            } else {
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+            }
+
+        } else {
+            if (this.readOnly) {
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Keluar"];
+            } else {
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+            }
+
+        }
+        if (this.ItemsCollection) {
+            this.ItemsCollection.bind();
         }
 
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
         }
-
     }
     addItemCallback = (e) => {
-        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders || [];
-        this.data.inspectionMaterialProductionOrders.push({})
+        this.inspectionMaterialProductionOrders = this.inspectionMaterialProductionOrders || [];
+        this.inspectionMaterialProductionOrders.push({})
     };
 
-    @bindable selectedInspectionMaterial;
-    selectedInspectionMaterialChanged(n, o) {
-        if (this.selectedInspectionMaterial) {
-            this.data.inputInspectionMaterialId = this.selectedInspectionMaterial.id;
-            if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
-                this.data.inspectionMaterialProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders.filter(s => s.isChecked == true && s.hasOutputDocument == false);
-            }
+    // @bindable selectedInspectionMaterial;
+    // selectedInspectionMaterialChanged(n, o) {
+    //     if (this.selectedInspectionMaterial) {
+    //         this.data.inputInspectionMaterialId = this.selectedInspectionMaterial.id;
+    //         if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
+    //             this.data.inspectionMaterialProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders.filter(s => s.isChecked == true && s.hasOutputDocument == false);
+    //         }
 
-        }
+    //     }
 
-    }
-
+    // }
 
     @bindable destinationArea;
     destinationAreaChanged(n, o) {
         if (this.destinationArea) {
             this.data.destinationArea = this.destinationArea;
             this.detailOptions.destinationArea = this.data.destinationArea;
+            if (this.destinationArea === "TRANSIT") {
+                if (this.readOnly) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Qty Keluar"];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                }
 
-            if (!this.data.id) {
+            } else {
+                if (this.readOnly) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Keluar"];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                }
 
-                this.selectedInspectionMaterial = null;
-                this.data.inspectionMaterialProductionOrders = [];
             }
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+            // if (!this.data.id) {
+
+            //     this.selectedInspectionMaterial = null;
+            //     this.data.inspectionMaterialProductionOrders = [];
+            // }
         }
     }
 

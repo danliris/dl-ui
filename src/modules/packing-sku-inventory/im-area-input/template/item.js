@@ -19,6 +19,7 @@ export class CartItem {
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.Construction = this.data.construction;
             this.selectedProductionOrder.Buyer = {};
+            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
             this.selectedProductionOrder.Buyer.Name = this.data.buyer;
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
             this.selectedProductionOrder.Details = [];
@@ -26,7 +27,7 @@ export class CartItem {
             this.selectedProductionOrder.Details[0].ColorRequest = this.data.color;
             this.selectedProductionOrder.DesignCode = this.data.motif;
             this.selectedProductionOrder.Uom = {};
-            this.selectedProductionOrder.Uom.Unit = this.data.unit;
+            this.selectedProductionOrder.Uom.Unit = this.data.uomUnit;
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
@@ -60,6 +61,7 @@ export class CartItem {
             } else {
                 this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
             }
+            this.data.buyerId = this.selectedProductionOrder.Buyer.Id;
             this.data.buyer = this.selectedProductionOrder.Buyer.Name;
             this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;
