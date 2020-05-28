@@ -10,6 +10,7 @@ const bankServiceUri = "master/account-banks";
 const buyerServiceUri = "master/buyers";
 const unitServiceUri = "master/units";
 const currencyServiceUri = "master/currencies";
+const memoserviceUri = "memos";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -116,4 +117,21 @@ export class ServiceCore extends RestService {
     var info = { select: select };
     return super.get(endpoint, null, info);
   }
+}
+
+export class ServiceMemo extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "finance");
+  }
+
+  getById(id) {
+    let endpoint = `${memoserviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getBySalesInvoice(salesinvoice) {
+    let endpoint = `${memoserviceUri}/by-salesinvoiceno/${salesinvoice}`;
+    return super.get(endpoint);
+  }
+
 }
