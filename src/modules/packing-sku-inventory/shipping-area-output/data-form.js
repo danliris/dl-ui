@@ -25,16 +25,19 @@ export class DataForm {
   };
   itemColumns = [
     "No. SPP",
+    "Buyer",
     "Material",
     "Unit",
-    "Buyer",
     "Warna",
     "Motif",
     "Jenis",
-    "Grade",
-    "Satuan",
-    "Saldo",
-    "Qty IN",
+    "Grade 1",
+    "Grade 2",
+    "Ket",
+    "Qty Packing",
+    "Packing",
+    "Qty Keluar",
+    "KG"
   ];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
@@ -208,10 +211,13 @@ export class DataForm {
           "Warna",
           "Motif",
           "Jenis",
-          "Grade",
+          "Grade 1",
+          "Grade 2",
+          "Ket",
           "Qty Packing",
           "Packing",
           "Qty Keluar",
+          "KG"
         ];
       } else {
         this.isSales = false;
@@ -223,10 +229,13 @@ export class DataForm {
           "Warna",
           "Motif",
           "Jenis",
-          "Grade",
+          "Grade 1",
+          "Grade 2",
+          "Ket",
           "Qty Packing",
           "Packing",
           "Qty Keluar",
+          "KG",
           "SJ",
         ];
       }
