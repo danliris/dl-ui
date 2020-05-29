@@ -46,7 +46,6 @@ export class DataForm {
   doReturnDetailsInfo = {
     columns: ["Ex. Faktur Penjualan"],
     onAdd: function () {
-      this.context.DOReturnDetailsCollection.bind();
       this.data.DOReturnDetails = this.data.DOReturnDetails || [];
       this.data.DOReturnDetails.push({});
     }.bind(this),
@@ -76,7 +75,7 @@ export class DataForm {
       this.data.ReturnFrom.Name = null;
     }
   }
-  
+
   get buyersLoader() {
     return BuyersLoader;
   }
