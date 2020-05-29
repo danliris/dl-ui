@@ -83,16 +83,6 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric
-        value.bind="data.balance"
-        format="0.00"
-        read-only.bind="true"
-        error.bind="error.Balance"
-        options.bind="controlOptions"
-      >
-      </au-numeric>
-    </td>
-    <td>
       <au-textbox
         value.bind="data.area"
         read-only.bind="true"
@@ -110,6 +100,15 @@
       >
       </au-numeric>
     </td>
+    <td>
+        <au-textbox
+          value.bind="data.packagingUnit"
+          read-only.bind="true"
+          error.bind="error.PackagingUnit"
+          options.bind="controlOptions"
+        >
+        </au-textbox>
+      </td>
     <td>
       <au-textbox
         value.bind="data.packagingType"
@@ -129,5 +128,15 @@
       >
       </au-numeric>
     </td>
+    <td>
+        <au-numeric
+          value.bind="data.balance"
+          format="0.00"
+          read-only.bind="true"
+          error.bind="error.Balance"
+          options.bind="controlOptions"
+        >
+        </au-numeric>
+      </td>
   </tr>
 </template>

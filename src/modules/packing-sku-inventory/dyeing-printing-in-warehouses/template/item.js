@@ -75,11 +75,12 @@ export class Item {
       "Motif",
       "Grade",
       "Satuan",
-      "Qty Masuk",
       "Zona Asal",
       "Qty Packing",
-      "Jenis Packing",
-      "Qty",
+      "Packing",
+      "Jenis",
+      "Panjang Per Packing",
+      "Qty Masuk",
     ];
   }
 
