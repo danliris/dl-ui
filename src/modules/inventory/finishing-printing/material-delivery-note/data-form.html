@@ -1,0 +1,95 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <au-datepicker label="Tanggal S.J" value.bind="data.Date" error.bind="error.Date"
+                read-only.bind="readOnly">
+              </au-datepicker>
+
+              <au-dropdown label="Kode BON"
+              value.bind="data.BONCode"
+              error.bind="error.BONCode"
+              read-only.bind="readOnly || isEdit"
+              placeholder="masukkan kode bon"
+              items.bind="BONCode"></au-dropdown>
+
+              <div class="row">
+
+                <div class="col-sm-2" style="padding-left:12%">
+                  <au-label>Tanggal Produksi</au-label>
+                </div>
+
+                <div class="col-sm-5" style="padding-left:9%">
+                  <au-datepicker label="Awal" value.bind="data.DateFrom" error.bind="error.DateFrom"
+                    read-only.bind="readOnly">
+                  </au-datepicker>
+                </div>
+
+                <div class="col-sm-5" style="padding-left:5%">
+                  <au-datepicker label="Akhir" value.bind="data.DateTo" error.bind="error.DateTo"
+                    read-only.bind="readOnly">
+                  </au-datepicker>
+                </div>
+
+              </div>
+
+              <au-textbox label="Berdasarkan DO No" value.bind="data.DONumber"
+                error.bind="error.DONumber" read-only.bind="readOnly" placeholder="Input DO Number">
+              </au-textbox>
+
+              <au-textbox label="No SC" value.bind="data.SCNumber" error.bind="error.SCNumber"
+                read-only.bind="readOnly" placeholder="Input No. SC">
+              </au-textbox>
+
+              <au-textbox label="No FO" value.bind="data.FONumber" error.bind="error.FONumber"
+                read-only.bind="readOnly" placeholder="Input No. FO">
+              </au-textbox>
+
+              <au-textbox label="Gudang" value.bind="data.StorageNumber" error.bind="error.StorageNumber"
+                read-only.bind="readOnly" placeholder="Input No. Gudang">
+              </au-textbox>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <au-textbox label="Dikirm Kepada" value.bind="data.Receiver"
+                error.bind="error.Receiver" read-only.bind="readOnly" placeholder="Input Dikirm Kepada">
+              </au-textbox>
+
+              <au-textbox label="Bagian/Pengirim" value.bind="data.Sender"
+                error.bind="error.Sender" read-only.bind="readOnly" placeholder="Input Bagian/Pengirim">
+              </au-textbox>
+
+              <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark"
+                read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Keterangan">
+              </au-multiline>
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <au-textbox error.bind="error.Item" show.bind="error.Item" read-only.bind="true">
+    </au-textbox>
+
+    <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
+      remove.bind="onremove" read-only.bind="readOnly"
+      item-template="modules/inventory/finishing-printing/material-delivery-note/template/item">
+    </au-collection>
+
+  </au-input-form>
+</template>
