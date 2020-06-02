@@ -32,13 +32,27 @@ export class DataForm {
         }
     };
 
-    itemsColumns = [
+    itemsColumnsFabric = [
         { header: "Unit", value: "UnitCode" },
         { header: "Bon No", value: "AvalReceiptNo" },
         { header: "Jumlah ", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
-    ]
+    ];
 
+    itemsColumnsAcc= [
+        { header: "Unit" },
+        { header: "Kode - Nama Barang" },
+        { header: "Satuan" },
+        { header: "Jumlah Stock" },
+        { header: "Jumlah Keluar" },
+    ];
+
+    viewItemsColumnsAcc=[
+        { header: "Unit" },
+        { header: "Kode - Nama Barang" },
+        { header: "Satuan" },
+        { header: "Jumlah Keluar" },
+    ]
 
     expenditureToOptions=["JUAL LOKAL", "LAIN-LAIN"];
     avalTypes=["AVAL FABRIC", "AVAL ACCESSORIES"];
@@ -65,6 +79,15 @@ export class DataForm {
             item.type=this.data.AvalType;
         }
         this.selectedType=this.data.AvalType;
+        if(this.data.Id){
+            this.existingItems = this.data.Items.map(i => {
+                return {
+                    StockId: i.StockId,
+                    Quantity: i.Quantity
+                };
+            });
+            this.Options.existingItems=this.existingItems;
+        }
     }
 
     get addItems() {

@@ -63,20 +63,33 @@
             read-only.bind="readOnly" 
             options.bind="controlOptions">
         </au-multiline>
+
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
         </div>
  
         <au-collection 
-                items.bind="data.Items" 
-                errors.bind="error.Items" 
-                columns.bind="itemsColumns"
-                read-only.bind="readOnly" 
-                add.bind="addItems" 
-                remove.bind="removeItems"
-                options.bind="Options"
-                
-                item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item">
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="itemsColumnsFabric"
+            read-only.bind="readOnly" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.bind="Options"
+            if.bind="data.AvalType=='AVAL FABRIC'"
+            item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="!readOnly ? itemsColumnsAcc : viewItemsColumnsAcc"
+            read-only.bind="readOnly" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.bind="Options"
+            if.bind="data.AvalType!='AVAL FABRIC'"
+            item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item-accessories">
         </au-collection>
         
     </au-input-form>
