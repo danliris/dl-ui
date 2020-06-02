@@ -65,8 +65,8 @@ export class items {
         };
         if(this.data.Id){
             var stock= await this.service.getStock({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, ReferenceType:"FINISHED_GOOD" }) });
-        
-            this.data.StockQuantity=stock.data[0].Quantity+ this.data.ExpenditureQuantity;
+            if(!this.error)
+                this.data.StockQuantity=stock.data[0].Quantity+ this.data.ExpenditureQuantity;
         }
     }
 
@@ -81,8 +81,6 @@ export class items {
             const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.StockId) || { Quantity: 0 };
             
             this.data.StockQuantity += existingItem.Quantity;
-            
-            
         }
     }
 
