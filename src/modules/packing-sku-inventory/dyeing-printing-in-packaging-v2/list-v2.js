@@ -16,19 +16,19 @@ export class List {
             }
         },
         { field: "bonNo", title: "No Bon" },
-        { field: "noSpp", title: "No. SPP" },
-        { field: "qtyOrder", title: "Qty Order" },        
-        { field: "buyer", title: "Buyer" },
+        // { field: "noSpp", title: "No. SPP" },
+        // { field: "qtyOrder", title: "Qty Order" },        
+        // { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
         { field: "group", title: "Group" },
-        { field: "material", title: "Material" },
-        { field: "unit", title: "Unit" },        
-        { field: "warna", title: "Warna" },
-        { field: "motif", title: "Motif" },
-        { field: "grade", title: "Grade" },
-        { field: "mtr", title: "Mtr" },
-        { field: "yds", title: "Yds" },
-        { field: "saldo", title: "Saldo" },
+        // { field: "material", title: "Material" },
+        // { field: "unit", title: "Unit" },        
+        // { field: "warna", title: "Warna" },
+        // { field: "motif", title: "Motif" },
+        // { field: "grade", title: "Grade" },
+        // { field: "mtr", title: "Mtr" },
+        // { field: "yds", title: "Yds" },
+        // { field: "saldo", title: "Saldo" },
     ];
 
     loader = (info) => {
@@ -46,30 +46,30 @@ export class List {
             .then(result => {
                 var data = {}
                 data.total = result.total;
-                // data.data = result.data;
-                data.data = [];
-                result.data.forEach((item,index)=>{
-                    item.packagingProductionOrders.forEach((i,ind)=>{
-                        var dataView = {};
-                        dataView.id = item.id;
-                        dataView.date = item.date;
-                        dataView.bonNo = item.bonNo;
-                        dataView.group = item.group;
-                        dataView.qtyOrder = i.qtyOrder;
-                        dataView.noSpp = i.productionOrder.no,
-                        dataView.buyer = i.buyer,
-                        dataView.shift = item.shift,
-                        dataView.material = i.material,
-                        dataView.unit = i.unit,
-                        dataView.warna = i.color,
-                        dataView.motif = i.motif,
-                        dataView.grade = i.grade,
-                        dataView.mtr = i.mtrLength,
-                        dataView.yds = i.ydsLength,
-                        dataView.saldo = i.balance
-                        data.data.push(dataView);
-                    });
-                });
+                data.data = result.data;
+                // data.data = [];
+                // result.data.forEach((item,index)=>{
+                //     item.packagingProductionOrders.forEach((i,ind)=>{
+                //         var dataView = {};
+                //         dataView.id = item.id;
+                //         dataView.date = item.date;
+                //         dataView.bonNo = item.bonNo;
+                //         dataView.group = item.group;
+                //         dataView.qtyOrder = i.qtyOrder;
+                //         dataView.noSpp = i.productionOrder.no,
+                //         dataView.buyer = i.buyer,
+                //         dataView.shift = item.shift,
+                //         dataView.material = i.material,
+                //         dataView.unit = i.unit,
+                //         dataView.warna = i.color,
+                //         dataView.motif = i.motif,
+                //         dataView.grade = i.grade,
+                //         dataView.mtr = i.mtrLength,
+                //         dataView.yds = i.ydsLength,
+                //         dataView.saldo = i.balance
+                //         data.data.push(dataView);
+                //     });
+                // });
                 return data;
             });
     }
