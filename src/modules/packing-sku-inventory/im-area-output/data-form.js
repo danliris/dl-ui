@@ -61,17 +61,15 @@ export class DataForm {
         //     this.selectedInspectionMaterial = {};
         //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         // }
-
-        if (this.data.inspectionMaterialProductionOrders) {
-            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        if (this.data.destinationArea) {
+            this.destinationArea = this.data.destinationArea;
         }
 
         this.detailOptions = {
             isEdit: this.isEdit,
             destinationArea: this.destinationArea
         }
-        // this.detailOptions.isEdit = this.isEdit;
-        // this.detailOptions.destinationArea = this.data.destinationArea;
+
         if (this.destinationArea === "TRANSIT") {
             if (this.readOnly) {
                 this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Qty Keluar"];
@@ -87,13 +85,18 @@ export class DataForm {
             }
 
         }
+
+        if (this.data.inspectionMaterialProductionOrders) {
+            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        }
+
         if (this.ItemsCollection) {
             this.ItemsCollection.bind();
         }
-
-        if (this.data.destinationArea) {
-            this.destinationArea = this.data.destinationArea;
-        }
+        
+        // this.detailOptions.isEdit = this.isEdit;
+        // this.detailOptions.destinationArea = this.data.destinationArea;
+        
     }
     addItemCallback = (e) => {
         this.inspectionMaterialProductionOrders = this.inspectionMaterialProductionOrders || [];

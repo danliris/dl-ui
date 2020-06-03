@@ -26,6 +26,7 @@ export class CartItem {
         if (this.data.balance && !this.data.previousBalance) {
             this.data.previousBalance = this.data.balance;
         }
+        console.log(this.destinationArea);
         if (this.destinationArea == "TRANSIT") {
             this.remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
             this.data.status = "NOT OK";
@@ -34,6 +35,8 @@ export class CartItem {
             ];
             this.isTransit = true;
             this.isAval = false;
+            if(!this.data.Id)
+            this.data.avalItems = [];
             // if (this.data.isChecked)
             //     this.data.balance = this.data.initLength;
         } else if (this.destinationArea == "GUDANG AVAL") {
@@ -50,27 +53,28 @@ export class CartItem {
             this.isTransit = false;
             this.isAval = true;
             this.avalColumns = ["Jenis Aval", "Panjang"];
-            this.data.avalItems = [];
-            var avalAItem = {
-                type: "Aval A",
-                length: this.data.avalALength
-            };
-            this.data.avalItems.push(avalAItem);
-            var avalBItem = {
-                type: "Aval B",
-                length: this.data.avalBLength
-            };
-            this.data.avalItems.push(avalBItem);
-            var avalConnectionItem = {
-                type: "Aval Sambungan",
-                length: this.data.avalConnectionLength
-            };
-            this.data.avalItems.push(avalConnectionItem);
+            // this.data.avalItems = [];
+            // var avalAItem = {
+            //     type: "Aval A",
+            //     length: this.data.avalALength
+            // };
+            // this.data.avalItems.push(avalAItem);
+            // var avalBItem = {
+            //     type: "Aval B",
+            //     length: this.data.avalBLength
+            // };
+            // this.data.avalItems.push(avalBItem);
+            // var avalConnectionItem = {
+            //     type: "Aval Sambungan",
+            //     length: this.data.avalConnectionLength
+            // };
+            // this.data.avalItems.push(avalConnectionItem);
 
 
             // if (this.data.isChecked)
             //     this.data.balance = this.data.initLength;
         } else {
+            this.data.avalItems = [];
             this.remarks = [
                 "A", "B", "C", "BS", "Aval 1"
             ];
@@ -105,8 +109,10 @@ export class CartItem {
             }
         }
     }
+
     get totalBalance() {
-        if (this.isAval) {
+        if (this.isAval && this.data.avalItems && this.data.avalItems.length > 0) {
+            console.log("tes");
             if (!this.isEdit) {
 
                 this.data.balance = this.data.avalItems.reduce((a, b) => +a + +b.length, 0);
@@ -167,4 +173,9 @@ export class CartItem {
             this.data.productionOrder = {};
         }
     }
+
+    addAvalItemCallback = (e) => {
+        this.data.avalItems = this.data.avalItems || [];
+        this.data.avalItems.push({})
+    };
 }

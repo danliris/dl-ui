@@ -1,14 +1,17 @@
 <template replace-part="avalItem">
     <tr>
         <td>
-            <au-textbox value.bind="data.type" read-only.bind="true" error.bind="error.Type"
-                options.bind="controlOptions">
-            </au-textbox>
+            <au-dropdown value.bind="data.type" read-only.bind="readOnly" error.bind="error.Type"
+                options.bind="controlOptions" items.bind="avalTypes">
+            </au-dropdown>
         </td>
         <td>
-            <au-numeric value.bind="data.length" format="0.00" read-only.bind="readOnly"
-                error.bind="error.Length" options.bind="controlOptions">
+            <au-numeric value.bind="data.length" format="0.00" read-only.bind="readOnly" error.bind="error.Length"
+                options.bind="controlOptions">
             </au-numeric>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
