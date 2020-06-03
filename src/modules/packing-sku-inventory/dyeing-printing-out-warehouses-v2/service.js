@@ -22,6 +22,10 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/input-production-orders-v2/${bonId}`;
     return super.get(endpoint);
 }
+getProductionOrderInputv2(){
+    var endpoint = `${serviceUri}/input-production-orders-v2`;
+    return super.get(endpoint);
+}
 getProductionOrderOutput(bonId){
     var endpoint = `${serviceUri}/output-production-orders/${bonId}`;
     return super.get(endpoint);
