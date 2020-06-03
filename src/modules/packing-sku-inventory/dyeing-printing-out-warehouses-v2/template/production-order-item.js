@@ -1,4 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
+let DOSalesLoader = require("../../../../loader/do-sales-loader");
+
 export class ProductionOrderItem {
     @bindable product;
 
@@ -12,6 +14,12 @@ export class ProductionOrderItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
+            this.selectedDeliveryOrderSales = {};
+      
+            this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
+            this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
+          }
     }
 
     controlOptions = {
@@ -20,5 +28,17 @@ export class ProductionOrderItem {
         }
     };
 
+    get doSalesLoader() {
+        return DOSalesLoader;
+      }
 
+      doSalesQuery = { DOSalesCategory: "DYEINGPRINTING" };
+
+      @bindable selectedDeliveryOrderSales;
+  selectedDeliveryOrderSalesChanged(newValue, oldValue) {
+    if (this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id) {
+      this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
+      this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
+    }
+  }
 }

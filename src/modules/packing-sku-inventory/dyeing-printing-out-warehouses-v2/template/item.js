@@ -21,6 +21,12 @@ export class Item {
       this.selectedProductionOrder.OrderQuantity = this.data.productionOrderOrderQuantity;
       this.selectedProductionOrder.OrderType = this.data.productionOrderType;
       this.selectedProductionOrder.ProductionOrderItems = this.data.productionOrderItems;
+      // if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
+      //   this.selectedDeliveryOrderSales = {};
+  
+      //   this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
+      //   this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
+      // }
       // this.selectedProductionOrder = {};
       // this.selectedProductionOrder.PackingItems = [];
       // this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -68,6 +74,7 @@ export class Item {
 
   bind() {
     this.itemColumns = [
+      "Nomor DO",
       "Material",
       "Unit",
       "Buyer",
