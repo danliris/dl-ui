@@ -3,6 +3,9 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
+let PackingInputSPPLoader = require("../../../loader/input-packaging-production-order-loader");
+
+
 @inject(Router, Service)
 export class Create {
     isCreate = true;
@@ -23,6 +26,15 @@ export class Create {
         return activationStrategy.replace; //replace the viewmodel with a new instance
         // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
         // or activationStrategy.noChange to explicitly use the default behavior
+    }
+
+    activate(){
+        // PackingInputSPPLoader(null,null).then( data => {
+        //     console.log(data);
+        // });
+        this.service.getInputBon().then(result => {
+            console.log(result);
+        });
     }
 
     save() {
