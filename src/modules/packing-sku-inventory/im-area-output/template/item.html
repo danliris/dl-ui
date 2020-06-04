@@ -92,7 +92,7 @@
     <tr if.bind="isShowing">
         <td show.bind="!readOnly"></td>
         <td colspan="14">
-            <au-collection columns.bind="avalColumns" items.bind="data.avalItems" read-only.bind="readOnly"
+            <au-collection columns.bind="avalColumns" items.bind="data.avalItems"  add.bind="addAvalItemCallback" remove.bind="avalRemove" read-only.bind="readOnly"
                 item-template="modules/packing-sku-inventory/im-area-output/template/avalItem" show.bind="isAval">
             </au-collection>
 
