@@ -18,9 +18,13 @@
     <au-dropdown options.bind="controlOptions" label="Zona" value.bind="destinationArea"
       error.bind="error.DestinationArea" read-only.bind="readOnly" items.bind="destinationAreas"></au-dropdown>
 
+    <au-textbox show.bind="isSales && readOnly && data.bonNo" options.bind="controlOptions" value.bind="data.bonNo"
+      label="Nomor Bon" read-only.bind="true">
+    </au-textbox>
+
     <au-autocomplete show.bind="isSales" options.bind="controlOptions" value.bind="selectedDO" label="Nomor DO"
-      read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" loader.bind="doSalesLoader"
-      text.bind="doTextFormatter">
+      read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" query.bind="doSalesQuery"
+      loader.bind="doSalesLoader" text.bind="doTextFormatter">
     </au-autocomplete>
 
     <au-autocomplete show.bind="!isSales" options.bind="controlOptions" value.bind="selectedShipping" label="Nomor Bon"
@@ -32,8 +36,10 @@
       read-only.bind="true" error.bind="error.DeliveryOrder">
     </au-textbox>
 
-    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true" value.bind="error.ShippingProductionOrder"
-      style="color: red;"></au-textbox>
+
+
+    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true"
+      value.bind="error.ShippingProductionOrder" style="color: red;"></au-textbox>
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>

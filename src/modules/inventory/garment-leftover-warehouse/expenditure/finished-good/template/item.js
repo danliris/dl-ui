@@ -31,11 +31,15 @@ export class items {
 
     @computedFrom("data.Unit")
     get filter() {
-        return {
+        var filter={
             ReferenceType:"FINISHED_GOOD",
             UnitId: (this.data.Unit || {}).Id || 0,
             "Quantity>0": true
         };
+        for(var item of this.context.context.items){
+            filter[`RONo == "${item.data.RONo}"`]=false;
+        }
+        return filter;
     }
     constructor(service) {
         this.service = service;
@@ -61,8 +65,8 @@ export class items {
         };
         if(this.data.Id){
             var stock= await this.service.getStock({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, ReferenceType:"FINISHED_GOOD" }) });
-        
-            this.data.StockQuantity=stock.data[0].Quantity+ this.data.ExpenditureQuantity;
+            if(!this.error)
+                this.data.StockQuantity=stock.data[0].Quantity+ this.data.ExpenditureQuantity;
         }
     }
 
@@ -74,6 +78,9 @@ export class items {
             this.data.StockId=newValue.Id;
             this.data.RONo=newValue.RONo;
             this.data.StockQuantity=newValue.Quantity;
+            const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.StockId) || { Quantity: 0 };
+            
+            this.data.StockQuantity += existingItem.Quantity;
         }
     }
 

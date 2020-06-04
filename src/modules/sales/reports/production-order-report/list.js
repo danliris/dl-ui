@@ -76,6 +76,7 @@ export class List {
         { field: "detail", title: "Detail", sortable: false },
         { field: "orderNo", title: "No. SPP" },
         { field: "NoSalesContract", title: "No Sales Kontrak"},
+        { field: "colorType", title: "Warna" },
         { field: "Price", title : "Harga" },
         { field: "CurrCode", title : "Mata Uang"},
         { field: "orderQuantity", title: "Panjang SPP (M)" },
