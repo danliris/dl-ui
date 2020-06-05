@@ -24,12 +24,23 @@
         </au-autocomplete>
 
         <au-autocomplete
+            value.bind="selectedUnitFrom"
+            error.bind="error.UnitFrom"
+            label="Unit Asal"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit Asal"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
             value.bind="selectedSewingOut"
             error.bind="error.RONo"
             label="No RO"
             loader.bind="roLoader"
             query.bind="filter"
-            show.bind="data.Unit"
+            show.bind="data.Unit && data.UnitFrom"
             text.bind="ROView"
             placeholder="nomor RO"
             read-only.bind="readOnly || isEdit"
@@ -37,16 +48,6 @@
             view-model.ref="selectedSewingOutViewModel">
         </au-autocomplete>
 
-        <au-autocomplete
-            value.bind="data.UnitFrom"
-            error.bind="error.UnitFrom"
-            label="Unit Asal"
-            loader.bind="unitLoader"
-            text.bind="unitView"
-            placeholder="Unit"
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-autocomplete>
 
         <au-textbox
             value.bind="data.FinishingInType"
@@ -57,6 +58,7 @@
 
         <au-textbox
             value.bind="data.Article"
+            error.bind="error.Article"
             label="No Artikel"
             read-only="true"
             options.bind="controlOptions">

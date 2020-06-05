@@ -38,27 +38,16 @@
 
     <au-collection
       columns.bind="itemColumns"
+      view-model.ref="ItemsCollection"
       items.bind="data.warehousesProductionOrders"
       errors.one-way="error.WarehousesProductionOrders"
-      read-only.bind="readOnly"
       options.bind="detailOptions"
+      read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-header"
       item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item"
     >
       >
     </au-collection>
-    <!-- view-model.ref="ItemsCollection" -->
-
-    <!-- <au-collection
-      columns.bind="itemColumns"
-      items.bind="data.warehousesProductionOrders"
-      errors.one-way="error.WarehousesProductionOrders"
-      options.bind="detailOptions"
-      read-only.bind="readOnly"
-      add.bind="addItemCallback"
-      item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item"
-    >
-    </au-collection> -->
 
     <template replaceable part="actions"></template>
   </au-input-form>

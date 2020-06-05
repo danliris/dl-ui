@@ -32,20 +32,21 @@ export class DataForm {
             columns: this.readOnly ? [
                 "Unit",
                 "PO No",
-                "Jumlah Keluar",
-                "Satuan"
+                "Satuan",
+                "Jumlah Keluar"
             ] : [
                 "Unit",
                 "PO No",
+                "Satuan",
                 "Jumlah Stock",
-                "Jumlah Keluar",
-                "Satuan"
+                "Jumlah Keluar"
             ],
             onAdd: function () {
                 this.data.Items.push({});
             }.bind(this),
             options: {
-                isEdit: this.isEdit
+                isEdit: this.isEdit,
+                existingItems: this.existingItems
             }
         };
     };
@@ -83,6 +84,13 @@ export class DataForm {
                 Code: this.data.UnitExpenditure.Code,
                 Name: this.data.UnitExpenditure.Name
             };
+
+            this.existingItems = this.data.Items.map(i => {
+                return {
+                    StockId: i.StockId,
+                    Quantity: i.Quantity
+                };
+            });
         }
 
         // if (this.readOnly) {

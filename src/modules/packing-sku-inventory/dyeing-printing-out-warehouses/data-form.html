@@ -3,46 +3,10 @@
     .collection .panel-body {
       padding: 0px;
     }
-
-    table {
-      border-collapse: collapse;
-      margin-top: 24px;
-      margin-bottom: 24px;
-    }
-
-    /* table.leftTable {
-      width: 70%;
-      margin-left: 25%;
-      margin-right: 5%;
-    }
-
-    table.rightTable {
-      width: 70%;
-      margin-left: 5%;
-      margin-right: 25%;
-    } */
-
-    table {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    table,
-    td,
-    th {
-      border: 1px solid black;
-      padding: 16px;
-      text-align: left;
-    }
-
-    /* th.avalTypesHeader {
-      width: 160px;
-    } */
-
+    
     .btn-primary {
-      background-color: #3c8dbc;
-      margin-bottom: 4px;
-    }
+    margin-bottom: 4px;
+}
   </style>
 
   <au-input-form
@@ -52,16 +16,17 @@
   >
     <au-datepicker
       options.bind="controlOptions"
-      label="Tanggal"
-      value.bind="data.Date"
+      value.bind="data.date"
       error.bind="error.Date"
       read-only.bind="readOnly"
-    ></au-datepicker>
+      label="Tanggal"
+    >
+    </au-datepicker>
 
     <au-dropdown
       options.bind="controlOptions"
       label="Shift"
-      value.bind="data.Shift"
+      value.bind="data.shift"
       error.bind="error.Shift"
       read-only.bind="readOnly"
       items.bind="shifts"
@@ -70,7 +35,7 @@
     <au-dropdown
       options.bind="controlOptions"
       label="Group"
-      value.bind="data.Group"
+      value.bind="data.group"
       error.bind="error.Group"
       read-only.bind="readOnly"
       items.bind="groups"
@@ -79,22 +44,11 @@
     <au-dropdown
       options.bind="controlOptions"
       label="Zona"
-      value.bind="data.DestinationArea"
+      value.bind="data.destinationArea"
       error.bind="error.DestinationArea"
       read-only.bind="readOnly"
       items.bind="destinationAreas"
     ></au-dropdown>
-
-    <au-autocomplete
-      options.bind="controlOptions"
-      value.bind="BonNo"
-      label="Nomor Bon"
-      read-only.bind="readOnly"
-      error.bind="error.BonNo"
-      loader.bind="availableWarehouseInputs"
-      text.bind="areaMovementTextFormatter"
-    >
-    </au-autocomplete>
 
     <br />
     <button
@@ -106,25 +60,17 @@
     </button>
     <br />
 
-    <!-- show.bind="isHasData" -->
     <au-collection
-      items.bind="data.warehousesProductionOrders"
-      options.bind="itemOptions"
-      add.bind="addItem"
-      errors.bind="error.WarehousesProductionOrders"
       columns.bind="itemColumns"
+      items.bind="data.warehousesProductionOrders"
+      errors.one-way="error.WarehousesProductionOrders"
       read-only.bind="readOnly"
-      item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses/templates/items"
+      options.bind="detailOptions"
+      header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses/template/item-header"
+      item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses/template/item"
     >
+      >
     </au-collection>
-
-    <!-- <div
-      class="alert alert-info text-center"
-      role="alert"
-      if.bind="isHasData == false"
-    >
-      There is no data found in the selected bon.
-    </div> -->
 
     <template replaceable part="actions"></template>
   </au-input-form>

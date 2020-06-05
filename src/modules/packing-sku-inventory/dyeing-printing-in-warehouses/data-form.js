@@ -7,13 +7,16 @@ export class DataForm {
   @bindable readOnly;
   @bindable data;
   @bindable error;
-  // @bindable ItemsCollection;
+
+  constructor(service) {
+    this.service = service;
+  }
 
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
-    deleteText: "Hapus",
-    editText: "Ubah",
+    // deleteText: "Hapus",
+    // editText: "Ubah",
   };
 
   controlOptions = {
@@ -27,26 +30,28 @@ export class DataForm {
 
   itemColumns = [
     "No. SPP",
-    "QTY Order",
-    "QTY Masuk",
-    "Buyer",
-    "Konstruksi",
-    "Jenis",
-    "Warna",
-    "Motif",
-    "Grade",
-    "Packaging",
-    "Qty Packaging",
-    "Satuan",
+    "Qty Order",
+    "Jenis Order",
+    // "Qty Order",
+    // "Material",
+    // "Unit",
+    // "Buyer",
+    // "Warna",
+    // "Motif",
+    // "Qty Packaging",
+    // "Packaging",
+    // "Jenis",
+    // "Grade",
+    // "Satuan",
+    // "Qty Masuk",
+    // "Zona Asal",
+    ""
   ];
-  shifts = ["PAGI", "SIANG"];
 
-  constructor(service) {
-    this.service = service;
-  }
+  shifts = ["PAGI", "SIANG"];
+  groups = ["A", "B"];
 
   detailOptions = {};
-  groups = ["A", "B"];
 
   areaMovementTextFormatter = (areaInput) => {
     return `${areaInput.bonNo}`;
@@ -69,6 +74,10 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+
+    if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+    }
   }
 
   addItemCallback = (e) => {
@@ -76,23 +85,4 @@ export class DataForm {
       this.data.warehousesProductionOrders || [];
     this.data.warehousesProductionOrders.push({});
   };
-
-  // @bindable selectedWarehouses;
-  // selectedWarehousesChanged(n, o) {
-  //   if (this.selectedWarehouses) {
-  //     this.data.inputWarehousesId = this.selectedWarehouses.id;
-  //     if (this.selectedWarehouses.warehousesProductionOrders) {
-  //       // this.data.warehousesProductionOrders = this.selectedWarehouses.warehousesProductionOrders;
-  //       this.data.bonNo = this.selectedWarehouses.bonNo;
-  //     }
-
-  //     this.detailOptions.destinationArea = this.data.destinationArea;
-  //   }
-  //   if (n != o) {
-  //     if (this.selectedWarehouses) {
-  //       this.data.inputWarehousesId = this.selectedWarehouses.id;
-  //       this.data.bonNo = this.selectedWarehouses.bonNo;
-  //     }
-  //   }
-  // }
 }

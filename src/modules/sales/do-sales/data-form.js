@@ -9,9 +9,12 @@ import { BindingSignaler } from "aurelia-templating-resources";
 import { Service, ServiceCore } from "./service";
 
 import SalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
+import { SPINNING, WEAVING, DYEINGPRINTING } from '../do-sales/shared/permission-constant';
+import { PermissionHelper } from '../../../utils/permission-helper';
+var StorageLoader = require('../../../loader/storage-loader');
 
 @containerless()
-@inject(Service, ServiceCore, BindingSignaler, BindingEngine)
+@inject(Service, ServiceCore, BindingSignaler, BindingEngine, PermissionHelper)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -26,11 +29,14 @@ export class DataForm {
   @bindable WeightUom;
   @bindable selectedSalesContract;
 
-  constructor(service, serviceCore, bindingSignaler, bindingEngine) {
+  constructor(service, serviceCore, bindingSignaler, bindingEngine, permissionHelper) {
     this.service = service;
     this.serviceCore = serviceCore;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
+
+    this.permissions = permissionHelper.getUserPermissions();
+    this.initPermission();
   }
 
   @computedFrom("data.Id")
@@ -41,6 +47,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+
 
     if (this.data.Disp) {
       this.disp = this.data.Disp;
@@ -55,6 +62,23 @@ export class DataForm {
       this.fillEachBale = this.data.FillEachBale;
     }
 
+    if (this.data.DOSalesCategory === "SPINNING") {
+      this.code = true;
+      this.code1 = false;
+      this.code2 = false;
+
+    } else if (this.data.DOSalesCategory === "WEAVING") {
+
+      this.code = false;
+      this.code1 = true;
+      this.code2 = false;
+    }
+    else {
+
+      this.code = false;
+      this.code1 = false;
+      this.code2 = true;
+    }
     // if (this.data.SalesContract) {
     //   this.selectedSalesContract = this.data.SalesContract;
     // }
@@ -112,7 +136,11 @@ export class DataForm {
   doSalesTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
   doSalesExportOptions = ["", "KKF", "KKP"];
-  packingUomOptions = ["", "PCS", "ROLL", "PT"];
+
+  packingUomOptions = ["", "DOS"];
+  packingUomWeavingOptions = ["", "PCS", "BALE"];
+  packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
+
   lengthUomOptions = ["", "YDS", "MTR"];
   weightUomOptions = ["", "BALE", "KG"];
 
@@ -207,5 +235,33 @@ export class DataForm {
 
   get salesContractLoader() {
     return SalesContractLoader;
+  }
+
+  initPermission() {
+    this.roles = [SPINNING, WEAVING, DYEINGPRINTING];
+    this.accessCount = 0;
+
+    for (let i = this.roles.length - 1; i >= 0; i--) {
+      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+        this.roles[i].hasPermission = true;
+        this.accessCount++;
+        this.activeRole = this.roles[i];
+
+
+      }
+    }
+
+  }
+
+  storageView = (storage) => {
+
+    return `${storage.unit.name} - ${storage.name}`
+
+  }
+
+  get storageLoader() {
+
+    return StorageLoader;
+
   }
 }

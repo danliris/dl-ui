@@ -16,20 +16,23 @@ export class List {
             }
         },
         { field: "bonNo", title: "No. Bon" },
-        { field: "noSpp", title: "No. SPP" },  
-        { field: "buyer", title: "Buyer" },        
+        // { field: "noSpp", title: "No. SPP" },  
+        // { field: "buyer", title: "Buyer" },        
         { field: "shift", title: "Shift" },
-        { field: "material", title: "Material" },
-        { field: "unit", title: "Unit" },        
-        { field: "warna", title: "Warna" },        
-        { field: "motif", title: "Motif" },
+        { field: "group", title: "Group" },
+        { field: "destinationArea", title: "Area Tujuan" },
+        
+        // { field: "material", title: "Material" },
+        // { field: "unit", title: "Unit" },        
+        // { field: "warna", title: "Warna" },        
+        // { field: "motif", title: "Motif" },
         // { field: "packagingType", title: "Jenis" },
-        { field: "grade", title: "Grade" },        
+        // { field: "grade", title: "Grade" },        
         // { field: "packagingQty", title: "Qty Packaging" },        
         // { field: "packagingUnit", title: "Packaging" },        
         // { field: "mtr", title: "Mtr" },        
         // { field: "yds", title: "Yds" },        
-        { field: "saldo", title: "Saldo" }
+        // { field: "saldo", title: "Saldo" }
     ];
 
     loader = (info) => {

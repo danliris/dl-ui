@@ -1,10 +1,14 @@
 <template replace-part="shippingProductionOrders">
     <tr>
-        <td>
+        <td show.bind="!readOnly">
+            <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
+        <!-- <td>
             <au-autocomplete value.bind="selectedDOSales" error.bind="error.DeliveryOrderSales"
                 loader.bind="doSalesLoader" text="DoNO" read-only.bind="true" options.bind="controlOptions">
             </au-autocomplete>
-        </td>
+        </td> -->
         <td>
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
                 loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">
@@ -21,10 +25,12 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.packingType" read-only.bind="true" error.bind="error.PackingType"
+            <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+
         <td>
             <au-textbox value.bind="data.color" read-only.bind="true" error.bind="error.Color"
                 options.bind="controlOptions">
@@ -36,24 +42,32 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.productionOrder.type" read-only.bind="true" error.bind="error.ProductionOrder"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.packing" read-only.bind="true" error.bind="error.Packing"
+            <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings" read-only.bind="readOnly"
+                error.bind="error.GradeShipping" options.bind="controlOptions">
+            </au-dropdown>
+        </td>
+        <td>
+            <au-textbox value.bind="data.shippingRemark" read-only.bind="readOnly" error.bind="error.ShippingRemark"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.remark" read-only.bind="readOnly" error.bind="error.Remark"
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric value.bind="data.qtyPacking" read-only.bind="true" error.bind="error.QtyPacking"
-                options.bind="controlOptions" format="0.00">
+            <au-numeric value.bind="data.qtyPacking" format="0.00" read-only.bind="true" options.bind="controlOptions">
             </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.packing" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td>
             <au-numeric value.bind="data.qty" format="0.00" read-only.bind="true" error.bind="error.Qty"
@@ -61,7 +75,12 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
+            <au-numeric value.bind="data.weight" format="0.00" read-only.bind="readOnly" error.bind="error.Weight"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td show.bind="!isSales">
+            <au-textbox value.bind="data.deliveryNote" read-only.bind="readOnly" error.bind="error.DeliveryNote"
                 options.bind="controlOptions">
             </au-textbox>
         </td>

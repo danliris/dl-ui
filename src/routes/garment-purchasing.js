@@ -859,7 +859,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
      },
-     {
+      {
+        route: 'garment-debt-balance-report',
+        name: 'garment-debt-balance-report',
+        moduleId: './modules/accounting/reports/debt-balance-report/index',
+        nav: true,
+        title: 'Laporan Saldo Hutang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+       {
         route: 'debt-card-report',
         name: 'debt-card-report',
         moduleId: './modules/accounting/reports/debt-card-report/index',

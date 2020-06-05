@@ -20,8 +20,8 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "ReturnFrom", title: "Retur Dari" },
-    { field: "LKTPNo", title: "No. LKtP" },
+    { field: "ReturnFrom.Name", title: "Retur Dari" },
+    { field: "LTKPNo", title: "No. LTKP" },
   ];
 
   rowFormatter(data, index) {

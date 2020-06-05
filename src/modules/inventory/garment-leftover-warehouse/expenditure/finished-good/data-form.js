@@ -65,6 +65,15 @@ export class DataForm {
             isEdit: this.context.isEdit,
             checkedAll: this.context.isCreate == true ? false : true 
         }
+        if(this.data.Id){
+            this.existingItems = this.data.Items.map(i => {
+                return {
+                    StockId: i.StockId,
+                    Quantity: i.ExpenditureQuantity
+                };
+            });
+            this.Options.existingItems=this.existingItems;
+        }
     }
 
     get addItems() {

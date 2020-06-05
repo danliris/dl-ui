@@ -12,15 +12,40 @@
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
       read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
 
-    <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
-      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="shippingAreaLoader"
-      text.bind="areaMovementTextFormatter">
+    <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
+      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
+
+    <au-dropdown options.bind="controlOptions" label="Zona" value.bind="destinationArea"
+      error.bind="error.DestinationArea" read-only.bind="readOnly" items.bind="destinationAreas"></au-dropdown>
+
+    <au-textbox show.bind="isSales && readOnly && data.bonNo" options.bind="controlOptions" value.bind="data.bonNo"
+      label="Nomor Bon" read-only.bind="true">
+    </au-textbox>
+
+    <au-autocomplete show.bind="isSales" options.bind="controlOptions" value.bind="selectedDO" label="Nomor DO"
+      read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" query.bind="doSalesQuery"
+      loader.bind="doSalesLoader" text.bind="doTextFormatter">
     </au-autocomplete>
+
+    <au-autocomplete show.bind="!isSales" options.bind="controlOptions" value.bind="selectedShipping" label="Nomor Bon"
+      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="shippingAreaLoader"
+      text.bind="areaMovementTextFormatter" query.bind="shippingQuery">
+    </au-autocomplete>
+
+    <au-textbox show.bind="!isSales" options.bind="controlOptions" value.bind="data.deliveryOrder.no" label="Nomor DO"
+      read-only.bind="true" error.bind="error.DeliveryOrder">
+    </au-textbox>
+
+
+
+    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true"
+      value.bind="error.ShippingProductionOrder" style="color: red;"></au-textbox>
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
-    <au-collection columns.bind="itemColumns" items.bind="data.shippingProductionOrders"
+    <au-collection columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders"
       errors.one-way="error.ShippingProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
+      header-template="modules/packing-sku-inventory/shipping-area-output/template/item-header"
       item-template="modules/packing-sku-inventory/shipping-area-output/template/item">
     </au-collection>
 

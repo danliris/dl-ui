@@ -42,6 +42,7 @@ export class DataForm {
         this.isExternal=false;
         this.options.isExternal=false;
         
+        this.items.columns = this.items.columns.filter(c => c != "Status Barang");
         if(this.data.ExpenditureType === "TRANSFER"){
             this.data.ExpenditureTo = "GUDANG LAIN";
         }else if(this.data.ExpenditureType === "EXTERNAL"){
@@ -52,7 +53,9 @@ export class DataForm {
             this.data.ExpenditureTo = "PROSES";
         }else if(this.data.ExpenditureType === "SISA"){
             this.data.ExpenditureTo = "GUDANG SISA";
+            this.items.columns.push("Status Barang");
         }
+        this.options.ExpenditureType = this.data.ExpenditureType;
 
         if(this.data.ExpenditureType === "EXTERNAL"){
             this.isExternal = true;
@@ -115,6 +118,8 @@ export class DataForm {
                 this.isExternal = false;
                 this.options.isExternal=false;
             }
+
+            this.items.columns = this.items.columns.filter(c => c != "Status Barang");
             if(this.data.ExpenditureType === "TRANSFER"){
                 this.data.ExpenditureTo = "GUDANG LAIN";
             }else if(this.data.ExpenditureType === "EXTERNAL"){
@@ -125,7 +130,9 @@ export class DataForm {
                 this.data.ExpenditureTo = "PROSES";
             }else if(this.data.ExpenditureType === "SISA"){
                 this.data.ExpenditureTo = "GUDANG SISA";
+                this.items.columns.push("Status Barang");
             }
+            this.options.ExpenditureType = this.data.ExpenditureType;
         }
         this.context.DONoViewModel._suggestions=[];
         this.context.DONoViewModel.editorValue = "";

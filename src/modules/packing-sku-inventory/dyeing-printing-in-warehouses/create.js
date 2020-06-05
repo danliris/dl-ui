@@ -33,7 +33,6 @@ export class Create {
   save() {
     let errorIndex = 0;
     this.error = {};
-    debugger
 
     if (
       this.data.date === null ||
@@ -42,10 +41,10 @@ export class Create {
     ) {
       this.error.Date = "Tanggal Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Date = "";
     }
-    
+
     if (
       this.data.shift === null ||
       this.data.shift === undefined ||
@@ -53,7 +52,7 @@ export class Create {
     ) {
       this.error.Shift = "Shift Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Shift = "";
     }
 
@@ -64,15 +63,23 @@ export class Create {
     ) {
       this.error.Group = "Group Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Group;
     }
 
     if (errorIndex === 0) {
-      this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
+      var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
         (s) => s.IsSave === true
       );
-      
+
+      this.data.mappedWarehousesProductionOrders = [];
+      selectedProductionOrders.forEach((datum) => {
+        datum.productionOrderItems.forEach((datumItem) => {
+          datumItem.qtyOrder = datum.productionOrderOrderQuantity;
+          this.data.mappedWarehousesProductionOrders.push(datumItem);
+        });
+      });
+      // console.log(this.data);
       this.service
         .create(this.data)
         .then((result) => {
@@ -93,40 +100,72 @@ export class Create {
     }
   }
 
-  // save() {
-  //   let CreateData = {};
-  //   CreateData.Area = this.data.Area;
-  //   CreateData.Date = this.data.Date;
-  //   CreateData.Shift = this.data.Shift;
-  //   CreateData.Group = this.data.Group;
-  //   CreateData.WarehousesProductionOrders = [];
-  //   this.data.warehousesProductionOrders.forEach(datum => {
-  //     if(datum.select = true){
-  //       console.log(datum);
-  //       CreateData.WarehousesProductionOrders.push(datum);
-  //     }
-  //   });
+  reject() {
+    let errorIndex = 0;
+    this.error = {};
 
-  //   console.log(CreateData);
+    if (
+      this.data.date === null ||
+      this.data.date === undefined ||
+      this.data.date === ""
+    ) {
+      this.error.Date = "Tanggal Harus Diisi!";
+      errorIndex++;
+    } else {
+      this.error.Date = "";
+    }
 
-  // debugger
+    if (
+      this.data.shift === null ||
+      this.data.shift === undefined ||
+      this.data.shift === ""
+    ) {
+      this.error.Shift = "Shift Harus Diisi!";
+      errorIndex++;
+    } else {
+      this.error.Shift = "";
+    }
 
-  // this.service
-  //   .create(this.data)
-  //   .then((result) => {
-  //     alert("Data berhasil dibuat");
-  //     this.router.navigateToRoute(
-  //       "create",
-  //       {},
-  //       { replace: true, trigger: true }
-  //     );
-  //   })
-  //   .catch((e) => {
-  //     if (e.statusCode == 500) {
-  //       alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-  //     } else {
-  //       this.error = e;
-  //     }
-  //   });
-  // }
+    if (
+      this.data.group === null ||
+      this.data.group === undefined ||
+      this.data.group === ""
+    ) {
+      this.error.Group = "Group Harus Diisi!";
+      errorIndex++;
+    } else {
+      this.error.Group;
+    }
+
+    if (errorIndex === 0) {
+      var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
+        (s) => s.IsSave === true
+      );
+
+      this.data.mappedWarehousesProductionOrders = [];
+      selectedProductionOrders.forEach((datum) => {
+        datum.productionOrderItems.forEach((datumItem) => {
+          this.data.mappedWarehousesProductionOrders.push(datumItem);
+        });
+      });
+      
+      this.service
+        .reject(this.data)
+        .then((result) => {
+          alert("Data berhasil ditolak");
+          this.router.navigateToRoute(
+            "create",
+            {},
+            { replace: true, trigger: true }
+          );
+        })
+        .catch((e) => {
+          if (e.statusCode == 500) {
+            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+          } else {
+            this.error = e;
+          }
+        });
+    }
+  }
 }

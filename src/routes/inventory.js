@@ -118,6 +118,19 @@ module.exports = [
         }
     },
     {
+      route: "inventory/finishing-printing/material-delivery-note",
+      name: "inventory/finishing-printing/material-delivery-note",
+      moduleId: "modules/inventory/finishing-printing/material-delivery-note/index",
+      nav: true,
+      title: "Bon Pengiriman Barang",
+      auth: true,
+      settings: {
+          group: "Inventory",
+          permission: { "C9": 1, "F1": 1, "F2": 1 },
+          iconClass: "fa fa-dashboard"
+      }
+    },
+    {
         route: "inventory/finishing-printing/reports/fp-shipment-document-report",
         name: "inventory/finishing-printing/reports/fp-shipment-document-report",
         moduleId: "modules/inventory/finishing-printing/reports/fp-shipment-document-report/index",
@@ -305,6 +318,18 @@ module.exports = [
         moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/finished-good/index",
         nav: true,
         title: "Pengeluaran Gudang Sisa - BARANG JADI",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },{
+        route: "inventory/garment/leftover-warehouse/expenditure/aval",
+        name: "inventory/garment/leftover-warehouse/expenditure/aval",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/aval/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - AVAL",
         auth: true,
         settings: {
             group: "Inventory",

@@ -21,34 +21,24 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.qtyOrder"
+        value.bind="data.productionOrderOrderQuantity"
         format="0.00"
         read-only.bind="true"
-        error.bind="error.QtyOrder"
-        options.bind="controlOptions"
-      >
-      </au-numeric>
-    </td>
-    <td>
-      <au-numeric
-        value.bind="data.balance"
-        format="0.00"
-        read-only.bind="true"
-        error.bind="error.Balance"
+        error.bind="error.productionOrderOrderQuantity"
         options.bind="controlOptions"
       >
       </au-numeric>
     </td>
     <td>
       <au-textbox
-        value.bind="data.buyer"
+        value.bind="data.productionOrderType"
         read-only.bind="true"
-        error.bind="error.Buyer"
+        error.bind="error.productionOrderType"
         options.bind="controlOptions"
       >
       </au-textbox>
     </td>
-    <td>
+    <!-- <td>
       <au-textbox
         value.bind="data.construction"
         read-only.bind="true"
@@ -59,9 +49,18 @@
     </td>
     <td>
       <au-textbox
-        value.bind="data.packagingType"
+        value.bind="data.unit"
         read-only.bind="true"
-        error.bind="error.PackagingType"
+        error.bind="error.Unit"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.buyer"
+        read-only.bind="true"
+        error.bind="error.Buyer"
         options.bind="controlOptions"
       >
       </au-textbox>
@@ -85,6 +84,24 @@
       </au-textbox>
     </td>
     <td>
+      <au-numeric
+        value.bind="data.packagingQty"
+        read-only.bind="true"
+        error.bind="error.PackagingQty"
+        options.bind="controlOptions"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.packagingType"
+        read-only.bind="true"
+        error.bind="error.PackagingType"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <td>
       <au-textbox
         value.bind="data.grade"
         read-only.bind="true"
@@ -95,25 +112,6 @@
     </td>
     <td>
       <au-textbox
-        value.bind="data.packagingUnit"
-        read-only.bind="true"
-        error.bind="error.PackagingUnit"
-        options.bind="controlOptions"
-      >
-      </au-textbox>
-    </td>
-    <td>
-      <au-numeric
-        value.bind="data.packagingQty"
-        read-only.bind="true"
-        error.bind="error.PackagingQty"
-        options.bind="controlOptions"
-      >
-      </au-numeric>
-    </td>
-
-    <td>
-      <au-textbox
         value.bind="data.uomUnit"
         read-only.bind="true"
         error.bind="error.UomUnit"
@@ -121,5 +119,38 @@
       >
       </au-textbox>
     </td>
+    <td>
+      <au-numeric
+        value.bind="data.balance"
+        format="0.00"
+        read-only.bind="true"
+        error.bind="error.Balance"
+        options.bind="controlOptions"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.area"
+        read-only.bind="true"
+        error.bind="error.Area"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td> -->
+    <td>
+      <button class="btn btn-info pull-right" click.delegate="toggle()">
+        i
+      </button>
+    </td>
+  </tr>
+  <tr if.bind="isShowing">
+      <!-- <td show.bind="!readOnly"></td> -->
+      <td colspan="14">
+          <au-collection columns.bind="itemColumns" items.bind="data.productionOrderItems" read-only.bind="readOnly"
+              item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/production-order-item">
+          </au-collection>
+          <!-- show.bind="isAval" -->
+      </td>
   </tr>
 </template>

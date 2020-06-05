@@ -2,8 +2,6 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
-const StockLoader = require('../../../../../loader/garment-leftover-warehouse-stock-loader');
-
 @inject(Router, Service)
 export class Edit {
     isEdit = true;
@@ -13,10 +11,6 @@ export class Edit {
         this.service = service;
     }
 
-    get stockLoader() {
-        return StockLoader;
-    }
-
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
@@ -24,7 +18,7 @@ export class Edit {
         const stockIds = this.data.Items.map(i => `Id==${i.StockId}`).join("||");
         let filter = {};
         filter[stockIds] = true;
-        const stocksResult = await this.service.searchStock({ filter: filter });
+        const stocksResult = await this.service.searchStock({ filter: JSON.stringify(filter) });
 
         for (const item of this.data.Items) {
             item.Stock = stocksResult.data.find(i => i.Id == item.StockId) || {};
