@@ -18,7 +18,7 @@ export class CartItem {
         this.contextOptions = context.context.options;
         // console.log(this);
         this.destinationArea = this.dataForm.data.destinationArea;
-        this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
+        // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
         this.packUnit=["ROLL","PIECE","POTONGAN"];
         
