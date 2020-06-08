@@ -75,10 +75,11 @@ export class Create {
       this.data.mappedWarehousesProductionOrders = [];
       selectedProductionOrders.forEach((datum) => {
         datum.productionOrderItems.forEach((datumItem) => {
+          datumItem.qtyOrder = datum.productionOrderOrderQuantity;
           this.data.mappedWarehousesProductionOrders.push(datumItem);
         });
       });
-      
+      // console.log(this.data);
       this.service
         .create(this.data)
         .then((result) => {

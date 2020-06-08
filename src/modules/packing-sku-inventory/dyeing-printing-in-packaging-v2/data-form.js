@@ -38,7 +38,7 @@ export class DataForm {
 
     columns = [
         {
-            field: "isChecked", title: "isChecked Checkbox", checkbox: true, sortable: false,
+            field: "isChecked", title: "isChecked Checkbox", checkbox: true, sortable: false
         },
         { field: "productionOrder.no", title: "No. SPP" },
         { field: "qtyOrder", title: "Qty Order" },

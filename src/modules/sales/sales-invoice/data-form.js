@@ -43,6 +43,7 @@ export class DataForm {
     this.context._this = this;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.data.SalesInvoiceCategory = this.context.router.currentInstruction.queryParams.activeRole;
 
     this.VatType = this.data.VatType;
     this.TotalPayment = this.data.TotalPayment;
@@ -56,9 +57,6 @@ export class DataForm {
     }
 
     if (this.data.Buyer && this.data.Buyer.Id) {
-      // this.selectedBuyer = await this.serviceCore.getBuyerById(
-      //   this.data.Buyer.Id
-      // );
       this.selectedBuyer = this.data.Buyer;
     }
 
@@ -252,6 +250,7 @@ export class DataForm {
       this.data.Buyer.NPWP = this.selectedBuyer.NPWP;
       this.data.Buyer.NIK = this.selectedBuyer.NIK;
       this.itemOptions.BuyerId = this.data.Buyer.Id;
+      this.itemOptions.Category = this.data.SalesInvoiceCategory;
       this.itemOptions.HasSalesInvoice = false;
     } else {
       this.data.Buyer.Id = null;
@@ -261,6 +260,7 @@ export class DataForm {
       this.data.Buyer.NPWP = null;
       this.data.Buyer.NIK = null;
       this.itemOptions.BuyerId = null;
+      this.itemOptions.Category = null;
       this.itemOptions.HasSalesInvoice = false;
       this.data.SalesInvoiceDetails = [];
     }

@@ -1,8 +1,8 @@
 <template>
     <tr>
         <td>
-            <au-autocomplete value.bind="data.DOSales" text="DOSalesNo" read-only.bind="true">
-            </au-autocomplete>
+            <au-textbox value.bind="data.DOSalesNo" error.bind="error.DOSales" read-only.bind="true">
+            </au-textbox>
         </td>
     </tr>
 </template>

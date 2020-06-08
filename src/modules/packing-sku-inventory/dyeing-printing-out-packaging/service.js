@@ -1,5 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'output-packaging';
+const inputPackagingService = 'input-packaging';
+
 
 export class Service extends RestService {
 
@@ -42,5 +44,10 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/xls/${id}`;
        
         return super.getXls(endpoint);
+    }
+
+    getInputBon(info) {
+        var endpoint = `${inputPackagingService}`;
+        return super.list(endpoint, info);
     }
 }

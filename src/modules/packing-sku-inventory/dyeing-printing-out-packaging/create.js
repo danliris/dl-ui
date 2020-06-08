@@ -3,6 +3,9 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
+let PackingInputSPPLoader = require("../../../loader/input-packaging-production-order-loader");
+
+
 @inject(Router, Service)
 export class Create {
     isCreate = true;
@@ -25,8 +28,17 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
+    activate(){
+        // PackingInputSPPLoader(null,null).then( data => {
+        //     console.log(data);
+        // });
+        this.service.getInputBon().then(result => {
+            console.log(result);
+        });
+    }
+
     save() {
-        console.log(this.data);
+        // console.log(this.data);
         var bodyRequest = {};
         bodyRequest.area = this.data.area;
         bodyRequest.date = this.data.date;
@@ -66,33 +78,6 @@ export class Create {
             });
         });
         // console.log(bodyRequest);
-        // //validation for checked
-        // // var validation = [];
-        // // this.data.packagingProductionOrders.forEach(element => {
-        // //     var ischecked = element.isCheckedSPP;
-        // //     var qtyKeluar = element.qtyOut;
-        // //     var nomorSpp = element.productionOrderNo;
-
-        // //     if(ischecked && qtyKeluar <=0){
-        // //         // alert("Qty Keluar harus diisi jika di pilih, No SPP : "+nomorSpp);
-        // //         // return 0;
-        // //         validation.push({
-        // //             NomorSpp : nomorSpp
-        // //         });
-        // //     }
-        // // });
-        // // if(validation.length!=0){
-        // //     alert("Qty Keluar harus diisi jika di pilih, No SPP : "+validation[0].NomorSpp);
-        // // }else
-        // // {
-        //     var packagingProductionOrdersSelected =[]
-        //     this.data.packagingProductionOrders.forEach(element =>{
-        //         if(element.isCheckedSPP){
-        //             packagingProductionOrdersSelected.push(element)
-        //         }
-        //     });
-        //     this.data.packagingProductionOrders = packagingProductionOrdersSelected;
-        //     // console.log(this.data);
 
         this.service.create(bodyRequest)
             .then(result => {

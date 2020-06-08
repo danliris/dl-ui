@@ -6,20 +6,23 @@
                 text="SalesInvoiceNo" read-only.bind="readOnly" keypress.delegate="enterDelegate($event)">
             </au-autocomplete>
 
-            <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
-
             <au-collection columns.bind="returnDetailsInfo.columns" items.bind="data.DOReturnDetailItems"
                 errors.bind="error.DOReturnDetailItems" read-only.bind="readOnly"
                 item-template="modules/sales/do-return/template/do-return-detail-item">
             </au-collection>
 
+            <au-textbox error.bind="error.DOReturnDetailItem" read-only.bind="true"></au-textbox>
+
             <au-textbox show.bind="error.TotalNotNull" error.bind="error.TotalNotNull" read-only.bind="true">
             </au-textbox>
 
             <au-collection columns.bind="doReturnItemsInfo.columns" items.bind="data.DOReturnItems"
-                errors.bind="error.DOReturnItems" read-only.bind="readOnly" view-model.ref="ReturnItemsCollection"
-                options.two-way="itemOptions" item-template="modules/sales/do-return/template/do-return-item">
+                view-model.ref="ItemCollections" errors.bind="error.DOReturnItems" read-only.bind="readOnly"
+                remove.bind="doReturnItemsInfo.onRemove"
+                item-template="modules/sales/do-return/template/do-return-item">
             </au-collection>
+
+            <au-textbox error.bind="error.DOReturnItem" read-only.bind="true"></au-textbox>
 
         </td>
         <td if.bind="!options.readOnly">

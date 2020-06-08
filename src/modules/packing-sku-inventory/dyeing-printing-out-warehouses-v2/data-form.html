@@ -1,0 +1,69 @@
+<template
+  ><style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <au-datepicker
+      options.bind="controlOptions"
+      value.bind="data.date"
+      error.bind="error.Date"
+      read-only.bind="readOnly"
+      label="Tanggal"
+    >
+    </au-datepicker>
+
+    <au-dropdown
+      options.bind="controlOptions"
+      label="Shift"
+      value.bind="data.shift"
+      error.bind="error.Shift"
+      read-only.bind="readOnly"
+      items.bind="shifts"
+    ></au-dropdown>
+
+    <au-dropdown
+      options.bind="controlOptions"
+      label="Group"
+      value.bind="data.group"
+      error.bind="error.Group"
+      read-only.bind="readOnly"
+      items.bind="groups"
+    ></au-dropdown>
+
+    <au-dropdown
+      options.bind="controlOptions"
+      label="Zona"
+      value.bind="data.destinationArea"
+      error.bind="error.DestinationArea"
+      read-only.bind="readOnly"
+      items.bind="destinationAreas"
+    ></au-dropdown>
+
+    <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedWarehouse" label="Nomor Bon"
+      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="bonWarehouseLoader"
+      add.bind="addItemCallback"
+      text.bind="areaMovementTextFormatter">
+    </au-autocomplete> -->
+
+    <au-collection
+      columns.bind="itemColumns"
+      view-model.ref="ItemsCollection"
+      items.bind="data.warehousesProductionOrders"
+      errors.one-way="error.WarehousesProductionOrders"
+      options.bind="detailOptions"
+      read-only.bind="readOnly"
+      header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/item-header"
+      item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/item"
+    >
+      
+    </au-collection>
+
+    <template replaceable part="actions"></template>
+  </au-input-form>
+</template>

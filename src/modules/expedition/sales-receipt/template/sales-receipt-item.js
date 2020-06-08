@@ -34,6 +34,12 @@ export class SalesReceipt {
         }
 
         this.getPaid = this.TotalPaid + this.Nominal + this.data.AmountMemo;
+        console.log(this.data.AmountMemo)
+        if (this.getPaid >= this.getNotPaid) {
+          this.data.IsPaidOff = true;
+        } else {
+          this.data.IsPaidOff = false;
+        }
 
       } else {
 
@@ -57,11 +63,8 @@ export class SalesReceipt {
     this.TotalPayment = this.data.TotalPayment;
     this.TotalPaid = this.data.TotalPaid;
     this.AmountMemo = this.data.AmountMemo;
-    this.getPaid = this.TotalPaid + this.Nominal;
-
-
-
-    this.getUnpaid = this.TotalPayment - (this.TotalPaid + this.Nominal);
+    this.getPaid = this.TotalPaid + this.Nominal + this.data.AmountMemo;
+    this.getUnpaid = this.TotalPayment - (this.TotalPaid + this.Nominal + this.data.AmountMemo);
     if (this.getUnpaid < 0) {
       this.data.Paid = this.getPaid;
       this.data.Unpaid = 0;

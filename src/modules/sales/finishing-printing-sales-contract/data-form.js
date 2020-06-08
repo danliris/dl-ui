@@ -56,6 +56,7 @@ export class DataForm {
     this.selectedAccountBank = this.data.AccountBank || null;
     this.selectedUseIncomeTax = this.data.UseIncomeTax || false;
     this.selectedPointSystem = this.data.PointSystem || 10;
+    console.log(context);
   }
 
   isExport = false;
