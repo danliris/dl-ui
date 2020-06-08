@@ -28,6 +28,7 @@ export class SalesInvoiceDetail {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
+    this.Category = item.context.options.Category;
     this.BuyerId = item.context.options.BuyerId;
     this.HasSalesInvoice = item.context.options.HasSalesInvoice;
 
