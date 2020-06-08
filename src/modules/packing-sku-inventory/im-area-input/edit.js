@@ -35,6 +35,6 @@ export class Edit {
             } else {
                 this.error = e;
             }
-        })
+        });
     }
 }
