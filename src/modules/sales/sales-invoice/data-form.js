@@ -43,7 +43,11 @@ export class DataForm {
     this.context._this = this;
     this.data = this.context.data;
     this.error = this.context.error;
-    this.data.SalesInvoiceCategory = this.context.router.currentInstruction.queryParams.activeRole;
+    if (this.data.SalesInvoiceCategory) {
+      this.data.SalesInvoiceCategory = this.data.SalesInvoiceCategory;
+    } else {
+      this.data.SalesInvoiceCategory = this.context.router.currentInstruction.queryParams.activeRole;
+    }
 
     this.VatType = this.data.VatType;
     this.TotalPayment = this.data.TotalPayment;

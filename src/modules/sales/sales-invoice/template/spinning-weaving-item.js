@@ -76,7 +76,7 @@ export class SpinningWeavingItem {
       } else {
         this.ConvertValue = 0;
         this.ConvertUnit = null;
-      }     
+      }
       this.data.ConvertValue = this.ConvertValue;
       this.data.ConvertUnit = this.ConvertUnit;
     }
