@@ -3,12 +3,20 @@
     <div class="row">
       <div class="col-md-12" style="padding:0">
         <div class="col-md-10" style="padding:0">
+
+          <!-- DropdownLocalOrExport -->
+          <au-dropdown show.bind="data.SalesType == ''" label="Tipe Penjualan" value.bind="data.SalesType"
+            items.bind="salesTypeOptions" error.bind="error.SalesType" read-only.bind="readOnly || isEdit">
+          </au-dropdown>
+        </div>
+        <div class="col-md-10" style="padding:0" if.bind="data.SalesType !=''">
+          <!-- FormLocalAndExport -->
           <div class="col-md-6">
             <au-textbox label="No. Faktur Penjualan" value.bind="data.SalesInvoiceNo" if.bind="readOnly || isEdit"
               read-only.bind="true">
             </au-textbox>
 
-            <au-dropdown label="Tipe Faktur Penjualan" value.bind="data.SalesInvoiceType"
+            <au-dropdown label="Seri Faktur Penjualan" value.bind="data.SalesInvoiceType"
               items.bind="salesInvoiceTypeOptions" error.bind="error.SalesInvoiceType"
               read-only.bind="readOnly || isEdit">
             </au-dropdown>
@@ -45,6 +53,15 @@
             <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly" placeholder="Input Nama Sales">
             </au-textbox>
 
+            <div if.bind="data.SalesType =='Ekspor'">
+              <au-datepicker label="Tanggal Sailing" value.bind="data.SailingDate" error.bind="error.SailingDate"
+                read-only.bind="readOnly">
+              </au-datepicker>
+
+              <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer" read-only.bind="readOnly"
+                placeholder="Input Shipped Per">
+              </au-textbox>
+            </div>
           </div>
 
           <div class="col-md-6">

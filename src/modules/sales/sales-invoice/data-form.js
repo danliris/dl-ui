@@ -177,6 +177,7 @@ export class DataForm {
   };
   itemOptions = {};
 
+  salesTypeOptions = ["", "Lokal", "Ekspor"];
   salesInvoiceTypeOptions = [
     "",
     "BNG",

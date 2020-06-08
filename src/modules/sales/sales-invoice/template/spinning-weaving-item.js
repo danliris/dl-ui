@@ -65,20 +65,27 @@ export class SpinningWeavingItem {
   }
 
   QuantityItemChanged(newValue, oldValue) {
-    this.data.QuantityItem = this.QuantityItem;
-    if (this.QuantityItem) {
-      if (this.data.ItemUom == "MTR") {
-        this.ConvertValue = parseInt(this.QuantityItem * (10936 / 10000));
-        this.ConvertUnit = "YARD";
-      } else if (this.data.ItemUom == "YARD") {
-        this.ConvertValue = parseInt(this.QuantityItem / (10936 / 10000));
-        this.ConvertUnit = "MTR";
-      } else {
-        this.ConvertValue = 0;
-        this.ConvertUnit = null;
+    if (newValue) {
+      this.data.QuantityItem = newValue;
+      if (this.data.QuantityItem && this.data.ItemUom) {
+        if (this.data.QuantityItem > 0) {
+          if (this.data.ItemUom == "MTR") {
+            this.ConvertValue = parseInt(this.QuantityItem * (10936 / 10000));
+            this.ConvertUnit = "YARD";
+          } else if (this.data.ItemUom == "YARD") {
+            this.ConvertValue = parseInt(this.QuantityItem / (10936 / 10000));
+            this.ConvertUnit = "MTR";
+          } else {
+            this.ConvertValue = 0;
+            this.ConvertUnit = null;
+          }
+          this.data.ConvertValue = this.ConvertValue;
+          this.data.ConvertUnit = this.ConvertUnit;
+        } else {
+          this.ConvertValue = 0;
+          this.ConvertUnit = null;
+        }
       }
-      this.data.ConvertValue = this.ConvertValue;
-      this.data.ConvertUnit = this.ConvertUnit;
     }
   }
 }
