@@ -12,7 +12,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        
+        this.isEdit = this.contextOptions.isEdit;
         if (this.data.balance && !this.data.previousBalance) {
             this.data.previousBalance = this.data.balance;
         }
