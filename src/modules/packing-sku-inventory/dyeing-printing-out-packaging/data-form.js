@@ -10,6 +10,8 @@ export class DataForm {
     @bindable readOnlyKeterangan;
     @bindable data;
     @bindable error;
+    @bindable selectedPackaging;
+    
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -63,34 +65,29 @@ export class DataForm {
         // }
         if(this.data.packagingProductionOrders)
         {
-            // console.log(this.data.packagingProductionOrders)
-            console.log("trigger");
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;                        
         }
-        // console.log(this);
     }
     async activate(context){
-        // console.log(context);
     }
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
     };
 
-    @bindable selectedPackaging;
-    selectedPackagingChanged(n, o) {
-        this.detailOptions.destinationArea = this.data.destinationArea;
-        this.data.bonNoInput = n.bonNo;
+    // selectedPackagingChanged(n, o) {
+    //     this.detailOptions.destinationArea = this.data.destinationArea;
+    //     this.data.bonNoInput = n.bonNo;
         
-        // if(n){
-        //     this.data.bonNoInput = n.bonNo;
-        //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-        // }
-        // if(this.selectedPackaging){
-        //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-        // }
-    }
+    //     // if(n){
+    //     //     this.data.bonNoInput = n.bonNo;
+    //     //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+    //     // }
+    //     // if(this.selectedPackaging){
+    //     //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
+    //     // }
+    // }
 
     ExportToExcel() {
         this.service.generateExcel(this.data.id);

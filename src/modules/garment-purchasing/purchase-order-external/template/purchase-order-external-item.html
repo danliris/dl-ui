@@ -80,7 +80,7 @@
                 value.bind="data.PricePerDealUnit"
                 error.bind="error.PricePerDealUnit"
                 change.delegate="priceChanged($event)"
-
+                fraction="4"
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions"
                 if.bind="!options.readOnly"

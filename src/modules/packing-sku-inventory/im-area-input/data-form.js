@@ -27,6 +27,7 @@ export class DataForm {
         this.service = service;
     }
 
+    detailOptions = {};
     groups = ["A", "B"];
 
     @computedFrom("data.id")
@@ -39,7 +40,7 @@ export class DataForm {
         this.data = this.context.data;
 
         this.data.area = "INSPECTION MATERIAL";
-
+        this.detailOptions.isEdit = this.isEdit;
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
@@ -47,7 +48,11 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-
+        if (this.isEdit && !this.readOnly) {
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima", ""];
+        } else {
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
+        }
     }
     addItemCallback = (e) => {
         this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders || [];
