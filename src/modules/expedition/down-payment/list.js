@@ -32,26 +32,16 @@ export class List {
     var order = {};
     if (info.sort)
       order[info.sort] = info.order;
-    // console.log(info)
+
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      // filter: JSON.stringify({
-      //   Status: "OUT"
-      // }),
-      // select: ["date", "code", "referenceNo", "referenceType", "type", "storageName"],
       order: order
     }
 
     return this.service.search(arg)
       .then(result => {
-
-        // if (result.data && result.data.length > 0) {
-        //   for (let datum of result.data) {
-        //     datum.bankView = `${datum.Bank.AccountName} - ${datum.Bank.BankName} - ${datum.Bank.AccountNumber} - ${datum.Bank.Currency.Code}`;
-        //   }
-        // }
         return {
           total: result.info.total,
           data: result.data
@@ -71,7 +61,7 @@ export class List {
       case "Detail":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
-      case "Cetak Kuitansi":
+      case "Cetak Bukti Pembayaran":
         this.service.getSalesReceiptPdfById(data.Id);
         break;
     }
@@ -79,8 +69,8 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "view":
-        return true;
+      case "Cetak Bukti Pembayaran":
+        return data;
       default:
         return true;
     }

@@ -15,12 +15,10 @@ export class Create {
     activate(params) {
         this.bank = params.bank;
         this.status = params.status;
-        //this.sourceType = params.sourceType;
     }
 
     bind(params) {
         this.data = {};
-        // this.data.Status = "OUT";
         this.error = {};
     }
 
@@ -36,17 +34,10 @@ export class Create {
     }
 
     save(event) {
-        //auto assign status out
-        //this.data.Status = "OUT";
-        // console.log(this.data);
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                // let params = {
-                //     bank: this.data.Bank,
-                //     // status: "IN",
-                //     sourceType: "Operasional"
-                // }
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(error => {

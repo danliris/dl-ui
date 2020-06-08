@@ -34,7 +34,6 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         
-        //this.data.SourceType = this.context.sourceType || this.data.SourceType;
         this.data.Bank = this.context.bank || this.data.Bank;
         this.selectedCurrency = this.data.Currency;
     }
