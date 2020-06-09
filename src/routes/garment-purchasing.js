@@ -871,5 +871,19 @@ module.exports = [
             permission: {"C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+       {
+        route: 'debt-card-report',
+        name: 'debt-card-report',
+        moduleId: './modules/accounting/reports/debt-card-report/index',
+        nav: true,
+        title: 'Laporan Kartu Hutang',
+        auth: true,
+        settings: {
+          group: "g-purchasing",
+          permission: { "B1": 1, "C9": 1 },
+          iconClass: 'fa fa-dashboard'
+        }
+     }
+
 ]

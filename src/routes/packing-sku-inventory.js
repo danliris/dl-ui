@@ -183,9 +183,9 @@ module.exports = [
         }
     },
     {
-        route: 'packing-sku-inventory/dyeing-printing-out-warehouses',
-        name: 'dyeing-printing-out-warehouses',
-        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-warehouses/index',
+        route: 'packing-sku-inventory/dyeing-printing-out-warehouses-v2',
+        name: 'dyeing-printing-out-warehouses-v2',
+        moduleId: './modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/index',
         nav: true,
         title: 'Pencatatan Keluar Gudang Barang Jadi Dyeing/Printing',
         auth: true,

@@ -59,6 +59,10 @@ export class Service extends RestService {
             if (query === '') query = `ro=${info.ro}`;
             else query = `${query}&ro=${info.ro}`;
         }
+        if (info.type && info.type !== "") {
+            if (query === '') query = `type=${info.type}`;
+            else query = `${query}&type=${info.type}`;
+        }
         if (query !== '')
         endpoint = `${serviceUri}/stocksdownload?${query}`;
 

@@ -6,7 +6,7 @@ import {
   BindingEngine,
 } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
-import { Service, ServiceSales, ServiceCore } from "./service";
+import { Service, ServiceSales, ServiceCore, ServiceMemo } from "./service";
 
 var BuyersLoader = require("../../../loader/buyers-loader");
 var BankLoader = require("../../../loader/account-banks-loader");
@@ -15,7 +15,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 var SalesInvoiceLoader = require("../../../loader/sales-invoice-loader");
 
 @containerless()
-@inject(Service, ServiceSales, ServiceCore, BindingSignaler, BindingEngine)
+@inject(Service, ServiceSales, ServiceCore, ServiceMemo, BindingSignaler, BindingEngine)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -34,10 +34,11 @@ export class DataForm {
     },
   };
 
-  constructor(service, serviceSales,serviceCore, bindingSignaler, bindingEngine) {
+  constructor(service, serviceSales, serviceCore, ServiceMemo, bindingSignaler, bindingEngine) {
     this.service = service;
     this.serviceSales = serviceSales;
     this.serviceCore = serviceCore;
+    this.ServiceMemo = ServiceMemo;
     this.signaler = bindingSignaler;
     this.bindingEngine = bindingEngine;
   }
@@ -55,6 +56,16 @@ export class DataForm {
 
     this.TotalPaid = this.data.TotalPaid;
     this.data.TotalPaid = this.getTotalPaid;
+
+    // console.log(this.ServiceMemo.SalesInvoiceNo);
+    // this.memo = await this.ServiceMemo.getMemoById(this.data.SalesInvoice.Id);
+    //console.log(this.data.SalesReceiptDetails);
+
+    // if (this.data.SalesInvoice && this.data.SalesInvoice.Id) {
+    //   this.memo = await this.ServiceMemo.getMemoById(this.data.SalesInvoice.Id);
+    //   console.log(this.memo);
+
+    // }
 
     if (this.data.Buyer && this.data.Buyer.Id) {
       // this.selectedBuyer = await this.serviceCore.getBuyerById(
@@ -111,6 +122,8 @@ export class DataForm {
       "Total Pembayaran",
       "Akumulasi",
       "Lunas",
+      "No. Memo",
+      "Pembayaran Memo"
     ],
   };
 
@@ -140,6 +153,7 @@ export class DataForm {
       this.data.Buyer.Id = this.selectedBuyer.Id;
       this.data.Buyer.Name = this.selectedBuyer.Name;
       this.data.Buyer.Address = this.selectedBuyer.Address;
+
       // var salesInvoice = await this.serviceSales.getSalesInvoiceByBuyerId(
       //   this.data.Buyer.Id
       // );
@@ -202,7 +216,7 @@ export class DataForm {
           }
         }
       }
-      
+
     } else {
       this.data.Bank.Id = null;
       this.data.AccountCOA = null;

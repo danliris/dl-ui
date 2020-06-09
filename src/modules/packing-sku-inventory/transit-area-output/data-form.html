@@ -17,7 +17,7 @@
 
 
     <au-dropdown options.bind="controlOptions" label="Zona" value.bind="destinationArea"
-      error.bind="error.DestinationArea" read-only.bind="readOnly" items.bind="destinationAreas"></au-dropdown>
+      error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas"></au-dropdown>
 
     <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedInspectionMaterial" label="Nomor Bon"
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="transitAreaLoader"
@@ -29,7 +29,13 @@
     <br>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
-    <au-collection columns.bind="itemColumns" items.bind="transitProductionOrders"
+    <au-collection columns.bind="itemColumns" items.bind="transitProductionOrders" if.bind="!isEdit"
+      errors.one-way="error.TransitProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
+      header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
+      item-template="modules/packing-sku-inventory/transit-area-output/template/item">
+    </au-collection>
+
+    <au-collection columns.bind="itemColumns" items.bind="transitProductionOrders" if.bind="isEdit"
       errors.one-way="error.TransitProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
       item-template="modules/packing-sku-inventory/transit-area-output/template/item">

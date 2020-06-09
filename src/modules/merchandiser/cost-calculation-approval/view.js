@@ -38,6 +38,7 @@ export class View {
 
     costCalculationGarment_MaterialsInfo = {
         columns: [
+            { header: "No", value: "MaterialIndex" },
             { header: "Kategori", value: "Category" },
             { header: "Kode Barang", value: "Product.code" },
             { header: "Komposisi", value: "Product.composition" },

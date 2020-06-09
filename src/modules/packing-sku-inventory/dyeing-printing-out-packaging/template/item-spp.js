@@ -3,6 +3,7 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
 import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
+var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
 
 @inject(Service, BindingEngine, BindingSignaler, DataForm)
 export class ItemSPP {
@@ -26,7 +27,7 @@ export class ItemSPP {
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
-        this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
+        // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         // console.log(this);
         // console.log(this.selectedStorageId);
         // this.isNewStructure = this.context.options.isNewStructure;
@@ -68,7 +69,7 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
-            // console.log(this);
+            console.log(this);
         }
     }
 
@@ -115,9 +116,10 @@ export class ItemSPP {
     };
 
     get productionOrderList() {
-        return (keyword) => {
-            return Promise.resolve().then(result => { return this.productionOrderListItem; });
-        }
+        // return (keyword) => {
+        //     return Promise.resolve().then(result => { return this.productionOrderListItem; });
+        // }
+        return ProductionOrderLoader;
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {

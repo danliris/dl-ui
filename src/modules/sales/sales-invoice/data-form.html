@@ -89,11 +89,30 @@
     <au-textbox show.bind="error.SalesInvoiceDetail" error.bind="error.SalesInvoiceDetail" read-only.bind="true">
     </au-textbox>
 
-    <au-collection show.bind="data.VatType && selectedBuyer && selectedPaymentType"
+    <au-collection
+      if.bind="data.SalesInvoiceCategory=='DYEINGPRINTING' && data.VatType && selectedBuyer && selectedPaymentType"
       columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
       errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
       remove.bind="salesInvoiceDetailsInfo.onRemove"
       item-template="modules/sales/sales-invoice/template/sales-invoice-detail"
+      view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
+    </au-collection>
+
+    <au-collection
+      if.bind="data.SalesInvoiceCategory=='WEAVING' && data.VatType && selectedBuyer && selectedPaymentType"
+      columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
+      remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice/template/spinning-weaving-detail"
+      view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
+    </au-collection>
+
+    <au-collection
+      if.bind="data.SalesInvoiceCategory=='SPINNING' && data.VatType && selectedBuyer && selectedPaymentType"
+      columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
+      remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice/template/spinning-weaving-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 

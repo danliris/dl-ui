@@ -57,43 +57,54 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        // if (this.data.bonNo) {
-        //     this.selectedInspectionMaterial = {};
-        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
-        // }
-
-        if (this.data.inspectionMaterialProductionOrders) {
-            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        
+        if (this.data.destinationArea) {
+            this.destinationArea = this.data.destinationArea;
         }
 
         this.detailOptions = {
             isEdit: this.isEdit,
             destinationArea: this.destinationArea
         }
-        // this.detailOptions.isEdit = this.isEdit;
-        // this.detailOptions.destinationArea = this.data.destinationArea;
+
         if (this.destinationArea === "TRANSIT") {
             if (this.readOnly) {
-                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Qty Keluar"];
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
             } else {
-                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                if (this.isEdit) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                }
+
             }
 
         } else {
             if (this.readOnly) {
-                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Keluar"];
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
             } else {
-                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                if (this.isEdit) {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                }
+
             }
 
         }
+
+        if (this.data.inspectionMaterialProductionOrders) {
+            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+            
+        }
+
         if (this.ItemsCollection) {
             this.ItemsCollection.bind();
         }
 
-        if (this.data.destinationArea) {
-            this.destinationArea = this.data.destinationArea;
-        }
+        // this.detailOptions.isEdit = this.isEdit;
+        // this.detailOptions.destinationArea = this.data.destinationArea;
+
     }
     addItemCallback = (e) => {
         this.inspectionMaterialProductionOrders = this.inspectionMaterialProductionOrders || [];
@@ -119,18 +130,28 @@ export class DataForm {
             this.detailOptions.destinationArea = this.data.destinationArea;
             if (this.destinationArea === "TRANSIT") {
                 if (this.readOnly) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Qty Keluar"];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
                 } else {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                    if (this.isEdit) {
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                    } else {
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                    }
+    
                 }
-
+    
             } else {
                 if (this.readOnly) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Keluar"];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
                 } else {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Saldo", "Qty Keluar"];
+                    if (this.isEdit) {
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                    } else {
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                    }
+    
                 }
-
+    
             }
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
