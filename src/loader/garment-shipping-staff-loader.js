@@ -12,4 +12,4 @@ module.exports = function (keyword, filter) {
         .then(results => {
             return results.data;
         });
-}
+      }

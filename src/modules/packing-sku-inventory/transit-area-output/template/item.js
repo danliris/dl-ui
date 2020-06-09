@@ -12,10 +12,10 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        
-        if (this.data.balance && !this.data.previousBalance) {
-            this.data.previousBalance = this.data.balance;
-        }
+        this.isEdit = this.contextOptions.isEdit;
+        // if (this.data.balance && !this.data.previousBalance) {
+        //     this.data.previousBalance = this.data.balance;
+        // }
         
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};

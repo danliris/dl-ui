@@ -59,10 +59,20 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
+        this.detailOptions = {
+            isEdit: this.isEdit
+        }
+
         // if (this.data.bonNo) {
         //     this.selectedInspectionMaterial = {};
         //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
         // }
+
+        if (this.isEdit && !this.readOnly) {
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima", ""];
+        } else {
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima"];
+        }
 
         if(this.data.transitProductionOrders){
             this.transitProductionOrders = this.data.transitProductionOrders;

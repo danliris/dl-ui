@@ -81,7 +81,7 @@ export class BalanceDebtItem {
         return (keyword) => {
           var info = {
             keyword: keyword,
-            select: JSON.stringify({ "billNo": "BillNo", "Id": "1", "dONo" : "DONo", "supplierName": "SupplierName", "internNo": "InternNo", "arrivalDate" : "ArrivalDate" }),
+            select: JSON.stringify({ "billNo": "BillNo", "Id": "1", "dONo" : "DONo", "supplierName": "SupplierName", "internNo": "InternNo", "arrivalDate" : "ArrivalDate", "paymentType" : "PaymentType", "paymentMethod" : "paymentMethod" }),
             search: JSON.stringify(["BillNo"]),
             order: { "BillNo": "asc" },
             year: this.year,
