@@ -15,8 +15,7 @@ export class CartItem {
         this.destinationArea = this.contextOptions.destinationArea;
         this.isSales = this.contextOptions.isSales;
         this.isEdit = this.contextOptions.isEdit;
-        console.log(this.options)
-        console.log(this.isEdit)
+        
         if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
         }

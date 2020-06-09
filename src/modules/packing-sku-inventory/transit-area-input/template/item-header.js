@@ -6,7 +6,7 @@ export class ItemHeader {
       this.data = context.data;
       this.items = context.items;
       this.options = context.options;
-      console.log(context)
+      
       this.isEdit = this.options.isEdit;
     }
   
