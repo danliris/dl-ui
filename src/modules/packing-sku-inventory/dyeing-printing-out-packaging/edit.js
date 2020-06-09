@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+import * as _ from 'underscore';
 
 @inject(Router, Service)
 export class Edit {
@@ -13,6 +13,24 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
+
+        var mappedGroup = _.map(groupObj);
+        
+        var packagingProductionOrdersGroup = [];
+        mappedGroup.forEach((element,index) => {
+            var headData = {};
+            
+            element.forEach((x,i)=>{
+                if(i==0){
+                    headData = x;
+                    headData.PackagingList = [];
+                }
+                headData.PackagingList.push(x);
+            });
+        });
+        
+        this.canEdit=true;
     }
 
     view(data) {

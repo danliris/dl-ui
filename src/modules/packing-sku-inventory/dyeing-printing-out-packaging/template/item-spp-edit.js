@@ -70,6 +70,10 @@ export class ItemSPP {
                 this.data.unit = "DYEING"
             }
             console.log(this);
+            // this.data.PackagingList = this.data.PackagingList || [];
+            
+            // this.data.PackagingList.push(this.selectedProductionOrder);
+
         }
     }
 

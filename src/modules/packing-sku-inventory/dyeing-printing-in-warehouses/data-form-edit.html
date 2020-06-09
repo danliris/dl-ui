@@ -13,7 +13,7 @@
       options.bind="controlOptions"
       value.bind="data.date"
       error.bind="error.Date"
-      read-only.bind="readOnly"
+      read-only.bind="true"
       label="Tanggal"
     >
     </au-datepicker>
@@ -23,7 +23,7 @@
       label="Shift"
       value.bind="data.shift"
       error.bind="error.Shift"
-      read-only.bind="readOnly"
+      read-only.bind="true"
       items.bind="shifts"
     ></au-dropdown>
 
@@ -32,15 +32,14 @@
       label="Group"
       value.bind="data.group"
       error.bind="error.Group"
-      read-only.bind="readOnly"
+      read-only.bind="true"
       items.bind="groups"
     ></au-dropdown>
     <textbox
-    label ="Nomor Bon"
-    value.bind="data.bonNo"
-    read-only.bind="true"
-    if.bind="readOnly"
-  ></textbox>
+      label ="Nomor Bon"
+      value.bind="data.bonNo"
+      read-only.bind="true"
+    ></textbox>
     <au-collection
       columns.bind="itemColumns"
       view-model.ref="ItemsCollection"
@@ -48,8 +47,9 @@
       errors.one-way="error.WarehousesProductionOrders"
       options.bind="detailOptions"
       read-only.bind="readOnly"
-      header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-header"
-      item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item"
+      remove.bind="onremove"
+      header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-header-edit"
+      item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/item-edit"
     >
       >
     </au-collection>

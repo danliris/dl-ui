@@ -13,6 +13,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.canEdit=true;
+        
     }
 
     view(data) {
@@ -20,6 +22,8 @@ export class Edit {
     }
 
     save() {
+        this.data.PackagingProductionOrders = this.data.packagingProductionOrders;
+        console.log(this.data);
         
         this.service.update(this.data).then(result => {
             this.view();

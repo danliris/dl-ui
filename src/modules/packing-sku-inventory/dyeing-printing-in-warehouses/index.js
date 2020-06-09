@@ -22,6 +22,13 @@ export class Index {
         nav: false,
         title: "View:  Gudang Barang Jadi - Dyeing & Printing",
       },
+      {
+        route: "edit/:id",
+        moduleId: "./edit",
+        name: "edit",
+        nav: false,
+        title: "Edit:  Gudang Barang Jadi - Dyeing & Printing",
+      },
       // { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Gudang Barang Jadi - Dyeing & Printing' },
     ]);
 
