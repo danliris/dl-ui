@@ -2,14 +2,16 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
-const SalesInvoiceLoader = require('./../../../../loader/sales-invoice-loader');
-const BuyerLoader = require('./../../../../loader/buyers-loader');
-const UnitLoader = require('./../../../../loader/unit-loader');
+// const SalesInvoiceLoader = require('./../../../../loader/sales-invoice-loader');
+// const BuyerLoader = require('./../../../../loader/buyers-loader');
+// const UnitLoader = require('./../../../../loader/unit-loader');
 
 @inject(Service)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable data;
+    @bindable error;
 
     formOptions = {
         cancelText: "Kembali",
@@ -18,7 +20,7 @@ export class DataForm {
         editText: "Ubah",
     };
 
-    BONCode = ["", "FSSA", "FSSB", "JESA","JESB","JLSA","JLSB","JLSC","WBSA","WBSB","WBSC","WCSA","WCSB","WCSC",];
+    BonCode = ["", "FSSA", "FSSB", "JESA","JESB","JLSA","JLSB","JLSC","WBSA","WBSB","WBSC","WCSA","WCSB","WCSC",];
     
     constructor(service) {
         this.service = service;
@@ -44,15 +46,21 @@ export class DataForm {
         { header: "DOS", value:"WeightDOS" },
         { header: "Cone", value:"WeightCone" },
         { header: "BALE", value:"WeightBale" },
-        { header: "KG", value:"WeightKg" }
+        { header: "KG", value:"getTotal" }
     ];
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.items.push({})
         };
     }
 
+    enterDelegate(event) {
+      if (event.charCode === 13) {
+        event.preventDefault();
+        return false;
+      } else return true;
+    }
     // get salesInvoiceLoader() {
     //     return SalesInvoiceLoader;
     // }
