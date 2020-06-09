@@ -13,7 +13,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.dyeingPrintingAreaInputId = this.contextOptions.dyeingPrintingAreaInputId;
-        
+        this.isEdit = this.contextOptions.isEdit;
 
         this.sppQuery.dyeingPrintingAreaInputId = this.dyeingPrintingAreaInputId;
         

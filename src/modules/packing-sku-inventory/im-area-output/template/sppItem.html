@@ -1,6 +1,6 @@
 <template replace-part="inspectionMaterialProductionOrders">
     <tr>
-        <td show.bind="!readOnly">
+        <td show.bind="!readOnly && !isEdit">
             <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -60,6 +60,9 @@
                 error.bind="error.PreviousBalance" options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td if.bind="!options.readOnly && isEdit">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
     </tr>
     <tr if.bind="error.ProductionOrderDetail">
         <td colspan="12">
@@ -69,8 +72,8 @@
 
     </tr>
     <tr if.bind="isShowing">
-        <td show.bind="!readOnly"></td>
-        <td colspan="11">
+        <td show.bind="!readOnly && !isEdit"></td>
+        <td colspan="12">
             <au-collection columns.bind="sppColumns" items.bind="data.productionOrderDetails" options.bind="sppOptions"
                 add.bind="addSPPDetailCallback" remove.bind="sppRemove" read-only.bind="readOnly"
                 errors.bind="error.ProductionOrderDetails"

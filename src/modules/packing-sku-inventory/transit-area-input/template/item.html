@@ -1,6 +1,6 @@
 <template replace-part="transitProductionOrders">
     <tr>
-        <td show.bind="!readOnly">
+        <td show.bind="!readOnly && !isEdit">
             <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -63,6 +63,9 @@
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
+        </td>
+        <td if.bind="!options.readOnly && isEdit">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>

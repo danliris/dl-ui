@@ -1,6 +1,6 @@
 <template >
     <tr>
-        <th show.bind="!readOnly">
+        <th show.bind="!readOnly && !isEdit">
             <au-checkbox 
                 value.bind="options.checkedAll"
                 disabled.bind="readOnly"
