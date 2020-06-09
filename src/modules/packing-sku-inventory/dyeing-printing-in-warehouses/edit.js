@@ -20,7 +20,8 @@ export class Edit {
     }
 
     save() {
-        
+        this.data.MappedWarehousesProductionOrders =  this.data.warehousesProductionOrders;
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
