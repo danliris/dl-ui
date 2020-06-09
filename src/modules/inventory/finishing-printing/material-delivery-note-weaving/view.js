@@ -3,39 +3,41 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { Dialog } from '../../../../au-components/dialog/dialog';
 
-
 @inject(Router, Service, Dialog)
-export class Edit {
+export class View {
     constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
     }
 
-    isEdit = true;
-
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
     }
 
-    cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data.id });
+    list() {
+        this.router.navigateToRoute('list');
     }
 
-    saveCallback(event) {
-        this.dialog.prompt('Apakah anda yakin akan menyimpan perubahan data ini?', 'Ubah Data Bon Pengiriman Barang Spinning')
-            .then((response) => {
-                if (response.ok) {
-                    this.service.update(this.data)
-                        .then(result => {
-                            this.router.navigateToRoute('view', { id: this.data.id });
-                        })
-                        .catch(e => {
-                            this.error = e;
-                        })
-                }
-            })
+    cancelCallback(event) {
+        this.list();
+    }
 
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.id });
+    }
+
+    deleteCallback(event) {
+      console.log(this.data);
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Bon Pengiriman Barang')
+            .then(response => {
+                if (response.ok) {
+                    this.service.delete(this.data)
+                        .then(result => {
+                            this.list();
+                        });
+                }
+            });
     }
 }

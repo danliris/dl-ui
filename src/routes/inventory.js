@@ -122,7 +122,7 @@ module.exports = [
       name: "inventory/finishing-printing/material-delivery-note",
       moduleId: "modules/inventory/finishing-printing/material-delivery-note/index",
       nav: true,
-      title: "Bon Pengiriman Barang",
+      title: "Bon Pengiriman Barang Spinning",
       auth: true,
       settings: {
           group: "Inventory",
@@ -130,6 +130,19 @@ module.exports = [
           iconClass: "fa fa-dashboard"
       }
     },
+    {
+        route: "inventory/finishing-printing/material-delivery-note-weaving",
+        name: "inventory/finishing-printing/material-delivery-note-weaving",
+        moduleId: "modules/inventory/finishing-printing/material-delivery-note-weaving/index",
+        nav: true,
+        title: "Bon Pengiriman Barang Weaving",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+      },
     {
         route: "inventory/finishing-printing/reports/fp-shipment-document-report",
         name: "inventory/finishing-printing/reports/fp-shipment-document-report",
