@@ -20,9 +20,16 @@
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
 
-    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true" value.bind="error.ShippingProductionOrder" style="color: red;"></au-textbox>
+    <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true"
+      value.bind="error.ShippingProductionOrder" style="color: red;"></au-textbox>
     <au-collection columns.bind="itemColumns" items.bind="shippingProductionOrders" options.bind="detailOptions"
-      errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly"
+      errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly" if.bind="!isEdit"
+      header-template="modules/packing-sku-inventory/shipping-area-input/template/item-header"
+      item-template="modules/packing-sku-inventory/shipping-area-input/template/item">
+    </au-collection>
+
+    <au-collection columns.bind="itemColumns" items.bind="shippingProductionOrders" options.bind="detailOptions"
+      errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly" if.bind="isEdit"
       header-template="modules/packing-sku-inventory/shipping-area-input/template/item-header"
       item-template="modules/packing-sku-inventory/shipping-area-input/template/item">
     </au-collection>
