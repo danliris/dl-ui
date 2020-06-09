@@ -1,0 +1,21 @@
+<template>
+  <tr>
+       
+     
+      <td  class="col-sm-9">
+          <au-textbox 
+              value.bind="data.AdjustmentDescription"
+              read-only.bind="read-only"
+              options.bind="controlOptions">
+          </au-textbox>
+      </td>
+        <td class="col-sm-3">
+          <au-numeric 
+              value.bind="data.AdjustmentValue" 
+              read-only.bind="read-only" 
+              options.bind="controlOptions"
+              format="0.0000">
+          </au-numeric>
+      </td>
+   </tr>
+</template>

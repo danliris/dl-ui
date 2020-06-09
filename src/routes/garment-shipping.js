@@ -12,5 +12,18 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "garment-shipping/invoice",
+        name: "garment-shipping/invoice",
+        moduleId: "modules/garment-shipping/invoice/index",
+        nav: true,
+        title: "Invoice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]
