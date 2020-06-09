@@ -6,6 +6,11 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.qtyOrder" read-only.bind="true" error.bind="error.Buyer"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
             </au-textbox>
@@ -44,6 +49,11 @@
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly"
+                    class="btn btn-danger pull-right"
+                    click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
