@@ -342,7 +342,7 @@ module.exports = [
       name: 'down-payment',
       moduleId: './modules/expedition/down-payment/index',
       nav: true,
-      title: 'Uang Muka',
+      title: 'Bukti Pemasukan Bank',
       auth: true,
       settings: {
           group: "finance",

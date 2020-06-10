@@ -1,0 +1,45 @@
+<template>
+    <tr>
+      <!-- <require from="../../../../lib/number-format-value-converter"></require> format="0,0.00" -->
+      <td>
+        <au-textbox placeholder="Input No SPP" value.bind="data.ItemNoSPP" error.bind="error.ItemNoSPP"
+        read-only.bind="readOnly">
+        </au-textbox>
+      </td>
+      <td>
+        <au-textbox placeholder="Input Nama Barang" value.bind="data.ItemMaterialName" error.bind="error.ItemMaterialName"
+        read-only.bind="readOnly">
+        </au-textbox>
+      </td>
+      <td>
+        <au-textbox placeholder="Input Design" value.bind="data.ItemDesign" error.bind="error.ItemDesign"
+        read-only.bind="readOnly">
+        </au-textbox>
+      </td>
+      <td>
+        <au-textbox placeholder="Input Jenis" value.bind="data.ItemType" error.bind="error.ItemType" read-only.bind="readOnly">
+        </au-textbox>
+      </td>
+      <td>
+        <au-textbox placeholder="Input Kode" value.bind="data.ItemCode" error.bind="error.ItemCode" read-only.bind="readOnly" >
+        </au-textbox>
+      </td>
+      <td>
+        <au-numeric value.bind="data.InputPacking" error.bind="error.InputPacking" read-only.bind="readOnly">
+        </au-numeric>
+      </td>
+      <td>
+        <au-numeric value.bind="Length" error.bind="error.Length" read-only.bind="readOnly" format="0,0.00">
+        </au-numeric>
+      </td>
+      <td>
+        <au-numeric value.bind="InputConversion" read-only.bind="true" format="0.00000">
+        </au-numeric>
+      </td>
+      <td class="col-sm-1" if.bind="!readOnly">
+        <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-
+        </button>
+      </td>
+    </tr>
+  </template>
+  
