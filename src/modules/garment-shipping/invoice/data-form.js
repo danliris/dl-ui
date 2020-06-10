@@ -104,8 +104,8 @@ export class DataForm {
     }
     async packinglistsChanged(newValue, oldValue) {
         var selectedInv = newValue;
-        console.log(selectedInv);
-        if (selectedInv) {
+        console.log(selectedInv,this.data.id);
+        if (selectedInv && this.data.id == undefined) {
 
             this.data.invoiceNo = selectedInv.invoiceNo;
             this.data.invoiceDate = selectedInv.date;
@@ -291,7 +291,7 @@ export class DataForm {
              this.bankAccount= this.data.bankAccount;
              this.shippingStaff=this.data.shippingStaff;
              this.fabricType=this.data.fabricType;
-            // this.packinglists=this.data.invoiceNo;
+             this.packinglists=this.data.invoiceNo;
             if(this.data.coDate === "0001-01-01T00:00:00+00:00" )
             {
                     this.data.coDate=null;    
