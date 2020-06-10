@@ -1,11 +1,11 @@
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = "memos";
+const serviceUri = "material-delivery-note";
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "finance");
+        super(http, aggregator, config, "packing-inventory");
     }
 
     search(info) {
@@ -29,12 +29,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        let endpoint = `${serviceUri}/${data.Id}`;
+        let endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        let endpoint = `${serviceUri}/${data.Id}`;
+        let endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
 }
