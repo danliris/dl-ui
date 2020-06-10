@@ -13,7 +13,7 @@ export class Service extends RestService {
     }
 
     generateExcel(date) {
-        var endpoint = `${serviceUri}/xls?date=${date}`;
+        var endpoint = `${serviceUri}/xls?searchDate=${date}`;
 
         return super.getXls(endpoint);
     }
