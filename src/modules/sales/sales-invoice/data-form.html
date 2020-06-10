@@ -53,19 +53,6 @@
             <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly" placeholder="Input Nama Sales">
             </au-textbox>
 
-            <div if.bind="data.SalesType =='Ekspor'">
-              <au-datepicker label="Tanggal Sailing" value.bind="data.SailingDate" error.bind="error.SailingDate"
-                read-only.bind="readOnly">
-              </au-datepicker>
-
-              <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer" read-only.bind="readOnly"
-                placeholder="Input Shipped Per">
-              </au-textbox>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-
             <au-textbox label="No. Surat Jalan" value.bind="data.DeliveryOrderNo" if.bind="readOnly || isEdit"
               read-only.bind="true">
             </au-textbox>
@@ -98,7 +85,64 @@
             <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
               keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
             </au-multiline>
-            </au-dropdown>
+          </div>
+
+          <div class="col-md-6">
+
+            <div if.bind="data.SalesType =='Ekspor'">
+              <au-datepicker label="Tanggal Sailing" value.bind="data.SailingDate" error.bind="error.SailingDate"
+                read-only.bind="readOnly">
+              </au-datepicker>
+
+              <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer"
+                read-only.bind="readOnly" placeholder="Input Shipped Per">
+              </au-textbox>
+              <!-- TEST -->
+
+              <au-textbox label="Warna" value.bind="data.Color" error.bind="error.Color" read-only.bind="readOnly"
+                placeholder="Input Warna">
+              </au-textbox>
+
+              <au-textbox label="No. Order" value.bind="data.OrderNo" error.bind="error.OrderNo"
+                read-only.bind="readOnly" placeholder="Input No. Order">
+              </au-textbox>
+
+              <au-textbox label="Indent" value.bind="data.Indent" error.bind="error.Indent" read-only.bind="readOnly"
+                placeholder="Input Indent">
+              </au-textbox>
+
+              <au-numeric label="Kuantitas" value.bind="data.QuantityLength" error.bind="error.QuantityLength"
+                read-only.bind="readOnly" format="0,0.00">
+              </au-numeric>
+
+              <!-- <au-dropdown label="Satuan Panjang" value.bind="data.LengthUom" items.bind="quantityUomOptions"
+                error.bind="error.QuantityUom" read-only.bind="readOnly || isEdit">
+              </au-dropdown> -->
+
+              <au-textbox label="No. Karton" value.bind="data.CartonNo" error.bind="error.CartonNo"
+                read-only.bind="readOnly" placeholder="Input No. Karton">
+              </au-textbox>
+
+              <au-numeric label="Berat Kotor" value.bind="data.GrossWeight" error.bind="error.GrossWeight"
+                read-only.bind="readOnly" format="0,0.00">
+              </au-numeric>
+
+              <au-numeric label="Berat Bersih" value.bind="data.NetWeight" error.bind="error.NetWeight"
+                read-only.bind="readOnly" format="0,0.00">
+              </au-numeric>
+
+              <au-dropdown label="Satuan Berat" value.bind="data.WeightUom" items.bind="weightUomOptions"
+                error.bind="error.WeightUom" read-only.bind="readOnly || isEdit">
+              </au-dropdown>
+
+              <au-numeric label="Ukuran Total" value.bind="data.TotalMeas" error.bind="error.TotalMeas"
+                read-only.bind="readOnly" format="0,0.00">>
+              </au-numeric>
+
+              <au-dropdown label="Satuan Total" value.bind="data.TotalUom" items.bind="totalUomOptions"
+                error.bind="error.TotalUom" read-only.bind="readOnly || isEdit">
+              </au-dropdown>
+            </div>
           </div>
         </div>
       </div>

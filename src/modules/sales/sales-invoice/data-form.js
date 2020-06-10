@@ -109,9 +109,12 @@ export class DataForm {
     if (this.data.SalesInvoiceDetails) {
       for (var detail of this.data.SalesInvoiceDetails) {
         for (var item of detail.SalesInvoiceItems) {
-          result += item.Amount;
+          if(item.Amount) {
+            result += item.Amount;
+          }
         }
       }
+      console.log(result)
     }
     if (this.data.VatType == "PPN BUMN") {
       totalPayment = result;
@@ -220,6 +223,9 @@ export class DataForm {
     "PPN Retail",
   ];
   paymentTypeOptions = ["", "MTR", "YARD"];
+
+  weightUomOptions = ["", "KG", "BALE"];
+  totalUomOptions = ["", "CBM", "Etc"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
