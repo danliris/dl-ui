@@ -59,7 +59,15 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+        this.detailOptions = {
+            isEdit: this.isEdit
+        }
 
+        if (this.isEdit && !this.readOnly) {
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan", ""];
+        } else {
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];
+        }
 
         if (this.data.shippingProductionOrders) {
             this.shippingProductionOrders = this.data.shippingProductionOrders;

@@ -13,6 +13,7 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
     }
 
     view(data) {
@@ -24,7 +25,16 @@ export class Edit {
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
-            this.error = e;
-        })
+            if (e.statusCode == 500) {
+                if (e.error) {
+                    alert(e.error);
+
+                } else {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+            } else {
+                this.error = e;
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@ import { bindable, computedFrom } from 'aurelia-framework';
 
 export class Item {
   constructor() {
+    this.error = {};
   }
 
   activate(context) {
@@ -24,11 +25,11 @@ export class Item {
   //     this.data.Currency = newValue;
   // }
 
-  @computedFrom("data.WeightBale")
+  @computedFrom("data.weightBale")
   get getTotal() {
     this.data.getTotal = 0;
-    if (this.data.WeightBale) {
-      this.data.getTotal = this.data.WeightBale * 217.7243376;
+    if (this.data.weightBale) {
+      this.data.getTotal = this.data.weightBale * 217.7243376;
     }
     else{
       this.data.getTotal = 0;

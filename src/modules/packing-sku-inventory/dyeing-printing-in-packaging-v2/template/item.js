@@ -78,8 +78,8 @@ export class CartItem {
                 this.data.unit = "DYEING"
             }
         }
-        else {
-            this.data.productionOrder = {};
-        }
+        // else {
+        //     this.data.productionOrder = {};
+        // }
     }
 }

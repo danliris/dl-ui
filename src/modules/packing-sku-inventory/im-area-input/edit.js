@@ -21,11 +21,20 @@ export class Edit {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
-            this.error = e;
-        })
+            if (e.statusCode == 500) {
+                if (e.error) {
+                    alert(e.error);
+
+                } else {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+            } else {
+                this.error = e;
+            }
+        });
     }
 }

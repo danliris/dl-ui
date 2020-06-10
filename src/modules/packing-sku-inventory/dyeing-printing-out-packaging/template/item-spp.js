@@ -69,7 +69,7 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
-            // console.log(this);
+            console.log(this);
         }
     }
 
