@@ -13,6 +13,7 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasOutputDocument === false);
     }
 
     view(data) {

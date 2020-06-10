@@ -1,6 +1,6 @@
 <template replace-part="shippingProductionOrders">
     <tr>
-        <td show.bind="!readOnly">
+        <td show.bind="!readOnly && !isEdit">
             <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -52,12 +52,12 @@
             </au-textbox>
         </td>
         <td>
-            <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings" read-only.bind="readOnly"
+            <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings" read-only.bind="readOnly || !isSales"
                 error.bind="error.GradeShipping" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
-            <au-textbox value.bind="data.shippingRemark" read-only.bind="readOnly" error.bind="error.ShippingRemark"
+            <au-textbox value.bind="data.shippingRemark" read-only.bind="readOnly || !isSales" error.bind="error.ShippingRemark"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
@@ -75,7 +75,7 @@
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.weight" format="0.00" read-only.bind="readOnly" error.bind="error.Weight"
+            <au-numeric value.bind="data.weight" format="0.00" read-only.bind="readOnly || !isSales" error.bind="error.Weight"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
@@ -83,6 +83,9 @@
             <au-textbox value.bind="data.deliveryNote" read-only.bind="readOnly" error.bind="error.DeliveryNote"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td if.bind="!options.readOnly && isEdit">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
