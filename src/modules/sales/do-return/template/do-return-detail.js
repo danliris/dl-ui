@@ -8,6 +8,7 @@ var SalesInvoiceLoader = require("../../../../loader/sales-invoice-loader");
 export class DoReturnDetail {
   @bindable data;
   @bindable error;
+  @bindable ItemCollections;
 
   detailItemOptions = {};
   itemOptions = {};
@@ -50,7 +51,6 @@ export class DoReturnDetail {
     }.bind(this),
   };
 
-  @bindable ItemCollections;
   enterDelegate(event) {
     if (event.charCode === 13) {
       event.preventDefault();

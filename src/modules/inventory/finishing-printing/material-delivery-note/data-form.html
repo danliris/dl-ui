@@ -10,16 +10,16 @@
 
             <div class="col-md-6">
 
-              <au-datepicker label="Tanggal S.J" value.bind="data.Date" error.bind="error.Date"
+              <au-datepicker label="Tanggal S.J" value.bind="data.dateSJ" error.bind="error.DateSJ"
                 read-only.bind="readOnly">
               </au-datepicker>
 
               <au-dropdown label="Kode BON"
-              value.bind="data.BONCode"
-              error.bind="error.BONCode"
+              value.bind="data.bonCode"
+              error.bind="error.BonCode"
               read-only.bind="readOnly || isEdit"
               placeholder="masukkan kode bon"
-              items.bind="BONCode"></au-dropdown>
+              items.bind="BonCode"></au-dropdown>
 
               <div class="row">
 
@@ -28,32 +28,32 @@
                 </div>
 
                 <div class="col-sm-5" style="padding-left:9%">
-                  <au-datepicker label="Awal" value.bind="data.DateFrom" error.bind="error.DateFrom"
+                  <au-datepicker label="Awal" value.bind="data.dateFrom" error.bind="error.DateFrom"
                     read-only.bind="readOnly">
                   </au-datepicker>
                 </div>
 
                 <div class="col-sm-5" style="padding-left:5%">
-                  <au-datepicker label="Akhir" value.bind="data.DateTo" error.bind="error.DateTo"
+                  <au-datepicker label="Akhir" value.bind="data.dateTo" error.bind="error.DateTo"
                     read-only.bind="readOnly">
                   </au-datepicker>
                 </div>
 
               </div>
 
-              <au-textbox label="Berdasarkan DO No" value.bind="data.DONumber"
+              <au-textbox label="Berdasarkan DO No" value.bind="data.doNumber"
                 error.bind="error.DONumber" read-only.bind="readOnly" placeholder="Input DO Number">
               </au-textbox>
 
-              <au-textbox label="No SC" value.bind="data.SCNumber" error.bind="error.SCNumber"
+              <au-textbox label="No SC" value.bind="data.scNumber" error.bind="error.SCNumber"
                 read-only.bind="readOnly" placeholder="Input No. SC">
               </au-textbox>
 
-              <au-textbox label="No FO" value.bind="data.FONumber" error.bind="error.FONumber"
+              <au-textbox label="No FO" value.bind="data.foNumber" error.bind="error.FONumber"
                 read-only.bind="readOnly" placeholder="Input No. FO">
               </au-textbox>
 
-              <au-textbox label="Gudang" value.bind="data.StorageNumber" error.bind="error.StorageNumber"
+              <au-textbox label="Gudang" value.bind="data.storageNumber" error.bind="error.StorageNumber"
                 read-only.bind="readOnly" placeholder="Input No. Gudang">
               </au-textbox>
 
@@ -61,15 +61,15 @@
 
             <div class="col-md-6">
 
-              <au-textbox label="Dikirm Kepada" value.bind="data.Receiver"
+              <au-textbox label="Dikirm Kepada" value.bind="data.receiver"
                 error.bind="error.Receiver" read-only.bind="readOnly" placeholder="Input Dikirm Kepada">
               </au-textbox>
 
-              <au-textbox label="Bagian/Pengirim" value.bind="data.Sender"
+              <au-textbox label="Bagian/Pengirim" value.bind="data.sender"
                 error.bind="error.Sender" read-only.bind="readOnly" placeholder="Input Bagian/Pengirim">
               </au-textbox>
 
-              <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark"
+              <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.Remark"
                 read-only.bind="readOnly" keypress.delegate="enterDelegate($event)" placeholder="Input Keterangan">
               </au-multiline>
 
@@ -86,7 +86,7 @@
     <au-textbox error.bind="error.Item" show.bind="error.Item" read-only.bind="true">
     </au-textbox>
 
-    <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
+    <au-collection items.bind="data.items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
       remove.bind="onremove" read-only.bind="readOnly"
       item-template="modules/inventory/finishing-printing/material-delivery-note/template/item">
     </au-collection>

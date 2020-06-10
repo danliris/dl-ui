@@ -50,6 +50,7 @@ export class DataForm {
     columns: [
       { header: "No BP", value: "deliveryOrder.billNo" },
       { header: "Nota Intern"},
+      { header: "Tipe Pembayaran" },
       { header: "Valas" },
       { header: "IDR" },
     ],
