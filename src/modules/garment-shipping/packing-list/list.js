@@ -9,26 +9,24 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "FinishedGoodExpenditureNo", title: "No Invoice" },
-        { field: "FinishedGoodExpenditureNo", title: "Seksi" },
+        { field: "invoiceNo", title: "No Invoice" },
+        { field: "SectionCode", title: "Seksi" },
         {
-            field: "ExpenditureDate", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "ExpenditureDate", title: "Tgl Trucking", formatter: function (value, data, index) {
+            field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "ExpenditureDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
+            field: "exportEstimationDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "ExpenditureTo", title: "Destination" },
-        { field: "BuyerName", title: "Komoditi" },
-        { field: "OtherDescription", title: "Keterangan Lain-lain" },
+        { field: "destination", title: "Destination" },
     ];
 
     loader = (info) => {
@@ -45,8 +43,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result)
                 for (const data of result.data) {
-                    data.BuyerName = data.Buyer.Name;
+                    data.SectionCode = data.section.code;
                 }
                 return {
                     total: result.info.total,
@@ -65,7 +64,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data.Id });
+                this.router.navigateToRoute('view', { id: data.id });
                 break;
         }
     }

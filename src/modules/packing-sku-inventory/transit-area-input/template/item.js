@@ -11,7 +11,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        console.log(context)
+        
         this.isEdit = this.contextOptions.isEdit;
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};

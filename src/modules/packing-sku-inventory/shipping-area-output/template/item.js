@@ -14,6 +14,8 @@ export class CartItem {
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
         this.isSales = this.contextOptions.isSales;
+        this.isEdit = this.contextOptions.isEdit;
+        
         if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
         }

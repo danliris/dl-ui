@@ -21,6 +21,13 @@ export class measurement {
             readOnly: this.readOnly,
             isEdit:this.isEdit,
         };
+        
     }
-
+    
+    get cmb(){
+        if(this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
+            return this.data.length*this.data.width*this.data.height*this.data.cartonsQuantity;
+        else
+            return 0;
+    }
 }
