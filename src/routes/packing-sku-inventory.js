@@ -223,6 +223,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/aval-area-transformation-input',
+        name: 'aval-area-transformation-input',
+        moduleId: './modules/packing-sku-inventory/aval-area-transformation-input/index',
+        nav: true,
+        title: 'Perubahan Masukan Aval Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/aval-area-output',
         name: 'aval-area-output',
         moduleId: './modules/packing-sku-inventory/aval-area-output/index',

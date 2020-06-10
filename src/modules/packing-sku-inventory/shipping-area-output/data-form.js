@@ -410,7 +410,7 @@ export class DataForm {
         this.data.deliveryOrder = null;
         this.selectedDO = null;
         this.data.bonNo = null;
-        this.data.inputShippingId = null;
+        this.data.inputShippingId = 0;
         this.data.displayShippingProductionOrders = [];
       }
     }
