@@ -4,17 +4,8 @@
         <au-datepicker label="Tanggal S.J" value.bind="data.DateSJ" error.bind="error.DateSJ" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
-
-        <!-- <au-autocomplete placeholder="Pilih Nomor DO"
-                         value.bind="data.SalesInvoice"
-                         error.bind="error.SalesInvoice"
-                         loader.one-time="salesInvoiceLoader"
-                         text="SalesInvoiceNo"
-                         label="Berdasarkan DO No"
-                         read-only.bind="readOnly || isEdit"
-                         options.bind="controlOptions">
-        </au-autocomplete> -->
-        <au-autocomplete placeholder="Pilih Nomor DO" options.bind="controlOptions" value.bind="selectedDO"
+        
+        <au-autocomplete placeholder="Pilih Nomor DO" options.bind="controlOptions" value.bind="data.selectedDO"
             label="Berdasarkan DO No" read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder"
             loader.bind="doSalesLoader" text.bind="doTextFormatter">
         </au-autocomplete>
@@ -23,7 +14,7 @@
             placeholder="Input Dikirim Kepada" options.bind="controlOptions">
         </au-textbox>
 
-        <au-autocomplete value.bind="unit" error.bind="error.Unit" label="Bagian" loader.one-time="unitLoader"
+        <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" label="Bagian" loader.one-time="unitLoader"
             read-only.bind="readOnly" options.bind="controlOptions" text="Name" placeholder="Cari Bagian">
         </au-autocomplete>
 
@@ -39,21 +30,15 @@
             keypress.delegate="enterDelegate($event)" placeholder="Cari Gudang" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-dropdown label="Satuan Panjang" value.bind="selectedUnitLength" error.bind="error.UnitLength"
-            read-only.bind="readOnly || isEdit" items.bind="UnitLength" options.bind="controlOptions"></au-dropdown>
-
-        <au-dropdown label="Satuan Packing" value.bind="data.UnitPacking" error.bind="error.UnitPacking"
-            read-only.bind="readOnly || isEdit" items.bind="UnitPacking" options.bind="controlOptions"></au-dropdown>
-
         <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
             keypress.delegate="enterDelegate($event)" placeholder="Input Keterangan" options.bind="controlOptions">
         </au-multiline>
 
-        <au-textbox error.bind="error.ItemsMaterialDeliveryNoteW" show.bind="error.ItemsMaterialDeliveryNoteW"
+        <au-textbox error.bind="error.ItemsMaterialDeliveryNoteWeaving" show.bind="error.ItemsMaterialDeliveryNoteWeaving"
             read-only.bind="true">
         </au-textbox>
 
-        <au-collection items.bind="data.ItemsMaterialDeliveryNoteW" errors.bind="error.ItemsMaterialDeliveryNoteW"
+        <au-collection items.bind="data.ItemsMaterialDeliveryNoteWeaving" error.bind="error.ItemsMaterialDeliveryNoteWeaving"
             columns.bind="columns" add.bind="addItems" remove.bind="onremove" read-only.bind="readOnly"
             item-template="modules/inventory/finishing-printing/material-delivery-note-weaving/template/item"
             options.bind="itemOptions">

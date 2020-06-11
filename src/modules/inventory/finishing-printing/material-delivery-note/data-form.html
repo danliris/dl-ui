@@ -86,7 +86,7 @@
     <au-textbox error.bind="error.Item" show.bind="error.Item" read-only.bind="true">
     </au-textbox>
 
-    <au-collection items.bind="data.items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
+    <au-collection items.bind="data.items" error.bind="error.Items" columns.bind="columns" add.bind="addItems"
       remove.bind="onremove" read-only.bind="readOnly"
       item-template="modules/inventory/finishing-printing/material-delivery-note/template/item">
     </au-collection>

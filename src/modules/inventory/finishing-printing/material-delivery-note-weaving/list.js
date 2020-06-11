@@ -8,39 +8,39 @@ import numeral from 'numeral';
 export class List {
     context = ["Rincian"];
     columns = [
-        { field: "bonCode", title: "Kode BON" },
+        { field: "Code", title: "Kode BON" },
         {
             field: "DateSJ", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "receiver", title: "Nama Buyer" },
-        { field: "sender", title: "Dibuat Oleh" }
+        { field: "Buyer.Name", title: "Nama Buyer" },
+        { field: "SendTo", title: "Dibuat Oleh" }
     ];
 
-    // loader = (info) => {
-    //     let order = {};
+    loader = (info) => {
+        let order = {};
 
-    //     if (info.sort)
-    //         order[info.sort] = info.order;
-    //     else
-    //         order["DateSJ"] = "desc";
+        if (info.sort)
+            order[info.sort] = info.order;
+        else
+            order["DateSJ"] = "desc";
 
-    //     let arg = {
-    //         page: parseInt(info.offset / info.limit, 10) + 1,
-    //         size: info.limit,
-    //         keyword: info.search,
-    //         order: order
-    //     };
+        let arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
+        };
 
-    //     return this.service.search(arg)
-    //         .then(result => {
-    //             return {
-    //                 //total: result.info.total,
-    //                 data: result.data
-    //             }
-    //         });
-    // }
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    //total: result.info.total,
+                    data: result.data
+                }
+            });
+    }
 
     constructor(router, service) {
         this.service = service;

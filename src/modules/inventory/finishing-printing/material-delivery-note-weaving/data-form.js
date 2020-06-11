@@ -13,7 +13,6 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable data;
-    @bindable error;
     @bindable unit;
     @bindable selectedUnitLength;
 
@@ -56,36 +55,33 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
-        if (this.data.UnitLength) {
-            this.selectedUnitLength = this.data.UnitLength;
-        }
+        // if (this.data.UnitLength) {
+        //     this.selectedUnitLength = this.data.UnitLength;
+        // }
     }
 
-    selectedUnitLengthChanged(newValue, oldValue) {
-        if (this.selectedUnitLength) {
-            this.data.UnitLength = this.selectedUnitLength;
-            this.itemOptions.UnitLength = this.data.UnitLength;
-        }
-    }
+    // selectedUnitLengthChanged(newValue, oldValue) {
+    //     if (this.selectedUnitLength) {
+    //         this.data.UnitLength = this.selectedUnitLength;
+    //         this.itemOptions.UnitLength = this.data.UnitLength;
+    //     }
+    // }
 
     columns = [
-        { header: "No. SPP", value: "ItemNoSPP" },
+        { header: "No. SOP", value: "ItemNoSOP" },
         { header: "Nama Barang", value: "ItemMaterialName" },
-        { header: "Design", value: "ItemDesign" },
+        { header: "Grade", value: "ItemDesign" },
         { header: "Jenis", value: "ItemType" },
         { header: "Kode", value: "ItemCode" },
-        { header: "Packing", value: "InputPacking" },
-        { header: "Panjang", value: "InputLong" },
-        { header: "Konversi", value: "InputConversion" }
+        { header: "Bale", value: "InputBale" },
+        { header: "Piece", value: "InputPiece" },
+        { header: "Meter", value: "InputMeter" },
+        { header: "Kg", value: "InputKg" }
     ];
 
     get addItems() {
         return (event) => {
-
-            // var ab = {
-            //     Unit: this.data.UnitLength
-            // };
-            this.data.ItemsMaterialDeliveryNoteW.push({})
+            this.data.ItemsMaterialDeliveryNoteWeaving.push({})
         };
     }
 
