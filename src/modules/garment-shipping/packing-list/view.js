@@ -13,6 +13,13 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        var idx=0;
+        if(this.data.measurements){
+            for(var i of this.data.measurements){
+                i.MeasurementIndex=idx;
+                idx++;
+            }
+        }
         console.log(this.data);
     }
 

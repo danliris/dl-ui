@@ -23,9 +23,9 @@
         </td>
         <td>
             <au-numeric
-                value.bind="data.cartonQuantity"
+                value.bind="cartonQuantity"
                 error.bind="error.CartonQuantity"
-                read-only.bind="readOnly">
+                read-only.bind="true">
             </au-numeric>
         </td>
         <td >
@@ -66,6 +66,21 @@
                 item-template="modules/garment-shipping/packing-list/template/detail-size" >
             </au-collection>
             <!-- <hr style="border: 5px solid #173250; border-radius: 0px 0px 5px 5px;"> -->
+        </td>
+        <td colspan="1" style='border:none;'>
+        </td>
+    </tr>
+
+    <tr show.bind="isShowing">
+        <td colspan="1" style='border:none;'>
+        </td>
+        <td colspan="5" style='border:none;'>
+            <au-numeric
+                label= "Total Qty Size"
+                value.bind="totalQtySize"
+                error.bind="error.TotalQtySize"
+                read-only.bind="true" >
+            </au-numeric>
         </td>
         <td colspan="1" style='border:none;'>
         </td>
