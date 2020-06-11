@@ -31,7 +31,9 @@ export class DataForm {
   constructor(service) {
     this.service = service;
   }
-
+  DOFormatter = (DoItem) => {
+    return `${DoItem.DeliveryOrderSalesNO}`
+}
   bind(context) {
     this.context = context;
     this.service = this.context.service;
@@ -188,7 +190,17 @@ export class DataForm {
     }
   }
 
-
+  DOLoader = (e)=>{
+    var listDo =[
+      {
+        "DeliveryOrderSalesID" :52,
+        "DeliveryOrderSalesNO": "20US000017"
+      }
+    ]
+    return Promise.resolve(true).then(result=>{
+      return listDo;
+    });
+  }
 
   reset() {
     this.data.Date = undefined;

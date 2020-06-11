@@ -41,6 +41,18 @@ export class Service extends RestService {
 
     return super.get(endpoint);
   }
+  getAvalInfoByType(type) {
+    var endpoint = `${serviceUri}/aval-summary-by-type`;
+    var query="";
+    if(type){
+      if (query === "") query = `avalType=${type}`;
+      else query = `${query}&avalType=${type}`;
+    }
+    if (query !== "") {
+      endpoint = `${serviceUri}/aval-summary-by-type?${query}`;
+    }
+    return super.get(endpoint);
+  }
 
   getAvailableAvalByBon(bonId) {
     var endpoint = `${serviceUri}/available-aval/${bonId}`;

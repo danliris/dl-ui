@@ -62,8 +62,8 @@ export class Service extends RestService {
   //   return super.put(endpoint, data);
   // }
 
-  // delete(data) {
-  //   let endpoint = `${serviceUri}/${data.id}`;
-  //   return super.delete(endpoint, data);
-  // }
+  delete(data) {
+    let endpoint = `${serviceUri}/${data.id}`;
+    return super.delete(endpoint, data);
+  }
 }

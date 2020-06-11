@@ -35,7 +35,13 @@ export class Items {
     }
   }
   @bindable selectedAvalType
-  selectedAvalTypeChanged = (n,o)=>{
-    console.log(n);
+  selectedAvalTypeChanged (n,o){
+    this.service.getAvalInfoByType(n).then(result=>{
+      if(result.length >0 ){
+        this.data.AvalUomUnit = result[0].avalUomUnit;
+        this.data.AvalQuantityKg = result[0].avalQuantityKg;
+        this.data.AvalType = result[0].avalType;
+      }
+    });
   }
 }

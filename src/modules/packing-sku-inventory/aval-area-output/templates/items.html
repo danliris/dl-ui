@@ -30,20 +30,19 @@
     </td>
 
     <td style="white-space: nowrap;">
-      <au-dropdown
+      <au-textbox
         value.bind="data.AvalQuantityUnit"
         read-only.bind="readOnly"
         error.bind="error.AvalQuantityUnit"
-        items.bind="qtyOutUnit"
       >
-      </au-dropdown>
+      </au-textbox>
     </td>
 
     <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.AvalQuantityKg"
+        value.bind="data.AvalQuantityKgOut"
         read-only.bind="readOnly"
-        error.bind="error.AvalQuantityKg"
+        error.bind="error.AvalQuantityKgOut"
       >
       </au-numeric>
     </td>
