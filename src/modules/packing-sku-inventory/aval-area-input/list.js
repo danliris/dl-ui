@@ -32,6 +32,10 @@ export class List {
     {
       field: "shift",
       title: "Shift"
+    },
+    {
+      field: "group",
+      title: "Group"
     }
     // {
     //   field: "avalCartNo",
