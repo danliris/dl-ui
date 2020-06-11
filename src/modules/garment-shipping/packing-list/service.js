@@ -1,10 +1,10 @@
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'garment/leftover-warehouse-expenditures/finished-goods';
-const resourceStock = 'garment/leftover-warehouse-stocks';
+const serviceUri = 'garment-shipping/packing-lists';
+
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory-azure");
+        super(http, aggregator, config, "packing-inventory");
     }
 
     search(info) {
@@ -23,19 +23,33 @@ class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
 
-    getStock(info){
-        var endpoint = `${resourceStock}`;
-        return super.list(endpoint, info);
+}
+
+const costCalculationServiceUri = 'cost-calculation-garments';
+const SalesContractserviceUri = "merchandiser/garment-sales-contracts";
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationById(id) {
+        var endpoint = `${costCalculationServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getSalesContractById(id) {
+        var endpoint = `${SalesContractserviceUri}/${id}`;
+        return super.get(endpoint);
     }
 }
 
-export { Service }
+export { Service, SalesService}

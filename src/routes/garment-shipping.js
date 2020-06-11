@@ -37,5 +37,18 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "garment-shipping/cover-letter",
+        name: "garment-shipping/cover-letter",
+        moduleId: "modules/garment-shipping/cover-letter/index",
+        nav: true,
+        title: "Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]

@@ -14,7 +14,6 @@ export class Create {
     bind() {
         this.data = { Items: [] };
         this.error = {};
-        console.log(this.activeTab)
     }
 
     determineActivationStrategy() {
@@ -24,7 +23,9 @@ export class Create {
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('list');
+        if (confirm("Apakah Anda yakin keluar dari halaman ini?")) {
+            this.router.navigateToRoute('list');
+        }
     }
 
     saveCallback(event) {
