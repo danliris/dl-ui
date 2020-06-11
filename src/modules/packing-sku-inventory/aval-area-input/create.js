@@ -2,6 +2,8 @@ import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 import { activationStrategy } from 'aurelia-router';
+import * as _ from 'underscore';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
@@ -34,41 +36,140 @@ export class Create {
 
   save() {
     let CreateData = {};
-    CreateData.Area = this.data.Area;
-    CreateData.Shift = this.data.Shift;
-    CreateData.Group = this.data.Group;
+    CreateData.Area = "GUDANG AVAL";
+    CreateData.Shift = this.data.shift;
+    CreateData.Group = this.data.group;
+    // CreateData.Date = moment(this.data.date,"YYYY-MM-DD",true);
+    // CreateData.Date = this.data.date;
 
-    if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
+    if (this.data.date === undefined || this.data.date === null || this.data.date === "") {
       CreateData.Date = "";
     } else {
-      CreateData.Date = this.data.Date;
+      CreateData.Date = moment(this.data.date).format("YYYY-MM-DD");      
     }
+    CreateData.DyeingPrintingMovementIds = [];
+    CreateData.AvalItems =[];
 
-    if(this.data.DyeingPrintingMovementIds.length > 0){
-      CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
-    }else{
-      CreateData.DyeingPrintingMovementIds = [{}];
-    }
+    var listBonId = _.groupBy(this.data.avalProductionOrders.filter(element => element.IsSave),'bonId');
+    var mappedListBonId = _.map(listBonId);
+    
+    mappedListBonId.forEach(element => {
+      var firstId = element[0];
+      var listspp = [];
+      var movement ={};
+      movement.DyeingPrintingAreaMovementId = firstId.bonId;
+      element.forEach((item)=>{
+        listspp.push(item.id);
+          item.AvalType = item.grade;
+          item.AvalCartNo = item.cartNo;
+          item.AvalUomUnit = item.uomUnit;
 
-    if (this.data.DyeingPrintingItems.length > 0) {
-      CreateData.AvalItems = this.data.DyeingPrintingItems.map(
-        (item) => {
-          var remappedItems = {};
-          remappedItems.AvalType = item.AvalType;
-          remappedItems.AvalCartNo = item.AvalCartNo;
-          remappedItems.AvalUomUnit = item.AvalUomUnit.Unit;
-          remappedItems.AvalQuantity = item.AvalQuantity;
-          remappedItems.AvalQuantityKg = item.AvalQuantityKg;
+          item.AvalQuantity = 0;
+          item.AvalQuantityKg = 0;
+          item.productionOrderId= item.productionOrder.id;
+          item.productionOrderNo = item.productionOrder.no;
+          item.dyeingPrintingAreaOutputProductionOrderId = item.id;
+          item.productionOrderOrderQuantity = item.qtyOrder;
+          CreateData.AvalItems.push(item);
+      });
+      movement.ProductionOrderIds=listspp;
+      CreateData.DyeingPrintingMovementIds.push(movement);
+    });
 
-          return remappedItems;
-        }
-      );
-    } else {
-      CreateData.AvalItems = [{}];
-    }
+    // this.data.DyeingPrintingItems.forEach(element => {
+    //   var DyeingPrintingMovementId = {};
+    // });
+    
+    // if(this.data.DyeingPrintingMovementIds.length > 0){
+    //   CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
+    // }else{
+    //   CreateData.DyeingPrintingMovementIds = [{}];
+    // }
+    
+    // if (this.data.DyeingPrintingItems.length > 0) {
+    //   CreateData.AvalItems = this.data.DyeingPrintingItems.map(
+    //     (item) => {
+    //       var remappedItems = {};
+    //       remappedItems.AvalType = item.AvalType;
+    //       remappedItems.AvalCartNo = item.AvalCartNo;
+    //       remappedItems.AvalUomUnit = item.AvalUomUnit.Unit;
+    //       remappedItems.AvalQuantity = item.AvalQuantity;
+    //       remappedItems.AvalQuantityKg = item.AvalQuantityKg;
 
+    //       return remappedItems;
+    //     }
+    //   );
+    // } else {
+    //   CreateData.AvalItems = [{}];
+    // }
+    // console.log(CreateData);
+    // console.log(this.data);
     this.service
       .create(CreateData)
+      .then((result) => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          {
+            replace: true,
+            trigger: true,
+          }
+        );
+      })
+      .catch((e) => {
+        if (e.statusCode == 500) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        } else {
+          this.error = e;
+        }
+      });
+  }
+
+  reject() {
+    let CreateData = {};
+    CreateData.Area = "GUDANG AVAL";
+    CreateData.Shift = this.data.shift;
+    CreateData.Group = this.data.group;
+    // CreateData.Date = moment(this.data.date,"YYYY-MM-DD",true);
+    // CreateData.Date = this.data.date;
+
+    if (this.data.date === undefined || this.data.date === null || this.data.date === "") {
+      CreateData.Date = "";
+    } else {
+      CreateData.Date = moment(this.data.date).format("YYYY-MM-DD");      
+    }
+    CreateData.DyeingPrintingMovementIds = [];
+    CreateData.AvalItems =[];
+
+    var listBonId = _.groupBy(this.data.avalProductionOrders.filter(element => element.IsSave),'bonId');
+    var mappedListBonId = _.map(listBonId);
+    
+    mappedListBonId.forEach(element => {
+      var firstId = element[0];
+      var listspp = [];
+      var movement ={};
+      movement.DyeingPrintingAreaMovementId = firstId.bonId;
+      element.forEach((item)=>{
+        listspp.push(item.id);
+          item.AvalType = item.grade;
+          item.AvalCartNo = item.cartNo;
+          item.AvalUomUnit = item.uomUnit;
+
+          item.AvalQuantity = 0;
+          item.AvalQuantityKg = 0;
+          item.productionOrderId= item.productionOrder.id;
+          item.productionOrderNo = item.productionOrder.no;
+          item.dyeingPrintingAreaOutputProductionOrderId = item.id;
+          item.productionOrderOrderQuantity = item.qtyOrder;
+          CreateData.AvalItems.push(item);
+      });
+      movement.ProductionOrderIds=listspp;
+      CreateData.DyeingPrintingMovementIds.push(movement);
+    });
+    console.log(CreateData);
+    this.service
+      .reject(CreateData)
       .then((result) => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
