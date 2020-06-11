@@ -14,7 +14,6 @@ export class DataForm {
     @bindable readOnly;
     @bindable data;
     @bindable unit;
-    @bindable selectedUnitLength;
 
     controlOptions = {
         label: {
