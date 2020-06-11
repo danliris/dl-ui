@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService } from "../service";
 var CostCalculationLoader= require("../../../../loader/cost-calculation-garment-loader");
+var UomLoader= require("../../../../loader/uom-loader");
 
 @inject(SalesService)
 export class Item {
@@ -14,6 +15,7 @@ export class Item {
         var filter={
             BuyerCode:this.data.BuyerCode,
             Section: this.data.Section,
+            "SCGarmentId!=0":true
         };
         return filter;
     }
@@ -23,13 +25,21 @@ export class Item {
         { header: "Carton 2" },
         { header: "Colour" },
         { header: "Jml Carton" },
-        { header: "Qty PCS" },
+        { header: "Qty" },
         { header: "Total Qty" },
         { header: "" },
     ];
 
     get roLoader() {
         return CostCalculationLoader;
+    }
+
+    get uomLoader() {
+        return UomLoader;
+    }
+
+    uomView = (uom) => {
+        return `${uom.Unit || uom.unit}`
     }
 
     roView = (costCal) => {
@@ -68,7 +78,6 @@ export class Item {
                 this.isShowing = true;
             }
         }
-        console.log(this.context.context.items)
     }
 
     selectedROChanged(newValue){
@@ -85,10 +94,11 @@ export class Item {
                     this.data.valas="USD";
                     this.data.quantity=result.Quantity;
                     this.data.scNo=sc.SalesContractNo;
-                    this.data.amount=sc.Amount;
+                    //this.data.amount=sc.Amount;
                     this.data.price=sc.Price;
                     this.data.priceRO=sc.Price;
                     this.data.comodity=result.Comodity;
+                    this.data.amount=sc.Amount;
                 })
             });
         }
@@ -128,5 +138,13 @@ export class Item {
             }
         }
         return qty;
+    }
+
+    get amount(){
+        this.data.amount=0;
+        if(this.data.quantity && this.data.price){
+            this.data.amount= this.data.quantity * this.data.price
+        }
+        return this.data.amount;
     }
 }
