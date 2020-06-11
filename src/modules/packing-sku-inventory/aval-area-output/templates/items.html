@@ -1,21 +1,14 @@
 <template>
   <tr>
     <td style="white-space: nowrap;">
-      <au-textbox
-        value.bind="data.AvalType"
-        read-only.bind="true"
+      <au-dropdown
+        value.bind="selectedAvalType"
+        read-only.bind="readOnly"
         error.bind="error.AvalType"
+        items.bind = "avalTypes"
+        change.delegate="selectedAvalTypeChanged"
       >
-      </au-textbox>
-    </td>
-
-    <td style="white-space: nowrap;">
-      <au-textbox
-        value.bind="data.AvalCartNo"
-        read-only.bind="true"
-        error.bind="error.AvalCartNo"
-      >
-      </au-textbox>
+      </au-dropdown>
     </td>
 
     <td style="white-space: nowrap;">
@@ -28,12 +21,22 @@
     </td>
 
     <td style="white-space: nowrap;">
-      <au-numeric
-        value.bind="data.AvalQuantity"
-        read-only.bind="readOnly"
-        error.bind="error.AvalQuantity"
+      <au-textbox
+        value.bind="data.AvalQuantityKg"
+        read-only.bind="true"
+        error.bind="error.AvalQuantityKg"
       >
-      </au-numeric>
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap;">
+      <au-dropdown
+        value.bind="data.AvalQuantityUnit"
+        read-only.bind="readOnly"
+        error.bind="error.AvalQuantityUnit"
+        items.bind="qtyOutUnit"
+      >
+      </au-dropdown>
     </td>
 
     <td style="white-space: nowrap;">
@@ -45,13 +48,13 @@
       </au-numeric>
     </td>
 
-    <!-- <td class="col-sm-1" if.bind="!readOnly">
+    <td class="col-sm-1" if.bind="!readOnly">
       <button
         class="btn btn-danger pull-right"
         click.delegate="onremove(data, $event)"
       >
         -
       </button>
-    </td> -->
+    </td>
   </tr>
 </template>

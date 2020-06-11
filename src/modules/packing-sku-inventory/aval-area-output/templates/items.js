@@ -7,6 +7,12 @@ export class Items {
     this.service = service;
     this.bindingEngine = bindingEngine;
   }
+  
+  avalTypes = ["","Aval Printex", "Aval Batik Motif Kecil", "Aval Batik Motif Besar", "Aval Printing (10-49 cm)",
+  "Aval Kain Kotor", "Aval Tali Kotor", "Aval Sambungan", "Aval Kain Head Cut", "Aval Solid",
+  "Aval A (Lap Besar)", "Aval B (Lap Kecil)", "Aval Solid TR", "Aval Batik TW (karantina)"];
+
+  qtyOutUnit = ["KRG","KG"];
 
   async activate(context) {
     this.data = context.data;
@@ -27,5 +33,9 @@ export class Items {
       this.data.AvalQuantity = this.data.avalQuantity;
       this.data.AvalQuantityKg = this.data.avalQuantityKg;
     }
+  }
+  @bindable selectedAvalType
+  selectedAvalTypeChanged = (n,o)=>{
+    console.log(n);
   }
 }

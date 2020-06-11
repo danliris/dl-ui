@@ -46,16 +46,52 @@ export class DataForm {
     this.isHasData = false;
 
     this.data.Area = "GUDANG AVAL";
-    if (this.data.id) {
-      this.data.Date = this.data.date;
-      this.data.Shift = this.data.shift;
-      this.data.Group = this.data.group;
-      this.data.DestinationArea = this.data.destinationArea;
-      if (this.data.avalItems.length > 0) {
-        this.data.DyeingPrintingItems = this.data.avalItems;
-        this.isHasData = true;
-      }
-    }
+    // if (this.data.id) {
+    //   this.data.Date = this.data.date;
+    //   this.data.Shift = this.data.shift;
+    //   this.data.Group = this.data.group;
+    //   this.data.DestinationArea = this.data.destinationArea;
+    //   if (this.data.avalItems.length > 0) {
+    //     this.data.DyeingPrintingItems = this.data.avalItems;
+    //     this.isHasData = true;
+    //   }
+    // }
+    
+    // var errorIndex = 0;
+
+    // this.data.AvalJointValue = 0;
+    // this.data.AvalAValue = 0;
+    // this.data.AvalBValue = 0;
+    // this.data.AvalInducementValue = 0;
+    // this.data.AvalDirtyRopeValue = 0;
+    // this.data.AvalDirtyClothValue = 0;   
+
+    // if (errorIndex == 0) {
+    //   this.data.DyeingPrintingMovementIds = [];
+
+    //   this.service.getAllAvailableAval().then((result) => {
+    //     if (result.length > 0) {
+
+    //       result.forEach((datum) => {
+    //         var DyeingPrintingMovementIds = {};
+    //         DyeingPrintingMovementIds.DyeingPrintingMovementId =
+    //           datum.avalInputId;
+    //         DyeingPrintingMovementIds.AvalItemId = datum.avalItemId;
+
+    //         this.data.DyeingPrintingMovementIds.push(DyeingPrintingMovementIds);
+    //         this.isHasData = true;
+    //       });
+
+    //       this.data.DyeingPrintingItems = result;
+    //     } else {
+    //       this.isHasData = false;
+    //     }
+    //   });
+    // } else {
+    //   this.error.Date;
+    //   this.error.Shift;
+    // }
+
   }
 
   shifts = ["PAGI", "SIANG"];
@@ -97,29 +133,7 @@ export class DataForm {
       this.error.Date = "";
     }
 
-    if (
-      this.data.Shift == undefined ||
-      this.data.Shift == null ||
-      this.data.Shift == ""
-    ) {
-      this.error.Shift = "Shift Harus Diisi";
-      errorIndex++;
-    } else {
-      this.Shift = this.data.Shift;
-      this.error.Shift = "";
-    }
-
-    if (
-      this.data.Group == undefined ||
-      this.data.Group == null ||
-      this.data.Group == ""
-    ) {
-      this.error.Group = "Group Harus Diisi";
-      errorIndex++;
-    } else {
-      this.Group = this.data.Group;
-      this.error.Group = "";
-    }
+    
 
     if (errorIndex == 0) {
       this.data.DyeingPrintingMovementIds = [];
@@ -174,6 +188,8 @@ export class DataForm {
     }
   }
 
+
+
   reset() {
     this.data.Date = undefined;
 
@@ -196,23 +212,23 @@ export class DataForm {
   dyeingPrintingItemsColumns = [
     {
       value: "avalType",
-      header: "Jenis",
-    },
-    {
-      value: "avalCartNo",
-      header: "No. Kereta",
+      header: "Nama Barang",
     },
     {
       value: "avalUomUnit",
-      header: "Satuan",
+      header: "Saldo Satuan",
+    },
+    {
+      value: "avalUomUnit",
+      header: "Saldo Berat",
     },
     {
       value: "avalQuantity",
-      header: "Qty Satuan",
+      header: "Qty Keluar Satuan",
     },
     {
       value: "avalQuantityKg",
-      header: "Qty KG",
+      header: "Qty Keluar Berat",
     },
   ];
 
