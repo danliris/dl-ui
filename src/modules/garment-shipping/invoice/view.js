@@ -8,15 +8,25 @@ export class View {
         this.router = router;
         this.service = service;
     }
+    isView= true;
+    isEdit =false;
 
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
         this.hasEdit=true;
-        this.hasDelete=true;
+       
         this.hasCancel=true;
-        this.isView= true;
         console.log(this.data);
+        if(this.data.isUsed == true)
+        {
+            this.hasDelete=false;
+        }
+        else
+        { 
+            this.hasDelete=true;
+        
+        }
       
     }
 

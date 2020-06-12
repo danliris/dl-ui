@@ -7,6 +7,9 @@ import { Service } from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    isEdit = true;
+    isCreate =false;
+
 
     constructor(router, service) {
         this.router = router;
@@ -20,23 +23,7 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        // this.dataUnitDO=await this.service.getUnitDOId(this.data.UnitDOId);
-        // this.data.RoJob=this.dataUnitDO.RONo;
-        // this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
-        // this.data.Storage.toString = function () {
-        //     return [this.code, this.name]
-        //         .filter((item, index) => {
-        //             return item && item.toString().trim().length > 0;
-        //         }).join(" - ");
-        // }
-
-        // if (this.data.Items) {
-        //     for (let item of this.data.Items) {
-        //         item.IsSave = true;
-        //         item.IsDisabled = false;
-        //     }
-        // }
-
+       
     }
 
     cancel(event) {
@@ -44,6 +31,7 @@ export class Edit {
     }
 
     save(event) {
+        console.log(this.data);
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

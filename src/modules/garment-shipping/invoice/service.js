@@ -25,6 +25,7 @@ class Service extends RestService {
     }
 
     update(data) {
+        console.log(data);
         var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
@@ -42,6 +43,22 @@ class Service extends RestService {
   
 }
 
-  
+const costCalculationServiceUri = 'cost-calculation-garments';
+const SalesContractserviceUri = "merchandiser/garment-sales-contracts";
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
 
-export { Service }
+    getCostCalculationById(id) {
+        var endpoint = `${costCalculationServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getSalesContractById(id) {
+        var endpoint = `${SalesContractserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, SalesService}

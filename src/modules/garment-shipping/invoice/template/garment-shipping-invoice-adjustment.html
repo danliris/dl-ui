@@ -4,18 +4,21 @@
      
       <td  class="col-sm-9">
           <au-textbox 
-              value.bind="data.AdjustmentDescription"
-              read-only.bind="read-only"
+              value.bind="data.adjustmentDescription"
+              read-only.bind="readOnly || isEdit"
               options.bind="controlOptions">
           </au-textbox>
       </td>
         <td class="col-sm-3">
           <au-numeric 
-              value.bind="data.AdjustmentValue" 
-              read-only.bind="read-only" 
+              value.bind="data.adjustmentValue" 
+              read-only.bind="readOnly || isEdit"
               options.bind="controlOptions"
               format="0.0000">
           </au-numeric>
       </td>
+      <td if.bind="!readOnly">
+        <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
+    </td>
    </tr>
 </template>

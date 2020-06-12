@@ -13,8 +13,8 @@
         <au-autocomplete 
                 label="InvoiceNo" 
                 value.bind="packinglists" 
-                error.bind="error.invoiceNo" 
-                read-only.bind="readOnly || isEdit"
+                error.bind="error.InvoiceNo" 
+                read-only.bind="readOnly || isEdit "
                 loader.bind="invoiceLoader"
                 text.bind = "invoiceView"
                 placeholder = "Cari Invoice"
@@ -24,7 +24,7 @@
         <au-datepicker 
                 label="TGL" 
                 value.bind="data.invoiceDate" 
-                error.bind="error.invoiceDate" 
+                error.bind="error.InvoiceDate" 
                 read-only.bind="true"
                 options.bind="length4">
          </au-datepicker>
@@ -32,8 +32,8 @@
              <au-textbox 
                  label="From" 
                  value.bind="data.from" 
-                 error.bind="error.from"
-                 read-only.bind="readOnly || isEdit"
+                 error.bind="error.From"
+                 read-only.bind="readOnly"
                  options.bind="length4">
               </au-textbox>
                
@@ -41,15 +41,15 @@
                 <au-textbox 
                 label="To" 
                 value.bind="data.to" 
-                error.bind="error.to"
-                read-only.bind="readOnly || isEdit"
+                error.bind="error.To"
+                read-only.bind="readOnly"
                 options.bind="length4">
             </au-textbox>
           
             <au-textbox
                 label="BuyerAgent"
                 value.bind="data.buyerAgent.name" 
-                error.bind="error.buyerAgent.name"
+                error.bind="error.BuyerAgent.name"
                 read-only.bind="true" 
                 options.bind="length4">
             </au-textbox>
@@ -57,28 +57,28 @@
             <au-multiline
                 label="Consignee"
                 value.bind="data.consignee" 
-                error.bind="error.consignee"
-                read-only.bind="readOnly || isEdit"
+                error.bind="error.Consignee"
+                read-only.bind="readOnly"
                 options.bind="length4">
             </au-multiline>
             <au-textbox
                 label="LC No"
                 value.bind="data.lcNo" 
-                error.bind="error.lcNo"
+                error.bind="error.LcNo"
                 read-only.bind="true" 
                 options.bind="length4">
             </au-textbox>
             <au-textbox
             label="Issued By"
             value.bind="data.issuedBy" 
-            error.bind="error.issuedBy"
+            error.bind="error.IssuedBy"
             read-only.bind="true" 
             options.bind="length4">
         </au-textbox>
         <au-textbox
             label="Seksi"
             value.bind="data.section.code" 
-            error.bind="error.section.code"
+            error.bind="error.Section.code"
             read-only.bind="true" 
             options.bind="length4">
         </au-textbox>
@@ -89,30 +89,30 @@
             <au-textbox 
             label="Shipping Per"
             value.bind="data.shippingPer" 
-            error.bind="error.shippingPer" 
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.ShippingPer" 
+            read-only.bind="readOnly "
             options.bind="length4">
         </au-textbox>
         <au-datepicker 
             label="SailingDate" 
             value.bind="data.sailingDate" 
-            error.bind="error.sailingDate"
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.SailingDate"
+            read-only.bind="readOnly "
             options.bind="length4">
          </au-datepicker>
          
         <au-textbox
             label="Confirmation Of Order No"
             value.bind="data.confirmationOfOrderNo" 
-            error.bind="error.confirmationOfOrderNo"
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.ConfirmationOfOrderNo"
+            read-only.bind="readOnly"
             options.bind="length4">
         </au-textbox>
         <au-autocomplete 
             label="Shipping Staff" 
             value.bind="shippingStaff" 
-            error.bind="error.shippingStaffName" 
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.ShippingStaffName" 
+            read-only.bind="readOnly"
             loader.bind="shippingStaffLoader"
             text.bind = "shippingStaffView"
             placeholder = "Cari Shipping Staff"
@@ -122,8 +122,8 @@
         <au-autocomplete 
             label="Jenis Fabric" 
             value.bind="fabricType" 
-            error.bind="error.fabricType" 
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.FabricType" 
+            read-only.bind="readOnly "
             loader.bind="fabricTypeLoader"
             text.bind = "fabricTypeView"
             placeholder = "Cari Jenis Fabric"
@@ -133,8 +133,8 @@
         <au-autocomplete 
         label="Bank Detail"
             value.bind="bankAccount" 
-            error.bind="error.bankAccount" 
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.BankAccount" 
+            read-only.bind="readOnly "
             loader.bind="accountBankLoader"
             text.bind = "accountBankView"
             placeholder = "Cari Bank"
@@ -143,90 +143,88 @@
     <au-numeric
             label="Tempo Pembayaran"
             value.bind="data.paymentDue" 
-            error.bind="error.paymentDue"
-            read-only.bind="readOnly || isEdit"
+            error.bind="error.PaymentDue"
+            read-only.bind="readOnly "
             options.bind="length4">
         </au-numeric>
         <au-textbox 
         label="No PEB"
         value.bind="data.pebNo" 
         error.bind="error.pEBNo" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly "
         options.bind="length4">
     </au-textbox>
     <au-datepicker 
         label="Tgl PEB" 
         value.bind="data.pebDate" 
         error.bind="error.pEBDate"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly "
         options.bind="length4">
     </au-datepicker>
      </div>
      <div class="col-sm-3">
-      
-    
    
     <au-textbox
         label="No NPE"
         value.bind="data.npeNo" 
         error.bind="error.npeNo"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly "
         options.bind="length4">
     </au-textbox>
     <au-datepicker 
         label="Tgl NPE" 
         value.bind="data.npeDate" 
         error.bind="error.npeDate" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
     <au-multiline
         label="Description"
         value.bind="data.description" 
         error.bind="error.description"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-multiline>
     <au-textbox 
         label="No B/L"
         value.bind="data.bl" 
         error.bind="error.bl" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-textbox>
     <au-datepicker 
         label="Tgl B/L" 
         value.bind="data.blDate" 
         error.bind="error.blDate"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
     <au-textbox
         label="No CO"
         value.bind="data.co" 
         error.bind="error.co"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly "
         options.bind="length4">
     </au-textbox>
     <au-datepicker 
         label="Tgl CO" 
         value.bind="data.coDate" 
         error.bind="error.coDate" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
     <au-textbox
         label="No COTP"
         value.bind="data.cotp" 
         error.bind="error.cotp"
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-textbox>
     <au-datepicker 
         label="Tgl COTP" 
         value.bind="data.cotpDate" 
         error.bind="error.cotpDate" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
  </div>
@@ -246,9 +244,9 @@
                         columns.bind="packinglistColumns.columns"
                         add.bind="packinglistColumns.onAdd"
                         remove.bind="packinglistColumns.onRemove"
-                        options.bind="packinglistColumns.options"
+                        options.bind="options"
                         responsive.bind="true"
-                        
+                        read-only.bind="readOnly"
                         item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-item"
                      >
                     </au-collection>
@@ -259,12 +257,13 @@
                 <div class="col-md-6">
                     <au-collection
                         view-model.ref="itemsCollection"
-                        items.bind="data.GarmentShippingInvoiceAdjustments"
+                        items.bind="data.garmentShippingInvoiceAdjustments"
                         columns.bind="adjustmentColumns.columns"
                         add.bind="adjustmentColumns.onAdd"
                         remove.bind="adjustmentColumns.onRemove"
-                        options.bind="adjustmentColumns.options"
+                        options.bind="options"
                         responsive.bind="true"
+                        read-only.bind="readOnly"
                         item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-adjustment"
                      >
                     </au-collection>
@@ -284,25 +283,29 @@
             <au-numeric
                 label="C PRICE"
                 value.bind="data.cPrice" 
-                error.bind="error.cPrice"
-                read-only.bind="readOnly || isEdit"
+                error.bind="error.CPrice"
+                read-only.bind="readOnly"
                 options.bind="length4">
             </au-numeric>
-            <au-textbox
-                label="TOTAL AMOUNT"
-                value.bind="data.totalAmount" 
-                read-only.bind="true" 
-                options.bind="length4">
-            </au-textbox>
+            
+            <au-numeric
+            label="TOTAL AMOUNT"
+            value.bind="totalAmounts" 
+            error.bind="error.totalAmount"
+            read-only.bind="true"
+            options.bind="length4">
+        </au-numeric>
             <au-numeric
                 label="AMOUNT TO BE PAID"
-                value.bind="data.amountToBePaid" 
+                value.bind="amountToBePaid" 
                 error.bind="error.amountToBePaid"
                 read-only.bind="true"
                 options.bind="length4">
             </au-numeric>
+            
             <au-textbox
                 label="SAY"
+                value.bind="say"
                 read-only.bind="true" 
                 options.bind="length4">
             </au-textbox>

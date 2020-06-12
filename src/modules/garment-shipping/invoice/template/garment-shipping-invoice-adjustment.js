@@ -9,33 +9,15 @@ export class GarmentShippingInvoiceAdjustments {
 constructor(dialog, service, serviceCore) {
     this.dialog = dialog;
     this.service = service;
-    this.serviceCore = serviceCore
+ 
 }
 
     activate(context) {
       this.context = context;
       this.saveAll=false;
-      this.data = context.items;
+      this.data = context.data;
       this.error = context.error;
-      this.options = this.context.options;
-      var count = 0;
-      
-      // for(var item of this.context.items){
-      //   if(item.data.selected==true){
-      //     count++;
-      //   }
-      // }
-      // if(count>0){
-      //   this.saveAll=true;
-      // }
-    }
-  
-    saveAllChanged(e) {
-      for(var a of this.context.items){
-        if(this.saveAll)
-          a.data.selected=true;
-        else
-          a.data.selected=false;
-      }
+      this.options = this.context.context.options;
+      this.readOnly = this.options.isView;
     }
   }
