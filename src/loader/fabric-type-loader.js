@@ -1,15 +1,15 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/garment-shipping-staffs';
+const resource = 'master/garment-fabric-types';
 
-module.exports = function (keyword, filter) {
+module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("core");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
-            return results.data;
+            return results.data
         });
-      }
+}

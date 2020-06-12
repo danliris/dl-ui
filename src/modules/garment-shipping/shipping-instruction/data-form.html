@@ -1,0 +1,201 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-6">
+                <au-autocomplete 
+                    label="Invoice No" 
+                    placeholder="Pilih Invoice No" 
+                    value.bind="selectedUnitFrom"
+                    error.bind="error.UnitFrom" 
+                    loader.bind="unitLoader" 
+                    text.bind="unitView"
+                    read-only.bind="readOnly || isEdit" 
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-datepicker 
+                    label="TGL" 
+                    value.bind="data.date" 
+                    error.bind="error.Date"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-autocomplete 
+                    label="EMKL" 
+                    placeholder="Pilih EMKL"
+                    value.bind="selectedExpenditureGood" 
+                    error.bind="error.ExpenditureGoodNo" 
+                    loader.bind="expenditureGoodLoader"
+                    text="ExpenditureGoodNo" 
+                    read-only.bind="readOnly || isEdit" 
+                    options.bind="controlOptions"
+                    view-model.ref="ExpenditureGoodViewModel">
+                </au-autocomplete>
+
+                <au-textbox 
+                    label="ATTN" 
+                    value.bind="data.attn" 
+                    read-only="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+            <div class="col-md-6">
+                <au-textbox 
+                    label="CC" 
+                    value.bind="data.cc" 
+                    error.bind="error.CC"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Fax" 
+                    value.bind="data.fax" 
+                    read-only="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Shipping Staff" 
+                    value.bind="data.shippingStaff" 
+                    read-only="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Phone" 
+                    value.bind="data.phone" 
+                    error.bind="error.Phone"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+            </div>
+        </div>
+        <div class="row">
+            <h4><b>    DETAIL INSTRUCTION</b></h4>
+            <br><br>
+            <div class="col-md-6">
+                <au-dropdown
+                    label="Shipped By"
+                    value.bind="data.shippedBy"
+                    error.bind="error.ShippedBy"
+                    read-only.bind="readOnly || isEdit"
+                    items.bind="ShipOptions"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-datepicker 
+                    label="Trucking" 
+                    value.bind="data.date" 
+                    error.bind="error.Date"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-textbox 
+                    label="Carton No" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Port Of Discharge" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Place Of Delivery" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+                
+                <au-textbox 
+                    label="Feeder Vessel BY/DD" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+                
+                <au-textbox 
+                    label="Ocean Vessel BY/DD" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+                
+                <au-textbox 
+                    label="Carrier" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+            <div class="col-md-6">
+                <au-textbox 
+                    label="Flight" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Transit" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Bank Detail" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="Consignee" 
+                    value.bind="data.cartonNo" 
+                    error.bind="error.CartonNo"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-multiline  
+                    value.bind="data.ExpenditureDesc" 
+                    read-only="true" 
+                    options.bind="controlOptions">
+                </au-multiline>
+                
+                <au-multiline  
+                    label="Notify" 
+                    value.bind="data.ExpenditureDesc" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-multiline>
+                
+                <au-multiline   
+                    label="Special Instruction" 
+                    value.bind="data.ExpenditureDesc" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-multiline>
+            </div>
+        </div>
+
+    </au-input-form>
+</template>

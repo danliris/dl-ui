@@ -10,24 +10,20 @@ export class List {
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
-        { field: "SectionCode", title: "Seksi" },
-        { field: "BuyerAgentName", title: "Buyer Agent" },
         {
-            field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "date", title: "Tgl Shipping Instruction", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "EMKLName", title: "EMKL" },
+        { field: "attn", title: "ATTN" },
+        { field: "shippedBy", title: "Shipped By" },
         {
             field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        {
-            field: "exportEstimationDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "destination", title: "Destination" },
+        { field: "BuyerAgentName", title: "Consignee" },
     ];
 
     loader = (info) => {
@@ -46,7 +42,7 @@ export class List {
             .then(result => {
                 console.log(result)
                 for (const data of result.data) {
-                    data.SectionCode = data.section.code;
+                    data.EMKLName = data.emkl.name;
                     data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {
