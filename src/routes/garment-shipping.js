@@ -37,5 +37,18 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "garment-shipping/shipping-instruction",
+        name: "garment-shipping/shipping-instruction",
+        moduleId: "modules/garment-shipping/shipping-instruction/index",
+        nav: true,
+        title: "Shipping Instruction",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]
