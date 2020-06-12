@@ -68,7 +68,7 @@ export class DataForm {
     ]
 
     measureColumns = [
-        { header: "No" },
+        { header: "No", value: "MeasurementIndex" },
         { header: "Length" },
         { header: "Width" },
         { header: "Height" },
@@ -182,7 +182,7 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.items.push({
-                Section: this.data.section.Section || this.data.section.code,
+                Section: this.data.section.Code || this.data.section.code,
                 BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
             });
         };
@@ -195,7 +195,7 @@ export class DataForm {
     }
 
     selectedSectionChanged(newValue){
-        if(newValue!=this.data.section && this.items)
+        if(newValue!=this.data.section && this.data.items)
             this.data.items.splice(0);
         this.data.section=null;
         if(newValue){
@@ -204,7 +204,7 @@ export class DataForm {
     }
 
     selectedBuyerChanged(newValue){
-        if(newValue!=this.data.buyerAgent && this.items)
+        if(newValue!=this.data.buyerAgent && this.data.items)
             this.data.items.splice(0);
         this.data.buyerAgent=null;
         if(newValue){
@@ -214,13 +214,29 @@ export class DataForm {
 
     get totalCBM(){
         var total=0;
-        if(this.data.Measurements){
-            for(var m of this.data.Measurements){
+        if(this.data.measurements){
+            for(var m of this.data.measurements){
                 if(m.length && m.width && m.height && m.cartonsQuantity){
                     total+= m.length*m.width*m.height*m.cartonsQuantity;
                 }  
             }
         }
-        return total;
+        return total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    get totalCartons(){
+        this.data.totalCartons=0;
+        if(this.data.items){
+            for(var item of this.data.items){
+                if(item.details){
+                    for(var detail of item.details){
+                        if(detail.cartonQuantity){
+                            this.data.totalCartons+=detail.cartonQuantity;
+                        }
+                    }
+                }
+            }
+        }
+        return this.data.totalCartons;
     }
 }

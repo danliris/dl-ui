@@ -63,4 +63,24 @@ export class Detail {
         else
             return 0;
     }
+
+    get cartonQuantity(){
+        this.data.cartonQuantity=0;
+        if(this.data.carton1 && this.data.carton2){
+            this.data.cartonQuantity = this.data.carton2-this.data.carton1+1;
+        }
+        return this.data.cartonQuantity;
+    }
+
+    get totalQtySize(){
+        var qtytot=0;
+        if(this.data.sizes){
+            for(var size of this.data.sizes){
+                if(size.quantity){
+                    qtytot+=size.quantity;
+                }
+            }
+        }
+        return qtytot;
+    }
 }
