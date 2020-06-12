@@ -39,6 +39,19 @@ module.exports=[
         }
     },
     {
+        route: "garment-shipping/invoice",
+        name: "garment-shipping/invoice",
+        moduleId: "modules/garment-shipping/invoice/index",
+        nav: true,
+        title: "Shipping Invoice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
         moduleId: "modules/garment-shipping/cover-letter/index",
