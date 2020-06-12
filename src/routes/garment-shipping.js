@@ -51,4 +51,42 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     }
+        route: "garment-shipping/cover-letter",
+        name: "garment-shipping/cover-letter",
+        moduleId: "modules/garment-shipping/cover-letter/index",
+        nav: true,
+        title: "Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/credit-note",
+        name: "garment-shipping/credit-note",
+        moduleId: "modules/garment-shipping/credit-note/index",
+        nav: true,
+        title: "Nota Kredit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/debit-note",
+        name: "garment-shipping/debit-note",
+        moduleId: "modules/garment-shipping/debit-note/index",
+        nav: true,
+        title: "Nota Debet",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }
 ]
