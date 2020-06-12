@@ -9,25 +9,17 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "invoiceNo", title: "No Invoice" },
-        { field: "SectionCode", title: "Seksi" },
-        { field: "BuyerAgentName", title: "Buyer Agent" },
+        { field: "documentCreditNo", title: "Document Credit No" },
         {
-            field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "date", title: "Tgl", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        {
-            field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        {
-            field: "exportEstimationDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "destination", title: "Destination" },
+        { field: "issuedBank", title: "Issued Bank" },
+        { field: "ApplicantName", title: "Applicant" },
+        { field: "quantity", title: "Quantity" },
+        { field: "UomUnit", title: "Satuan" },
+        { field: "totalAmount", title: "Amount" },
     ];
 
     loader = (info) => {
@@ -44,10 +36,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
                 for (const data of result.data) {
-                    data.SectionCode = data.section.code;
-                    data.BuyerAgentName=data.buyerAgent.name;
+                    data.ApplicantName = data.applicant.name;
+                    data.UomUnit=data.uom.unit;
                 }
                 return {
                     total: result.info.total,
