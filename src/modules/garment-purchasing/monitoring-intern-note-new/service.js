@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service';
 
 
-
+const deliveryOrderServiceUri = 'garment-delivery-orders/loader';
 const serviceUri = 'garment-intern-notes';
 
 export class Service extends RestService {
@@ -18,7 +18,11 @@ export class Service extends RestService {
     }
     
     generateExcel(info) {
-        var endpoint = `${serviceUri}/monitoring/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&no=${info.no}&supplierCode=${info.supplierCode}&curencyCode=${info.curencyCode}`;
-        return super.getXls(endpoint);
+      var endpoint = `${serviceUri}/monitoring/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&no=${info.no}&supplierCode=${info.supplierCode}&curencyCode=${info.curencyCode}&invoiceNo=${info.invoiceNo}&doNo=${info.doNo}&billNo=${info.billNo}&paymentBill=${info.paymentBill}`;
+      return super.getXls(endpoint);
+    }
+    searchDeliveryOrder(info) {
+      var endpoint = `${deliveryOrderServiceUri}`;
+      return super.list(endpoint, info);
     }
 }

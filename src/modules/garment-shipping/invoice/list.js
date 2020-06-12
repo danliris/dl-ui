@@ -10,24 +10,20 @@ export class List {
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
-        { field: "SectionCode", title: "Seksi" },
-        { field: "BuyerAgentName", title: "Buyer Agent" },
+       
         {
-            field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "invoiceDate", title: "Tgl Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "from", title: "From" },
+        { field: "to", title: "To"},
+        { field: "buyerAgent.name", title: "Buyer Agent" },
         {
-            field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
+            field: "sailingDate", title: "Sailing", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        {
-            field: "exportEstimationDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "destination", title: "Destination" },
     ];
 
     loader = (info) => {
@@ -44,11 +40,8 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
-                for (const data of result.data) {
-                    data.SectionCode = data.section.code;
-                    data.BuyerAgentName=data.buyerAgent.name;
-                }
+                console.log(result.data);
+                
                 return {
                     total: result.info.total,
                     data: result.data

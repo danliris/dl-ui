@@ -13,7 +13,7 @@
             <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
                 error.bind="error.ProductionOrder" options.bind="controlOptions">
             </au-numeric>
-            <button show.bind="isAval" class="btn btn-info pull-right" click.delegate="toggle()">i</button>
+            
         </td>
         <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
@@ -71,13 +71,23 @@
         </td>
 
     </tr>
-    <tr if.bind="isShowing">
+    <tr if.bind="isShowing && !isAval">
         <td show.bind="!readOnly && !isEdit"></td>
         <td colspan="12">
             <au-collection columns.bind="sppColumns" items.bind="data.productionOrderDetails" options.bind="sppOptions"
                 add.bind="addSPPDetailCallback" remove.bind="sppRemove" read-only.bind="readOnly"
                 errors.bind="error.ProductionOrderDetails"
                 item-template="modules/packing-sku-inventory/im-area-output/template/item">
+            </au-collection>
+
+        </td>
+    </tr>
+    <tr if.bind="isShowing && isAval">
+        <td colspan="14">
+            <au-collection columns.bind="avalColumns" items.bind="data.productionOrderDetails"
+                add.bind="addSPPDetailCallback" remove.bind="sppRemove" read-only.bind="readOnly"
+                errors.bind="error.ProductionOrderDetails" options.bind="sppOptions"
+                item-template="modules/packing-sku-inventory/im-area-output/template/avalItem">
             </au-collection>
 
         </td>
