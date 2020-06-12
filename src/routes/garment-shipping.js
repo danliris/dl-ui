@@ -50,7 +50,8 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }
+    },
+    {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
         moduleId: "modules/garment-shipping/cover-letter/index",
@@ -88,5 +89,18 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }
+    },
+    {
+        route: "garment-shipping/letter-of-credit",
+        name: "garment-shipping/letter-of-credit",
+        moduleId: "modules/garment-shipping/letter-of-credit/index",
+        nav: true,
+        title: "Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
