@@ -30,8 +30,11 @@ export class Items {
       this.data.AvalType = this.data.avalType;
       this.data.AvalCartNo = this.data.avalCartNo;
       this.data.AvalUomUnit = this.data.avalUomUnit;
+      this.data.AvalOutSatuan = this.data.avalUomUnit;
       this.data.AvalQuantity = this.data.avalQuantity;
       this.data.AvalQuantityKg = this.data.avalQuantityKg;
+      this.selectedAvalType = this.data.avalType;
+      this.data.AvalOutQuantity = this.data.avalQuantityKg
     }
   }
   @bindable selectedAvalType

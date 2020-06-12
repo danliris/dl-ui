@@ -48,16 +48,16 @@ export class DataForm {
     this.isHasData = false;
 
     this.data.Area = "GUDANG AVAL";
-    // if (this.data.id) {
-    //   this.data.Date = this.data.date;
-    //   this.data.Shift = this.data.shift;
-    //   this.data.Group = this.data.group;
-    //   this.data.DestinationArea = this.data.destinationArea;
-    //   if (this.data.avalItems.length > 0) {
-    //     this.data.DyeingPrintingItems = this.data.avalItems;
-    //     this.isHasData = true;
-    //   }
-    // }
+    if (this.data.id) {
+      this.data.Date = this.data.date;
+      this.data.Shift = this.data.shift;
+      this.data.Group = this.data.group;
+      this.data.DestinationArea = this.data.destinationArea;
+      if (this.data.avalItems.length > 0) {
+        this.data.DyeingPrintingItems = this.data.avalItems;
+        this.isHasData = true;
+      }
+    }
     
     // var errorIndex = 0;
 
@@ -65,6 +65,7 @@ export class DataForm {
     // this.data.AvalAValue = 0;
     // this.data.AvalBValue = 0;
     // this.data.AvalInducementValue = 0;
+    // this.data.AvalDirtyRopeValue = 0;
     // this.data.AvalDirtyRopeValue = 0;
     // this.data.AvalDirtyClothValue = 0;   
 
