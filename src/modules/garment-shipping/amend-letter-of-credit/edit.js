@@ -22,8 +22,6 @@ export class Edit {
     }
 
     async saveCallback(event) {
-        var available = await this.service.search({size: 1, filter: JSON.stringify({ DocumentCreditNo: this.data.documentCreditNo })});
-        this.data.available= available.data.length>0;
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });
