@@ -116,4 +116,17 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/amend-letter-of-credit",
+        name: "garment-shipping/amend-letter-of-credit",
+        moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
+        nav: true,
+        title: "Amend Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
