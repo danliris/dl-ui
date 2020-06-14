@@ -35,6 +35,47 @@ export class Create {
   }
 
   save() {
+    var errorIndex = 0;
+    if (
+      this.data.date == undefined ||
+      this.data.date == null ||
+      this.data.date == "" ||
+      isNaN(this.data.date)
+    ) {
+      this.error.Date = "Tanggal Harus Diisi";
+      errorIndex++;
+    } else {
+      this.date = this.data.date
+        ? moment(this.data.date).format("DD MMM YYYY HH:mm")
+        : null;
+      this.error.Date = "";
+    }
+
+    if (
+      this.data.shift == undefined ||
+      this.data.shift == null ||
+      this.data.shift == ""
+    ) {
+      this.error.shift = "Shift Harus Diisi";
+      errorIndex++;
+    } else {
+      this.shift = this.data.shift;
+      this.error.shift = "";
+    }
+
+    if (
+      this.data.group == undefined ||
+      this.data.group == null ||
+      this.data.group == ""
+    ) {
+      this.error.group = "Group Harus Diisi";
+      errorIndex++;
+    } else {
+      this.group = this.data.group;
+      this.error.group = "";
+    }
+
+    if (errorIndex == 0) {
     let CreateData = {};
     CreateData.Area = "GUDANG AVAL";
     CreateData.Shift = this.data.shift;
@@ -60,7 +101,7 @@ export class Create {
       movement.DyeingPrintingAreaMovementId = firstId.bonId;
       element.forEach((item)=>{
         listspp.push(item.id);
-          item.AvalType = item.grade;
+          item.AvalType = item.AvalType;
           item.AvalCartNo = item.cartNo;
           item.AvalUomUnit = item.uomUnit;
 
@@ -124,6 +165,10 @@ export class Create {
           this.error = e;
         }
       });
+    }else {
+      this.error.Date;
+      this.error.Shift;
+    }
   }
 
   reject() {
@@ -152,9 +197,9 @@ export class Create {
       movement.DyeingPrintingAreaMovementId = firstId.bonId;
       element.forEach((item)=>{
         listspp.push(item.id);
-          item.AvalType = item.grade;
+          item.AvalType = item.AvalType;
           item.AvalCartNo = item.cartNo;
-          item.AvalUomUnit = item.uomUnit;
+          item.AvalUomUnit = item.AvalUomUnit;
 
           item.AvalQuantity = 0;
           item.AvalQuantityKg = 0;

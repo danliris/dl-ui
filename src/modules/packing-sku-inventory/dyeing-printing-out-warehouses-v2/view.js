@@ -21,9 +21,9 @@ export class View {
     this.router.navigateToRoute("list");
   }
 
-  // edit(data) {
-  //     this.router.navigateToRoute('edit', { id: this.data.id });
-  // }
+  edit(data) {
+      this.router.navigateToRoute('edit', { id: this.data.id });
+  }
 
   delete() {
       this.service.delete(this.data)

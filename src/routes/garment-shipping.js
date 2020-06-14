@@ -26,6 +26,32 @@ module.exports=[
         }
     },
     {
+        route: "master/garment-emkl",
+        name: "garment-emkl",
+        moduleId: "modules/master/garment-emkl/index",
+        nav: true,
+        title: "EMKL Dan Trucking Partner",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "master/garment-forwarder",
+        name: "garment-forwarder",
+        moduleId: "modules/master/garment-forwarder/index",
+        nav: true,
+        title: "Forwarder",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list",
         name: "garment-shipping/packing-list",
         moduleId: "modules/garment-shipping/packing-list/index",
@@ -109,6 +135,19 @@ module.exports=[
         moduleId: "modules/garment-shipping/letter-of-credit/index",
         nav: true,
         title: "Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/amend-letter-of-credit",
+        name: "garment-shipping/amend-letter-of-credit",
+        moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
+        nav: true,
+        title: "Amend Letter Of Credit",
         auth: true,
         settings: {
             group: "g-shipping",
