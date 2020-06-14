@@ -1,7 +1,6 @@
 import { bindable, computedFrom } from 'aurelia-framework';
 
 export class Item {
-  @bindable Length;
   constructor() {
     this.error = {};
   }

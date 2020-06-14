@@ -11,6 +11,7 @@ export class Create {
     this.service = service;
     this.dialog = dialog;
     this.data = {};
+    this.error = {};
   }
 
   activate(params) { }

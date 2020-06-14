@@ -1,7 +1,5 @@
 import { bindable, computedFrom } from 'aurelia-framework';
 
-//var CurrencyLoader = require('../../../../loader/currency-loader');
-
 export class Item {
   constructor() {
     this.error = {};
@@ -15,15 +13,6 @@ export class Item {
     this.WeightBruto = this.data.WeightBruto;
 
   }
-
-  // // get currencyLoader() {
-  // //     return CurrencyLoader;
-  // // }
-
-  // @bindable selectedCurrency;
-  // selectedCurrencyChanged(newValue, oldValue) {
-  //     this.data.Currency = newValue;
-  // }
 
   @computedFrom("data.weightBale")
   get getTotal() {

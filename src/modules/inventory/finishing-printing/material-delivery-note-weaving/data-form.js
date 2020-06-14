@@ -54,17 +54,20 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
-        // if (this.data.UnitLength) {
-        //     this.selectedUnitLength = this.data.UnitLength;
-        // }
-    }
 
-    // selectedUnitLengthChanged(newValue, oldValue) {
-    //     if (this.selectedUnitLength) {
-    //         this.data.UnitLength = this.selectedUnitLength;
-    //         this.itemOptions.UnitLength = this.data.UnitLength;
-    //     }
-    // }
+        if (this.data.buyer && this.data.buyer.id) {
+            this.selectedBuyer = this.data.buyer;
+        }
+
+        if (this.data.unit && this.data.unit.id) {
+            this.selectedUnit = this.data.unit;
+        }
+
+        if (this.data.storage && this.data.storage.code) {
+            this.selectedStorage = this.data.storage;
+        }
+        
+    }
 
     columns = [
         { header: "No. SOP", value: "ItemNoSOP" },
@@ -78,9 +81,54 @@ export class DataForm {
         { header: "Kg", value: "InputKg" }
     ];
 
+    @bindable selectedBuyer;
+    selectedBuyerChanged(newValue, oldValue) {
+        if (this.selectedBuyer && this.selectedBuyer.Id) {
+            this.data.buyer = {};
+            this.data.buyer.id = this.selectedBuyer.Id;
+            this.data.buyer.name = this.selectedBuyer.Name;
+            this.data.buyer.code = this.selectedBuyer.Code;
+        }
+        else {
+            this.data.buyer.id = this.selectedBuyer.id;
+            this.data.buyer.name = this.selectedBuyer.name;
+            this.data.buyer.code = this.selectedBuyer.code;
+        }
+    }
+
+    @bindable selectedUnit;
+    selectedUnitChanged(newValue, oldValue){
+        if (this.selectedUnit && this.selectedUnit.Id) {
+            this.data.unit = {};
+            this.data.unit.id = this.selectedUnit.Id;
+            this.data.unit.name = this.selectedUnit.Name;
+        }
+        else {
+            this.data.unit.id = this.selectedUnit.id;
+            this.data.unit.name = this.selectedUnit.name;
+        }
+    }
+
+    @bindable selectedStorage;
+    selectedStorageChanged(newValue, oldValue){
+        if (this.selectedStorage && this.selectedStorage.code) {
+            this.data.storage = {};
+            this.data.storage.code = this.selectedStorage.code;
+            this.data.storage.id = this.selectedStorage._id;
+            this.data.storage.name = this.selectedStorage.name;
+            //this.data.storage.unit.name = this.selectedStorage.unit;
+        }
+        else {
+            this.data.storage.code = null;
+            this.data.storage.id = null;
+            this.data.storage.name = null;
+            //this.data.storage.unit.name = null;
+        }
+    }
+
     get addItems() {
         return (event) => {
-            this.data.ItemsMaterialDeliveryNoteWeaving.push({})
+            this.data.itemsMaterialDeliveryNoteWeaving.push({})
         };
     }
 
@@ -105,11 +153,34 @@ export class DataForm {
     }
 
     doTextFormatter = (deliveryOrder) => {
-        return `${deliveryOrder.DOSalesNo}`;
+        if (deliveryOrder.DOSalesNo == null){
+            return `${deliveryOrder.doSalesNo}`;    
+        }
+        else{
+            return `${deliveryOrder.DOSalesNo}`;
+        }
+        
     };
 
     buyerView = (buyer) => {
-        return `${buyer.Code} / ${buyer.Name}`
+        
+        if(buyer.Code == null)
+        {
+            return `${buyer.code} / ${buyer.name}`    
+        }
+        else{
+            return `${buyer.Code} / ${buyer.Name}`
+        }
+        
+    }
+
+    unitView = (unit) => {
+        if(unit.Name == null){
+            return `${unit.name}`    
+        }else{
+            return `${unit.Name}`
+        }
+        
     }
 
     get unitLoader() {
@@ -117,8 +188,8 @@ export class DataForm {
     }
 
     storageView = (storage) => {
-
-        return `${storage.unit.name} - ${storage.name}`
+        return `${storage.name}`
+        //${storage.unit.name} -
 
     }
 

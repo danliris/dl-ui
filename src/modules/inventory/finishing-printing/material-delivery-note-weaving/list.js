@@ -4,18 +4,18 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
 
-@inject(Router, Service) 
+@inject(Router, Service)
 export class List {
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak Bukti Pengiriman"];
     columns = [
-        { field: "Code", title: "Kode BON" },
+        { field: "code", title: "Kode BON" },
         {
             field: "DateSJ", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "Buyer.Name", title: "Nama Buyer" },
-        { field: "SendTo", title: "Dibuat Oleh" }
+        { field: "buyer.name", title: "Nama Buyer" },
+        { field: "sendTo", title: "Dibuat Oleh" }
     ];
 
     loader = (info) => {
@@ -50,10 +50,13 @@ export class List {
     contextCallback(event) {
         let arg = event.detail;
         let data = arg.data;
-        
+
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data.Id });
+                this.router.navigateToRoute('view', { id: data.id });
+                break;
+            case "Cetak Bukti Pengiriman":
+                this.service.getPdfById(data.id);
                 break;
         }
     }
