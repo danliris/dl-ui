@@ -181,4 +181,17 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/credit-advice",
+        name: "garment-shipping/credit-advice",
+        moduleId: "modules/garment-shipping/credit-advice/index",
+        nav: true,
+        title: "Credit Advice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
