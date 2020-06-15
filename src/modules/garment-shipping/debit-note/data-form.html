@@ -13,7 +13,7 @@
                 </au-datepicker>
 
                 <au-autocomplete label="Byuer" placeholder="Pilih Buyer" value.bind="data.buyer"
-                    error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="readOnly"
+                    error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="readOnly || isEdit"
                     options.bind="controlOptions">
                 </au-autocomplete>
 
