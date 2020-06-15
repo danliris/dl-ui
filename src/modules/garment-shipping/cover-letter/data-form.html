@@ -42,8 +42,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <au-autocomplete label="Order" value.bind="data.order" error.bind="error.order"
-                            placeholder="Order" text.bind="orderView" read-only="true"
-                            options.bind="controlOptions">
+                            placeholder="Order" text.bind="orderView" read-only="true" options.bind="controlOptions">
                         </au-autocomplete>
 
                         <au-numeric label="Jumlah PCS" value.bind="data.pcsQuantity" error.bind="error.pcsQuantity"
@@ -110,9 +109,8 @@
                             read-only.bind="readOnly" options.bind="controlOptions">
                         </au-multiline>
 
-                        <au-textbox label="Shipping Staff" value.bind="data.shippingStaff"
-                            error.bind="error.shippingStaff" placeholder="Shipping Staff" read-only.bind="readOnly"
-                            options.bind="controlOptions">
+                        <au-textbox label="Shipping Staff" value.bind="data.shippingStaff.name"
+                            placeholder="Shipping Staff" read-only="true" options.bind="controlOptions">
                         </au-textbox>
                     </div>
                 </div>
