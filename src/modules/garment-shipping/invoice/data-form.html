@@ -111,7 +111,7 @@
         <au-autocomplete 
             label="Shipping Staff" 
             value.bind="shippingStaff" 
-            error.bind="error.ShippingStaffName" 
+            error.bind="error.ShippingStaff" 
             read-only.bind="readOnly"
             loader.bind="shippingStaffLoader"
             text.bind = "shippingStaffView"
@@ -140,12 +140,14 @@
             placeholder = "Cari Bank"
             options.bind="length4">
         </au-autocomplete>
-    <au-numeric
-            label="Tempo Pembayaran"
+    <au-numeric 
+            label="Tempo Pembayaran (HARI)"
             value.bind="data.paymentDue" 
             error.bind="error.PaymentDue"
             read-only.bind="readOnly "
-            options.bind="length4">
+            options.bind="length4" 
+            format ="0"
+            >
         </au-numeric>
         <au-textbox 
         label="No PEB"
@@ -280,13 +282,13 @@
                 options.bind="length4">
             </au-multiline>
 
-            <au-numeric
+            <au-textbox
                 label="C PRICE"
                 value.bind="data.cPrice" 
                 error.bind="error.CPrice"
                 read-only.bind="readOnly"
                 options.bind="length4">
-            </au-numeric>
+            </au-textbox>
             
             <au-numeric
             label="TOTAL AMOUNT"
@@ -302,13 +304,7 @@
                 read-only.bind="true"
                 options.bind="length4">
             </au-numeric>
-            
-            <au-textbox
-                label="SAY"
-                value.bind="say"
-                read-only.bind="true" 
-                options.bind="length4">
-            </au-textbox>
+          
         </au-numeric>
         </div>
         </div>
