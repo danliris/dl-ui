@@ -2,10 +2,6 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
-// const SalesInvoiceLoader = require('./../../../../loader/sales-invoice-loader');
-// const BuyerLoader = require('./../../../../loader/buyers-loader');
-// const UnitLoader = require('./../../../../loader/unit-loader');
-
 @inject(Service)
 export class DataForm {
     @bindable title;
@@ -39,7 +35,7 @@ export class DataForm {
     }
 
     columns = [
-        { header: "No. SPP", value: "NoSPP" },
+        { header: "No. SOP", value: "NoSPP" },
         { header: "Nama Barang", value: "MaterialName" },
         { header: "Lot", value: "InputLot" },
         { header: "Bruto", value: "WeightBruto" },
@@ -61,15 +57,4 @@ export class DataForm {
         return false;
       } else return true;
     }
-    // get salesInvoiceLoader() {
-    //     return SalesInvoiceLoader;
-    // }
-
-    // get buyerLoader() {
-    //     return BuyerLoader;
-    // }
-
-    // get unitLoader() {
-    //     return UnitLoader;
-    // }
 }
