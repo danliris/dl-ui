@@ -11,6 +11,7 @@ export class List {
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
         { field: "SectionCode", title: "Seksi" },
+        { field: "BuyerAgentName", title: "Buyer Agent" },
         {
             field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -46,6 +47,7 @@ export class List {
                 console.log(result)
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
+                    data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {
                     total: result.info.total,

@@ -11,7 +11,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-
+        this.data.grade = "Aval 2"
 
     }
     avalTypes = ["Aval Printex", "Aval Batik Motif Kecil", "Aval Batik Motif Besar", "Aval Printing (10-49 cm)",

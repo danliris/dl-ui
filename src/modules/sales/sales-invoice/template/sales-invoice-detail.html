@@ -8,7 +8,7 @@
             </au-autocomplete>
 
             <au-textbox error.bind="error.SalesInvoiceItem" read-only.bind="true"></au-textbox>
-          
+
             <au-collection show.bind="selectedShippingOut" columns.bind="salesInvoiceItemsInfo.columns"
                 items.bind="data.SalesInvoiceItems" errors.bind="error.SalesInvoiceItems" read-only.bind="readOnly"
                 options.bind="shippingOutTableOptions"

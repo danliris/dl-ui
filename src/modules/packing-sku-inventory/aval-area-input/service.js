@@ -37,6 +37,12 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getPreAvalAll() {
+    var endpoint = `${serviceUri}/pre-aval/all`;
+    
+    return super.get(endpoint);
+  }
+
   getById(id) {
     let endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
@@ -46,14 +52,18 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
-
+  
+  reject(data) {
+    var endpoint = `${serviceUri}/reject`;
+    return super.post(endpoint, data);
+  }
   // update(data) {
   //   let endpoint = `${serviceUri}/${data.id}`;
   //   return super.put(endpoint, data);
   // }
 
-  // delete(data) {
-  //   let endpoint = `${serviceUri}/${data.id}`;
-  //   return super.delete(endpoint, data);
-  // }
+  delete(data) {
+    let endpoint = `${serviceUri}/${data.id}`;
+    return super.delete(endpoint, data);
+  }
 }

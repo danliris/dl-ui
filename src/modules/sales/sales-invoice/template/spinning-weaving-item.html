@@ -6,30 +6,25 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.ProductName" error.bind="error.ProductName" read-only.bind="readOnly" placeholder="Input Nama">
+            <au-textbox value.bind="data.ProductName" error.bind="error.ProductName" read-only.bind="readOnly"
+                placeholder="Input Nama">
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.QuantityPacking" error.bind="error.QuantityPacking" read-only.bind="readOnly" format="0,0">
+            <au-numeric value.bind="data.QuantityPacking" error.bind="error.QuantityPacking" read-only.bind="readOnly"
+                format="0,0">
             </au-numeric>
         </td>
-        <!-- <td>
-            <au-textbox value.bind="data.PackingUom" read-only.bind="readOnly">
-            </au-textbox>
-        </td> -->
         <td>
             <au-dropdown value.bind="data.PackingUom" items.bind="packingUomOptions" error.bind="error.PackingUom"
                 read-only.bind="readOnly">
             </au-dropdown>
         </td>
         <td>
-            <au-numeric value.bind="QuantityItem" error.bind="error.QuantityItem" read-only.bind="readOnly" format="0,0">
+            <au-numeric value.bind="QuantityItem" error.bind="error.QuantityItem" read-only.bind="readOnly"
+                format="0,0">
             </au-numeric>
         </td>
-        <!-- <td>
-            <au-textbox value.bind="data.ItemUom" read-only.bind="readOnly">
-            </au-textbox>
-        </td> -->
         <td>
             <au-dropdown value.bind="data.ItemUom" items.bind="itemUomOptions" error.bind="error.ItemUom"
                 read-only.bind="readOnly">
