@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
@@ -14,7 +14,6 @@ export class Create {
         this.error = {};
     }
 
-
     back() {
         this.router.navigateToRoute('list');
     }
@@ -26,7 +25,7 @@ export class Create {
     }
 
     save() {
-        this.data.avalTransformationProductionOrders = this.avalTransformationProductionOrders;
+        this.data.avalTransformationProductionOrders = this.data.displayAvalTransformationProductionOrders;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
