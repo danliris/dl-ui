@@ -37,19 +37,20 @@ export class Create {
     CreateData.Shift = this.data.Shift;
     CreateData.Group = this.data.Group;
     CreateData.DestinationArea = this.data.DestinationArea;
-
+    console.log(this);
     if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
       CreateData.Date = "";
     } else {
       CreateData.Date = this.data.Date;
     }
 
-    if(this.data.DyeingPrintingMovementIds.length > 0){
-      CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
-    }else{
-      CreateData.DyeingPrintingMovementIds = [];
-    }
-
+    // if(this.data.DyeingPrintingMovementIds.length > 0){
+    //   CreateData.DyeingPrintingMovementIds = this.data.DyeingPrintingMovementIds;
+    // }else{
+    //   CreateData.DyeingPrintingMovementIds = [];
+    // }
+    CreateData.DeliveryOrdeSalesId = this.data.doNO.DeliveryOrderSalesID;
+    CreateData.DeliveryOrderSalesNo = this.data.doNO.DeliveryOrderSalesNO;
     if (this.data.DyeingPrintingItems.length > 0) {
       CreateData.AvalItems = this.data.DyeingPrintingItems.map(
         (item) => {
@@ -60,6 +61,8 @@ export class Create {
           remappedItems.AvalUomUnit = item.AvalUomUnit;
           remappedItems.AvalQuantity = item.AvalQuantity;
           remappedItems.AvalQuantityKg = item.AvalQuantityKg;
+          remappedItems.AvalOutSatuan = item.AvalQuantityUnit;
+          remappedItems.AvalOutQuantity = item.AvalQuantityKgOut;
 
           return remappedItems;
         }
@@ -67,7 +70,7 @@ export class Create {
     } else {
       CreateData.AvalItems = [{}];
     }
-    console.log();
+    // console.log(CreateData);
     this.service
       .create(CreateData)
       .then((result) => {
