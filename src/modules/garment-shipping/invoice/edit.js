@@ -23,6 +23,13 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data.isUsed == true)
+        {
+           this.isUsed = true;
+        }else
+        {
+            this.isUsed = false;
+        }
        
     }
 
