@@ -66,10 +66,17 @@
                 <td class="text-center">${item.fc}</td>
                 <td class="text-center">${item.hours}</td>
                 <td class="text-right">${item.cuttingQtyMeter}</td>
-                <td class="text-right">${item.stock}</td>
-                <td class="text-right">${item.cuttingQtyPcs}</td> 
-                <td class="text-right">${item.expenditure}</td>
-                <td class="text-right">${item.remainQty}</td>
+                <td class="text-right">${item.stocks}</td>
+                <td class="text-right">${item.cuttingsQtyPcs}</td> 
+                <td class="text-right">${item.expenditures}</td>
+                <td class="text-right">${item.remainQtys}</td>
+            </tr>
+            <tr class="active">
+                <td class="text-center" colspan="8"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong>${sumStock}</strong></td>        
+                <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
+                <td class="text-right"><strong>${sumExpenditure}</strong></td>
+                <td class="text-right"><strong>${sumRemainQty}</strong></td>
             </tr>
         </tbody>
     </table>

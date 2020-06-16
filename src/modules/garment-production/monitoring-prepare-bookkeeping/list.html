@@ -67,14 +67,25 @@
                 <td class="text-center">${item.uomUnit}</td>
                 <td class="text-center">${item.roAsal}</td>
                 <td class="text-center">${item.remark}</td>
-                <td class="text-right">${item.price}</td>
-                <td class="text-right">${item.stock}</td>
-                <td class="text-right">${item.receipt}</td>
-                <td class="text-right">${item.mainFabricExpenditure}</td>
-                <td class="text-right">${item.nonMainFabricExpenditure}</td>
-                <td class="text-right">${item.expenditure}</td>
-                <td class="text-right">${item.aval}</td>
-                <td class="text-right">${item.remainQty}</td>
+                <td class="text-right">${item.prices}</td>
+                <td class="text-right">${item.stocks}</td>
+                <td class="text-right">${item.receipts}</td>
+                <td class="text-right">${item.mainFabricExpenditures}</td>
+                <td class="text-right">${item.nonMainFabricExpenditures}</td>
+                <td class="text-right">${item.expenditures}</td>
+                <td class="text-right">${item.avals}</td>
+                <td class="text-right">${item.remainQtys}</td>
+            </tr>
+            <tr class="active">
+                <td class="text-center" colspan="7"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong></strong></td>
+                <td class="text-right"><strong>${sumStock}</strong></td>        
+                <td class="text-right"><strong>${sumReceipt}</strong></td>
+                <td class="text-right"><strong>${sumMainFabricExpenditure}</strong></td>
+                <td class="text-right"><strong>${sumNonMainFabricExpenditure}</strong></td>
+                <td class="text-right"><strong>${sumExpenditure}</strong></td>
+                <td class="text-right"><strong>${sumAval}</strong></td>
+                <td class="text-right"><strong>${sumRemainQty}</strong></td>
             </tr>
         </tbody>
     </table>
