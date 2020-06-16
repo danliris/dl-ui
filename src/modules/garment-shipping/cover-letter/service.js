@@ -33,9 +33,9 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getStock(info) {
-        var endpoint = `${packingListServiceUri}`;
-        return super.list(endpoint, info);
+    getPackingListById(id) {
+        var endpoint = `${packingListServiceUri}/${id}`;
+        return super.get(endpoint);
     }
 }
 

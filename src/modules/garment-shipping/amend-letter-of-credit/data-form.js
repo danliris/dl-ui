@@ -3,6 +3,7 @@ import { Service } from "./service";
 
 const LCLoader = require('../../../loader/garment-shipping-letter-of-credit-loader');
 
+import moment from 'moment';
 @inject(Service)
 export class DataForm {
 
@@ -44,7 +45,7 @@ export class DataForm {
             this.data.amendNumber=0;
         }
         if(newValue){
-            this.data.documentCreditNo=newValue.documentCreditNo
+            this.data.documentCreditNo=newValue.documentCreditNo;
             this.service.search({filter : JSON.stringify({ DocumentCreditNo: this.data.documentCreditNo })})
             .then(result=>{
                 if(result.data.length>0){
@@ -53,6 +54,7 @@ export class DataForm {
                             continue;
                         }
                         else{
+                            lc.date=moment(lc.date).format("DD MMM YYYY");
                             this.data.DataItems.push(lc);
                         }
                     }

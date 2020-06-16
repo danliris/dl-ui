@@ -16,6 +16,8 @@ import {
 import { BindingSignaler } from "aurelia-templating-resources";
 
 import SalesContractLoader from "../../../loader/finishing-printing-sales-contract-loader";
+import SalesContractSpinningLoader from "../../../loader/spinning-sales-contract-loader";
+import SalesContractWeavingLoader from "../../../loader/weaving-sales-contract-loader";
 
 @containerless()
 @inject(Router, Service, PermissionHelper, ServiceCore)
@@ -102,28 +104,67 @@ export class Create {
   }
 
   doSalesLocalItemsInfo = {
-    columns: [
-      "No SPP",
-      "Material Konstruksi",
-      "Jenis / Code",
-      "Jumlah Packing",
-      "Panjang",
-      "Hasil Konversi",
-    ],
+    columns: ["No SOP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi",],
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),
   };
 
+  doSalesLocalSpinningItemsInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesLocalWeavingItemsInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+  // ==================================================
   doSalesExportItemsInfo = {
-    columns: [
-      "No SPP",
-      "Material Konstruksi",
-      "Jenis / Code",
-      "Jumlah Packing",
-      "Berat",
-      "Hasil Konversi",
-    ],
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jenis / Code", "Jumlah Packing", "Berat", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesExportItemsSpinningInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesExportItemsWeavingInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),
@@ -134,7 +175,7 @@ export class Create {
   doSalesTypeOptions = ["", "Lokal", "Ekspor"];
   doSalesLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
   //doSalesExportOptions = ["", "KKF", "KKP"];
-  packingUomOptions = ["", "DOS"];
+  packingUomOptions = ["", "DOOS", "Karung"];
   packingUomWeavingOptions = ["", "PCS", "BALE"];
   packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
   lengthUomOptions = ["", "YDS", "MTR"];
@@ -197,6 +238,13 @@ export class Create {
     }
   }
 
+  // get addItems() {
+  //   return (event) => {
+  //     this.data.DOSalesDetailItems.push({})
+  //   };
+  // }
+  
+
   dispChanged(newValue, OldValue) {
     this.data.Disp = this.disp;
   }
@@ -243,6 +291,13 @@ export class Create {
     return SalesContractLoader;
   }
 
+  get SalesContractSpinningLoader() {
+    return SalesContractSpinningLoader;
+  }
+
+  get SalesContractWeavingLoader() {
+    return SalesContractWeavingLoader;
+  }
 
   initPermission() {
     this.roles = [SPINNING, WEAVING, DYEINGPRINTING];
@@ -299,21 +354,21 @@ export class Create {
   }
 
   save(event) {
-
-    this.service
-      .create(this.data)
-      .then((result) => {
-        alert("Data berhasil dibuat");
-        this.router.navigateToRoute(
-          "create",
-          {},
-          { replace: true, trigger: true }
-        );
-        // this.__goToList();
-      })
-      .catch((error) => {
-        this.error = error;
-      });
+    console.log(this.data);
+    // this.service
+    //   .create(this.data)
+    //   .then((result) => {
+    //     alert("Data berhasil dibuat");
+    //     this.router.navigateToRoute(
+    //       "create",
+    //       {},
+    //       { replace: true, trigger: true }
+    //     );
+    //     // this.__goToList();
+    //   })
+    //   .catch((error) => {
+    //     this.error = error;
+    //   });
   }
 
   storageView = (storage) => {

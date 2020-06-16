@@ -29,11 +29,12 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";    
+      
+      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";      
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
       var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
-      var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites-dev.net/v1/";
+      var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
       var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";
       var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
       var inventory = "https://dl-inventory-webapi-dev.azurewebsites.net/v1/";
@@ -42,16 +43,15 @@ export async function configure(aurelia) {
       var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
-      var customsReport = "https://com-danliris-service-support.azurewebsites-dev.net/v1/";
-      var merchandiser = "https://com-danliris-service-md.azurewebsites-dev.net/v1/";
+      var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
+      var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
       const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
       var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
       var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
       var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
       var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
-      
-      
+
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
