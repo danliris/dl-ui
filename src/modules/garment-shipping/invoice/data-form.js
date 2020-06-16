@@ -19,6 +19,7 @@ export class DataForm {
      @bindable read = true;
     @bindable isCreate = false;
      @bindable isEdit = false;
+     @bindable isUsed =false;
     
     constructor(service,coreService) {
         this.service = service;
@@ -34,8 +35,10 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
+            isUsed : this.context.isUsed
           
         }
+        console.log(this.options);
         this.isEdit= this.context.isEdit;
      if(this.data.id !=undefined)
      {
@@ -63,7 +66,6 @@ export class DataForm {
           
             this.data.bankAccountId = this.data.bankAccountId;
             this.packinglists = this.data.invoiceNo;
-               console.log(this.data);
      }  
     }
 

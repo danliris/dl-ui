@@ -6,6 +6,7 @@
           <au-textbox 
               value.bind="data.adjustmentDescription"
               read-only.bind="readOnly || isEdit"
+              error.bind="error.AdjustmentDescription" 
               options.bind="controlOptions">
           </au-textbox>
       </td>
@@ -14,6 +15,7 @@
               value.bind="data.adjustmentValue" 
               read-only.bind="readOnly || isEdit"
               options.bind="controlOptions"
+              error.bind="error.AdjustmentValue" 
               format="0.0000">
           </au-numeric>
       </td>
