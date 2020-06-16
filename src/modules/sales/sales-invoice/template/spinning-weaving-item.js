@@ -1,8 +1,8 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { SalesInvoiceDetail } from "./sales-invoice-detail";
+import { SpinningWeavingDetail } from "./spinning-weaving-detail";
 import { DataForm } from "./../data-form";
 
-@inject(SalesInvoiceDetail, DataForm, BindingEngine)
+@inject(SpinningWeavingDetail, DataForm, BindingEngine)
 export class SpinningWeavingItem {
   @bindable QuantityItem;
   @bindable Price;
@@ -10,8 +10,8 @@ export class SpinningWeavingItem {
   @bindable ConvertValue;
   @bindable ConvertUnit;
 
-  constructor(salesInvoiceDetail, dataForm, bindingEngine) {
-    this.salesInvoiceDetail = salesInvoiceDetail;
+  constructor(spinningWeavingDetail, dataForm, bindingEngine) {
+    this.spinningWeavingDetail = spinningWeavingDetail;
     this.dataForm = dataForm;
     this.bindingEngine = bindingEngine;
   }
