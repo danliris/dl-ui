@@ -59,11 +59,19 @@
                 <td class="text-center">${item.article}</td>
                 <td class="text-right">${item.qtyOrder}</td>
                 <td class="text-center">${item.style}</td>
-                <td class="text-right">${item.stock}</td>
-                <td class="text-right">${item.cuttingQtyPcs}</td> 
-                <td class="text-right">${item.loadingQtyPcs}</td>
-                <td class="text-right">${item.remainQty}</td>
+                <td class="text-right">${item.stocks}</td>
+                <td class="text-right">${item.cuttingsQtyPcs}</td> 
+                <td class="text-right">${item.loadingsQtyPcs}</td>
+                <td class="text-right">${item.remainsQty}</td>
                 <td class="text-center">${item.uomUnit}</td>
+            </tr>
+            <tr class="active">
+                <td class="text-center" colspan="4"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong>${sumStock}</strong></td>        
+                <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
+                <td class="text-right"><strong>${sumloadingQtyPcs}</strong></td>
+                <td class="text-right"><strong>${sumRemainQty}</strong></td>
+                <td class="text-right"><strong></strong></td>
             </tr>
         </tbody>
     </table>

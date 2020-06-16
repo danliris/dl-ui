@@ -29,7 +29,7 @@ export class List {
                       
                     _data.expenditureDate= moment(_data.expenditureDate).format("YYYY-MM-DD");
                     _data.price=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    _data.qty=_data.qty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data.qtys=_data.qty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     this.data.push(_data);
 
                  }
@@ -60,5 +60,18 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.unit = null;
+    }
+    get sumQty()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.qty;
+            }
+        }
+        
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
 }
