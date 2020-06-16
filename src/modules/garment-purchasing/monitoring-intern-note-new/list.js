@@ -6,6 +6,8 @@ import moment from 'moment';
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var InternLoader = require('../../../loader/garment-intern-note-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
+//var DOLoader = require('../../../loader/garment-delivery-order-loader');
+var InvoiceLoader = require('../../../loader/garment-invoice-note-loader');
 
 @inject(Service)
 export class List {
@@ -121,6 +123,10 @@ export class List {
             curencyCode: this.currency ? this.currency.Code  : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            invoiceNo: this.invoice ? this.invoice.invoiceNo  : "",
+            doNo : this.deliveryorder ? this.deliveryorder.doNo : "",
+            billNo : this.bill ? this.bill.billNo : "", 
+            paymentBill: this.paymentbill ? this.paymentbill.paymentBill : ""
         };
         this.service.search(args)
                 .then(result => {
@@ -150,6 +156,10 @@ export class List {
                 curencyCode: this.currency ? this.currency.Code  : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                invoiceNo: this.invoice ? this.invoice.invoiceNo : "",
+                doNo: this.deliveryorder ? this.deliveryorder.doNo : "",
+                billNo: this.bill ? this.bill.billNo : "",
+                paymentBill: this.paymentBill ? this.paymentbill.paymentBill : ""
             };
             
             this.service.generateExcel(args)
@@ -171,16 +181,56 @@ export class List {
         return CurrencyLoader;
     }
 
-    reset() {
+  get dOLoader() {
+    return (keyword) => {
+      var info = {
+        keyword: keyword,
+        select: JSON.stringify({ "doNo": "DONo", "Id": "1", "supplierName": "SupplierName", "billNo": "BillNo", "paymentBill": "PaymentBill" }),
+        search: JSON.stringify(["DONo", "BillNo", "PaymentBill"]),
+        order: { "DONo": "asc" }
+      };
+      console.log(info);
+      return this.service.searchDeliveryOrder(info)
+        .then((result) => {
+          return result.data.map(data => {
+            data.toString = function () { return `${this.doNo} - ${this.supplierName}`; };
+            return data;
+          });
+        });
+    }
+  }
+
+  get invoiceLoader() {
+    return InvoiceLoader;
+  }
+
+  BillNoView = (bill) => {
+    return `${bill.billNo}`
+  }
+
+  PaymentBillNoView = (paymentbill) => {
+    return `${paymentbill.paymentBill}`
+  }
+
+  doView = (deliveryorder) => {
+    //console.log(deliveryorder)
+    return `${deliveryorder.doNo}-${deliveryorder.supplierName}`
+  }
+
+  reset() {
         this.dateFrom = null;
         this.dateTo = null;
         this.supplier = null;
         this.internNote = null;
         this.currency = null;
-    }
-    changePage(e) {
+        this.bill = null;
+        this.deliveryorder = null;
+        this.paymentbill = null;
+        this.invoice = null;
+  }
+  changePage(e) {
         var page = e.detail;
         this.info.page = page;
         this.searching();
-    }
+  }
 }

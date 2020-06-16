@@ -118,7 +118,27 @@
                              read-only.bind="readOnly">
               </au-datepicker>
 
-              <au-autocomplete label="No. Sales Contract"
+              <au-autocomplete if.bind="code" label="No. Sales Contract"
+                               value.bind="selectedSalesContract"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.SalesContract"
+                               loader.one-time="SalesContractSpinningLoader"
+                               text.bind="salesContractNoView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code1" label="No. Sales Contract"
+                               value.bind="selectedSalesContract"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.SalesContract"
+                               loader.one-time="SalesContractWeavingLoader"
+                               text.bind="salesContractNoView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code2" label="No. Sales Contract"
                                value.bind="selectedSalesContract"
                                read-only.bind="readOnly || isEdit"
                                error.bind="error.SalesContract"
@@ -246,8 +266,8 @@
                   </au-numeric>
                 </div>
                 <div class="col-sm-6"
-                     style="padding-left:20%">
-                  <au-numeric label="Op"
+                     style="padding-left:15%">
+                  <au-numeric label="Op/Fo"
                               value.bind="op"
                               error.bind="error.Op"
                               read-only.bind="readOnly"
@@ -258,7 +278,8 @@
                 </div>
                 <div class="col-sm-6"
                      style="padding-left:20%">
-                  <au-numeric label="Sc"
+                  <au-numeric if.bind="code2" 
+                              label="Sc"
                               value.bind="sc"
                               error.bind="error.Sc"
                               read-only.bind="readOnly"
@@ -326,7 +347,27 @@
                           keypress.delegate="enterDelegate($event)">
               </au-textbox>
 
-              <au-autocomplete label="No. Sales Contract"
+              <au-autocomplete if.bind="code" label="No. Sales Contract"
+                               value.bind="selectedSalesContract"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.SalesContract"
+                               loader.one-time="SalesContractSpinningLoader"
+                               text.bind="salesContractNoView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code1" label="No. Sales Contract"
+                               value.bind="selectedSalesContract"
+                               read-only.bind="readOnly || isEdit"
+                               error.bind="error.SalesContract"
+                               loader.one-time="SalesContractWeavingLoader"
+                               text.bind="salesContractNoView"
+                               keypress.delegate="enterDelegate($event)"
+                               placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code2" label="No. Sales Contract"
                                value.bind="selectedSalesContract"
                                read-only.bind="readOnly || isEdit"
                                error.bind="error.SalesContract"
@@ -425,7 +466,7 @@
                 error.bind="error.DetailItem"
                 read-only.bind="true"></au-textbox>
 
-    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom"
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code2"
                    columns.bind="doSalesLocalItemsInfo.columns"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
@@ -435,7 +476,31 @@
                    view-model.ref="ItemsCollection">
     </au-collection>
 
-    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom"
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code"
+                   columns.bind="doSalesLocalSpinningItemsInfo.columns"
+                   add.bind="doSalesLocalSpinningItemsInfo.onAdd"
+                   items.bind="data.DOSalesDetailItems"
+                   errors.one-way="error.DOSalesDetailItems"
+                   remove.bind="doSalesLocalSpinningItemsInfo.onRemove"
+                   read-only.bind="readOnly"
+                   options.bind="detailOptions"
+                   item-template="modules/sales/do-sales/template/local-item-spinning"
+                   view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code1"
+                   columns.bind="doSalesLocalWeavingItemsInfo.columns"
+                   add.bind="doSalesLocalWeavingItemsInfo.onAdd"
+                   items.bind="data.DOSalesDetailItems"
+                   errors.one-way="error.DOSalesDetailItems"
+                   remove.bind="doSalesLocalWeavingItemsInfo.onRemove"
+                   read-only.bind="readOnly"
+                   options.bind="detailOptions"
+                   item-template="modules/sales/do-sales/template/local-item-weaving"
+                   view-model.ref="ItemsCollection">
+    </au-collection>
+<!-- ============================================================ -->
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code2"
                    columns.bind="doSalesExportItemsInfo.columns"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
@@ -444,6 +509,29 @@
                    item-template="modules/sales/do-sales/template/export-item"
                    view-model.ref="ItemsCollection">
     </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code"
+                   columns.bind="doSalesExportItemsSpinningInfo.columns"
+                   add.bind="doSalesLocalSpinningItemsInfo.onAdd"
+                   items.bind="data.DOSalesDetailItems"
+                   errors.one-way="error.DOSalesDetailItems"
+                   read-only.bind="readOnly"
+                   options.bind="detailOptions"
+                   item-template="modules/sales/do-sales/template/export-item-spinning"
+                   view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code1"
+                   columns.bind="doSalesExportItemsWeavingInfo.columns"
+                   add.bind="doSalesLocalWeavingItemsInfo.onAdd"
+                   items.bind="data.DOSalesDetailItems"
+                   errors.one-way="error.DOSalesDetailItems"
+                   read-only.bind="readOnly"
+                   options.bind="detailOptions"
+                   item-template="modules/sales/do-sales/template/export-item-weaving"
+                   view-model.ref="ItemsCollection">
+    </au-collection>
+
   </au-input-form>
 
   <block>

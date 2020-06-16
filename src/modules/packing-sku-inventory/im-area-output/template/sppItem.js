@@ -4,8 +4,9 @@ var ProductionOrderLoader = require('../../../../loader/production-order-azure-l
 export class CartItem {
     sppColumns = [];
     sppOptions = {};
-    
+    isAval = false;
     isShowing = false;
+    avalColumns = ["Grade", "Jenis Aval", "Panjang"];
     activate(context) {
 
         this.context = context;
@@ -14,6 +15,13 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
+
+        if (this.destinationArea == "GUDANG AVAL") {
+            this.isAval = true;
+        } else {
+            this.isAval = false;
+        }
+
         this.isEdit = this.contextOptions.isEdit;
         this.sppOptions.destinationArea = this.destinationArea;
 
@@ -62,7 +70,7 @@ export class CartItem {
     addSPPDetailCallback = (e) => {
         this.data.productionOrderDetails = this.data.productionOrderDetails || [];
         this.data.productionOrderDetails.push({
-            
+
         });
     };
 }

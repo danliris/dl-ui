@@ -6,9 +6,11 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "Code", title: "Kode", width: "20%" },
-        { field: "Name", title: "Nama", width: "30%" },
-        { field: "Address", title: "Alamat" },
+        { field: "Code", title: "Kode", width: "8%" },
+        { field: "Name", title: "Nama", width: "23%" },
+        { field: "Address", title: "Alamat", width: "34%" },
+        { field: "NPWP", title: "No. NPWP", width: "12%" },
+        { field: "WPName", title: "Nama Wajib Pajak", width: "23%" },
     ];
 
     loader = (info) => {

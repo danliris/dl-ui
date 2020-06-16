@@ -15,6 +15,11 @@
         .tab.active {
             border-color: #173250 !important;
         }
+
+        .tbl{
+            margin-left:25px;
+            margin-right:25px;
+        }
     </style>
     <au-input-form  title.bind="title"  title.bind="title" with.bind="context">
     <div class="row">
@@ -149,20 +154,22 @@
                 </au-checkbox>
             </div>
             <div class="form-group has-error">
-                <p if.bind="error.Items" class="help-block text-center">${error.Items}</p>
+                <p if.bind="error.Items && typeof error.items === 'string'" class="help-block text-center">${error.Items}</p>
             </div>
-
-            <au-collection 
-                items.bind="data.items" 
-                errors.bind="error.Items" 
-                columns.bind="itemsColumns"
-                read-only.bind="readOnly" 
-                add.bind="addItems" 
-                remove.bind="removeItems"
-                options.bind="Options"
-                if.bind="data.buyerAgent && data.section"
-                item-template="modules/garment-shipping/packing-list/template/detail-ro">
-            </au-collection>
+            <div class="tbl">
+                <au-collection 
+                    items.bind="data.items" 
+                    errors.bind="error.Items" 
+                    columns.bind="itemsColumns"
+                    read-only.bind="readOnly" 
+                    add.bind="addItems" 
+                    remove.bind="removeItems"
+                    options.bind="Options"
+                    show.bind="data.buyerAgent && data.section"
+                    item-template="modules/garment-shipping/packing-list/template/detail-ro">
+                </au-collection>    
+            </div>
+            
         </div>
     </div>
 
@@ -190,9 +197,9 @@
             <div class="col-sm-4">
                 <numeric
                     label="TOTAL CARTONS"
-                    value.bind="data.totalCartons"
+                    value.bind="totalCartons"
                     error.bind="error.totalCartons"
-                    read-only.bind="readOnly" 
+                    read-only.bind="true" 
                     options.bind="controlOptions">
                 </numeric>
             </div>
@@ -205,23 +212,25 @@
             </au-textbox>
         </div>
         <div>
-            <p class="help-block text-left">MEASUREMENT</p>
+            <p class="help-block text-left tbl">MEASUREMENT</p>
         </div>
         <div class="form-group has-error">
             <p if.bind="error.Measurements" class="help-block text-center">${error.Measurements}</p>
         </div>
-
-        <au-collection 
+        <div class="tbl">
+            <au-collection 
                 items.bind="data.measurements" 
-                error.bind="error.Measurements" 
+                errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
                 read-only.bind="readOnly" 
                 add.bind="addMeasurements" 
                 remove.bind="removeMeasurements"
                 options.bind="Options"
                 item-template="modules/garment-shipping/packing-list/template/detail-measurement">
-        </au-collection>
-        <p if.bind="data.Measurements"><b>TOTAL CBM : ${totalCBM} </b></p>
+            </au-collection>
+        </div>
+        
+        <p class="tbl" if.bind="data.measurements"><b>TOTAL CBM : ${totalCBM} </b></p>
     </div>
 
     <!-- MARK -->

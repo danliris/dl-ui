@@ -15,6 +15,13 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.error = {};
+        var idx=0;
+        if(this.data.measurements){
+            for(var i of this.data.measurements){
+                i.MeasurementIndex=idx;
+                idx++;
+            }
+        }
     }
 
     cancelCallback(event) {

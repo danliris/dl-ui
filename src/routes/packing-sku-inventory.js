@@ -1,5 +1,57 @@
 module.exports = [
     {
+        route: 'packing-sku-inventory/master/weft-type',
+        name: 'weft-type',
+        moduleId: './modules/packing-sku-inventory/weft-type/index',
+        nav: true,
+        title: 'Master Jenis Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/warp-type',
+        name: 'warp-type',
+        moduleId: './modules/packing-sku-inventory/warp-type/index',
+        nav: true,
+        title: 'Master Jenis Lusi',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/material-construction',
+        name: 'material-construction',
+        moduleId: './modules/packing-sku-inventory/material-construction/index',
+        nav: true,
+        title: 'Master Lusi Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/grade',
+        name: 'grade',
+        moduleId: './modules/packing-sku-inventory/grade/index',
+        nav: true,
+        title: 'Master Grade',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/product-sku',
         name: 'product-sku',
         moduleId: './modules/packing-sku-inventory/product-sku/index',
@@ -223,6 +275,19 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/aval-area-transformation-input',
+        name: 'aval-area-transformation-input',
+        moduleId: './modules/packing-sku-inventory/aval-area-transformation-input/index',
+        nav: true,
+        title: 'Perubahan Masukan Aval Dyeing/Printing',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/aval-area-output',
         name: 'aval-area-output',
         moduleId: './modules/packing-sku-inventory/aval-area-output/index',
@@ -279,11 +344,24 @@ module.exports = [
         name: 'report-dyeing-printing-stock',
         moduleId: './modules/packing-sku-inventory/report-dyeing-printing-stock/index',
         nav: true,
-        title: 'Laporan Stock Gudang',
+        title: 'Laporan Stock Dyeing Printing',
         auth: true,
         settings: {
             group: "ps-inventory",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/aval-stock-report',
+        name: 'aval-stock-report',
+        moduleId: './modules/packing-sku-inventory/aval-stock-report/index',
+        nav: true,
+        title: 'Laporan Stock Gudang Aval',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

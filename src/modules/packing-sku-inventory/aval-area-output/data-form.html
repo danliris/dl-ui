@@ -58,6 +58,7 @@
       read-only.bind="readOnly"
     ></au-datepicker>
 
+    
     <au-dropdown
       options.bind="controlOptions"
       label="Shift"
@@ -77,22 +78,33 @@
     ></au-dropdown>
 
     <au-dropdown
+    options.bind="controlOptions"
+    label="Zona"
+    value.bind="data.DestinationArea"
+    error.bind="error.DestinationArea"
+    read-only.bind="readOnly"
+    items.bind="destinationAreas"
+  ></au-dropdown>
+  
+    <au-autocomplete
       options.bind="controlOptions"
-      label="Zona"
-      value.bind="data.DestinationArea"
-      error.bind="error.DestinationArea"
+      label="No. DO"
+      value.bind="data.doNO"
+      error.bind="error.DoNO"
       read-only.bind="readOnly"
-      items.bind="destinationAreas"
-    ></au-dropdown>
+      items.bind="selectedAvalBon"
+      loader.bind="DOLoader"
+      text.bind = "DOFormatter"
+    ></au-autocomplete>
 
-    <div class="form-group"show.bind="isShowed">
+    <!-- <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">
           Cari
         </button>
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
-    </div>
+    </div> -->
 
     <!-- <div class="row" show.bind="isShowed">
       <table>
@@ -165,22 +177,23 @@
     <br>
 
     <au-collection
-      show.bind="isHasData"
+      
       columns.bind="dyeingPrintingItemsColumns"
       items.bind="data.DyeingPrintingItems"
       errors.bind="error.AvalProductionOrders"
       options.bind="itemOptions"
       read-only.bind="readOnly"
       item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
+      add.bind = "addItems"
     >
     </au-collection>
-    <div
+    <!-- <div
       class="alert alert-info text-center"
       role="alert"
       if.bind="isHasData == false"
     >
       There is no data found in the list.
-    </div>
+    </div> -->
 
     <template replaceable part="actions"></template>
   </au-input-form>
