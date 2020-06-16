@@ -9,16 +9,17 @@
             items.bind="salesTypeOptions" error.bind="error.SalesType" read-only.bind="readOnly || isEdit">
           </au-dropdown>
         </div>
-        <div class="col-md-10" style="padding:0" if.bind="data.SalesType !=''">
-          <!-- FormLocalAndExport -->
+
+        <!-- FormLocal -->
+        <div class="col-md-11" style="padding:0" if.bind="data.SalesType !='' && data.SalesType =='Lokal'">
+
           <div class="col-md-6">
             <au-textbox label="No. Faktur Penjualan" value.bind="data.SalesInvoiceNo" if.bind="readOnly || isEdit"
               read-only.bind="true">
             </au-textbox>
 
-            <au-dropdown label="Seri Faktur Penjualan" value.bind="data.SalesInvoiceType"
-              items.bind="salesInvoiceTypeOptions" error.bind="error.SalesInvoiceType"
-              read-only.bind="readOnly || isEdit">
+            <au-dropdown label="Seri Faktur Penjualan Lokal" value.bind="data.SalesInvoiceType"
+              items.bind="localTypeOptions" error.bind="error.SalesInvoiceType" read-only.bind="readOnly || isEdit">
             </au-dropdown>
 
             <au-datepicker label="Tgl. Faktur Penjualan" value.bind="SalesInvoiceDate"
@@ -52,7 +53,9 @@
 
             <au-textbox label="Sales" value.bind="data.Sales" read-only.bind="readOnly" placeholder="Input Nama Sales">
             </au-textbox>
+          </div>
 
+          <div class="col-md-6">
             <au-textbox label="No. Surat Jalan" value.bind="data.DeliveryOrderNo" if.bind="readOnly || isEdit"
               read-only.bind="true">
             </au-textbox>
@@ -86,64 +89,153 @@
               keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
             </au-multiline>
           </div>
+        </div>
+
+        <!-- FormExport -->
+        <div class="col-md-11" style="padding:0" if.bind="data.SalesType !='' && data.SalesType =='Ekspor'">
 
           <div class="col-md-6">
+            <au-textbox label="No. Faktur Penjualan" value.bind="data.SalesInvoiceNo" if.bind="readOnly || isEdit"
+              read-only.bind="true">
+            </au-textbox>
 
-            <div if.bind="data.SalesType =='Ekspor'">
-              <au-datepicker label="Tanggal Sailing" value.bind="data.SailingDate" error.bind="error.SailingDate"
+            <au-dropdown if.bind="data.SalesInvoiceCategory=='DYEINGPRINTING'" label="Jenis FP" value.bind="data.FPType"
+              items.bind="finishingPrintingOptions" error.bind="error.FPType" read-only.bind="readOnly || isEdit">
+            </au-dropdown>
+
+            <au-dropdown label="Seri Faktur Penjualan Ekspor" value.bind="data.SalesInvoiceType"
+              items.bind="exportTypeOptions" error.bind="error.SalesInvoiceType" read-only.bind="readOnly || isEdit">
+            </au-dropdown>
+
+            <au-datepicker label="Tgl. Faktur Penjualan" value.bind="data.SalesInvoiceDate"
+              error.bind="error.SalesInvoiceDate" read-only.bind="readOnly">
+            </au-datepicker>
+
+            <au-textbox label="Nama Buyer" value.bind="ExportBuyerName" read-only.bind="readOnly">
+            </au-textbox>
+
+            <au-textbox label="Alamat Buyer" value.bind="ExportBuyerAddress" read-only.bind="readOnly">
+            </au-textbox>
+
+            <au-dropdown label="Sales" value.bind="data.Sales" items.bind="salesOptions" error.bind="error.Sales"
+              read-only.bind="readOnly || isEdit">
+            </au-dropdown>
+
+            <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer"
+              read-only.bind="readOnly" placeholder="Input Shipped Per">
+            </au-textbox>
+
+            <au-datepicker label="Tanggal Sailing" value.bind="data.SailingDate" error.bind="error.SailingDate"
+              read-only.bind="readOnly">
+            </au-datepicker>
+
+            <au-textbox label="Letter of Credit Number" value.bind="data.LetterOfCreditNumber"
+              error.bind="error.LetterOfCreditNumber" read-only.bind="readOnly"
+              placeholder="Input Letter of Credit Number">
+            </au-textbox>
+
+            <div if.bind="data.SalesInvoiceType=='L/C'">
+              <au-datepicker label="Tgl. L/C" value.bind="data.LCDate" error.bind="error.LCDate"
                 read-only.bind="readOnly">
               </au-datepicker>
 
-              <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer"
-                read-only.bind="readOnly" placeholder="Input Shipped Per">
-              </au-textbox>
-              <!-- TEST -->
-
-              <au-textbox label="Warna" value.bind="data.Color" error.bind="error.Color" read-only.bind="readOnly"
-                placeholder="Input Warna">
+              <au-textbox label="Bank Penerbit" value.bind="data.BankName" error.bind="error.BankName"
+                read-only.bind="readOnly" placeholder="Input Tujuan">
               </au-textbox>
 
-              <au-textbox label="No. Order" value.bind="data.OrderNo" error.bind="error.OrderNo"
-                read-only.bind="readOnly" placeholder="Input No. Order">
+              <au-textbox label="Asal" value.bind="data.From" error.bind="error.From" read-only.bind="readOnly"
+                placeholder="Input Asal">
               </au-textbox>
 
-              <au-textbox label="Indent" value.bind="data.Indent" error.bind="error.Indent" read-only.bind="readOnly"
-                placeholder="Input Indent">
+              <au-textbox label="Tujuan" value.bind="data.To" error.bind="error.To" read-only.bind="readOnly"
+                placeholder="Input Tujuan">
               </au-textbox>
+            </div>
 
-              <au-numeric label="Kuantitas" value.bind="data.QuantityLength" error.bind="error.QuantityLength"
-                read-only.bind="readOnly" format="0,0.00">
-              </au-numeric>
+            <au-textbox label="Kode HS" value.bind="data.HSCode" error.bind="error.HSCode" read-only.bind="readOnly"
+              placeholder="Input Kode HS">
+            </au-textbox>
 
-              <!-- <au-dropdown label="Satuan Panjang" value.bind="data.LengthUom" items.bind="quantityUomOptions"
-                error.bind="error.QuantityUom" read-only.bind="readOnly || isEdit">
-              </au-dropdown> -->
+            <div class="row" style="padding-left:14.8%">
+              <div class="col-md-6">
+                <au-dropdown label="Term of Payment" value.bind="data.TermOfPaymentType"
+                  items.bind="termOfPaymentOptions" error.bind="error.TermOfPaymentType"
+                  read-only.bind="readOnly || isEdit">
+                </au-dropdown>
+              </div>
 
-              <au-textbox label="No. Karton" value.bind="data.CartonNo" error.bind="error.CartonNo"
-                read-only.bind="readOnly" placeholder="Input No. Karton">
-              </au-textbox>
-
-              <au-numeric label="Berat Kotor" value.bind="data.GrossWeight" error.bind="error.GrossWeight"
-                read-only.bind="readOnly" format="0,0.00">
-              </au-numeric>
-
-              <au-numeric label="Berat Bersih" value.bind="data.NetWeight" error.bind="error.NetWeight"
-                read-only.bind="readOnly" format="0,0.00">
-              </au-numeric>
-
-              <au-dropdown label="Satuan Berat" value.bind="data.WeightUom" items.bind="weightUomOptions"
-                error.bind="error.WeightUom" read-only.bind="readOnly || isEdit">
-              </au-dropdown>
-
-              <au-numeric label="Ukuran Total" value.bind="data.TotalMeas" error.bind="error.TotalMeas"
-                read-only.bind="readOnly" format="0,0.00">>
-              </au-numeric>
-
-              <au-dropdown label="Satuan Total" value.bind="data.TotalUom" items.bind="totalUomOptions"
-                error.bind="error.TotalUom" read-only.bind="readOnly || isEdit">
-              </au-dropdown>
+              <div class="col-md-6">
+                <au-textbox label=" Keterangan Term of Payment" value.bind="data.TermOfPaymentRemark"
+                  error.bind="error.TermOfPaymentRemark" read-only.bind="readOnly" placeholder="Input Keterangan">
+                </au-textbox>
+              </div>
             </div>
           </div>
+
+          <div class="col-md-6">
+            <au-textbox label="Warna" value.bind="data.Color" error.bind="error.Color" read-only.bind="readOnly"
+              placeholder="Input Warna">
+            </au-textbox>
+
+            <au-textbox label="No. Order" value.bind="data.OrderNo" error.bind="error.OrderNo" read-only.bind="readOnly"
+              placeholder="Input No. Order">
+            </au-textbox>
+
+            <au-textbox label="Indent" value.bind="data.Indent" error.bind="error.Indent" read-only.bind="readOnly"
+              placeholder="Input Indent">
+            </au-textbox>
+
+            <au-numeric label="Kuantitas" value.bind="data.QuantityLength" error.bind="error.QuantityLength"
+              read-only.bind="readOnly" format="0,0.00">
+            </au-numeric>
+
+            <au-textbox label="No. Karton" value.bind="data.CartonNo" error.bind="error.CartonNo"
+              read-only.bind="readOnly" placeholder="Input No. Karton">
+            </au-textbox>
+
+            <!-- test -->
+            <au-numeric label="Berat Kotor" value.bind="data.GrossWeight" error.bind="error.GrossWeight"
+              read-only.bind="readOnly" format="0,0.00">
+            </au-numeric>
+
+            <au-numeric label="Berat Bersih" value.bind="data.NetWeight" error.bind="error.NetWeight"
+              read-only.bind="readOnly" format="0,0.00">
+            </au-numeric>
+
+            <au-dropdown label="Satuan Berat" value.bind="data.WeightUom" items.bind="weightUomOptions"
+              error.bind="error.WeightUom" read-only.bind="readOnly || isEdit">
+            </au-dropdown>
+
+            <div class="row" style="padding-left:14.8%">
+              <div class="col-md-6">
+                <au-numeric label="Ukuran Total" value.bind="data.TotalMeas" error.bind="error.TotalMeas"
+                  read-only.bind="readOnly" format="0,0.00">>
+                </au-numeric>
+              </div>
+
+              <div class="col-md-6">
+                <au-dropdown label="Satuan Total" value.bind="data.TotalUom" items.bind="totalUomOptions"
+                  error.bind="error.TotalUom" read-only.bind="readOnly || isEdit">
+                </au-dropdown>
+              </div>
+            </div>
+
+
+            <au-multiline label="Deskripsi" value.bind="data.Description" read-only.bind="readOnly"
+              keypress.delegate="enterDelegate($event)" placeholder="Input Deskripsi">
+            </au-multiline>
+            <!-- test -->
+
+            <au-multiline label="Catatan Shipping" value.bind="data.ShippingRemark" read-only.bind="readOnly"
+              keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
+            </au-multiline>
+
+            <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
+              keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
+            </au-multiline>
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -151,16 +243,16 @@
     </au-textbox>
 
     <au-collection
-      if.bind="data.SalesInvoiceCategory=='DYEINGPRINTING' && data.VatType && selectedBuyer && selectedPaymentType"
+      if.bind="data.SalesInvoiceCategory=='DYEINGPRINTING' && data.SalesType && data.VatType && selectedBuyer && selectedPaymentType"
       columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
       errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
       remove.bind="salesInvoiceDetailsInfo.onRemove"
-      item-template="modules/sales/sales-invoice/template/sales-invoice-detail"
+      item-template="modules/sales/sales-invoice/template/dyeing-printing-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
     <au-collection
-      if.bind="data.SalesInvoiceCategory=='WEAVING' && data.VatType && selectedBuyer && selectedPaymentType"
+      if.bind="data.SalesInvoiceCategory=='WEAVING' && data.SalesType"
       columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
       errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
       remove.bind="salesInvoiceDetailsInfo.onRemove"
@@ -169,7 +261,7 @@
     </au-collection>
 
     <au-collection
-      if.bind="data.SalesInvoiceCategory=='SPINNING' && data.VatType && selectedBuyer && selectedPaymentType"
+      if.bind="data.SalesInvoiceCategory=='SPINNING' && data.SalesType"
       columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
       errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
       remove.bind="salesInvoiceDetailsInfo.onRemove"
