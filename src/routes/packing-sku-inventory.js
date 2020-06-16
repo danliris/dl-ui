@@ -1,5 +1,57 @@
 module.exports = [
     {
+        route: 'packing-sku-inventory/master/weft-type',
+        name: 'weft-type',
+        moduleId: './modules/packing-sku-inventory/weft-type/index',
+        nav: true,
+        title: 'Master Jenis Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/warp-type',
+        name: 'warp-type',
+        moduleId: './modules/packing-sku-inventory/warp-type/index',
+        nav: true,
+        title: 'Master Jenis Lusi',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/material-construction',
+        name: 'material-construction',
+        moduleId: './modules/packing-sku-inventory/material-construction/index',
+        nav: true,
+        title: 'Master Lusi Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master/grade',
+        name: 'grade',
+        moduleId: './modules/packing-sku-inventory/grade/index',
+        nav: true,
+        title: 'Master Grade',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/product-sku',
         name: 'product-sku',
         moduleId: './modules/packing-sku-inventory/product-sku/index',
