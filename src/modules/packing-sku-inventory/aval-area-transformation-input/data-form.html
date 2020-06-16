@@ -29,13 +29,13 @@
       value.bind="error.AvalTransformationProductionOrder" style="color: red;"></au-textbox>
     <br>
     <br>
-    <au-collection columns.bind="itemColumns" items.bind="avalTransformationProductionOrders" if.bind="!isEdit"
+    <au-collection columns.bind="itemColumns" items.bind="data.displayAvalTransformationProductionOrders" if.bind="!isEdit"
       errors.one-way="error.AvalTransformationProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
       header-template="modules/packing-sku-inventory/aval-area-transformation-input/template/item-header"
       item-template="modules/packing-sku-inventory/aval-area-transformation-input/template/item">
     </au-collection>
 
-    <au-collection columns.bind="itemColumns" items.bind="avalTransformationProductionOrders" if.bind="isEdit"
+    <au-collection columns.bind="itemColumns" items.bind="data.displayAvalTransformationProductionOrders" if.bind="isEdit"
       errors.one-way="error.AvalTransformationProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
       remove.bind="onremove"
       header-template="modules/packing-sku-inventory/aval-area-transformation-input/template/item-header"

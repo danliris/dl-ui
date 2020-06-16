@@ -94,7 +94,7 @@ export class DataForm {
     };
 
     if (this.data.avalTransformationProductionOrders) {
-      this.avalTransformationProductionOrders = this.data.avalTransformationProductionOrders;
+      this.data.displayAvalTransformationProductionOrders = this.data.avalTransformationProductionOrders;
     }
 
   }
@@ -103,14 +103,17 @@ export class DataForm {
   async avalTypeChanged(n, o) {
     if (this.avalType) {
       this.data.avalType = this.avalType;
-      if (this.avalType == "") {
-        this.avalTransformationProductionOrders = [];
-      } else {
-        this.avalTransformationProductionOrders = await this.service.getProductionOrderFromInput(this.avalType);
+      console.log(this.avalType);
+      if (!this.data.id) {
+        if (this.avalType == "") {
+          this.data.displayAvalTransformationProductionOrders = [];
+        } else {
+          this.data.displayAvalTransformationProductionOrders = await this.service.getProductionOrderFromInput(this.avalType);
+        }
       }
-
+      console.log(this.data.displayAvalTransformationProductionOrders)
     } else {
-      this.avalTransformationProductionOrders = [];
+      this.data.displayAvalTransformationProductionOrders = [];
       this.data.avalType = null;
     }
   }

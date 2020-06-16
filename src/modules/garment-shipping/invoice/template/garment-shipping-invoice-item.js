@@ -18,7 +18,7 @@ export class items {
 constructor( service, salesService) {
     this.service = service;
     this.salesService = salesService;
-    console.log(this.salesService,this.service);
+ 
 }
 
     activate(context) {
@@ -28,21 +28,19 @@ constructor( service, salesService) {
       this.error = context.error;
       this.options = this.context.context.options;
       this.readOnly = this.options.isView;
-      if(this.data.uom)
-      {this.uom= {
-        Id : this.data.uom.id,
-        Unit : this.data.uom.unit
+      console.log(this.data)
+      
+      this.roNo= this.data.roNo;
+      if(this.data){
+        this.uom= this.data.uom;
       }
     }
-      this.roNo= this.data.roNo;
-      console.log(this.data);
-    }
+
   get costCalLoader() {
       return CostCalLoader;
   }
 
   costCalView = (cc) => {
-    console.log(cc)
       return `${cc.RO_Number}`;
   }
   get uomLoader() {
@@ -50,8 +48,7 @@ constructor( service, salesService) {
 }
 
 uomView = (cc) => {
-  console.log(cc)
-    return `${cc.Unit}`;
+    return `${cc.Unit || cc.unit }`;
 }
 
  get Amount()
@@ -68,8 +65,6 @@ uomView = (cc) => {
  uomChanged(newValue,oldValue)
  {
    var selectedUom= newValue;
-   console.log(selectedUom);
-   
    if(selectedUom )
    {
     this.data.uom={
@@ -84,7 +79,6 @@ async roNoChanged(newValue, oldValue) {
             .then(result=>{
                 this.salesService.getSalesContractById(result.SCGarmentId)
                 .then(sc=>{
-                  console.log(sc);
                     this.data.roNo= result.RO_Number;
                     this.data.article=result.Article;
                     this.data.buyerBrand =
@@ -93,12 +87,7 @@ async roNoChanged(newValue, oldValue) {
                           code : result.BuyerBrand.Code,
                           name : result.BuyerBrand.Name
                         }
-                        this.data.unit= 
-                        {
-                            id : result.Unit.Id,
-                            code : result.Unit.Code,
-                            name : result.Unit.Name
-                        }
+                      
                         this.data.unit=
                          {
                              id : result.Unit.Id,
@@ -117,7 +106,9 @@ async roNoChanged(newValue, oldValue) {
                             code : result.Comodity.Code,
                             name : result.Comodity.Name
                     }
-                    this.uom = sc.Uom.Unit;
+                    
+                    this.uom =sc.Uom;
+                    console.log(this.uom);
                     this.data.uom={
                           id : sc.Uom.Id,
                           unit : sc.Uom.Unit
