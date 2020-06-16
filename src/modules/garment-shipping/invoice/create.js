@@ -30,6 +30,13 @@ export class Create {
 
     save(event) {
         console.log(this.data);
+        for(var item in this.data.items)
+        {
+            if(item.quantity == "")
+            {item.quantity =0;}
+            if(item.price == "")
+            {item.price =0;}
+        }
         this.service.create(this.data)
             .then(result => {
                 console.log(result);
@@ -38,6 +45,7 @@ export class Create {
             })
             .catch(error => {
                 this.error = error;
+                console.log(this.error);
             });
     }
     
