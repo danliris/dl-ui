@@ -111,8 +111,8 @@
         <au-autocomplete 
             label="Shipping Staff" 
             value.bind="shippingStaff" 
-            error.bind="error.ShippingStaffName" 
-            read-only.bind="readOnly"
+            error.bind="error.ShippingStaff" 
+            read-only.bind="readOnly || options.isUsed"
             loader.bind="shippingStaffLoader"
             text.bind = "shippingStaffView"
             placeholder = "Cari Shipping Staff"
@@ -134,18 +134,20 @@
         label="Bank Detail"
             value.bind="bankAccount" 
             error.bind="error.BankAccount" 
-            read-only.bind="readOnly "
+            read-only.bind="readOnly || options.isUsed"
             loader.bind="accountBankLoader"
             text.bind = "accountBankView"
             placeholder = "Cari Bank"
             options.bind="length4">
         </au-autocomplete>
-    <au-numeric
-            label="Tempo Pembayaran"
+    <au-numeric 
+            label="Tempo Pembayaran (HARI)"
             value.bind="data.paymentDue" 
             error.bind="error.PaymentDue"
             read-only.bind="readOnly "
-            options.bind="length4">
+            options.bind="length4" 
+            format ="0"
+            >
         </au-numeric>
         <au-textbox 
         label="No PEB"
@@ -178,13 +180,7 @@
         read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
-    <au-multiline
-        label="Description"
-        value.bind="data.description" 
-        error.bind="error.description"
-        read-only.bind="readOnly"
-        options.bind="length4">
-    </au-multiline>
+    
     <au-textbox 
         label="No B/L"
         value.bind="data.bl" 
@@ -227,20 +223,23 @@
         read-only.bind="readOnly"
         options.bind="length4">
     </au-datepicker>
+    <au-multiline
+        label="Description"
+        value.bind="data.description" 
+        error.bind="error.description"
+        read-only.bind="readOnly"
+        options.bind="length4">
+    </au-multiline>
  </div>
-            <div class="form-group has-error">
-                <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
-            </div>
-
-            <span class="help-block" style="color:#dd4b39;" if.bind="hasError">
-                ${error.CostCalculationGarment_MaterialTable}
-            </span>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="form-group has-error">
+                        <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+                    </div>
                     <au-collection
                         view-model.ref="itemsCollection"
                         items.bind="data.items"
-                        errors.bind="error.items"
+                        errors.bind="error.Items"
                         columns.bind="packinglistColumns.columns"
                         add.bind="packinglistColumns.onAdd"
                         remove.bind="packinglistColumns.onRemove"
@@ -260,6 +259,7 @@
                         items.bind="data.garmentShippingInvoiceAdjustments"
                         columns.bind="adjustmentColumns.columns"
                         add.bind="adjustmentColumns.onAdd"
+                        errors.bind="error.GarmentShippingInvoiceAdjustments"
                         remove.bind="adjustmentColumns.onRemove"
                         options.bind="options"
                         responsive.bind="true"
@@ -280,13 +280,13 @@
                 options.bind="length4">
             </au-multiline>
 
-            <au-numeric
+            <au-textbox
                 label="C PRICE"
                 value.bind="data.cPrice" 
                 error.bind="error.CPrice"
                 read-only.bind="readOnly"
                 options.bind="length4">
-            </au-numeric>
+            </au-textbox>
             
             <au-numeric
             label="TOTAL AMOUNT"
@@ -302,13 +302,7 @@
                 read-only.bind="true"
                 options.bind="length4">
             </au-numeric>
-            
-            <au-textbox
-                label="SAY"
-                value.bind="say"
-                read-only.bind="true" 
-                options.bind="length4">
-            </au-textbox>
+          
         </au-numeric>
         </div>
         </div>

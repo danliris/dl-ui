@@ -154,12 +154,12 @@
                 </au-checkbox>
             </div>
             <div class="form-group has-error">
-                <p if.bind="error.Items" class="help-block text-center">${error.Items}</p>
+                <p if.bind="error.Items && typeof error.items === 'string'" class="help-block text-center">${error.Items}</p>
             </div>
             <div class="tbl">
                 <au-collection 
                     items.bind="data.items" 
-                    error.bind="error.Items" 
+                    errors.bind="error.Items" 
                     columns.bind="itemsColumns"
                     read-only.bind="readOnly" 
                     add.bind="addItems" 
@@ -220,7 +220,7 @@
         <div class="tbl">
             <au-collection 
                 items.bind="data.measurements" 
-                error.bind="error.Measurements" 
+                errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
                 read-only.bind="readOnly" 
                 add.bind="addMeasurements" 

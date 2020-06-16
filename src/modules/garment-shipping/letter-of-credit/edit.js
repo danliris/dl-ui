@@ -14,6 +14,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        
+        this.tempDocNo=this.data.documentCreditNo;
         this.error = {};
     }
 
@@ -22,8 +24,12 @@ export class Edit {
     }
 
     async saveCallback(event) {
-        var available = await this.service.search({size: 1, filter: JSON.stringify({ DocumentCreditNo: this.data.documentCreditNo })});
-        this.data.available= available.data.length>0;
+        this.data.available=false;
+        if(this.data.documentCreditNo!= this.tempDocNo){
+            var available = await this.service.search({size: 1, filter: JSON.stringify({ DocumentCreditNo: this.data.documentCreditNo })});
+        
+            this.data.available= available.data.length>0;
+        }
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });

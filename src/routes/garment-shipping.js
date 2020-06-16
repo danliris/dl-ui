@@ -52,6 +52,32 @@ module.exports=[
         }
     },
     {
+        route: "master/garment-transaction-type",
+        name: "garment-transaction-type",
+        moduleId: "modules/master/garment-transaction-type/index",
+        nav: true,
+        title: "Jenis Transaksi Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "master/garment-leftover-warehouse-product",
+        name: "garment-leftover-warehouse-product",
+        moduleId: "modules/master/garment-leftover-warehouse-product/index",
+        nav: true,
+        title: "Barang Gudang Sisa",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list",
         name: "garment-shipping/packing-list",
         moduleId: "modules/garment-shipping/packing-list/index",
@@ -148,6 +174,32 @@ module.exports=[
         moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
         nav: true,
         title: "Amend Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/credit-advice",
+        name: "garment-shipping/credit-advice",
+        moduleId: "modules/garment-shipping/credit-advice/index",
+        nav: true,
+        title: "Credit Advice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-sales-note",
+        name: "garment-shipping/local-sales-note",
+        moduleId: "modules/garment-shipping/local-sales-note/index",
+        nav: true,
+        title: "Nota Penjualan (Lokal)",
         auth: true,
         settings: {
             group: "g-shipping",

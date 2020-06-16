@@ -1,12 +1,13 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
+import { CoreService } from "./service";
 var InvoiceLoader = require('../../../loader/garment-packing-list-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var FabricTypeLoader = require('../../../loader/fabric-type-loader');
 var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
 
 
-@inject(Service)
+@inject(Service , CoreService)
 export class DataForm {
     @bindable packinglists;
     @bindable shippingStaff;
@@ -18,9 +19,11 @@ export class DataForm {
      @bindable read = true;
     @bindable isCreate = false;
      @bindable isEdit = false;
+     @bindable isUsed =false;
     
-    constructor(service) {
+    constructor(service,coreService) {
         this.service = service;
+        this.coreService = coreService;
     }
     bind(context) {
         this.context = context;
@@ -32,19 +35,37 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
+            isUsed : this.context.isUsed
           
         }
+        console.log(this.options);
         this.isEdit= this.context.isEdit;
-     if(this.data)
+     if(this.data.id !=undefined)
      {
-             this.bankAccount= this.data.bankAccount;
-             this.bankAccountId= this.data.bankAccountId;
-             this.shippingStaff=this.data.shippingStaff;
-             this.shippingStaffId=this.data.shippingStaffId;
-             this.fabricTypeId=this.data.fabricTypeId;
-             this.fabricType=this.data.fabricType;
-             this.packinglists=this.data.invoiceNo;
-             
+           
+             this.coreService.getBankAccountById(this.data.bankAccountId)
+             .then(result=>{
+            
+                this.bankAccount =
+                {
+                   Id : this.data.bankAccountId,
+                   BankName : result.BankName,
+                   Currency : {
+                       Code : result.Currency.Code
+                   }
+                } ;
+                this.data.bankAccount = result.BankName;
+             });
+             this.shippingStaff= {
+                Id : this.data.shippingStaffId,
+                Name : this.data.shippingStaff
+             }
+             this.fabricType ={
+                 Id :this.data.fabricTypeId,
+                Name :this.data.fabricType}
+          
+            this.data.bankAccountId = this.data.bankAccountId;
+            this.packinglists = this.data.invoiceNo;
      }  
     }
 
@@ -66,6 +87,16 @@ export class DataForm {
             length: 2
         }
     };
+
+    paymentDueOptions = {
+        label: {
+            length: 3
+        },
+        control: {
+            length: 5
+        }
+    };
+
     get invoiceLoader() {
         return InvoiceLoader;
     }
@@ -79,7 +110,7 @@ export class DataForm {
     }
 
     accountBankView = (acc) => {
-        return `${acc.BankName}`;
+        return `${acc.BankName} - ${acc.Currency.Code }`;
     }
 
     get shippingStaffLoader() {
@@ -101,7 +132,6 @@ export class DataForm {
     shippingStaffChanged(newValue,oldValue)
     {
         var selectedShipping = newValue;
-       
         if(selectedShipping && this.data.id == undefined)
         {
             this.data.shippingStaffId = selectedShipping.Id;
@@ -111,19 +141,21 @@ export class DataForm {
     bankAccountChanged(newValue,oldValue)
     {
         var selectedAccount = newValue;
-     
-        if(selectedAccount && this.data.id == undefined)
+        console.log(selectedAccount);
+        if(selectedAccount)
         {
+            
             this.data.bankAccountId = selectedAccount.Id;
-            this.data.bankAccount= selectedAccount.AccountName;
+          
+            this.data.bankAccount= selectedAccount.BankName;
+        
         }
     }
     
     fabricTypeChanged(newValue,oldValue)
     {
         var selectedfabric = newValue;
-      
-        if(selectedfabric && this.data.id == undefined)
+        if(selectedfabric )
         {
             this.data.fabricTypeId = selectedfabric.Id;
             this.data.fabricType= selectedfabric.Name;
@@ -131,12 +163,12 @@ export class DataForm {
     }
     async packinglistsChanged(newValue, oldValue) {
         var selectedInv = newValue;
-        console.log(this.data);
         if (selectedInv && this.data.id == undefined ) {
        
             this.data.packinglistId= selectedInv.id;
             this.data.invoiceNo = selectedInv.invoiceNo;
             this.data.invoiceDate =  selectedInv.date ;
+          
            
             this.data.section =
             {
@@ -158,6 +190,7 @@ export class DataForm {
             this.data.garmentShippingInvoiceAdjustments.splice(0);
             var consignee="";
             var TotalAmount=0;
+            var _consignee="";
             for (var item of packingItem.items) {
                     var _item = {};
                     _item.roNo= item.roNo;
@@ -193,9 +226,11 @@ export class DataForm {
                     consignee += item.buyerBrand.name;
                     TotalAmount= TotalAmount + item.amount;
                     this.data.items.push(_item);
+                    _consignee += item.buyerBrand.name +"\n";
             }
             this.data.totalAmount= TotalAmount;
-            this.data.consignee = consignee;
+            
+            this.data.consignee = _consignee;
           
         }
         // else
@@ -279,36 +314,6 @@ export class DataForm {
     countries =
     ["", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre and Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts and Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
 
-    get say(){
-        var number=0;
-       if(this.data.totalAmount >0 && this.data.amountToBePaid <0)
-       {number = this.data.totalAmount;}else
-       {number = this.data.amountToBePaid;}
-     
-
-        const first = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
-        const tens = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
-        const mad = ['', 'thousand', 'million', 'billion', 'trillion'];
-        let word = '';
-
-        for (let i = 0; i < mad.length; i++) {
-            let tempNumber = number%(100*Math.pow(1000,i));
-            if (Math.floor(tempNumber/Math.pow(1000,i)) !== 0) {
-                if (Math.floor(tempNumber/Math.pow(1000,i)) < 20) {
-                    word = first[Math.floor(tempNumber/Math.pow(1000,i))] + mad[i] + ' ' + word;
-                } else {
-                    word = tens[Math.floor(tempNumber/(10*Math.pow(1000,i)))] + '-' + first[Math.floor(tempNumber/Math.pow(1000,i))%10] + mad[i] + ' ' + word;
-                }
-            }
-
-            tempNumber = number%(Math.pow(1000,i+1));
-            if (Math.floor(tempNumber/(100*Math.pow(1000,i))) !== 0) 
-                word = first[Math.floor(tempNumber/(100*Math.pow(1000,i)))] + 'hundred ' + word;
-        }
-        this.data.say = word;
-            return word;
-    
-    }
     
     get amountToBePaid(){
         var totalAmount=0;
@@ -321,18 +326,16 @@ export class DataForm {
             for(var item of this.data.items){
                 if(this.data.totalAmount >0)
                 {total = this.data.totalAmount};
-                if(item.quantity && item.cmtPrice)
+                if(item.quantity)
                 {
-                    if(item.cmtPrice ===0 )
+                    amountAll = amountAll + item.amount;
+                    if(item.cmtPrice >0)
                     {
-                        amountAll = amountAll + item.amount;
-                    }else
-                    {
-                            amountisCmt = item.amount;
-                            amountCMT = item.quantity * item.cmtPrice;
+                            amountisCmt += item.quantity * item.price;
+                            amountCMT += item.quantity * item.cmtPrice;
                     }
               
-                totalAmount = amountAll - amountisCmt- amountCMT;        
+                totalAmount = amountAll - amountisCmt + amountCMT;        
                 }
             }
             }
@@ -347,9 +350,9 @@ export class DataForm {
                     }
                 }
             }
-        
-       this.data.amountToBePaid = total + totalAmount + adjustmentValue;
-        return total +totalAmount + adjustmentValue;
+   
+       this.data.amountToBePaid =  totalAmount + adjustmentValue;
+        return  totalAmount + adjustmentValue;
     }
     get totalAmounts(){
         var totalAmount=0;
@@ -360,14 +363,14 @@ export class DataForm {
                 
                    if(item.amount >0)
                    {
-                    totalAmount =totalAmount + item.amount;        
+                    totalAmount =totalAmount + (item.price * item.quantity);        
                    }else
                    {
                     totalAmount =0;
                    }
             }
         }
-        console.log(totalAmount);
+     
        this.data.totalAmount = totalAmount;
         return totalAmount;
     }

@@ -5,7 +5,7 @@ import { DataForm } from "./../data-form";
 let ShippingOutSalesLoader = require("../../../../loader/output-shipping-sales-loader");
 
 @inject(ServicePackingInventory, BindingSignaler, BindingEngine, DataForm)
-export class SalesInvoiceDetail {
+export class DyeingPrintingDetail {
   @bindable data;
   @bindable error;
   @bindable typeFaktur;

@@ -5,10 +5,11 @@
                 <au-autocomplete 
                     label="Invoice No" 
                     placeholder="Pilih Invoice No" 
-                    value.bind="selectedUnitFrom"
-                    error.bind="error.UnitFrom" 
-                    loader.bind="unitLoader" 
-                    text.bind="unitView"
+                    value.bind="selectedInvoice"
+                    error.bind="error.InvoiceNo" 
+                    loader.bind="invoiceLoader" 
+                    text.bind="invoiceView"
+                    query.bind="filter"
                     read-only.bind="readOnly || isEdit" 
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -24,13 +25,13 @@
                 <au-autocomplete 
                     label="EMKL" 
                     placeholder="Pilih EMKL"
-                    value.bind="selectedExpenditureGood" 
-                    error.bind="error.ExpenditureGoodNo" 
-                    loader.bind="expenditureGoodLoader"
-                    text="ExpenditureGoodNo" 
-                    read-only.bind="readOnly || isEdit" 
+                    value.bind="selectedEMKL" 
+                    error.bind="error.EMKL" 
+                    loader.bind="emklLoader"
+                    text.bind="emklView" 
+                    read-only.bind="readOnly" 
                     options.bind="controlOptions"
-                    view-model.ref="ExpenditureGoodViewModel">
+                    view-model.ref="EmklViewModel">
                 </au-autocomplete>
 
                 <au-textbox 
@@ -58,7 +59,7 @@
 
                 <au-textbox 
                     label="Shipping Staff" 
-                    value.bind="data.shippingStaff" 
+                    value.bind="data.shippingStaffName" 
                     read-only="true" 
                     options.bind="controlOptions">
                 </au-textbox>
@@ -88,8 +89,8 @@
 
                 <au-datepicker 
                     label="Trucking" 
-                    value.bind="data.date" 
-                    error.bind="error.Date"
+                    value.bind="data.truckingDate" 
+                    error.bind="error.TruckingDate"
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-datepicker>
@@ -104,40 +105,40 @@
 
                 <au-textbox 
                     label="Port Of Discharge" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.portOfDischarge" 
+                    error.bind="error.PortOfDischarge"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-textbox 
                     label="Place Of Delivery" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.placeOfDelivery" 
+                    error.bind="error.PlaceOfDelivery"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
                 
                 <au-textbox 
                     label="Feeder Vessel BY/DD" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.feederVessel" 
+                    error.bind="error.FeederVessel"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
                 
                 <au-textbox 
                     label="Ocean Vessel BY/DD" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.oceanVessel" 
+                    error.bind="error.OceanVessel"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
                 
                 <au-textbox 
                     label="Carrier" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.carrier" 
+                    error.bind="error.Carrier"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
@@ -145,52 +146,54 @@
             <div class="col-md-6">
                 <au-textbox 
                     label="Flight" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.flight" 
+                    error.bind="error.Flight"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-textbox 
                     label="Transit" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.transit" 
+                    error.bind="error.Transit"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-textbox 
                     label="Bank Detail" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.bankAccountName" 
+                    error.bind="error.BankAccountName"
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-textbox 
                     label="Consignee" 
-                    value.bind="data.cartonNo" 
-                    error.bind="error.CartonNo"
+                    value.bind="data.buyerAgent.name || ''" 
+                    error.bind="error.BuyerAgent"
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-multiline  
-                    value.bind="data.ExpenditureDesc" 
+                    value.bind="data.buyerAgentAddress" 
                     read-only="true" 
                     options.bind="controlOptions">
                 </au-multiline>
                 
                 <au-multiline  
                     label="Notify" 
-                    value.bind="data.ExpenditureDesc" 
+                    value.bind="data.notify" 
+                    error.bind="error.Notify"
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-multiline>
                 
                 <au-multiline   
                     label="Special Instruction" 
-                    value.bind="data.ExpenditureDesc" 
+                    value.bind="data.specialInstruction" 
+                    error.bind="error.SpecialInstruction" 
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-multiline>
