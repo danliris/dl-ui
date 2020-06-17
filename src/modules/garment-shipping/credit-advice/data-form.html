@@ -40,11 +40,11 @@
 
                         <au-numeric label="Inkaso" value.bind="data.inkaso" error.bind="error.inkaso"
                             read-only.bind="readOnly || data.lcType=='AT SIGHT'" options.bind="controlOptions"
-                            if.bind="data.lcType=='AT SIGHT' || data.lcType=='COLLECTION'">
+                            show.bind="data.lcType=='AT SIGHT' || data.lcType=='COLLECTION'">
                         </au-numeric>
 
                         <au-numeric label="Disconto" value.bind="data.disconto" error.bind="error.disconto"
-                            read-only.bind="readOnly" options.bind="controlOptions" if.bind="data.lcType=='USANCE'">
+                            read-only.bind="readOnly" options.bind="controlOptions" show.bind="data.lcType=='USANCE'">
                         </au-numeric>
 
                         <au-textbox label="SR. No" value.bind="data.srNo" error.bind="error.srNo" placeholder="SR. No"
