@@ -49,8 +49,10 @@ export class Create {
     // }else{
     //   CreateData.DyeingPrintingMovementIds = [];
     // }
-    CreateData.DeliveryOrdeSalesId = this.data.doNO.DeliveryOrderSalesID;
-    CreateData.DeliveryOrderSalesNo = this.data.doNO.DeliveryOrderSalesNO;
+    // CreateData.DeliveryOrdeSalesId = this.data.doNO.DeliveryOrderSalesID;
+    // CreateData.DeliveryOrderSalesNo = this.data.doNO.DeliveryOrderSalesNO;
+    CreateData.DeliveryOrdeSalesId = 0;
+    CreateData.DeliveryOrderSalesNo = this.data.doNO;
     if (this.data.DyeingPrintingItems.length > 0) {
       CreateData.AvalItems = this.data.DyeingPrintingItems.map(
         (item) => {
@@ -61,8 +63,8 @@ export class Create {
           remappedItems.AvalUomUnit = item.AvalUomUnit;
           remappedItems.AvalQuantity = item.AvalQuantity;
           remappedItems.AvalQuantityKg = item.AvalQuantityKg;
-          remappedItems.AvalOutSatuan = item.AvalQuantityUnit;
-          remappedItems.AvalOutQuantity = item.AvalQuantityKgOut;
+          remappedItems.AvalOutSatuan = item.AvalOutSatuan;
+          remappedItems.AvalOutQuantity = item.AvalOutQuantity;
 
           return remappedItems;
         }
