@@ -1,5 +1,5 @@
 import { RestService } from '../../../../utils/rest-service';
-const serviceUri = 'master/ip-process-type';
+const serviceUri = 'master/product-skus';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -23,7 +23,7 @@ export class Service extends RestService {
 
     update(data) {
         var endpoint = `${serviceUri}/${data.id}`;
-        return super.post(endpoint, data);
+        return super.put(endpoint, data);
     }
 
     delete(data) {
