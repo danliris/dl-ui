@@ -27,7 +27,7 @@ export class DataForm {
     // itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
-    destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL"];
+    destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL","PRODUKSI"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
