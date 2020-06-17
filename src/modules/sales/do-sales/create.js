@@ -354,21 +354,20 @@ export class Create {
   }
 
   save(event) {
-    console.log(this.data);
-    // this.service
-    //   .create(this.data)
-    //   .then((result) => {
-    //     alert("Data berhasil dibuat");
-    //     this.router.navigateToRoute(
-    //       "create",
-    //       {},
-    //       { replace: true, trigger: true }
-    //     );
-    //     // this.__goToList();
-    //   })
-    //   .catch((error) => {
-    //     this.error = error;
-    //   });
+    this.service
+      .create(this.data)
+      .then((result) => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          { replace: true, trigger: true }
+        );
+        // this.__goToList();
+      })
+      .catch((error) => {
+        this.error = error;
+      });
   }
 
   storageView = (storage) => {

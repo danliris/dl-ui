@@ -86,7 +86,7 @@
     items.bind="destinationAreas"
   ></au-dropdown>
   
-    <au-autocomplete
+    <!-- <au-autocomplete
       options.bind="controlOptions"
       label="No. DO"
       value.bind="data.doNO"
@@ -95,8 +95,14 @@
       items.bind="selectedAvalBon"
       loader.bind="DOLoader"
       text.bind = "DOFormatter"
-    ></au-autocomplete>
-
+    ></au-autocomplete> -->
+    <au-textbox
+      options.bind="controlOptions"
+      label="No. DO"
+      value.bind="data.doNO"
+      error.bind="error.DoNO"
+      read-only.bind="readOnly"
+    ></au-textbox>
     <!-- <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">

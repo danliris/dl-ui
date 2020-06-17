@@ -83,38 +83,40 @@ export class List {
 
     fillTable() {
         let columns = [
-          
-            {field: 'Ro', title: 'RO'},
-            {field: 'BuyerCode', title: 'Kode Buyer'},
-            {field: 'Article', title: 'No Article'},
-            {field: 'Comodity', title: 'Komoditi'},
-            {field: 'QtyOrder', title: 'Jumlah Order'},
-            {field: 'Size', title: 'Ukuran'},
-            {field: 'QtyCutting', title: 'Hasil Potong'},
-            {field: 'QtyLoading', title: 'Hasil Loading'},
-            {field: 'QtySewing', title: 'Hasil Sewing'},
-            {field: 'QtyFinishing', title: 'Hasil Finishing'},
-            {field: 'Wip', title: 'Barang Dalam Proses'}  
+            {field: 'Ro', title: 'RO', footerFormatter: ""},
+            {field: 'BuyerCode', title: 'Kode Buyer', footerFormatter: ""},
+            {field: 'Article', title: 'No Article', footerFormatter: ""},
+            {field: 'Comodity', title: 'Komoditi', footerFormatter: ""},
+            {field: 'QtyOrder', title: 'Jumlah Order', footerFormatter: ""},
+            {field: 'Size', title: 'Ukuran', footerFormatter: ""},
+            {field: 'QtyCutting', title: 'Hasil Potong',footerFormatter: () => {return totalCutting ; } },
+            {field: 'QtyLoading', title: 'Hasil Loading',footerFormatter: () => {return totalLoading ; } },
+            {field: 'QtySewing', title: 'Hasil Sewing',footerFormatter: () => {return totalSewing ; } },
+            {field: 'QtyFinishing', title: 'Hasil Finishing',footerFormatter: () => {return totalFinishing ; } },
+            {field: 'Wip', title: 'Barang Dalam Proses',footerFormatter: () => {return totalWip ; } }  
         ];
-        
+
+    
         var bootstrapTableOptions = {
             undefinedText: '',
             columns: columns,
             data: this.data,
-           
+            showFooter: true,
+            
+            footerStyle: () => { return { css: { "font-weight": "bold" } } },
             rowStyle: (row) => {
                 
-              return (row.Size.startsWith("TOTAL"))
-                ? { css : { "font-weight": "bold" } }
-                : {};
-            },
-           
-        };
+                return (row.Size.startsWith("TOTAL"))
+                  ? { css : { "font-weight": "bold" } }
+                  : {};}
+          };
+      
 
         bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
       }
+      
     ExportToExcel() {
         var info = {
             unit : this.unit ? this.unit.Id : "",

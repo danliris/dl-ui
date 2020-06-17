@@ -509,10 +509,10 @@
                    item-template="modules/sales/do-sales/template/export-item"
                    view-model.ref="ItemsCollection">
     </au-collection>
-
+    
     <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code"
                    columns.bind="doSalesExportItemsSpinningInfo.columns"
-                   add.bind="doSalesLocalSpinningItemsInfo.onAdd"
+                   add.bind="doSalesExportItemsSpinningInfo.onAdd"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
                    read-only.bind="readOnly"
@@ -523,7 +523,7 @@
 
     <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code1"
                    columns.bind="doSalesExportItemsWeavingInfo.columns"
-                   add.bind="doSalesLocalWeavingItemsInfo.onAdd"
+                   add.bind="doSalesExportItemsWeavingInfo.onAdd"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
                    read-only.bind="readOnly"

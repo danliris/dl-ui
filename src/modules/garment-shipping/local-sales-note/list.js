@@ -21,7 +21,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "totalAmount", title: "No Disposisi" },
+        { field: "dispositionNo", title: "No Disposisi" },
     ];
 
     loader = (info) => {
