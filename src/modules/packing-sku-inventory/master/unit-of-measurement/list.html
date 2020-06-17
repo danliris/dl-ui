@@ -1,6 +1,6 @@
 <template>
   <!--<div class="display-wrapper">-->
-  <h1 class="page-header">Kategori Barang</h1>
+  <h1 class="page-header">Unit</h1>
   <au-table view-model.ref="table"
             data.bind="loader"
             columns.bind="columns"
@@ -8,7 +8,6 @@
             page-size="25"
             context.bind="context"
             context-click.delegate="contextClickCallback($event)"
-            context-show.call="contextShowCallback(index, context, data)"
             selectable.bind="true">
     <div slot="toolbar"
          class="btn-group">

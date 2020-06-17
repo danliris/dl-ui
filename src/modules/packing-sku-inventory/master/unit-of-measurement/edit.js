@@ -12,10 +12,10 @@ export class Edit {
 
   async activate(params) {
     var id = params.id;
-    // this.data = await this.service.getById(id);
-    this.data = {
+    this.data = await this.service.getById(id);
+    // this.data = {
 
-    }
+    // }
   }
 
   view(data) {
@@ -24,11 +24,11 @@ export class Edit {
 
   save() {
 
-    // this.service.update(this.data).then(result => {
-    //     this.view();
-    // }).catch(e => {
-    //     this.error = e;
-    // })
-    console.log(this.data);
+    this.service.update(this.data).then(result => {
+        this.view();
+    }).catch(e => {
+        this.error = e;
+    })
+    // console.log(this.data);
   }
 }
