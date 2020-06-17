@@ -12,6 +12,8 @@ import SalesContractLoader from "../../../loader/finishing-printing-sales-contra
 import { SPINNING, WEAVING, DYEINGPRINTING } from '../do-sales/shared/permission-constant';
 import { PermissionHelper } from '../../../utils/permission-helper';
 var StorageLoader = require('../../../loader/storage-loader');
+import SalesContractSpinningLoader from "../../../loader/spinning-sales-contract-loader";
+import SalesContractWeavingLoader from "../../../loader/weaving-sales-contract-loader";
 
 @containerless()
 @inject(Service, ServiceCore, BindingSignaler, BindingEngine, PermissionHelper)
@@ -28,6 +30,8 @@ export class DataForm {
   @bindable LengthUom;
   @bindable WeightUom;
   @bindable selectedSalesContract;
+  @bindable selectedSalesContractSpinning;
+  @bindable selectedSalesContractWeaving;
 
   constructor(service, serviceCore, bindingSignaler, bindingEngine, permissionHelper) {
     this.service = service;
@@ -47,7 +51,6 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
 
     if (this.data.Disp) {
       this.disp = this.data.Disp;
@@ -83,14 +86,39 @@ export class DataForm {
     //   this.selectedSalesContract = this.data.SalesContract;
     // }
 
-    var salesContract = this.data.SalesContract;
-    if (salesContract) {
-      this.selectedSalesContract = await this.service.getSalesContractById(
-        salesContract.Id
-      );
-    } else {
-      this.selectedSalesContract = this.data.SalesContract;
+    if (this.code == true) {
+      var salesContractSpinning = this.data.SalesContract;
+      if (salesContractSpinning) {
+        this.selectedSalesContractSpinning = await this.service.getSalesContractSpinningById(
+          salesContractSpinning.Id
+        );
+      } else {
+        this.selectedSalesContractSpinning = this.data.SalesContractSpinning;
+      }
     }
+
+    if (this.code1 == true) {
+      var salesContractWeaving = this.data.SalesContract;
+      if (salesContractWeaving) {
+        this.selectedSalesContractWeaving = await this.service.getSalesContractWeavingById(
+          salesContractWeaving.Id
+        );
+      } else {
+        this.selectedSalesContractWeaving = this.data.salesContractWeaving;
+      }
+    }
+
+    if (this.code2 == true) {
+      var salesContract = this.data.SalesContract;
+      if (salesContract) {
+        this.selectedSalesContract = await this.service.getSalesContractDyeingPrintingById(
+          salesContract.Id
+        );
+      } else {
+        this.selectedSalesContract = this.data.SalesContract;
+      }
+    }
+
 
     if (this.data.LengthUom) {
       this.detailOptions.LengthUom = this.data.LengthUom;
@@ -117,6 +145,31 @@ export class DataForm {
     }.bind(this),
   };
 
+  doSalesLocalSpinningItemsInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesLocalWeavingItemsInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+  // ==================================================
+
   doSalesExportItemsInfo = {
     columns: [
       "No SPP",
@@ -126,6 +179,30 @@ export class DataForm {
       "Berat",
       "Hasil Konversi",
     ],
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesExportItemsSpinningInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
+    onRemove: function () {
+      this.context.ItemsCollection.bind();
+    }.bind(this),
+  };
+
+  doSalesExportItemsWeavingInfo = {
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),
@@ -143,6 +220,105 @@ export class DataForm {
 
   lengthUomOptions = ["", "YDS", "MTR"];
   weightUomOptions = ["", "BALE", "KG"];
+
+  async selectedSalesContractSpinningChanged(newValue, oldValue) {
+    
+    if (newValue) {
+      this.data.SalesContractSpinning = {};
+      this.data.SalesContractSpinning = this.selectedSalesContractSpinning;
+
+      // this.data.Material = this.selectedSalesContractSpinning.Material;
+      // this.data.MaterialConstruction = this.selectedSalesContractSpinning.MaterialConstruction;
+      // this.data.MaterialWidth = this.selectedSalesContractSpinning.MaterialWidth;
+
+      if (this.selectedSalesContractSpinning.Buyer.Id) {
+        this.selectedBuyer = await this.serviceCore.getBuyerById(
+          this.selectedSalesContractSpinning.Buyer.Id
+        );
+        this.data.Buyer = this.selectedBuyer;
+      } else {
+        this.selectedBuyer = this.selectedSalesContractSpinning.Buyer;
+        this.data.Buyer = this.selectedSalesContractSpinning.Buyer;
+      }
+
+      if (!this.data.Id) {
+        var salesSpinningContract = await this.service.getById(
+          this.data.SalesContract.Id
+        );
+
+        var scData = salesSpinningContract.data;
+        this.data.DOSalesDetailItems = [];
+        for (var item of scData) {
+          for (var detailItem of item.Details) {
+            var sc = {
+              // Material: item.Material,
+              // MaterialConstruction: item.MaterialConstruction,
+              // MaterialWidth: item.MaterialWidth,
+              // ColorRequest: detailItem.ColorRequest,
+              // ColorTemplate: detailItem.ColorTemplate,
+              // ProductionOrder: item,
+              // ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
+            };
+            this.data.DOSalesDetailItems.push(sc);
+          }
+        }
+      }
+    } else {
+      this.data.salesSpinningContract = null;
+      this.data.Buyer = null;
+      this.data.DOSalesDetailItems = [];
+    }
+  }
+
+  async selectedSalesContractWeavingChanged(newValue, oldValue) {
+    
+    if (newValue) {
+      this.data.SalesContractWeaving = {};
+      this.data.SalesContractWeaving = this.selectedSalesContractWeaving;
+
+      // this.data.Material = this.selectedSalesContractSpinning.Material;
+      // this.data.MaterialConstruction = this.selectedSalesContractSpinning.MaterialConstruction;
+      // this.data.MaterialWidth = this.selectedSalesContractSpinning.MaterialWidth;
+
+      if (this.selectedSalesContractWeaving.Buyer.Id) {
+        this.selectedBuyer = await this.serviceCore.getBuyerById(
+          this.selectedSalesContractWeaving.Buyer.Id
+        );
+        this.data.Buyer = this.selectedBuyer;
+        
+      } else {
+        this.selectedBuyer = this.selectedSalesContractWeaving.Buyer;
+        this.data.Buyer = this.selectedSalesContractWeaving.Buyer;
+      }
+
+      if (!this.data.Id) {
+        var salesWeavingContract = await this.service.getById(
+          this.data.SalesContract.Id
+        );
+
+        var scData = salesWeavingContract.data;
+        this.data.DOSalesDetailItems = [];
+        for (var item of scData) {
+          for (var detailItem of item.Details) {
+            var sc = {
+              // Material: item.Material,
+              // MaterialConstruction: item.MaterialConstruction,
+              // MaterialWidth: item.MaterialWidth,
+              // ColorRequest: detailItem.ColorRequest,
+              // ColorTemplate: detailItem.ColorTemplate,
+              // ProductionOrder: item,
+              // ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
+            };
+            this.data.DOSalesDetailItems.push(sc);
+          }
+        }
+      }
+    } else {
+      this.data.salesSpinningContract = null;
+      this.data.Buyer = null;
+      this.data.DOSalesDetailItems = [];
+    }
+  }
 
   async selectedSalesContractChanged(newValue, oldValue) {
     // if (this.selectedSalesContract && this.selectedSalesContract.Id) {
@@ -235,6 +411,14 @@ export class DataForm {
 
   get salesContractLoader() {
     return SalesContractLoader;
+  }
+
+  get SalesContractSpinningLoader() {
+    return SalesContractSpinningLoader;
+  }
+
+  get SalesContractWeavingLoader() {
+    return SalesContractWeavingLoader;
   }
 
   initPermission() {
