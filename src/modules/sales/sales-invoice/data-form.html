@@ -111,13 +111,13 @@
               error.bind="error.SalesInvoiceDate" read-only.bind="readOnly">
             </au-datepicker>
 
-            <au-textbox label="Nama Buyer" value.bind="ExportBuyerName" read-only.bind="readOnly">
+            <au-textbox label="Nama Buyer" value.bind="BuyerName" read-only.bind="readOnly">
             </au-textbox>
 
-            <au-textbox label="Alamat Buyer" value.bind="ExportBuyerAddress" read-only.bind="readOnly">
+            <au-textbox label="Alamat Buyer" value.bind="BuyerAddress" read-only.bind="readOnly">
             </au-textbox>
 
-            <au-dropdown label="Sales" value.bind="data.Sales" items.bind="salesOptions" error.bind="error.Sales"
+            <au-dropdown label="Authorized" value.bind="data.Authorized" items.bind="authorizedOptions" error.bind="error.Authorized"
               read-only.bind="readOnly || isEdit">
             </au-dropdown>
 
@@ -220,11 +220,9 @@
               </div>
             </div>
 
-
             <au-multiline label="Deskripsi" value.bind="data.Description" read-only.bind="readOnly"
               keypress.delegate="enterDelegate($event)" placeholder="Input Deskripsi">
             </au-multiline>
-            <!-- test -->
 
             <au-multiline label="Catatan Shipping" value.bind="data.ShippingRemark" read-only.bind="readOnly"
               keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">

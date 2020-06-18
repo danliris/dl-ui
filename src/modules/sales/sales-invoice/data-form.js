@@ -221,7 +221,7 @@ export class DataForm {
     "PPN Retail",
   ];
   paymentTypeOptions = ["", "MTR", "YARD"];
-  salesOptions = ["", "Adriyana Damayanti", "Amumpuni"];
+  authorizedOptions = ["", "Adriyana Damayanti", "Amumpuni"];
   termOfPaymentOptions = ["", "FCA", "FAS", "FOB", "CFR", "CIF", "CPT", "CIP", "DPU", "DAP", "DDP"];
   weightUomOptions = ["", "KG", "BALE"];
   totalUomOptions = ["", "CBM", "Etc"];
