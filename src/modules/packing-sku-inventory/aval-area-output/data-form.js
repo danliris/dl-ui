@@ -34,6 +34,8 @@ export class DataForm {
   DOFormatter = (DoItem) => {
     return `${DoItem.DeliveryOrderSalesNO}`
 }
+
+@bindable AvalItems;
   bind(context) {
     this.context = context;
     this.service = this.context.service;
@@ -59,7 +61,7 @@ export class DataForm {
         this.isHasData = true;
       }
     }
-    console.log(this.data);
+    // console.log(this.data);
     
     // var errorIndex = 0;
 
