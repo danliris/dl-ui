@@ -24,6 +24,7 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
+    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   columns2 = [
@@ -41,6 +42,7 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
+    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   columns3 = [
@@ -58,6 +60,7 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
+    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   rowFormatter(data, index) {

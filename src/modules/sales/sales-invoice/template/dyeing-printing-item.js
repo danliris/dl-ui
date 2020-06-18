@@ -1,14 +1,14 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { SalesInvoiceDetail } from "./sales-invoice-detail";
+import { DyeingPrintingDetail } from "./dyeing-printing-detail";
 import { DataForm } from "./../data-form";
 
-@inject(SalesInvoiceDetail, DataForm, BindingEngine)
-export class SalesInvoiceItem {
+@inject(DyeingPrintingDetail, DataForm, BindingEngine)
+export class DyeingPrintingItem {
   @bindable QuantityItem;
   @bindable Price;
 
-  constructor(salesInvoiceDetail, dataForm, bindingEngine) {
-    this.salesInvoiceDetail = salesInvoiceDetail;
+  constructor(dyeingPrintingDetail, dataForm, bindingEngine) {
+    this.dyeingPrintingDetail = dyeingPrintingDetail;
     this.dataForm = dataForm;
     this.bindingEngine = bindingEngine;
   }

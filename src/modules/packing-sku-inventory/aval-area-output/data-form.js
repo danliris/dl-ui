@@ -53,11 +53,13 @@ export class DataForm {
       this.data.Shift = this.data.shift;
       this.data.Group = this.data.group;
       this.data.DestinationArea = this.data.destinationArea;
+      this.data.doNO = this.data.deliveryOrderSalesNo;
       if (this.data.avalItems.length > 0) {
         this.data.DyeingPrintingItems = this.data.avalItems;
         this.isHasData = true;
       }
     }
+    console.log(this.data);
     
     // var errorIndex = 0;
 
