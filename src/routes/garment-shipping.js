@@ -207,4 +207,17 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/export-sales-do",
+        name: "garment-shipping/export-sales-do",
+        moduleId: "modules/garment-shipping/export-sales-do/index",
+        nav: true,
+        title: "DO Penjualan Export",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
