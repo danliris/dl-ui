@@ -1,5 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-const ProductLoader = require('../../../../loader/garment-leftover-warehouse-buyer-loader');
+const ProductLoader = require('../../../../loader/garment-leftover-warehouse-product-loader');
 const UomLoader = require('../../../../loader/uom-loader');
 import { Service } from '../service';
 

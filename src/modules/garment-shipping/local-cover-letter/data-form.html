@@ -5,7 +5,7 @@
 
                 <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
                     error.bind="error.localSalesNote" text="noteNo" loader.bind="salesNoteLoader"
-                    placeholder="Invoice No" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                    placeholder="No Nota Penjualan" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-datepicker label="Tgl Surat Pengantar" value.bind="data.date" error.bind="error.date"
@@ -27,15 +27,15 @@
                 <hr />
                 <h1 class="page-header">Detail Surat Pengantar</h1>
 
-                <au-textbox label="Truck" value.bind="data.name" error.bind="error.name" placeholder="Truck"
+                <au-textbox label="Truck" value.bind="data.truck" error.bind="error.truck" placeholder="Truck"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-textbox>
 
-                <au-textbox label="No Polisi" value.bind="data.attn" error.bind="error.attn" placeholder="No Polisi"
+                <au-textbox label="No Polisi" value.bind="data.plateNumber" error.bind="error.plateNumber" placeholder="No Polisi"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-textbox>
 
-                <au-textbox label="Pengemudi" value.bind="data.phone" error.bind="error.phone" placeholder="Pengemudi"
+                <au-textbox label="Pengemudi" value.bind="data.driver" error.bind="error.driver" placeholder="Pengemudi"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-textbox>
 
