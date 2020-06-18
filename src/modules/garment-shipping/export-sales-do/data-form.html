@@ -1,0 +1,76 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <au-textbox 
+            label="No DO Penjualan Export" 
+            value.bind="data.exportSalesDONo" 
+            read-only="true"
+            options.bind="controlOptions" 
+            if.bind="readOnly || isEdit">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tgl DO" 
+            value.bind="data.date" 
+            error.bind="error.date"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-autocomplete 
+            label="Invoice No" 
+            placeholder="Pilih invoice no" 
+            value.bind="selectedInvoiceNo"
+            error.bind="error.invoiceNo" 
+            loader.bind="packingListLoader" 
+            text="invoiceNo"
+            query.bind="filter"
+            read-only.bind="readOnly || isEdit" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox 
+            label="Buyer Agent" 
+            value.bind="data.buyerAgent.name || ''" 
+            error.bind="error.buyerAgent" 
+            read-only.bind="true"
+            options.bind="controlOptions" >
+        </au-textbox>
+
+        <au-textbox 
+            label="Kepada" 
+            value.bind="data.to" 
+            error.bind="error.to" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions" >
+        </au-textbox>
+
+        
+        <au-autocomplete 
+            label="Bag Gudang" 
+            placeholder="Pilih bag gudang" 
+            value.bind="selectedUnit"
+            error.bind="error.unit" 
+            loader.bind="unitLoader" 
+            text.bind="unitView"
+            read-only.bind="readOnly || isEdit" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="itemsColumns"
+            read-only.bind="readOnly" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.bind="Options"
+            item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item-accessories">
+        </au-collection>
+        
+    </au-input-form>
+</template>
