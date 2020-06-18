@@ -20,7 +20,6 @@ export class View {
                 idx++;
             }
         }
-        console.log(this.data);
     }
 
     cancelCallback(event) {
