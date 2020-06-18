@@ -40,7 +40,13 @@ export class CartItem {
         } else if (this.destinationArea == "GUDANG AVAL") {
             this.data.status = "OK";
         } else {
-            this.data.status = "OK";
+            if (this.destinationArea == "PACKING") {
+
+                this.data.status = "OK";
+            } else {
+
+                this.data.status = "NOT OK";
+            }
         }
 
 

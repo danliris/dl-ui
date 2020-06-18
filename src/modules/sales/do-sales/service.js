@@ -1,7 +1,9 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/do-sales";
-const salesContractServiceUri = "sales/finishing-printing-sales-contracts";
+const salesContractDyeingPrintingServiceUri = "sales/finishing-printing-sales-contracts";
+const salesContractSpinningServiceUri = "sales/spinning-sales-contracts";
+const salesContractWeavingServiceUri = "sales/weaving-sales-contracts";
 const productionOrderServiceUri = "sales/production-orders";
 const buyerServiceUri = "master/buyers";
 
@@ -40,13 +42,35 @@ export class Service extends RestService {
     return super.getPdf(endpoint);
   }
 
-  searchSalesContract(info) {
-    var endpoint = `${salesContractServiceUri}`;
+  searchSalesContractDyeingPrinting(info) {
+    var endpoint = `${salesContractDyeingPrintingServiceUri}`;
     return super.list(endpoint, info);
   }
 
-  getSalesContractById(id, select) {
-    var endpoint = `${salesContractServiceUri}/${id}`;
+  getSalesContractDyeingPrintingById(id, select) {
+    var endpoint = `${salesContractDyeingPrintingServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchSalesContractSpinning(info) {
+    var endpoint = `${salesContractSpinningServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getSalesContractSpinningById(id, select) {
+    var endpoint = `${salesContractSpinningServiceUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchSalesContractWeaving(info) {
+    var endpoint = `${salesContractWeavingServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getSalesContractWeavingById(id, select) {
+    var endpoint = `${salesContractWeavingServiceUri}/${id}`;
     var info = { select: select };
     return super.get(endpoint, null, info);
   }

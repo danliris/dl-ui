@@ -9,19 +9,13 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "noteNo", title: "No Nota Penjualan Lokal" },
+        { field: "noteNo", title: "No Nota Penjualan" },
         {
-            field: "date", title: "Tgl Penjualan", formatter: function (value) {
+            field: "date", title: "Tgl Surat Pengantar", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "buyerCode", title: "Buyer" },
-        {
-            field: "date", title: "Tgl Jatuh Tempo", formatter: function (value) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "dispositionNo", title: "No Disposisi" },
     ];
 
     loader = (info) => {
@@ -42,7 +36,6 @@ export class List {
                     data.buyer = data.buyer || {};
                     data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
                 }
-
                 return {
                     total: result.info.total,
                     data: result.data

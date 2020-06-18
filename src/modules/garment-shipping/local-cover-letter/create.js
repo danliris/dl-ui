@@ -5,24 +5,15 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
-    isCreate = true;
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
+    }
+
+    bind() {
         this.data = {};
         this.error = {};
-    }
-
-    async activate(params) {
-        this.data = {};
-        this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInput();
-        
-    }
-
-
-    back() {
-        this.router.navigateToRoute('list');
     }
 
     determineActivationStrategy() {
@@ -31,19 +22,18 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save() {
-        this.data.inspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders;
+    cancelCallback(event) {
+        this.router.navigateToRoute('list');
+    }
+
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
-            .catch(e => {
-                if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
-                    this.error = e;
-                }
-            })
+            .catch(error => {
+                this.error = error;
+            });
     }
 }

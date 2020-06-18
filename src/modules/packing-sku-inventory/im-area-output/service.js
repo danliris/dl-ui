@@ -38,14 +38,20 @@ export class Service extends RestService {
     }
 
     generateExcel(id) {
-        
+
         var endpoint = `${serviceUri}/xls/${id}`;
-       
+
         return super.getXls(endpoint);
     }
 
-    getProductionOrderInput(){
+    getProductionOrderInput() {
         var endpoint = `${serviceUri}/input-production-orders`;
+
+        return super.get(endpoint);
+    }
+
+    getProductionOrderInputById(productionOrderId) {
+        var endpoint = `${serviceUri}/input-production-orders?productionOrderId=${productionOrderId}`;
 
         return super.get(endpoint);
     }
