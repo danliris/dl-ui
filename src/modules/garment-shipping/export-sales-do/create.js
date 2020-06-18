@@ -23,9 +23,7 @@ export class Create {
     }
 
     cancelCallback(event) {
-        if (confirm("Apakah Anda yakin keluar dari halaman ini?")) {
-            this.router.navigateToRoute('list');
-        }
+        this.router.navigateToRoute('list');
     }
 
     saveCallback(event) {

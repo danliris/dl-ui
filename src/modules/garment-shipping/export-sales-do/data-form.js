@@ -55,25 +55,29 @@ export class DataForm {
     }
     
     unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`;
+        return `${unit.Code || unit.code} - ${unit.Name || unit.name}`;
     }
 
     bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
+        this.isEdit=this.context.isEdit;
         this.Options = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
         }
-        if(this.data.Id){
+        if(this.data.id){
+            this.selectedInvoiceNo={
+                invoiceNo:this.data.invoiceNo
+            };
         }
     }
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.items.push({})
         };
     }
 
@@ -83,7 +87,13 @@ export class DataForm {
             //this.Options.error = null;
      };
     }
+
     selectedInvoiceNoChanged(newValue){
+        if(this.data.id) return;
+
+        this.data.invoiceNo=null;
+        this.data.packingListId=0;
+        this.data.buyerAgent=null;
         if(newValue){
             this.data.invoiceNo=newValue.invoiceNo;
             this.data.packingListId=newValue.id;

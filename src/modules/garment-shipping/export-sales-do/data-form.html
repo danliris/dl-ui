@@ -6,7 +6,7 @@
             value.bind="data.exportSalesDONo" 
             read-only="true"
             options.bind="controlOptions" 
-            if.bind="readOnly || isEdit">
+            if.bind="readOnly || data.id">
         </au-textbox>
 
         <au-datepicker 
@@ -25,7 +25,7 @@
             loader.bind="packingListLoader" 
             text="invoiceNo"
             query.bind="filter"
-            read-only.bind="readOnly || isEdit" 
+            read-only.bind="readOnly || data.id" 
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -49,7 +49,7 @@
         <au-autocomplete 
             label="Bag Gudang" 
             placeholder="Pilih bag gudang" 
-            value.bind="selectedUnit"
+            value.bind="data.unit"
             error.bind="error.unit" 
             loader.bind="unitLoader" 
             text.bind="unitView"
@@ -62,14 +62,14 @@
         </div>
 
         <au-collection 
-            items.bind="data.Items" 
-            errors.bind="error.Items" 
+            items.bind="data.items" 
+            errors.bind="error.items" 
             columns.bind="itemsColumns"
             read-only.bind="readOnly" 
             add.bind="addItems" 
             remove.bind="removeItems"
             options.bind="Options"
-            item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item-accessories">
+            item-template="modules/garment-shipping/export-sales-do/template/item">
         </au-collection>
         
     </au-input-form>
