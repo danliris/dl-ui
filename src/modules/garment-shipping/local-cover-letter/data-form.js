@@ -51,7 +51,7 @@ export class DataForm {
 
     selectedSalesNoteChanged(newValue) {
         if (newValue) {
-            this.data.salesNoteId = newValue.id;
+            this.data.localSalesNoteId = newValue.id;
             this.data.noteNo = newValue.noteNo;
 
             this.data.buyer = newValue.buyer || {};
