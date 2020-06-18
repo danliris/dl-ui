@@ -13,17 +13,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        var idx=0;
-        if(this.data.measurements){
-            for(var i of this.data.measurements){
-                i.MeasurementIndex=idx;
-                idx++;
-            }
-        }
-        if(this.data.isUsed){
-            this.editCallback=null;
-            this.deleteCallback=null;
-        }
+        this.selectedPackingList = this.data.invoiceNo;
     }
 
     cancelCallback(event) {
