@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 
 let InspectionAreaLoader = require("../../../loader/input-inspection-material-loader");
+let FilterSPPLoader = require("../../../loader/pre-output-im-spp-loader");
 
 @inject(Service)
 export class DataForm {
@@ -27,7 +28,7 @@ export class DataForm {
     // itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
     detailOptions = {};
-    destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL"];
+    destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL", "PRODUKSI"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
         this.service = service;
@@ -37,9 +38,19 @@ export class DataForm {
         return InspectionAreaLoader;
     }
 
+    get filterSPPLoader() {
+        return FilterSPPLoader;
+    }
+
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
+
+
+    sppTextFormatter = (spp) => {
+        return `${spp.productionOrder.no}`
+    }
+
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
@@ -57,7 +68,7 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        
+
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
         }
@@ -94,8 +105,8 @@ export class DataForm {
         }
 
         if (this.data.inspectionMaterialProductionOrders) {
-            this.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
-            
+            this.data.displayInspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+
         }
 
         if (this.ItemsCollection) {
@@ -107,8 +118,8 @@ export class DataForm {
 
     }
     addItemCallback = (e) => {
-        this.inspectionMaterialProductionOrders = this.inspectionMaterialProductionOrders || [];
-        this.inspectionMaterialProductionOrders.push({})
+        this.data.displayInspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders || [];
+        this.data.displayInspectionMaterialProductionOrders.push({})
     };
 
     // @bindable selectedInspectionMaterial;
@@ -137,9 +148,9 @@ export class DataForm {
                     } else {
                         this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
                     }
-    
+
                 }
-    
+
             } else {
                 if (this.readOnly) {
                     this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
@@ -149,9 +160,9 @@ export class DataForm {
                     } else {
                         this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
                     }
-    
+
                 }
-    
+
             }
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
@@ -166,6 +177,24 @@ export class DataForm {
 
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
+    }
+
+    @bindable selectedFilterSPP;
+    async selectedFilterSPPChanged(n, o) {
+        if (this.selectedFilterSPP) {
+
+            this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInputById(this.selectedFilterSPP.productionOrder.id);
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+            console.log(this.data.displayInspectionMaterialProductionOrders);
+        } else {
+
+            this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInput();
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+        }
     }
 }
 

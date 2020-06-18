@@ -1,10 +1,36 @@
 module.exports = [
     {
+        route: 'packing-sku-inventory/master-width-type',
+        name: 'master-width-type',
+        moduleId: './modules/packing-sku-inventory/master-width-type/index',
+        nav: true,
+        title: 'Master Jenis Lebar',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/master/weft-type',
         name: 'weft-type',
         moduleId: './modules/packing-sku-inventory/weft-type/index',
         nav: true,
         title: 'Master Jenis Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'packing-sku-inventory/master-yarn-type',
+        name: 'master-yarn-type',
+        moduleId: './modules/packing-sku-inventory/master-yarn-type/index',
+        nav: true,
+        title: 'Master Jenis Benang',
         auth: true,
         settings: {
             group: "ps-inventory",
@@ -26,11 +52,38 @@ module.exports = [
         }
     },
     {
+        route: 'packing-sku-inventory/master-process-type',
+        name: 'master-process-type',
+        moduleId: './modules/packing-sku-inventory/master-process-type/index',
+        nav: true,
+        title: 'Master Jenis Proses',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'packing-sku-inventory/master/material-construction',
         name: 'material-construction',
         moduleId: './modules/packing-sku-inventory/material-construction/index',
         nav: true,
         title: 'Master Lusi Pakan',
+        auth: true,
+        settings: {
+            group: "ps-inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+
+        route: 'packing-sku-inventory/master-woven-type',
+        name: 'master-woven-type',
+        moduleId: './modules/packing-sku-inventory/master-woven-type/index',
+        nav: true,
+        title: 'Master Jenis Anyaman',
         auth: true,
         settings: {
             group: "ps-inventory",

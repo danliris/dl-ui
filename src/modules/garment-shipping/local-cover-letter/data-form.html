@@ -1,0 +1,53 @@
+<template>
+    <div class="row">
+        <div class="col-sm-12">
+            <au-input-form title.bind="title" with.bind="context">
+
+                <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
+                    error.bind="error.localSalesNote" text="noteNo" loader.bind="salesNoteLoader"
+                    placeholder="Invoice No" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-datepicker label="Tgl Surat Pengantar" value.bind="data.date" error.bind="error.date"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-autocomplete label="Buyer" value.bind="data.buyer" text.bind="buyerView" read-only="true"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-multiline label="Alamat Buyer" value.bind="data.buyer.address" read-only="true"
+                    options.bind="controlOptions">
+                </au-multiline>
+
+                <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
+                    placeholder="Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+                </au-multiline>
+
+                <hr />
+                <h1 class="page-header">Detail Surat Pengantar</h1>
+
+                <au-textbox label="Truck" value.bind="data.name" error.bind="error.name" placeholder="Truck"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox label="No Polisi" value.bind="data.attn" error.bind="error.attn" placeholder="No Polisi"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox label="Pengemudi" value.bind="data.phone" error.bind="error.phone" placeholder="Pengemudi"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
+
+                <au-autocomplete label="Shipping Staff" value.bind="data.shippingStaff" error.bind="error.shippingStaff"
+                    text.bind="shippingStaffView" loader.bind="shippingStaffLoader" placeholder="Shipping Staff"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <hr />
+
+            </au-input-form>
+        </div>
+    </div>
+
+</template>
