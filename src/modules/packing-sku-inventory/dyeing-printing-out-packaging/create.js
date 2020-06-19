@@ -46,10 +46,11 @@ export class Create {
         bodyRequest.group = this.data.group;
         bodyRequest.id = this.data.id;
         bodyRequest.shift = this.data.shift;
-        bodyRequest.bonNoInput = this.data.bonNoInput;
+        // bodyRequest.bonNoInput = this.data.bonNoInput;
         bodyRequest.packagingProductionOrders = [];
-        this.data.packagingProductionOrders.forEach(element => {
-            element.PackagingList.forEach(item => {
+        this.data.packagingProductionOrders.forEach(parent => {
+            parent.PackingProductionOrderList.filter((s)=> s.IsSave === true).forEach(element => {
+            element.PackingListItem.forEach(item => {
                 var itemSpp = {};
                 itemSpp.productionOrderNo = item.productionOrderNo,
                     itemSpp.productionOrder = item.productionOrder,
@@ -77,20 +78,22 @@ export class Create {
                 bodyRequest.packagingProductionOrders.push(itemSpp);
             });
         });
+        });
         // console.log(bodyRequest);
 
-        // this.service.create(bodyRequest)
-        //     .then(result => {
-        //         alert("Data berhasil dibuat");
-        //         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-        //     })
-        //     .catch(e => {
-        //         if (e.statusCode == 500) {
-        //             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-        //         } else {
-        //             this.error = e;
-        //         }
-        //     })
-        // }
+        this.service.create(bodyRequest)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else if (e.statusCode == 400) {
+                    alert("Data Validation Not Pass");
+                 } else {
+                    this.error = e;
+                }
+            });
     }
 }
