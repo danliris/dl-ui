@@ -1,11 +1,6 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/delivery-note-production";
-const salesInvoiceServiceUri = "sales/sales-invoices";
-const shippingOutServiceUri = "output-shipping";
-const buyerServiceUri = "master/buyers";
-
-const serviceSpinningSalesContractsUri = 'sales/spinning-sales-contracts';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -42,57 +37,4 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    // searchSalesInvoice(info) {
-    //     var endpoint = `${salesInvoiceServiceUri}`;
-    //     return super.list(endpoint, info);
-    // }
-
-    // getSalesInvoiceById(id, select) {
-    //     var endpoint = `${salesInvoiceServiceUri}/${id}`;
-    //     var info = { select: select };
-    //     return super.get(endpoint, null, info);
-    // }
-
-    // getByIdSales(id) {
-    //     var endpoint = `${serviceSpinningSalesContractsUri}/${id}`;
-    //     return super.get(endpoint);
-    // }
 }
-
-// export class ServicePackingInventory extends RestService {
-//     constructor(http, aggregator, config, endpoint) {
-//         super(http, aggregator, config, "packing-inventory");
-//     }
-
-//     searchOutputShipping(info) {
-//         var endpoint = `${shippingOutServiceUri}`;
-//         return super.list(endpoint, info);
-//     }
-
-//     getByShippingOutputId(id) {
-//         var endpoint = `${shippingOutServiceUri}/${id}`;
-//         return super.get(endpoint);
-//     }
-
-//     salesLoaderOutputShipping(info) {
-//         var endpoint = `${shippingOutServiceUri}/sales-loader`;
-//         return super.list(endpoint, info);
-//     }
-// }
-
-// export class ServiceCore extends RestService {
-//     constructor(http, aggregator, config, endpoint) {
-//         super(http, aggregator, config, "core");
-//     }
-
-//     searchBuyer(info) {
-//         var endpoint = `${buyerServiceUri}`;
-//         return super.list(endpoint, info);
-//     }
-
-//     getBuyerById(id, select) {
-//         var endpoint = `${buyerServiceUri}/${id}`;
-//         var info = { select: select };
-//         return super.get(endpoint, null, info);
-//     }
-// }

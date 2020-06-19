@@ -19,14 +19,14 @@ export class Edit {
   }
 
   save() {
-    // this.service
-    //   .update(this.data)
-    //   .then((result) => {
-    //     this.view();
-    //   })
-    //   .catch((e) => {
-    //     this.error = e;
-    //   });
-    console.log(this.data);
+    this.service
+      .update(this.data)
+      .then((result) => {
+        this.view();
+      })
+      .catch((e) => {
+        this.error = e;
+      });
+    // console.log(this.data);
   }
 }

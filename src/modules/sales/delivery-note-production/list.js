@@ -5,7 +5,7 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["Detail", "Cetak Bon SOP"];
+  context = ["Detail", "Cetak SOP"];
 
   columns = [
     { field: "SalesContract.SalesContractNo", title: "No. SOP" },
@@ -17,7 +17,7 @@ export class List {
     },
     { field: "SalesContract.Buyer.Name", title: "Buyer" },
     { field: "Unit", title: "Unit" },
-    { field: "Month", title: "Jadwal Pengiriman" },
+    { field: "MonthandYear", title: "Jadwal Pengiriman" },
   ];
 
   rowFormatter(data, index) {
@@ -55,7 +55,7 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak Bon SOP":
+      case "Cetak SOP":
         this.service.getPdfById(data.Id);
         break;
     }
@@ -63,7 +63,7 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Bon SOP":
+      case "Cetak SOP":
         return data;
       default:
         return true;

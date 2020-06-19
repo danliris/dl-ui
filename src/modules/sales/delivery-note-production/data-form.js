@@ -53,20 +53,10 @@ export class DataForm {
         }
     }
 
-    // salesContractNoView(sc) {
-    //     console.log(sc);
-    //     return sc.SalesContractNo;
-    // }
-
     get SalesContractSpinningLoader() {
         
         return SalesContractSpinningLoader;
     }
-
-    // totalView = (SalesContract) => {
-    //     console.log()
-    //     return `${SalesContract.OrderQuantity} ${SalesContract.UomUnit}`
-    //   }
 
     enterDelegate(event) {
         if (event.charCode === 13) {
