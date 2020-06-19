@@ -15,7 +15,7 @@ export class Item {
         var filter={
             BuyerCode:this.data.BuyerCode,
             Section: this.data.Section,
-            "SCGarmentId!=0":true
+            "SCGarmentId!=null":true
         };
         return filter;
     }

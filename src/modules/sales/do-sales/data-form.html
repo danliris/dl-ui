@@ -24,7 +24,19 @@
               <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly">
               </au-datepicker>
 
-              <au-autocomplete label="No. Sales Contract" value.bind="selectedSalesContract"
+              <au-autocomplete if.bind="code" label="No. Sales Contract" value.bind="selectedSalesContractSpinning"
+                read-only.bind="readOnly || isEdit" error.bind="error.SalesContract"
+                loader.one-time="SalesContractSpinningLoader" text.bind="salesContractNoView"
+                keypress.delegate="enterDelegate($event)" placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code1" label="No. Sales Contract" value.bind="selectedSalesContractWeaving"
+                read-only.bind="readOnly || isEdit" error.bind="error.SalesContract"
+                loader.one-time="SalesContractWeavingLoader" text.bind="salesContractNoView"
+                keypress.delegate="enterDelegate($event)" placeholder=" Pilih No. Sales Contract">
+              </au-autocomplete>
+
+              <au-autocomplete if.bind="code2" label="No. Sales Contract" value.bind="selectedSalesContract"
                 read-only.bind="readOnly || isEdit" error.bind="error.SalesContract"
                 loader.one-time="salesContractLoader" text.bind="salesContractNoView"
                 keypress.delegate="enterDelegate($event)" placeholder=" Pilih No. Sales Contract">
@@ -103,13 +115,13 @@
                     placeholder="Input Disp" keypress.delegate="enterDelegate($event)" format="0,0">
                   </au-numeric>
                 </div>
-                <div class="col-sm-6" style="padding-left:20%">
-                  <au-numeric label="Op" value.bind="op" error.bind="error.Op" read-only.bind="readOnly"
+                <div class="col-sm-6" style="padding-left:15%">
+                  <au-numeric label="Op/Fo" value.bind="op" error.bind="error.Op" read-only.bind="readOnly"
                     placeholder="Input Op" keypress.delegate="enterDelegate($event)" format="0,0">
                   </au-numeric>
                 </div>
                 <div class="col-sm-6" style="padding-left:20%">
-                  <au-numeric label="Sc" value.bind="sc" error.bind="error.Sc" read-only.bind="readOnly"
+                  <au-numeric if.bind="code2" label="Sc" value.bind="sc" error.bind="error.Sc" read-only.bind="readOnly"
                     placeholder="Input Sc" keypress.delegate="enterDelegate($event)" format="0,0">
                   </au-numeric>
                 </div>
@@ -189,15 +201,40 @@
 
     <au-textbox show.bind="ItemsCollection" error.bind="error.DetailItem" read-only.bind="true"></au-textbox>
 
-    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom" columns.bind="doSalesLocalItemsInfo.columns"
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code2" columns.bind="doSalesLocalItemsInfo.columns"
       items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly"
       options.bind="detailOptions" item-template="modules/sales/do-sales/template/local-item"
       view-model.ref="ItemsCollection">
     </au-collection>
 
-    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom" columns.bind="doSalesExportItemsInfo.columns"
-      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly"
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code" columns.bind="doSalesLocalSpinningItemsInfo.columns"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesLocalSpinningItemsInfo.onAdd"
+      options.bind="detailOptions" item-template="modules/sales/do-sales/template/local-item-spinning"
+      view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code1" columns.bind="doSalesLocalWeavingItemsInfo.columns"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesLocalWeavingItemsInfo.onAdd"
+      options.bind="detailOptions" item-template="modules/sales/do-sales/template/local-item-weaving"
+      view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <!-- ============================================================ -->
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code2" columns.bind="doSalesExportItemsInfo.columns"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" 
       options.bind="detailOptions" item-template="modules/sales/do-sales/template/export-item"
+      view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code" columns.bind="doSalesLocalSpinningItemsInfo.columns"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesExportItemsSpinningInfo.onAdd"
+      options.bind="detailOptions" item-template="modules/sales/do-sales/template/export-item-spinning"
+      view-model.ref="ItemsCollection">
+    </au-collection>
+
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code1" columns.bind="doSalesLocalWeavingItemsInfo.columns"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesExportItemsWeavingInfo.onAdd"
+      options.bind="detailOptions" item-template="modules/sales/do-sales/template/export-item-weaving"
       view-model.ref="ItemsCollection">
     </au-collection>
     </au-input-form>

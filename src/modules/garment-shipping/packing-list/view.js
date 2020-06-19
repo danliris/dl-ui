@@ -20,7 +20,10 @@ export class View {
                 idx++;
             }
         }
-        console.log(this.data);
+        if(this.data.isUsed){
+            this.editCallback=null;
+            this.deleteCallback=null;
+        }
     }
 
     cancelCallback(event) {
