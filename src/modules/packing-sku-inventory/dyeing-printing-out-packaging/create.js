@@ -38,7 +38,7 @@ export class Create {
     }
 
     save() {
-        // console.log(this.data);
+        console.log(this);
         var bodyRequest = {};
         bodyRequest.area = this.data.area;
         bodyRequest.date = this.data.date;
@@ -79,18 +79,18 @@ export class Create {
         });
         // console.log(bodyRequest);
 
-        this.service.create(bodyRequest)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
-                    this.error = e;
-                }
-            })
+        // this.service.create(bodyRequest)
+        //     .then(result => {
+        //         alert("Data berhasil dibuat");
+        //         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+        //     })
+        //     .catch(e => {
+        //         if (e.statusCode == 500) {
+        //             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        //         } else {
+        //             this.error = e;
+        //         }
+        //     })
         // }
     }
 }
