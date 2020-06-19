@@ -2,17 +2,17 @@ import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import { SPINNING, WEAVING, DYEINGPRINTING } from '../sales-invoice/shared/permission-constant';
+import { SPINNING, WEAVING, DYEINGPRINTING } from '../sales-invoice-export/shared/permission-constant';
 import { PermissionHelper } from '../../../utils/permission-helper';
 
 @inject(Router, Service, PermissionHelper)
 export class List {
-  context = ["Detail", "Cetak Surat Jalan", "Cetak Faktur Penjualan"];
+  context = ["Detail", "Print PDF"];
 
   columns1 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -22,14 +22,15 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   columns2 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -39,14 +40,15 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   columns3 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -56,8 +58,9 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   rowFormatter(data, index) {
@@ -141,10 +144,7 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak Surat Jalan":
-        this.service.getDeliveryOrderPdfById(data.Id);
-        break;
-      case "Cetak Faktur Penjualan":
+      case "Print PDF":
         this.service.getSalesInvoicePdfById(data.Id);
         break;
     }
@@ -152,9 +152,7 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Surat Jalan":
-        return data;
-      case "Cetak Faktur Penjualan":
+      case "Print PDF":
         return data;
       default:
         return true;

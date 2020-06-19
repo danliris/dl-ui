@@ -101,27 +101,6 @@ export class DataForm {
     }
   }
 
-  get getTotalPayment() {
-    var totalPayment = 0;
-    var result = 0;
-    if (this.data.SalesInvoiceDetails) {
-      for (var detail of this.data.SalesInvoiceDetails) {
-        for (var item of detail.SalesInvoiceItems) {
-          if (item.Amount) {
-            result += item.Amount;
-          }
-        }
-      }
-    }
-    if (this.data.VatType == "PPN BUMN") {
-      totalPayment = result;
-    } else {
-      totalPayment = result * 0.1 + result;
-    }
-    this.data.TotalPayment = totalPayment;
-    return totalPayment;
-  }
-
   selectedPaymentTypeChanged(newValue, oldValue) {
     if (this.selectedPaymentType) {
       this.data.PaymentType = this.selectedPaymentType;
@@ -165,11 +144,13 @@ export class DataForm {
   }
 
   salesInvoiceDetailsInfo = {
-    columns: ["No. Bon Pengiriman Barang"],
+    columns: ["No. Bon Pengiriman Barang",
+      "Berat Kotor", "Berat Bersih", "Satuan Berat", "Ukuran Total", "Satuan Total"
+    ],
     onAdd: function () {
       this.context.SalesInvoiceDetailsCollection.bind();
-      this.data.SalesInvoiceDetails = this.data.SalesInvoiceDetails || [];
-      this.data.SalesInvoiceDetails.push({});
+      this.data.SalesInvoiceExportDetails = this.data.SalesInvoiceExportDetails || [];
+      this.data.SalesInvoiceExportDetails.push({});
     }.bind(this),
     onRemove: function () {
       this.context.SalesInvoiceDetailsCollection.bind();
@@ -177,48 +158,10 @@ export class DataForm {
   };
   itemOptions = {};
 
-  localTypeOptions = [
-    "",
-    "BNG",
-    "BAB",
-    "BNS",
-    // "RNG",
-    "BRG",
-    "BAG",
-    "BGS",
-    // "RRG",
-    "BLL",
-    "BPF",
-    "BSF",
-    // "RPF",
-    "BPR",
-    "BSR",
-    // "RPR",
-    "BAV",
-    "BON",
-    "BGM",
-    "GPF",
-    // "RGF",
-    "GPR",
-    // "RGR",
-    "RON",
-    "BMK",
-    // Retur
-    "RNG",
-    "RRG",
-    "RPF",
-    "RPR",
-    "RGF",
-    "RGR",
-  ];
-  vatTypeOptions = [
-    "",
-    "PPN Umum",
-    "PPN Kawasan Berikat",
-    "PPN BUMN",
-    "PPN Retail",
-  ];
-  paymentTypeOptions = ["", "MTR", "YARD"];
+  exportTypeOptions = ["", "L/C", "T.T"];
+  authorizedOptions = ["", "ADRIANA DAMAYANTI", "AMUMPUNI"];
+  termOfPaymentOptions = ["", "FCA", "FAS", "FOB", "CFR", "CIF", "CPT", "CIP", "DPU", "DAP", "DDP"];
+  finishingPrintingOptions = ["", "Dyeing/Finishing", "Printing"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {
@@ -266,7 +209,7 @@ export class DataForm {
       this.itemOptions.BuyerId = null;
       this.itemOptions.Category = null;
       this.itemOptions.HasSalesInvoice = false;
-      this.data.SalesInvoiceDetails = [];
+      this.data.SalesInvoiceExportDetails = [];
     }
   }
 
