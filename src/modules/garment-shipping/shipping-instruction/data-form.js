@@ -96,7 +96,9 @@ export class DataForm {
                 this.data.truckingDate=pl.truckingDate;
                 this.coreService.getBuyerById(this.data.buyerAgent.id)
                 .then(buyer=>{
-                    this.data.buyerAgentAddress= buyer.Address + "\n" + buyer.City + "\n" + buyer.Country;
+                    var city= buyer.City==null ? "": "\n" + buyer.City ;
+                    var country=buyer.Country==null? "" : "\n" + buyer.Country;
+                    this.data.buyerAgentAddress= buyer.Address + city + country;
                 
                 });
             });

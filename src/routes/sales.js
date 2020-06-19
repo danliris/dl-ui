@@ -156,6 +156,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/delivery-note-production',
+        name: 'delivery-note-production',
+        moduleId: './modules/sales/delivery-note-production/index',
+        nav: true,
+        title: 'Bon Penyerahan Produksi - Spinning',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/reports/weaving-sales-contract-reports',
         name: 'weaving-sales-contract-report',
         moduleId: './modules/sales/reports/weaving-sales-contract-report/index',
