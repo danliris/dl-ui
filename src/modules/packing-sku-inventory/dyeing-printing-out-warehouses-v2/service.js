@@ -56,6 +56,11 @@ getProductionOrderOutput(bonId){
       var endpoint = `${serviceUri}/xls/${id}`;
       return super.getXls(endpoint);
   }
+  generateExcelAll() {
+      
+    var endpoint = `${serviceUri}/xls`;
+    return super.getXls(endpoint);
+}
 
 //   getPdfById(id) {
 //       var endpoint = `${serviceUri}/pdf/${id}`;
