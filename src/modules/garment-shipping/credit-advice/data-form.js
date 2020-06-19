@@ -67,7 +67,6 @@ export class DataForm {
     }
 
     selectedShippingInvoiceChanged(newValue, oldValue) {
-        console.log(newValue);
         if (newValue) {
             this.data.packingListId = newValue.packingListId;
             this.data.invoiceId = newValue.id;

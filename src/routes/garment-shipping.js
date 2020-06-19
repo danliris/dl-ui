@@ -207,4 +207,30 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/export-sales-do",
+        name: "garment-shipping/export-sales-do",
+        moduleId: "modules/garment-shipping/export-sales-do/index",
+        nav: true,
+        title: "DO Penjualan Export",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-cover-letter",
+        name: "garment-shipping/local-cover-letter",
+        moduleId: "modules/garment-shipping/local-cover-letter/index",
+        nav: true,
+        title: "Surat Pengantar (Lokal)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]

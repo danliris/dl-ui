@@ -58,7 +58,8 @@ export class Detail {
 
     get totalQuantity(){
         if(this.data.cartonQuantity && this.data.quantityPCS){
-            return this.data.cartonQuantity*this.data.quantityPCS;
+            this.data.totalQuantity=this.data.cartonQuantity*this.data.quantityPCS;
+            return this.data.totalQuantity;
         }
         else
             return 0;
