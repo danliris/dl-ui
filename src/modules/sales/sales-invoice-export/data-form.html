@@ -20,15 +20,19 @@
           </au-datepicker>
 
           <au-textbox label="Nama Buyer" value.bind="data.BuyerName" error.bind="error.BuyerName"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly" placeholder="Input Nama Buyer">
           </au-textbox>
 
           <au-textbox label="Alamat Buyer" value.bind="data.BuyerAddress" error.bind="error.BuyerAddress"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly" placeholder="Input Alamat Buyer">
+          </au-textbox>
+
+          <au-textbox label="No. Kontrak" value.bind="data.ContractNo" error.bind="error.ContractNo"
+            read-only.bind="readOnly" placeholder="Input No. Kontrak">
           </au-textbox>
 
           <au-dropdown label="Penanggungjawab" value.bind="data.Authorized" items.bind="authorizedOptions"
-            error.bind="error.Authorized" read-only.bind="readOnly || isEdit">
+            error.bind="error.Authorized" read-only.bind="readOnly">
           </au-dropdown>
 
           <au-textbox label="Shipped Per" value.bind="data.ShippedPer" error.bind="error.ShippedPer"
@@ -69,7 +73,7 @@
           </au-textbox>
 
           <au-dropdown label="Term of Payment" value.bind="data.TermOfPaymentType" items.bind="termOfPaymentOptions"
-            error.bind="error.TermOfPaymentType" read-only.bind="readOnly || isEdit">
+            error.bind="error.TermOfPaymentType" read-only.bind="readOnly">
           </au-dropdown>
 
           <au-textbox label=" Keterangan Term of Payment" value.bind="data.TermOfPaymentRemark"
@@ -97,7 +101,7 @@
           </au-textbox>
 
           <au-multiline label="Catatan Shipping" value.bind="data.ShippingRemark" read-only.bind="readOnly"
-            keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
+            keypress.delegate="enterDelegate($event)" placeholder="Input Catatan Shipping">
           </au-multiline>
 
           <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"

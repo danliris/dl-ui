@@ -37,8 +37,13 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getSalesInvoicePdfById(id) {
-    var endpoint = `${serviceUri}/sales-invoice-export-pdf/${id}`;
+  getSalesInvoiceExportValasPdfById(id) {
+    var endpoint = `${serviceUri}/sales-invoice-export-valas-pdf/${id}`;
+    return super.getPdf(endpoint);
+  }
+
+  getSalesInvoiceExportIDRPdfById(id) {
+    var endpoint = `${serviceUri}/sales-invoice-export-idr-pdf/${id}`;
     return super.getPdf(endpoint);
   }
 }

@@ -145,7 +145,7 @@ export class DataForm {
 
   salesInvoiceDetailsInfo = {
     columns: ["No. Bon Pengiriman Barang",
-      "Berat Kotor", "Berat Bersih", "Satuan Berat", "Ukuran Total", "Satuan Total"
+      "Deskripsi", "Berat Kotor", "Berat Bersih", "Satuan Berat", "Ukuran Total", "Satuan Total"
     ],
     onAdd: function () {
       this.context.SalesInvoiceDetailsCollection.bind();

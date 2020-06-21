@@ -7,7 +7,7 @@ import { PermissionHelper } from '../../../utils/permission-helper';
 
 @inject(Router, Service, PermissionHelper)
 export class List {
-  context = ["Detail", "Print PDF"];
+  context = ["Detail", "Print PDF Valas", "Print PDF IDR"];
 
   columns1 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
@@ -144,15 +144,20 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Print PDF":
-        this.service.getSalesInvoicePdfById(data.Id);
+      case "Print PDF Valas":
+        this.service.getSalesInvoiceExportValasPdfById(data.Id);
+        break;
+      case "Print PDF IDR":
+        this.service.getSalesInvoiceExportIDRPdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Print PDF":
+      case "Print PDF Valas":
+        return data;
+      case "Print PDF IDR":
         return data;
       default:
         return true;

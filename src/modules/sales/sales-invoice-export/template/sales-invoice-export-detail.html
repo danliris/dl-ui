@@ -1,8 +1,13 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox placeholder="Input No. Bon Pengiriman Barang Spinning-Weaving" value.bind="data.BonNo"
-                error.bind="error.BonNo" read-only.bind="readOnly">
+            <au-textbox placeholder="Input No. Bon Pengiriman Barang" value.bind="data.BonNo" error.bind="error.BonNo"
+                read-only.bind="readOnly">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description"
+                read-only.bind="readOnly">
             </au-textbox>
         </td>
         <td>
@@ -36,7 +41,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="7">
             <au-collection show.bind="data.BonNo" columns.bind="salesInvoiceItemsInfo.columns"
                 items.bind="data.SalesInvoiceExportItems" view-model.ref="SalesInvoiceExportItems"
                 errors.bind="error.SalesInvoiceExportItems" read-only.bind="readOnly"
