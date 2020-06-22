@@ -148,6 +148,7 @@ export class Table {
       // showPaginationSwitch: true,
       showColumns: true,
       search: true,
+      searchText: '',
       showToggle: true,
       columns: this.__columns,
       ajax: (params) => {
