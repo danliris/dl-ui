@@ -160,7 +160,7 @@ module.exports = [
         name: 'delivery-note-production',
         moduleId: './modules/sales/delivery-note-production/index',
         nav: true,
-        title: 'Bon Penyerahan Produksi - Spinning',
+        title: 'Surat Order Produksi - Spinning',
         auth: true,
         settings: {
             group: "sales",
