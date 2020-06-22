@@ -24,6 +24,8 @@ export class DataForm {
         }
     }
 
+    ListCategory = ["", "Omzet","Uang Muka", "Pindah Buku","Lain-lain"];
+
     constructor(service, bindingEngine) {  
         this.service = service;
         this.bindingEngine = bindingEngine;
