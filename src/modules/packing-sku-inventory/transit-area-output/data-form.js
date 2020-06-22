@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 
 let TransitAreaLoader = require("../../../loader/input-transit-loader");
+let FilterSPPLoader = require("../../../loader/pre-output-transit-spp-loader");
 
 @inject(Service)
 export class DataForm {
@@ -36,6 +37,14 @@ export class DataForm {
         return TransitAreaLoader;
     }
 
+    get filterSPPLoader() {
+        return FilterSPPLoader;
+    }
+
+    sppTextFormatter = (spp) => {
+        return `${spp.productionOrder.no}`
+    }
+
     areaMovementTextFormatter = (areaInput) => {
         return `${areaInput.bonNo}`
     }
@@ -61,17 +70,13 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        // if (this.data.bonNo) {
-        //     this.selectedInspectionMaterial = {};
-        //     this.selectedInspectionMaterial.bonNo = this.data.bonNo;
-        // }
         this.detailOptions = {
             isEdit: this.isEdit,
             destinationArea: this.data.destinationArea
         };
 
         if (this.data.transitProductionOrders) {
-            this.transitProductionOrders = this.data.transitProductionOrders;
+            this.data.displayTransitProductionOrders = this.data.transitProductionOrders;
         }
 
         if (this.data.destinationArea) {
@@ -90,22 +95,9 @@ export class DataForm {
         }
     }
     addItemCallback = (e) => {
-        this.transitProductionOrders = this.transitProductionOrders || [];
-        this.transitProductionOrders.push({})
+        this.data.displayTransitProductionOrders = this.data.displayTransitProductionOrders || [];
+        this.data.displayTransitProductionOrders.push({})
     };
-
-    // @bindable selectedInspectionMaterial;
-    // selectedInspectionMaterialChanged(n, o) {
-    //     if (this.selectedInspectionMaterial) {
-    //         this.data.inputTransitId = this.selectedInspectionMaterial.id;
-    //         if (this.selectedInspectionMaterial.transitProductionOrders) {
-    //             this.data.transitProductionOrders = this.selectedInspectionMaterial.transitProductionOrders.filter(s => s.hasOutputDocument == false);
-    //         }
-
-    //     }
-
-    // }
-
 
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
@@ -125,14 +117,25 @@ export class DataForm {
                     this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
                 }
             }
-            // if (!this.data.id) {
-
-            //     this.selectedInspectionMaterial = null;
-            //     this.data.transitProductionOrders = [];
-            // }
-
         }
     }
 
+    @bindable selectedFilterSPP;
+    async selectedFilterSPPChanged(n, o) {
+        if (this.selectedFilterSPP) {
+
+            this.data.displayTransitProductionOrders = await this.service.getProductionOrderInputById(this.selectedFilterSPP.productionOrder.id);
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+            console.log(this.data.displayTransitProductionOrders);
+        } else {
+
+            this.data.displayTransitProductionOrders = await this.service.getProductionOrderInput();
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+        }
+    }
 
 }

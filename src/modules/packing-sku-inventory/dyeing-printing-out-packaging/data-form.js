@@ -72,6 +72,8 @@ export class DataForm {
     async activate(context){
     }
     addItemCallback = (e) => {
+        // console.log(this);
+        // console.log(e);
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
     };
