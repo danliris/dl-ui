@@ -303,7 +303,20 @@ module.exports = [
         name: 'sales-invoice',
         moduleId: './modules/sales/sales-invoice/index',
         nav: true,
-        title: 'Faktur Penjualan',
+        title: 'Faktur Penjualan Lokal',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/sales-invoice-export',
+        name: 'sales-invoice-export',
+        moduleId: './modules/sales/sales-invoice-export/index',
+        nav: true,
+        title: 'Faktur Penjualan Ekspor',
         auth: true,
         settings: {
             group: "sales",

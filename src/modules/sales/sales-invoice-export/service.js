@@ -1,6 +1,6 @@
 import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "sales/sales-invoices";
+const serviceUri = "sales/sales-invoices-export";
 const shippingOutServiceUri = "output-shipping";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
@@ -37,18 +37,13 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getDeliveryOrderPdfById(id) {
-    var endpoint = `${serviceUri}/delivery-order-pdf/${id}`;
+  getSalesInvoiceExportValasPdfById(id) {
+    var endpoint = `${serviceUri}/sales-invoice-export-valas-pdf/${id}`;
     return super.getPdf(endpoint);
   }
 
-  getSalesInvoiceValasPdfById(id) {
-    var endpoint = `${serviceUri}/sales-invoice-valas-pdf/${id}`;
-    return super.getPdf(endpoint);
-  }
-
-  getSalesInvoiceIDRPdfById(id) {
-    var endpoint = `${serviceUri}/sales-invoice-idr-pdf/${id}`;
+  getSalesInvoiceExportIDRPdfById(id) {
+    var endpoint = `${serviceUri}/sales-invoice-export-idr-pdf/${id}`;
     return super.getPdf(endpoint);
   }
 }

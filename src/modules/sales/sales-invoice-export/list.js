@@ -2,18 +2,17 @@ import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import { SPINNING, WEAVING, DYEINGPRINTING } from '../sales-invoice/shared/permission-constant';
+import { SPINNING, WEAVING, DYEINGPRINTING } from '../sales-invoice-export/shared/permission-constant';
 import { PermissionHelper } from '../../../utils/permission-helper';
-import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service, PermissionHelper, Dialog)
+@inject(Router, Service, PermissionHelper)
 export class List {
-  context = ["Detail", "Cetak Surat Jalan", "Cetak Faktur Penjualan Valas", "Cetak Faktur Penjualan IDR"];
+  context = ["Detail", "Print PDF Valas", "Print PDF IDR"];
 
   columns1 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -23,14 +22,15 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   columns2 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -40,14 +40,15 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   columns3 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
     {
-      field: "Buyer.Name",
+      field: "BuyerName",
       title: "Buyer",
     },
     {
@@ -57,8 +58,9 @@ export class List {
         return moment(value).format("DD-MMM-YYYY");
       },
     },
-    { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
-    { field: "VatType", title: "Jenis PPN" },
+    { field: "Authorized", title: "Penanggungjawab" },
+    { field: "OrderNo", title: "No. Order" },
+
   ];
 
   rowFormatter(data, index) {
@@ -85,10 +87,9 @@ export class List {
     });
   };
 
-  constructor(router, service, permissionHelper, dialog) {
+  constructor(router, service, permissionHelper) {
     this.service = service;
     this.router = router;
-    this.dialog = dialog;
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
   }
@@ -143,30 +144,20 @@ export class List {
       case "Detail":
         this.router.navigateToRoute("view", { id: data.Id });
         break;
-      case "Cetak Surat Jalan":
-        this.service.getDeliveryOrderPdfById(data.Id);
+      case "Print PDF Valas":
+        this.service.getSalesInvoiceExportValasPdfById(data.Id);
         break;
-      case "Cetak Faktur Penjualan Valas":
-        this.service.getSalesInvoiceValasPdfById(data.Id);
-        break;
-      case "Cetak Faktur Penjualan IDR":
-        this.service.getSalesInvoiceIDRPdfById(data.Id);
+      case "Print PDF IDR":
+        this.service.getSalesInvoiceExportIDRPdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Surat Jalan":
+      case "Print PDF Valas":
         return data;
-      case "Cetak Faktur Penjualan Valas":
-        if (data.Currency.Symbol == "Rp") {
-          // this.dialog.prompt('Dokumen dalam Rupiah tidak memiliki PDF Valas');
-          return null;
-        } else {
-          return data;
-        }
-      case "Cetak Faktur Penjualan IDR":
+      case "Print PDF IDR":
         return data;
       default:
         return true;
