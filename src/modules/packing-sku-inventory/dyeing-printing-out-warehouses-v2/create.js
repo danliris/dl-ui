@@ -82,10 +82,15 @@ export class Create {
 
     if (errorIndex === 0) {
       var sppWarehouseList = [];
-      this.data.warehousesProductionOrders.filter(
-        (s) => s.IsSave === true
-      ).forEach(element => {
-        element.productionOrderItems.forEach(item => {
+      // this.data.warehousesProductionOrders.filter(
+      //   (s) => s.IsSave === true
+      // ).forEach(element => {
+      //   element.productionOrderItems.forEach(item => {
+      //     sppWarehouseList.push(item);
+      //   })
+      // });
+      this.data.warehousesProductionOrders.forEach(element => {
+        element.productionOrderItems.filter((s)=> s.IsSave ===true).forEach(item => {
           sppWarehouseList.push(item);
         })
       });
