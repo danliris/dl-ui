@@ -27,7 +27,7 @@ export class DataForm {
     "Aval A (Lap Besar)", "Aval B (Lap Kecil)", "Aval Solid TR", "Aval Batik TW (karantina)"];
 
   itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-    "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+    "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
   areas = [
@@ -74,14 +74,14 @@ export class DataForm {
 
     if (this.readOnly) {
       this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-        "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+        "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
     } else {
       if (this.isEdit) {
         this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-          "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat", ""];
+          "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat", ""];
       } else {
         this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-          "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+          "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
       }
     }
 
