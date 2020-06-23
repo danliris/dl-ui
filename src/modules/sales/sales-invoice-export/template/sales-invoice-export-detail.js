@@ -40,7 +40,6 @@ export class SalesInvoiceExportDetail {
       this.typeFaktur = this.dataForm.data.SalesInvoiceType;
     }
   }
-
   weightUomOptions = ["", "KG", "BALE"];
   totalUomOptions = ["", "CBM", "Etc"];
 

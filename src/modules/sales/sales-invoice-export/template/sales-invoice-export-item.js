@@ -6,7 +6,6 @@ import { DataForm } from "./../data-form";
 export class SalesInvoiceItem {
   @bindable QuantityItem;
   @bindable Price;
-  @bindable QuantityItem;
   @bindable ConvertValue;
   @bindable ConvertUnit;
 
@@ -44,19 +43,21 @@ export class SalesInvoiceItem {
     "YARD",
   ];
 
+  QuantityItemChanged(newValue, oldValue) {
+    this.getAmount = this.QuantityItem * this.Price;
+    this.data.Amount = this.getAmount;
+    this.data.Price = this.Price;
+    this.data.QuantityItem = this.QuantityItem;
+  }
+
   PriceChanged(newValue, oldValue) {
     this.getAmount = this.QuantityItem * this.Price;
     this.data.Amount = this.getAmount;
     this.data.Price = this.Price;
+    this.data.QuantityItem = this.QuantityItem;
   }
 
   AmountChanged(newValue, oldValue) {
     this.data.Amount = this.getAmount;
-  }
-
-  QuantityItemChanged(newValue, oldValue) {
-    if (newValue) {
-      this.data.QuantityItem = newValue;
-    }
   }
 }

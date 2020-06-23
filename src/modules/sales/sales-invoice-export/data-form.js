@@ -144,7 +144,7 @@ export class DataForm {
   }
 
   salesInvoiceDetailsInfo = {
-    columns: ["No. Bon Pengiriman Barang",
+    columns: ["No. Bon Pengiriman", "Contract No",
       "Deskripsi", "Berat Kotor", "Berat Bersih", "Satuan Berat", "Ukuran Total", "Satuan Total"
     ],
     onAdd: function () {
