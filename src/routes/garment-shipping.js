@@ -246,4 +246,17 @@ module.exports=[
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/monitoring/packing-list",
+        name: "garment-shipping/monitoring/packing-list",
+        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
+        nav: true,
+        title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
