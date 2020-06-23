@@ -102,5 +102,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+    downloadExcel(){
+        this.service.getExcel();
+    }
 }
 

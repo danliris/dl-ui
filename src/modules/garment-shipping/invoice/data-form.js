@@ -1,7 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 import { CoreService } from "./service";
-var InvoiceLoader = require('../../../loader/garment-packing-list-loader');
+var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var FabricTypeLoader = require('../../../loader/fabric-type-loader');
 var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
@@ -253,7 +253,7 @@ export class DataForm {
           { header: "SCNo" ,value :"scNo"},
           { header: "Buyer Brand",value : "buyerBrand.name" },
           { header: "Komoditi", value: "comodity.name" },
-          { header: "Deskripsi Komoditi", value: "comodityDesc" },
+          { header: "D e s k r i p s i", value: "comodityDesc" },
           { header: "Qty", value: "quantity" },
           { header: "Satuan", value: "uom.unit" },
           { header: "Price RO", value: "priceRO" },

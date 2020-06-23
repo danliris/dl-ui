@@ -32,7 +32,7 @@
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.comodityDescription"
-                error.bind="error.ComodityDescription"
+                error.bind="error.Description"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>
@@ -104,6 +104,7 @@
         <td colspan="4">
             <au-textbox
                 label = "Order No"
+                error.bind="error.OrderNo"
                 value.bind="data.orderNo"
                 read-only.bind="readOnly">
             </au-textbox>
@@ -115,6 +116,11 @@
                 value.bind="data.description"
                 read-only.bind="readOnly">
             </au-multiline>
+        </td>
+    </tr>
+    <tr >
+        <td colspan="13">
+            <p if.bind="error.DetailsCount" class="help-block text-center" style='color:red;'>${error.DetailsCount}</p>
         </td>
     </tr>
     <tr  show.bind="isShowing">

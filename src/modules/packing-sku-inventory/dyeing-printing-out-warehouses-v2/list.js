@@ -59,4 +59,7 @@ export class List {
   create() {
     this.router.navigateToRoute("create");
   }
+  getExcel(){
+    this.service.generateExcelAll();
+  }
 }

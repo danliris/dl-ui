@@ -21,13 +21,13 @@ export class Index {
           nav: false,
           title: 'View: Bon Keluar Aval - Dyeing & Printing'
         },
-        // {
-        //   route: 'edit/:id',
-        //   moduleId: './edit',
-        //   name: 'edit',
-        //   nav: false,
-        //   title: 'Edit: Penerimaan Aval - Dyeing & Printing'
-        // }
+        {
+          route: 'edit/:id',
+          moduleId: './edit',
+          name: 'edit',
+          nav: false,
+          title: 'Edit: Bon Keluar Aval Aval - Dyeing & Printing'
+        }
       ]);
   
       this.router = router;

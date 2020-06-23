@@ -106,6 +106,7 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             unitcode : this.unitcode ? this.unitcode.Code : "",
+            unitname: this.unitcode ? this.unitcode.UnitName : "",
        
         };
         
