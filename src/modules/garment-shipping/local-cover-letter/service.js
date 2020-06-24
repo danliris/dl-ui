@@ -33,7 +33,7 @@ class Service extends RestService {
     }
 }
 
-const serviceBuyerUri = 'master/garment-buyers';
+const serviceBuyerUri = 'master/garment-leftover-warehouse-buyers';
 
 class CoreService extends RestService {
     constructor(http, aggregator, config, endpoint) {
