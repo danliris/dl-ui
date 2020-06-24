@@ -1,15 +1,21 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
+const SalesNoteLoader = require('../../../loader/garment-shipping-local-sales-note-loader');
 const TransactionTypeLoader = require('../../../loader/garment-transaction-type-loader');
 const BuyerLoader = require('../../../loader/garment-leftover-warehouse-buyer-loader');
 
 @inject(Service)
 export class DataForm {
 
+    constructor(service) {
+        this.service = service;
+    }
+
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable title;
+    @bindable selectedSalesNote;
 
     controlOptions = {
         label: {
@@ -26,14 +32,16 @@ export class DataForm {
             "Quantity",
             "Satuan",
             "Harga",
+            "Harga yang benar",
             "Total"
         ],
-        onAdd: function () {
-            this.data.items.push({});
-        }.bind(this),
         options: {
         }
     };
+
+    get salesNoteLoader() {
+        return SalesNoteLoader;
+    }
 
     get transactionTypeLoader() {
         return TransactionTypeLoader;
@@ -59,22 +67,42 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
+
+        if (this.data) {
+            this.data.salesNote = this.data.salesNote || {};
+        }
     }
 
     get dueDate() {
-        if (!this.data.date) {
+        if (!this.data.salesNote.date) {
             return null;
         }
 
-        this.data.dueDate = new Date(this.data.date || new Date());
-        this.data.dueDate.setDate(this.data.dueDate.getDate() + this.data.tempo);
-        
-        return this.data.dueDate;
+        let dueDate = new Date(this.data.salesNote.date || new Date());
+        dueDate.setDate(dueDate.getDate() + this.data.salesNote.tempo);
+
+        return dueDate;
     }
 
-    get totalAmount() {
-        this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
-        
-        return this.data.totalAmount;
+    selectedSalesNoteChanged(newValue) {
+        this.data.items.splice(0);
+
+        if (newValue) {
+            this.service.getSalesNoteById(newValue.id)
+                .then(salesNote => {
+                    this.data.salesNote = salesNote;
+                    for (const salesNoteItem of salesNote.items) {
+                        const item = {
+                            salesNoteItem: salesNoteItem,
+                            isChecked: true,
+                            priceCorrection: salesNoteItem.price
+                        };
+                        this.data.items.push(item);
+                    }
+                    this.items.options.isCheckedAll = true;
+                })
+        } else {
+            this.data.salesNote = {};
+        }
     }
 }
