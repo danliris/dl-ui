@@ -1,5 +1,5 @@
-module.exports=[
-   {
+module.exports = [
+    {
         route: "master/garment-shipping-staff",
         name: "garment-shipping-staff",
         moduleId: "modules/master/garment-shipping-staff/index",
@@ -89,7 +89,7 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },    
+    },
     {
         route: "garment-shipping/invoice",
         name: "garment-shipping/invoice",
@@ -128,7 +128,7 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },    
+    },
     {
         route: "garment-shipping/export-sales-do",
         name: "garment-shipping/export-sales-do",
@@ -180,7 +180,7 @@ module.exports=[
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },      
+    },
     {
         route: "garment-shipping/credit-note",
         name: "garment-shipping/credit-note",
@@ -252,6 +252,19 @@ module.exports=[
         moduleId: "modules/garment-shipping/monitoring/packing-list/index",
         nav: true,
         title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-price-correction-note",
+        name: "garment-shipping/local-price-correction-note",
+        moduleId: "modules/garment-shipping/local-price-correction-note/index",
+        nav: true,
+        title: "Nota Koreksi Harga",
         auth: true,
         settings: {
             group: "g-shipping",
