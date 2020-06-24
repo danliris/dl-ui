@@ -41,4 +41,10 @@ export class ProductionOrderItem {
       this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
     }
   }
+  changeCheckBox() {
+    this.context.context.options.checkedAll = this.context.context.items.reduce(
+      (acc, curr) => acc && curr.data.IsSave,
+      true
+    );
+  }
 }

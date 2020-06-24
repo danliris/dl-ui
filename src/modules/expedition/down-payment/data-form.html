@@ -6,7 +6,8 @@
         if.one-way="context.hasCancel">Kembali</button>
       <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)"
+        if.one-way="context.hasDelete">Hapus</button>
     </div>
 
     <au-datepicker label="Tanggal Pembayaran" value.bind="data.DatePayment" error.bind="error.DatePayment"
@@ -31,7 +32,7 @@
     </au-autocomplete>
 
     <au-numeric label="Jumlah yang dibayarkan" value.bind="data.TotalPayment" error.bind="error.TotalPayment"
-      read-only.bind="readOnly" format="0,0.0000" options.bind="controlOptions">
+      read-only.bind="readOnly" format="0,0.00" options.bind="controlOptions">
     </au-numeric>
 
     <au-autocomplete label="Kurs" placeholder="pilih mata uang" value.bind="selectedCurrency"
@@ -39,8 +40,12 @@
       options.bind="controlOptions">
     </au-autocomplete>
 
-    <au-multiline label="Untuk Pembayaran" value.bind="data.Remark" error.bind="error.Remark" placeholder="Untuk Pembayaran"
-      read-only.bind="readOnly" options.bind="controlOptions">
+    <au-dropdown label="Kategori Bukti Penerimaan" value.bind="data.CategoryAcceptance" error.bind="error.CategoryAcceptance" read-only.bind="readOnly"
+      placeholder="Kategori Bukti Penerimaan" items.bind="ListCategory" options.bind="controlOptions">
+    </au-dropdown>
+
+    <au-multiline label="Untuk Pembayaran" value.bind="data.Remark" error.bind="error.Remark"
+      placeholder="Untuk Pembayaran" read-only.bind="readOnly" options.bind="controlOptions">
     </au-multiline>
 
   </au-input-form>

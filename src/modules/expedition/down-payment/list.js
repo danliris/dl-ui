@@ -19,6 +19,7 @@ export class List {
   columns = [
     { field: "DocumentNo", title: "No. Bukti Pembayaran" },
     { field: "BuyerName", title: "Buyer" },
+    { field: "CategoryAcceptance", title: "Kategori Pembayaran" },
     {
       field: "DatePayment", title: "Tanggal Pembayaran", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
@@ -28,11 +29,21 @@ export class List {
     { field: "TotalPayment", title: "Jumlah Pembayaran" }
   ];
 
+  async activate(params) {
+    this.ressearch = params.search;
+  }
+
   loader = (info) => {
     var order = {};
-    if (info.sort)
-      order[info.sort] = info.order;
+    // console.log(info);
+    //
+    //
+    
+    if(this.ressearch == null){
 
+      this.ressearch = info.search;
+      if (info.sort)
+      order[info.sort] = info.order;
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
@@ -47,6 +58,51 @@ export class List {
           data: result.data
         }
       });
+
+    }
+    else if(info.search == null){
+
+      info.search = this.ressearch;
+      if (info.sort)
+      order[info.sort] = info.order;
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: this.ressearch,
+      order: order
+    }
+
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+    }
+    else{
+
+      if (info.sort)
+      order[info.sort] = info.order;
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    }
+
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+    }
+
+    
+
+
   }
 
   constructor(router, service) {
@@ -59,7 +115,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "Detail":
-        this.router.navigateToRoute('view', { id: data.Id });
+        this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
         break;
       case "Cetak Bukti Pembayaran":
         this.service.getSalesReceiptPdfById(data.Id);

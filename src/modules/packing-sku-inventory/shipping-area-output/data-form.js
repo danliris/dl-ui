@@ -41,7 +41,7 @@ export class DataForm {
   ];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
-  destinationAreas = ["PENJUALAN", "BUYER"];
+  destinationAreas = ["PENJUALAN", "BUYER", "INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI"];
   areas = [
     "INSPECTION MATERIAL",
     "PROD",
@@ -102,7 +102,7 @@ export class DataForm {
       this.destinationArea = this.data.destinationArea;
     }
 
-    if (this.destinationArea === "PENJUALAN") {
+    if (this.destinationArea !== "BUYER") {
 
       this.isSales = true;
       if (this.readOnly) {
@@ -280,7 +280,7 @@ export class DataForm {
   destinationAreaChanged(n, o) {
     if (this.destinationArea) {
       this.data.destinationArea = this.destinationArea;
-      if (this.destinationArea === "PENJUALAN") {
+      if (this.destinationArea !== "BUYER") {
 
         this.isSales = true;
         if (this.readOnly) {

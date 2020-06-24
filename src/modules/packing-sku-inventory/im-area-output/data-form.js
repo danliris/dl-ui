@@ -78,14 +78,14 @@ export class DataForm {
             destinationArea: this.destinationArea
         }
 
-        if (this.destinationArea === "TRANSIT") {
+        if (this.destinationArea === "GUDANG AVAL") {
             if (this.readOnly) {
-                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
+                this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan"];
             } else {
                 if (this.isEdit) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo", ""];
                 } else {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo"];
                 }
 
             }
@@ -139,14 +139,14 @@ export class DataForm {
         if (this.destinationArea) {
             this.data.destinationArea = this.destinationArea;
             this.detailOptions.destinationArea = this.data.destinationArea;
-            if (this.destinationArea === "TRANSIT") {
+            if (this.destinationArea === "GUDANG AVAL") {
                 if (this.readOnly) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan"];
                 } else {
                     if (this.isEdit) {
-                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo", ""];
                     } else {
-                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo"];
                     }
 
                 }

@@ -1,6 +1,6 @@
 <template replace-part="warehousesProductionOrders">
   <tr>
-    <td show.bind="!readOnly" style="text-align: center;">
+    <td show.bind="false" style="text-align: center;">
       <au-checkbox
         value.bind="data.IsSave"
         disabled.bind="readOnly"
@@ -148,7 +148,8 @@
       <!-- <td show.bind="!readOnly"></td> -->
       <td colspan="14">
           <au-collection columns.bind="itemColumns" items.bind="data.productionOrderItems" read-only.bind="readOnly"
-              item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item">
+              item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item"
+              header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item-header">
           </au-collection>
           <!-- show.bind="isAval" -->
       </td>
