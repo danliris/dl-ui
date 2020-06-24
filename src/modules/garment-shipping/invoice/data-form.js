@@ -253,7 +253,7 @@ export class DataForm {
           { header: "SCNo" ,value :"scNo"},
           { header: "Buyer Brand",value : "buyerBrand.name" },
           { header: "Komoditi", value: "comodity.name" },
-          { header: "Deskripsi Komoditi", value: "comodityDesc" },
+          { header: "D e s k r i p s i", value: "comodityDesc" },
           { header: "Qty", value: "quantity" },
           { header: "Satuan", value: "uom.unit" },
           { header: "Price RO", value: "priceRO" },

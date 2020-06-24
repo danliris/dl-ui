@@ -4,10 +4,11 @@ import { Router } from "aurelia-router";
 import moment from "moment";
 import { SPINNING, WEAVING, DYEINGPRINTING } from '../sales-invoice/shared/permission-constant';
 import { PermissionHelper } from '../../../utils/permission-helper';
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service, PermissionHelper)
+@inject(Router, Service, PermissionHelper, Dialog)
 export class List {
-  context = ["Detail", "Cetak Surat Jalan", "Cetak Faktur Penjualan"];
+  context = ["Detail", "Cetak Surat Jalan", "Cetak Faktur Penjualan Valas", "Cetak Faktur Penjualan IDR"];
 
   columns1 = [
     { field: "SalesInvoiceNo", title: "No. Faktur Penjualan" },
@@ -24,7 +25,6 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
-    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   columns2 = [
@@ -42,7 +42,6 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
-    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   columns3 = [
@@ -60,7 +59,6 @@ export class List {
     },
     { field: "DeliveryOrderNo", title: "No. Surat Jalan" },
     { field: "VatType", title: "Jenis PPN" },
-    { field: "SalesType", title: "Tipe Penjualan" },
   ];
 
   rowFormatter(data, index) {
@@ -87,9 +85,10 @@ export class List {
     });
   };
 
-  constructor(router, service, permissionHelper) {
+  constructor(router, service, permissionHelper, dialog) {
     this.service = service;
     this.router = router;
+    this.dialog = dialog;
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
   }
@@ -147,8 +146,11 @@ export class List {
       case "Cetak Surat Jalan":
         this.service.getDeliveryOrderPdfById(data.Id);
         break;
-      case "Cetak Faktur Penjualan":
-        this.service.getSalesInvoicePdfById(data.Id);
+      case "Cetak Faktur Penjualan Valas":
+        this.service.getSalesInvoiceValasPdfById(data.Id);
+        break;
+      case "Cetak Faktur Penjualan IDR":
+        this.service.getSalesInvoiceIDRPdfById(data.Id);
         break;
     }
   }
@@ -157,7 +159,14 @@ export class List {
     switch (name) {
       case "Cetak Surat Jalan":
         return data;
-      case "Cetak Faktur Penjualan":
+      case "Cetak Faktur Penjualan Valas":
+        if (data.Currency.Symbol == "Rp") {
+          // this.dialog.prompt('Dokumen dalam Rupiah tidak memiliki PDF Valas');
+          return null;
+        } else {
+          return data;
+        }
+      case "Cetak Faktur Penjualan IDR":
         return data;
       default:
         return true;

@@ -177,8 +177,6 @@ export class DataForm {
   };
   itemOptions = {};
 
-  salesTypeOptions = ["", "Lokal", "Ekspor"];
-  exportTypeOptions = ["", "L/C", "T.T"];
   localTypeOptions = [
     "",
     "BNG",
@@ -221,11 +219,6 @@ export class DataForm {
     "PPN Retail",
   ];
   paymentTypeOptions = ["", "MTR", "YARD"];
-  salesOptions = ["", "Adriyana Damayanti", "Amumpuni"];
-  termOfPaymentOptions = ["", "FCA", "FAS", "FOB", "CFR", "CIF", "CPT", "CIP", "DPU", "DAP", "DDP"];
-  weightUomOptions = ["", "KG", "BALE"];
-  totalUomOptions = ["", "CBM", "Etc"];
-  finishingPrintingOptions = ["", "Dyeing/Finishing", "Printing"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {

@@ -35,7 +35,6 @@ export class RestService {
   }
 
   list(endpoint, info, header) {
-    console.log("test");
     var _info = Object.assign({}, info);
 
     if (_info.order && typeof _info.order === "object")

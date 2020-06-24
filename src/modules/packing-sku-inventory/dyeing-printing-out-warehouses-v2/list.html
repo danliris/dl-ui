@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Bon Keluar Gudang Barang Jadi Dyeing/Printing</h1>
+  <h1 class="page-header">Pencatatan Keluar Gudang Barang Jadi Dyeing/Printing</h1>
   <au-table
     data.bind="loader"
     columns.bind="columns"
@@ -10,6 +10,8 @@
   >
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
+      <button class="btn btn-primary" click.delegate="getExcel()">Excel</button>
+      
     </div>
   </au-table>
 </template>

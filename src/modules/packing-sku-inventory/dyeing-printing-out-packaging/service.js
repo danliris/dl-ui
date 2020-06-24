@@ -45,6 +45,12 @@ export class Service extends RestService {
        
         return super.getXls(endpoint);
     }
+    generateExcelAll() {
+        
+        var endpoint = `${serviceUri}/xls`;
+       
+        return super.getXls(endpoint);
+    }
 
     getInputBon(info) {
         var endpoint = `${inputPackagingService}`;

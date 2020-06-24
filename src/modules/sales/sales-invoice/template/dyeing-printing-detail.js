@@ -94,7 +94,6 @@ export class DyeingPrintingDetail {
           }
           var siData = {
             ProductId: item.id,
-            ProductCode: "ProductCode????",
             ProductName: item.construction + " / " + item.color,
             QuantityPacking: item.qtyPacking,
             PackingUom: item.packing,
