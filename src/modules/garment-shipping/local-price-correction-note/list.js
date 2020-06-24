@@ -9,19 +9,20 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "noteNo", title: "No Nota Penjualan Lokal" },
+        { field: "correctionNoteNo", title: "No Nota Koreksi" },
+        { field: "salesNote.noteNo", title: "No Nota Penjualan" },
         {
-            field: "date", title: "Tgl Penjualan", formatter: function (value) {
+            field: "salesNote.date", title: "Tgl Penjualan", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "buyerCode", title: "Buyer" },
+        { field: "salesNote.buyerCode", title: "Buyer" },
         {
             field: "dueDate", title: "Tgl Jatuh Tempo", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }, sortable: false
         },
-        { field: "dispositionNo", title: "No Disposisi" },
+        { field: "salesNote.dispositionNo", title: "No Disposisi" },
     ];
 
     loader = (info) => {
@@ -39,9 +40,9 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
-                    data.buyer = data.buyer || {};
-                    data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
-                    data.dueDate = this.dueDate(data.date, data.tempo);
+                    data.salesNote.buyer = data.salesNote.buyer || {};
+                    data.salesNote.buyerCode = `${data.salesNote.buyer.code} - ${data.salesNote.buyer.name}`;
+                    data.dueDate = this.dueDate(data.salesNote.date, data.salesNote.tempo);
                 }
 
                 return {
