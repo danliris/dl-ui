@@ -95,9 +95,9 @@ export class DataForm {
                 this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
             } else {
                 if (this.isEdit) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo", ""];
                 } else {
-                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                    this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo"];
                 }
 
             }
@@ -156,9 +156,9 @@ export class DataForm {
                     this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan"];
                 } else {
                     if (this.isEdit) {
-                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", ""];
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo", ""];
                     } else {
-                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo"];
+                        this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Mesin", "Satuan", "Saldo"];
                     }
 
                 }
