@@ -25,7 +25,6 @@ class Service extends RestService {
     }
 
     update(data) {
-        console.log(data);
         var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
@@ -37,8 +36,12 @@ class Service extends RestService {
 
     getPackingListById(id) {
         var endpoint = `${resourceStockUri}/${id}`;
-        console.log(endpoint);
         return super.get(endpoint);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
     }
   
 }
