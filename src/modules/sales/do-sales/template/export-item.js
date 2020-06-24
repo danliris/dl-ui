@@ -3,13 +3,13 @@ import { bindable } from "aurelia-framework";
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
 
 export class ExportItem {
-  @bindable Weight;
+  @bindable Length;
 
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.WeightUom = context.context.options.WeightUom;
+    this.LengthUom = context.context.options.LengthUom;
     this.SalesContractNo = context.context.options.SalesContractNo;
     this.filter={ "SalesContractNo": this.SalesContractNo };
 
@@ -18,37 +18,37 @@ export class ExportItem {
     if (!this.data.Packing) {
       this.data.Packing = 0;
     }
-    if (!this.data.Weight) {
-      this.data.Weight = 0;
+    if (!this.data.Length) {
+      this.data.Length = 0;
     }
     if (!this.data.ConvertionValue) {
       this.data.ConvertionValue = 0;
     }
 
     this.Packing = this.data.Packing;
-    this.Weight = this.data.Weight;
-    if (this.WeightUom == "KG") {
-      this.getConvertionValue = this.Weight * 0.005;
-    } else if (this.WeightUom == "BALE") {
-      this.getConvertionValue = this.Weight * 217.72;
+    this.Length = this.data.Length;
+    if (this.LengthUom == "MTR") {
+      this.getConvertionValue = this.Length * 1.094;
+    } else if (this.LengthUom == "YDS") {
+      this.getConvertionValue = this.Length * 0.914;
     } else {
       this.getConvertionValue = 0;
     }
     this.data.ConvertionValue = this.getConvertionValue;
 
-
+    // console.log(this.data);
     if (this.data.ProductionOrder && this.data.ProductionOrder.Id) {
       this.selectedProductionOrder = this.data.ProductionOrder;
     }
   }
 
-  WeightChanged(newValue, oldValue) {
-    if (this.Weight && this.Weight > 0) {
-      this.data.Weight = {};
-      if (this.WeightUom == "KG") {
-        this.getConvertionValue = this.Weight * 0.005;
-      } else if (this.WeightUom == "BALE") {
-        this.getConvertionValue = this.Weight * 217.72;
+  LengthChanged(newValue, oldValue) {
+    if (this.Length && this.Length > 0) {
+      this.data.Length = {};
+      if (this.LengthUom == "MTR") {
+        this.getConvertionValue = this.Length * 1.094;
+      } else if (this.LengthUom == "YDS") {
+        this.getConvertionValue = this.Length * 0.914;
       } else {
         this.getConvertionValue = 0;
       }
@@ -56,7 +56,7 @@ export class ExportItem {
       this.getConvertionValue = 0;
     }
     this.data.ConvertionValue = this.getConvertionValue;
-    this.data.Weight = this.Weight;
+    this.data.Length = this.Length;
   }
 
   @bindable selectedProductionOrder;
