@@ -52,7 +52,7 @@ export class DataForm {
     }
 
     buyerNPWPView = (data) => {
-        return `${data.NPWP || data.npwp}`;
+        return data.NPWP || data.npwp;
     }
 
     bind(context) {
@@ -62,6 +62,10 @@ export class DataForm {
     }
 
     get dueDate() {
+        if (!this.data.date) {
+            return null;
+        }
+
         this.data.dueDate = new Date(this.data.date || new Date());
         this.data.dueDate.setDate(this.data.dueDate.getDate() + this.data.tempo);
         
