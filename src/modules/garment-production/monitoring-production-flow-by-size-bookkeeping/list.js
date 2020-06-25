@@ -92,7 +92,6 @@ export class List {
             {
                 if(qty.Size == "TOTAL")
         {
-        console.log(qty);
                 totalCutting +=qty.QtyCutting;
                 totalLoading += qty.QtyLoading;
                 totalSewing += qty.QtySewing;
