@@ -24,6 +24,12 @@ export class Item {
         return UomLoader;
     }
 
+    get productFilter() {
+        return {
+            ProductTypeId: this.context.context.options.transactionTypeId
+        };
+    }
+
     productView = (data) => {
         return `${data.Code || data.code} - ${data.Name || data.name}`;
     }
