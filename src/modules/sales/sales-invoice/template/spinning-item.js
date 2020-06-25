@@ -4,9 +4,9 @@ import { DataForm } from "./../data-form";
 
 @inject(SpinningDetail, DataForm, BindingEngine)
 export class SpinningItem {
-  @bindable QuantityItem;
   @bindable Price;
   @bindable QuantityItem;
+  @bindable ItemUom;
   @bindable ConvertValue;
   @bindable ConvertUnit;
 
@@ -44,24 +44,29 @@ export class SpinningItem {
     "YARD",
   ];
 
-  PriceChanged(newValue, oldValue) {
-    if (this.PaymentType == "MTR") {
-      this.getAmount = this.QuantityItem * this.Price;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
-    } else if (this.PaymentType == "YARD") {
-      this.getAmount = this.ConvertValue * this.Price;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
-    } else {
-      this.getAmount = 0;
-      this.data.Amount = this.getAmount;
-      this.data.Price = this.Price;
+  ItemUomChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.ItemUom = newValue;
+      if (this.data.QuantityItem && this.data.ItemUom) {
+        if (this.data.QuantityItem > 0) {
+          if (this.data.ItemUom == "MTR") {
+            this.ConvertValue = parseInt(this.QuantityItem * (10936 / 10000));
+            this.ConvertUnit = "YARD";
+          } else if (this.data.ItemUom == "YARD") {
+            this.ConvertValue = parseInt(this.QuantityItem / (10936 / 10000));
+            this.ConvertUnit = "MTR";
+          } else {
+            this.ConvertValue = 0;
+            this.ConvertUnit = null;
+          }
+          this.data.ConvertValue = this.ConvertValue;
+          this.data.ConvertUnit = this.ConvertUnit;
+        } else {
+          this.data.ConvertValue = 0;
+          this.data.ConvertUnit = null;
+        }
+      }
     }
-  }
-
-  AmountChanged(newValue, oldValue) {
-    this.data.Amount = this.getAmount;
   }
 
   QuantityItemChanged(newValue, oldValue) {
@@ -82,10 +87,45 @@ export class SpinningItem {
           this.data.ConvertValue = this.ConvertValue;
           this.data.ConvertUnit = this.ConvertUnit;
         } else {
-          this.ConvertValue = 0;
-          this.ConvertUnit = null;
+          this.data.ConvertValue = 0;
+          this.data.ConvertUnit = null;
+        }
+
+        if (this.PaymentType) {
+          if (this.PaymentType == "MTR") {
+            this.getAmount = this.QuantityItem * this.Price;
+            this.data.Amount = this.getAmount;
+          } else if (this.PaymentType == "YARD") {
+            this.getAmount = this.ConvertValue * this.Price;
+            this.data.Amount = this.getAmount;
+          } else {
+            this.getAmount = 0;
+            this.data.Amount = this.getAmount;
+          }
         }
       }
     }
+  }
+
+  PriceChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.Price = newValue;
+      if (this.PaymentType) {
+        if (this.PaymentType == "MTR") {
+          this.getAmount = this.QuantityItem * this.Price;
+          this.data.Amount = this.getAmount;
+        } else if (this.PaymentType == "YARD") {
+          this.getAmount = this.ConvertValue * this.Price;
+          this.data.Amount = this.getAmount;
+        } else {
+          this.getAmount = 0;
+          this.data.Amount = this.getAmount;
+        }
+      }
+    }
+  }
+
+  AmountChanged(newValue, oldValue) {
+    this.data.Amount = this.getAmount;
   }
 }

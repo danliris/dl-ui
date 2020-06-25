@@ -68,7 +68,6 @@ export class SpinningDetail {
 
   @bindable selectedDeliveryNote;
   async selectedDeliveryNoteChanged(newValue, oldValue) {
-    console.log(this.selectedDeliveryNote)
     if (newValue) {
       this.data.BonId = this.selectedDeliveryNote.id;
       this.data.BonNo = this.selectedDeliveryNote.bonCode;

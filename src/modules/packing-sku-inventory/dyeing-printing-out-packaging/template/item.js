@@ -8,7 +8,6 @@ export class CartItem {
     constructor(dataForm){
         this.dataForm = dataForm;
     }
-    columnPackinglist = ["Jenis","QTY Packing","Packing","Panjang Per Packing","Keterangan"];
     remarks = [];
     activate(context) {
         
@@ -18,7 +17,6 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         // console.log(this);
-        this.isShowPackingList = false;
         this.destinationArea = this.dataForm.data.destinationArea;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
@@ -139,19 +137,5 @@ export class CartItem {
             this.data.qtyOut = this.saldoPerPackaging * newValue;
             this.data.packagingQTY = this.inputPackagingQTY;
         }
-    }
-    @bindable isShowPackingList
-    showPackingList(){
-        if(this.isShowPackingList){
-            this.isShowPackingList = false;
-        }else
-        {
-            this.isShowPackingList = true;
-        }
-    }
-    addItemCallbackPackingList = (e)=>
-    {
-        this.data.PackingListItem = this.data.PackingListItem||[];
-        this.data.PackingListItem.push({});
     }
 }
