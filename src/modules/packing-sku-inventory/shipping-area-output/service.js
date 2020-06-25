@@ -38,9 +38,7 @@ export class Service extends RestService {
     }
 
     generateExcel(id) {
-        
         var endpoint = `${serviceUri}/xls/${id}`;
-       
         return super.getXls(endpoint);
     }
 
@@ -50,14 +48,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    // getSPPbySC(no, select) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("production");
-    //     var _serviceUri = `/sales/production-order-by-sales-contract-numbers/${no}`;
-
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
+    generateExcelAll() {
+        var endpoint = `${serviceUri}/xls`;
+        return super.getXls(endpoint);
+    }
 }

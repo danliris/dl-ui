@@ -1,12 +1,11 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { SalesInvoiceExportDetail } from "./sales-invoice-export-detail";
+import { WeavingDetail } from "./weaving-detail";
 import { DataForm } from "./../data-form";
 
-@inject(SalesInvoiceExportDetail, DataForm, BindingEngine)
-export class SalesInvoiceItem {
+@inject(WeavingDetail, DataForm, BindingEngine)
+export class WeavingItem {
   @bindable QuantityItem;
   @bindable Price;
-  @bindable QuantityItem;
   @bindable ConvertValue;
   @bindable ConvertUnit;
 
@@ -44,19 +43,21 @@ export class SalesInvoiceItem {
     "YARD",
   ];
 
+  QuantityItemChanged(newValue, oldValue) {
+    this.getAmount = this.QuantityItem * this.Price;
+    this.data.Amount = this.getAmount;
+    this.data.Price = this.Price;
+    this.data.QuantityItem = this.QuantityItem;
+  }
+
   PriceChanged(newValue, oldValue) {
     this.getAmount = this.QuantityItem * this.Price;
     this.data.Amount = this.getAmount;
     this.data.Price = this.Price;
+    this.data.QuantityItem = this.QuantityItem;
   }
 
   AmountChanged(newValue, oldValue) {
     this.data.Amount = this.getAmount;
-  }
-
-  QuantityItemChanged(newValue, oldValue) {
-    if (newValue) {
-      this.data.QuantityItem = newValue;
-    }
   }
 }

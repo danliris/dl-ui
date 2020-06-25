@@ -17,9 +17,9 @@ export class List {
         },
         { field: "buyerCode", title: "Buyer" },
         {
-            field: "date", title: "Tgl Jatuh Tempo", formatter: function (value) {
+            field: "dueDate", title: "Tgl Jatuh Tempo", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
-            }
+            }, sortable: false
         },
         { field: "dispositionNo", title: "No Disposisi" },
     ];
@@ -41,6 +41,7 @@ export class List {
                 for (const data of result.data) {
                     data.buyer = data.buyer || {};
                     data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
+                    data.dueDate = this.dueDate(data.date, data.tempo);
                 }
 
                 return {
@@ -48,6 +49,17 @@ export class List {
                     data: result.data
                 }
             });
+    }
+
+    dueDate(date, tempo) {
+        if (!date) {
+            return null;
+        }
+
+        let dueDate = new Date(date || new Date());
+        dueDate.setDate(dueDate.getDate() + tempo);
+        
+        return dueDate;
     }
 
     constructor(router, service) {

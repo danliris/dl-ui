@@ -2,7 +2,8 @@
     <tr>
         <td class="col-sm-3">
             <au-autocomplete value.bind="data.product" error.bind="error.product" loader.bind="productLoader"
-                read-only.bind="readOnly" placeholder="Kode - Nama Barang" text.bind="productView">
+                read-only.bind="readOnly" placeholder="Kode - Nama Barang" text.bind="productView"
+                query.bind="productFilter">
             </au-autocomplete>
         </td>
 

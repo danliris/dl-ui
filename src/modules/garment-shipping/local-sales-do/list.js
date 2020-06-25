@@ -15,7 +15,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "localSalesNoteNo", title: "Invoice No" },
+        { field: "localSalesNoteNo", title: "No Nota Penjualan" },
         { field: "buyerName", title: "Buyer" },
         { field: "to", title: "Kepada" },
         { field: "storageDivision", title: "Bag Gudang" },

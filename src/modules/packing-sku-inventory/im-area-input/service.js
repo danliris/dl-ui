@@ -1,6 +1,5 @@
 import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'input-inspection-material';
-const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -37,14 +36,9 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    // getSPPbySC(no, select) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("production");
-    //     var _serviceUri = `/sales/production-order-by-sales-contract-numbers/${no}`;
+    generateExcel() {
+        var endpoint = `${serviceUri}/xls`;
+        return super.getXls(endpoint);
+    }
 
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
 }

@@ -38,7 +38,7 @@ export class Create {
     }
 
     save() {
-        console.log(this);
+        // console.log(this.data);
         var bodyRequest = {};
         bodyRequest.area = this.data.area;
         bodyRequest.date = this.data.date;
@@ -46,11 +46,10 @@ export class Create {
         bodyRequest.group = this.data.group;
         bodyRequest.id = this.data.id;
         bodyRequest.shift = this.data.shift;
-        // bodyRequest.bonNoInput = this.data.bonNoInput;
+        bodyRequest.bonNoInput = this.data.bonNoInput;
         bodyRequest.packagingProductionOrders = [];
-        this.data.packagingProductionOrders.forEach(parent => {
-            parent.PackingProductionOrderList.filter((s)=> s.IsSave === true).forEach(element => {
-            element.PackingListItem.forEach(item => {
+        this.data.packagingProductionOrders.forEach(element => {
+            element.PackagingList.forEach(item => {
                 var itemSpp = {};
                 itemSpp.productionOrderNo = item.productionOrderNo,
                     itemSpp.productionOrder = item.productionOrder,
@@ -78,7 +77,6 @@ export class Create {
                 bodyRequest.packagingProductionOrders.push(itemSpp);
             });
         });
-        });
         // console.log(bodyRequest);
 
         this.service.create(bodyRequest)
@@ -89,9 +87,7 @@ export class Create {
             .catch(e => {
                 if (e.statusCode == 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else if (e.statusCode == 400) {
-                    alert("Data Validation Not Pass");
-                 } else {
+                } else {
                     this.error = e;
                 }
             });

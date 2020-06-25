@@ -83,7 +83,6 @@ export class List {
     }
 
     fillTable() {
-       
         var totalCutting= 0;
         var totalLoading =0;
         var totalSewing =0;
@@ -94,7 +93,6 @@ export class List {
             {
                 if(qty.Size == "TOTAL")
         {
-        console.log(qty);
                 totalCutting +=qty.QtyCutting;
                 totalLoading += qty.QtyLoading;
                 totalSewing += qty.QtySewing;
@@ -104,7 +102,6 @@ export class List {
 
         }
         let columns = [
-          
             {field: 'Ro', title: 'RO', footerFormatter: ""},
             {field: 'BuyerCode', title: 'Kode Buyer', footerFormatter: ""},
             {field: 'Article', title: 'No Article', footerFormatter: ""},

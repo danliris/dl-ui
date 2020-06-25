@@ -26,16 +26,16 @@
             </au-numeric>
         </td>
         <td>
-            <au-dropdown value.bind="data.ItemUom" items.bind="itemUomOptions" error.bind="error.ItemUom"
+            <au-dropdown value.bind="ItemUom" items.bind="itemUomOptions" error.bind="error.ItemUom"
                 read-only.bind="readOnly">
             </au-dropdown>
         </td>
-        <!-- <td>
+        <td>
             <au-textbox value.bind="ConvertValue" read-only.bind="true">
             </au-textbox>
             <au-textbox value.bind="ConvertUnit" read-only.bind="true">
             </au-textbox>
-        </td> -->
+        </td>
         <td>
             <au-numeric value.bind="Price" error.bind="error.Price" read-only.bind="readOnly" format="0,0.00">
             </au-numeric>
