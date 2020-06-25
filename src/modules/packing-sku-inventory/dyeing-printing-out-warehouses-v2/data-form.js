@@ -30,7 +30,7 @@ export class DataForm {
       length: 4,
     },
   };
-  destinationAreas = ["INSPECTION MATERIAL", "SHIPPING"];
+  destinationAreas = ["INSPECTION MATERIAL", "SHIPPING","PACKING","TRANSIT"];
   
   itemColumns = [
     "No. SPP",

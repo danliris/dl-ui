@@ -12,7 +12,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { Items: [] };
+        this.data = { items: [] };
         this.error = {};
     }
 

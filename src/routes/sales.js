@@ -156,6 +156,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/delivery-note-production',
+        name: 'delivery-note-production',
+        moduleId: './modules/sales/delivery-note-production/index',
+        nav: true,
+        title: 'Surat Order Produksi - Spinning',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/reports/weaving-sales-contract-reports',
         name: 'weaving-sales-contract-report',
         moduleId: './modules/sales/reports/weaving-sales-contract-report/index',
@@ -290,7 +303,20 @@ module.exports = [
         name: 'sales-invoice',
         moduleId: './modules/sales/sales-invoice/index',
         nav: true,
-        title: 'Faktur Penjualan',
+        title: 'Faktur Penjualan Lokal',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/sales-invoice-export',
+        name: 'sales-invoice-export',
+        moduleId: './modules/sales/sales-invoice-export/index',
+        nav: true,
+        title: 'Faktur Penjualan Ekspor',
         auth: true,
         settings: {
             group: "sales",

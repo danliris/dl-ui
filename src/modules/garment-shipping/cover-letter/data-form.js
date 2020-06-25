@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework'
 import { Service } from "./service";
 
-var PackingListLoader = require('./garment-packing-list-loader');
+var ShippingInvoiceLoader = require('../../../loader/garment-shipping-invoice-loader');
 var ForwarderLoader = require('../../../loader/garment-forwarders-loader');
 
 @inject(Service)
@@ -15,7 +15,7 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable title;
 
-    @bindable selectedPackingList;
+    @bindable selectedShippingInvoice;
 
     controlOptions = {
         label: {
@@ -31,8 +31,8 @@ export class DataForm {
         "PREPAID"
     ];
 
-    get packingListLoader() {
-        return PackingListLoader;
+    get shippingInvoiceLoader() {
+        return ShippingInvoiceLoader;
     }
 
     get forwarderLoader() {
@@ -53,15 +53,28 @@ export class DataForm {
         this.error = context.error;
     }
 
-    selectedPackingListChanged(newValue, oldValue) {
+    selectedShippingInvoiceChanged(newValue, oldValue) {
         if (newValue) {
-            this.data.packingListId = newValue.id;
+            this.data.packingListId = newValue.packingListId;
+            this.data.invoiceId = newValue.id;
             this.data.invoiceNo = newValue.invoiceNo;
-            this.data.order = newValue.buyerAgent;
-            this.data.exportEstimationDate = newValue.exportEstimationDate;
+            this.data.shippingStaff = {
+                id: newValue.shippingStaffId,
+                name: newValue.shippingStaff
+            };
+
+            if (this.data.packingListId) {
+                this.service.getPackingListById(this.data.packingListId)
+                    .then(packingList => {
+                        this.data.order = packingList.buyerAgent;
+                        this.data.exportEstimationDate = packingList.exportEstimationDate;
+                    });
+            }
         } else {
             this.data.packingListId = 0;
+            this.data.invoiceId = 0;
             this.data.invoiceNo = null;
+            this.data.shippingStaff = null;
             this.data.order = null;
             this.data.exportEstimationDate = null;
         }

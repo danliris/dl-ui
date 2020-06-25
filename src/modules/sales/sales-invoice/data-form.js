@@ -77,11 +77,9 @@ export class DataForm {
     if (this.data.SalesInvoiceDate) {
       this.SalesInvoiceDate = this.data.SalesInvoiceDate;
     }
-
     if (this.data.DueDate) {
       this.DueDate = this.data.DueDate;
     }
-
     if (this.data.TotalPayment) {
       this.TotalPayment = this.data.TotalPayment;
       this.data.TotalPayment = this.getTotalPayment;
@@ -109,12 +107,11 @@ export class DataForm {
     if (this.data.SalesInvoiceDetails) {
       for (var detail of this.data.SalesInvoiceDetails) {
         for (var item of detail.SalesInvoiceItems) {
-          if(item.Amount) {
+          if (item.Amount) {
             result += item.Amount;
           }
         }
       }
-      console.log(result)
     }
     if (this.data.VatType == "PPN BUMN") {
       totalPayment = result;
@@ -180,8 +177,7 @@ export class DataForm {
   };
   itemOptions = {};
 
-  salesTypeOptions = ["", "Lokal", "Ekspor"];
-  salesInvoiceTypeOptions = [
+  localTypeOptions = [
     "",
     "BNG",
     "BAB",
@@ -223,9 +219,6 @@ export class DataForm {
     "PPN Retail",
   ];
   paymentTypeOptions = ["", "MTR", "YARD"];
-
-  weightUomOptions = ["", "KG", "BALE"];
-  totalUomOptions = ["", "CBM", "Etc"];
 
   enterDelegate(event) {
     if (event.charCode === 13) {

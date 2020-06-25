@@ -13,9 +13,9 @@
 
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.AvalUomUnit"
+        value.bind="data.AvalQuantity"
         read-only.bind="true"
-        error.bind="error.AvalUomUnit"
+        error.bind="error.AvalQuantity"
       >
       </au-textbox>
     </td>
@@ -30,12 +30,12 @@
     </td>
 
     <td style="white-space: nowrap;">
-      <au-textbox
+      <au-numeric
         value.bind="data.AvalOutSatuan"
         read-only.bind="readOnly"
         error.bind="error.AvalOutSatuan"
       >
-      </au-textbox>
+      </au-numeric>
     </td>
 
     <td style="white-space: nowrap;">

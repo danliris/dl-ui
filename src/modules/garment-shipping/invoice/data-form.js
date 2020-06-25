@@ -1,7 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 import { CoreService } from "./service";
-var InvoiceLoader = require('../../../loader/garment-packing-list-loader');
+var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var FabricTypeLoader = require('../../../loader/fabric-type-loader');
 var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
@@ -19,6 +19,7 @@ export class DataForm {
      @bindable read = true;
     @bindable isCreate = false;
      @bindable isEdit = false;
+     @bindable isUsed =false;
     
     constructor(service,coreService) {
         this.service = service;
@@ -34,8 +35,10 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
+            isUsed : this.context.isUsed
           
         }
+        console.log(this.options);
         this.isEdit= this.context.isEdit;
      if(this.data.id !=undefined)
      {
@@ -63,7 +66,6 @@ export class DataForm {
           
             this.data.bankAccountId = this.data.bankAccountId;
             this.packinglists = this.data.invoiceNo;
-               console.log(this.data);
      }  
     }
 
@@ -251,7 +253,7 @@ export class DataForm {
           { header: "SCNo" ,value :"scNo"},
           { header: "Buyer Brand",value : "buyerBrand.name" },
           { header: "Komoditi", value: "comodity.name" },
-          { header: "Deskripsi Komoditi", value: "comodityDesc" },
+          { header: "D e s k r i p s i", value: "comodityDesc" },
           { header: "Qty", value: "quantity" },
           { header: "Satuan", value: "uom.unit" },
           { header: "Price RO", value: "priceRO" },

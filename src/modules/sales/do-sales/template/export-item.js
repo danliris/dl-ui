@@ -1,5 +1,7 @@
 import { bindable } from "aurelia-framework";
 
+var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
+
 export class ExportItem {
   @bindable Weight;
 
@@ -8,6 +10,10 @@ export class ExportItem {
     this.error = context.error;
     this.options = context.options;
     this.WeightUom = context.context.options.WeightUom;
+    this.SalesContractNo = context.context.options.SalesContractNo;
+    this.filter={ "SalesContractNo": this.SalesContractNo };
+
+    this.selectedProductionOrder = this.data.ProductionOrder;
 
     if (!this.data.Packing) {
       this.data.Packing = 0;
@@ -29,6 +35,11 @@ export class ExportItem {
       this.getConvertionValue = 0;
     }
     this.data.ConvertionValue = this.getConvertionValue;
+
+
+    if (this.data.ProductionOrder && this.data.ProductionOrder.Id) {
+      this.selectedProductionOrder = this.data.ProductionOrder;
+    }
   }
 
   WeightChanged(newValue, oldValue) {
@@ -46,5 +57,41 @@ export class ExportItem {
     }
     this.data.ConvertionValue = this.getConvertionValue;
     this.data.Weight = this.Weight;
+  }
+
+  @bindable selectedProductionOrder;
+  async selectedProductionOrderChanged(newValue, oldValue) {
+    if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
+      
+      for (var detailItem of this.selectedProductionOrder.Details) {
+        
+        this.data.Material = this.selectedProductionOrder.Material;
+        this.data.MaterialConstruction = this.selectedProductionOrder.MaterialConstruction;
+        this.data.MaterialWidth = this.selectedProductionOrder.MaterialWidth;
+        this.data.ColorRequest = detailItem.ColorRequest;
+        this.data.ColorTemplate = detailItem.ColorTemplate;
+        //this.data.ProductionOrder = this.selectedProductionOrder;
+        this.data.ProductionOrder = this.selectedProductionOrder;
+        this.data.ProductionOrder.OrderNo = this.selectedProductionOrder.OrderNo;
+
+        this.data.ConstructionName = `${this.selectedProductionOrder.Material.Name} 
+        / ${this.selectedProductionOrder.MaterialConstruction.Name} 
+        / ${this.selectedProductionOrder.MaterialWidth}
+        / ${detailItem.ColorRequest}`
+
+        //this.selectedProductionOrder.OrderNo = newValue;
+      }
+
+    }
+
+  }
+
+  productionOrderTextFormatter = (productionOrder) => {
+    // console.log(productionOrder);
+    return `${productionOrder.OrderNo}`
+  }
+
+  get productionOrderLoader() {
+    return ProductionOrderLoader;
   }
 }

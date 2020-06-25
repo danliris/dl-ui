@@ -38,26 +38,24 @@ export class Service extends RestService {
     }
 
     generateExcel(id) {
-        
         var endpoint = `${serviceUri}/xls/${id}`;
-       
         return super.getXls(endpoint);
     }
 
-    getProductionOrderInput(){
+    getProductionOrderInput() {
         var endpoint = `${serviceUri}/input-production-orders`;
 
         return super.get(endpoint);
     }
 
-    // getSPPbySC(no, select) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("production");
-    //     var _serviceUri = `/sales/production-order-by-sales-contract-numbers/${no}`;
+    getProductionOrderInputById(productionOrderId) {
+        var endpoint = `${serviceUri}/input-production-orders?productionOrderId=${productionOrderId}`;
 
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
+        return super.get(endpoint);
+    }
+
+    generateExcelAll() {
+        var endpoint = `${serviceUri}/xls`;
+        return super.getXls(endpoint);
+    }
 }

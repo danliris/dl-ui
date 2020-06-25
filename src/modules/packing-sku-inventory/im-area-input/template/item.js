@@ -16,20 +16,38 @@ export class CartItem {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+
             this.selectedProductionOrder.OrderType = {};
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.Construction = this.data.construction;
+
+            this.selectedProductionOrder.Material = {};
+            this.selectedProductionOrder.Material.Id = this.data.material.id;
+            this.selectedProductionOrder.Material.Name = this.data.material.name;
+
+            this.selectedProductionOrder.MaterialConstruction = {};
+            this.selectedProductionOrder.MaterialConstruction.Id = this.data.materialConstruction.id;
+            this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
+
+            this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
+
             this.selectedProductionOrder.Buyer = {};
             this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
             this.selectedProductionOrder.Buyer.Name = this.data.buyer;
+
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
+
             this.selectedProductionOrder.Details = [];
             this.selectedProductionOrder.Details.push({});
             this.selectedProductionOrder.Details[0].ColorRequest = this.data.color;
+
             this.selectedProductionOrder.DesignCode = this.data.motif;
+
             this.selectedProductionOrder.Uom = {};
             this.selectedProductionOrder.Uom.Unit = this.data.uomUnit;
+
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
+
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
@@ -56,12 +74,22 @@ export class CartItem {
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
-            
+
             if (this.selectedProductionOrder.Construction) {
                 this.data.construction = this.selectedProductionOrder.Construction;
             } else {
                 this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
             }
+            this.data.material = {};
+            this.data.material.id = this.selectedProductionOrder.Material.Id;
+            this.data.material.name = this.selectedProductionOrder.Material.Name;
+
+            this.data.materialConstruction = {};
+            this.data.materialConstruction.id = this.selectedProductionOrder.MaterialConstruction.Id;
+            this.data.materialConstruction.name = this.selectedProductionOrder.MaterialConstruction.Name;
+
+            this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
+
             this.data.buyerId = this.selectedProductionOrder.Buyer.Id;
             this.data.buyer = this.selectedProductionOrder.Buyer.Name;
             this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;

@@ -28,7 +28,7 @@ constructor( service, salesService) {
       this.error = context.error;
       this.options = this.context.context.options;
       this.readOnly = this.options.isView;
-      console.log(this.data)
+      console.log(this.context);
       
       this.roNo= this.data.roNo;
       if(this.data){

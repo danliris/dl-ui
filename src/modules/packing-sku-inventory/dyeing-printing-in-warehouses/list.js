@@ -80,4 +80,7 @@ export class List {
   create() {
     this.router.navigateToRoute("create");
   }
+  generatedExcel(){
+    this.service.generateExcelAll();
+  }
 }
