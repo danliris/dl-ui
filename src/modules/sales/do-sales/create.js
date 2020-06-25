@@ -141,7 +141,7 @@ export class Create {
   };
   // ==================================================
   doSalesExportItemsInfo = {
-    columns: ["No SPP", "Jenis dan Nomor Benang", "Jenis / Code", "Jumlah Packing", "Berat", "Hasil Konversi",],
+    columns: ["No SPP", "Jenis dan Nomor Benang", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi",],
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
@@ -183,7 +183,8 @@ export class Create {
   //doSalesExportOptions = ["", "KKF", "KKP"];
   packingUomOptions = ["", "DOOS", "Karung"];
   packingUomWeavingOptions = ["", "PCS", "BALE"];
-  packingUomDyeingOptions = ["", "PCS", "Roll", "PT","Carton"];
+  packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
+  packingUomDyeingExportOptions = ["", "PCS", "Roll", "PT","Carton"];
   lengthUomOptions = ["", "YDS", "MTR"];
   weightUomOptions = ["", "BALE", "KG"];
 

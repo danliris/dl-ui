@@ -23,8 +23,6 @@ export class List {
       },
     },
     { field: "Authorized", title: "Penanggungjawab" },
-    { field: "OrderNo", title: "No. Order" },
-
   ];
 
   columns2 = [
@@ -41,7 +39,6 @@ export class List {
       },
     },
     { field: "Authorized", title: "Penanggungjawab" },
-    { field: "OrderNo", title: "No. Order" },
 
   ];
 
@@ -59,8 +56,6 @@ export class List {
       },
     },
     { field: "Authorized", title: "Penanggungjawab" },
-    { field: "OrderNo", title: "No. Order" },
-
   ];
 
   rowFormatter(data, index) {
