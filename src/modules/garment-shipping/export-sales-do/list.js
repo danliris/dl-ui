@@ -36,7 +36,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
-                    data.buyerAgentName = `${data.buyerAgent.code}`;
+                    data.buyerAgentName = `${data.buyerAgent.name}`;
                     data.UnitName=data.unit.name;
                 }
 
