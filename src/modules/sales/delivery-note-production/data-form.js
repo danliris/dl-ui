@@ -24,7 +24,7 @@ export class DataForm {
     ListUnit = ["", "Spinning 1 Bp. Puthut Ika Margana", "Spinning 2 Bp. Tulus Basuki W", "Spinning 3 Bp. Karyono",];
     ListSubject = ["", "Order Jual", "Lainnya",];
     ListMonth = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember",];
-    ListYear = ["","2020","2021",];
+    ListYear = ["","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030"];
 
 
     constructor(service) {
