@@ -2,9 +2,10 @@ import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { ServicePackingInventory } from "./../service";
 import { DataForm } from "./../data-form";
+let DeliveryNoteLoader = require("../../../../loader/output-shipping-loader");
 
 @inject(ServicePackingInventory, BindingSignaler, BindingEngine, DataForm)
-export class SalesInvoiceExportDetail {
+export class DyeingPrintingDetail {
   @bindable data;
   @bindable error;
   @bindable typeFaktur;
@@ -39,6 +40,12 @@ export class SalesInvoiceExportDetail {
     if (this.dataForm.data.SalesInvoiceType) {
       this.typeFaktur = this.dataForm.data.SalesInvoiceType;
     }
+
+    if (this.data) {
+      this.selectedDeliveryNote = {};
+      this.selectedDeliveryNote.id = this.data.BonId;
+      this.selectedDeliveryNote.bonNo = this.data.BonNo;
+    }
   }
   weightUomOptions = ["", "KG", "BALE"];
   totalUomOptions = ["", "CBM", "Etc"];
@@ -51,7 +58,6 @@ export class SalesInvoiceExportDetail {
       "Satuan Packing",
       "Jumlah",
       "Satuan",
-      // "Nilai Konversi",
       "Harga Satuan",
       "Total Harga",
     ],
@@ -66,6 +72,23 @@ export class SalesInvoiceExportDetail {
       }
     }.bind(this),
   };
+
+  @bindable selectedDeliveryNote;
+  async selectedDeliveryNoteChanged(newValue, oldValue) {
+    console.log(this.selectedDeliveryNote)
+    if (newValue) {
+      this.data.BonId = this.selectedDeliveryNote.id;
+      this.data.BonNo = this.selectedDeliveryNote.bonNo;
+    } else {
+      this.data.BonId = null;
+      this.data.BonNo = null;
+      this.data.SalesInvoiceItems = [];
+    }
+  }
+
+  get deliveryNoteLoader() {
+    return DeliveryNoteLoader;
+  }
 
   enterDelegate(event) {
     if (event.charCode === 13) {
