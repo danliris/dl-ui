@@ -50,9 +50,9 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td show.bind="isAval">
-            <au-dropdown items.bind="avalMachines" value.bind="data.avalMachine" read-only.bind="readOnly"
-                error.bind="error.AvalMachine" options.bind="controlOptions">
+        <td show.bind="isAval || !readOnly">
+            <au-dropdown items.bind="avalMachines" value.bind="data.machine" read-only.bind="readOnly"
+                error.bind="error.Machine" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
