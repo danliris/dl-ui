@@ -82,6 +82,24 @@ export class List {
     }
 
     fillTable() {
+        var totalCutting= 0;
+        var totalLoading =0;
+        var totalSewing =0;
+        var totalFinishing =0;
+        var totalWip=0;
+        
+            for(var qty of this.data)
+            {
+                if(qty.Size == "TOTAL")
+        {
+                totalCutting +=qty.QtyCutting;
+                totalLoading += qty.QtyLoading;
+                totalSewing += qty.QtySewing;
+                totalFinishing += qty.QtyFinishing;
+                totalWip += qty.Wip;
+            }
+
+        }
         let columns = [
             {field: 'Ro', title: 'RO', footerFormatter: ""},
             {field: 'BuyerCode', title: 'Kode Buyer', footerFormatter: ""},

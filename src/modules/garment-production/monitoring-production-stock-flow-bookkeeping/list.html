@@ -55,11 +55,11 @@
                 <td rowspan="4">TARIF</td>
                 <td rowspan="4">HARGA BAHAN BAKU</td>
                 <td colspan="16">CUTTING</td>
-                <td colspan="10">LOADING</td>
+                <td colspan="12">LOADING</td>
                 <td colspan="18">SEWING</td>
                 <td colspan="22">FINISHING</td>
-                <td colspan="18">BARANG JADI</td>
-                <td colspan="7">Nilai Baru Komersil (SaldoAkhir)</td>
+                <td colspan="20">BARANG JADI</td>
+                <td colspan="8">Nilai Baru Komersil (SaldoAkhir)</td>
             </tr>
             <tr>
                 <td colspan="2">Saldo Awal WIP Cutting</td>
@@ -73,6 +73,7 @@
 
                 <td colspan="2">Saldo Awal Loading</td>
                 <td colspan="2">Loading In</td>
+                <td colspan="2">Loading In Transfer</td>
                 <td colspan="2">Loading Out (WIP Sewing)</td>
                 <td colspan="2">Adjs Loading</td>
                 <td colspan="2">Saldo Akhir Loading</td>
@@ -104,6 +105,7 @@
                 <td colspan="2">Barang Jadi In/ (WIP BJ)</td>
                 <td colspan="2">Barang Jadi In Transfer</td>
                 <td colspan="2">Penerimaan Lain-lain (Retur)</td>
+                <td colspan="2">Standar Konversi Biaya</td>
                 <td colspan="2">Pengiriman Export</td>
                 <td colspan="2">Pengiriman Gudang Sisa</td>
                 <td colspan="2">Pengiriman Lain-lain/Sample</td>
@@ -114,6 +116,7 @@
                 <td rowspan="4">Loading</td>
                 <td rowspan="4">Sewing</td>
                 <td rowspan="4">Finishing</td>
+                <td rowspan="4">Subkon</td>
                 <td rowspan="4">Barang Jadi</td>
             </tr>
             <tr>
@@ -144,30 +147,9 @@
                 <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
                 <td rowspan="2">Harga</td>
-
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
                 <td rowspan="2">Harga</td>
 
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
-                <td rowspan="2">Qty</td>
-                <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
                 <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
@@ -195,6 +177,31 @@
                 <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
                 <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Qty</td>
+                <td rowspan="2">Harga</td>
+                <td rowspan="2">Tarif</td>
+                <td rowspan="2">Pemakaian Bahan Baku</td>
                 <td rowspan="2">Qty</td>
                 <td rowspan="2">Harga</td>
                 <td rowspan="2">Qty</td>
@@ -219,7 +226,7 @@
                 <td class="text-right">${item.FC}</td>
                 <td class="text-right">${item.Hours}</td>
                 <td class="text-right">${item.Fare}</td>
-                <td class="text-right">${item.BasicPrice}</td>
+                <td class="text-right">${item._BasicPrice}</td>
                 <td class="text-right">${item._BeginingBalanceCuttingQty}</td>
                 <td class="text-right">${item._BeginingBalanceCuttingPrice}</td>
                 <td class="text-right">${item._QtyCuttingIn}</td>
@@ -240,6 +247,8 @@
                 <td class="text-right">${item._BeginingBalanceLoadingPrice}</td>
                 <td class="text-right">${item._QtyLoadingIn}</td>
                 <td class="text-right">${item._PriceLoadingIn}</td>
+                <td class="text-right">${item._QtyLoadingInTransfer}</td>
+                <td class="text-right">${item._PriceLoadingInTransfer}</td>
                 <td class="text-right">${item._QtyLoading}</td>
                 <td class="text-right">${item._PriceLoading}</td>
                 <td class="text-right">${item._QtyLoadingAdjs}</td>
@@ -294,6 +303,8 @@
                 <td class="text-right">${item._ExpenditureGoodInTransferPrice}</td>
                 <td class="text-right">${item._ExpenditureGoodRetur}</td>
                 <td class="text-right">${item._ExpenditureGoodReturPrice}</td>
+                <td class="text-right">${item._PriceUsage}</td>
+                <td class="text-right">${item._MaterialUsage}</td>
                 <td class="text-right">${item._ExportQty}</td>
                 <td class="text-right">${item._ExportPrice}</td>
                 <td class="text-right">${item._OtherQty}</td>
@@ -309,6 +320,7 @@
                 <td class="text-right">${item._LoadingNew}</td>
                 <td class="text-right">${item._SewingNew}</td>
                 <td class="text-right">${item._FinishingNew}</td>
+                <td class="text-right">${item._SubconNew}</td>
                 <td class="text-right">${item._ExpenditureNew}</td>
             </tr>
             <tr class="active">
@@ -334,6 +346,8 @@
                 <td class="text-right"><strong>${BeginingBalanceLoadingPriceTotal}</strong></td>
                 <td class="text-right"><strong>${QtyLoadingInTotal}</strong></td>
                 <td class="text-right"><strong>${PriceLoadingInTotal}</strong></td>
+                <td class="text-right"><strong>${QtyLoadingInTransferTotal}</strong></td>
+                <td class="text-right"><strong>${PriceLoadingInTransferTotal}</strong></td>
                 <td class="text-right"><strong>${QtyLoadingTotal}</strong></td>
                 <td class="text-right"><strong>${PriceLoadingTotal}</strong></td>
                 <td class="text-right"><strong>${QtyLoadingAdjsTotal}</strong></td>
@@ -389,6 +403,8 @@
                 <td class="text-right"><strong>${PriceExpenditureGoodInTransferTotal}</strong></td>
                 <td class="text-right"><strong>${ExpenditureGoodReturTotal}</strong></td>
                 <td class="text-right"><strong>${PriceExpenditureGoodReturTotal}</strong></td>
+                <td class="text-right"><strong>${PriceUsageTotal}</strong></td>
+                <td class="text-right"><strong>${MaterialUsageTotal}</strong></td>
                 <td class="text-right"><strong>${ExportQtyTotal}</strong></td>
                 <td class="text-right"><strong>${ExportPriceTotal}</strong></td>
                 <td class="text-right"><strong>${OtherQtyTotal}</strong></td>
@@ -399,6 +415,13 @@
                 <td class="text-right"><strong>${PriceExpenditureGoodAdjTotal}</strong></td>
                 <td class="text-right"><strong>${EndBalanceExpenditureGoodTotal}</strong></td>
                 <td class="text-right"><strong>${PriceEndBalanceExpenditureGoodTotal}</strong></td>
+                <td class="text-right"><strong>${FareNewTotal}</strong></td>
+                <td class="text-right"><strong>${CuttingNewTotal}</strong></td>
+                <td class="text-right"><strong>${LoadingNewTotal}</strong></td>
+                <td class="text-right"><strong>${SewingNewTotal}</strong></td>
+                <td class="text-right"><strong>${FinishingNewTotal}</strong></td>
+                <td class="text-right"><strong>${SubconNewTotal}</strong></td>
+                <td class="text-right"><strong>${ExpenditureNewTotal}</strong></td>
               </tr>
         </tbody>
     </table>
