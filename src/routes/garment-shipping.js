@@ -272,4 +272,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/local-price-cutting-note",
+        name: "garment-shipping/local-price-cutting-note",
+        moduleId: "modules/garment-shipping/local-price-cutting-note/index",
+        nav: true,
+        title: "Nota Potongan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
