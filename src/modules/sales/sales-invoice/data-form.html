@@ -94,17 +94,18 @@
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <au-collection if.bind="data.SalesInvoiceCategory=='WEAVING'" columns.bind="salesInvoiceDetailsInfo.columns"
-      items.bind="data.SalesInvoiceDetails" errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly"
-      add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
-      item-template="modules/sales/sales-invoice/template/spinning-weaving-detail"
+    <au-collection if.bind="data.SalesInvoiceCategory=='WEAVING' && selectedPaymentType"
+      columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
+      remove.bind="salesInvoiceDetailsInfo.onRemove" item-template="modules/sales/sales-invoice/template/weaving-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 
-    <au-collection if.bind="data.SalesInvoiceCategory=='SPINNING'" columns.bind="salesInvoiceDetailsInfo.columns"
-      items.bind="data.SalesInvoiceDetails" errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly"
-      add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
-      item-template="modules/sales/sales-invoice/template/spinning-weaving-detail"
+    <au-collection if.bind="data.SalesInvoiceCategory=='SPINNING' && selectedPaymentType"
+      columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceDetails"
+      errors.bind="error.SalesInvoiceDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
+      remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice/template/spinning-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 

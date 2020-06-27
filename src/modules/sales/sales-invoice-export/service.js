@@ -1,11 +1,13 @@
 import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "sales/sales-invoices-export";
-const shippingOutServiceUri = "output-shipping";
 const buyerServiceUri = "master/buyers";
 const currencyServiceUri = "master/currencies";
 const unitServiceUri = "master/units";
 const uomServiceUri = "master/uoms";
+const bonSpinningUri = "/v1/material-delivery-note";
+const bonWeavingUri = "material-delivery-note-weaving";
+const bonDyeingPrintingUri = "output-shipping";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -53,20 +55,39 @@ export class ServicePackingInventory extends RestService {
     super(http, aggregator, config, "packing-inventory");
   }
 
-  searchOutputShipping(info) {
-    var endpoint = `${shippingOutServiceUri}`;
+  searchBonSpinning(info) {
+    var endpoint = `${bonSpinningUri}`;
     return super.list(endpoint, info);
   }
 
-  getByShippingOutputId(id) {
-    var endpoint = `${shippingOutServiceUri}/${id}`;
-    return super.get(endpoint);
+  getBonSpinningById(id, select) {
+    var endpoint = `${bonSpinningUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
   }
 
-  salesLoaderOutputShipping(info) {
-    var endpoint = `${shippingOutServiceUri}/sales-loader`;
+  searchBonWeaving(info) {
+    var endpoint = `${bonWeavingUri}`;
     return super.list(endpoint, info);
   }
+
+  getBonWeavingById(id, select) {
+    var endpoint = `${bonWeavingUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
+  searchBonDyeingPrinting(info) {
+    var endpoint = `${bonDyeingPrintingUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getBonDyeingPrintingById(id, select) {
+    var endpoint = `${bonDyeingPrintingUri}/${id}`;
+    var info = { select: select };
+    return super.get(endpoint, null, info);
+  }
+
 }
 
 export class ServiceCore extends RestService {
