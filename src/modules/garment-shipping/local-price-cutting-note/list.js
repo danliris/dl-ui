@@ -2,41 +2,43 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
-import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak Bon Pengiriman"];
+
+    context = ["detail"]
+
     columns = [
-        { field: "code", title: "Kode BON" },
+        { field: "cuttingPriceNoteNo", title: "No Nota Potongan" },
         {
-            field: "DateSJ", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
+            field: "date", title: "Tanggal", formatter: function (value) {
+                return moment(value).format("DD MMM YYYY");
+            }
         },
-        { field: "buyer.name", title: "Nama Buyer" },
-        { field: "unit.name", title: "Dibuat Oleh" }
+        { field: "buyerCode", title: "Buyer" },
     ];
 
     loader = (info) => {
-        let order = {};
-
+        var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-        else
-            order["DateSJ"] = "desc";
 
-        let arg = {
+        var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order
-        };
+        }
 
         return this.service.search(arg)
             .then(result => {
+                for (const data of result.data) {
+                    data.buyer = data.buyer || {};
+                    data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
+                }
+
                 return {
-                    //total: result.info.total,
+                    total: result.info.total,
                     data: result.data
                 }
             });
@@ -47,16 +49,12 @@ export class List {
         this.router = router;
     }
 
-    contextCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
-
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
         switch (arg.name) {
-            case "Rincian":
+            case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "Cetak Bon Pengiriman":
-                this.service.getPdfById(data.id);
                 break;
         }
     }
