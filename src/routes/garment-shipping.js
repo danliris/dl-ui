@@ -273,6 +273,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/local-return-note",
+        name: "garment-shipping/local-return-note",
+        moduleId: "modules/garment-shipping/local-return-note/index",
+        nav: true,
+        title: "Nota Retur",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/local-price-cutting-note",
         name: "garment-shipping/local-price-cutting-note",
         moduleId: "modules/garment-shipping/local-price-cutting-note/index",
