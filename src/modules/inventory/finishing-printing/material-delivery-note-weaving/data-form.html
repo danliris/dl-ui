@@ -9,7 +9,7 @@
             options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete placeholder="Pilih Nomor DO" options.bind="controlOptions" value.bind="data.selectedDO"
+        <au-autocomplete placeholder="Pilih Nomor DO" query.bind="filter" options.bind="controlOptions" value.bind="data.selectedDO"
             label="Berdasarkan DO No" read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder"
             loader.bind="doSalesLoader" text.bind="doTextFormatter">
         </au-autocomplete>
