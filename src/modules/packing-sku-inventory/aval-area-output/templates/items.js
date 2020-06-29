@@ -35,6 +35,19 @@ export class Items {
       this.data.AvalQuantityKg = this.data.avalQuantityKg;
       this.selectedAvalType = this.data.avalType;
       this.data.AvalOutQuantity = this.data.avalOutQuantity;
+    }else
+    {
+      var selectedAvalType = {};
+      selectedAvalType.AvalType = this.data.AvalType;
+      selectedAvalType.AvalUomUnit =  this.data.AvalUomUnit;
+      selectedAvalType.AvalOutQuantity = this.data.AvalOutQuantity;
+      selectedAvalType.AvalOutSatuan = this.data.AvalOutSatuan;
+      selectedAvalType.AvalQuantity = this.data.AvalQuantity;
+      selectedAvalType.AvalQuantityKg = this.data.AvalQuantityKg;
+
+
+      this.selectedAvalType = this.data.AvalType;
+
     }
   }
   @bindable selectedAvalType
