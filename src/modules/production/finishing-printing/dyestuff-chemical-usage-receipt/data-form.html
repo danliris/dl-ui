@@ -145,7 +145,7 @@
                             <th>
                                 Warna
                             </th>
-                            <th colspan="7">
+                            <th colspan="6">
                                 ${color.ColorCode}
                             </th>
                         </tr>
@@ -167,9 +167,6 @@
                             </th>
                             <th>
                                 Adjs 4
-                            </th>
-                            <th>
-                                Adjs 5
                             </th>
                             <th rowspan="2">
                                 Total
@@ -201,11 +198,6 @@
                                     read-only.bind="readOnly">
                                 </au-datepicker>
                             </th>
-                            <th>
-                                <au-datepicker value.bind="color.Adjs5Date" error.bind="error.Adjs5Date"
-                                    read-only.bind="readOnly">
-                                </au-datepicker>
-                            </th>
                         </tr>
                     </thead>
                     <tbody repeat.for="item of color.UsageReceiptDetails">
@@ -231,10 +223,6 @@
                             </td>
                             <td>
                                 <au-numeric format="0.00" value.bind="item.Adjs4Quantity" read-only.bind="readOnly">
-                                </au-numeric>
-                            </td>
-                            <td>
-                                <au-numeric format="0.00" value.bind="item.Adjs5Quantity" read-only.bind="readOnly">
                                 </au-numeric>
                             </td>
                             <td>
@@ -262,7 +250,7 @@
                             <th>
                                 Warna
                             </th>
-                            <th colspan="7">
+                            <th colspan="6">
                                 ${color.ColorCode}
                             </th>
                         </tr>
@@ -284,9 +272,6 @@
                             </th>
                             <th>
                                 Adjs 4
-                            </th>
-                            <th>
-                                Adjs 5
                             </th>
                             <th rowspan="2">
                                 Total
@@ -318,11 +303,6 @@
                                     read-only.bind="readOnly">
                                 </au-datepicker>
                             </th>
-                            <th>
-                                <au-datepicker value.bind="color.Adjs5Date" error.bind="error.Adjs5Date"
-                                    read-only.bind="readOnly">
-                                </au-datepicker>
-                            </th>
                         </tr>
                     </thead>
                     <tbody repeat.for="item of color.UsageReceiptDetails">
@@ -348,10 +328,6 @@
                             </td>
                             <td>
                                 <au-numeric format="0.00" value.bind="item.Adjs4Quantity" read-only.bind="readOnly">
-                                </au-numeric>
-                            </td>
-                            <td>
-                                <au-numeric format="0.00" value.bind="item.Adjs5Quantity" read-only.bind="readOnly">
                                 </au-numeric>
                             </td>
                             <td>
