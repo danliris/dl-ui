@@ -1,6 +1,6 @@
 import {bindable, computedFrom} from 'aurelia-framework'
 
-export class GarmentPreparingItem {
+export class GarmentPreparingDetail {
     activate(context) {
         this.data = context.data;
         this.options = context.context.options;
@@ -8,12 +8,10 @@ export class GarmentPreparingItem {
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
         this.data.Currency = "IDR";
-       //
+       console.log(this.data);
         this.data.UENItemId = this.data.Id;
-        if(this.options.isCreate){
-            delete this.data.Id;
-            this.data.RemainingQuantity = this.data.Quantity;
-        }
+   
+        
     }
 
 }
