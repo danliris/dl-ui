@@ -103,7 +103,7 @@ export class DataForm {
                         usageDetail.Name = detail.Name;
 
                         if (prevDetail && prevDetail.Name.toLowerCase() !== "viscositas") {
-                            usageDetail.ReceiptQuantity = prevDetail.ReceiptQuantity + prevDetail.Adjs1Quantity + prevDetail.Adjs2Quantity + prevDetail.Adjs3Quantity + prevDetail.Adjs4Quantity + prevDetail.Adjs5Quantity;
+                            usageDetail.ReceiptQuantity = prevDetail.ReceiptQuantity + prevDetail.Adjs1Quantity + prevDetail.Adjs2Quantity + prevDetail.Adjs3Quantity + prevDetail.Adjs4Quantity;
                         } else {
                             usageDetail.ReceiptQuantity = detail.Quantity;
                         }
