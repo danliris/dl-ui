@@ -68,7 +68,6 @@ export class CartItem {
     get viscositasNumber() {
         if (!this.data.Id || !this.readOnly) {
             if (this.data.ChemicalItems && this.data.ChemicalItems.length > 0) {
-                console.log(this.data.ChemicalItems[this.data.ChemicalItems.length - 1]);
                 return this.data.ChemicalItems[this.data.ChemicalItems.length - 1].Quantity;
             }
         }
