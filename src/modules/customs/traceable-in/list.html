@@ -156,30 +156,31 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="IN of data">
-                         <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.count}</td>
-                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCType}</td>
-                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCNo}</td>
-                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
-                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.BonNo}</td>
-                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.PO}</td>
-                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemCode}</td>
-                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ItemName}</td>
-                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.ReceiptQty}</td>
-                        <td if.bind="IN.docspanpo2" rowspan="${IN.docspanpo2}">${IN.SatuanReceipt}</td>
-                        <td if.bind="IN.rospan" rowspan="${IN.rospan}">${IN.ROJob}</td>
+                      <!-- <td >${$index + 1}</td> -->
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.count}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.BCType}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.BCNo}</td>
+                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <td if.bind="IN.rospan" rowspan="${IN.rospan}">${IN.BonNo}</td>
+                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.PO}</td>
+                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.ItemCode}</td>
+                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.ItemName}</td>
+                        <td if.bind="IN.rowspan" rowspan="${IN.rowspan}">${IN.ReceiptQty}</td>
+                        <td if.bind="IN.rowspan" rowspan="${IN.rowspan}">${IN.SatuanReceipt}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.ROJob}</td>
                         <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.BUK}</td>
                         <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.QtyBUK}</td>
                         <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.SatuanBUK}</td>
-                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.Sisa}</td>
-                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.ProduksiQty}</td>
-                        <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.BJQty}</td>
-                        <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.Invoice}</td>
+                         <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.Sisa}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.ProduksiQty}</td>
+                        <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.BJQty}</td>
+                        <!--<td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.Invoice}</td>
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEB}</td>
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEBDate}</td>
                         <td if.bind="IN.docsekspor" rowspan="${IN.docsekspor}">${IN.EksporQty}</td>
-                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.SampleQty}</td>
-                        <!-- <td >${IN.count}</td>
-                        <td >${IN.BCType}</td>
+                        <td if.bind="IN.bcdocspan" rowspan="${IN.bcdocspan}">${IN.SampleQty}</td> -->
+                        <!-- <td >${IN.count}</td> -->
+                        <!-- <td >${IN.BCType}</td>
                         <td >${IN.BCNo}</td>
                         <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
                         <td >${IN.BonNo}</td> 
@@ -187,19 +188,19 @@
                         <td >${IN.ItemCode}</td>
                         <td >${IN.ItemName}</td>
                         <td >${IN.ReceiptQty}</td>
-                        <td >${IN.SatuanReceipt}</td> 
-                        <td >${IN.ROJob}</td>
+                        <td >${IN.SatuanReceipt}</td>  -->
+                        <!-- <td >${IN.ROJob}</td>
                         <td >${IN.BUK}</td>
                         <td >${IN.QtyBUK}</td>
-                        <td >${IN.SatuanBUK}</td>
-                        <td >${IN.Sisa}</td>
+                        <td >${IN.SatuanBUK}</td> -->
+                        <!-- <td >${IN.Sisa}</td>
                         <td >${IN.ProduksiQty}</td>
-                        <td >${IN.BJQty}</td>
+                        <td >${IN.BJQty}</td> -->
                         <td >${IN.Invoice}</td>
                         <td >${IN.PEB}</td>
                         <td >${IN.PEBDate}</td>
                         <td >${IN.EksporQty}</td>
-                        <td >${IN.SampleQty}</td> -->
+                        <td >${IN.SampleQty}</td>
 
                         <!-- <td >${$index + 1}</td>
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEB}</td>

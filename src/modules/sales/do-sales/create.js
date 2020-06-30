@@ -101,17 +101,23 @@ export class Create {
       this.detailOptions.WeightUom = this.data.WeightUom;
       this.WeightUom = this.data.WeightUom;
     }
+
   }
 
   doSalesLocalItemsInfo = {
-    columns: ["No SOP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    columns: ["No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),
   };
 
   doSalesLocalSpinningItemsInfo = {
-    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Berat", "Hasil Konversi",],
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
@@ -135,7 +141,7 @@ export class Create {
   };
   // ==================================================
   doSalesExportItemsInfo = {
-    columns: ["No SOP", "Jenis dan Nomor Benang", "Jenis / Code", "Jumlah Packing", "Berat", "Hasil Konversi",],
+    columns: ["No SPP", "Jenis dan Nomor Benang", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi",],
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
@@ -147,7 +153,7 @@ export class Create {
   };
 
   doSalesExportItemsSpinningInfo = {
-    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Jumlah Packing", "Berat", "Hasil Konversi",],
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
@@ -159,7 +165,7 @@ export class Create {
   };
 
   doSalesExportItemsWeavingInfo = {
-    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Panjang", "Hasil Konversi",],
+    columns: ["No SOP", "Jenis dan Nomor Benang", "Grade", "Jumlah Packing", "Berat", "Hasil Konversi",],
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
@@ -178,6 +184,7 @@ export class Create {
   packingUomOptions = ["", "DOOS", "Karung"];
   packingUomWeavingOptions = ["", "PCS", "BALE"];
   packingUomDyeingOptions = ["", "PCS", "Roll", "PT"];
+  packingUomDyeingExportOptions = ["", "PCS", "Roll", "PT","Carton"];
   lengthUomOptions = ["", "YDS", "MTR"];
   weightUomOptions = ["", "BALE", "KG"];
 
@@ -200,6 +207,8 @@ export class Create {
       this.data.MaterialConstruction = this.selectedSalesContract.MaterialConstruction;
       this.data.MaterialWidth = this.selectedSalesContract.MaterialWidth;
 
+      this.detailOptions.SalesContractNo = this.selectedSalesContract.SalesContractNo;
+
       if (this.selectedSalesContract.Buyer.Id) {
         this.selectedBuyer = await this.serviceCore.getBuyerById(
           this.selectedSalesContract.Buyer.Id
@@ -210,27 +219,27 @@ export class Create {
         this.data.Buyer = this.selectedSalesContract.Buyer;
       }
 
-      if (!this.data.Id) {
-        var salesContract = await this.service.getProductionOrderBySalesContractId(
-          this.data.SalesContract.Id
-        );
-        var scData = salesContract.data;
-        this.data.DOSalesDetailItems = [];
-        for (var item of scData) {
-          for (var detailItem of item.Details) {
-            var sc = {
-              Material: item.Material,
-              MaterialConstruction: item.MaterialConstruction,
-              MaterialWidth: item.MaterialWidth,
-              ColorRequest: detailItem.ColorRequest,
-              ColorTemplate: detailItem.ColorTemplate,
-              ProductionOrder: item,
-              ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
-            };
-            this.data.DOSalesDetailItems.push(sc);
-          }
-        }
-      }
+      // if (!this.data.Id) {
+      //   var salesContract = await this.service.getProductionOrderBySalesContractId(
+      //     this.data.SalesContract.Id
+      //   );
+      //   var scData = salesContract.data;
+      //   this.data.DOSalesDetailItems = [];
+      //   for (var item of scData) {
+      //     for (var detailItem of item.Details) {
+      //       var sc = {
+      //         Material: item.Material,
+      //         MaterialConstruction: item.MaterialConstruction,
+      //         MaterialWidth: item.MaterialWidth,
+      //         ColorRequest: detailItem.ColorRequest,
+      //         ColorTemplate: detailItem.ColorTemplate,
+      //         ProductionOrder: item,
+      //         ConstructionName: `${item.Material.Name} / ${item.MaterialConstruction.Name} / ${item.MaterialWidth} / ${detailItem.ColorRequest}`,
+      //       };
+      //       this.data.DOSalesDetailItems.push(sc);
+      //     }
+      //   }
+      // }
     } else {
       this.data.SalesContract = null;
       this.data.Buyer = null;
@@ -238,11 +247,11 @@ export class Create {
     }
   }
 
-  // get addItems() {
-  //   return (event) => {
-  //     this.data.DOSalesDetailItems.push({})
-  //   };
-  // }
+  get addItems() {
+    return (event) => {
+      this.data.DOSalesDetailItems.push({})
+    };
+  }
   
 
   dispChanged(newValue, OldValue) {
@@ -354,6 +363,7 @@ export class Create {
   }
 
   save(event) {
+    // console.log(this.data);
     this.service
       .create(this.data)
       .then((result) => {

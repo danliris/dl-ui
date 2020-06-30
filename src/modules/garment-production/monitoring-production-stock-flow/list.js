@@ -47,6 +47,7 @@ export class List {
                     _data._BeginingBalanceLoadingQty = _data.BeginingBalanceLoadingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._BeginingBalanceLoadingPrice = _data.BeginingBalanceLoadingPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._QtyLoading = _data.QtyLoading.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._QtyLoadingInTransfer = _data.QtyLoadingInTransfer.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._PriceLoading = _data.PriceLoading.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._QtyLoadingIn = _data.QtyLoadingIn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._PriceLoadingIn = _data.PriceLoadingIn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
@@ -298,7 +299,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
-
+    get QtyLoadingInTransferTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.QtyLoadingInTransfer;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtyLoadingTotal()
     {
         var sum=0;

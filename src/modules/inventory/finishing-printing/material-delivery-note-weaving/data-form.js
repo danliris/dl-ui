@@ -55,6 +55,8 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
 
+        this.filter = { "DOSalesCategory": "WEAVING" };
+
         if (this.data.buyer && this.data.buyer.id) {
             this.selectedBuyer = this.data.buyer;
         }

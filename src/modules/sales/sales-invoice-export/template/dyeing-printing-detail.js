@@ -2,13 +2,14 @@ import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from "aurelia-templating-resources";
 import { ServicePackingInventory } from "./../service";
 import { DataForm } from "./../data-form";
+let DeliveryNoteLoader = require("../../../../loader/output-shipping-loader");
 
 @inject(ServicePackingInventory, BindingSignaler, BindingEngine, DataForm)
-export class SpinningWeavingDetail {
+export class DyeingPrintingDetail {
   @bindable data;
   @bindable error;
   @bindable typeFaktur;
-  @bindable SalesInvoiceItems;
+  @bindable SalesInvoiceExportItems;
 
   shippingOutTableOptions = {};
 
@@ -39,7 +40,15 @@ export class SpinningWeavingDetail {
     if (this.dataForm.data.SalesInvoiceType) {
       this.typeFaktur = this.dataForm.data.SalesInvoiceType;
     }
+
+    if (this.data) {
+      this.selectedDeliveryNote = {};
+      this.selectedDeliveryNote.id = this.data.BonId;
+      this.selectedDeliveryNote.bonNo = this.data.BonNo;
+    }
   }
+  weightUomOptions = ["", "KG", "BALE"];
+  totalUomOptions = ["", "CBM", "Etc"];
 
   salesInvoiceItemsInfo = {
     columns: [
@@ -49,21 +58,37 @@ export class SpinningWeavingDetail {
       "Satuan Packing",
       "Jumlah",
       "Satuan",
-      "Nilai Konversi",
       "Harga Satuan",
       "Total Harga",
     ],
     onAdd: function () {
-      this.SalesInvoiceItems.bind();
-      this.data.SalesInvoiceItems = this.data.SalesInvoiceItems || [];
-      this.data.SalesInvoiceItems.push({});
+      this.SalesInvoiceExportItems.bind();
+      this.data.SalesInvoiceExportItems = this.data.SalesInvoiceExportItems || [];
+      this.data.SalesInvoiceExportItems.push({});
     }.bind(this),
     onRemove: function () {
-      if (this.SalesInvoiceItems) {
-        this.SalesInvoiceItems.bind();
+      if (this.SalesInvoiceExportItems) {
+        this.SalesInvoiceExportItems.bind();
       }
     }.bind(this),
   };
+
+  @bindable selectedDeliveryNote;
+  async selectedDeliveryNoteChanged(newValue, oldValue) {
+    console.log(this.selectedDeliveryNote)
+    if (newValue) {
+      this.data.BonId = this.selectedDeliveryNote.id;
+      this.data.BonNo = this.selectedDeliveryNote.bonNo;
+    } else {
+      this.data.BonId = null;
+      this.data.BonNo = null;
+      this.data.SalesInvoiceItems = [];
+    }
+  }
+
+  get deliveryNoteLoader() {
+    return DeliveryNoteLoader;
+  }
 
   enterDelegate(event) {
     if (event.charCode === 13) {

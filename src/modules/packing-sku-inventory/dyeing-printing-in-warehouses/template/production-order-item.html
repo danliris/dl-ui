@@ -1,5 +1,12 @@
 <template replace-part="packingItem">
   <tr>
+      <td show.bind="!readOnly">
+          <au-checkbox
+            value.bind="data.IsSave"
+            disabled.bind="readOnly"
+          >
+          </au-checkbox>
+        </td>
     <!-- <td>
           <au-numeric
             value.bind="data.productionOrder.orderQuantity"

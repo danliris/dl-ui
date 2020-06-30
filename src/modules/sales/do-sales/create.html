@@ -243,8 +243,18 @@
                            placeholder="Pilih Satuan Berat">
               </au-dropdown>
 
+              <au-dropdown if.bind="code"
+                           show.bind="selectedSalesContract"
+                           label="Satuan Berat"
+                           value.bind="WeightUom"
+                           items.bind="weightUomOptions"
+                           error.bind="error.WeightUom"
+                           read-only.bind="readOnly  || isEdit"
+                           placeholder="Pilih Satuan Berat">
+              </au-dropdown>
 
-              <au-dropdown show.bind="selectedSalesContract"
+              <au-dropdown if.bind="code2 || code1"
+                           show.bind="selectedSalesContract"
                            label="Satuan Panjang"
                            value.bind="LengthUom"
                            items.bind="lengthUomOptions"
@@ -425,20 +435,31 @@
 
               <au-dropdown label="Satuan Packing"
                            value.bind="data.PackingUom"
-                           items.bind="packingUomDyeingOptions"
+                           items.bind="packingUomDyeingExportOptions"
                            error.bind="error.PackingUom"
                            read-only.bind="readOnly"
                            placeholder="Pilih Satuan Packing"
                            if.bind="code2">
               </au-dropdown>
 
-              <au-dropdown show.bind="selectedSalesContract"
+              <au-dropdown if.bind="code || code1"
+                           show.bind="selectedSalesContract"
                            label="Satuan Berat"
                            value.bind="WeightUom"
                            items.bind="weightUomOptions"
                            error.bind="error.WeightUom"
                            read-only.bind="readOnly  || isEdit"
                            placeholder="Pilih Satuan Berat">
+              </au-dropdown>
+
+              <au-dropdown if.bind="code2"
+                           show.bind="selectedSalesContract"
+                           label="Satuan Panjang"
+                           value.bind="LengthUom"
+                           items.bind="lengthUomOptions"
+                           error.bind="error.LengthUom"
+                           read-only.bind="readOnly  || isEdit"
+                           placeholder="Pilih Satuan Panjang">
               </au-dropdown>
 
               <au-numeric label="Isi tiap Bale"
@@ -468,15 +489,17 @@
 
     <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code2"
                    columns.bind="doSalesLocalItemsInfo.columns"
+                   add.bind="doSalesLocalItemsInfo.onAdd"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
+                   remove.bind="doSalesLocalItemsInfo.onRemove"
                    read-only.bind="readOnly"
                    options.bind="detailOptions"
                    item-template="modules/sales/do-sales/template/local-item"
                    view-model.ref="ItemsCollection">
     </au-collection>
 
-    <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code"
+    <au-collection if.bind="data.DOSalesType=='Lokal' && WeightUom && code"
                    columns.bind="doSalesLocalSpinningItemsInfo.columns"
                    add.bind="doSalesLocalSpinningItemsInfo.onAdd"
                    items.bind="data.DOSalesDetailItems"
@@ -500,8 +523,10 @@
                    view-model.ref="ItemsCollection">
     </au-collection>
 <!-- ============================================================ -->
-    <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code2"
+    <au-collection if.bind="data.DOSalesType=='Ekspor' && LengthUom && code2"
                    columns.bind="doSalesExportItemsInfo.columns"
+                   add.bind="doSalesExportItemsInfo.onAdd"
+                   remove.bind="doSalesExportItemsInfo.onRemove"
                    items.bind="data.DOSalesDetailItems"
                    errors.one-way="error.DOSalesDetailItems"
                    read-only.bind="readOnly"

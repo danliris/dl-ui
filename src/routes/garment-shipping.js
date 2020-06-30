@@ -1,5 +1,5 @@
-module.exports=[
-   {
+module.exports = [
+    {
         route: "master/garment-shipping-staff",
         name: "garment-shipping-staff",
         moduleId: "modules/master/garment-shipping-staff/index",
@@ -91,24 +91,11 @@ module.exports=[
         }
     },
     {
-        route: "garment-shipping/shipping-instruction",
-        name: "garment-shipping/shipping-instruction",
-        moduleId: "modules/garment-shipping/shipping-instruction/index",
-        nav: true,
-        title: "Shipping Instruction",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
         route: "garment-shipping/invoice",
         name: "garment-shipping/invoice",
         moduleId: "modules/garment-shipping/invoice/index",
         nav: true,
-        title: "Shipping Invoice",
+        title: "Invoice Export Garment",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -130,11 +117,11 @@ module.exports=[
         }
     },
     {
-        route: "garment-shipping/credit-note",
-        name: "garment-shipping/credit-note",
-        moduleId: "modules/garment-shipping/credit-note/index",
+        route: "garment-shipping/shipping-instruction",
+        name: "garment-shipping/shipping-instruction",
+        moduleId: "modules/garment-shipping/shipping-instruction/index",
         nav: true,
-        title: "Nota Kredit",
+        title: "Shipping Instruction",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -143,11 +130,11 @@ module.exports=[
         }
     },
     {
-        route: "garment-shipping/debit-note",
-        name: "garment-shipping/debit-note",
-        moduleId: "modules/garment-shipping/debit-note/index",
+        route: "garment-shipping/export-sales-do",
+        name: "garment-shipping/export-sales-do",
+        moduleId: "modules/garment-shipping/export-sales-do/index",
         nav: true,
-        title: "Nota Debet",
+        title: "DO Penjualan Export",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -195,6 +182,32 @@ module.exports=[
         }
     },
     {
+        route: "garment-shipping/credit-note",
+        name: "garment-shipping/credit-note",
+        moduleId: "modules/garment-shipping/credit-note/index",
+        nav: true,
+        title: "Nota Kredit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/debit-note",
+        name: "garment-shipping/debit-note",
+        moduleId: "modules/garment-shipping/debit-note/index",
+        nav: true,
+        title: "Nota Debet",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/local-sales-note",
         name: "garment-shipping/local-sales-note",
         moduleId: "modules/garment-shipping/local-sales-note/index",
@@ -208,11 +221,76 @@ module.exports=[
         }
     },
     {
+        route: "garment-shipping/local-sales-do",
+        name: "garment-shipping/local-sales-do",
+        moduleId: "modules/garment-shipping/local-sales-do/index",
+        nav: true,
+        title: "DO Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/local-cover-letter",
         name: "garment-shipping/local-cover-letter",
         moduleId: "modules/garment-shipping/local-cover-letter/index",
         nav: true,
         title: "Surat Pengantar (Lokal)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/packing-list",
+        name: "garment-shipping/monitoring/packing-list",
+        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
+        nav: true,
+        title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-price-correction-note",
+        name: "garment-shipping/local-price-correction-note",
+        moduleId: "modules/garment-shipping/local-price-correction-note/index",
+        nav: true,
+        title: "Nota Koreksi Harga",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-return-note",
+        name: "garment-shipping/local-return-note",
+        moduleId: "modules/garment-shipping/local-return-note/index",
+        nav: true,
+        title: "Nota Retur",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-price-cutting-note",
+        name: "garment-shipping/local-price-cutting-note",
+        moduleId: "modules/garment-shipping/local-price-cutting-note/index",
+        nav: true,
+        title: "Nota Potongan",
         auth: true,
         settings: {
             group: "g-shipping",

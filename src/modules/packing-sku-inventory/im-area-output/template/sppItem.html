@@ -13,7 +13,7 @@
             <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
                 error.bind="error.ProductionOrder" options.bind="controlOptions">
             </au-numeric>
-            
+
         </td>
         <td>
             <au-textbox value.bind="data.cartNo" read-only.bind="true" error.bind="error.CartNo"
@@ -49,6 +49,11 @@
             <au-textbox value.bind="data.status" read-only.bind="true" error.bind="error.Status"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td show.bind="isAval || !readOnly">
+            <au-dropdown items.bind="avalMachines" value.bind="data.machine" read-only.bind="readOnly"
+                error.bind="error.Machine" options.bind="controlOptions">
+            </au-dropdown>
         </td>
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"

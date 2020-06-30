@@ -1,5 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-const ProductLoader = require('../../../../loader/garment-leftover-warehouse-buyer-loader');
+const ProductLoader = require('../../../../loader/garment-leftover-warehouse-product-loader');
 const UomLoader = require('../../../../loader/uom-loader');
 import { Service } from '../service';
 
@@ -22,6 +22,12 @@ export class Item {
 
     get uomLoader() {
         return UomLoader;
+    }
+
+    get productFilter() {
+        return {
+            ProductTypeId: this.context.context.options.transactionTypeId
+        };
     }
 
     productView = (data) => {

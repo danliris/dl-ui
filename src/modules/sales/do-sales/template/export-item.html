@@ -1,22 +1,17 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder"
+            <!-- <au-textbox value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder"
                 read-only.bind="true">
-            </au-textbox>
+            </au-textbox> -->
+
+            <au-autocomplete value.bind="selectedProductionOrder" query.bind="filter"
+                read-only.bind="readOnly || isEdit" error.bind="error.ProductionOrder"
+                loader.bind="productionOrderLoader" key="OrderNo" text.bind="productionOrderTextFormatter">
+            </au-autocomplete>
         </td>
         <td>
             <au-textbox value.bind="data.ConstructionName" read-only.bind="true"></au-textbox>
-            <au-textbox value.bind="data.Material" error.bind="error.Material" read-only.bind="true"
-                show.bind="!data.ProductionOrder"></au-textbox>
-            <au-textbox value.bind="data.MaterialConstruction" error.bind="error.MaterialConstruction"
-                read-only.bind="true" show.bind="!data.ProductionOrder"></au-textbox>
-            <au-textbox value.bind="data.MaterialWidth" read-only.bind="true" show.bind="!data.ProductionOrder">
-            </au-textbox>
-            <au-textbox value.bind="data.ColorRequest" read-only.bind="true" show.bind="!data.ProductionOrder">
-            </au-textbox>
-            <au-textbox value.bind="data.ColorTemplate" read-only.bind="true" show.bind="!data.ProductionOrder">
-            </au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.UnitOrCode" error.bind="error.UnitOrCode" read-only.bind="readOnly"
@@ -27,7 +22,7 @@
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="Weight" error.bind="error.Weight" format="0,0.00" read-only.bind="readOnly">
+            <au-numeric value.bind="Length" error.bind="error.Length" format="0,0.00" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td>

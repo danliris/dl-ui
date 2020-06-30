@@ -27,7 +27,7 @@ export class DataForm {
     "Aval A (Lap Besar)", "Aval B (Lap Kecil)", "Aval Solid TR", "Aval Batik TW (karantina)"];
 
   itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-    "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+    "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
   areas = [
@@ -74,14 +74,14 @@ export class DataForm {
 
     if (this.readOnly) {
       this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-        "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+        "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
     } else {
       if (this.isEdit) {
         this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-          "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat", ""];
+          "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", ""];
       } else {
         this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
-          "Warna", "Motif", "Macam Barang", "Satuan", "Qty IN", "Qty Satuan", "Qty Berat"];
+          "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
       }
     }
 
@@ -103,7 +103,6 @@ export class DataForm {
   async avalTypeChanged(n, o) {
     if (this.avalType) {
       this.data.avalType = this.avalType;
-      console.log(this.avalType);
       if (!this.data.id) {
         if (this.avalType == "") {
           this.data.displayAvalTransformationProductionOrders = [];
@@ -111,7 +110,6 @@ export class DataForm {
           this.data.displayAvalTransformationProductionOrders = await this.service.getProductionOrderFromInput(this.avalType);
         }
       }
-      console.log(this.data.displayAvalTransformationProductionOrders)
     } else {
       this.data.displayAvalTransformationProductionOrders = [];
       this.data.avalType = null;

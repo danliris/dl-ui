@@ -19,18 +19,18 @@ export class DataForm {
     activeTab = 0;
     changeRole(tab) {
         this.activeTab = tab;
-        if (tab != 2) {
-            this.context.saveCallback=null;
-            this.context.cancelCallback=null;
-            this.context.deleteCallback=null;
-            this.context.editCallback=null;
-        }
-        else{
-            this.context.saveCallback=this.save;
-            this.context.cancelCallback=this.cancel;
-            this.context.deleteCallback=this.delete;
-            this.context.editCallback=this.edit;
-        }
+        // if (tab != 2) {
+        //     this.context.saveCallback=null;
+        //     this.context.cancelCallback=null;
+        //     this.context.deleteCallback=null;
+        //     this.context.editCallback=null;
+        // }
+        // else{
+        //     this.context.saveCallback=this.save;
+        //     this.context.cancelCallback=this.cancel;
+        //     this.context.deleteCallback=this.delete;
+        //     this.context.editCallback=this.edit;
+        // }
     }
 
     controlOptions = {
@@ -143,18 +143,18 @@ export class DataForm {
             this.selectedBuyer=this.data.buyerAgent;
             this.selectedSection=this.data.section;
         }
-        if(this.activeTab!=2){
-            this.context.saveCallback=null;
-            this.context.cancelCallback=null;
-            this.context.deleteCallback=null;
-            this.context.editCallback=null;
-        }
-        else{
-            this.context.saveCallback=this.save;
-            this.context.cancelCallback=this.cancel;
-            this.context.deleteCallback=this.delete;
-            this.context.editCallback=this.edit;
-        }
+        // if(this.activeTab!=2){
+        //     this.context.saveCallback=null;
+        //     this.context.cancelCallback=null;
+        //     this.context.deleteCallback=null;
+        //     this.context.editCallback=null;
+        // }
+        // else{
+        //     this.context.saveCallback=this.save;
+        //     this.context.cancelCallback=this.cancel;
+        //     this.context.deleteCallback=this.delete;
+        //     this.context.editCallback=this.edit;
+        // }
         this.data.items=this.Items;
         if(this.data.items && this.data.id){
             for(var item of this.data.items){

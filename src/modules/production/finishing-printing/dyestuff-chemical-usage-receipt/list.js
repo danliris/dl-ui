@@ -5,7 +5,7 @@ import numeral from 'numeral';
 var moment = require('moment');
 @inject(Router, Service)
 export class List {
-    context = ["Detail"];
+    context = ["Detail", "Cetak PDF"];
     itemYears = [];
     columns = [
         { field: "ProductionOrder.OrderNo", title: "No SPP" },
@@ -25,7 +25,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-               
+
                 return {
                     total: result.info.total,
                     data: result.data
@@ -46,6 +46,9 @@ export class List {
         switch (arg.name) {
             case "Detail":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

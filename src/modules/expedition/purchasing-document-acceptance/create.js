@@ -142,10 +142,9 @@ export class Create {
 
         if (this.supplier)
             filter.SupplierCode = this.supplier.code;
-
+        
         if (this.division)
-            filter.DivisionCode = this.division.code;
-
+            filter.DivisionCode = this.division.Code;
         let arg = {
             page: 1,
             size: 255,
