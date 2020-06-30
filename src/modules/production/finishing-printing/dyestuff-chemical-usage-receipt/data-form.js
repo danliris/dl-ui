@@ -95,11 +95,21 @@ export class DataForm {
                     var viscositasDate = null;
                     if (prevUsageReceipt) {
                         var dates = [];
-                        dates.push(new Date(prevUsageReceipt.Adjs1Date));
-                        dates.push(new Date(prevUsageReceipt.Adjs2Date));
-                        dates.push(new Date(prevUsageReceipt.Adjs3Date));
-                        dates.push(new Date(prevUsageReceipt.Adjs4Date));
-                        viscositasDate = dates.reduce(function (a, b) { return a > b ? a : b; });
+                        if (prevUsageReceipt.Adjs1Date) {
+                            dates.push(new Date(prevUsageReceipt.Adjs1Date));
+                        }
+                        if (prevUsageReceipt.Adjs2Date) {
+                            dates.push(new Date(prevUsageReceipt.Adjs2Date));
+                        }
+                        if (prevUsageReceipt.Adjs3Date) {
+                            dates.push(new Date(prevUsageReceipt.Adjs3Date));
+                        }
+                        if (prevUsageReceipt.Adjs4Date) {
+                            dates.push(new Date(prevUsageReceipt.Adjs4Date));
+                        }
+                        if (dates.length > 0) {
+                            viscositasDate = dates.reduce(function (a, b) { return a > b ? a : b; });
+                        }
                     }
                     for (var detail of item.StrikeOffItemDetails) {
                         var prevDetail = null;
@@ -115,13 +125,13 @@ export class DataForm {
                             usageDetail.ReceiptQuantity = prevDetail.ReceiptQuantity + prevDetail.Adjs1Quantity + prevDetail.Adjs2Quantity + prevDetail.Adjs3Quantity + prevDetail.Adjs4Quantity;
                         } else if (prevDetail && prevDetail.Name.toLowerCase() === "viscositas") {
                             if (viscositasDate) {
-                                if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs4Date).getTime()) {
+                                if (prevUsageReceipt.Adjs4Date && viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs4Date).getTime()) {
                                     usageDetail.ReceiptQuantity = prevDetail.Adjs4Quantity;
-                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs3Date).getTime()) {
+                                } else if (prevUsageReceipt.Adjs3Date && viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs3Date).getTime()) {
                                     usageDetail.ReceiptQuantity = prevDetail.Adjs3Quantity;
-                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs2Date).getTime()) {
+                                } else if (prevUsageReceipt.Adjs2Date && viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs2Date).getTime()) {
                                     usageDetail.ReceiptQuantity = prevDetail.Adjs2Quantity;
-                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs1Date).getTime()) {
+                                } else if (prevUsageReceipt.Adjs1Date && viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs1Date).getTime()) {
                                     usageDetail.ReceiptQuantity = prevDetail.Adjs1Quantity;
                                 }
                             } else {
