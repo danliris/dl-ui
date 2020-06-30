@@ -105,6 +105,19 @@ module.exports = [
         }
     },
     {
+        route: 'vb-non-po-request',
+        name: 'vb-non-po-request',
+        moduleId: './modules/purchasing/vb-non-po-request/index',
+        nav: true,
+        title: 'Permohonan VB Non PO',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po-external/all',
         name: 'purchase-order-external-kasei',
         moduleId: './modules/purchasing/purchase-order-external-kasei/index',
