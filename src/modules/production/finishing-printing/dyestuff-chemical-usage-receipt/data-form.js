@@ -92,19 +92,44 @@ export class DataForm {
                     usageReceipt.ColorCode = item.ColorCode;
                     usageReceipt.UsageReceiptDetails = [];
                     var idx = 0;
+                    var viscositasDate = null;
+                    if (prevUsageReceipt) {
+                        var dates = [];
+                        dates.push(new Date(prevUsageReceipt.Adjs1Date));
+                        dates.push(new Date(prevUsageReceipt.Adjs2Date));
+                        dates.push(new Date(prevUsageReceipt.Adjs3Date));
+                        dates.push(new Date(prevUsageReceipt.Adjs4Date));
+                        viscositasDate = dates.reduce(function (a, b) { return a > b ? a : b; });
+                    }
+                    console.log(viscositasDate);
                     for (var detail of item.StrikeOffItemDetails) {
                         var prevDetail = null;
                         if (prevUsageReceipt) {
                             prevDetail = prevUsageReceipt.UsageReceiptDetails.find(s => s.Name == detail.Name);
+
                         }
 
                         var usageDetail = {};
                         usageDetail.Index = idx++;
                         usageDetail.Name = detail.Name;
-
                         if (prevDetail && prevDetail.Name.toLowerCase() !== "viscositas") {
                             usageDetail.ReceiptQuantity = prevDetail.ReceiptQuantity + prevDetail.Adjs1Quantity + prevDetail.Adjs2Quantity + prevDetail.Adjs3Quantity + prevDetail.Adjs4Quantity;
-                        } else {
+                        } else if (prevDetail && prevDetail.Name.toLowerCase() === "viscositas") {
+                            if (viscositasDate) {
+                                if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs4Date).getTime()) {
+                                    usageDetail.ReceiptQuantity = prevDetail.Adjs4Quantity;
+                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs3Date).getTime()) {
+                                    usageDetail.ReceiptQuantity = prevDetail.Adjs3Quantity;
+                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs2Date).getTime()) {
+                                    usageDetail.ReceiptQuantity = prevDetail.Adjs2Quantity;
+                                } else if (viscositasDate.getTime() === new Date(prevUsageReceipt.Adjs1Date).getTime()) {
+                                    usageDetail.ReceiptQuantity = prevDetail.Adjs1Quantity;
+                                }
+                            } else {
+                                usageDetail.ReceiptQuantity = detail.Quantity;
+                            }
+                        }
+                        else {
                             usageDetail.ReceiptQuantity = detail.Quantity;
                         }
 
@@ -114,6 +139,5 @@ export class DataForm {
                 }
             }
         }
-        console.log(this.data.UsageReceiptItems);
     }
 }
