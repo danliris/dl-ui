@@ -147,8 +147,8 @@ export class List {
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             category : this.category ? this.category : "",
             supplier : this.supplier ? this.supplier.Id : "",
-            suppliertype : this.Tipe? this.Tipe : ""
-           }
+            suppliertype: this.Tipe
+        }
 
         this.service.generateExcel(filter)
             .catch(e => {
