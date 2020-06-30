@@ -101,7 +101,6 @@ export class DataForm {
                         dates.push(new Date(prevUsageReceipt.Adjs4Date));
                         viscositasDate = dates.reduce(function (a, b) { return a > b ? a : b; });
                     }
-                    console.log(viscositasDate);
                     for (var detail of item.StrikeOffItemDetails) {
                         var prevDetail = null;
                         if (prevUsageReceipt) {
