@@ -52,6 +52,8 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        this.selectedCurrency = this.data.Currency;
+
         if (!this.data.Spinning1) {
             this.data.Spinning1 = false;
         }
@@ -127,6 +129,7 @@ export class DataForm {
         return CurrencyLoader;
     }
 
+    @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
         this.data.Currency = newValue;
     }

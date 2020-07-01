@@ -10,6 +10,10 @@
         if.one-way="context.hasDelete">Hapus</button>
     </div>
 
+    <au-textbox value.bind="data.VBNo" if.bind="data.VBNo" label="No VB" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-textbox>
+
     <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly"
       options.bind="controlOptions">
     </au-datepicker>
@@ -30,6 +34,9 @@
     <au-multiline label="Kegunaan" value.bind="data.Usage" error.bind="error.Usage" placeholder="Untuk Pembayaran"
       read-only.bind="readOnly" options.bind="controlOptions">
     </au-multiline>
+
+    <au-textbox error.bind="error.UnitLoadCheck" show.bind="error.UnitLoadCheck" read-only.bind="true">
+    </au-textbox>
 
     <div class="row">
       <div class="col-sm-5" style="padding-left:3.5%">
@@ -73,7 +80,7 @@
 
 
     </div>
-    <!-- ==================================================== -->
+
     <div class="row">
 
       <div class="col-sm-2">
