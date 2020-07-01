@@ -32,6 +32,10 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
@@ -52,4 +56,4 @@ class SalesService extends RestService {
     }
 }
 
-export { Service, SalesService}
+export { Service, SalesService }
