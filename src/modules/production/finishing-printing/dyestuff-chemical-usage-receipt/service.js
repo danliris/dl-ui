@@ -40,4 +40,9 @@ export class Service extends RestService {
     return super.getPdf(endpoint);
   }
 
+  getPrevData(strikeOffId) {
+    let endpoint = `${serviceUri}/strike-off/${strikeOffId}`;
+    return super.get(endpoint);
+  }
+
 }

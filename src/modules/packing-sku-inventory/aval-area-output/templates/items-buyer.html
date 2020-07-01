@@ -46,16 +46,7 @@
       >
       </au-numeric>
     </td>
-    <td style="white-space: nowrap;"
-        if.bind = "!isPenjualan"
-    >
-      <au-textbox
-        value.bind="data.DeliveryNote"
-        read-only.bind="readOnly"
-        error.bind="error.DeliveryNote"
-      >
-      </au-textbox>
-    </td>
+
     <td class="col-sm-1" if.bind="!readOnly">
       <button
         class="btn btn-danger pull-right"

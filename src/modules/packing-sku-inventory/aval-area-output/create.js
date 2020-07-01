@@ -65,7 +65,8 @@ export class Create {
           remappedItems.AvalQuantityKg = item.AvalQuantityKg;
           remappedItems.AvalOutSatuan = item.AvalOutSatuan;
           remappedItems.AvalOutQuantity = item.AvalOutQuantity;
-
+          if(item.DeliveryNote)
+            remappedItems.DeliveryNote = item.DeliveryNote;
           return remappedItems;
         }
       );

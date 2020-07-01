@@ -78,6 +78,20 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-sales-contract',
+        name: 'garment-sales-contract',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract Per RO (Semua User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
         route: "garment-shipping/packing-list",
         name: "garment-shipping/packing-list",
         moduleId: "modules/garment-shipping/packing-list/index",
@@ -252,6 +266,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/monitoring/packing-list/index",
         nav: true,
         title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/invoice",
+        name: "garment-shipping/monitoring/invoice",
+        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
+        nav: true,
+        title: "Monitoring Invoice Export Garment",
         auth: true,
         settings: {
             group: "g-shipping",

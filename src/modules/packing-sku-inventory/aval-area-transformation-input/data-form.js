@@ -103,7 +103,6 @@ export class DataForm {
   async avalTypeChanged(n, o) {
     if (this.avalType) {
       this.data.avalType = this.avalType;
-      console.log(this.avalType);
       if (!this.data.id) {
         if (this.avalType == "") {
           this.data.displayAvalTransformationProductionOrders = [];
@@ -111,7 +110,6 @@ export class DataForm {
           this.data.displayAvalTransformationProductionOrders = await this.service.getProductionOrderFromInput(this.avalType);
         }
       }
-      console.log(this.data.displayAvalTransformationProductionOrders)
     } else {
       this.data.displayAvalTransformationProductionOrders = [];
       this.data.avalType = null;

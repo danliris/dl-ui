@@ -51,6 +51,9 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
+        this.selectedShippingInvoice={
+            invoiceNo:this.data.invoiceNo
+        }
     }
 
     selectedShippingInvoiceChanged(newValue, oldValue) {
