@@ -6,7 +6,7 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail"]
+    context = ["detail","Cetak PDF"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
@@ -40,7 +40,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
                 for (const data of result.data) {
                     data.EMKLName = data.emkl.name;
                     data.BuyerAgentName=data.buyerAgent.name;
@@ -63,6 +62,9 @@ export class List {
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
+                break;
+            case "Cetak PDF": 
+                this.service.getPdfById(data.id); 
                 break;
         }
     }

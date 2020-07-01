@@ -1,7 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'garment-shipping/shipping-instructions';
-const serviceUriPackingList = 'garment-shipping/packing-lists';
+const serviceUri = 'garment-shipping/local-return-notes';
+const serviceSalesNoteUri = 'garment-shipping/local-sales-notes';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -32,30 +32,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
-
-    searchPackingList(info) {
-        var endpoint = `${serviceUriPackingList}`;
-        return super.list(endpoint, info);
-    }
-
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
-        return super.getPdf(endpoint);
-    }
-}
-
-
-const serviceUriBuyer = 'master/garment-buyers';
-class CoreService extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "core");
-    }
-
-    getBuyerById(id) {
-        var endpoint = `${serviceUriBuyer}/${id}`;
+    
+    getSalesNoteById(id) {
+        var endpoint = `${serviceSalesNoteUri}/${id}`;
         return super.get(endpoint);
     }
 }
 
-
-export { Service, CoreService}
+export { Service }

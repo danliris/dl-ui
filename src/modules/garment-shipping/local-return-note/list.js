@@ -6,24 +6,23 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail","Cetak PDF FOB", "Cetak PDF FOB-CMT"]
+    context = ["detail"]
 
     columns = [
-        { field: "invoiceNo", title: "No Invoice" },
-       
+        { field: "returnNoteNo", title: "No Nota Retur" },
+        { field: "salesNote.noteNo", title: "No Nota Penjualan" },
         {
-            field: "invoiceDate", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "salesNote.date", title: "Tgl Penjualan", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "from", title: "From" },
-        { field: "to", title: "To"},
-        { field: "buyerAgent.name", title: "Buyer Agent" },
+        { field: "salesNote.buyerCode", title: "Buyer" },
         {
-            field: "sailingDate", title: "Sailing", formatter: function (value, data, index) {
+            field: "dueDate", title: "Tgl Jatuh Tempo", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
-            }
+            }, sortable: false
         },
+        { field: "salesNote.dispositionNo", title: "No Disposisi" },
     ];
 
     loader = (info) => {
@@ -40,13 +39,28 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result.data);
-                
+                for (const data of result.data) {
+                    data.salesNote.buyer = data.salesNote.buyer || {};
+                    data.salesNote.buyerCode = `${data.salesNote.buyer.code} - ${data.salesNote.buyer.name}`;
+                    data.dueDate = this.dueDate(data.salesNote.date, data.salesNote.tempo);
+                }
+
                 return {
                     total: result.info.total,
                     data: result.data
                 }
             });
+    }
+
+    dueDate(date, tempo) {
+        if (!date) {
+            return null;
+        }
+
+        let dueDate = new Date(date || new Date());
+        dueDate.setDate(dueDate.getDate() + tempo);
+        
+        return dueDate;
     }
 
     constructor(router, service) {
@@ -60,12 +74,6 @@ export class List {
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "Cetak PDF FOB": 
-                this.service.getPdfById(data.id, "fob"); 
-                break;
-            case "Cetak PDF FOB-CMT": 
-                this.service.getPdfById(data.id, "cmt"); 
                 break;
         }
     }

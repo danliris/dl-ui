@@ -80,11 +80,20 @@
     <au-dropdown
     options.bind="controlOptions"
     label="Zona"
-    value.bind="data.DestinationArea"
+    value.bind="selectedZona"
     error.bind="error.DestinationArea"
     read-only.bind="readOnly"
     items.bind="destinationAreas"
+    change-delegate="selectedZonaChanged"
   ></au-dropdown>
+
+  <au-autocomplete options.bind="controlOptions" value.bind="selectedAvalBon" label="Nomor Bon"
+  read-only.bind="readOnly" error.bind="error.BonNo" loader.bind="avalAreaLoader"
+  if.bind ="!isPenjualan"
+  text.bind="avalBonTextFormatter"
+  change.delegate = "selectedAvalBonChanged"
+  query.bind="penjualanFilter">
+  </au-autocomplete>
   
     <!-- <au-autocomplete
       options.bind="controlOptions"
@@ -101,7 +110,7 @@
       label="No. DO"
       value.bind="data.doNO"
       error.bind="error.DoNO"
-      read-only.bind="readOnly"
+      read-only.bind="readOnly || !isPenjualan"
     ></au-textbox>
     <!-- <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
@@ -191,6 +200,20 @@
       read-only.bind="readOnly"
       item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
       add.bind = "addItems"
+      if.bind = "isPenjualan"
+    >
+    </au-collection>
+
+    <au-collection
+      
+      columns.bind="dyeingPrintingBuyerItemsColumns"
+      items.bind="data.DyeingPrintingItems"
+      errors.bind="error.AvalItemsBuyer"
+      options.bind="itemOptions"
+      read-only.bind="readOnly"
+      item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
+      add.bind = "addItems"
+      if.bind = "!isPenjualan"
     >
     </au-collection>
     <!-- <div
