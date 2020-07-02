@@ -187,7 +187,6 @@ export class DataForm {
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
             }
-            console.log(this.data.displayInspectionMaterialProductionOrders);
         } else {
 
             this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInput();

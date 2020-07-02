@@ -28,10 +28,9 @@
             </au-numeric>
         </td>
         <td >
-            <au-numeric
-                value.bind="cmb"
-                read-only.bind="true">
-            </au-numeric>
+            <div class="form-group">
+                <p class="form-control-static text-right">${cmb}</p>
+            </div>
         </td>
 
         <td if.bind="!readOnly">
