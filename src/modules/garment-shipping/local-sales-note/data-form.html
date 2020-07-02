@@ -13,7 +13,7 @@
                 </au-datepicker>
 
                 <au-autocomplete label="Jenis Transaksi" placeholder="Pilih Jenis Transaksi"
-                    value.bind="data.transactionType" error.bind="error.transactionType"
+                    value.bind="selectedTransactionType" error.bind="error.transactionType"
                     loader.bind="transactionTypeLoader" text.bind="transactionTypeView"
                     read-only.bind="readOnly || isEdit" options.bind="controlOptions">
                 </au-autocomplete>
@@ -64,7 +64,8 @@
                 </au-textbox>
 
                 <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
-                    add.bind="items.onAdd" read-only.bind="readOnly" options.bind="items.options"
+                    add.bind="items.onAdd" read-only.bind="readOnly || !data.transactionType"
+                    options.bind="items.options"
                     item-template="modules/garment-shipping/local-sales-note/template/item">
                 </au-collection>
 

@@ -128,7 +128,6 @@ export class DataForm {
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
             }
-            console.log(this.data.displayTransitProductionOrders);
         } else {
 
             this.data.displayTransitProductionOrders = await this.service.getProductionOrderInput();

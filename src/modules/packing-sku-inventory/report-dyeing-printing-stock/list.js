@@ -197,7 +197,6 @@ export class List {
 
             return this.listDataFlag ? this.service.searchAval(arg)
                 .then((result) => {
-                    console.log(result);
                     return {
                         data: result.data
                     }

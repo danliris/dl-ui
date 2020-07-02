@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak Bukti Pengiriman"];
+    context = ["Rincian", "Cetak Bon Pengiriman"];
     columns = [
         { field: "code", title: "Kode BON" },
         {
@@ -55,7 +55,7 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
-            case "Cetak Bukti Pengiriman":
+            case "Cetak Bon Pengiriman":
                 this.service.getPdfById(data.id);
                 break;
         }

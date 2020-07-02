@@ -15,6 +15,7 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.error = {};
+        this.selectedTransactionType = this.data.transactionType;
     }
 
     cancelCallback(event) {

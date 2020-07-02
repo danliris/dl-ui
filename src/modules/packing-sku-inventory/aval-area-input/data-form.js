@@ -32,7 +32,7 @@ export class DataForm {
         pagination: false
     }
     // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
-    itemColumns = ["No. SPP", "Qty Order","No. Kereta","Material", "Unit", "Buyer", "Warna", "Motif", "Macam Barang", "Satuan","Qty IN","Zona Awal"];
+    itemColumns = ["No. SPP", "Qty Order","No. Kereta","Material", "Unit", "Buyer", "Warna", "Motif", "Macam Barang", "Satuan","Qty IN","Zona Awal","No. Mesin"];
     
     groups = ["","A", "B"];
 
