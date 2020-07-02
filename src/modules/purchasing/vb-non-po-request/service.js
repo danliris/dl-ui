@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'down-payments';
+const serviceUri = 'vb-non-po-request';
 
 export class Service extends RestService {
 
@@ -24,6 +24,11 @@ export class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
+        return super.post(endpoint, data);
+    }
+
+    post(data) {
+        var endpoint = 'vb-non-po-request/post';
         return super.post(endpoint, data);
     }
 
