@@ -12,7 +12,7 @@ export class List {
         { field: "returnNoteNo", title: "No Nota Retur" },
         { field: "salesNote.noteNo", title: "No Nota Penjualan" },
         {
-            field: "salesNote.date", title: "Tgl Penjualan", formatter: function (value) {
+            field: "returnDate", title: "Tgl Retur", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -75,6 +75,7 @@ export class List {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
+            
         }
     }
 
