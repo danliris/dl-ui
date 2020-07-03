@@ -44,6 +44,9 @@ export class PurchaseOrderItem {
     //   "UnitName":this.context.context.options.unitCode,
     //   "IsPosted":false
     // };
+    this.filter={
+      "POCashType":"VB",
+    };
   }
 
   get purchaseOrderLoader() {

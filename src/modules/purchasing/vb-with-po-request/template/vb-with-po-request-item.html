@@ -5,7 +5,7 @@
                 <au-autocomplete value.bind="selectedPurchaseOrder" error.bind="error.purchaseOrder"
                     change.delegate="selectedPurchaseOrderChanged($event)" loader.bind="purchaseOrderLoader"
                     text.bind="purchaseOrderView" placeholder="cari nomor purchase order" key="prNo"
-                    read-only.bind="options.readOnly" options.bind="controlOptions">
+                    read-only.bind="options.readOnly" options.bind="controlOptions" query.bind="filter">
                 </au-autocomplete>
             </div>
             <div class="col-sm-1">
