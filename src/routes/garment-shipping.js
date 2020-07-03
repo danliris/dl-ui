@@ -196,6 +196,45 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/invoice",
+        name: "garment-shipping/monitoring/invoice",
+        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
+        nav: true,
+        title: "Monitoring Invoice Export Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/debit-note",
+        name: "garment-shipping/monitoring/debit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
+        nav: true,
+        title: "Monitoring Nota Debit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/credit-note",
+        name: "garment-shipping/monitoring/credit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
+        nav: true,
+        title: "Monitoring Nota Kredit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/credit-note",
         name: "garment-shipping/credit-note",
         moduleId: "modules/garment-shipping/credit-note/index",
@@ -272,20 +311,7 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
-    {
-        route: "garment-shipping/monitoring/invoice",
-        name: "garment-shipping/monitoring/invoice",
-        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
-        nav: true,
-        title: "Monitoring Invoice Export Garment",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
+    },    
     {
         route: "garment-shipping/local-price-correction-note",
         name: "garment-shipping/local-price-correction-note",
