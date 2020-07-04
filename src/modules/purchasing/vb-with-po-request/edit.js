@@ -24,7 +24,7 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.dialog.prompt('Apakah anda yakin akan menyimpan perubahan data ini?', 'Ubah Permohonan VB Non PO')
+        this.dialog.prompt('Apakah anda yakin akan menyimpan perubahan data ini?', 'Ubah Permohonan VB dengan PO')
             .then((response) => {
                 if (response.ok) {
                     this.service.update(this.data)
