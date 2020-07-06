@@ -14,19 +14,40 @@ export class List {
       return {}
   }
 
-  context = ["Detail", "Cetak Bukti Pembayaran"]
+  context = ["Detail", "Cetak Bukti Permohonan"]
 
   columns = [
-    { field: "DocumentNo", title: "No. VB" },
     {
-      field: "DatePayment", title: "Tanggal", formatter: function (value, data, index) {
+      field: "isPosting", title: "Post", checkbox: true, sortable: false,
+      formatter: function (value, data, index) {
+        
+        if(data.Status_Post == "Sudah"){
+          this.checkboxEnabled = false;
+          return "";
+        }
+        else{
+          this.checkboxEnabled = true;
+          return "";
+        }        
+      }
+    },
+    { field: "VBNo", title: "No. VB" },
+    {
+      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "BuyerName", title: "Beban Unit" },
-    { field: "CategoryAcceptance", title: "Dibuat oleh" },
-    
-    { field: "CurrencyCode", title: "Status Pots" }
+    { field: "UnitLoad", title: "Beban Unit" },
+    { field: "CreateBy", title: "Dibuat oleh" },
+    // {
+    //   field: "Status_Post", title: "Status Post",
+    //   formatter: function (value, row, index) {
+    //     return value ? "Sudah" : "Belum";
+    //   }
+    // },
+    { field: "Status_Post", title: "Status Post" },
+    { field: "Approve_Status", title: "Status Approved" },
+    { field: "Complete_Status", title: "Status Complete" }
   ];
 
   async activate(params) {
@@ -39,13 +60,14 @@ export class List {
     if (info.sort)
         order[info.sort] = info.order;
     else
-        order["DatePayment"] = "desc";
+        order["Date"] = "desc";
 
     let arg = {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        order: order
+        order: order,
+        filter: JSON.stringify({ VBRequestCategory: "NONPO" }),
     };
 
     return this.service.search(arg)
@@ -69,7 +91,7 @@ export class List {
       case "Detail":
         this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
         break;
-      case "Cetak Bukti Pembayaran":
+      case "Cetak Bukti Permohonan":
         this.service.getSalesReceiptPdfById(data.Id);
         break;
     }
@@ -77,10 +99,21 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Bukti Pembayaran":
+      case "Cetak Bukti Permohonan":
         return data;
       default:
         return true;
+    }
+  }
+
+  posting() {
+    if (this.dataToBePosted.length > 0) {
+      // console.log(this.dataToBePosted);
+      this.service.post(this.dataToBePosted).then(result => {
+        this.table.refresh();
+      }).catch(e => {
+        this.error = e;
+      })
     }
   }
 

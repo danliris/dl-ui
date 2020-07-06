@@ -6,13 +6,13 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail"]
+    context = ["detail","Cetak PDF"]
 
     columns = [
         { field: "returnNoteNo", title: "No Nota Retur" },
         { field: "salesNote.noteNo", title: "No Nota Penjualan" },
         {
-            field: "salesNote.date", title: "Tgl Penjualan", formatter: function (value) {
+            field: "returnDate", title: "Tgl Retur", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -74,6 +74,9 @@ export class List {
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
+                break;
+            case "Cetak PDF": 
+                this.service.getPdfById(data.id); 
                 break;
         }
     }

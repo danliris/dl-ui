@@ -17,6 +17,17 @@
                 read-only.bind="readOnly" placeholder="Satuan" text.bind="uomView">
             </au-autocomplete>
         </td>
+        
+        <td class="col-sm-2">
+            <au-numeric value.bind="data.packageQuantity" error.bind="error.packageQuantity" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+
+        <td class="col-sm-2">
+            <au-autocomplete value.bind="data.packageUom" error.bind="error.packageUom" loader.bind="uomLoader"
+                read-only.bind="readOnly" placeholder="Satuan" text.bind="uomView">
+            </au-autocomplete>
+        </td>
 
         <td class="col-sm-2">
             <au-numeric value.bind="data.price" error.bind="error.price" read-only.bind="readOnly">
