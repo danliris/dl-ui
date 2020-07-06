@@ -26,6 +26,8 @@ export class DataForm {
             "Kode - Nama Barang",
             "Quantity",
             "Satuan",
+            "Jumlah Kemasan ",
+            "Satuan Kemasan",
             "Harga",
             "Total"
         ],
