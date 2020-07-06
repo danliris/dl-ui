@@ -1,27 +1,27 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
 
-  constructor(router, service) {
+  constructor(router, service, dialog) {
     this.router = router;
     this.service = service;
+    this.dialog = dialog;
   }
 
   async activate(params) {
-    var id = params.id;
+    let id = params.id;
     this.data = await this.service.getById(id);
-    this.ressearch = params.search;
   }
 
   cancel(event) {
-    this.router.navigateToRoute('list' , {search: this.ressearch });
+    this.router.navigateToRoute('list');
   }
 
   edit(event) {
@@ -32,7 +32,7 @@ export class View {
     // this.service.delete(this.data).then(result => {
     //     this.cancel();
     // });
-    this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Bukti Pemasukan Bank')
+    this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Permohonan VB Non PO')
       .then(response => {
         if (response.ok) {
           this.service.delete(this.data)
