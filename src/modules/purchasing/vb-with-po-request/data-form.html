@@ -18,9 +18,13 @@
       options.bind="controlOptions">
     </au-datepicker>
 
-    <au-dropdown label="Kode VB" value.bind="data.VBCode" error.bind="error.VBCode" read-only.bind="readOnly"
+    <!-- <au-dropdown label="Kode VB" value.bind="data.VBCode" error.bind="error.VBCode" read-only.bind="readOnly"
       items.bind="ListCategory" options.bind="controlOptions">
-    </au-dropdown>
+    </au-dropdown> -->
+
+    <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCode" label="Kode VB" loader.one-time="unitLoader"
+      text.bind="unitView" read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB">
+    </au-autocomplete>
 
     <au-textbox
             show.bind="error.itemscount"

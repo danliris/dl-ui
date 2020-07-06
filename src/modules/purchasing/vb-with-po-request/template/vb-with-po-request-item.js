@@ -28,7 +28,7 @@ export class PurchaseOrderItem {
     this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
     this._items=[];
-    // console.log(this.data);
+
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
