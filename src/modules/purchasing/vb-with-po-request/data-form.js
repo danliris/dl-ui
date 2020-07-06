@@ -5,6 +5,7 @@ var BankLoader = require('../../../loader/account-banks-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
 var BuyerLoader = require('../../../loader/buyers-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
+const UnitLoader = require('../../../loader/unit-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -39,6 +40,10 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+        if (this.data.Unit && this.data.Unit.Id) {
+            this.selectedUnit = this.data.Unit;
+        }
     }
 
     get addItems() {
@@ -54,5 +59,29 @@ export class DataForm {
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
         this.data.Currency = newValue;
+    }
+
+    @bindable selectedUnit;
+    selectedUnitChanged(newValue, oldValue){
+        if (this.selectedUnit && this.selectedUnit.Id) {
+            this.data.unit = {};
+            this.data.unit.id = this.selectedUnit.Id;
+            this.data.unit.name = this.selectedUnit.Name;
+            this.data.unit.code = this.selectedUnit.Code;
+        }
+        else {
+            this.data.unit.id = this.selectedUnit.id;
+            this.data.unit.name = this.selectedUnit.name;
+            this.data.unit.code = this.selectedUnit.code;
+        }
+    }
+
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+
+    }
+
+    get unitLoader() {
+        return UnitLoader;
     }
 }
