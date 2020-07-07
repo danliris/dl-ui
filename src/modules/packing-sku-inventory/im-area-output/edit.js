@@ -13,10 +13,13 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        for (var item of this.data.inspectionMaterialProductionOrders) {
-            item.productionOrderDetails = item.productionOrderDetails.filter(s => s.hasNextAreaDocument === false);
+        if(this.data.type == "OUT"){
+            for (var item of this.data.inspectionMaterialProductionOrders) {
+                item.productionOrderDetails = item.productionOrderDetails.filter(s => s.hasNextAreaDocument === false);
+            }
+            this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.productionOrderDetails.length > 0);
         }
-        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.productionOrderDetails.length > 0);
+        
     }
 
     view(data) {

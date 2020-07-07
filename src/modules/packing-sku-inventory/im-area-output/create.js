@@ -17,7 +17,7 @@ export class Create {
     async activate(params) {
         this.data = {};
         this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInput();
-        
+
     }
 
 
@@ -32,7 +32,12 @@ export class Create {
     }
 
     save() {
-        this.data.inspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders;
+        if (this.data.type == "OUT") {
+            this.data.inspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders;
+        } else {
+            this.data.inspectionMaterialProductionOrders = this.data.adjInspectionMaterialProductionOrders;
+        }
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

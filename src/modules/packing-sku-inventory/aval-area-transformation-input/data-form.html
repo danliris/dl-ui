@@ -13,17 +13,17 @@
       items.bind="areas" show.bind="false"></au-dropdown>
 
     <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
-      read-only.bind="readOnly" label="Tanggal">
+      read-only.bind="readOnly || isEdit" label="Tanggal">
     </au-datepicker>
 
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
-      read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="shifts"></au-dropdown>
 
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
-      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
     <au-dropdown options.bind="controlOptions" label="Macam Barang" value.bind="avalType" error.bind="error.AvalType"
-      read-only.bind="readOnly" items.bind="avalTypes"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="avalTypes"></au-dropdown>
 
     <au-numeric label="Qty Satuan" value.bind="data.totalQuantity" format="0.00" read-only.bind="readOnly" error.bind="error.TotalQuantity"
       options.bind="controlOptions">

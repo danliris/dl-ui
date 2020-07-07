@@ -28,6 +28,9 @@ export class DataForm {
         },
     };
 
+    sppQuery = {
+        OrderTypeName: 'PRINTING'
+    };
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
@@ -80,7 +83,9 @@ export class DataForm {
     async selectedStrikeOffChanged(n, o) {
         if (this.selectedStrikeOff) {
             this.data.StrikeOff = this.selectedStrikeOff;
-            var prevData = await this.service.getPrevData(this.data.StrikeOff.Id);
+            var prevResult = await this.service.getPrevData(this.data.StrikeOff.Id);
+            var prevData = prevResult.Data;
+            this.data.RepeatedProductionOrderNo = prevResult.OrderNo;
             if (!this.data.Id) {
                 this.data.UsageReceiptItems = [];
                 for (var item of this.data.StrikeOff.StrikeOffItems) {
