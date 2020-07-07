@@ -17,20 +17,6 @@ export class List {
   context = ["Detail", "Cetak Bukti Permohonan"]
 
   columns = [
-    {
-      field: "isPosting", title: "Post", checkbox: true, sortable: false,
-      formatter: function (value, data, index) {
-        
-        if(data.Status_Post == "Sudah"){
-          this.checkboxEnabled = false;
-          return "";
-        }
-        else{
-          this.checkboxEnabled = true;
-          return "";
-        }        
-      }
-    },
     { field: "VBNo", title: "No. VB" },
     {
       field: "Date", title: "Tanggal", formatter: function (value, data, index) {
@@ -45,9 +31,16 @@ export class List {
     //     return value ? "Sudah" : "Belum";
     //   }
     // },
-    { field: "Status_Post", title: "Status Post" },
-    { field: "Approve_Status", title: "Status Approved" },
-    { field: "Complete_Status", title: "Status Complete" }
+    {
+      field: "Approve_Status", title: "Status Approved",
+      formatter: function (value, row, index) {
+        return value ? "Sudah" : "Belum";
+      }
+    },
+    { field: "Complete_Status", title: "Status Complete",
+    formatter: function (value, row, index) {
+      return value ? "Sudah" : "Belum";
+    } }
   ];
 
   async activate(params) {
