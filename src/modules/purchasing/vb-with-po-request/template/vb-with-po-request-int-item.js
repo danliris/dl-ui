@@ -18,8 +18,8 @@ export class PurchaseOrderItem {
     if (this.data) {
       this.updateItem();
     }
-    if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
-      this.error.price="Harga Barang Harus Diisi Dengan Angka";
+    // if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
+    //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
   }
   
     updateItem() {
@@ -46,13 +46,13 @@ export class PurchaseOrderItem {
       this.data.dealUom={};
       Object.assign(this.data.dealUom, this.data.defaultUom);
     }
-    if (!this.error && this.data.priceBeforeTax === 0) {
-      this.data.priceBeforeTax = this.data.product.price;
-    }
+    // if (!this.error && this.data.priceBeforeTax === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
 
-    if (!this.data.conversion || this.data.conversion === 0) {
-      this.data.priceBeforeTax = this.data.product.price;
-    }
+    // if (!this.data.conversion || this.data.conversion === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
 
     this.selectedDealUom = this.data.dealUom;
     if(!this.data.defaultUom){
@@ -109,17 +109,17 @@ export class PurchaseOrderItem {
   priceBeforeTaxChanged(e) {
     this.error={};
     
-    if(this.data.priceBeforeTax%1>=0){
-      if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
-        this.updatePrice();
-      }
-      else{
-        this.error.price="Harga tidak boleh lebih dari 15 digit";
-      }
-    }
-    else {
-      this.error.price="Harga Barang Harus Diisi Dengan Angka";
-    }
+    // if(this.data.priceBeforeTax%1>=0){
+    //   if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
+    //     this.updatePrice();
+    //   }
+    //   else{
+    //     this.error.price="Harga tidak boleh lebih dari 15 digit";
+    //   }
+    // }
+    // else {
+    //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
+    // }
     
   }
 

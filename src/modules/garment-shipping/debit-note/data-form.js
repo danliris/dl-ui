@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 
 const BuyerLoader = require('../../../loader/garment-buyers-loader');
+const AccountBankLoader = require('../../../loader/account-banks-loader');
 
 @inject(Service)
 export class DataForm {
@@ -36,8 +37,16 @@ export class DataForm {
         return BuyerLoader;
     }
 
+    get bankLoader() {
+        return AccountBankLoader;
+    }
+
     buyerView = (data) => {
         return `${data.Code || data.code} - ${data.Name || data.name}`;
+    }
+
+    bankView = (data) => {
+        return `${data.BankName || data.bankName} - ${data.Currency ? data.Currency.Code : data.currency.code }`;
     }
 
     bind(context) {
@@ -48,7 +57,7 @@ export class DataForm {
 
     get totalAmount() {
         this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
-        
+
         return this.data.totalAmount;
     }
 }

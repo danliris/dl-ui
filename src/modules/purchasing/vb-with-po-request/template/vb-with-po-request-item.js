@@ -28,14 +28,13 @@ export class PurchaseOrderItem {
     this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
     this._items=[];
-
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
-      if (this.data.details) {
-        this.data.items=this.data.details;
+      if (this.data.Details) {
+        this.data.Items=this.data.Details;
         this.isShowing = true;
       }
-      if (this.data.items) {
+      if (this.data.Items) {
         this.isShowing = true;
       }
 
@@ -55,14 +54,12 @@ export class PurchaseOrderItem {
 
   async selectedPurchaseOrderChanged(newValue) {
     this._items=[];
-    // console.log(newValue);
     if(newValue)
       if (newValue._id) {
         Object.assign(this.data, newValue);
-        
-        for (var productList of this.data.items){
+        for (var productList of this.data.Items){
 
-            for(var proddetail of productList.details){
+            for(var proddetail of productList.Details){
                 var itemData = {
                     product : proddetail.product,
                     defaultQuantity : proddetail.defaultQuantity,
