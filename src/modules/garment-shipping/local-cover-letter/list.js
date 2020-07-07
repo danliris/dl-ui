@@ -9,13 +9,14 @@ export class List {
     context = ["detail"]
 
     columns = [
+        { field: "localCoverLetterNo", title: "No Surat Pengantar", width: "25%" },
         { field: "noteNo", title: "No Nota Penjualan", width: "25%" },
         {
             field: "date", title: "Tgl Surat Pengantar", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }, width: "25%"
         },
-        { field: "buyerCode", title: "Buyer", width: "50%" },
+        { field: "buyerCode", title: "Buyer", width: "25%" },
     ];
 
     loader = (info) => {

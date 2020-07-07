@@ -40,7 +40,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
         }
@@ -48,7 +47,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.items.push({ purchaseRequest: { no: "" } })
+            this.data.Items.push({})
         };
     }
 
