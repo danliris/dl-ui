@@ -3,6 +3,10 @@
         <div class="col-sm-12">
             <au-input-form title.bind="title" with.bind="context">
 
+                <au-textbox label="No Surat Pengantar" value.bind="data.localCoverLetterNo" read-only="true"
+                    options.bind="controlOptions" if.bind="data.id">
+                </au-textbox>
+
                 <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
                     error.bind="error.localSalesNote" text="noteNo" loader.bind="salesNoteLoader"
                     placeholder="No Nota Penjualan" read-only.bind="readOnly || isEdit" options.bind="controlOptions">

@@ -6,7 +6,7 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail"]
+    context = ["Detail", "Cetak"]
 
     columns = [
         { field: "noteNo", title: "No Nota Kredit" },
@@ -54,8 +54,11 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail":
+            case "Detail":
                 this.router.navigateToRoute('view', { id: data.id });
+                break;
+            case "Cetak":
+                this.service.getPdfById(data.id);
                 break;
         }
     }
