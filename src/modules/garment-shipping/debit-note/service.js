@@ -32,9 +32,9 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
     
-    searchStock(info) {
-        var endpoint = stockServiceUri;
-        return super.list(endpoint, info);
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
     }
 }
 

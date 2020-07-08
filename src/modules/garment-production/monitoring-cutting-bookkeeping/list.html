@@ -54,6 +54,7 @@
                 <td>HASIL POTONG</td>
                 <td>BARANG KELUAR</td>
                 <td>SISA</td>
+                <td>NOMINAL SISA</td>
             </tr>
         </thead>
  
@@ -69,11 +70,12 @@
                 <td class="text-center">${item.fc}</td>
                 <td class="text-center">${item.hours}</td>
                 <td class="text-right">${item.cuttingQtyMeter}</td>
-                <td class="text-right">${item.price}</td>
+                <td class="text-right">${item.prices}</td>
                 <td class="text-right">${item.stocks}</td>
                 <td class="text-right">${item.cuttingsQtyPcs}</td> 
                 <td class="text-right">${item.expenditures}</td>
                 <td class="text-right">${item.remainQtys}</td>
+                <td class="text-right">${item.remainNominals}</td>
             </tr>
             <tr class="active">
                 <td class="text-center" colspan="10"><strong>T O T A L </strong></td>
@@ -81,6 +83,7 @@
                 <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
                 <td class="text-right"><strong>${sumExpenditure}</strong></td>
                 <td class="text-right"><strong>${sumRemainQty}</strong></td>
+                <td class="text-right"><strong>${sumNominals}</strong></td>
             </tr>
         </tbody>
     </table>

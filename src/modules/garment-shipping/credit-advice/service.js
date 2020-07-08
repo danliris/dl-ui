@@ -40,7 +40,7 @@ class Service extends RestService {
 }
 
 const serviceBuyerUri = 'master/garment-buyers';
-const serviceBankUri = 'master/garment-buyers';
+const serviceBankUri = 'master/account-banks';
 
 class CoreService extends RestService {
     constructor(http, aggregator, config, endpoint) {
