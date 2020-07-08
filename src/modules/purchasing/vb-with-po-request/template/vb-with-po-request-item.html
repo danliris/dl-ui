@@ -16,7 +16,7 @@
         </td>
         <td>
             <div class="col-sm-11">
-                <au-autocomplete value.bind="data.unit.Name" error.bind="error.Unitname" key="Unit"
+                <au-autocomplete value.bind="data.unit.Name || data.unit.name" error.bind="error.Unitname" key="Unit"
                     read-only.bind="true" options.bind="controlOptions">
                 </au-autocomplete>
             </div>
@@ -24,7 +24,7 @@
     </tr>
     <tr if.bind="isShowing">
         <td colspan="2">
-            <au-collection items.bind="data.Details" errors.bind="error.details" columns.bind="itemsColumns"
+            <au-collection items.bind="data.Details || data.details" errors.bind="error.details" columns.bind="itemsColumns"
                 options.bind="context.context.options" read-only.bind="options.readOnly"
                 header-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item-header"
                 item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-int-item">
