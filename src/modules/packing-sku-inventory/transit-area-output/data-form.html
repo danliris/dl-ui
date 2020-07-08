@@ -5,6 +5,9 @@
     <au-dropdown label="Area" value.bind="data.area" error.bind="error.Area" read-only.bind="readOnly"
       items.bind="areas" show.bind="false"></au-dropdown>
 
+    <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
+      read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
+
     <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
       read-only.bind="readOnly || isEdit" label="Tanggal">
     </au-datepicker>
@@ -16,32 +19,48 @@
       read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
 
-    <au-dropdown options.bind="controlOptions" label="Zona" value.bind="destinationArea"
+    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="destinationArea"
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
 
-    <au-autocomplete options.bind="controlOptions" value.bind="selectedFilterSPP" label="Filter Nomor SPP"
-      show.bind="!readOnly && !isEdit" read-only.bind="readOnly" error.bind="error.ProductionOrder"
-      loader.bind="filterSPPLoader" text.bind="sppTextFormatter">
+    <au-autocomplete if.bind="!isAdj" options.bind="controlOptions" value.bind="selectedFilterSPP"
+      label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly"
+      error.bind="error.ProductionOrder" loader.bind="filterSPPLoader" text.bind="sppTextFormatter">
     </au-autocomplete>
 
-    <au-textbox show.bind="error.TransitProductionOrder" read-only.bind="true" value.bind="error.TransitProductionOrder"
-      style="color: red;"></au-textbox>
-    <br>
-    <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
-    <br>
-    <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="!isEdit"
-      errors.one-way="error.TransitProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
-      header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
-      item-template="modules/packing-sku-inventory/transit-area-output/template/item">
-    </au-collection>
+    <div if.bind="!isAdj">
+      <au-textbox show.bind="error.TransitProductionOrder" read-only.bind="true"
+        value.bind="error.TransitProductionOrder" style="color: red;"></au-textbox>
+      <br>
+      <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+      <br>
+      <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="!isEdit"
+        errors.one-way="error.TransitProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
+        header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
+        item-template="modules/packing-sku-inventory/transit-area-output/template/item">
+      </au-collection>
 
-    <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="isEdit"
-      remove.bind="onremove" errors.one-way="error.TransitProductionOrders" options.bind="detailOptions"
-      read-only.bind="readOnly" header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
-      item-template="modules/packing-sku-inventory/transit-area-output/template/item">
-    </au-collection>
+      <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="isEdit"
+        remove.bind="onremove" errors.one-way="error.TransitProductionOrders" options.bind="detailOptions"
+        read-only.bind="readOnly"
+        header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
+        item-template="modules/packing-sku-inventory/transit-area-output/template/item">
+      </au-collection>
+    </div>
 
+    <div if.bind="isAdj">
+      <au-textbox show.bind="error.TransitProductionOrder" read-only.bind="true"
+        value.bind="error.TransitProductionOrder" style="color: red;"></au-textbox>
+      <br>
+      <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+      <br>
+      <au-collection columns.bind="adjItemColumns" items.bind="data.adjTransitProductionOrders"
+        options.bind="detailOptions" errors.one-way="error.TransitProductionOrders" add.bind="addItemCallback"
+        remove.bind="onremove" read-only.bind="readOnly"
+        item-template="modules/packing-sku-inventory/transit-area-output/template/adjItem">
+      </au-collection>
+
+    </div>
     <template replaceable part="actions"></template>
   </au-input-form>
 
