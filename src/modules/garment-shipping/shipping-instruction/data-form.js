@@ -90,17 +90,18 @@ export class DataForm {
             this.data.buyerAgent=newValue.buyerAgent;
             this.data.shippingStaffName=newValue.shippingStaff;
             this.data.shippingStaffId=newValue.shippingStaffId;
+            this.data.buyerAgentAddress=newValue.consigneeAddress;
             this.service.searchPackingList({filter : JSON.stringify({ InvoiceNo: this.data.invoiceNo })})
             .then(result=>{
                 var pl= result.data[0];
                 this.data.truckingDate=pl.truckingDate;
-                this.coreService.getBuyerById(this.data.buyerAgent.id)
-                .then(buyer=>{
-                    var city= buyer.City==null ? "": "\n" + buyer.City ;
-                    var country=buyer.Country==null? "" : "\n" + buyer.Country;
-                    this.data.buyerAgentAddress= buyer.Address + city + country;
+                // this.coreService.getBuyerById(this.data.buyerAgent.id)
+                // .then(buyer=>{
+                //     var city= buyer.City==null ? "": "\n" + buyer.City ;
+                //     var country=buyer.Country==null? "" : "\n" + buyer.Country;
+                //     this.data.buyerAgentAddress= buyer.Address + city + country;
                 
-                });
+                // });
             });
         }
     }
