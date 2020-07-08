@@ -24,8 +24,10 @@ export class DataForm {
             length: 4,
         },
     };
+    adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif","Keterangan", "Satuan", "QTY", "No Dokumen"];
     itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
     shifts = ["PAGI", "SIANG"];
+    types = ["OUT", "ADJ"];
     detailOptions = {};
     destinationAreas = ["INSPECTION MATERIAL", "PACKING", "GUDANG JADI", "GUDANG AVAL"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
@@ -54,6 +56,10 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
+    @computedFrom("data.type")
+    get isAdj() {
+        return this.data && this.data.type == "ADJ";
+    }
 
     groups = ["A", "B"];
 
@@ -75,10 +81,6 @@ export class DataForm {
             destinationArea: this.data.destinationArea
         };
 
-        if (this.data.transitProductionOrders) {
-            this.data.displayTransitProductionOrders = this.data.transitProductionOrders;
-        }
-
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
 
@@ -93,10 +95,24 @@ export class DataForm {
 
             }
         }
+
+        if (this.data.type == "OUT") {
+            if (this.data.transitProductionOrders) {
+                this.data.displayTransitProductionOrders = this.data.transitProductionOrders;
+
+            }
+        } else {
+            if (this.data.transitProductionOrders) {
+                this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
+
+            }
+
+        }
     }
+
     addItemCallback = (e) => {
-        this.data.displayTransitProductionOrders = this.data.displayTransitProductionOrders || [];
-        this.data.displayTransitProductionOrders.push({})
+        this.data.adjTransitProductionOrders = this.data.adjTransitProductionOrders || [];
+        this.data.adjTransitProductionOrders.push({})
     };
 
     ExportToExcel() {
