@@ -131,6 +131,19 @@ module.exports = [
         }
     },
     {
+        route: 'realization-vb-with-po',
+        name: 'realization-vb-with-po',
+        moduleId: './modules/purchasing/realization-vb-with-po/index',
+        nav: true,
+        title: 'Realisasi VB dengan PO',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po-external/all',
         name: 'purchase-order-external-kasei',
         moduleId: './modules/purchasing/purchase-order-external-kasei/index',
