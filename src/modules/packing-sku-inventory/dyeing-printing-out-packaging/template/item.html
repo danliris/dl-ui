@@ -1,12 +1,5 @@
-<template replace-part="PackagingList">
+<template replace-part="packagingProductionOrders">
     <tr>
-            <td show.bind="!readOnly">
-                    <au-checkbox
-                      value.bind="data.IsSave"
-                      disabled.bind="readOnly"
-                    >
-                    </au-checkbox>
-                  </td>
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
@@ -43,26 +36,26 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <!-- <td>
+        <td>
             <au-dropdown value.bind="data.packagingType" items.bind="packType" read-only.bind="readOnly" error.bind="error.PackagingType"
                 options.bind="controlOptions">
             </au-dropdown>
-        </td> -->
+        </td>
         <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <!-- <td>
+        <td>
             <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly" error.bind="error.PackagingQty" change.delegate="inputPackagingQTYChanged"
                 options.bind="controlOptions">
             </au-numeric>
-        </td> -->
-        <!-- <td>
+        </td>
+        <td>
             <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="readOnly" error.bind="error.PackagingUnit"
                 options.bind="controlOptions">
             </au-dropdown>
-        </td> -->
+        </td>
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
                 options.bind="controlOptions">
@@ -73,36 +66,24 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <!-- <td>
+        <td>
                 <au-numeric value.bind="saldoPerPackaging" format="0.00" read-only.bind="readOnly" error.bind="error.SaldoPerPackaging" change.delegate="saldoPerPackagingChanged"
                     options.bind="controlOptions">
                 </au-numeric>
-            </td> -->
+            </td>
         <td>
             <au-numeric value.bind="data.qtyOut" format="0.00" read-only.bind="true" error.bind="error.QtyOut"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <!-- <td>
+        <td>
                 <au-textbox value.bind="data.keterangan" read-only.bind="readOnly" error.bind="error.Keterangan"
                     options.bind="controlOptions">
                 </au-textbox>
-        </td> -->
-        <!-- <td if.bind="!options.readOnly">
+        </td>
+        <td if.bind="!options.readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-        </td> -->
+        </td>
 
-        <td>
-            <button class="btn btn-primary pull-right" click.delegate="showPackingList()">i</button>
-        </td>
-    </tr>
-    <tr if.bind="isShowPackingList">
-        <td colspan="11">
-        <au-collection columns.bind="columnPackinglist" items.bind="data.PackingListItem"
-        errors.one-way="error.PackingListItem" options.bind="detailOptions" read-only.bind="readOnly"
-        add.bind="addItemCallbackPackingList"
-        item-template="modules/packing-sku-inventory/dyeing-printing-out-packaging/template/item-packing">
-        </au-collection>
-        </td>
     </tr>
 </template>

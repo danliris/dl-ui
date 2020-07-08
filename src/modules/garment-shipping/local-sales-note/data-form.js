@@ -10,6 +10,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable title;
+    @bindable selectedTransactionType;
 
     controlOptions = {
         label: {
@@ -25,6 +26,8 @@ export class DataForm {
             "Kode - Nama Barang",
             "Quantity",
             "Satuan",
+            "Jumlah Kemasan ",
+            "Satuan Kemasan",
             "Harga",
             "Total"
         ],
@@ -32,6 +35,7 @@ export class DataForm {
             this.data.items.push({});
         }.bind(this),
         options: {
+            transactionTypeId: 0
         }
     };
 
@@ -59,6 +63,10 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
+
+        if (this.data && this.data.transactionType) {
+            this.items.options.transactionTypeId = this.data.transactionType.id;
+        }
     }
 
     get dueDate() {
@@ -76,5 +84,19 @@ export class DataForm {
         this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
         
         return this.data.totalAmount;
+    }
+
+    selectedTransactionTypeChanged(newValue, oldValue) {
+        if (newValue) {
+            this.data.transactionType = newValue;
+            this.items.options.transactionTypeId = newValue.Id;
+
+            if (oldValue && newValue.Id != oldValue.Id) {
+                this.data.items.splice(0);
+            }
+        } else {
+            this.data.transactionType = null;
+            this.data.items.splice(0);
+        }
     }
 }

@@ -6,14 +6,14 @@
       items.bind="areas" show.bind="false"></au-dropdown>
 
     <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
-      read-only.bind="readOnly" label="Tanggal">
+      read-only.bind="readOnly || isEdit" label="Tanggal">
     </au-datepicker>
 
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.shift" error.bind="error.Shift"
-      read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="shifts"></au-dropdown>
 
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
-      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
     <au-textbox options.bind="controlOptions" show.bind="isEdit" value.bind="data.bonNo" label="Nomor Bon"
       read-only.bind="true" error.bind="error.BonNo">

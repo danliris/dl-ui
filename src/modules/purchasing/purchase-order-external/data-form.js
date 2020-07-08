@@ -21,6 +21,7 @@ export class DataForm {
     IncomeTaxByOptions=["Supplier","Dan Liris"];
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+    poCashOptions = ['', 'DISPOSISI', 'VB'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
         label: {
@@ -72,6 +73,9 @@ export class DataForm {
         if (_selectedSupplier._id) {
             this.data.supplier = _selectedSupplier;
             this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+        } else {
+            this.data.supplier = null;
+            this.data.supplierId = null;
         }
     }
 

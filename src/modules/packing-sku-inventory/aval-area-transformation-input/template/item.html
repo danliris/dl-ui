@@ -69,7 +69,7 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <!-- <td>
             <au-numeric value.bind="data.avalQuantity" format="0.00" read-only.bind="readOnly"
                 error.bind="error.AvalQuantity" options.bind="controlOptions">
             </au-numeric>
@@ -78,7 +78,7 @@
             <au-numeric value.bind="data.weightQuantity" format="0.00" read-only.bind="readOnly"
                 error.bind="error.WeightQuantity" options.bind="controlOptions">
             </au-numeric>
-        </td>
+        </td> -->
         <td if.bind="!options.readOnly && isEdit">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>

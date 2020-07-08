@@ -1,9 +1,9 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { SalesInvoiceExportDetail } from "./sales-invoice-export-detail";
+import { WeavingDetail } from "./weaving-detail";
 import { DataForm } from "./../data-form";
 
-@inject(SalesInvoiceExportDetail, DataForm, BindingEngine)
-export class SalesInvoiceItem {
+@inject(WeavingDetail, DataForm, BindingEngine)
+export class WeavingItem {
   @bindable QuantityItem;
   @bindable Price;
   @bindable ConvertValue;

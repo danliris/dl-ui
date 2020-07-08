@@ -26,8 +26,8 @@ export class measurement {
     
     get cmb(){
         if(this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
-            return this.data.length*this.data.width*this.data.height*this.data.cartonsQuantity;
+            return (this.data.length*this.data.width*this.data.height*this.data.cartonsQuantity / 1000000).toString();
         else
-            return 0;
+            return "0";
     }
 }

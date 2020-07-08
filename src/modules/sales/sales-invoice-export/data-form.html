@@ -90,10 +90,24 @@
     <au-textbox show.bind="error.SalesInvoiceDetail" error.bind="error.SalesInvoiceDetail" read-only.bind="true">
     </au-textbox>
 
-    <au-collection columns.bind="salesInvoiceDetailsInfo.columns" items.bind="data.SalesInvoiceExportDetails"
-      errors.bind="error.SalesInvoiceExportDetails" read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd"
-      remove.bind="salesInvoiceDetailsInfo.onRemove"
-      item-template="modules/sales/sales-invoice-export/template/sales-invoice-export-detail"
+    <au-collection if.bind="data.SalesInvoiceCategory=='SPINNING'" columns.bind="salesInvoiceDetailsInfo.columns"
+      items.bind="data.SalesInvoiceExportDetails" errors.bind="error.SalesInvoiceExportDetails"
+      read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice-export/template/spinning-detail"
+      view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
+    </au-collection>
+
+    <au-collection if.bind="data.SalesInvoiceCategory=='WEAVING'" columns.bind="salesInvoiceDetailsInfo.columns"
+      items.bind="data.SalesInvoiceExportDetails" errors.bind="error.SalesInvoiceExportDetails"
+      read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice-export/template/weaving-detail"
+      view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
+    </au-collection>
+
+    <au-collection if.bind="data.SalesInvoiceCategory=='DYEINGPRINTING'" columns.bind="salesInvoiceDetailsInfo.columns"
+      items.bind="data.SalesInvoiceExportDetails" errors.bind="error.SalesInvoiceExportDetails"
+      read-only.bind="readOnly" add.bind="salesInvoiceDetailsInfo.onAdd" remove.bind="salesInvoiceDetailsInfo.onRemove"
+      item-template="modules/sales/sales-invoice-export/template/dyeing-printing-detail"
       view-model.ref="SalesInvoiceDetailsCollection" options.bind="itemOptions">
     </au-collection>
 

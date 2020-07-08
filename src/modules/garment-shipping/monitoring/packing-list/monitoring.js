@@ -20,7 +20,7 @@ export class Monitoring {
     }
 
     buyerView = (data) => {
-        return `${data.Name || data.name} - ${data.Code || data.code}`
+        return `${data.Code || data.code} - ${data.Name || data.name}`
     }
 
     invoiceTypeOptions = ["", "DL", "SM"];
@@ -39,7 +39,7 @@ export class Monitoring {
                 return moment(value).format("DD MMM YYYY");
             }, sortable: false
         },
-        { field: "buyerAgentName", title: "Buyer Agent", sortable: false },
+        { field: "buyerAgentCode", title: "Buyer Agent", sortable: false },
         { field: "sectionCode", title: "Seksi", sortable: false },
         {
             field: "truckingDate", title: "Tanggal<br>Trucking", formatter: function (value, data, index) {
@@ -62,6 +62,7 @@ export class Monitoring {
     get filter() {
         return {
             buyerAgentId: (this.selectedBuyer || {}).Id,
+            buyerAgent: (this.selectedBuyer || {}).Code,
             invoiceType: this.selectedInvoiceType,
             dateFrom: this.selectedDateFrom ? this.selectedDateFrom.toJSON() : null,
             dateTo: this.selectedDateTo ? this.selectedDateTo.toJSON() : null,
@@ -74,6 +75,9 @@ export class Monitoring {
         return this.listDataFlag ? (
             this.service.search(arg)
                 .then(result => {
+                    for (const data of result.data) {
+                        data.buyerAgentCode = `${data.buyerAgentCode} - ${data.buyerAgentName}`;
+                    }
                     return {
                         total: result.info.total,
                         data: result.data,
@@ -98,6 +102,6 @@ export class Monitoring {
     }
 
     xls() {
-        this.service.xls({ filter: JSON.stringify(this.filter) });
+        this.service.xls(this.filter);
     }
 }

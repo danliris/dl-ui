@@ -1,11 +1,13 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { Service } from "../service";
+import{DataForm} from "../data-form";
 
-@inject(BindingEngine, Service)
+@inject(BindingEngine, Service,DataForm)
 export class Items {
-  constructor(bindingEngine, service) {
+  constructor(bindingEngine, service,dataForm) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.dataForm = dataForm;
   }
   
   avalTypes = ["","Aval Printex", "Aval Batik Motif Kecil", "Aval Batik Motif Besar", "Aval Printing (10-49 cm)",
@@ -17,6 +19,7 @@ export class Items {
   async activate(context) {
     this.data = context.data;
     this.error = context.error;
+    this.isPenjualan = this.dataForm.isPenjualan;
 
     this.options = context.context.options;
     //   this.OrderIdFilter = {
@@ -35,6 +38,21 @@ export class Items {
       this.data.AvalQuantityKg = this.data.avalQuantityKg;
       this.selectedAvalType = this.data.avalType;
       this.data.AvalOutQuantity = this.data.avalOutQuantity;
+      this.data.DeliveryNote = this.data.deliveryNote;
+    }else
+    {
+      var selectedAvalType = {};
+      selectedAvalType.AvalType = this.data.AvalType;
+      selectedAvalType.AvalUomUnit =  this.data.AvalUomUnit;
+      selectedAvalType.AvalOutQuantity = this.data.AvalOutQuantity;
+      selectedAvalType.AvalOutSatuan = this.data.AvalOutSatuan;
+      selectedAvalType.AvalQuantity = this.data.AvalQuantity;
+      selectedAvalType.AvalQuantityKg = this.data.AvalQuantityKg;
+      selectedAvalType.DeliveryNote = this.data.DeliveryNote;
+
+
+      this.selectedAvalType = this.data.AvalType;
+
     }
   }
   @bindable selectedAvalType

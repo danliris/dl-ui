@@ -31,7 +31,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
+        { field: "poCashType", title: "Jenis PO Cash" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request", sortable: false },
         {
             field: "isPosted", title: "Status Post",

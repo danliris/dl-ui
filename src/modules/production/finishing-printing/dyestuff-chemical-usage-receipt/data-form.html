@@ -67,8 +67,9 @@
         <div class="row">
             <div class="col-md-6">
                 <au-autocomplete placeholder="Masukan No SPP" value.bind="selectedProductionOrder" label="No SPP"
-                    loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly || isEdit"
-                    error.bind="error.ProductionOrder" options.bind="controlOptions">
+                    loader.bind="productionOrderLoader" query.bind="sppQuery" text="OrderNo"
+                    read-only.bind="readOnly || isEdit" error.bind="error.ProductionOrder"
+                    options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-numeric label="Jumlah Order" format="0.00" value.bind="data.ProductionOrder.OrderQuantity"
@@ -85,6 +86,10 @@
                     loader.bind="strikeOffLoader" text="Code" read-only.bind="readOnly || isEdit"
                     error.bind="error.StrikeOff" options.bind="controlOptions">
                 </au-autocomplete>
+
+                <au-textbox label="Repeat" value.bind="data.RepeatedProductionOrderNo" read-only.bind="true"
+                    options.bind="controlOptions" show.bind="data.RepeatedProductionOrderNo">
+                </au-textbox>
 
                 <au-textbox label="Proses" value.bind="data.StrikeOff.Type" read-only.bind="true"
                     options.bind="controlOptions">
@@ -145,7 +150,7 @@
                             <th>
                                 Warna
                             </th>
-                            <th colspan="7">
+                            <th colspan="6">
                                 ${color.ColorCode}
                             </th>
                         </tr>
@@ -153,7 +158,7 @@
                             <th rowspan="2">
                                 Dyestuff & Chemicals
                             </th>
-                            <th rowspan="2">
+                            <th>
                                 Resep
                             </th>
                             <th>
@@ -168,14 +173,16 @@
                             <th>
                                 Adjs 4
                             </th>
-                            <th>
-                                Adjs 5
-                            </th>
                             <th rowspan="2">
                                 Total
                             </th>
                         </tr>
                         <tr>
+                            <th>
+                                <au-datepicker value.bind="color.ReceiptDate" error.bind="error.ReceiptDate"
+                                    read-only.bind="readOnly">
+                                </au-datepicker>
+                            </th>
                             <th>
                                 <au-datepicker value.bind="color.Adjs1Date" error.bind="error.Adjs1Date"
                                     read-only.bind="readOnly">
@@ -193,11 +200,6 @@
                             </th>
                             <th>
                                 <au-datepicker value.bind="color.Adjs4Date" error.bind="error.Adjs4Date"
-                                    read-only.bind="readOnly">
-                                </au-datepicker>
-                            </th>
-                            <th>
-                                <au-datepicker value.bind="color.Adjs5Date" error.bind="error.Adjs5Date"
                                     read-only.bind="readOnly">
                                 </au-datepicker>
                             </th>
@@ -226,10 +228,6 @@
                             </td>
                             <td>
                                 <au-numeric format="0.00" value.bind="item.Adjs4Quantity" read-only.bind="readOnly">
-                                </au-numeric>
-                            </td>
-                            <td>
-                                <au-numeric format="0.00" value.bind="item.Adjs5Quantity" read-only.bind="readOnly">
                                 </au-numeric>
                             </td>
                             <td>
@@ -257,7 +255,7 @@
                             <th>
                                 Warna
                             </th>
-                            <th colspan="7">
+                            <th colspan="6">
                                 ${color.ColorCode}
                             </th>
                         </tr>
@@ -265,7 +263,7 @@
                             <th rowspan="2">
                                 Dyestuff & Chemicals
                             </th>
-                            <th rowspan="2">
+                            <th>
                                 Resep
                             </th>
                             <th>
@@ -280,14 +278,16 @@
                             <th>
                                 Adjs 4
                             </th>
-                            <th>
-                                Adjs 5
-                            </th>
                             <th rowspan="2">
                                 Total
                             </th>
                         </tr>
                         <tr>
+                            <th>
+                                <au-datepicker value.bind="color.ReceiptDate" error.bind="error.ReceiptDate"
+                                    read-only.bind="readOnly">
+                                </au-datepicker>
+                            </th>
                             <th>
                                 <au-datepicker value.bind="color.Adjs1Date" error.bind="error.Adjs1Date"
                                     read-only.bind="readOnly">
@@ -305,11 +305,6 @@
                             </th>
                             <th>
                                 <au-datepicker value.bind="color.Adjs4Date" error.bind="error.Adjs4Date"
-                                    read-only.bind="readOnly">
-                                </au-datepicker>
-                            </th>
-                            <th>
-                                <au-datepicker value.bind="color.Adjs5Date" error.bind="error.Adjs5Date"
                                     read-only.bind="readOnly">
                                 </au-datepicker>
                             </th>
@@ -338,10 +333,6 @@
                             </td>
                             <td>
                                 <au-numeric format="0.00" value.bind="item.Adjs4Quantity" read-only.bind="readOnly">
-                                </au-numeric>
-                            </td>
-                            <td>
-                                <au-numeric format="0.00" value.bind="item.Adjs5Quantity" read-only.bind="readOnly">
                                 </au-numeric>
                             </td>
                             <td>

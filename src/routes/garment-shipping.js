@@ -78,6 +78,20 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-sales-contract',
+        name: 'garment-sales-contract',
+        moduleId: './modules/merchandiser/garment-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract Per RO (Semua User)',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
         route: "garment-shipping/packing-list",
         name: "garment-shipping/packing-list",
         moduleId: "modules/garment-shipping/packing-list/index",
@@ -182,6 +196,45 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/invoice",
+        name: "garment-shipping/monitoring/invoice",
+        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
+        nav: true,
+        title: "Monitoring Invoice Export Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/debit-note",
+        name: "garment-shipping/monitoring/debit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
+        nav: true,
+        title: "Monitoring Nota Debit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/credit-note",
+        name: "garment-shipping/monitoring/credit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
+        nav: true,
+        title: "Monitoring Nota Kredit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/credit-note",
         name: "garment-shipping/credit-note",
         moduleId: "modules/garment-shipping/credit-note/index",
@@ -258,13 +311,39 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },    
     {
         route: "garment-shipping/local-price-correction-note",
         name: "garment-shipping/local-price-correction-note",
         moduleId: "modules/garment-shipping/local-price-correction-note/index",
         nav: true,
         title: "Nota Koreksi Harga",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-return-note",
+        name: "garment-shipping/local-return-note",
+        moduleId: "modules/garment-shipping/local-return-note/index",
+        nav: true,
+        title: "Nota Retur",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-price-cutting-note",
+        name: "garment-shipping/local-price-cutting-note",
+        moduleId: "modules/garment-shipping/local-price-cutting-note/index",
+        nav: true,
+        title: "Nota Potongan",
         auth: true,
         settings: {
             group: "g-shipping",

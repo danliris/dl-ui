@@ -1,9 +1,10 @@
 <template replace-part="item">
     <tr>
         <td>
-            <au-textbox placeholder="Input No. Bon Pengiriman" value.bind="data.BonNo" error.bind="error.BonNo"
-                read-only.bind="readOnly">
-            </au-textbox>
+            <au-autocomplete value.bind="selectedDeliveryNote" error.bind="error.BonNo" read-only.bind="readOnly"
+                loader.one-time="deliveryNoteLoader" key="bonNo" text="bonNo" keypress.delegate="enterDelegate($event)"
+                placeholder="Pilih No. Bon Pengiriman">
+            </au-autocomplete>
         </td>
         <td>
             <au-textbox value.bind="data.ContractNo" error.bind="error.ContractNo" read-only.bind="readOnly"
@@ -46,12 +47,12 @@
         </td>
     </tr>
     <tr>
+        <!-- show.bind="selectedDeliveryNote"  -->
         <td colspan="8">
-            <au-collection show.bind="data.BonNo" columns.bind="salesInvoiceItemsInfo.columns"
-                items.bind="data.SalesInvoiceExportItems" view-model.ref="SalesInvoiceExportItems"
-                errors.bind="error.SalesInvoiceExportItems" read-only.bind="readOnly"
-                options.bind="shippingOutTableOptions"
-                item-template="modules/sales/sales-invoice-export/template/sales-invoice-export-item"
+            <au-collection columns.bind="salesInvoiceItemsInfo.columns" items.bind="data.SalesInvoiceExportItems"
+                view-model.ref="SalesInvoiceExportItems" errors.bind="error.SalesInvoiceExportItems"
+                read-only.bind="readOnly" options.bind="shippingOutTableOptions"
+                item-template="modules/sales/sales-invoice-export/template/dyeing-printing-item"
                 add.bind="salesInvoiceItemsInfo.onAdd" remove.bind="salesInvoiceItemsInfo.onRemove">
             </au-collection>
             <au-textbox error.bind="error.SalesInvoiceItem" read-only.bind="true"></au-textbox>

@@ -25,8 +25,10 @@ export class DataForm {
         },
     };
     itemColumns = [];
+    adjItemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "QTY", "No Dokumen"];
     // itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
+    types = ["OUT", "ADJ"];
     detailOptions = {};
     destinationAreas = ["TRANSIT", "PACKING", "GUDANG AVAL", "PRODUKSI"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
@@ -54,6 +56,11 @@ export class DataForm {
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() != '';
+    }
+
+    @computedFrom("data.type")
+    get isAdj() {
+        return this.data && this.data.type == "ADJ";
     }
 
     @bindable ItemsCollection;
@@ -104,8 +111,16 @@ export class DataForm {
 
         }
 
-        if (this.data.inspectionMaterialProductionOrders) {
-            this.data.displayInspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+        if (this.data.type == "OUT") {
+            if (this.data.inspectionMaterialProductionOrders) {
+                this.data.displayInspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+
+            }
+        } else {
+            if (this.data.inspectionMaterialProductionOrders) {
+                this.data.adjInspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
+
+            }
 
         }
 
@@ -113,26 +128,12 @@ export class DataForm {
             this.ItemsCollection.bind();
         }
 
-        // this.detailOptions.isEdit = this.isEdit;
-        // this.detailOptions.destinationArea = this.data.destinationArea;
-
     }
     addItemCallback = (e) => {
-        this.data.displayInspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders || [];
-        this.data.displayInspectionMaterialProductionOrders.push({})
+        this.data.adjInspectionMaterialProductionOrders = this.data.adjInspectionMaterialProductionOrders || [];
+        this.data.adjInspectionMaterialProductionOrders.push({})
     };
 
-    // @bindable selectedInspectionMaterial;
-    // selectedInspectionMaterialChanged(n, o) {
-    //     if (this.selectedInspectionMaterial) {
-    //         this.data.inputInspectionMaterialId = this.selectedInspectionMaterial.id;
-    //         if (this.selectedInspectionMaterial.inspectionMaterialProductionOrders) {
-    //             this.data.inspectionMaterialProductionOrders = this.selectedInspectionMaterial.inspectionMaterialProductionOrders.filter(s => s.isChecked == true && s.hasOutputDocument == false);
-    //         }
-
-    //     }
-
-    // }
 
     @bindable destinationArea;
     destinationAreaChanged(n, o) {
@@ -167,11 +168,6 @@ export class DataForm {
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
             }
-            // if (!this.data.id) {
-
-            //     this.selectedInspectionMaterial = null;
-            //     this.data.inspectionMaterialProductionOrders = [];
-            // }
         }
     }
 
@@ -187,7 +183,6 @@ export class DataForm {
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
             }
-            console.log(this.data.displayInspectionMaterialProductionOrders);
         } else {
 
             this.data.displayInspectionMaterialProductionOrders = await this.service.getProductionOrderInput();
@@ -196,6 +191,7 @@ export class DataForm {
             }
         }
     }
+
 }
 
 

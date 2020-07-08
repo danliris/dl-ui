@@ -103,6 +103,13 @@
                     options.bind="controlOptions">
                 </au-textbox>
 
+                <au-multiline  
+                    label="Marks" 
+                    value.bind="data.marks" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-multiline>
+
                 <au-textbox 
                     label="Port Of Discharge" 
                     value.bind="data.portOfDischarge" 
@@ -142,8 +149,7 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
-            </div>
-            <div class="col-md-6">
+
                 <au-textbox 
                     label="Flight" 
                     value.bind="data.flight" 
@@ -160,6 +166,8 @@
                     options.bind="controlOptions">
                 </au-textbox>
 
+            </div>
+            <div class="col-md-6">
                 <au-textbox 
                     label="Bank Detail" 
                     value.bind="data.bankAccountName" 
@@ -190,6 +198,28 @@
                     options.bind="controlOptions">
                 </au-multiline>
                 
+                
+                <au-multiline   
+                    label="Bill Of Lading" 
+                    value.bind="data.ladingBill" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-multiline>
+                
+                <au-datepicker 
+                    label="Date of Bill of Lading" 
+                    value.bind="data.ladingDate" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-textbox 
+                    label="Freight" 
+                    value.bind="data.freight" 
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
                 <au-multiline   
                     label="Special Instruction" 
                     value.bind="data.specialInstruction" 
