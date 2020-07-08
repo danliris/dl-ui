@@ -61,6 +61,14 @@
                 read-only.bind="readOnly"
                 options.bind="length4">
             </au-multiline>
+            
+            <au-multiline
+                label="Alamat Consignee"
+                value.bind="data.consigneeAddress" 
+                error.bind="error.ConsigneeAddress"
+                read-only.bind="readOnly"
+                options.bind="length4">
+            </au-multiline>
             <au-textbox
                 label="LC No"
                 value.bind="data.lcNo" 

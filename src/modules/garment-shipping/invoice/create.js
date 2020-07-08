@@ -15,7 +15,6 @@ export class Create {
     bind() {
         this.data = { items: [] };
         this.error = {};
-        console.log(this.data);
     }
 
     determineActivationStrategy() {
@@ -29,7 +28,6 @@ export class Create {
     }
 
     save(event) {
-        console.log(this.data);
         for(var item in this.data.items)
         {
             if(item.quantity == "")
@@ -39,13 +37,11 @@ export class Create {
         }
         this.service.create(this.data)
             .then(result => {
-                console.log(result);
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(error => {
                 this.error = error;
-                console.log(this.error);
             });
     }
     

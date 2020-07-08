@@ -38,7 +38,6 @@ export class Edit {
     }
 
     save(event) {
-        console.log(this.data);
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
