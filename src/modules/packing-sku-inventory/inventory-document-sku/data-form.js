@@ -1,75 +1,81 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-import { EventAggregator } from 'aurelia-event-aggregator';
+var StorageLoader = require('../../../loader/storage-loader');
 
-const UOMLoader = require('../packing-sku-loaders/product-sku-loader');
-const StorageLoader = require('../../../loader/storage-loader');
-
-@inject(EventAggregator)
+@containerless()
+@inject(Service, BindingEngine)
 export class DataForm {
+  @bindable readOnly = false;
+  @bindable data = {};
+  @bindable error = {};
   @bindable title;
-  @bindable readOnly;
-  @bindable data;
-  @bindable error;
-  formOptions = {
-    cancelText: "Kembali",
-    saveText: "Simpan",
-    deleteText: "Hapus",
-    editText: "Ubah",
-  }
+
   controlOptions = {
     label: {
-      length: 4,
+      length: 4
     },
     control: {
-      length: 4,
-    },
-  };
+      length: 5
+    }
+  }
 
-  constructor(eventAggregator, service) {
-    this.eventAggregator = eventAggregator;
+  constructor(service, bindingEngine) {
     this.service = service;
+    this.bindingEngine = bindingEngine;
   }
 
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
-    this.cancelCallback = this.context.cancelCallback;
-    this.deleteCallback = this.context.deleteCallback;
-    this.editCallback = this.context.editCallback;
-    this.saveCallback = this.context.saveCallback;
-
-    this.selectedUOM = this.data.uom || null;
-    this.selectedSKU = this.data.productSKU || null;
+    console.log(this.error);
+    // if (this.data.storageId) {
+    //     this.selectedStorage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+    // }
   }
 
-  @bindable selectedUOM;
-  selectedUOMChanged(newValue, oldValue) {
-    if (newValue)
-      this.data.UOMId = newValue.id;
-    else {
-      this.data.UOMId = 0
-    }
+  @computedFrom("data._id")
+  get isEdit() {
+    return (this.data._id || '').toString() != '';
   }
+
+  types = ["IN", "OUT", "ADJ"];
+
+  itemsColumns = [
+    { header: "Barang" },
+    { header: "Jumlah" },
+    { header: "Satuan" },
+    { header: "Keterangan" }
+  ]
+
+  // @bindable selectedStorage;
+  // selectedStorageChanged(newValue, oldValue) {
+  //     if (this.selectedStorage && this.selectedStorage._id) {
+  //         this.data.storageId = this.selectedStorage._id;
+  //         this.data.storageCode = this.selectedStorage.code;
+  //         this.data.storageName = this.selectedStorage.name;
+  //     }
+  //     else {
+  //         this.data.storageId = 0;
+  //         this.data.storageCode = "";
+  //         this.data.storageName = "";
+  //     }
+
+  //     console.log(newValue)
+  // }
+
+  // storageView = (storage) => {
+  //     return `${storage.unit.name} - ${storage.name}`
+  // }
 
   get storageLoader() {
     return StorageLoader;
   }
 
-  @bindable selectedSKU;
-  selectedSKUChanged(newValue, oldValue) {
-    if (newValue)
-      this.data.ProductSKUId = newValue.id
-    else
-      this.data.ProductSKUId = 0
-  }
 
-  get skuLoader() {
-    return SKULoader;
+  get addItems() {
+    return (event) => {
+      this.data.Items.push({})
+    };
   }
-
 }
-
-

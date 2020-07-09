@@ -4,14 +4,17 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
     hasCancel = true;
-    hasEdit = false;
-    hasDelete = false;
+    hasSave = true;
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
+    }
+
+    bind() {
+        this.error = {};
     }
 
     async activate(params) {
@@ -20,17 +23,14 @@ export class View {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
-    edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
-
-    delete(event) {
-        this.service.delete(this.data).then(result => {
+    save(event) {
+        this.service.update(this.data).then(result => {
             this.cancel();
-        });
+        }).catch(e => {
+            this.error = e;
+        })
     }
-
 }
