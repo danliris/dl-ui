@@ -31,7 +31,6 @@ export class Create {
     }
 
     save() {
-        this.data.transitProductionOrders = this.data.displayTransitProductionOrders;
         if (this.data.type == "OUT") {
             this.data.transitProductionOrders = this.data.displayTransitProductionOrders;
         } else {
