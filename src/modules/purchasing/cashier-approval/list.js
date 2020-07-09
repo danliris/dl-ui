@@ -13,7 +13,24 @@ import { PO, NONPO } from '../shared/permission-constants';
 export class List {
     context = ['Hapus'];
 
-    columns = [
+    columnsWithPO = [
+        { field: "VBNo", title: "No VB" },
+        {
+            field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        // {
+        //     field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
+        //         return numeral(value).format('0,000.0000');
+        //     },
+        // },
+        // { field: "CurrencyCode", title: "Mata Uang" },
+        { field: "CreateBy", title: "Pemohon" },
+        { field: "UnitLoad", title: "Unit" },
+    ];
+
+    columnsNonPO = [
         { field: "VBNo", title: "No VB" },
         {
             field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
