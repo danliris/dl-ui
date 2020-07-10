@@ -9,7 +9,7 @@ export class DataForm {
   @bindable data;
   @bindable error;
   @bindable isPenjualan;
-  // @bindable DyeingPrintingItems;
+  @bindable DyeingPrintingItems;
 
   formOptions = {
     cancelText: "Kembali",
@@ -57,17 +57,25 @@ export class DataForm {
 
     this.data.Area = "GUDANG AVAL";
     if (this.data.id) {
+      console.log(this.data);
       this.data.Date = this.data.date;
       this.data.Shift = this.data.shift;
       this.data.Group = this.data.group;
       // this.data.DestinationArea = this.data.destinationArea;
       this.selectedZona = this.data.destinationArea;
-      var selectedBon = {};
-      selectedBon.bonNo = this.data.bonNo;
-      this.selectedAvalBon = selectedBon;
+      if(this.data.DestinationArea != "PENJUALAN"){
+        var selectedBon = {};
+        selectedBon.bonNo = this.data.bonNo;
+        selectedBon.id = this.data.id;
+        selectedBon.avalItems = this.data.avalItems;
+        this.selectedAvalBon = selectedBon;
+      }
       this.data.doNO = this.data.deliveryOrderSalesNo;
+      // console.log(this.data);
+      // console.log(selectedBon);
       if (this.data.avalItems.length > 0) {
         this.data.DyeingPrintingItems = this.data.avalItems;
+        this.selectedAvalBon.avalItems = this.data.avalItems;
         // this.data.DyeingPrintingItemsBuyer = this.data.avalItems;
         this.isHasData = true;
       }
@@ -233,14 +241,15 @@ export class DataForm {
   }
 
   @bindable selectedAvalBon
-  async selectedAvalBonChanged(n,o){
-    // console.log(n);
-    if(!this.data.id){
-      var selectedBon = await this.service.getById(n.id);
-      this.data.doNO = selectedBon.deliveryOrderSalesNo;
-      this.data.DyeingPrintingItems = selectedBon.avalItems;
+   selectedAvalBonChanged(n,o){
+    // console.log(this.data);
+    if(this.data.id == 0||this.data.id == undefined|| this.data.id == null){
+      this.service.getById(n.id).then((selectedBon)=>{
+        console.log(selectedBon);
+        this.data.doNO = selectedBon.deliveryOrderSalesNo;
+        this.data.DyeingPrintingItems = selectedBon.avalItems;
+      });
     }
-
   }
 
   @bindable selectedZona
@@ -252,12 +261,18 @@ export class DataForm {
     else{
       this.isPenjualan = false;
     }
+    console.log(n);
+    console.log(o);
     this.data.DestinationArea = n;
-    if(!this.data.id){
-      this.data.DyeingPrintingItems = null;
-      this.data.DyeingPrintingItemsBuyer = null;
+    if(n!=o&& !this.data.id){
+      this.data.DyeingPrintingItems.splice(0,this.data.DyeingPrintingItems.length);
+      this.data.selectedAvalBon = null;
       this.data.doNO = null;
-      
     }
+    // if( n!=o){
+      // this.data.DyeingPrintingItems = [];
+      // this.data.DyeingPrintingItemsBuyer = null;
+      // this.data.doNO = null;
+    // }
   }
 }
