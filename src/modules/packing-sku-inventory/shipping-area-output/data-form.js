@@ -23,6 +23,7 @@ export class DataForm {
       length: 4,
     },
   };
+  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
     "Buyer",
@@ -41,6 +42,7 @@ export class DataForm {
   ];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
+  types = ["OUT", "ADJ"];
   destinationAreas = ["PENJUALAN", "BUYER", "INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI"];
   areas = [
     "INSPECTION MATERIAL",
@@ -79,6 +81,11 @@ export class DataForm {
   @computedFrom("data.id")
   get isEdit() {
     return (this.data.id || "").toString() != "";
+  }
+
+  @computedFrom("data.type")
+  get isAdj() {
+    return this.data && this.data.type == "ADJ";
   }
 
   bind(context) {
@@ -230,8 +237,20 @@ export class DataForm {
       isEdit: this.isEdit,
       isSales: this.isSales
     };
-    if (this.data.shippingProductionOrders) {
-      this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
+
+    if (this.data.type == "OUT") {
+      if (this.data.shippingProductionOrders) {
+        this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
+      }
+    } else {
+      if (this.data.transitProductionOrders) {
+        this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
+
+      }
+      if (this.data.shippingProductionOrders) {
+        this.data.adjShippingProductionOrders = this.data.shippingProductionOrders;
+      }
+
     }
 
     if (this.data.deliveryOrder) {
@@ -241,9 +260,9 @@ export class DataForm {
     }
   }
   addItemCallback = (e) => {
-    this.data.displayShippingProductionOrders =
-      this.data.displayShippingProductionOrders || [];
-    this.data.displayShippingProductionOrders.push({});
+    this.data.adjShippingProductionOrders =
+      this.data.adjShippingProductionOrders || [];
+    this.data.adjShippingProductionOrders.push({});
   };
 
   @bindable selectedShipping;
