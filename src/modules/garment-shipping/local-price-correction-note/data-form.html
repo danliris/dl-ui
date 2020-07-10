@@ -9,8 +9,8 @@
                 </au-textbox>
 
                 <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote" error.bind="error.salesNote"
-                    text="noteNo" loader.bind="salesNoteLoader" placeholder="No Nota Penjualan" read-only.bind="readOnly"
-                    options.bind="controlOptions">
+                    text="noteNo" loader.bind="salesNoteLoader" placeholder="No Nota Penjualan"
+                    read-only.bind="readOnly" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-datepicker label="Tgl Penjualan" value.bind="data.salesNote.date" read-only="true"
@@ -57,8 +57,8 @@
                     options.bind="controlOptions">
                 </au-checkbox>
 
-                <au-multiline label="Keterangan" value.bind="data.salesNote.remark" read-only="true"
-                    options.bind="controlOptions">
+                <au-multiline label="Keterangan" value.bind="data.remark" read-only.bind="readOnly"
+                    placeholder="Keterangan" options.bind="controlOptions">
                 </au-multiline>
 
                 <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"
