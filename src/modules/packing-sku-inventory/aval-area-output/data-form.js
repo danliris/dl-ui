@@ -1,4 +1,4 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 import moment from "moment";
 let AvalAreaLoader = require("../../../loader/output-aval-loader");
@@ -17,7 +17,8 @@ export class DataForm {
     // deleteText: "Hapus",
     // editText: "Ubah"
   };
-
+  adjItemColumns = ["Nama Barang", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+  types = ["OUT", "ADJ"];
   controlOptions = {
     label: {
       length: 4,
@@ -29,7 +30,7 @@ export class DataForm {
 
   itemOptions = {};
   penjualanFilter = {
-      DestinationArea: "PENJUALAN"
+    DestinationArea: "PENJUALAN"
   }
   constructor(service) {
     this.service = service;
@@ -37,11 +38,21 @@ export class DataForm {
   DOFormatter = (DoItem) => {
     return `${DoItem.DeliveryOrderSalesNO}`
   }
-  avalBonTextFormatter = (bonAval) =>{
+  avalBonTextFormatter = (bonAval) => {
     return `${bonAval.bonNo}`
   }
 
-@bindable AvalItems;
+  @computedFrom("data.type")
+  get isAdj() {
+    return this.data && this.data.type == "ADJ";
+  }
+
+  @computedFrom("data.id")
+  get isEdit() {
+    return (this.data.id || "").toString() != "";
+  }
+
+  @bindable AvalItems;
   bind(context) {
     this.context = context;
     this.service = this.context.service;
@@ -66,10 +77,22 @@ export class DataForm {
       selectedBon.bonNo = this.data.bonNo;
       this.selectedAvalBon = selectedBon;
       this.data.doNO = this.data.deliveryOrderSalesNo;
-      if (this.data.avalItems.length > 0) {
-        this.data.DyeingPrintingItems = this.data.avalItems;
-        // this.data.DyeingPrintingItemsBuyer = this.data.avalItems;
-        this.isHasData = true;
+
+      if (this.data.type == "OUT") {
+        if (this.data.avalItems.length > 0) {
+          this.data.DyeingPrintingItems = this.data.avalItems;
+          // this.data.DyeingPrintingItemsBuyer = this.data.avalItems;
+          this.isHasData = true;
+        }
+      } else {
+        if (this.data.transitProductionOrders) {
+          this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
+
+        }
+        if (this.data.avalItems) {
+          this.data.adjAvalItems = this.data.avalItems;
+        }
+
       }
     }
   }
@@ -77,12 +100,17 @@ export class DataForm {
   shifts = ["PAGI", "SIANG"];
 
   // destinationAreas = ["SHIPPING"];
-  destinationAreas = ["PENJUALAN","BUYER"];
-  
+  destinationAreas = ["PENJUALAN", "BUYER"];
+
   groups = ["A", "B"];
+  addItemCallback = (e) => {
+    this.data.adjAvalItems =
+      this.data.adjAvalItems || [];
+    this.data.adjAvalItems.push({});
+  };
 
   ExportToExcel() {
-      this.service.generateExcelReportById(this.data.id);
+    this.service.generateExcelReportById(this.data.id);
   }
 
   Date = null;
@@ -114,7 +142,7 @@ export class DataForm {
       this.error.Date = "";
     }
 
-    
+
 
     if (errorIndex == 0) {
       this.data.DyeingPrintingMovementIds = [];
@@ -144,14 +172,14 @@ export class DataForm {
     }
   }
 
-  DOLoader = (e)=>{
-    var listDo =[
+  DOLoader = (e) => {
+    var listDo = [
       {
-        "DeliveryOrderSalesID" :52,
+        "DeliveryOrderSalesID": 52,
         "DeliveryOrderSalesNO": "20US000017"
       }
     ]
-    return Promise.resolve(true).then(result=>{
+    return Promise.resolve(true).then(result => {
       return listDo;
     });
   }
@@ -233,9 +261,9 @@ export class DataForm {
   }
 
   @bindable selectedAvalBon
-  async selectedAvalBonChanged(n,o){
+  async selectedAvalBonChanged(n, o) {
     // console.log(n);
-    if(!this.data.id){
+    if (!this.data.id) {
       var selectedBon = await this.service.getById(n.id);
       this.data.doNO = selectedBon.deliveryOrderSalesNo;
       this.data.DyeingPrintingItems = selectedBon.avalItems;
@@ -244,20 +272,20 @@ export class DataForm {
   }
 
   @bindable selectedZona
-  selectedZonaChanged(n,o){
+  selectedZonaChanged(n, o) {
     // console.log(n);
-    if(n == "PENJUALAN"){
+    if (n == "PENJUALAN") {
       this.isPenjualan = true;
     }
-    else{
+    else {
       this.isPenjualan = false;
     }
     this.data.DestinationArea = n;
-    if(!this.data.id){
+    if (!this.data.id) {
       this.data.DyeingPrintingItems = null;
       this.data.DyeingPrintingItemsBuyer = null;
       this.data.doNO = null;
-      
+
     }
   }
 }
