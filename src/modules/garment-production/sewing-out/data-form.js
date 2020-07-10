@@ -47,6 +47,18 @@ export class DataForm {
             "Keterangan",
             "Size",
             "Jumlah",
+            "JumlahKeluar",
+            "Satuan",
+            "Warna"
+        ]
+    }
+
+    itemsInfoView = {
+        columns: [
+            "Kode Barang",
+            "Keterangan",
+            "Size",
+            "JumlahKeluar",
             "Satuan",
             "Warna"
         ]
@@ -169,7 +181,7 @@ export class DataForm {
                                 if(sewingInItem.RemainingQuantity>0){
                                     item.SewingInItemId=sewingInItem.Id;
                                     item.SewingInId=sewingIn.Id;
-                                    item.Quantity=sewingInItem.RemainingQuantity;
+                                    item.Quantity=0;
                                     item.Product=sewingInItem.Product;
                                     item.Uom=sewingInItem.Uom;
                                     item.Size=sewingInItem.Size;

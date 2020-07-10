@@ -32,6 +32,9 @@ export class Create {
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    if(item.Quantity>0){
+                        item.IsSave=true;
+                    }
                     if(item.IsSave){
                         item.TotalQuantity=0;
                         for(var detail of item.Details){
@@ -48,6 +51,9 @@ export class Create {
         if(this.data&& !this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    if(item.Quantity>0){
+                        item.IsSave=true;
+                    }
                     if(item.IsSave){
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.Quantity;
