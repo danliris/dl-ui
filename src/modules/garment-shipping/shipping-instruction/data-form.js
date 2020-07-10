@@ -3,6 +3,7 @@ import { Service,CoreService } from "./service";
 
 var EMKLLoader= require('../../../loader/garment-emkl-loader');
 var InvoiceLoader= require('../../../loader/garment-shipping-invoice-loader');
+var ForwarderLoader = require('../../../loader/garment-forwarders-loader');
 
 @inject(Service,CoreService)
 export class DataForm {
@@ -14,7 +15,7 @@ export class DataForm {
 
     @bindable readOnly = false;
     @bindable title;
-    @bindable selectedEMKL;
+    @bindable selectedForwarder;
     @bindable selectedInvoice;
 
     controlOptions = {
@@ -28,14 +29,14 @@ export class DataForm {
     filter= {
         IsUsed:false
     }
-    get emklLoader(){
-        return EMKLLoader;
+    
+    get forwarderLoader() {
+        return ForwarderLoader;
     }
 
-    emklView = (data) => {
-        return `${data.Name || data.name}`;
+    forwarderView = (data) => {
+        return `${data.Code || data.code} - ${data.Name || data.name}`
     }
-
     get invoiceLoader(){
         return InvoiceLoader;
     }
@@ -51,13 +52,7 @@ export class DataForm {
         this.error = context.error;
 
         if(this.data.id){
-            this.selectedEMKL={
-                Id: this.data.emkl.id,
-                Code: this.data.emkl.code,
-                Name:this.data.emkl.name,
-                Attention:this.data.attn,
-                FaxNumber:this.data.fax
-            };
+            this.selectedForwarder=this.data.forwarder;
             this.selectedInvoice={
                 invoiceNo: this.data.invoiceNo
             }
@@ -65,15 +60,17 @@ export class DataForm {
         
     }
 
-    selectedEMKLChanged(newValue){
-        this.data.emkl=null;
-        this.data.attn="";
-        this.data.fax="";
+    selectedForwarderChanged(newValue){
+        this.data.forwarder=null;
         if(newValue){
-            this.data.emkl={
-                id: newValue.Id,
-                code:newValue.Code,
-                name:newValue.Name
+            this.data.forwarder={
+                id: newValue.Id || newValue.id,
+                code:newValue.Code || newValue.code,
+                name:newValue.Name || newValue.name,
+                attn: newValue.Attention || newValue.attn,
+                address: newValue.Address || newValue.address,
+                phone: newValue.PhoneNumber ||newValue.phone,
+                fax: newValue.FaxNumber || newValue.fax
             };
             this.data.attn=newValue.Attention;
             this.data.fax=newValue.FaxNumber;
