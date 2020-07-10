@@ -111,8 +111,9 @@ export class DataForm {
         return SectionLoader;
     }
     sectionView = (section) => {
-        var sectionCode= section.Code || section.code;
-        return `${sectionCode}`
+        var sectionCode = section.Code || section.code;
+        var sectionName = section.Name || section.name;
+        return `${sectionCode} - ${sectionName}`
     }
 
     get buyerLoader() {
@@ -141,7 +142,6 @@ export class DataForm {
         }
         if(this.data){
             this.selectedBuyer=this.data.buyerAgent;
-            this.selectedSection=this.data.section;
         }
         // if(this.activeTab!=2){
         //     this.context.saveCallback=null;
