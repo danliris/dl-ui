@@ -15,7 +15,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "EMKLName", title: "EMKL" },
+        { field: "ForwarderName", title: "Forwarder" },
         { field: "attn", title: "ATTN" },
         { field: "shippedBy", title: "Shipped By" },
         {
@@ -41,7 +41,8 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
-                    data.EMKLName = data.emkl.name;
+                    data.ForwarderName = data.forwarder.name;
+                    data.attn = data.forwarder.attn;
                     data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {
