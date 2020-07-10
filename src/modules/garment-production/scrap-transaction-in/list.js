@@ -30,10 +30,8 @@ export class List {
             keyword: info.search,
             order: order
         }
-
         return this.service.search(arg)
             .then(result => {
-               console.log(result);
                 return {
                     total: result.info.total,
                     data: result.data
