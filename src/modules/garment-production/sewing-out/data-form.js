@@ -247,19 +247,16 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                if(item.IsSave){
-                    if(this.data.IsDifferentSize){
-                        if(item.Details){
-                            for(var detail of item.Details){
-                                qty += detail.Quantity;
-                            }
+                if(this.data.IsDifferentSize){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            qty += detail.Quantity;
                         }
                     }
-                    else{
-                        qty += item.Quantity;
-                    }
                 }
-                
+                else{
+                    qty += item.Quantity;
+                }
             }
         }
         return qty;
