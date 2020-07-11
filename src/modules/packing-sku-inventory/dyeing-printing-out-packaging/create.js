@@ -39,7 +39,9 @@ export class Create {
 
     save() {
         // console.log(this.data);
+        
         var bodyRequest = {};
+        bodyRequest.type = this.data.type
         bodyRequest.area = this.data.area;
         bodyRequest.date = this.data.date;
         bodyRequest.destinationArea = this.data.destinationArea;
@@ -77,6 +79,7 @@ export class Create {
                 bodyRequest.packagingProductionOrders.push(itemSpp);
             });
         });
+        bodyRequest.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj;
         // console.log(bodyRequest);
 
         this.service.create(bodyRequest)
