@@ -24,12 +24,11 @@ export class Create {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        // {
-        //     field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
-        //         return numeral(value).format('0,000.0000');
-        //     },
-        // },
-        // { field: "CurrencyCode", title: "Mata Uang" },
+        {
+            field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
         { field: "CreateBy", title: "Pemohon" },
         { field: "UnitName", title: "Unit" },
     ];
@@ -44,7 +43,7 @@ export class Create {
         },
         {
             field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return numeral(value).format('0,000.00');
             },
         },
         { field: "CurrencyCode", title: "Mata Uang" },
@@ -144,7 +143,6 @@ export class Create {
 
     unitChanged(newValue, oldValue){
         if (newValue) {
-            console.log(newValue)
             this.unit = newValue;
         } else if (oldValue) {
             this.unit == null;
@@ -200,30 +198,30 @@ export class Create {
                     var config = Container.instance.get(Config);
                     var _endpoint = config.getEndpoint("finance");
                     const resource = `vb-with-po-request/${data.Id}`;
-                    var apprv=  _endpoint.find(resource);
-                        // .then(result => {
-                        //     var dispoData= result.data;
-                        //     return dispoData.CreatedBy;
-                        // });
-                     CashierApproval.push(apprv);
+                    var appoval =  _endpoint.find(resource);
+                     CashierApproval.push(appoval);
                 }
-                Promise.all(CashierApproval).then(dispo=>{
+                Promise.all(CashierApproval).then(dataApproval=>{
                     var dataCashierApproval=[];
-                    for(var dataResult of dispo){
+                    for(var dataResult of dataApproval){
                         dataCashierApproval.push(dataResult.data);
                     }
                     for(var data of result.data){
+                        for(var item of data.PONo) {
+                            var amount = 0;
+                            var totalAmount = 0;
+                            amount = item.Price * item.DealQuantity;
+                            totalAmount =+ amount; 
+                        }
+                        
+                        data.Amount = totalAmount;
+
+
                         var same= dataCashierApproval.find(a=>a.Id==data.Id);
                         if(same){
-                            // data.totalPaid=same.DPP+same.VatValue;
-                            // if(same.IncomeTaxBy=="Supplier"){
-                            //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
-                            // }
                             data.CreatedBy=same.CreatedBy;
                         }
                     }
-                    this.selectedItems.splice(0, this.selectedItems.length);
-                    this.documentData.splice(0, this.documentData.length);
                     this.documentData.push(...result.data)
                     this.documentTable.refresh();
                 })
@@ -237,30 +235,20 @@ export class Create {
                     var config = Container.instance.get(Config);
                     var _endpoint = config.getEndpoint("finance");
                     const resource = `vb-non-po-request/${data.Id}`;
-                    var apprv=  _endpoint.find(resource);
-                        // .then(result => {
-                        //     var dispoData= result.data;
-                        //     return dispoData.CreatedBy;
-                        // });
-                     CashierApproval.push(apprv);
+                    var appoval =  _endpoint.find(resource);
+                     CashierApproval.push(appoval);
                 }
-                Promise.all(CashierApproval).then(dispo=>{
+                Promise.all(CashierApproval).then(dataApproval=>{
                     var dataCashierApproval=[];
-                    for(var dataResult of dispo){
+                    for(var dataResult of dataApproval){
                         dataCashierApproval.push(dataResult.data);
                     }
                     for(var data of result.data){
                         var same= dataCashierApproval.find(a=>a.Id==data.Id);
                         if(same){
-                            // data.totalPaid=same.DPP+same.VatValue;
-                            // if(same.IncomeTaxBy=="Supplier"){
-                            //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
-                            // }
                             data.CreatedBy=same.CreatedBy;
                         }
                     }
-                    this.selectedItems.splice(0, this.selectedItems.length);
-                    this.documentData.splice(0, this.documentData.length);
                     this.documentData.push(...result.data)
                     this.documentTable.refresh();
                 })
@@ -282,10 +270,19 @@ export class Create {
         };
 
         for (let s of this.selectedItems) {
-            data.CashierApproval.push({
-                Id: s.Id,
-                VBNo: s.VBNo,
-            });
+            console.log(s)
+            if(this.activeRole.key === 'PO') {
+                data.CashierApproval.push({
+                    Id: s.Id,
+                    VBNo: s.VBNo,
+                    Amount: s.Amount,
+                });
+            } else {
+                data.CashierApproval.push({
+                    Id: s.Id,
+                    VBNo: s.VBNo,
+                });
+            }
         }
 
         this.service.create(data)

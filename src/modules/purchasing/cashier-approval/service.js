@@ -27,7 +27,6 @@ export class Service extends RestService {
         const resource = `vb-non-po-request/${id}`;
         return _endpoint.find(resource)
             .then(result => {
-                console.log(result)
                 return result.data;
             });
     }
@@ -38,7 +37,6 @@ export class Service extends RestService {
         const resource = `vb-with-po-request/${id}`;
         return _endpoint.find(resource)
             .then(result => {
-                console.log(result)
                 return result.data;
             });
     }

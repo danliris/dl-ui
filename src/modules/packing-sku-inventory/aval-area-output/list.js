@@ -29,6 +29,7 @@ export class List {
       field: "shift",
       title: "Shift",
     },
+    { field: "type", title: "Jenis" },
     // {
     //   field: "avalCartNo",
     //   title: "No. Kereta"

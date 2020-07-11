@@ -20,12 +20,11 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        // {
-        //     field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
-        //         return numeral(value).format('0,000.0000');
-        //     },
-        // },
-        // { field: "CurrencyCode", title: "Mata Uang" },
+        {
+            field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
         { field: "CreateBy", title: "Pemohon" },
         { field: "UnitLoad", title: "Unit" },
     ];
