@@ -44,14 +44,16 @@ export class DataForm {
     async numberVBChanged(newValue) {
         var temp_detailItem = [];
         this.data.numberVB = newValue;
-        console.log(this.data.numberVB);
+
         if (this.data.numberVB) {
+            // console.log(this.data.numberVB);
             this.data.DateEstimate = this.data.numberVB.DateEstimate;
             this.data.CreateByVB = this.data.numberVB.CreateBy;
             this.data.VBNo = this.data.numberVB.VBNo;
             this.data.UnitId = this.data.numberVB.UnitId;
             this.data.UnitCode = this.data.numberVB.UnitCode;
             this.data.UnitName = this.data.numberVB.UnitName;
+            this.data.Amount = this.data.numberVB.Amount;
 
             for (var dataspb of this.data.numberVB.PONo) {
                 var itemData = {
@@ -66,7 +68,7 @@ export class DataForm {
 
             // console.log(itemData.PONO);
             var getSPB = await this.servicePurchasing.getPONo("PE-S1-20-03-002");
-            //  console.log(getSPB);
+            //   console.log(getSPB);
 
             for (var item of getSPB) {
                 var resso = {
@@ -74,7 +76,8 @@ export class DataForm {
                     date: item.date,
                     division: item.division.name,
                     item: item.items,
-                    supplier: item.supplier
+                    supplier: item.supplier,
+                    currency: item.currency
                 }
 
                 temp_detailItem.push(resso);
