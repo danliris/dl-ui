@@ -46,7 +46,6 @@ export class DataForm {
         this.data.TransactionType = "IN";
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
-        console.log(this.options.isCreate);
         this.options.isView = this.context.isView;
         if(this.data)
         {
