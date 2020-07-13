@@ -30,8 +30,8 @@ export class DataForm {
       length: 4,
     },
   };
-  destinationAreas = ["INSPECTION MATERIAL", "SHIPPING","PACKING","TRANSIT"];
-  
+  destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
+  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
     "Qty Order",
@@ -54,7 +54,7 @@ export class DataForm {
 
   shifts = ["PAGI", "SIANG"];
   groups = ["A", "B"];
-
+  types = ["OUT", "ADJ"];
   detailOptions = {};
 
   areaMovementTextFormatter = (areaInput) => {
@@ -66,7 +66,12 @@ export class DataForm {
     return (this.data.id || "").toString() != "";
   }
 
-  get bonWarehouseLoader(){
+  @computedFrom("data.type")
+  get isAdj() {
+    return this.data && this.data.type == "ADJ";
+  }
+
+  get bonWarehouseLoader() {
     return WarehouseBonAreaLoader;
   }
 
@@ -82,7 +87,7 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
-    if(this.data.bon){
+    if (this.data.bon) {
       // console.log("bonexist");
       // this.data.selectedWarehouse = this.data.bon;
       // selectedWarehouseChanged(this.data.bon,"");
@@ -91,27 +96,45 @@ export class DataForm {
       // });
       // this.data.warehousesProductionOrders
       // console.log(this.data.bon);
-      this.service.getProductionOrderOutput(this.data.bon.id).then(result =>{
-        this.data.warehousesProductionOrders = result;
-      });
+      if (this.data.type == "OUT") {
+        this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
+          this.data.warehousesProductionOrders = result;
+        });
+      } else {
+        if (this.data.warehousesProductionOrders) {
+          this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
+        }
+
+      }
     }
+
+    if (this.data.type == "ADJ") {
+      if (this.data.warehousesProductionOrders) {
+        this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
+      }
+    }
+
     if (this.ItemsCollection) {
-        this.ItemsCollection.bind();
+      this.ItemsCollection.bind();
     }
-    
+
   }
 
   addItemCallback = (e) => {
-    this.data.warehousesProductionOrders =
-      this.data.warehousesProductionOrders || [];
-    this.data.warehousesProductionOrders.push({});
+    this.data.adjWarehousesProductionOrders =
+      this.data.adjWarehousesProductionOrders || [];
+    this.data.adjWarehousesProductionOrders.push({});
   };
-  selectedWarehouseChanged(n,o){
-    if(n!=o){
+  selectedWarehouseChanged(n, o) {
+    if (n != o) {
       // console.log(n);
-      this.service.getProductionOrderInputv2(n.id).then(result =>{
+      this.service.getProductionOrderInputv2(n.id).then(result => {
         this.data.warehousesProductionOrders = result;
       });
     }
+  }
+
+  ExportToExcel() {
+    this.service.generateExcel(this.data.id);
   }
 }
