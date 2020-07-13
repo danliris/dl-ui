@@ -158,6 +158,7 @@ export class DataForm {
                                             Quantity: detail.Quantity,
                                             SourceQuantity: detail.Quantity,
                                             Size: detail.Size,
+                                            SizeName: detail.Size.Size,
                                             BasicPrice: item.BasicPrice,
                                             ComodityPrice: this.data.Price,
                                             Color: item.Color
@@ -172,12 +173,14 @@ export class DataForm {
                                         SourceQuantity: item.RemainingQuantity,
                                         BasicPrice: item.BasicPrice,
                                         ComodityPrice: this.data.Price,
+                                        SizeName: item.Size.Size,
                                         Color: item.Color
                                     }));
                                 }
                             }
                         });
                     });
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                     this.context.checkedAll = true;
                 });
         }

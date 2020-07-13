@@ -199,6 +199,7 @@ export class DataForm {
                                     }else{
                                         item.IsSave=true;
                                         item.Size=finGood.Size;
+                                        item.SizeName=finGood.Size.Size;
                                         item.StockQuantity=finGood.Quantity;
                                         item.Quantity=finGood.Quantity;
                                         item.Uom= finGood.Uom;
@@ -209,6 +210,7 @@ export class DataForm {
                                 else{
                                     item.IsSave=true;
                                     item.Size=finGood.Size;
+                                    item.SizeName=finGood.Size.Size;
                                     item.StockQuantity=finGood.Quantity;
                                     item.Quantity=finGood.Quantity;
                                     item.Uom= finGood.Uom;
@@ -218,6 +220,7 @@ export class DataForm {
                                 
                             }
                         }
+                        this.data.Items.sort((a, b)=>a.SizeName.localeCompare( b.SizeName));
                     });
             }
         else {
