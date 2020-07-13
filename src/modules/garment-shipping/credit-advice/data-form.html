@@ -156,6 +156,32 @@
                         </au-datepicker>
 
                         <hr />
+                        <h1 class="page-header">POLIS</h1>
+
+                        <au-textbox label="No. Polis Kargo" value.bind="data.cargoPolicyNo"
+                            error.bind="error.cargoPolicyNo" placeholder="No. Polis Kargo" read-only.bind="readOnly"
+                            options.bind="controlOptions">
+                        </au-textbox>
+
+                        <au-datepicker label="Tgl Polis Kargo" value.bind="data.cargoPolicyDate"
+                            error.bind="error.cargoPolicyDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-datepicker>
+
+                        <au-textbox label="No. Polis Piutang" value.bind="data.accountsReceivablePolicyNo"
+                            error.bind="error.accountsReceivablePolicyNo" placeholder="No. Polis Piutang"
+                            read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-textbox>
+
+                        <au-datepicker label="Tgl polis piutang" value.bind="data.accountsReceivablePolicyDate"
+                            error.bind="error.accountsReceivablePolicyDate" read-only.bind="readOnly"
+                            options.bind="controlOptions">
+                        </au-datepicker>
+
+                        <au-datepicker label="Tgl kirim/upload dokumen" value.bind="data.documentSendDate"
+                            error.bind="error.documentSendDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-datepicker>
+
+                        <hr />
                         <h1 class="page-header">KETERANGAN</h1>
 
                         <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
