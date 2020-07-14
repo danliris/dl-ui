@@ -11,9 +11,9 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getProductionOrderOutput(){
-      var endpoint = `${serviceUri}/output-production-orders`;
-      return super.get(endpoint);
+  getProductionOrderOutput() {
+    var endpoint = `${serviceUri}/output-production-orders`;
+    return super.get(endpoint);
   }
 
   create(data) {
@@ -45,8 +45,8 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/xls/${id}`;
     return super.getXls(endpoint);
   }
-  generateExcelAll() {
-    var endpoint = `${serviceUri}/xls`;
+  generateExcelAll(info) {
+    var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
     return super.getXls(endpoint);
   }
   reject(data) {
