@@ -14,6 +14,11 @@ export class List {
     context = ['Hapus'];
 
     columnsWithPO = [
+        {
+            field: "ApproveDate", title: "Tanggal Approval", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
         { field: "VBNo", title: "No VB" },
         {
             field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
@@ -25,11 +30,17 @@ export class List {
                 return numeral(value).format('0,000.00');
             },
         },
+        { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreateBy", title: "Pemohon" },
         { field: "UnitLoad", title: "Unit" },
     ];
 
     columnsNonPO = [
+        {
+            field: "ApproveDate", title: "Tanggal Approval", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
         { field: "VBNo", title: "No VB" },
         {
             field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
@@ -87,9 +98,10 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ VBRequestCategory: "PO",
-            Apporve_Status: true 
-        }),
+            filter: JSON.stringify({
+                VBRequestCategory: "PO",
+                Apporve_Status: true
+            }),
         };
 
         if (this.activeRole.key === 'PO') {
@@ -116,9 +128,9 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ 
+            filter: JSON.stringify({
                 VBRequestCategory: "NONPO",
-                Apporve_Status: true 
+                Apporve_Status: true
             }),
         };
 
@@ -156,6 +168,6 @@ export class List {
     }
 
     create() {
-        this.router.navigateToRoute('create',{role:this.activeRole});
+        this.router.navigateToRoute('create', { role: this.activeRole });
     }
 }   

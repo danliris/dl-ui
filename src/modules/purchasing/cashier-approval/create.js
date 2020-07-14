@@ -29,6 +29,7 @@ export class Create {
                 return numeral(value).format('0,000.00');
             },
         },
+        { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreateBy", title: "Pemohon" },
         { field: "UnitName", title: "Unit" },
     ];
