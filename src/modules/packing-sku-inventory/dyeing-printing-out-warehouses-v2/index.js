@@ -27,7 +27,8 @@ export class Index {
           name: 'edit',
           nav: false,
           title: 'Edit: Bon Keluar Gudang Barang Jadi - Dyeing & Printing'
-        }
+        },
+        { route: 'excel', moduleId: './excel', name: 'excel', nav: false, title: 'Excel: Download Pencatatan Keluar Gudang Barang Jadi - Dyeing/Printing' }
       ]);
   
       this.router = router;
