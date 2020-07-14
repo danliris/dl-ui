@@ -179,6 +179,7 @@ export class DataForm {
                                             Code : finGood.SizeCode,
                                             Size : finGood.SizeName
                                         }
+                                        item.SizeName=finGood.SizeName;
                                         item.Description ="";
                                         item.RONo= this.data.RONo;
                                         item.BasicPrice=finGood.BasicPrice;
@@ -202,6 +203,7 @@ export class DataForm {
                                         Code : finGood.SizeCode,
                                         Size : finGood.SizeName
                                     }
+                                    item.SizeName=finGood.SizeName;
                                     item.Description ="";
                                     item.RONo= this.data.RONo;
                                     item.BasicPrice=finGood.BasicPrice;
@@ -214,6 +216,7 @@ export class DataForm {
                                 
                             }
                         }
+                        this.data.Items.sort((a, b)=>a.SizeName.localeCompare( b.SizeName));
                     });
                 
             }

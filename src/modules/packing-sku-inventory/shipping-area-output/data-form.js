@@ -243,10 +243,6 @@ export class DataForm {
         this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
       }
     } else {
-      if (this.data.transitProductionOrders) {
-        this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
-
-      }
       if (this.data.shippingProductionOrders) {
         this.data.adjShippingProductionOrders = this.data.shippingProductionOrders;
       }

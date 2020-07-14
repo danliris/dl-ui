@@ -229,6 +229,7 @@ export class DataForm {
                         a.LoadingItemId = item.Id;
                         a.DesignColor = item.DesignColor;
                         a.Size = item.Size;
+                        a.SizeName = item.Size.Size;
                         a.Quantity = item.RemainingQuantity;
                         a.Uom = item.Uom;
                         a.Color = item.Color;
@@ -238,6 +239,7 @@ export class DataForm {
                         this.data.Items.push(a);
                     }
                 }
+                this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
             }
             else {
                 this.context.selectedLoadingViewModel.editorValue = "";
@@ -339,6 +341,7 @@ export class DataForm {
                                             item.Product=sewingOutItem.Product;
                                             item.Uom=sewingOutItem.Uom;
                                             item.Size=sewingOutDetail.Size;
+                                            item.SizeName=sewingOutDetail.Size.Size;
                                             item.Color=sewingOutItem.Color;
                                             item.DesignColor=sewingOutItem.DesignColor;
                                             item.RemainingQuantity=sewingOutDetail.Quantity;
@@ -353,6 +356,7 @@ export class DataForm {
                                         item.Product=sewingOutItem.Product;
                                         item.Uom=sewingOutItem.Uom;
                                         item.Size=sewingOutItem.Size;
+                                        item.SizeName=sewingOutItem.Size.Size;
                                         item.Color=sewingOutItem.Color;
                                         item.DesignColor=sewingOutItem.DesignColor;
                                         item.RemainingQuantity=sewingOutItem.Quantity;
@@ -364,6 +368,7 @@ export class DataForm {
                                 }
                             }
                     }
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
             }
         else {
@@ -445,6 +450,7 @@ export class DataForm {
                                             item.Product=finishingOutItem.Product;
                                             item.Uom=finishingOutItem.Uom;
                                             item.Size=finishingOutDetail.Size;
+                                            item.SizeName=finishingOutDetail.Size.Size;
                                             item.Color=finishingOutItem.Color;
                                             item.DesignColor=finishingOutItem.DesignColor;
                                             item.RemainingQuantity=finishingOutDetail.Quantity;
@@ -459,6 +465,7 @@ export class DataForm {
                                         item.Product=finishingOutItem.Product;
                                         item.Uom=finishingOutItem.Uom;
                                         item.Size=finishingOutItem.Size;
+                                        item.SizeName=finishingOutItem.Size.Size;
                                         item.Color=finishingOutItem.Color;
                                         item.DesignColor=finishingOutItem.DesignColor;
                                         item.RemainingQuantity=finishingOutItem.Quantity;
@@ -470,6 +477,8 @@ export class DataForm {
                                 }
                             }
                     }
+                    
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
             }
         else {

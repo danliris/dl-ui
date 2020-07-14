@@ -6,7 +6,7 @@ export class CartItem {
     sppOptions = {};
     isAval = false;
     isShowing = false;
-    avalColumns = ["Grade", "Jenis Aval", "Panjang"];
+    avalColumns = ["Grade", "Macam Barang", "Panjang"];
     avalMachines = ["QC 01", "QC 02", "QC 03", "QC 04", "QC 05", "QC 06", "QC 07", "QC 08", "QC 09", "QC 10"];
     activate(context) {
 
