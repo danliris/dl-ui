@@ -103,7 +103,7 @@ export class List {
         this.router.navigateToRoute('create');
     }
     downloadExcel(){
-        this.service.generateExcelAll();
+        this.router.navigateToRoute('excel');
     }
 }
 
