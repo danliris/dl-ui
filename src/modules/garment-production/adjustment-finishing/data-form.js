@@ -155,6 +155,7 @@ export class DataForm {
                                     item.Product=finishingInItem.Product;
                                     item.Uom=finishingInItem.Uom;
                                     item.Size=finishingInItem.Size;
+                                    item.SizeName=finishingInItem.Size.Size;
                                     item.Color=finishingInItem.Color;
                                     item.DesignColor=finishingInItem.DesignColor;
                                     item.BasicPrice=finishingInItem.BasicPrice;
@@ -165,6 +166,7 @@ export class DataForm {
                                 }
                             }
                         }
+                        this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                     });
             }
             else {

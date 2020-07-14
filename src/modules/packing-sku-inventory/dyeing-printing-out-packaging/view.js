@@ -33,18 +33,20 @@ export class View {
                     headData.PackagingList = [];
                     // console.log(headData);
                 }
-                // console.log(x);
+                console.log(x.PackagingList);
+                if(x.PackagingList!= undefined){
                 headData.PackagingList.push(x);
+                }
             });
             // var headData = element[0]
             // console.log(headData);
             // console.log(element);
             // console.log(headData);
         //     headData.PackagingList = element;
-        //     packagingProductionOrdersGroup.push(headData);
+            packagingProductionOrdersGroup.push(headData);
         });
         // console.log(packagingProductionOrdersGroup);
-        // this.data.packagingProductionOrders = packagingProductionOrdersGroup;
+        this.data.packagingProductionOrders = packagingProductionOrdersGroup;
         
         this.canEdit=true;
         

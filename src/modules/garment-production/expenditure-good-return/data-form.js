@@ -167,6 +167,7 @@ export class DataForm {
                                             item.ExpenditureGoodId=exGood.Id;
                                             item.ExpenditureGoodItemId=exGoodItem.Id;
                                             item.Size=exGoodItem.Size;
+                                            item.SizeName=exGoodItem.Size.Size;
                                             item.StockQuantity=Qty;
                                             item.Quantity=Qty;
                                             item.Uom= exGoodItem.Uom;
@@ -181,6 +182,7 @@ export class DataForm {
                                         item.ExpenditureGoodId=exGood.Id;
                                         item.ExpenditureGoodItemId=exGoodItem.Id;
                                         item.Size=exGoodItem.Size;
+                                        item.SizeName=exGoodItem.Size.Size;
                                         item.StockQuantity=Qty;
                                         item.Quantity=Qty;
                                         item.Uom= exGoodItem.Uom;
@@ -191,7 +193,7 @@ export class DataForm {
                                 }
                             }
                         }
-
+                        this.data.Items.sort((a, b)=>a.SizeName.localeCompare( b.SizeName));
                     });
             }
         

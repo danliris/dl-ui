@@ -35,8 +35,11 @@ export class List {
             field: "paymentMethod", title: "Jenis PO",
             formatter: function (value, data, index) {
 
-                console.log(data)
-                return `${data.paymentMethod} ${data.poCashType}`;
+                if(data.paymentMethod === "CASH") {
+                    return `${data.paymentMethod} ${data.poCashType}`;
+                } else {
+                    return `${data.paymentMethod}`;
+                }
             }
         },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request", sortable: false },

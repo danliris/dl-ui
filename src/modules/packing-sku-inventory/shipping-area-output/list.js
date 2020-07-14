@@ -18,7 +18,8 @@ export class List {
         { field: "bonNo", title: "No. Bon" },
         { field: "shift", title: "Shift" },
         { field: "group", title: "Group" },
-        { field: "destinationArea", title: "Area Tujuan" }
+        { field: "destinationArea", title: "Area Tujuan" },
+        { field: "type", title: "Jenis" },
     ];
 
     loader = (info) => {

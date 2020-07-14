@@ -81,7 +81,9 @@ export class List {
                     let dataItem=[];
                     dataItem["UENNo"]=prepare.UENNo;
                     dataItem["date"]=prepare.ProcessDate;
+                    dataItem["qty"]=0;
                     for(var item of prepare.Items){
+                        dataItem["qty"]+=item.Quantity;
                         if(this.products.length==0){
                             this.products.push(item.Product.Code);
                         }
@@ -110,6 +112,7 @@ export class List {
                                     dataItem["color"]=detail.Color;
                                     dataItem["CuttingNo"]=cutting.CutOutNo;
                                     dataItem["date"]=cutting.CuttingOutDate;
+                                    dataItem["qty"]=detail.CuttingOutQuantity;
                                     dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                     this.cuttingData.push(dataItem);
                                 }
@@ -119,14 +122,17 @@ export class List {
                                         dataItem["color"]=detail.Color;
                                         dataItem["CuttingNo"]=cutting.CutOutNo;
                                         dataItem["date"]=cutting.CuttingOutDate;
+                                        dataItem["qty"]=detail.CuttingOutQuantity;
                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                         this.cuttingData.push(dataItem);
                                     }
                                     else{
                                         var idx= this.cuttingData.indexOf(same);
+                                        same["qty"]+=detail.CuttingOutQuantity;
                                         same[detail.Size.Size]= same[detail.Size.Size] ? same[detail.Size.Size]+detail.CuttingOutQuantity :detail.CuttingOutQuantity;
                                         this.cuttingData[idx]=same;
                                     }
+                                    
                                 }
                                 if(this.cuttingSizes.length==0){
                                     this.cuttingSizes.push(detail.Size.Size);
@@ -155,6 +161,7 @@ export class List {
                                     dataItem["color"]=detail.Color;
                                     dataItem["loadingNo"]=loading.LoadingNo;
                                     dataItem["date"]=loading.LoadingDate;
+                                    dataItem["qty"]=detail.Quantity;
                                     dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                     this.loadingData.push(dataItem);
                                 }
@@ -164,11 +171,13 @@ export class List {
                                         dataItem["color"]=detail.Color;
                                         dataItem["loadingNo"]=loading.LoadingNo;
                                         dataItem["date"]=loading.LoadingDate;
+                                        dataItem["qty"]=detail.Quantity;
                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                         this.loadingData.push(dataItem);
                                     }
                                     else{
                                         var idx= this.loadingData.indexOf(same);
+                                        same["qty"]+=detail.Quantity;
                                         same[detail.Size.Size]= same[detail.Size.Size] ? same[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                         this.loadingData[idx]=same;
                                     }
@@ -224,12 +233,15 @@ export class List {
                                         dataItem["color"]=item.Color;
                                         dataItem["sewingNo"]=sewing.SewingOutNo;
                                         dataItem["date"]=sewing.SewingOutDate;
+                                        dataItem["qty"]=0;
                                         if(sewing.IsDifferentSize){
                                             for(var detail of item.Details){
+                                                dataItem["qty"]+=detail.Quantity;
                                                 dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                             }
                                         }
                                         else{
+                                            dataItem["qty"]+=item.Quantity;
                                             dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                         }
                                         this.sewingData.push(dataItem);
@@ -240,12 +252,15 @@ export class List {
                                             dataItem["color"]=item.Color;
                                             dataItem["sewingNo"]=sewing.SewingOutNo;
                                             dataItem["date"]=sewing.SewingOutDate;
+                                            dataItem["qty"]=0;
                                             if(sewing.IsDifferentSize){
                                                 for(var detail of item.Details){
+                                                    dataItem["qty"]+=detail.Quantity;
                                                     dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                                 }
                                             }
                                             else{
+                                                dataItem["qty"]+=item.Quantity;
                                                 dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                             }
                                             this.sewingData.push(dataItem);
@@ -254,10 +269,12 @@ export class List {
                                             var idx= this.sewingData.indexOf(same);
                                             if(sewing.IsDifferentSize){
                                                 for(var detail of item.Details){
+                                                    dataItem["qty"]+=detail.Quantity;
                                                     same[detail.Size.Size]= same[detail.Size.Size] ? same[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                                 }
                                             }
                                             else{
+                                                same["qty"]+=item.Quantity;
                                                 same[item.Size.Size]= same[item.Size.Size] ? same[item.Size.Size]+item.Quantity :item.Quantity;
                                             }
                                             this.sewingData[idx]=same;
@@ -303,12 +320,15 @@ export class List {
                                             dataItem["color"]=item.Color;
                                             dataItem["finishingNo"]=finishing.FinishingOutNo;
                                             dataItem["date"]=finishing.FinishingOutDate;
+                                            dataItem["qty"]=0;
                                             if(finishing.IsDifferentSize){
                                                 for(var detail of item.Details){
+                                                    dataItem["qty"]+=detail.Quantity;
                                                     dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                                 }
                                             }
                                             else{
+                                                dataItem["qty"]+=item.Quantity;
                                                 dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                             }
                                             
@@ -320,12 +340,15 @@ export class List {
                                                 dataItem["color"]=item.Color;
                                                 dataItem["finishingNo"]=finishing.FinishingOutNo;
                                                 dataItem["date"]=finishing.FinishingOutDate;
+                                                dataItem["qty"]=0;
                                                 if(finishing.IsDifferentSize){
                                                     for(var detail of item.Details){
+                                                        dataItem["qty"]+=detail.Quantity;
                                                         dataItem[detail.Size.Size]= dataItem[detail.Size.Size] ? dataItem[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                                     }
                                                 }
                                                 else{
+                                                    dataItem["qty"]+=item.Quantity;
                                                     dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                                 }
                                                 this.finishingData.push(dataItem);
@@ -334,10 +357,12 @@ export class List {
                                                 var idx= this.finishingData.indexOf(same);
                                                 if(finishing.IsDifferentSize){
                                                     for(var detail of item.Details){
+                                                        same["qty"]+=detail.Quantity;
                                                         same[detail.Size.Size]= same[detail.Size.Size] ? same[detail.Size.Size]+detail.Quantity :detail.Quantity;
                                                     }
                                                 }
                                                 else{
+                                                    same["qty"]+=item.Quantity;
                                                     same[item.Size.Size]= same[item.Size.Size] ? same[item.Size.Size]+item.Quantity :item.Quantity;
                                                 }
                                                 this.finishingData[idx]=same;
@@ -359,6 +384,7 @@ export class List {
                                                 dataItem["color"]=item.Description;
                                                 dataItem["expenditureNo"]=expenditure.ExpenditureGoodNo;
                                                 dataItem["date"]=expenditure.ExpenditureDate;
+                                                dataItem["qty"]=item.Quantity;
                                                 dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                                 this.expenditureData.push(dataItem);
                                             }
@@ -368,11 +394,13 @@ export class List {
                                                     dataItem["color"]=item.Description;
                                                     dataItem["expenditureNo"]=expenditure.ExpenditureGoodNo;
                                                     dataItem["date"]=expenditure.ExpenditureDate;
+                                                    dataItem["qty"]=item.Quantity;
                                                     dataItem[item.Size.Size]= dataItem[item.Size.Size] ? dataItem[item.Size.Size]+item.Quantity :item.Quantity;
                                                     this.expenditureData.push(dataItem);
                                                 }
                                                 else{
                                                     var idx= this.expenditureData.indexOf(same);
+                                                    same["qty"]+=item.Quantity;
                                                     same[item.Size.Size]= same[item.Size.Size] ? same[item.Size.Size]+item.Quantity :item.Quantity;
                                                     this.expenditureData[idx]=same;
                                                 }
@@ -409,6 +437,7 @@ export class List {
             columns.push({ field: `${plan}`, title: plan,
                 formatter: (cell) => {return cell } });
         }
+        columns.push({ field: 'qty', title: 'Total' });
         var bootstrapTableOptions = {
           columns: columns,
           data: this.data,
@@ -428,7 +457,7 @@ export class List {
             cutColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
-        
+        cutColumns.push({ field: 'qty', title: 'Total' });
         var bootstrapCuttingTableOptions = {
             columns: cutColumns,
             data: this.cuttingData,
@@ -448,6 +477,7 @@ export class List {
             loadingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
+        loadingColumns.push({ field: 'qty', title: 'Total' });
         
         var bootstrapLoadingTableOptions = {
             columns: loadingColumns,
@@ -468,6 +498,7 @@ export class List {
             sewingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
+        sewingColumns.push({ field: 'qty', title: 'Total' });
         
         var bootstrapSewingTableOptions = {
             columns: sewingColumns,
@@ -488,6 +519,7 @@ export class List {
             finishingColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
+        finishingColumns.push({ field: 'qty', title: 'Total' });
         
         var bootstrapFinishingTableOptions = {
             columns: finishingColumns,
@@ -508,6 +540,7 @@ export class List {
             expenditureColumns.push({ field: `${size}`, title: size,
                 formatter: (cell) => {return cell } });
         }
+        expenditureColumns.push({ field: 'qty', title: 'Total' });
         
         var bootstrapExpenditureTableOptions = {
             columns: expenditureColumns,

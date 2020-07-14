@@ -47,6 +47,18 @@ export class DataForm {
             "Keterangan",
             "Size",
             "Jumlah",
+            "JumlahKeluar",
+            "Satuan",
+            "Warna"
+        ]
+    }
+
+    itemsInfoView = {
+        columns: [
+            "Kode Barang",
+            "Keterangan",
+            "Size",
+            "JumlahKeluar",
             "Satuan",
             "Warna"
         ]
@@ -169,10 +181,11 @@ export class DataForm {
                                 if(sewingInItem.RemainingQuantity>0){
                                     item.SewingInItemId=sewingInItem.Id;
                                     item.SewingInId=sewingIn.Id;
-                                    item.Quantity=sewingInItem.RemainingQuantity;
+                                    item.Quantity=0;
                                     item.Product=sewingInItem.Product;
                                     item.Uom=sewingInItem.Uom;
                                     item.Size=sewingInItem.Size;
+                                    item.SizeName=sewingInItem.Size.Size;
                                     item.SewingInQuantity=sewingInItem.RemainingQuantity;
                                     item.Color=sewingInItem.Color;
                                     item.DesignColor=sewingInItem.DesignColor;
@@ -183,6 +196,7 @@ export class DataForm {
                                 }
                             }
                         }
+                        this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                     });
             }
             else {
@@ -235,19 +249,16 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                if(item.IsSave){
-                    if(this.data.IsDifferentSize){
-                        if(item.Details){
-                            for(var detail of item.Details){
-                                qty += detail.Quantity;
-                            }
+                if(this.data.IsDifferentSize){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            qty += detail.Quantity;
                         }
                     }
-                    else{
-                        qty += item.Quantity;
-                    }
                 }
-                
+                else{
+                    qty += item.Quantity;
+                }
             }
         }
         return qty;
