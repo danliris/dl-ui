@@ -56,8 +56,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcelAll() {
-        var endpoint = `${serviceUri}/xls`;
+    generateExcelAll(info) {
+        var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }
