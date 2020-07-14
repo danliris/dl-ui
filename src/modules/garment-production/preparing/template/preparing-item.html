@@ -18,6 +18,13 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
+        <td align='center' if.bind="isView">
+            <au-textbox 
+                value.bind="data.RemainingQuantity" 
+                read-only.bind="true"
+               >
+            </au-textbox>
+        </td>
         <td align='center'>
             <au-textbox 
                 value.bind="data.Uom.Unit" 
