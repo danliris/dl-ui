@@ -38,10 +38,17 @@ export class DataForm {
     }
 
     async numberVBChanged(newValue) {
-        console.log(newValue);
-        var temp_detailItem = [];
+        
         this.data.numberVB = newValue;
         
+        if(this.data.numberVB){
+            this.data.UnitLoad = this.data.numberVB.UnitLoad;
+            this.data.AmountVBReq = this.data.numberVB.Amount;
+        }
+        else{
+            this.data.numberVB = {};
+
+        }
     }
 
     columns = [
@@ -56,11 +63,6 @@ export class DataForm {
         return (event) => {
             this.data.Items.push({})
         };
-    }
-
-    unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`
-
     }
 
     get vbLoader() {
