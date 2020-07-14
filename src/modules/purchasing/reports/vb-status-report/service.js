@@ -2,13 +2,12 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'sales/sales-invoices/reports';
-//const serviceDetailsUri = 'sales/reports/production-order-report/details';
+const serviceUri = 'vb-status-report/reports';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "finance");
     }
 
     getReport(info) {
@@ -30,29 +29,39 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/xls?`;
         var query = '';
 
-        if (info.buyerId) {
-            if (query === '') query = `buyerId=${info.buyerId}`;
-            else query = `${query}&buyerId=${info.buyerId}`;
+        if (info.unitId) {
+            if (query === '') query = `unitId=${info.unitId}`;
+            else query = `${query}&unitId=${info.unitId}`;
         }
 
-        if (info.salesInvoiceId) {
-            if (query === '') query = `salesInvoiceId=${info.salesInvoiceId}`;
-            else query = `${query}&salesInvoiceId=${info.salesInvoiceId}`;
+        if (info.vbRequestId) {
+            if (query === '') query = `vbRequestId=${info.vbRequestId}`;
+            else query = `${query}&vbRequestId=${info.vbRequestId}`;
         }
 
-        if (info.isPaidOff) {
-            if (query === '') query = `isPaidOff=${info.isPaidOff}`;
-            else query = `${query}&isPaidOff=${info.isPaidOff}`;
+        if (info.isRealized) {
+            if (query === '') query = `isRealized=${info.isRealized}`;
+            else query = `${query}&isRealized=${info.isRealized}`;
         }
 
-        if (info.dateFrom) {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
+        if (info.requestDateFrom) {
+            if (query === '') query = `requestDateFrom=${info.requestDateFrom}`;
+            else query = `${query}&requestDateFrom=${info.requestDateFrom}`;
         }
 
-        if (info.dateTo) {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
+        if (info.requestDateTo) {
+            if (query === '') query = `requestDateTo=${info.requestDateTo}`;
+            else query = `${query}&requestDateTo=${info.requestDateTo}`;
+        }
+
+        if (info.realizeDateFrom) {
+            if (query === '') query = `realizeDateFrom=${info.realizeDateFrom}`;
+            else query = `${query}&realizeDateFrom=${info.realizeDateFrom}`;
+        }
+
+        if (info.realizeDateTo) {
+            if (query === '') query = `realizeDateTo=${info.realizeDateTo}`;
+            else query = `${query}&realizeDateTo=${info.realizeDateTo}`;
         }
 
         if (query !== '')

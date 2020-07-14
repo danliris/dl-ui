@@ -1,12 +1,14 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import numeral from 'numeral';
 var moment = require("moment");
 
 import { DialogDetailView } from './template/detail-dialog-view'
 
-const BuyerLoader = require('./../../../../loader/buyers-loader');
-const SalesInvoiceLoader = require('./../../../../loader/sales-invoice-loader');
+const VBWithPOLoader = require('./../../../../loader/vb-with-po-request-loader');
+const VBNonPOLoader = require('./../../../../loader/vb-non-po-request-loader');
+const UnitLoader = require('./../../../../loader/unit-loader');
 
 import { Dialog } from './../../../../au-components/dialog/dialog';
 
@@ -15,7 +17,7 @@ export class List {
     filterAccount = {};
     filter = {};
     listDataFlag = false;
-    context = ["Rincian"]
+    // context = ["Rincian"]
 
     constructor(router, service, dialog) {
         this.service = service;
@@ -41,30 +43,53 @@ export class List {
     };
 
     setValue() {
-        this.arg.buyerId = this.selectedBuyer ? this.selectedBuyer.Id : null;
-        this.arg.salesInvoiceId = this.selectedSalesInvoice ? this.selectedSalesInvoice.Id : null;
-        this.arg.isPaidOff = this.selectedStatus ? this.selectedStatus.value : null;
-        console.log(this.arg.isPaidOff)
-        console.log(this.selectedStatus)
-        console.log(this.selectedStatus.value)
-        
-        this.arg.dateFrom = this.startDate && this.startDate != "Invalid Date" ? moment(this.startDate).format("YYYY-MM-DD") : null;
-        this.arg.dateTo = this.endDate && this.endDate != "Invalid Date" ? moment(this.endDate).format("YYYY-MM-DD") : null;
+        this.arg.unitId = this.selectedUnit ? this.selectedUnit.Id : null;
+        this.arg.vbRequestId = this.selectedVBRequest ? this.selectedVBRequest.Id : null;
+        this.arg.isRealized = this.selectedStatus ? this.selectedStatus.value : null;
+        this.arg.requestDateFrom = this.requestStartDate && this.requestStartDate != "Invalid Date" ? moment(this.requestStartDate).format("YYYY-MM-DD") : null;
+        this.arg.requestDateTo = this.requestEndDate && this.requestEndDate != "Invalid Date" ? moment(this.requestEndDate).format("YYYY-MM-DD") : null;
+        this.arg.realizeDateFrom = this.realizeStartDate && this.realizeStartDate != "Invalid Date" ? moment(this.realizeStartDate).format("YYYY-MM-DD") : null;
+        this.arg.realizeDateTo = this.realizeEndDate && this.realizeEndDate != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
+
     }
 
     columns = [
-        { field: "SalesInvoiceNo", title: "No. VB" },
-        { field: "Tempo", title: "Tgl. VB" },
-        { field: "TotalPayment", title: "Estimasi Tgl Realisasi" },
-        { field: "Unpaid", title: "Unit" },
-        { field: "TotalPaid", title: "Pemohon VB" },
-        { field: "Status", title: "No. Realisasi" },
-        { field: "SalesInvoiceNo", title: "Tgl. Realisasi" },
-        { field: "Tempo", title: "Keperluan VB" },
-        { field: "TotalPayment", title: "Aging (hari)" },
-        { field: "Unpaid", title: "Jlh. VB" },
-        { field: "TotalPaid", title: "Realisasi" },
-        { field: "Status", title: "Sisa (+/-)" },
+        { field: "VBNo", title: "No. VB" },
+        {
+            field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        {
+            field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        { field: "Unit.Name", title: "Unit" },
+        { field: "CreateBy", title: "Pemohon VB" },
+        { field: "RealizationNo", title: "No. Realisasi" },
+        {
+            field: "RealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        { field: "Usage", title: "Keperluan VB" },
+        { field: "Aging", title: "Aging (hari)" },
+        {
+            field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        {
+            field: "RealizationAmount", title: "Realisasi", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        {
+            field: "Difference", title: "Sisa (+/-)", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
         { field: "Status", title: "Status" },
     ];
 
@@ -95,11 +120,13 @@ export class List {
     }
 
     reset() {
-        this.selectedBuyer = null;
-        this.selectedSalesInvoice = null;
+        this.selectedUnit = null;
+        this.selectedVBRequest = null;
         this.selectedStatus = this.statusTypes[0];
-        this.startDate = null;
-        this.endDate = null;
+        this.requestStartDate = null;
+        this.requestEndDate = null;
+        this.realizeStartDate = null;
+        this.realizeEndDate = null;
         this.listDataFlag = false;
         this.table.refresh();
     }
@@ -124,7 +151,7 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 // this.router.navigateToRoute('view', { id: data.orderNo });
-                this.dialog.show(DialogDetailView, { data: data.SalesReceipts });
+                this.dialog.show(DialogDetailView, { data: data.VbRequestDetail });
                 break;
         }
     }
@@ -136,13 +163,17 @@ export class List {
         }
     }
 
-    statusTypes = [{ value: true, label: "Lunas" }, { value: false, label: "Belum Lunas" }];
+    statusTypes = [{ value: true, label: "Realisasi" }, { value: false, label: "Outstanding" }];
 
-    get buyerLoader() {
-        return BuyerLoader;
+    get vbWithPOLoader() {
+        return VBWithPOLoader;
     }
 
-    get salesInvoiceLoader() {
-        return SalesInvoiceLoader;
+    get vbNonPOLoader() {
+        return VBNonPOLoader;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
     }
 }
