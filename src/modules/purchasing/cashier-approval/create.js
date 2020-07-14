@@ -93,7 +93,6 @@ export class Create {
         this.selectVB = ['VBNo'];
         this.selectUnit = ['Name'];
         this.selectDate = ['Date'];
-        this.documentData = [];
         this.selectedItems = [];
 
         this.permissions = permissionHelper.getUserPermissions();
@@ -116,8 +115,6 @@ export class Create {
     changeRole(role) {
         if (role.key !== this.activeRole.key) {
             this.activeRole = role;
-            this.selectedItems.splice(0, this.selectedItems.length);
-            this.documentData.splice(0, this.documentData.length);
             this.documentTable.refresh();
         }
     }
@@ -194,6 +191,7 @@ export class Create {
         if(this.activeRole.key === 'PO') {
             this.vbWithPORequestService.search(arg)
             .then(result => {
+                this.documentData = [];
                 var CashierApproval=[];
                 for(var data of result.data){
                     var config = Container.instance.get(Config);
@@ -231,6 +229,7 @@ export class Create {
         } else if(this.activeRole.key === 'NONPO') {
             this.vbNonPORequestService.search(arg)
             .then(result => {
+                this.documentData = [];
                 var CashierApproval=[];
                 for(var data of result.data){
                     var config = Container.instance.get(Config);
