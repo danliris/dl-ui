@@ -41,7 +41,7 @@ export class Create {
         // console.log(this.data);
         
         var bodyRequest = {};
-        bodyRequest.type = this.data.type
+        bodyRequest.type = this.data.type;
         bodyRequest.area = this.data.area;
         bodyRequest.date = this.data.date;
         bodyRequest.destinationArea = this.data.destinationArea;

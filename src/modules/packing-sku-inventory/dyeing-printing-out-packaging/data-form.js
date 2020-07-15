@@ -105,7 +105,7 @@ export class DataForm {
     }
     
     selectedTypeChanged(n,o){
-
+        this.data.type = this.selectedType;
         if(this.selectedType == "ADJ")
             this.isAdj = true;
         else
