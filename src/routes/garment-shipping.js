@@ -196,11 +196,37 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/packing-list",
+        name: "garment-shipping/monitoring/packing-list",
+        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
+        nav: true,
+        title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },  
+    {
         route: "garment-shipping/monitoring/invoice",
         name: "garment-shipping/monitoring/invoice",
         moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
         nav: true,
         title: "Monitoring Invoice Export Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-by-unit",
+        name: "garment-shipping/monitoring/omzet-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-unite/index",
+        nav: true,
+        title: "Monitoring Omzet Garment Per Unit",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -298,20 +324,7 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
-    {
-        route: "garment-shipping/monitoring/packing-list",
-        name: "garment-shipping/monitoring/packing-list",
-        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
-        nav: true,
-        title: "Monitoring Packing List",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },    
+    },  
     {
         route: "garment-shipping/local-price-correction-note",
         name: "garment-shipping/local-price-correction-note",
