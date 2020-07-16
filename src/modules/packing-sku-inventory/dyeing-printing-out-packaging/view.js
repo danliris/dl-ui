@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 import * as _ from 'underscore';
 // import{Underscore} from 'underscore';
 
@@ -17,39 +17,40 @@ export class View {
         // console.log(await this.service.getById(id));
         // console.log(this.data);
         // console.log(this);
-        var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
+        var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
         // console.log(groupObj);
         var mappedGroup = _.map(groupObj);
         // console.log(mappedGroup);
-        
+
         var packagingProductionOrdersGroup = [];
-        mappedGroup.forEach((element,index) => {
+        mappedGroup.forEach((element, index) => {
             var headData = {};
-            
-            element.forEach((x,i)=>{
-                if(i==0){
+            console.log(element);
+            element.forEach((x, i) => {
+                // console.log(x);
+                if (i == 0) {
                     // console.log(x);
                     headData = x;
                     headData.PackagingList = [];
                     // console.log(headData);
                 }
-                console.log(x.PackagingList);
-                if(x.PackagingList!= undefined){
-                headData.PackagingList.push(x);
+                // console.log(x.PackagingList);
+                if (headData.PackagingList != undefined) {
+                    headData.PackagingList.push(x);
                 }
             });
             // var headData = element[0]
             // console.log(headData);
             // console.log(element);
             // console.log(headData);
-        //     headData.PackagingList = element;
+            //     headData.PackagingList = element;
             packagingProductionOrdersGroup.push(headData);
         });
         // console.log(packagingProductionOrdersGroup);
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
-        
-        this.canEdit=true;
-        
+
+        this.canEdit = true;
+
     }
 
     list() {

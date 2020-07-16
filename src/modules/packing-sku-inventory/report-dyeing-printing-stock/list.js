@@ -6,11 +6,13 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    // @bindable DateReport;
-    // @bindable zone;  
-
+    @bindable dateFrom;
+    @bindable dateTo;
     @bindable error = {};
-    // context = ["detail"]
+    @bindable dateReport;
+    @bindable zona;
+    listDataFlag = false;
+
     controlOptions = {
         label: {
             length: 4,
@@ -19,9 +21,15 @@ export class List {
             length: 4,
         },
     };
-    detailOptions = {
-        searchable: false
-    };
+
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false,
+        pagination: false,
+        sortable: false
+    }
+
     zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING"];
     columns = [
         // {
@@ -30,7 +38,7 @@ export class List {
         //     }
         // },
         { field: "noSpp", title: "No. SPP" },
-        { field: "contruction", title: "Material" },
+        { field: "construction", title: "Material" },
         { field: "unit", title: "Unit" },
         { field: "motif", title: "Motif" },
         { field: "color", title: "Warna" },
@@ -49,100 +57,74 @@ export class List {
         // if (info.sort)
         //     order[info.sort] = info.order;
         var arg = {
-            dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
+            dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
+            dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
             zona: this.zona,
         }
 
-        return this.service.search(arg)
+        return this.listDataFlag ? this.service.search(arg)
             .then((result) => {
                 var data = {};
                 data.data = result;
                 data.total = result.length;
 
                 return data;
-            });
+            }) : { data: [] };;
     }
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
-
     }
 
-    contextClickCallback(event) {
-        var arg = event.detail;
-        var data = arg.data;
-        switch (arg.name) {
-            case "detail":
-                this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "print":
-                this.service.getPdfById(data.id);
-                break;
-        }
-    }
-
-    contextShowCallback(index, name, data) {
-        switch (name) {
-            case "print":
-                return data;
-            default:
-                return true;
+    zonaChanged(n, o){
+        if(this.zona){
+            this.listDataFlag = false;
         }
     }
 
     export() {
         this.service.generateExcel(moment(this.dateReport).format("YYYY-MM-DD"), this.zona);
-
     }
+
     search() {
-        this.listDataFlag = true;
-        // if (this.zona == "GUDANG AVAL") {
-        //     this.avalTable.refresh();
-        // } else {
-        this.table.refresh();
-        // }
-    }
-
-    @bindable dateReport;
-    dateReportChanged(n, o) {
-        // if (n!=o){
-        //     // this.dateReport = n;
-        //     this.data.dateReport = n;
-        // }
-        console.log(this);
-    }
-    @bindable zona;
-    zonaChanged(n, o) {
-        this.listDataFlag = false;
         if (this.zona == "GUDANG AVAL") {
-            this.isAval = true;
+            if (this.dateReport) {
+                this.listDataFlag = true;
+                this.error = {};
+                this.table.refresh();
+            } else {
+                this.error.dateReport = "Tanggal Harus Diisi";
+            }
         } else {
-            this.isAval = false;
+            if (this.dateFrom && this.dateTo) {
+                this.listDataFlag = true;
+                this.error = {}
+                this.table.refresh();
+            } else {
+                if (!this.dateFrom) {
+                    this.error.dateFrom = "Tanggal Harus Diisi";
+                }
+                if (!this.dateTo) {
+                    this.error.dateTo = "Tanggal Harus Diisi";
+                }
+            }
         }
     }
+
     reset() {
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.listDataFlag = false;
         this.dateReport = null;
         this.zona = null;
-        // if (this.zona == "GUDANG AVAL") {
-        //     this.avalTable.refresh();
-        // } else {
         this.table.refresh();
         this.error = {};
-        // }
     }
 
-    isAval = false;
-
-    tableOptions = {
-        search: false,
-        showToggle: false,
-        showColumns: false,
-        pagination: false
+    get isAval() {
+        return this.zona && this.zona == "GUDANG AVAL";
     }
-
-    listDataFlag = false;
 
     avalColumns = [
         { field: "avalType", title: "Nama Barang" },
@@ -189,23 +171,15 @@ export class List {
     ];
 
     avalLoader = (info) => {
-        if (this.dateReport) {
-            this.error = {};
-            var arg = {
-                searchDate: moment(this.dateReport).format("DD MMM YYYY HH:mm"),
-            }
-
-            return this.listDataFlag ? this.service.searchAval(arg)
-                .then((result) => {
-                    return {
-                        data: result.data
-                    }
-                }) : { data: [] };
-        } else {
-            this.error.DateReport = "Tanggal Harus Diisi";
-            return { data: [] };
+        var arg = {
+            searchDate: moment(this.dateReport).format("DD MMM YYYY HH:mm"),
         }
-
+        return this.listDataFlag ? this.service.searchAval(arg)
+            .then((result) => {
+                return {
+                    data: result.data
+                }
+            }) : { data: [] };
     }
 
     exportAval() {
