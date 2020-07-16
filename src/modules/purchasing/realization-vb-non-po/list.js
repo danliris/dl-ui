@@ -17,30 +17,25 @@ export class List {
   context = ["Detail", "Cetak Bukti Realisasi"]
 
   columns = [
-    { field: "VBNo", title: "No. VB" },
+    { field: "VBNoRealize", title: "No. VB" },
     {
       field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "UnitLoad", title: "Beban Unit" },
-    { field: "CreateBy", title: "Dibuat oleh" },
-    // {
-    //   field: "Status_Post", title: "Status Post",
-    //   formatter: function (value, row, index) {
-    //     return value ? "Sudah" : "Belum";
-    //   }
-    // },
     {
-      field: "Approve_Status", title: "Status Approved",
+      field: "DateEstimate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
+    // { field: "UnitLoad", title: "Beban Unit" },
+    { field: "RequestVbName", title: "Dibuat oleh" },
+    {
+      field: "isVerified", title: "Status Verifikasi",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
     },
-    { field: "Complete_Status", title: "Status Complete",
-    formatter: function (value, row, index) {
-      return value ? "Sudah" : "Belum";
-    } }
   ];
 
   async activate(params) {
@@ -59,8 +54,8 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        order: order,
-        filter: JSON.stringify({ VBRequestCategory: "NONPO" }),
+        order: order
+        // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
     };
 
     return this.service.search(arg)

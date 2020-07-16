@@ -34,7 +34,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.selectedCurrency = this.data.Currency;
+        if (this.data.numberVB && this.data.numberVB.VBNo) {
+            this.numberVB = this.data.numberVB;
+        }
     }
 
     async numberVBChanged(newValue) {
@@ -44,6 +46,7 @@ export class DataForm {
         if(this.data.numberVB){
             this.data.UnitLoad = this.data.numberVB.UnitLoad;
             this.data.AmountVBReq = this.data.numberVB.Amount;
+            
         }
         else{
             this.data.numberVB = {};
