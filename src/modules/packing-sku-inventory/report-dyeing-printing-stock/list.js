@@ -44,7 +44,7 @@ export class List {
         { field: "color", title: "Warna" },
         { field: "grade", title: "Grade" },
         { field: "jenis", title: "Jenis" },
-        { field: "keterangan", title: "Ket" },
+        { field: "ket", title: "Ket" },
         { field: "awal", title: "Awal" },
         { field: "masuk", title: "Masuk" },
         { field: "keluar", title: "Keluar" },
