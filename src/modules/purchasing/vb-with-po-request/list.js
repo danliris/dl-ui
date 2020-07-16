@@ -59,8 +59,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      order: order,
-      filter: JSON.stringify({ VBRequestCategory: "PO" }),
+      order: order
     };
 
     return this.service.search(arg)
