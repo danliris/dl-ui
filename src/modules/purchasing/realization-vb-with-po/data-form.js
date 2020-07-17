@@ -35,7 +35,7 @@ export class DataForm {
         // console.log(this.data.numberVB);
         if (this.data.numberVB && this.data.numberVB.VBNo) {
             this.numberVB = this.data.numberVB;
-        } 
+        }
         // else{
         //     this.numberVB = {};
         // }
@@ -56,33 +56,31 @@ export class DataForm {
             this.data.Amount = this.data.numberVB.Amount;
 
             for (var dataspb of this.data.numberVB.PONo) {
-                var itemData = {
-                    PONO: dataspb.PONo
-                };
-            }
-            //console.log(itemData);
-            
-            // for (var respo of itemData.PONO){
+                // var itemData = {
+                //     PONO: dataspb.PONo
+                // };
+                // console.log(dataspb.PONo);
+                var getSPB = await this.servicePurchasing.getPONo(dataspb.PONo);
+                // console.log(getSPB);
 
-            // }
+                if (getSPB) {
 
-            // console.log(itemData.PONO);
-            var getSPB = await this.servicePurchasing.getPONo("PE-S1-20-03-002");
-            //   console.log(getSPB);
+                    for (var item of getSPB) {
+                        var resso = {
+                            no: item.no,
+                            date: item.date,
+                            division: item.division.name,
+                            item: item.items,
+                            supplier: item.supplier,
+                            currency: item.currency
+                        }
 
-            for (var item of getSPB) {
-                var resso = {
-                    no: item.no,
-                    date: item.date,
-                    division: item.division.name,
-                    item: item.items,
-                    supplier: item.supplier,
-                    currency: item.currency
+                        temp_detailItem.push(resso);
+                        this.data.Items = temp_detailItem;
+                    }
                 }
-
-                temp_detailItem.push(resso);
-                this.data.Items = temp_detailItem;
             }
+
         }
         else {
             this.data.numberVB = {};

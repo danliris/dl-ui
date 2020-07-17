@@ -56,6 +56,13 @@ export class View {
             this.hasClosePo = false;
             this.hasCancelPo = false;
         }
+
+        if(this.data.IsCreateOnVBRequest){
+            this.hasUnpost = false;
+        }
+        else{
+            this.hasUnpost = true;
+        }
     }
 
     cancel(event) {
