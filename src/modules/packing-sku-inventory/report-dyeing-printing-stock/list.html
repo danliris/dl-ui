@@ -18,6 +18,24 @@
     <au-dropdown options.bind="controlOptions" label="Zona" value.bind="zona" error.bind="error.Zone"
       read-only.bind="readOnly" items.bind="zoneList"></au-dropdown>
 
+    <au-dropdown if.bind="!isAval" options.bind="controlOptions" label="Unit" value.bind="unit"
+      read-only.bind="readOnly" items.bind="units"></au-dropdown>
+
+    <au-dropdown if.bind="!isAval && isPackingType" options.bind="controlOptions" label="Jenis" value.bind="packingType"
+      read-only.bind="readOnly" items.bind="packingTypes"></au-dropdown>
+
+    <au-autocomplete if.bind="!isAval" value.bind="selectedConstruction" loader.bind="constructionLoader" text="Code"
+      label="Material" read-only.bind="readOnly" options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete if.bind="!isAval" value.bind="selectedBuyer" loader.bind="buyerLoader" text="Name" label="Buyer"
+      read-only.bind="readOnly" options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete if.bind="!isAval" label="No SPP" value.bind="selectedProductionOrder"
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions">
+    </au-autocomplete>
+
     <div class="btn-group col-md-offset-5">
       <button class="btn btn-success" click.delegate="search()">Cari</button>
       <button class="btn btn-default" click.delegate="reset()">Reset</button>
