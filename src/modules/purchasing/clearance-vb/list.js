@@ -1,8 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-
 import moment from 'moment';
+import numeral from 'numeral';
+
 @inject(Router, Service)
 export class List {
     dataToBePosted = [];
@@ -11,6 +12,7 @@ export class List {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
+                console.log(data)
                 return ""
             }
         },
@@ -22,6 +24,7 @@ export class List {
             }
         },
         { field: "Unit.Name", title: "Unit" },
+        { field: "Appliciant", title: "Pemohon" },
         { field: "RealNo", title: "No Realisasi" },
         {
             field: "RealDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
@@ -34,9 +37,7 @@ export class List {
             }
         },
         {
-            field: "DiffStatus", title: "Sisa/Kurang/Sesuai", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
+            field: "DiffStatus", title: "Sisa/Kurang/Sesuai"
         },
         {
             field: "DiffAmount", title: "Jumlah", formatter: function (value, data, index) {
@@ -51,9 +52,9 @@ export class List {
         {
             field: "Status",
             title: "Status Post",
-            formatter: function (value, data, index) {
-                return data.Accepted ? "Completed" : "Uncompleted";
-            },
+            // formatter: function (value, data, index) {
+            //     return data.Accepted ? "Completed" : "Uncompleted";
+            // },
         },
     ];
 

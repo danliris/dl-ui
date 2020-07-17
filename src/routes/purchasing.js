@@ -574,7 +574,7 @@ module.exports = [
     },
     {
         route: 'vb-status-report',
-        name: 'purchase-order-external',
+        name: 'vb-status-report',
         moduleId: './modules/purchasing/reports/vb-status-report/index',
         nav: true,
         title: 'Laporan Status VB',
@@ -587,7 +587,7 @@ module.exports = [
     },
     {
         route: 'clearance-vb',
-        name: 'purchase-order-external',
+        name: 'clearance-vb',
         moduleId: './modules/purchasing/clearance-vb/index',
         nav: true,
         title: 'Clearance VB',
