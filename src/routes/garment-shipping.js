@@ -224,9 +224,35 @@ module.exports = [
     {
         route: "garment-shipping/monitoring/omzet-by-unit",
         name: "garment-shipping/monitoring/omzet-by-unit",
-        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-unite/index",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthy-by-unit/index",
         nav: true,
         title: "Monitoring Omzet Garment Per Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-by-buyer",
+        name: "garment-shipping/monitoring/omzet-by-buyer",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-buyer/index",
+        nav: true,
+        title: "Monitoring Omzet Garment Per Buyer",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-by-setion",
+        name: "garment-shipping/monitoring/omzet-by-section",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-section/index",
+        nav: true,
+        title: "Monitoring Omzet Garment Per Seksi",
         auth: true,
         settings: {
             group: "g-shipping",
