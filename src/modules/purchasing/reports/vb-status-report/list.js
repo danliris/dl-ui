@@ -53,7 +53,7 @@ export class List {
 
     }
 
-    columns = [
+    columnsReal = [
         { field: "VBNo", title: "No. VB" },
         {
             field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
@@ -90,6 +90,30 @@ export class List {
                 return numeral(value).format('0,000.00');
             },
         },
+        { field: "Status", title: "Status" },
+    ];
+
+    columnsReq = [
+        { field: "VBNo", title: "No. VB" },
+        {
+            field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        { field: "", title: "Estimasi Tgl Realisasi" },
+        { field: "Unit.Name", title: "Unit" },
+        { field: "CreateBy", title: "Pemohon VB" },
+        { field: "", title: "No. Realisasi" },
+        { field: "", title: "Tgl. Realisasi" },
+        { field: "Usage", title: "Keperluan VB" },
+        { field: "Aging", title: "Aging (hari)" },
+        {
+            field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        { field: "", title: "Realisasi" },
+        { field: "", title: "Sisa (+/-)" },
         { field: "Status", title: "Status" },
     ];
 
@@ -132,11 +156,14 @@ export class List {
     }
 
     search() {
-        this.listDataFlag = true;
-        // console.log(this);
-        this.table.refresh();
-
-        // this.setValue();
+        if (this.requestStartDate == null || this.requestEndDate == null) {
+            this.dialog.prompt('Tanggal Awal & Akhir Permohonan VB dibutuhkan untuk menentukan periode', 'Tanggal Awal & Akhir Permohonan VB Harus Diisi');
+        } else {
+            this.listDataFlag = true;
+            // console.log(this);
+            this.table.refresh();
+            // this.setValue();
+        }
     }
 
     exportToExcel() {

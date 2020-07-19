@@ -270,7 +270,7 @@ export class Create {
         };
 
         for (let s of this.selectedItems) {
-            console.log(s)
+            // console.log(s)
             if(this.activeRole.key === 'PO') {
                 data.CashierApproval.push({
                     Id: s.Id,

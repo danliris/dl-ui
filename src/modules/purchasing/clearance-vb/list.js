@@ -3,6 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
+import UnitAutoSuggest from '../../../components/customs/auto-suggests/unit-auto-suggest';
 
 @inject(Router, Service)
 export class List {
@@ -12,7 +13,7 @@ export class List {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
-                console.log(data)
+                // console.log(data)
                 return ""
             }
         },
@@ -52,9 +53,6 @@ export class List {
         {
             field: "Status",
             title: "Status Post",
-            // formatter: function (value, data, index) {
-            //     return data.Accepted ? "Completed" : "Uncompleted";
-            // },
         },
     ];
 
@@ -66,12 +64,15 @@ export class List {
     }
 
     loader = (info) => {
-        var order = {};
+        let order = {};
 
-        if (info.sort)
-            order[info.sort] = info.order;
+        if (info.sort) {
+            if (info.sort != "Unit.Name") {
+                order[info.sort] = info.order;
+            }
+        }
 
-        var arg = {
+        let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
