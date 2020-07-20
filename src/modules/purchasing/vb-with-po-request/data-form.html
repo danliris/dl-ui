@@ -26,6 +26,14 @@
       text.bind="unitView" read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Unit Pemohon">
     </au-autocomplete>
 
+    <au-numeric label="VB Uang" value.bind="data.VBMoney" error.bind="error.VBMoney" read-only.bind="readOnly"
+      format="0,0.00" options.bind="controlOptions">
+    </au-numeric>
+
+    <au-textbox label="Kegunaan" value.bind="data.Usage" error.bind="error.Usage" placeholder="Kegunaan"
+      read-only.bind="readOnly" options.bind="controlOptions">
+    </au-textbox>
+
     <au-textbox
             show.bind="error.itemscount"
             error.bind="error.itemscount"
