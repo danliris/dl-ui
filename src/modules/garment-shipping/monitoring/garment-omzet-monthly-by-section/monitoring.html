@@ -1,16 +1,16 @@
 <template>
  <require from="../../../../au-components/form/input/_input"></require>
     <require from="../../../../lib/number-format-value-converter"></require>
-    <h1 class="page-header">Omzet Garment Per Unit</h1>
+    <h1 class="page-header">Omzet Garment Per Seksi</h1>
     <form class="form-horizontal">
         <au-autocomplete 
-            label="Unit"
-            value.bind="unit"
-            error.bind="error.Unit"
-            loader.bind="unitLoader"
-            text.bind = "unitView"
+            label="Seksi"
+            value.bind="section"
+            error.bind="error.Section"
+            loader.bind="sectionLoader"
+            text.bind = "sectionView"
             key="Code"
-            placeholder="Cari Unit"
+            placeholder="Cari Seksi"
             options.bind="controlOptions">
         </au-autocomplete>
         
@@ -30,12 +30,12 @@
             <table class="table table-bordered">
             <thead>
                 <tr>
-                    <!--<th class="text-center">No</th>-->
-                    <th class="text-center">KONVEKSI</th>
+                    <th class="text-center">SEKSI</th>
+                    <th class="text-center">NAMA BUYER</th>
+                     <th class="text-center">KONVEKSI</th>
                     <th class="text-center">INVOICE NO</th>
                     <th class="text-center">TGL TRUCKING</th>
                     <th class="text-center">NO R/O</th>
-                    <th class="text-center">NAMA BUYER</th>
                     <th class="text-center">I  T  E  M</th>
                     <th class="text-center">STYLE ORD / ARTICLE NO</th>
                     <th class="text-center">QUANTITY</th>
@@ -60,10 +60,18 @@
                                 <tr style="background: white;">
                                     <template if.bind="buyerIndex==0 && detailIndex==0">
                                         <td rowspan.bind="data.rowSpan + data.buyers.length" align="center">
-                                            <label><au-textbox value.bind="data.unitCode" read-only="true"></au-textbox></label>
+                                            <label><au-textbox value.bind="data.sectionCode" read-only="true"></au-textbox></label>
                                         </td>
                                     </template>
-                                        <td rowspan.bind="data.UnpostReasons.length || 1">
+                                    <template if.bind="detailIndex==0">
+                                        <td rowspan.bind="data.buyers[buyerIndex].details.length || 1" align="center">
+                                            <label><au-textbox value.bind="data.buyers[buyerIndex].buyer" read-only="true"></au-textbox></label>
+                                        </td>
+                                    </template>
+                                    <td rowspan.bind="data.UnpostReasons.length || 1">
+                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].unitCode" read-only="true"></au-textbox>
+                                    </td>
+                                    <td rowspan.bind="data.UnpostReasons.length || 1">
                                         <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].invoiceNo" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
@@ -72,11 +80,7 @@
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
                                         <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].rO_Number" read-only="true"></au-textbox>
                                     </td>
-                                    <template if.bind="detailIndex==0">
-                                        <td rowspan.bind="data.buyers[buyerIndex].details.length || 1" align="center">
-                                            <label><au-textbox value.bind="data.buyers[buyerIndex].buyer" read-only="true"></au-textbox></label>
-                                        </td>
-                                    </template>
+
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
                                         <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].comodityName" read-only="true"></au-textbox>
                                     </td>
@@ -95,7 +99,7 @@
                                 </tr>
                             </template>
                             <tr style="background: lightgray; font-weight: bold;">
-                                <td colspan="6" align="right">
+                                <td colspan="7" align="right">
                                     <au-textbox value="SUB TOTAL" read-only="true"></au-textbox>
                                 </td>
                                 <td align="right">

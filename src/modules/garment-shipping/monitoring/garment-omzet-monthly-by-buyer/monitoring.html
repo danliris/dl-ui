@@ -1,16 +1,16 @@
 <template>
  <require from="../../../../au-components/form/input/_input"></require>
     <require from="../../../../lib/number-format-value-converter"></require>
-    <h1 class="page-header">Omzet Garment Per Unit</h1>
+    <h1 class="page-header">Omzet Garment Per Buyer</h1>
     <form class="form-horizontal">
         <au-autocomplete 
-            label="Unit"
-            value.bind="unit"
-            error.bind="error.Unit"
-            loader.bind="unitLoader"
-            text.bind = "unitView"
+            label="Buyer Agent"
+            value.bind="buyerAgent"
+            error.bind="error.BuyerAgent"
+            loader.bind="garmentbuyerLoader"
+            text.bind = "buyerAgentView"
             key="Code"
-            placeholder="Cari Unit"
+            placeholder="Cari Buyer Agent"
             options.bind="controlOptions">
         </au-autocomplete>
         
@@ -30,12 +30,11 @@
             <table class="table table-bordered">
             <thead>
                 <tr>
-                    <!--<th class="text-center">No</th>-->
-                    <th class="text-center">KONVEKSI</th>
+                    <th class="text-center">NAMA BUYER</th>
+                    <th class="text-center">KONVEKSI</th>                    
                     <th class="text-center">INVOICE NO</th>
                     <th class="text-center">TGL TRUCKING</th>
                     <th class="text-center">NO R/O</th>
-                    <th class="text-center">NAMA BUYER</th>
                     <th class="text-center">I  T  E  M</th>
                     <th class="text-center">STYLE ORD / ARTICLE NO</th>
                     <th class="text-center">QUANTITY</th>
@@ -55,42 +54,42 @@
 
                     <!--Data to display-->
                     <template repeat.for="data of tableData">
-                        <template repeat.for="buyerIndex of data.buyers.length">
-                            <template repeat.for="detailIndex of data.buyers[buyerIndex].details.length">
+                        <template repeat.for="unitIndex of data.units.length">
+                            <template repeat.for="detailIndex of data.units[unitIndex].details.length">
                                 <tr style="background: white;">
-                                    <template if.bind="buyerIndex==0 && detailIndex==0">
-                                        <td rowspan.bind="data.rowSpan + data.buyers.length" align="center">
-                                            <label><au-textbox value.bind="data.unitCode" read-only="true"></au-textbox></label>
+                                    <template if.bind="unitIndex==0 && detailIndex==0">
+                                        <td rowspan.bind="data.rowSpan + data.units.length" align="center">
+                                            <label><au-textbox value.bind="data.buyerName" read-only="true"></au-textbox></label>
+                                        </td>
+                                    </template>
+                                    <template if.bind="detailIndex==0">
+                                        <td rowspan.bind="data.units[unitIndex].details.length || 1" align="center">
+                                            <label><au-textbox value.bind="data.units[unitIndex].unitCode" read-only="true"></au-textbox></label>
                                         </td>
                                     </template>
                                         <td rowspan.bind="data.UnpostReasons.length || 1">
-                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].invoiceNo" read-only="true"></au-textbox>
+                                        <au-textbox value.bind="data.units[unitIndex].details[detailIndex].invoiceNo" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
-                                        <au-datepicker value.bind="data.buyers[buyerIndex].details[detailIndex].truckingDate" read-only="true"></au-datepicker>
+                                        <au-datepicker value.bind="data.units[unitIndex].details[detailIndex].truckingDate" read-only="true"></au-datepicker>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
-                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].rO_Number" read-only="true"></au-textbox>
-                                    </td>
-                                    <template if.bind="detailIndex==0">
-                                        <td rowspan.bind="data.buyers[buyerIndex].details.length || 1" align="center">
-                                            <label><au-textbox value.bind="data.buyers[buyerIndex].buyer" read-only="true"></au-textbox></label>
-                                        </td>
-                                    </template>
+                                        <au-textbox value.bind="data.units[unitIndex].details[detailIndex].rO_Number" read-only="true"></au-textbox>
+                                    </td>                        
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
-                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].comodityName" read-only="true"></au-textbox>
+                                        <au-textbox value.bind="data.units[unitIndex].details[detailIndex].comodityName" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
-                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].comodityDesc" read-only="true"></au-textbox>
+                                        <au-textbox value.bind="data.units[unitIndex].details[detailIndex].comodityDesc" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
-                                         <au-numeric value.bind="data.buyers[buyerIndex].details[detailIndex].quantity" read-only="true"></au-numeric>             
+                                         <au-numeric value.bind="data.units[unitIndex].details[detailIndex].quantity" read-only="true"></au-numeric>             
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1">
-                                        <au-textbox value.bind="data.buyers[buyerIndex].details[detailIndex].uomUnit" read-only="true"></au-textbox>
+                                        <au-textbox value.bind="data.units[unitIndex].details[detailIndex].uomUnit" read-only="true"></au-textbox>
                                     </td>
                                     <td rowspan.bind="data.UnpostReasons.length || 1" align="right">
-                                        <au-numeric value.bind="data.buyers[buyerIndex].details[detailIndex].amount" read-only="true"></au-numeric>             
+                                        <au-numeric value.bind="data.units[unitIndex].details[detailIndex].amount" read-only="true"></au-numeric>             
                                     </td>
                                 </tr>
                             </template>
@@ -99,11 +98,11 @@
                                     <au-textbox value="SUB TOTAL" read-only="true"></au-textbox>
                                 </td>
                                 <td align="right">
-                                    <au-numeric value.bind="data.buyers[buyerIndex].quantities" read-only="true"></au-numeric>
+                                    <au-numeric value.bind="data.units[unitIndex].quantities" read-only="true"></au-numeric>
                                 </td>
                                 <td></td>
                                 <td align="right">
-                                    <au-numeric value.bind="data.buyers[buyerIndex].amounts" read-only="true"></au-numeric>
+                                    <au-numeric value.bind="data.units[unitIndex].amounts" read-only="true"></au-numeric>
                                 </td>
                             </tr>
                         </template>
