@@ -6,6 +6,7 @@ export class CartItem {
     sppOptions = {};
     isAval = false;
     isShowing = false;
+    isProduksi = false;
     avalColumns = ["Grade", "Macam Barang", "Panjang"];
     avalMachines = ["QC 01", "QC 02", "QC 03", "QC 04", "QC 05", "QC 06", "QC 07", "QC 08", "QC 09", "QC 10"];
     activate(context) {
@@ -21,6 +22,12 @@ export class CartItem {
             this.isAval = true;
         } else {
             this.isAval = false;
+        }
+
+        if (this.destinationArea == "PRODUKSI") {
+            this.isProduksi = true;
+        } else {
+            this.isProduksi = false;
         }
 
         this.isEdit = this.contextOptions.isEdit;
