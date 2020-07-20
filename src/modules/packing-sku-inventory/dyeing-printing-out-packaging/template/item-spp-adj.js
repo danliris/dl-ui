@@ -4,7 +4,8 @@ import { Service } from './../service';
 import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
-var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
+// var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
+var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
 let PackagingSppDistinctLoader = require("../../../../loader/output-packaging-distinct-loader");
 
 
@@ -18,7 +19,7 @@ export class ItemSPP {
         this.dataForm = dataForm;
     }
     sppTextFormater = (spp) =>{
-        console.log(spp);
+        // console.log(spp);
         return `${spp.productionOrder.no}`
       }
     sppFilter = {};
@@ -45,7 +46,7 @@ export class ItemSPP {
         //     this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
         // }
         if (this.data.productionOrder && this.data.productionOrder.id) {
-            console.log(this.data);
+            // console.log(this.data);
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.productionOrder = {};

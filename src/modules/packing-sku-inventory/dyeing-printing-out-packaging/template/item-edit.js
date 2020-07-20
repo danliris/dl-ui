@@ -55,7 +55,7 @@ export class CartItem {
             } else {
                 this.data.unit = "DYEING"
             }
-            console.log(this);
+            // console.log(this);
         }
     }
 

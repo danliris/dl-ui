@@ -16,6 +16,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        // console.log(this.contextOptions);
         // console.log(this);
         this.destinationArea = this.dataForm.data.destinationArea;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
@@ -137,5 +138,8 @@ export class CartItem {
             this.data.qtyOut = this.saldoPerPackaging * newValue;
             this.data.packagingQTY = this.inputPackagingQTY;
         }
+    }
+    changeCheckBox() {
+        this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
     }
 }
