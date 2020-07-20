@@ -131,6 +131,19 @@ module.exports = [
         }
     },
     {
+        route: 'cashier-approval',
+        name: 'cashier-approval',
+        moduleId: './modules/purchasing/cashier-approval/index',
+        nav: true,
+        title: 'Approval Kasir',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'realization-vb-non-po',
         name: 'realization-vb-non-po',
         moduleId: './modules/purchasing/realization-vb-non-po/index',
@@ -157,24 +170,37 @@ module.exports = [
         }
     },
     {
+        route: 'vb-status-report',
+        name: 'vb-status-report',
+        moduleId: './modules/purchasing/reports/vb-status-report/index',
+        nav: true,
+        title: 'Laporan Status VB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'clearance-vb',
+        name: 'clearance-vb',
+        moduleId: './modules/purchasing/clearance-vb/index',
+        nav: true,
+        title: 'Clearance VB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po-external/all',
         name: 'purchase-order-external-kasei',
         moduleId: './modules/purchasing/purchase-order-external-kasei/index',
         nav: true,
         title: 'Purchase Order External All',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'cashier-approval',
-        name: 'cashier-approval',
-        moduleId: './modules/purchasing/cashier-approval/index',
-        nav: true,
-        title: 'Approval Kasir',
         auth: true,
         settings: {
             group: "purchasing",
@@ -565,32 +591,6 @@ module.exports = [
         moduleId: './modules/expedition/reports/unit-payment-order-paid-status-report/index',
         nav: true,
         title: 'Laporan Status Bayar SPB',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'vb-status-report',
-        name: 'vb-status-report',
-        moduleId: './modules/purchasing/reports/vb-status-report/index',
-        nav: true,
-        title: 'Laporan Status VB',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'clearance-vb',
-        name: 'clearance-vb',
-        moduleId: './modules/purchasing/clearance-vb/index',
-        nav: true,
-        title: 'Clearance VB',
         auth: true,
         settings: {
             group: "purchasing",
