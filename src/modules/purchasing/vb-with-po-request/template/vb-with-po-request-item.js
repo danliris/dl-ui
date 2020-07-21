@@ -44,7 +44,7 @@ export class PurchaseOrderItem {
     //   "IsPosted":false
     // };
     this.filter = {
-      "POCashType": "VB", "isPosted": true
+      "POCashType": "VB", "isPosted": true, "IsCreateOnVBRequest": false
     };
   }
 
