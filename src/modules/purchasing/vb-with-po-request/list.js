@@ -23,7 +23,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "UnitLoad", title: "Unit" },
+    { field: "UnitName", title: "Unit" },
     { field: "CreateBy", title: "Dibuat oleh" },
     // {
     //   field: "Status_Post", title: "Status Post",
