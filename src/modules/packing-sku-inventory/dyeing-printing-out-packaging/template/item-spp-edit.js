@@ -3,7 +3,8 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
 import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
-var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
+// var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
+var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
 
 @inject(Service, BindingEngine, BindingSignaler, DataForm)
 export class ItemSPP {
@@ -69,7 +70,7 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
-            console.log(this);
+            // console.log(this);
             // this.data.PackagingList = this.data.PackagingList || [];
             
             // this.data.PackagingList.push(this.selectedProductionOrder);

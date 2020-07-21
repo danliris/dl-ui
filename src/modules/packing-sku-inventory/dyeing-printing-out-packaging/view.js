@@ -25,7 +25,6 @@ export class View {
         var packagingProductionOrdersGroup = [];
         mappedGroup.forEach((element, index) => {
             var headData = {};
-            console.log(element);
             element.forEach((x, i) => {
                 // console.log(x);
                 if (i == 0) {

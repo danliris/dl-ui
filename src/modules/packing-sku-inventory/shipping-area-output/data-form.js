@@ -126,6 +126,7 @@ export class DataForm {
           "Keterangan",
           "Qty Packing",
           "Packing",
+          "Panjang Packing",
           "Qty Keluar",
           "Berat (KG)"
         ];
@@ -144,6 +145,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             ""
@@ -162,6 +164,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)"
           ];
@@ -186,6 +189,7 @@ export class DataForm {
           "Keterangan",
           "Qty Packing",
           "Packing",
+          "Panjang Packing",
           "Qty Keluar",
           "Berat (KG)",
           "SJ",
@@ -205,6 +209,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -224,6 +229,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -264,6 +270,7 @@ export class DataForm {
   @bindable selectedShipping;
   selectedShippingChanged(n, o) {
     if (this.selectedShipping) {
+      this.detailOptions.destinationArea = this.destinationArea;
       this.data.inputShippingId = this.selectedShipping.id;
       if (this.selectedShipping.shippingProductionOrders) {
         this.data.displayShippingProductionOrders = this.selectedShipping.shippingProductionOrders.filter(
@@ -284,10 +291,15 @@ export class DataForm {
       this.data.deliveryOrder = {};
       this.data.deliveryOrder.id = this.selectedDO.Id;
       this.data.deliveryOrder.no = this.selectedDO.DOSalesNo;
-      if (!this.isEdit && this.selectedDO.Id)
+      if (!this.isEdit && this.selectedDO.Id) {
+        this.detailOptions.buyer = this.selectedDO.SalesContract.Buyer.Name;
+        this.detailOptions.buyerId = this.selectedDO.SalesContract.Buyer.Id;
+        this.detailOptions.destinationArea = this.destinationArea;
         this.data.displayShippingProductionOrders = await this.service.getProductionOrderFromInput(
           this.selectedDO.Id
         );
+      }
+
     }
   }
 
@@ -312,6 +324,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)"
           ];
@@ -330,6 +343,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               ""
@@ -348,6 +362,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)"
             ];
@@ -372,6 +387,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -391,6 +407,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
@@ -410,6 +427,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
@@ -420,6 +438,7 @@ export class DataForm {
 
       }
       this.detailOptions.isSales = this.isSales;
+      this.detailOptions.destinationArea = this.destinationArea;
       if (!this.data.id) {
         this.selectedShipping = null;
         this.data.deliveryOrder = null;

@@ -13,9 +13,12 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
+        this.buyer = this.contextOptions.buyer;
+        this.buyerId = this.contextOptions.buyerId;
         this.isSales = this.contextOptions.isSales;
         this.isEdit = this.contextOptions.isEdit;
-        
+        console.log(this.contextOptions);
+        console.log(this.data);
         if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
         }
@@ -24,6 +27,16 @@ export class CartItem {
         //     this.selectedDOSales.Id = this.data.deliveryOrderSales.id;
         //     this.selectedDOSales.DoNO = this.data.deliveryOrderSales.no;
         // }
+
+        if (this.data.qtyPacking) {
+            this.qtyPacking = this.data.qtyPacking;
+        }
+
+        if (!this.isEdit && this.destinationArea == "PENJUALAN") {
+            this.data.buyerId = this.buyerId;
+            this.data.buyer = this.buyer;
+        } 
+
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -33,8 +46,14 @@ export class CartItem {
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.Construction = this.data.construction;
             this.selectedProductionOrder.Buyer = {};
-            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
-            this.selectedProductionOrder.Buyer.Name = this.data.buyer;
+            if (this.destinationArea == "PENJUALAN") {
+                this.selectedProductionOrder.Buyer.Id = this.buyerId;
+                this.selectedProductionOrder.Buyer.Name = this.buyer;
+            } else {
+
+                this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
+                this.selectedProductionOrder.Buyer.Name = this.data.buyer;
+            }
             this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
             this.selectedProductionOrder.Details = [];
             this.selectedProductionOrder.Details.push({});
@@ -94,9 +113,18 @@ export class CartItem {
             } else {
                 this.data.unit = "DYEING"
             }
+            console.log(this.data)
         }
         else {
             this.data.productionOrder = {};
+        }
+    }
+
+    @bindable qtyPacking;
+    qtyPackingChanged(n, o) {
+        if (this.qtyPacking) {
+            this.data.qtyPacking = this.qtyPacking;
+            this.data.qty = this.data.qtyPacking * this.data.packingLength;
         }
     }
 

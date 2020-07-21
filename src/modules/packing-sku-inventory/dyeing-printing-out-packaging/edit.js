@@ -28,8 +28,9 @@ export class Edit {
                 }
                 headData.PackagingList.push(x);
             });
+            packagingProductionOrdersGroup.push(headData);
         });
-        
+        this.data.packagingProductionOrders = packagingProductionOrdersGroup;
         this.canEdit=true;
     }
 

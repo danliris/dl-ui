@@ -28,18 +28,18 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    activate(){
+    activate() {
         // PackingInputSPPLoader(null,null).then( data => {
         //     console.log(data);
         // });
         this.service.getInputBon().then(result => {
-            console.log(result);
+            // console.log(result);
         });
     }
 
     save() {
         // console.log(this.data);
-        
+
         var bodyRequest = {};
         bodyRequest.type = this.data.type;
         bodyRequest.area = this.data.area;
@@ -51,33 +51,35 @@ export class Create {
         bodyRequest.bonNoInput = this.data.bonNoInput;
         bodyRequest.packagingProductionOrders = [];
         this.data.packagingProductionOrders.forEach(element => {
-            element.PackagingList.forEach(item => {
-                var itemSpp = {};
-                itemSpp.productionOrderNo = item.productionOrderNo,
-                    itemSpp.productionOrder = item.productionOrder,
-                    itemSpp.balance = item.balance,
-                    itemSpp.buyerId = item.buyerId,
-                    itemSpp.buyer = item.buyer,
-                    itemSpp.color = item.color,
-                    itemSpp.construction = item.construction,
-                    itemSpp.grade = item.grade,
-                    itemSpp.keterangan = item.keterangan,
-                    itemSpp.motif = item.motif,
-                    itemSpp.packagingQTY = item.packagingQTY,
-                    itemSpp.packagingType = item.packagingType,
-                    itemSpp.packagingUnit = item.packagingUnit,
-                    itemSpp.packingInstruction = item.packingInstruction,
-                    itemSpp.qtyOrder = item.qtyOrder,
-                    itemSpp.qtyOut = item.qtyOut,
-                    itemSpp.unit = item.unit,
-                    itemSpp.uomUnit = item.uomUnit,
-                    itemSpp.cartNo = item.cartNo,
-                    itemSpp.remark = item.remark,
-                    itemSpp.status = item.status,
-                    itemSpp.material = item.material,
-                    itemSpp.id = item.id
-                bodyRequest.packagingProductionOrders.push(itemSpp);
-            });
+            element.PackagingList
+                .filter(s => s.IsSave)
+                .forEach(item => {
+                    var itemSpp = {};
+                    itemSpp.productionOrderNo = item.productionOrderNo,
+                        itemSpp.productionOrder = item.productionOrder,
+                        itemSpp.balance = item.balance,
+                        itemSpp.buyerId = item.buyerId,
+                        itemSpp.buyer = item.buyer,
+                        itemSpp.color = item.color,
+                        itemSpp.construction = item.construction,
+                        itemSpp.grade = item.grade,
+                        itemSpp.keterangan = item.keterangan,
+                        itemSpp.motif = item.motif,
+                        itemSpp.packagingQTY = item.packagingQTY,
+                        itemSpp.packagingType = item.packagingType,
+                        itemSpp.packagingUnit = item.packagingUnit,
+                        itemSpp.packingInstruction = item.packingInstruction,
+                        itemSpp.qtyOrder = item.qtyOrder,
+                        itemSpp.qtyOut = item.qtyOut,
+                        itemSpp.unit = item.unit,
+                        itemSpp.uomUnit = item.uomUnit,
+                        itemSpp.cartNo = item.cartNo,
+                        itemSpp.remark = item.remark,
+                        itemSpp.status = item.status,
+                        itemSpp.material = item.material,
+                        itemSpp.id = item.id
+                    bodyRequest.packagingProductionOrders.push(itemSpp);
+                });
         });
         bodyRequest.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj;
         // console.log(bodyRequest);
