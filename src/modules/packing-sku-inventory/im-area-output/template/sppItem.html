@@ -60,7 +60,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td show.bind="!readOnly">
+        <td show.bind="!readOnly && !isProduksi">
             <au-numeric value.bind="data.previousBalance" format="0.00" read-only.bind="true"
                 error.bind="error.PreviousBalance" options.bind="controlOptions">
             </au-numeric>

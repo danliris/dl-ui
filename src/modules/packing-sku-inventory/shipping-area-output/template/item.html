@@ -52,17 +52,18 @@
             </au-textbox>
         </td>
         <td>
-            <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings" read-only.bind="readOnly || !isSales"
-                error.bind="error.GradeShipping" options.bind="controlOptions">
+            <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings"
+                read-only.bind="readOnly || !isSales" error.bind="error.GradeShipping" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
-            <au-textbox value.bind="data.shippingRemark" read-only.bind="readOnly || !isSales" error.bind="error.ShippingRemark"
-                options.bind="controlOptions">
+            <au-textbox value.bind="data.shippingRemark" read-only.bind="readOnly || !isSales"
+                error.bind="error.ShippingRemark" options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.qtyPacking" format="0.00" read-only.bind="true" options.bind="controlOptions">
+            <au-numeric value.bind="qtyPacking" format="0.00" read-only.bind="readOnly || !isSales"
+                options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
@@ -70,13 +71,18 @@
             </au-textbox>
         </td>
         <td>
+            <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true" error.bind="error.Qty"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
             <au-numeric value.bind="data.qty" format="0.00" read-only.bind="true" error.bind="error.Qty"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.weight" format="0.00" read-only.bind="readOnly || !isSales" error.bind="error.Weight"
-                options.bind="controlOptions">
+            <au-numeric value.bind="data.weight" format="0.00" read-only.bind="readOnly || !isSales"
+                error.bind="error.Weight" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="!isSales">

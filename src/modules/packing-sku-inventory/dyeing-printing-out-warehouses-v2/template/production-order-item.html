@@ -113,8 +113,8 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.packagingQty"
-        read-only.bind="true"
+        value.bind="qtyPacking"
+        read-only.bind="readOnly"
         error.bind="error.PackagingQty"
         options.bind="controlOptions"
       >
@@ -152,7 +152,7 @@
         <au-numeric
           value.bind="data.balance"
           format="0.00"
-          read-only.bind="readOnly"
+          read-only.bind="true"
           error.bind="error.Balance"
           options.bind="controlOptions"
         >
