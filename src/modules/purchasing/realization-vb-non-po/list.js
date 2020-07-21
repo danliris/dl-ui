@@ -17,7 +17,7 @@ export class List {
   context = ["Detail", "Cetak Bukti Realisasi"]
 
   columns = [
-    { field: "VBNoRealize", title: "No. VB" },
+    { field: "VBNoRealize", title: "No. Realisasi VB" },
     {
       field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
