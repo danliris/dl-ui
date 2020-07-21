@@ -33,6 +33,7 @@ export class View {
                 var FinishingIn=await this.service.GetFinishingInById(a.FinishingInId );
                 var finishIn= FinishingIn.Items.find(x=>x.Id==a.FinishingInItemId);
                 if(finishIn){
+                    a.FinishingInDate= FinishingIn.FinishingInDate;
                     a.FinishingInQuantity=a.Quantity + finishIn.RemainingQuantity;
                     if(this.data.IsDifferentSize){
                         a.Quantity+= finishIn.RemainingQuantity;
@@ -56,6 +57,8 @@ export class View {
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
+                            this.data.FinishingInDate=item.FinishingInDate;
                         item.TotalQuantity=0;
                         for(var detail of item.Details){
                             item.TotalQuantity += detail.Quantity;
@@ -71,6 +74,8 @@ export class View {
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
+                            this.data.FinishingInDate=item.FinishingInDate;
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (this.data.Price * 50/100)) * item.Quantity;
                     }

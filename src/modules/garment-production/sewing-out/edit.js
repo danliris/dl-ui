@@ -33,9 +33,9 @@ export class View {
 
             for(var a of this.data.Items){
                 var SewingIn=await this.service.GetSewingInById(a.SewingInId );
-                console.log(SewingIn);
                 var sewIn= SewingIn.Items.find(x=>x.Id==a.SewingInItemId);
                 if(sewIn){
+                    a.SewingInDate=SewingIn.SewingInDate;
                     a.SewingInQuantity=a.Quantity + sewIn.RemainingQuantity;
                     if(this.data.IsDifferentSize){
                         a.Quantity+= sewIn.RemainingQuantity;
@@ -55,11 +55,14 @@ export class View {
     }
 
     saveCallback(event) {
+        
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         item.TotalQuantity=0;
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         for(var detail of item.Details){
                             item.TotalQuantity += detail.Quantity;
                             detail.Uom=item.Uom;
@@ -74,12 +77,15 @@ export class View {
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (this.data.Price * 50/100)) * item.Quantity;
                     }
                 }
             }
         }
+        console.log(this.data)
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

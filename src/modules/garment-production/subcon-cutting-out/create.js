@@ -35,6 +35,8 @@ export class Create {
                 for(var item of this.data.Items){
                     if(item.IsSave){
                         item.TotalCuttingOutQuantity=0;
+                        if(this.data.CuttingInDate==null || this.data.CuttingInDate<item.CuttingInDate)
+                            this.data.CuttingInDate=item.CuttingInDate;
                         for(var detail of item.Details){
                             item.TotalCuttingOutQuantity += detail.CuttingOutQuantity;
                             this.data.TotalQty+=detail.CuttingOutQuantity;
@@ -43,7 +45,6 @@ export class Create {
                 }
             }
         }
-        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

@@ -205,7 +205,8 @@ export class DataForm {
                         var date=result.data[0].SewingOutDate;
                         for(var sewingOut of result.data){
                             this.data.FinishingInDate= sewingOut.SewingOutDate> date?sewingOut.SewingOutDate: date;
-                            date=this.data.FinishingInDate 
+                            date=this.data.FinishingInDate;
+                            this.data.SewingOutDate=date;
                             for(var sewingOutItem of sewingOut.Items){
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
