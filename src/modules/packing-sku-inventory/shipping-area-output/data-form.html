@@ -56,6 +56,10 @@
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
 
+    <au-textbox if.bind="!isAdj" show.bind="isPenjualan" options.bind="controlOptions"
+      value.bind="data.shippingCode" label="Kode" read-only.bind="readOnly || isEdit">
+    </au-textbox>
+
     <au-textbox if.bind="!isAdj" show.bind="isSales && readOnly && data.bonNo" options.bind="controlOptions"
       value.bind="data.bonNo" label="Nomor Bon" read-only.bind="true">
     </au-textbox>
