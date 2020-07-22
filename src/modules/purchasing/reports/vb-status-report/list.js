@@ -9,6 +9,7 @@ import { DialogDetailView } from './template/detail-dialog-view'
 const VBWithPOLoader = require('./../../../../loader/vb-with-po-request-loader');
 const VBNonPOLoader = require('./../../../../loader/vb-non-po-request-loader');
 const UnitLoader = require('./../../../../loader/unit-loader');
+// const VBStatusReportLoader = require('./../../../../loader/vb-status-report-loader');
 
 import { Dialog } from './../../../../au-components/dialog/dialog';
 
@@ -203,4 +204,8 @@ export class List {
     get unitLoader() {
         return UnitLoader;
     }
+
+    // get vbStatusReportLoader() {
+    //     return VBStatusReportLoader;
+    // }
 }

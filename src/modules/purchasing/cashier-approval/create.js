@@ -7,7 +7,7 @@ import { Service } from './service';
 import VBWithPORequestService from '../shared/vb-with-po-request-service';
 import VBNonPORequestService from '../shared/vb-non-po-request-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
-import { PO, NONPO  } from '../shared/permission-constants';
+import { PO, NONPO } from '../shared/permission-constants';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 const VBWithPOLoader = require('../../../loader/vb-with-po-request-loader');
@@ -59,12 +59,12 @@ export class Create {
         showToggle: false,
     };
 
-    filterWithPO={
-        "VBRequestCategory":"PO"
+    filterWithPO = {
+        "VBRequestCategory": "PO"
     }
 
-    filterNonPO={
-        "VBRequestCategory":"NONPO"
+    filterNonPO = {
+        "VBRequestCategory": "NONPO"
     }
 
     formOptions = {
@@ -78,9 +78,9 @@ export class Create {
     @bindable date;
 
     async activate(params) {
-        params.role.position=parseInt(params.role.position);
-        params.role.hasPermission=true;
-        params.role.positionAutocomplete=parseInt(params.role.positionAutocomplete);
+        params.role.position = parseInt(params.role.position);
+        params.role.hasPermission = true;
+        params.role.positionAutocomplete = parseInt(params.role.positionAutocomplete);
         this.activeRole = params.role;
     }
 
@@ -124,7 +124,7 @@ export class Create {
             this.vbWithPO = newValue;
         } else if (oldValue) {
             this.vbWithPO == null;
-        }else{
+        } else {
             this.vbWithPO == null;
         }
     }
@@ -134,17 +134,17 @@ export class Create {
             this.vbNonPO = newValue;
         } else if (oldValue) {
             this.vbNonPO == null;
-        }else{
+        } else {
             this.vbNonPO == null;
         }
     }
 
-    unitChanged(newValue, oldValue){
+    unitChanged(newValue, oldValue) {
         if (newValue) {
             this.unit = newValue;
         } else if (oldValue) {
             this.unit == null;
-        }else{
+        } else {
             this.unit == null;
         }
     }
@@ -154,7 +154,7 @@ export class Create {
             this.date = newValue;
         } else if (oldValue) {
             this.date == null;
-        }else{
+        } else {
             this.date == null;
         }
     }
@@ -164,23 +164,23 @@ export class Create {
     }
 
     search() {
-        let filter = { 
+        let filter = {
             VBRequestCategory: this.activeRole.key,
             Apporve_Status: false,
         };
 
         if (this.vbWithPO)
             filter.VBNo = this.vbWithPO.VBNo;
-            
+
         if (this.vbNonPO)
             filter.VBNo = this.vbNonPO.VBNo;
 
         if (this.unit)
             filter.UnitName = this.unit.Name;
 
-        if (this.date){
-            filter.Date = this.date != "Invalid Date" ? moment(this.date).format("YYYY-MM-DD") : null;
-        }
+        if (this.date)
+            // filter.Date = this.date != "Invalid Date" ? moment(this.date).format("DD-MM-YYYY") : null;
+            filter.Date = this.date != "Invalid Date" ? moment.utc(this.date).local().format('DD MMM YYYY') : null;
 
         let arg = {
             page: 1,
@@ -188,75 +188,75 @@ export class Create {
             filter: JSON.stringify(filter),
         };
 
-        if(this.activeRole.key === 'PO') {
+        if (this.activeRole.key === 'PO') {
+            this.documentData = [];
+            var CashierApproval = [];
+            var dataCashierApproval = [];
             this.vbWithPORequestService.search(arg)
-            .then(result => {
-                this.documentData = [];
-                var CashierApproval=[];
-                for(var data of result.data){
-                    var config = Container.instance.get(Config);
-                    var _endpoint = config.getEndpoint("finance");
-                    const resource = `vb-with-po-request/${data.Id}`;
-                    var appoval =  _endpoint.find(resource);
-                     CashierApproval.push(appoval);
-                }
-                Promise.all(CashierApproval).then(dataApproval=>{
-                    var dataCashierApproval=[];
-                    for(var dataResult of dataApproval){
-                        dataCashierApproval.push(dataResult.data);
+                .then(result => {
+                    for (var data of result.data) {
+                        var config = Container.instance.get(Config);
+                        var _endpoint = config.getEndpoint("finance");
+                        const resource = `vb-with-po-request/${data.Id}`;
+                        var appoval = _endpoint.find(resource);
+                        CashierApproval.push(appoval);
                     }
-                    for(var data of result.data){
-                        for(var item of data.PONo) {
-                            var amount = 0;
-                            var totalAmount = 0;
-                            amount = item.Price * item.DealQuantity;
-                            totalAmount =+ amount; 
+                    Promise.all(CashierApproval).then(dataApproval => {
+                        for (var dataResult of dataApproval) {
+                            dataCashierApproval.push(dataResult.data);
                         }
-                        
-                        data.Amount = totalAmount;
+                        for (var data of result.data) {
+                            for (var item of data.PONo) {
+                                var amount = 0;
+                                var totalAmount = 0;
+                                amount = item.Price * item.DealQuantity;
+                                totalAmount = + amount;
+                            }
+
+                            data.Amount = totalAmount;
 
 
-                        var same= dataCashierApproval.find(a=>a.Id==data.Id);
-                        if(same){
-                            data.CreatedBy=same.CreatedBy;
+                            var same = dataCashierApproval.find(a => a.Id == data.Id);
+                            if (same) {
+                                data.CreatedBy = same.CreatedBy;
+                            }
                         }
-                    }
-                    this.documentData.push(...result.data)
-                    this.documentTable.refresh();
-                })
-                
-            });
-        } else if(this.activeRole.key === 'NONPO') {
+                        this.documentData.push(...result.data)
+                        this.documentTable.refresh();
+                    })
+
+                });
+        } else if (this.activeRole.key === 'NONPO') {
+            this.documentData = [];
+            var CashierApproval = [];
+            var dataCashierApproval = [];
             this.vbNonPORequestService.search(arg)
-            .then(result => {
-                this.documentData = [];
-                var CashierApproval=[];
-                for(var data of result.data){
-                    var config = Container.instance.get(Config);
-                    var _endpoint = config.getEndpoint("finance");
-                    const resource = `vb-non-po-request/${data.Id}`;
-                    var appoval =  _endpoint.find(resource);
-                     CashierApproval.push(appoval);
-                }
-                Promise.all(CashierApproval).then(dataApproval=>{
-                    var dataCashierApproval=[];
-                    for(var dataResult of dataApproval){
-                        dataCashierApproval.push(dataResult.data);
+                .then(result => {
+                    for (var data of result.data) {
+                        var config = Container.instance.get(Config);
+                        var _endpoint = config.getEndpoint("finance");
+                        const resource = `vb-non-po-request/${data.Id}`;
+                        var appoval = _endpoint.find(resource);
+                        CashierApproval.push(appoval);
                     }
-                    for(var data of result.data){
-                        var same= dataCashierApproval.find(a=>a.Id==data.Id);
-                        if(same){
-                            data.CreatedBy=same.CreatedBy;
+                    Promise.all(CashierApproval).then(dataApproval => {
+                        for (var dataResult of dataApproval) {
+                            dataCashierApproval.push(dataResult.data);
                         }
-                    }
-                    this.documentData.push(...result.data)
-                    this.documentTable.refresh();
-                })
-                
-            });
+                        for (var data of result.data) {
+                            var same = dataCashierApproval.find(a => a.Id == data.Id);
+                            if (same) {
+                                data.CreatedBy = same.CreatedBy;
+                            }
+                        }
+                        this.documentData.push(...result.data)
+                        this.documentTable.refresh();
+                    })
+
+                });
         }
 
-        
+
     }
 
     cancelCallback(event) {
@@ -271,7 +271,7 @@ export class Create {
 
         for (let s of this.selectedItems) {
             // console.log(s)
-            if(this.activeRole.key === 'PO') {
+            if (this.activeRole.key === 'PO') {
                 data.CashierApproval.push({
                     Id: s.Id,
                     VBNo: s.VBNo,
@@ -288,7 +288,7 @@ export class Create {
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {role:this.activeRole}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
