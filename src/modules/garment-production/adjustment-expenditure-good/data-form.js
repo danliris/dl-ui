@@ -156,7 +156,6 @@ export class DataForm {
                 Promise.resolve(this.service.searchFinishedGoodStockComplete({ filter: JSON.stringify({ RONo: newValue.RONo, UnitCode: this.data.Unit.Code, "Quantity>0":true }) }))
                     .then(result => { 
                         for(var finGood of result.data){
-                            console.log(finGood)
                             var item={};
                             if(finGood.Quantity>0){
                                 if(this.data.Items.length>0){
@@ -164,13 +163,11 @@ export class DataForm {
                                     
                                     if(duplicate){
                                         var idx= this.data.Items.indexOf(duplicate);
-                                        duplicate.ProcessDate= duplicate.ProcessDate <finGood.FinishingOutDate ? finGood.FinishingOutDate : duplicate.ProcessDate;
                                         duplicate.Quantity+=finGood.Quantity;
                                         duplicate.RemainingQuantity+=finGood.Quantity;
                                         this.data.Items[idx]=duplicate;
                                     }else{
                                         item.IsSave=true;
-                                        item.ProcessDate=finGood.FinishingOutDate;
                                         item.Quantity=finGood.Quantity;
                                         item.Uom= {
                                             Id :finGood.UomId,
@@ -195,7 +192,6 @@ export class DataForm {
                                 }
                                 else{
                                     item.IsSave=true;
-                                    item.ProcessDate=finGood.FinishingOutDate;
                                     item.Quantity=finGood.Quantity;
                                     item.Uom= {
                                         Id :finGood.UomId,
