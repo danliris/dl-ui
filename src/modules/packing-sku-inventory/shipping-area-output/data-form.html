@@ -57,7 +57,7 @@
     </au-dropdown>
 
     <au-textbox if.bind="!isAdj" show.bind="isPenjualan" options.bind="controlOptions"
-      value.bind="data.shippingCode" label="Kode" read-only.bind="readOnly || isEdit">
+      value.bind="data.shippingCode" error.bind="error.ShippingCode" label="Kode" read-only.bind="readOnly || isEdit">
     </au-textbox>
 
     <au-textbox if.bind="!isAdj" show.bind="isSales && readOnly && data.bonNo" options.bind="controlOptions"
