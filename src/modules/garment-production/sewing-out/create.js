@@ -29,6 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.SewingInDate=null;
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
@@ -37,6 +38,8 @@ export class Create {
                     }
                     if(item.IsSave){
                         item.TotalQuantity=0;
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         for(var detail of item.Details){
                             item.TotalQuantity += detail.Quantity;
                             detail.Uom=item.Uom;
@@ -55,12 +58,15 @@ export class Create {
                         item.IsSave=true;
                     }
                     if(item.IsSave){
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.Quantity;
                     }
                 }
             }
         }
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

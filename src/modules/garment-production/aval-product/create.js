@@ -38,6 +38,11 @@ export class Create {
         let objData = {};
         let data = Object.assign(objData, this.data)
         data.Items = data.Items.filter(x => x.IsSave==true);
+        for(var item of data.Items){
+            if(this.data.PreparingDate==null || this.data.PreparingDate<item.PreparingDate)
+                this.data.PreparingDate=item.PreparingDate;
+        }
+        console.log(this.data)
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");

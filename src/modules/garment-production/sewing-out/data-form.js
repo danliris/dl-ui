@@ -191,7 +191,7 @@ export class DataForm {
                                     item.DesignColor=sewingInItem.DesignColor;
                                     item.BasicPrice=sewingInItem.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
-
+                                    item.SewingInDate= sewingIn.SewingInDate;
                                     this.data.Items.push(item);
                                 }
                             }

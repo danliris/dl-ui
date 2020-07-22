@@ -29,6 +29,17 @@ export class Create {
 
     saveCallback(event) {
         this.data.CuttingFrom="PREPARING";
+        this.data.PreparingDate=null;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                for(var detail of item.Details){
+                    if(detail.IsSave){
+                        if(this.data.PreparingDate==null || this.data.PreparingDate<item.ProcessDate)
+                            this.data.PreparingDate=item.ProcessDate;
+                    }
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
