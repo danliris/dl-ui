@@ -101,7 +101,11 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "", title: "Estimasi Tgl Realisasi" },
+        {
+            field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
         { field: "Unit.Name", title: "Unit" },
         { field: "CreateBy", title: "Pemohon VB" },
         { field: "", title: "No. Realisasi" },
