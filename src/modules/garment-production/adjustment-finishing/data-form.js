@@ -149,6 +149,7 @@ export class DataForm {
                             for(var finishingInItem of finishingIn.Items){
                                 var item={};
                                 if(finishingInItem.RemainingQuantity>0){
+                                    item.ProcessDate=finishingIn.FinishingInDate;
                                     item.FinishingInItemId=finishingInItem.Id;
                                     item.FinishingInId=finishingIn.Id;
                                     item.Quantity=finishingInItem.RemainingQuantity;
