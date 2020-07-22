@@ -47,4 +47,18 @@
             </au-dropdown>
         </td>
     </tr>
+    <tr>
+        <td colspan="6">
+            <au-collection 
+                items.bind="data.Details" 
+                errors.bind="error.Details" 
+                columns.bind="itemsColumns"
+                read-only.bind="readOnly" 
+                add.bind="addItems" 
+                remove.bind="removeItems"
+                options.bind="options"
+                item-template="modules/garment-production/expenditure-good/template/detail" >
+            </au-collection>
+        </td>
+    </tr>
 </template>
