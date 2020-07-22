@@ -9,6 +9,7 @@ import { DialogDetailView } from './template/detail-dialog-view'
 const VBWithPOLoader = require('./../../../../loader/vb-with-po-request-loader');
 const VBNonPOLoader = require('./../../../../loader/vb-non-po-request-loader');
 const UnitLoader = require('./../../../../loader/unit-loader');
+// const VBStatusReportLoader = require('./../../../../loader/vb-status-report-loader');
 
 import { Dialog } from './../../../../au-components/dialog/dialog';
 
@@ -100,7 +101,11 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "", title: "Estimasi Tgl Realisasi" },
+        {
+            field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
         { field: "Unit.Name", title: "Unit" },
         { field: "CreateBy", title: "Pemohon VB" },
         { field: "", title: "No. Realisasi" },
@@ -203,4 +208,8 @@ export class List {
     get unitLoader() {
         return UnitLoader;
     }
+
+    // get vbStatusReportLoader() {
+    //     return VBStatusReportLoader;
+    // }
 }

@@ -27,47 +27,30 @@
         </div>
         <br>
     </template>
-    <au-input-form title="Buat Approval Permohonan VB ${activeRole.key === 'PO' ? 'With PO' : 'Non PO'}" options.bind="formOptions">
+    <au-input-form title="Buat Approval Permohonan VB ${activeRole.key === 'PO' ? 'With PO' : 'Non PO'}"
+        options.bind="formOptions">
         <div class="row">
             <div class="col-sm-3">
-                <au-autocomplete
-                    label="No VB"
-                    value.bind="vbWithPO"
-                    loader.one-time="vbWithPOLoader"
-                    text.bind="vbWithPOView"
-                    select.bind="selectVB"
-                    query.bind="filterWithPO"
+                <au-autocomplete label="No VB" value.bind="vbWithPO" loader.one-time="vbWithPOLoader"
+                    text.bind="vbWithPOView" select.bind="selectVB" query.bind="filterWithPO"
                     if.bind="activeRole.key === 'PO'">
                 </au-autocomplete>
 
-                <au-autocomplete
-                    label="No VB"
-                    value.bind="vbNonPO"
-                    loader.one-time="vbNonPOLoader"
-                    text.bind="vbNonPOView"
-                    select.bind="selectVB"
-                    query.bind="filterNonPO"
+                <au-autocomplete label="No VB" value.bind="vbNonPO" loader.one-time="vbNonPOLoader"
+                    text.bind="vbNonPOView" select.bind="selectVB" query.bind="filterNonPO"
                     if.bind="activeRole.key === 'NONPO'">
                 </au-autocomplete>
-                
+
             </div>
 
             <div class="col-sm-3">
-                <au-autocomplete
-                    label="Unit"
-                    value.bind="unit"
-                    loader.one-time="unitLoader"
-                    text.bind="unitView"
+                <au-autocomplete label="Unit" value.bind="unit" loader.one-time="unitLoader" text.bind="unitView"
                     select.bind="selectUnit">
                 </au-autocomplete>
             </div>
 
             <div class="col-sm-3">
-                <au-datepicker
-                    label="Tgl VB"
-                    value.bind="date"
-                    loader.one-time="loader"
-                    select.bind="selectDate">
+                <au-datepicker label="Tgl VB" value.bind="date" loader.one-time="loader" select.bind="selectDate">
                 </au-datepicker>
             </div>
 
@@ -78,29 +61,16 @@
 
         <br><br>
 
-        <au-textbox
-            show.bind="error.CashierApproval"
-            error.bind="error.CashierApproval"
-            read-only="true">
+        <au-textbox show.bind="error.CashierApproval" error.bind="error.CashierApproval" read-only="true">
         </au-textbox>
 
-        <au-table
-            view-model.ref="documentTable"
-            data.bind="documentData"
-            columns.bind="columnsWithPO"
-            sortable.bind="true"
-            selections.bind="selectedItems" 
-            options.bind="tableOptions"
+        <au-table view-model.ref="documentTable" data.bind="documentData" columns.bind="columnsWithPO"
+            sortable.bind="true" selections.bind="selectedItems" options.bind="tableOptions"
             if.bind="activeRole.key === 'PO'">
         </au-table>
 
-        <au-table
-            view-model.ref="documentTable"
-            data.bind="documentData"
-            columns.bind="columnsNonPO"
-            sortable.bind="true"
-            selections.bind="selectedItems" 
-            options.bind="tableOptions"
+        <au-table view-model.ref="documentTable" data.bind="documentData" columns.bind="columnsNonPO"
+            sortable.bind="true" selections.bind="selectedItems" options.bind="tableOptions"
             if.bind="activeRole.key === 'NONPO'">
         </au-table>
 

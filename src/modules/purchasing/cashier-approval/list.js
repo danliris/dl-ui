@@ -11,7 +11,7 @@ import { PO, NONPO } from '../shared/permission-constants';
 
 @inject(Router, Service, VBWithPORequestService, VBNonPORequestService, Dialog, PermissionHelper)
 export class List {
-    context = ['Hapus'];
+    // context = ['Hapus'];
 
     columnsWithPO = [
         {
@@ -54,7 +54,7 @@ export class List {
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreateBy", title: "Pemohon" },
-        { field: "UnitLoad", title: "Unit" },
+        { field: "UnitName", title: "Unit" },
     ];
 
     constructor(router, service, vbWithPORequestService, vbNonPORequestService, dialog, permissionHelper) {
@@ -148,24 +148,24 @@ export class List {
             });
     }
 
-    contextClickCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
+    // contextClickCallback(event) {
+    //     let arg = event.detail;
+    //     let data = arg.data;
 
-        switch (arg.name) {
-            case 'Hapus':
-                this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Disposisi Pembelian')
-                    .then(response => {
-                        if (response.ok) {
-                            this.service.delete(data)
-                                .then(result => {
-                                    this.tableList.refresh();
-                                });
-                        }
-                    });
-                break;
-        }
-    }
+    //     switch (arg.name) {
+    //         case 'Hapus':
+    //             this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Disposisi Pembelian')
+    //                 .then(response => {
+    //                     if (response.ok) {
+    //                         this.service.delete(data)
+    //                             .then(result => {
+    //                                 this.tableList.refresh();
+    //                             });
+    //                     }
+    //                 });
+    //             break;
+    //     }
+    // }
 
     create() {
         this.router.navigateToRoute('create', { role: this.activeRole });
