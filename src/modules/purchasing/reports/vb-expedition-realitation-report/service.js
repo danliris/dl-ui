@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'vb-status-report';
+const serviceUri = 'vb-expedition-realization-report';
 
 export class Service extends RestService {
 
@@ -29,29 +29,34 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/reports/xls?`;
         var query = '';
 
-        if (info.unitId) {
-            if (query === '') query = `unitId=${info.unitId}`;
-            else query = `${query}&unitId=${info.unitId}`;
-        }
-
         if (info.vbRequestId) {
             if (query === '') query = `vbRequestId=${info.vbRequestId}`;
             else query = `${query}&vbRequestId=${info.vbRequestId}`;
         }
 
-        if (info.isRealized) {
-            if (query === '') query = `isRealized=${info.isRealized}`;
-            else query = `${query}&isRealized=${info.isRealized}`;
+        if (info.vbRealizeId) {
+            if (query === '') query = `vbRealizeId=${info.vbRealizeId}`;
+            else query = `${query}&vbRealizeId=${info.vbRealizeId}`;
+        }
+        
+        if (info.ApplicantName) {
+            if (query === '') query = `ApplicantName=${info.ApplicantName}`;
+            else query = `${query}&ApplicantName=${info.ApplicantName}`;
         }
 
-        if (info.requestDateFrom) {
-            if (query === '') query = `requestDateFrom=${info.requestDateFrom}`;
-            else query = `${query}&requestDateFrom=${info.requestDateFrom}`;
+        if (info.unitId) {
+            if (query === '') query = `unitId=${info.unitId}`;
+            else query = `${query}&unitId=${info.unitId}`;
         }
 
-        if (info.requestDateTo) {
-            if (query === '') query = `requestDateTo=${info.requestDateTo}`;
-            else query = `${query}&requestDateTo=${info.requestDateTo}`;
+        if (info.divisionId) {
+            if (query === '') query = `divisionId=${info.divisionId}`;
+            else query = `${query}&divisionId=${info.divisionId}`;
+        }
+
+        if (info.isVerified) {
+            if (query === '') query = `isVerified=${info.isVerified}`;
+            else query = `${query}&isVerified=${info.isVerified}`;
         }
 
         if (info.realizeDateFrom) {
