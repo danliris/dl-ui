@@ -17,30 +17,23 @@ export class List {
   context = ["Detail", "Cetak Bukti Permohonan"]
 
   columns = [
-    { field: "VBNo", title: "No. VB" },
     {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+      field: "DateVerified", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "UnitName", title: "Unit Pemohon" },
-    { field: "CreateBy", title: "Dibuat oleh" },
-    // {
-    //   field: "Status_Post", title: "Status Post",
-    //   formatter: function (value, row, index) {
-    //     return value ? "Sudah" : "Belum";
-    //   }
-    // },
+    { field: "RealizeNo", title: "No Realisasi" },
     {
-      field: "Approve_Status", title: "Status Approved",
-      formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
+      field: "DateRealize", title: "Tanggal Realisasi", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "Complete_Status", title: "Status Complete",
-    formatter: function (value, row, index) {
-      return value ? "Sudah" : "Belum";
-    } }
+    { field: "RequestName", title: "Pemohon" },
+    { field: "UnitRequest", title: "Unit Pemohon" },
+    { field: "SendTo", title: "Dikirim Ke" },
+    { field: "VbNo", title: "No. VB" },
+    { field: "VBCategory", title: "Tipe VB" },
+    { field: "Currency", title: "Kurs" }
   ];
 
   async activate(params) {

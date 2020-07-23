@@ -52,11 +52,14 @@ export class Create {
         bodyRequest.packagingProductionOrders = [];
         this.data.packagingProductionOrders.forEach(element => {
             element.PackagingList
-                .filter(s => s.IsSave)
+                // .filter(s => s.IsSave)
                 .forEach(item => {
                     var itemSpp = {};
                     itemSpp.productionOrderNo = item.productionOrderNo,
                         itemSpp.productionOrder = item.productionOrder,
+                        itemSpp.materialProduct = item.materialProduct,
+                        itemSpp.materialConstruction = item.materialConstruction,
+                        itemSpp.materialWidth = item.materialWidth,
                         itemSpp.balance = item.balance,
                         itemSpp.buyerId = item.buyerId,
                         itemSpp.buyer = item.buyer,
@@ -77,7 +80,8 @@ export class Create {
                         itemSpp.remark = item.remark,
                         itemSpp.status = item.status,
                         itemSpp.material = item.material,
-                        itemSpp.id = item.id
+                        itemSpp.id = item.id,
+                        itemSpp.IsSave = item.IsSave
                     bodyRequest.packagingProductionOrders.push(itemSpp);
                 });
         });

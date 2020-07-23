@@ -163,6 +163,7 @@ export class DataForm {
                                             this.data.Items[idx]=duplicate;
                                         }else{
                                             item.IsSave=true;
+                                            item.ExpenditureDate= exGood.ExpenditureDate;
                                             item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                             item.ExpenditureGoodId=exGood.Id;
                                             item.ExpenditureGoodItemId=exGoodItem.Id;
@@ -178,6 +179,7 @@ export class DataForm {
                                     }
                                     else{
                                         item.IsSave=true;
+                                        item.ExpenditureDate= exGood.ExpenditureDate;
                                         item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                         item.ExpenditureGoodId=exGood.Id;
                                         item.ExpenditureGoodItemId=exGoodItem.Id;

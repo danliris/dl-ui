@@ -145,6 +145,7 @@ export class DataForm {
                             for(var sewingInItem of sewingIn.Items){
                                 var item={};
                                 if(sewingInItem.RemainingQuantity>0){
+                                    item.ProcessDate=sewingIn.SewingInDate;
                                     item.SewingInItemId=sewingInItem.Id;
                                     item.SewingInId=sewingIn.Id;
                                     item.Quantity=sewingInItem.RemainingQuantity;

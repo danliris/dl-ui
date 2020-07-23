@@ -83,6 +83,11 @@ export class DataForm {
     return (this.data.id || "").toString() != "";
   }
 
+  @computedFrom("destinationArea")
+  get isPenjualan() {
+    return this.destinationArea && this.destinationArea == "PENJUALAN";
+  }
+
   @computedFrom("data.type")
   get isAdj() {
     return this.data && this.data.type == "ADJ";

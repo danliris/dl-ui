@@ -28,6 +28,17 @@ export class Create {
     }
 
     saveCallback(event) {
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave){
+                    if(this.data.AvalComponentType=="CUTTING" &&( this.data.CuttingDate==null || this.data.CuttingDate<item.CuttingDate))
+                        this.data.CuttingDate=item.CuttingDate;
+                    if(this.data.AvalComponentType=="SEWING" &&( this.data.SewingDate==null || this.data.SewingDate<item.SewingDate))
+                        this.data.SewingDate=item.SewingDate;
+                }
+            }
+        }
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

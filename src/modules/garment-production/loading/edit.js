@@ -27,6 +27,7 @@ export class Edit {
 
         if(this.data.SewingDOId){
             this.selectedSewingDO= await this.service.getSewingDObyId(this.data.SewingDOId);
+            this.data.SewingDODate=this.selectedSewingDO.SewingDODate;
             for(var a of this.data.Items){
                 var same= this.selectedSewingDO.Items.find(b=>b.Id==a.SewingDOItemId);
                 if(same){

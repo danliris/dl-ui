@@ -184,6 +184,7 @@ export class DataForm {
                                         cuttingInDetail.CuttingInId = cuttingInHeader.Id;
                                         cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
                                         cuttingInDetail.ComodityPrice=this.data.Price;
+                                        cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
                                         this.data.Items.push(cuttingInDetail);
                                     }
                                 }

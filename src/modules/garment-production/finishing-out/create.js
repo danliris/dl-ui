@@ -33,6 +33,8 @@ export class Create {
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
+                            this.data.FinishingInDate=item.FinishingInDate;
                         item.TotalQuantity=0;
                         for(var detail of item.Details){
                             item.TotalQuantity += detail.Quantity;
@@ -49,6 +51,8 @@ export class Create {
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
+                        if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
+                            this.data.FinishingInDate=item.FinishingInDate;
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.Quantity;
                     }
