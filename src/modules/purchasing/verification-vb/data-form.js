@@ -12,7 +12,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable numberVB;
-    @bindable items = [];
+
 
     controlOptions = {
         label: {
@@ -22,6 +22,17 @@ export class DataForm {
             length: 5
         }
     }
+
+    numericOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 2
+        }
+    }
+
+    detailOptions = {};
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -36,11 +47,16 @@ export class DataForm {
         if (this.data.numberVB && this.data.numberVB.VBNo) {
             this.numberVB = this.data.numberVB;
             this.DetailItems = this.data.numberVB.DetailItems;
+            this.data.items = this.data.numberVB.DetailItems;
 
+            this.detailOptions.Status_ReqReal = this.data.numberVB.Status_ReqReal;
+            this.detailOptions.Amount_Request = this.data.numberVB.Amount_Request;
+            this.detailOptions.Amount_Vat = this.data.numberVB.Amount_Vat;
         } else {
             this.numberVB = null;
             this.DetailItems = null;
         }
+
     }
 
     async numberVBChanged(newValue) {
@@ -48,9 +64,10 @@ export class DataForm {
             this.data.numberVB = newValue;
             var dataItems = [];
 
-            console.log(this.data.numberVB);
-
             if (this.data.numberVB) {
+                this.detailOptions.Status_ReqReal = this.data.numberVB.Status_ReqReal;
+                this.detailOptions.Amount_Request = this.data.numberVB.Amount_Request;
+                this.detailOptions.Amount_Vat = this.data.numberVB.Amount_Vat;
 
                 for (var dataItem of this.data.numberVB.DetailItems) {
                     var item = {};
@@ -69,8 +86,8 @@ export class DataForm {
 
                     dataItems.push(item);
                 }
-                console.log(dataItems);
-                this.items = dataItems;
+
+                this.data.items = dataItems;
 
             }
             else {
@@ -86,28 +103,12 @@ export class DataForm {
     context = ["Rincian Purchase Request"];
 
     columns = [
-        {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "Remark", title: "Keterangan" },
-        { field: "Amount", title: "Harga" },
-        {
-            field: "isGetPPn", title: "Kena Ppn",
-            formatter: function (value, row, index) {
-                return value ? "Ya" : "Tidak";
-            }
-        },
-        { field: "Total", title: "Total" }
+        { value: "Date", header: "Tanggal" },
+        { value: "Remark", header: "Keterangan" },
+        { value: "Amount", header: "Harga" },
+        { value: "isGetPPn", header: "Kena Ppn" },
+        { value: "Total", header: "Total" }
     ]
-
-    tableOptions = {
-        search: false,
-        showToggle: false,
-        showColumns: false,
-        pagination: false
-    }
 
     get vbLoader() {
 
