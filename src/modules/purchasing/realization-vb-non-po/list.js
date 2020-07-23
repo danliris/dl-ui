@@ -48,7 +48,7 @@ export class List {
     if (info.sort)
         order[info.sort] = info.order;
     else
-        order["Date"] = "desc";
+        order["LastModifiedUtc"] = "desc";
 
     let arg = {
         page: parseInt(info.offset / info.limit, 10) + 1,
@@ -61,7 +61,7 @@ export class List {
     return this.service.search(arg)
         .then(result => {
             return {
-                //total: result.info.total,
+                total: result.info.total,
                 data: result.data
             }
         });

@@ -19,21 +19,21 @@
 
             <div class="col-md-6"> -->
 
-    
 
-      <au-datepicker label="Tanggal Verifikasi" value.bind="data.VerifyDate" error.bind="error.VerifyDate"
-        read-only.bind="true" options.bind="controlOptions">
-      </au-datepicker>
 
-      <!-- <au-datepicker label="Tanggal Terima Verifikasi" value.bind="data.VerifyDateReceive" error.bind="error.VerifyDateReceive"
+    <au-datepicker label="Tanggal Verifikasi" value.bind="data.VerifyDate" error.bind="error.VerifyDate"
+      read-only.bind="true" options.bind="controlOptions">
+    </au-datepicker>
+
+    <!-- <au-datepicker label="Tanggal Terima Verifikasi" value.bind="data.VerifyDateReceive" error.bind="error.VerifyDateReceive"
                 read-only.bind="readOnly || isEdit" options.bind="controlOptions">
               </au-datepicker> -->
 
-      <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No Realisasi" loader.one-time="vbLoader"
-        text="VBNoRealize" read-only.bind="readOnly || isEdit" options.bind="controlOptions"
-        placeholder="Cari No Realisasi VB">
-      </au-autocomplete>
-<div if.bind="numberVB.VBNo">
+    <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No Realisasi" loader.one-time="vbLoader"
+      text="VBNoRealize" read-only.bind="readOnly || isEdit" options.bind="controlOptions"
+      placeholder="Cari No Realisasi VB">
+    </au-autocomplete>
+    <div if.bind="numberVB.VBNo">
       <au-textbox label="Tipe VB" value.bind="data.numberVB.VBRealizeCategory" read-only.bind="true"
         options.bind="controlOptions">
       </au-textbox>
@@ -66,12 +66,17 @@
 
             <div class="col-md-6"> -->
 
-      <au-textbox label="Kurs" value.bind="data.numberVB.Currency" read-only.bind="true" options.bind="controlOptions">
-      </au-textbox>
-
-      <au-textbox label="Jumlah Uang Pemohon" value.bind="data.numberVB.Amount_Request" read-only.bind="true"
+      <au-textbox label="Mata Uang" value.bind="data.numberVB.Currency" read-only.bind="true"
         options.bind="controlOptions">
       </au-textbox>
+
+      <!-- <au-textbox label="Jumlah Uang Pemohon" value.bind="data.numberVB.Amount_Request" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-textbox> -->
+
+      <au-numeric label="Jumlah Uang Pemohon" value.bind="data.numberVB.Amount_Request" read-only.bind="true"
+        options.bind="numericOptions">
+      </au-numeric>
 
       <au-textbox label="Kegunaan VB" value.bind="data.numberVB.Usage" read-only.bind="true"
         options.bind="controlOptions">
@@ -102,13 +107,26 @@
           </div>
 
         </div>
-      </div>
+      </div> add.bind="addItems"
+                       remove.bind="onremove"
 
     </div> -->
 
-      <au-table data.bind="items" errors.bind="error.items" columns.bind="columns" options.bind="tableOptions"
-        read-only.bind="readOnly" context.bind="context" context-click.delegate="contextCallback($event)">
-      </au-table>
+      <!-- <au-table view-model.ref="MyTable" data.bind="items" errors.bind="error.items" columns.bind="columns"
+        options.bind="tableOptions" read-only.bind="readOnly">    
+      </au-table> -->
+
+      <au-collection items.bind="data.items" columns.bind="columns" read-only.bind="readOnly"
+        footer-template="modules/purchasing/verification-vb/templates/item-footer"
+        item-template="modules/purchasing/verification-vb/templates/item" options.bind="detailOptions"> 
+      </au-collection>
+
+      <!-- <au-collection 
+          items.bind="data.items" 
+          columns.bind="itemsColumns" 
+          read-only.bind="readOnly" 
+          item-template="modules/purchasing/purchase-order/template/purchase-order-item">
+      </au-collection> -->
 
     </div>
 

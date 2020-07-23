@@ -25,22 +25,18 @@ export class List {
     },
     { field: "UnitName", title: "Unit Pemohon" },
     { field: "CreateBy", title: "Dibuat oleh" },
-    // {
-    //   field: "Status_Post", title: "Status Post",
-    //   formatter: function (value, row, index) {
-    //     return value ? "Sudah" : "Belum";
-    //   }
-    // },
     {
       field: "Approve_Status", title: "Status Approved",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
     },
-    { field: "Complete_Status", title: "Status Complete",
-    formatter: function (value, row, index) {
-      return value ? "Sudah" : "Belum";
-    } }
+    {
+      field: "Complete_Status", title: "Status Complete",
+      formatter: function (value, row, index) {
+        return value ? "Sudah" : "Belum";
+      }
+    }
   ];
 
   async activate(params) {
@@ -51,25 +47,25 @@ export class List {
     let order = {};
 
     if (info.sort)
-        order[info.sort] = info.order;
+      order[info.sort] = info.order;
     else
-        order["Date"] = "desc";
+      order["LastModifiedUtc"] = "desc";
 
     let arg = {
-        page: parseInt(info.offset / info.limit, 10) + 1,
-        size: info.limit,
-        keyword: info.search,
-        order: order
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
     };
 
     return this.service.search(arg)
-        .then(result => {
-            return {
-                //total: result.info.total,
-                data: result.data
-            }
-        });
-}
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
   constructor(router, service) {
     this.service = service;

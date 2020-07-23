@@ -3,7 +3,7 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 import { Dialog } from '../../../components/dialog/dialog';
-// import { AlertView } from './custom-dialog-view/alert-view';
+import { AlertView } from './custom-dialog-view/alert-view';
 
 
 @inject(Router, Service, Dialog)
@@ -41,12 +41,16 @@ export class Create {
             .then(response => {
 
                 if (!response.wasCancelled) {
-                    if (response.output.context == "Finance") {
-                        Data.SubmitPosition = 5;
+                    if (response.output.context == "Clearance") {
+                        // Data.SubmitPosition = 5;
                     } else if (response.output.context == "Cashier") {
-                        Data.SubmitPosition = 4;
+                        Data.isVerified = true;
+                        Data.isNotVeridied = true;
+                        // Data.SubmitPosition = 4;
                     } else {
-                        Data.SubmitPosition = 6;
+                        // Data.SubmitPosition = 6;
+                        Data.isVerified = false;
+                        Data.isNotVeridied = false;
                         Data.Remark = response.output.Remark;
                         Data.Reason = response.output.Remark;
                     }
@@ -60,15 +64,15 @@ export class Create {
     }
 
 
-    save(event) {
-        // console.log(this.data);
-        this.service.create(this.data)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                this.error = e;
-            });
-    }
+    // save(event) {
+    //     // console.log(this.data);
+    //     this.service.create(this.data)
+    //         .then(result => {
+    //             alert("Data berhasil dibuat");
+    //             this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+    //         })
+    //         .catch(e => {
+    //             this.error = e;
+    //         });
+    // }
 }

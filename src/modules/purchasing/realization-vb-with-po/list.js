@@ -28,18 +28,13 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    // { field: "UnitLoad", title: "Beban Unit" },
     { field: "RequestVbName", title: "Dibuat oleh" },
     {
       field: "isVerified", title: "Status Verifikasi",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
-    },
-    // { field: "Complete_Status", title: "Status Complete",
-    // formatter: function (value, row, index) {
-    //   return value ? "Sudah" : "Belum";
-    // } }
+    }
   ];
 
   async activate(params) {
@@ -65,7 +60,7 @@ export class List {
     return this.service.search(arg)
         .then(result => {
             return {
-                //total: result.info.total,
+                total: result.info.total,
                 data: result.data
             }
         });
