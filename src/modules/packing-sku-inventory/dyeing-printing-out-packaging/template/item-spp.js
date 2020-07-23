@@ -22,11 +22,11 @@ export class ItemSPP {
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
+        console.log(this.error);
         this.options = context.options;
         this.context = context.context;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
-        console.log(this.data);
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
