@@ -25,22 +25,18 @@ export class List {
     },
     { field: "UnitName", title: "Unit" },
     { field: "CreateBy", title: "Dibuat oleh" },
-    // {
-    //   field: "Status_Post", title: "Status Post",
-    //   formatter: function (value, row, index) {
-    //     return value ? "Sudah" : "Belum";
-    //   }
-    // },
     {
       field: "Approve_Status", title: "Status Approved",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
     },
-    { field: "Complete_Status", title: "Status Complete",
-    formatter: function (value, row, index) {
-      return value ? "Sudah" : "Belum";
-    } }
+    {
+      field: "Complete_Status", title: "Status Complete",
+      formatter: function (value, row, index) {
+        return value ? "Sudah" : "Belum";
+      }
+    }
   ];
 
   async activate(params) {
@@ -53,7 +49,7 @@ export class List {
     if (info.sort)
       order[info.sort] = info.order;
     else
-      order["Date"] = "desc";
+      order["LastModifiedUtc"] = "desc";
 
     let arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
@@ -65,7 +61,7 @@ export class List {
     return this.service.search(arg)
       .then(result => {
         return {
-          //total: result.info.total,
+          total: result.info.total,
           data: result.data
         }
       });

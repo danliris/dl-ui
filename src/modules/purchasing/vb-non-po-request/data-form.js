@@ -22,6 +22,7 @@ export class DataForm {
             length: 5
         }
     }
+    
 
     controlOptionsLabel = {
         label: {
@@ -118,16 +119,21 @@ export class DataForm {
 
     @bindable selectedUnit;
     selectedUnitChanged(newValue, oldValue){
+
         if (this.selectedUnit && this.selectedUnit.Id) {
             this.data.unit = {};
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
+            this.data.unit.divisionname = this.selectedUnit.Division.Name;
+            this.data.unit.divisionid = this.selectedUnit.Division.Id;
         }
         else {
             this.data.unit.id = this.selectedUnit.id;
             this.data.unit.name = this.selectedUnit.name;
             this.data.unit.code = this.selectedUnit.code;
+            this.data.unit.division = this.selectedUnit.divisionname;
+            this.data.unit.divisionid = this.selectedUnit.divisionid;
         }
     }
 
@@ -147,6 +153,22 @@ export class DataForm {
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
         this.data.Currency = newValue;
+    }
+
+    get getOthersValue() {
+        if (this.data.DetailOthers == "") {
+            return "..........";
+        } else {
+            return this.data.DetailOthers;
+        }
+    }
+
+    get setOthersValue() {
+        if (this.context.hasEdit == true) {
+            return "";
+        } else {
+            return this.data.DetailOthers;
+        }
     }
 
 }
