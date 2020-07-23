@@ -13,6 +13,9 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        for (var item of this.data.warehousesProductionOrders) {
+            item.productionOrderItems = item.productionOrderItems.filter(s => s.hasOutputDocument === false);
+        }
     }
 
     view(data) {
@@ -20,7 +23,7 @@ export class Edit {
     }
 
     save() {
-        this.data.MappedWarehousesProductionOrders =  this.data.warehousesProductionOrders;
+        this.data.MappedWarehousesProductionOrders = this.data.warehousesProductionOrders;
 
         this.service.update(this.data).then(result => {
             this.view();

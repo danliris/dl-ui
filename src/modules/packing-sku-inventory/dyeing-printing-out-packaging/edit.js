@@ -13,16 +13,18 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
-
+        var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
+        if (this.data.type == "OUT") {
+            this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
+        }
         var mappedGroup = _.map(groupObj);
-        
+
         var packagingProductionOrdersGroup = [];
-        mappedGroup.forEach((element,index) => {
+        mappedGroup.forEach((element, index) => {
             var headData = {};
-            
-            element.forEach((x,i)=>{
-                if(i==0){
+
+            element.forEach((x, i) => {
+                if (i == 0) {
                     headData = x;
                     headData.PackagingList = [];
                 }
@@ -31,7 +33,7 @@ export class Edit {
             packagingProductionOrdersGroup.push(headData);
         });
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
-        this.canEdit=true;
+        this.canEdit = true;
     }
 
     view(data) {
@@ -39,7 +41,7 @@ export class Edit {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

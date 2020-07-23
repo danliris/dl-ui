@@ -89,7 +89,7 @@ export class Item {
       "Panjang Per Packing",
       "Qty Keluar",
     ];
-    console.log(this);
+    
   }
 
   changeCheckBox() {
