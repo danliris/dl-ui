@@ -13,10 +13,11 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
         if (this.data.type == "OUT") {
             this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
         }
+        
+        var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
         var mappedGroup = _.map(groupObj);
 
         var packagingProductionOrdersGroup = [];
