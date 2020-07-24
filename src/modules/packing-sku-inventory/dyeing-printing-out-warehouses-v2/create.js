@@ -94,7 +94,6 @@ export class Create {
       //   (s) => s.IsSave === true
       // );
 
-      // console.log(this.data);
       if (this.data.type == "OUT") {
         this.data.displayWarehousesProductionOrders.forEach(element => {
           element.productionOrderItems
@@ -107,7 +106,7 @@ export class Create {
       } else {
         this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
       }
-      console.log(this.data)
+      
       this.service
         .create(this.data)
         .then((result) => {
