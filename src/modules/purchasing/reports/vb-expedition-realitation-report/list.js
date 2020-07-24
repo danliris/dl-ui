@@ -45,7 +45,7 @@ export class List {
     setValue() {
         this.arg.vbRequestId = this.selectedVBRequest ? this.selectedVBRequest.Id : null;
         this.arg.vbRealizeId = this.selectedVBRealize ? this.selectedVBRealize.Id : null;
-        this.arg.ApplicantName = this.selectedApplicant ? this.selectedApplicant.CreateBy : null;
+        this.arg.applicantName = this.selectedApplicant ? this.selectedApplicant.username : null;
         this.arg.unitId = this.selectedUnit ? this.selectedUnit.Id : null;
         this.arg.divisionId = this.selectedDivision ? this.selectedDivision.Id : null;
         this.arg.isVerified = this.selectedStatus ? this.selectedStatus.value : null;
@@ -93,7 +93,8 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "Status", title: "Status Kasir/Retur" },
+        { field: "Status", title: "Status Kasir" },
+        { field: "VerificationStatus", title: "Status Retur" },
         { field: "Notes", title: "Keterangan (Retur)" },
         {
             field: "DateCashierReceive", title: "Tgl. Kasir Terima", formatter: function (value, data, index) {
@@ -142,7 +143,8 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "Status", title: "Status Kasir/Retur" },
+        { field: "Status", title: "Status Kasir" },
+        { field: "VerificationStatus", title: "Status Retur" },
         { field: "Notes", title: "Keterangan (Retur)" },
         {
             field: "DateCashierReceive", title: "Tgl. Kasir Terima", formatter: function (value, data, index) {
@@ -205,7 +207,7 @@ export class List {
         }
     }
 
-    statusTypes = [{ value: true, label: "Kasir" }, { value: false, label: "Retur" }];
+    statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CASHIER", label: "Kasir" }, { value: "RETURN", label: "Retur" }];
 
     get vbWithPOLoader() {
         return VBWithPOLoader;

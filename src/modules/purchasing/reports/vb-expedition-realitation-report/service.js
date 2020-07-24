@@ -39,9 +39,9 @@ export class Service extends RestService {
             else query = `${query}&vbRealizeId=${info.vbRealizeId}`;
         }
         
-        if (info.ApplicantName) {
-            if (query === '') query = `ApplicantName=${info.ApplicantName}`;
-            else query = `${query}&ApplicantName=${info.ApplicantName}`;
+        if (info.applicantName) {
+            if (query === '') query = `applicantName=${info.applicantName}`;
+            else query = `${query}&applicantName=${info.applicantName}`;
         }
 
         if (info.unitId) {

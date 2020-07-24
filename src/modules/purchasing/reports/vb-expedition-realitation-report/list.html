@@ -55,7 +55,7 @@
                              label="Divisi"
                              placeholder="pilih divisi"
                              loader.one-time="divisionLoader"
-                             text.bind="Name"
+                             text="Name"
                              options.bind="controlOptions">
             </au-autocomplete>
 
@@ -76,7 +76,7 @@
                             class='btn btn-success'>Reset</button>
                 </div>
             </div>
-
+<!-- 
             <div class="table-responsive">
                 <au-table view-model.ref="table"
                           data.bind="loader"
@@ -90,15 +90,15 @@
                               <button class='btn btn-primary'
                                       click.delegate="exportToExcel()">Excel</button>
                           </div>
-                </au-table>
+                </au-table> -->
                 
                 <au-table view-model.ref="table"
                           data.bind="loader"
                           columns.bind="columnsReturn"
                           page-size="25"
                           context.bind="context"
-                          options.bind="tableOptions"
-                          if.bind="selectedStatus.value==false">
+                          options.bind="tableOptions">
+                          <!-- if.bind="selectedStatus.value==false" -->
                           <div slot="toolbar"
                                class="btn-group">
                               <button class='btn btn-primary'

@@ -46,12 +46,12 @@ export class List {
     setValue() {
         this.arg.unitId = this.selectedUnit ? this.selectedUnit.Id : null;
         this.arg.vbRequestId = this.selectedVBRequest ? this.selectedVBRequest.Id : null;
-        this.arg.isRealized = this.selectedStatus ? this.selectedStatus.value : null;
+        this.arg.applicantName = this.selectedApplicant ? this.selectedApplicant.username : null;
+        this.arg.clearanceStatus = this.selectedStatus ? this.selectedStatus.value : null;
         this.arg.requestDateFrom = this.requestStartDate && this.requestStartDate != "Invalid Date" ? moment(this.requestStartDate).format("YYYY-MM-DD") : null;
         this.arg.requestDateTo = this.requestEndDate && this.requestEndDate != "Invalid Date" ? moment(this.requestEndDate).format("YYYY-MM-DD") : null;
         this.arg.realizeDateFrom = this.realizeStartDate && this.realizeStartDate != "Invalid Date" ? moment(this.realizeStartDate).format("YYYY-MM-DD") : null;
         this.arg.realizeDateTo = this.realizeEndDate && this.realizeEndDate != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
-
     }
 
     columnsReal = [
@@ -139,9 +139,7 @@ export class List {
             this.setValue(),
             this.service.getReport(this.arg)
                 .then(result => {
-                    // var index = 0;
                     return {
-                        // total: result.info.total,
                         data: result.data,
                     }
                 })
@@ -165,9 +163,7 @@ export class List {
             this.dialog.prompt('Tanggal Awal & Akhir Permohonan VB dibutuhkan untuk menentukan periode', 'Tanggal Awal & Akhir Permohonan VB Harus Diisi');
         } else {
             this.listDataFlag = true;
-            // console.log(this);
             this.table.refresh();
-            // this.setValue();
         }
     }
 
@@ -179,10 +175,8 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        // console.log(data);
         switch (arg.name) {
             case "Rincian":
-                // this.router.navigateToRoute('view', { id: data.orderNo });
                 this.dialog.show(DialogDetailView, { data: data.VbRequestDetail });
                 break;
         }
@@ -195,7 +189,7 @@ export class List {
         }
     }
 
-    statusTypes = [{ value: true, label: "Realisasi" }, { value: false, label: "Outstanding" }];
+    statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CLEARANCE", label: "Clearance" }, { value: "OUTSTANDING", label: "Outstanding" }];
 
     get vbWithPOLoader() {
         return VBWithPOLoader;

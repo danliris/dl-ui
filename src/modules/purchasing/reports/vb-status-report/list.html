@@ -81,7 +81,7 @@
                           context.bind="context"
                           context-click.delegate="contextClickCallback($event)"
                           options.bind="tableOptions"
-                          if.bind="selectedStatus.value==true">
+                          if.bind="selectedStatus.value!='OUTSTANDING'">
                     <div slot="toolbar"
                          class="btn-group">
                         <button class='btn btn-primary'
@@ -96,7 +96,7 @@
                           context.bind="context"
                           context-click.delegate="contextClickCallback($event)"
                           options.bind="tableOptions"
-                          if.bind="selectedStatus.value==false">
+                          if.bind="selectedStatus.value=='OUTSTANDING'">
                           <div slot="toolbar"
                                class="btn-group">
                               <button class='btn btn-primary'

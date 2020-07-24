@@ -38,10 +38,15 @@ export class Service extends RestService {
             if (query === '') query = `vbRequestId=${info.vbRequestId}`;
             else query = `${query}&vbRequestId=${info.vbRequestId}`;
         }
+        
+        if (info.applicantName) {
+            if (query === '') query = `applicantName=${info.applicantName}`;
+            else query = `${query}&applicantName=${info.applicantName}`;
+        }
 
-        if (info.isRealized) {
-            if (query === '') query = `isRealized=${info.isRealized}`;
-            else query = `${query}&isRealized=${info.isRealized}`;
+        if (info.clearanceStatus) {
+            if (query === '') query = `clearanceStatus=${info.clearanceStatus}`;
+            else query = `${query}&clearanceStatus=${info.clearanceStatus}`;
         }
 
         if (info.requestDateFrom) {
