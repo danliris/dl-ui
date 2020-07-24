@@ -20,7 +20,6 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.readOnly = this.dataForm.readOnly;
-        // console.log(this);
 
     }
     controlOptions = {

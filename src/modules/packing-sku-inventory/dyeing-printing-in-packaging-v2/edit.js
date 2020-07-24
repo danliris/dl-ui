@@ -23,7 +23,7 @@ export class Edit {
 
     save() {
         this.data.PackagingProductionOrders = this.data.packagingProductionOrders;
-        console.log(this.data);
+        
         
         this.service.update(this.data).then(result => {
             this.view();

@@ -107,6 +107,7 @@ export class Create {
       } else {
         this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
       }
+      console.log(this.data)
       this.service
         .create(this.data)
         .then((result) => {
