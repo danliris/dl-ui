@@ -22,18 +22,17 @@ export class ItemSPP {
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
-        // console.log(this.data);
+        
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        // console.log(this);
-        // console.log(this.selectedStorageId);
+        
         // this.isNewStructure = this.context.options.isNewStructure;
 
-        // console.log(this.context);
+        
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
 
         // if (this.data.productionOrderId) {
@@ -70,7 +69,7 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
-            // console.log(this);
+            
             // this.data.PackagingList = this.data.PackagingList || [];
             
             // this.data.PackagingList.push(this.selectedProductionOrder);
@@ -91,7 +90,7 @@ export class ItemSPP {
     }
 
     addItemPackaging = (e) => {
-        // console.log(this);
+        
         this.data.PackagingList = this.data.PackagingList || [];
         this.data.PackagingList.push({
             productionOrderNo: this.selectedProductionOrder.productionOrderNo,

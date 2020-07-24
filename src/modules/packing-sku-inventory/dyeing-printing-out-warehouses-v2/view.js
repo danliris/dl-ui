@@ -21,43 +21,41 @@ export class View {
     // }
 
     // var groupObj = _.groupBy(this.data.warehousesProductionOrders, 'productionOrderNo');
-    // // console.log(groupObj);
+    
     // var mappedGroup = _.map(groupObj);
-    // // console.log(mappedGroup);
+    
 
     // var warehouseProductionOrdersGroup = [];
     // mappedGroup.forEach((element, index) => {
     //   var headData = {};
     //   element.forEach((x, i) => {
-    //     // console.log(x);
+    
     //     x.productionOrderId = x.productionOrder.id;
     //     x.productionOrderNo = x.productionOrder.no;
     //     x.productionOrderOrderQuantity = x.productionOrder.orderQuantity;
     //     x.productionOrderType = x.productionOrder.type;
     //     if (i == 0) {
-    //       // console.log(x);
+    
     //       headData = x;
     //       headData.productionOrderItems = [];
-    //       // console.log(headData);
+    
     //     }
-    //     // console.log(x.PackagingList);
+    
     //     if (headData.productionOrderItems != undefined) {
     //       headData.productionOrderItems.push(x);
     //     }
     //   });
     //   // var headData = element[0]
-    //   // console.log(headData);
-    //   // console.log(element);
-    //   // console.log(headData);
+    
     //   //     headData.PackagingList = element;
     //   warehouseProductionOrdersGroup.push(headData);
     // });
-    // // console.log(packagingProductionOrdersGroup);
+    
     // this.data.warehousesProductionOrders = warehouseProductionOrdersGroup;
 
     //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
     this.canEdit = true;
-    // console.log(this.data);
+    
   }
 
   list() {

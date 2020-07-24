@@ -17,8 +17,7 @@ export class CartItem {
         this.buyerId = this.contextOptions.buyerId;
         this.isSales = this.contextOptions.isSales;
         this.isEdit = this.contextOptions.isEdit;
-        console.log(this.contextOptions);
-        console.log(this.data);
+        
         if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
         }
@@ -113,7 +112,7 @@ export class CartItem {
             } else {
                 this.data.unit = "DYEING"
             }
-            console.log(this.data)
+            
         }
         else {
             this.data.productionOrder = {};

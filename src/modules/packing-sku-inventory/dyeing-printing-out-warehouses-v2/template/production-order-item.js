@@ -7,7 +7,7 @@ export class ProductionOrderItem {
   // isAval = false;
   // remarks = [];
   packingItems = [];
-
+  packUnit = ["ROLL", "PIECE", "POTONGAN"];
   activate(context) {
     this.context = context;
     this.data = context.data;
@@ -23,6 +23,10 @@ export class ProductionOrderItem {
 
     if (this.data.packagingQty) {
       this.qtyPacking = this.data.packagingQty;
+    }
+
+    if (this.data.qty) {
+      this.qty = this.data.qty;
     }
   }
 
@@ -56,6 +60,14 @@ export class ProductionOrderItem {
   qtyPackingChanged(n, o) {
     if (this.qtyPacking) {
       this.data.packagingQty = this.qtyPacking;
+      this.data.balance = this.data.packagingQty * this.data.qty;
+    }
+  }
+
+  @bindable qty;
+  qtyChanged(n, o) {
+    if (this.qty) {
+      this.data.qty = this.qty;
       this.data.balance = this.data.packagingQty * this.data.qty;
     }
   }

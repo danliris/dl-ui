@@ -31,7 +31,7 @@ export class Create {
   }
 
   save() {
-    // console.log(this);
+    
     let errorIndex = 0;
     this.error = {};
 
@@ -83,7 +83,7 @@ export class Create {
           this.data.mappedWarehousesProductionOrders.push(datumItem);
         });
       });
-      // console.log(this.data);
+      
       this.service
         .create(this.data)
         .then((result) => {

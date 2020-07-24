@@ -19,7 +19,7 @@ export class ItemSPP {
         this.dataForm = dataForm;
     }
     sppTextFormater = (spp) =>{
-        // console.log(spp);
+        
         return `${spp.productionOrder.no}`
       }
     sppFilter = {};
@@ -28,25 +28,24 @@ export class ItemSPP {
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
-        // console.log(this.data);
+        
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        // console.log(this);
-        // console.log(this.selectedStorageId);
+        
         // this.isNewStructure = this.context.options.isNewStructure;
 
-        // console.log(this.context);
+        
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
 
         // if (this.data.productionOrderId) {
         //     this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
         // }
         if (this.data.productionOrder && this.data.productionOrder.id) {
-            // console.log(this.data);
+            
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.productionOrder = {};
@@ -139,7 +138,7 @@ export class ItemSPP {
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
-            // console.log(this.selectedProductionOrder);
+            
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.id;
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrder.no;

@@ -30,15 +30,12 @@ export class Create {
 
     activate() {
         // PackingInputSPPLoader(null,null).then( data => {
-        //     console.log(data);
         // });
         this.service.getInputBon().then(result => {
-            // console.log(result);
         });
     }
 
     save() {
-        // console.log(this.data);
 
         var bodyRequest = {};
         bodyRequest.type = this.data.type;
@@ -86,7 +83,6 @@ export class Create {
                 });
         });
         bodyRequest.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj;
-        // console.log(bodyRequest);
 
         this.service.create(bodyRequest)
             .then(result => {

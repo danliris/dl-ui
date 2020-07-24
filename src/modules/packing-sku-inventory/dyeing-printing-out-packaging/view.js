@@ -17,38 +17,33 @@ export class View {
         if (this.data.type == "OUT") {
             this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
         }
-        // console.log(await this.service.getById(id));
-        // console.log(this.data);
-        // console.log(this);
         var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
-        // console.log(groupObj);
+        
         var mappedGroup = _.map(groupObj);
-        // console.log(mappedGroup);
+        
 
         var packagingProductionOrdersGroup = [];
         mappedGroup.forEach((element, index) => {
             var headData = {};
             element.forEach((x, i) => {
-                // console.log(x);
+                
                 if (i == 0) {
-                    // console.log(x);
+                    
                     headData = x;
                     headData.PackagingList = [];
-                    // console.log(headData);
+                    
                 }
-                // console.log(x.PackagingList);
+                
                 if (headData.PackagingList != undefined) {
                     headData.PackagingList.push(x);
                 }
             });
             // var headData = element[0]
-            // console.log(headData);
-            // console.log(element);
-            // console.log(headData);
+            
             //     headData.PackagingList = element;
             packagingProductionOrdersGroup.push(headData);
         });
-        // console.log(packagingProductionOrdersGroup);
+        
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
 
         this.canEdit = true;

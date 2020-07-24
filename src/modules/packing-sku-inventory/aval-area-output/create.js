@@ -39,7 +39,6 @@ export class Create {
       CreateData.Group = this.data.Group;
       CreateData.type = this.data.type;
       CreateData.DestinationArea = this.data.DestinationArea;
-      console.log(this);
       // if (this.data.Date === undefined || this.data.Date === null || this.data.Date === "") {
       //   CreateData.Date = "";
       // } else {
@@ -81,7 +80,6 @@ export class Create {
       CreateData.avalItems = CreateData.adjAvalItems;
     }
 
-    // console.log(CreateData);
     this.service
       .create(CreateData)
       .then((result) => {
@@ -106,7 +104,6 @@ export class Create {
           alert("Aval Keluar Satuan Harus Diisi!");
 
           this.error = e;
-          console.log(e);
         }
       });
   }

@@ -68,7 +68,6 @@ export class DataForm {
 
     this.data.Area = "GUDANG AVAL";
     if (this.data.id) {
-      console.log(this.data);
       this.data.Date = this.data.date;
       this.data.Shift = this.data.shift;
       this.data.Group = this.data.group;
@@ -249,7 +248,6 @@ export class DataForm {
   ];
 
   addItems = (e) => {
-    // console.log(this.data.DyeingPrintingItems);
     this.data.DyeingPrintingItems = this.data.DyeingPrintingItems || [];
     this.data.DyeingPrintingItems.push({});
   };
@@ -265,7 +263,6 @@ export class DataForm {
 
   @bindable selectedAvalBon
    selectedAvalBonChanged(n,o){
-    // console.log(this.data);
     if(this.data.id == 0||this.data.id == undefined|| this.data.id == null){
       this.service.getById(n.id).then((selectedBon)=>{
         this.data.doNO = selectedBon.deliveryOrderSalesNo;
@@ -277,15 +274,12 @@ export class DataForm {
 
   @bindable selectedZona
   selectedZonaChanged(n, o) {
-    // console.log(n);
     if (n == "PENJUALAN") {
       this.isPenjualan = true;
     }
     else {
       this.isPenjualan = false;
     }
-    console.log(n);
-    console.log(o);
     this.data.DestinationArea = n;
 
     if(n!=o&& !this.data.id){

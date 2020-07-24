@@ -65,10 +65,8 @@ export class DataForm {
             this.selectedPackaging = this.data;
             // this.selectedPackaging.bonNo = this.data.bonNo;                        
         }
-        // console.log(this);
     }
     async activate(context){
-        // console.log(context);
     }
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];

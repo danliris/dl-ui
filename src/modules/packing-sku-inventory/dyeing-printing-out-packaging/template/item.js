@@ -16,8 +16,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        // console.log(this.contextOptions);
-        // console.log(this);
+        
         this.destinationArea = this.dataForm.data.destinationArea;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
@@ -56,7 +55,7 @@ export class CartItem {
             } else {
                 this.data.unit = "DYEING"
             }
-            // console.log(this);
+            
         }
     }
 

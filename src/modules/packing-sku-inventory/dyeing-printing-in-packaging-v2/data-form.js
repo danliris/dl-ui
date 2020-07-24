@@ -88,21 +88,17 @@ export class DataForm {
             keyword: info.search,
             order: order,
         }
-        console.log(this);
         if(this.data.PackagingProductionOrders== null){
-            // console.log("packing is null");
             return this.service.listProductionOrderIn(arg)
                 .then(result => {
                     var data = {}
                     data.total = result.total;
                     data.data = result.data;
                     // this.data = result;
-                    // console.log(data);
                     return data;
                 });
         }
         else{
-            // console.log("packing is exist");
             return Promise.resolve().then(result => {
                 var data={};
                 data.data = this.data.PackagingProductionOrders;
@@ -125,7 +121,6 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        // console.log(this);
         if(this.data.packagingProductionOrders)
         {
             this.data.PackagingProductionOrders = this.data.packagingProductionOrders;

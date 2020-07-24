@@ -22,7 +22,7 @@ export class ItemSPP {
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
-        console.log(this.error);
+        
         this.options = context.options;
         this.context = context.context;
         this.contextOptions = context.context.options;
@@ -38,13 +38,12 @@ export class ItemSPP {
             this.selectedProductionOrder.productionOrderList = this.data.PackagingList;
         }
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        // console.log(this);
-        // console.log(this.selectedStorageId);
+        
         // this.isNewStructure = this.context.options.isNewStructure;
         this.itemOptions = {
             isEdit: this.isEdit
         };
-        // console.log(this.context);
+        
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
         this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
         // if (this.data.productionOrderId) {

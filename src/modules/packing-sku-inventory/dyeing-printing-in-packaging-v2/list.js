@@ -77,7 +77,6 @@ export class List {
     }
 
     contextClickCallback(event) {
-        console.log("clicked");
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
