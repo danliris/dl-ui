@@ -6,6 +6,13 @@ export class ItemFooter {
 
   get getValueReqReal() {
 
+    var res = this.context.options.Difference;
+
+    return res;
+  }
+
+  get getStatusReqReal() {
+
     var res = this.context.options.Status_ReqReal;
 
     return res;
@@ -17,8 +24,20 @@ export class ItemFooter {
     return res;
   }
 
+  get getAmountAll() {
+    var res = this.context.options.AmountIncludeTax;
+
+    return res;
+  }
+
   get getAmountVAT() {
     var res = this.context.options.Amount_Vat;
+
+    return res;
+  }
+
+  get getAmountTotal(){
+    var res = this.context.options.AmountIncludeTax - this.context.options.Amount_Vat;
 
     return res;
   }

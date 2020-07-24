@@ -37,6 +37,10 @@ export class DataForm {
         if (this.data.numberVB && this.data.numberVB.VBNo) {
             this.numberVB = this.data.numberVB;
         }
+
+        this.filter = {
+            "Apporve_Status": true
+          };
     }
 
     async numberVBChanged(newValue) {

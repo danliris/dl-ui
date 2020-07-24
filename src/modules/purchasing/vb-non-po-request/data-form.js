@@ -125,15 +125,19 @@ export class DataForm {
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
-            this.data.unit.divisionname = this.selectedUnit.Division.Name;
-            this.data.unit.divisionid = this.selectedUnit.Division.Id;
+            // this.data.unit.Division.Name = this.selectedUnit.Division.Name;
+            // this.data.unit.Division.Id = this.selectedUnit.Division.Id;
+
+            this.data.division = {};
+            this.data.division.id = this.selectedUnit.Division.Id;
+            this.data.division.name = this.selectedUnit.Division.Name;
         }
         else {
             this.data.unit.id = this.selectedUnit.id;
             this.data.unit.name = this.selectedUnit.name;
             this.data.unit.code = this.selectedUnit.code;
-            this.data.unit.division = this.selectedUnit.divisionname;
-            this.data.unit.divisionid = this.selectedUnit.divisionid;
+            this.data.unit.Division.Id = this.selectedUnit.divisionname;
+            this.data.unit.Division.Name = this.selectedUnit.divisionid;
         }
     }
 
