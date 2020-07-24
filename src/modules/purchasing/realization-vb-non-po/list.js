@@ -18,8 +18,9 @@ export class List {
 
   columns = [
     { field: "VBNoRealize", title: "No. Realisasi VB" },
+    { field: "VBNo", title: "No. Permohonan VB" },
     {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+      field: "Date", title: "Tanggal Realisasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },

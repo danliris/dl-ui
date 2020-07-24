@@ -71,7 +71,12 @@ export class DataForm {
 
                 for (var dataItem of this.data.numberVB.DetailItems) {
                     var item = {};
-                    item.Date = dataItem.Date;
+                    item.DateSPB = dataItem.DateSPB;
+                    item.NoSPB = dataItem.NoSPB;
+                    item.SupplierName = dataItem.SupplierName;
+                    item.PriceTotalSPB = dataItem.PriceTotalSPB;
+
+                    item.Date = dataItem.Date;                    
                     item.Remark = dataItem.Remark;
                     item.Amount = dataItem.Amount;
                     item.isGetPPn = dataItem.isGetPPn;
@@ -88,7 +93,7 @@ export class DataForm {
                 }
 
                 this.data.items = dataItems;
-
+                console.log(this.data.items);
             }
             else {
                 this.data.numberVB = [];
