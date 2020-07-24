@@ -5,9 +5,9 @@ import { Dialog } from '../../../au-components/dialog/dialog';
 
 @inject(Router, Service, Dialog)
 export class View {
-  hasCancel = true;
-  hasEdit = true;
-  hasDelete = true;
+  // hasCancel = true;
+  // hasEdit = true;
+  // hasDelete = true;
 
   constructor(router, service, dialog) {
     this.router = router;
@@ -25,7 +25,7 @@ export class View {
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
+    this.router.navigateToRoute('edit', { id: this.data.numberVB.Id });
   }
 
   delete(event) {
