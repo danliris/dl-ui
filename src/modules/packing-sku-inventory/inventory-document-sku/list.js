@@ -10,16 +10,16 @@ export class List {
   context = ["detail"]
 
   columns = [
-    { field: "DocumentNo", title: "No. Dokumen" },
+    { field: "documentNo", title: "No. Dokumen" },
     {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+      field: "date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "ReferenceNo", title: "No. Referensi" },
-    { field: "ReferenceType", title: "Jenis Referensi" },
-    { field: "StorageName", title: "Gudang" },
-    { field: "Type", title: "Status" }
+    { field: "referenceNo", title: "No. Referensi" },
+    { field: "referenceType", title: "Jenis Referensi" },
+    { field: "storageName", title: "Gudang" },
+    { field: "type", title: "Status" }
   ];
 
   loader = (info) => {
