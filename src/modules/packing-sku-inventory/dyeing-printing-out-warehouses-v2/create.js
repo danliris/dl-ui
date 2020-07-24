@@ -16,7 +16,7 @@ export class Create {
 
   async activate(params) {
     this.data = {};
-    this.data.warehousesProductionOrders = await this.service.getProductionOrderInputv2();
+    this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
     // this.data.warehousesProductionOrders = [];
 
     // debugger
@@ -96,8 +96,10 @@ export class Create {
 
       // console.log(this.data);
       if (this.data.type == "OUT") {
-        this.data.warehousesProductionOrders.forEach(element => {
-          element.productionOrderItems.filter((s) => s.IsSave === true).forEach(item => {
+        this.data.displayWarehousesProductionOrders.forEach(element => {
+          element.productionOrderItems
+          // .filter((s) => s.IsSave === true)
+          .forEach(item => {
             sppWarehouseList.push(item);
           })
         });
