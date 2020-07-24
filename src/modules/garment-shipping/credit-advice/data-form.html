@@ -167,15 +167,24 @@
                             error.bind="error.cargoPolicyDate" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-datepicker>
 
+                        <au-numeric label="Nilai Polis Kargo" value.bind="data.cargoPolicyValue"
+                            error.bind="error.cargoPolicyValue" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
                         <au-textbox label="No. Polis Piutang" value.bind="data.accountsReceivablePolicyNo"
                             error.bind="error.accountsReceivablePolicyNo" placeholder="No. Polis Piutang"
                             read-only.bind="readOnly" options.bind="controlOptions">
                         </au-textbox>
 
-                        <au-datepicker label="Tgl polis piutang" value.bind="data.accountsReceivablePolicyDate"
+                        <au-datepicker label="Tgl polis Piutang" value.bind="data.accountsReceivablePolicyDate"
                             error.bind="error.accountsReceivablePolicyDate" read-only.bind="readOnly"
                             options.bind="controlOptions">
                         </au-datepicker>
+
+                        <au-numeric label="Nilai polis Piutang" value.bind="data.accountsReceivablePolicyValue"
+                            error.bind="error.accountsReceivablePolicyValue" read-only.bind="readOnly"
+                            options.bind="controlOptions">
+                        </au-numeric>
 
                         <au-datepicker label="Tgl kirim/upload dokumen" value.bind="data.documentSendDate"
                             error.bind="error.documentSendDate" read-only.bind="readOnly" options.bind="controlOptions">
