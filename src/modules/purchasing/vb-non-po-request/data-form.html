@@ -116,10 +116,10 @@
         <au-checkbox label.bind="getOthersValue" value.bind="data.Others" error.bind="error.Others"
           read-only.bind="readOnly" options.bind="controlOptionsLabel">
         </au-checkbox>
-
-        <div>
-          <au-textbox if.bind="data.Others == true" value.bind="data.DetailOthers" error.bind="error.DetailOthers"
-            read-only.bind="readOnly" placeholder="Beban Unit Lain" options.bind="controlOptionsDetail">
+        
+        <div show.bind="isShowing">
+          <au-textbox value.bind="data.DetailOthers" error.bind="error.DetailOthers" read-only.bind="readOnly"
+            placeholder="Beban Unit Lain" options.bind="controlOptionsDetail">
           </au-textbox>
         </div>
 

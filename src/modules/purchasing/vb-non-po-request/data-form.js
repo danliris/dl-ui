@@ -13,6 +13,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedCurrency;
     @bindable unit;
+    @bindable division;
 
     controlOptions = {
         label: {
@@ -22,7 +23,7 @@ export class DataForm {
             length: 5
         }
     }
-    
+
 
     controlOptionsLabel = {
         label: {
@@ -52,10 +53,16 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        console.log(this.data);
+
         this.selectedCurrency = this.data.Currency;
 
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
+        }
+
+        if (this.data.Division && this.data.Division.Id) {
+            this.selectedDivision = this.data.Division;
         }
 
         if (!this.data.Spinning1) {
@@ -118,19 +125,25 @@ export class DataForm {
     }
 
     @bindable selectedUnit;
-    selectedUnitChanged(newValue, oldValue){
+    selectedUnitChanged(newValue, oldValue) {
 
         if (this.selectedUnit && this.selectedUnit.Id) {
             this.data.unit = {};
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
-            // this.data.unit.Division.Name = this.selectedUnit.Division.Name;
-            // this.data.unit.Division.Id = this.selectedUnit.Division.Id;
+            
+            if (this.selectedUnit.Division) {
+                this.data.division = {};
+                this.data.division.id = this.selectedUnit.Division.Id;
+                this.data.division.name = this.selectedUnit.Division.Name;
+            }
+            else{
+                this.data.division = {};
+                this.data.division.id = this.data.Division.Id;
+                this.data.division.name = this.data.Division.Name;
+            }
 
-            this.data.division = {};
-            this.data.division.id = this.selectedUnit.Division.Id;
-            this.data.division.name = this.selectedUnit.Division.Name;
         }
         else {
             this.data.unit.id = this.selectedUnit.id;
@@ -140,6 +153,8 @@ export class DataForm {
             this.data.unit.Division.Name = this.selectedUnit.divisionid;
         }
     }
+
+
 
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`
