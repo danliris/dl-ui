@@ -75,7 +75,7 @@ export class DataForm {
     return WarehouseBonAreaLoader;
   }
 
-  bind(context) {
+  async bind(context) {
     this.context = context;
     this.data = this.context.data;
 
@@ -87,30 +87,34 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
-    if (this.data.bon) {
-      // console.log("bonexist");
-      // this.data.selectedWarehouse = this.data.bon;
-      // selectedWarehouseChanged(this.data.bon,"");
-      // this.service.getProductionOrderInputv2(this.data.selectedWarehouse.id).then(result =>{
-      //   this.data.warehousesProductionOrders = result;
-      // });
-      // this.data.warehousesProductionOrders
-      // console.log(this.data.bon);
-      if (this.data.type == "OUT") {
-        this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
-          this.data.warehousesProductionOrders = result;
-        });
-      } else {
-        if (this.data.warehousesProductionOrders) {
-          this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
-        }
+    // if (this.data.bon) {
+    //   // console.log("bonexist");
+    //   // this.data.selectedWarehouse = this.data.bon;
+    //   // selectedWarehouseChanged(this.data.bon,"");
+    //   // this.service.getProductionOrderInputv2(this.data.selectedWarehouse.id).then(result =>{
+    //   //   this.data.warehousesProductionOrders = result;
+    //   // });
+    //   // this.data.warehousesProductionOrders
+    //   // console.log(this.data.bon);
+    //   if (this.data.type == "OUT") {
+    //     this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
+    //     // this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
+    //     //   this.data.warehousesProductionOrders = result;
+    //     // });
+    //   } else {
+    //     if (this.data.warehousesProductionOrders) {
+    //       this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
+    //     }
 
-      }
-    }
-
+    //   }
+    // }
     if (this.data.type == "ADJ") {
       if (this.data.warehousesProductionOrders) {
         this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
+      }
+    } else {
+      if (this.data.warehousesProductionOrders) {
+        this.data.displayWarehousesProductionOrders = this.data.warehousesProductionOrders;
       }
     }
 

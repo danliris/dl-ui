@@ -142,17 +142,18 @@ export class Create {
     }
 
     if (errorIndex === 0) {
-      var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
-        (s) => s.IsSave === true
-      );
+      
+      var selectedProductionOrders = this.data.warehousesProductionOrders;
 
       this.data.mappedWarehousesProductionOrders = [];
       selectedProductionOrders.forEach((datum) => {
-        datum.productionOrderItems.forEach((datumItem) => {
+        var datumSelected = datum.productionOrderItems.filter((s)=> s.IsSave ===true);
+        datumSelected.forEach((datumItem) => {
+          datumItem.qtyOrder = datum.productionOrderOrderQuantity;
           this.data.mappedWarehousesProductionOrders.push(datumItem);
         });
       });
-      
+
       this.service
         .reject(this.data)
         .then((result) => {

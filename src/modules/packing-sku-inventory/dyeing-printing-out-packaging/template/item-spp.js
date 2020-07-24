@@ -133,11 +133,14 @@ export class ItemSPP {
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
-        if(this.selectedProductionOrder.productionOrderList){
+        if(this.selectedProductionOrder){
+            if(this.selectedProductionOrder.productionOrderList){
 
-            this.data.PackagingList = this.selectedProductionOrder.productionOrderList;
+                this.data.PackagingList = this.selectedProductionOrder.productionOrderList;
+            }
+            this.data.productionOrderNo = this.selectedProductionOrder.productionOrderNo;
         }
-        this.data.productionOrderNo = this.selectedProductionOrder.productionOrderNo;
+       
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.id;
