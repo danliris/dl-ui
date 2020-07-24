@@ -53,7 +53,6 @@ export class List {
                 data.data = [];
                 result.data.forEach((item,index)=>{
                     item.packagingProductionOrders.forEach((i,ind)=>{
-                        // console.log(item);
                         var dataView = {};
                         dataView.id = item.id;
                         dataView.date = item.date;
@@ -78,7 +77,6 @@ export class List {
                         data.data.push(dataView);
                     });
                 });
-                // console.log(data);
                 return data;
             });
     }

@@ -11,7 +11,6 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        console.log(this.data);
         if (this.data.avalType) {
             this.selectedAval = {};
             this.selectedAval.avalType = this.data.avalType;

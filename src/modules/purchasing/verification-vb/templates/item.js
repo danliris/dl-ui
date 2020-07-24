@@ -24,4 +24,8 @@ export class Item {
         }
         // return this.data.Amount;
     }
+
+    // get Remark(){
+    //     return $`data.NoSPB (data.SupplierName)`;
+    // }
 }

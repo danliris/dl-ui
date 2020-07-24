@@ -56,7 +56,7 @@ export class DataForm {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
         
-        console.log(this.data.packagingProductionOrdersDetails);
+        
     };
     
 }

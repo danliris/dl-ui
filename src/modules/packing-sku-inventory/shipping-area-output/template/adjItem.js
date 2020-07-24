@@ -41,7 +41,7 @@ export class CartItem {
 
             this.selectedProductionOrder.productionOrder.orderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.unit = this.data.unit;
-
+            this.selectedProductionOrder.packingType = this.data.packingType;
         }
     }
 
@@ -96,6 +96,7 @@ export class CartItem {
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.unit = this.selectedProductionOrder.unit;
+            this.data.packingType = this.selectedProductionOrder.packingType;
         }
         else {
             this.data.productionOrder = {};

@@ -13,7 +13,7 @@ export class PackingItem {
         this.dataForm = dataFrom;
     }
     bind(context){
-        // console.log(context);
+        
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;

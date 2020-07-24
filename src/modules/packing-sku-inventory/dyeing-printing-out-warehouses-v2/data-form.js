@@ -88,14 +88,14 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
     // if (this.data.bon) {
-    //   // console.log("bonexist");
+    
     //   // this.data.selectedWarehouse = this.data.bon;
     //   // selectedWarehouseChanged(this.data.bon,"");
     //   // this.service.getProductionOrderInputv2(this.data.selectedWarehouse.id).then(result =>{
     //   //   this.data.warehousesProductionOrders = result;
     //   // });
     //   // this.data.warehousesProductionOrders
-    //   // console.log(this.data.bon);
+    
     //   if (this.data.type == "OUT") {
     //     this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
     //     // this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
@@ -131,7 +131,7 @@ export class DataForm {
   };
   selectedWarehouseChanged(n, o) {
     if (n != o) {
-      // console.log(n);
+      
       this.service.getProductionOrderInputv2(n.id).then(result => {
         this.data.warehousesProductionOrders = result;
       });

@@ -12,6 +12,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.productionOrder = {};
@@ -43,7 +44,7 @@ export class CartItem {
             this.selectedProductionOrder.unit = this.data.unit;
             this.selectedProductionOrder.quantity = this.data.quantity;
             this.selectedProductionOrder.packagingQty = this.data.packagingQty;
-
+            this.selectedProductionOrder.packagingType = this.data.packagingType;
         }
     }
 
@@ -94,6 +95,7 @@ export class CartItem {
             this.data.unit = this.selectedProductionOrder.unit;
             this.data.quantity = this.selectedProductionOrder.quantity;
             this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+            this.data.packagingType = this.selectedProductionOrder.packagingType;
         }
         else {
             this.data.productionOrder = {};
