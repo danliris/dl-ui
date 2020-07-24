@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
@@ -14,26 +15,28 @@ export class List {
       return {}
   }
 
-  context = ["Detail", "Cetak Bukti Permohonan"]
+  context = ["Rincian"]
 
   columns = [
     {
-      field: "DateVerified", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+      field: "DateVerified", title: "Tanggal Masuk Verifikasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "RealizeNo", title: "No Realisasi" },
+    { field: "RealizeNo", title: "No Realisasi VB" },
     {
-      field: "DateRealize", title: "Tanggal Realisasi", formatter: function (value, data, index) {
+      field: "DateRealize", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "RequestName", title: "Pemohon" },
-    { field: "UnitRequest", title: "Unit Pemohon" },
-    { field: "SendTo", title: "Dikirim Ke" },
-    { field: "VbNo", title: "No. VB" },
     { field: "VBCategory", title: "Tipe VB" },
-    { field: "Currency", title: "Kurs" }
+    { field: "RequestName", title: "Pemohon VB" },
+    { field: "UnitRequest", title: "Bagian/Unit" },
+    {
+      field: "Amount", title: "Nominal", formatter: function (value, data, index) {
+          return numeral(value).format('0,0.000');
+      },
+  },
   ];
 
   async activate(params) {
@@ -46,7 +49,7 @@ export class List {
     if (info.sort)
         order[info.sort] = info.order;
     else
-        order["Date"] = "desc";
+        order["VerifiedDate"] = "desc";
 
     let arg = {
         page: parseInt(info.offset / info.limit, 10) + 1,
@@ -58,7 +61,7 @@ export class List {
     return this.service.search(arg)
         .then(result => {
             return {
-                //total: result.info.total,
+                total: result.info.total,
                 data: result.data
             }
         });
@@ -73,19 +76,14 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "Detail":
+      case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
-        break;
-      case "Cetak Bukti Permohonan":
-        this.service.getSalesReceiptPdfById(data.Id);
         break;
     }
   }
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "Cetak Bukti Permohonan":
-        return data;
       default:
         return true;
     }
