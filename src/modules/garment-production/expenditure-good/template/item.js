@@ -14,10 +14,7 @@ export class Item {
       this.colors.push(this.data.Description);
     }
   }
-  itemsColumns = [
-    { header: "Jumlah Keluar" },
-    { header: "Keterangan" },
-];
+
   @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
