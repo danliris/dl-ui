@@ -180,7 +180,7 @@ export class Create {
 
         if (this.date)
             // filter.Date = this.date != "Invalid Date" ? moment(this.date).format("DD-MM-YYYY") : null;
-            filter.Date = this.date != "Invalid Date" ? moment.utc(this.date).local().format('DD MMM YYYY') : null;
+            filter.Date = this.date != "Invalid Date" ? moment(this.date).local().format('DD MMM YYYY') : null;
 
         let arg = {
             page: 1,
