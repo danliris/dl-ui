@@ -19,7 +19,7 @@
     </au-datepicker>
 
     <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No VB" loader.one-time="vbLoader" text="VBNo"
-      read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB">
+      read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB" query.bind="filter">
     </au-autocomplete>
 
     <au-datepicker label="Tanggal VB" value.bind="data.numberVB.Date" read-only.bind="true"

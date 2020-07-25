@@ -45,12 +45,12 @@ export class Create {
                         // Data.SubmitPosition = 5;
                     } else if (response.output.context == "Cashier") {
                         Data.isVerified = true;
-                        Data.isNotVeridied = true;
+                        Data.isNotVeridied = false;
                         // Data.SubmitPosition = 4;
                     } else {
                         // Data.SubmitPosition = 6;
                         Data.isVerified = false;
-                        Data.isNotVeridied = false;
+                        Data.isNotVeridied = true;
                         Data.Remark = response.output.Remark;
                         Data.Reason = response.output.Remark;
                     }

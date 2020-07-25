@@ -52,6 +52,9 @@ export class DataForm {
             this.detailOptions.Status_ReqReal = this.data.numberVB.Status_ReqReal;
             this.detailOptions.Amount_Request = this.data.numberVB.Amount_Request;
             this.detailOptions.Amount_Vat = this.data.numberVB.Amount_Vat;
+            this.detailOptions.AmountIncludeTax = this.data.numberVB.Amount_Realization;
+            this.detailOptions.Difference = this.data.numberVB.Diff;
+            
         } else {
             this.numberVB = null;
             this.DetailItems = null;
@@ -68,6 +71,8 @@ export class DataForm {
                 this.detailOptions.Status_ReqReal = this.data.numberVB.Status_ReqReal;
                 this.detailOptions.Amount_Request = this.data.numberVB.Amount_Request;
                 this.detailOptions.Amount_Vat = this.data.numberVB.Amount_Vat;
+                this.detailOptions.AmountIncludeTax = this.data.numberVB.Amount_Realization;
+                this.detailOptions.Difference = this.data.numberVB.Diff;
 
                 for (var dataItem of this.data.numberVB.DetailItems) {
                     var item = {};
@@ -76,7 +81,7 @@ export class DataForm {
                     item.SupplierName = dataItem.SupplierName;
                     item.PriceTotalSPB = dataItem.PriceTotalSPB;
 
-                    item.Date = dataItem.Date;                    
+                    item.Date = dataItem.Date;
                     item.Remark = dataItem.Remark;
                     item.Amount = dataItem.Amount;
                     item.isGetPPn = dataItem.isGetPPn;
@@ -93,7 +98,6 @@ export class DataForm {
                 }
 
                 this.data.items = dataItems;
-                console.log(this.data.items);
             }
             else {
                 this.data.numberVB = [];
