@@ -154,14 +154,25 @@ export class List {
         this.requestEndDate = null;
         this.realizeStartDate = null;
         this.realizeEndDate = null;
+        this.errorRequestStartDate = null;
+        this.errorRequestEndDate = null;
         this.listDataFlag = false;
         this.table.refresh();
     }
 
     search() {
         if (this.requestStartDate == null || this.requestEndDate == null) {
-            this.dialog.prompt('Tanggal Awal & Akhir Permohonan VB dibutuhkan untuk menentukan periode', 'Tanggal Awal & Akhir Permohonan VB Harus Diisi');
+            if (this.requestStartDate == null) {
+                var textStart = 'Tanggal Awal Request VB tidak boleh kosong';
+                this.errorRequestStartDate = textStart;
+            }
+            if (this.requestEndDate == null) {
+                var textEnd = 'Tanggal Akhir Request VB tidak boleh kosong';
+                this.errorRequestEndDate = textEnd;
+            }
         } else {
+            this.errorRequestStartDate = null;
+            this.errorRequestEndDate = null;
             this.listDataFlag = true;
             this.table.refresh();
         }
