@@ -189,6 +189,7 @@ export class List {
     reset() {
         this.selectedUnit = null;
         this.selectedVBRequest = null;
+        this.selectedApplicant = null;
         this.selectedStatus = this.statusTypes[0];
         this.requestStartDate = null;
         this.requestEndDate = null;
