@@ -48,13 +48,13 @@
             <au-datepicker label="Tanggal Awal Realisasi VB"
                            value.bind="realizeStartDate"
                            options.bind="controlOptions"
-                           show.bind="selectedStatus.value==true">
+                           show.bind="selectedStatus.value!='OUTSTANDING'">
             </au-datepicker>
 
             <au-datepicker label="Tanggal Akhir Realisasi VB"
                            value.bind="realizeEndDate"
                            options.bind="controlOptions"
-                           show.bind="selectedStatus.value==true">
+                           show.bind="selectedStatus.value!='OUTSTANDING'">
             </au-datepicker>
 
             <au-dropdown label="Status"

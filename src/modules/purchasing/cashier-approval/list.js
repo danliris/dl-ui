@@ -49,7 +49,7 @@ export class List {
         },
         {
             field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return numeral(value).format('0,000.00');
             },
         },
         { field: "CurrencyCode", title: "Mata Uang" },
