@@ -1,9 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
-var BankLoader = require('../../../loader/account-banks-loader');
-var SupplierLoader = require('../../../loader/supplier-loader');
-var BuyerLoader = require('../../../loader/buyers-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
@@ -13,8 +10,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable options = {};
     @bindable title;
-    @bindable options = { useVat: false };
+    // useVat: false 
+    @bindable selectedCurrency;
 
     controlOptions = {
         label: {
@@ -37,6 +36,7 @@ export class DataForm {
     }
 
     bind(context) {
+        this.selectedCurrency = this.data.Currency;
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -47,7 +47,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.Items.push({ purchaseRequest: { no: "" } })
         };
     }
 
@@ -58,6 +58,12 @@ export class DataForm {
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
         this.data.Currency = newValue;
+        if(this.data.Currency)
+        {
+            this.options.CurrencyCode = this.data.Currency.Code;
+        }
+
+        console.log(this.data.Currency)
     }
 
     @bindable selectedUnit;
@@ -83,4 +89,13 @@ export class DataForm {
     get unitLoader() {
         return UnitLoader;
     }
+
+    // get currencyLoader() {
+    //     return CurrencyLoader;
+    // }
+
+    // @bindable selectedCurrency;
+    // selectedCurrencyChanged(newValue, oldValue) {
+    //     this.data.Currency = newValue;
+    // }
 }

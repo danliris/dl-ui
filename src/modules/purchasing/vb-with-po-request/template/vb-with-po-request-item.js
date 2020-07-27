@@ -25,7 +25,7 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.useVat = this.context.context.options.useVat || false;
+    // this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
     this._items = [];
     if (this.data) {
@@ -44,7 +44,10 @@ export class PurchaseOrderItem {
     //   "IsPosted":false
     // };
     this.filter = {
-      "POCashType": "VB", "isPosted": true, "IsCreateOnVBRequest": false
+      "POCashType": "VB", 
+      "isPosted": true, 
+      "IsCreateOnVBRequest": false,
+      "CurrencyCode": this.context.context.options.CurrencyCode
     };
   }
 
@@ -57,24 +60,25 @@ export class PurchaseOrderItem {
     if (newValue)
       if (newValue._id) {
         Object.assign(this.data, newValue);
-
+        console.log(this.data);
         if (this.data.items) {
 
-          for (var productList of this.data.items){
-
-            for(var proddetail of productList.details){
-                var itemData = {
-                    product : proddetail.product,
-                    defaultQuantity : proddetail.defaultQuantity,
-                    conversion : proddetail.conversion,
-                    priceBeforeTax : proddetail.priceBeforeTax,
-                    productRemark : proddetail.productRemark,
-                    dealUom : proddetail.dealUom
-                };
-                this._items.push(itemData);
+          for (var productList of this.data.items) {
+            for (var proddetail of productList.details) {
+              var itemData = {
+                useVat: this.data.useVat,
+                product: proddetail.product,
+                defaultQuantity: proddetail.defaultQuantity,
+                conversion: proddetail.conversion,
+                priceBeforeTax: proddetail.priceBeforeTax,
+                productRemark: proddetail.productRemark,
+                dealUom: proddetail.dealUom,
+                includePpn: proddetail.includePpn
+              };
+              this._items.push(itemData);
             }
 
-        }
+          }
 
         }
         else {
@@ -87,7 +91,8 @@ export class PurchaseOrderItem {
                 conversion: proddetail.conversion,
                 priceBeforeTax: proddetail.priceBeforeTax,
                 productRemark: proddetail.productRemark,
-                dealUom: proddetail.dealUom
+                dealUom: proddetail.dealUom,
+                includePpn: proddetail.includePpn
               };
               this._items.push(itemData);
             }

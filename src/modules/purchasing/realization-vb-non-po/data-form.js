@@ -39,7 +39,7 @@ export class DataForm {
         }
 
         this.filter = {
-            "Apporve_Status": true
+            "Apporve_Status": true, "Realization_Status": false
           };
     }
 
