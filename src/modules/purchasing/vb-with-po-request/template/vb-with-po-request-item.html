@@ -8,11 +8,9 @@
                     read-only.bind="options.readOnly" options.bind="controlOptions" query.bind="filter">
                 </au-autocomplete>
             </div>
-            <div class="col-sm-1">
-                <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)"
-                    if.bind="!options.readOnly">-</button>
-                <button class="btn btn-info pull-right" if.bind="data.Items" click.delegate="toggle()">i</button>
-            </div>
+            <!-- <div class="col-sm-1">
+                
+            </div> -->
         </td>
         <td>
             <div class="col-sm-11">
@@ -21,11 +19,18 @@
                 </au-autocomplete>
             </div>
         </td>
+        <td>
+            <div class="col-sm-13">
+                <button class="btn btn-info pull-left" if.bind="data.Items || data.items" click.delegate="toggle()">i</button>
+                <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)"
+                    if.bind="!options.readOnly">-</button>
+            </div>
+        </td>
     </tr>
     <tr if.bind="isShowing">
         <td colspan="2">
-            <au-collection items.bind="data.Details || data.details" errors.bind="error.details" columns.bind="itemsColumns"
-                options.bind="context.context.options" read-only.bind="options.readOnly"
+            <au-collection items.bind="data.Details || data.details" errors.bind="error.details"
+                columns.bind="itemsColumns" options.bind="context.context.options" read-only.bind="options.readOnly"
                 header-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item-header"
                 item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-int-item">
             </au-collection>

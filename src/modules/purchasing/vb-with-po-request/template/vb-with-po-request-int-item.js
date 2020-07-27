@@ -11,8 +11,8 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
-    
-    if(!this.useVat){
+
+    if(!this.data.useVat){
       this.data.includePpn=false;
     }
     if (this.data) {

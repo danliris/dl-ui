@@ -12,7 +12,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Amount" read-only.bind="readOnly"
+            <au-numeric value.bind="data.Amount" read-only.bind="readOnly" error.bind="error.Amount"
                 format="0,0.000" options.bind="controlOptions">
             </au-numeric>
         </td>
