@@ -195,7 +195,7 @@ export class DataForm {
                                 }
                             }
                         }
-                        this.data.Items.sort((a, b)=>a.SizeName.localeCompare( b.SizeName));
+                        this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) ||a.SizeName.localeCompare( b.SizeName));
                     });
             }
         
