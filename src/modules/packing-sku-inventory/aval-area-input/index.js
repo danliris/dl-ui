@@ -22,6 +22,7 @@ export class Index {
         nav: false,
         title: "View: Penerimaan Aval - Dyeing & Printing",
       },
+      { route: 'excel', moduleId: './excel', name: 'excel', nav: false, title: 'Excel: Download Penerimaan Gudang Aval - Dyeing/Printing' }
       // {
       //   route: 'edit/:id',
       //   moduleId: './edit',
