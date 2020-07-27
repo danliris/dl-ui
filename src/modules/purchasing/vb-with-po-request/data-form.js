@@ -62,8 +62,6 @@ export class DataForm {
         {
             this.options.CurrencyCode = this.data.Currency.Code;
         }
-
-        console.log(this.data.Currency)
     }
 
     @bindable selectedUnit;

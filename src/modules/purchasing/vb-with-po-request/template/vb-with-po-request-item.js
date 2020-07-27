@@ -60,7 +60,6 @@ export class PurchaseOrderItem {
     if (newValue)
       if (newValue._id) {
         Object.assign(this.data, newValue);
-        console.log(this.data);
         if (this.data.items) {
 
           for (var productList of this.data.items) {
