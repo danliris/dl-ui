@@ -54,7 +54,7 @@ export class List {
         this.arg.realizeDateTo = this.realizeEndDate && this.realizeEndDate != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
     }
 
-    columnsReal = [
+    columns = [
         { field: "VBNo", title: "No. VB" },
         {
             field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
@@ -94,33 +94,73 @@ export class List {
         { field: "Status", title: "Status" },
     ];
 
-    columnsReq = [
-        { field: "VBNo", title: "No. VB" },
-        {
-            field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        {
-            field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "Unit.Name", title: "Unit" },
-        { field: "CreateBy", title: "Pemohon VB" },
-        { field: "", title: "No. Realisasi" },
-        { field: "", title: "Tgl. Realisasi" },
-        { field: "Usage", title: "Keperluan VB" },
-        { field: "Aging", title: "Aging (hari)" },
-        {
-            field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: "", title: "Realisasi" },
-        { field: "", title: "Sisa (+/-)" },
-        { field: "Status", title: "Status" },
-    ];
+    // columnsReal = [
+    //     { field: "VBNo", title: "No. VB" },
+    //     {
+    //         field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     {
+    //         field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Unit.Name", title: "Unit" },
+    //     { field: "CreateBy", title: "Pemohon VB" },
+    //     { field: "RealizationNo", title: "No. Realisasi" },
+    //     {
+    //         field: "RealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Usage", title: "Keperluan VB" },
+    //     { field: "Aging", title: "Aging (hari)" },
+    //     {
+    //         field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     {
+    //         field: "RealizationAmount", title: "Realisasi", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     {
+    //         field: "Difference", title: "Sisa (+/-)", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     { field: "Status", title: "Status" },
+    // ];
+
+    // columnsReq = [
+    //     { field: "VBNo", title: "No. VB" },
+    //     {
+    //         field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     {
+    //         field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Unit.Name", title: "Unit" },
+    //     { field: "CreateBy", title: "Pemohon VB" },
+    //     { field: "", title: "No. Realisasi" },
+    //     { field: "", title: "Tgl. Realisasi" },
+    //     { field: "Usage", title: "Keperluan VB" },
+    //     { field: "Aging", title: "Aging (hari)" },
+    //     {
+    //         field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     { field: "", title: "Realisasi" },
+    //     { field: "", title: "Sisa (+/-)" },
+    //     { field: "Status", title: "Status" },
+    // ];
 
     loader = (info) => {
         var order = {};

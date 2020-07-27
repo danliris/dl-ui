@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="table-responsive">
+            <!-- <div class="table-responsive">
                 <au-table view-model.ref="table"
                           data.bind="loader"
                           columns.bind="columnsReal"
@@ -105,7 +105,24 @@
                                       click.delegate="exportToExcel()">Excel</button>
                           </div>
                 </au-table>
+            </div> -->
+
+            <div class="table-responsive">
+                <au-table view-model.ref="table"
+                          data.bind="loader"
+                          columns.bind="columns"
+                          page-size="25"
+                          context.bind="context"
+                          context-click.delegate="contextClickCallback($event)"
+                          options.bind="tableOptions">
+                    <div slot="toolbar"
+                         class="btn-group">
+                        <button class='btn btn-primary'
+                                click.delegate="exportToExcel()">Excel</button>
+                    </div>
+                </au-table>
             </div>
+
         </div>
     </au-input-form>
 </template>
