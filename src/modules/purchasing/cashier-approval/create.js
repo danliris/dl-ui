@@ -92,7 +92,7 @@ export class Create {
 
         this.selectVB = ['VBNo'];
         this.selectUnit = ['Name'];
-        this.selectDate = ['Date'];
+        this.selectDate = ['date'];
         this.selectedItems = [];
 
         this.permissions = permissionHelper.getUserPermissions();
@@ -178,9 +178,10 @@ export class Create {
         if (this.unit)
             filter.UnitName = this.unit.Name;
 
+            console.log(this.date)
         if (this.date)
             // filter.Date = this.date != "Invalid Date" ? moment(this.date).format("DD-MM-YYYY") : null;
-            filter.Date = this.date != "Invalid Date" ? moment(this.date).local().format('DD MMM YYYY') : null;
+            filter.Date = this.date != "Invalid Date" ? moment(this.date).format('DD MMM YYYY') : null;
 
         let arg = {
             page: 1,
