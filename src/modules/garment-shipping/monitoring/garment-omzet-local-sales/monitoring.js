@@ -2,7 +2,6 @@ import { inject, bindable } from 'aurelia-framework'
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
-const GarmentBuyerLoader = require('../../../../loader/garment-buyers-loader');
 
 @inject(Router, Service)
 export class List {
@@ -13,26 +12,16 @@ export class List {
         this.today = new Date();
     }
     
-    buyerAgent = null;
     dateFrom = null;
     dateTo = null;
    
-    get garmentbuyerLoader() {
-        return GarmentBuyerLoader;
-    }
-
-    buyerAgentView = (buyerAgent) => {
-        return `${buyerAgent.Code} - ${buyerAgent.Name}`
-    }
-
     activate() {
        
     }
-
+   
     searching() {
         {
         var info = {
-            buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -43,38 +32,64 @@ export class List {
                   console.log(result);
                   var dataByBuyer = {};
                   var subTotalBuyer = {};
-                 
+                  var subTotalBuyer1 = {};
+                  var subTotalBuyer2 = {};
+                  this.PPN = 0;
+                  this.Total = 0;
+                                    
                   for (var data of result) {
                        var Buyer = data.buyerName;
                         if (!dataByBuyer[Buyer]) dataByBuyer[Buyer] = [];                 
-                            dataByBuyer[Buyer].push({                                                    
+                            dataByBuyer[Buyer].push({                            
+                         
                             buyerCode : data.buyerCode,
                             buyerName : data.buyerName,
-                            cnNo : data.cnNo,
-                            cnDate : moment(data.cnDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.cnDate).format("DD MMM YYYY"),                 
-                            description : data.description,
-                            currencyCode : data.currencyCode,                            
-                            amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                            lsNo : data.lsNo,
+                            useVat : data.useVat,
+                            lsDate : moment(data.lsDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.lsDate).format("DD MMM YYYY"),
+                            dpp : data.dpp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                            ppn : data.ppn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                            total : data.total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                         });
                         
                         if (!subTotalBuyer[Buyer]){
                            subTotalBuyer[Buyer] = 0;
                            } 
-                           subTotalBuyer[Buyer] += data.amount;
+                           subTotalBuyer[Buyer] += data.dpp;
+
+
+                        if (!subTotalBuyer1[Buyer]) {
+                           subTotalBuyer1[Buyer] = 0;
+                           } 
+                           subTotalBuyer1[Buyer] += data.ppn;
+                           
+                        if (!subTotalBuyer2[Buyer]) {
+                            subTotalBuyer2[Buyer] = 0;
+                            } 
+                            subTotalBuyer2[Buyer] += data.total;                    
                 }
      
                var buyers = [];
-               this.TotAmount = 0;
+               this.TotDPP = 0;
+               this.TotPPN = 0;
+               this.TotAmt = 0;
+               
                 
                for (var data in dataByBuyer) {
                    buyers.push({
                    data: dataByBuyer[data],
                    buyer: dataByBuyer[data][0].buyerName,
                    subTotal: (subTotalBuyer[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                });
-                   this.TotAmount += subTotalBuyer[data];
+                   subTotal1: (subTotalBuyer1[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                   subTotal2: (subTotalBuyer2[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),                   
+                 });
+                   this.TotDPP += subTotalBuyer[data];
+                   this.TotPPN += subTotalBuyer1[data];  
+                   this.TotAmt += subTotalBuyer2[data];  
                }
-               this.TotAmount = this.TotAmount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.TotDPP = this.TotDPP.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.TotPPN = this.TotPPN.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.TotAmt = this.TotAmt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });               
                this.buyers = buyers;
              });   
         }   
@@ -83,7 +98,6 @@ export class List {
     ExportToExcel() {
         {
             var info = {
-                buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -98,9 +112,10 @@ export class List {
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
-        this.buyerAgent = null;
         this.buyers = [];
-        this.TotAmount = null;            
+        this.TotDPP = null;            
+        this.TotPPN = null; 
+        this.TotAmt = null;            
     }
 
     dateFromChanged(e) {
@@ -109,5 +124,6 @@ export class List {
 
         if (_startDate > _endDate)
             this.dateTo = e.srcElement.value;
+
     } 
 }

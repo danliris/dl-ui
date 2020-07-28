@@ -428,5 +428,31 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },    
+    }, 
+    {
+        route: "garment-shipping/monitoring/local-sales-report",
+        name: "garment-shipping/monitoring/local-sales-report",
+        moduleId: "modules/garment-shipping/monitoring/garment-local-sales-report-by-buyer/index",
+        nav: true,
+        title: "Monitoring Nota Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-local-sales",
+        name: "garment-shipping/monitoring/omzet-local-sales",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales/index",
+        nav: true,
+        title: "Monitoring Omzet Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },   
 ]
