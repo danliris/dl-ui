@@ -335,6 +335,7 @@ export class DataForm {
                                     if(sewingOut.IsDifferentSize){
                                         for(var sewingOutDetail of sewingOutItem.Details){
                                             item={};
+                                            item.SewingDate=sewingOut.SewingOutDate;
                                             item.SewingOutItemId=sewingOutItem.Id;
                                             item.SewingOutDetailId=sewingOutDetail.Id;
                                             item.Quantity=sewingOutDetail.Quantity;
@@ -351,6 +352,7 @@ export class DataForm {
                                         }
                                     }
                                     else{
+                                        item.SewingDate=sewingOut.SewingOutDate;
                                         item.SewingOutItemId=sewingOutItem.Id;
                                         item.Quantity=sewingOutItem.Quantity;
                                         item.Product=sewingOutItem.Product;
@@ -444,6 +446,7 @@ export class DataForm {
                                     if(finishingOut.IsDifferentSize){
                                         for(var finishingOutDetail of finishingOutItem.Details){
                                             item={};
+                                            item.FinishingDate= finishingOut.FinishingOutDate;
                                             item.FinishingOutItemId=finishingOutItem.Id;
                                             item.FinishingOutDetailId=finishingOutDetail.Id;
                                             item.Quantity=finishingOutDetail.Quantity;
@@ -460,6 +463,7 @@ export class DataForm {
                                         }
                                     }
                                     else{
+                                        item.FinishingDate= finishingOut.FinishingOutDate;
                                         item.FinishingOutItemId=finishingOutItem.Id;
                                         item.Quantity=finishingOutItem.Quantity;
                                         item.Product=finishingOutItem.Product;

@@ -239,7 +239,7 @@ export class DataForm {
     changeChecked(){
         if(this.data.Items){
             for(var a of this.data.Items){
-                a.Quantity=a.SewingInQuantity;
+                a.Quantity=0;
                 a.IsSave=false;
             }
         }

@@ -36,6 +36,9 @@ export class Create {
                     if(item.Quantity>0){
                         item.IsSave=true;
                     }
+                    else{
+                        item.IsSave=false;
+                    }
                     if(item.IsSave){
                         item.TotalQuantity=0;
                         if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
@@ -57,6 +60,9 @@ export class Create {
                     if(item.Quantity>0){
                         item.IsSave=true;
                     }
+                    else{
+                        item.IsSave=false;
+                    }
                     if(item.IsSave){
                         if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
                             this.data.SewingInDate=item.SewingInDate;
@@ -66,7 +72,6 @@ export class Create {
                 }
             }
         }
-        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
