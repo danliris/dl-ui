@@ -6,8 +6,7 @@ var moment = require("moment");
 
 import { DialogDetailView } from './template/detail-dialog-view'
 
-const VBWithPOLoader = require('./../../../../loader/vb-with-po-request-loader');
-const VBNonPOLoader = require('./../../../../loader/vb-non-po-request-loader');
+const VbRequestAllLoader = require('./../../../../loader/vb-request-loader');
 const UnitLoader = require('./../../../../loader/unit-loader');
 const AccountLoader = require('./../../../../loader/account-loader');
 
@@ -243,12 +242,8 @@ export class List {
 
     statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CLEARANCE", label: "Clearance" }, { value: "OUTSTANDING", label: "Outstanding" }];
 
-    get vbWithPOLoader() {
-        return VBWithPOLoader;
-    }
-
-    get vbNonPOLoader() {
-        return VBNonPOLoader;
+    get vbRequestAllLoader() {
+        return VbRequestAllLoader;
     }
 
     get unitLoader() {
