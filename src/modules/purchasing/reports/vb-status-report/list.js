@@ -6,8 +6,7 @@ var moment = require("moment");
 
 import { DialogDetailView } from './template/detail-dialog-view'
 
-const VBWithPOLoader = require('./../../../../loader/vb-with-po-request-loader');
-const VBNonPOLoader = require('./../../../../loader/vb-non-po-request-loader');
+const VbRequestAllLoader = require('./../../../../loader/vb-request-loader');
 const UnitLoader = require('./../../../../loader/unit-loader');
 const AccountLoader = require('./../../../../loader/account-loader');
 
@@ -54,7 +53,7 @@ export class List {
         this.arg.realizeDateTo = this.realizeEndDate && this.realizeEndDate != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
     }
 
-    columnsReal = [
+    columns = [
         { field: "VBNo", title: "No. VB" },
         {
             field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
@@ -94,33 +93,73 @@ export class List {
         { field: "Status", title: "Status" },
     ];
 
-    columnsReq = [
-        { field: "VBNo", title: "No. VB" },
-        {
-            field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        {
-            field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "Unit.Name", title: "Unit" },
-        { field: "CreateBy", title: "Pemohon VB" },
-        { field: "", title: "No. Realisasi" },
-        { field: "", title: "Tgl. Realisasi" },
-        { field: "Usage", title: "Keperluan VB" },
-        { field: "Aging", title: "Aging (hari)" },
-        {
-            field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: "", title: "Realisasi" },
-        { field: "", title: "Sisa (+/-)" },
-        { field: "Status", title: "Status" },
-    ];
+    // columnsReal = [
+    //     { field: "VBNo", title: "No. VB" },
+    //     {
+    //         field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     {
+    //         field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Unit.Name", title: "Unit" },
+    //     { field: "CreateBy", title: "Pemohon VB" },
+    //     { field: "RealizationNo", title: "No. Realisasi" },
+    //     {
+    //         field: "RealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Usage", title: "Keperluan VB" },
+    //     { field: "Aging", title: "Aging (hari)" },
+    //     {
+    //         field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     {
+    //         field: "RealizationAmount", title: "Realisasi", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     {
+    //         field: "Difference", title: "Sisa (+/-)", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     { field: "Status", title: "Status" },
+    // ];
+
+    // columnsReq = [
+    //     { field: "VBNo", title: "No. VB" },
+    //     {
+    //         field: "Date", title: "Tgl. VB", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     {
+    //         field: "DateEstimate", title: "Estimasi Tgl Realisasi", formatter: function (value, data, index) {
+    //             return moment.utc(value).local().format('DD MMM YYYY');
+    //         },
+    //     },
+    //     { field: "Unit.Name", title: "Unit" },
+    //     { field: "CreateBy", title: "Pemohon VB" },
+    //     { field: "", title: "No. Realisasi" },
+    //     { field: "", title: "Tgl. Realisasi" },
+    //     { field: "Usage", title: "Keperluan VB" },
+    //     { field: "Aging", title: "Aging (hari)" },
+    //     {
+    //         field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+    //             return numeral(value).format('0,000.00');
+    //         },
+    //     },
+    //     { field: "", title: "Realisasi" },
+    //     { field: "", title: "Sisa (+/-)" },
+    //     { field: "Status", title: "Status" },
+    // ];
 
     loader = (info) => {
         var order = {};
@@ -149,6 +188,7 @@ export class List {
     reset() {
         this.selectedUnit = null;
         this.selectedVBRequest = null;
+        this.selectedApplicant = null;
         this.selectedStatus = this.statusTypes[0];
         this.requestStartDate = null;
         this.requestEndDate = null;
@@ -202,12 +242,8 @@ export class List {
 
     statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CLEARANCE", label: "Clearance" }, { value: "OUTSTANDING", label: "Outstanding" }];
 
-    get vbWithPOLoader() {
-        return VBWithPOLoader;
-    }
-
-    get vbNonPOLoader() {
-        return VBNonPOLoader;
+    get vbRequestAllLoader() {
+        return VbRequestAllLoader;
     }
 
     get unitLoader() {
