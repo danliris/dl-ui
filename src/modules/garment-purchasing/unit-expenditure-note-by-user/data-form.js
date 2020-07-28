@@ -173,6 +173,7 @@ export class DataForm {
             this.data.UnitDONo = "";
         }
         else if(selectedUnitDeliveryOrder){
+            console.log(selectedUnitDeliveryOrder)
             if(newValue.UnitDOType== "MARKETING"){
                 this.data.ExpenditureTo="PENJUALAN";
             }
@@ -182,6 +183,7 @@ export class DataForm {
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
             this.data.UnitDONo = selectedUnitDeliveryOrder.UnitDONo;
             this.data.UnitSender = selectedUnitDeliveryOrder.UnitSender;
+            this.data.UnitDODate=selectedUnitDeliveryOrder.UnitDODate;
             this.data.UnitSender.toString = function () {
                 return [this.Code, this.Name]
                     .filter((item, index) => {

@@ -29,6 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.FinishingInDate==null
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){

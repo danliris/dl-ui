@@ -35,6 +35,7 @@ export class Create {
 
     saveCallback(event) {
         this.data.AdjustmentType="SEWING";
+        this.data.ProcessDate==null ;
         if(this.data.Items){
             for(var item of this.data.Items){
                 if(item.IsSave){

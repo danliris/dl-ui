@@ -29,6 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.CuttingInDate==null
         if(this.data){
             if(this.data.Items){
                 for(var item of this.data.Items){

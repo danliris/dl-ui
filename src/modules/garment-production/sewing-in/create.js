@@ -34,7 +34,24 @@ export class Create {
     }
 
     saveCallback(event) {
-        
+        this.data.FinishingDate=null;
+        this.data.SewingDate=null;
+        if(this.data.SewingFrom=="SEWING"){
+            if(this.data.Items){
+                for(var item of this.data.Items){
+                    if(this.data.SewingDate==null || this.data.SewingDate<item.SewingDate)
+                        this.data.SewingDate=item.SewingDate;
+                }
+            }
+        }
+        else if(this.data.SewingFrom=="FINISHING"){
+            if(this.data.Items){
+                for(var item of this.data.Items){
+                    if(this.data.FinishingDate==null || this.data.FinishingDate<item.FinishingDate)
+                        this.data.FinishingDate=item.FinishingDate;
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
