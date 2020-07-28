@@ -18,14 +18,15 @@
       options.bind="controlOptions">
     </au-datepicker>
 
-    <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.DateEstimate" error.bind="error.DateEstimate" read-only.bind="readOnly"
-      options.bind="controlOptions">
+    <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.DateEstimate" error.bind="error.DateEstimate"
+      read-only.bind="readOnly" options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCode" label="Unit Pemohon" loader.one-time="unitLoader"
-      text.bind="unitView" read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Unit Pemohon">
+    <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCode" label="Unit Pemohon"
+      loader.one-time="unitLoader" text.bind="unitView" read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions" placeholder="Cari Unit Pemohon">
     </au-autocomplete>
-    
+
     <au-autocomplete label="Mata Uang" placeholder="pilih mata uang" value.bind="selectedCurrency"
       error.bind="error.Currency" loader.one-time="currencyLoader" text="Code" read-only.bind="readOnly"
       options.bind="controlOptions">
@@ -39,22 +40,16 @@
       read-only.bind="readOnly" options.bind="controlOptions">
     </au-multiline>
 
-    <au-textbox
-            show.bind="error.itemscount"
-            error.bind="error.itemscount"
-            read-only="true">
-        </au-textbox>
+    <au-textbox show.bind="error.itemscount" error.bind="error.itemscount" read-only="true">
+    </au-textbox>
 
-        <au-collection 
-            items.bind="data.Items" 
-            errors.bind="error.items" 
-            columns.bind="itemsColumns" 
-            add.bind="addItems" 
-            remove.bind="removeItems"
-            options.bind="options"
-            read-only.bind="readOnly"
-            item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item">
-        </au-collection>
+    <div if.bind="selectedCurrency">
+      <au-collection items.bind="data.Items" errors.bind="error.items" columns.bind="itemsColumns" add.bind="addItems"
+        remove.bind="removeItems" options.bind="options" read-only.bind="readOnly"
+        item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item">
+      </au-collection>
+
+    </div>
 
   </au-input-form>
 </template>

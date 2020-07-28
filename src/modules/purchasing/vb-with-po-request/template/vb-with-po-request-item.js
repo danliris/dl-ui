@@ -85,6 +85,7 @@ export class PurchaseOrderItem {
 
             for (var proddetail of productList.Details) {
               var itemData = {
+                useVat: this.data.useVat,
                 product: proddetail.product,
                 defaultQuantity: proddetail.defaultQuantity,
                 conversion: proddetail.conversion,

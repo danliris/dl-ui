@@ -12,9 +12,9 @@ export class PurchaseOrderItem {
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
 
-    if(!this.data.useVat){
-      this.data.includePpn=false;
-    }
+    // if(!this.data.useVat){
+    //   this.data.includePpn=false;
+    // }
     if (this.data) {
       this.updateItem();
     }
