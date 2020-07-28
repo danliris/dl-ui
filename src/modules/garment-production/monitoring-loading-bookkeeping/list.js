@@ -26,12 +26,14 @@ export class List {
                 this.data=[];
                 console.log(result);
                 for(var _data of result){
-                    _data.price=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+               
                     _data.qtyOrder=_data.qtyOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.stocks=_data.stock.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.cuttingsQtyPcs=_data.cuttingQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.loadingQstyPcs=_data.loadingQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.remainsQty=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.remainNominal=(_data.remainQty*_data.price).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.prices=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     this.data.push(_data);
 
                  }
@@ -117,4 +119,18 @@ export class List {
        
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
+    get sumNominal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum +=  item.remainQty*item.price;
+            }
+        }
+       
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+   
 }

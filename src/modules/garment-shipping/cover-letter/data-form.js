@@ -3,6 +3,7 @@ import { Service } from "./service";
 
 var ShippingInvoiceLoader = require('../../../loader/garment-shipping-invoice-loader');
 var ForwarderLoader = require('../../../loader/garment-forwarders-loader');
+var EMKLLoader= require('../../../loader/garment-emkl-loader');
 
 @inject(Service)
 export class DataForm {
@@ -14,7 +15,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable title;
-
+    @bindable selectedEMKL;
     @bindable selectedShippingInvoice;
 
     controlOptions = {
@@ -30,6 +31,14 @@ export class DataForm {
         "COLLECT",
         "PREPAID"
     ];
+
+    get emklLoader(){
+        return EMKLLoader;
+    }
+
+    emklView = (data) => {
+        return `${data.Name || data.name}`;
+    }
 
     get shippingInvoiceLoader() {
         return ShippingInvoiceLoader;
@@ -51,9 +60,13 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        this.selectedShippingInvoice={
-            invoiceNo:this.data.invoiceNo
-        }
+        if(this.data.shippingStaff)
+            this.selectedShippingInvoice={
+                invoiceNo:this.data.invoiceNo,
+                shippingStaff: this.data.shippingStaff.name,
+                shippingStaffId: this.data.shippingStaff.id
+            }
+        this.selectedEMKL=this.data.emkl;
     }
 
     selectedShippingInvoiceChanged(newValue, oldValue) {
@@ -80,6 +93,20 @@ export class DataForm {
             this.data.shippingStaff = null;
             this.data.order = null;
             this.data.exportEstimationDate = null;
+        }
+    }
+
+    selectedEMKLChanged(newValue){
+        this.data.emkl=null;
+        if(newValue){
+            this.data.emkl={
+                id:newValue.Id || newValue.id,
+                name:newValue.Name || newValue.name,
+                address: newValue.Address || newValue.address,
+                attn: newValue.Attention || newValue.attn,
+                phone: newValue.PhoneNumber || newValue.phone,
+                code:newValue.Code || newValue.code,
+            };
         }
     }
 

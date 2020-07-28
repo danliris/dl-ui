@@ -1,5 +1,9 @@
 <template replace-part="packagingProductionOrders">
     <tr>
+        <td show.bind="!readOnly && !isEdit">
+            <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
@@ -47,7 +51,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly" error.bind="error.PackagingQty" change.delegate="inputPackagingQTYChanged"
+            <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly" error.bind="error.PackagingQTY" change.delegate="inputPackagingQTYChanged"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
@@ -81,9 +85,9 @@
                     options.bind="controlOptions">
                 </au-textbox>
         </td>
-        <td if.bind="!options.readOnly">
+        <!-- <td if.bind="!options.readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-        </td>
+        </td> -->
 
     </tr>
 </template>

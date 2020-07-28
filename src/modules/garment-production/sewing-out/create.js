@@ -29,11 +29,20 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.SewingInDate=null;
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    if(item.Quantity>0){
+                        item.IsSave=true;
+                    }
+                    else{
+                        item.IsSave=false;
+                    }
                     if(item.IsSave){
                         item.TotalQuantity=0;
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         for(var detail of item.Details){
                             item.TotalQuantity += detail.Quantity;
                             detail.Uom=item.Uom;
@@ -48,7 +57,15 @@ export class Create {
         if(this.data&& !this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    if(item.Quantity>0){
+                        item.IsSave=true;
+                    }
+                    else{
+                        item.IsSave=false;
+                    }
                     if(item.IsSave){
+                        if(this.data.SewingInDate==null || this.data.SewingInDate<item.SewingInDate)
+                            this.data.SewingInDate=item.SewingInDate;
                         item.RemainingQuantity=item.Quantity;
                         item.Price=(item.BasicPrice + (item.ComodityPrice * 50/100)) * item.Quantity;
                     }

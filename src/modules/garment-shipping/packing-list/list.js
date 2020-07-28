@@ -44,7 +44,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
                     data.BuyerAgentName=data.buyerAgent.name;

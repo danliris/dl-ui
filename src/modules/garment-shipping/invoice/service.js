@@ -64,6 +64,7 @@ class SalesService extends RestService {
     }
 }
 const coreserviceUri = "master/account-banks";
+const serviceUriBuyer = 'master/garment-buyers';
 class CoreService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "core");
@@ -71,6 +72,11 @@ class CoreService extends RestService {
 
     getBankAccountById(id) {
         var endpoint = `${coreserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getBuyerById(id) {
+        var endpoint = `${serviceUriBuyer}/${id}`;
         return super.get(endpoint);
     }
 

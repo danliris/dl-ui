@@ -1,13 +1,14 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, CoreService } from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, CoreService)
 export class View {
 
-    constructor(router, service) {
+    constructor(router, service, coreService) {
         this.router = router;
         this.service = service;
+        this.coreService = coreService;
     }
 
     async activate(params) {
@@ -23,6 +24,10 @@ export class View {
         if(this.data.isUsed){
             this.editCallback=null;
             this.deleteCallback=null;
+        }
+
+        if (this.data.section) {
+            this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
         }
     }
 

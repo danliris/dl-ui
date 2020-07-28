@@ -69,7 +69,7 @@
                         </au-numeric>
                     </td>
                     <td if.bind = "!hasView" align="right">
-                        <au-textbox 
+                        <au-numeric 
                             value.bind="data.priceBeforeTax" 
                             error.bind="error.price"
                             if.bind = "!hasView"
@@ -77,9 +77,9 @@
                             change.delegate="priceBeforeTaxChanged($event)"
                             options.bind="controlOptions"
                             >
-                    </au-textbox>
+                    </au-numeric>
                     </td>
-                    <td if.bind="context.context.options.useVat" align="center">
+                    <td align="center">
                         <au-checkbox 
                             value.bind="data.includePpn" 
                             error.bind="error.includePpn" 

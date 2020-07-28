@@ -156,7 +156,19 @@ export class DataForm {
             {header: "Tipe Fabric", value: "FabricType"},
         ]
     }
-
+    detailsInfo = {
+      
+        columns: [
+            {header: "Kode Barang", value: "Product.Code"},
+            {header: "Keterangan Barang", value: "DesignColor"},
+            {header: "Jumlah", value: "Quantity"},
+            {header: "Sisa", value: "RemainingQuantity"},
+            {header: "Satuan", value: "Uom.Unit"},
+            {header: "Harga", value: "BasicPrice"},
+            {header: "Mata Uang", value: "currency"},
+            {header: "Tipe Fabric", value: "FabricType"},
+        ]
+    }
     uenView = (uen) => {
         return `${uen.UENNo}`
     }

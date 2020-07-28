@@ -12,7 +12,6 @@ class Service extends RestService {
 
     search(info) {
         var endpoint = `${getServiceUri}`;
-        console.log(endpoint);
         return super.list(endpoint, info);
         
     }

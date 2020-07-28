@@ -18,7 +18,8 @@ export class List {
         { field: "bonNo", title: "No. Bon" },
         { field: "shift", title: "Shift" },
         { field: "group", title: "Group" },
-        { field: "destinationArea", title: "Area Tujuan" }
+        { field: "destinationArea", title: "Area Tujuan" },
+        { field: "type", title: "Jenis" },
     ];
 
     loader = (info) => {
@@ -79,7 +80,8 @@ export class List {
     }
     
     excel() {
-        this.service.generateExcelAll();
+        this.router.navigateToRoute('excel');
+        // this.service.generateExcel();
     }
 }
 

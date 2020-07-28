@@ -54,7 +54,7 @@ export class DataForm {
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
-        console.log(this.data.packagingProductionOrders);
+        
     };
     
 }

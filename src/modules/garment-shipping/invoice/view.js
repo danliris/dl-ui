@@ -17,7 +17,6 @@ export class View {
         this.hasEdit=true;
        
         this.hasCancel=true;
-        console.log(this.data);
         if(this.data.isUsed == true)
         {
             this.hasDelete=false;

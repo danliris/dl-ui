@@ -46,7 +46,6 @@ export class DataForm {
         this.data.TransactionType = "IN";
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
-        console.log(this.options.isCreate);
         this.options.isView = this.context.isView;
         if(this.data)
         {
@@ -93,9 +92,8 @@ export class DataForm {
 
             this.data.ScrapDestinationId = newValue.Id;
             this.data.ScrapDestinationName = newValue.Name;
-            this.service.searchClassification({})
+            this.service.searchClassification({order: {"Name" : "asc"}})
             .then((cls) => {
-               
                 for (var item of cls.data) {
                     this.data.Items.push({
                         ScrapClassificationId : item.Id,

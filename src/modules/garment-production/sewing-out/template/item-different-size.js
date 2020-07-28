@@ -19,7 +19,6 @@ export class Item {
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        console.log(this.isEdit)
         if(this.isEdit){
             this.readOnly=false;
         }
@@ -57,13 +56,24 @@ export class Item {
 
     toggle() {
         if (!this.isShowing)
-          this.isShowing = true;
+            this.isShowing = true;
         else
-          this.isShowing = !this.isShowing;
-      }
+            this.isShowing = !this.isShowing;
+        }
 
-      changeCheckBox() {
-        this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
-      }
-
+        changeCheckBox() {
+            this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+        }
+    
+    get qty(){
+        this.data.Quantity=0;
+        if(this.data.Details){
+            for(var detail of this.data.Details){
+                if(detail.Quantity){
+                    this.data.Quantity+=detail.Quantity;
+                }
+            }
+        }
+        return this.data.Quantity;
+    }
 }

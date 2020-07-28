@@ -16,9 +16,9 @@ export class Create {
 
   async activate(params) {
     this.data = {};
-    this.data.warehousesProductionOrders = await this.service.getProductionOrderInputv2();
+    this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
     // this.data.warehousesProductionOrders = [];
-    
+
     // debugger
   }
 
@@ -43,10 +43,10 @@ export class Create {
     ) {
       this.error.Date = "Tanggal Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Date = "";
     }
-    
+
     if (
       this.data.shift === null ||
       this.data.shift === undefined ||
@@ -54,7 +54,7 @@ export class Create {
     ) {
       this.error.Shift = "Shift Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Shift = "";
     }
 
@@ -65,7 +65,7 @@ export class Create {
     ) {
       this.error.Group = "Group Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.Group;
     }
 
@@ -76,7 +76,7 @@ export class Create {
     ) {
       this.error.DestinationArea = "Zona Harus Diisi!";
       errorIndex++;
-    }else{
+    } else {
       this.error.DestinationArea;
     }
 
@@ -89,16 +89,24 @@ export class Create {
       //     sppWarehouseList.push(item);
       //   })
       // });
-      this.data.warehousesProductionOrders.forEach(element => {
-        element.productionOrderItems.filter((s)=> s.IsSave ===true).forEach(item => {
-          sppWarehouseList.push(item);
-        })
-      });
+
       // this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(
       //   (s) => s.IsSave === true
       // );
-      this.data.warehousesProductionOrders = sppWarehouseList;
-      // console.log(this.data);
+
+      if (this.data.type == "OUT") {
+        this.data.displayWarehousesProductionOrders.forEach(element => {
+          element.productionOrderItems
+          // .filter((s) => s.IsSave === true)
+          .forEach(item => {
+            sppWarehouseList.push(item);
+          })
+        });
+        this.data.warehousesProductionOrders = sppWarehouseList;
+      } else {
+        this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
+      }
+      
       this.service
         .create(this.data)
         .then((result) => {

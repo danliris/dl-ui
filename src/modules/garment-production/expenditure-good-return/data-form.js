@@ -163,10 +163,12 @@ export class DataForm {
                                             this.data.Items[idx]=duplicate;
                                         }else{
                                             item.IsSave=true;
+                                            item.ExpenditureDate= exGood.ExpenditureDate;
                                             item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                             item.ExpenditureGoodId=exGood.Id;
                                             item.ExpenditureGoodItemId=exGoodItem.Id;
                                             item.Size=exGoodItem.Size;
+                                            item.SizeName=exGoodItem.Size.Size;
                                             item.StockQuantity=Qty;
                                             item.Quantity=Qty;
                                             item.Uom= exGoodItem.Uom;
@@ -177,10 +179,12 @@ export class DataForm {
                                     }
                                     else{
                                         item.IsSave=true;
+                                        item.ExpenditureDate= exGood.ExpenditureDate;
                                         item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                         item.ExpenditureGoodId=exGood.Id;
                                         item.ExpenditureGoodItemId=exGoodItem.Id;
                                         item.Size=exGoodItem.Size;
+                                        item.SizeName=exGoodItem.Size.Size;
                                         item.StockQuantity=Qty;
                                         item.Quantity=Qty;
                                         item.Uom= exGoodItem.Uom;
@@ -191,7 +195,7 @@ export class DataForm {
                                 }
                             }
                         }
-
+                        this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) ||a.SizeName.localeCompare( b.SizeName));
                     });
             }
         

@@ -1,14 +1,15 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, CoreService } from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, CoreService)
 export class Edit {
     isEdit = true;
 
-    constructor(router, service) {
+    constructor(router, service, coreService) {
         this.router = router;
         this.service = service;
+        this.coreService = coreService;
     }
 
     async activate(params) {
@@ -21,6 +22,10 @@ export class Edit {
                 i.MeasurementIndex=idx;
                 idx++;
             }
+        }
+
+        if (this.data.section) {
+            this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
         }
     }
 

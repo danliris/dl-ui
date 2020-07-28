@@ -81,6 +81,6 @@ export class List {
     this.router.navigateToRoute("create");
   }
   generatedExcel(){
-    this.service.generateExcelAll();
+    this.router.navigateToRoute('excel');
   }
 }

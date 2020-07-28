@@ -49,6 +49,7 @@
                   <td>NAMA</td>
                   <td>HARGA (PCS)</td>
                   <td>QTY</td>
+                  <td>NOMINAL</td>
                   <td>INVOICE</td>
               </tr>
           </thead>
@@ -63,13 +64,15 @@
                   <td class="text-left">${item.buyerArticle}</td>
                   <td class="text-left">${item.colour}</td> 
                   <td class="text-left">${item.name}</td>
-                  <td class="text-right">${item.price}</td>
+                  <td class="text-right">${item.prices}</td>
                   <td class="text-right">${item.qtys}</td>
+                  <td class="text-right">${item.nominals}</td>
                   <td class="text-left">${item.invoice}</td>
               </tr>
               <tr class="active">
                 <td class="text-center" colspan="8"><strong>T O T A L </strong></td>
                 <td class="text-right"><strong>${sumQty}</strong></td>        
+                <td class="text-right"><strong>${sumNominal}</strong></td>   
                 <td class="text-right"><strong></strong></td>
             </tr>
           </tbody>

@@ -12,7 +12,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
-        console.log(this.data);
+        
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.productionOrder = {};
