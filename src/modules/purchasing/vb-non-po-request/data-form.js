@@ -53,8 +53,6 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        console.log(this.data);
-
         this.selectedCurrency = this.data.Currency;
 
         if (this.data.Unit && this.data.Unit.Id) {
