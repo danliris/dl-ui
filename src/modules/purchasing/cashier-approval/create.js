@@ -179,9 +179,10 @@ export class Create {
             filter.UnitName = this.unit.Name;
 
             console.log(this.date)
-        if (this.date)
+        if (this.date) {
             // filter.Date = this.date != "Invalid Date" ? moment(this.date).format("DD-MM-YYYY") : null;
             filter.Date = this.date != "Invalid Date" ? moment(this.date).format('DD MMM YYYY') : null;
+        }
 
         let arg = {
             page: 1,
