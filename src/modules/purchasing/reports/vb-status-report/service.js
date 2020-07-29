@@ -15,11 +15,6 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getDetailReport(id) {
-        var endpoint = `${serviceUri}/reports/detail/${id}`;
-        return super.get(endpoint);
-    }
-
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);
