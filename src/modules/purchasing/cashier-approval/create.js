@@ -167,6 +167,7 @@ export class Create {
         let filter = {
             VBRequestCategory: this.activeRole.key,
             Apporve_Status: false,
+            Complete_Status: false,
         };
 
         if (this.vbWithPO)
@@ -178,11 +179,11 @@ export class Create {
         if (this.unit)
             filter.UnitName = this.unit.Name;
 
-            console.log(this.date)
         if (this.date) {
-            // filter.Date = this.date != "Invalid Date" ? moment(this.date).format("DD-MM-YYYY") : null;
             filter.Date = this.date != "Invalid Date" ? moment(this.date).format('DD MMM YYYY') : null;
+            // filter.Date = this.date != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
         }
+        console.log(this.date)
 
         let arg = {
             page: 1,
@@ -214,15 +215,10 @@ export class Create {
                                 amount = item.Price * item.DealQuantity;
                                 totalAmount = + amount;
                             }
-
                             data.Amount = totalAmount;
-
-
-                            var same = dataCashierApproval.find(a => a.Id == data.Id);
-                            if (same) {
-                                data.CreatedBy = same.CreatedBy;
-                            }
                         }
+
+                        console.log(result.data)
                         this.documentData.push(...result.data)
                         this.documentTable.refresh();
                     })
@@ -244,12 +240,6 @@ export class Create {
                     Promise.all(CashierApproval).then(dataApproval => {
                         for (var dataResult of dataApproval) {
                             dataCashierApproval.push(dataResult.data);
-                        }
-                        for (var data of result.data) {
-                            var same = dataCashierApproval.find(a => a.Id == data.Id);
-                            if (same) {
-                                data.CreatedBy = same.CreatedBy;
-                            }
                         }
                         this.documentData.push(...result.data)
                         this.documentTable.refresh();
