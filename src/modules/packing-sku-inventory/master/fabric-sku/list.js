@@ -25,18 +25,18 @@ export class List {
       order: order,
     }
 
-    // return this.service.search(arg)
-    //     .then(result => {
-    //         var data = {}
-    //         data.total = result.total;
-    //         data.data = result.data;
+    return this.service.search(arg)
+        .then(result => {
+            var data = {}
+            data.total = result.total;
+            data.data = result.data;
 
-    //         return data;
-    //     });
-    return {
-      data: [],
-      total: 0
-    }
+            return data;
+        });
+    // return {
+    //   data: [],
+    //   total: 0
+    // }
   }
 
   constructor(router, service) {
