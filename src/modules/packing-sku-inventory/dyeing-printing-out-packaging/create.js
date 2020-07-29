@@ -57,6 +57,8 @@ export class Create {
                         itemSpp.materialProduct = item.materialProduct,
                         itemSpp.materialConstruction = item.materialConstruction,
                         itemSpp.materialWidth = item.materialWidth,
+                        itemSpp.processType = item.processType,
+                        itemSpp.yarnMaterial = item.yarnMaterial,
                         itemSpp.balance = item.balance,
                         itemSpp.buyerId = item.buyerId,
                         itemSpp.buyer = item.buyer,
