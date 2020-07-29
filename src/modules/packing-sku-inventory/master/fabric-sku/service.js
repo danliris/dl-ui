@@ -1,5 +1,5 @@
 import { RestService } from '../../../../utils/rest-service';
-const serviceUri = 'master/ip-process-type';
+const serviceUri = 'master/fabric-products/sku';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
