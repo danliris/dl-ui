@@ -178,18 +178,14 @@ export class Create {
 
         if (this.unit)
             filter.UnitName = this.unit.Name;
-
-        if (this.date) {
-            filter.Date = this.date != "Invalid Date" ? moment(this.date).format('DD MMM YYYY') : null;
-            // filter.Date = this.date != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
-        }
-        console.log(this.date)
-
+            
         let arg = {
             page: 1,
             size: 255,
             filter: JSON.stringify(filter),
         };
+        
+        arg.dateFilter = this.date && this.date != "Invalid Date" ? moment(this.date).format("YYYY-MM-DD") : null;
 
         if (this.activeRole.key === 'PO') {
             this.documentData = [];
@@ -218,7 +214,7 @@ export class Create {
                             data.Amount = totalAmount;
                         }
 
-                        console.log(result.data)
+                        // console.log(result.data)
                         this.documentData.push(...result.data)
                         this.documentTable.refresh();
                     })

@@ -11,7 +11,7 @@ class VBNonPORequestService extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/with-date-filter`;
         return super.list(endpoint, info);
     }
 
