@@ -101,6 +101,7 @@ export class DataForm {
                 for(var item of dataHeader.Items){
                     if(item.RemainingQuantity>0){
                         var items = {
+                            PreparingDate: dataHeader.ProcessDate,
                             PreparingId : dataHeader.Id,
                             PreparingItemId : item.Id,
                             Product : item.Product,

@@ -19,6 +19,5 @@ constructor(dialog, service, serviceCore) {
       this.error = context.error;
       this.options = this.context.context.options;
       this.readOnly = this.options.isView;
-      console.log(this.context);
     }
   }

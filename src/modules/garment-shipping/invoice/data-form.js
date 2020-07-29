@@ -38,7 +38,6 @@ export class DataForm {
             isUsed : this.context.isUsed
           
         }
-        console.log(this.options);
         this.isEdit= this.context.isEdit;
      if(this.data.id !=undefined)
      {
@@ -141,7 +140,6 @@ export class DataForm {
     bankAccountChanged(newValue,oldValue)
     {
         var selectedAccount = newValue;
-        console.log(selectedAccount);
         if(selectedAccount)
         {
             
@@ -185,7 +183,8 @@ export class DataForm {
             this.data.issuedBy = selectedInv.issuedBy;
            
             var packingItem= await this.service.getPackingListById(selectedInv.id);
-         
+            var buyer= await this.coreService.getBuyerById(this.data.buyerAgent.id);
+            this.data.consigneeAddress= buyer.Address;
             this.data.items.splice(0);
             this.data.garmentShippingInvoiceAdjustments.splice(0);
             var consignee="";
@@ -262,6 +261,7 @@ export class DataForm {
           { header: "Amount", value: "amount" },
           { header: "Unit", value: "unit.code" },
           { header: "CMT Price", value: "cmtPrice" },
+          { header: "Amount CMT", value: "cmtAmount" },
         ],
         onAdd: function () {
        

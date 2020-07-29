@@ -11,7 +11,8 @@ export class DataForm {
     @bindable data;
     @bindable error;
     @bindable selectedPackaging;
-    
+    @bindable selectedType;
+    @bindable isAdj;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -27,11 +28,14 @@ export class DataForm {
         },
     };
     // itemColumns = ["Select","No. SPP","Qty Order", "Buyer", "Unit", "Material", "Warna", "Motif","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo","QTY Keluar","Keterangan"];
-    itemColumns =["Daftar Surat Perintah Produksi"];
+    itemColumns = ["Daftar Surat Perintah Produksi"];
+    itemColumnsAdj = ["No SP", "QTY Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "QTY Total", "No Dokumen"];
     shifts = ["PAGI", "SIANG"];
     groups = ["A", "B"];
+    types = ["OUT", "ADJ"];
     detailOptions = {};
-    destinationAreas = ["INSPECTION MATERIAL","TRANSIT", "GUDANG AVAL","GUDANG JADI"];
+    detailOptionsAdj = {};
+    destinationAreas = ["INSPECTION MATERIAL", "TRANSIT", "GUDANG AVAL", "GUDANG JADI"];
     constructor(service) {
         this.service = service;
     }
@@ -63,23 +67,34 @@ export class DataForm {
         // if(this.data.id){
         //     this.callbackId = await this.service.getById(this.data.id);
         // }
-        if(this.data.packagingProductionOrders)
-        {
-            this.selectedPackaging = this.data;
-            this.selectedPackaging.bonNo = this.data.bonNo;                        
+        if (this.data.id) {
+            this.selectedType = this.data.type
         }
+        if (this.data.packagingProductionOrders) {
+            this.selectedPackaging = this.data;
+            this.selectedPackaging.bonNo = this.data.bonNo;
+        }
+        this.detailOptions = {
+            isEdit: this.isEdit
+        };
     }
-    async activate(context){
+
+    async activate(context) {
     }
+
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
         this.data.packagingProductionOrders.push({});
+    };
+    addItemCallbackAdj = (e) => {
+        this.data.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj || [];
+        this.data.packagingProductionOrdersAdj.push({});
     };
 
     // selectedPackagingChanged(n, o) {
     //     this.detailOptions.destinationArea = this.data.destinationArea;
     //     this.data.bonNoInput = n.bonNo;
-        
+
     //     // if(n){
     //     //     this.data.bonNoInput = n.bonNo;
     //     //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
@@ -92,6 +107,16 @@ export class DataForm {
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
     }
+
+    selectedTypeChanged(n, o) {
+        this.data.type = this.selectedType;
+        if (this.selectedType == "ADJ")
+            this.isAdj = true;
+        else
+            this.isAdj = false;
+
+    }
+
 }
 
 

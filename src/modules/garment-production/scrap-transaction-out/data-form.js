@@ -78,7 +78,6 @@ export class DataForm {
         }
     }
     async selectedDestinationChanged(newValue) {
-       console.log(this.options);
         if (newValue && this.options.isCreate) {
             this.data.Items.splice(0);
         let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "KG" }) });
@@ -86,7 +85,7 @@ export class DataForm {
 
             this.data.ScrapDestinationId = newValue.Id;
             this.data.ScrapDestinationName = newValue.Name;
-            this.service.searchStock({ filter: JSON.stringify({ ScrapDestinationName:  this.data.ScrapDestinationName }) }).then((results) => {
+            this.service.searchStock({order: {"ScrapClassificationName" : "asc"}, filter: JSON.stringify({ ScrapDestinationName:  this.data.ScrapDestinationName }) }).then((results) => {
            
                 for(var items of results.data)
                 {

@@ -23,6 +23,7 @@ export class DataForm {
       length: 4,
     },
   };
+  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
     "Buyer",
@@ -41,6 +42,7 @@ export class DataForm {
   ];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
+  types = ["OUT", "ADJ"];
   destinationAreas = ["PENJUALAN", "BUYER", "INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI"];
   areas = [
     "INSPECTION MATERIAL",
@@ -81,6 +83,16 @@ export class DataForm {
     return (this.data.id || "").toString() != "";
   }
 
+  @computedFrom("destinationArea")
+  get isPenjualan() {
+    return this.destinationArea && this.destinationArea == "PENJUALAN";
+  }
+
+  @computedFrom("data.type")
+  get isAdj() {
+    return this.data && this.data.type == "ADJ";
+  }
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -119,6 +131,7 @@ export class DataForm {
           "Keterangan",
           "Qty Packing",
           "Packing",
+          "Panjang Packing",
           "Qty Keluar",
           "Berat (KG)"
         ];
@@ -137,6 +150,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             ""
@@ -155,6 +169,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)"
           ];
@@ -179,6 +194,7 @@ export class DataForm {
           "Keterangan",
           "Qty Packing",
           "Packing",
+          "Panjang Packing",
           "Qty Keluar",
           "Berat (KG)",
           "SJ",
@@ -198,6 +214,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -217,6 +234,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -230,8 +248,16 @@ export class DataForm {
       isEdit: this.isEdit,
       isSales: this.isSales
     };
-    if (this.data.shippingProductionOrders) {
-      this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
+
+    if (this.data.type == "OUT") {
+      if (this.data.shippingProductionOrders) {
+        this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
+      }
+    } else {
+      if (this.data.shippingProductionOrders) {
+        this.data.adjShippingProductionOrders = this.data.shippingProductionOrders;
+      }
+
     }
 
     if (this.data.deliveryOrder) {
@@ -241,14 +267,15 @@ export class DataForm {
     }
   }
   addItemCallback = (e) => {
-    this.data.displayShippingProductionOrders =
-      this.data.displayShippingProductionOrders || [];
-    this.data.displayShippingProductionOrders.push({});
+    this.data.adjShippingProductionOrders =
+      this.data.adjShippingProductionOrders || [];
+    this.data.adjShippingProductionOrders.push({});
   };
 
   @bindable selectedShipping;
   selectedShippingChanged(n, o) {
     if (this.selectedShipping) {
+      this.detailOptions.destinationArea = this.destinationArea;
       this.data.inputShippingId = this.selectedShipping.id;
       if (this.selectedShipping.shippingProductionOrders) {
         this.data.displayShippingProductionOrders = this.selectedShipping.shippingProductionOrders.filter(
@@ -269,10 +296,15 @@ export class DataForm {
       this.data.deliveryOrder = {};
       this.data.deliveryOrder.id = this.selectedDO.Id;
       this.data.deliveryOrder.no = this.selectedDO.DOSalesNo;
-      if (!this.isEdit && this.selectedDO.Id)
+      if (!this.isEdit && this.selectedDO.Id) {
+        this.detailOptions.buyer = this.selectedDO.SalesContract.Buyer.Name;
+        this.detailOptions.buyerId = this.selectedDO.SalesContract.Buyer.Id;
+        this.detailOptions.destinationArea = this.destinationArea;
         this.data.displayShippingProductionOrders = await this.service.getProductionOrderFromInput(
           this.selectedDO.Id
         );
+      }
+
     }
   }
 
@@ -297,6 +329,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)"
           ];
@@ -315,6 +348,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               ""
@@ -333,6 +367,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)"
             ];
@@ -357,6 +392,7 @@ export class DataForm {
             "Keterangan",
             "Qty Packing",
             "Packing",
+            "Panjang Packing",
             "Qty Keluar",
             "Berat (KG)",
             "SJ",
@@ -376,6 +412,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
@@ -395,6 +432,7 @@ export class DataForm {
               "Keterangan",
               "Qty Packing",
               "Packing",
+              "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
@@ -405,6 +443,7 @@ export class DataForm {
 
       }
       this.detailOptions.isSales = this.isSales;
+      this.detailOptions.destinationArea = this.destinationArea;
       if (!this.data.id) {
         this.selectedShipping = null;
         this.data.deliveryOrder = null;

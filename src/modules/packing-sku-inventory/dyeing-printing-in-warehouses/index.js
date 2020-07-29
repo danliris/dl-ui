@@ -29,6 +29,7 @@ export class Index {
         nav: false,
         title: "Edit:  Gudang Barang Jadi - Dyeing & Printing",
       },
+      { route: 'excel', moduleId: './excel', name: 'excel', nav: false, title: 'Excel: Download Penerimaan Gudang Barang Jadi - Dyeing/Printing' }
       // { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Gudang Barang Jadi - Dyeing & Printing' },
     ]);
 

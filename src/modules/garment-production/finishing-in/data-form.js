@@ -205,7 +205,8 @@ export class DataForm {
                         var date=result.data[0].SewingOutDate;
                         for(var sewingOut of result.data){
                             this.data.FinishingInDate= sewingOut.SewingOutDate> date?sewingOut.SewingOutDate: date;
-                            date=this.data.FinishingInDate 
+                            date=this.data.FinishingInDate;
+                            this.data.SewingOutDate=date;
                             for(var sewingOutItem of sewingOut.Items){
                                 var item={};
                                 if(sewingOutItem.RemainingQuantity>0){
@@ -218,6 +219,7 @@ export class DataForm {
                                             item.Product=sewingOutItem.Product;
                                             item.Uom=sewingOutItem.Uom;
                                             item.Size=sewingOutDetail.Size;
+                                            item.SizeName=sewingOutDetail.Size.Size;
                                             item.Color=sewingOutItem.Color;
                                             item.DesignColor=sewingOutItem.DesignColor;
                                             item.RemainingQuantity=sewingOutDetail.Quantity;
@@ -233,6 +235,7 @@ export class DataForm {
                                         item.Product=sewingOutItem.Product;
                                         item.Uom=sewingOutItem.Uom;
                                         item.Size=sewingOutItem.Size;
+                                        item.SizeName=sewingOutItem.Size.Size;
                                         item.Color=sewingOutItem.Color;
                                         item.DesignColor=sewingOutItem.DesignColor;
                                         item.RemainingQuantity=sewingOutItem.Quantity;
@@ -245,6 +248,7 @@ export class DataForm {
                                 }
                             }
                     }
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
             }
         

@@ -15,6 +15,9 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
     //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
+    for(var item of this.data.warehousesProductionOrders){
+      item.productionOrderItems = item.productionOrderItems.filter(s => s.hasOutputDocument === false);
+    }
     this.canEdit = true;
   }
 

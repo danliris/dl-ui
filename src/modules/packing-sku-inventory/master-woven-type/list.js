@@ -11,7 +11,7 @@ export class List {
 
     columns = [
         { field: "code", title: "Kode" },
-        { field: "warpType", title: "Jenis Anyaman" },
+        { field: "wovenType", title: "Jenis Anyaman" },
     ];
 
     loader = (info) => {

@@ -1,9 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
-var BankLoader = require('../../../loader/account-banks-loader');
-var SupplierLoader = require('../../../loader/supplier-loader');
-var BuyerLoader = require('../../../loader/buyers-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
@@ -13,8 +10,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable options = {};
     @bindable title;
-    @bindable options = { useVat: false };
+    // useVat: false 
+    @bindable selectedCurrency;
 
     controlOptions = {
         label: {
@@ -37,18 +36,19 @@ export class DataForm {
     }
 
     bind(context) {
+        
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
         }
+        this.selectedCurrency = this.data.Currency;
     }
 
     get addItems() {
         return (event) => {
-            this.data.items.push({ purchaseRequest: { no: "" } })
+            this.data.Items.push({ purchaseRequest: { no: "" } })
         };
     }
 
@@ -58,7 +58,12 @@ export class DataForm {
 
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
+        
         this.data.Currency = newValue;
+        if(this.data.Currency)
+        {
+            this.options.CurrencyCode = this.data.Currency.Code;
+        }
     }
 
     @bindable selectedUnit;
@@ -68,6 +73,17 @@ export class DataForm {
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
+
+            if (this.selectedUnit.Division) {
+                this.data.division = {};
+                this.data.division.id = this.selectedUnit.Division.Id;
+                this.data.division.name = this.selectedUnit.Division.Name;
+            }
+            else{
+                this.data.division = {};
+                this.data.division.id = this.data.Division.Id;
+                this.data.division.name = this.data.Division.Name;
+            }
         }
         else {
             this.data.unit.id = this.selectedUnit.id;
@@ -84,4 +100,5 @@ export class DataForm {
     get unitLoader() {
         return UnitLoader;
     }
+
 }

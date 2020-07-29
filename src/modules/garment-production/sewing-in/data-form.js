@@ -229,6 +229,7 @@ export class DataForm {
                         a.LoadingItemId = item.Id;
                         a.DesignColor = item.DesignColor;
                         a.Size = item.Size;
+                        a.SizeName = item.Size.Size;
                         a.Quantity = item.RemainingQuantity;
                         a.Uom = item.Uom;
                         a.Color = item.Color;
@@ -238,6 +239,7 @@ export class DataForm {
                         this.data.Items.push(a);
                     }
                 }
+                this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
             }
             else {
                 this.context.selectedLoadingViewModel.editorValue = "";
@@ -333,12 +335,14 @@ export class DataForm {
                                     if(sewingOut.IsDifferentSize){
                                         for(var sewingOutDetail of sewingOutItem.Details){
                                             item={};
+                                            item.SewingDate=sewingOut.SewingOutDate;
                                             item.SewingOutItemId=sewingOutItem.Id;
                                             item.SewingOutDetailId=sewingOutDetail.Id;
                                             item.Quantity=sewingOutDetail.Quantity;
                                             item.Product=sewingOutItem.Product;
                                             item.Uom=sewingOutItem.Uom;
                                             item.Size=sewingOutDetail.Size;
+                                            item.SizeName=sewingOutDetail.Size.Size;
                                             item.Color=sewingOutItem.Color;
                                             item.DesignColor=sewingOutItem.DesignColor;
                                             item.RemainingQuantity=sewingOutDetail.Quantity;
@@ -348,11 +352,13 @@ export class DataForm {
                                         }
                                     }
                                     else{
+                                        item.SewingDate=sewingOut.SewingOutDate;
                                         item.SewingOutItemId=sewingOutItem.Id;
                                         item.Quantity=sewingOutItem.Quantity;
                                         item.Product=sewingOutItem.Product;
                                         item.Uom=sewingOutItem.Uom;
                                         item.Size=sewingOutItem.Size;
+                                        item.SizeName=sewingOutItem.Size.Size;
                                         item.Color=sewingOutItem.Color;
                                         item.DesignColor=sewingOutItem.DesignColor;
                                         item.RemainingQuantity=sewingOutItem.Quantity;
@@ -364,6 +370,7 @@ export class DataForm {
                                 }
                             }
                     }
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
             }
         else {
@@ -439,12 +446,14 @@ export class DataForm {
                                     if(finishingOut.IsDifferentSize){
                                         for(var finishingOutDetail of finishingOutItem.Details){
                                             item={};
+                                            item.FinishingDate= finishingOut.FinishingOutDate;
                                             item.FinishingOutItemId=finishingOutItem.Id;
                                             item.FinishingOutDetailId=finishingOutDetail.Id;
                                             item.Quantity=finishingOutDetail.Quantity;
                                             item.Product=finishingOutItem.Product;
                                             item.Uom=finishingOutItem.Uom;
                                             item.Size=finishingOutDetail.Size;
+                                            item.SizeName=finishingOutDetail.Size.Size;
                                             item.Color=finishingOutItem.Color;
                                             item.DesignColor=finishingOutItem.DesignColor;
                                             item.RemainingQuantity=finishingOutDetail.Quantity;
@@ -454,11 +463,13 @@ export class DataForm {
                                         }
                                     }
                                     else{
+                                        item.FinishingDate= finishingOut.FinishingOutDate;
                                         item.FinishingOutItemId=finishingOutItem.Id;
                                         item.Quantity=finishingOutItem.Quantity;
                                         item.Product=finishingOutItem.Product;
                                         item.Uom=finishingOutItem.Uom;
                                         item.Size=finishingOutItem.Size;
+                                        item.SizeName=finishingOutItem.Size.Size;
                                         item.Color=finishingOutItem.Color;
                                         item.DesignColor=finishingOutItem.DesignColor;
                                         item.RemainingQuantity=finishingOutItem.Quantity;
@@ -470,6 +481,8 @@ export class DataForm {
                                 }
                             }
                     }
+                    
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
             }
         else {

@@ -1,0 +1,60 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+
+    <div slot="actions" class="btn-group">
+      <button class="btn btn-default" click.delegate="context.cancel($event)"
+        if.one-way="context.hasCancel">Kembali</button>
+      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)"
+        if.one-way="context.hasDelete">Hapus</button>
+    </div>
+
+    <au-textbox value.bind="data.VBRealizationNo" if.bind="data.VBRealizationNo" label="No Realisasi VB" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No VB" loader.one-time="vbLoader" text="VBNo"
+      read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB" query.bind="filter">
+    </au-autocomplete>
+
+    <au-datepicker label="Tanggal VB" value.bind="data.numberVB.Date" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.numberVB.DateEstimate" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-textbox label="Pemohon VB" value.bind="data.numberVB.CreateBy" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox label="Mata Uang" value.bind="data.numberVB.CurrencyCode" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox label="Unit" value.bind="data.numberVB.UnitName" read-only.bind="true"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox error.bind="error.Item"
+                    show.bind="error.Item"
+                    read-only.bind="true">
+        </au-textbox>
+
+        <au-collection items.bind="data.Items"
+                       errors.bind="error.Items"
+                       columns.bind="columns"
+                       add.bind="addItems"
+                       remove.bind="onremove"
+                       read-only.bind="readOnly"
+                       item-template="modules/purchasing/realization-vb-non-po/templates/item">
+        </au-collection>
+
+  </au-input-form>
+</template>

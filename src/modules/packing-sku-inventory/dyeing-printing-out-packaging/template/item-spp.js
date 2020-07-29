@@ -4,8 +4,8 @@ import { Service } from './../service';
 import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
-var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
-
+// var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
+var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
 
 @inject(Service, BindingEngine, BindingSignaler, DataForm)
 export class ItemSPP {
@@ -17,26 +17,35 @@ export class ItemSPP {
         this.dataForm = dataForm;
     }
 
+    itemOptions = {};
     sppFilter = {};
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
+        
         this.options = context.options;
         this.context = context.context;
-        // console.log(this.data);
+        this.contextOptions = context.context.options;
+        this.isEdit = this.contextOptions.isEdit;
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
+        if (this.data.productionOrderNo) {
+            this.selectedProductionOrder = {};
+            this.selectedProductionOrder.productionOrderNo = this.data.productionOrderNo;
+            this.selectedProductionOrder.productionOrderList = this.data.PackagingList;
+        }
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        // console.log(this);
-        // console.log(this.selectedStorageId);
+        
         // this.isNewStructure = this.context.options.isNewStructure;
-
-        // console.log(this.context);
+        this.itemOptions = {
+            isEdit: this.isEdit
+        };
+        
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
-
+        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
         // if (this.data.productionOrderId) {
         //     this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
         // }
@@ -123,6 +132,14 @@ export class ItemSPP {
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
+        if(this.selectedProductionOrder){
+            if(this.selectedProductionOrder.productionOrderList){
+
+                this.data.PackagingList = this.selectedProductionOrder.productionOrderList;
+            }
+            this.data.productionOrderNo = this.selectedProductionOrder.productionOrderNo;
+        }
+       
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.id;
@@ -143,7 +160,7 @@ export class ItemSPP {
             this.data.motif = this.selectedProductionOrder.motif;
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
-            this.data.qtyOut= this.selectedProductionOrder.qtyOut;
+            this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             this.data.packagingQTY = this.selectedProductionOrder.packagingQTY;
             // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
             if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {
@@ -151,6 +168,7 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
+
         }
         else {
             this.data.productionOrder = {};

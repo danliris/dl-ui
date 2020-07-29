@@ -98,6 +98,7 @@ export class List {
     this.router = router;
 
     this.permissions = permissionHelper.getUserPermissions();
+    console.log(this.permissions)
     this.initPermission();
   }
 
@@ -106,6 +107,7 @@ export class List {
     this.accessCount = 0;
 
     for (let i = this.roles.length - 1; i >= 0; i--) {
+      console.log(this.roles[i]);
       if (this.permissions.hasOwnProperty(this.roles[i].code)) {
         this.roles[i].hasPermission = true;
         this.accessCount++;

@@ -133,12 +133,13 @@ export class DataForm {
             Promise.resolve(this.service.getSewingOut({
 
                 filter: JSON.stringify({ RONo: this.data.RONo, UnitToId: this.data.Unit.Id, SewingTo: "CUTTING","GarmentSewingOutItem.Any(RemainingQuantity>0)":true }),
-                select: "new (UnitToCode, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details, Color)) as Items)",
+                select: "new (UnitToCode,SewingOutDate, IsDifferentSize, GarmentSewingOutItem.Select(new (Identity as SewingOutItemId,BasicPrice, new (ProductId as Id, ProductCode as Code, ProductName as Name) as Product, DesignColor, RemainingQuantity, new (SizeId as Id, SizeName as Size) as Size, GarmentSewingOutDetail.Select(new (Identity as SewingOutDetailId, Quantity, new (SizeId as Id, SizeName as Size) as Size)) as Details, Color)) as Items)",
 
             }))
                 .then(result => {
                     this.data.Items = [];
 
+                    console.log(result)
                     result.data.forEach(data => {
                         (data.Items || []).forEach(item => {
                             if (data.IsDifferentSize) {
@@ -149,6 +150,7 @@ export class DataForm {
                                         // }));
                                         this.data.Items.push({
                                             IsSave: true,
+                                            SewingDate: data.SewingOutDate,
                                             IsDifferentSize: data.IsDifferentSize,
                                             SewingOutItemId: item.SewingOutItemId,
                                             Product: item.Product,
@@ -158,6 +160,7 @@ export class DataForm {
                                             Quantity: detail.Quantity,
                                             SourceQuantity: detail.Quantity,
                                             Size: detail.Size,
+                                            SizeName: detail.Size.Size,
                                             BasicPrice: item.BasicPrice,
                                             ComodityPrice: this.data.Price,
                                             Color: item.Color
@@ -168,16 +171,19 @@ export class DataForm {
                                 if (item.RemainingQuantity > 0) {
                                     this.data.Items.push(Object.assign(item, {
                                         IsSave: true,
+                                        SewingDate: data.SewingOutDate,
                                         Quantity: item.RemainingQuantity,
                                         SourceQuantity: item.RemainingQuantity,
                                         BasicPrice: item.BasicPrice,
                                         ComodityPrice: this.data.Price,
+                                        SizeName: item.Size.Size,
                                         Color: item.Color
                                     }));
                                 }
                             }
                         });
                     });
+                    this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                     this.context.checkedAll = true;
                 });
         }
@@ -227,6 +233,7 @@ export class DataForm {
                                 if (detail.RemainingQuantity > 0) {
                                     this.data.Items.push(Object.assign(detail, {
                                         IsSave: true,
+                                        CuttingDate: data.CuttingInDate,
                                         Quantity: detail.RemainingQuantity,
                                         CuttingInDetailId: detail.Id,
                                         SourceQuantity: detail.RemainingQuantity,

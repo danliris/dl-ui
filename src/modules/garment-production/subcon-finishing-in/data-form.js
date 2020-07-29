@@ -275,6 +275,7 @@ export class DataForm {
                                                 Product: data.Product,
                                                 DesignColor: data.DesignColor,
                                                 Size: data.Size,
+                                                SizeName: data.Size.Size,
                                                 // Comodity: data.Comodity,
                                                 Comodity: this.data.Comodity,
                                                 Color: data.Remark,
@@ -296,6 +297,7 @@ export class DataForm {
                                     }
                                 });
                         });
+                        this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                 });
         } else {
             this.data.RONo = null;

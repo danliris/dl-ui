@@ -58,7 +58,7 @@ export class DataForm {
     }
 
     async bind(context) {
-        // console.log(context.data);
+        
         this.context = context;
         this.context._this = this;
         this.data = this.context.data;

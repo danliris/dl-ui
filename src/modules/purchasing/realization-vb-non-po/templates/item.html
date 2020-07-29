@@ -1,0 +1,34 @@
+<template>
+    <tr>
+        <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+        <td>
+            <au-datepicker value.bind="data.DateDetail" error.bind="error.DateDetail"
+                read-only.bind="readOnly" options.bind="controlOptions">
+            </au-datepicker>
+        </td>
+        <td>
+            <au-textbox value.bind="data.Remark" error.bind="error.Remark" placeholder="Keterangan"
+                read-only.bind="readOnly" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.Amount" read-only.bind="readOnly" error.bind="error.Amount"
+                format="0,0.000" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td style="text-align:center;">
+            <au-checkbox value.bind="data.isGetPPn" error.bind="error.isGetPPn"
+                read-only.bind="readOnly" options.bind="controlOptions">
+            </au-checkbox>
+        </td>
+        <td>
+            <au-numeric value.bind="Total" read-only.bind="true"
+                format="0,0.000" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1" if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-
+            </button>
+        </td>
+    </tr>
+</template>
