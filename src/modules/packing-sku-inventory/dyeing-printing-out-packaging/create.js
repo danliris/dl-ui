@@ -80,7 +80,15 @@ export class Create {
                         itemSpp.status = item.status,
                         itemSpp.material = item.material,
                         itemSpp.id = item.id,
-                        itemSpp.IsSave = item.IsSave
+                        itemSpp.IsSave = item.IsSave,
+                        itemSpp.productSKUId = item.productSKUId,
+                        itemSpp.fabricSKUId = item.fabricSKUId,
+                        itemSpp.productSKUCode = item.productSKUCode,
+                        itemSpp.hasPrintingProductSKU = item.hasPrintingProductSKU,
+                        itemSpp.productPackingId = item.productPackingId,
+                        itemSpp.fabricPackingId = item.fabricPackingId,
+                        itemSpp.productPackingCode = item.productPackingCode,
+                        itemSpp.hasPrintingProductPacking = item.hasPrintingProductPacking,
                     bodyRequest.packagingProductionOrders.push(itemSpp);
                 });
         });
