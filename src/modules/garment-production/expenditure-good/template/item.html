@@ -1,13 +1,13 @@
 <template >
     <tr>
-        <td align='center' if.bind="options.isCreate" class="col-sm-1">
+        <!-- <td align='center' if.bind="options.isCreate" class="col-sm-1">
             <au-checkbox 
                 value.bind="data.IsSave" 
                 if.bind="options.isCreate"
                 options.bind="controlOptions"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
-        </td>
+        </td> -->
         <td>
             <au-textbox 
                 value.bind="data.Size.Size"
@@ -15,7 +15,7 @@
                 read-only.bind="true">
             </au-textbox>                    
         </td>
-        <td if.bind="options.isCreate">
+        <!-- <td if.bind="options.isCreate">
             <au-numeric 
                 value.bind="data.StockQuantity"
                 error.bind = "error.StockQuantity"
@@ -23,12 +23,12 @@
                 if.bind="options.isCreate"
                 format="0">
             </au-numeric>                    
-        </td>
+        </td> -->
         <td>
             <au-numeric 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"
-                read-only.bind="readOnly|| options.isEdit"
+                read-only.bind="true"
                 format="0">
             </au-numeric>                    
         </td>
@@ -39,12 +39,14 @@
             </au-textbox>
         </td>
         <td>
-            <au-dropdown 
+            <au-textbox 
                 value.bind="data.Description"
                 error.bind="error.Description"
-                items.bind="colors"
-                read-only.bind="readOnly || options.isEdit">
-            </au-dropdown>
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
