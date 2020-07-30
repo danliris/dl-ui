@@ -76,29 +76,13 @@
                             class='btn btn-success'>Reset</button>
                 </div>
             </div>
-<!-- 
-            <div class="table-responsive">
-                <au-table view-model.ref="table"
-                          data.bind="loader"
-                          columns.bind="columnsCashier"
-                          page-size="25"
-                          context.bind="context"
-                          options.bind="tableOptions"
-                          if.bind="selectedStatus.value==true">
-                          <div slot="toolbar"
-                               class="btn-group">
-                              <button class='btn btn-primary'
-                                      click.delegate="exportToExcel()">Excel</button>
-                          </div>
-                </au-table> -->
                 
                 <au-table view-model.ref="table"
                           data.bind="loader"
-                          columns.bind="columnsReturn"
+                          columns.bind="columns"
                           page-size="25"
                           context.bind="context"
                           options.bind="tableOptions">
-                          <!-- if.bind="selectedStatus.value==false" -->
                           <div slot="toolbar"
                                class="btn-group">
                               <button class='btn btn-primary'

@@ -53,59 +53,10 @@ export class List {
         this.arg.realizeDateTo = this.realizeEndDate && this.realizeEndDate != "Invalid Date" ? moment(this.realizeEndDate).format("YYYY-MM-DD") : null;
     }
 
-    columnsCashier = [
+    columns = [
         { field: "RequestVBNo", title: "No. VB" },
         { field: "RealizationVBNo", title: "No. Realisasi VB" },
-        { field: "Applicant", title: "Nama" },
-        { field: "Unit.Name", title: "Bagian/Unit" },
-        { field: "Division.Name", title: "Divisi" },
-        {
-            field: "DateUnitSend", title: "Tgl. Unit Kirim", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "Usage", title: "Keperluan" },
-        { field: "RequestCurrency", title: "Kurs VB" },
-        {
-            field: "RequestAmount", title: "Nominal VB", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: "RealizationCurrency", title: "Kurs Realisasi" },
-        {
-            field: "RealizationAmount", title: "Nominal Realisasi", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        {
-            field: "RealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        {
-            field: "DateVerifReceive", title: "Tgl. Verif Terima", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "Verificator", title: "Nama Verifikator" },
-        {
-            field: "DateVerifSend", title: "Tgl. Verif Kirim Kasir/Retur", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "Status", title: "Status Kasir" },
-        { field: "VerificationStatus", title: "Status Retur" },
-        { field: "Notes", title: "Keterangan (Retur)" },
-        {
-            field: "DateCashierReceive", title: "Tgl. Kasir Terima", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-    ];
-
-    columnsReturn = [
-        { field: "RequestVBNo", title: "No. VB" },
-        { field: "RealizationVBNo", title: "No. Realisasi VB" },
+        { field: "VbType", title: "Tipe VB" },
         { field: "Applicant", title: "Nama" },
         { field: "Unit.Name", title: "Bagian/Unit" },
         { field: "Division.Name", title: "Divisi" },
