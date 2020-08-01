@@ -13,7 +13,10 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.canEdit=true;
+        if (this.data.type == "OUT") {
+            this.data.avalItems = this.data.avalItems.filter(s => s.hasNextAreaDocument === false);
+        }
+        this.canEdit = true;
     }
 
     view(data) {
@@ -21,7 +24,7 @@ export class Edit {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

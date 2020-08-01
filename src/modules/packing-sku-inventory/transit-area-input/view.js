@@ -10,12 +10,13 @@ export class View {
         this.service = service;
     }
 
+    canEdit = true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.transitProductionOrders = this.data.transitProductionOrders.filter(s => s.hasOutputDocument === false);
+        // this.data.transitProductionOrders = this.data.transitProductionOrders.filter(s => s.hasOutputDocument === false);
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.canEdit=true;
+        this.canEdit= this.data.transitProductionOrders.some(s => s.hasOutputDocument === false);
         
     }
 
