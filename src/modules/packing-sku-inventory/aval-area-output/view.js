@@ -16,10 +16,12 @@ export class View {
     this.service = service;
   }
 
+  canEdit = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
+    this.canEdit = this.data.type == "ADJ" || this.data.avalItems.some(s => s.hasNextAreaDocument === false);
+
     this.isShowed = false;
   }
 

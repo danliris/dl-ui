@@ -15,11 +15,12 @@ export class View {
     this.router = router;
     this.service = service;
   }
-
+  canEdit = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
+    this.canEdit = this.data.avalItems.some(s => s.hasOutputDocument === false);
+        
     this.isShowed = false;
   }
 

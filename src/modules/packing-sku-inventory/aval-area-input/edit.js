@@ -13,6 +13,7 @@
 //     async activate(params) {
 //         var id = params.id;
 //         this.data = await this.service.getById(id);
+            // this.data.avalItems = this.data.avalItems.filter(s => s.hasOutputDocument === false);
 //         this.canEdit=true;
 //     }
 

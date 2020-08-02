@@ -10,12 +10,16 @@ export class View {
     this.service = service;
   }
 
+  canEdit = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
     if (this.data.bon && this.data.type == "OUT") {
       this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
     }
+    
+    this.canEdit = this.data.type == "ADJ" || this.data.warehousesProductionOrders.flatMap(s => s.productionOrderItems).some(s => s.hasNextAreaDocument === false);
+
     // if (this.data.type == "OUT") {
     //   this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(s => s.hasNextAreaDocument === false);
     // }
@@ -54,7 +58,7 @@ export class View {
     // this.data.warehousesProductionOrders = warehouseProductionOrdersGroup;
 
     //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-    this.canEdit = true;
+   
     
   }
 
