@@ -152,7 +152,10 @@ export class Collection {
 
   oncopy(item) {
     var itemIndex = this.items.indexOf(item);
-    this.items.splice(itemIndex + 1, 0, Object.assign({}, item));
+    var objCopy = Object.assign({}, item);
+    delete objCopy.id;
+    delete objCopy.Id;
+    this.items.splice(itemIndex + 1, 0, objCopy);
 
     if(this.errors && this.errors.length > 0) {
       var error = Object.assign({}, this.errors[itemIndex]);

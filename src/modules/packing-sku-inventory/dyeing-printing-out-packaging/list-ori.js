@@ -70,7 +70,7 @@ export class List {
                         dataView.grade = i.grade,
                         dataView.mtr = i.mtrLength,
                         dataView.yds = i.ydsLength,
-                        dataView.saldo = i.balance,
+                        dataView.saldo = i.balanceRemains,
                         dataView.packagingType= i.packagingType,
                         dataView.packagingQty = i.packagingQTY,
                         dataView.packagingUnit = i.packagingUnit
