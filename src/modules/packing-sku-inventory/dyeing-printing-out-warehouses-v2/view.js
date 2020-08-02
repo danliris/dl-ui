@@ -17,8 +17,8 @@ export class View {
     if (this.data.bon && this.data.type == "OUT") {
       this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
     }
-
-    this.canEdit = this.data.type == "ADJ" || this.data.warehousesProductionOrders.some(s => s.hasNextAreaDocument === false);
+    
+    this.canEdit = this.data.type == "ADJ" || this.data.warehousesProductionOrders.flatMap(s => s.productionOrderItems).some(s => s.hasNextAreaDocument === false);
 
     // if (this.data.type == "OUT") {
     //   this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(s => s.hasNextAreaDocument === false);

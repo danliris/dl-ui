@@ -162,32 +162,17 @@
       <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
       <br>
 
-      <au-collection
-      
-      columns.bind="dyeingPrintingItemsColumns"
-      items.bind="data.DyeingPrintingItems"
-      errors.bind="error.AvalItems"
-      options.bind="itemOptions"
-      read-only.bind="readOnly"
-      item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
-      add.bind = "addItems"
-      if.bind = "isPenjualan"
-      remove.bind="onremove"
-    >
-    </au-collection>
+      <au-collection columns.bind="dyeingPrintingItemsColumns" items.bind="data.DyeingPrintingItems"
+        errors.bind="error.AvalItems" options.bind="itemOptions" read-only.bind="readOnly"
+        item-template="modules/packing-sku-inventory/aval-area-output/templates/items" add.bind="addItems"
+        if.bind="isPenjualan" remove.bind="onremove">
+      </au-collection>
 
-    <au-collection
-      
-      columns.bind="dyeingPrintingBuyerItemsColumns"
-      items.bind="data.DyeingPrintingItems"
-      errors.bind="error.AvalItemsBuyer"
-      options.bind="itemOptions"
-      read-only.bind="readOnly"
-      item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
-      add.bind = "addItems"
-      if.bind = "!isPenjualan"
-    >
-    </au-collection>
+      <au-collection columns.bind="dyeingPrintingBuyerItemsColumns" items.bind="data.DyeingPrintingItems"
+        errors.bind="error.AvalItemsBuyer" options.bind="itemOptions" read-only.bind="readOnly"
+        item-template="modules/packing-sku-inventory/aval-area-output/templates/items" add.bind="addItems"
+        if.bind="!isPenjualan">
+      </au-collection>
     </div>
     <div if.bind="isAdj">
       <au-textbox show.bind="error.AvalItem" read-only.bind="true" value.bind="error.AvalItem" style="color: red;">
@@ -196,9 +181,8 @@
       <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
       <br>
       <au-collection class="adjTable" columns.bind="adjItemColumns" items.bind="data.adjAvalItems"
-        options.bind="detailOptions" errors.one-way="error.AvalItems" add.bind="addItemCallback"
-        remove.bind="onremove" read-only.bind="readOnly"
-        item-template="modules/packing-sku-inventory/aval-area-output/templates/adjItem">
+        options.bind="detailOptions" errors.one-way="error.AvalItems" add.bind="addItemCallback" remove.bind="onremove"
+        read-only.bind="readOnly" item-template="modules/packing-sku-inventory/aval-area-output/templates/adjItem">
       </au-collection>
     </div>
 

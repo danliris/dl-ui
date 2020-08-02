@@ -14,7 +14,7 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.canEdit = this.data.totalAvalQuantity && this.data.totalAvalWeight && this.data.totalAvalQuantity != 0 && this.data.totalAvalWeight != 0;
+        this.canEdit = this.data.totalQuantity && this.data.totalWeight && this.data.totalQuantity != 0 && this.data.totalWeight != 0;
 
     }
 
