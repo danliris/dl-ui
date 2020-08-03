@@ -12,7 +12,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
-        
+
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.productionOrder = {};
@@ -44,6 +44,7 @@ export class CartItem {
             this.selectedProductionOrder.unit = this.data.unit;
 
             this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
 
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
@@ -52,7 +53,7 @@ export class CartItem {
             this.selectedProductionOrder.yarnMaterial = {};
             this.selectedProductionOrder.yarnMaterial.id = this.data.yarnMaterial.id;
             this.selectedProductionOrder.yarnMaterial.name = this.data.yarnMaterial.name;
-            
+
         }
     }
 
@@ -101,7 +102,7 @@ export class CartItem {
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.unit = this.selectedProductionOrder.unit;
             this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
-
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.processType.id;
             this.data.processType.name = this.selectedProductionOrder.processType.name;
