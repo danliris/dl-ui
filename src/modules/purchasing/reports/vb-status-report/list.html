@@ -72,39 +72,7 @@
                             class='btn btn-success'>Reset</button>
                 </div>
             </div>
-
-            <!-- <div class="table-responsive">
-                <au-table view-model.ref="table"
-                          data.bind="loader"
-                          columns.bind="columnsReal"
-                          page-size="25"
-                          context.bind="context"
-                          context-click.delegate="contextClickCallback($event)"
-                          options.bind="tableOptions"
-                          if.bind="selectedStatus.value!='OUTSTANDING'">
-                    <div slot="toolbar"
-                         class="btn-group">
-                        <button class='btn btn-primary'
-                                click.delegate="exportToExcel()">Excel</button>
-                    </div>
-                </au-table>
-                
-                <au-table view-model.ref="table"
-                          data.bind="loader"
-                          columns.bind="columnsReq"
-                          page-size="25"
-                          context.bind="context"
-                          context-click.delegate="contextClickCallback($event)"
-                          options.bind="tableOptions"
-                          if.bind="selectedStatus.value=='OUTSTANDING'">
-                          <div slot="toolbar"
-                               class="btn-group">
-                              <button class='btn btn-primary'
-                                      click.delegate="exportToExcel()">Excel</button>
-                          </div>
-                </au-table>
-            </div> -->
-
+            
             <div class="table-responsive">
                 <au-table view-model.ref="table"
                           data.bind="loader"
