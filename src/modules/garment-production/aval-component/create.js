@@ -28,6 +28,8 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.CuttingDate=null;
+        this.data.SewingDate=null;
         if(this.data.Items){
             for(var item of this.data.Items){
                 if(item.IsSave){
@@ -38,7 +40,6 @@ export class Create {
                 }
             }
         }
-        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

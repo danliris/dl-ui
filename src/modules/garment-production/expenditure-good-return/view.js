@@ -33,7 +33,7 @@ export class View {
                 items.push(item);
             }
             else{
-                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id&& a.Description==item.Description);
                                     
                 if(duplicate){
                     var idx= items.indexOf(duplicate);
