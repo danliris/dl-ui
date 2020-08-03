@@ -41,8 +41,8 @@
             </au-textbox>
         </td>
         <td>
-            <au-dropdown value.bind="data.packagingType" items.bind="packType" read-only.bind="readOnly" error.bind="error.PackagingType"
-                options.bind="controlOptions">
+            <au-dropdown value.bind="data.packagingType" items.bind="packType" read-only.bind="readOnly"
+                error.bind="error.PackagingType" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
@@ -51,13 +51,14 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly" error.bind="error.PackagingQTY" change.delegate="inputPackagingQTYChanged"
+            <au-numeric value.bind="inputPackagingQTY" format="0.00" read-only.bind="readOnly"
+                error.bind="error.PackagingQTY" change.delegate="inputPackagingQTYChanged"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-            <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="readOnly" error.bind="error.PackagingUnit"
-                options.bind="controlOptions">
+            <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="readOnly"
+                error.bind="error.PackagingUnit" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
@@ -66,28 +67,30 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.BalanceRemains"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-                <au-numeric value.bind="saldoPerPackaging" format="0.00" read-only.bind="readOnly" error.bind="error.SaldoPerPackaging" change.delegate="saldoPerPackagingChanged"
-                    options.bind="controlOptions">
-                </au-numeric>
-            </td>
+            <au-numeric value.bind="saldoPerPackaging" format="0.00" read-only.bind="readOnly"
+                error.bind="error.SaldoPerPackaging" change.delegate="saldoPerPackagingChanged"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
         <td>
             <au-numeric value.bind="data.qtyOut" format="0.00" read-only.bind="true" error.bind="error.QtyOut"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-                <au-textbox value.bind="data.keterangan" read-only.bind="readOnly" error.bind="error.Keterangan"
-                    options.bind="controlOptions">
-                </au-textbox>
+            <au-textbox value.bind="data.keterangan" read-only.bind="readOnly" error.bind="error.Keterangan"
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
-        <!-- <td if.bind="!options.readOnly">
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-        </td> -->
+        </td>
 
     </tr>
 </template>

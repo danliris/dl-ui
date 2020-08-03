@@ -75,7 +75,8 @@ export class DataForm {
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
         this.detailOptions = {
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            readOnly: this.readOnly
         };
     }
 
