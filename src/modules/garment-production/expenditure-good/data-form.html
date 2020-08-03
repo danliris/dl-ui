@@ -112,32 +112,81 @@
                     options.bind="controlOptions">
                 </au-multiline>
             </div>
+
         </div>
-        <div class="form-group has-error">
-            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
-            <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+        <hr>
+        <br>
+        <div  class="row" if.bind="isCreate">
+            <div class="col-md-6">
+                <au-dropdown
+                    label="Size"
+                    value.bind="selectedSize"
+                    error.bind="error.ExpenditureType"
+                    read-only.bind="readOnly || isEdit"
+                    items.bind="sizes"
+                    text="SizeName"
+                    if.bind="selectedRO"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-numeric
+                    value.bind="selectedSize.RemainingQuantity"
+                    label="Jumlah Tersedia"
+                    read-only.bind="true"
+                    options.bind="controlOptions"
+                    format="0">
+                </au-numeric>
+
+                <au-numeric
+                    value.bind="data.Quantity"
+                    label="Jumlah Keluar"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions"
+                    format="0">
+                </au-numeric>
+
+                <au-dropdown
+                    label="Keterangan"
+                    value.bind="selectedColor"
+                    read-only.bind="readOnly || isEdit"
+                    items.bind="data.colors"
+                    if.bind="selectedRO"
+                    options.bind="controlOptions">
+                </au-dropdown>
+                
+                <button class="btn btn-success" click.delegate="addProduct()" 
+                    disabled.bind="!selectedRO|| data.Quantity==0 || selectedSize.RemainingQuantity==0">Tambah Item</button>
+            
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-error">
+                    <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+                    <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+                </div>
+                <au-collection
+                    items.bind="data.Items"
+                    errors.bind="error.Items"
+                    columns.bind="itemsInfo.columns"
+                    read-only.bind="readOnly"
+                    options.bind="itemOptions"
+                    remove.bind="removeItems"
+                    item-template="modules/garment-production/expenditure-good/template/item"
+                    if.bind="selectedRO">
+                </au-collection>
+            </div>
         </div>
+        
 
         <au-collection
             items.bind="data.Items"
             errors.bind="error.Items"
             columns.bind="itemsInfo.columns"
-            read-only.bind="readOnly"
+            read-only.bind="true"
             options.bind="itemOptions"
             item-template="modules/garment-production/expenditure-good/template/item"
-            header-template="modules/garment-production/expenditure-good/template/item-header"
-            if.bind="selectedRO && isCreate">
+            if.bind="readOnly || isEdit">
         </au-collection>
-        <au-collection
-            items.bind="data.Items"
-            errors.bind="error.Items"
-            columns.bind="itemsInfoNotCreate.columns"
-            read-only.bind="readOnly"
-            options.bind="itemOptions"
-            item-template="modules/garment-production/expenditure-good/template/item"
-            header-template="modules/garment-production/expenditure-good/template/item-header"
-            if.bind="selectedRO && !isCreate">
-        </au-collection>
+        
 
         <p if.bind="data.Items"><b>Jumlah Total Pengeluaran Barang Jadi : ${totalQuantity} PCS</b></p>
 
