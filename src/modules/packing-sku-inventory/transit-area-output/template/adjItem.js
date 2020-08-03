@@ -42,6 +42,9 @@ export class CartItem {
             this.selectedProductionOrder.productionOrder.orderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.unit = this.data.unit;
 
+            this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
+
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
             this.selectedProductionOrder.processType.name = this.data.processType.name;
@@ -106,7 +109,8 @@ export class CartItem {
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.unit = this.selectedProductionOrder.unit;
-
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.processType.id;
             this.data.processType.name = this.selectedProductionOrder.processType.name;
