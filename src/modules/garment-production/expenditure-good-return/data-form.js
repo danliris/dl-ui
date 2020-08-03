@@ -154,7 +154,7 @@ export class DataForm {
                                 if(Qty>0){
                                     var item={};
                                     if(this.data.Items.length>0){
-                                        var duplicate= this.data.Items.find(a=>a.Size.Id==exGoodItem.Size.Id && a.Uom.Id==exGoodItem.Uom.Id);
+                                        var duplicate= this.data.Items.find(a=>a.Size.Id==exGoodItem.Size.Id && a.Uom.Id==exGoodItem.Uom.Id && a.Description==exGoodItem.Description);
                                         
                                         if(duplicate){
                                             var idx= this.data.Items.indexOf(duplicate);

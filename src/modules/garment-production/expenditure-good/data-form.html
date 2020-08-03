@@ -133,6 +133,7 @@
                     value.bind="selectedSize.RemainingQuantity"
                     label="Jumlah Tersedia"
                     read-only.bind="true"
+                    show.bind="selectedRO"
                     options.bind="controlOptions"
                     format="0">
                 </au-numeric>
@@ -141,6 +142,7 @@
                     value.bind="data.Quantity"
                     label="Jumlah Keluar"
                     read-only.bind="readOnly"
+                    show.bind="selectedRO"
                     options.bind="controlOptions"
                     format="0">
                 </au-numeric>
@@ -154,7 +156,7 @@
                     options.bind="controlOptions">
                 </au-dropdown>
                 
-                <button class="btn btn-success" click.delegate="addProduct()" 
+                <button class="btn btn-success" click.delegate="addProduct()"  show.bind="selectedRO"
                     disabled.bind="!selectedRO|| data.Quantity==0 || selectedSize.RemainingQuantity==0">Tambah Item</button>
             
             </div>
@@ -163,6 +165,7 @@
                     <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
                     <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
                 </div>
+                <h4 if.bind="selectedRO">Detail Pengeluaran Barang</h4>
                 <au-collection
                     items.bind="data.Items"
                     errors.bind="error.Items"
