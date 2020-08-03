@@ -22,17 +22,17 @@ export class ItemSPP {
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
-        
+
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        
+
         // this.isNewStructure = this.context.options.isNewStructure;
 
-        
+
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
 
         // if (this.data.productionOrderId) {
@@ -69,9 +69,9 @@ export class ItemSPP {
             } else {
                 this.data.unit = "DYEING"
             }
-            
+
             // this.data.PackagingList = this.data.PackagingList || [];
-            
+
             // this.data.PackagingList.push(this.selectedProductionOrder);
 
         }
@@ -90,12 +90,14 @@ export class ItemSPP {
     }
 
     addItemPackaging = (e) => {
-        
+
         this.data.PackagingList = this.data.PackagingList || [];
         this.data.PackagingList.push({
             productionOrderNo: this.selectedProductionOrder.productionOrderNo,
             productionOrder: this.selectedProductionOrder.productionOrder,
             balance: this.selectedProductionOrder.balance,
+            balanceRemains: this.selectedProductionOrder.balanceRemains,
+            dyeingPrintingAreaInputProductionOrderId: this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId,
             buyerId: this.selectedProductionOrder.buyerId,
             buyer: this.selectedProductionOrder.buyer,
             color: this.selectedProductionOrder.color,
@@ -133,6 +135,8 @@ export class ItemSPP {
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.balance = this.selectedProductionOrder.balance;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
             this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
             if (this.selectedProductionOrder.construction) {
                 this.data.construction = this.selectedProductionOrder.construction;
@@ -147,7 +151,7 @@ export class ItemSPP {
             this.data.motif = this.selectedProductionOrder.motif;
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
-            this.data.qtyOut= this.selectedProductionOrder.qtyOut;
+            this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             this.data.packagingQTY = this.selectedProductionOrder.packagingQTY;
             // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
             if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {

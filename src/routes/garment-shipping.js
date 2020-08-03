@@ -429,4 +429,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },    
+    {
+        route: "garment-shipping/monitoring/omzet-year-buyer",
+        name: "garment-shipping/monitoring/omzet-year-buyer",
+        moduleId: "modules/garment-shipping/monitoring/omzet-year-buyer/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Buyer",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]

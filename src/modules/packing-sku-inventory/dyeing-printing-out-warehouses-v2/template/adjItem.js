@@ -45,6 +45,24 @@ export class CartItem {
             this.selectedProductionOrder.quantity = this.data.quantity;
             this.selectedProductionOrder.packagingQty = this.data.packagingQty;
             this.selectedProductionOrder.packagingType = this.data.packagingType;
+
+            this.selectedProductionOrder.processType = {};
+            this.selectedProductionOrder.processType.id = this.data.processType.id;
+            this.selectedProductionOrder.processType.name = this.data.processType.name;
+
+            this.selectedProductionOrder.yarnMaterial = {};
+            this.selectedProductionOrder.yarnMaterial.id = this.data.yarnMaterial.id;
+            this.selectedProductionOrder.yarnMaterial.name = this.data.yarnMaterial.name;
+
+            this.selectedProductionOrder.productSKUId = this.data.productSKUId;
+            this.selectedProductionOrder.fabricSKUId = this.data.fabricSKUId;
+            this.selectedProductionOrder.productSKUCode = this.data.productSKUCode;
+            this.selectedProductionOrder.hasPrintingProductSKU = this.data.hasPrintingProductSKU;
+
+            this.selectedProductionOrder.productPackingId = this.data.productPackingId;
+            this.selectedProductionOrder.fabricPackingId = this.data.fabricPackingId;
+            this.selectedProductionOrder.productPackingCode = this.data.productPackingCode;
+            this.selectedProductionOrder.hasPrintingProductPacking = this.data.hasPrintingProductPacking;
         }
     }
 
@@ -96,6 +114,24 @@ export class CartItem {
             this.data.quantity = this.selectedProductionOrder.quantity;
             this.data.packagingQty = this.selectedProductionOrder.packagingQty;
             this.data.packagingType = this.selectedProductionOrder.packagingType;
+
+            this.data.processType = {};
+            this.data.processType.id = this.selectedProductionOrder.processType.id;
+            this.data.processType.name = this.selectedProductionOrder.processType.name;
+
+            this.data.yarnMaterial = {};
+            this.data.yarnMaterial.id = this.selectedProductionOrder.yarnMaterial.id;
+            this.data.yarnMaterial.name = this.selectedProductionOrder.yarnMaterial.name;
+
+            this.data.productSKUId = this.selectedProductionOrder.productSKUId;
+            this.data.fabricSKUId = this.selectedProductionOrder.fabricSKUId;
+            this.data.productSKUCode = this.selectedProductionOrder.productSKUCode;
+            this.data.hasPrintingProductSKU = this.selectedProductionOrder.hasPrintingProductSKU;
+
+            this.data.productPackingId = this.selectedProductionOrder.productPackingId;
+            this.data.fabricPackingId = this.selectedProductionOrder.fabricPackingId;
+            this.data.productPackingCode = this.selectedProductionOrder.productPackingCode;
+            this.data.hasPrintingProductPacking = this.selectedProductionOrder.hasPrintingProductPacking;
         }
         else {
             this.data.productionOrder = {};

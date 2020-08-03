@@ -10,13 +10,15 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
+    canEdit = true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (this.data.type == "OUT") {
-            this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
-        }
+        // if (this.data.type == "OUT") {
+        //     this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
+        // }
+
+        this.canEdit = this.data.type == "ADJ" || this.data.packagingProductionOrders.some(s => s.hasNextAreaDocument === false);
         var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
         
         var mappedGroup = _.map(groupObj);
@@ -45,8 +47,6 @@ export class View {
         });
         
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
-
-        this.canEdit = true;
 
     }
 

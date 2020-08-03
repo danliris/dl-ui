@@ -1,20 +1,22 @@
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
-import { DataForm } from '../data-form';
+// import { DataForm } from '../data-form';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
 var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
 
-@inject(Service, BindingEngine, BindingSignaler, DataForm)
+// @inject(Service, BindingEngine, BindingSignaler, DataForm)
+@inject(Service, BindingEngine, BindingSignaler)
 export class ItemSPP {
 
-    constructor(service, bindingSignaler, bindingEngine, dataForm) {
+    // constructor(service, bindingSignaler, bindingEngine, dataForm) {
+    constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
-        this.dataForm = dataForm;
+        // this.dataForm = dataForm;
     }
 
     itemOptions = {};
@@ -22,11 +24,11 @@ export class ItemSPP {
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
-        
         this.options = context.options;
         this.context = context.context;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.readOnly = this.contextOptions.readOnly;
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
@@ -38,14 +40,24 @@ export class ItemSPP {
             this.selectedProductionOrder.productionOrderList = this.data.PackagingList;
         }
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        
+
         // this.isNewStructure = this.context.options.isNewStructure;
         this.itemOptions = {
             isEdit: this.isEdit
         };
-        
+
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
-        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+        if (this.isEdit) {
+            if (this.readOnly) {
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+            } else {
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+            }
+
+        } else {
+            this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+        }
+
         // if (this.data.productionOrderId) {
         //     this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
         // }
@@ -89,11 +101,7 @@ export class ItemSPP {
         }
     }
 
-    itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
-
-    removeItems() {
-        this.bind();
-    }
+    // itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
 
     addItemPackaging = (e) => {
         this.data.PackagingList = this.data.PackagingList || [];
@@ -101,6 +109,8 @@ export class ItemSPP {
             productionOrderNo: this.selectedProductionOrder.productionOrderNo,
             productionOrder: this.selectedProductionOrder.productionOrder,
             balance: this.selectedProductionOrder.balance,
+            balanceRemains: this.selectedProductionOrder.balanceRemains,
+            dyeingPrintingAreaInputProductionOrderId: this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId,
             buyerId: this.selectedProductionOrder.buyerId,
             buyer: this.selectedProductionOrder.buyer,
             color: this.selectedProductionOrder.color,
@@ -132,20 +142,22 @@ export class ItemSPP {
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
-        if(this.selectedProductionOrder){
-            if(this.selectedProductionOrder.productionOrderList){
+        if (this.selectedProductionOrder) {
+            if (this.selectedProductionOrder.productionOrderList) {
 
                 this.data.PackagingList = this.selectedProductionOrder.productionOrderList;
             }
             this.data.productionOrderNo = this.selectedProductionOrder.productionOrderNo;
         }
-       
+
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.id;
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.balance = this.selectedProductionOrder.balance;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
             this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
             if (this.selectedProductionOrder.construction) {
                 this.data.construction = this.selectedProductionOrder.construction;
@@ -173,5 +185,17 @@ export class ItemSPP {
         else {
             this.data.productionOrder = {};
         }
+    }
+
+    addSPPDetailCallback = (e) => {
+        this.data.PackagingList = this.data.PackagingList || [];
+        this.data.PackagingList.push({
+
+        });
+    };
+
+    removeItems() {
+        // this.itemOptions.PackagingList = this.data.PackagingList;
+        this.bind();
     }
 }

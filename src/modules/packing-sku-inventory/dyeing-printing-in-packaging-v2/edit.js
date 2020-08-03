@@ -13,6 +13,7 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasOutputDocument === false);
         this.canEdit=true;
         
     }

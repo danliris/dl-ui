@@ -32,7 +32,7 @@ export class List {
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreateBy", title: "Pemohon" },
-        { field: "UnitLoad", title: "Unit" },
+        { field: "UnitName", title: "Unit" },
     ];
 
     columnsNonPO = [

@@ -85,6 +85,8 @@ export class CartItem {
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.balance = this.selectedProductionOrder.balance;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
             this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
             if (this.selectedProductionOrder.construction) {
                 this.data.construction = this.selectedProductionOrder.construction;

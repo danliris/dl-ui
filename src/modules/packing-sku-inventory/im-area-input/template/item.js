@@ -48,6 +48,14 @@ export class CartItem {
 
             this.selectedProductionOrder.OrderQuantity = this.data.productionOrder.orderQuantity;
 
+            this.selectedProductionOrder.ProcessType = {};
+            this.selectedProductionOrder.ProcessType.Id = this.data.processType.id;
+            this.selectedProductionOrder.ProcessType.Name = this.data.processType.name;
+            
+            this.selectedProductionOrder.YarnMaterial = {};
+            this.selectedProductionOrder.YarnMaterial.Id = this.data.yarnMaterial.id;
+            this.selectedProductionOrder.YarnMaterial.Name = this.data.yarnMaterial.name;
+
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
@@ -98,6 +106,15 @@ export class CartItem {
             this.data.uomUnit = this.selectedProductionOrder.Uom.Unit;
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.OrderQuantity;
             this.data.balance = this.selectedProductionOrder.OrderQuantity;
+
+            this.data.processType = {};
+            this.data.processType.id = this.selectedProductionOrder.ProcessType.Id;
+            this.data.processType.name = this.selectedProductionOrder.ProcessType.Name;
+
+            this.data.yarnMaterial = {};
+            this.data.yarnMaterial.id = this.selectedProductionOrder.YarnMaterial.Id;
+            this.data.yarnMaterial.name = this.selectedProductionOrder.YarnMaterial.Name;
+
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {

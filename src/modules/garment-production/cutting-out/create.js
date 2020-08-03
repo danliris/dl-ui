@@ -29,13 +29,13 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.CuttingInDate==null
+        var CuttingInDate=null;
         if(this.data){
             if(this.data.Items){
                 for(var item of this.data.Items){
                     if(item.IsSave){
-                        if(this.data.CuttingInDate==null || this.data.CuttingInDate<item.CuttingInDate)
-                            this.data.CuttingInDate=item.CuttingInDate;
+                        if(CuttingInDate==null || CuttingInDate<item.CuttingInDate|| CuttingInDate==undefined)
+                            CuttingInDate=item.CuttingInDate;
                         for(var detail of item.Details){
                             item.TotalCuttingOutQuantity += detail.CuttingOutQuantity;
                         }
@@ -43,6 +43,7 @@ export class Create {
                 }
             }
         }
+        this.data.CuttingInDate=CuttingInDate;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
