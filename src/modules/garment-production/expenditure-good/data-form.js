@@ -296,7 +296,7 @@ export class DataForm {
                 var dup= this.data.Items.find(a=>a.SizeName===item.SizeName && a.Description===this.selectedColor);
                 if(dup){
                     var idx= this.data.Items.indexOf(dup);
-                    dup.Quantity+=this.selectedSize.Quantity;
+                    dup.Quantity+=this.data.Quantity;
                     this.data.Items[idx]=dup;
                 }
                 else{
