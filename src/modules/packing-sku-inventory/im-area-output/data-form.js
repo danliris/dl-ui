@@ -25,7 +25,7 @@ export class DataForm {
         },
     };
     itemColumns = [];
-    adjItemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "QTY", "No Dokumen"];
+    adjItemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Saldo", "QTY", "No Dokumen"];
     // itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Keterangan Transit", "Satuan", "Saldo", "Qty Keluar"];
     shifts = ["PAGI", "SIANG"];
     types = ["OUT", "ADJ"];
@@ -129,6 +129,11 @@ export class DataForm {
 
             }
         } else {
+            if (this.readOnly) {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "QTY", "No Dokumen"];
+            } else {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Saldo", "QTY", "No Dokumen"];
+            }
             if (this.data.inspectionMaterialProductionOrders) {
                 this.data.adjInspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders;
 
