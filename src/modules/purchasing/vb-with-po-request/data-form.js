@@ -36,9 +36,10 @@ export class DataForm {
     }
 
     bind(context) {
-        
+
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
@@ -58,16 +59,15 @@ export class DataForm {
 
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
-        
+
         this.data.Currency = newValue;
-        if(this.data.Currency)
-        {
+        if (this.data.Currency) {
             this.options.CurrencyCode = this.data.Currency.Code;
         }
     }
 
     @bindable selectedUnit;
-    selectedUnitChanged(newValue, oldValue){
+    selectedUnitChanged(newValue, oldValue) {
         if (this.selectedUnit && this.selectedUnit.Id) {
             this.data.unit = {};
             this.data.unit.id = this.selectedUnit.Id;
@@ -79,7 +79,7 @@ export class DataForm {
                 this.data.division.id = this.selectedUnit.Division.Id;
                 this.data.division.name = this.selectedUnit.Division.Name;
             }
-            else{
+            else {
                 this.data.division = {};
                 this.data.division.id = this.data.Division.Id;
                 this.data.division.name = this.data.Division.Name;
