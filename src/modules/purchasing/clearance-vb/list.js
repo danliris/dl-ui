@@ -20,7 +20,8 @@ export class List {
         { field: "RqstNo", title: "No VB" },
         { field: "VBCategory", title: "Tipe VB" },
         {
-            field: "RqstDate", title: "Tgl. VB", formatter: function (value, data, index) {
+            field: "RqstDate", title: "Tgl. VB"
+            , formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -28,12 +29,14 @@ export class List {
         { field: "Appliciant", title: "Pemohon" },
         { field: "RealNo", title: "No Realisasi" },
         {
-            field: "RealDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+            field: "RealDate", title: "Tgl. Realisasi"
+            , formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "VerDate", title: "Tgl. Verifikasi", formatter: function (value, data, index) {
+            field: "VerDate", title: "Tgl. Verifikasi"
+            , formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -46,7 +49,8 @@ export class List {
             },
         },
         {
-            field: "ClearanceDate", title: "Tgl. Clearance", formatter: function (value, data, index) {
+            field: "ClearanceDate", title: "Tgl. Clearance"
+            , formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
