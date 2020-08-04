@@ -10,7 +10,7 @@
           >
           </au-numeric>
         </td> -->
-    <td show.bind="!readOnly" style="text-align: center;">
+    <td show.bind="!readOnly && !isEdit" style="text-align: center;">
       <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly">
       </au-checkbox>
     </td>
