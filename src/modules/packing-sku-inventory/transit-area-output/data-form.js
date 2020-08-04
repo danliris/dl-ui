@@ -96,17 +96,19 @@ export class DataForm {
             }
         }
 
+        if (this.readOnly) {
+            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
+        } else {
+            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
+        }
+
         if (this.data.type == "OUT") {
             if (this.data.transitProductionOrders) {
                 this.data.displayTransitProductionOrders = this.data.transitProductionOrders;
 
             }
         } else {
-            if (this.readOnly) {
-                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
-            } else {
-                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
-            }
+            
             if (this.data.transitProductionOrders) {
                 this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
 
