@@ -442,4 +442,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/monitoring/omzet-year-unit",
+        name: "garment-shipping/monitoring/omzet-year-unit",
+        moduleId: "modules/garment-shipping/monitoring/omzet-year-unit/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
