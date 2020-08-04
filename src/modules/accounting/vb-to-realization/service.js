@@ -11,7 +11,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    // info.position = 2;
+    info.position = 2;
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
