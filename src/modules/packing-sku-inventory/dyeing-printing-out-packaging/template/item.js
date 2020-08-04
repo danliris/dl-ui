@@ -49,16 +49,25 @@ export class CartItem {
             this.selectedProductionOrder.PackagingType = this.data.packagingType;
             this.selectedProductionOrder.grade = this.data.grade;
             this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
-            this.selectedProductionOrder.qtyOut = this.data.qtyOut;
-            this.inputPackagingQTY = this.data.packagingQTY;
-            this.saldoPerPackaging = this.data.qtyOut / this.data.packagingQTY;
+            // this.selectedProductionOrder.qtyOut = this.data.qtyOut;
+            if (this.data.packagingQTY) {
+                this.inputPackagingQTY = this.data.packagingQTY;
+            }
+
+            if (this.data.packingLength) {
+                this.saldoPerPackaging = this.data.packingLength;
+
+            }
 
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
-
                 var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
-                    .reduce((a, b) => +a + +b.qtyOut, 0);
+                    .reduce((a, b) => {
+                        return +a + +b.qtyOut
+                    }, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
-                    item.balanceRemains = item.balance - sum;
+                    
+                    item.balanceRemains = item.previousBalance - sum;
+                    
                 }
             }
 
@@ -121,7 +130,7 @@ export class CartItem {
             this.data.motif = this.selectedProductionOrder.motif;
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
-            this.data.qtyOut = this.selectedProductionOrder.qtyOut;
+            // this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             this.inputPackagingQTY = this.selectedProductionOrder.PackagingQty;
             this.data.packagingQTY = this.selectedProductionOrder.PackagingQty;
             // this.data.
@@ -140,15 +149,17 @@ export class CartItem {
     @bindable saldoPerPackaging
     saldoPerPackagingChanged(newValue, olderValue) {
         // if (this.dataForm.context.isCreate) {
-            if (newValue != olderValue) {
-            this.data.qtyOut = this.data.packagingQTY * newValue;
-            this.data.packagingQTY = this.inputPackagingQTY;
+        if (newValue != olderValue) {
+            this.data.qtyOut = this.inputPackagingQTY * newValue;
+            // this.data.packagingQTY = this.inputPackagingQTY;
+            this.data.packingLength = this.saldoPerPackaging;
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
 
                 var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
                     .reduce((a, b) => +a + +b.qtyOut, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
-                    item.balanceRemains = item.balance - sum;
+                    item.balanceRemains = item.previousBalance - sum;
+                    
                 }
             }
         }
@@ -158,6 +169,7 @@ export class CartItem {
         // if (this.dataForm.context.isCreate) {
         if (newValue != olderValue) {
             this.data.qtyOut = this.saldoPerPackaging * newValue;
+
             this.data.packagingQTY = this.inputPackagingQTY;
 
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
@@ -165,7 +177,8 @@ export class CartItem {
                 var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
                     .reduce((a, b) => +a + +b.qtyOut, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
-                    item.balanceRemains = item.balance - sum;
+                    item.balanceRemains = item.previousBalance - sum;
+                    
                 }
             }
         }
