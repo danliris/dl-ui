@@ -27,7 +27,7 @@ export class CartItem {
             this.selectedProductionOrder.materialConstruction = {};
             this.selectedProductionOrder.materialConstruction.id = this.data.materialConstruction.id;
             this.selectedProductionOrder.materialConstruction.name = this.data.materialConstruction.name;
-
+            this.selectedProductionOrder.qty = this.data.qty;
             this.selectedProductionOrder.materialWidth = this.data.materialWidth;
 
             this.selectedProductionOrder.buyerId = this.data.buyerId;
@@ -38,6 +38,8 @@ export class CartItem {
             this.selectedProductionOrder.motif = this.data.motif;
 
             this.selectedProductionOrder.uomUnit = this.data.uomUnit;
+            this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
 
             this.selectedProductionOrder.productionOrder.orderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.unit = this.data.unit;
@@ -104,7 +106,7 @@ export class CartItem {
             this.data.materialConstruction.name = this.selectedProductionOrder.materialConstruction.name;
 
             this.data.materialWidth = this.selectedProductionOrder.materialWidth;
-
+            this.data.qty = this.selectedProductionOrder.qty;
             this.data.grade = this.selectedProductionOrder.grade;
             this.data.packing = this.selectedProductionOrder.packing;
             this.data.buyerId = this.selectedProductionOrder.buyerId;
@@ -115,7 +117,8 @@ export class CartItem {
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.unit = this.selectedProductionOrder.unit;
             this.data.packingType = this.selectedProductionOrder.packingType;
-
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.processType.id;
             this.data.processType.name = this.selectedProductionOrder.processType.name;
