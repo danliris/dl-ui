@@ -248,7 +248,11 @@ export class DataForm {
       isEdit: this.isEdit,
       isSales: this.isSales
     };
-
+    if (this.readOnly) {
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+    } else {
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
+    }
     if (this.data.type == "OUT") {
       if (this.data.shippingProductionOrders) {
         this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;

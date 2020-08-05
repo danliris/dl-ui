@@ -1,14 +1,14 @@
 <template>
     <tr>
         <td>
-                <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
-                    loader.bind="productionOrderDistinct"text.bind="sppTextFormater" read-only.bind="readOnly" options.bind="controlOptions"
-                    change.deleagate="selectedProductionOrderChanged">
-                </au-autocomplete>
+            <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
+                loader.bind="productionOrderDistinct" text.bind="sppTextFormater" read-only.bind="readOnly"
+                options.bind="controlOptions" change.deleagate="selectedProductionOrderChanged">
+            </au-autocomplete>
         </td>
         <td>
-            <au-textbox value.bind="data.productionOrderQuantity" read-only.bind="true" error.bind="error.ProductionOrder"
-                options.bind="controlOptions">
+            <au-textbox value.bind="data.productionOrder.orderQuantity" read-only.bind="true"
+                error.bind="error.ProductionOrder" options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
@@ -63,7 +63,12 @@
         </td>
         <td>
             <au-numeric value.bind="selectedAtQty" read-only.bind="readOnly" error.bind="error.AtQty"
-                options.bind="controlOptions"change.delegate="selectedAtQtyChanged">
+                options.bind="controlOptions" change.delegate="selectedAtQtyChanged">
+            </au-numeric>
+        </td>
+        <td show.bind="!readOnly">
+            <au-numeric value.bind="data.balanceRemains" format="0.00" read-only.bind="true"
+                error.bind="error.BalanceRemains" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
@@ -77,9 +82,8 @@
             </au-textbox>
         </td>
         <td if.bind="!options.readOnly">
-            <button if.bind="!options.readOnly"
-                    class="btn btn-danger pull-right"
-                    click.delegate="onremove(data, $event)">-</button>
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right"
+                click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>

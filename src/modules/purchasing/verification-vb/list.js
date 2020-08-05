@@ -34,9 +34,16 @@ export class List {
     { field: "UnitRequest", title: "Bagian/Unit" },
     {
       field: "Amount", title: "Nominal", formatter: function (value, data, index) {
-          return numeral(value).format('0,0.000');
+        return numeral(value).format('0,0.000');
       },
-  },
+    },
+    {
+      field: "IsVerified", title: "Status",
+      formatter: function (value, row, index) {
+        return value ? "Kasir" : "Retur";
+      }
+    },
+    { field: "Reason_NotVerified", title: "Alasan" },
   ];
 
   async activate(params) {
@@ -47,25 +54,25 @@ export class List {
     let order = {};
 
     if (info.sort)
-        order[info.sort] = info.order;
+      order[info.sort] = info.order;
     else
-        order["VerifiedDate"] = "desc";
+      order["VerifiedDate"] = "desc";
 
     let arg = {
-        page: parseInt(info.offset / info.limit, 10) + 1,
-        size: info.limit,
-        keyword: info.search,
-        order: order
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
     };
 
     return this.service.search(arg)
-        .then(result => {
-            return {
-                total: result.info.total,
-                data: result.data
-            }
-        });
-}
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
   constructor(router, service) {
     this.service = service;

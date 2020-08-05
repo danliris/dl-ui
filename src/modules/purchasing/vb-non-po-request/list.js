@@ -24,9 +24,9 @@ export class List {
       }
     },
     { field: "UnitName", title: "Unit Pemohon" },
-    { field: "CreateBy", title: "Dibuat oleh" },
+    { field: "CreatedBy", title: "Dibuat oleh" },
     {
-      field: "Approve_Status", title: "Status Approved",
+      field: "Apporve_Status", title: "Status Approved",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }

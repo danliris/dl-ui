@@ -43,8 +43,11 @@ export class CartItem {
             this.selectedProductionOrder.productionOrder.orderQuantity = this.data.productionOrder.orderQuantity;
             this.selectedProductionOrder.unit = this.data.unit;
             this.selectedProductionOrder.quantity = this.data.quantity;
-            this.selectedProductionOrder.packagingQty = this.data.packagingQty;
+            // this.selectedProductionOrder.packagingQty = this.data.packagingQty;
             this.selectedProductionOrder.packagingType = this.data.packagingType;
+
+            this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
 
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
@@ -64,6 +67,12 @@ export class CartItem {
             this.selectedProductionOrder.productPackingCode = this.data.productPackingCode;
             this.selectedProductionOrder.hasPrintingProductPacking = this.data.hasPrintingProductPacking;
         }
+    }
+
+    @bindable balance;
+    get totalBalance() {
+        this.data.balance = this.data.packagingQty * this.data.quantity;
+        this.balance = this.data.balance;
     }
 
     controlOptions = {
@@ -92,6 +101,10 @@ export class CartItem {
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.construction = this.selectedProductionOrder.construction;
             this.data.remark = this.selectedProductionOrder.remark;
+
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+
             this.data.materialProduct = {};
             this.data.materialProduct.id = this.selectedProductionOrder.materialProduct.id;
             this.data.materialProduct.name = this.selectedProductionOrder.materialProduct.name;
@@ -112,7 +125,7 @@ export class CartItem {
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.unit = this.selectedProductionOrder.unit;
             this.data.quantity = this.selectedProductionOrder.quantity;
-            this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+            // this.data.packagingQty = this.selectedProductionOrder.packagingQty;
             this.data.packagingType = this.selectedProductionOrder.packagingType;
 
             this.data.processType = {};

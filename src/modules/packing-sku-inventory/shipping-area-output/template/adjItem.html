@@ -63,6 +63,11 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td show.bind="!readOnly">
+            <au-numeric value.bind="data.balanceRemains" format="0.00" read-only.bind="true"
+                error.bind="error.BalanceRemains" options.bind="controlOptions">
+            </au-numeric>
+        </td>
         <td>
             <au-numeric value.bind="balance" read-only.bind="true" error.bind="error.Balance"
                 options.bind="controlOptions">
