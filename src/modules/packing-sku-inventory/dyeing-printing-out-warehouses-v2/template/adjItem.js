@@ -46,6 +46,9 @@ export class CartItem {
             this.selectedProductionOrder.packagingQty = this.data.packagingQty;
             this.selectedProductionOrder.packagingType = this.data.packagingType;
 
+            this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
+
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
             this.selectedProductionOrder.processType.name = this.data.processType.name;
@@ -92,6 +95,10 @@ export class CartItem {
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.construction = this.selectedProductionOrder.construction;
             this.data.remark = this.selectedProductionOrder.remark;
+
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+
             this.data.materialProduct = {};
             this.data.materialProduct.id = this.selectedProductionOrder.materialProduct.id;
             this.data.materialProduct.name = this.selectedProductionOrder.materialProduct.name;

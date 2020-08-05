@@ -88,14 +88,14 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
     // if (this.data.bon) {
-    
+
     //   // this.data.selectedWarehouse = this.data.bon;
     //   // selectedWarehouseChanged(this.data.bon,"");
     //   // this.service.getProductionOrderInputv2(this.data.selectedWarehouse.id).then(result =>{
     //   //   this.data.warehousesProductionOrders = result;
     //   // });
     //   // this.data.warehousesProductionOrders
-    
+
     //   if (this.data.type == "OUT") {
     //     this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
     //     // this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
@@ -108,6 +108,17 @@ export class DataForm {
 
     //   }
     // }
+    this.detailOptions = {
+      isEdit: this.isEdit,
+      readOnly: this.readOnly
+    };
+
+    if (this.readOnly) {
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+    } else {
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
+    }
+
     if (this.data.type == "ADJ") {
       if (this.data.warehousesProductionOrders) {
         this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
@@ -131,7 +142,7 @@ export class DataForm {
   };
   selectedWarehouseChanged(n, o) {
     if (n != o) {
-      
+
       this.service.getProductionOrderInputv2(n.id).then(result => {
         this.data.warehousesProductionOrders = result;
       });
