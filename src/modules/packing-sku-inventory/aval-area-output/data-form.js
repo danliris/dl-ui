@@ -17,7 +17,7 @@ export class DataForm {
     // deleteText: "Hapus",
     // editText: "Ubah"
   };
-  adjItemColumns = ["Nama Barang", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+  adjItemColumns = ["Nama Barang", "Saldo Satuan", "Saldo Berat", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
   types = ["OUT", "ADJ"];
   controlOptions = {
     label: {
