@@ -2,8 +2,8 @@
     <tr>
         <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
         <td>
-            <au-datepicker value.bind="data.DateDetail" error.bind="error.DateDetail"
-                read-only.bind="readOnly" options.bind="controlOptions">
+            <au-datepicker value.bind="data.DateDetail" error.bind="error.DateDetail" read-only.bind="readOnly"
+                options.bind="controlOptions">
             </au-datepicker>
         </td>
         <td>
@@ -12,19 +12,55 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Amount" read-only.bind="readOnly" error.bind="error.Amount"
-                format="0,0.000" options.bind="controlOptions">
+            <au-numeric value.bind="data.Amount" read-only.bind="readOnly" error.bind="error.Amount" format="0,0.000"
+                options.bind="controlOptions">
             </au-numeric>
         </td>
         <td style="text-align:center;">
-            <au-checkbox value.bind="data.isGetPPn" error.bind="error.isGetPPn"
-                read-only.bind="readOnly" options.bind="controlOptions">
+            <au-checkbox value.bind="data.isGetPPn" error.bind="error.isGetPPn" read-only.bind="readOnly"
+                options.bind="controlOptions" checked.bind="isGetPPn">
             </au-checkbox>
         </td>
+        <td style="text-align:center;">
+            <au-checkbox value.bind="data.isGetPPh" error.bind="error.isGetPPh" read-only.bind="readOnly"
+                options.bind="controlOptions" checked.bind="isGetPPh">
+            </au-checkbox>
+            <br>
+
+            <div if.bind="data.isGetPPh == true">
+                <au-autocomplete value.bind="selectedIncomeTax" error.bind="error.incomeTax"
+                    loader.bind="incomeTaxLoader" text.bind="incomeTaxView" placeholder="cari pph"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <br>
+
+                <numeric label="Rate" value.bind="data.incomeTaxRate" error.bind="error.incomeTaxRate" format="0"
+                    read-only.bind="true" post-fix="%" options.bind="controlOptions">
+                </numeric>
+
+                <au-textbox value.bind="'Ditanggung Oleh:'" read-only.bind="true">
+                </au-textbox>
+
+                <br>
+
+                <au-dropdown items.bind="IncomeTaxByOptions" value.bind="data.IncomeTaxBy"
+                    error.bind="error.IncomeTaxBy" read-only.bind="readOnly" options.bind="controlOptions">
+                </au-dropdown>
+
+            </div>
+
+        </td>
         <td>
-            <au-numeric value.bind="Total" read-only.bind="true"
-                format="0,0.000" options.bind="controlOptions">
+            <!-- <au-numeric value.bind="Total" read-only.bind="true" format="0,0.000" options.bind="controlOptions">
+            </au-numeric> -->
+            <au-numeric value.bind="vbRequestTotal" read-only.bind="true" format="0,0.000"
+                options.bind="controlOptions">
             </au-numeric>
+            <au-textbox value.bind="vbRequestTotalCalc" read-only.bind="true" show.bind="false" format="0,0.000"
+                options.bind="controlOptions">
+            </au-textbox>
+           <!-- ${vbRequestTotalCalc} -->
         </td>
         <td class="col-sm-1" if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-
