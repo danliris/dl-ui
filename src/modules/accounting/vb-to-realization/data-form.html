@@ -1,0 +1,14 @@
+<template>
+  <au-input-form title.bind="title"
+                 with.bind="context"
+                 options.bind="formOptions">
+
+    <au-table data.bind="loader"
+              columns.bind="columns"
+              selectable.bind="true"
+              options.bind="tableOptions"
+              selections.bind="dataToBeSubmitted">
+    </au-table>
+
+  </au-input-form>
+</template>

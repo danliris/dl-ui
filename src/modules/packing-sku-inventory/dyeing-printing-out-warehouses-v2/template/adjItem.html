@@ -46,7 +46,7 @@
         </td>
         <td>
             <au-numeric value.bind="data.packagingQty" error.bind="error.QtyPacking" format="0.00"
-                read-only.bind="true" options.bind="controlOptions">
+                read-only.bind="readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
@@ -59,14 +59,21 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.quantity" format="0.00" read-only.bind="true" error.bind="error.Qty"
+            <au-numeric value.bind="data.quantity" format="0.00" read-only.bind="readOnly" error.bind="error.Qty"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td show.bind="!readOnly">
+            <au-numeric value.bind="data.balanceRemains" format="0.00" read-only.bind="true"
+                error.bind="error.BalanceRemains" options.bind="controlOptions">
+            </au-numeric>
+        </td>
         <td>
-            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
+            <au-numeric value.bind="balance" read-only.bind="true" error.bind="error.Balance"
                 options.bind="controlOptions">
             </au-numeric>
+            <au-textbox value.bind="totalBalance" show.bind="false" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.adjDocumentNo" read-only.bind="readOnly" error.bind="error.AdjDocumentNo"

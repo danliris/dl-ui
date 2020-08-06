@@ -13,9 +13,10 @@ export class CartItem {
         this.contextOptions = context.context.options;
         if (this.data.avalType) {
             this.selectedAval = {};
+            this.selectedAval.avalTransformationId = this.data.avalTransformationId;
             this.selectedAval.avalType = this.data.avalType;
-            this.selectedAval.avalQuantity = this.data.avalQuantity;
-            this.selectedAval.avalQuantityKg = this.data.avalQuantityKg;
+            this.selectedAval.avalQuantity = this.data.avalQuantityBalance;
+            this.selectedAval.avalQuantityKg = this.data.avalWeightBalance;
         }
     }
 
@@ -40,9 +41,10 @@ export class CartItem {
     @bindable selectedAval;
     selectedAvalChanged(newValue, oldValue) {
         if (this.selectedAval && this.selectedAval.avalType) {
+            this.data.avalTransformationId = this.selectedAval.avalTransformationId;
             this.data.avalType = this.selectedAval.avalType;
-            this.data.avalQuantity = this.selectedAval.avalQuantity;
-            this.data.avalQuantityKg = this.selectedAval.avalQuantityKg;
+            this.data.avalQuantityBalance = this.selectedAval.avalQuantity;
+            this.data.avalWeightBalance = this.selectedAval.avalQuantityKg;
         }
         else {
             this.data = {};

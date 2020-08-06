@@ -58,6 +58,7 @@ export class Create {
         CreateData.AvalItems = this.data.DyeingPrintingItems.map(
           (item) => {
             var remappedItems = {};
+            remappedItems.id = item.id;
             remappedItems.AvalItemId = item.AvalItemId;
             remappedItems.AvalType = item.AvalType;
             remappedItems.AvalCartNo = item.AvalCartNo;
