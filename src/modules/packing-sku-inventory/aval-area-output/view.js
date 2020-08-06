@@ -35,10 +35,16 @@ export class View {
     });
   }
 
-    delete() {
-      this.service.delete(this.data)
-        .then(result => {
-          this.list();
-        });
-    }
+  delete() {
+    this.service.delete(this.data)
+      .then(result => {
+        this.list();
+      }).catch(e => {
+        if (e.statusCode == 500) {
+          alert(e.error);
+        } else {
+          this.error = e;
+        }
+      });
+  }
 }

@@ -6,6 +6,7 @@ import { activationStrategy } from "aurelia-router";
 @inject(Router, Service)
 export class Create {
   dataToBeSubmitted = [];
+  realizationTable;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -23,7 +24,7 @@ export class Create {
   }
 
   cancelCallback(event) {
-    this.list();
+    this.router.navigateToRoute("list");
   }
 
   saveCallback(event) {
@@ -44,20 +45,17 @@ export class Create {
     if (this.dataToBeSubmitted && this.dataToBeSubmitted.length > 0) {
       console.log(this);
       let data = this.dataToBeSubmitted.map((datum) => {
-        return datum.Id;
+        return datum.VBRealizationId;
       });
 
       this.service
         .create({ VBRealizationIds: data })
         .then(result => {
           alert("Data berhasil dibuat");
-          this.router.navigateToRoute(
-            "create",
-            {},
-            { replace: true, trigger: true }
-          );
+          this.realizationTable.refresh();
         })
         .catch(e => {
+          console.log(e);
           this.error = e;
         });
     } else {

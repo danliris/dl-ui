@@ -5,12 +5,12 @@
                 text.bind="adjAvalFormatter" read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
         </td>
-        <td>
+        <td show.bind="!readOnly">
             <au-numeric value.bind="data.avalQuantityBalance" format="0.00" read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <td show.bind="!readOnly"> 
             <au-numeric value.bind="data.avalWeightBalance" format="0.00" read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>

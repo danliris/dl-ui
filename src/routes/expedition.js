@@ -390,9 +390,22 @@ module.exports = [
     }
   },
   {
-    route: 'vb-to-realization',
-    name: 'vb-to-realization',
-    moduleId: './modules/accounting/vb-to-realization/index',
+    route: 'vb-realization-to-verification',
+    name: 'vb-realization-to-verification',
+    moduleId: './modules/expedition/vb-realization-to-verification/index',
+    nav: true,
+    title: 'Penyerahan VB Realisasi Ke Verifikasi',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'vb-realization-acceptance',
+    name: 'vb-realization-acceptance',
+    moduleId: './modules/expedition/vb-realization-acceptance/index',
     nav: true,
     title: 'Penerimaan VB Realisasi',
     auth: true,
