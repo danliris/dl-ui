@@ -24,9 +24,6 @@ export class DataForm {
         }
     }
 
-    ListCategory = ["", "SP1 - Spinning 1", "SP2 - Spinning 2", "SP3 - Spinning 3", "WV1 - Weaving 1", "WV2 - Weaving 2", "DP - Dyeing Printing", "UTL - Utility"
-        , "UM - Umum", "K1A - Konfeksi 1A", "K1B - Konfeksi 1B", "K2A - Konfeksi 2A", "K2B - Konfeksi 2B", "K2C - Konfeksi 2C"];
-
     itemsColumns = [{ header: "Nomor PO", value: "purchaseRequest.no" },
     { header: "Unit", value: "Unit" }]
 
@@ -41,10 +38,17 @@ export class DataForm {
         this.data = this.context.data;
         console.log(this.data)
         this.error = this.context.error;
+        this.data.TotalPaid = this.getTotalPaid;
+
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
         }
         this.selectedCurrency = this.data.Currency;
+
+        if (this.data.TotalPaid) {
+            this.TotalPaid = this.data.TotalPaid;
+            this.data.TotalPaid = this.getTotalPaid;
+        }
     }
 
     get addItems() {
@@ -91,6 +95,30 @@ export class DataForm {
             this.data.unit.code = this.selectedUnit.code;
         }
     }
+
+    // get getTotalPaid() {
+    //     var result = 0;
+    //     console.log(this.data.Items)
+    //     if (this.data.Items) {
+    //         console.log(this.data.Items)
+    //         // if (this.data.Items.items) {
+    //         if(this.data.Items.length > 1){
+
+    //             for (var productList of this.data.items) {
+    //                 console.log(productList)
+    //                 for (var proddetail of productList.details) {
+    //                     console.log(proddetail.priceBeforeTax)
+    //                     result += proddetail.priceBeforeTax;
+    //                 }
+    //             }
+    //         }
+                
+    //         // }
+            
+    //     }
+    //     this.data.TotalPaid = result;
+    //     return result;
+    // }
 
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`

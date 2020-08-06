@@ -44,8 +44,8 @@ export class PurchaseOrderItem {
     //   "IsPosted":false
     // };
     this.filter = {
-      "POCashType": "VB", 
-      "isPosted": true, 
+      "POCashType": "VB",
+      "isPosted": true,
       "IsCreateOnVBRequest": false,
       "CurrencyCode": this.context.context.options.CurrencyCode
     };
@@ -132,6 +132,28 @@ export class PurchaseOrderItem {
 
         this.data.details = this._items;
       }
+  }
+
+  get getTotalPaid() {
+    var result = 0;
+    if (this.data.Items) {
+      for (var productList of this.data.Items) {
+        result += productList.priceBeforeTax * productList.dealQuantity;
+      }
+    }
+
+    else {
+      if(this.data.items){
+        for (var productList of this.data.items) {
+          for (var proddetail of productList.details) {
+            result += proddetail.priceBeforeTax * proddetail.defaultQuantity;
+          }
+        }
+      }
+      
+    }
+    this.data.TotalPaid = result;
+    return result.toLocaleString('en-EN', { minimumFractionDigits: 2 });
   }
 
   toggle() {
