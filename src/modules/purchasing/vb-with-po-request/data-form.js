@@ -112,13 +112,51 @@ export class DataForm {
     //                 }
     //             }
     //         }
-                
+
     //         // }
-            
+
     //     }
     //     this.data.TotalPaid = result;
     //     return result;
     // }
+
+    get getTotalPaid() {
+        var result = 0;
+        // console.log(this.data.Items)
+        if (this.data.Items) {
+            // console.log("masuk")
+            // console.log(this.data.Items)
+            for (var productList of this.data.Items) {
+                // console.log(productList.details)
+                if (productList.details) {
+
+                    for (var proddetail of productList.details) {
+                        // console.log(proddetail.priceBeforeTax)
+                        result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g,"")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g,""));
+                    }
+                }
+                else if(productList.Details){
+                    for (var proddetail of productList.Details) {
+                        // console.log(proddetail.priceBeforeTax)
+                        result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g,"")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g,""));
+                    }
+                }
+            }
+        }
+
+        // else {
+        //     if (this.data.items) {
+        //         for (var productList of this.data.items) {
+        //             for (var proddetail of productList.details) {
+        //                 result += proddetail.priceBeforeTax * proddetail.defaultQuantity;
+        //             }
+        //         }
+        //     }
+
+        // }
+        this.data.TotalPaid = result;
+        return result.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
 
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`
