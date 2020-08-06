@@ -50,21 +50,21 @@
       read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
 
     <au-datepicker options.bind="controlOptions" label="Tanggal" value.bind="data.Date" error.bind="error.Date"
-      read-only.bind="readOnly"></au-datepicker>
+      read-only.bind="readOnly || isEdit"></au-datepicker>
 
 
     <au-dropdown options.bind="controlOptions" label="Shift" value.bind="data.Shift" error.bind="error.Shift"
-      read-only.bind="readOnly" items.bind="shifts"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="shifts"></au-dropdown>
 
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.Group" error.bind="error.Group"
-      read-only.bind="readOnly" items.bind="groups"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
     <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="selectedZona"
-      error.bind="error.DestinationArea" read-only.bind="readOnly" items.bind="destinationAreas"
+      error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas"
       change-delegate="selectedZonaChanged"></au-dropdown>
 
     <au-autocomplete if.bind="!isPenjualan && !isAdj" options.bind="controlOptions" value.bind="selectedAvalBon"
-      label="Nomor Bon" read-only.bind="readOnly" error.bind="error.BonNo" loader.bind="avalAreaLoader"
+      label="Nomor Bon" read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="avalAreaLoader"
       text.bind="avalBonTextFormatter" change.delegate="selectedAvalBonChanged" query.bind="penjualanFilter">
     </au-autocomplete>
 
@@ -79,7 +79,7 @@
       text.bind = "DOFormatter"
     ></au-autocomplete> -->
     <au-textbox if.bind="!isAdj" options.bind="controlOptions" label="No. DO" value.bind="data.doNO"
-      error.bind="error.DoNO" read-only.bind="readOnly || !isPenjualan"></au-textbox>
+      error.bind="error.DoNO" read-only.bind="readOnly || !isPenjualan || isEdit"></au-textbox>
     <!-- <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">
@@ -169,8 +169,9 @@
       </au-collection>
 
       <au-collection columns.bind="dyeingPrintingBuyerItemsColumns" items.bind="data.DyeingPrintingItems"
-        errors.bind="error.AvalItemsBuyer" options.bind="itemOptions" read-only.bind="readOnly" remove.bind="removeDetails"
-        item-template="modules/packing-sku-inventory/aval-area-output/templates/items" if.bind="!isPenjualan">
+        errors.bind="error.AvalItemsBuyer" options.bind="itemOptions" read-only.bind="readOnly"
+        remove.bind="removeDetails" item-template="modules/packing-sku-inventory/aval-area-output/templates/items"
+        if.bind="!isPenjualan">
       </au-collection>
     </div>
     <div if.bind="isAdj">
