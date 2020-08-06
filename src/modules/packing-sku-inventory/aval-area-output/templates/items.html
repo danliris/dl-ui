@@ -6,12 +6,12 @@
       </au-dropdown>
     </td>
 
-    <td style="white-space: nowrap;" if.bind="isPenjualan">
+    <td style="white-space: nowrap;" show.bind="!readOnly" if.bind="isPenjualan">
       <au-textbox value.bind="data.AvalQuantity" read-only.bind="true" error.bind="error.AvalQuantity">
       </au-textbox>
     </td>
 
-    <td style="white-space: nowrap;" if.bind="isPenjualan">
+    <td style="white-space: nowrap;" show.bind="!readOnly" if.bind="isPenjualan">
       <au-textbox value.bind="data.AvalQuantityKg" read-only.bind="true" error.bind="error.AvalQuantityKg">
       </au-textbox>
     </td>

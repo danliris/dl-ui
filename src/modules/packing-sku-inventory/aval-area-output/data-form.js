@@ -29,6 +29,7 @@ export class DataForm {
   };
 
   itemOptions = {};
+  detailOptions = {};
   penjualanFilter = {
     DestinationArea: "PENJUALAN"
   }
@@ -66,6 +67,12 @@ export class DataForm {
     this.isPenjualan = true;
     this.isHasData = false;
 
+    this.itemOptions = {
+      isEdit: this.isEdit
+    };
+    this.detailOptions = {
+      isEdit: this.isEdit
+    };
 
     if (this.readOnly) {
       this.dyeingPrintingBuyerItemsColumns = [
@@ -86,6 +93,23 @@ export class DataForm {
           header: "NO. SJ",
         }
       ];
+
+      this.dyeingPrintingItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+      ];
+
+      this.adjItemColumns = ["Nama Barang", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
     } else {
       this.dyeingPrintingBuyerItemsColumns = [
         {
@@ -109,6 +133,29 @@ export class DataForm {
           header: "",
         }
       ];
+      this.dyeingPrintingItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalUomUnit",
+          header: "Saldo Satuan",
+        },
+        {
+          value: "avalUomUnit",
+          header: "Saldo Berat",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+      ];
+      this.adjItemColumns = ["Nama Barang", "Saldo Satuan", "Saldo Berat", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
     }
 
     this.data.Area = "GUDANG AVAL";
