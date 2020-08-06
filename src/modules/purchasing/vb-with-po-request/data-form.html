@@ -47,8 +47,8 @@
         remove.bind="removeItems" options.bind="options" read-only.bind="readOnly"
         item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item">
       </au-collection>
-
+      Total Harga PO : ${getTotalPaid} ${selectedCurrency.Code}
     </div>
-    Total Harga PO : ${getTotalPaid} ${selectedCurrency.Code}
+    
   </au-input-form>
 </template>
