@@ -13,199 +13,222 @@ const DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Router, Service, PurchasingDocumentExpeditionService, PermissionHelper)
 export class Create {
-    columns2 = [
-        { field: "selected", checkbox: true, sortable: false },
-        {
-            field: 'VerifyDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
-                return  value ? moment(value).format('DD MMM YYYY'):"-";
-            },
-        },
-        { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
-        {
-            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
-        },
-        {
-            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
-        },
-        { field: 'InvoiceNo', title: 'Nomor Invoice' },
-        { field: 'SupplierName', title: 'Supplier' },
-        { field: 'DivisionName', title: 'Divisi' },
-        {
-            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: 'Currency', title: 'Mata Uang' },
-    ];
-
-    columns = [
-        { field: "selected", checkbox: true, sortable: false },
-        { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
-        {
-            field: 'UPODate', title: 'Tanggal Masuk Verifikasi', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
-        },
-        { field: 'UnitPaymentOrderNo', title: 'No VB' },
-        { field: 'UnitPaymentOrderNo', title: 'No Realisasi VB' },
-        {
-            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
-        },
-        { field: 'InvoiceNo', title: 'Nomor Invoice' },
-        { field: 'SupplierName', title: 'Supplier' },
-        { field: 'DivisionName', title: 'Divisi' },
-        {
-            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: 'Currency', title: 'Mata Uang' },
-    ];
-
-    tableOptions = {
-        pagination: false,
-        showColumns: false,
-        search: false,
-        showToggle: false,
-    };
-
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-    };
-
-    controlOptions = {
-        label: {
-            length: 4,
-        },
-        control: {
-            length: 4,
-        },
-    };
-
-    constructor(router, service, purchasingDocumentExpeditionService, permissionHelper) {
-        this.router = router;
-        this.service = service;
-        this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
-
-        this.selectUPO = ['no'];
-        this.selectSupplier = ['code', 'name'];
-        this.selectDivision = ['code', 'name'];
-        this.documentData = [];
-        this.selectedItems = [];
-
-        this.permissions = permissionHelper.getUserPermissions();
-        this.initPermission();
+  columns2 = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: 'SendToVerificationDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
+        return value ? moment(value).format('DD MMM YYYY') : "-";
+      },
+    },
+    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
+    {
+      field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
+        return moment(value).format('DD MMM YYYY');
+      },
+    },
+    { field: 'VBType', title: 'Tipe VB' },
+    { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Bagian/Unit' },
+    {
+      field: 'TotalPaid', title: 'Amount', formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      },
     }
+  ];
 
-    initPermission() {
-        this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
-        this.accessCount = 0;
+  columns = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: 'SendToVerificationDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
+        return value ? moment(value).format('DD MMM YYYY') : "-";
+      },
+    },
+    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
+    {
+      field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
+        return moment(value).format('DD MMM YYYY');
+      },
+    },
+    { field: 'VBType', title: 'Tipe VB' },
+    { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Bagian/Unit' },
+    {
+      field: 'TotalPaid', title: 'Amount', formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      },
+    }
+  ];
 
-        for (let i = this.roles.length - 1; i >= 0; i--) {
-            if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-                this.roles[i].hasPermission = true;
-                this.accessCount++;
-                this.activeRole = this.roles[i];
-            }
+  tableOptions = {
+    pagination: false,
+    showColumns: false,
+    search: false,
+    showToggle: false,
+  };
+
+  formOptions = {
+    cancelText: "Kembali",
+    saveText: "Simpan",
+  };
+
+  controlOptions = {
+    label: {
+      length: 4,
+    },
+    control: {
+      length: 4,
+    },
+  };
+
+  constructor(router, service, purchasingDocumentExpeditionService, permissionHelper) {
+    this.router = router;
+    this.service = service;
+    this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
+
+    this.selectUPO = ['no'];
+    this.selectSupplier = ['code', 'name'];
+    this.selectDivision = ['code', 'name'];
+    this.documentData = [];
+    this.selectedItems = [];
+
+    this.permissions = permissionHelper.getUserPermissions();
+    this.initPermission();
+  }
+
+  initPermission() {
+    this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+    this.accessCount = 0;
+
+    for (let i = this.roles.length - 1; i >= 0; i--) {
+      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+        this.roles[i].hasPermission = true;
+        this.accessCount++;
+        this.activeRole = this.roles[i];
+      }
+    }
+  }
+
+  changeRole(role) {
+
+    console.log(role);
+    if (role.key !== this.activeRole.key) {
+      this.activeRole = role;
+      // this.selectedItems.splice(0, this.selectedItems.length);
+      // this.documentData.splice(0, this.documentData.length);
+      this.documentTable.refresh();
+    }
+  }
+
+  changeTable(role) {
+    this.code = role.key === "CASHIER" ? true : false;
+  }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace;
+  }
+
+  loader = (info) => {
+    let order = {};
+
+    if (info.sort)
+      order[info.sort] = info.order;
+    let arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order, // VERIFICATION_DIVISION,
+      position: this.activeRole.positionAutocomplete
+    };
+
+    console.log(this.activeRole)
+
+    return this.service.search(arg)
+      .then(result => {
+        console.log(result);
+        return {
+          total: result.info.total,
+          data: result.data
         }
-    }
+      });
+  }
 
-    changeRole(role) {
+  cancelCallback(event) {
+    this.router.navigateToRoute('list');
+  }
 
-        console.log(role);
-        if (role.key !== this.activeRole.key) {
-            this.activeRole = role;
-            this.selectedItems.splice(0, this.selectedItems.length);
-            this.documentData.splice(0, this.documentData.length);
-            this.documentTable.refresh();
-        }
-    }
-
-    changeTable(role){
-        this.code = role.key === "CASHIER"? true : false;      
-    }
-
-    determineActivationStrategy() {
-        return activationStrategy.replace;
-    }
-
-    search() {
-        let filter = { Position: this.activeRole.positionAutocomplete };
-
-        if (this.unitPaymentOrder)
-            filter.UnitPaymentOrderNo = this.unitPaymentOrder.no;
-
-        if (this.supplier)
-            filter.SupplierCode = this.supplier.code;
-        
-        if (this.division)
-            filter.DivisionCode = this.division.Code;
-        let arg = {
-            page: 1,
-            size: 255,
-            filter: JSON.stringify(filter),
-        };
-
-        this.purchasingDocumentExpeditionService.search(arg)
-            .then(result => {
-                this.selectedItems.splice(0, this.selectedItems.length);
-                this.documentData.splice(0, this.documentData.length);
-                this.documentData.push(...result.data)
-                this.documentTable.refresh();
-            });
-    }
-
-    cancelCallback(event) {
-        this.router.navigateToRoute('list');
-    }
-
-    saveCallback(event) {
-        /*
-            let data = {
-                ReceiptDate: this.receiptDate,
-                Role: this.activeRole.key,
-                PurchasingDocumentExpedition: [],
-            };
-        */
-
+  saveCallback(event) {
+    /*
         let data = {
+            ReceiptDate: this.receiptDate,
             Role: this.activeRole.key,
             PurchasingDocumentExpedition: [],
         };
+    */
 
-        for (let s of this.selectedItems) {
-            data.PurchasingDocumentExpedition.push({
-                Id: s.Id,
-                UnitPaymentOrderNo: s.UnitPaymentOrderNo,
-            });
-        }
+    // let data = {
+    //   Role: this.activeRole.key,
+    //   PurchasingDocumentExpedition: [],
+    // };
 
-        this.service.create(data)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                this.error = e;
-            });
+    // for (let s of this.selectedItems) {
+    //   data.PurchasingDocumentExpedition.push({
+    //     Id: s.Id,
+    //     UnitPaymentOrderNo: s.UnitPaymentOrderNo,
+    //   });
+    // }
+
+    // this.service.create(data)
+    //   .then(result => {
+    //     alert("Data berhasil dibuat");
+    //     this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+    //   })
+    //   .catch(e => {
+    //     this.error = e;
+    //   });
+
+    console.log(this.selectedItems);
+
+    if (this.selectedItems && this.selectedItems.length > 0) {
+
+      let data = this.selectedItems.map((datum) => {
+        return datum.VBRealizationId;
+      });
+
+      if (this.activeRole.positionAutocomplete == 2) {
+        console.log("to verification")
+        this.service.acceptForVerification({ VBRealizationIds: data })
+          .then(result => {
+            alert("Data berhasil dibuat");
+            this.documentTable.refresh();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      } else if (this.activeRole.positionAutocomplete == 4) {
+        console.log("to cashier")
+        this.service.acceptForCashier({ VBRealizationIds: data })
+          .then(result => {
+            alert("Data berhasil dibuat");
+            this.documentTable.refresh();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
+    } else {
+      alert("harap pilih data");
     }
+  }
 
-    get unitPaymentOrderLoader() {
-        return UnitPaymentOrderLoader;
-    }
+  get unitPaymentOrderLoader() {
+    return UnitPaymentOrderLoader;
+  }
 
-    get supplierLoader() {
-        return SupplierLoader;
-    }
+  get supplierLoader() {
+    return SupplierLoader;
+  }
 
-    get divisionLoader() {
-        return DivisionLoader;
-    }
+  get divisionLoader() {
+    return DivisionLoader;
+  }
 }

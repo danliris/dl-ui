@@ -28,7 +28,7 @@
         <br>
     </template>
     <au-input-form title="Buat Penerimaan Realisasi VB ${activeRole.position === 3 ? 'dari Pembelian' : 'dari Verifikasi'}" options.bind="formOptions">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-4">
                 <au-autocomplete
                     label="No SPB"
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <br><br>
+        <br><br> -->
         
         <!--
             <au-datepicker
@@ -73,15 +73,15 @@
             </au-datepicker>
         -->
 
-        <au-textbox
+        <!-- <au-textbox
             show.bind="error.PurchaseDocumentExpeditionCollection"
             error.bind="error.PurchaseDocumentExpeditionCollection"
             read-only="true">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-table
             view-model.ref="documentTable"
-            data.bind="documentData"
+            data.bind="loader"
             columns.bind="columns2"
             sortable.bind="true"
             if.bind = "code";
@@ -91,7 +91,7 @@
 
         <au-table
             view-model.ref="documentTable"
-            data.bind="documentData"
+            data.bind="loader"
             columns.bind="columns"
             sortable.bind="true"
             if.bind = "!code";
