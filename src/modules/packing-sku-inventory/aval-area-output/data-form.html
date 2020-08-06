@@ -169,9 +169,8 @@
       </au-collection>
 
       <au-collection columns.bind="dyeingPrintingBuyerItemsColumns" items.bind="data.DyeingPrintingItems"
-        errors.bind="error.AvalItemsBuyer" options.bind="itemOptions" read-only.bind="readOnly"
-        item-template="modules/packing-sku-inventory/aval-area-output/templates/items" add.bind="addItems"
-        if.bind="!isPenjualan">
+        errors.bind="error.AvalItemsBuyer" options.bind="itemOptions" read-only.bind="readOnly" remove.bind="removeDetails"
+        item-template="modules/packing-sku-inventory/aval-area-output/templates/items" if.bind="!isPenjualan">
       </au-collection>
     </div>
     <div if.bind="isAdj">

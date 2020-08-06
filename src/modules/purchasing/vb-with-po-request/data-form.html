@@ -4,10 +4,12 @@
     <div slot="actions" class="btn-group">
       <button class="btn btn-default" click.delegate="context.cancel($event)"
         if.one-way="context.hasCancel">Kembali</button>
-      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit"
+        show.bind="data.Approve_Status==false">Ubah</button>
       <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)"
-        if.one-way="context.hasDelete">Hapus</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete"
+        show.bind="data.Approve_Status==false">Hapus</button>
+
     </div>
 
     <au-textbox value.bind="data.VBNo" if.bind="data.VBNo" label="No VB" read-only.bind="true"
@@ -22,8 +24,9 @@
       read-only.bind="readOnly" options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCode" label="Unit Pemohon" loader.one-time="unitLoader"
-      text.bind="unitView" read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Unit Pemohon">
+    <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCode" label="Unit Pemohon"
+      loader.one-time="unitLoader" text.bind="unitView" read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions" placeholder="Cari Unit Pemohon">
     </au-autocomplete>
 
     <au-autocomplete label="Mata Uang" placeholder="pilih mata uang" value.bind="selectedCurrency"

@@ -17,7 +17,7 @@ export class DataForm {
     // deleteText: "Hapus",
     // editText: "Ubah"
   };
-  adjItemColumns = ["Nama Barang", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+  adjItemColumns = ["Nama Barang", "Saldo Satuan", "Saldo Berat", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
   types = ["OUT", "ADJ"];
   controlOptions = {
     label: {
@@ -66,6 +66,51 @@ export class DataForm {
     this.isPenjualan = true;
     this.isHasData = false;
 
+
+    if (this.readOnly) {
+      this.dyeingPrintingBuyerItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+        {
+          value: "noSj",
+          header: "NO. SJ",
+        }
+      ];
+    } else {
+      this.dyeingPrintingBuyerItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+        {
+          value: "noSj",
+          header: "NO. SJ",
+        },
+        {
+          value: "",
+          header: "",
+        }
+      ];
+    }
+
     this.data.Area = "GUDANG AVAL";
     if (this.data.id) {
       this.data.Date = this.data.date;
@@ -73,7 +118,7 @@ export class DataForm {
       this.data.Group = this.data.group;
       // this.data.DestinationArea = this.data.destinationArea;
       this.selectedZona = this.data.destinationArea;
-      if(this.data.DestinationArea != "PENJUALAN"){
+      if (this.data.DestinationArea != "PENJUALAN") {
         var selectedBon = {};
         selectedBon.bonNo = this.data.bonNo;
         selectedBon.id = this.data.id;
@@ -226,14 +271,6 @@ export class DataForm {
       header: "Nama Barang",
     },
     {
-      value: "avalUomUnit",
-      header: "Saldo Satuan",
-    },
-    {
-      value: "avalUomUnit",
-      header: "Saldo Berat",
-    },
-    {
       value: "avalQuantity",
       header: "Qty Keluar Satuan",
     },
@@ -245,6 +282,10 @@ export class DataForm {
       value: "noSj",
       header: "NO. SJ",
     },
+    {
+      value: "",
+      header: "",
+    }
   ];
 
   addItems = (e) => {
@@ -262,14 +303,18 @@ export class DataForm {
   }
 
   @bindable selectedAvalBon
-   selectedAvalBonChanged(n,o){
-    if(this.data.id == 0||this.data.id == undefined|| this.data.id == null){
-      this.service.getById(n.id).then((selectedBon)=>{
+  selectedAvalBonChanged(n, o) {
+    if (this.data.id == 0 || this.data.id == undefined || this.data.id == null) {
+      this.service.getById(n.id).then((selectedBon) => {
         this.data.doNO = selectedBon.deliveryOrderSalesNo;
-        this.data.DyeingPrintingItems = selectedBon.avalItems;
+        this.data.DyeingPrintingItems = selectedBon.avalItems.filter(s => !s.hasNextAreaDocument);
       });
 
     }
+  }
+
+  removeDetails() {
+    this.bind();
   }
 
   @bindable selectedZona
@@ -282,16 +327,16 @@ export class DataForm {
     }
     this.data.DestinationArea = n;
 
-    if(n!=o&& !this.data.id){
-      this.data.DyeingPrintingItems.splice(0,this.data.DyeingPrintingItems.length);
+    if (n != o && !this.data.id) {
+      this.data.DyeingPrintingItems.splice(0, this.data.DyeingPrintingItems.length);
       this.data.selectedAvalBon = null;
       this.data.doNO = null;
 
     }
     // if( n!=o){
-      // this.data.DyeingPrintingItems = [];
-      // this.data.DyeingPrintingItemsBuyer = null;
-      // this.data.doNO = null;
+    // this.data.DyeingPrintingItems = [];
+    // this.data.DyeingPrintingItemsBuyer = null;
+    // this.data.doNO = null;
     // }
   }
 }

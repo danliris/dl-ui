@@ -5,6 +5,7 @@ export class ItemHeader {
     this.data = context.data;
     this.items = context.items;
     this.options = context.options;
+    this.isEdit = this.options.isEdit;
   }
 
   changeCheckedAll() {

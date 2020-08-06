@@ -74,6 +74,13 @@ export class DataForm {
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
+        
+        if (this.readOnly) {
+            this.itemColumnsAdj = ["No SP", "QTY Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "QTY Total", "No Dokumen"];
+        } else {
+            this.itemColumnsAdj = ["No SP", "QTY Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "Saldo", "QTY Total", "No Dokumen"];
+        }
+        
         this.detailOptions = {
             isEdit: this.isEdit,
             readOnly: this.readOnly

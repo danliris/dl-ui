@@ -24,7 +24,7 @@ export class DataForm {
             length: 4,
         },
     };
-    adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif","Keterangan", "Satuan", "QTY", "No Dokumen"];
+    adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
     itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     types = ["OUT", "ADJ"];
@@ -96,12 +96,19 @@ export class DataForm {
             }
         }
 
+        if (this.readOnly) {
+            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
+        } else {
+            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
+        }
+
         if (this.data.type == "OUT") {
             if (this.data.transitProductionOrders) {
                 this.data.displayTransitProductionOrders = this.data.transitProductionOrders;
 
             }
         } else {
+            
             if (this.data.transitProductionOrders) {
                 this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
 

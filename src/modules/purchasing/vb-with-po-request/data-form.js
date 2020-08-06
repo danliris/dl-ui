@@ -36,6 +36,7 @@ export class DataForm {
 
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
         this.data.TotalPaid = this.getTotalPaid;
 

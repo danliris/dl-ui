@@ -18,70 +18,70 @@ export class ItemSPP {
         this.bindingEngine = bindingEngine;
         this.dataForm = dataForm;
     }
-    sppTextFormater = (spp) =>{
-        
+    sppTextFormater = (spp) => {
+
         return `${spp.productionOrder.no}`
-      }
+    }
     sppFilter = {};
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
-        
+
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
         this.selectedStorageId = this.context.options.selectedStorageId;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        
+
         // this.isNewStructure = this.context.options.isNewStructure;
 
-        
+
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
 
         // if (this.data.productionOrderId) {
         //     this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
         // }
         if (this.data.productionOrder && this.data.productionOrder.id) {
-            
+
             this.selectedProductionOrder = {};
-            this.selectedProductionOrder.Id = this.data.productionOrder.id;
+            this.selectedProductionOrder.id = this.data.productionOrder.id;
             this.selectedProductionOrder.productionOrder = {};
-            // this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
-            // this.selectedProductionOrder.productionOrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.productionOrder.id = this.data.productionOrder.id;
             this.selectedProductionOrder.productionOrder.no = this.data.productionOrder.no;
-            this.selectedProductionOrder.OrderType = {};
-            this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
-            this.selectedProductionOrder.OrderQuantity = this.data.balance;
-            this.selectedProductionOrder.Construction = this.data.construction;
-            this.selectedProductionOrder.Buyer = {};
-            this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
-            this.selectedProductionOrder.Buyer.Name = this.data.buyer;
-            this.selectedProductionOrder.PackingInstruction = this.data.packingInstruction;
-            this.selectedProductionOrder.Details = [];
-            this.selectedProductionOrder.Details.push({});
-            this.selectedProductionOrder.Details[0].ColorRequest = this.data.color;
-            this.selectedProductionOrder.DesignCode = this.data.motif;
-            this.selectedProductionOrder.Uom = {};
-            this.selectedProductionOrder.Uom.Unit = this.data.unit;
-            this.selectedProductionOrder.OrderQuantity = this.data.balance;
-            this.selectedProductionOrder.Construction = this.data.construction;
-            this.selectedProductionOrder.PackagingQty = this.data.packagingQty;
-            this.selectedProductionOrder.PackagingUnit = this.data.packagingUnit;
-            this.selectedProductionOrder.PackagingType = this.data.packagingType;
+            this.selectedProductionOrder.productionOrder.type = this.data.productionOrder.type;
+            this.selectedProductionOrder.construction = this.data.construction;
+            this.selectedProductionOrder.cartNo = this.data.cartNo;
+            this.selectedProductionOrder.buyerId = this.data.buyerId;
+            this.selectedProductionOrder.buyer = this.data.buyer;
+
+            this.selectedProductionOrder.packingInstruction = this.data.packingInstruction;
+            this.selectedProductionOrder.color = this.data.color;
+
+            this.selectedProductionOrder.motif = this.data.motif;
+
+            this.selectedProductionOrder.uomUnit = this.data.uomUnit;
+
+            this.selectedProductionOrder.productionOrder.orderQuantity = this.data.productionOrder.orderQuantity;
+            this.selectedProductionOrder.unit = this.data.unit;
+
+            this.selectedProductionOrder.packagingQty = this.data.packagingQty;
+            this.selectedProductionOrder.packagingUnit = this.data.packagingUnit;
+            this.selectedProductionOrder.packagingType = this.data.packagingType;
+
             this.selectedProductionOrder.productionOrderQuantity = this.data.productionOrder.orderQuantity
-            this.selectedPackagingQTY = this.data.packagingQty;
-            this.selectedAtQty = this.data.balance/this.selectedPackagingQTY;
-            this.data.selectedAtQty = this.data.balance/this.selectedPackagingQTY;
+
+            // this.selectedPackagingQTY = this.data.packagingQty;
+            // this.selectedAtQty = this.data.balance / this.selectedPackagingQTY;
+            // this.data.selectedAtQty = this.data.balance / this.selectedPackagingQTY;
             this.selectedProductionOrder.grade = this.data.grade;
             this.selectedProductionOrder.qtyOut = this.data.qtyOut;
-            if (this.selectedProductionOrder.productionOrder.no.charAt(0) === 'P') {
-                this.data.unit = "PRINTING"
-            } else {
-                this.data.unit = "DYEING"
-            }
+
+            this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
+            this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
+
 
             this.selectedProductionOrder.material = {};
             this.selectedProductionOrder.material.id = this.data.materialObj.id;
@@ -110,6 +110,13 @@ export class ItemSPP {
             this.selectedProductionOrder.fabricPackingId = this.data.fabricPackingId;
             this.selectedProductionOrder.productPackingCode = this.data.productPackingCode;
             this.selectedProductionOrder.hasPrintingProductPacking = this.data.hasPrintingProductPacking;
+        }
+
+        if (this.data.atQty) {
+            this.selectedAtQty = this.data.atQty;
+        }
+        if (this.data.packagingQty) {
+            this.selectedPackagingQTY = this.data.packagingQty;
         }
     }
 
@@ -160,24 +167,22 @@ export class ItemSPP {
         // }
         return ProductionOrderLoader;
     }
-    get productionOrderDistinct(){
+    get productionOrderDistinct() {
         return PackagingSppDistinctLoader;
     }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder.id) {
-            
+
             this.data.productionOrder = {};
-            this.data.productionOrder.id = this.selectedProductionOrder.id;
+            this.data.productionOrder.id = this.selectedProductionOrder.productionOrder.id;
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrder.no;
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
+            this.data.productionOrder.orderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity;
             this.data.balance = this.selectedProductionOrder.balance;
+            this.data.construction = this.selectedProductionOrder.construction;
             this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
-            if (this.selectedProductionOrder.construction) {
-                this.data.construction = this.selectedProductionOrder.construction;
-            } else {
-                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
-            }
+
             this.data.material = this.data.construction;
             this.data.buyerId = this.selectedProductionOrder.buyerId;
             this.data.buyer = this.selectedProductionOrder.buyer;
@@ -186,21 +191,24 @@ export class ItemSPP {
             this.data.motif = this.selectedProductionOrder.motif;
             this.data.uomUnit = this.selectedProductionOrder.uomUnit;
             this.data.grade = this.selectedProductionOrder.grade;
-            this.data.qtyOut= this.selectedProductionOrder.qtyOut;
+            this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             this.data.packagingQty = this.selectedProductionOrder.packagingQty;
+            this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;
+            this.data.packagingType = this.selectedProductionOrder.packagingType;
             this.data.productionOrderQuantity = this.selectedProductionOrder.productionOrder.orderQuantity
+            this.data.unit = this.selectedProductionOrder.unit;
+
             this.data.materialObj = {};
             this.data.materialObj.id = this.selectedProductionOrder.material.id;
             this.data.materialObj.name = this.selectedProductionOrder.material.name;
+
             this.data.materialConstruction = {};
-            this.data.materialConstruction.id= this.selectedProductionOrder.materialConstruction.id;
+            this.data.materialConstruction.id = this.selectedProductionOrder.materialConstruction.id;
             this.data.materialConstruction.name = this.selectedProductionOrder.materialConstruction.name;
-            // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
-            if (this.selectedProductionOrder.productionOrder.no.charAt(0) === 'P') {
-                this.data.unit = "PRINTING"
-            } else {
-                this.data.unit = "DYEING"
-            }
+
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+
             this.data.materialWidth = this.selectedProductionOrder.materialWidth;
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.processType.id;
@@ -226,24 +234,26 @@ export class ItemSPP {
     }
     @bindable selectedPackagingQTY;
     @bindable selectedAtQty;
-    selectedAtQtyChanged(n,o){
-        if(!this.data.id){
-        this.data.balance = this.selectedPackagingQTY * this.selectedAtQty;
-        this.data.selectedAtQty = this.selectedAtQty;
+    selectedAtQtyChanged(n, o) {
+        // if (!this.data.id) {
+        if (n != o) {
+            this.data.balance = this.selectedPackagingQTY * n;
+            this.data.atQty = n;
         }
     }
-    
-    selectedPackagingQTYChanged(n,o){
-        if(!this.data.id){
-        this.data.balance = this.selectedPackagingQTY * this.selectedAtQty;
-        this.data.selectedPackagingQTY = this.selectedPackagingQTY;
-        this.data.packagingQty  = this.data.selectedPackagingQTY;
+
+    selectedPackagingQTYChanged(n, o) {
+        // if (!this.data.id) {
+        if (n != o) {
+            this.data.balance = n * this.selectedAtQty;
+            this.data.selectedPackagingQTY = n;
+            this.data.packagingQty = this.data.selectedPackagingQTY;
         }
-        else{
-            
-            this.selectedAtQty = this.data.balance/this.selectedPackagingQTY;
-            this.data.selectedAtQty = this.data.balance/this.selectedPackagingQTY;
-            
-        }
+        // else {
+
+        //     this.selectedAtQty = this.data.balance / this.selectedPackagingQTY;
+        //     this.data.selectedAtQty = this.data.balance / this.selectedPackagingQTY;
+
+        // }
     }
 }

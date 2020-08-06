@@ -14,6 +14,7 @@ export class ProductionOrderItem {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
+    this.isEdit = this.contextOptions.isEdit;
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
