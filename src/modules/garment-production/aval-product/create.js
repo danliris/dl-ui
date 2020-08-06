@@ -38,7 +38,7 @@ export class Create {
         let objData = {};
         let data = Object.assign(objData, this.data)
         data.Items = data.Items.filter(x => x.IsSave==true);
-        data.PreparingDate==null;
+        data.PreparingDate=null;
         for(var item of data.Items){
             if(data.PreparingDate==null || data.PreparingDate<item.PreparingDate)
                 data.PreparingDate=item.PreparingDate;
