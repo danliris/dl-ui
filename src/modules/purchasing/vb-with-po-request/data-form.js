@@ -129,8 +129,6 @@ export class DataForm {
             for (var productList of this.data.Items) {
                 // console.log(productList.details)
                 if (productList.details) {
-                    // console.log(productList.Items)
-                    // console.log(productList.details)
 
                     for (var proddetail of productList.details) {
                         // console.log(proddetail.priceBeforeTax)
