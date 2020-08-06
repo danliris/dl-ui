@@ -14,8 +14,8 @@ export class CartItem {
         if (this.data.avalType) {
             this.selectedAval = {};
             this.selectedAval.avalType = this.data.avalType;
-            this.selectedAval.avalQuantity = this.data.avalQuantity;
-            this.selectedAval.avalQuantityKg = this.data.avalQuantityKg;
+            // this.selectedAval.avalQuantity = this.data.avalQuantity;
+            // this.selectedAval.avalQuantityKg = this.data.avalQuantityKg;
         }
     }
 
@@ -41,8 +41,8 @@ export class CartItem {
     selectedAvalChanged(newValue, oldValue) {
         if (this.selectedAval && this.selectedAval.avalType) {
             this.data.avalType = this.selectedAval.avalType;
-            this.data.avalQuantity = this.selectedAval.avalQuantity;
-            this.data.avalQuantityKg = this.selectedAval.avalQuantityKg;
+            // this.data.avalQuantity = this.selectedAval.avalQuantity;
+            // this.data.avalQuantityKg = this.selectedAval.avalQuantityKg;
         }
         else {
             this.data = {};
