@@ -1,4 +1,4 @@
-import {bindable} from 'aurelia-framework'
+import { bindable } from 'aurelia-framework'
 var ProductLoader = require('../../../../loader/product-loader');
 var UomLoader = require('../../../../loader/uom-loader');
 
@@ -7,7 +7,7 @@ export class PurchaseOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    this.priceBeforeTax=this.data.priceBeforeTax;
+    this.priceBeforeTax = this.data.priceBeforeTax;
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
@@ -21,8 +21,25 @@ export class PurchaseOrderItem {
     // if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
     //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
   }
-  
-    updateItem() {
+
+  // get getTotalPaid() {
+  //   var result = 0;
+  //   // console.log(this.data)
+  //   // if (this.data.items) {
+
+  //   //   for (var productList of this.data.items) {
+
+  //   //     for (var proddetail of productList.details) {
+
+  //         result += this.data.priceBeforeTax;
+  //   //     }
+
+  //   //   }
+  //   // }
+  //   return result;
+  // }
+
+  updateItem() {
     // if (this.data.dealQuantity === 0) {
     //   this.data.dealQuantity = this.data.defaultQuantity;
     // }
@@ -43,7 +60,7 @@ export class PurchaseOrderItem {
       this.data.dealQuantity = this.data.defaultQuantity;
     }
     if (!this.data.dealUom) {
-      this.data.dealUom={};
+      this.data.dealUom = {};
       Object.assign(this.data.dealUom, this.data.defaultUom);
     }
     // if (!this.error && this.data.priceBeforeTax === 0) {
@@ -55,28 +72,28 @@ export class PurchaseOrderItem {
     // }
 
     this.selectedDealUom = this.data.dealUom;
-    if(!this.data.defaultUom){
-      this.data.defaultUom=this.data.product.uom;
-      if(!this.data.conversion || this.data.conversion === 0)
+    if (!this.data.defaultUom) {
+      this.data.defaultUom = this.data.product.uom;
+      if (!this.data.conversion || this.data.conversion === 0)
         if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-              this.data.conversion = 1;
+          this.data.conversion = 1;
         }
     }
-    else{
+    else {
       if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-              this.data.conversion = 1;
-        }
+        this.data.conversion = 1;
+      }
     }
-    
-      // if(this.data.priceBeforeTax){
-      //   this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-      // }
-      if(this.data.dealQuantity){
-        this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-      }
-      if(this.data.defaultQuantity){
-        this.data.defaultQuantity=this.data.defaultQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-      }
+
+    // if(this.data.priceBeforeTax){
+    //   this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    // }
+    if (this.data.dealQuantity) {
+      this.data.dealQuantity = this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
+    if (this.data.defaultQuantity) {
+      this.data.defaultQuantity = this.data.defaultQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
   }
 
   updatePrice() {
@@ -88,14 +105,14 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    if (newValue._id || newValue.Id ) {
+    if (newValue._id || newValue.Id) {
       this.data.dealUom = newValue;
       if (newValue.Unit)
         if (this.data.dealUom.Unit == this.data.defaultUom.Unit || this.data.dealUom.unit == this.data.defaultUom.unit) {
           this.data.conversion = 1;
         }
-        this.data.dealUom._id=newValue.Id;
-        this.data.dealUom.unit=newValue.Unit;
+      this.data.dealUom._id = newValue.Id;
+      this.data.dealUom.unit = newValue.Unit;
     }
   }
 
@@ -107,8 +124,8 @@ export class PurchaseOrderItem {
   }
 
   priceBeforeTaxChanged(e) {
-    this.error={};
-    
+    this.error = {};
+
     // if(this.data.priceBeforeTax%1>=0){
     //   if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
     //     this.updatePrice();
@@ -120,7 +137,7 @@ export class PurchaseOrderItem {
     // else {
     //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
     // }
-    
+
   }
 
   useIncomeTaxChanged(e) {
