@@ -26,6 +26,7 @@ export class Collection {
   @bindable add;
   @bindable remove;
   @bindable checkAll;
+  @bindable copy;
 
   itemsChanged() {
     this.buildContext();
@@ -67,11 +68,12 @@ export class Collection {
     return this.__items.constructor === Array && this.__items.length > 0;
   }
 
-  @computedFrom("add", "remove")
+  @computedFrom("add", "remove", "copy")
   get buttons() {
     var buttons = {
       add: this.add && true,
-      remove: this.remove && true
+      remove: this.remove && true,
+      copy: this.copy && true
     }
     return buttons;
   }
@@ -145,6 +147,36 @@ export class Collection {
         });
       }
       this.remove(event);
+    }
+  }
+
+  oncopy(item) {
+    var itemIndex = this.items.indexOf(item);
+    var objCopy = Object.assign({}, item);
+    delete objCopy.id;
+    delete objCopy.Id;
+    this.items.splice(itemIndex + 1, 0, objCopy);
+
+    if(this.errors && this.errors.length > 0) {
+      var error = Object.assign({}, this.errors[itemIndex]);
+      this.errors.splice(itemIndex + 1, 0, error);
+    }
+
+    if (this.copy && typeof this.copy === "function") {
+      let event;
+      var eventName = "copy";
+      if (window.CustomEvent) {
+        event = new CustomEvent(eventName, {
+          detail: item,
+          bubbles: true
+        });
+      } else {
+        event = document.createEvent('CustomEvent');
+        event.initCustomEvent(eventName, true, true, {
+          detail: item
+        });
+      }
+      this.copy(event);
     }
   }
   

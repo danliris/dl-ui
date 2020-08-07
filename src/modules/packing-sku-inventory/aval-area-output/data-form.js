@@ -1,4 +1,4 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 import moment from "moment";
 let AvalAreaLoader = require("../../../loader/output-aval-loader");
@@ -9,7 +9,7 @@ export class DataForm {
   @bindable data;
   @bindable error;
   @bindable isPenjualan;
-  // @bindable DyeingPrintingItems;
+  @bindable DyeingPrintingItems;
 
   formOptions = {
     cancelText: "Kembali",
@@ -17,7 +17,8 @@ export class DataForm {
     // deleteText: "Hapus",
     // editText: "Ubah"
   };
-
+  adjItemColumns = ["Nama Barang", "Saldo Satuan", "Saldo Berat", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+  types = ["OUT", "ADJ"];
   controlOptions = {
     label: {
       length: 4,
@@ -28,8 +29,9 @@ export class DataForm {
   };
 
   itemOptions = {};
+  detailOptions = {};
   penjualanFilter = {
-      DestinationArea: "PENJUALAN"
+    DestinationArea: "PENJUALAN"
   }
   constructor(service) {
     this.service = service;
@@ -37,11 +39,21 @@ export class DataForm {
   DOFormatter = (DoItem) => {
     return `${DoItem.DeliveryOrderSalesNO}`
   }
-  avalBonTextFormatter = (bonAval) =>{
+  avalBonTextFormatter = (bonAval) => {
     return `${bonAval.bonNo}`
   }
 
-@bindable AvalItems;
+  @computedFrom("data.type")
+  get isAdj() {
+    return this.data && this.data.type == "ADJ";
+  }
+
+  @computedFrom("data.id")
+  get isEdit() {
+    return (this.data.id || "").toString() != "";
+  }
+
+  @bindable AvalItems;
   bind(context) {
     this.context = context;
     this.service = this.context.service;
@@ -55,6 +67,97 @@ export class DataForm {
     this.isPenjualan = true;
     this.isHasData = false;
 
+    this.itemOptions = {
+      isEdit: this.isEdit
+    };
+    this.detailOptions = {
+      isEdit: this.isEdit
+    };
+
+    if (this.readOnly) {
+      this.dyeingPrintingBuyerItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+        {
+          value: "noSj",
+          header: "NO. SJ",
+        }
+      ];
+
+      this.dyeingPrintingItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+      ];
+
+      this.adjItemColumns = ["Nama Barang", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+    } else {
+      this.dyeingPrintingBuyerItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+        {
+          value: "noSj",
+          header: "NO. SJ",
+        },
+        {
+          value: "",
+          header: "",
+        }
+      ];
+      this.dyeingPrintingItemsColumns = [
+        {
+          value: "avalType",
+          header: "Nama Barang",
+        },
+        {
+          value: "avalUomUnit",
+          header: "Saldo Satuan",
+        },
+        {
+          value: "avalUomUnit",
+          header: "Saldo Berat",
+        },
+        {
+          value: "avalQuantity",
+          header: "Qty Keluar Satuan",
+        },
+        {
+          value: "avalQuantityKg",
+          header: "Qty Keluar Berat",
+        },
+      ];
+      this.adjItemColumns = ["Nama Barang", "Saldo Satuan", "Saldo Berat", "Qty Keluar Satuan", "Qty Keluar Berat", "No Dokumen"];
+    }
+
     this.data.Area = "GUDANG AVAL";
     if (this.data.id) {
       this.data.Date = this.data.date;
@@ -62,14 +165,28 @@ export class DataForm {
       this.data.Group = this.data.group;
       // this.data.DestinationArea = this.data.destinationArea;
       this.selectedZona = this.data.destinationArea;
-      var selectedBon = {};
-      selectedBon.bonNo = this.data.bonNo;
-      this.selectedAvalBon = selectedBon;
+      if (this.data.DestinationArea != "PENJUALAN") {
+        var selectedBon = {};
+        selectedBon.bonNo = this.data.bonNo;
+        selectedBon.id = this.data.id;
+        selectedBon.avalItems = this.data.avalItems;
+        this.selectedAvalBon = selectedBon;
+      }
       this.data.doNO = this.data.deliveryOrderSalesNo;
-      if (this.data.avalItems.length > 0) {
-        this.data.DyeingPrintingItems = this.data.avalItems;
-        // this.data.DyeingPrintingItemsBuyer = this.data.avalItems;
-        this.isHasData = true;
+
+
+      if (this.data.type == "OUT") {
+        if (this.data.avalItems.length > 0) {
+          this.data.DyeingPrintingItems = this.data.avalItems;
+          this.selectedAvalBon.avalItems = this.data.avalItems;
+          // this.data.DyeingPrintingItemsBuyer = this.data.avalItems;
+          this.isHasData = true;
+        }
+      } else {
+        if (this.data.avalItems) {
+          this.data.adjAvalItems = this.data.avalItems;
+        }
+
       }
     }
   }
@@ -77,12 +194,17 @@ export class DataForm {
   shifts = ["PAGI", "SIANG"];
 
   // destinationAreas = ["SHIPPING"];
-  destinationAreas = ["PENJUALAN","BUYER"];
-  
+  destinationAreas = ["PENJUALAN", "BUYER"];
+
   groups = ["A", "B"];
+  addItemCallback = (e) => {
+    this.data.adjAvalItems =
+      this.data.adjAvalItems || [];
+    this.data.adjAvalItems.push({});
+  };
 
   ExportToExcel() {
-      this.service.generateExcelReportById(this.data.id);
+    this.service.generateExcelReportById(this.data.id);
   }
 
   Date = null;
@@ -114,7 +236,7 @@ export class DataForm {
       this.error.Date = "";
     }
 
-    
+
 
     if (errorIndex == 0) {
       this.data.DyeingPrintingMovementIds = [];
@@ -144,14 +266,14 @@ export class DataForm {
     }
   }
 
-  DOLoader = (e)=>{
-    var listDo =[
+  DOLoader = (e) => {
+    var listDo = [
       {
-        "DeliveryOrderSalesID" :52,
+        "DeliveryOrderSalesID": 52,
         "DeliveryOrderSalesNO": "20US000017"
       }
     ]
-    return Promise.resolve(true).then(result=>{
+    return Promise.resolve(true).then(result => {
       return listDo;
     });
   }
@@ -196,14 +318,6 @@ export class DataForm {
       header: "Nama Barang",
     },
     {
-      value: "avalUomUnit",
-      header: "Saldo Satuan",
-    },
-    {
-      value: "avalUomUnit",
-      header: "Saldo Berat",
-    },
-    {
       value: "avalQuantity",
       header: "Qty Keluar Satuan",
     },
@@ -215,10 +329,13 @@ export class DataForm {
       value: "noSj",
       header: "NO. SJ",
     },
+    {
+      value: "",
+      header: "",
+    }
   ];
 
   addItems = (e) => {
-    // console.log(this.data.DyeingPrintingItems);
     this.data.DyeingPrintingItems = this.data.DyeingPrintingItems || [];
     this.data.DyeingPrintingItems.push({});
   };
@@ -233,31 +350,40 @@ export class DataForm {
   }
 
   @bindable selectedAvalBon
-  async selectedAvalBonChanged(n,o){
-    // console.log(n);
-    if(!this.data.id){
-      var selectedBon = await this.service.getById(n.id);
-      this.data.doNO = selectedBon.deliveryOrderSalesNo;
-      this.data.DyeingPrintingItems = selectedBon.avalItems;
-    }
+  selectedAvalBonChanged(n, o) {
+    if (this.data.id == 0 || this.data.id == undefined || this.data.id == null) {
+      this.service.getById(n.id).then((selectedBon) => {
+        this.data.doNO = selectedBon.deliveryOrderSalesNo;
+        this.data.DyeingPrintingItems = selectedBon.avalItems.filter(s => !s.hasNextAreaDocument);
+      });
 
+    }
+  }
+
+  removeDetails() {
+    this.bind();
   }
 
   @bindable selectedZona
-  selectedZonaChanged(n,o){
-    // console.log(n);
-    if(n == "PENJUALAN"){
+  selectedZonaChanged(n, o) {
+    if (n == "PENJUALAN") {
       this.isPenjualan = true;
     }
-    else{
+    else {
       this.isPenjualan = false;
     }
     this.data.DestinationArea = n;
-    if(!this.data.id){
-      this.data.DyeingPrintingItems = null;
-      this.data.DyeingPrintingItemsBuyer = null;
+
+    if (n != o && !this.data.id) {
+      this.data.DyeingPrintingItems.splice(0, this.data.DyeingPrintingItems.length);
+      this.data.selectedAvalBon = null;
       this.data.doNO = null;
-      
+
     }
+    // if( n!=o){
+    // this.data.DyeingPrintingItems = [];
+    // this.data.DyeingPrintingItemsBuyer = null;
+    // this.data.doNO = null;
+    // }
   }
 }

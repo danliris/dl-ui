@@ -16,10 +16,12 @@ export class View {
     this.service = service;
   }
 
+  canEdit = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
+    this.canEdit = this.data.type == "ADJ" || this.data.avalItems.some(s => s.hasNextAreaDocument === false);
+
     this.isShowed = false;
   }
 
@@ -33,10 +35,16 @@ export class View {
     });
   }
 
-    delete() {
-      this.service.delete(this.data)
-        .then(result => {
-          this.list();
-        });
-    }
+  delete() {
+    this.service.delete(this.data)
+      .then(result => {
+        this.list();
+      }).catch(e => {
+        if (e.statusCode == 500) {
+          alert(e.error);
+        } else {
+          this.error = e;
+        }
+      });
+  }
 }

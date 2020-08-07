@@ -11,9 +11,11 @@ export class Item {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
-
+    this.isEdit = this.contextOptions.isEdit;
     this.isShowing = false;
-
+    this.listOptions = {
+      isEdit:this.isEdit
+    };
     if (this.data.productionOrderId) {
       this.selectedProductionOrder = {};
       this.selectedProductionOrder.Id = this.data.productionOrderId;
@@ -89,9 +91,9 @@ export class Item {
       "Panjang Per Packing",
       "Qty Keluar",
     ];
-    console.log(this);
+    
   }
-
+  listOptions = {};
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce(
       (acc, curr) => acc && curr.data.IsSave,

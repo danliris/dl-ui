@@ -9,13 +9,13 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
+    canEdit = true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.hasOutputDocument === false);
-        this.canEdit=true;
+        // this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.hasOutputDocument === false);
+        this.canEdit = this.data.inspectionMaterialProductionOrders.some(s => s.hasOutputDocument === false);
         
     }
 

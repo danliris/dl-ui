@@ -74,7 +74,8 @@ export class List {
     }
 
     excel() {
-        this.service.generateExcel();
+        this.router.navigateToRoute('excel');
+        // this.service.generateExcel();
     }
 }
 

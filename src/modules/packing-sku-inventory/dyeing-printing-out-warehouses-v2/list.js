@@ -24,6 +24,7 @@ export class List {
     { field: "shift", title: "Shift" },
     { field: "destinationArea", title: "Area Tujuan" },
     { field: "group", title: "Group" },
+    { field: "type", title: "Jenis" },
   ];
 
   loader = (info) => {
@@ -59,7 +60,7 @@ export class List {
   create() {
     this.router.navigateToRoute("create");
   }
-  getExcel(){
-    this.service.generateExcelAll();
+  getExcel() {
+    this.router.navigateToRoute('excel');
   }
 }

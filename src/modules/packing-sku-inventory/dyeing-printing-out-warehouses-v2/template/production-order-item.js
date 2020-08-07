@@ -2,39 +2,48 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 let DOSalesLoader = require("../../../../loader/do-sales-loader");
 
 export class ProductionOrderItem {
-    @bindable product;
+  @bindable product;
 
-    // isAval = false;
-    // remarks = [];
-    packingItems = [];
-    
-    activate(context) {
-        this.context = context;
-        this.data = context.data;
-        this.error = context.error;
-        this.options = context.options;
-        this.contextOptions = context.context.options;
-        if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
-            this.selectedDeliveryOrderSales = {};
-      
-            this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
-            this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
-          }
+  // isAval = false;
+  // remarks = [];
+  packingItems = [];
+  packUnit = ["ROLL", "PIECE", "POTONGAN"];
+  activate(context) {
+    this.context = context;
+    this.data = context.data;
+    this.error = context.error;
+    this.options = context.options;
+    this.contextOptions = context.context.options;
+    this.isEdit = this.contextOptions.isEdit;
+    if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
+      this.selectedDeliveryOrderSales = {};
+
+      this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
+      this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
     }
 
-    controlOptions = {
-        control: {
-            length: 12
-        }
-    };
+    if (this.data.packagingQty) {
+      this.qtyPacking = this.data.packagingQty;
+    }
 
-    get doSalesLoader() {
-        return DOSalesLoader;
-      }
+    if (this.data.qty) {
+      this.qty = this.data.qty;
+    }
+  }
 
-      doSalesQuery = { DOSalesCategory: "DYEINGPRINTING" };
+  controlOptions = {
+    control: {
+      length: 12
+    }
+  };
 
-      @bindable selectedDeliveryOrderSales;
+  get doSalesLoader() {
+    return DOSalesLoader;
+  }
+
+  doSalesQuery = { DOSalesCategory: "DYEINGPRINTING" };
+
+  @bindable selectedDeliveryOrderSales;
   selectedDeliveryOrderSalesChanged(newValue, oldValue) {
     if (this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id) {
       this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
@@ -46,5 +55,21 @@ export class ProductionOrderItem {
       (acc, curr) => acc && curr.data.IsSave,
       true
     );
+  }
+
+  @bindable qtyPacking;
+  qtyPackingChanged(n, o) {
+    if (this.qtyPacking) {
+      this.data.packagingQty = this.qtyPacking;
+      this.data.balance = this.data.packagingQty * this.data.qty;
+    }
+  }
+
+  @bindable qty;
+  qtyChanged(n, o) {
+    if (this.qty) {
+      this.data.qty = this.qty;
+      this.data.balance = this.data.packagingQty * this.data.qty;
+    }
   }
 }

@@ -154,7 +154,7 @@ export class DataForm {
                                 if(Qty>0){
                                     var item={};
                                     if(this.data.Items.length>0){
-                                        var duplicate= this.data.Items.find(a=>a.Size.Id==exGoodItem.Size.Id && a.Uom.Id==exGoodItem.Uom.Id);
+                                        var duplicate= this.data.Items.find(a=>a.Size.Id==exGoodItem.Size.Id && a.Uom.Id==exGoodItem.Uom.Id && a.Description==exGoodItem.Description);
                                         
                                         if(duplicate){
                                             var idx= this.data.Items.indexOf(duplicate);
@@ -163,10 +163,12 @@ export class DataForm {
                                             this.data.Items[idx]=duplicate;
                                         }else{
                                             item.IsSave=true;
+                                            item.ExpenditureDate= exGood.ExpenditureDate;
                                             item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                             item.ExpenditureGoodId=exGood.Id;
                                             item.ExpenditureGoodItemId=exGoodItem.Id;
                                             item.Size=exGoodItem.Size;
+                                            item.SizeName=exGoodItem.Size.Size;
                                             item.StockQuantity=Qty;
                                             item.Quantity=Qty;
                                             item.Uom= exGoodItem.Uom;
@@ -177,10 +179,12 @@ export class DataForm {
                                     }
                                     else{
                                         item.IsSave=true;
+                                        item.ExpenditureDate= exGood.ExpenditureDate;
                                         item.FinishedGoodStockId=exGoodItem.FinishedGoodStockId;
                                         item.ExpenditureGoodId=exGood.Id;
                                         item.ExpenditureGoodItemId=exGoodItem.Id;
                                         item.Size=exGoodItem.Size;
+                                        item.SizeName=exGoodItem.Size.Size;
                                         item.StockQuantity=Qty;
                                         item.Quantity=Qty;
                                         item.Uom= exGoodItem.Uom;
@@ -191,7 +195,7 @@ export class DataForm {
                                 }
                             }
                         }
-
+                        this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) ||a.SizeName.localeCompare( b.SizeName));
                     });
             }
         

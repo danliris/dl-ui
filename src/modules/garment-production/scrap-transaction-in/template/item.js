@@ -9,7 +9,6 @@ export class Item {
         // this.readOnly = this.options.readOnly;
         // this.data.UomUnit = "KG";
         // this.data.Quantity = this.data.Quantity;
-        console.log(this.data);
 
     }
 }

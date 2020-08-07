@@ -39,6 +39,8 @@ export class CartItem {
             //     this.data.balance = this.data.initLength;
         } else if (this.destinationArea == "GUDANG AVAL") {
             this.remarks = [
+            ];
+            this.remarks = [
                 "Aval 2"
             ];
             this.remarksGrade = [
@@ -56,8 +58,10 @@ export class CartItem {
             //     this.data.balance = this.data.initLength;
         } else {
             this.data.avalItems = [];
+            // this.remarks = [
+            //     "A", "B", "C", "BS", "Aval 1"
+            // ];
             this.remarks = [
-                "A", "B", "C", "BS", "Aval 1"
             ];
             this.remarksGrade = [
                 "A", "B", "C", "BS", "Aval 1"

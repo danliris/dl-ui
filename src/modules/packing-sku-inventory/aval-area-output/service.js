@@ -43,8 +43,8 @@ export class Service extends RestService {
   }
   getAvalInfoByType(type) {
     var endpoint = `${serviceUri}/aval-summary-by-type`;
-    var query="";
-    if(type){
+    var query = "";
+    if (type) {
       if (query === "") query = `avalType=${type}`;
       else query = `${query}&avalType=${type}`;
     }
@@ -80,13 +80,18 @@ export class Service extends RestService {
     return super.getXls(endpoint);
   }
 
-  // update(data) {
-  //   let endpoint = `${serviceUri}/${data.id}`;
-  //   return super.put(endpoint, data);
-  // }
+  generateExcelAll(info) {
+    var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+    return super.getXls(endpoint);
+  }
 
-  // delete(data) {
-  //   let endpoint = `${serviceUri}/${data.id}`;
-  //   return super.delete(endpoint, data);
-  // }
+  update(data) {
+    let endpoint = `${serviceUri}/${data.id}`;
+    return super.put(endpoint, data);
+  }
+
+  delete(data) {
+    let endpoint = `${serviceUri}/${data.id}`;
+    return super.delete(endpoint, data);
+  }
 }

@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -9,14 +9,18 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
+    canEdit = true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
+        // if (this.data.type == "OUT") {
+        //     this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
+        // }
+
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.canEdit=true;
-        
+        this.canEdit = this.data.type == "ADJ" || this.data.shippingProductionOrders.some(s => s.hasNextAreaDocument === false);
+
+
     }
 
     list() {

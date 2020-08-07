@@ -79,6 +79,28 @@
             options.bind="controlOptions">
         </au-dropdown>
 
+        <au-dropdown
+            if.bind="data.paymentMethod=='CASH'"
+            label="Jenis PO Cash"
+            value.bind="data.poCashType"
+            error.bind="error.poCashType"
+            read-only.bind="readOnly"
+            items.bind="poCashOptions"  
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="selectedSupplier" 
+            error.bind="error.supplier"
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            text.bind = "supplierView"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-autocomplete 
             value.bind="selectedCurrency" 
             error.bind="error.currency"

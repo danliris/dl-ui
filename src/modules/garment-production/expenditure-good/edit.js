@@ -27,7 +27,7 @@ export class View {
                 items.push(item);
             }
             else{
-                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                let duplicate= items.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id&& a.Description== item.Description);
                                     
                 if(duplicate){
                     var idx= items.indexOf(duplicate);
@@ -40,6 +40,7 @@ export class View {
             }
         }
         this.data.Items=items;
+        this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) || a.Size.Size.localeCompare( b.Size.Size));
     }
 
     bind() {

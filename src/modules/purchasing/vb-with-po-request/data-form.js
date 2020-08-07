@@ -1,9 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
-var BankLoader = require('../../../loader/account-banks-loader');
-var SupplierLoader = require('../../../loader/supplier-loader');
-var BuyerLoader = require('../../../loader/buyers-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
@@ -13,8 +10,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable options = {};
     @bindable title;
-    @bindable options = { useVat: false };
+    // useVat: false 
+    @bindable selectedCurrency;
 
     controlOptions = {
         label: {
@@ -25,9 +24,6 @@ export class DataForm {
         }
     }
 
-    ListCategory = ["", "SP1 - Spinning 1", "SP2 - Spinning 2", "SP3 - Spinning 3", "WV1 - Weaving 1", "WV2 - Weaving 2", "DP - Dyeing Printing", "UTL - Utility"
-        , "UM - Umum", "K1A - Konfeksi 1A", "K1B - Konfeksi 1B", "K2A - Konfeksi 2A", "K2B - Konfeksi 2B", "K2C - Konfeksi 2C"];
-
     itemsColumns = [{ header: "Nomor PO", value: "purchaseRequest.no" },
     { header: "Unit", value: "Unit" }]
 
@@ -37,17 +33,27 @@ export class DataForm {
     }
 
     bind(context) {
+
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
+        this.data.TotalPaid = this.getTotalPaid;
+
         if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
+        }
+        this.selectedCurrency = this.data.Currency;
+
+        if (this.data.TotalPaid) {
+            this.TotalPaid = this.data.TotalPaid;
+            this.data.TotalPaid = this.getTotalPaid;
         }
     }
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.Items.push({ purchaseRequest: { no: "" } })
         };
     }
 
@@ -57,22 +63,99 @@ export class DataForm {
 
     @bindable selectedCurrency;
     selectedCurrencyChanged(newValue, oldValue) {
+
         this.data.Currency = newValue;
+        if (this.data.Currency) {
+            this.options.CurrencyCode = this.data.Currency.Code;
+        }
     }
 
     @bindable selectedUnit;
-    selectedUnitChanged(newValue, oldValue){
+    selectedUnitChanged(newValue, oldValue) {
         if (this.selectedUnit && this.selectedUnit.Id) {
             this.data.unit = {};
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
+
+            if (this.selectedUnit.Division) {
+                this.data.division = {};
+                this.data.division.id = this.selectedUnit.Division.Id;
+                this.data.division.name = this.selectedUnit.Division.Name;
+            }
+            else {
+                this.data.division = {};
+                this.data.division.id = this.data.Division.Id;
+                this.data.division.name = this.data.Division.Name;
+            }
         }
         else {
             this.data.unit.id = this.selectedUnit.id;
             this.data.unit.name = this.selectedUnit.name;
             this.data.unit.code = this.selectedUnit.code;
         }
+    }
+
+    // get getTotalPaid() {
+    //     var result = 0;
+    //     console.log(this.data.Items)
+    //     if (this.data.Items) {
+    //         console.log(this.data.Items)
+    //         // if (this.data.Items.items) {
+    //         if(this.data.Items.length > 1){
+
+    //             for (var productList of this.data.items) {
+    //                 console.log(productList)
+    //                 for (var proddetail of productList.details) {
+    //                     console.log(proddetail.priceBeforeTax)
+    //                     result += proddetail.priceBeforeTax;
+    //                 }
+    //             }
+    //         }
+
+    //         // }
+
+    //     }
+    //     this.data.TotalPaid = result;
+    //     return result;
+    // }
+
+    get getTotalPaid() {
+        var result = 0;
+        // console.log(this.data.Items)
+        if (this.data.Items) {
+            // console.log("masuk")
+            // console.log(this.data.Items)
+            for (var productList of this.data.Items) {
+                // console.log(productList.details)
+                if (productList.details) {
+
+                    for (var proddetail of productList.details) {
+                        // console.log(proddetail.priceBeforeTax)
+                        result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g,"")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g,""));
+                    }
+                }
+                else if(productList.Details){
+                    for (var proddetail of productList.Details) {
+                        // console.log(proddetail.priceBeforeTax)
+                        result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g,"")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g,""));
+                    }
+                }
+            }
+        }
+
+        // else {
+        //     if (this.data.items) {
+        //         for (var productList of this.data.items) {
+        //             for (var proddetail of productList.details) {
+        //                 result += proddetail.priceBeforeTax * proddetail.defaultQuantity;
+        //             }
+        //         }
+        //     }
+
+        // }
+        this.data.TotalPaid = result;
+        return result.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
 
     unitView = (unit) => {
@@ -83,4 +166,5 @@ export class DataForm {
     get unitLoader() {
         return UnitLoader;
     }
+
 }

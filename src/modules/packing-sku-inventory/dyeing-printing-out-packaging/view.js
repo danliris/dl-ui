@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 import * as _ from 'underscore';
 // import{Underscore} from 'underscore';
 
@@ -10,44 +10,44 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
+    canEdit = true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        // console.log(await this.service.getById(id));
-        // console.log(this.data);
-        // console.log(this);
-        var groupObj = _.groupBy(this.data.packagingProductionOrders,'productionOrderNo');
-        // console.log(groupObj);
-        var mappedGroup = _.map(groupObj);
-        // console.log(mappedGroup);
+        // if (this.data.type == "OUT") {
+        //     this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
+        // }
+
+        this.canEdit = this.data.type == "ADJ" || this.data.packagingProductionOrders.some(s => s.hasNextAreaDocument === false);
+        var groupObj = _.groupBy(this.data.packagingProductionOrders, 'productionOrderNo');
         
+        var mappedGroup = _.map(groupObj);
+        
+
         var packagingProductionOrdersGroup = [];
-        mappedGroup.forEach((element,index) => {
+        mappedGroup.forEach((element, index) => {
             var headData = {};
-            
-            element.forEach((x,i)=>{
-                if(i==0){
-                    // console.log(x);
+            element.forEach((x, i) => {
+                
+                if (i == 0) {
+                    
                     headData = x;
                     headData.PackagingList = [];
-                    // console.log(headData);
+                    
                 }
-                // console.log(x);
-                headData.PackagingList.push(x);
+                
+                if (headData.PackagingList != undefined) {
+                    headData.PackagingList.push(x);
+                }
             });
             // var headData = element[0]
-            // console.log(headData);
-            // console.log(element);
-            // console.log(headData);
-        //     headData.PackagingList = element;
-        //     packagingProductionOrdersGroup.push(headData);
+            
+            //     headData.PackagingList = element;
+            packagingProductionOrdersGroup.push(headData);
         });
-        // console.log(packagingProductionOrdersGroup);
-        // this.data.packagingProductionOrders = packagingProductionOrdersGroup;
         
-        this.canEdit=true;
-        
+        this.data.packagingProductionOrders = packagingProductionOrdersGroup;
+
     }
 
     list() {

@@ -36,6 +36,7 @@ export class View {
 
             for(var item of this.data.Items){
                 let preparing=await this.service.readPreparing(item.PreparingId);
+                item.ProcessDate= preparing.ProcessDate;
                 for(var detail of item.Details){
                     detail.ComodityPrice=this.data.Price;
                     var prepItem= preparing.Items.find(a=>a.Id==detail.PreparingItemId);
@@ -55,6 +56,16 @@ export class View {
     }
 
     saveCallback(event) {
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                for(var detail of item.Details){
+                    if(detail.IsSave){
+                        if(this.data.PreparingDate==null || this.data.PreparingDate<item.ProcessDate)
+                            this.data.PreparingDate=item.ProcessDate;
+                    }
+                }
+            }
+        }
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

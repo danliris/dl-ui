@@ -163,12 +163,14 @@ export class DataForm {
                             for(var finishingInItem of finishingIn.Items){
                                 var item={};
                                 if(finishingInItem.RemainingQuantity>0){
+                                    item.FinishingInDate=finishingIn.FinishingInDate;
                                     item.FinishingInItemId=finishingInItem.Id;
                                     item.FinishingInId=finishingIn.Id;
                                     item.Quantity=finishingInItem.RemainingQuantity;
                                     item.Product=finishingInItem.Product;
                                     item.Uom=finishingInItem.Uom;
                                     item.Size=finishingInItem.Size;
+                                    item.SizeName=finishingInItem.Size.Size;
                                     item.FinishingInQuantity=finishingInItem.RemainingQuantity;
                                     item.Color=finishingInItem.Color;
                                     item.DesignColor=finishingInItem.DesignColor;
@@ -179,6 +181,7 @@ export class DataForm {
                                 }
                             }
                         }
+                        this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
                     });
             }
             else {

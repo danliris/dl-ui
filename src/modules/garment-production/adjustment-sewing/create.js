@@ -35,6 +35,16 @@ export class Create {
 
     saveCallback(event) {
         this.data.AdjustmentType="SEWING";
+        this.data.ProcessDate=null ;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave){
+                    if(this.data.ProcessDate==null || this.data.ProcessDate<item.ProcessDate)
+                        this.data.ProcessDate=item.ProcessDate;
+                }
+            }
+        }
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

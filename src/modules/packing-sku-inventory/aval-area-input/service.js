@@ -66,4 +66,9 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/${data.id}`;
     return super.delete(endpoint, data);
   }
+
+  generateExcel(info) {
+    var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+    return super.getXls(endpoint);
+}
 }

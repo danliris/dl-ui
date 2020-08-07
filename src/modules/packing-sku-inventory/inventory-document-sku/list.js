@@ -2,61 +2,72 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
-import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
-    columns = [
-        { field: "code", title: "Kode" },
-        {
-            field: "date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        { field: "referenceNo", title: "No Referensi" },
-        { field: "referenceType", title: "Jenis Referensi" },
-        { field: "storage.name", title: "Nama Gudang" }
-    ];
+  dataToBePosted = [];
 
-    loader = (info) => {
-        let order = {};
+  context = ["detail"]
 
-        let arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search
-        };
+  columns = [
+    { field: "documentNo", title: "No. Dokumen" },
+    {
+      field: "date", title: "Tanggal", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
+    { field: "referenceNo", title: "No. Referensi" },
+    { field: "referenceType", title: "Jenis Referensi" },
+    { field: "storageName", title: "Gudang" },
+    { field: "type", title: "Status" }
+  ];
 
-        return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.total,
-                    data: result.data
-                }
-            });
+  loader = (info) => {
+    var order = {};
+    if (info.sort)
+      order[info.sort] = info.order;
+    // console.log(info)
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
     }
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
-
-    contextCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
-        switch (arg.name) {
-            case "Rincian":
-                this.router.navigateToRoute('view', { id: data.Id });
-                break;
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.total,
+          data: result.data
         }
-    }
+      });
+  }
 
-    create() {
-        this.router.navigateToRoute('create');
-    }
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
 
-    post() {
-        this.router.navigateToRoute('post');
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute('view', { id: data.Id });
+        break;
     }
+  }
+
+  contextShowCallback(index, name, data) {
+    switch (name) {
+      case "view":
+        return true;
+      default:
+        return true;
+    }
+  }
+
+  create() {
+    this.router.navigateToRoute('create');
+  }
 }

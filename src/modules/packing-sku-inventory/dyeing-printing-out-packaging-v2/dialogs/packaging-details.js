@@ -54,7 +54,7 @@ export class PackagingDetailsForm {
                 // packagingUnit:""
             }
         );
-        console.log(this.data.packagingProductionOrdersDetails);
+        
         
     }
 }

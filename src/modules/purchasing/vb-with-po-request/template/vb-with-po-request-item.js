@@ -1,4 +1,4 @@
-import {bindable} from 'aurelia-framework'
+import { bindable } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 var PurchaseOrderLoader = require('../../../../loader/purchase-order-external-loader');
@@ -25,13 +25,13 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.useVat = this.context.context.options.useVat || false;
+    // this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
-    this._items=[];
+    this._items = [];
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.Details) {
-        this.data.Items=this.data.Details;
+        this.data.Items = this.data.Details;
         this.isShowing = true;
       }
       if (this.data.Items) {
@@ -43,8 +43,11 @@ export class PurchaseOrderItem {
     //   "UnitName":this.context.context.options.unitCode,
     //   "IsPosted":false
     // };
-    this.filter={
-      "POCashType":"VB",
+    this.filter = {
+      "POCashType": "VB",
+      "isPosted": true,
+      "IsCreateOnVBRequest": false,
+      "CurrencyCode": this.context.context.options.CurrencyCode
     };
   }
 
@@ -53,25 +56,51 @@ export class PurchaseOrderItem {
   }
 
   async selectedPurchaseOrderChanged(newValue) {
-    this._items=[];
-    if(newValue)
+    this._items = [];
+    if (newValue)
       if (newValue._id) {
         Object.assign(this.data, newValue);
-        for (var productList of this.data.Items){
+        if (this.data.items) {
 
-            for(var proddetail of productList.Details){
-                var itemData = {
-                    product : proddetail.product,
-                    defaultQuantity : proddetail.defaultQuantity,
-                    conversion : proddetail.conversion,
-                    priceBeforeTax : proddetail.priceBeforeTax,
-                    productRemark : proddetail.productRemark,
-                    dealUom : proddetail.dealUom
-                };
-                this._items.push(itemData);
+          for (var productList of this.data.items) {
+            for (var proddetail of productList.details) {
+              var itemData = {
+                useVat: this.data.useVat,
+                product: proddetail.product,
+                defaultQuantity: proddetail.defaultQuantity,
+                conversion: proddetail.conversion,
+                priceBeforeTax: proddetail.priceBeforeTax,
+                productRemark: proddetail.productRemark,
+                dealUom: proddetail.dealUom,
+                includePpn: proddetail.includePpn
+              };
+              this._items.push(itemData);
             }
 
+          }
+
         }
+        else {
+          for (var productList of this.data.Items) {
+
+            for (var proddetail of productList.Details) {
+              var itemData = {
+                useVat: this.data.useVat,
+                product: proddetail.product,
+                defaultQuantity: proddetail.defaultQuantity,
+                conversion: proddetail.conversion,
+                priceBeforeTax: proddetail.priceBeforeTax,
+                productRemark: proddetail.productRemark,
+                dealUom: proddetail.dealUom,
+                includePpn: proddetail.includePpn
+              };
+              this._items.push(itemData);
+            }
+
+          }
+        }
+
+
 
         // var productList = this.data.items.map((item) => { return item.product._id });
         // console.log(productList);
@@ -100,9 +129,31 @@ export class PurchaseOrderItem {
         //     }
         //   });
         this.isShowing = true;
-        
-        this.data.details=this._items;
+
+        this.data.details = this._items;
       }
+  }
+
+  get getTotalPaid() {
+    var result = 0;
+    if (this.data.Items) {
+      for (var productList of this.data.Items) {
+        result += productList.priceBeforeTax * productList.dealQuantity;
+      }
+    }
+
+    else {
+      if(this.data.items){
+        for (var productList of this.data.items) {
+          for (var proddetail of productList.details) {
+            result += proddetail.priceBeforeTax * proddetail.defaultQuantity;
+          }
+        }
+      }
+      
+    }
+    this.data.TotalPaid = result;
+    return result.toLocaleString('en-EN', { minimumFractionDigits: 2 });
   }
 
   toggle() {
@@ -117,7 +168,7 @@ export class PurchaseOrderItem {
   }
 
   unitView = (purchaseOrder) => {
-      return purchaseOrder.prNo
+    return purchaseOrder.prNo
   }
 
   controlOptions = {

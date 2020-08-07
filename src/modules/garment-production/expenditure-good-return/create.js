@@ -36,6 +36,15 @@ export class Create {
 
     saveCallback(event) {
         this.data.ReturType="EXPORT";
+        this.data.ExpenditureDate=null;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                if(item.IsSave){
+                    if(this.data.ExpenditureDate==null || this.data.ExpenditureDate<item.ExpenditureDate)
+                        this.data.ExpenditureDate=item.ExpenditureDate;
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

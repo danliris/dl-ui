@@ -143,8 +143,6 @@ export class Create {
     // } else {
     //   CreateData.AvalItems = [{}];
     // }
-    // console.log(CreateData);
-    // console.log(this.data);
     this.service
       .create(CreateData)
       .then((result) => {
@@ -212,7 +210,6 @@ export class Create {
       movement.ProductionOrderIds=listspp;
       CreateData.DyeingPrintingMovementIds.push(movement);
     });
-    console.log(CreateData);
     this.service
       .reject(CreateData)
       .then((result) => {

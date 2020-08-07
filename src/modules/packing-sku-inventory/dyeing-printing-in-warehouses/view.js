@@ -10,12 +10,16 @@ export class View {
 
     this.isShowed = false;
   }
-
+  canEdit = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
     //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-    this.canEdit = true;
+    // for(var item of this.data.warehousesProductionOrders){
+    //   item.productionOrderItems = item.productionOrderItems.filter(s => s.hasOutputDocument === false);
+    // }
+    this.canEdit = this.data.warehousesProductionOrders.flatMap(s => s.productionOrderItems).some(s => s.hasOutputDocument === false);
+
   }
 
   list() {

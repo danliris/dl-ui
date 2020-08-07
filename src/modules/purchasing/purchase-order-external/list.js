@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -31,7 +31,17 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
+        {
+            field: "paymentMethod", title: "Jenis PO",
+            formatter: function (value, data, index) {
+
+                if(data.paymentMethod === "CASH") {
+                    return `${data.paymentMethod} ${data.poCashType}`;
+                } else {
+                    return `${data.paymentMethod}`;
+                }
+            }
+        },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request", sortable: false },
         {
             field: "isPosted", title: "Status Post",
@@ -56,11 +66,11 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
-                    _data.Id= _data._id?_data._id:_data.Id;
+                    _data.Id = _data._id ? _data._id : _data.Id;
                     var prNo = _data.items.map(function (item) {
                         return `<li>${item.prNo}</li>`;
                     });
-                    var uniqueArray = prNo.filter(function(item, pos) {
+                    var uniqueArray = prNo.filter(function (item, pos) {
                         return prNo.indexOf(item) == pos;
                     })
                     _data.purchaseRequestNo = `<ul>${uniqueArray.join()}</ul>`;

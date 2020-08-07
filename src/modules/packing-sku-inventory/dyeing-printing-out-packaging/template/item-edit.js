@@ -16,7 +16,7 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
-        // console.log(this);
+        
         // this.destinationArea = this.dataForm.data.destinationArea;
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType=["WHITE","DYEING","BATIK","TEXTILE","DIGITAL PRINT","TRANFER PRINT"];
@@ -55,7 +55,7 @@ export class CartItem {
             } else {
                 this.data.unit = "DYEING"
             }
-            console.log(this);
+            
         }
     }
 
@@ -93,6 +93,8 @@ export class CartItem {
             this.data.productionOrder.no = this.selectedProductionOrder.productionOrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.productionOrder.type;
             this.data.balance = this.selectedProductionOrder.balance;
+            this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
+            this.data.dyeingPrintingAreaInputProductionOrderId = this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId;
             this.data.qtyOrder = this.selectedProductionOrder.qtyOrder;
             if (this.selectedProductionOrder.construction) {
                 this.data.construction = this.selectedProductionOrder.construction;

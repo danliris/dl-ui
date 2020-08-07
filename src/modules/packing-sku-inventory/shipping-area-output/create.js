@@ -27,7 +27,11 @@ export class Create {
     }
 
     save() {
-        this.data.shippingProductionOrders = this.data.displayShippingProductionOrders;
+        if (this.data.type == "OUT") {
+            this.data.shippingProductionOrders = this.data.displayShippingProductionOrders;
+        } else {
+            this.data.shippingProductionOrders = this.data.adjShippingProductionOrders;
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
