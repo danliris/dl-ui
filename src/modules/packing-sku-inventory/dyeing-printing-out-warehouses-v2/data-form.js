@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
 let WarehouseBonAreaLoader = require("../../../loader/input-warehouses-bon-loader");
-
+let FilterSPPLoader = require("../../../loader/pre-output-warehouse-spp-loader");
 @inject(Service)
 export class DataForm {
   @bindable title;
@@ -151,5 +151,25 @@ export class DataForm {
 
   ExportToExcel() {
     this.service.generateExcel(this.data.id);
+  }
+
+  get filterSPPLoader() {
+    return FilterSPPLoader;
+  }
+  sppTextFormatter = (spp) => {
+    return `${spp.productionOrder.no}`
+  }
+
+  @bindable selectedFilterSPP;
+  async selectedFilterSPPChanged(n, o) {
+    if (this.selectedFilterSPP) {
+
+      this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2ById(this.selectedFilterSPP.productionOrder.id);
+     
+    } else {
+
+      this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
+      
+    }
   }
 }
