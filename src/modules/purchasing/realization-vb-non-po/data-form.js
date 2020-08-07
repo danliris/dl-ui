@@ -66,6 +66,7 @@ export class DataForm {
 
         if (this.data.numberVB && this.data.numberVB.VBNo) {
             this.numberVB = this.data.numberVB;
+            // console.log(this.numberVB)
         }
 
         this.filter = {
@@ -148,11 +149,102 @@ export class DataForm {
         if (this.data.numberVB) {
             this.data.UnitLoad = this.data.numberVB.UnitLoad;
             this.data.AmountVBReq = this.data.numberVB.Amount;
-            // console.log(this.data.numberVB)
+            
+            if(this.data.TypeVBNonPO == "Dengan Nomor VB"){
+                
+                for (var unitweight of this.data.numberVB.PONo) {
+                    
+                    if(unitweight.UnitName == "Spinning1"){
+                        this.data.Spinning1VB = true;
+                    }
+
+                    if(unitweight.UnitName == "Spinning2"){
+                        this.data.Spinning2VB = true;
+                    }
+
+                    if(unitweight.UnitName == "Spinning3"){
+                        this.data.Spinning3VB = true;
+                    }
+
+                    if(unitweight.UnitName == "Weaving1"){
+                        this.data.Weaving1VB = true;
+                    }
+
+                    if(unitweight.UnitName == "Weaving2"){
+                        this.data.Weaving2VB = true;
+                    }
+
+                    if(unitweight.UnitName == "Finishing"){
+                        this.data.FinishingVB = true;
+                    }
+                     
+                    if(unitweight.UnitName == "Printing"){
+                        this.data.PrintingVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Konfeksi1A"){
+                        this.data.Konfeksi1AVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Konfeksi1B"){
+                        this.data.Konfeksi1BVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Konfeksi2A"){
+                        this.data.Konfeksi2AVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Konfeksi2B"){
+                        this.data.Konfeksi2BVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Konfeksi2C"){
+                        this.data.Konfeksi2CVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Umum"){
+                        this.data.UmumVB = true;
+                    }
+
+                    if(unitweight.UnitName == "Others"){
+                        this.data.OthersVB = true;
+                    }
+                }
+            }
         }
         else {
             this.data.numberVB = {};
 
+            this.data.Spinning1VB = false;
+            this.data.Spinning2VB = false;
+            this.data.Spinning3VB = false;
+            this.data.Weaving1VB = false;
+            this.data.Weaving2VB = false;
+            this.data.FinishingVB = false;
+            this.data.PrintingVB = false;
+            this.data.Konfeksi1AVB = false;
+            this.data.Konfeksi1BVB = false;
+            this.data.Konfeksi2AVB = false;
+            this.data.Konfeksi2BVB = false;
+            this.data.Konfeksi2CVB = false;
+            this.data.UmumVB = false;
+            this.data.OthersVB = false;
+
+            this.data.AmountSpinning1VB = 0;
+            this.data.AmountSpinning2VB = 0;
+            this.data.AmountSpinning3VB = 0;
+            this.data.AmountWeaving1VB = 0;
+            this.data.AmountWeaving2VB = 0;
+            this.data.AmountFinishingVB = 0;
+            this.data.AmountPrintingVB = 0;
+
+            this.data.AmountKonfeksi1AVB = 0;
+            this.data.AmountKonfeksi1BVB = 0;
+            this.data.AmountKonfeksi2AVB = 0;
+            this.data.AmountKonfeksi2BVB = 0;
+            this.data.AmountKonfeksi2CVB = 0;
+            this.data.AmountUmumVB = 0;
+            this.data.AmountOthersVB = 0;
         }
     }
 
@@ -231,6 +323,14 @@ export class DataForm {
             return "..........";
         } else {
             return this.data.DetailOthers;
+        }
+    }
+
+    get getOthersValueVB() {
+        if (this.data.DetailOthersVB) {
+            return this.data.DetailOthersVB;
+        } else {
+            return "..........";
         }
     }
 
