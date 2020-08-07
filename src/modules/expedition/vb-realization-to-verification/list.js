@@ -22,9 +22,9 @@ export class List {
     { title: "Nominal Realisasi VB", colspan: "2" }
   ], [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBAmount", title: "Mata Uang" },
+    { field: "VBAmount", title: "Nominal VB" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBRealizationAmount", title: "Mata Uang" }
+    { field: "VBRealizationAmount", title: "Nominal Realisasi VB" }
   ]];
 
   loader = (info) => {

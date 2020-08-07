@@ -10,14 +10,14 @@
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih permintaan vb"
                          value.bind="data.vbRequest"
-                         loader.one-time="vbRequestLoader"
+                         loader.bind="vbRequestLoader"
                          text="VBNo">
         </au-autocomplete>
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih realisasi vb"
                          value.bind="data.vbRealization"
-                         loader.one-time="vbRealizationLoader"
+                         loader.bind="vbRealizationLoader"
                          text="VBNoRealize">
         </au-autocomplete>
       </div>
@@ -28,14 +28,14 @@
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih nama pemohon"
                          value.bind="data.account"
-                         loader.one-time="accountLoader"
+                         loader.bind="accountLoader"
                          text="username">
         </au-autocomplete>
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih unit"
                          value.bind="data.unit"
-                         loader.one-time="unitLoader"
+                         loader.bind="unitLoader"
                          text="Name">
         </au-autocomplete>
       </div>

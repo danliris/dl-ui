@@ -26,17 +26,17 @@ export class List {
     { field: 'VBRealizationNo', title: 'Nomor Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
-    { field: 'DivisionName', title: 'Divisi' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
-      },
-    }
+      }
+    },
+    { field: 'CurrencyCode', title: 'Mata Uang' }
   ];
 
   columns2 = [
     {
-      field: 'SendToVerificationDate', title: 'Tanggal Masuk Verifikasi', formatter: function (value, data, index) {
+      field: 'CashierReceiptDate', title: 'Tanggal Penerimaan Kasir', formatter: function (value, data, index) {
         return moment(value).format('DD MMM YYYY');
       },
     },
@@ -49,12 +49,12 @@ export class List {
     { field: 'VBRealizationNo', title: 'Nomor Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
-    { field: 'DivisionName', title: 'Divisi' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
-      },
-    }
+      }
+    },
+    { field: 'CurrencyCode', title: 'Mata Uang' }
   ];
 
   constructor(router, service, dialog, permissionHelper) {
