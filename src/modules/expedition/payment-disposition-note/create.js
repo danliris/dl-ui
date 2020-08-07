@@ -113,7 +113,7 @@ export class Create {
                 var currency= this.data.CurrencyCode ? this.data.CurrencyCode : this.selectedBank.Currency.Code;
                 let arg = {
                     page: 1,
-                    size: Number.MAX_SAFE_INTEGER,
+                    size: 1000,
                     filter: JSON.stringify({ "CurrencyCode": currency, "SupplierCode": newVal.code, "IsPaid": false , "Position":"7"}) //CASHIER DIVISION
                 };
                 await this.DispositionData(arg);
@@ -163,7 +163,7 @@ export class Create {
             if(this.selectedSupplier){
                 let arg = {
                     page: 1,
-                    size: Number.MAX_SAFE_INTEGER,
+                    size: 1000,
                     filter: JSON.stringify({"CurrencyCode": this.selectedBank.Currency.Code, "SupplierCode": this.selectedSupplier.code, "IsPaid": false, "Position":"7" }) 
                 };
                 await this.DispositionData(arg);
