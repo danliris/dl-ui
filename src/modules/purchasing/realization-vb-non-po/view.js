@@ -8,6 +8,8 @@ export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
+  isShowing = false;
+  isShowingAmount = true;
 
   constructor(router, service, dialog) {
     this.router = router;

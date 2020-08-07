@@ -10,51 +10,279 @@
         if.one-way="context.hasDelete">Hapus</button>
     </div>
 
-    <au-textbox value.bind="data.VBRealizationNo" if.bind="data.VBRealizationNo" label="No Realisasi VB" read-only.bind="true"
-      options.bind="controlOptions">
+    <au-textbox value.bind="data.VBRealizationNo" if.bind="data.VBRealizationNo" label="No Realisasi VB"
+      read-only.bind="true" options.bind="controlOptions">
     </au-textbox>
 
-    <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly || isEdit"
+    <au-datepicker label="Tanggal Realisasi" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly || isEdit"
       options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No VB" loader.one-time="vbLoader" text="VBNo"
-      read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB" query.bind="filter">
-    </au-autocomplete>
-
-    <au-datepicker label="Tanggal VB" value.bind="data.numberVB.Date" read-only.bind="true"
+    <au-dropdown label="Tipe VB" items.bind="NumberVbOptions" value.bind="data.TypeVBNonPO"
+      error.bind="error.TypeVBNonPO" read-only.bind="readOnly" placeholder="Pilih Nomor VB"
       options.bind="controlOptions">
-    </au-datepicker>
+    </au-dropdown>
 
-    <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.numberVB.DateEstimate" read-only.bind="true"
-      options.bind="controlOptions">
-    </au-datepicker>
+    <div if.bind="data.TypeVBNonPO =='Dengan Nomor VB'">
 
-    <au-textbox label="Pemohon VB" value.bind="data.numberVB.CreateBy" read-only.bind="true"
-      options.bind="controlOptions">
+      <au-autocomplete value.bind="numberVB" error.bind="error.VBCode" label="No VB" loader.one-time="vbLoader"
+        text="VBNo" read-only.bind="readOnly || isEdit" options.bind="controlOptions" placeholder="Cari Kode VB"
+        query.bind="filter">
+      </au-autocomplete>
+
+      <au-datepicker label="Tanggal VB" value.bind="data.numberVB.Date" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.numberVB.DateEstimate" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-textbox label="Pemohon VB" value.bind="data.numberVB.CreatedBy" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-textbox>
+
+      <au-textbox label="Mata Uang" value.bind="data.numberVB.CurrencyCode" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-textbox>
+
+      <au-textbox label="Unit" value.bind="data.numberVB.UnitName" read-only.bind="true" options.bind="controlOptions">
+      </au-textbox>
+
+    </div>
+
+    <div if.bind="data.TypeVBNonPO =='Tanpa Nomor VB'">
+
+      <au-datepicker label="Tanggal VB" value.bind="data.DateVB" error.bind="error.DateVB"
+        read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-datepicker label="Estimasi Tanggal Realisasi" value.bind="data.DateEstimateVB"
+        error.bind="error.DateEstimateVB" read-only.bind="readOnly" options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-autocomplete value.bind="selectedUnit" error.bind="error.VBCodeManual" label="Unit Pemohon"
+        loader.one-time="unitLoader" text.bind="unitView" read-only.bind="readOnly || isEdit"
+        options.bind="controlOptions" placeholder="Cari Unit Pemohon">
+      </au-autocomplete>
+
+      <au-autocomplete label="Mata Uang" placeholder="pilih mata uang" value.bind="selectedCurrency"
+        error.bind="error.Currency" loader.one-time="currencyLoader" text="Code" read-only.bind="readOnly"
+        options.bind="controlOptions">
+      </au-autocomplete>
+
+      <au-numeric label="Jumlah Uang" value.bind="data.AmountVB" error.bind="error.AmountVB" read-only.bind="readOnly"
+        format="0,0.00" options.bind="controlOptions">
+      </au-numeric>
+
+      <au-textbox error.bind="error.UnitLoadCheck" show.bind="error.UnitLoadCheck" read-only.bind="true">
+      </au-textbox>
+
+      <div class="row">
+        <div class="col-sm-5" style="padding-left:3.5%">
+          <au-textbox label="Beban Unit :" read-only.bind="true">
+          </au-textbox>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2">
+          <au-checkbox label="Spinning 1" value.bind="data.Spinning1" error.bind="error.Spinning1"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountSpinning1" error.bind="error.AmountSpinning1"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Weaving 1" value.bind="data.Weaving1" error.bind="error.Weaving1"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountWeaving1" error.bind="error.AmountWeaving1"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Printing" value.bind="data.Printing" error.bind="error.Printing" read-only.bind="readOnly"
+            options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountPrinting" error.bind="error.AmountPrinting"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Konfeksi 2A" value.bind="data.Konfeksi2A" error.bind="error.Konfeksi2A"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountKonfeksi2A" error.bind="error.AmountKonfeksi2A"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+
+        <div class="col-sm-2">
+          <au-checkbox label="Umum" value.bind="data.Umum" error.bind="error.Umum" read-only.bind="readOnly"
+            options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountUmum" error.bind="error.AmountUmum"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2">
+          <au-checkbox label="Spinning 2" value.bind="data.Spinning2" error.bind="error.Spinning2"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountSpinning2" error.bind="error.AmountSpinning2"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Weaving 2" value.bind="data.Weaving2" error.bind="error.Weaving2"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountWeaving2" error.bind="error.AmountWeaving2"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Konfeksi 1A" value.bind="data.Konfeksi1A" error.bind="error.Konfeksi1A"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountKonfeksi1A" error.bind="error.AmountKonfeksi1A"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Konfeksi 2B" value.bind="data.Konfeksi2B" error.bind="error.Konfeksi2B"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountKonfeksi2B" error.bind="error.AmountKonfeksi2B"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label.bind="getOthersValue" value.bind="data.Others" error.bind="error.Others"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowing">
+            <au-textbox value.bind="data.DetailOthers" error.bind="error.DetailOthers" read-only.bind="readOnly"
+              placeholder="Beban Unit Lain" options.bind="controlOptionsDetail">
+            </au-textbox>
+
+            <div show.bind="isShowingAmount">
+              <au-numeric value.bind="data.AmountOthers" error.bind="error.AmountOthers"
+                read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+              </au-numeric>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2">
+          <au-checkbox label="Spinning 3" value.bind="data.Spinning3" error.bind="error.Spinning3"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountSpinning3" error.bind="error.AmountSpinning3"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Finishing" value.bind="data.Finishing" error.bind="error.Finishing"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountFinishing" error.bind="error.AmountFinishing"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Konfeksi 1B" value.bind="data.Konfeksi1B" error.bind="error.Konfeksi1B"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountKonfeksi1B" error.bind="error.AmountKonfeksi1B"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <au-checkbox label="Konfeksi 2C" value.bind="data.Konfeksi2C" error.bind="error.Konfeksi2C"
+            read-only.bind="readOnly" options.bind="controlOptionsLabel">
+          </au-checkbox>
+
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountKonfeksi2C" error.bind="error.AmountKonfeksi2C"
+              read-only.bind="readOnly" format="0,0.00" options.bind="controlOptionsDetail">
+            </au-numeric>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <au-textbox error.bind="error.Item" show.bind="error.Item" read-only.bind="true">
     </au-textbox>
 
-    <au-textbox label="Mata Uang" value.bind="data.numberVB.CurrencyCode" read-only.bind="true"
-      options.bind="controlOptions">
-    </au-textbox>
-
-    <au-textbox label="Unit" value.bind="data.numberVB.UnitName" read-only.bind="true"
-      options.bind="controlOptions">
-    </au-textbox>
-
-    <au-textbox error.bind="error.Item"
-                    show.bind="error.Item"
-                    read-only.bind="true">
-        </au-textbox>
-
-        <au-collection items.bind="data.Items"
-                       errors.bind="error.Items"
-                       columns.bind="columns"
-                       add.bind="addItems"
-                       remove.bind="onremove"
-                       read-only.bind="readOnly"
-                       item-template="modules/purchasing/realization-vb-non-po/templates/item">
-        </au-collection>
+    <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
+      remove.bind="onremove" read-only.bind="readOnly"
+      item-template="modules/purchasing/realization-vb-non-po/templates/item">
+    </au-collection>
 
   </au-input-form>
 </template>
