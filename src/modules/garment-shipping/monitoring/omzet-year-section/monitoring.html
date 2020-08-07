@@ -1,4 +1,5 @@
 <template>
+    <require from="lib/number-format-value-converter"></require>
     <h1 class="page-header">Report Omzet Per Tahun Per Seksi</h1>
     <form class="form-horizontal">
         <au-dropdown label="Tahun" value.bind="selectedYear" read-only.bind="readOnly" items.bind="yearOptions"
@@ -25,17 +26,17 @@
                 <tbody>
                     <tr repeat.for="table of data.tables">
                         <td>${table.month}</td>
-                        <td class="text-right" repeat.for="unit of data.sections">${table.items[unit]}</td>
+                        <td class="text-right" repeat.for="unit of data.sections">${table.items[unit] | numberFormat:'0,000.00'}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr class="info">
                         <td class="text-center">T O T A L</td>
-                        <td class="text-right" repeat.for="unit of data.sections">${data.totals[unit]}</td>
+                        <td class="text-right" repeat.for="unit of data.sections">${data.totals[unit] | numberFormat:'0,000.00'}</td>
                     </tr>
                     <tr class="info">
                         <td class="text-center">AVERAGE</td>
-                        <td class="text-right" repeat.for="unit of data.sections">${data.averages[unit]}</td>
+                        <td class="text-right" repeat.for="unit of data.sections">${data.averages[unit] | numberFormat:'0,000.00'}</td>
                     </tr>
                 </tfoot>
             </table>
