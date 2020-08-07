@@ -10,7 +10,7 @@ export class CartItem {
         this.dataForm = dataForm;
         this.itemSPP = itemSPP;
     }
-    remarks = [];
+    remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
     activate(context) {
 
         this.context = context;
@@ -20,6 +20,9 @@ export class CartItem {
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
         this.destinationArea = this.dataForm.data.destinationArea;
+        this.isTransit = this.destinationArea == "TRANSIT";
+
+
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
         this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT"];
         this.packUnit = ["ROLL", "PIECE", "POTONGAN"];
@@ -65,9 +68,9 @@ export class CartItem {
                         return +a + +b.qtyOut
                     }, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
-                    
+
                     item.balanceRemains = item.previousBalance - sum;
-                    
+
                 }
             }
 
@@ -159,7 +162,7 @@ export class CartItem {
                     .reduce((a, b) => +a + +b.qtyOut, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
                     item.balanceRemains = item.previousBalance - sum;
-                    
+
                 }
             }
         }
@@ -178,7 +181,7 @@ export class CartItem {
                     .reduce((a, b) => +a + +b.qtyOut, 0);
                 for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
                     item.balanceRemains = item.previousBalance - sum;
-                    
+
                 }
             }
         }

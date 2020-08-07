@@ -27,6 +27,8 @@ export class ItemSPP {
         this.options = context.options;
         this.context = context.context;
         this.contextOptions = context.context.options;
+
+        this.destinationArea = this.contextOptions.destinationArea;
         this.isEdit = this.contextOptions.isEdit;
         this.readOnly = this.contextOptions.readOnly;
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
@@ -43,19 +45,34 @@ export class ItemSPP {
 
         // this.isNewStructure = this.context.options.isNewStructure;
         this.itemOptions = {
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            destinationArea: this.destinationArea
         };
 
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
         if (this.isEdit) {
             if (this.readOnly) {
-                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                if (this.destinationArea == "TRANSIT") {
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                } else {
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                }
+
             } else {
-                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                if (this.destinationArea == "TRANSIT") {
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                } else {
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                }
+
             }
 
         } else {
-            this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+            if (this.destinationArea == "TRANSIT") {
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+            } else {
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+            }
         }
 
         // if (this.data.productionOrderId) {
