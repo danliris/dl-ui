@@ -59,7 +59,7 @@ export class Monitoring {
             { field: "pebNo", title: "No.", halign: "center", align: "center", sortable: false },
             {
                 field: "pebDate", title: "TGL.", formatter: (value) => {
-                    return moment(value).format("MM/DD/YYYY");
+                    return new Date(value) > new Date(1901, 0, 1) ? moment(value).format("MM/DD/YYYY") : "-";
                 }, sortable: false
             },
             {
