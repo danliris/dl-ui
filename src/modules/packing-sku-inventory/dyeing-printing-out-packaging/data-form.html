@@ -15,8 +15,9 @@
     <au-dropdown options.bind="controlOptions" label="Groups" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
-    <au-dropdown options.bind="controlOptions" label="Zona" value.bind="data.destinationArea"
-      error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas" if.bind="!isAdj">
+    <au-dropdown options.bind="controlOptions" label="Zona" value.bind="destinationArea"
+      error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas"
+      if.bind="!isAdj">
     </au-dropdown>
 
     <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedPackaging" label="Nomor Bon"
@@ -34,7 +35,7 @@
     <button show.bind="data.id && readOnly" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br>
     <au-collection columns.bind="itemColumns" items.bind="data.packagingProductionOrders"
-      errors.one-way="error.PackagingProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
+      errors.one-way="error.PackagingProductionOrders" view-model.ref="ItemsCollection" options.bind="detailOptions" read-only.bind="readOnly"
       add.bind="addItemCallback" remove.bind="onremove"
       item-template="modules/packing-sku-inventory/dyeing-printing-out-packaging/template/item-spp" if.bind="!isAdj">
     </au-collection>

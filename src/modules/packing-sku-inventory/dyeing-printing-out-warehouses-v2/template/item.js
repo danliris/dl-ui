@@ -12,10 +12,50 @@ export class Item {
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
+    this.destinationArea = this.contextOptions.destinationArea;
     this.isShowing = false;
     this.listOptions = {
-      isEdit:this.isEdit
+      isEdit: this.isEdit,
+      destinationArea: this.destinationArea
     };
+
+    if (this.destinationArea == "TRANSIT") {
+      this.itemColumns = [
+        "Nomor DO",
+        "Material",
+        "Unit",
+        "Buyer",
+        "Warna",
+        "Motif",
+        "Grade",
+        "Satuan",
+        "Ket Transit",
+        "Zona Asal",
+        "Qty Packing",
+        "Packing",
+        "Jenis",
+        "Panjang Per Packing",
+        "Qty Keluar",
+      ];
+    } else {
+      this.itemColumns = [
+        "Nomor DO",
+        "Material",
+        "Unit",
+        "Buyer",
+        "Warna",
+        "Motif",
+        "Grade",
+        "Satuan",
+        "Zona Asal",
+        "Qty Packing",
+        "Packing",
+        "Jenis",
+        "Panjang Per Packing",
+        "Qty Keluar",
+      ];
+    }
+
     if (this.data.productionOrderId) {
       this.selectedProductionOrder = {};
       this.selectedProductionOrder.Id = this.data.productionOrderId;
@@ -25,7 +65,7 @@ export class Item {
       this.selectedProductionOrder.ProductionOrderItems = this.data.productionOrderItems;
       // if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       //   this.selectedDeliveryOrderSales = {};
-  
+
       //   this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       //   this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       // }
@@ -74,25 +114,7 @@ export class Item {
     }
   }
 
-  bind() {
-    this.itemColumns = [
-      "Nomor DO",
-      "Material",
-      "Unit",
-      "Buyer",
-      "Warna",
-      "Motif",
-      "Grade",
-      "Satuan",
-      "Zona Asal",
-      "Qty Packing",
-      "Packing",
-      "Jenis",
-      "Panjang Per Packing",
-      "Qty Keluar",
-    ];
-    
-  }
+  
   listOptions = {};
   changeCheckBox() {
     this.context.context.options.checkedAll = this.context.context.items.reduce(
