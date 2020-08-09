@@ -8,6 +8,7 @@ export class ProductionOrderItem {
   // remarks = [];
   packingItems = [];
   packUnit = ["ROLL", "PIECE", "POTONGAN"];
+  remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
   activate(context) {
     this.context = context;
     this.data = context.data;
@@ -15,6 +16,8 @@ export class ProductionOrderItem {
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
+    this.destinationArea = this.contextOptions.destinationArea;
+    this.isTransit = this.destinationArea == "TRANSIT";
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 

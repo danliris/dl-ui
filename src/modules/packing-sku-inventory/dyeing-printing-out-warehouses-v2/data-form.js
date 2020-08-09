@@ -87,30 +87,15 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
-    // if (this.data.bon) {
 
-    //   // this.data.selectedWarehouse = this.data.bon;
-    //   // selectedWarehouseChanged(this.data.bon,"");
-    //   // this.service.getProductionOrderInputv2(this.data.selectedWarehouse.id).then(result =>{
-    //   //   this.data.warehousesProductionOrders = result;
-    //   // });
-    //   // this.data.warehousesProductionOrders
+    if (this.data.destinationArea) {
+      this.destinationArea = this.data.destinationArea;
+    }
 
-    //   if (this.data.type == "OUT") {
-    //     this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput(this.data.bon.id);
-    //     // this.service.getProductionOrderOutput(this.data.bon.id).then(result => {
-    //     //   this.data.warehousesProductionOrders = result;
-    //     // });
-    //   } else {
-    //     if (this.data.warehousesProductionOrders) {
-    //       this.data.adjWarehousesProductionOrders = this.data.warehousesProductionOrders;
-    //     }
-
-    //   }
-    // }
     this.detailOptions = {
       isEdit: this.isEdit,
-      readOnly: this.readOnly
+      readOnly: this.readOnly,
+      destinationArea: this.destinationArea
     };
 
     if (this.readOnly) {
@@ -165,11 +150,24 @@ export class DataForm {
     if (this.selectedFilterSPP) {
 
       this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2ById(this.selectedFilterSPP.productionOrder.id);
-     
+
     } else {
 
       this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
-      
+
+    }
+  }
+
+  @bindable ItemsCollection;
+  @bindable destinationArea;
+  destinationAreaChanged(n, o) {
+    if (this.destinationArea) {
+      this.data.destinationArea = this.destinationArea;
+      this.detailOptions.destinationArea = this.data.destinationArea;
+
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+      }
     }
   }
 }
