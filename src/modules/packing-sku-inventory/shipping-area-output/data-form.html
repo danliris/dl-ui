@@ -86,14 +86,14 @@
       <br>
       <au-collection class="detailTable" columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders"
         if.bind="!isEdit" errors.one-way="error.ShippingProductionOrders" options.bind="detailOptions"
-        read-only.bind="readOnly"
+        read-only.bind="readOnly" view-model.ref="ItemsCollection"
         header-template="modules/packing-sku-inventory/shipping-area-output/template/item-header"
         item-template="modules/packing-sku-inventory/shipping-area-output/template/item">
       </au-collection>
 
       <au-collection class="detailTable" columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders"
         if.bind="isEdit" errors.one-way="error.ShippingProductionOrders" options.bind="detailOptions"
-        read-only.bind="readOnly" remove.bind="onremove"
+        read-only.bind="readOnly" remove.bind="onremove" view-model.ref="ItemsCollection"
         header-template="modules/packing-sku-inventory/shipping-area-output/template/item-header"
         item-template="modules/packing-sku-inventory/shipping-area-output/template/item">
       </au-collection>

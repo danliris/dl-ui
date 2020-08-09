@@ -61,6 +61,11 @@
                 error.bind="error.ShippingRemark" options.bind="controlOptions">
             </au-textbox>
         </td>
+        <td show.bind="isTransit">
+            <au-dropdown value.bind="data.remark" items.bind="remarks" read-only.bind="readOnly"
+                error.bind="error.Remark" options.bind="controlOptions">
+            </au-dropdown>
+        </td>
         <td>
             <au-numeric value.bind="qtyPacking" format="0.00" read-only.bind="readOnly || !isSales"
                 options.bind="controlOptions">
