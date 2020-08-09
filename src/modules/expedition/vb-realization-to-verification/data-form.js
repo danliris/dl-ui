@@ -62,12 +62,19 @@ export class DataForm {
     // console.log(this.realizationTable);
   }
 
+  // @bindable selectedVBRequest;
+  // @bindable selectedVBRealization;
+  // // @bindable realiza
+  // @bindable selectedAccount;
+  // @bindable selectedUnit
+
   loader = (info) => {
     let order = {};
+    // console.log(this.selectedVBRequest)
 
     let vbRequestId = 0;
     if (this.data && this.data.vbRequest && this.data.vbRequest.Id)
-      vbRequestId = this.data.vbRequestId.Id;
+      vbRequestId = this.data.vbRequest.Id;
 
     let vbRealizationId = 0;
     if (this.data && this.data.vbRealization && this.data.vbRealization.Id)
@@ -91,7 +98,7 @@ export class DataForm {
       size: info.limit,
       keyword: info.search,
       order: order,
-      vbRequestId: vbRequestId,
+      vbId: vbRequestId,
       vbRealizationId: vbRealizationId,
       realizationDate: realizationDate,
       vbRealizationRequestPerson: vbRealizationRequestPerson,
@@ -112,7 +119,7 @@ export class DataForm {
     { field: "VBNo", title: "No VB", rowspan: "2" },
     { field: "VBRealizationNo", title: "No Realisasi VB", rowspan: "2" },
     {
-      field: "Date", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
+      field: "VBRealizationDate", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
         return moment.utc(value).local().format('DD MMM YYYY');
       }, rowspan: "2"
     },
