@@ -26,8 +26,12 @@ export class ProductionOrderItem {
       this.qtyPacking = this.data.packagingQty;
     }
 
-    if (this.data.qty) {
-      this.qty = this.data.qty;
+    // if (this.data.qty) {
+    //   this.qty = this.data.qty;
+    // }
+
+    if (this.data.quantity) {
+      this.qty = this.data.quantity;
     }
   }
 
@@ -61,7 +65,7 @@ export class ProductionOrderItem {
   qtyPackingChanged(n, o) {
     if (this.qtyPacking) {
       this.data.packagingQty = this.qtyPacking;
-      this.data.balance = this.data.packagingQty * this.data.qty;
+      this.data.balance = this.data.packagingQty * this.data.quantity;
     }
   }
 
@@ -69,7 +73,8 @@ export class ProductionOrderItem {
   qtyChanged(n, o) {
     if (this.qty) {
       this.data.qty = this.qty;
-      this.data.balance = this.data.packagingQty * this.data.qty;
+      this.data.quantity = this.qty;
+      this.data.balance = this.data.packagingQty * this.data.quantity;
     }
   }
 }

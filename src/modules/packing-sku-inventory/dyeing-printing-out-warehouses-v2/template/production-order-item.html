@@ -69,7 +69,7 @@
       </au-numeric>
     </td>
     <td>
-      <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="readOnly" error.bind="error.PackagingUnit"
+      <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="true" error.bind="error.PackagingUnit"
         options.bind="controlOptions">
       </au-dropdown>
     </td>
@@ -79,7 +79,7 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="qty" format="0.00" read-only.bind="readOnly" error.bind="error.qty"
+      <au-numeric value.bind="qty" format="0.00" read-only.bind="true" error.bind="error.qty"
         options.bind="controlOptions">
       </au-numeric>
     </td>

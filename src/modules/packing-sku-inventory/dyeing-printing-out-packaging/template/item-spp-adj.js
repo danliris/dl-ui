@@ -112,9 +112,14 @@ export class ItemSPP {
             this.selectedProductionOrder.hasPrintingProductPacking = this.data.hasPrintingProductPacking;
         }
 
-        if (this.data.atQty) {
-            this.selectedAtQty = this.data.atQty;
+        // if (this.data.atQty) {
+        //     this.selectedAtQty = this.data.atQty;
+        // }
+
+        if(this.data.packingLength){
+            this.selectedAtQty = this.data.packingLength;
         }
+
         if (this.data.packagingQty) {
             this.selectedPackagingQTY = this.data.packagingQty;
         }
@@ -239,6 +244,7 @@ export class ItemSPP {
         if (n != o) {
             this.data.balance = this.selectedPackagingQTY * n;
             this.data.atQty = n;
+            this.data.packingLength = n;
         }
     }
 
