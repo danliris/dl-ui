@@ -63,6 +63,7 @@ export class DataForm {
 
     groups = ["A", "B"];
 
+    @bindable ItemsCollection;
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -76,24 +77,40 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        this.detailOptions = {
-            isEdit: this.isEdit,
-            destinationArea: this.data.destinationArea
-        };
-
         if (this.data.destinationArea) {
             this.destinationArea = this.data.destinationArea;
 
-            if (this.readOnly) {
-                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+        }
+
+        this.detailOptions = {
+            isEdit: this.isEdit,
+            destinationArea: this.destinationArea
+        };
+
+        if (this.readOnly) {
+            if (this.destinationArea == "GUDANG JADI") {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Qty Keluar", "Satuan"];
             } else {
-                if (this.isEdit) {
+                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+            }
+
+        } else {
+            if (this.isEdit) {
+                if (this.destinationArea == "GUDANG JADI") {
+                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Saldo", "Qty Keluar", "Satuan", ""];
+                } else {
                     this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan", ""];
+                }
+
+            } else {
+                if (this.destinationArea == "GUDANG JADI") {
+                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Saldo", "Qty Keluar", "Satuan"];
                 } else {
                     this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
                 }
 
             }
+
         }
 
         if (this.readOnly) {
@@ -108,12 +125,16 @@ export class DataForm {
 
             }
         } else {
-            
+
             if (this.data.transitProductionOrders) {
                 this.data.adjTransitProductionOrders = this.data.transitProductionOrders;
 
             }
 
+        }
+
+        if (this.ItemsCollection) {
+            this.ItemsCollection.bind();
         }
     }
 
@@ -132,13 +153,31 @@ export class DataForm {
             this.data.destinationArea = this.destinationArea;
             this.detailOptions.destinationArea = this.data.destinationArea;
             if (this.readOnly) {
-                this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+                if (this.destinationArea == "GUDANG JADI") {
+                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Qty Keluar", "Satuan"];
+                } else {
+                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Keluar", "Satuan"];
+                }
+
             } else {
                 if (this.isEdit) {
-                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan", ""];
+                    if (this.destinationArea == "GUDANG JADI") {
+                        this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Saldo", "Qty Keluar", "Satuan", ""];
+                    } else {
+                        this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan", ""];
+                    }
+
                 } else {
-                    this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
+                    if (this.destinationArea == "GUDANG JADI") {
+                        this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Qty Packing", "Satuan Packing", "Panjang per Packing", "Saldo", "Qty Keluar", "Satuan"];
+                    } else {
+                        this.itemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Grade", "Saldo", "Qty Keluar", "Satuan"];
+                    }
+
                 }
+            }
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
             }
         }
     }
