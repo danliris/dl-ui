@@ -58,3 +58,15 @@ export class PurchasingService extends RestService {
         return super.get(endpoint);
     }
 }
+
+const costCalculationServiceUri = 'cost-calculation-garments';
+export class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
