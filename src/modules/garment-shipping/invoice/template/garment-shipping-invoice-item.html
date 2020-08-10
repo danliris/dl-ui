@@ -4,7 +4,7 @@
             <au-autocomplete 
                 value.bind="roNo" 
                 error.bind="error.RONo" 
-                read-only.bind="readOnly || isEdit"
+                read-only.bind="readOnly || (isEdit && data.id)"
                 loader.bind="costCalLoader"
                 text.bind = "costCalView"
                 placeholder = "Cari RO"
@@ -45,7 +45,7 @@
             <au-numeric 
                 value.bind="data.quantity" 
                 error.bind="error.Quantity" 
-                read-only.bind="readOnly || isEdit"
+                read-only.bind="readOnly"
                 options.bind="controlOptions"
                 format="0">
             </au-numeric>
@@ -56,7 +56,7 @@
                 loader.bind="uomLoader"
                 text.bind = "uomView"
                 placeholder ="Cari Satuan"
-                read-only.bind="readOnly || isEdit"
+                read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>        
         </td> 
@@ -71,7 +71,7 @@
             <au-numeric 
                 value.bind="data.price" 
                 error.bind="error.Price" 
-                read-only.bind="readOnly || isEdit"
+                read-only.bind="readOnly"
                 options.bind="controlOptions"
                 format="0.0000">
             </au-numeric> 
@@ -101,7 +101,7 @@
             <td>
                 <au-numeric 
                     value.bind="data.cmtPrice" 
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly"
                     options.bind="controlOptions"
                     format="0.0000">
                 </au-numeric>        
