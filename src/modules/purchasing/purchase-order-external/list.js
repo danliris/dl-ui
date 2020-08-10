@@ -31,17 +31,17 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        {
-            field: "paymentMethod", title: "Jenis PO",
-            formatter: function (value, data, index) {
+        // {
+        //     field: "paymentMethod", title: "Jenis PO",
+        //     formatter: function (value, data, index) {
 
-                if(data.paymentMethod === "CASH") {
-                    return `${data.paymentMethod} ${data.poCashType}`;
-                } else {
-                    return `${data.paymentMethod}`;
-                }
-            }
-        },
+        //         if(data.paymentMethod === "CASH") {
+        //             return `${data.paymentMethod} ${data.poCashType}`;
+        //         } else {
+        //             return `${data.paymentMethod}`;
+        //         }
+        //     }
+        // },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request", sortable: false },
         {
             field: "isPosted", title: "Status Post",
