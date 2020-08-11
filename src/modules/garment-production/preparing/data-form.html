@@ -63,6 +63,15 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-textbox
+            label="Buyer"
+            value.bind="data.buyerView"
+            error.bind="error.Buyer"
+            if.bind="data.RONo"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-datepicker
             label="Tgl. Preparing"
             value.bind="data.ProcessDate"
