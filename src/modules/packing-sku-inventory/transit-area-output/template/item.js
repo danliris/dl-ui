@@ -13,10 +13,18 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.destinationArea = this.contextOptions.destinationArea;
+        this.isWarehouse = this.destinationArea == "GUDANG JADI";
+
+
+        if (this.data.qtyPacking) {
+            this.qtyPacking = this.data.qtyPacking;
+        }
+
         // if (this.data.balance && !this.data.previousBalance) {
         //     this.data.previousBalance = this.data.balance;
         // }
-        
+
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
@@ -83,6 +91,14 @@ export class CartItem {
         }
         else {
             this.data.productionOrder = {};
+        }
+    }
+
+    @bindable qtyPacking;
+    qtyPackingChanged(n, o) {
+        if (this.qtyPacking) {
+            this.data.qtyPacking = this.qtyPacking;
+            this.data.balance = this.data.qtyPacking * this.data.packingLength;
         }
     }
 }
