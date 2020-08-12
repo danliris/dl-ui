@@ -31,6 +31,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "supplier.name", title: "Supplier" },
         {
             field: "paymentMethod", title: "Jenis PO",
             formatter: function (value, data, index) {
