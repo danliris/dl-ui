@@ -64,6 +64,19 @@ export class NewPurchaseOrderItem {
     if (newValue) {
       this.isShowing = true;
       this.data.PurchaseOrderExternal = newValue;
+      let items = [];
+      for (var item of this.data.PurchaseOrderExternal.items) {
+        console.log(item)
+        for (var detail of item.details) {
+          items.push(detail);
+        }
+      }
+
+      this.data.PurchaseOrderExternal.items = items;
+      // this.data.PurchaseOrderExternal.items = this.data.PurchaseOrderExternal.items.map((item) => {
+      //   console.log(item);
+      //   return
+      // })
     } else {
       delete this.data.PurchaseOrderExternal;
     }

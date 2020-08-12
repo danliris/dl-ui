@@ -127,20 +127,24 @@ export class DataForm {
       // console.log("masuk")
       // console.log(this.data.Items)
       for (var productList of this.data.Items) {
-        console.log(productList)
-        if (productList.details) {
+        console.log(productList);
+        // console.log(productList)
+        if (productList.PurchaseOrderExternal) {
 
-          for (var proddetail of productList.details) {
+          for (var item of productList.PurchaseOrderExternal.items) {
+            let price = item.dealQuantity * item.priceBeforeTax;
+            if (productList.PurchaseOrderExternal.useVat && !item.includePpn)
+              price += price * 0.1;
             // console.log(proddetail.priceBeforeTax)
-            result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
+            result += price;
           }
         }
-        else if (productList.Details) {
-          for (var proddetail of productList.Details) {
-            // console.log(proddetail.priceBeforeTax)
-            result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
-          }
-        }
+        // else if (productList.Details) {
+        //   for (var proddetail of productList.Details) {
+        //     // console.log(proddetail.priceBeforeTax)
+        //     result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
+        //   }
+        // }
       }
     }
 
