@@ -30,7 +30,7 @@ export class Create {
             },
         },
         { field: "CurrencyCode", title: "Mata Uang" },
-        { field: "CreateBy", title: "Pemohon" },
+        { field: "CreatedBy", title: "Pemohon" },
         { field: "UnitName", title: "Unit" },
     ];
 
@@ -48,7 +48,7 @@ export class Create {
             },
         },
         { field: "CurrencyCode", title: "Mata Uang" },
-        { field: "CreateBy", title: "Pemohon" },
+        { field: "CreatedBy", title: "Pemohon" },
         { field: "UnitName", title: "Unit" },
     ];
 

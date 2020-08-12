@@ -105,19 +105,6 @@ module.exports = [
         }
     },
     {
-        route: 'cashier-approval',
-        name: 'cashier-approval',
-        moduleId: './modules/purchasing/cashier-approval/index',
-        nav: true,
-        title: 'Approval Kasir',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'verification-vb',
         name: 'verification-vb',
         moduleId: './modules/purchasing/verification-vb/index',
