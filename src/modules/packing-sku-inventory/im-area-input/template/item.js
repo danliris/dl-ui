@@ -105,7 +105,7 @@ export class CartItem {
             this.data.motif = this.selectedProductionOrder.DesignCode;
             this.data.uomUnit = this.selectedProductionOrder.Uom.Unit;
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.OrderQuantity;
-            this.data.balance = this.selectedProductionOrder.OrderQuantity;
+            this.data.inputQuantity = this.selectedProductionOrder.OrderQuantity;
 
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.ProcessType.Id;
