@@ -41,41 +41,9 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-autocomplete value.bind="numberVB"
-                     error.bind="error.VBCode"
-                     label="No VB"
-                     loader.one-time="vbLoader"
-                     text="VBNo"
-                     read-only.bind="readOnly || isEdit"
-                     options.bind="controlOptions"
-                     placeholder="Cari Kode VB"
-                     query.bind="filter">
-    </au-autocomplete>
-
-    <au-datepicker if.bind="numberVB"
-                   label="Tanggal VB"
-                   value.bind="data.numberVB.Date"
-                   read-only.bind="true"
-                   options.bind="controlOptions">
-    </au-datepicker>
-
-    <au-datepicker if.bind="numberVB"
-                   label="Estimasi Tanggal Realisasi"
-                   value.bind="data.numberVB.DateEstimate"
-                   read-only.bind="true"
-                   options.bind="controlOptions">
-    </au-datepicker>
-
-    <au-textbox if.bind="numberVB"
-                label="Pemohon VB"
-                value.bind="data.numberVB.CreatedBy"
-                read-only.bind="true"
-                options.bind="controlOptions">
-    </au-textbox>
-
     <div if.bind="data.TypeVBNonPO =='Dengan Nomor VB'">
 
-      <!-- <au-autocomplete value.bind="numberVB"
+      <au-autocomplete value.bind="numberVB"
                        error.bind="error.VBCode"
                        label="No VB"
                        loader.one-time="vbLoader"
@@ -102,7 +70,7 @@
                   value.bind="data.numberVB.CreatedBy"
                   read-only.bind="true"
                   options.bind="controlOptions">
-      </au-textbox> -->
+      </au-textbox>
 
       <au-textbox label="Mata Uang"
                   value.bind="data.numberVB.CurrencyCode"
@@ -116,10 +84,29 @@
                   options.bind="controlOptions">
       </au-textbox>
 
+      <au-textbox error.bind="error.Item"
+                  show.bind="error.Item"
+                  read-only.bind="true">
+      </au-textbox>
+
+      <au-collection items.bind="data.Items"
+                     errors.bind="error.Items"
+                     columns.bind="columns"
+                     add.bind="addItems"
+                     remove.bind="onremove"
+                     read-only.bind="readOnly"
+                     item-template="modules/purchasing/realization-vb-non-po/templates/item">
+      </au-collection>
+
       <div if.bind="numberVB">
 
         <au-textbox error.bind="error.UnitLoadCheck"
                     show.bind="error.UnitLoadCheck"
+                    read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox error.bind="error.CompareNominal"
+                    show.bind="error.CompareNominal"
                     read-only.bind="true">
         </au-textbox>
 
@@ -130,6 +117,8 @@
                         read-only.bind="true">
             </au-textbox>
           </div>
+
+          <div class="col-sm-3">Total : ${totalVB} ${data.numberVB.CurrencyCode}</div>
         </div>
 
         <div class="row">
@@ -426,6 +415,32 @@
                      options.bind="controlOptions">
       </au-datepicker> -->
 
+      <au-autocomplete if.bind="!context.isCreate"
+                       value.bind="selectedVB"
+                       error.bind="error.VBCode"
+                       label="No VB"
+                       loader.one-time="vbLoader"
+                       text="VBNo"
+                       read-only.bind="readOnly"
+                       options.bind="controlOptions"
+                       placeholder="Cari Kode VB"
+                       query.bind="filter">
+      </au-autocomplete>
+
+      <au-datepicker if.bind="!context.isCreate && selectedVB"
+                     label="Tanggal VB"
+                     value.bind="data.numberVB.Date"
+                     read-only.bind="true"
+                     options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-datepicker label="Estimasi Tanggal Realisasi"
+                     if.bind="!context.isCreate && selectedVB"
+                     value.bind="data.numberVB.DateEstimate"
+                     read-only.bind="true"
+                     options.bind="controlOptions">
+      </au-datepicker>
+
       <au-autocomplete value.bind="selectedUnit"
                        error.bind="error.VBCodeManual"
                        label="Unit Pemohon"
@@ -454,8 +469,27 @@
                   options.bind="controlOptions">
       </au-numeric>
 
+      <au-textbox error.bind="error.Item"
+                  show.bind="error.Item"
+                  read-only.bind="true">
+      </au-textbox>
+
+      <au-collection items.bind="data.Items"
+                     errors.bind="error.Items"
+                     columns.bind="columns"
+                     add.bind="addItems"
+                     remove.bind="onremove"
+                     read-only.bind="readOnly"
+                     item-template="modules/purchasing/realization-vb-non-po/templates/item">
+      </au-collection>
+
       <au-textbox error.bind="error.UnitLoadCheck"
                   show.bind="error.UnitLoadCheck"
+                  read-only.bind="true">
+      </au-textbox>
+
+      <au-textbox error.bind="error.CompareNominal"
+                  show.bind="error.CompareNominal"
                   read-only.bind="true">
       </au-textbox>
 
@@ -466,6 +500,8 @@
                       read-only.bind="true">
           </au-textbox>
         </div>
+
+        <div class="col-sm-3">Total : ${totalVB} ${selectedCurrency.Code}</div>
       </div>
 
       <div class="row">
@@ -745,20 +781,6 @@
       </div>
 
     </div>
-
-    <au-textbox error.bind="error.Item"
-                show.bind="error.Item"
-                read-only.bind="true">
-    </au-textbox>
-
-    <au-collection items.bind="data.Items"
-                   errors.bind="error.Items"
-                   columns.bind="columns"
-                   add.bind="addItems"
-                   remove.bind="onremove"
-                   read-only.bind="readOnly"
-                   item-template="modules/purchasing/realization-vb-non-po/templates/item">
-    </au-collection>
 
   </au-input-form>
 </template>
