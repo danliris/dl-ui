@@ -9,6 +9,7 @@ export class Create {
     hasSave = true;
     isShowing = true;
     isShowingAmount = true;
+    isCreate = true;
 
     constructor(router, service) {
         this.router = router;
