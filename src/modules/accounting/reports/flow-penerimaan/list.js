@@ -108,11 +108,12 @@ export class List {
            
             category : this.category ? this.category : "",
             unit : this.unit ? this.unit.Code : "",
+            unitname: this.unit ? this.unit.Name : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
         console.log(info);
-        this.service.generateXls(  info.unit,  info.category, info.dateFrom, info.dateTo)
+        this.service.generateXls(  info.unit,  info.category, info.dateFrom, info.dateTo, info.unitname)
     }
   
 
