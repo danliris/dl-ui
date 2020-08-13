@@ -9,21 +9,21 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "invoiceNo", title: "No Invoice" },
+        { field: "vbNo", title: "Nomor VB" },
         {
-            field: "date", title: "Tgl Shipping Instruction", formatter: function (value, data, index) {
+            field: "vbDate", title: "Tanggal VB", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "ForwarderName", title: "Forwarder" },
-        { field: "attn", title: "ATTN" },
-        { field: "shippedBy", title: "Shipped By" },
+        { field: "forwarderInvoiceNo", title: "No Invoice Forwarder" },
+        { field: "EMKLName", title: "EMKL" },
+        { field: "emklInvoiceNo", title: "No Invoice EMKL" },
         {
-            field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
+            field: "paymentDate", title: "Tanggal Pembayaran", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
-        },
-        { field: "BuyerAgentName", title: "Consignee" },
+        }
     ];
 
     loader = (info) => {
@@ -42,8 +42,7 @@ export class List {
             .then(result => {
                 for (const data of result.data) {
                     data.ForwarderName = data.forwarder.name;
-                    data.attn = data.forwarder.attn;
-                    data.BuyerAgentName=data.buyerAgent.name;
+                    data.EMKLName = data.emkl.name;
                 }
                 return {
                     total: result.info.total,
