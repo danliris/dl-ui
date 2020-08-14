@@ -232,11 +232,12 @@ export class Item {
 
   calculateTotalAmount() {
     if (this.data.IncomeTaxBy == "Supplier" && this.data.isGetPPh && this.data.IncomeTax) {
-      var vatAmount = 0;
+      let vatAmount = 0;
       if (this.data.isGetPPn)
         vatAmount = this.data.Amount * 0.1;
       this.data.Total = this.data.Amount - (this.data.Amount * (this.data.IncomeTax.rate / 100)) + vatAmount;
     } else {
+      let vatAmount = 0;
       if (this.data.isGetPPn)
         vatAmount = this.data.Amount * 0.1;
       this.data.Total = this.data.Amount + vatAmount;

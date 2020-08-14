@@ -275,7 +275,10 @@ export class DataForm {
 
   get addItems() {
     return (event) => {
-      this.data.Items.push({})
+      this.data.Items.push({
+        Amount: 0,
+        Total: 0
+      })
     };
   }
 
@@ -362,6 +365,7 @@ export class DataForm {
   get totalVB() {
     var result = 0
     if (this.data.Items && this.data.Items.length > 0) {
+      // console.log(this.data.Items);
       for (var item of this.data.Items) {
         result += item.Total;
       }
