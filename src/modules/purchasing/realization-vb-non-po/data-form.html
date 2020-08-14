@@ -32,7 +32,8 @@
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-dropdown label="Tipe VB"
+    <au-dropdown if.bind="!isEdit"
+                 label="Tipe VB"
                  items.bind="NumberVbOptions"
                  value.bind="data.TypeVBNonPO"
                  error.bind="error.TypeVBNonPO"

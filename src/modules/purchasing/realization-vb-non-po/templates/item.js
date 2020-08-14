@@ -36,6 +36,8 @@ export class Item {
     this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
     this.selectedAmount = this.data.Amount || 0;
+    this.selectedPPh = this.data.isGetPPh;
+    this.selectedVat = this.data.isGetPPn;
 
     this.calculateTotalAmount();
     // this.vbRequestTotalCalc
@@ -206,11 +208,38 @@ export class Item {
     }
   }
 
-  calculateTotalAmount() {
-    if (this.data.IncomeTaxBy == "Supplier" && this.data.IncomeTax) {
-      this.data.Total = this.data.Amount - (this.data.Amount * (this.data.IncomeTax.rate / 100))
+  @bindable selectedVat;
+  selectedVatChanged(newValue) {
+    if (newValue) {
+      this.data.isGetPPn = newValue
+      this.calculateTotalAmount();
     } else {
-      this.data.Total = this.data.Amount;
+      delete this.data.isGetPPn;
+      this.calculateTotalAmount();
+    }
+  }
+
+  @bindable selectedPPh;
+  selectedPPhChanged(newValue) {
+    if (newValue) {
+      this.data.isGetPPh = newValue;
+      this.calculateTotalAmount();
+    } else {
+      delete this.data.isGetPPh;
+      this.calculateTotalAmount();
+    }
+  }
+
+  calculateTotalAmount() {
+    if (this.data.IncomeTaxBy == "Supplier" && this.data.isGetPPh && this.data.IncomeTax) {
+      var vatAmount = 0;
+      if (this.data.isGetPPn)
+        vatAmount = this.data.Amount * 0.1;
+      this.data.Total = this.data.Amount - (this.data.Amount * (this.data.IncomeTax.rate / 100)) + vatAmount;
+    } else {
+      if (this.data.isGetPPn)
+        vatAmount = this.data.Amount * 0.1;
+      this.data.Total = this.data.Amount + vatAmount;
     }
   }
 
