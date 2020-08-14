@@ -482,6 +482,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/vb-payment",
+        name: "garment-shipping/vb-payment",
+        moduleId: "modules/garment-shipping/vb-payment/index",
+        nav: true,
+        title: "Pembayaran VB",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/omzet-year-section",
         name: "garment-shipping/monitoring/omzet-year-section",
         moduleId: "modules/garment-shipping/monitoring/omzet-year-section/index",
