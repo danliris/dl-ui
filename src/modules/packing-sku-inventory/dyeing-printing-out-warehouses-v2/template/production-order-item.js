@@ -8,6 +8,7 @@ export class ProductionOrderItem {
   // remarks = [];
   packingItems = [];
   packUnit = ["ROLL", "PIECE", "POTONGAN"];
+  remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
   activate(context) {
     this.context = context;
     this.data = context.data;
@@ -15,6 +16,8 @@ export class ProductionOrderItem {
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
+    this.destinationArea = this.contextOptions.destinationArea;
+    this.isTransit = this.destinationArea == "TRANSIT";
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
@@ -26,8 +29,12 @@ export class ProductionOrderItem {
       this.qtyPacking = this.data.packagingQty;
     }
 
-    if (this.data.qty) {
-      this.qty = this.data.qty;
+    // if (this.data.qty) {
+    //   this.qty = this.data.qty;
+    // }
+
+    if (this.data.quantity) {
+      this.qty = this.data.quantity;
     }
   }
 
@@ -61,7 +68,7 @@ export class ProductionOrderItem {
   qtyPackingChanged(n, o) {
     if (this.qtyPacking) {
       this.data.packagingQty = this.qtyPacking;
-      this.data.balance = this.data.packagingQty * this.data.qty;
+      this.data.balance = this.data.packagingQty * this.data.quantity;
     }
   }
 
@@ -69,7 +76,8 @@ export class ProductionOrderItem {
   qtyChanged(n, o) {
     if (this.qty) {
       this.data.qty = this.qty;
-      this.data.balance = this.data.packagingQty * this.data.qty;
+      this.data.quantity = this.qty;
+      this.data.balance = this.data.packagingQty * this.data.quantity;
     }
   }
 }

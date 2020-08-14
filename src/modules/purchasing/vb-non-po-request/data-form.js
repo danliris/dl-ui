@@ -130,13 +130,13 @@ export class DataForm {
             this.data.unit.id = this.selectedUnit.Id;
             this.data.unit.name = this.selectedUnit.Name;
             this.data.unit.code = this.selectedUnit.Code;
-
+            
             if (this.selectedUnit.Division) {
                 this.data.division = {};
                 this.data.division.id = this.selectedUnit.Division.Id;
                 this.data.division.name = this.selectedUnit.Division.Name;
             }
-            else {
+            else{
                 this.data.division = {};
                 this.data.division.id = this.data.Division.Id;
                 this.data.division.name = this.data.Division.Name;

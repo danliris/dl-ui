@@ -33,7 +33,7 @@ export class Service extends RestService {
 
   create(data) {
     let endpoint = `${serviceUri}/vb-to-verification`;
-    return super.post(endpoint, data);
+    return super.put(endpoint, data);
   }
 
   update(data) {

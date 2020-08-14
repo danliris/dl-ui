@@ -19,9 +19,15 @@
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
-    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="data.destinationArea"
+    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="destinationArea"
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
+
+
+    <au-autocomplete if.bind="!isAdj" options.bind="controlOptions" value.bind="selectedFilterSPP"
+      label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly" loader.bind="filterSPPLoader"
+      text.bind="sppTextFormatter">
+    </au-autocomplete>
 
     <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedWarehouse" label="Nomor Bon"
       read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="bonWarehouseLoader"

@@ -8,7 +8,7 @@
                 text.bind="roView"
                 placeholder="cari RO"
                 query.bind="filter"
-                read-only.bind="readOnly || isEdit">
+                read-only.bind="readOnly || (isEdit && data.id)">
             </au-autocomplete>
         </td>
         <td class="bg-primary">
@@ -32,7 +32,7 @@
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.comodityDescription"
-                error.bind="error.Description"
+                error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>
@@ -113,7 +113,7 @@
         <td colspan="5">
             <au-multiline
                 label = "Description"
-                value.bind="data.description"
+                value.bind="data.Description"
                 read-only.bind="readOnly">
             </au-multiline>
         </td>

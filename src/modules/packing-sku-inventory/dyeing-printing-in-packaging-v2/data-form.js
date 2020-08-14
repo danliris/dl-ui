@@ -50,7 +50,7 @@ export class DataForm {
         { field: "motif", title: "Motif" },
         { field: "grade", title: "Grade" },
         { field: "uomUnit", title: "Satuan" },
-        { field: "balance", title: "Qty Masuk" },
+        { field: "inputQuantity", title: "Qty Masuk" },
     ];
 
     shifts = ["","PAGI", "SIANG"];

@@ -11,6 +11,8 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        this.isEdit = this.contextOptions.isEdit;
+
         if (this.data.avalType) {
             this.selectedAval = {};
             this.selectedAval.avalTransformationId = this.data.avalTransformationId;

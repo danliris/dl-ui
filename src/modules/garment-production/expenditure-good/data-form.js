@@ -170,7 +170,7 @@ export class DataForm {
                 this.data.Price=0;
             }
             this.data.colors=[];
-            let finOutData=await this.service.searchFinishingOut({ filter: JSON.stringify({ RONo: this.data.RONo})});
+            let finOutData=await this.service.searchFinishingOut({size:1000, filter: JSON.stringify({ RONo: this.data.RONo})});
             
             for(var data of finOutData.data){
                 if(data.Colors.length>0){

@@ -79,6 +79,7 @@ export class Edit {
                     itemSpp.packagingQTY = item.packagingQTY;
                     itemSpp.packagingType = item.packagingType;
                     itemSpp.packagingUnit = item.packagingUnit;
+                    itemSpp.packingLength = item.packingLength;
                     itemSpp.packingInstruction = item.packingInstruction;
                     itemSpp.qtyOrder = item.qtyOrder;
                     itemSpp.qtyOut = item.qtyOut;

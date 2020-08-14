@@ -18,6 +18,13 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/input-production-orders`;
         return super.get(endpoint);
     }
+
+    getProductionOrderInputById(productionOrderId) {
+        var endpoint = `${serviceUri}/input-production-orders-v2?productionOrderId=${productionOrderId}`;
+
+        return super.get(endpoint);
+    }
+
     getProductionOrderInputv2(bonId) {
         var endpoint = `${serviceUri}/input-production-orders-v2/${bonId}`;
         return super.get(endpoint);
@@ -26,6 +33,13 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/input-production-orders-v2`;
         return super.get(endpoint);
     }
+
+    getProductionOrderInputv2ById(productionOrderId) {
+        var endpoint = `${serviceUri}/input-production-orders-v2?productionOrderId=${productionOrderId}`;
+
+        return super.get(endpoint);
+    }
+
     getProductionOrderOutput(bonId) {
         var endpoint = `${serviceUri}/output-production-orders/${bonId}`;
         return super.get(endpoint);

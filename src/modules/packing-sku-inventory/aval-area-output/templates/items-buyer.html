@@ -11,7 +11,7 @@
       </au-dropdown>
     </td>
 
-    <td style="white-space: nowrap;">
+    <td style="white-space: nowrap;" show.bind="!readOnly">
       <au-textbox
         value.bind="data.AvalQuantity"
         read-only.bind="true"
@@ -20,7 +20,7 @@
       </au-textbox>
     </td>
 
-    <td style="white-space: nowrap;">
+    <td style="white-space: nowrap;" show.bind="!readOnly">
       <au-textbox
         value.bind="data.AvalQuantityKg"
         read-only.bind="true"

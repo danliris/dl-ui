@@ -100,9 +100,9 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.packagingQty"
+        value.bind="data.inputPackagingQty"
         read-only.bind="true"
-        error.bind="error.PackagingQty"
+        error.bind="error.InputPackagingQty"
         options.bind="controlOptions"
       >
       </au-numeric>
@@ -137,10 +137,10 @@
     </td>
     <td>
         <au-numeric
-          value.bind="data.balance"
+          value.bind="data.inputQuantity"
           format="0.00"
           read-only.bind="true"
-          error.bind="error.Balance"
+          error.bind="error.InputQuantity"
           options.bind="controlOptions"
         >
         </au-numeric>

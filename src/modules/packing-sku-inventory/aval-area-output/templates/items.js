@@ -22,6 +22,7 @@ export class Items {
     this.isPenjualan = this.dataForm.isPenjualan;
 
     this.options = context.context.options;
+    this.isEdit = this.options.isEdit;
     //   this.OrderIdFilter = {
     //     "OrderId": context.context.options.OrderId
     //   };
