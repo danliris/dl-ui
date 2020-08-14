@@ -136,12 +136,14 @@
                 
         </div>
 
-        <div class="form-group has-error">
-            <p if.bind="error.itemsCount" class="help-block text-center">${error.itemsCount}</p>
-        </div>
         <div class="row">
             <div class="col-md-6">
+                
                 <p>Beban Unit :</p>
+                
+        <div class="form-group has-error">
+            <p if.bind="error.unitsCount" class="help-block text-center">${error.unitsCount}</p>
+        </div>
                 <au-collection 
                     items.bind="data.units" 
                     errors.bind="error.units" 
@@ -155,6 +157,10 @@
                 </au-collection>
     
                 <p>Detail Invoice DL :</p>
+                
+        <div class="form-group has-error">
+            <p if.bind="error.invoicesCount" class="help-block text-center">${error.invoicesCount}</p>
+        </div>
                 <au-collection 
                     items.bind="data.invoices" 
                     errors.bind="error.invoices" 
