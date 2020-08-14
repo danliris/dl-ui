@@ -1,8 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
+const UnitLoader = require('../../../../loader/unit-loader');
 
 
-export class measurement {
-
+export class unit {
+    @bindable selectedUnit;
     constructor() {
         
     }
@@ -24,10 +25,22 @@ export class measurement {
         
     }
     
-    get cmb(){
-        if(this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
-            return (this.data.length*this.data.width*this.data.height*this.data.cartonsQuantity / 1000000).toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
-        else
-            return "0";
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    unitView = (data) => {
+        var code= data.Code || data.code;
+        return `${code}`;
+    }
+    selectedUnitChanged(newValue){
+        if(newValue){
+            this.data.unit= {
+                code:newValue.Code || newValue.code,
+                id:newValue.Id || newValue.id,
+                name: newValue.Name || newValue.name
+            }
+
+        }
     }
 }

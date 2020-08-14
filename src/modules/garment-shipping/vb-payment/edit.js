@@ -1,15 +1,14 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service, CoreService } from './service';
+import { Service } from './service';
 
-@inject(Router, Service, CoreService)
+@inject(Router, Service)
 export class Edit {
     isEdit = true;
 
-    constructor(router, service, coreService) {
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.coreService = coreService;
     }
 
     async activate(params) {

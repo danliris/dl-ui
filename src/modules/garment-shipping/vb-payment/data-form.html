@@ -11,7 +11,7 @@
                 </au-textbox>
 
                 <au-datepicker 
-                    label="Tgl VB" 
+                    label="Tanggal VB" 
                     value.bind="data.vbDate" 
                     error.bind="error.vbDate"
                     read-only.bind="readOnly" 
@@ -44,7 +44,7 @@
                     value.bind="data.emkl"
                     error.bind="error.emkl" 
                     loader.bind="emklLoader" 
-                    text="Name || name"
+                    text.bind="emklView"
                     read-only.bind="readOnly" 
                     if.bind="data.paymentType=='EMKL'"
                     options.bind="controlOptions">
@@ -56,7 +56,7 @@
                     value.bind="data.forwarder"
                     error.bind="error.forwarder" 
                     loader.bind="forwarderLoader" 
-                    text="name || Name"
+                    text.bind="forwarderView"
                     read-only.bind="readOnly" 
                     if.bind="data.paymentType=='Forwarder'"
                     options.bind="controlOptions">
@@ -79,14 +79,14 @@
                     if.bind="data.paymentType=='Forwarder'"
                     options.bind="controlOptions">
                 </au-textbox>
-                <div class="row" style="margin-left: 50px;">
+                <div class="row" style="margin-left: 13.5%;">
                     <div class="col-md-3">
                         <au-numeric 
                             label="Nilai Tagihan" 
                             value.bind="data.billValue"
                             error.bind="error.billValue" 
                             read-only.bind="readOnly" 
-                            options.bind="controlOptions">
+                            options.bind="length4">
                         </au-numeric>
                     </div>
                     <div class="col-md-3">
@@ -95,7 +95,7 @@
                             value.bind="data.vatValue"
                             error.bind="error.vatValue" 
                             read-only.bind="readOnly" 
-                            options.bind="controlOptions">
+                            options.bind="length4">
                         </au-numeric>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 </au-autocomplete>
 
                 <au-numeric 
-                    label="Rate PPH" 
+                    label="Rate PPH (%)" 
                     value.bind="data.incomeTax.Rate || data.incomeTax.rate"
                     if.bind="data.incomeTax"
                     error.bind="error.incomeTax" 
@@ -139,29 +139,35 @@
         <div class="form-group has-error">
             <p if.bind="error.itemsCount" class="help-block text-center">${error.itemsCount}</p>
         </div>
-        <p>Beban Unit :</p>
-            <au-collection 
-                items.bind="data.units" 
-                errors.bind="error.units" 
-                columns.bind="unitsColumns"
-                read-only.bind="readOnly" 
-                remove.bind="removeUnits"
-                add.bind="addUnits"
-                options.bind="Options"
-                item-template="modules/garment-shipping/local-sales-do/template/item">
-            </au-collection>
-
-            <p>Detail Invoice DL :</p>
-            <au-collection 
-                items.bind="data.invoices" 
-                errors.bind="error.invoices" 
-                columns.bind="invoicesColumns"
-                read-only.bind="readOnly" 
-                remove.bind="removeInvoices"
-                add.bind="addInvoices"
-                options.bind="Options"
-                item-template="modules/garment-shipping/local-sales-do/template/item">
-            </au-collection>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Beban Unit :</p>
+                <au-collection 
+                    items.bind="data.units" 
+                    errors.bind="error.units" 
+                    columns.bind="unitsColumns"
+                    read-only.bind="readOnly" 
+                    remove.bind="removeUnits"
+                    add.bind="addUnits"
+                    options.bind="Options"
+                    footer-template="modules/garment-shipping/vb-payment/template/unit-footer"
+                    item-template="modules/garment-shipping/vb-payment/template/unit">
+                </au-collection>
+    
+                <p>Detail Invoice DL :</p>
+                <au-collection 
+                    items.bind="data.invoices" 
+                    errors.bind="error.invoices" 
+                    columns.bind="invoicesColumns"
+                    read-only.bind="readOnly" 
+                    remove.bind="removeInvoices"
+                    add.bind="addInvoices"
+                    options.bind="Options"
+                    item-template="modules/garment-shipping/vb-payment/template/invoice">
+                </au-collection>
+            </div>
+        </div>
+        
         
         <br>
     </au-input-form>

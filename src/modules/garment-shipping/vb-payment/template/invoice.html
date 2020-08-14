@@ -1,0 +1,18 @@
+<template>
+    <tr>
+        <td class="col-sm-6">
+            <au-autocomplete 
+                placeholder="Invoice" 
+                value.bind="selectedInvoice"
+                error.bind="error.invoice" 
+                loader.bind="invoiceLoader" 
+                text="invoiceNo"
+                read-only.bind="readOnly || data.id" >
+            </au-autocomplete>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+    
+</template>
