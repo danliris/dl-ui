@@ -12,6 +12,11 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    searchPacking(info) {
+        var endpoint = `${serviceUri}/packing`;
+        return super.list(endpoint, info);
+    }
+
     generateExcel(info) {
 
         var endpoint = `${serviceUri}/xls`;

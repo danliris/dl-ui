@@ -46,7 +46,8 @@
   <br>
 
   <au-table if.bind="!isAval" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
-    options.bind="tableOptions">
+    options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-primary" click.delegate="export()">Excel</button>
     </div>
