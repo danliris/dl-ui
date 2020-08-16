@@ -115,8 +115,9 @@ export class Create {
     changeRole(role) {
         if (role.key !== this.activeRole.key) {
             this.activeRole = role;
-            this.documentTable.refresh();
+            // this.documentTable.refresh();
         }
+        this.documentTable.refresh();
     }
 
     vbWithPOChanged(newValue, oldValue) {
@@ -204,15 +205,15 @@ export class Create {
                         for (var dataResult of dataApproval) {
                             dataCashierApproval.push(dataResult.data);
                         }
-                        for (var data of result.data) {
-                            for (var item of data.PONo) {
-                                var amount = 0;
-                                var totalAmount = 0;
-                                amount = item.Price * item.DealQuantity;
-                                totalAmount = + amount;
-                            }
-                            data.Amount = totalAmount;
-                        }
+                        // for (var data of result.data) {
+                        //     for (var item of data.PONo) {
+                        //         var amount = 0;
+                        //         var totalAmount = 0;
+                        //         amount = item.Price * item.DealQuantity;
+                        //         totalAmount = + amount;
+                        //     }
+                        //     data.Amount = data;
+                        // }
 
                         // console.log(result.data)
                         this.documentData.push(...result.data)

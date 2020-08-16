@@ -24,8 +24,7 @@ export class DataForm {
     }
   }
 
-  itemsColumns = [{ header: "Nomor PO", value: "purchaseRequest.no" },
-  { header: "Unit", value: "Unit" }]
+  itemsColumns = ["Nomor PO", "Unit", "Pasal PPh", "PPh Oleh"]
 
   constructor(service, bindingEngine) {
     this.service = service;
@@ -127,24 +126,30 @@ export class DataForm {
       // console.log("masuk")
       // console.log(this.data.Items)
       for (var productList of this.data.Items) {
-        console.log(productList);
         // console.log(productList)
-        if (productList.PurchaseOrderExternal) {
+        if (productList.details) {
 
-          for (var item of productList.PurchaseOrderExternal.items) {
-            let price = item.dealQuantity * item.priceBeforeTax;
-            if (productList.PurchaseOrderExternal.useVat && !item.includePpn)
+          for (var proddetail of productList.details) {
+            let price = proddetail.dealQuantity * proddetail.priceBeforeTax;
+            if (proddetail.useVat && !proddetail.includePpn)
               price += price * 0.1;
             // console.log(proddetail.priceBeforeTax)
             result += price;
+            // result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
           }
         }
-        // else if (productList.Details) {
-        //   for (var proddetail of productList.Details) {
-        //     // console.log(proddetail.priceBeforeTax)
-        //     result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
-        //   }
-        // }
+        else if (productList.Details) {
+          for (var proddetail of productList.Details) {
+            let dealQuantity = parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
+            let priceBeforeTax = parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, ""));
+            let price = dealQuantity * priceBeforeTax;
+            if (proddetail.useVat && !proddetail.includePpn)
+              price += price * 0.1
+            // console.log(proddetail.priceBeforeTax)
+            result += price;
+            // result += parseFloat(proddetail.priceBeforeTax.toString().replace(/,/g, "")) * parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
+          }
+        }
       }
     }
 

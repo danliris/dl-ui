@@ -107,8 +107,9 @@ export class List {
         // if (info.sort)
         //     order[info.sort] = info.order;
         var arg = {
-            dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
-            dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+            // dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
+            // dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+            dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
             zona: this.zona,
             unit: this.unit,
             packingType: this.packingType,
@@ -139,11 +140,13 @@ export class List {
     }
 
     export() {
-        if (this.dateFrom && this.dateTo) {
+        // if (this.dateFrom && this.dateTo) {
+        if (this.dateReport) {
             this.error = {};
             var arg = {
-                dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
-                dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+                // dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
+                // dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+                dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
                 zona: this.zona,
                 unit: this.unit,
                 packingType: this.packingType,
@@ -153,39 +156,49 @@ export class List {
             }
             this.service.generateExcel(arg);
         } else {
-            if (!this.dateFrom) {
-                this.error.dateFrom = "Tanggal Harus Diisi";
-            }
-            if (!this.dateTo) {
-                this.error.dateTo = "Tanggal Harus Diisi";
-            }
+            // if (!this.dateFrom) {
+            //     this.error.dateFrom = "Tanggal Harus Diisi";
+            // }
+            // if (!this.dateTo) {
+            //     this.error.dateTo = "Tanggal Harus Diisi";
+            // }
+            this.error.dateReport = "Tanggal Harus Diisi";
         }
-        
+
     }
 
     search() {
-        if (this.zona == "GUDANG AVAL") {
-            if (this.dateReport) {
-                this.listDataFlag = true;
-                this.error = {};
-                this.table.refresh();
-            } else {
-                this.error.dateReport = "Tanggal Harus Diisi";
-            }
+        if (this.dateReport) {
+            this.listDataFlag = true;
+            this.error = {};
+            this.table.refresh();
         } else {
-            if (this.dateFrom && this.dateTo) {
-                this.listDataFlag = true;
-                this.error = {}
-                this.table.refresh();
-            } else {
-                if (!this.dateFrom) {
-                    this.error.dateFrom = "Tanggal Harus Diisi";
-                }
-                if (!this.dateTo) {
-                    this.error.dateTo = "Tanggal Harus Diisi";
-                }
-            }
+            this.error.dateReport = "Tanggal Harus Diisi";
         }
+        // if (this.zona == "GUDANG AVAL") {
+        //     if (this.dateReport) {
+        //         this.listDataFlag = true;
+        //         this.error = {};
+        //         this.table.refresh();
+        //     } else {
+        //         this.error.dateReport = "Tanggal Harus Diisi";
+        //     }
+        // } else {
+        //     // if (this.dateFrom && this.dateTo) {
+        //     if (this.dateReport) {
+        //         this.listDataFlag = true;
+        //         this.error = {}
+        //         this.table.refresh();
+        //     } else {
+        //         // if (!this.dateFrom) {
+        //         //     this.error.dateFrom = "Tanggal Harus Diisi";
+        //         // }
+        //         // if (!this.dateTo) {
+        //         //     this.error.dateTo = "Tanggal Harus Diisi";
+        //         // }
+        //         this.error.dateReport = "Tanggal Harus Diisi";
+        //     }
+        // }
     }
 
     reset() {
@@ -197,7 +210,7 @@ export class List {
         this.selectedBuyer = null;
         this.selectedProductionOrder = null;
         this.listDataFlag = false;
-        this.dateReport = null;
+        this.dateReport = undefined;
         this.zona = "INSPECTION MATERIAL";
         this.table.refresh();
         this.error = {};
@@ -219,17 +232,7 @@ export class List {
             }
         },
         {
-            field: "startAvalWeightQuantity", title: "Awal Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
-        },
-        {
             field: "inAvalQuantity", title: "Masuk Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
-        },
-        {
-            field: "inAvalWeightQuantity", title: "Masuk Qty Berat", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },
@@ -239,12 +242,22 @@ export class List {
             }
         },
         {
-            field: "outAvalWeightQuantity", title: "Keluar Qty Berat", formatter: function (value, data, index) {
+            field: "endAvalQuantity", title: "Akhir Qty Satuan", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },
         {
-            field: "endAvalQuantity", title: "Akhir Qty Satuan", formatter: function (value, data, index) {
+            field: "startAvalWeightQuantity", title: "Awal Qty Berat", formatter: function (value, data, index) {
+                return numeral(value).format('0.0');
+            }
+        },
+        {
+            field: "inAvalWeightQuantity", title: "Masuk Qty Berat", formatter: function (value, data, index) {
+                return numeral(value).format('0.0');
+            }
+        },
+        {
+            field: "outAvalWeightQuantity", title: "Keluar Qty Berat", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },

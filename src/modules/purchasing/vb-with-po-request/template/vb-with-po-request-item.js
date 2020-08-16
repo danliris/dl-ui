@@ -46,7 +46,7 @@ export class PurchaseOrderItem {
     this.filter = {
       "POCashType": "VB",
       "isPosted": true,
-      "IsCreateOnVBRequest": false,
+      // "IsCreateOnVBRequest": false,
       "CurrencyCode": this.context.context.options.CurrencyCode
     };
   }
@@ -59,6 +59,8 @@ export class PurchaseOrderItem {
     this._items = [];
     if (newValue)
       if (newValue._id) {
+        // newValue.IncomeTax = newValue.IncomeTax || newValue.incomeTax;
+        // newValue.IncomeTaxBy = newValue.IncomeTaxBy || newValue.incomeTaxBy;
         Object.assign(this.data, newValue);
         if (this.data.items) {
 
@@ -68,6 +70,7 @@ export class PurchaseOrderItem {
                 useVat: this.data.useVat,
                 product: proddetail.product,
                 defaultQuantity: proddetail.defaultQuantity,
+                dealQuantity: proddetail.dealQuantity,
                 conversion: proddetail.conversion,
                 priceBeforeTax: proddetail.priceBeforeTax,
                 productRemark: proddetail.productRemark,
@@ -143,14 +146,14 @@ export class PurchaseOrderItem {
     }
 
     else {
-      if(this.data.items){
+      if (this.data.items) {
         for (var productList of this.data.items) {
           for (var proddetail of productList.details) {
             result += proddetail.priceBeforeTax * proddetail.defaultQuantity;
           }
         }
       }
-      
+
     }
     this.data.TotalPaid = result;
     return result.toLocaleString('en-EN', { minimumFractionDigits: 2 });
