@@ -289,6 +289,7 @@ export class DataForm {
 
   @bindable selectedVB;
   selectedVBChanged(newValue) {
+    console.log("changed", newValue)
     if (newValue) {
       this.data.numberVB = newValue;
     } else {
