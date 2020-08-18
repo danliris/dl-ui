@@ -26,6 +26,11 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getDOItemsById(id) {
+        var endpoint = `${serviceUri}/do-items/${id}`;
+        return super.get(endpoint);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
