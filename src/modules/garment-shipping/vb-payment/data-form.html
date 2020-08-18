@@ -21,7 +21,7 @@
                 <au-autocomplete 
                     label="Buyer" 
                     placeholder="Pilih buyer" 
-                    value.bind="data.buyer"
+                    value.bind="selectedBuyer"
                     error.bind="error.buyer" 
                     loader.bind="buyerLoader" 
                     text.bind="buyerView"
@@ -31,7 +31,7 @@
 
                 <au-dropdown
                     label="Jenis Pembayaran"
-                    value.bind="data.paymentType"
+                    value.bind="selectedPaymentType"
                     error.bind="error.paymentType"
                     read-only.bind="readOnly"
                     items.bind="paymentTypeOptions"
@@ -169,6 +169,7 @@
                     remove.bind="removeInvoices"
                     add.bind="addInvoices"
                     options.bind="Options"
+                    show.bind="data.buyer"
                     item-template="modules/garment-shipping/vb-payment/template/invoice">
                 </au-collection>
             </div>

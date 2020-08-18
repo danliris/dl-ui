@@ -23,20 +23,24 @@ export class invoice {
             readOnly: this.readOnly,
             isEdit:this.isEdit,
         };
-        if(this.data.id){
+        if(this.data.invoiceNo){
             this.selectedInvoice={
                 invoiceNo:this.data.invoiceNo,
                 id:this.data.invoiceId
             }
         }
-        
+        this.filter={
+            BuyerAgentCode: this.data.buyer.Code || this.data.buyer.code
+        }
     }
+    
     
     get invoiceLoader() {
         return InvoiceLoader;
     }
 
     selectedInvoiceChanged(newValue){
+        console.log(newValue)
         if(newValue){
             this.data.invoiceNo=newValue.invoiceNo;
             this.data.invoiceId=newValue.id;

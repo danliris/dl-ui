@@ -1,5 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-const UnitLoader = require('../../../../loader/unit-loader');
+const UnitLoader = require('../../../../loader/garment-units-loader');
 
 
 export class unit {
