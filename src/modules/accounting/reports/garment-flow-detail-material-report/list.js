@@ -14,15 +14,19 @@ export class List {
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
+                this.categoryname = "BAHAN BAKU";
             }
             else if (newvalue === "BAHAN PENDUKUNG") { 
-                this.category = "BP"; 
+                this.category = "BP";
+                this.categoryname = "BAHAN PENDUKUNG";
             }
             else if (newvalue === "BAHAN EMBALACE") {
                 this.category = "BE"; 
+                this.categoryname = "BAHAN EMBALACE";
             }else if(newvalue === "PROSES"){
 
                 this.category = "PRC";
+                this.categoryname = "PROSES";
             }
         }
     }
@@ -152,6 +156,7 @@ export class List {
 
         if (this.category) {
             filter.category = this.category;
+            filter.categoryname = this.categoryname;
         }
 
         if (this.unit){

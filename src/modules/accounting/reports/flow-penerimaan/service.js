@@ -15,9 +15,9 @@ search(info) {
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
-generateXls(unit,  category, dateFrom, dateTo, unitname) { 
+generateXls(unit,  category, dateFrom, dateTo, unitname, categoryname) { 
        console.log(unit,  category, dateFrom, dateTo);
-        var endpoint = `${serviceUri}/download?unit=${unit}&category=${category}&unitname=${unitname}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        var endpoint = `${serviceUri}/download?unit=${unit}&category=${category}&category=${categoryname}&unitname=${unitname}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.getXls(endpoint);
     }
 }
