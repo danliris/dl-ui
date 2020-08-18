@@ -27,6 +27,15 @@
             options.bind="auInputOptions">
         </au-multiline>
 
+        <au-textbox 
+                    label="Admin Pembelian" 
+                    value.bind="data.CreatedBy" 
+                    error.bind="error.CreatedBy" 
+                    read-only.bind="true"
+                    if.bind="(readOnly || isEdit)"
+                    options.bind="controlOptions">
+        </au-textbox>
+
         <au-textbox
             show.bind="error.itemscount"
             error.bind="error.itemscount"

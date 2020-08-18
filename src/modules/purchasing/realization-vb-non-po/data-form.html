@@ -32,7 +32,8 @@
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-dropdown label="Tipe VB"
+    <au-dropdown if.bind="!isEdit"
+                 label="Tipe VB"
                  items.bind="NumberVbOptions"
                  value.bind="data.TypeVBNonPO"
                  error.bind="error.TypeVBNonPO"
@@ -689,15 +690,14 @@
                         placeholder="Beban Unit Lain"
                         options.bind="controlOptionsDetail">
             </au-textbox>
-
-            <div show.bind="isShowingAmount">
-              <au-numeric value.bind="data.AmountOthers"
-                          error.bind="error.AmountOthers"
-                          read-only.bind="readOnly"
-                          format="0,0.00"
-                          options.bind="controlOptionsDetail">
-              </au-numeric>
-            </div>
+          </div>
+          <div show.bind="isShowingAmount">
+            <au-numeric value.bind="data.AmountOthers"
+                        error.bind="error.AmountOthers"
+                        read-only.bind="readOnly"
+                        format="0,0.00"
+                        options.bind="controlOptionsDetail">
+            </au-numeric>
           </div>
 
         </div>

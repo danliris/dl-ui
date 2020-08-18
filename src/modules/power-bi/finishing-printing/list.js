@@ -15,7 +15,7 @@ export class List {
         "Good Output vs Bad Output All",
         "Good Output vs Bad Output Per Jenis Order",
         "Produksi vs Reproses",
-        "Kanban Aktif",
+        //"Kanban Aktif",
         "Monitoring Lead Time Real Time",
         "Monitoring Lead Time Historical",
         "Monitoring Penjualan Per Sales",

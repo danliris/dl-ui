@@ -46,7 +46,7 @@ export class PurchaseOrderItem {
     this.filter = {
       "POCashType": "VB",
       "isPosted": true,
-      "IsCreateOnVBRequest": false,
+      // "IsCreateOnVBRequest": false,
       "CurrencyCode": this.context.context.options.CurrencyCode
     };
   }

@@ -3,11 +3,13 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
+import { Dialog } from '../../../components/dialog/dialog';
+import { PackingListForm } from './packing-list-form';
 var ProductionOrderLoader = require('../../../loader/production-order-azure-loader');
 var BuyerLoader = require('../../../loader/buyers-loader');
 var ConstructionLoader = require('../../../loader/production-order-construction-loader');
 
-@inject(Router, Service)
+@inject(Dialog, Router, Service)
 export class List {
     @bindable dateFrom;
     @bindable dateTo;
@@ -128,7 +130,8 @@ export class List {
             }) : { data: [] };;
     }
 
-    constructor(router, service) {
+    constructor(dialog, router, service) {
+        this.dialog = dialog;
         this.service = service;
         this.router = router;
     }
@@ -214,6 +217,38 @@ export class List {
         this.zona = "INSPECTION MATERIAL";
         this.table.refresh();
         this.error = {};
+    }
+    context = ["detail"]
+    contextClickCallback(event) {
+        var arg = event.detail;
+        // var data = arg.data;
+        var data = {};
+        data.dateReport = this.dateReport;
+        data.zona = this.zona;
+        data.buyer = this.buyer;
+        data.data = arg.data;
+        console.log(data);
+        switch (arg.name) {
+            case "detail":
+                this.dialog.show(PackingListForm, data)
+                    .then(response => {
+                        return response;
+                    });
+                break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        return this.isPackingType;
+        // if(this.isPackingType){
+        //     return true;
+        // }el
+        // switch (name) {
+        //     case "print":
+        //         return data;
+        //     default:
+        //         return true;
+        // }
     }
 
     get isAval() {

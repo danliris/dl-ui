@@ -26,7 +26,10 @@ export class List {
     },
     {
       field: "DateEstimate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        if (data.VBNo)
+          return moment(value).format("DD MMM YYYY");
+        else
+          return "-";
       }
     },
     // { field: "UnitLoad", title: "Beban Unit" },
@@ -47,26 +50,26 @@ export class List {
     let order = {};
 
     if (info.sort)
-        order[info.sort] = info.order;
+      order[info.sort] = info.order;
     else
-        order["LastModifiedUtc"] = "desc";
+      order["LastModifiedUtc"] = "desc";
 
     let arg = {
-        page: parseInt(info.offset / info.limit, 10) + 1,
-        size: info.limit,
-        keyword: info.search,
-        order: order
-        // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+      // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
     };
 
     return this.service.search(arg)
-        .then(result => {
-            return {
-                total: result.info.total,
-                data: result.data
-            }
-        });
-}
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
   constructor(router, service) {
     this.service = service;

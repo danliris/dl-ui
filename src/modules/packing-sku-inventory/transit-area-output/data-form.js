@@ -82,9 +82,15 @@ export class DataForm {
 
         }
 
+        if (this.data.adjItemCategory) {
+            this.adjItemCategory = this.data.adjItemCategory;
+        }
+
+
         this.detailOptions = {
             isEdit: this.isEdit,
-            destinationArea: this.destinationArea
+            destinationArea: this.destinationArea,
+            adjItemCategory: this.adjItemCategory
         };
 
         if (this.readOnly) {
@@ -114,9 +120,18 @@ export class DataForm {
         }
 
         if (this.readOnly) {
-            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
+            if (this.adjItemCategory == "KAIN") {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
+            } else {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+            }
+
         } else {
-            this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
+            if (this.adjItemCategory == "KAIN") {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
+            } else {
+                this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
+            }
         }
 
         if (this.data.type == "OUT") {
@@ -178,6 +193,34 @@ export class DataForm {
             }
             if (this.ItemsCollection) {
                 this.ItemsCollection.bind();
+            }
+        }
+    }
+
+    adjItemCategories = ["KAIN", "PACK"];
+    @bindable adjItemCategory;
+    adjItemCategoryChanged(n, o) {
+        if (this.adjItemCategory) {
+            this.data.adjItemCategory = this.adjItemCategory;
+            this.detailOptions.adjItemCategory = this.adjItemCategory;
+
+            if (this.readOnly) {
+                if (this.adjItemCategory == "KAIN") {
+                    this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "QTY", "No Dokumen"];
+                } else {
+                    this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+                }
+
+            } else {
+                if (this.adjItemCategory == "KAIN") {
+                    this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "Satuan", "Saldo", "QTY", "No Dokumen"];
+                } else {
+                    this.adjItemColumns = ["No. SPP", "Qty Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Keterangan", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
+                }
+            }
+
+            if (!this.data.id) {
+                this.data.adjTransitProductionOrders.splice(0, this.data.adjTransitProductionOrders.length);
             }
         }
     }
