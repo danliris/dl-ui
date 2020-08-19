@@ -1,10 +1,18 @@
-import { bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { Service } from '../service';
 import { factories } from 'powerbi-client';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 var UomLoader = require('../../../../loader/uom-loader');
+
+@inject(Service)
 export class UnitDeliveryOrderItem {
+
+  constructor(service) {
+    this.service = service;
+
+  }
 
   async activate(context) {
     this.context = context;
@@ -15,6 +23,7 @@ export class UnitDeliveryOrderItem {
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
     this.isEdit = context.context.options.isEdit;
     this.remark= `${this.data.POSerialNumber}; ${this.data.Article}; ${this.data.RONo}; ${this.data.ProductRemark}`;
+
 
     if(this.isEdit){
       if(this.data.URNId){
@@ -34,6 +43,11 @@ export class UnitDeliveryOrderItem {
             });
       }
     }
+
+    //ambil dr DOItems
+    var doItems= await this.service.getDOItemsById(this.data.URNItemId);
+    this.data.Quantity=doItems.RemainingQuantity;
+    this.data.ReturQuantity= doItems.RemainingQuantity/this.data.Conversion;
   }
 
   bind() {
