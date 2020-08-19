@@ -1,6 +1,13 @@
-import { computedFrom } from 'aurelia-framework'
+import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { Service } from '../service';
+
+@inject(Service)
 export class GarmentReceiptCorrectionItem {
-	activate(context) {
+  constructor(service) {
+    this.service = service;
+  }
+
+	async activate(context) {
         this.context=context;
         this.data = context.data;
         this.error = context.error;
@@ -12,6 +19,10 @@ export class GarmentReceiptCorrectionItem {
             this.data.isDO =true;
           }
         }
+
+        //ambil dr DOItems
+        var doItems= await this.service.getDOItemsById(this.data.URNItemId);
+        this.data.leftOverQty=doItems.RemainingQuantity/this.data.Conversion;
 	}
 
 	get product() {
@@ -55,7 +66,6 @@ export class GarmentReceiptCorrectionItem {
     }
 
     qtyChanged(e){
-      console.log(e)
       this.data.CorrectionQuantity=e.srcElement.value;
     }
 
