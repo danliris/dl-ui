@@ -36,7 +36,7 @@ export class UnitDeliveryOrderItem {
               if(urn){
                 for(var urnItem of urn.Items){
                   if(urnItem.Id== this.data.URNItemId){
-                    this.data.Conversion=urnItem.Conversion;break;
+                    this.data.Conversion=urnItem.CorrectionConversion;break;
                   }
                 }
               }
@@ -45,9 +45,13 @@ export class UnitDeliveryOrderItem {
     }
 
     //ambil dr DOItems
-    var doItems= await this.service.getDOItemsById(this.data.URNItemId);
-    this.data.Quantity=doItems.RemainingQuantity;
-    this.data.ReturQuantity= doItems.RemainingQuantity/this.data.Conversion;
+    if(!this.data.Id){
+      var doItems= await this.service.getDOItemsById(this.data.URNItemId);
+      this.data.Quantity=doItems.RemainingQuantity;
+  
+      this.data.ReturQuantity= doItems.RemainingQuantity/this.data.Conversion;
+
+    }
   }
 
   bind() {
