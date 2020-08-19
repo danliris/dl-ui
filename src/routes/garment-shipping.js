@@ -196,6 +196,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/vb-payment",
+        name: "garment-shipping/vb-payment",
+        moduleId: "modules/garment-shipping/vb-payment/index",
+        nav: true,
+        title: "Pembayaran VB",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/packing-list",
         name: "garment-shipping/monitoring/packing-list",
         moduleId: "modules/garment-shipping/monitoring/packing-list/index",
@@ -474,19 +487,6 @@ module.exports = [
         moduleId: "modules/garment-shipping/monitoring/omzet-year-unit/index",
         nav: true,
         title: "Report Omzet Per Tahun Per Unit",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/vb-payment",
-        name: "garment-shipping/vb-payment",
-        moduleId: "modules/garment-shipping/vb-payment/index",
-        nav: true,
-        title: "Pembayaran VB",
         auth: true,
         settings: {
             group: "g-shipping",

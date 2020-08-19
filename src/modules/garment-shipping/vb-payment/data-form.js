@@ -16,6 +16,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedPaymentType;
+    @bindable selectedBuyer;
 
     paymentTypeOptions=["EMKL", "Forwarder"];
 
@@ -81,6 +82,15 @@ export class DataForm {
             isView: this.context.isView,
             isEdit: this.context.isEdit,
         }
+        if(this.data.paymentType){
+            this.selectedPaymentType=this.data.paymentType;
+        }
+        if(this.data.buyer){
+            this.selectedBuyer=this.data.buyer;
+            for(var i of this.data.invoices){
+                i.buyer=this.selectedBuyer;
+            }
+        }
     }
 
     get addItems() {
@@ -104,7 +114,8 @@ export class DataForm {
 
     incomeTaxView = (data) => {
         var name= data.Name || data.name;
-        return `${name}`;
+        var rate= data.Rate || data.rate;
+        return `${name} - ${rate}`;
     }
 
     emklView= (data) => {
@@ -130,7 +141,7 @@ export class DataForm {
     }
     get addInvoices() {
         return (event) => {
-            this.data.invoices.push({});
+            this.data.invoices.push({buyer: this.data.buyer});
         };
     }
 
@@ -147,5 +158,22 @@ export class DataForm {
             bill= (this.data.billValue + this.data.vatValue)-(rate/100*this.data.billValue);
         }
         return bill;
+    }
+
+    selectedPaymentTypeChanged(newValue){
+        if(this.data.paymentType != newValue){
+            this.data.emkl=null;
+            this.data.emklInvoiceNo="";
+            this.data.forwarder=null;
+            this.data.forwarderInvoiceNo="";
+            this.data.paymentType =newValue;
+        }
+    }
+
+    selectedBuyerChanged(newValue){
+        if(newValue != this.data.buyer){
+            this.data.invoices.splice(0);
+            this.data.buyer=newValue;
+        }
     }
 }
