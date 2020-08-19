@@ -79,7 +79,7 @@ export class CartItem {
         }
     };
 
-    gradeShippings = ["A", "B", "C", "BS", "Aval 1", "Aval 2"];
+    gradeShippings = ["BQ", "BS"];
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
