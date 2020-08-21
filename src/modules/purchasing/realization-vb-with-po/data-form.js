@@ -44,6 +44,7 @@ export class DataForm {
   }
 
   collectionOptions = {};
+  showCollection = false;
 
   async numberVBChanged(newValue) {
     var temp_detailItem = [];
@@ -59,6 +60,7 @@ export class DataForm {
       this.data.UnitName = this.data.numberVB.UnitName;
       this.data.Amount = this.data.numberVB.Amount;
       console.log(this.data.numberVB);
+      this.showCollection = true;
 
       // for (var dataspb of this.data.numberVB.PONo) {
       //   // var itemData = {
@@ -92,8 +94,24 @@ export class DataForm {
       this.data.DateEstimate = {};
       this.data.CreateBy = {};
       this.data.Items = [];
+      this.showCollection = true;
     }
 
+  }
+
+  @bindable selectedTypeVB;
+  selectedTypeVBChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.TypeVBNonPO = newValue;
+
+      if (newValue == "Tanpa Nomor VB") {
+        this.data.showCollection = true;
+      }
+    } else {
+      delete this.data.TypeVBNonPO;
+      delete this.data.numberVB;
+      this.data.Items = [];
+    }
   }
 
   columns = ["Daftar SPB"];
@@ -107,5 +125,9 @@ export class DataForm {
       this.data.Items.push({})
     };
   }
+
+  // get showCollection() {
+  //   // if ()
+  // }
 
 }
