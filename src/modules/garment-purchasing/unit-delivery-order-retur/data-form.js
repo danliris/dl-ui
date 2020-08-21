@@ -181,7 +181,7 @@ export class DataForm {
                     Items.IsDisabled = !(Items.Quantity > 0);
                     Items.ReturUomId = item.UomId;
                     Items.ReturUomUnit = item.UomUnit;
-                    Items.Conversion=item.Conversion;
+                    Items.Conversion=item.CorrectionConversion;
                     Items.DOCurrency={};
                     Items.DOCurrency.Rate= item.DOCurrencyRate;
                     dataItems.push(Items);

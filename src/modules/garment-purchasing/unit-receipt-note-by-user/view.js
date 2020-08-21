@@ -31,7 +31,7 @@ export class View {
             if(this.data.URNType=="PROSES" || this.data.URNType=="PEMBELIAN"){
                 for(var i of this.data.Items){
                     var doItem= await this.service.getDOItemsById(i.Id);
-                    if(doItem.RemainingQuantity< doItem.SmallQuantity){
+                    if(doItem.RemainingQuantity!= doItem.SmallQuantity){
                         this.hasEdit = false;
                         this.hasDelete=false;
                         break;

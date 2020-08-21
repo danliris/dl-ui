@@ -31,4 +31,9 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getDOItemsById(id) {
+        var endpoint = `${URNServiceUri}/do-items/${id}`;
+        return super.get(endpoint);
+    }
+
 }
