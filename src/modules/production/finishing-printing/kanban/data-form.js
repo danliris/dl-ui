@@ -203,15 +203,21 @@ export class DataForm {
 
             this.data.reprocessSteps = {
                 "LanjutProses": [],
-                "Reproses": []
+                "Reproses": [],
+                "Original": []
             };
 
+            this.data.reprocessSteps.Original = this.data.Instruction.Steps;
             for (var i = this.data.CurrentStepIndex; i < this.data.Instruction.Steps.length; i++) {
                 this.data.reprocessSteps.LanjutProses.push(this.data.Instruction.Steps[i]);
             }
 
             this.data.reprocess = !this.data.reprocessStatus ? this.data.SEBAGIAN : true;
-            this.data.reprocessSteps.Reproses = this.data.Instruction.Steps;
+
+            for (var i = 0; i < this.data.CurrentStepIndex; i++) {
+                this.data.reprocessSteps.Reproses.push(this.data.Instruction.Steps[i]);
+            }
+
 
             this.data.OldKanbanId = oldKanban.Id;
 
@@ -367,7 +373,9 @@ export class DataForm {
 
     moveItemDown(event) {
         var steps = this.data.Instruction.Steps;
+        console.log(steps)
         var stepDoneLength = (this.isReprocess ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
+        console.log(stepDoneLength)
         if (steps && steps.length > 0 && steps[0].SelectedIndex != null && steps[0].SelectedIndex < steps.length - 1 - stepDoneLength) {
             var selectedSteps = steps.splice(steps[0].SelectedIndex, 1);
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
@@ -397,7 +405,7 @@ export class DataForm {
                 this.data.Carts = [{ CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
                 this.options.reprocessSome = false;
                 this.options.reprocessStepsHide = false;
-                this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+                this.data.Instruction.Steps = this.data.reprocessSteps.Original;
             }
         }
     }
@@ -413,12 +421,16 @@ export class DataForm {
         if (reprocess != this.currentReprocess) {
             this.options.reprocessStepsHide = false;
             this.options.disabledStepAdd = false;
-            this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+            this.data.Instruction.Steps = this.data.reprocessSteps.Original;
 
             if (reprocess === this.data.LANJUT_PROSES) {
                 setTimeout(() => {
                     this.options.disabledStepAdd = true;
                     this.data.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
+                }, 1);
+            } else {
+                setTimeout(() => {
+                    this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
                 }, 1);
             }
 
