@@ -71,9 +71,9 @@
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-datepicker if.bind="!data.numberVB"
+    <au-datepicker if.bind="selectedTypeVBWithPO == 'Tanpa Nomor VB'"
                    label="Estimasi Tanggal Realisasi"
-                   value.bind="data.numberVB.DateEstimate"
+                   value.bind="data.DateEstimate"
                    read-only.bind="readOnly"
                    options.bind="controlOptions">
     </au-datepicker>
