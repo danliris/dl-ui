@@ -46,6 +46,10 @@ export class DataForm {
   collectionOptions = {};
   showCollection = false;
 
+  filter = {
+    "Apporve_Status": true, "Realization_Status": false
+  };
+
   async numberVBChanged(newValue) {
     var temp_detailItem = [];
     this.data.numberVB = newValue;
@@ -59,6 +63,10 @@ export class DataForm {
       this.data.UnitCode = this.data.numberVB.UnitCode;
       this.data.UnitName = this.data.numberVB.UnitName;
       this.data.Amount = this.data.numberVB.Amount;
+      let selectedPOIds = this.data.numberVB.PONo.map((item) => item.POId);
+      this.collectionOptions = {
+        selectedPOIds: selectedPOIds
+      };
       console.log(this.data.numberVB);
       this.showCollection = true;
 
@@ -101,6 +109,8 @@ export class DataForm {
 
   @bindable selectedTypeVB;
   selectedTypeVBChanged(newValue, oldValue) {
+    this.data.Items = [];
+
     if (newValue) {
       this.data.TypeVBNonPO = newValue;
 
@@ -110,7 +120,6 @@ export class DataForm {
     } else {
       delete this.data.TypeVBNonPO;
       delete this.data.numberVB;
-      this.data.Items = [];
     }
   }
 

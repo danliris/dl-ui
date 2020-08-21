@@ -21,7 +21,16 @@ export class NewItem {
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
 
-    this.selectedUnitPaymentOrder = this.data.UnitPaymentOrder;
+    console.log(context);
+
+    this.selectedUnitPaymentOrder = {
+      no: this.data.no
+    };
+
+    this.loaderOptions = context.context.options;
+    this.filter = {
+      poExtIds: this.loaderOptions.selectedPOIds
+    }
   }
 
   changeCheckBox() {
@@ -36,8 +45,20 @@ export class NewItem {
   selectedUnitPaymentOrderChanged(newValue, oldValue) {
     if (newValue) {
       this.data.UnitPaymentOrder = newValue;
+      this.data.no = newValue.no;
+      this.data.date = newValue.date;
+      this.data.division = newValue.division.name;
+      this.data.item = newValue.items;
+      this.data.supplier = newValue.supplier;
+      this.data.currency = newValue.currency;
     } else {
       delete this.data.UnitPaymentOrder;
+      delete this.data.no
+      delete this.data.date
+      delete this.data.division
+      delete this.data.item
+      delete this.data.supplier
+      delete this.data.currency
     }
   }
 }
