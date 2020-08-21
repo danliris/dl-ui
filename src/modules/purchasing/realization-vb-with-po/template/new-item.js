@@ -20,6 +20,8 @@ export class NewItem {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+
+    this.selectedUnitPaymentOrder = this.data.UnitPaymentOrder;
   }
 
   changeCheckBox() {
@@ -28,5 +30,14 @@ export class NewItem {
 
   get unitPaymentOrderLoader() {
     return UnitPaymentOrderLoader;
+  }
+
+  @bindable selectedUnitPaymentOrder;
+  selectedUnitPaymentOrderChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.UnitPaymentOrder = newValue;
+    } else {
+      delete this.data.UnitPaymentOrder;
+    }
   }
 }

@@ -35,19 +35,20 @@
     <au-dropdown if.bind="!isEdit"
                  label="Tipe VB"
                  items.bind="NumberVbOptions"
-                 value.bind="data.TypeVBNonPO"
+                 value.bind="selectedTypeVBWithPO"
                  error.bind="error.TypeVBNonPO"
                  read-only.bind="readOnly"
                  placeholder="Pilih Nomor VB"
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-autocomplete value.bind="numberVB"
+    <au-autocomplete if.bind="selectedTypeVBWithPO == 'Dengan Nomor VB'"
+                     value.bind="numberVB"
                      error.bind="error.VBCode"
                      label="No VB"
                      loader.one-time="vbLoader"
                      text="VBNo"
-                     read-only.bind="readOnly || isEdit"
+                     read-only.bind="readOnly"
                      options.bind="controlOptions"
                      placeholder="Cari Kode VB">
     </au-autocomplete>
@@ -63,17 +64,19 @@
               options.bind="controlOptions">
           </au-autocomplete> -->
 
-    <au-datepicker label="Estimasi Tanggal Realisasi"
+    <au-datepicker if.bind="data.numberVB"
+                   label="Estimasi Tanggal Realisasi"
                    value.bind="data.numberVB.DateEstimate"
                    read-only.bind="true"
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-textbox label="Pemohon VB"
-                value.bind="data.numberVB.CreatedBy"
-                read-only.bind="true"
-                options.bind="controlOptions">
-    </au-textbox>
+    <au-datepicker if.bind="selectedTypeVBWithPO == 'Tanpa Nomor VB'"
+                   label="Estimasi Tanggal Realisasi"
+                   value.bind="data.DateEstimate"
+                   read-only.bind="readOnly"
+                   options.bind="controlOptions">
+    </au-datepicker>
 
     <au-textbox error.bind="error.Item"
                 show.bind="error.Item"
@@ -88,7 +91,8 @@
                    header-template="modules/purchasing/realization-vb-with-po/template/item-header">
     </au-collection> -->
 
-    <au-collection items.bind="data.Items"
+    <au-collection if.bind="showCollection"
+                   items.bind="data.Items"
                    errors.bind="error.Items"
                    columns.bind="columns"
                    add.bind="addItems"
