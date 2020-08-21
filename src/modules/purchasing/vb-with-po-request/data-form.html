@@ -48,7 +48,7 @@
     <div if.bind="selectedCurrency">
       <au-collection items.bind="data.Items" errors.bind="error.items" columns.bind="itemsColumns" add.bind="addItems"
         remove.bind="removeItems" options.bind="options" read-only.bind="readOnly"
-        item-template="modules/purchasing/vb-with-po-request/template/new-vb-with-po-request-item">
+        item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item">
       </au-collection>
       Total Harga PO : ${getTotalPaid} ${selectedCurrency.Code}
     </div>
