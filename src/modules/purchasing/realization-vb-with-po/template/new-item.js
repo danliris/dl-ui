@@ -21,7 +21,7 @@ export class NewItem {
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
 
-    this.unitPaymentOrder = this.data.UnitPaymentOrder;
+    this.selectedUnitPaymentOrder = this.data.UnitPaymentOrder;
   }
 
   changeCheckBox() {
