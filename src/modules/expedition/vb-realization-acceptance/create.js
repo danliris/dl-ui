@@ -34,6 +34,7 @@ export class Create {
     { field: 'VBRealizationNo', title: 'No Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
@@ -58,6 +59,7 @@ export class Create {
     { field: 'VBRealizationNo', title: 'No Realisasi' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');

@@ -156,6 +156,10 @@ export class DataForm {
       if (!this.data.DetailOthersVB) {
         this.data.DetailOthersVB = this.data.DetailOthers;
       }
+
+      if (!this.data.DetailOthers) {
+        this.data.DetailOthers = this.data.DetailOthersVB;
+      }
     }
   }
 
@@ -363,7 +367,7 @@ export class DataForm {
   get getOthersValueVB() {
     if (this.data.DetailOthersVB) {
       return this.data.DetailOthersVB;
-    }else if (this.data.DetailOthers) {
+    } else if (this.data.DetailOthers) {
       return this.data.DetailOthers;
     } else {
       return "..........";
