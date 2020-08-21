@@ -1,4 +1,5 @@
 import { bindable, computedFrom } from 'aurelia-framework';
+const UnitPaymentOrderLoader = require('../../../../loader/spb-for-vb');
 // const
 
 export class NewItem {

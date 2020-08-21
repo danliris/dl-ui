@@ -70,7 +70,7 @@
     </au-datepicker>
 
     <au-textbox label="Pemohon VB"
-                value.bind="data.numberVB.CreateBy"
+                value.bind="data.numberVB.CreatedBy"
                 read-only.bind="true"
                 options.bind="controlOptions">
     </au-textbox>
@@ -94,6 +94,7 @@
                    add.bind="addItems"
                    remove.bind="onremove"
                    read-only.bind="readOnly"
+                   options.bind="collectionOptions"
                    item-template="modules/purchasing/realization-vb-with-po/template/new-item">
     </au-collection>
 

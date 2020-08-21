@@ -152,6 +152,10 @@ export class DataForm {
         this.data.Others = false;
         this.data.DetailOthers = "";
       }
+    } else {
+      if (!this.data.DetailOthersVB) {
+        this.data.DetailOthersVB = this.data.DetailOthers;
+      }
     }
   }
 

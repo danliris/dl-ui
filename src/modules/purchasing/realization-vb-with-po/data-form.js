@@ -43,6 +43,8 @@ export class DataForm {
     // }
   }
 
+  collectionOptions = {};
+
   async numberVBChanged(newValue) {
     var temp_detailItem = [];
     this.data.numberVB = newValue;
@@ -50,12 +52,13 @@ export class DataForm {
     if (this.data.numberVB) {
       // console.log(this.data.numberVB);
       this.data.DateEstimate = this.data.numberVB.DateEstimate;
-      this.data.CreateByVB = this.data.numberVB.CreateBy;
+      this.data.CreatedByVB = this.data.numberVB.CreatedBy;
       this.data.VBNo = this.data.numberVB.VBNo;
       this.data.UnitId = this.data.numberVB.UnitId;
       this.data.UnitCode = this.data.numberVB.UnitCode;
       this.data.UnitName = this.data.numberVB.UnitName;
       this.data.Amount = this.data.numberVB.Amount;
+      console.log(this.data.numberVB);
 
       // for (var dataspb of this.data.numberVB.PONo) {
       //   // var itemData = {
