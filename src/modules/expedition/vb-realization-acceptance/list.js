@@ -13,7 +13,7 @@ export class List {
 
   columns = [
     {
-      field: 'SendToVerificationDate', title: 'Tanggal Masuk Verifikasi', formatter: function (value, data, index) {
+      field: 'SendToVerificationDate', title: 'Tanggal Penerimaan Verifikasi', formatter: function (value, data, index) {
         return moment(value).format('DD MMM YYYY');
       },
     },
