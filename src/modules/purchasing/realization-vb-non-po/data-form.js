@@ -348,6 +348,7 @@ export class DataForm {
   }
 
   get getOthersValue() {
+    console.log(this.data);
     if (this.data.DetailOthers == "") {
       return "..........";
     } else {
@@ -358,6 +359,8 @@ export class DataForm {
   get getOthersValueVB() {
     if (this.data.DetailOthersVB) {
       return this.data.DetailOthersVB;
+    }else if (this.data.DetailOthers) {
+      return this.data.DetailOthers;
     } else {
       return "..........";
     }
