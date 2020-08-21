@@ -5,6 +5,8 @@
       <au-autocomplete label="No SPB"
                        value.bind="selectedUnitPaymentOrder"
                        loader.bind="unitPaymentOrderLoader"
+                       query.bind="filter"
+                       text="no"
                        read-only.bind="readOnly">
       </au-autocomplete>
     </td>

@@ -48,6 +48,7 @@
                      label="No VB"
                      loader.one-time="vbLoader"
                      text="VBNo"
+                     query.bind="filter"
                      read-only.bind="readOnly"
                      options.bind="controlOptions"
                      placeholder="Cari Kode VB">
@@ -64,7 +65,7 @@
               options.bind="controlOptions">
           </au-autocomplete> -->
 
-    <au-datepicker if.bind="data.numberVB"
+    <au-datepicker if.bind="data.numberVB && selectedTypeVBWithPO == 'Dengan Nomor VB'"
                    label="Estimasi Tanggal Realisasi"
                    value.bind="data.numberVB.DateEstimate"
                    read-only.bind="true"
@@ -91,8 +92,7 @@
                    header-template="modules/purchasing/realization-vb-with-po/template/item-header">
     </au-collection> -->
 
-    <au-collection if.bind="showCollection"
-                   items.bind="data.Items"
+    <au-collection items.bind="data.Items"
                    errors.bind="error.Items"
                    columns.bind="columns"
                    add.bind="addItems"
