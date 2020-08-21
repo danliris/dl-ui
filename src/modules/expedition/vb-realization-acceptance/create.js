@@ -25,20 +25,21 @@ export class Create {
         return value ? moment(value).format('DD MMM YYYY') : "-";
       },
     },
-    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
+    { field: 'VBNo', title: 'No VB' },
     {
       field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
         return moment(value).format('DD MMM YYYY');
       },
     },
+    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
-    { field: 'UnitName', title: 'Bagian/Unit' },
     {
-      field: 'TotalPaid', title: 'Nominal Realisasi', formatter: function (value, data, index) {
+      field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       },
-    }
+    },
+    { field: 'CurrencyCode', title: 'Mata Uang' }
   ];
 
   columns2 = [
@@ -58,7 +59,7 @@ export class Create {
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
     {
-      field: 'TotalPaid', title: 'Nominal Realisasi', formatter: function (value, data, index) {
+      field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       }
     },
