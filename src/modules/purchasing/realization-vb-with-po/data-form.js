@@ -32,12 +32,15 @@ export class DataForm {
 
   bind(context) {
     this.context = context;
-    this.data = this.context.data;
+    this.data = this.context.data ;
     this.error = this.context.error;
+    this.collectionVM = this.context.collectionVM;
     // console.log(this.data.numberVB);
     if (this.data.numberVB && this.data.numberVB.VBNo) {
       this.numberVB = this.data.numberVB;
     }
+
+    console.log(this);
     // else{
     //     this.numberVB = {};
     // }
@@ -132,6 +135,7 @@ export class DataForm {
   get addItems() {
     return (event) => {
       this.data.Items.push({})
+      this.collectionVM.bind()
     };
   }
 
