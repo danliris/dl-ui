@@ -42,7 +42,7 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-autocomplete if.bind="selectedTypeVBWithPO == 'Dengan Nomor VB'"
+    <au-autocomplete if.bind="selectedTypeVB == 'Dengan Nomor VB'"
                      value.bind="numberVB"
                      error.bind="error.VBCode"
                      label="No VB"
@@ -65,14 +65,14 @@
               options.bind="controlOptions">
           </au-autocomplete> -->
 
-    <au-datepicker if.bind="data.numberVB && selectedTypeVBWithPO == 'Dengan Nomor VB'"
+    <au-datepicker if.bind="data.numberVB && selectedTypeVB == 'Dengan Nomor VB'"
                    label="Estimasi Tanggal Realisasi"
                    value.bind="data.numberVB.DateEstimate"
                    read-only.bind="true"
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-datepicker if.bind="selectedTypeVBWithPO == 'Tanpa Nomor VB'"
+    <au-datepicker if.bind="selectedTypeVB == 'Tanpa Nomor VB'"
                    label="Estimasi Tanggal Realisasi"
                    value.bind="data.DateEstimate"
                    read-only.bind="readOnly"
