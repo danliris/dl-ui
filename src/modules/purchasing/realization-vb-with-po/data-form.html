@@ -92,7 +92,8 @@
                    header-template="modules/purchasing/realization-vb-with-po/template/item-header">
     </au-collection> -->
 
-    <au-collection items.bind="data.Items"
+    <au-collection view-model.ref="collectionVM"
+                   items.bind="data.Items"
                    errors.bind="error.Items"
                    columns.bind="columns"
                    add.bind="addItems"

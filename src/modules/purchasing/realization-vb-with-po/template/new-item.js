@@ -33,9 +33,9 @@ export class NewItem {
     }
   }
 
-  changeCheckBox() {
-    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
-  }
+  // changeCheckBox() {
+  //   this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+  // }
 
   get unitPaymentOrderLoader() {
     return UnitPaymentOrderLoader;
