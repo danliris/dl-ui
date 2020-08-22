@@ -338,6 +338,19 @@ module.exports = [
     }
   },
   {
+    route: 'vb-realization-expedition-report',
+    name: 'vb-realization-expedition-report',
+    moduleId: './modules/expedition/vb-realization-expedition-report/index',
+    nav: true,
+    title: 'Laporan Ekspedisi Realisasi',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: '/expedition/down-payment',
     name: 'down-payment',
     moduleId: './modules/expedition/down-payment/index',
