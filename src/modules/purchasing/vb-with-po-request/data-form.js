@@ -122,15 +122,18 @@ export class DataForm {
   get getTotalPaid() {
     var result = 0;
     // console.log(this.data.Items)
+    console.log(this.data);
     if (this.data.Items) {
       // console.log("masuk")
       // console.log(this.data.Items)
+      console.log("calculate", this.data);
       for (var productList of this.data.Items) {
         // console.log(productList)
         if (productList.details) {
 
           for (var proddetail of productList.details) {
-            let price = proddetail.dealQuantity * proddetail.priceBeforeTax;
+            let dealQuantity = parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
+            let price = dealQuantity * proddetail.priceBeforeTax;
             if (proddetail.useVat && !proddetail.includePpn)
               price += price * 0.1;
             // console.log(proddetail.priceBeforeTax)

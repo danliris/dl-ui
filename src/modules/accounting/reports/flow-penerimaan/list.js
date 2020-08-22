@@ -107,12 +107,14 @@ export class List {
         var info = {
            
             category : this.category ? this.category : "",
+            categoryname: this.category === "Bahan Baku" ? "GUDANG BAHAN BAKU" : this.category === "Bahan Embalase" ? "GUDANG BAHAN EMBALASE" : this.category === "Bahan Pendukung" ?  "GUDANG BAHAN PENDUKUNG" : "",
             unit : this.unit ? this.unit.Code : "",
+            unitname: this.unit ? this.unit.Name : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
         console.log(info);
-        this.service.generateXls(  info.unit,  info.category, info.dateFrom, info.dateTo)
+        this.service.generateXls(  info.unit,  info.category, info.dateFrom, info.dateTo, info.unitname, info.categoryname)
     }
   
 

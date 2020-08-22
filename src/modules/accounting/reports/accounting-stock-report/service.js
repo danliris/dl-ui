@@ -17,7 +17,7 @@ export class Service extends RestService {
     }
 
     generateExcel(args) {
-        var endpoint = `${serviceUri}/download?unitcode=${args.unitcode}&category=${args.category}&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}`;
+        var endpoint = `${serviceUri}/download?unitcode=${args.unitcode}&unitname=${args.unitname}&category=${args.category}&categoryname=${args.categoryname}&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}`;
         return super.getXls(endpoint);
     }
 

@@ -152,6 +152,14 @@ export class DataForm {
         this.data.Others = false;
         this.data.DetailOthers = "";
       }
+    } else {
+      if (!this.data.DetailOthersVB) {
+        this.data.DetailOthersVB = this.data.DetailOthers;
+      }
+
+      if (!this.data.DetailOthers) {
+        this.data.DetailOthers = this.data.DetailOthersVB;
+      }
     }
   }
 
@@ -348,6 +356,7 @@ export class DataForm {
   }
 
   get getOthersValue() {
+    console.log(this.data);
     if (this.data.DetailOthers == "") {
       return "..........";
     } else {
@@ -358,6 +367,8 @@ export class DataForm {
   get getOthersValueVB() {
     if (this.data.DetailOthersVB) {
       return this.data.DetailOthersVB;
+    } else if (this.data.DetailOthers) {
+      return this.data.DetailOthers;
     } else {
       return "..........";
     }

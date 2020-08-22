@@ -13,7 +13,7 @@ export class List {
 
   columns = [
     {
-      field: 'SendToVerificationDate', title: 'Tanggal Masuk Verifikasi', formatter: function (value, data, index) {
+      field: 'SendToVerificationDate', title: 'Tanggal Penerimaan Verifikasi', formatter: function (value, data, index) {
         return moment(value).format('DD MMM YYYY');
       },
     },
@@ -26,6 +26,7 @@ export class List {
     { field: 'VBRealizationNo', title: 'Nomor Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
@@ -49,6 +50,7 @@ export class List {
     { field: 'VBRealizationNo', title: 'Nomor Realisasi VB' },
     { field: 'VBType', title: 'Tipe VB' },
     { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
     {
       field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');

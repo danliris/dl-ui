@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Laporan Detail Flow Pengeluaran</h1>
+    <h1 class="page-header">Laporan Rekap BUK</h1>
 
     <form class="form-horizontal">
 
@@ -10,13 +10,15 @@
               items.bind="KategoriItem"
               options.bind="controlOptions" >
         </au-dropdown>
-
+        <au-autocomplete value.bind="unit" label="Unit" loader.bind="unitLoader" placeholder="Cari Unit"
+          read-only.bind="readOnly" text.bind="unitView" options.bind="controlOptions">
+        </au-autocomplete>
         <au-datepicker
             value.bind="dateFrom"
             label="Tanggal Awal"
             options.bind="controlOptions">
         </au-datepicker>
-
+        
         <au-datepicker
             value.bind="dateTo"
             label="Tanggal Akhir"
@@ -40,7 +42,7 @@
         page-size="25"
         options.bind="tableOptions">
         <div slot="toolbar" class="btn-group">
-            <button class="btn btn-primary" click.delegate="xls()">Cetak</button>
+            <button class="btn btn-primary" click.delegate="xls()">Export ke Excel</button>
         </div>
     </au-table>
 </template>
