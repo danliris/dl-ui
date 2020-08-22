@@ -45,7 +45,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.carts = this.data.carts || [];
+        this.data.Carts = this.data.Carts || [];
 
         if (this.data.ProductionOrder && this.data.ProductionOrder.Details && this.data.ProductionOrder.Details.length > 0) {
             this.productionOrderDetails = this.data.ProductionOrder.Details;
@@ -201,6 +201,7 @@ export class DataForm {
             let oldKanban = await this.service.getById(kanban.Id)
             Object.assign(this.data, oldKanban);
 
+            this.cartNumber = this.data.Cart.CartNumber;
             this.data.reprocessSteps = {
                 "LanjutProses": [],
                 "Reproses": [],
@@ -373,9 +374,7 @@ export class DataForm {
 
     moveItemDown(event) {
         var steps = this.data.Instruction.Steps;
-        console.log(steps)
-        var stepDoneLength = (this.isReprocess ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
-        console.log(stepDoneLength)
+        var stepDoneLength = (this.isReprocess && this.data.reprocess == this.data.SEMUA ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
         if (steps && steps.length > 0 && steps[0].SelectedIndex != null && steps[0].SelectedIndex < steps.length - 1 - stepDoneLength) {
             var selectedSteps = steps.splice(steps[0].SelectedIndex, 1);
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
@@ -396,13 +395,28 @@ export class DataForm {
             this.currentReprocess = undefined;
             this.data.reprocessStatus = false;
 
+            var reprocessString = this.cartNumber.split('/ ')[0];
+            var originalCartNumber = this.cartNumber.split('/ ').slice(1).join('/ ');
+            var extractNumber = null;
+            var reprocessCartNumber = "";
+            if (this.data.IsReprocess && reprocessString && reprocessString.charAt(0) == 'R') {
+                extractNumber = parseInt(reprocessString.replace(/\D/g, ""));
+                if (extractNumber) {
+                    reprocessCartNumber = `R${extractNumber + 1}/ ${originalCartNumber}`
+                } else {
+                    reprocessCartNumber = `R1/ ${this.cartNumber}`
+                }
+            } else {
+                reprocessCartNumber = `R1/ ${this.cartNumber}`
+            }
+
             if (e.detail == this.data.SEBAGIAN) {
-                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
+                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
                 this.options.reprocessSome = true;
                 this.options.reprocessStepsHide = true;
             }
             else {
-                this.data.Carts = [{ CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
+                this.data.Carts = [{ CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
                 this.options.reprocessSome = false;
                 this.options.reprocessStepsHide = false;
                 this.data.Instruction.Steps = this.data.reprocessSteps.Original;
