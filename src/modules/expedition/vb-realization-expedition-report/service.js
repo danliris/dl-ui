@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'sales-receipts/reports';
+const serviceUri = 'vb-realization-expeditions/reports';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -14,7 +14,7 @@ export class Service extends RestService {
     }
 
     getXls(info) {
-        var query = `?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var query = `?divisionId=${info.divisionId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
 
 
         let endpoint = `${serviceUri}/xls${query}`;
