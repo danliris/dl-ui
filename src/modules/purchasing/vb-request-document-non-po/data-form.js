@@ -2,8 +2,8 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
-const CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader')
-const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader')
+const CurrencyLoader = require('../../../loader/currency-loader');
+const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
 @inject(Service)
@@ -64,9 +64,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
-    if (this.data.Currency) {
-      this.data.Currency.code = this.data.Currency.Code;
-    }
     let tempCards = [];
     this.data.Items.forEach((item, index) => {
       tempCards.push(item);
@@ -92,11 +89,20 @@ export class DataForm {
   }
 
   otherUnitSelected(event, data) {
-    data.VBDocumentLayoutOrder = 10;
+    if (data.IsSelected) {
+      data.Unit.VBDocumentLayoutOrder = 10;
+    } else {
+      data.Unit = {};
+      data.Unit.VBDocumentLayoutOrder = 10;
+    }
   }
 
   unitView = (unit) => {
     return `${unit.Code} - ${unit.Name}`;
+  }
+
+  currencyView = (currency) => {
+    return `${currency.Code}`;
   }
 
   get unitLoader() {
