@@ -146,7 +146,6 @@ export class PurchaseOrderItem {
       let items = [];
       this.data.PurchaseOrderExternal.items.forEach((item) => {
         return item.details.forEach((detail) => {
-          console.log(detail);
           items.push({
             Product: detail.product,
             DefaultQuantity: detail.defaultQuantity,
@@ -158,6 +157,8 @@ export class PurchaseOrderItem {
           })
         })
       });
+
+      this.data.PurchaseOrderExternal.Details = items;
     } else {
       delete this.data.PurchaseOrderExternal;
     }

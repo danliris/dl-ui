@@ -48,7 +48,7 @@
     <td>
       <div class="col-sm-13">
         <button class="btn btn-info pull-left"
-                if.bind="data.Items || data.items"
+                if.bind="data.PurchaseOrderExternal.Details"
                 click.delegate="toggle()">i</button>
         <button class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)"
@@ -58,7 +58,7 @@
   </tr>
   <tr if.bind="isShowing">
     <td colspan="4">
-      <au-collection items.bind="data.PurchaseOrderExternal.Items"
+      <au-collection items.bind="data.PurchaseOrderExternal.Details"
                      columns.bind="itemsColumns"
                      options.bind="context.context.options"
                      read-only.bind="options.readOnly"

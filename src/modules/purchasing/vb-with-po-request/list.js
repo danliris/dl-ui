@@ -56,9 +56,9 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
-      filter: {
+      filter: JSON.stringify({
         "Type": 1
-      }
+      })
     };
 
     return this.service.search(arg)
