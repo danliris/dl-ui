@@ -170,8 +170,8 @@ module.exports = [
         }
     },
     {
-      route: 'vb-non-po-request',
-      name: 'vb-non-po-request',
+      route: 'vb-request-document-non-po',
+      name: 'vb-request-document-non-po',
       moduleId: './modules/purchasing/vb-request-document-non-po/index',
       nav: true,
       title: 'Permohonan VB Non PO',

@@ -3,6 +3,8 @@ import { Service } from './service';
 import moment from 'moment';
 
 const CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader')
+const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader')
+const UnitLoader = require('../../../loader/unit-loader');
 
 @inject(Service)
 export class DataForm {
@@ -24,6 +26,21 @@ export class DataForm {
       length: 4,
     },
   };
+
+  controlOptionsLabel = {
+    label: {
+      length: 8
+    },
+    control: {
+      length: 3
+    }
+  }
+
+  controlOptionsDetail = {
+    control: {
+      length: 10
+    }
+  }
 
   cards = [];
 
@@ -60,21 +77,54 @@ export class DataForm {
     console.log(this.cards);
   }
 
-  // columns = [
-  //     { header: "No. Akun", value: "COA" },
-  //     { header: "Nama Akun", value: "COA.name" },
-  //     { header: "Keterangan", value: "Remark" },
-  //     { header: "Debit", value: "Debit" },
-  //     { header: "Kredit", value: "Credit" }
-  // ]
-
-  // get addItems() {
-  //     return (event) => {
-  //         this.data.Items.push({})
-  //     };
-  // }
-
   get currencyLoader() {
     return CurrencyLoader;
+  }
+
+  unitQuery = { VBDocumentLayoutOrder: 0 }
+  get unitVBNonPOLoader() {
+    return UnitVBNonPO;
+  }
+
+  otherUnitSelected(event, data) {
+    data.VBDocumentLayoutOrder = 10;
+  }
+
+  @bindable selectedUnit;
+  selectedUnitChanged(newValue, oldValue) {
+    if (this.selectedUnit && this.selectedUnit.Id) {
+      this.data.unit = {};
+      this.data.unit.id = this.selectedUnit.Id;
+      this.data.unit.name = this.selectedUnit.Name;
+      this.data.unit.code = this.selectedUnit.Code;
+
+      if (this.selectedUnit.Division) {
+        this.data.division = {};
+        this.data.division.id = this.selectedUnit.Division.Id;
+        this.data.division.name = this.selectedUnit.Division.Name;
+      }
+      else {
+        this.data.division = {};
+        this.data.division.id = this.data.Division.Id;
+        this.data.division.name = this.data.Division.Name;
+      }
+
+    }
+    else {
+      this.data.unit.id = this.selectedUnit.id;
+      this.data.unit.name = this.selectedUnit.name;
+      this.data.unit.code = this.selectedUnit.code;
+      this.data.unit.Division.Id = this.selectedUnit.divisionname;
+      this.data.unit.Division.Name = this.selectedUnit.divisionid;
+    }
+  }
+
+  unitView = (unit) => {
+    return `${unit.Code} - ${unit.Name}`
+
+  }
+
+  get unitLoader() {
+    return UnitLoader;
   }
 }
