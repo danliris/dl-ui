@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom, customElement } from 'aurelia-framework';
 import moment from 'moment';
 
-@customElement("card-content")
+// @customElement("card-content")
 export class CardContent {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) errors;
@@ -24,11 +24,16 @@ export class CardContent {
   //   },
   // };
 
-  constructor() {
+  constructor(element) {
+    console.log(element);
+    console.log(this.data);
+  }
 
+  bind() {
+    // console.log(context);
   }
 
   activate(params) {
-    console.log(params);
+    // console.log(params);
   }
 }
