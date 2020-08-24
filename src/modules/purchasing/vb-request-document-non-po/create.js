@@ -17,7 +17,6 @@ export class Create {
 
   async activate(params) {
     let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
-    console.log(unitCostsResponse)
     let unitCosts = unitCostsResponse.data;
 
     unitCosts.map((unit) => {
@@ -50,7 +49,6 @@ export class Create {
 
   saveCallback(event) {
 
-    console.log(this.data);
     this.service
       .create(this.data)
       .then(result => {
@@ -62,6 +60,9 @@ export class Create {
         );
       })
       .catch(e => {
+        if (e.message) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        }
         this.error = e;
       });
 

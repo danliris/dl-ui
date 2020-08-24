@@ -26,14 +26,11 @@ export class CardContentCustomElement {
 
   constructor(element) {
     this.component = element;
-    console.log(this.data);
   }
 
   bind() {
-    // console.log(context);
   }
 
   activate(params) {
-    // console.log(params);
   }
 }

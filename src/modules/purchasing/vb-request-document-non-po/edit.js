@@ -21,12 +21,14 @@ export class Edit {
 
   saveCallback(event) {
 
-    console.log(this.data)
     this.service.update(this.data)
       .then(result => {
         this.router.navigateToRoute('view', { id: this.data.Id });
       })
       .catch(e => {
+        if (e.message) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        }
         this.error = e;
       });
 

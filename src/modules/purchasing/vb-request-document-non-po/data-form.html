@@ -30,7 +30,7 @@
 
     </card-content> -->
     <div class="container" >
-      <au-textbox show.bind="error.Item" read-only.bind="true" value.bind="error.Item" style="color: red;"></au-textbox>
+      <au-textbox show.bind="data.Currency && error.Item" read-only.bind="true" value.bind="error.Item" style="color: red;"></au-textbox>
       <table show.bind="data.Currency">
         <tr repeat.for="cardContents of cards">
           <td repeat.for="cardContent of cardContents">
