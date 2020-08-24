@@ -59,6 +59,9 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
+    if (this.data.Currency) {
+      this.data.Currency.code = this.data.Currency.Code;
+    }
     let tempCards = [];
     this.data.Items.forEach((item, index) => {
       tempCards.push(item);
