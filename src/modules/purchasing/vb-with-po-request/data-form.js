@@ -122,11 +122,11 @@ export class DataForm {
   get getTotalPaid() {
     var result = 0;
     // console.log(this.data.Items)
-    console.log(this.data);
+    // console.log(this.data);
     if (this.data.Items) {
       // console.log("masuk")
       // console.log(this.data.Items)
-      console.log("calculate", this.data);
+      // console.log("calculate", this.data);
       for (var productList of this.data.Items) {
         // console.log(productList)
         if (productList.details) {

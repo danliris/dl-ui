@@ -15,9 +15,9 @@ export class PurchaseOrderItem {
     // if(!this.data.useVat){
     //   this.data.includePpn=false;
     // }
-    if (this.data) {
-      this.updateItem();
-    }
+    // if (this.data) {
+    //   this.updateItem();
+    // }
     // if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
     //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
   }

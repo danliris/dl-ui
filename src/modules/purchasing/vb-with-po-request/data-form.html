@@ -36,14 +36,14 @@
     </au-datepicker>
 
     <au-datepicker label="Estimasi Tanggal Realisasi"
-                   value.bind="data.DateEstimate"
-                   error.bind="error.DateEstimate"
+                   value.bind="data.RealizationEstimationDate"
+                   error.bind="error.RealizationEstimationDate"
                    read-only.bind="readOnly"
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete value.bind="selectedUnit"
-                     error.bind="error.VBCode"
+    <au-autocomplete value.bind="data.SuppliantUnit"
+                     error.bind="error.SuppliantUnit"
                      label="Unit Pemohon"
                      loader.one-time="unitLoader"
                      text.bind="unitView"
@@ -71,21 +71,20 @@
     </au-numeric>
 
     <au-multiline label="Kegunaan"
-                  value.bind="data.Usage"
-                  error.bind="error.Usage"
+                  value.bind="data.Purpose"
                   placeholder="Kegunaan"
                   read-only.bind="readOnly"
                   options.bind="controlOptions">
     </au-multiline>
 
-    <au-textbox show.bind="error.itemscount"
-                error.bind="error.itemscount"
+    <au-textbox show.bind="error.Item"
+                error.bind="error.Item"
                 read-only="true">
     </au-textbox>
 
     <div if.bind="selectedCurrency">
       <au-collection items.bind="data.Items"
-                     errors.bind="error.items"
+                     errors.bind="error.Items"
                      columns.bind="itemsColumns"
                      add.bind="addItems"
                      remove.bind="removeItems"

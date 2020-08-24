@@ -2,8 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "vb-request-documents/non-po";
-const subLedgerReportServiceUri = 'journal-transactions/report/sub-ledgers';
+const serviceUri = "vb-request-documents";
 
 export class Service extends RestService {
 
@@ -17,27 +16,27 @@ export class Service extends RestService {
   }
 
   getById(id) {
-    let endpoint = `${serviceUri}/${id}`;
+    let endpoint = `${serviceUri}/non-po/${id}`;
     return super.get(endpoint);
   }
 
   getPdfById(id) {
-    let endpoint = `${serviceUri}/${id}`;
+    let endpoint = `${serviceUri}/non-po/${id}`;
     return super.getPdf(endpoint);
   }
 
   create(data) {
-    let endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}/non-po`;
     return super.post(endpoint, data);
   }
 
   update(data) {
-    let endpoint = `${serviceUri}/${data.Id}`;
+    let endpoint = `${serviceUri}/non-po/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    let endpoint = `${serviceUri}/${data.Id}`;
+    let endpoint = `${serviceUri}/non-po/${data.Id}`;
     return super.delete(endpoint, data);
   }
 }

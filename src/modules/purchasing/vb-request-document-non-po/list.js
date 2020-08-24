@@ -40,25 +40,26 @@ export class List {
       order[info.sort] = info.order;
     else
       order["Date"] = "desc";
-
+    var filter = { Type: 2 }
     let arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      order: order
+      order: order,
+      filter: JSON.stringify(filter)
     };
 
-    // return this.service.search(arg)
-    //   .then(result => {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     }
-    //   });
-    return {
-      total: 0,
-      data: []
-    }
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+    // return {
+    //   total: 0,
+    //   data: []
+    // }
   }
 
   constructor(router, service) {

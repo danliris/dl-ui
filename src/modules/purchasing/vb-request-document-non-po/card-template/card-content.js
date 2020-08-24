@@ -1,13 +1,13 @@
 import { inject, bindable, computedFrom, customElement } from 'aurelia-framework';
 import moment from 'moment';
 
-// @customElement("card-content")
-export class CardContent {
+@customElement("card-content")
+@inject(Element)
+export class CardContentCustomElement {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) errors;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) data;
   // @bindable readOnly;
-
   // formOptions = {
   //   cancelText: "Kembali",
   //   saveText: "Simpan",
@@ -25,7 +25,7 @@ export class CardContent {
   // };
 
   constructor(element) {
-    console.log(element);
+    this.component = element;
     console.log(this.data);
   }
 

@@ -17,6 +17,7 @@ export class Create {
 
   async activate(params) {
     let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
+    console.log(unitCostsResponse)
     let unitCosts = unitCostsResponse.data;
 
     unitCosts.map((unit) => {
@@ -48,21 +49,21 @@ export class Create {
   }
 
   saveCallback(event) {
-    //   this.service
-    //     .create(this.data)
-    //     .then(result => {
-    //       alert("Data berhasil dibuat");
-    //       this.router.navigateToRoute(
-    //         "create",
-    //         {},
-    //         { replace: true, trigger: true }
-    //       );
-    //     })
-    //     .catch(e => {
-    //       this.error = e;
-    //     });
-    // }
 
     console.log(this.data);
+    this.service
+      .create(this.data)
+      .then(result => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          { replace: true, trigger: true }
+        );
+      })
+      .catch(e => {
+        this.error = e;
+      });
+
   }
 }

@@ -3,6 +3,8 @@ import { Service } from './service';
 import moment from 'moment';
 
 const CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader')
+const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader')
+const UnitLoader = require('../../../loader/unit-loader');
 
 @inject(Service)
 export class DataForm {
@@ -25,10 +27,30 @@ export class DataForm {
     },
   };
 
+  controlOptionsLabel = {
+    label: {
+      length: 8
+    },
+    control: {
+      length: 3
+    }
+  }
+
+  controlOptionsDetail = {
+    control: {
+      length: 10
+    }
+  }
+
   cards = [];
 
   constructor(service) {
     this.service = service;
+  }
+
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data.Id || '').toString() != '';
   }
 
   bind(context) {
@@ -42,6 +64,9 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
+    if (this.data.Currency) {
+      this.data.Currency.code = this.data.Currency.Code;
+    }
     let tempCards = [];
     this.data.Items.forEach((item, index) => {
       tempCards.push(item);
@@ -60,21 +85,24 @@ export class DataForm {
     console.log(this.cards);
   }
 
-  // columns = [
-  //     { header: "No. Akun", value: "COA" },
-  //     { header: "Nama Akun", value: "COA.name" },
-  //     { header: "Keterangan", value: "Remark" },
-  //     { header: "Debit", value: "Debit" },
-  //     { header: "Kredit", value: "Credit" }
-  // ]
-
-  // get addItems() {
-  //     return (event) => {
-  //         this.data.Items.push({})
-  //     };
-  // }
-
   get currencyLoader() {
     return CurrencyLoader;
+  }
+
+  unitQuery = { VBDocumentLayoutOrder: 0 }
+  get unitVBNonPOLoader() {
+    return UnitVBNonPO;
+  }
+
+  otherUnitSelected(event, data) {
+    data.VBDocumentLayoutOrder = 10;
+  }
+
+  unitView = (unit) => {
+    return `${unit.Code} - ${unit.Name}`;
+  }
+
+  get unitLoader() {
+    return UnitLoader;
   }
 }
