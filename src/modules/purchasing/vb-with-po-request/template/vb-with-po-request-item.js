@@ -27,18 +27,20 @@ export class PurchaseOrderItem {
     this.options = context.options;
     // this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
-    this._items = [];
-    if (this.data) {
-      this.selectedPurchaseOrder = this.data;
-      if (this.data.Details) {
-        this.data.Items = this.data.Details;
-        this.isShowing = true;
-      }
-      if (this.data.Items) {
-        this.isShowing = true;
-      }
+    // this._items = [];
+    // if (this.data) {
+    //   this.selectedPurchaseOrder = this.data;
+    //   if (this.data.Details) {
+    //     this.data.Items = this.data.Details;
+    //     this.isShowing = true;
+    //   }
+    //   if (this.data.Items) {
+    //     this.isShowing = true;
+    //   }
 
-    }
+    this.selectedPurchaseOrderExternal = this.data.PurchaseOrderExternal;
+
+    // }
     // this.filter={
     //   "UnitName":this.context.context.options.unitCode,
     //   "IsPosted":false
@@ -135,6 +137,31 @@ export class PurchaseOrderItem {
 
         this.data.details = this._items;
       }
+  }
+
+  @bindable selectedPurchaseOrderExternal;
+  selectedPurchaseOrderExternalChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.PurchaseOrderExternal = newValue;
+      let items = [];
+      this.data.PurchaseOrderExternal.items.forEach((item) => {
+        return item.details.forEach((detail) => {
+          items.push({
+            Product: detail.product,
+            DefaultQuantity: detail.defaultQuantity,
+            DealQuantity: detail.dealQuantity,
+            DealUOM: detail.dealUom,
+            Conversion: detail.conversion,
+            Price: detail.pricePerDealUnit,
+            UseVat: item.useVat
+          })
+        })
+      });
+
+      this.data.PurchaseOrderExternal.Details = items;
+    } else {
+      delete this.data.PurchaseOrderExternal;
+    }
   }
 
   get getTotalPaid() {
