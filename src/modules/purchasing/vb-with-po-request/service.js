@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'vb-with-po-request';
+const serviceUri = 'vb-request-documents/with-po';
 
 export class Service extends RestService {
 
