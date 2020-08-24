@@ -54,6 +54,7 @@
             <au-autocomplete
               if.bind="cardContent.IsSelected && cardContent.Unit.VBDocumentLayoutOrder == 10 && !readOnly "
               value.bind="cardContent.Unit" read-only.bind="readOnly" loader.bind="unitVBNonPOLoader"
+              change.delegate="otherUnitSelected($event,cardContent)"
               query.bind="unitQuery" text="Name" options.bind="controlOptionsDetail">
             </au-autocomplete>
           </td>
