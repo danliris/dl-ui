@@ -16,7 +16,8 @@
     </au-autocomplete>
 
     <au-autocomplete placeholder="pilih mata uang" value.bind="data.Currency" error.bind="error.Currency"
-      loader.bind="currencyLoader" label="Kurs" text="code" read-only.bind="readOnly" options.bind="controlOptions">
+      loader.bind="currencyLoader" label="Kurs" text.bind="currencyView" read-only.bind="readOnly"
+      options.bind="controlOptions">
     </au-autocomplete>
 
     <au-numeric label="Jumlah Uang" value.bind="data.Amount" error.bind="error.Amount" read-only.bind="readOnly"
@@ -29,8 +30,9 @@
     <!-- <card-content data.bind="data">
 
     </card-content> -->
-    <div class="container" >
-      <au-textbox show.bind="data.Currency && error.Item" read-only.bind="true" value.bind="error.Item" style="color: red;"></au-textbox>
+    <div class="container">
+      <au-textbox show.bind="data.Currency && error.Item" read-only.bind="true" value.bind="error.Item"
+        style="color: red;"></au-textbox>
       <table show.bind="data.Currency">
         <tr repeat.for="cardContents of cards">
           <td repeat.for="cardContent of cardContents">
@@ -42,8 +44,8 @@
               options.bind="controlOptionsLabel">
             </au-checkbox>
             <au-checkbox if.bind="cardContent.Unit.VBDocumentLayoutOrder == 10 && !readOnly"
-              value.bind="cardContent.IsSelected" error.bind="error.cardContent" read-only.bind="readOnly"
-              options.bind="controlOptionsLabel">
+              value.bind="cardContent.IsSelected" change.delegate="otherUnitSelected($event,cardContent)"
+              error.bind="error.cardContent" read-only.bind="readOnly" options.bind="controlOptionsLabel">
             </au-checkbox>
             <au-checkbox if.bind="cardContent.Unit.VBDocumentLayoutOrder == 10 && readOnly"
               label.bind="cardContent.Unit.Name" value.bind="cardContent.IsSelected" error.bind="error.cardContent"
@@ -51,8 +53,7 @@
             </au-checkbox>
             <au-autocomplete
               if.bind="cardContent.IsSelected && cardContent.Unit.VBDocumentLayoutOrder == 10 && !readOnly "
-              value.bind="cardContent.Unit" read-only.bind="readOnly"
-              change.delegate="otherUnitSelected($event,cardContent.Unit)" loader.bind="unitVBNonPOLoader"
+              value.bind="cardContent.Unit" read-only.bind="readOnly" loader.bind="unitVBNonPOLoader"
               query.bind="unitQuery" text="Name" options.bind="controlOptionsDetail">
             </au-autocomplete>
           </td>
