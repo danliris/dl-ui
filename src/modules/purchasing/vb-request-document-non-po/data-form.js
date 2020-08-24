@@ -70,9 +70,7 @@ export class DataForm {
     let tempCards = [];
     this.data.Items.forEach((item, index) => {
       tempCards.push(item);
-      // console.log(item.Unit.VBDocumentLayoutOrder % 5);
       if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-        // console.log(tempCards);
         this.cards.push(tempCards);
         tempCards = [];
       }
@@ -82,7 +80,6 @@ export class DataForm {
       this.cards.push(tempCards)
     }
 
-    console.log(this.cards);
   }
 
   get currencyLoader() {

@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-  context = ["Rincian"];
+  context = ["Rincian", "Cetak Bukti Permohonan"];
   columns = [
     { field: "DocumentNo", title: "No. VB" },
     {
@@ -16,11 +16,11 @@ export class List {
     },
     { field: "SuppliantUnitName", title: "Unit Pemohon" },
     { field: "CreatedBy", title: "Dibuat Oleh" },
-    {
-      field: "IsPosted", title: "Status Post", formatter: function (value, data, index) {
-        return value ? 'Sudah' : 'Belum';
-      }
-    },
+    // {
+    //   field: "IsPosted", title: "Status Post", formatter: function (value, data, index) {
+    //     return value ? 'Sudah' : 'Belum';
+    //   }
+    // },
     {
       field: "IsApproved", title: "Status Approved", formatter: function (value, data, index) {
         return value ? 'Sudah' : 'Belum';
@@ -39,7 +39,7 @@ export class List {
     if (info.sort)
       order[info.sort] = info.order;
     else
-      order["Date"] = "desc";
+      order["LastModifiedUtc"] = "desc";
     var filter = { Type: 2 }
     let arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
@@ -74,6 +74,18 @@ export class List {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
+      case "Cetak Bukti Permohonan":
+        this.service.getPdfById(data.Id);
+        break;
+    }
+  }
+
+  contextShowCallback(index, name, data) {
+    switch (name) {
+      case "Cetak Bukti Permohonan":
+        return data;
+      default:
+        return true;
     }
   }
 

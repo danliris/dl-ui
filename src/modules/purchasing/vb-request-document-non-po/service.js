@@ -39,4 +39,9 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/non-po/${data.Id}`;
     return super.delete(endpoint, data);
   }
+
+  getPdfById(id) {
+    var endpoint = `${serviceUri}/non-po/pdf/${id}`;
+    return super.getPdf(endpoint);
+  }
 }
