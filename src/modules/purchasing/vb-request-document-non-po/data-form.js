@@ -48,6 +48,11 @@ export class DataForm {
     this.service = service;
   }
 
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data.Id || '').toString() != '';
+  }
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -93,38 +98,8 @@ export class DataForm {
     data.VBDocumentLayoutOrder = 10;
   }
 
-  @bindable selectedUnit;
-  selectedUnitChanged(newValue, oldValue) {
-    if (this.selectedUnit && this.selectedUnit.Id) {
-      this.data.unit = {};
-      this.data.unit.id = this.selectedUnit.Id;
-      this.data.unit.name = this.selectedUnit.Name;
-      this.data.unit.code = this.selectedUnit.Code;
-
-      if (this.selectedUnit.Division) {
-        this.data.division = {};
-        this.data.division.id = this.selectedUnit.Division.Id;
-        this.data.division.name = this.selectedUnit.Division.Name;
-      }
-      else {
-        this.data.division = {};
-        this.data.division.id = this.data.Division.Id;
-        this.data.division.name = this.data.Division.Name;
-      }
-
-    }
-    else {
-      this.data.unit.id = this.selectedUnit.id;
-      this.data.unit.name = this.selectedUnit.name;
-      this.data.unit.code = this.selectedUnit.code;
-      this.data.unit.Division.Id = this.selectedUnit.divisionname;
-      this.data.unit.Division.Name = this.selectedUnit.divisionid;
-    }
-  }
-
   unitView = (unit) => {
-    return `${unit.Code} - ${unit.Name}`
-
+    return `${unit.Code} - ${unit.Name}`;
   }
 
   get unitLoader() {
