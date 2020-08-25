@@ -154,7 +154,7 @@ export class PurchaseOrderItem {
   }
 
   productView = (product) => {
-    return `${product.code} - ${product.name}`
+    return `${product.Code} - ${product.Name}`
   }
 
   uomView = (uom) => {
