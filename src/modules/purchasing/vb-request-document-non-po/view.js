@@ -15,6 +15,11 @@ export class View {
     let id = params.id;
     this.data = await this.service.getById(id);
 
+    if(this.data.IsApproved){
+      this.editCallback = false;
+      this.deleteCallback = false;
+    }
+
     // if (this.data.Status == "POSTED") {
     //   this.hasPosting = false;
     //   this.editCallback = false;
