@@ -121,10 +121,10 @@ export class DataForm {
 
           for (var epoItem of item.PurchaseOrderExternal.Items) {
             // let dealQuantity = parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
-            // let price = dealQuantity * proddetail.priceBeforeTax;
-            // if (proddetail.useVat && !proddetail.includePpn)
-            //   price += price * 0.1;
-            // result += price;
+            let price = epoItem.DealQuantity * epoItem.Price;
+            if (epoItem.UseVat)
+              price += price * 0.1;
+            result += price;
             console.log(epoItem);
           }
         }

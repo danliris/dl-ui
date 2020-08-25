@@ -19,10 +19,10 @@ export class PurchaseOrderItem {
     // { header: "Include Ppn?", value: "includePpn" },
     // { header: "Keterangan", value: "remark" },
     "Barang",
-    "Jumlah",
-    "Satuan",
-    "Jumlah",
-    "Satuan",
+    "Jumlah Default",
+    "Satuan Default",
+    "Jumlah Deal",
+    "Satuan Deal",
     "Konversi",
     "Harga",
     "Include PPn?",
@@ -212,7 +212,7 @@ export class PurchaseOrderItem {
   }
 
   purchaseOrderView = (purchaseOrder) => {
-    return purchaseOrder.no
+    return purchaseOrder.No
   }
 
   unitView = (purchaseOrder) => {
