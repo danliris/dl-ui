@@ -22,8 +22,8 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    create(data) {
-        let endpoint = `${serviceUri}/approve`;
+    approval(data) {
+        let endpoint = `${serviceUri}/approval`;
         return super.post(endpoint, data);
     }
 
