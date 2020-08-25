@@ -42,7 +42,7 @@
                    options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete value.bind="data.SuppliantUnit"
+    <au-autocomplete value.bind="selectedSuppliantUnit"
                      error.bind="error.SuppliantUnit"
                      label="Unit Pemohon"
                      loader.one-time="unitLoader"
@@ -82,7 +82,7 @@
                 read-only="true">
     </au-textbox>
 
-    <div if.bind="selectedCurrency">
+    <div if.bind="selectedCurrency && selectedSuppliantUnit">
       <au-collection items.bind="data.Items"
                      errors.bind="error.Items"
                      columns.bind="itemsColumns"

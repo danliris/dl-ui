@@ -27,23 +27,18 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
-    post(data) {
-        var endpoint = 'vb-non-po-request/post';
-        return super.post(endpoint, data);
-    }
-
     update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/with-po/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/with-po/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
-    getSalesReceiptPdfById(id) {
-      var endpoint = `${serviceUri}/pdf/${id}`;
+    getPdf(id) {
+      var endpoint = `${serviceUri}/with-po/pdf/${id}`;
       return super.getPdf(endpoint);
     }
 } 

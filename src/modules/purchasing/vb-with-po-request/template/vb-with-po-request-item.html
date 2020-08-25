@@ -2,7 +2,7 @@
   <tr>
     <td>
       <div class="col-sm-11">
-        <au-autocomplete value.bind="selectedPurchaseOrderExternal"
+        <au-autocomplete value.bind="data.PurchaseOrderExternal"
                          error.bind="error.PurchaseOrderExternal"
                          loader.bind="purchaseOrderLoader"
                          text.bind="purchaseOrderView"
@@ -17,7 +17,7 @@
                 
             </div> -->
     </td>
-    <td>
+    <!-- <td>
       <div class="col-sm-11">
         <au-autocomplete value.bind="data.PurchaseOrderExternal.unit.name"
                          error.bind="error.Unitname"
@@ -44,11 +44,11 @@
                     options.bind="controlOptions">
         </au-textbox>
       </div>
-    </td>
+    </td> -->
     <td>
       <div class="col-sm-13">
         <button class="btn btn-info pull-left"
-                if.bind="data.PurchaseOrderExternal.Details"
+                if.bind="data.PurchaseOrderExternal.Items"
                 click.delegate="toggle()">i</button>
         <button class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)"
@@ -58,7 +58,7 @@
   </tr>
   <tr if.bind="isShowing">
     <td colspan="4">
-      <au-collection items.bind="data.PurchaseOrderExternal.Details"
+      <au-collection items.bind="data.PurchaseOrderExternal.Items"
                      columns.bind="itemsColumns"
                      options.bind="context.context.options"
                      read-only.bind="options.readOnly"
