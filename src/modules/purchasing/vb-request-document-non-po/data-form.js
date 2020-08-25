@@ -64,6 +64,13 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
+    if (this.data.Items) {
+      var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+      if (otherUnit) {
+        this.cardContentUnit = otherUnit.Unit;
+      }
+    }
+
     let tempCards = [];
     this.data.Items.forEach((item, index) => {
       tempCards.push(item);
@@ -89,12 +96,15 @@ export class DataForm {
   }
 
   otherUnitSelected(event, data) {
-    if (data.IsSelected) {
-      data.Unit.VBDocumentLayoutOrder = 10;
-    } else {
-      data.Unit = {};
-      data.Unit.VBDocumentLayoutOrder = 10;
-    }
+    this.cardContentUnit = null;
+    data.Unit = {};
+    data.Unit.VBDocumentLayoutOrder = 10;
+    // if (data.IsSelected) {
+    //   data.Unit.VBDocumentLayoutOrder = 10;
+    // } else {
+    //   data.Unit = {};
+    //   data.Unit.VBDocumentLayoutOrder = 10;
+    // }
   }
 
   unitView = (unit) => {
@@ -107,5 +117,23 @@ export class DataForm {
 
   get unitLoader() {
     return UnitLoader;
+  }
+
+  @bindable cardContentUnit;
+  cardContentUnitChanged(n, o) {
+    var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+
+    if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
+      otherUnit.Unit = this.cardContentUnit;
+      otherUnit.Unit.VBDocumentLayoutOrder = 10;
+    } else {
+      if (otherUnit) {
+        otherUnit.Unit = {};
+        otherUnit.Unit.VBDocumentLayoutOrder = 10;
+      }
+
+    }
+
+
   }
 }
