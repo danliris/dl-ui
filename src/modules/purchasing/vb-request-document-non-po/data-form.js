@@ -96,7 +96,6 @@ export class DataForm {
   }
 
   otherUnitSelected(event, data) {
-    console.log(data)
     this.cardContentUnit = null;
     data.Unit = {};
     data.Unit.VBDocumentLayoutOrder = 10;
@@ -122,8 +121,6 @@ export class DataForm {
 
   @bindable cardContentUnit;
   cardContentUnitChanged(n, o) {
-    console.log(this.data.Items)
-    console.log(this.cardContentUnit)
     var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
 
     if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
