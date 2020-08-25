@@ -62,8 +62,8 @@ export class DataForm {
 
   @bindable selectedCurrency;
   selectedCurrencyChanged(newValue, oldValue) {
-
-    if (this.data.Items && this.data.Items.length > 0) {
+    console.log(oldValue);
+    if (oldValue && this.data.Items && this.data.Items.length > 0) {
       this.data.Items.splice(0, this.data.Items.length);
     }
 
@@ -75,8 +75,8 @@ export class DataForm {
 
   @bindable selectedSuppliantUnit;
   selectedSuppliantUnitChanged(newValue, oldValue) {
-
-    if (this.data.Items && this.data.Items.length > 0) {
+    console.log(oldValue);
+    if (oldValue && this.data.Items && this.data.Items.length > 0) {
       this.data.Items.splice(0, this.data.Items.length);
     }
 

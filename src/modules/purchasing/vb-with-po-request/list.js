@@ -83,7 +83,7 @@ export class List {
         this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
         break;
       case "Cetak Bukti Permohonan":
-        this.service.getSalesReceiptPdfById(data.Id);
+        this.service.getPdf(data.Id);
         break;
     }
   }
