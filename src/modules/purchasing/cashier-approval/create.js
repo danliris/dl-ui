@@ -163,11 +163,13 @@ export class Create {
 
     saveCallback(event) {
 
-        var data = this.selectedItems.map(s => s.Id);
-
-        this.service.create(data)
+        var items = this.selectedItems.map(s => s.Id);
+        var data = {};
+        data.IsApproved = true;
+        data.Ids = items;
+        this.service.approval(data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert("Data berhasil disimpan");
                 this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
             })
             .catch(e => {

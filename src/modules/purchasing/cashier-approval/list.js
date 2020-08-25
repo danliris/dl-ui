@@ -15,6 +15,13 @@ export class List {
 
     columns = [
         {
+            field: "toBeCancelled", title: "toBeCancelled Checkbox", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.IsRealized;
+                return ""
+            }
+        },
+        {
             field: "ApprovedDate", title: "Tanggal Approval", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
@@ -37,7 +44,7 @@ export class List {
     ];
 
     async activate(params) {
-        
+
         if (params && params.role) {
             params.role.position = parseInt(params.role.position);
             params.role.hasPermission = true;
@@ -54,8 +61,9 @@ export class List {
         this.router = router;
         this.dialog = dialog;
 
+        this.selectedItems = [];
         this.permissions = permissionHelper.getUserPermissions();
-        
+
         this.initPermission();
     }
 
@@ -75,7 +83,7 @@ export class List {
         if (role.key !== this.activeRole.key) {
             this.activeRole = role;
             this.tableList.refresh();
-            
+
         }
     }
 
@@ -114,5 +122,25 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create', { role: this.activeRole });
+    }
+
+    cancel() {
+        var items = this.selectedItems.map(s => s.Id);
+        var data = {};
+        data.IsApproved = false;
+        data.Ids = items;
+        this.service.approval(data)
+            .then(result => {
+                alert("Data berhasil disimpan");
+                this.error = {};
+                this.tableList.refresh();
+                this.selectedItems = [];
+            })
+            .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                this.error = e;
+            });
     }
 }   
