@@ -6,8 +6,8 @@ import { Config } from "aurelia-api";
 import moment from 'moment';
 
 const serviceUri = 'garment-unit-delivery-orders';
-const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order-header';
-const unitReceiptNoteItemUri='garment-unit-receipt-notes/by-ro';
+const doItemsUri = 'garment-do-items/unit-delivery-order';
+const doItemsMoreUri = 'garment-do-items/unit-delivery-order/more';
 const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 
 export class Service extends RestService {
@@ -21,13 +21,13 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    searchUnitReceiptNote(info) {
-        var endpoint = `${unitReceiptNoteUri}`;
+    searchDOItems(info) {
+        var endpoint = `${doItemsUri}`;
         return super.list(endpoint, info);
     }
 
-    searchUnitReceiptNoteItems(info) {
-        var endpoint = `${unitReceiptNoteItemUri}`;
+    searchMoreDOItems(info) {
+        var endpoint = `${doItemsMoreUri}`;
         return super.list(endpoint, info);
     }
 
