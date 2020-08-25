@@ -42,13 +42,12 @@
             </div>
 
             <div class="col-sm-3">
-                <au-autocomplete label="Unit" value.bind="unit" loader.one-time="unitLoader" text.bind="unitView"
-                    select.bind="selectUnit">
+                <au-autocomplete label="Unit" value.bind="unit" loader.one-time="unitLoader" text.bind="unitView">
                 </au-autocomplete>
             </div>
 
             <div class="col-sm-3">
-                <au-datepicker label="Tgl VB" value.bind="date" loader.one-time="loader" select.bind="selectDate">
+                <au-datepicker label="Tgl VB" value.bind="date" loader.one-time="loader">
                 </au-datepicker>
             </div>
 
@@ -65,11 +64,6 @@
         <au-table view-model.ref="documentTable" data.bind="loaderVB" columns.bind="columns" sortable.bind="true"
             selections.bind="selectedItems" options.bind="tableOptions">
         </au-table>
-
-        <!-- <au-table view-model.ref="documentTable" data.bind="documentData" columns.bind="columnsNonPO"
-            sortable.bind="true" selections.bind="selectedItems" options.bind="tableOptions"
-            if.bind="activeRole.key === 'NONPO'">
-        </au-table> -->
 
         <br>
     </au-input-form>

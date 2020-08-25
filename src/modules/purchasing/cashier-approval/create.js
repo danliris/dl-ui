@@ -75,9 +75,6 @@ export class Create {
         this.vbWithPORequestService = vbWithPORequestService;
         this.vbNonPORequestService = vbNonPORequestService;
 
-        this.selectVB = ['VBNo'];
-        this.selectUnit = ['Name'];
-        this.selectDate = ['date'];
         this.selectedItems = [];
 
         this.permissions = permissionHelper.getUserPermissions();
@@ -186,28 +183,12 @@ export class Create {
         return VBLoader;
     }
 
-    get vbWithPOLoader() {
-        return VBWithPOLoader;
-    }
-
-    get vbNonPOLoader() {
-        return VBNonPOLoader;
-    }
-
     get unitLoader() {
         return UnitLoader;
     }
 
     vbView = (vb) => {
         return vb.DocumentNo;
-    }
-
-    vbNonPOView = (vbNonPO) => {
-        return vbNonPO.VBNo
-    }
-
-    vbWithPOView = (vbWithPO) => {
-        return vbWithPO.VBNo
     }
 
     unitView = (unit) => {
