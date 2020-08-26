@@ -41,10 +41,10 @@
       </au-autocomplete>
 
       <au-numeric show.bind="isVB || vbDocument" label="Jumlah Uang" value.bind="data.VBDocument.Amount"
-        error.bind="error.VBAmount" read-only.bind="readOnly || isVB" format="0,0.00" options.bind="controlOptions">
+        error.bind="error.VBAmount" read-only.bind="true" format="0,0.00" options.bind="controlOptions">
       </au-numeric>
 
-      <au-textbox read-only.bind="true" show.bind="error.Items" value.bind="error.Items" style="color: red;">
+      <au-textbox read-only.bind="true" show.bind="error.Item" value.bind="error.Item" style="color: red;">
       </au-textbox>
       <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns" add.bind="addItems"
         remove.bind="onremove" read-only.bind="readOnly" options.bind="itemOptions"
@@ -71,8 +71,9 @@
             <div class="row">
               <div class="col-md-12">
                 <au-checkbox if.bind="cardContent.Unit.VBDocumentLayoutOrder != 10 || isVB"
-                  label.bind="cardContent.Unit.Name" value.bind="cardContent.IsSelected" error.bind="error.cardContent"
-                  read-only.bind="readOnly || isVB" options.bind="controlOptionsLabel">
+                  change.delegate="resetAmount($event,cardContent)" label.bind="cardContent.Unit.Name"
+                  value.bind="cardContent.IsSelected" error.bind="error.cardContent" read-only.bind="readOnly || isVB"
+                  options.bind="controlOptionsLabel">
                 </au-checkbox>
                 <au-checkbox if.bind="cardContent.Unit.VBDocumentLayoutOrder == 10 && !readOnly && !isVB"
                   value.bind="cardContent.IsSelected" change.delegate="otherUnitSelected($event,cardContent)"

@@ -17,18 +17,18 @@
       </au-numeric>
     </td>
     <td style="text-align:center;">
-      <au-checkbox value.bind="selectedVat" error.bind="error.isGetPPn" read-only.bind="readOnly"
-        options.bind="controlOptions" checked.bind="isGetPPn">
+      <au-checkbox value.bind="selectedVat" error.bind="error.IsGetPPn" read-only.bind="readOnly"
+        options.bind="controlOptions" checked.bind="IsGetPPn">
       </au-checkbox>
     </td>
     <td style="text-align:center;">
-      <au-checkbox value.bind="selectedPPh" error.bind="error.isGetPPh" read-only.bind="readOnly"
-        options.bind="controlOptions" checked.bind="isGetPPh">
+      <au-checkbox value.bind="selectedPPh" error.bind="error.IsGetPPh" read-only.bind="readOnly"
+        options.bind="controlOptions" checked.bind="IsGetPPh">
       </au-checkbox>
       <br>
 
       <div if.bind="selectedPPh">
-        <au-autocomplete value.bind="selectedIncomeTax" error.bind="error.incomeTax" loader.bind="incomeTaxLoader"
+        <au-autocomplete value.bind="selectedIncomeTax" error.bind="error.IncomeTax" loader.bind="incomeTaxLoader"
           text.bind="incomeTaxView" placeholder="cari pph" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 

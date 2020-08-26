@@ -74,7 +74,6 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    console.log(this.data)
     if (this.data.VBNonPOType) {
       this.vbNonPOType = this.data.VBNonPOType;
     }
@@ -165,8 +164,7 @@ export class DataForm {
 
       }
     }
-    
-    console.log(this.data.VBDocument);
+
   }
 
   @bindable vbDocument;
@@ -174,27 +172,34 @@ export class DataForm {
     if (this.vbDocument) {
       this.cards = [];
       this.data.VBDocument = this.vbDocument;
-      this.unit = {
-        Id: this.data.VBDocument.SuppliantUnitId,
-        Code: this.data.VBDocument.SuppliantUnitCode,
-        Name: this.data.VBDocument.SuppliantUnitName,
-        Division: {
-          Id: this.data.VBDocument.SuppliantDivisionId,
-          Code: this.data.VBDocument.SuppliantDivisionCode,
-          Name: this.data.VBDocument.SuppliantDivisionName
+
+      if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
+        this.unit = {
+          Id: this.data.VBDocument.SuppliantUnitId,
+          Code: this.data.VBDocument.SuppliantUnitCode,
+          Name: this.data.VBDocument.SuppliantUnitName,
+          Division: {
+            Id: this.data.VBDocument.SuppliantDivisionId,
+            Code: this.data.VBDocument.SuppliantDivisionCode,
+            Name: this.data.VBDocument.SuppliantDivisionName
+          }
+        }
+        this.currency = {
+          Id: this.data.VBDocument.CurrencyId,
+          Code: this.data.VBDocument.CurrencyCode,
+          Description: this.data.VBDocument.CurrencyDescription,
+          Symbol: this.data.VBDocument.CurrencySymbol,
+          Rate: this.data.VBDocument.CurrencyRate
         }
       }
-      this.currency = {
-        Id: this.data.VBDocument.CurrencyId,
-        Code: this.data.VBDocument.CurrencyCode,
-        Description: this.data.VBDocument.CurrencyDescription,
-        Symbol: this.data.VBDocument.CurrencySymbol,
-        Rate: this.data.VBDocument.CurrencyRate
+
+
+      if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
+        var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
+
+        this.data.UnitCosts = dataVBRequest.Items;
       }
 
-      var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
-
-      this.data.UnitCosts = dataVBRequest.Items;
 
       if (this.data.UnitCosts) {
         var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
@@ -221,8 +226,7 @@ export class DataForm {
       this.unit = null;
       this.currency = null;
     }
-    
-    console.log(this.data.VBDocument);
+
   }
 
   @bindable unit;
@@ -247,8 +251,13 @@ export class DataForm {
 
   otherUnitSelected(event, data) {
     this.cardContentUnit = null;
+    data.Amount = 0;
     data.Unit = {};
     data.Unit.VBDocumentLayoutOrder = 10;
+  }
+
+  resetAmount(event, data) {
+    data.Amount = 0;
   }
 
   @bindable cardContentUnit;
@@ -260,6 +269,7 @@ export class DataForm {
       otherUnit.Unit.VBDocumentLayoutOrder = 10;
     } else {
       if (otherUnit) {
+        otherUnit.Amount = 0;
         otherUnit.Unit = {};
         otherUnit.Unit.VBDocumentLayoutOrder = 10;
       }
