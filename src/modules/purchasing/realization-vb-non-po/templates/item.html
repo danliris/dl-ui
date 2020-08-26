@@ -12,7 +12,7 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="selectedAmount" read-only.bind="readOnly" error.bind="error.Amount" format="0,0.000"
+      <au-numeric value.bind="selectedAmount" read-only.bind="readOnly" error.bind="error.Amount" format="0,0.00"
         options.bind="controlOptions">
       </au-numeric>
     </td>
@@ -53,7 +53,7 @@
     <td>
       <!-- <au-numeric value.bind="Total" read-only.bind="true" format="0,0.000" options.bind="controlOptions">
             </au-numeric> -->
-      <au-numeric value.bind="data.Total" read-only.bind="true" format="0,0.000" options.bind="controlOptions">
+      <au-numeric value.bind="data.Total" read-only.bind="true" format="0,0.00" options.bind="controlOptions">
       </au-numeric>
       <!-- <au-textbox value.bind="vbRequestTotalCalc" read-only.bind="true" show.bind="false" format="0,0.000"
                 options.bind="controlOptions">
