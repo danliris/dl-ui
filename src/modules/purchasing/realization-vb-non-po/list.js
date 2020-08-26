@@ -100,7 +100,6 @@ export class List {
 
   posting() {
     if (this.dataToBePosted.length > 0) {
-      // console.log(this.dataToBePosted);
       this.service.post(this.dataToBePosted).then(result => {
         this.table.refresh();
       }).catch(e => {
