@@ -37,7 +37,7 @@ export class List {
             {
                 field: "completeStatus", title: "Status",
                 formatter: function (value, data, index) {
-                    return data.isInactive ? "INACTIVE" : data.isComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
+                    return data.IsInactive ? "INACTIVE" : data.IsComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                 }
             },
             { field: "OldKanban.Cart.CartNumber", title: "Nomor Kereta Lama" }
