@@ -18,6 +18,12 @@ export class View {
   async activate(params) {
     let id = params.id;
     this.data = await this.service.getById(id);
+    console.log(this.data);
+
+    if (this.data.IsApproved) {
+      this.hasDelete = false;
+      this.hasEdit = false;
+    }
   }
 
   cancel(event) {
