@@ -74,6 +74,7 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
+    console.log(this.data)
     if (this.data.VBNonPOType) {
       this.vbNonPOType = this.data.VBNonPOType;
     }
@@ -164,6 +165,8 @@ export class DataForm {
 
       }
     }
+    
+    console.log(this.data.VBDocument);
   }
 
   @bindable vbDocument;
@@ -188,7 +191,6 @@ export class DataForm {
         Symbol: this.data.VBDocument.CurrencySymbol,
         Rate: this.data.VBDocument.CurrencyRate
       }
-      this.data.VBAmount = this.data.VBDocument.Amount;
 
       var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
 
@@ -218,8 +220,9 @@ export class DataForm {
       this.data.VBDocument = null;
       this.unit = null;
       this.currency = null;
-      this.data.VBAmount = 0;
     }
+    
+    console.log(this.data.VBDocument);
   }
 
   @bindable unit;
