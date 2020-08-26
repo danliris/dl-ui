@@ -1,33 +1,35 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
+import { CoreService } from "./core-service";
 
 const UnitLoader = require('../../../loader/unit-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
-const VbLoader = require('../../../loader/vb-non-po-request-loader');
+const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader');
+const VbLoader = require('../../../loader/vb-request-document-loader');
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(Service, BindingEngine, CoreService)
 export class DataForm {
   @bindable readOnly = false;
   @bindable data = {};
   @bindable error = {};
   @bindable title;
-  @bindable selectedCurrency;
-  @bindable unit;
-  @bindable numberVB;
-  @bindable selectedCurrency;
-  @bindable division;
 
-  // @bindable selectedTypeVBNonPO;
-  // selectedTypeVBNonPOChanged(newVal, oldVal) {
-  //   this.numberVB = null;
-  //   if (newVal) {
-  //     this.data.TypeVBNonPO = newVal;
-  //   }
-  //   else {
-  //     delete this.data.TypeVBNonPO;
-  //   }
-  // }
+  @computedFrom("data.VBNonPOType")
+  get isVB() {
+    return this.data.VBNonPOType == "Dengan Nomor VB";
+  }
+
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data.Id || '').toString() != '';
+  }
+
+  filter = {
+    "IsApproved": true,
+    "IsRealized": false,
+    "Type": 2
+  };
 
   controlOptions = {
     label: {
@@ -53,231 +55,228 @@ export class DataForm {
     }
   }
 
+  unitQuery = { VBDocumentLayoutOrder: 0 }
+  get unitVBNonPOLoader() {
+    return UnitVBNonPO;
+  }
+
   NumberVbOptions = ["", "Dengan Nomor VB", "Tanpa Nomor VB"];
 
-  constructor(service, bindingEngine) {
+  itemOptions = {};
+  constructor(service, bindingEngine, coreService) {
     this.service = service;
     this.bindingEngine = bindingEngine;
+    this.coreService = coreService;
   }
 
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    console.log(this)
 
-    this.selectedCurrency = this.data.Currency;
-
-    if (this.data.Unit && this.data.Unit.Id) {
-      this.selectedUnit = this.data.Unit;
+    if (this.data.VBNonPOType) {
+      this.vbNonPOType = this.data.VBNonPOType;
     }
 
-    if (this.data.Division && this.data.Division.Id) {
-      this.selectedDivision = this.data.Division;
+    if (this.data.VBDocument) {
+      this.vbDocument = this.data.VBDocument;
     }
 
-    if (this.data.numberVB && this.data.numberVB.VBNo) {
-      this.numberVB = this.data.numberVB;
-      this.selectedVB = Object.assign({}, this.data.numberVB);
-      // console.log(this.numberVB)
+    if (this.data.Currency) {
+      this.currency = this.data.Currency;
     }
 
-    this.filter = {
-      "Apporve_Status": true, "Realization_Status": false
-    };
+    if (this.data.Unit) {
+      this.unit = this.data.Unit;
+    }
 
-    if (this.data.TypeVBNonPO == "Tanpa Nomor VB") {
-
-      // if (this.data.Unit && this.data.Unit.Id) {
-      //     this.selectedUnit = this.data.Unit;
-      // }
-
-      if (this.data.Division && this.data.Division.Id) {
-        this.selectedDivision = this.data.Division;
-      }
-
-      if (!this.data.Spinning1) {
-        this.data.Spinning1 = false;
-      }
-
-      if (!this.data.Spinning2) {
-        this.data.Spinning2 = false;
-      }
-
-      if (!this.data.Spinning3) {
-        this.data.Spinning3 = false;
-      }
-
-      if (!this.data.Weaving1) {
-        this.data.Weaving1 = false;
-      }
-
-      if (!this.data.Weaving2) {
-        this.data.Weaving2 = false;
-      }
-
-      if (!this.data.Printing) {
-        this.data.Printing = false;
-      }
-
-      if (!this.data.Finishing) {
-        this.data.Finishing = false;
-      }
-
-      if (!this.data.Konfeksi1A) {
-        this.data.Konfeksi1A = false;
-      }
-
-      if (!this.data.Konfeksi1B) {
-        this.data.Konfeksi1B = false;
-      }
-
-      if (!this.data.Konfeksi2A) {
-        this.data.Konfeksi2A = false;
-      }
-
-      if (!this.data.Konfeksi2B) {
-        this.data.Konfeksi2B = false;
-      }
-
-      if (!this.data.Konfeksi2C) {
-        this.data.Konfeksi2C = false;
-      }
-
-      if (!this.data.Umum) {
-        this.data.Umum = false;
-      }
-
-      if (!this.data.Others) {
-        this.data.Others = false;
-        this.data.DetailOthers = "";
-      }
-    } else {
-      if (!this.data.DetailOthersVB) {
-        this.data.DetailOthersVB = this.data.DetailOthers;
-      }
-
-      if (!this.data.DetailOthers) {
-        this.data.DetailOthers = this.data.DetailOthersVB;
+    if (this.data.UnitCosts) {
+      var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+      if (otherUnit) {
+        this.cardContentUnit = otherUnit.Unit;
       }
     }
+
+    if (this.data.UnitCosts) {
+      let tempCards = [];
+      this.data.UnitCosts.forEach((item, index) => {
+        tempCards.push(item);
+        if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+          this.cards.push(tempCards);
+          tempCards = [];
+        }
+      });
+
+      if (tempCards.length > 0) {
+        this.cards.push(tempCards)
+      }
+    }
+
   }
 
-  async numberVBChanged(newValue) {
 
-    this.data.numberVB = newValue;
+  cards = [];
 
-    console.log(this);
+  @bindable vbNonPOType;
+  async vbNonPOTypeChanged(n, o) {
+    if (this.vbNonPOType) {
+      this.data.VBNonPOType = this.vbNonPOType;
 
-    if (this.data.numberVB) {
-      this.data.UnitLoad = this.data.numberVB.UnitLoad;
-      this.data.AmountVBReq = this.data.numberVB.Amount;
+      if (!this.isEdit) {
+        this.vbDocument = null;
+        this.unit = null;
+        this.currency = null;
+        this.data.Items.splice(0, this.data.Items.length);
+        this.data.UnitCosts = [];
+        this.cards = [];
+        if (this.data.VBNonPOType == "Tanpa Nomor VB") {
+          let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
+          let unitCosts = unitCostsResponse.data;
 
-      if (this.data.TypeVBNonPO == "Dengan Nomor VB") {
+          unitCosts.map((unit) => {
+            let item = {
+              Unit: unit
+            }
 
-        for (var unitweight of this.data.numberVB.PONo) {
+            this.data.UnitCosts.push(item);
+            if (unit.VBDocumentLayoutOrder === 9)
+              this.data.UnitCosts.push({
+                Unit: {
+                  VBDocumentLayoutOrder: 10
+                }
+              });
 
-          if (unitweight.UnitName == "Spinning1") {
-            this.data.Spinning1VB = true;
+          });
+        }
+
+        let tempCards = [];
+        this.data.UnitCosts.forEach((item, index) => {
+          tempCards.push(item);
+          if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+            this.cards.push(tempCards);
+            tempCards = [];
           }
+        });
 
-          if (unitweight.UnitName == "Spinning2") {
-            this.data.Spinning2VB = true;
-          }
+        if (tempCards.length > 0) {
+          this.cards.push(tempCards)
+        }
 
-          if (unitweight.UnitName == "Spinning3") {
-            this.data.Spinning3VB = true;
-          }
+      }
+    }
 
-          if (unitweight.UnitName == "Weaving1") {
-            this.data.Weaving1VB = true;
-          }
+  }
 
-          if (unitweight.UnitName == "Weaving2") {
-            this.data.Weaving2VB = true;
-          }
+  @bindable vbDocument;
+  async vbDocumentChanged(n, o) {
+    if (this.vbDocument) {
+      this.cards = [];
+      this.data.VBDocument = this.vbDocument;
 
-          if (unitweight.UnitName == "Finishing") {
-            this.data.FinishingVB = true;
-          }
-
-          if (unitweight.UnitName == "Printing") {
-            this.data.PrintingVB = true;
-          }
-
-          if (unitweight.UnitName == "Konfeksi1A") {
-            this.data.Konfeksi1AVB = true;
-          }
-
-          if (unitweight.UnitName == "Konfeksi1B") {
-            this.data.Konfeksi1BVB = true;
-          }
-
-          if (unitweight.UnitName == "Konfeksi2A") {
-            this.data.Konfeksi2AVB = true;
-          }
-
-          if (unitweight.UnitName == "Konfeksi2B") {
-            this.data.Konfeksi2BVB = true;
-          }
-
-          if (unitweight.UnitName == "Konfeksi2C") {
-            this.data.Konfeksi2CVB = true;
-          }
-
-          if (unitweight.UnitName == "Umum") {
-            this.data.UmumVB = true;
-          }
-
-          if (unitweight.UnitName == "Others") {
-            this.data.OthersVB = true;
+      if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
+        this.unit = {
+          Id: this.data.VBDocument.SuppliantUnitId,
+          Code: this.data.VBDocument.SuppliantUnitCode,
+          Name: this.data.VBDocument.SuppliantUnitName,
+          Division: {
+            Id: this.data.VBDocument.SuppliantDivisionId,
+            Code: this.data.VBDocument.SuppliantDivisionCode,
+            Name: this.data.VBDocument.SuppliantDivisionName
           }
         }
+        this.currency = {
+          Id: this.data.VBDocument.CurrencyId,
+          Code: this.data.VBDocument.CurrencyCode,
+          Description: this.data.VBDocument.CurrencyDescription,
+          Symbol: this.data.VBDocument.CurrencySymbol,
+          Rate: this.data.VBDocument.CurrencyRate
+        }
       }
+
+
+      if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
+        var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
+
+        this.data.UnitCosts = dataVBRequest.Items;
+      }
+
+
+      if (this.data.UnitCosts) {
+        var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+        if (otherUnit) {
+          this.cardContentUnit = otherUnit.Unit;
+        }
+      }
+
+      let tempCards = [];
+      this.data.UnitCosts.forEach((item, index) => {
+        tempCards.push(item);
+        if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+          this.cards.push(tempCards);
+          tempCards = [];
+        }
+      });
+
+      if (tempCards.length > 0) {
+        this.cards.push(tempCards)
+      }
+
+    } else {
+      this.data.VBDocument = null;
+      this.unit = null;
+      this.currency = null;
     }
-    else {
-      this.data.numberVB = {};
 
-      this.data.Spinning1VB = false;
-      this.data.Spinning2VB = false;
-      this.data.Spinning3VB = false;
-      this.data.Weaving1VB = false;
-      this.data.Weaving2VB = false;
-      this.data.FinishingVB = false;
-      this.data.PrintingVB = false;
-      this.data.Konfeksi1AVB = false;
-      this.data.Konfeksi1BVB = false;
-      this.data.Konfeksi2AVB = false;
-      this.data.Konfeksi2BVB = false;
-      this.data.Konfeksi2CVB = false;
-      this.data.UmumVB = false;
-      this.data.OthersVB = false;
+  }
 
-      this.data.AmountSpinning1VB = 0;
-      this.data.AmountSpinning2VB = 0;
-      this.data.AmountSpinning3VB = 0;
-      this.data.AmountWeaving1VB = 0;
-      this.data.AmountWeaving2VB = 0;
-      this.data.AmountFinishingVB = 0;
-      this.data.AmountPrintingVB = 0;
-
-      this.data.AmountKonfeksi1AVB = 0;
-      this.data.AmountKonfeksi1BVB = 0;
-      this.data.AmountKonfeksi2AVB = 0;
-      this.data.AmountKonfeksi2BVB = 0;
-      this.data.AmountKonfeksi2CVB = 0;
-      this.data.AmountUmumVB = 0;
-      this.data.AmountOthersVB = 0;
+  @bindable unit;
+  unitChanged(n, o) {
+    if (this.unit) {
+      this.data.Unit = this.unit;
+    } else {
+      this.data.Unit = null;
     }
   }
 
+  @bindable currency;
+  currencyChanged(n, o) {
+    if (this.currency) {
+      this.data.Currency = this.currency;
+      this.itemOptions.CurrencyCode = this.data.Currency.Code;
+
+    } else {
+      this.data.Currency = null;
+    }
+  }
+
+  otherUnitSelected(event, data) {
+    this.cardContentUnit = null;
+    data.Amount = 0;
+    data.Unit = {};
+    data.Unit.VBDocumentLayoutOrder = 10;
+  }
+
+  resetAmount(event, data) {
+    data.Amount = 0;
+  }
+
+  @bindable cardContentUnit;
+  cardContentUnitChanged(n, o) {
+    var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+
+    if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
+      otherUnit.Unit = this.cardContentUnit;
+      otherUnit.Unit.VBDocumentLayoutOrder = 10;
+    } else {
+      if (otherUnit) {
+        otherUnit.Amount = 0;
+        otherUnit.Unit = {};
+        otherUnit.Unit.VBDocumentLayoutOrder = 10;
+      }
+
+    }
+  }
   columns = [
-    // "{ header: "Tanggal", value: "DateDetail" },
-    // { header: "Keterangan", value: "Remark" },
-    // { header: "Jumlah", value: "Amount" },
-    // { header: "Kena PPn", value: "isGetPPn" },
-    // { header: "PPH", value: "isGetPPh" },
-    // { header: "Total", value: "Total" }"
     "Tanggal", "Keterangan", "Jumlah", "Kena PPN", "PPh", "Total"
   ];
 
@@ -291,55 +290,11 @@ export class DataForm {
   }
 
   get vbLoader() {
-
     return VbLoader;
   }
 
-  @bindable selectedVB;
-  selectedVBChanged(newValue) {
-    console.log("changed", newValue)
-    if (newValue) {
-      this.data.numberVB = newValue;
-    } else {
-      delete this.data.numberVB
-    }
-  }
-
-  @bindable selectedUnit;
-  selectedUnitChanged(newValue, oldValue) {
-
-    if (this.selectedUnit && this.selectedUnit.Id) {
-      this.data.unit = {};
-      this.data.unit.id = this.selectedUnit.Id;
-      this.data.unit.name = this.selectedUnit.Name;
-      this.data.unit.code = this.selectedUnit.Code;
-
-      if (this.selectedUnit.Division) {
-        this.data.division = {};
-        this.data.division.id = this.selectedUnit.Division.Id;
-        this.data.division.name = this.selectedUnit.Division.Name;
-      }
-      else {
-        this.data.division = {};
-        this.data.division.id = this.data.Division.Id;
-        this.data.division.name = this.data.Division.Name;
-      }
-
-    }
-    else {
-      this.data.unit.id = this.selectedUnit.id;
-      this.data.unit.name = this.selectedUnit.name;
-      this.data.unit.code = this.selectedUnit.code;
-      this.data.unit.Division.Id = this.selectedUnit.divisionname;
-      this.data.unit.Division.Name = this.selectedUnit.divisionid;
-    }
-  }
-
-
-
   unitView = (unit) => {
     return `${unit.Code} - ${unit.Name}`
-
   }
 
   get unitLoader() {
@@ -348,42 +303,6 @@ export class DataForm {
 
   get currencyLoader() {
     return CurrencyLoader;
-  }
-
-  @bindable selectedCurrency;
-  selectedCurrencyChanged(newValue, oldValue) {
-    this.data.Currency = newValue;
-  }
-
-  get getOthersValue() {
-    console.log(this.data);
-    if (this.data.DetailOthers == "") {
-      return "..........";
-    } else {
-      return this.data.DetailOthers;
-    }
-  }
-
-  get getOthersValueVB() {
-    if (this.data.DetailOthersVB) {
-      return this.data.DetailOthersVB;
-    } else if (this.data.DetailOthers) {
-      return this.data.DetailOthers;
-    } else {
-      return "..........";
-    }
-  }
-
-  get totalVB() {
-    var result = 0
-    if (this.data.Items && this.data.Items.length > 0) {
-      // console.log(this.data.Items);
-      for (var item of this.data.Items) {
-        result += item.Total;
-      }
-    }
-
-    return result;
   }
 
 }
