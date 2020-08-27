@@ -1,0 +1,16 @@
+<template>
+    <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
+        <td>
+            <au-autocomplete placeholder="pilih akun"
+                             value.bind="data.SPB"
+                             error.bind="error.SPB"
+                             loader.one-time="spbLoader"
+                             text="No"
+                             read-only.bind="readOnly"
+                             query.bind="filter"
+                             options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+    </tr>
+</template>

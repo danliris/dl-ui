@@ -1,0 +1,31 @@
+<template>
+    <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
+        <td>
+            <au-autocomplete placeholder="pilih akun"
+                             value.bind="data.UnitPaymentOrder"
+                             error.bind="error.UnitPaymentOrder"
+                             loader.one-time="spbLoader"
+                             text="No"
+                             read-only.bind="readOnly"
+                             query.bind="filter"
+                             options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-1"
+            if.bind="!readOnly">
+            <button class="btn btn-danger pull-right"
+                    click.delegate="onremove(data, $event)">-
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <au-collection items.bind="data.UnitPaymentOrder.Items"
+                       columns.bind="columns"
+                       read-only.bind="true">
+        </au-collection>
+
+
+        <!-- item-template="modules/purchasing/vb-realization-with-po-document/templates/item" -->
+    </tr>
+</template>
