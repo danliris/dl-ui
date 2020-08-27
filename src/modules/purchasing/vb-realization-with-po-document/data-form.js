@@ -83,6 +83,8 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
+
+        this.vbRequestDocument = this.data.VBRequestDocument;
     }
 
     get addItems() {
