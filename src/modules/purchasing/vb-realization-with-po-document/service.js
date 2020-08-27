@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "vb-realization-with-po-documents";
+const serviceUri = "vb-realization-documents/with-po";
 const subLedgerReportServiceUri = 'journal-transactions/report/sub-ledgers';
 
 export class Service extends RestService {
