@@ -194,7 +194,7 @@ export class Create {
   doSalesWeavingLocalOptions = ["", "GL"];
   doSalesWeavingExportOptions = ["", "KKG"];
 
-  doSalesDyeingLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB"];
+  doSalesDyeingLocalOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB", "SP", "SD"];
 
   doSalesDyeingExportOptions = ["", "KKP", "KKF"]
 

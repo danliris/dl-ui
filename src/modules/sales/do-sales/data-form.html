@@ -202,7 +202,7 @@
     <au-textbox show.bind="ItemsCollection" error.bind="error.DetailItem" read-only.bind="true"></au-textbox>
 
     <au-collection if.bind="data.DOSalesType=='Lokal' && LengthUom && code2" columns.bind="doSalesLocalItemsInfo.columns"
-      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly"
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesLocalItemsInfo.onAdd"
       options.bind="detailOptions" item-template="modules/sales/do-sales/template/local-item"
       view-model.ref="ItemsCollection">
     </au-collection>
@@ -221,7 +221,7 @@
 
     <!-- ============================================================ -->
     <au-collection if.bind="data.DOSalesType=='Ekspor' && WeightUom && code2" columns.bind="doSalesExportItemsInfo.columns"
-      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" 
+      items.bind="data.DOSalesDetailItems" errors.one-way="error.DOSalesDetailItems" read-only.bind="readOnly" add.bind="doSalesLocalItemsInfo.onAdd"
       options.bind="detailOptions" item-template="modules/sales/do-sales/template/export-item"
       view-model.ref="ItemsCollection">
     </au-collection>
