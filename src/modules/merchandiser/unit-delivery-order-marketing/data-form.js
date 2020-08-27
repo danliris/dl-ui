@@ -121,10 +121,10 @@ export class DataForm {
                 keyword: keyword,
                 filter: JSON.stringify(filter),
             };
-            return this.service.searchUnitReceiptNote(info)
+            return this.service.searchMoreDOItems(info)
                 .then((result) => {
                     let itemIds = this.data.Items.map(i => i.URNItemId);
-                    return result.data.filter(data => data && itemIds.indexOf(data.Id) < 0);
+                    return result.data.filter(data => data && itemIds.indexOf(data.URNItemId) < 0);
                 });
         }
     }
@@ -181,13 +181,14 @@ export class DataForm {
             this.data.RONo = this.isTransfer?this.data.RONo : selectedro.RONo;
             this.data.Article = this.isTransfer?this.data.Article : selectedro.Article;
             
-                Promise.resolve(this.service.searchUnitReceiptNoteItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
+                Promise.resolve(this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) }))
                     .then(result => {
                         if(result.data.length>0){
                             for(var item of result.data){ 
                                 
                                 var Items = {};
-                                Items.URNItemId = item.Id;
+                                Items.DOItemsId = item.DOItemsId;
+                                Items.URNItemId = item.URNItemId;
                                 Items.URNNo = item.URNNo;
                                 Items.DODetailId = item.DODetailId;
                                 Items.URNId = item.URNId;
@@ -205,8 +206,7 @@ export class DataForm {
                                 Items.UomUnit = item.SmallUomUnit;
                                 Items.PricePerDealUnit = item.PricePerDealUnit;
                                 Items.DesignColor = item.DesignColor;
-                                Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
-                                //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                                Items.DefaultDOQuantity = parseFloat(item.RemainingQuantity.toFixed(2));
                                 Items.Quantity = Items.DefaultDOQuantity;
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
@@ -233,7 +233,8 @@ export class DataForm {
             this.data.RONoHeader = null;
         }
         else if (selectedROHeader) {
-            this.newProduct.URNItemId = selectedROHeader.Id;
+            this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
+            this.newProduct.URNItemId = selectedROHeader.URNItemId;
             this.newProduct.URNNo = selectedROHeader.URNNo;
             this.newProduct.DODetailId = selectedROHeader.DODetailId;
             this.newProduct.URNId = selectedROHeader.URNId;
@@ -251,8 +252,7 @@ export class DataForm {
             this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
             this.newProduct.DesignColor = selectedROHeader.DesignColor;
-            this.newProduct.DefaultDOQuantity = parseFloat(((selectedROHeader.ReceiptCorrection*selectedROHeader.CorrectionConversion) - selectedROHeader.OrderQuantity).toFixed(2));
-            //(selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+            this.newProduct.DefaultDOQuantity = parseFloat(selectedROHeader.RemainingQuantity.toFixed(2));
             this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
             this.newProduct.IsSave = this.newProduct.Quantity > 0;
             this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
