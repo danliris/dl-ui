@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'vb-request-all';
+const resource = 'vb-request-documents';
 
 module.exports = function (keyword, filter) {
 

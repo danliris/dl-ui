@@ -45,7 +45,7 @@ export class Create {
     if (this.dataToBeSubmitted && this.dataToBeSubmitted.length > 0) {
       console.log(this);
       let data = this.dataToBeSubmitted.map((datum) => {
-        return datum.VBRealizationId;
+        return datum.Id;
       });
 
       this.service
