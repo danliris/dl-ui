@@ -8,15 +8,29 @@ import numeral from 'numeral';
 export class List {
     context = ["Rincian"];
     columns = [
+        { field: "DocumentNo", title: "No. Realisasi VB" },
+        { field: "VBRequestDocumentNo", title: "No. Permohonan VB" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
+            field: "Date", title: "Tanggal Realisasi", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
         },
-        { field: "DocumentNo", title: "No. Dokumen Jurnal" },
-        { field: "Description", title: "Description" },
-        { field: "ReferenceNo", title: "No. Referensi" },
-        { field: "Status", title: "Status" }
+        {
+            field: "VBRequestDocumentRealizationEstimationDate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
+                if (data.VBRequestDocumentNo)
+                    return moment(value).format("DD MMM YYYY");
+                else
+                    return "-";
+            }
+        },
+        // { field: "UnitLoad", title: "Beban Unit" },
+        { field: "CreatedBy", title: "Dibuat oleh" },
+        {
+            field: "isVerified", title: "Status Verifikasi",
+            formatter: function (value, row, index) {
+                return value ? "Sudah" : "Belum";
+            }
+        }
     ];
 
     loader = (info) => {
@@ -31,7 +45,10 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter: JSON.stringify({
+                Type: 1
+            })
         };
 
         return this.service.search(arg)

@@ -54,7 +54,7 @@ export class DataForm {
 
     @bindable vbRequestDocument;
     vbRequestDocumentChanged(newVal, oldVal) {
-        console.log(newVal);
+        this.data.VBRequestDocument = newVal;
     }
 
     unitView = (unit) => {
