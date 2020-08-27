@@ -23,9 +23,7 @@ export class Item {
         { header: "Tanggal", value: "Date" },
         { header: "Keterangan", value: "Remark" },
         {
-            header: "Kena PPN", value: "UseVat", rowFormatter: (value) => {
-                console.log(value);
-            }
+            header: "Kena PPN", value: "UseVat"
         },
         { header: "Kena PPh", value: "UseIncomeTax" },
         { header: "Total", value: "Amount" }
