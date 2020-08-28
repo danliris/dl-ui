@@ -19,6 +19,16 @@ export class Service extends RestService {
         return super.put(endpoint, data);
     }
 
+    verified(realizationId) {
+        let endpoint = `${serviceUri}/vb-verified/${realizationId}`;
+        return super.put(endpoint);
+    }
+
+    reject(id, data) {
+        let endpoint = `${serviceUri}/vb-reject/${realizationId}`;
+        return super.put(endpoint, data);
+    }
+
     acceptForCashier(data) {
         let endpoint = `${serviceUri}/accept-for-cashier`;
         return super.put(endpoint, data);

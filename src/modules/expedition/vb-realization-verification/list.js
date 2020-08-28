@@ -9,24 +9,24 @@ export class List {
     context = ["Rincian"];
     columns = [
         {
-            field: "Date", title: "Tanggal Masuk Verifikasi", formatter: function (value, data, index) {
+            field: "SendToVerificationDate", title: "Tanggal Masuk Verifikasi", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "DocumentNo", title: "No Realisasi VB" },
+        { field: "VBRealizationNo", title: "No Realisasi VB" },
         {
-            field: "Date", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
+            field: "VBRealizationDate", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
-            field: "Date", title: "Tipe VB", formatter: function (value, data, index) {
+            field: "VBType", title: "Tipe VB", formatter: function (value, data, index) {
                 return value == 1 ? "Dengan PO" : "Non PO"
             },
         },
-        { field: "Description", title: "Pemohon VB" },
-        { field: "ReferenceNo", title: "Bagian/Unit" },
-        { field: "Status", title: "Nominal" },
+        { field: "VBRequestName", title: "Pemohon VB" },
+        { field: "UnitName", title: "Bagian/Unit" },
+        { field: "VBRealizationAmount", title: "Nominal" },
         { field: "Status", title: "Status" },
         { field: "Status", title: "Alasan" }
     ];
@@ -34,18 +34,19 @@ export class List {
     loader = (info) => {
         let order = {};
 
-        if (info.sort)
-            order[info.sort] = info.order;
-        else
-            order["Date"] = "desc";
+        // if (info.sort)
+        //     order[info.sort] = info.order;
+        // else
+        //     order["Date"] = "desc";
 
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
+            position: 4,
             filter: JSON.stringify({
-                Position: 5
+                Position: 4
             })
         };
 
