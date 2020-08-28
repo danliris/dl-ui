@@ -5,6 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
+    isEdit = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -20,7 +21,7 @@ export class Edit {
     }
 
     saveCallback(event) {
-                
+
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.Id });
