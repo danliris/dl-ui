@@ -1,19 +1,24 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { VBRealizationService } from './vb-realization-service';
 import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service, Dialog)
+@inject(Router, Service, Dialog, VBRealizationService)
 export class View {
-    constructor(router, service, dialog) {
+    constructor(router, service, dialog, vbRealizationService) {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
+        this.vbRealizationService = vbRealizationService;
+        this.data = {}
     }
 
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
+        this.data.vbRealization = await this.vbRealizationService.getById(id);
+
+        console.log(this.data);
 
         // if (this.data.Status == "POSTED") {
         //     this.hasPosting = false;
@@ -33,9 +38,9 @@ export class View {
         this.list();
     }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data.Id });
+    // }
 
     postingCallback(event) {
         this.dialog.prompt('Transaksi yang sudah di POSTING tidak dapat diubah dan dihapus. Apakah anda yakin?', 'Posting Jurnal Transaksi')
@@ -49,15 +54,15 @@ export class View {
             });
     }
 
-    deleteCallback(event) {
-        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Jurnal Transaksi')
-            .then(response => {
-                if (response.ok) {
-                    this.service.delete(this.data)
-                        .then(result => {
-                            this.list();
-                        });
-                }
-            });
-    }
+    // deleteCallback(event) {
+    //     this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Jurnal Transaksi')
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 this.service.delete(this.data)
+    //                     .then(result => {
+    //                         this.list();
+    //                     });
+    //             }
+    //         });
+    // }
 }

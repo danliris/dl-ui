@@ -2,8 +2,8 @@ export class ItemFooter {
     activate(context) {
         this.context = context;
         this.data = this.context.data;
-        console.log(this.data);
-        console.log(this.context);
+        // console.log(this.data);
+        // console.log(this.context);
     }
 
     get getStatusReqReal() {
@@ -30,7 +30,7 @@ export class ItemFooter {
                 if (item.data.UseVat)
                     vat = amount * 0.1;
 
-                console.log(amount, incomeTax, vat)
+                // console.log(amount, incomeTax, vat)
 
                 return amount - incomeTax + vat;
             });
@@ -72,7 +72,7 @@ export class ItemFooter {
                 if (item.data.UseVat)
                     vat = amount * 0.1;
 
-                console.log(amount, incomeTax, vat)
+                // console.log(amount, incomeTax, vat)
 
                 return amount - incomeTax + vat;
             });

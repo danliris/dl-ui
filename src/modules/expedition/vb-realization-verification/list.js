@@ -69,7 +69,7 @@ export class List {
         let data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data.Id });
+                this.router.navigateToRoute('view', { id: data.VBRealizationId });
                 break;
         }
     }
