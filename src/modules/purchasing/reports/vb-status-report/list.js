@@ -6,7 +6,7 @@ var moment = require("moment");
 
 import { DialogDetailView } from './template/detail-dialog-view'
 
-const VbRequestAllLoader = require('./../../../../loader/vb-request-loader');
+const VbRequestAllLoader = require('./../../../../loader/vb-request-document-loader');
 const UnitLoader = require('./../../../../loader/unit-loader');
 const AccountLoader = require('./../../../../loader/account-loader');
 
