@@ -1,12 +1,12 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service } from './service';
+import { Service, VBRequestDocumentService } from './service';
 import moment from 'moment';
 
 const VBRequestDocumentLoader = require('../../../loader/vb-request-document-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 
-@inject(Service)
+@inject(Service, VBRequestDocumentService)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -25,7 +25,12 @@ export class DataForm {
     };
 
     columns = [
-        "Nomor SPB"
+        "Nomor SPB",
+        "Tanggal",
+        "Jumlah",
+        "Kena PPN",
+        "Kena PPh",
+        "Total"
     ]
 
     typeOptions = [
@@ -52,9 +57,23 @@ export class DataForm {
         return VBRequestDocumentLoader;
     }
 
+    itemsOptions = {
+        epoIds: []
+    }
+
     @bindable vbRequestDocument;
-    vbRequestDocumentChanged(newVal, oldVal) {
+    async vbRequestDocumentChanged(newVal, oldVal) {
         this.data.VBRequestDocument = newVal;
+
+        if (newVal) {
+            let vbRequestDocument = await this.vbRequestService.getById(newVal.Id);
+
+            this.itemsOptions.epoIds = vbRequestDocument.Items.map((item) => {
+                return item.PurchaseOrderExternal.Id;
+            });
+
+            this.ItemCollection.bind();
+        }
     }
 
     unitView = (unit) => {
@@ -69,14 +88,16 @@ export class DataForm {
         return CurrencyLoader;
     }
 
-    constructor(service) {
+    constructor(service, vbRequestService) {
         this.service = service;
+        this.vbRequestService = vbRequestService;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.ItemCollection = this.context.ItemCollection;
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -85,6 +106,19 @@ export class DataForm {
         this.hasPosting = this.context.hasPosting;
 
         this.vbRequestDocument = this.data.VBRequestDocument;
+
+        if (this.data.VBRequestDocument && this.data.VBRequestDocument.Id) {
+            let vbRequestDocument = await this.vbRequestService.getById(this.data.VBRequestDocument.Id);
+
+            this.itemsOptions.epoIds = vbRequestDocument.Items.map((item) => {
+                return item.PurchaseOrderExternal.Id;
+            });
+            this.itemsOptions.division = vbRequestDocument.SuppliantUnit.Division.Name;
+        }
+
+
+
+        console.log(this.context);
     }
 
     get addItems() {

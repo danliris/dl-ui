@@ -95,13 +95,15 @@
                          options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-collection if.bind="(!isWithVB || vbRequestDocument) && data.Type != ''"
+        <au-collection view-model.ref="ItemCollection"
+                       if.bind="(!isWithVB || vbRequestDocument) && data.Type != ''"
                        items.bind="data.Items"
                        errors.bind="error.Items"
                        columns.bind="columns"
                        add.bind="addItems"
                        remove.bind="onremove"
                        read-only.bind="readOnly"
+                       options.bind="itemsOptions"
                        item-template="modules/purchasing/vb-realization-with-po-document/templates/item">
         </au-collection>
 

@@ -13,6 +13,11 @@ export class Item {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
+
+        console.log(this.options);
+
+        this.filter.epoIds = this.options.epoIds;
+        this.filter.division = this.options.division
     }
 
     filter = {
@@ -31,5 +36,22 @@ export class Item {
 
     get spbLoader() {
         return SPBLoader;
+    }
+
+    get total() {
+        console.log(this.data)
+        if (this.data.UnitPaymentOrder) {
+            let result = this.data.UnitPaymentOrder.Amount;
+
+            if (this.data.UnitPaymentOrder.UseVat)
+                result += this.data.UnitPaymentOrder.Amount * 0.1;
+
+            if (this.data.UnitPaymentOrder.UseIncomeTax && this.data.UnitPaymentOrder.IncomeTaxBy == "Supplier")
+                result -= this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.IncomeTax.Rate / 100);
+
+            return result;
+
+        }
+        return 0;
     }
 }
