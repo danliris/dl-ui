@@ -3,9 +3,16 @@
                    with.bind="context"
                    options.bind="formOptions">
 
+        <!-- <au-textbox if.bind="vbRequestDocument.DocumentNo"
+                    label="Pemohon VB"
+                    value.bind="vbRequestDocument.DocumentNo"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox> -->
+
         <au-datepicker value.bind="data.Date"
                        error.bind="error.Date"
-                       read-only.bind="readOnly"
+                       read-only.bind="readOnly || isEdit"
                        label="Tanggal Realisasi"
                        options.bind="controlOptions">
         </au-datepicker>
@@ -26,7 +33,7 @@
                          label="No VB"
                          loader.one-time="vbRequestDocumentLoader"
                          text="DocumentNo"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || (isEdit && isWithVB)"
                          placeholder="pilih nomor vb"
                          options.bind="controlOptions"
                          query.bind="filter">
@@ -81,7 +88,7 @@
                          label="Unit Pemohon"
                          loader.bind="unitLoader"
                          text.bind="unitView"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || isEdit"
                          options.bind="controlOptions">
         </au-autocomplete>
 
@@ -91,7 +98,7 @@
                          error.bind="error.Currency"
                          loader.one-time="currencyLoader"
                          text="Code"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || isEdit"
                          options.bind="controlOptions">
         </au-autocomplete>
 
