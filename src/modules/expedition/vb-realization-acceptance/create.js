@@ -32,7 +32,11 @@ export class Create {
       },
     },
     { field: 'VBRealizationNo', title: 'No Realisasi VB' },
-    { field: 'VBType', title: 'Tipe VB' },
+    {
+      field: 'VBType', title: 'Tipe VB', formatter: function (value, data, index) {
+        return value == 1 ? 'Dengan PO' : 'Non PO';
+      }
+    },
     { field: 'VBRequestName', title: 'Pemohon VB' },
     { field: 'UnitName', title: 'Unit Pemohon' },
     {
@@ -57,7 +61,11 @@ export class Create {
       },
     },
     { field: 'VBRealizationNo', title: 'No Realisasi' },
-    { field: 'VBType', title: 'Tipe VB' },
+    {
+      field: 'VBType', title: 'Tipe VB', formatter: function (value, data, index) {
+        return value == 1 ? 'Dengan PO' : 'Non PO';
+      }
+    },
     { field: 'VBRequestName', title: 'Pemohon VB' },
     { field: 'UnitName', title: 'Unit Pemohon' },
     {
