@@ -81,6 +81,8 @@ export class DataForm {
             this.vbHeaderOptions = {
                 vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount
             }
+        } else {
+            this.data.vbRealization.Header.Id = 0;
         }
     }
 }

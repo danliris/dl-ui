@@ -27,23 +27,35 @@ function () {
       console.log(this.context);
     }
   }, {
-    key: "getValueReqReal",
-    get: function get() {
-      var res = 0;
-      return res;
-    }
-  }, {
     key: "getStatusReqReal",
     get: function get() {
       var res = 0;
       return res;
     }
   }, {
+    key: "getValueReqReal",
+    get: function get() {
+      var res = 0;
+      var qty = this.context.items.map(function (item) {
+        var incomeTax = 0;
+        var vat = 0;
+        var amount = item.data.Amount;
+        if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier") incomeTax = amount * item.data.IncomeTaxRate;
+        if (item.data.UseVat) vat = amount * 0.1;
+        console.log(amount, incomeTax, vat);
+        return amount - incomeTax + vat;
+      });
+      var sum = qty.reduce(function (prev, curr, index) {
+        return prev + curr;
+      }, 0);
+      return this.context.options.vbRequestDocumentAmount - sum;
+    }
+  }, {
     key: "getIncomeTax",
     get: function get() {
       var qty = this.context.items.map(function (item) {
-        var amount = item.data.Amount;
-        if (item.UseIncomeTax) amount += amount * item.IncomeTaxRate;
+        var amount = 0;
+        if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier") amount += amount * item.IncomeTaxRate;
         return amount;
       });
       return qty.reduce(function (prev, curr, index) {
@@ -60,10 +72,13 @@ function () {
     key: "getAmountAll",
     get: function get() {
       var qty = this.context.items.map(function (item) {
+        var incomeTax = 0;
+        var vat = 0;
         var amount = item.data.Amount;
-        if (item.UseIncomeTax) amount += amount * item.IncomeTaxRate;
-        if (item.UseVat) amount += amount * 0.1;
-        return amount;
+        if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier") incomeTax = amount * item.data.IncomeTaxRate;
+        if (item.data.UseVat) vat = amount * 0.1;
+        console.log(amount, incomeTax, vat);
+        return amount - incomeTax + vat;
       });
       return qty.reduce(function (prev, curr, index) {
         return prev + curr;
@@ -73,8 +88,8 @@ function () {
     key: "getAmountVAT",
     get: function get() {
       var qty = this.context.items.map(function (item) {
-        var amount = item.data.Amount;
-        if (item.UseVat) amount += amount * 0.1;
+        var amount = 0;
+        if (item.data.UseVat) amount += item.data.Amount * 0.1;
         return amount;
       });
       return qty.reduce(function (prev, curr, index) {
