@@ -18,7 +18,7 @@ export class List {
     { field: 'CurrencyCode', title: 'Mata Uang VB' },
     { field: 'VBAmount', title: 'Nominal VB' },
     { field: 'CurrencyCode', title: 'Mata Uang Realisasi' },
-    { field: 'VBRelizationAmount', title: 'Nominal Realisasi' },
+    { field: 'VBRealizationAmount', title: 'Nominal Realisasi' },
     {
       field: 'VerificationReceiptDate', title: 'Tanggal Terima Verifikasi',
       formatter: function (value, data, index) {

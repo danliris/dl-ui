@@ -27,25 +27,26 @@
                          loader.one-time="vbRequestDocumentLoader"
                          text="DocumentNo"
                          read-only.bind="readOnly"
+                         placeholder="pilih nomor vb"
                          options.bind="controlOptions"
                          query.bind="filter">
         </au-autocomplete>
 
-        <au-datepicker if.bind="isWithVB && vbRequestDocument"
-                       label="Estimasi Tanggal Realisasi"
+        <au-datepicker if.bind="isWithVB || vbRequestDocument"
+                       label="Tanggal VB"
                        value.bind="vbRequestDocument.Date"
                        read-only.bind="true"
                        options.bind="controlOptions">
         </au-datepicker>
 
-        <au-datepicker if.bind="isWithVB && vbRequestDocument"
+        <au-datepicker if.bind="isWithVB || vbRequestDocument"
                        label="Estimasi Tanggal Realisasi"
                        value.bind="vbRequestDocument.RealizationEstimationDate"
                        read-only.bind="true"
                        options.bind="controlOptions">
         </au-datepicker>
 
-        <au-textbox if.bind="isWithVB && vbRequestDocument"
+        <au-textbox if.bind="isWithVB || vbRequestDocument"
                     label="Pemohon VB"
                     value.bind="vbRequestDocument.CreatedBy"
                     read-only.bind="true"

@@ -22,7 +22,8 @@
     <tr>
         <au-collection items.bind="data.UnitPaymentOrder.Items"
                        columns.bind="columns"
-                       read-only.bind="true">
+                       read-only.bind="true"
+                       item-template="modules/purchasing/vb-realization-with-po-document/templates/detail">
         </au-collection>
 
 
