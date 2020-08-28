@@ -4,24 +4,17 @@ var _aureliaDependencyInjection = require("aurelia-dependency-injection");
 
 var _aureliaApi = require("aurelia-api");
 
-var resource = 'vb-request-po-external/spb';
+var resource = 'vb-realization-documents';
 
 module.exports = function (keyword, filter) {
   var config = _aureliaDependencyInjection.Container.instance.get(_aureliaApi.Config);
 
-  var endpoint = config.getEndpoint("purchasing-azure");
+  var endpoint = config.getEndpoint("finance");
   return endpoint.find(resource, {
     keyword: keyword,
-    division: filter.division,
-    epoIds: filter.epoIds,
-    size: 10
+    size: 10,
+    filter: JSON.stringify(filter)
   }).then(function (results) {
-    return results.data.map(function (result) {
-      result.toString = function () {
-        return "".concat(this.No);
-      };
-
-      return result;
-    });
+    return results.data;
   });
 };

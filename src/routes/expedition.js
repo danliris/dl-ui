@@ -455,6 +455,19 @@ module.exports = [
     }
   },
   {
+    route: 'verification-vb',
+    name: 'verification-vb',
+    moduleId: './modules/expedition/vb-realization-verification/index',
+    nav: true,
+    title: 'Verifikasi Realisasi VB',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: 'vb-realization-acceptance',
     name: 'vb-realization-acceptance',
     moduleId: './modules/expedition/vb-realization-acceptance/index',
