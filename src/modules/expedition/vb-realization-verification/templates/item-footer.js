@@ -6,13 +6,6 @@ export class ItemFooter {
         console.log(this.context);
     }
 
-    get getValueReqReal() {
-
-        var res = 0
-
-        return res;
-    }
-
     get getStatusReqReal() {
 
         var res = 0
@@ -20,13 +13,39 @@ export class ItemFooter {
         return res;
     }
 
-    get getIncomeTax() {
+    get getValueReqReal() {
+
+        var res = 0
+
         var qty = this.context.items
             .map((item) => {
+                let incomeTax = 0;
+                let vat = 0;
                 var amount = item.data.Amount
 
 
-                if (item.UseIncomeTax)
+                if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
+                    incomeTax = amount * item.data.IncomeTaxRate;
+
+                if (item.data.UseVat)
+                    vat = amount * 0.1;
+
+                console.log(amount, incomeTax, vat)
+
+                return amount - incomeTax + vat;
+            });
+        var sum = qty
+            .reduce((prev, curr, index) => { return prev + curr }, 0);
+
+        return this.context.options.vbRequestDocumentAmount - sum;
+    }
+
+    get getIncomeTax() {
+        var qty = this.context.items
+            .map((item) => {
+                var amount = 0
+
+                if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
                     amount += amount * item.IncomeTaxRate;
                 return amount;
             });
@@ -42,15 +61,20 @@ export class ItemFooter {
     get getAmountAll() {
         var qty = this.context.items
             .map((item) => {
+                let incomeTax = 0;
+                let vat = 0;
                 var amount = item.data.Amount
 
 
-                if (item.UseIncomeTax)
-                    amount += amount * item.IncomeTaxRate;
+                if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
+                    incomeTax = amount * item.data.IncomeTaxRate;
 
-                if (item.UseVat)
-                    amount += amount * 0.1;
-                return amount;
+                if (item.data.UseVat)
+                    vat = amount * 0.1;
+
+                console.log(amount, incomeTax, vat)
+
+                return amount - incomeTax + vat;
             });
         return qty
             .reduce((prev, curr, index) => { return prev + curr }, 0);
@@ -59,9 +83,9 @@ export class ItemFooter {
     get getAmountVAT() {
         var qty = this.context.items
             .map((item) => {
-                var amount = item.data.Amount
-                if (item.UseVat)
-                    amount += amount * 0.1;
+                var amount = 0
+                if (item.data.UseVat)
+                    amount += item.data.Amount * 0.1;
                 return amount;
             });
         return qty
