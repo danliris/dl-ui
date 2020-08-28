@@ -49,6 +49,10 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.isCreate = this.context.isCreate;
+        this.selectedVBRealization = this.data.vbRealization.Header
+        this.vbHeaderOptions = {
+            vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount
+        }
     }
 
     vbHeaderOptions = {

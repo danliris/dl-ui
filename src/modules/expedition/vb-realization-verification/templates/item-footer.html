@@ -2,14 +2,14 @@
     <tr>
         <td colspan="4"
             class="text-right">
-            <au-textbox value.bind="'Total Harga'"
+            <au-textbox value.one-way="'Total Harga'"
                         read-only.bind="true">
             </au-textbox>
         </td>
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getAmountTotal"
+            <au-numeric value.one-way="getAmountTotal"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
@@ -27,7 +27,7 @@
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getAmountVAT"
+            <au-numeric value.one-way="getAmountVAT"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
@@ -47,7 +47,7 @@
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getIncomeTax"
+            <au-numeric value.one-way="getIncomeTax"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
@@ -66,7 +66,7 @@
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getAmountAll"
+            <au-numeric value.one-way="getAmountAll"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
@@ -85,7 +85,7 @@
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getAmountVB"
+            <au-numeric value.one-way="getAmountVB"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
@@ -105,7 +105,7 @@
 
         <td colspan="1"
             class="text-right">
-            <au-numeric value.bind="getValueReqReal"
+            <au-numeric value.one-way="getValueReqReal"
                         read-only.bind="true"
                         format="0,0.000"
                         options.bind="controlOption">
