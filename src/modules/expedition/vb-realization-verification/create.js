@@ -29,7 +29,7 @@ export class Create {
 
   saveCallback(event) {
     this.service
-      .verified(this.data)
+      .verified(this.data.vbRealization.Header.Id)
       .then(result => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
@@ -41,21 +41,25 @@ export class Create {
       .catch(e => {
         this.error = e;
       });
+
+    console.log(this.data)
   }
 
   rejectCallback(event) {
-    this.service
-      .reject(this.data)
-      .then(result => {
-        alert("Data berhasil dibuat");
-        this.router.navigateToRoute(
-          "create",
-          {},
-          { replace: true, trigger: true }
-        );
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    // this.service
+    //   .reject(this.data)
+    //   .then(result => {
+    //     alert("Data berhasil dibuat");
+    //     this.router.navigateToRoute(
+    //       "create",
+    //       {},
+    //       { replace: true, trigger: true }
+    //     );
+    //   })
+    //   .catch(e => {
+    //     this.error = e;
+    //   });
+
+    console.log(this.data)
   }
 }
