@@ -83,6 +83,10 @@ export class DataForm {
     async bind(context) {
         //console.log(context);
         this.context = context;
+        console.log(context);
+        console.log(this.readOnly);
+        console.log(this.readOnlyInput);
+        console.log(this.readOnlyOutput);
         this.data = this.context.data;
         this.error = this.context.error;
         this.localInputDate = new Date(Date.parse(this.data.DateInput));
