@@ -145,6 +145,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/loss-event',
+        name: 'losses-event',
+        moduleId: './modules/production/finishing-printing/loss-event/index',
+        nav: true,
+        title: 'Master Losses Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/kanban',
         name: 'kanban',
         moduleId: './modules/production/finishing-printing/kanban/index',
