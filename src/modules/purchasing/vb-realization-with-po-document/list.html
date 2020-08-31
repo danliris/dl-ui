@@ -7,6 +7,7 @@
     page-size="25"
     context.bind="context"
     context-click.delegate="contextCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)" 
   >
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>

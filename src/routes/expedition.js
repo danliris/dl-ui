@@ -429,8 +429,8 @@ module.exports = [
     }
   },
   {
-    route: 'realization-vb-with-po',
-    name: 'realization-vb-with-po',
+    route: 'vb-realization-with-po-document',
+    name: 'vb-realization-with-po-document',
     moduleId: './modules/purchasing/vb-realization-with-po-document/index',
     nav: true,
     title: 'Realisasi VB dengan PO',
