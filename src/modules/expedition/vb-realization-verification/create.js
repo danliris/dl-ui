@@ -36,7 +36,7 @@ export class Create {
 
     console.log(this.data.vbRealization)
 
-    if (this.data.vbRealization.Header.Id)
+    if (this.data.vbRealization && this.data.vbRealization.Header.Id)
       this.service
         .verified(this.data.vbRealization.Header.Id)
         .then(result => {
@@ -72,7 +72,7 @@ export class Create {
     //     this.error = e;
     //   });
 
-    if (this.data.vbRealization.Header.Id) {
+    if (this.data.vbRealization && this.data.vbRealization.Header.Id) {
       this.dialog.show(AlertView)
         .then((response) => {
           console.log(response)
