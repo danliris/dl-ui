@@ -18,7 +18,11 @@ export class List {
             }
         },
         { field: "RqstNo", title: "No VB" },
-        { field: "VBCategory", title: "Tipe VB" },
+        {
+            field: "VBCategory", title: "Tipe VB", formatter: function (value, data, index) {
+                return value == 1 ? "Dengan PO" : "Non PO";
+            }
+        },
         {
             field: "RqstDate", title: "Tgl. VB"
             , formatter: function (value, data, index) {
@@ -51,7 +55,7 @@ export class List {
         {
             field: "ClearanceDate", title: "Tgl. Clearance"
             , formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         {
@@ -116,7 +120,14 @@ export class List {
         if (data.name != "Total")
             switch (arg.name) {
                 case "Detail":
-                    window.open(`${window.location.origin}/#/clearance-vb/view/${data.Id}`);
+                    console.log(arg)
+                    if (data.VBCategory == 1) {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/${data.VBRealizationDocumentId}`);
+                    } else {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/non-po/${data.VBRealizationDocumentId}`);
+                    }
                     break;
             }
     }

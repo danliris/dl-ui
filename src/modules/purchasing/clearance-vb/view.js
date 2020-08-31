@@ -13,7 +13,7 @@ export class View {
 
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
+        this.data = await this.service.getPOById(id);
 
         if (this.data.Status == "POSTED") {
             this.hasPosting = false;
