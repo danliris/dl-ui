@@ -3,6 +3,9 @@ export class ItemFooter {
         this.context = context;
         this.data = this.context.data;
         
+        var diff = this.getValueReqReal;
+
+        this.status = diff < 0 ? "Kurang" : diff > 0 ? "Sisa" : "Sesuai";
     }
 
     get getStatusReqReal() {
@@ -24,7 +27,7 @@ export class ItemFooter {
 
 
                 if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
-                    incomeTax = amount * item.data.IncomeTaxRate;
+                    incomeTax = amount * (item.data.IncomeTaxRate / 100);
 
                 if (item.data.UseVat)
                     vat = amount * 0.1;
@@ -45,7 +48,8 @@ export class ItemFooter {
                 var amount = 0
 
                 if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
-                    amount += amount * item.IncomeTaxRate;
+                    amount += item.data.Amount * (item.data.IncomeTaxRate / 100);
+                
                 return amount;
             });
         return qty
@@ -66,7 +70,7 @@ export class ItemFooter {
 
 
                 if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier")
-                    incomeTax = amount * item.data.IncomeTaxRate;
+                    incomeTax = amount * (item.data.IncomeTaxRate / 100);
 
                 if (item.data.UseVat)
                     vat = amount * 0.1;
