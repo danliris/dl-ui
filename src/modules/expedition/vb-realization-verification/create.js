@@ -70,7 +70,7 @@ export class Create {
     //     this.error = e;
     //   });
 
-    if (this.data.vbRealization.Header.Id) {
+    if (this.data.vbRealization && this.data.vbRealization.Header.Id) {
       this.dialog.show(AlertView)
         .then((response) => {
           
