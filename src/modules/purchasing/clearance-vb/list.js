@@ -107,4 +107,17 @@ export class List {
                 })
         }
     }
+
+    options = ["Detail"]
+
+    contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        if (data.name != "Total")
+            switch (arg.name) {
+                case "Detail":
+                    window.open(`${window.location.origin}/#/clearance-vb/view/${data.Id}`);
+                    break;
+            }
+    }
 }
