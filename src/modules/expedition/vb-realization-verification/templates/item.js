@@ -15,8 +15,8 @@ export class Item {
         this.readOnly = context.options.readOnly;
 
         this.vbRequestDocumentAmount = context.context.options.vbRequestDocumentAmount
-
-        console.log(context);
+        this.vbType = this.options.vbType;
+        
     }
 
     get coaLoader() {
