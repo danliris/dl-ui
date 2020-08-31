@@ -22,8 +22,7 @@ function () {
     key: "activate",
     value: function activate(context) {
       this.context = context;
-      this.data = this.context.data; // console.log(this.data);
-      // console.log(this.context);
+      this.data = this.context.data; 
     }
   }, {
     key: "getStatusReqReal",
@@ -40,7 +39,7 @@ function () {
         var vat = 0;
         var amount = item.data.Amount;
         if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier") incomeTax = amount * item.data.IncomeTaxRate;
-        if (item.data.UseVat) vat = amount * 0.1; // console.log(amount, incomeTax, vat)
+        if (item.data.UseVat) vat = amount * 0.1; 
 
         return amount - incomeTax + vat;
       });
@@ -75,7 +74,7 @@ function () {
         var vat = 0;
         var amount = item.data.Amount;
         if (item.data.UseIncomeTax && item.data.IncomeTaxBy == "Supplier") incomeTax = amount * item.data.IncomeTaxRate;
-        if (item.data.UseVat) vat = amount * 0.1; // console.log(amount, incomeTax, vat)
+        if (item.data.UseVat) vat = amount * 0.1; 
 
         return amount - incomeTax + vat;
       });

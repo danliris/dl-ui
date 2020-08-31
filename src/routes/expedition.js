@@ -455,8 +455,8 @@ module.exports = [
     }
   },
   {
-    route: 'verification-vb',
-    name: 'verification-vb',
+    route: 'vb-realization-verification',
+    name: 'vb-realization-verification',
     moduleId: './modules/expedition/vb-realization-verification/index',
     nav: true,
     title: 'Verifikasi Realisasi VB',

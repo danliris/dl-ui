@@ -18,7 +18,7 @@ export class View {
         let id = params.id;
         this.data.vbRealization = await this.vbRealizationService.getById(id);
 
-        console.log(this.data);
+        
 
         // if (this.data.Status == "POSTED") {
         //     this.hasPosting = false;

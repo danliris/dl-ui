@@ -19,14 +19,21 @@ export class AlertView {
     save(context) {
         this.data.context = context;
         // if (this.data.context == "NotVerified") {
-        if (this.data.Reason == undefined || this.data.Reason == "") {
-            this.error.Reason = "alasan harus di isi"
-        } else {
-            this.error = {};
-        }
+        // if (this.data.Reason == undefined || this.data.Reason == "") {
+        //     this.error.Reason = "alasan harus di isi"
+        // } else {
+        //     this.error = {};
+        // }
+        // // }
+
+        // if (this.error.Reason == "" || this.error.Reason == undefined) {
+        //     this.controller.ok(this.data);
         // }
 
-        if (this.error.Reason == "" || this.error.Reason == undefined) {
+        if(this.data.Remark == undefined || this.data.Remark == ""){
+            this.error.Remark = "alasan harus di isi";
+        }else{
+            this.error = {};
             this.controller.ok(this.data);
         }
     }

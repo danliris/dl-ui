@@ -25,7 +25,8 @@ export class Service extends RestService {
     }
 
     reject(id, data) {
-        let endpoint = `${serviceUri}/vb-reject/${realizationId}`;
+        
+        let endpoint = `${serviceUri}/vb-reject/${id}`;
         return super.put(endpoint, data);
     }
 
