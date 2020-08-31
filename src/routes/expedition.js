@@ -429,8 +429,8 @@ module.exports = [
     }
   },
   {
-    route: 'realization-vb-with-po',
-    name: 'realization-vb-with-po',
+    route: 'vb-realization-with-po-document',
+    name: 'vb-realization-with-po-document',
     moduleId: './modules/purchasing/vb-realization-with-po-document/index',
     nav: true,
     title: 'Realisasi VB dengan PO',
@@ -455,8 +455,8 @@ module.exports = [
     }
   },
   {
-    route: 'verification-vb',
-    name: 'verification-vb',
+    route: 'vb-realization-verification',
+    name: 'vb-realization-verification',
     moduleId: './modules/expedition/vb-realization-verification/index',
     nav: true,
     title: 'Verifikasi Realisasi VB',
@@ -477,6 +477,19 @@ module.exports = [
     settings: {
       group: "finance",
       permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'garment-invoice-payment',
+    name: 'garment-invoice-payment',
+    moduleId: './modules/expedition/garment-invoice-payment/index',
+    nav: true,
+    title: 'Pembayaran Invoice Export Garment',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
   }

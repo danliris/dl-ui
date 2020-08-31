@@ -69,6 +69,12 @@ export class List {
         },
         { field: "Unit.Name", title: "Unit" },
         { field: "CreateBy", title: "Pemohon VB" },
+        {
+            field: "ApprovalDate", title: "Tanggal Approval"
+            // , formatter: function (value, data, index) {
+            //     return moment.utc(value).local().format('DD MMM YYYY');
+            // },
+        },
         { field: "RealizationNo", title: "No. Realisasi" },
         {
             field: "RealizationDate", title: "Tgl. Realisasi"
@@ -92,6 +98,12 @@ export class List {
             field: "Difference", title: "Sisa (+/-)", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+        },
+        {
+            field: "ClearenceDate", title: "Tanggal Clearence"
+            // , formatter: function (value, data, index) {
+            //     return moment.utc(value).local().format('DD MMM YYYY');
+            // },
         },
         { field: "Status", title: "Status" },
     ];

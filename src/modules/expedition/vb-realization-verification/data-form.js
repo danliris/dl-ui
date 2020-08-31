@@ -51,11 +51,31 @@ export class DataForm {
         this.isCreate = this.context.isCreate;
 
         if (this.data.vbRealization) {
-            this.selectedVBRealization = this.data.vbRealization.Header;
+            this.selectedVBRealization = this.data.vbRealization.Header
             this.vbHeaderOptions = {
-                vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount
+                vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount,
+                vbType: this.data.vbRealization.Header.Type
+            };
+
+            if (this.data.vbRealization.Header.Type == 1) {
+                this.columns = [
+                    "Tanggal",
+                    "No SPB",
+                    "Harga",
+                    "Kena PPn",
+                    "Total"
+                ];
+            } else {
+                this.columns = [
+                    "Tanggal",
+                    "Keterangan",
+                    "Harga",
+                    "Kena PPn",
+                    "Total"
+                ];
             }
         }
+
     }
 
     vbHeaderOptions = {
@@ -84,10 +104,28 @@ export class DataForm {
             this.data.vbRealization = await this.vbRealizationService.getById(newValue.Id);
             this.vbType = this.data.vbRealization.Header.Type == 1 ? 'Dengan PO' : 'Non PO';
             this.isVB = this.data.vbRealization.Header.VBRequestDocumentId > 0;
-            console.log(this.data);
-            this.vbHeaderOptions = {
-                vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount
+            if (this.data.vbRealization.Header.Type == 1) {
+                this.columns = [
+                    "Tanggal",
+                    "No SPB",
+                    "Harga",
+                    "Kena PPn",
+                    "Total"
+                ];
+            } else {
+                this.columns = [
+                    "Tanggal",
+                    "Keterangan",
+                    "Harga",
+                    "Kena PPn",
+                    "Total"
+                ];
             }
+            
+            this.vbHeaderOptions = {
+                vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount,
+                vbType: this.data.vbRealization.Header.Type
+            };
         } else {
             this.data.vbRealization.Header.Id = 0;
         }

@@ -34,9 +34,7 @@ export class Create {
 
   saveCallback(event) {
 
-    console.log(this.data.vbRealization)
-
-    if (this.data.vbRealization && this.data.vbRealization.Header.Id)
+    if (this.data.vbRealization.Header.Id)
       this.service
         .verified(this.data.vbRealization.Header.Id)
         .then(result => {
@@ -75,12 +73,12 @@ export class Create {
     if (this.data.vbRealization && this.data.vbRealization.Header.Id) {
       this.dialog.show(AlertView)
         .then((response) => {
-          console.log(response)
+          
           if (!response.wasCancelled) {
             var body = {
-              Reason: response.output.Reason
+              Reason: response.output.Remark
             }
-
+            
             this.service
               .reject(this.data.vbRealization.Header.Id, body)
               .then(result => {
