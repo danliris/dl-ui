@@ -5,13 +5,16 @@ import XLSX from 'xlsx';
 import { Service } from './service';
 
 const DivisionLoader = require('../../../loader/division-loader');
-const VBRealizationLoader = require('../loaders/vb-realization-loader');
+const VBRealizationLoader = require('../loaders/vb-realization-all-loader');
 const VBRequestLoader = require('../loaders/vb-request-loader');
 const AccountLoader = require('../loaders/account-loader');
 const UnitLoader = require('../loaders/unit-loader');
 
 @inject(Service)
 export class List {
+
+  statusOptions = ["Semua", "Kasir", "Retur"];
+
   columns = [
     { field: 'VBNo', title: 'No VB' },
     { field: 'VBRealizationNo', title: 'No Realisasi VB' },
@@ -65,6 +68,77 @@ export class List {
     // { field: 'Buyer', title: 'Buyer' },
   ];
 
+  columns2 = [
+    { field: "VBNo", title: "No. VB" },
+    { field: "VBRealizationNo", title: "No. Realisasi VB" },
+    {
+      field: "VBType", title: "Tipe VB", formatter: function (value, data, index) {
+        return value == 1 ? "Dengan PO" : "Tanpa PO";
+      }
+    },
+    { field: "VBRequestName", title: "Nama" },
+    { field: "UnitName", title: "Bagian/Unit" },
+    { field: "DivisionName", title: "Divisi" },
+    {
+      field: "SendToVerificationDate", title: "Tgl. Unit Kirim", formatter: function (value, data, index) {
+        return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
+      },
+    },
+    { field: "Purpose", title: "Keperluan" },
+    { field: "CurrencyCode", title: "Kurs VB" },
+    {
+      field: "VBAmount", title: "Nominal VB", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      },
+    },
+    { field: "CurrencyCode", title: "Kurs Realisasi" },
+    {
+      field: "VBRealizationAmount", title: "Nominal Realisasi", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      },
+    },
+    {
+      field: "VBRealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+        return moment.utc(value).local().format('DD MMM YYYY');
+      },
+    },
+    {
+      field: "SendToVerificationDate", title: "Tgl. Verif Terima", formatter: function (value, data, index) {
+        return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
+      },
+    },
+    { field: "VerifiedToCashierBy", title: "Nama Verifikator" },
+    {
+      field: "VerifiedToCashierDate", title: "Tgl. Verif Kirim Kasir/Retur", formatter: function (value, data, index) {
+        return value ? moment.utc(value).local().format('DD MMM YYYY') : data.NotVerifiedDate ? moment.utc(data.NotVerifiedDate).local().format('DD MMM YYYY') : "-";
+      },
+    },
+    {
+      field: "Position", title: "Posisi", formatter: (value, data, index) => {
+        switch (value) {
+          case 1:
+            return "Pembelian";
+          case 2:
+            return "Penyerahan Ke Verifikasi";
+          case 3:
+            return "Verifikasi";
+          case 4:
+            return "Verifikasi Ke Kasir";
+          case 5:
+            return "Kasir";
+          case 6:
+            return "Retur";
+        }
+      }
+    },
+    { field: "NotVerifiedReason", title: "Keterangan (Retur)" },
+    {
+      field: "CashierReceiptDate", title: "Tgl. Kasir Terima", formatter: function (value, data, index) {
+        return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
+      }
+    }
+  ]
+
   controlOptions = {
     label: {
       length: 4,
@@ -96,19 +170,30 @@ export class List {
     if (info.sort)
       order[info.sort] = info.order;
 
-    let arg = {
+    let arg = {};
 
-    };
+    if (this.info.vbRequest && this.info.vbRequest.Id)
+      arg.vbId = this.info.vbRequest.Id;
 
+    if (this.info.vbRealization && this.info.vbRealization.Id)
+      arg.vbRealizationId = this.info.vbRealization.Id;
+
+    if (this.info.account && this.info.account.username)
+      arg.vbRequestName = this.info.account.username;
+
+    if (this.info.unit && this.info.unit.Id)
+      arg.unitId = this.info.unit.Id;
 
     if (this.info.dateFrom)
-      arg.dateFrom = moment(this.info.dateFrom).format("MM/DD/YYYY");
+      arg.dateStart = moment(this.info.dateFrom).format("YYYY-MM-DD");
 
     if (this.info.dateTo)
-      arg.dateTo = moment(this.info.dateTo).format("MM/DD/YYYY");
+      arg.dateEnd = moment(this.info.dateTo).format("YYYY-MM-DD");
 
-    if (this.info.divisionId)
-      arg.divisionId = this.info.divisionId;
+    if (this.info.division && this.info.division.Id)
+      arg.divisionId = this.info.division.Id;
+
+    arg.status = this.info.status;
 
     return this.flag ? (
       this.service.search(arg)
@@ -130,8 +215,8 @@ export class List {
   excel() {
 
     let params = {
-      dateFrom: moment(this.info.dateFrom).format("MM/DD/YYYY"),
-      dateTo: moment(this.info.dateTo).format("MM/DD/YYYY")
+      dateStart: moment(this.info.dateFrom).format("YYYY-MM-DD"),
+      dateEnd: moment(this.info.dateTo).format("YYYY-MM-DD")
     };
 
     this.service.getXls(params)
@@ -143,9 +228,14 @@ export class List {
     this.flag = false;
 
     this.error = {};
+    this.info.vbRequest = undefined;
+    this.info.vbRealization = undefined;
+    this.info.account = undefined;
+    this.info.unit = undefined;
+    this.info.status = "Semua";
     this.info.dateFrom = undefined;
     this.info.dateTo = undefined;
-    this.info.divisionId = 0;
+    this.info.division = 0;
     this.selectedDivision = null;
     this.tableList.refresh();
   }
@@ -160,6 +250,22 @@ export class List {
       this.info.divisionId = newValue.Id;
     else
       this.info.divisionId = 0;
+  }
+
+  get vbRequestLoader() {
+    return VBRequestLoader;
+  }
+
+  get vbRealizationLoader() {
+    return VBRealizationLoader;
+  }
+
+  get accountLoader() {
+    return AccountLoader
+  }
+
+  get unitLoader() {
+    return UnitLoader;
   }
 
 

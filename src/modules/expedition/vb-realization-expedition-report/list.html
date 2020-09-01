@@ -2,25 +2,64 @@
   <h1 class="page-header">Laporan Ekspedisi Realisasi VB</h1>
 
   <form class="form-horizontal">
+
+    <au-autocomplete placeholder="pilih VB request"
+                     value.bind="info.vbRequest"
+                     loader.bind="vbRequestLoader"
+                     options.bind="controlOptions"
+                     label="No VB Request"
+                     text="DocumentNo">
+    </au-autocomplete>
+
+    <au-autocomplete placeholder="pilih VB realisasi"
+                     value.bind="info.vbRealization"
+                     loader.bind="vbRealizationLoader"
+                     options.bind="controlOptions"
+                     label="No VB Realisasi"
+                     text="DocumentNo">
+    </au-autocomplete>
+
+    <au-autocomplete placeholder="pilih nama pemohon"
+                     value.bind="info.account"
+                     loader.bind="accountLoader"
+                     options.bind="controlOptions"
+                     label="Pemohon VB"
+                     text="username">
+    </au-autocomplete>
+
+    <au-autocomplete placeholder="pilih bagian"
+                     value.bind="info.unit"
+                     loader.bind="unitLoader"
+                     options.bind="controlOptions"
+                     label="Bagian"
+                     text="Name">
+    </au-autocomplete>
+
     <au-datepicker value.bind="info.dateFrom"
-                   label="Tanggal Awal"
+                   label="Tanggal Awal Realisasi VB"
                    options.bind="controlOptions"
                    error.bind="error.dateFrom">
     </au-datepicker>
 
     <au-datepicker value.bind="info.dateTo"
-                   label="Tanggal Akhir"
+                   label="Tanggal Akhir Realisasi VB"
                    options.bind="controlOptions"
                    error.bind="error.dateTo">
     </au-datepicker>
 
     <au-autocomplete placeholder="pilih divisi"
-                     value.bind="selectedDivision"
+                     value.bind="info.division"
                      loader.bind="divisionLoader"
                      options.bind="controlOptions"
                      label="Divisi"
                      text="Name">
     </au-autocomplete>
+
+    <au-dropdown label="Status"
+                 value.bind="info.status"
+                 items.bind="statusOptions"
+                 options.bind="controlOptions">
+    </au-dropdown>
 
     <div class="form-group">
       <label for="contact"
@@ -37,7 +76,7 @@
   <div id="sales-receipt-table">
     <au-table view-model.ref="tableList"
               data.bind="loader"
-              columns.bind="columns"
+              columns.bind="columns2"
               options.bind="tableOptions">
       <div slot="toolbar"
            class="btn-group">

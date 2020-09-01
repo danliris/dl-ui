@@ -32,28 +32,26 @@ export class List {
         { field: "Appliciant", title: "Pemohon" },
         { field: "RealNo", title: "No Realisasi" },
         {
-            field: "RealDate", title: "Tgl. Realisasi"
-            , formatter: function (value, data, index) {
+            field: "RealDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "VerDate", title: "Tgl. Verifikasi"
-            , formatter: function (value, data, index) {
+            field: "VerDate", title: "Tgl. Verifikasi", formatter: function (value, data, index) {
                 return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         {
             field: "DiffStatus", title: "Sisa/Kurang/Sesuai"
         },
+        { field: "CurrencyCode", title: "Mata Uang" },
         {
             field: "DiffAmount", title: "Jumlah", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
         },
         {
-            field: "ClearanceDate", title: "Tgl. Clearance"
-            , formatter: function (value, data, index) {
+            field: "ClearanceDate", title: "Tgl. Clearance", formatter: function (value, data, index) {
                 return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
