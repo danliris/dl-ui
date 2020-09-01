@@ -137,6 +137,9 @@ export class DataForm {
 
         this.vbRequestDocument = this.data.VBRequestDocument;
 
+        this.selectedCurrency = this.data.Currency;
+        this.selectedSuppliantUnit = this.data.SuppliantUnit;
+
         if (this.data.VBRequestDocument && this.data.VBRequestDocument.Id) {
             let vbRequestDocument = await this.vbRequestService.getById(this.data.VBRequestDocument.Id);
 
