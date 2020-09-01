@@ -66,8 +66,8 @@ export class PurchaseOrderItem {
       if (this.context.context.options.Unit.Division)
         division = this.context.context.options.Unit.Division.Name;
     this.filter = {
-      "CurrencyCode": currencyCode,
-      "Division": division
+      "currencyCode": currencyCode,
+      "division": division
     };
   }
 
