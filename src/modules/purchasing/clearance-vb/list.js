@@ -44,6 +44,7 @@ export class List {
         {
             field: "DiffStatus", title: "Sisa/Kurang/Sesuai"
         },
+        { field: "CurrencyCode", title: "Mata Uang" },
         {
             field: "DiffAmount", title: "Jumlah", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
