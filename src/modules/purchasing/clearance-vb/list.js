@@ -119,7 +119,14 @@ export class List {
         if (data.name != "Total")
             switch (arg.name) {
                 case "Detail":
-                    window.open(`${window.location.origin}/#/clearance-vb/view/${data.Id}`);
+                    console.log(arg)
+                    if (data.VBCategory == 1) {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/${data.VBRealizationDocumentId}`);
+                    } else {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/non-po/${data.VBRealizationDocumentId}`);
+                    }
                     break;
             }
     }

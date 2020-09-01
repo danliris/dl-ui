@@ -28,7 +28,7 @@ export class List {
         { field: "UnitName", title: "Bagian/Unit" },
         { field: "VBRealizationAmount", title: "Nominal" },
         { field: "Status", title: "Status" },
-        { field: "Status", title: "Alasan" }
+        { field: "Reason", title: "Alasan" }
     ];
 
     loader = (info) => {

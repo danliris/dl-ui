@@ -109,7 +109,9 @@ export class DataForm {
                     "Tanggal",
                     "No SPB",
                     "Harga",
-                    "Kena PPn",
+                    "PPn",
+                    "PPh",
+                    "PPh Ditanggung",
                     "Total"
                 ];
             } else {
@@ -117,7 +119,9 @@ export class DataForm {
                     "Tanggal",
                     "Keterangan",
                     "Harga",
-                    "Kena PPn",
+                    "PPn",
+                    "PPh",
+                    "PPh Ditanggung",
                     "Total"
                 ];
             }
