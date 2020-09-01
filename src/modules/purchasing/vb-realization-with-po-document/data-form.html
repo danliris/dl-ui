@@ -83,7 +83,7 @@
         </au-numeric>
 
         <au-autocomplete if.bind="!isWithVB && data.Type != ''"
-                         value.bind="data.SuppliantUnit"
+                         value.bind="selectedSuppliantUnit"
                          error.bind="error.SuppliantUnit"
                          label="Unit Pemohon"
                          loader.bind="unitLoader"
@@ -94,7 +94,7 @@
 
         <au-autocomplete if.bind="!isWithVB && data.Type != ''"
                          label="Mata Uang"
-                         value.bind="data.Currency"
+                         value.bind="selectedCurrency"
                          error.bind="error.Currency"
                          loader.one-time="currencyLoader"
                          text="Code"
