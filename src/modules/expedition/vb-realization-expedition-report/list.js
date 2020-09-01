@@ -4,17 +4,27 @@ import numeral from 'numeral';
 import XLSX from 'xlsx';
 import { Service } from './service';
 
-const DivisionLoader = require('../../../loader/division-loader')
+const DivisionLoader = require('../../../loader/division-loader');
+const VBRealizationLoader = require('../loaders/vb-realization-loader');
+const VBRequestLoader = require('../loaders/vb-request-loader');
+const AccountLoader = require('../loaders/account-loader');
+const UnitLoader = require('../loaders/unit-loader');
 
 @inject(Service)
 export class List {
   columns = [
+    { field: 'VBNo', title: 'No VB' },
+    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
+    { field: 'VBRequestName', title: 'Nama' },
+    { field: 'UnitName', title: 'Bagian/Unit' },
+    { field: 'DivisionName', title: 'Divisi' },
     {
       field: 'SendToVerificationDate', title: 'Tanggal Unit Kirim',
       formatter: function (value, data, index) {
         return value ? moment(value).format('DD/MM/YYYY') : '-';
       },
     },
+    { field: 'Purpose', title: 'Keperluan' },
     { field: 'CurrencyCode', title: 'Mata Uang VB' },
     { field: 'VBAmount', title: 'Nominal VB' },
     { field: 'CurrencyCode', title: 'Mata Uang Realisasi' },
@@ -96,6 +106,9 @@ export class List {
 
     if (this.info.dateTo)
       arg.dateTo = moment(this.info.dateTo).format("MM/DD/YYYY");
+
+    if (this.info.divisionId)
+      arg.divisionId = this.info.divisionId;
 
     return this.flag ? (
       this.service.search(arg)
