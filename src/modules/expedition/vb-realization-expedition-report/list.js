@@ -102,10 +102,10 @@ export class List {
 
 
     if (this.info.dateFrom)
-      arg.dateFrom = moment(this.info.dateFrom).format("MM/DD/YYYY");
+      arg.dateFrom = moment(this.info.dateFrom).format("YYYY-MM-DD");
 
     if (this.info.dateTo)
-      arg.dateTo = moment(this.info.dateTo).format("MM/DD/YYYY");
+      arg.dateTo = moment(this.info.dateTo).format("YYYY-MM-DD");
 
     if (this.info.divisionId)
       arg.divisionId = this.info.divisionId;
@@ -130,8 +130,8 @@ export class List {
   excel() {
 
     let params = {
-      dateFrom: moment(this.info.dateFrom).format("MM/DD/YYYY"),
-      dateTo: moment(this.info.dateTo).format("MM/DD/YYYY")
+      dateFrom: moment(this.info.dateFrom).format("YYYY-MM-DD"),
+      dateTo: moment(this.info.dateTo).format("YYYY-MM-DD")
     };
 
     this.service.getXls(params)
