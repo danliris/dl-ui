@@ -64,8 +64,8 @@ export class DataForm {
     @bindable selectedSuppliantUnit;
     selectedSuppliantUnitChanged(newVal, oldVal) {
 
-        if (oldVal)
-            this.data.Items = [];
+        if (oldVal || this.isCreate && this.data.Items && this.data.Items.length > 0)
+            this.data.Items.splice(0, this.data.Items.length);
 
         if (newVal) {
             this.data.SuppliantUnit = newVal;
@@ -79,12 +79,12 @@ export class DataForm {
     @bindable selectedCurrency;
     selectedCurrencyChanged(newVal, oldVal) {
 
-        if (oldVal)
-            this.data.Items = [];
+        if (oldVal || this.isCreate && this.data.Items && this.data.Items.length > 0)
+            this.data.Items.splice(0, this.data.Items.length);
 
         if (newVal) {
             this.data.Currency = newVal;
-            this.itemsOptions.currencyCode = newVal.Currency.Code;
+            this.itemsOptions.currencyCode = newVal.Code;
         } else {
             delete this.data.Currency;
             delete this.itemsOptions.currencyCode;
@@ -134,8 +134,12 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
+        this.isCreate = this.context.isCreate;
 
         this.vbRequestDocument = this.data.VBRequestDocument;
+
+        this.selectedCurrency = this.data.Currency;
+        this.selectedSuppliantUnit = this.data.SuppliantUnit;
 
         if (this.data.VBRequestDocument && this.data.VBRequestDocument.Id) {
             let vbRequestDocument = await this.vbRequestService.getById(this.data.VBRequestDocument.Id);
