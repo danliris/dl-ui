@@ -14,7 +14,6 @@ export class Item {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
 
-        console.log(this.options);
 
         this.filter.epoIds = this.options.epoIds;
         this.filter.division = this.options.division;
@@ -40,7 +39,6 @@ export class Item {
     }
 
     get total() {
-        console.log(this.data)
         if (this.data.UnitPaymentOrder) {
             let result = this.data.UnitPaymentOrder.Amount;
 
