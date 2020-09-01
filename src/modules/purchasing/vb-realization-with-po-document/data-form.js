@@ -61,6 +61,36 @@ export class DataForm {
         epoIds: []
     }
 
+    @bindable selectedSuppliantUnit;
+    selectedSuppliantUnitChanged(newVal, oldVal) {
+
+        if (oldVal)
+            this.data.Items = [];
+
+        if (newVal) {
+            this.data.SuppliantUnit = newVal;
+            this.itemsOptions.division = newVal.Division.Name;
+        } else {
+            delete this.data.SuppliantUnit;
+            delete this.itemsOptions.division;
+        }
+    }
+
+    @bindable selectedCurrency;
+    selectedCurrencyChanged(newVal, oldVal) {
+
+        if (oldVal)
+            this.data.Items = [];
+
+        if (newVal) {
+            this.data.Currency = newVal;
+            this.itemsOptions.currencyCode = newVal.Currency.Code;
+        } else {
+            delete this.data.Currency;
+            delete this.itemsOptions.currencyCode;
+        }
+    }
+
     @bindable vbRequestDocument;
     async vbRequestDocumentChanged(newVal, oldVal) {
         this.data.VBRequestDocument = newVal;
@@ -114,11 +144,8 @@ export class DataForm {
                 return item.PurchaseOrderExternal.Id;
             });
             this.itemsOptions.division = vbRequestDocument.SuppliantUnit.Division.Name;
+            this.itemsOptions.currencyCode = vbRequestDocument.Currency.Code
         }
-
-
-
-        console.log(this.context);
     }
 
     get addItems() {

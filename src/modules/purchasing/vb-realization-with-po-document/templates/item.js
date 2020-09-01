@@ -17,7 +17,8 @@ export class Item {
         console.log(this.options);
 
         this.filter.epoIds = this.options.epoIds;
-        this.filter.division = this.options.division
+        this.filter.division = this.options.division;
+        this.filter.currencyCode = this.options.currencyCode;
     }
 
     filter = {
