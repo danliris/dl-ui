@@ -35,11 +35,11 @@ export class List {
     // { field: "UnitLoad", title: "Beban Unit" },
     { field: "CreatedBy", title: "Dibuat oleh" },
     {
-      field: "isVerified", title: "Status Verifikasi",
+      field: "Position", title: "Status Verifikasi",
       formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
+        return value > 3 ? "Sudah" : "Belum";
       }
-    },
+    }
   ];
 
   async activate(params) {
