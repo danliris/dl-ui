@@ -184,6 +184,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/daily-monitoring-event',
+        name: 'daily-monitoring-event',
+        moduleId: './modules/production/finishing-printing/daily-monitoring-event/index',
+        nav: true,
+        title: 'Monitoring Event Harian',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/kanban',
         name: 'kanban',
         moduleId: './modules/production/finishing-printing/kanban/index',
