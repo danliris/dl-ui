@@ -41,7 +41,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}`;
+        let endpoint = `${serviceUri}/verification`;
         return super.list(endpoint, info);
     }
 }
