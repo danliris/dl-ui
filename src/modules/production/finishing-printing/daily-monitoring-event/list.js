@@ -5,14 +5,18 @@ import numeral from 'numeral';
 var moment = require('moment');
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
+    context = ["Detail"];
     itemYears = [];
     columns = [
-        { field: "LossEventCategory.LossEvent.ProcessArea", title: "Area" },
-        { field: "LossEventCategory.LossEvent.Losses", title: "Losses" },
-        { field: "LossEventCategory.LossesCategory", title: "Kategori Losses" },
-        { field: "ProductionLossCode", title: "Kode Loss Produksi" },
-        { field: "Remark", title: "Keterangan" }
+        {
+            field: "Date", title: "Tanggal", formatter: (value, data) => {
+                return moment(value).format("DD-MMM-YYYY");
+            }
+        },
+        { field: "Machine.Name", title: "Mesin" },
+        { field: "ProcessArea", title: "Area" },
+        { field: "Shift", title: "Jam Kerja" },
+        { field: "Group", title: "Group" },
     ];
     loader = (info) => {
         var order = {};
@@ -38,13 +42,15 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+
+
     }
 
     contextCallback(event) {
         let arg = event.detail;
         let data = arg.data;
         switch (arg.name) {
-            case "Rincian":
+            case "Detail":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
