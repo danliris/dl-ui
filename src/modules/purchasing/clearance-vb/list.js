@@ -100,7 +100,12 @@ export class List {
 
     posting() {
         if (this.dataToBePosted.length > 0) {
-            this.service.post(this.dataToBePosted.map(d => d.Id))
+            this.service.post(this.dataToBePosted.map(d => {
+                return {
+                    VBRequestId: d.Id,
+                    VBRealizationId: d.VBRealizationDocumentId
+                }
+            }))
                 .then(result => {
                     this.table.refresh();
                 }).catch(e => {
