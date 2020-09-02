@@ -21,9 +21,13 @@
                          text="DocumentNo">
         </au-autocomplete>
       </div>
-      <div class="col-sm-2">
-        <au-datepicker value.bind="data.realizationDate">
+      <div class="col-sm-3">
+        <au-datepicker value.bind="data.realizationDate"
+                       label="Tanggal Realisasi">
         </au-datepicker>
+        <!-- <au-textbox value.bind="'tanggal realisasi'"
+                    read-only.bind="true">
+        </au-textbox> -->
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih nama pemohon"
