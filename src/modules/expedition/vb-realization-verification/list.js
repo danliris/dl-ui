@@ -43,11 +43,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            position: 4,
-            filter: JSON.stringify({
-                Position: 4
-            })
+            order: order
         };
 
         return this.service.search(arg)
