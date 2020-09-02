@@ -13,7 +13,7 @@ const UnitLoader = require('../loaders/unit-loader');
 @inject(Service)
 export class List {
 
-  statusOptions = ["Semua", "Kasir", "Retur"];
+  statusOptions = ["Unit", "Verifikasi", "Kasir", "Retur", "Semua"];
 
   columns = [
     { field: 'VBNo', title: 'No VB' },
@@ -85,13 +85,13 @@ export class List {
       },
     },
     { field: "Purpose", title: "Keperluan" },
-    { field: "CurrencyCode", title: "Kurs VB" },
+    { field: "CurrencyCode", title: "Mata Uang VB" },
     {
       field: "VBAmount", title: "Nominal VB", formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       },
     },
-    { field: "CurrencyCode", title: "Kurs Realisasi" },
+    { field: "CurrencyCode", title: "Mata Uang Realisasi" },
     {
       field: "VBRealizationAmount", title: "Nominal Realisasi", formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
