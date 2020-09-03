@@ -27,8 +27,20 @@ export class List {
         { field: "VBRequestName", title: "Pemohon VB" },
         { field: "UnitName", title: "Bagian/Unit" },
         { field: "VBRealizationAmount", title: "Nominal" },
-        { field: "Status", title: "Status" },
-        { field: "Reason", title: "Alasan" }
+        {
+            field: "Position", title: "Status", formatter: (value) => {
+                switch (value) {
+                    case 4:
+                        return "Verifikasi Ke Kasir";
+                    case 5:
+                        return "Diterima Kasir";
+                    case 6:
+                        "Ditolak";
+                    default: "-";
+                }
+            }
+        },
+        { field: "NotVerifiedReason", title: "Alasan" }
     ];
 
     loader = (info) => {
