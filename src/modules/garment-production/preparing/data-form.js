@@ -118,13 +118,13 @@ export class DataForm {
                     if(deliveryOrder){
                         this.data.Article = deliveryOrder.Article;
                         this.data.RONo = deliveryOrder.RONo;
+                        
                         this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) })
                         .then((pr)=>{
                             if(pr.data.length>0){
                                 this.data.Buyer=pr.data[0].Buyer;
                                 this.data.buyerView= this.data.Buyer.Code +"-"+this.data.Buyer.Name;
                             }
-
                             for(var doItem of deliveryOrder.Items){
                                 for(var item of this.data.Items){
                                     item.Product = {};

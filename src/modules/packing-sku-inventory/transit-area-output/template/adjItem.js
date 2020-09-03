@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 var ProductionOrderLoader = require('../../../../loader/adj-transit-spp-loader');
+var ProductionOrderPackLoader = require('../../../../loader/adj-transit-spp-pack-loader');
 
 export class CartItem {
     @bindable product;
@@ -12,6 +13,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.isKain = this.contextOptions.adjItemCategory == "KAIN";
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.productionOrder = {};
@@ -45,6 +47,10 @@ export class CartItem {
             this.selectedProductionOrder.dyeingPrintingAreaInputProductionOrderId = this.data.dyeingPrintingAreaInputProductionOrderId;
             this.selectedProductionOrder.balanceRemains = this.data.balanceRemains;
 
+            this.selectedProductionOrder.packingLength = this.data.packingLength;
+            this.selectedProductionOrder.packingUnit = this.data.packingUnit;
+            this.selectedProductionOrder.packingType = this.data.packingType;
+
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
             this.selectedProductionOrder.processType.name = this.data.processType.name;
@@ -52,7 +58,7 @@ export class CartItem {
             this.selectedProductionOrder.yarnMaterial = {};
             this.selectedProductionOrder.yarnMaterial.id = this.data.yarnMaterial.id;
             this.selectedProductionOrder.yarnMaterial.name = this.data.yarnMaterial.name;
-            
+
             this.selectedProductionOrder.productSKUId = this.data.productSKUId;
             this.selectedProductionOrder.fabricSKUId = this.data.fabricSKUId;
             this.selectedProductionOrder.productSKUCode = this.data.productSKUCode;
@@ -81,6 +87,10 @@ export class CartItem {
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
+    }
+
+    get productionOrderPackLoader() {
+        return ProductionOrderPackLoader;
     }
 
     @bindable selectedProductionOrder;
@@ -115,6 +125,10 @@ export class CartItem {
             this.data.processType.id = this.selectedProductionOrder.processType.id;
             this.data.processType.name = this.selectedProductionOrder.processType.name;
 
+            this.data.packingLength = this.selectedProductionOrder.packingLength;
+            this.data.packingUnit = this.selectedProductionOrder.packingUnit;
+            this.data.packingType = this.selectedProductionOrder.packingType;
+
             this.data.yarnMaterial = {};
             this.data.yarnMaterial.id = this.selectedProductionOrder.yarnMaterial.id;
             this.data.yarnMaterial.name = this.selectedProductionOrder.yarnMaterial.name;
@@ -132,5 +146,11 @@ export class CartItem {
         else {
             this.data.productionOrder = {};
         }
+    }
+
+    @bindable balance;
+    get totalBalance() {
+        this.data.balance = this.data.qtyPacking * this.data.packingLength;
+        this.balance = this.data.balance;
     }
 }

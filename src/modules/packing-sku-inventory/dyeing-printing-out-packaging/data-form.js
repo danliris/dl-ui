@@ -52,6 +52,7 @@ export class DataForm {
         return (this.data.id || '').toString() != '';
     }
 
+    @bindable ItemsCollection;
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -70,24 +71,31 @@ export class DataForm {
         if (this.data.id) {
             this.selectedType = this.data.type
         }
+
+        if (this.data.destinationArea) {
+            this.destinationArea = this.data.destinationArea;
+        }
         if (this.data.packagingProductionOrders) {
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;
         }
-        
+
+
         if (this.readOnly) {
             this.itemColumnsAdj = ["No SP", "QTY Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "QTY Total", "No Dokumen"];
         } else {
             this.itemColumnsAdj = ["No SP", "QTY Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "Saldo", "QTY Total", "No Dokumen"];
         }
-        
+
         this.detailOptions = {
             isEdit: this.isEdit,
-            readOnly: this.readOnly
+            readOnly: this.readOnly,
+            destinationArea: this.destinationArea
         };
-    }
 
-    async activate(context) {
+        if (this.ItemsCollection) {
+            this.ItemsCollection.bind();
+        }
     }
 
     addItemCallback = (e) => {
@@ -98,19 +106,6 @@ export class DataForm {
         this.data.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj || [];
         this.data.packagingProductionOrdersAdj.push({});
     };
-
-    // selectedPackagingChanged(n, o) {
-    //     this.detailOptions.destinationArea = this.data.destinationArea;
-    //     this.data.bonNoInput = n.bonNo;
-
-    //     // if(n){
-    //     //     this.data.bonNoInput = n.bonNo;
-    //     //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-    //     // }
-    //     // if(this.selectedPackaging){
-    //     //     this.data.packagingProductionOrders = this.selectedPackaging.packagingProductionOrders;
-    //     // }
-    // }
 
     ExportToExcel() {
         this.service.generateExcel(this.data.id);
@@ -123,6 +118,18 @@ export class DataForm {
         else
             this.isAdj = false;
 
+    }
+
+    @bindable destinationArea;
+    destinationAreaChanged(n, o) {
+        if (this.destinationArea) {
+            this.data.destinationArea = this.destinationArea;
+            this.detailOptions.destinationArea = this.data.destinationArea;
+
+            if (this.ItemsCollection) {
+                this.ItemsCollection.bind();
+            }
+        }
     }
 
 }

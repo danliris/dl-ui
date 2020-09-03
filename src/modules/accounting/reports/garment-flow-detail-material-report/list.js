@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Service } from './service';
 import { Router } from 'aurelia-router';
 
-//const UnitLoader = require('../../../loader/unit-loader');
+var UnitLoader = require('../../../../loader/garment-units-loader');
 
 @inject(Router, Service)
 export class List {
@@ -14,15 +14,19 @@ export class List {
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
+                this.categoryname = "BAHAN BAKU";
             }
             else if (newvalue === "BAHAN PENDUKUNG") { 
-                this.category = "BP"; 
+                this.category = "BP";
+                this.categoryname = "BAHAN PENDUKUNG";
             }
             else if (newvalue === "BAHAN EMBALACE") {
                 this.category = "BE"; 
+                this.categoryname = "BAHAN EMBALACE";
             }else if(newvalue === "PROSES"){
 
-                this.category = "";
+                this.category = "PRC";
+                this.categoryname = "PROSES";
             }
         }
     }
@@ -84,7 +88,10 @@ export class List {
         if (this.category) {
             filter.category = this.category;
         }
-
+        if (this.unit) {
+            filter.unit = this.unit.Code;
+            //filter.unitname = this.unit.Name
+        }
         if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
             filter.dateTo = this.dateTo;
@@ -149,6 +156,12 @@ export class List {
 
         if (this.category) {
             filter.category = this.category;
+            filter.categoryname = this.categoryname;
+        }
+
+        if (this.unit){
+          filter.unit = this.unit.Code,
+          filter.unitname = this.unit.Name
         }
 
         if (this.dateFrom && this.dateFrom != 'Invalid Date') {
@@ -162,6 +175,13 @@ export class List {
         this.service.xls(filter);
     }
 
+    unitView = (unit) => {
 
+      return `${unit.Code} - ${unit.Name}`
+    }
+
+    get unitLoader() {
+      return UnitLoader;
+    }
     
 }

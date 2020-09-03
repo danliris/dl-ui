@@ -4,7 +4,7 @@ var DOSalesLoader = require('../../../../loader/do-sales-loader');
 export class CartItem {
     @bindable product;
 
-    remarks = [];
+    remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
     activate(context) {
 
         this.context = context;
@@ -13,6 +13,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
+        this.isTransit = this.destinationArea == "TRANSIT";
         this.buyer = this.contextOptions.buyer;
         this.buyerId = this.contextOptions.buyerId;
         this.isSales = this.contextOptions.isSales;
@@ -78,7 +79,7 @@ export class CartItem {
         }
     };
 
-    gradeShippings = ["A", "B", "C", "BS", "Aval 1", "Aval 2"];
+    gradeShippings = ["BQ", "BS"];
 
     get productionOrderLoader() {
         return ProductionOrderLoader;

@@ -11,13 +11,14 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
+    console.log(this.data);
 
     // if(!this.data.useVat){
     //   this.data.includePpn=false;
     // }
-    if (this.data) {
-      this.updateItem();
-    }
+    // if (this.data) {
+    //   this.updateItem();
+    // }
     // if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
     //   this.error.price="Harga Barang Harus Diisi Dengan Angka";
   }
@@ -153,7 +154,7 @@ export class PurchaseOrderItem {
   }
 
   productView = (product) => {
-    return `${product.code} - ${product.name}`
+    return `${product.Code} - ${product.Name}`
   }
 
   uomView = (uom) => {

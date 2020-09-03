@@ -18,6 +18,9 @@
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
+    <au-dropdown if.bind="isAdj" options.bind="controlOptions" label="Jenis Barang" value.bind="adjItemCategory"
+      error.bind="error.AdjItemCategory" read-only.bind="readOnly || isEdit" items.bind="adjItemCategories">
+    </au-dropdown>
 
     <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="destinationArea"
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
@@ -37,12 +40,13 @@
       <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="!isEdit"
         errors.one-way="error.TransitProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"
         header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
+        view-model.ref="ItemsCollection"
         item-template="modules/packing-sku-inventory/transit-area-output/template/item">
       </au-collection>
 
       <au-collection columns.bind="itemColumns" items.bind="data.displayTransitProductionOrders" if.bind="isEdit"
         remove.bind="onremove" errors.one-way="error.TransitProductionOrders" options.bind="detailOptions"
-        read-only.bind="readOnly"
+        read-only.bind="readOnly" view-model.ref="ItemsCollection"
         header-template="modules/packing-sku-inventory/transit-area-output/template/item-header"
         item-template="modules/packing-sku-inventory/transit-area-output/template/item">
       </au-collection>

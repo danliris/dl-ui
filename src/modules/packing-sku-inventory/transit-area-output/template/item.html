@@ -54,14 +54,27 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+        <td if.bind="isWarehouse">
+            <au-numeric value.bind="qtyPacking" error.bind="error.QtyPacking" format="0.00" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td if.bind="isWarehouse">
+            <au-textbox value.bind="data.packingUnit" error.bind="error.PackingUnit" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td if.bind="isWarehouse">
+            <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true"
+                options.bind="controlOptions" error.bind="error.PackingLength">
+            </au-numeric>
+        </td>
         <td show.bind="!readOnly">
             <au-numeric value.bind="data.previousBalance" format="0.00" read-only.bind="true"
                 error.bind="error.PreviousBalance" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly" error.bind="error.Balance"
-                options.bind="controlOptions">
+            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="readOnly || isWarehouse"
+                error.bind="error.Balance" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>

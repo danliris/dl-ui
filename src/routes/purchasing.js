@@ -105,84 +105,6 @@ module.exports = [
         }
     },
     {
-        route: 'vb-non-po-request',
-        name: 'vb-non-po-request',
-        moduleId: './modules/purchasing/vb-non-po-request/index',
-        nav: true,
-        title: 'Permohonan VB Non PO',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'vb-with-po-request',
-        name: 'vb-with-po-request',
-        moduleId: './modules/purchasing/vb-with-po-request/index',
-        nav: true,
-        title: 'Permohonan VB dengan PO',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'cashier-approval',
-        name: 'cashier-approval',
-        moduleId: './modules/purchasing/cashier-approval/index',
-        nav: true,
-        title: 'Approval Kasir',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'realization-vb-non-po',
-        name: 'realization-vb-non-po',
-        moduleId: './modules/purchasing/realization-vb-non-po/index',
-        nav: true,
-        title: 'Realisasi VB non PO',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'realization-vb-with-po',
-        name: 'realization-vb-with-po',
-        moduleId: './modules/purchasing/realization-vb-with-po/index',
-        nav: true,
-        title: 'Realisasi VB dengan PO',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'verification-vb',
-        name: 'verification-vb',
-        moduleId: './modules/purchasing/verification-vb/index',
-        nav: true,
-        title: 'Verifikasi VB',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'clearance-vb',
         name: 'clearance-vb',
         moduleId: './modules/purchasing/clearance-vb/index',
@@ -208,19 +130,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'vb-expedition-realitation-report',
-        name: 'vb-expedition-realitation-report',
-        moduleId: './modules/purchasing/reports/vb-expedition-realitation-report/index',
-        nav: true,
-        title: 'Laporan Ekspedisi Realisasi VB',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'vb-expedition-realitation-report',
+    //     name: 'vb-expedition-realitation-report',
+    //     moduleId: './modules/purchasing/reports/vb-expedition-realitation-report/index',
+    //     nav: true,
+    //     title: 'Laporan Ekspedisi Realisasi VB',
+    //     auth: true,
+    //     settings: {
+    //         group: "purchasing",
+    //         permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'po-external/all',
         name: 'purchase-order-external-kasei',
@@ -233,6 +155,32 @@ module.exports = [
             permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+      route: 'vb-request-document-non-po',
+      name: 'vb-request-document-non-po',
+      moduleId: './modules/purchasing/vb-request-document-non-po/index',
+      nav: true,
+      title: 'Permohonan VB Non PO',
+      auth: true,
+      settings: {
+        group: "purchasing",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      }
+    },
+    {
+      route: 'vb-with-po-request',
+      name: 'vb-with-po-request',
+      moduleId: './modules/purchasing/vb-with-po-request/index',
+      nav: true,
+      title: 'Permohonan VB Dengan PO',
+      auth: true,
+      settings: {
+        group: "purchasing",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      }
     },
     {
         route: 'po/monitoring/all',

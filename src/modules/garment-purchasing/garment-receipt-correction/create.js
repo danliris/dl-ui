@@ -29,7 +29,7 @@ export class Create {
 
         var dataToBeSaved=Object.assign({}, this.data);
         dataToBeSaved.Items = this.data.Items.filter(item => item.IsSave);
-        this.service.create(dataToBeSaved)
+        this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

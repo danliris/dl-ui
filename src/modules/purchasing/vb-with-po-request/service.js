@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'vb-with-po-request';
+const serviceUri = 'vb-request-documents';
 
 export class Service extends RestService {
 
@@ -18,32 +18,27 @@ export class Service extends RestService {
     }
 
     getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/with-po/${id}`;
         return super.get(endpoint);
     }
 
     create(data) {
-        var endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
-    }
-
-    post(data) {
-        var endpoint = 'vb-non-po-request/post';
+        var endpoint = `${serviceUri}/with-po`;
         return super.post(endpoint, data);
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/with-po/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/with-po/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
-    getSalesReceiptPdfById(id) {
-      var endpoint = `${serviceUri}/pdf/${id}`;
+    getPdf(id) {
+      var endpoint = `${serviceUri}/with-po/pdf/${id}`;
       return super.getPdf(endpoint);
     }
 } 

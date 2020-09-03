@@ -28,7 +28,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "RequestVbName", title: "Dibuat oleh" },
+    { field: "CreatedBy", title: "Dibuat oleh" },
     {
       field: "isVerified", title: "Status Verifikasi",
       formatter: function (value, row, index) {

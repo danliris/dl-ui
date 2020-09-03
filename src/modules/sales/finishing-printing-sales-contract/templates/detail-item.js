@@ -9,7 +9,12 @@ export class DetailItem {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
-    this.ColorType = this.data.ColorType
+    if (!this.data.Color) {
+      this.data.Color = {};
+    }
+    if (this.data.Color) {
+      this.ColorType = this.data.Color;
+    }
     console.log(this.data);
   }
 
@@ -18,17 +23,14 @@ export class DetailItem {
       length: 12
     }
   }
-  ColorTypeChanged() {
-    if (this.ColorType) {
-      console.log(this.ColorType);
+  ColorTypeChanged(ColorType) {
+    this.data.Color = this.ColorType.Name;;
+    console.log(this.ColorType);
+    if (this.data.Color) {
       this.data.Color = this.ColorType.Name;
-      this.data.ColorType = this.ColorType;
-    } else {
-      this.data.ColorType = {};
-      // this.data.colorTypeId = {};
-      this.data.Color = '';
     }
   }
+
   get loader() {
     return colorLoader;
   }

@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'vb-verification';
+const resource = 'vb-realization-documents/with-po';
 
 module.exports = function (keyword, filter) {
 

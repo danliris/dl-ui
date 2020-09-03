@@ -19,7 +19,7 @@
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly || isEdit" items.bind="groups"></au-dropdown>
 
-    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="data.destinationArea"
+    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Zona" value.bind="destinationArea"
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
 

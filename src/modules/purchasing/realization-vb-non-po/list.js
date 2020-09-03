@@ -17,26 +17,29 @@ export class List {
   context = ["Detail", "Cetak Bukti Realisasi"]
 
   columns = [
-    { field: "VBNoRealize", title: "No. Realisasi VB" },
-    { field: "VBNo", title: "No. Permohonan VB" },
+    { field: "DocumentNo", title: "No. Realisasi VB" },
+    { field: "VBRequestDocumentNo", title: "No. Permohonan VB" },
     {
       field: "Date", title: "Tanggal Realisasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
     {
-      field: "DateEstimate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+      field: "VBRequestDocumentRealizationEstimationDate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
+        if (data.VBRequestDocumentNo)
+          return moment(value).format("DD MMM YYYY");
+        else
+          return "-";
       }
     },
     // { field: "UnitLoad", title: "Beban Unit" },
-    { field: "RequestVbName", title: "Dibuat oleh" },
+    { field: "CreatedBy", title: "Dibuat oleh" },
     {
-      field: "isVerified", title: "Status Verifikasi",
+      field: "Position", title: "Status Verifikasi",
       formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
+        return value > 3 ? "Sudah" : "Belum";
       }
-    },
+    }
   ];
 
   async activate(params) {
@@ -47,26 +50,26 @@ export class List {
     let order = {};
 
     if (info.sort)
-        order[info.sort] = info.order;
+      order[info.sort] = info.order;
     else
-        order["LastModifiedUtc"] = "desc";
+      order["LastModifiedUtc"] = "desc";
 
     let arg = {
-        page: parseInt(info.offset / info.limit, 10) + 1,
-        size: info.limit,
-        keyword: info.search,
-        order: order
-        // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+      // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
     };
 
     return this.service.search(arg)
-        .then(result => {
-            return {
-                total: result.info.total,
-                data: result.data
-            }
-        });
-}
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
   constructor(router, service) {
     this.service = service;
@@ -97,7 +100,6 @@ export class List {
 
   posting() {
     if (this.dataToBePosted.length > 0) {
-      // console.log(this.dataToBePosted);
       this.service.post(this.dataToBePosted).then(result => {
         this.table.refresh();
       }).catch(e => {

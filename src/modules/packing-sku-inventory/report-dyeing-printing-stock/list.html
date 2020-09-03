@@ -3,15 +3,15 @@
   <h1 class="page-header">Laporan Stock Dyeing/Printing</h1>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-    <au-datepicker if.bind="!isAval" options.bind="controlOptions" label="Tanggal Awal" value.bind="dateFrom"
+    <!-- <au-datepicker if.bind="!isAval" options.bind="controlOptions" label="Tanggal Awal" value.bind="dateFrom"
       error.bind="error.dateFrom">
-    </au-datepicker>
+    </au-datepicker> -->
 
-    <au-datepicker if.bind="!isAval" options.bind="controlOptions" label="Tanggal Akhir" value.bind="dateTo"
+    <!-- <au-datepicker if.bind="!isAval" options.bind="controlOptions" label="Tanggal Akhir" value.bind="dateTo"
       error.bind="error.dateTo">
-    </au-datepicker>
+    </au-datepicker> -->
 
-    <au-datepicker if.bind="isAval" options.bind="controlOptions" value.bind="dateReport" error.bind="error.dateReport"
+    <au-datepicker options.bind="controlOptions" value.bind="dateReport" error.bind="error.dateReport"
       read-only.bind="readOnly" label="Tanggal">
     </au-datepicker>
 
@@ -46,7 +46,8 @@
   <br>
 
   <au-table if.bind="!isAval" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
-    options.bind="tableOptions">
+    options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-primary" click.delegate="export()">Excel</button>
     </div>

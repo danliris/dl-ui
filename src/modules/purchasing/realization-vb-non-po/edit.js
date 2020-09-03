@@ -13,6 +13,7 @@ export class Edit {
     }
 
     isEdit = true;
+    isShowingAmount = true;
 
     async activate(params) {
         let id = params.id;

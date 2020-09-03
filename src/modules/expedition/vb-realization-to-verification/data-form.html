@@ -10,32 +10,36 @@
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih permintaan vb"
                          value.bind="data.vbRequest"
-                         loader.one-time="vbRequestLoader"
-                         text="VBNo">
+                         loader.bind="vbRequestLoader"
+                         text="DocumentNo">
         </au-autocomplete>
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih realisasi vb"
                          value.bind="data.vbRealization"
-                         loader.one-time="vbRealizationLoader"
-                         text="VBNoRealize">
+                         loader.bind="vbRealizationLoader"
+                         text="DocumentNo">
         </au-autocomplete>
       </div>
-      <div class="col-sm-2">
-        <au-datepicker value.bind="data.realizationDate">
+      <div class="col-sm-3">
+        <au-datepicker value.bind="data.realizationDate"
+                       label="Tanggal Realisasi">
         </au-datepicker>
+        <!-- <au-textbox value.bind="'tanggal realisasi'"
+                    read-only.bind="true">
+        </au-textbox> -->
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih nama pemohon"
                          value.bind="data.account"
-                         loader.one-time="accountLoader"
+                         loader.bind="accountLoader"
                          text="username">
         </au-autocomplete>
       </div>
       <div class="col-sm-2">
         <au-autocomplete placeholder="pilih unit"
                          value.bind="data.unit"
-                         loader.one-time="unitLoader"
+                         loader.bind="unitLoader"
                          text="Name">
         </au-autocomplete>
       </div>

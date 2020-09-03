@@ -2,7 +2,7 @@ export class ItemFooter {
   activate(context) {
     this.context = context;
     this.data = this.context.data;
-  }  
+  }
 
   get getValueReqReal() {
 
@@ -36,7 +36,7 @@ export class ItemFooter {
     return res;
   }
 
-  get getAmountTotal(){
+  get getAmountTotal() {
     var res = this.context.options.AmountIncludeTax - this.context.options.Amount_Vat;
 
     return res;

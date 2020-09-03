@@ -23,7 +23,7 @@ export class DataForm {
         },
     };
     imQuery = { "DestinationArea": "TRANSIT" }
-    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];
+    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {
@@ -64,9 +64,9 @@ export class DataForm {
         }
 
         if (this.isEdit && !this.readOnly) {
-            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan", ""];
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan", ""];
         } else {
-            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
         }
 
         if (this.data.shippingProductionOrders) {

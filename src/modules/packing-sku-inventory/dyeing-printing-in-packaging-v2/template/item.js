@@ -71,7 +71,7 @@ export class CartItem {
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;
             this.data.motif = this.selectedProductionOrder.DesignCode;
             this.data.uomUnit = this.selectedProductionOrder.Uom.Unit;
-            this.data.balance = this.selectedProductionOrder.OrderQuantity;
+            // this.data.balance = this.selectedProductionOrder.OrderQuantity;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {

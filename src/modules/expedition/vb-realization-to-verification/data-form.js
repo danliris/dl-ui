@@ -62,12 +62,19 @@ export class DataForm {
     // console.log(this.realizationTable);
   }
 
+  // @bindable selectedVBRequest;
+  // @bindable selectedVBRealization;
+  // // @bindable realiza
+  // @bindable selectedAccount;
+  // @bindable selectedUnit
+
   loader = (info) => {
     let order = {};
+    // console.log(this.selectedVBRequest)
 
     let vbRequestId = 0;
     if (this.data && this.data.vbRequest && this.data.vbRequest.Id)
-      vbRequestId = this.data.vbRequestId.Id;
+      vbRequestId = this.data.vbRequest.Id;
 
     let vbRealizationId = 0;
     if (this.data && this.data.vbRealization && this.data.vbRealization.Id)
@@ -91,7 +98,7 @@ export class DataForm {
       size: info.limit,
       keyword: info.search,
       order: order,
-      vbRequestId: vbRequestId,
+      vbId: vbRequestId,
       vbRealizationId: vbRealizationId,
       realizationDate: realizationDate,
       vbRealizationRequestPerson: vbRealizationRequestPerson,
@@ -109,23 +116,23 @@ export class DataForm {
 
   columns = [[
     { field: "isSelected", title: "isSelected Checkbox", checkbox: true, sortable: false, rowspan: "2" },
-    { field: "VBNo", title: "No VB", rowspan: "2" },
-    { field: "VBRealizationNo", title: "No Realisasi VB", rowspan: "2" },
+    { field: "VBRequestDocumentNo", title: "No VB", rowspan: "2" },
+    { field: "DocumentNo", title: "No Realisasi VB", rowspan: "2" },
     {
       field: "Date", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
         return moment.utc(value).local().format('DD MMM YYYY');
       }, rowspan: "2"
     },
-    { field: "VBRequestName", title: "Nama", rowspan: "2" },
-    { field: "UnitName", title: "Bagian/Unit", rowspan: "2" },
-    { field: "DivisionName", title: "Divisi", rowspan: "2" },
+    { field: "VBRequestDocumentCreatedBy", title: "Nama", rowspan: "2" },
+    { field: "SuppliantUnitName", title: "Bagian/Unit", rowspan: "2" },
+    { field: "SuppliantDivisionName", title: "Divisi", rowspan: "2" },
     { title: "Nominal VB", colspan: "2" },
     { title: "Nominal Realisasi VB", colspan: "2" }
   ], [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBAmount", title: "Nominal VB" },
+    { field: "VBRequestDocumentAmount", title: "Nominal VB" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBRealizationAmount", title: "Nominal Realisasi VB" }
+    { field: "Amount", title: "Nominal Realisasi VB" }
   ]];
 
   search() {

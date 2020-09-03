@@ -5,8 +5,8 @@ import { RestService } from '../../../utils/rest-service';
 // import { Config } from "aurelia-api";
 
 const serviceUri = 'preparings';
-const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
-const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
+const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
+const unitExpenditureNoteUri = 'garment-unit-expenditure-notes';
 const serviceUriPR = 'garment-purchase-requests';
 export class Service extends RestService {
 
@@ -58,6 +58,7 @@ export class PurchasingService extends RestService {
         var endpoint = `${unitExpenditureNoteUri}/${id}`;
         return super.get(endpoint);
     }
+
     getGarmentPR(info) {
         var endpoint = `${serviceUriPR}`;
         return super.list(endpoint, info);

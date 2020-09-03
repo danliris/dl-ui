@@ -18,10 +18,14 @@ export class List {
             }
         },
         { field: "RqstNo", title: "No VB" },
-        { field: "VBCategory", title: "Tipe VB" },
+        {
+            field: "VBCategory", title: "Tipe VB", formatter: function (value, data, index) {
+                return value == 1 ? "Dengan PO" : "Non PO";
+            }
+        },
         {
             field: "RqstDate", title: "Tgl. VB", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         { field: "Unit.Name", title: "Unit" },
@@ -34,12 +38,13 @@ export class List {
         },
         {
             field: "VerDate", title: "Tgl. Verifikasi", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         {
             field: "DiffStatus", title: "Sisa/Kurang/Sesuai"
         },
+        { field: "CurrencyCode", title: "Mata Uang" },
         {
             field: "DiffAmount", title: "Jumlah", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
@@ -47,13 +52,13 @@ export class List {
         },
         {
             field: "ClearanceDate", title: "Tgl. Clearance", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         {
             field: "Status",
             title: "Status Post",
-        },
+        }
     ];
 
     rowFormatter(data, index) {
@@ -95,12 +100,37 @@ export class List {
 
     posting() {
         if (this.dataToBePosted.length > 0) {
-            this.service.post(this.dataToBePosted.map(d => d.Id))
+            this.service.post(this.dataToBePosted.map(d => {
+                return {
+                    VBRequestId: d.Id,
+                    VBRealizationId: d.VBRealizationDocumentId
+                }
+            }))
                 .then(result => {
                     this.table.refresh();
                 }).catch(e => {
                     this.error = e;
                 })
         }
+    }
+
+    options = ["Detail"]
+
+    contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        if (data.name != "Total")
+            switch (arg.name) {
+                case "Detail":
+                    console.log(arg)
+                    if (data.VBCategory == 1) {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/${data.VBRealizationDocumentId}`);
+                    } else {
+
+                        window.open(`${window.location.origin}/#/clearance-vb/view/non-po/${data.VBRealizationDocumentId}`);
+                    }
+                    break;
+            }
     }
 }

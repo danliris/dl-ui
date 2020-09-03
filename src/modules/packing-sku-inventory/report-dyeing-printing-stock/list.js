@@ -3,11 +3,13 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
+import { Dialog } from '../../../components/dialog/dialog';
+import { PackingListForm } from './packing-list-form';
 var ProductionOrderLoader = require('../../../loader/production-order-azure-loader');
 var BuyerLoader = require('../../../loader/buyers-loader');
 var ConstructionLoader = require('../../../loader/production-order-construction-loader');
 
-@inject(Router, Service)
+@inject(Dialog, Router, Service)
 export class List {
     @bindable dateFrom;
     @bindable dateTo;
@@ -107,8 +109,9 @@ export class List {
         // if (info.sort)
         //     order[info.sort] = info.order;
         var arg = {
-            dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
-            dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+            // dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
+            // dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+            dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
             zona: this.zona,
             unit: this.unit,
             packingType: this.packingType,
@@ -127,7 +130,8 @@ export class List {
             }) : { data: [] };;
     }
 
-    constructor(router, service) {
+    constructor(dialog, router, service) {
+        this.dialog = dialog;
         this.service = service;
         this.router = router;
     }
@@ -139,11 +143,13 @@ export class List {
     }
 
     export() {
-        if (this.dateFrom && this.dateTo) {
+        // if (this.dateFrom && this.dateTo) {
+        if (this.dateReport) {
             this.error = {};
             var arg = {
-                dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
-                dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+                // dateFrom: moment(this.dateFrom).format("YYYY-MM-DD"),
+                // dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
+                dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
                 zona: this.zona,
                 unit: this.unit,
                 packingType: this.packingType,
@@ -153,39 +159,49 @@ export class List {
             }
             this.service.generateExcel(arg);
         } else {
-            if (!this.dateFrom) {
-                this.error.dateFrom = "Tanggal Harus Diisi";
-            }
-            if (!this.dateTo) {
-                this.error.dateTo = "Tanggal Harus Diisi";
-            }
+            // if (!this.dateFrom) {
+            //     this.error.dateFrom = "Tanggal Harus Diisi";
+            // }
+            // if (!this.dateTo) {
+            //     this.error.dateTo = "Tanggal Harus Diisi";
+            // }
+            this.error.dateReport = "Tanggal Harus Diisi";
         }
-        
+
     }
 
     search() {
-        if (this.zona == "GUDANG AVAL") {
-            if (this.dateReport) {
-                this.listDataFlag = true;
-                this.error = {};
-                this.table.refresh();
-            } else {
-                this.error.dateReport = "Tanggal Harus Diisi";
-            }
+        if (this.dateReport) {
+            this.listDataFlag = true;
+            this.error = {};
+            this.table.refresh();
         } else {
-            if (this.dateFrom && this.dateTo) {
-                this.listDataFlag = true;
-                this.error = {}
-                this.table.refresh();
-            } else {
-                if (!this.dateFrom) {
-                    this.error.dateFrom = "Tanggal Harus Diisi";
-                }
-                if (!this.dateTo) {
-                    this.error.dateTo = "Tanggal Harus Diisi";
-                }
-            }
+            this.error.dateReport = "Tanggal Harus Diisi";
         }
+        // if (this.zona == "GUDANG AVAL") {
+        //     if (this.dateReport) {
+        //         this.listDataFlag = true;
+        //         this.error = {};
+        //         this.table.refresh();
+        //     } else {
+        //         this.error.dateReport = "Tanggal Harus Diisi";
+        //     }
+        // } else {
+        //     // if (this.dateFrom && this.dateTo) {
+        //     if (this.dateReport) {
+        //         this.listDataFlag = true;
+        //         this.error = {}
+        //         this.table.refresh();
+        //     } else {
+        //         // if (!this.dateFrom) {
+        //         //     this.error.dateFrom = "Tanggal Harus Diisi";
+        //         // }
+        //         // if (!this.dateTo) {
+        //         //     this.error.dateTo = "Tanggal Harus Diisi";
+        //         // }
+        //         this.error.dateReport = "Tanggal Harus Diisi";
+        //     }
+        // }
     }
 
     reset() {
@@ -197,10 +213,42 @@ export class List {
         this.selectedBuyer = null;
         this.selectedProductionOrder = null;
         this.listDataFlag = false;
-        this.dateReport = null;
+        this.dateReport = undefined;
         this.zona = "INSPECTION MATERIAL";
         this.table.refresh();
         this.error = {};
+    }
+    context = ["detail"]
+    contextClickCallback(event) {
+        var arg = event.detail;
+        // var data = arg.data;
+        var data = {};
+        data.dateReport = this.dateReport;
+        data.zona = this.zona;
+        data.buyer = this.buyer;
+        data.data = arg.data;
+        console.log(data);
+        switch (arg.name) {
+            case "detail":
+                this.dialog.show(PackingListForm, data)
+                    .then(response => {
+                        return response;
+                    });
+                break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        return this.isPackingType;
+        // if(this.isPackingType){
+        //     return true;
+        // }el
+        // switch (name) {
+        //     case "print":
+        //         return data;
+        //     default:
+        //         return true;
+        // }
     }
 
     get isAval() {
@@ -219,17 +267,7 @@ export class List {
             }
         },
         {
-            field: "startAvalWeightQuantity", title: "Awal Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
-        },
-        {
             field: "inAvalQuantity", title: "Masuk Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
-        },
-        {
-            field: "inAvalWeightQuantity", title: "Masuk Qty Berat", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },
@@ -239,12 +277,22 @@ export class List {
             }
         },
         {
-            field: "outAvalWeightQuantity", title: "Keluar Qty Berat", formatter: function (value, data, index) {
+            field: "endAvalQuantity", title: "Akhir Qty Satuan", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },
         {
-            field: "endAvalQuantity", title: "Akhir Qty Satuan", formatter: function (value, data, index) {
+            field: "startAvalWeightQuantity", title: "Awal Qty Berat", formatter: function (value, data, index) {
+                return numeral(value).format('0.0');
+            }
+        },
+        {
+            field: "inAvalWeightQuantity", title: "Masuk Qty Berat", formatter: function (value, data, index) {
+                return numeral(value).format('0.0');
+            }
+        },
+        {
+            field: "outAvalWeightQuantity", title: "Keluar Qty Berat", formatter: function (value, data, index) {
                 return numeral(value).format('0.0');
             }
         },

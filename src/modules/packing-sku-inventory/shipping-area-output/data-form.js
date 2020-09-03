@@ -118,25 +118,8 @@ export class DataForm {
 
       this.isSales = true;
       if (this.readOnly) {
-        this.itemColumns = [
-          "No. SPP",
-          "Buyer",
-          "Material",
-          "Unit",
-          "Warna",
-          "Motif",
-          "Jenis",
-          "Grade 1",
-          "Grade 2",
-          "Keterangan",
-          "Qty Packing",
-          "Packing",
-          "Panjang Packing",
-          "Qty Keluar",
-          "Berat (KG)"
-        ];
-      } else {
-        if (this.isEdit) {
+
+        if (this.destinationArea == "TRANSIT") {
           this.itemColumns = [
             "No. SPP",
             "Buyer",
@@ -148,12 +131,12 @@ export class DataForm {
             "Grade 1",
             "Grade 2",
             "Keterangan",
+            "Ket Transit",
             "Qty Packing",
             "Packing",
             "Panjang Packing",
             "Qty Keluar",
-            "Berat (KG)",
-            ""
+            "Berat (KG)"
           ];
         } else {
           this.itemColumns = [
@@ -173,6 +156,91 @@ export class DataForm {
             "Qty Keluar",
             "Berat (KG)"
           ];
+        }
+
+      } else {
+        if (this.isEdit) {
+          if (this.destinationArea == "TRANSIT") {
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Ket Transit",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)",
+              ""
+            ];
+          } else {
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)",
+              ""
+            ];
+          }
+
+        } else {
+          if (this.destinationArea == "TRANSIT") {
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Ket Transit",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)"
+            ];
+          } else {
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)"
+            ];
+          }
+
         }
       }
 
@@ -246,7 +314,8 @@ export class DataForm {
     }
     this.detailOptions = {
       isEdit: this.isEdit,
-      isSales: this.isSales
+      isSales: this.isSales,
+      destinationArea: this.destinationArea
     };
     if (this.readOnly) {
       this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
@@ -269,6 +338,10 @@ export class DataForm {
       this.selectedDO.Id = this.data.deliveryOrder.id;
       this.selectedDO.DOSalesNo = this.data.deliveryOrder.no;
     }
+
+    if (this.ItemsCollection) {
+      this.ItemsCollection.bind();
+    }
   }
   addItemCallback = (e) => {
     this.data.adjShippingProductionOrders =
@@ -288,6 +361,9 @@ export class DataForm {
         this.data.bonNo = this.selectedShipping.bonNo;
         this.data.deliveryOrder = this.selectedShipping.deliveryOrder;
         this.data.inputShippingId == this.selectedShipping.id;
+      }
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
       }
     }
   }
@@ -309,9 +385,13 @@ export class DataForm {
         );
       }
 
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+      }
     }
   }
 
+  @bindable ItemsCollection;
   @bindable destinationArea;
   destinationAreaChanged(n, o) {
     if (this.destinationArea) {
@@ -320,25 +400,7 @@ export class DataForm {
 
         this.isSales = true;
         if (this.readOnly) {
-          this.itemColumns = [
-            "No. SPP",
-            "Buyer",
-            "Material",
-            "Unit",
-            "Warna",
-            "Motif",
-            "Jenis",
-            "Grade 1",
-            "Grade 2",
-            "Keterangan",
-            "Qty Packing",
-            "Packing",
-            "Panjang Packing",
-            "Qty Keluar",
-            "Berat (KG)"
-          ];
-        } else {
-          if (this.isEdit) {
+          if (this.destinationArea == "TRANSIT") {
             this.itemColumns = [
               "No. SPP",
               "Buyer",
@@ -350,12 +412,12 @@ export class DataForm {
               "Grade 1",
               "Grade 2",
               "Keterangan",
+              "Ket Transit",
               "Qty Packing",
               "Packing",
               "Panjang Packing",
               "Qty Keluar",
-              "Berat (KG)",
-              ""
+              "Berat (KG)"
             ];
           } else {
             this.itemColumns = [
@@ -375,6 +437,92 @@ export class DataForm {
               "Qty Keluar",
               "Berat (KG)"
             ];
+          }
+
+        } else {
+          if (this.isEdit) {
+            if (this.destinationArea == "TRANSIT") {
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Ket Transit",
+                "Qty Packing",
+                "Packing",
+                "Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)",
+                ""
+              ];
+            } else {
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Qty Packing",
+                "Packing",
+                "Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)",
+                ""
+              ];
+            }
+
+          } else {
+            if (this.destinationArea == "TRANSIT") {
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Ket Transit",
+                "Qty Packing",
+                "Packing",
+                "Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)"
+              ];
+            } else {
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Qty Packing",
+                "Packing",
+                "Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)"
+              ];
+            }
+
+
           }
         }
 
@@ -455,6 +603,10 @@ export class DataForm {
         this.data.bonNo = null;
         this.data.inputShippingId = 0;
         this.data.displayShippingProductionOrders = [];
+      }
+
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
       }
     }
   }

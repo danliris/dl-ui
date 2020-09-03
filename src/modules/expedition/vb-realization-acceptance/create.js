@@ -11,52 +11,69 @@ const UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loade
 const SupplierLoader = require('../../../loader/supplier-loader');
 const DivisionLoader = require('../../../loader/division-loader');
 
+const VBRealizationLoader = require('../loaders/vb-realization-loader');
+const VBRequestLoader = require('../loaders/vb-request-loader');
+const AccountLoader = require('../loaders/account-loader');
+const UnitLoader = require('../loaders/unit-loader');
+
 @inject(Router, Service, PurchasingDocumentExpeditionService, PermissionHelper)
 export class Create {
-  columns2 = [
-    { field: "selected", checkbox: true, sortable: false },
-    {
-      field: 'SendToVerificationDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
-        return value ? moment(value).format('DD MMM YYYY') : "-";
-      },
-    },
-    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
-    {
-      field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
-        return moment(value).format('DD MMM YYYY');
-      },
-    },
-    { field: 'VBType', title: 'Tipe VB' },
-    { field: 'VBRequestName', title: 'Pemohon VB' },
-    { field: 'UnitName', title: 'Bagian/Unit' },
-    {
-      field: 'TotalPaid', title: 'Amount', formatter: function (value, data, index) {
-        return numeral(value).format('0,000.00');
-      },
-    }
-  ];
-
   columns = [
     { field: "selected", checkbox: true, sortable: false },
     {
-      field: 'SendToVerificationDate', title: 'Tanggal Verifikasi', formatter: function (value, data, index) {
+      field: 'SendToVerificationDate', title: 'Tanggal Masuk Verifikasi', formatter: function (value, data, index) {
         return value ? moment(value).format('DD MMM YYYY') : "-";
       },
     },
-    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
+    { field: 'VBNo', title: 'No VB' },
     {
       field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
         return moment(value).format('DD MMM YYYY');
       },
     },
-    { field: 'VBType', title: 'Tipe VB' },
-    { field: 'VBRequestName', title: 'Pemohon VB' },
-    { field: 'UnitName', title: 'Bagian/Unit' },
+    { field: 'VBRealizationNo', title: 'No Realisasi VB' },
     {
-      field: 'TotalPaid', title: 'Amount', formatter: function (value, data, index) {
+      field: 'VBType', title: 'Tipe VB', formatter: function (value, data, index) {
+        return value == 1 ? 'Dengan PO' : 'Non PO';
+      }
+    },
+    { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
+    {
+      field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       },
-    }
+    },
+    { field: 'CurrencyCode', title: 'Mata Uang' }
+  ];
+
+  columns2 = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: 'VerifiedToCashierDate', title: 'Tanggal Masuk Kasir', formatter: function (value, data, index) {
+        return value ? moment(value).format('DD MMM YYYY') : "-";
+      },
+    },
+    { field: 'VBNo', title: 'No VB' },
+    {
+      field: 'VBRealizationDate', title: 'Tanggal Realisasi VB', formatter: function (value, data, index) {
+        return moment(value).format('DD MMM YYYY');
+      },
+    },
+    { field: 'VBRealizationNo', title: 'No Realisasi' },
+    {
+      field: 'VBType', title: 'Tipe VB', formatter: function (value, data, index) {
+        return value == 1 ? 'Dengan PO' : 'Non PO';
+      }
+    },
+    { field: 'VBRequestName', title: 'Pemohon VB' },
+    { field: 'UnitName', title: 'Unit Pemohon' },
+    {
+      field: 'VBRealizationAmount', title: 'Nominal Realisasi', formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
+    { field: 'CurrencyCode', title: 'Mata Uang' }
   ];
 
   tableOptions = {
@@ -130,6 +147,22 @@ export class Create {
   loader = (info) => {
     let order = {};
 
+    let vbRequestId = 0;
+    if (this.data && this.data.vbRequest && this.data.vbRequest.Id)
+      vbRequestId = this.data.vbRequest.Id;
+
+    let vbRealizationId = 0;
+    if (this.data && this.data.vbRealization && this.data.vbRealization.Id)
+      vbRealizationId = this.data.vbRealization.Id;
+
+    let vbRealizationRequestPerson = "";
+    if (this.data && this.data.account)
+      vbRealizationRequestPerson = this.data.account.username;
+
+    let unitId = 0;
+    if (this.data && this.data.unit)
+      unitId = this.data.unit.Id;
+
     if (info.sort)
       order[info.sort] = info.order;
     let arg = {
@@ -137,7 +170,11 @@ export class Create {
       size: info.limit,
       keyword: info.search,
       order: order, // VERIFICATION_DIVISION,
-      position: this.activeRole.positionAutocomplete
+      position: this.activeRole.positionAutocomplete,
+      vbId: vbRequestId,
+      vbRealizationId: vbRealizationId,
+      vbRealizationRequestPerson: vbRealizationRequestPerson,
+      unitId: unitId
     };
 
     console.log(this.activeRole)
@@ -230,5 +267,26 @@ export class Create {
 
   get divisionLoader() {
     return DivisionLoader;
+  }
+
+  search() {
+    // console.log(this.data);
+    this.documentTable.refresh();
+  }
+
+  get vbRealizationLoader() {
+    return VBRealizationLoader;
+  }
+
+  get vbRequestLoader() {
+    return VBRequestLoader;
+  }
+
+  get accountLoader() {
+    return AccountLoader;
+  }
+
+  get unitLoader() {
+    return UnitLoader;
   }
 }

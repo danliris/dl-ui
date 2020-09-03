@@ -12,17 +12,26 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    searchPacking(info) {
+        var endpoint = `${serviceUri}/packing`;
+        return super.list(endpoint, info);
+    }
+
     generateExcel(info) {
 
         var endpoint = `${serviceUri}/xls`;
         var query = '';
-        if (info.dateFrom) {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
-        }
-        if (info.dateTo) {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
+        // if (info.dateFrom) {
+        //     if (query === '') query = `dateFrom=${info.dateFrom}`;
+        //     else query = `${query}&dateFrom=${info.dateFrom}`;
+        // }
+        // if (info.dateTo) {
+        //     if (query === '') query = `dateTo=${info.dateTo}`;
+        //     else query = `${query}&dateTo=${info.dateTo}`;
+        // }
+        if (info.dateReport) {
+            if (query === '') query = `dateReport=${info.dateReport}`;
+            else query = `${query}&dateReport=${info.dateReport}`;
         }
         if (info.zona) {
             if (query === '') query = `zona=${info.zona}`;

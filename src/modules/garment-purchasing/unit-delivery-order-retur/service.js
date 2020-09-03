@@ -20,6 +20,7 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+
     searchUnitReceiptNote(info) {
         var endpoint = `${unitReceiptNoteItemUri}`;
         return super.list(endpoint, info);
@@ -52,6 +53,11 @@ export class Service extends RestService {
 
     getByIdUnitReceiptNote(id) {
         var endpoint = `${unitReceiptNoteUri}/${id}`;
+        return super.get(endpoint);
+    }
+    
+    getDOItemsById(id) {
+        var endpoint = `${unitReceiptNoteUri}/do-items/${id}`;
         return super.get(endpoint);
     }
 }
