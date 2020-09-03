@@ -63,6 +63,15 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-textbox
+            label="Buyer"
+            value.bind="data.buyerView"
+            error.bind="error.Buyer"
+            if.bind="data.RONo"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-datepicker
             label="Tgl. Preparing"
             value.bind="data.ProcessDate"
@@ -72,25 +81,14 @@
         </au-datepicker>
 
         <au-collection 
-        items.bind="data.Items" 
-        errors.bind="error.Items" 
-        columns.bind="itemsInfo.columns" 
-        options.bind="options"
-        read-only.bind="readOnly"
-        show.bind="data.UENNo && !isView"
-        item-template="modules/garment-production/preparing/template/preparing-item"
-        view-model.ref="ItemsCollection">
-    </au-collection>
-
-    <au-collection 
-    items.bind="data.Items" 
-    errors.bind="error.Items" 
-    columns.bind="detailsInfo.columns" 
-    options.bind="options"
-    read-only.bind="true"
-    show.bind="isView"
-    item-template="modules/garment-production/preparing/template/preparing-detail"
-    view-model.ref="ItemsCollection">
-</au-collection>
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="isView ? detailsInfo.columns : itemsInfo.columns" 
+            options.bind="options"
+            read-only.bind="readOnly"
+            show.bind="data.UENNo"
+            item-template="modules/garment-production/preparing/template/preparing-item"
+            view-model.ref="ItemsCollection">
+        </au-collection>
     </au-input-form>
 </template>

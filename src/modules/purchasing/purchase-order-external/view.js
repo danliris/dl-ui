@@ -57,12 +57,12 @@ export class View {
             this.hasCancelPo = false;
         }
 
-        if(this.data.IsCreateOnVBRequest){
-            this.hasUnpost = false;
-        }
-        else{
-            this.hasUnpost = true;
-        }
+        // if(this.data.IsCreateOnVBRequest){
+        //     this.hasUnpost = false;
+        // }
+        // else{
+        //     this.hasUnpost = true;
+        // }
     }
 
     cancel(event) {
