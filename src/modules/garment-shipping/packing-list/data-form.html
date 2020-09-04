@@ -95,14 +95,16 @@
                     options.bind="controlOptions">
                 </au-dropdown> 
 
-                <au-textbox 
+                <au-autocomplete 
                     label="LC No" 
-                    value.bind="data.lcNo" 
+                    value.bind="selectedLC" 
                     error.bind="error.LCNo"
+                    loader.bind="lcLoader"
+                    text="documentCreditNo"
                     read-only.bind="readOnly"
                     show.bind="data.paymentTerm == 'LC'"
                     options.bind="controlOptions" >
-                </au-textbox>
+                </au-autocomplete>
 
                 <au-datepicker 
                     label="Tgl. LC" 
