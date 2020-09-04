@@ -222,6 +222,12 @@
                 value.bind="say"
                 read-only.bind="true" >
             </au-textbox>
+            <au-textbox
+                value.bind="data.sayUnit"
+                error.bind="error.SayUnit"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-textbox>
         </div>
         <div>
             <p class="help-block text-left tbl">MEASUREMENT</p>

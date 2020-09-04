@@ -167,6 +167,8 @@ export class DataForm {
                 item.Section=this.data.section.code;
             }
         }
+
+        this.data.sayUnit = this.data.sayUnit || "CARTON";
     }
 
     get addMeasurements() {
