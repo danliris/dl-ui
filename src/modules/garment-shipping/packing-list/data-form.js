@@ -218,16 +218,16 @@ export class DataForm {
         }
     }
 
-    get totalCBM(){
-        var total=0;
-        if(this.data.measurements){
-            for(var m of this.data.measurements){
-                if(m.length && m.width && m.height && m.cartonsQuantity){
-                    total+= m.length*m.width*m.height*m.cartonsQuantity;
-                }  
+    get totalCBM() {
+        var total = 0;
+        if (this.data.measurements) {
+            for (var m of this.data.measurements) {
+                if (m.length && m.width && m.height && m.cartonsQuantity) {
+                    total += (m.length * m.width * m.height * m.cartonsQuantity / 1000000);
+                }
             }
         }
-        return total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return total.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
     }
 
     get totalCartons(){
