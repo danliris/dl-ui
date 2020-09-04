@@ -104,6 +104,15 @@
                     options.bind="controlOptions" >
                 </au-textbox>
 
+                <au-datepicker 
+                    label="Tgl. LC" 
+                    value.bind="data.lcDate" 
+                    error.bind="error.LCDate"
+                    read-only.bind="readOnly"
+                    show.bind="data.paymentTerm == 'LC'"
+                    options.bind="controlOptions" >
+                </au-datepicker>
+
                 <au-multiline 
                     label="Issued By" 
                     value.bind="data.issuedBy"
