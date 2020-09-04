@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-autocomplete
                 value.bind="selectedRO"
                 error.bind="error.RONo"
@@ -29,14 +29,14 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-3">
             <au-textbox
                 value.bind="data.comodityDescription"
                 error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-numeric
                 value.bind="data.quantity"
                 error.bind="error.Quantity"
@@ -59,7 +59,7 @@
                 read-only.bind="true">
             </au-numeric>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-numeric
                 value.bind="data.price"
                 error.bind="error.Price"
