@@ -16,6 +16,10 @@ export class DataForm {
         this.service = service;
     }
 
+    formOptions = {
+        cancelText: "Back"
+    }
+
     activeTab = 0;
     changeRole(tab) {
         this.activeTab = tab;
