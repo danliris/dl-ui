@@ -106,7 +106,19 @@ export class Item {
 
     get addDetails() {
         return (event) => {
-            this.data.details.push({});
+            const i = this.context.context.items.indexOf(this.context);
+
+            let lastDetail;
+            if (this.data.details.length > 0) {
+                lastDetail = this.data.details[this.data.details.length - 1];
+            } else if (i > 0) {
+                const lastItem = this.context.context.items[i - 1];
+                lastDetail = lastItem.data.details[lastItem.data.details.length - 1];
+            }
+
+            this.data.details.push({
+                carton1: lastDetail ? lastDetail.carton2 + 1 : 0
+            });
         };
     }
 

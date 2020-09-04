@@ -31,7 +31,7 @@ export class Create {
     saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert("Data berhasil dibuat, No Invoice: " + result);
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(error => {
