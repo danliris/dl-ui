@@ -18,9 +18,9 @@
             items.bind="groupOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-textbox value.bind="data.ProcessArea" label="Area" read-only.bind="readOnly" error.bind="error.ProcessArea"
+        <au-dropdown value.bind="data.ProcessArea" items.bind="areaOptions" label="Area" read-only.bind="readOnly" error.bind="error.ProcessArea"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-dropdown>
 
         <au-textbox value.bind="data.Kasie" label="Kasie" read-only.bind="readOnly" error.bind="error.Kasie"
             options.bind="controlOptions">
