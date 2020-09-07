@@ -74,6 +74,7 @@
                 value.bind="data.lcNo" 
                 error.bind="error.LcNo"
                 read-only.bind="true" 
+                if.bind="data.lcNo"
                 options.bind="length4">
             </au-textbox>
             <au-textbox
@@ -81,6 +82,7 @@
             value.bind="data.issuedBy" 
             error.bind="error.IssuedBy"
             read-only.bind="true" 
+            if.bind="data.issuedBy"
             options.bind="length4">
         </au-textbox>
         <au-textbox
@@ -90,7 +92,13 @@
             read-only.bind="true" 
             options.bind="length4">
         </au-textbox>
-        
+        <au-textbox
+            label="Deliver To"
+            value.bind="data.deliverTo" 
+            error.bind="error.deliverTo"
+            read-only.bind="readOnly" 
+            options.bind="length4">
+        </au-textbox>
         
         </div>
         <div class="col-sm-4">
@@ -146,6 +154,7 @@
             loader.bind="accountBankLoader"
             text.bind = "accountBankView"
             placeholder = "Cari Bank"
+            query.bind="bankFilter"
             options.bind="length4">
         </au-autocomplete>
     <au-numeric 
@@ -254,6 +263,8 @@
                         options.bind="options"
                         responsive.bind="true"
                         read-only.bind="readOnly"
+                        show.bind="packinglists"
+                        change.delegate="itemChanged($event)"
                         item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-item"
                      >
                     </au-collection>
@@ -313,6 +324,23 @@
           
         </au-numeric>
         </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <au-collection
+                    view-model.ref="percentageCollection"
+                    items.bind="data.garmentShippingInvoiceUnits"
+                    columns.bind="unitColumns.columns"
+                    errors.bind="error.garmentShippingInvoiceUnits"
+                    options.bind="options"
+                    responsive.bind="true"
+                    show.bind="packinglists"
+                    item-template="modules/garment-shipping/invoice/template/unit-percentage"
+                    read-only.bind="readOnly"
+                 >
+                </au-collection>
+            </div>
         </div>
     </div>      
     </au-input-form >
