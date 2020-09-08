@@ -35,7 +35,7 @@ export class List {
                     case 5:
                         return "Diterima Kasir";
                     case 6:
-                        "Ditolak";
+                        return "Ditolak";
                     default: "-";
                 }
             }
