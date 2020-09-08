@@ -4,7 +4,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 export class measurement {
 
     constructor() {
-        
+
     }
 
     activate(context) {
@@ -19,14 +19,14 @@ export class measurement {
             error: this.error,
             isCreate: this.isCreate,
             readOnly: this.readOnly,
-            isEdit:this.isEdit,
+            isEdit: this.isEdit,
         };
-        
+
     }
-    
-    get cmb(){
-        if(this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
-            return (this.data.length*this.data.width*this.data.height*this.data.cartonsQuantity / 1000000).toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    get cmb() {
+        if (this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
+            return (this.data.length * this.data.width * this.data.height * this.data.cartonsQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
         else
             return "0";
     }

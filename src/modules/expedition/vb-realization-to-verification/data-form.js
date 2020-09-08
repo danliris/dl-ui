@@ -116,23 +116,23 @@ export class DataForm {
 
   columns = [[
     { field: "isSelected", title: "isSelected Checkbox", checkbox: true, sortable: false, rowspan: "2" },
-    { field: "VBNo", title: "No VB", rowspan: "2" },
-    { field: "VBRealizationNo", title: "No Realisasi VB", rowspan: "2" },
+    { field: "VBRequestDocumentNo", title: "No VB", rowspan: "2" },
+    { field: "DocumentNo", title: "No Realisasi VB", rowspan: "2" },
     {
-      field: "VBRealizationDate", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
+      field: "Date", title: "Tanggal Realisasi VB", formatter: function (value, data, index) {
         return moment.utc(value).local().format('DD MMM YYYY');
       }, rowspan: "2"
     },
-    { field: "VBRequestName", title: "Nama", rowspan: "2" },
-    { field: "UnitName", title: "Bagian/Unit", rowspan: "2" },
-    { field: "DivisionName", title: "Divisi", rowspan: "2" },
+    { field: "VBRequestDocumentCreatedBy", title: "Nama", rowspan: "2" },
+    { field: "SuppliantUnitName", title: "Bagian/Unit", rowspan: "2" },
+    { field: "SuppliantDivisionName", title: "Divisi", rowspan: "2" },
     { title: "Nominal VB", colspan: "2" },
     { title: "Nominal Realisasi VB", colspan: "2" }
   ], [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBAmount", title: "Nominal VB" },
+    { field: "VBRequestDocumentAmount", title: "Nominal VB" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "VBRealizationAmount", title: "Nominal Realisasi VB" }
+    { field: "Amount", title: "Nominal Realisasi VB" }
   ]];
 
   search() {

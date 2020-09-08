@@ -4,7 +4,8 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'realization-vb-non-po';
+const serviceUri = 'vb-realization-documents/non-po';
+const serviceVBDocumentUri = "vb-request-documents";
 
 export class Service extends RestService {
 
@@ -19,6 +20,11 @@ export class Service extends RestService {
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getVBDocumentById(id) {
+        var endpoint = `${serviceVBDocumentUri}/non-po/${id}`;
         return super.get(endpoint);
     }
 

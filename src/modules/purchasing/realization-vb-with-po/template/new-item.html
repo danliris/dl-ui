@@ -3,8 +3,10 @@
     <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
       <au-autocomplete label="No SPB"
-                       value.bind="unitPaymentOrder"
+                       value.bind="selectedUnitPaymentOrder"
                        loader.bind="unitPaymentOrderLoader"
+                       query.bind="filter"
+                       text="no"
                        read-only.bind="readOnly">
       </au-autocomplete>
     </td>

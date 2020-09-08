@@ -12,13 +12,14 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 const VBWithPOLoader = require('../../../loader/vb-with-po-request-loader');
 const VBNonPOLoader = require('../../../loader/vb-non-po-request-loader');
+const VBLoader = require('../../../loader/vb-request-document-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
 @inject(Router, Service, VBWithPORequestService, VBNonPORequestService, PermissionHelper)
 export class Create {
-    columnsWithPO = [
-        { field: "Approve_Status", checkbox: true, sortable: false },
-        { field: "VBNo", title: "No VB" },
+    columns = [
+        { field: "IsApproved", checkbox: true, sortable: false },
+        { field: "DocumentNo", title: "No VB" },
         {
             field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
@@ -31,25 +32,7 @@ export class Create {
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreatedBy", title: "Pemohon" },
-        { field: "UnitName", title: "Unit" },
-    ];
-
-    columnsNonPO = [
-        { field: "Approve_Status", checkbox: true, sortable: false },
-        { field: "VBNo", title: "No VB" },
-        {
-            field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        {
-            field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: "CurrencyCode", title: "Mata Uang" },
-        { field: "CreatedBy", title: "Pemohon" },
-        { field: "UnitName", title: "Unit" },
+        { field: "SuppliantUnitName", title: "Unit" }
     ];
 
     tableOptions = {
@@ -60,11 +43,11 @@ export class Create {
     };
 
     filterWithPO = {
-        "VBRequestCategory": "PO"
+        "Type": 1
     }
 
     filterNonPO = {
-        "VBRequestCategory": "NONPO"
+        "Type": 2
     }
 
     formOptions = {
@@ -72,16 +55,18 @@ export class Create {
         saveText: "Simpan",
     };
 
-    @bindable vbWithPO;
-    @bindable vbNonPO;
+    @bindable documentVB;
     @bindable unit;
     @bindable date;
 
     async activate(params) {
-        params.role.position = parseInt(params.role.position);
-        params.role.hasPermission = true;
-        params.role.positionAutocomplete = parseInt(params.role.positionAutocomplete);
-        this.activeRole = params.role;
+        if (params) {
+            params.role.position = parseInt(params.role.position);
+            params.role.hasPermission = true;
+            params.role.positionAutocomplete = parseInt(params.role.positionAutocomplete);
+            this.activeRole = params.role;
+        }
+
     }
 
     constructor(router, service, vbWithPORequestService, vbNonPORequestService, permissionHelper) {
@@ -90,9 +75,6 @@ export class Create {
         this.vbWithPORequestService = vbWithPORequestService;
         this.vbNonPORequestService = vbNonPORequestService;
 
-        this.selectVB = ['VBNo'];
-        this.selectUnit = ['Name'];
-        this.selectDate = ['date'];
         this.selectedItems = [];
 
         this.permissions = permissionHelper.getUserPermissions();
@@ -117,191 +99,98 @@ export class Create {
             this.activeRole = role;
             // this.documentTable.refresh();
         }
+        this.listDataFlag = false;
+        this.unit = null;
+        this.documentVB = null;
+        this.date = null;
         this.documentTable.refresh();
     }
 
-    vbWithPOChanged(newValue, oldValue) {
-        if (newValue) {
-            this.vbWithPO = newValue;
-        } else if (oldValue) {
-            this.vbWithPO == null;
-        } else {
-            this.vbWithPO == null;
-        }
-    }
-
-    vbNonPOChanged(newValue, oldValue) {
-        if (newValue) {
-            this.vbNonPO = newValue;
-        } else if (oldValue) {
-            this.vbNonPO == null;
-        } else {
-            this.vbNonPO == null;
-        }
-    }
-
-    unitChanged(newValue, oldValue) {
-        if (newValue) {
-            this.unit = newValue;
-        } else if (oldValue) {
-            this.unit == null;
-        } else {
-            this.unit == null;
-        }
-    }
-
-    dateChanged(newValue, oldValue) {
-        if (newValue) {
-            this.date = newValue;
-        } else if (oldValue) {
-            this.date == null;
-        } else {
-            this.date == null;
-        }
-    }
 
     determineActivationStrategy() {
         return activationStrategy.replace;
     }
 
     search() {
-        let filter = {
-            VBRequestCategory: this.activeRole.key,
-            Apporve_Status: false,
-            Complete_Status: false,
-        };
+        this.listDataFlag = true;
 
-        if (this.vbWithPO)
-            filter.VBNo = this.vbWithPO.VBNo;
+        this.documentTable.refresh();
+    }
 
-        if (this.vbNonPO)
-            filter.VBNo = this.vbNonPO.VBNo;
+    loaderVB = (info) => {
 
-        if (this.unit)
-            filter.UnitName = this.unit.Name;
-            
-        let arg = {
-            page: 1,
-            size: 255,
-            filter: JSON.stringify(filter),
-        };
-        
-        arg.dateFilter = this.date && this.date != "Invalid Date" ? moment(this.date).format("YYYY-MM-DD") : null;
+        let filter = {};
+        let order = {};
 
-        if (this.activeRole.key === 'PO') {
-            this.documentData = [];
-            var CashierApproval = [];
-            var dataCashierApproval = [];
-            this.vbWithPORequestService.search(arg)
-                .then(result => {
-                    for (var data of result.data) {
-                        var config = Container.instance.get(Config);
-                        var _endpoint = config.getEndpoint("finance");
-                        const resource = `vb-with-po-request/${data.Id}`;
-                        var appoval = _endpoint.find(resource);
-                        CashierApproval.push(appoval);
-                    }
-                    Promise.all(CashierApproval).then(dataApproval => {
-                        for (var dataResult of dataApproval) {
-                            dataCashierApproval.push(dataResult.data);
-                        }
-                        // for (var data of result.data) {
-                        //     for (var item of data.PONo) {
-                        //         var amount = 0;
-                        //         var totalAmount = 0;
-                        //         amount = item.Price * item.DealQuantity;
-                        //         totalAmount = + amount;
-                        //     }
-                        //     data.Amount = data;
-                        // }
-
-                        // console.log(result.data)
-                        this.documentData.push(...result.data)
-                        this.documentTable.refresh();
-                    })
-
-                });
-        } else if (this.activeRole.key === 'NONPO') {
-            this.documentData = [];
-            var CashierApproval = [];
-            var dataCashierApproval = [];
-            this.vbNonPORequestService.search(arg)
-                .then(result => {
-                    for (var data of result.data) {
-                        var config = Container.instance.get(Config);
-                        var _endpoint = config.getEndpoint("finance");
-                        const resource = `vb-non-po-request/${data.Id}`;
-                        var appoval = _endpoint.find(resource);
-                        CashierApproval.push(appoval);
-                    }
-                    Promise.all(CashierApproval).then(dataApproval => {
-                        for (var dataResult of dataApproval) {
-                            dataCashierApproval.push(dataResult.data);
-                        }
-                        this.documentData.push(...result.data)
-                        this.documentTable.refresh();
-                    })
-
-                });
+        if (info.sort) {
+            order[info.sort] = info.order;
         }
 
+        filter.order = order;
 
+        if (this.activeRole.key == "PO") {
+            filter.type = 1;
+        } else {
+            filter.type = 2;
+        }
+
+        if (this.documentVB) {
+            filter.vbId = this.documentVB.Id;
+        }
+
+        if (this.unit) {
+            filter.suppliantUnitId = this.unit.Id;
+        }
+
+        if (this.date && this.date != "Invalid Date") {
+            filter.date = moment(this.date).format("YYYY-MM-DD");
+        } else {
+            filter.date = null;
+        }
+
+        return this.listDataFlag ? this.service.searchNotApproveVB(filter)
+            .then(result => {
+                return {
+                    total: result.data.length,
+                    data: result.data
+                }
+            }) : { data: [], total: 0 };
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute('list', { role: this.activeRole });
     }
 
     saveCallback(event) {
-        let data = {
-            VBRequestCategory: this.activeRole.key,
-            CashierApproval: [],
-        };
 
-        for (let s of this.selectedItems) {
-            // console.log(s)
-            if (this.activeRole.key === 'PO') {
-                data.CashierApproval.push({
-                    Id: s.Id,
-                    VBNo: s.VBNo,
-                    Amount: s.Amount,
-                });
-            } else {
-                data.CashierApproval.push({
-                    Id: s.Id,
-                    VBNo: s.VBNo,
-                });
-            }
-        }
-
-        this.service.create(data)
+        var items = this.selectedItems.map(s => s.Id);
+        var data = {};
+        data.IsApproved = true;
+        data.Ids = items;
+        this.service.approval(data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert("Data berhasil disimpan");
                 this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
             })
             .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
                 this.error = e;
             });
     }
 
-    get vbWithPOLoader() {
-        return VBWithPOLoader;
-    }
 
-    get vbNonPOLoader() {
-        return VBNonPOLoader;
+    get vbLoader() {
+        return VBLoader;
     }
 
     get unitLoader() {
         return UnitLoader;
     }
 
-    vbNonPOView = (vbNonPO) => {
-        return vbNonPO.VBNo
-    }
-
-    vbWithPOView = (vbWithPO) => {
-        return vbWithPO.VBNo
+    vbView = (vb) => {
+        return vb.DocumentNo;
     }
 
     unitView = (unit) => {

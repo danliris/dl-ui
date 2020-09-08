@@ -390,14 +390,27 @@ module.exports = [
     }
   },
   {
-    route: 'vb-non-po-request',
-    name: 'vb-non-po-request',
-    moduleId: './modules/purchasing/vb-non-po-request/index',
+    route: 'garment-invoice-payment',
+    name: 'garment-invoice-payment',
+    moduleId: './modules/expedition/garment-invoice-payment/index',
+    nav: true,
+    title: 'Pembayaran Invoice Export Garment',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'vb-request-document-non-po',
+    name: 'vb-request-document-non-po',
+    moduleId: './modules/purchasing/vb-request-document-non-po/index',
     nav: true,
     title: 'Permohonan VB Non PO',
     auth: true,
     settings: {
-      group: "purchasing",
+      group: "finance",
       permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -407,10 +420,10 @@ module.exports = [
     name: 'vb-with-po-request',
     moduleId: './modules/purchasing/vb-with-po-request/index',
     nav: true,
-    title: 'Permohonan VB dengan PO',
+    title: 'Permohonan VB Dengan PO',
     auth: true,
     settings: {
-      group: "purchasing",
+      group: "finance",
       permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -429,6 +442,19 @@ module.exports = [
     }
   },
   {
+    route: 'vb-status-report',
+    name: 'vb-status-report',
+    moduleId: './modules/purchasing/reports/vb-status-report/index',
+    nav: true,
+    title: 'Laporan Status VB',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: 'realization-vb-non-po',
     name: 'realization-vb-non-po',
     moduleId: './modules/purchasing/realization-vb-non-po/index',
@@ -436,20 +462,20 @@ module.exports = [
     title: 'Realisasi VB non PO',
     auth: true,
     settings: {
-      group: "purchasing",
+      group: "finance",
       permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
   {
-    route: 'realization-vb-with-po',
-    name: 'realization-vb-with-po',
-    moduleId: './modules/purchasing/realization-vb-with-po/index',
+    route: 'vb-realization-with-po-document',
+    name: 'vb-realization-with-po-document',
+    moduleId: './modules/purchasing/vb-realization-with-po-document/index',
     nav: true,
     title: 'Realisasi VB dengan PO',
     auth: true,
     settings: {
-      group: "purchasing",
+      group: "finance",
       permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -481,15 +507,41 @@ module.exports = [
     }
   },
   {
-    route: 'garment-invoice-payment',
-    name: 'garment-invoice-payment',
-    moduleId: './modules/expedition/garment-invoice-payment/index',
+    route: 'vb-realization-verification',
+    name: 'vb-realization-verification',
+    moduleId: './modules/expedition/vb-realization-verification/index',
     nav: true,
-    title: 'Pembayaran Invoice Export Garment',
+    title: 'Verifikasi Realisasi VB',
     auth: true,
     settings: {
       group: "finance",
-      permission: { "C9": 1 },
+      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'clearance-vb',
+    name: 'clearance-vb',
+    moduleId: './modules/purchasing/clearance-vb/index',
+    nav: true,
+    title: 'Clearance VB',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'vb-realization-expedition-report',
+    name: 'vb-realization-expedition-report',
+    moduleId: './modules/expedition/vb-realization-expedition-report/index',
+    nav: true,
+    title: 'Laporan Ekspedisi Realisasi VB',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
   }

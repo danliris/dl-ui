@@ -132,14 +132,12 @@ export class DataForm {
   }
 
   doSalesLocalItemsInfo = {
-    columns: [
-      "No SPP",
-      "Material Konstruksi",
-      "Jenis / Code",
-      "Jumlah Packing",
-      "Panjang",
-      "Hasil Konversi",
-    ],
+    columns: ["No SPP", "Material Konstruksi", "Jenis / Code", "Jumlah Packing", "Panjang", "Hasil Konversi", ],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),
@@ -179,6 +177,11 @@ export class DataForm {
       "Berat",
       "Hasil Konversi",
     ],
+    onAdd: function () {
+      this.context.ItemsCollection.bind();
+      this.data.DOSalesDetailItems = this.data.DOSalesDetailItems || [];
+      this.data.DOSalesDetailItems.push({});
+    }.bind(this),
     onRemove: function () {
       this.context.ItemsCollection.bind();
     }.bind(this),

@@ -167,15 +167,94 @@ export class Reprocess {
 
           if (cart.reprocess == this.data.LANJUT_PROSES) {
             this.data.IsReprocess = false;
+            cart.IsReprocess = false;
+
+            cart.Instruction = {};
+            cart.Instruction.Code = this.data.Instruction.Code;
+            cart.Instruction.Name = this.data.Instruction.Name;
+            cart.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
+
+            delete cart.Instruction.Id;
+            delete cart.Instruction.IsDeleted;
+            delete cart.Instruction.Active;
+            delete cart.Instruction.CreatedUtc;
+            delete cart.Instruction.CreatedBy;
+            delete cart.Instruction.CreatedAgent;
+            delete cart.Instruction.LastModifiedUtc;
+            delete cart.Instruction.LastModifiedBy;
+            delete cart.Instruction.LastModifiedAgent;
+            for (let step of cart.Instruction.Steps) {
+              delete step.Id;
+              delete step.IsDeleted;
+              delete step.Active;
+              delete step.CreatedUtc;
+              delete step.CreatedBy;
+              delete step.CreatedAgent;
+              delete step.LastModifiedUtc;
+              delete step.LastModifiedBy;
+              delete step.LastModifiedAgent;
+    
+              for (let stepIndicator of step.StepIndicators) {
+                delete stepIndicator.Id;
+                delete stepIndicator.IsDeleted;
+                delete stepIndicator.Active;
+                delete stepIndicator.CreatedUtc;
+                delete stepIndicator.CreatedBy;
+                delete stepIndicator.CreatedAgent;
+                delete stepIndicator.LastModifiedUtc;
+                delete stepIndicator.LastModifiedBy;
+                delete stepIndicator.LastModifiedAgent;
+              }
+            }
+
             this.data.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
           }
           else if (cart.reprocess == this.data.REPROSES) {
             this.data.IsReprocess = true;
+            cart.IsReprocess = true;
+
+            cart.Instruction = {};
+            cart.Instruction.Code = this.data.Instruction.Code;
+            cart.Instruction.Name = this.data.Instruction.Name;
+            cart.Instruction.Steps = this.data.reprocessSteps.Reproses;
+
+            delete cart.Instruction.Id;
+            delete cart.Instruction.IsDeleted;
+            delete cart.Instruction.Active;
+            delete cart.Instruction.CreatedUtc;
+            delete cart.Instruction.CreatedBy;
+            delete cart.Instruction.CreatedAgent;
+            delete cart.Instruction.LastModifiedUtc;
+            delete cart.Instruction.LastModifiedBy;
+            delete cart.Instruction.LastModifiedAgent;
+            for (let step of cart.Instruction.Steps) {
+              delete step.Id;
+              delete step.IsDeleted;
+              delete step.Active;
+              delete step.CreatedUtc;
+              delete step.CreatedBy;
+              delete step.CreatedAgent;
+              delete step.LastModifiedUtc;
+              delete step.LastModifiedBy;
+              delete step.LastModifiedAgent;
+    
+              for (let stepIndicator of step.StepIndicators) {
+                delete stepIndicator.Id;
+                delete stepIndicator.IsDeleted;
+                delete stepIndicator.Active;
+                delete stepIndicator.CreatedUtc;
+                delete stepIndicator.CreatedBy;
+                delete stepIndicator.CreatedAgent;
+                delete stepIndicator.LastModifiedUtc;
+                delete stepIndicator.LastModifiedBy;
+                delete stepIndicator.LastModifiedAgent;
+              }
+            }
+
             this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
           } else {
             this.data.IsReprocess = true;
           }
-
           // createPromise.push(this.service.createSingle(this.data));
         }
 

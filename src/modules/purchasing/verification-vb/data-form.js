@@ -2,7 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 import moment from 'moment';
 
-const VbLoader = require('../../../loader/vb-realization-loader');
+const VbLoader = require('../../../loader/vb-realization-to-verified-loader');
 
 @containerless()
 @inject(Service, BindingEngine)

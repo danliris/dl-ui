@@ -1,7 +1,7 @@
 import { bindable } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
-var PurchaseOrderLoader = require('../../../../loader/purchase-order-external-loader');
+var PurchaseOrderLoader = require('../../../../loader/vb-request-po-external-loader');
 //purchase-order-unposted-loader
 const resource = 'master/products/byId';
 
@@ -9,15 +9,26 @@ export class PurchaseOrderItem {
   @bindable selectedPurchaseOrder;
 
   itemsColumns = [
-    { header: "Barang", value: "product" },
-    { header: "Jumlah", value: "defaultQuantity" },
-    { header: "Satuan", value: "defaultUom" },
-    { header: "Jumlah", value: "dealQuantity" },
-    { header: "Satuan", value: "dealUom" },
-    { header: "Konversi", value: "conversion" },
-    { header: "Harga", value: "priceBeforeTax" },
-    { header: "Include Ppn?", value: "includePpn" },
-    { header: "Keterangan", value: "remark" }
+    // { header: "Barang", value: "product" },
+    // { header: "Jumlah", value: "defaultQuantity" },
+    // { header: "Satuan", value: "defaultUom" },
+    // { header: "Jumlah", value: "dealQuantity" },
+    // { header: "Satuan", value: "dealUom" },
+    // { header: "Konversi", value: "conversion" },
+    // { header: "Harga", value: "priceBeforeTax" },
+    // { header: "Include Ppn?", value: "includePpn" },
+    // { header: "Keterangan", value: "remark" },
+    "Barang",
+    "Jumlah Default",
+    "Satuan Default",
+    "Jumlah Deal",
+    "Satuan Deal",
+    "Konversi",
+    "Harga",
+    "Include PPn?",
+    "Unit",
+    "Pasal PPh",
+    "PPh Oleh"
   ]
 
   activate(context) {
@@ -27,27 +38,36 @@ export class PurchaseOrderItem {
     this.options = context.options;
     // this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
-    this._items = [];
-    if (this.data) {
-      this.selectedPurchaseOrder = this.data;
-      if (this.data.Details) {
-        this.data.Items = this.data.Details;
-        this.isShowing = true;
-      }
-      if (this.data.Items) {
-        this.isShowing = true;
-      }
+    // this._items = [];
+    // if (this.data) {
+    //   this.selectedPurchaseOrder = this.data;
+    //   if (this.data.Details) {
+    //     this.data.Items = this.data.Details;
+    //     this.isShowing = true;
+    //   }
+    //   if (this.data.Items) {
+    //     this.isShowing = true;
+    //   }
 
-    }
+    this.selectedPurchaseOrderExternal = this.data.PurchaseOrderExternal;
+
+    // }
     // this.filter={
     //   "UnitName":this.context.context.options.unitCode,
     //   "IsPosted":false
     // };
+    console.log(this.options);
+
+    let currencyCode = "";
+    if (this.context.context.options.CurrencyCode)
+      currencyCode = this.context.context.options.CurrencyCode;
+    let division = "";
+    if (this.context.context.options.Unit)
+      if (this.context.context.options.Unit.Division)
+        division = this.context.context.options.Unit.Division.Name;
     this.filter = {
-      "POCashType": "VB",
-      "isPosted": true,
-      // "IsCreateOnVBRequest": false,
-      "CurrencyCode": this.context.context.options.CurrencyCode
+      "currencyCode": currencyCode,
+      "division": division
     };
   }
 
@@ -137,6 +157,31 @@ export class PurchaseOrderItem {
       }
   }
 
+  // @bindable selectedPurchaseOrderExternal;
+  // selectedPurchaseOrderExternalChanged(newValue, oldValue) {
+  //   if (newValue) {
+  //     this.data.PurchaseOrderExternal = newValue;
+  //     let items = [];
+  //     this.data.PurchaseOrderExternal.items.forEach((item) => {
+  //       return item.details.forEach((detail) => {
+  //         items.push({
+  //           Product: detail.product,
+  //           DefaultQuantity: detail.defaultQuantity,
+  //           DealQuantity: detail.dealQuantity,
+  //           DealUOM: detail.dealUom,
+  //           Conversion: detail.conversion,
+  //           Price: detail.pricePerDealUnit,
+  //           UseVat: item.useVat
+  //         })
+  //       })
+  //     });
+
+  //     this.data.PurchaseOrderExternal.Details = items;
+  //   } else {
+  //     delete this.data.PurchaseOrderExternal;
+  //   }
+  // }
+
   get getTotalPaid() {
     var result = 0;
     if (this.data.Items) {
@@ -167,7 +212,7 @@ export class PurchaseOrderItem {
   }
 
   purchaseOrderView = (purchaseOrder) => {
-    return purchaseOrder.no
+    return purchaseOrder.No
   }
 
   unitView = (purchaseOrder) => {

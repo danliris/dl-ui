@@ -17,22 +17,22 @@ export class List {
   context = ["Detail", "Cetak Bukti Permohonan"]
 
   columns = [
-    { field: "VBNo", title: "No. VB" },
+    { field: "DocumentNo", title: "No. VB" },
     {
       field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "UnitName", title: "Unit" },
+    { field: "SuppliantUnitName", title: "Unit" },
     { field: "CreatedBy", title: "Dibuat oleh" },
     {
-      field: "Apporve_Status", title: "Status Approved",
+      field: "IsApproved", title: "Status Approved",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
     },
     {
-      field: "Complete_Status", title: "Status Complete",
+      field: "IsCompleted", title: "Status Complete",
       formatter: function (value, row, index) {
         return value ? "Sudah" : "Belum";
       }
@@ -55,7 +55,10 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      order: order
+      order: order,
+      filter: JSON.stringify({
+        "Type": 1
+      })
     };
 
     return this.service.search(arg)
@@ -80,7 +83,7 @@ export class List {
         this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
         break;
       case "Cetak Bukti Permohonan":
-        this.service.getSalesReceiptPdfById(data.Id);
+        this.service.getPdf(data.Id);
         break;
     }
   }

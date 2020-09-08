@@ -2,9 +2,8 @@
   <tr>
     <td>
       <div class="col-sm-11">
-        <au-autocomplete value.bind="selectedPurchaseOrder"
-                         error.bind="error.purchaseOrder"
-                         change.delegate="selectedPurchaseOrderChanged($event)"
+        <au-autocomplete value.bind="data.PurchaseOrderExternal"
+                         error.bind="error.PurchaseOrderExternal"
                          loader.bind="purchaseOrderLoader"
                          text.bind="purchaseOrderView"
                          placeholder="cari nomor purchase order"
@@ -18,9 +17,9 @@
                 
             </div> -->
     </td>
-    <td>
+    <!-- <td>
       <div class="col-sm-11">
-        <au-autocomplete value.bind="data.unit.Name || data.unit.name"
+        <au-autocomplete value.bind="data.PurchaseOrderExternal.unit.name"
                          error.bind="error.Unitname"
                          key="Unit"
                          read-only.bind="true"
@@ -30,7 +29,7 @@
     </td>
     <td>
       <div class="col-sm-11">
-        <au-textbox value.bind="data.IncomeTax.Name || data.incomeTax.name"
+        <au-textbox value.bind="data.PurchaseOrderExternal.incomeTax.name"
                     error.bind="error.Unitname"
                     read-only.bind="true"
                     options.bind="controlOptions">
@@ -39,17 +38,17 @@
     </td>
     <td>
       <div class="col-sm-11">
-        <au-textbox value.bind="data.IncomeTaxBy || data.incomeTaxBy"
+        <au-textbox value.bind="data.PurchaseOrderExternal.incomeTaxBy"
                     error.bind="error.Unitname"
                     read-only.bind="true"
                     options.bind="controlOptions">
         </au-textbox>
       </div>
-    </td>
+    </td> -->
     <td>
       <div class="col-sm-13">
         <button class="btn btn-info pull-left"
-                if.bind="data.Items || data.items"
+                if.bind="data.PurchaseOrderExternal.Items"
                 click.delegate="toggle()">i</button>
         <button class="btn btn-danger pull-right"
                 click.delegate="onremove(data, $event)"
@@ -58,13 +57,11 @@
     </td>
   </tr>
   <tr if.bind="isShowing">
-    <td colspan="4">
-      <au-collection items.bind="data.Details || data.details"
-                     errors.bind="error.details"
+    <td>
+      <au-collection items.bind="data.PurchaseOrderExternal.Items"
                      columns.bind="itemsColumns"
                      options.bind="context.context.options"
                      read-only.bind="options.readOnly"
-                     header-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-item-header"
                      item-template="modules/purchasing/vb-with-po-request/template/vb-with-po-request-int-item">
       </au-collection>
     </td>

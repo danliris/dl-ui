@@ -5,6 +5,7 @@ export class CartItem {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
+    this.isLanjutProses = this.cart.reprocess == "Lanjut Proses";
   } 
 
   cartClicked() {

@@ -17,16 +17,16 @@ export class List {
   context = ["Detail", "Cetak Bukti Realisasi"]
 
   columns = [
-    { field: "VBNoRealize", title: "No. Realisasi VB" },
-    { field: "VBNo", title: "No. Permohonan VB" },
+    { field: "DocumentNo", title: "No. Realisasi VB" },
+    { field: "VBRequestDocumentNo", title: "No. Permohonan VB" },
     {
       field: "Date", title: "Tanggal Realisasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
     {
-      field: "DateEstimate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
-        if (data.VBNo)
+      field: "VBRequestDocumentRealizationEstimationDate", title: "Tanggal Estimasi", formatter: function (value, data, index) {
+        if (data.VBRequestDocumentNo)
           return moment(value).format("DD MMM YYYY");
         else
           return "-";
@@ -35,11 +35,11 @@ export class List {
     // { field: "UnitLoad", title: "Beban Unit" },
     { field: "CreatedBy", title: "Dibuat oleh" },
     {
-      field: "isVerified", title: "Status Verifikasi",
+      field: "Position", title: "Status Verifikasi",
       formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
+        return value > 3 ? "Sudah" : "Belum";
       }
-    },
+    }
   ];
 
   async activate(params) {
@@ -100,7 +100,6 @@ export class List {
 
   posting() {
     if (this.dataToBePosted.length > 0) {
-      // console.log(this.dataToBePosted);
       this.service.post(this.dataToBePosted).then(result => {
         this.table.refresh();
       }).catch(e => {
