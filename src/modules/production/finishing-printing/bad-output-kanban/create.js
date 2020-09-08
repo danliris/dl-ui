@@ -141,6 +141,11 @@ export class Create {
     // }
     this.data.IsBadOutput = true;
 
+    for (var cart of this.data.Carts) {
+
+      var cartNumberInput = "T1/" + cart.CartNumber;
+      cart.CartNumber = cartNumberInput;
+    }
     this.service.create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");

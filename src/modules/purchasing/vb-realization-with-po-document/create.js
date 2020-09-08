@@ -9,6 +9,7 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.data.Date = new Date();
   }
 
   isCreate = true;
@@ -30,7 +31,7 @@ export class Create {
   saveCallback(event) {
     this.service
       .create(this.data)
-      .then(result => {
+      .then((result) => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
           "create",
@@ -38,7 +39,7 @@ export class Create {
           { replace: true, trigger: true }
         );
       })
-      .catch(e => {
+      .catch((e) => {
         this.error = e;
       });
   }
