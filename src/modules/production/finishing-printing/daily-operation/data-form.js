@@ -83,6 +83,7 @@ export class DataForm {
     async bind(context) {
         //console.log(context);
         this.context = context;
+        this.isCreateOutput = context.isCreateOutput;
         console.log(context);
         console.log(this.readOnly);
         console.log(this.readOnlyInput);
