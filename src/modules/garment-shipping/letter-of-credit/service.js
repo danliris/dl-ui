@@ -1,6 +1,9 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/letter-of-credits';
+const amendLCServiceUri = 'garment-shipping/amend-letter-of-credits';
+const packingListServiceUri = 'garment-shipping/packing-lists';
+const invoiceServiceUri = 'garment-shipping/invoices';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -32,7 +35,21 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    searchAmendLC(info) {
+        var endpoint = `${amendLCServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchPackingList(info) {
+        var endpoint = `${packingListServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchInvoice(info) {
+        var endpoint = `${invoiceServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
 
 
-export { Service}
+export { Service }
