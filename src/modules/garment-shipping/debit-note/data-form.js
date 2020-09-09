@@ -23,7 +23,7 @@ export class DataForm {
     items = {
         columns: [
             "Description",
-            "Currency",
+            // "Currency",
             "Amount"
         ],
         onAdd: function () {
@@ -47,6 +47,11 @@ export class DataForm {
 
     bankView = (data) => {
         return `${data.BankName || data.bankName} - ${data.Currency ? data.Currency.Code : data.currency.code }`;
+    }
+
+    get bankQuery(){
+        var result = { "DivisionName" : "G" }
+        return result;
     }
 
     bind(context) {
