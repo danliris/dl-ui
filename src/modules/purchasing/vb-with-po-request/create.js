@@ -35,6 +35,7 @@ export class Create {
     }
 
     save(event) {
+        this.data.Date = new Date();
         // console.log(this.data);
         this.service.create(this.data)
             .then(result => {
