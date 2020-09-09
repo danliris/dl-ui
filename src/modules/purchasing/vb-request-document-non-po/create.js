@@ -50,7 +50,7 @@ export class Create {
     }
 
     saveCallback(event) {
-
+        this.data.Date = new Date();
         this.service
             .create(this.data)
             .then(result => {
