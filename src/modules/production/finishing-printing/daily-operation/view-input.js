@@ -32,6 +32,11 @@ export class ViewInput {
         this.router.navigateToRoute('edit-input', { id: this.data.Id });
     }
 
+    createOutput(){
+    this.router.navigateToRoute('create-output', { id: this.data.Id });
+  }
+
+
     // editOutput() {
     //     this.router.navigateToRoute('output', { id: this.data._id });
     // }

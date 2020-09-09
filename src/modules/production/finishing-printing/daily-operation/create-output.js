@@ -5,15 +5,23 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class CreateOutput {
+  isCreateOutput =true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
     }
 
-    activate(params) {
+   async activate(params) {
+     var id = params.id;
+     this.data = await this.service.getData(id);
+     this.data.Id=0;
+     this.machine = this.data.Machine;
+     this.step = this.data.Step;
+     this.kanban = this.data.Kanban;
 
-    }
+   }
 
     list() {
         this.router.navigateToRoute('list');
@@ -29,14 +37,15 @@ export class CreateOutput {
 
     save(event) {
         event.toElement.disabled = true;
+
         this.data.Type = "output";
         this.service.create(this.data)
             .then(result => {
                 this.data = {};
                 this.error = {};
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create-output', {}, { replace: true, trigger: true });
-                // this.list();
+                // this.router.navigateToRoute('create-output', {}, { replace: true, trigger: true });
+                 this.list();
             })
             .catch(e => {
                 event.toElement.disabled = false;

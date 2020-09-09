@@ -21,7 +21,7 @@
             margin-right:25px;
         }
     </style>
-    <au-input-form  title.bind="title"  title.bind="title" with.bind="context">
+    <au-input-form  title.bind="title"  title.bind="title" with.bind="context" options.bind="formOptions">
     <div class="row">
         <div class="col-sm-4 tab ${activeTab === 0 ? 'active' : ''}" click.delegate="changeRole(0)">
             DESCRIPTION
@@ -95,14 +95,25 @@
                     options.bind="controlOptions">
                 </au-dropdown> 
 
-                <au-textbox 
+                <au-autocomplete 
                     label="LC No" 
-                    value.bind="data.lcNo" 
+                    value.bind="selectedLC" 
                     error.bind="error.LCNo"
+                    loader.bind="lcLoader"
+                    text="documentCreditNo"
                     read-only.bind="readOnly"
                     show.bind="data.paymentTerm == 'LC'"
                     options.bind="controlOptions" >
-                </au-textbox>
+                </au-autocomplete>
+
+                <au-datepicker 
+                    label="Tgl. LC" 
+                    value.bind="data.lcDate" 
+                    error.bind="error.LCDate"
+                    read-only.bind="readOnly"
+                    show.bind="data.paymentTerm == 'LC'"
+                    options.bind="controlOptions" >
+                </au-datepicker>
 
                 <au-multiline 
                     label="Issued By" 
@@ -221,6 +232,12 @@
                 label="SAY"
                 value.bind="say"
                 read-only.bind="true" >
+            </au-textbox>
+            <au-textbox
+                value.bind="data.sayUnit"
+                error.bind="error.SayUnit"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
             </au-textbox>
         </div>
         <div>
