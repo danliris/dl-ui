@@ -17,7 +17,7 @@ export class View {
         let id = params.id;
         this.data = await this.service.getById(id);
 
-        if (this.data.IsApproved) {
+        if (this.data.ApprovalStatus == "Cancelled" || this.data.ApprovalStatus == "Approved") {
             this.editCallback = false;
             this.deleteCallback = false;
         }
