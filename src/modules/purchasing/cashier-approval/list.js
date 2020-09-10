@@ -117,7 +117,7 @@ export class List {
             order: order,
             filter: JSON.stringify({
                 Type: type,
-                ApprovalStatus: 1
+                ApprovalStatus: 2
             }),
         };
 
