@@ -19,7 +19,7 @@ export class DataForm {
     };
 
     filter = {
-        "IsApproved": true,
+        "ApprovalStatus": 2,
         "IsRealized": false,
         "Type": 1
     };
