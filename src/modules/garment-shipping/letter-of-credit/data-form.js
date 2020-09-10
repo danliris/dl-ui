@@ -21,6 +21,17 @@ export class DataForm {
     };
     LCOptions=["AT SIGHT", "USANCE"];
 
+    amendColumns = [
+        { header: "No Amend", value: "amendNumber" },
+        { header: "Amount", value: "amount" },
+    ];
+
+    invoiceColumns = [
+        { header: "No Invoice", value: "invoiceNo" },
+        { header: "Amount to be Paid", value: "amountToBePaid" },
+        { header: "Tgl. Trucking", value: "truckingDate" },
+    ];
+
     get buyerLoader() {
         return BuyerLoader;
     }

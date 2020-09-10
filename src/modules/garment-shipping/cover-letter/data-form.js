@@ -70,6 +70,7 @@ export class DataForm {
     }
 
     selectedShippingInvoiceChanged(newValue, oldValue) {
+        var forwarderName = "";
         if (newValue) {
             this.data.packingListId = newValue.packingListId;
             this.data.invoiceId = newValue.id;
@@ -93,6 +94,7 @@ export class DataForm {
             this.data.shippingStaff = null;
             this.data.order = null;
             this.data.exportEstimationDate = null;
+ 
         }
     }
 
@@ -102,9 +104,9 @@ export class DataForm {
             this.data.emkl={
                 id:newValue.Id || newValue.id,
                 name:newValue.Name || newValue.name,
-                address: newValue.Address || newValue.address,
-                attn: newValue.Attention || newValue.attn,
-                phone: newValue.PhoneNumber || newValue.phone,
+                //address: newValue.Address || newValue.address,
+                //attn: newValue.Attention || newValue.attn,
+                //phone: newValue.PhoneNumber || newValue.phone,
                 code:newValue.Code || newValue.code,
             };
         }

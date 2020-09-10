@@ -52,4 +52,16 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
+
+    getProductionOrderInput() {
+        var endpoint = `${serviceUri}/input-production-orders/production-order`;
+
+        return super.get(endpoint);
+    }
+
+    getProductionOrderInputById(productionOrderId) {
+        var endpoint = `${serviceUri}/input-production-orders/production-order?productionOrderId=${productionOrderId}`;
+
+        return super.get(endpoint);
+    }
 }

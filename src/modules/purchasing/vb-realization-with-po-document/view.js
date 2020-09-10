@@ -14,13 +14,11 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        console.log(this.data);
 
-        if (this.data.Status == "POSTED") {
-            this.hasPosting = false;
+        if (this.data.Position > 1 && this.data.Position < 6) {
             this.editCallback = false;
             this.deleteCallback = false;
-        } else {
-            this.hasPosting = true;
         }
 
     }

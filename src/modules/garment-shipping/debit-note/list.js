@@ -16,6 +16,7 @@ export class List {
             }
         },
         { field: "buyerCode", title: "Buyer" },
+        { field: "bank.currency.code", title: "Currency" },        
         { field: "totalAmount", title: "Amount" },
     ];
 
