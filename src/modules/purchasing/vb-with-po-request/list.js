@@ -5,110 +5,123 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  dataToBePosted = [];
+    dataToBePosted = [];
 
-  rowFormatter(data, index) {
-    if (data.isPosted)
-      return { classes: "success" }
-    else
-      return {}
-  }
-
-  context = ["Detail", "Cetak Bukti Permohonan"]
-
-  columns = [
-    { field: "DocumentNo", title: "No. VB" },
-    {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
-      }
-    },
-    { field: "SuppliantUnitName", title: "Unit" },
-    { field: "CreatedBy", title: "Dibuat oleh" },
-    {
-      field: "IsApproved", title: "Status Approved",
-      formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
-      }
-    },
-    {
-      field: "IsCompleted", title: "Status Complete",
-      formatter: function (value, row, index) {
-        return value ? "Sudah" : "Belum";
-      }
+    rowFormatter(data, index) {
+        if (data.isPosted)
+            return { classes: "success" }
+        else
+            return {}
     }
-  ];
 
-  async activate(params) {
-    this.ressearch = params.search;
-  }
+    context = ["Detail", "Cetak Bukti Permohonan"]
 
-  loader = (info) => {
-    let order = {};
-
-    if (info.sort)
-      order[info.sort] = info.order;
-    else
-      order["LastModifiedUtc"] = "desc";
-
-    let arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
-      order: order,
-      filter: JSON.stringify({
-        "Type": 1
-      })
-    };
-
-    return this.service.search(arg)
-      .then(result => {
-        return {
-          total: result.info.total,
-          data: result.data
+    columns = [
+        { field: "DocumentNo", title: "No. VB" },
+        {
+            field: "Date",
+            title: "Tanggal",
+            formatter: function(value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "SuppliantUnitName", title: "Unit" },
+        { field: "CreatedBy", title: "Dibuat oleh" },
+        {
+            field: "ApprovalStatus",
+            title: "Status Approved",
+            formatter: function(value, row, index) {
+                if (value == 2) return "Sudah";
+                else if (value == 3) return "Cancel";
+                else return "Belum";
+            }
+        },
+        {
+            field: "CancellationReason",
+            title: "Alasan",
+            formatter: function(value, row, index) {
+                return value ? value : "-";
+            }
+        },
+        {
+            field: "IsCompleted",
+            title: "Status Complete",
+            formatter: function(value, row, index) {
+                return value ? "Sudah" : "Belum";
+            }
         }
-      });
-  }
+    ];
 
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
-  contextClickCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "Detail":
-        this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
-        break;
-      case "Cetak Bukti Permohonan":
-        this.service.getPdf(data.Id);
-        break;
+    async activate(params) {
+        this.ressearch = params.search;
     }
-  }
 
-  contextShowCallback(index, name, data) {
-    switch (name) {
-      case "Cetak Bukti Permohonan":
-        return data;
-      default:
-        return true;
+    loader = (info) => {
+        let order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+        else
+            order["LastModifiedUtc"] = "desc";
+
+        let arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order,
+            filter: JSON.stringify({
+                "Type": 1
+            })
+        };
+
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
     }
-  }
 
-  posting() {
-    if (this.dataToBePosted.length > 0) {
-      // console.log(this.dataToBePosted);
-      this.service.post(this.dataToBePosted).then(result => {
-        this.table.refresh();
-      }).catch(e => {
-        this.error = e;
-      })
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
     }
-  }
 
-  create() {
-    this.router.navigateToRoute('create');
-  }
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Detail":
+                this.router.navigateToRoute('view', { id: data.Id, search: this.ressearch });
+                break;
+            case "Cetak Bukti Permohonan":
+                this.service.getPdf(data.Id);
+                break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak Bukti Permohonan":
+                return data;
+            default:
+                return true;
+        }
+    }
+
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+            // console.log(this.dataToBePosted);
+            this.service.post(this.dataToBePosted).then(result => {
+                this.table.refresh();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
+    }
+
+    create() {
+        this.router.navigateToRoute('create');
+    }
 }

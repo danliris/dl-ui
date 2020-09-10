@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
 let ShippingAreaLoader = require("../../../loader/output-shipping-loader");
+let FilterSPPLoader = require("../../../loader/pre-output-shipping-spp-loader");
 var DOSalesLoader = require("../../../loader/do-sales-loader");
 @inject(Service)
 export class DataForm {
@@ -393,7 +394,7 @@ export class DataForm {
 
   @bindable ItemsCollection;
   @bindable destinationArea;
-  destinationAreaChanged(n, o) {
+  async destinationAreaChanged(n, o) {
     if (this.destinationArea) {
       this.data.destinationArea = this.destinationArea;
       if (this.destinationArea !== "BUYER") {
@@ -526,6 +527,16 @@ export class DataForm {
           }
         }
 
+        if (!this.isEdit) {
+          if (this.destinationArea !== "PENJUALAN") {
+            this.selectedFilterSPP = null;
+            this.data.displayShippingProductionOrders = await this.service.getProductionOrderInput();
+            if (this.ItemsCollection) {
+              this.ItemsCollection.bind();
+            }
+          }
+        }
+
 
       } else {
 
@@ -602,7 +613,10 @@ export class DataForm {
         this.selectedDO = null;
         this.data.bonNo = null;
         this.data.inputShippingId = 0;
-        this.data.displayShippingProductionOrders = [];
+        if (this.data.destinationArea == "PENJUALAN" || this.data.destinationArea == "BUYER") {
+
+          this.data.displayShippingProductionOrders = [];
+        }
       }
 
       if (this.ItemsCollection) {
@@ -614,4 +628,30 @@ export class DataForm {
   ExportToExcel() {
     this.service.generateExcel(this.data.id);
   }
+
+  get filterSPPLoader() {
+    return FilterSPPLoader;
+  }
+
+  sppTextFormatter = (spp) => {
+    return `${spp.productionOrder.no}`
+  }
+
+  @bindable selectedFilterSPP;
+  async selectedFilterSPPChanged(n, o) {
+    if (this.selectedFilterSPP) {
+
+      this.data.displayShippingProductionOrders = await this.service.getProductionOrderInputById(this.selectedFilterSPP.productionOrder.id);
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+      }
+    } else {
+
+      this.data.displayShippingProductionOrders = await this.service.getProductionOrderInput();
+      if (this.ItemsCollection) {
+        this.ItemsCollection.bind();
+      }
+    }
+  }
+
 }

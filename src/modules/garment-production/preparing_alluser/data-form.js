@@ -1,5 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service, PurchasingService } from './service';
+import { Service, PurchasingService,SalesService } from './service';
 import { debug } from 'util';
 
 var moment = require('moment');
@@ -7,7 +7,7 @@ var UENLoader = require('../../../loader/unit-expenditure-note-gpreparing-loader
 const UnitLoader = require('../../../loader/garment-units-loader');
 
 @containerless()
-@inject(Service, BindingEngine, PurchasingService)
+@inject(Service, BindingEngine, PurchasingService,SalesService)
 export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
@@ -46,11 +46,11 @@ export class DataForm {
         }
     }
 
-    constructor(service, bindingEngine, purchasingService) {
+    constructor(service, bindingEngine, purchasingService,salesService) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.purchasingService = purchasingService;
-        
+        this.salesService = salesService;
     }
 
     bind(context) {
@@ -64,6 +64,7 @@ export class DataForm {
         }
         if(this.data){
             this.selectedUnit=this.data.Unit;
+            this.data.buyerView= this.data.Buyer?this.data.Buyer.Code +"-"+this.data.Buyer.Name : "";
         }
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
@@ -117,20 +118,32 @@ export class DataForm {
                     if(deliveryOrder){
                         this.data.Article = deliveryOrder.Article;
                         this.data.RONo = deliveryOrder.RONo;
-                        for(var doItem of deliveryOrder.Items){
-                            for(var item of this.data.Items){
-                                item.Product = {};
-                                item.Uom = {};
-                                item.Product.Id = item.ProductId;
-                                item.Product.Code = item.ProductCode;
-                                item.Product.Name = item.ProductName;
+                        this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) })
+                        .then((pr)=>{
+                            if(pr.data.length>0){
+                                this.data.Buyer=pr.data[0].Buyer;
+                                this.data.buyerView= this.data.Buyer.Code +"-"+this.data.Buyer.Name;
+                            }
 
-                                item.Uom.Id = item.UomId;
-                                item.Uom.Unit = item.UomUnit
-                                if(doItem.Id == item.UnitDOItemId ){item.DesignColor = doItem.DesignColor;}
-                                
-                            }                
-                        }
+                            for(var doItem of deliveryOrder.Items){
+                                for(var item of this.data.Items){
+                                    item.Product = {};
+                                    item.Uom = {};
+                                    item.Product.Id = item.ProductId;
+                                    item.Product.Code = item.ProductCode;
+                                    item.Product.Name = item.ProductName;
+    
+                                    item.Uom.Id = item.UomId;
+                                    item.Uom.Unit = item.UomUnit
+                                    if(doItem.Id == item.UnitDOItemId ){
+                                        item.ROSource=doItem.RONo;
+                                        item.DesignColor = doItem.DesignColor;
+                                    }
+                                    
+                                }                
+                            }
+                        });
+                        
                     }
                 });
         } else if(!selectedUEN && this.options.isCreate){
@@ -146,6 +159,7 @@ export class DataForm {
     }
 
     itemsInfo = {
+      
         columns: [
             {header: "Kode Barang", value: "Product.Code"},
             {header: "Keterangan Barang", value: "DesignColor"},
@@ -169,6 +183,7 @@ export class DataForm {
             {header: "Tipe Fabric", value: "FabricType"},
         ]
     }
+
     uenView = (uen) => {
         return `${uen.UENNo}`
     }

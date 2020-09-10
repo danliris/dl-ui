@@ -7,6 +7,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'preparings';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
 const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
+const serviceUriPR = 'garment-purchase-requests';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -56,5 +57,21 @@ export class PurchasingService extends RestService {
     getUnitExpenditureNoteById(id) {
         var endpoint = `${unitExpenditureNoteUri}/${id}`;
         return super.get(endpoint);
+    }
+    getGarmentPR(info) {
+        var endpoint = `${serviceUriPR}`;
+        return super.list(endpoint, info);
+    }
+}
+
+const costCalculationServiceUri = 'cost-calculation-garments';
+export class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
     }
 }

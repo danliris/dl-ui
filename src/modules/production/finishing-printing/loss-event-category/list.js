@@ -8,7 +8,7 @@ export class List {
     context = ["Rincian"];
     itemYears = [];
     columns = [
-        { field: "LossEvent.ProcessType.Name", title: "Jenis Proses" },
+        { field: "LossEvent.ProcessArea", title: "Area" },
         { field: "LossEvent.Losses", title: "Losses" },
         { field: "LossesCategory", title: "Kategori Losses" }
     ];

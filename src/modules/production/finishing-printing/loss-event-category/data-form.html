@@ -5,8 +5,8 @@
             loader.bind="lossEventLoader" text="Losses" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-textbox value.bind="data.LossEvent.ProcessType.Name" label="Jenis Proses" read-only.bind="true"
-            error.bind="error.Losses" options.bind="controlOptions">
+        <au-textbox value.bind="data.LossEvent.ProcessArea" label="Area" read-only.bind="true" error.bind="error.Losses"
+            options.bind="controlOptions">
         </au-textbox>
 
         <au-textbox value.bind="data.LossesCategory" label="Kategori Losses" read-only.bind="readOnly"

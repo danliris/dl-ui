@@ -2,7 +2,7 @@
   <require from="./card-template/card-content"></require>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-    <au-datepicker value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly" label="Tanggal"
+    <au-datepicker value.bind="data.Date" error.bind="error.Date" show.bind="isVisible" read-only.bind="readOnly" label="Tanggal"
       options.bind="controlOptions">
     </au-datepicker>
 

@@ -27,6 +27,11 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    cancellation(data) {
+        let endpoint = `${serviceUri}/cancellation`;
+        return super.post(endpoint, data);
+    }
+
     delete(data) {
         let endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
