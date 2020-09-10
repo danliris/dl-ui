@@ -21,7 +21,7 @@ export class View {
         this.data = await this.service.getById(id);
         console.log(this.data);
 
-        if (this.data.IsApproved) {
+        if (this.data.ApprovalStatus == "Cancelled" || this.data.ApprovalStatus == "Approved") {
             this.hasDelete = false;
             this.hasEdit = false;
         }
