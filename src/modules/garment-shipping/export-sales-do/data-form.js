@@ -53,6 +53,8 @@ export class DataForm {
     get unitLoader(){
         return UnitLoader;
     }
+
+    ShipmentModeOptions=["By Air", "By Sea"];
     
     unitView = (unit) => {
         return `${unit.Code || unit.code} - ${unit.Name || unit.name}`;
