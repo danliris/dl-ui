@@ -30,10 +30,17 @@
         </td>
         <td>
             <au-numeric
-                value.bind="data.cartonQuantity"
-                error.bind="error.cartonQuantity"
-                read-only.bind="readOnly">
+                value.bind="data.packQuantity"
+                error.bind="error.packQuantity"
+                read-only.bind="true">
             </au-numeric>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.packUom.unit || ''"
+                error.bind="error.packUom"
+                read-only.bind="true">
+            </au-textbox>
         </td>
         <td>
             <au-numeric
@@ -46,13 +53,6 @@
             <au-numeric
                 value.bind="data.nettWeight"
                 error.bind="error.nettWeight"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.volume"
-                error.bind="error.volume"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>

@@ -39,10 +39,10 @@ export class DataForm {
         { header: "Description" },
         { header: "Quantity " },
         { header: "Satuan"},
-        { header: "Jumlah Carton"},
+        { header: "Jumlah Kemasan"},
+        { header: "Satuan Kemasan"},
         { header: "Gross Weight"},
         { header: "Nett Weight"},
-        { header: "Volume"},
     ];
 
     get salesNoteLoader() {
@@ -85,6 +85,7 @@ export class DataForm {
         this.data.localSalesNoteNo=null;
         this.data.localSalesNoteId=0;
         this.data.buyer=null;
+        this.data.items.splice(0);
         if(newValue){
             this.data.localSalesNoteNo=newValue.noteNo;
             this.data.localSalesNoteId=newValue.id;
@@ -93,9 +94,12 @@ export class DataForm {
             .then(salesNote=>{
                 for(var item of salesNote.items){
                     let doItem={};
+                    doItem.localSalesNoteItemId = item.id;
                     doItem.product=item.product;
                     doItem.quantity=item.quantity;
                     doItem.uom=item.uom;
+                    doItem.packQuantity = item.packageQuantity;
+                    doItem.packUom = item.packageUom;
                     this.data.items.push(doItem);
                 }
             });
