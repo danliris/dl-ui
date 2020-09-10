@@ -23,7 +23,7 @@
 
                 <au-autocomplete label="Bank" placeholder="Pilih Bank" value.bind="data.bank" error.bind="error.bank"
                     loader.bind="bankLoader" text.bind="bankView" read-only.bind="readOnly || isEdit"
-                    options.bind="controlOptions">
+                    query.bind="bankQuery" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"

@@ -18,4 +18,9 @@ export class Item {
     get currencyLoader() {
         return CurrencyLoader;
     }
+
+    get currencyQuery(){
+        var result = { "Code" : this.data }
+        return result;
+    }
 }

@@ -42,7 +42,7 @@ export class List {
             .then(result => {
                 for (const data of result.data) {
                     data.ForwarderName = data.forwarder.name;
-                    data.attn = data.forwarder.attn;
+                    //data.attn = data.forwarder.attn;
                     data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {
