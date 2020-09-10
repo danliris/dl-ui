@@ -42,8 +42,8 @@
 
                 <au-textbox 
                     label="ATTN" 
-                    value.bind="data.forwarder.attn ||''" 
-                    read-only="true" 
+                    value.bind="data.attn" 
+                    read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
             </div>
@@ -109,7 +109,7 @@
                 </au-datepicker>
 
                 <au-textbox 
-                    label="Carton No" 
+                    label="Carton" 
                     value.bind="data.cartonNo" 
                     error.bind="error.CartonNo"
                     read-only.bind="readOnly" 
