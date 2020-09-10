@@ -28,7 +28,7 @@ export class List {
         {
             field: "Position", title: "Status Verifikasi",
             formatter: function (value, row, index) {
-                return value > 3 ? "Sudah" : "Belum";
+                return value > 3 && value != 6 ? "Sudah" : value == 6 ? "Ditolak" : "Belum";
             }
         }
     ];

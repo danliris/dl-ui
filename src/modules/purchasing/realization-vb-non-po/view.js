@@ -20,6 +20,13 @@ export class View {
   async activate(params) {
     let id = params.id;
     this.data = await this.service.getById(id);
+    console.log(this.data);
+
+    if (this.data.Position > 1 && this.data.Position < 6) {
+      this.hasEdit = false;
+      this.hasDelete = false;
+    }
+
   }
 
   cancel(event) {
