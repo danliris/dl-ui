@@ -107,7 +107,11 @@ export class List {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
       },
     },
-    { field: "VerifiedToCashierBy", title: "Nama Verifikator" },
+    {
+      field: "Position", title: "Nama Verifikator", formatter: function (value, data, index) {
+        return value == 5 ? data.VerifiedToCashierBy : data.NotVerifiedBy;
+      }
+    },
     {
       field: "VerifiedToCashierDate", title: "Tgl. Verif Kirim Kasir/Retur", formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : data.NotVerifiedDate ? moment.utc(data.NotVerifiedDate).local().format('DD MMM YYYY') : "-";
