@@ -23,11 +23,14 @@ export class CartItem {
         }
         this.sppQuery.dyeingPrintingAreaInputId = this.dyeingPrintingAreaInputId;
 
-        if (this.data.deliveryOrder) {
-            this.deliveryOrder = {};
-            this.deliveryOrder.Id = this.data.deliveryOrder.id;
-            this.deliveryOrder.DOReturnNo = this.data.deliveryOrder.no;
+        if (this.isRetur) {
+            if (this.data.deliveryOrderRetur) {
+                this.deliveryOrder = {};
+                this.deliveryOrder.Id = this.data.deliveryOrderRetur.id;
+                this.deliveryOrder.DOReturnNo = this.data.deliveryOrderRetur.no;
+            }
         }
+
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
@@ -120,10 +123,11 @@ export class CartItem {
     deliveryOrderChanged(n, o) {
         if (this.deliveryOrder) {
             this.data.deliveryOrder = {};
-            this.data.deliveryOrder.id = this.deliveryOrder.Id;
-            this.data.deliveryOrder.no = this.deliveryOrder.DOReturnNo;
+            this.data.deliveryOrderRetur = {};
+            this.data.deliveryOrderRetur.id = this.deliveryOrder.Id;
+            this.data.deliveryOrderRetur.no = this.deliveryOrder.DOReturnNo;
         } else {
-            this.data.deliveryOrder = null;
+            this.data.deliveryOrderRetur = null;
         }
     }
 

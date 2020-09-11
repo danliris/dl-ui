@@ -98,6 +98,12 @@ export class DataForm {
             this.shippingProductionOrders = this.data.shippingProductionOrders;
         }
 
+        if (this.data.shippingType) {
+            this.shippingType = this.data.shippingType;
+            this.isRetur = this.shippingType == "RETUR BARANG";
+            this.returDetailOptions.isRetur = this.isRetur;
+            this.detailOptions.isRetur = this.isRetur;
+        }
         // if (this.data.bonNo) {
         //     this.selectedPreShipping = {};
         //     this.selectedPreShipping.bonNo = this.data.bonNo;
