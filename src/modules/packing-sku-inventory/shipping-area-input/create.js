@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject, Lazy, computedFrom } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
@@ -30,8 +30,16 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
+    @computedFrom("data.shippingType")
+    get showReject() {
+        return this.data && this.data.shippingType == "RETUR BARANG";
+    }
+
     save() {
-        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+        if (this.data.shippingType == "ZONA GUDANG") {
+            this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+        }
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -47,7 +55,10 @@ export class Create {
     }
 
     reject() {
-        this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+        if (this.data.shippingType == "ZONA GUDANG") {
+            this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+        }
+
         this.service.reject(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
