@@ -57,14 +57,14 @@ export class List {
         { field: "VBNo", title: "No. VB" },
         {
             field: "Date",
-            title: "Tgl. VB"
+            title: "Tanggal VB"
                 // , formatter: function (value, data, index) {
                 //     return moment.utc(value).local().format('DD MMM YYYY');
                 // },
         },
         {
             field: "DateEstimate",
-            title: "Estimasi Tgl Realisasi"
+            title: "Estimasi Tanggal Realisasi"
                 // , formatter: function (value, data, index) {
                 //     return moment.utc(value).local().format('DD MMM YYYY');
                 // },
@@ -81,7 +81,7 @@ export class List {
         { field: "RealizationNo", title: "No. Realisasi" },
         {
             field: "RealizationDate",
-            title: "Tgl. Realisasi"
+            title: "Tanggal Realisasi"
                 // , formatter: function (value, data, index) {
                 //     return moment.utc(value).local().format('DD MMM YYYY');
                 // },
@@ -91,10 +91,11 @@ export class List {
         { field: "CurrencyCode", title: "Mata Uang" },
         {
             field: "Amount",
-            title: "Jlh. VB",
+            title: "Jumlah VB",
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
             field: "RealizationAmount",
@@ -102,6 +103,7 @@ export class List {
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
             field: "Difference",
@@ -109,6 +111,7 @@ export class List {
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
             field: "ClearenceDate",

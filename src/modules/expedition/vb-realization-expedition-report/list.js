@@ -22,7 +22,8 @@ export class List {
     { field: 'UnitName', title: 'Bagian/Unit' },
     { field: 'DivisionName', title: 'Divisi' },
     {
-      field: 'SendToVerificationDate', title: 'Tanggal Unit Kirim',
+      field: 'SendToVerificationDate',
+      title: 'Tanggal Unit Kirim',
       formatter: function (value, data, index) {
         return value ? moment(value).format('DD/MM/YYYY') : '-';
       },
@@ -33,21 +34,24 @@ export class List {
     { field: 'CurrencyCode', title: 'Mata Uang Realisasi' },
     { field: 'VBRealizationAmount', title: 'Nominal Realisasi' },
     {
-      field: 'VerificationReceiptDate', title: 'Tanggal Terima Verifikasi',
+      field: 'VerificationReceiptDate',
+      title: 'Tanggal Terima Verifikasi',
       formatter: function (value, data, index) {
         return value ? moment(value).format('DD/MM/YYYY') : '-';
       },
     },
     { field: 'VerificationReceiptBy', title: 'Nama Verifikator' },
     {
-      field: 'VerifiedToCashierDate', title: 'Tanggal Kirim Kasir/Retur',
+      field: 'VerifiedToCashierDate',
+      title: 'Tanggal Kirim Kasir/Retur',
       formatter: function (value, data, index) {
         return value ? moment(value).format('DD/MM/YYYY') : '-';
       },
     },
     { field: 'SalesReceiptNo', title: 'Keterangan' },
     {
-      field: 'CashierReceiptDate', title: 'Tanggal Terima Kasir',
+      field: 'CashierReceiptDate',
+      title: 'Tanggal Terima Kasir',
       formatter: function (value, data, index) {
         return value ? moment(value).format('DD/MM/YYYY') : '-';
       },
@@ -72,7 +76,9 @@ export class List {
     { field: "VBNo", title: "No. VB" },
     { field: "VBRealizationNo", title: "No. Realisasi VB" },
     {
-      field: "VBType", title: "Tipe VB", formatter: function (value, data, index) {
+      field: "VBType",
+      title: "Tipe VB",
+      formatter: function (value, data, index) {
         return value == 1 ? "Dengan PO" : "Tanpa PO";
       }
     },
@@ -80,41 +86,61 @@ export class List {
     { field: "UnitName", title: "Bagian/Unit" },
     { field: "DivisionName", title: "Divisi" },
     {
-      field: "SendToVerificationDate", title: "Tgl. Unit Kirim", formatter: function (value, data, index) {
+      field: "SendToVerificationDate",
+      title: "Tgl. Unit Kirim",
+      formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
       },
     },
     { field: "Purpose", title: "Keperluan" },
     { field: "CurrencyCode", title: "Mata Uang VB" },
     {
-      field: "VBAmount", title: "Nominal VB", formatter: function (value, data, index) {
+      field: "VBAmount",
+      title: "Nominal VB",
+      formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       },
+      align: "right"
     },
     { field: "CurrencyCode", title: "Mata Uang Realisasi" },
     {
-      field: "VBRealizationAmount", title: "Nominal Realisasi", formatter: function (value, data, index) {
+      field: "VBRealizationAmount",
+      title: "Nominal Realisasi",
+      formatter: function (value, data, index) {
         return numeral(value).format('0,000.00');
       },
+      align: "right"
     },
     {
-      field: "VBRealizationDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+      field: "VBRealizationDate",
+      title: "Tgl. Realisasi",
+      formatter: function (value, data, index) {
         return moment.utc(value).local().format('DD MMM YYYY');
       },
     },
     {
-      field: "SendToVerificationDate", title: "Tgl. Verif Terima", formatter: function (value, data, index) {
+      field: "SendToVerificationDate",
+      title: "Tgl. Verif Terima",
+      formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
       },
     },
-    { field: "VerifiedToCashierBy", title: "Nama Verifikator" },
     {
-      field: "VerifiedToCashierDate", title: "Tgl. Verif Kirim Kasir/Retur", formatter: function (value, data, index) {
+      field: "Position", title: "Nama Verifikator", formatter: function (value, data, index) {
+        return value == 5 ? data.VerifiedToCashierBy : data.NotVerifiedBy;
+      },
+    },
+    {
+      field: "VerifiedToCashierDate",
+      title: "Tgl. Verif Kirim Kasir/Retur",
+      formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : data.NotVerifiedDate ? moment.utc(data.NotVerifiedDate).local().format('DD MMM YYYY') : "-";
       },
     },
     {
-      field: "Position", title: "Posisi", formatter: (value, data, index) => {
+      field: "Position",
+      title: "Posisi",
+      formatter: (value, data, index) => {
         switch (value) {
           case 1:
             return "Pembelian";
@@ -133,7 +159,9 @@ export class List {
     },
     { field: "NotVerifiedReason", title: "Keterangan (Retur)" },
     {
-      field: "CashierReceiptDate", title: "Tgl. Kasir Terima", formatter: function (value, data, index) {
+      field: "CashierReceiptDate",
+      title: "Tgl. Kasir Terima",
+      formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
       }
     }
