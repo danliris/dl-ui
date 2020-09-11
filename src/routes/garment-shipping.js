@@ -304,7 +304,7 @@ module.exports = [
         name: "garment-shipping/credit-note",
         moduleId: "modules/garment-shipping/credit-note/index",
         nav: true,
-        title: "Nota Kredit",
+        title: "Credit Note",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -317,7 +317,7 @@ module.exports = [
         name: "garment-shipping/debit-note",
         moduleId: "modules/garment-shipping/debit-note/index",
         nav: true,
-        title: "Nota Debet",
+        title: "Debit Note",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -330,7 +330,7 @@ module.exports = [
         name: "garment-shipping/monitoring/debit-note",
         moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
         nav: true,
-        title: "Monitoring Nota Debit",
+        title: "Monitoring Debit Note",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -343,7 +343,7 @@ module.exports = [
         name: "garment-shipping/monitoring/credit-note",
         moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
         nav: true,
-        title: "Monitoring Nota Kredit",
+        title: "Monitoring Credit Note",
         auth: true,
         settings: {
             group: "g-shipping",

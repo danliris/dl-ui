@@ -54,6 +54,13 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-multiline>
+
         <div class="form-group has-error">
             <p if.bind="error.itemsCount" class="help-block text-center">${error.itemsCount}</p>
         </div>

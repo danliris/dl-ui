@@ -5,7 +5,7 @@
         <data-form data.bind="data" error.bind="error" ></data-form>
         <hr/>
         <div class="btn-group pull-right">
-            <button class="btn btn-danger" click.delegate="reject()">Tolak</button>
+            <button if.bind="!showReject" class="btn btn-danger" click.delegate="reject()">Tolak</button>
             <button class="btn btn-default" click.delegate="back()">Kembali</button>
             <button class="btn btn-success" click.delegate="save()">Simpan</button>
         </div>
