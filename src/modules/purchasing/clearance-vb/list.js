@@ -8,10 +8,12 @@ import UnitAutoSuggest from '../../../components/customs/auto-suggests/unit-auto
 @inject(Router, Service)
 export class List {
     dataToBePosted = [];
-    columns = [
-        {
-            field: "isPosting", title: "Post", checkbox: true, sortable: false,
-            formatter: function (value, data, index) {
+    columns = [{
+            field: "isPosting",
+            title: "Post",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
                 // console.log(data)
                 return ""
@@ -19,12 +21,16 @@ export class List {
         },
         { field: "RqstNo", title: "No VB" },
         {
-            field: "VBCategory", title: "Tipe VB", formatter: function (value, data, index) {
+            field: "VBCategory",
+            title: "Tipe VB",
+            formatter: function(value, data, index) {
                 return value == 1 ? "Dengan PO" : "Non PO";
             }
         },
         {
-            field: "RqstDate", title: "Tgl. VB", formatter: function (value, data, index) {
+            field: "RqstDate",
+            title: "Tgl. VB",
+            formatter: function(value, data, index) {
                 return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
@@ -32,26 +38,36 @@ export class List {
         { field: "Appliciant", title: "Pemohon" },
         { field: "RealNo", title: "No Realisasi" },
         {
-            field: "RealDate", title: "Tgl. Realisasi", formatter: function (value, data, index) {
+            field: "RealDate",
+            title: "Tgl. Realisasi",
+            formatter: function(value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "VerDate", title: "Tgl. Verifikasi", formatter: function (value, data, index) {
+            field: "VerDate",
+            title: "Tgl. Verifikasi",
+            formatter: function(value, data, index) {
                 return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
         {
-            field: "DiffStatus", title: "Sisa/Kurang/Sesuai"
+            field: "DiffStatus",
+            title: "Sisa/Kurang/Sesuai"
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         {
-            field: "DiffAmount", title: "Jumlah", formatter: function (value, data, index) {
+            field: "DiffAmount",
+            title: "Jumlah",
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
-            field: "ClearanceDate", title: "Tgl. Clearance", formatter: function (value, data, index) {
+            field: "ClearanceDate",
+            title: "Tgl. Clearance",
+            formatter: function(value, data, index) {
                 return value ? moment(value).format("DD MMM YYYY") : "-";
             }
         },
@@ -101,11 +117,11 @@ export class List {
     posting() {
         if (this.dataToBePosted.length > 0) {
             this.service.post(this.dataToBePosted.map(d => {
-                return {
-                    VBRequestId: d.Id,
-                    VBRealizationId: d.VBRealizationDocumentId
-                }
-            }))
+                    return {
+                        VBRequestId: d.Id,
+                        VBRealizationId: d.VBRealizationDocumentId
+                    }
+                }))
                 .then(result => {
                     this.table.refresh();
                 }).catch(e => {

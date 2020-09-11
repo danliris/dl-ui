@@ -20,6 +20,8 @@ export class Create {
     async activate(params) {
         let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
         let unitCosts = unitCostsResponse.data;
+        this.data.Date = new Date();
+        this.data.Date.setHours(0, 0, 0, 0);
 
         unitCosts.map((unit) => {
             let item = {
@@ -50,7 +52,6 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.Date = new Date();
         this.service
             .create(this.data)
             .then(result => {
