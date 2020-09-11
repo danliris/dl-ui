@@ -56,54 +56,69 @@ export class List {
     columns = [
         { field: "VBNo", title: "No. VB" },
         {
-            field: "Date", title: "Tgl. VB"
-            // , formatter: function (value, data, index) {
-            //     return moment.utc(value).local().format('DD MMM YYYY');
-            // },
+            field: "Date",
+            title: "Tanggal VB"
+                // , formatter: function (value, data, index) {
+                //     return moment.utc(value).local().format('DD MMM YYYY');
+                // },
         },
         {
-            field: "DateEstimate", title: "Estimasi Tgl Realisasi"
-            // , formatter: function (value, data, index) {
-            //     return moment.utc(value).local().format('DD MMM YYYY');
-            // },
+            field: "DateEstimate",
+            title: "Estimasi Tanggal Realisasi"
+                // , formatter: function (value, data, index) {
+                //     return moment.utc(value).local().format('DD MMM YYYY');
+                // },
         },
         { field: "Unit.Name", title: "Unit" },
         { field: "CreateBy", title: "Pemohon VB" },
         {
-            field: "ApprovalDate", title: "Tanggal Approval"
-            // , formatter: function (value, data, index) {
-            //     return moment.utc(value).local().format('DD MMM YYYY');
-            // },
+            field: "ApprovalDate",
+            title: "Tanggal Approval"
+                // , formatter: function (value, data, index) {
+                //     return moment.utc(value).local().format('DD MMM YYYY');
+                // },
         },
         { field: "RealizationNo", title: "No. Realisasi" },
         {
-            field: "RealizationDate", title: "Tgl. Realisasi"
-            // , formatter: function (value, data, index) {
-            //     return moment.utc(value).local().format('DD MMM YYYY');
-            // },
+            field: "RealizationDate",
+            title: "Tanggal Realisasi"
+                // , formatter: function (value, data, index) {
+                //     return moment.utc(value).local().format('DD MMM YYYY');
+                // },
         },
         { field: "Usage", title: "Keperluan VB" },
         { field: "Aging", title: "Aging (hari)" },
+        { field: "CurrencyCode", title: "Mata Uang" },
         {
-            field: "Amount", title: "Jlh. VB", formatter: function (value, data, index) {
+            field: "Amount",
+            title: "Jumlah VB",
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
-            field: "RealizationAmount", title: "Realisasi", formatter: function (value, data, index) {
+            field: "RealizationAmount",
+            title: "Realisasi",
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
-            field: "Difference", title: "Sisa (+/-)", formatter: function (value, data, index) {
+            field: "Difference",
+            title: "Sisa (+/-)",
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         {
-            field: "ClearenceDate", title: "Tanggal Clearence"
-            // , formatter: function (value, data, index) {
-            //     return moment.utc(value).local().format('DD MMM YYYY');
-            // },
+            field: "ClearenceDate",
+            title: "Tanggal Clearence"
+                // , formatter: function (value, data, index) {
+                //     return moment.utc(value).local().format('DD MMM YYYY');
+                // },
         },
         { field: "Status", title: "Status" },
     ];
@@ -124,11 +139,11 @@ export class List {
         return this.listDataFlag ? (
             this.setValue(),
             this.service.getReport(this.arg)
-                .then(result => {
-                    return {
-                        data: result.data,
-                    }
-                })
+            .then(result => {
+                return {
+                    data: result.data,
+                }
+            })
         ) : { total: 0, data: {} };
     }
 
@@ -182,12 +197,11 @@ export class List {
 
     contextShowCallback(index, name, data) {
         switch (name) {
-            default:
-                return true;
+            default: return true;
         }
     }
 
-    statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CLEARANCE", label: "Clearance" }, { value: "OUTSTANDING", label: "Outstanding" }];
+    statusTypes = [{ value: "ALL", label: "Semua" }, { value: "CLEARANCE", label: "Clearance" }, { value: "OUTSTANDING", label: "Outstanding" }, { value: "CANCEL", label: "Cancel" }];
 
     get vbRequestAllLoader() {
         return VbRequestAllLoader;

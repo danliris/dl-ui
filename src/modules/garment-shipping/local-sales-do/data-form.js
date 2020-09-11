@@ -22,8 +22,8 @@ export class DataForm {
             length: 5
         }
     };
-    filter={
-        IsUsed:false
+    filter = {
+        IsUsed: false
     };
     footerOptions = {
         label: {
@@ -35,14 +35,14 @@ export class DataForm {
     };
 
     itemsColumns = [
-        { header: "Nama Barang"},
+        { header: "Nama Barang" },
         { header: "Description" },
         { header: "Quantity " },
-        { header: "Satuan"},
-        { header: "Jumlah Carton"},
-        { header: "Gross Weight"},
-        { header: "Nett Weight"},
-        { header: "Volume"},
+        { header: "Satuan" },
+        { header: "Jumlah Kemasan" },
+        { header: "Satuan Kemasan" },
+        { header: "Gross Weight" },
+        { header: "Nett Weight" },
     ];
 
     get salesNoteLoader() {
@@ -53,15 +53,15 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        this.isEdit=this.context.isEdit;
+        this.isEdit = this.context.isEdit;
         this.Options = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
         }
-        if(this.data.id){
-            this.selectedSalesNote={
-                noteNo:this.data.localSalesNoteNo
+        if (this.data.id) {
+            this.selectedSalesNote = {
+                noteNo: this.data.localSalesNoteNo
             };
         }
     }
@@ -76,29 +76,33 @@ export class DataForm {
         return (event) => {
             this.error = null;
             //this.Options.error = null;
-     };
+        };
     }
 
-    selectedSalesNoteChanged(newValue){
-        if(this.data.id) return;
+    selectedSalesNoteChanged(newValue) {
+        if (this.data.id) return;
 
-        this.data.localSalesNoteNo=null;
-        this.data.localSalesNoteId=0;
-        this.data.buyer=null;
-        if(newValue){
-            this.data.localSalesNoteNo=newValue.noteNo;
-            this.data.localSalesNoteId=newValue.id;
-            this.data.buyer=newValue.buyer;
+        this.data.localSalesNoteNo = null;
+        this.data.localSalesNoteId = 0;
+        this.data.buyer = null;
+        this.data.items.splice(0);
+        if (newValue) {
+            this.data.localSalesNoteNo = newValue.noteNo;
+            this.data.localSalesNoteId = newValue.id;
+            this.data.buyer = newValue.buyer;
             this.service.salesNoteGetById(this.data.localSalesNoteId)
-            .then(salesNote=>{
-                for(var item of salesNote.items){
-                    let doItem={};
-                    doItem.product=item.product;
-                    doItem.quantity=item.quantity;
-                    doItem.uom=item.uom;
-                    this.data.items.push(doItem);
-                }
-            });
+                .then(salesNote => {
+                    for (var item of salesNote.items) {
+                        let doItem = {};
+                        doItem.localSalesNoteItemId = item.id;
+                        doItem.product = item.product;
+                        doItem.quantity = item.quantity;
+                        doItem.uom = item.uom;
+                        doItem.packQuantity = item.packageQuantity;
+                        doItem.packUom = item.packageUom;
+                        this.data.items.push(doItem);
+                    }
+                });
         }
     }
 }

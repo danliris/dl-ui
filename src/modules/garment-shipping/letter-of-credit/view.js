@@ -40,6 +40,7 @@ export class View {
                 });
             }
             this.totalInvoice = invoice.data.reduce((acc, cur) => acc += cur.amountToBePaid, 0);
+            this.finalAmountInvoice = this.finalAmount - this.totalInvoice;
         }
     }
 
