@@ -21,6 +21,8 @@ export class Create {
     bind(params) {
         this.data = {};
         this.error = {};
+        this.data.Date = new Date();
+        this.data.Date.setHours(0, 0, 0, 0);
     }
 
     cancel(event) {
@@ -35,7 +37,6 @@ export class Create {
     }
 
     save(event) {
-        this.data.Date = new Date();
         // console.log(this.data);
         this.service.create(this.data)
             .then(result => {
