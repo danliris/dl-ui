@@ -87,7 +87,7 @@ export class List {
         { field: "DivisionName", title: "Divisi" },
         {
             field: "SendToVerificationDate",
-            title: "Tgl. Unit Kirim",
+            title: "Tanggal Unit Kirim",
             formatter: function(value, data, index) {
                 return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
             },
@@ -113,14 +113,14 @@ export class List {
         },
         {
             field: "VBRealizationDate",
-            title: "Tgl. Realisasi",
+            title: "Tanggal Realisasi",
             formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
             field: "SendToVerificationDate",
-            title: "Tgl. Verif Terima",
+            title: "Tanggal Verif Terima",
             formatter: function(value, data, index) {
                 return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
             },
@@ -128,7 +128,7 @@ export class List {
         { field: "VerifiedToCashierBy", title: "Nama Verifikator" },
         {
             field: "VerifiedToCashierDate",
-            title: "Tgl. Verif Kirim Kasir/Retur",
+            title: "Tanggal Verif Kirim Kasir/Retur",
             formatter: function(value, data, index) {
                 return value ? moment.utc(value).local().format('DD MMM YYYY') : data.NotVerifiedDate ? moment.utc(data.NotVerifiedDate).local().format('DD MMM YYYY') : "-";
             },
@@ -156,7 +156,7 @@ export class List {
         { field: "NotVerifiedReason", title: "Keterangan (Retur)" },
         {
             field: "CashierReceiptDate",
-            title: "Tgl. Kasir Terima",
+            title: "Tanggal Kasir Terima",
             formatter: function(value, data, index) {
                 return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
             }
