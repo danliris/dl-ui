@@ -143,8 +143,16 @@ export class Create {
 
     for (var cart of this.data.Carts) {
 
-      var cartNumberInput = "T1/" + cart.CartNumber;
-      cart.CartNumber = cartNumberInput;
+      if (cart.CartNumber) {
+        var stringNumber = cart.CartNumber.split('/');
+        var extractNumber = parseInt(stringNumber[0].replace(/\D/g, ""));
+        if (!stringNumber || stringNumber.length <=1 || stringNumber[0].charAt(0) != 'T' || !extractNumber) {
+          var cartNumberInput = "T1/" + cart.CartNumber;
+          cart.CartNumber = cartNumberInput;
+        }
+      }
+
+
     }
     this.service.create(this.data)
       .then(result => {
