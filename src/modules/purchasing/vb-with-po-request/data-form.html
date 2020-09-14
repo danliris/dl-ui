@@ -76,6 +76,13 @@
                   options.bind="controlOptions">
     </au-multiline>
 
+    <au-checkbox label="Inklaring"
+                  value.bind="data.IsInklaring"
+                  placeholder="inklaring"
+                  read-only.bind="readOnly"
+                  options.bind="controlOptions">
+    </au-checkbox>
+
     <au-textbox show.bind="error.Item"
                 error.bind="error.Item"
                 read-only="true">
