@@ -57,6 +57,31 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-dropdown
+            label="Shipment Mode"
+            value.bind="data.shipmentMode"
+            error.bind="error.shipmentMode"
+            read-only.bind="readOnly"
+            items.bind="ShipmentModeOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+        
+        <au-textbox 
+            label="Tujuan" 
+            value.bind="data.deliverTo" 
+            error.bind="error.deliverTo" 
+            read-only.bind="true"
+            options.bind="controlOptions" >
+        </au-textbox>
+        
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark" 
+            error.bind="error.remark" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions" >
+        </au-multiline>
+
         <div class="form-group has-error">
             <p if.bind="error.itemsCount" class="help-block text-center">${error.itemsCount}</p>
         </div>

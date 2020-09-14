@@ -21,6 +21,15 @@ export class items {
 
   }
 
+  get filter() {
+    var filter={
+        BuyerCode:this.data.BuyerCode,
+        Section: this.data.Section,
+        "SCGarmentId!=null":true
+    };
+    return filter;
+}
+
   activate(context) {
     this.context = context;
     this.saveAll = false;
