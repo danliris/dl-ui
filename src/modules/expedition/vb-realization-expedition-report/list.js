@@ -189,8 +189,6 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
-
-
   }
 
   loader = (info) => {
@@ -295,6 +293,4 @@ export class List {
   get unitLoader() {
     return UnitLoader;
   }
-
-
 }
