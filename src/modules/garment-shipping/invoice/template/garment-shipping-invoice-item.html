@@ -8,6 +8,7 @@
                 loader.bind="costCalLoader"
                 text.bind = "costCalView"
                 placeholder = "Cari RO"
+                query.bind="filter"
                 options.bind="length4">
         </au-autocomplete>
         </td>
@@ -41,6 +42,27 @@
         </au-multiline>
         </td>
        
+        <td>
+            <au-multiline
+            value.bind="data.desc2"
+            error.bind="error.desc2"
+            read-only.bind="readOnly ">
+        </au-multiline>
+        </td>
+        <td>
+            <au-multiline
+            value.bind="data.desc3"
+            error.bind="error.desc3"
+            read-only.bind="readOnly ">
+        </au-multiline>
+        </td>
+        <td>
+            <au-multiline
+            value.bind="data.desc4"
+            error.bind="error.desc4"
+            read-only.bind="readOnly ">
+        </au-multiline>
+        </td>
         <td>
             <au-numeric 
                 value.bind="data.quantity" 

@@ -15,7 +15,7 @@ export class View {
         let id = params.id;
         this.data = await this.service.getById(id);
         this.hasEdit=true;
-       
+       console.log(this.data)
         this.hasCancel=true;
         if(this.data.isUsed == true)
         {
