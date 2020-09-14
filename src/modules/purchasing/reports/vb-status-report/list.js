@@ -165,7 +165,10 @@ export class List {
             result.data.VBStatusByCurrencyReport.length > 0
           ) {
             this.currencies = result.data.VBStatusByCurrencyReport.map(
-              (item) => item
+              (item) => ({
+                CurrencyCode: item.CurrencyCode,
+                Total: numeral(item.Total).format("0,000.00"),
+              })
             );
           }
           return {
