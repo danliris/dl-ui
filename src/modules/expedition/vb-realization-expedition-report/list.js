@@ -40,7 +40,17 @@ export class List {
                 return value ? moment(value).format('DD/MM/YYYY') : '-';
             },
         },
-        { field: 'VerificationReceiptBy', title: 'Nama Verifikator' },
+        {
+            field: 'Position',
+            title: 'Nama Verifikator',
+            formatter: function(value, data, index) {
+                // console.log(index);
+                // console.log(data);
+                if (value >= 4 && value != 6) return data.VerifiedToCashierBy;
+                else if (value == 6) return data.NotVerifiedBy;
+                else return "Bener Kok"
+            }
+        },
         {
             field: 'VerifiedToCashierDate',
             title: 'Tanggal Kirim Kasir/Retur',
@@ -125,7 +135,17 @@ export class List {
                 return value ? moment.utc(value).local().format('DD MMM YYYY') : "-";
             },
         },
-        { field: "VerifiedToCashierBy", title: "Nama Verifikator" },
+        {
+            field: "Position",
+            title: "Nama Verifikator",
+            formatter: function(value, data, index) {
+                // console.log(index);
+                // console.log(data);
+                if (value >= 4 && value != 6) return data.VerifiedToCashierBy;
+                else if (value == 6) return data.NotVerifiedBy;
+                else return "-";
+            }
+        },
         {
             field: "VerifiedToCashierDate",
             title: "Tanggal Verif Kirim Kasir/Retur",
@@ -222,7 +242,7 @@ export class List {
         return this.flag ? (
             this.service.search(arg)
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 return {
                     data: result.data
                 };
