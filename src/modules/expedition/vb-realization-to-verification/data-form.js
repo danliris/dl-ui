@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
+import numeral from 'numeral';
 import moment from 'moment';
 import { Router } from "aurelia-router";
 
