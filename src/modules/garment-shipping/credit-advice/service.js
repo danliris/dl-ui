@@ -2,6 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/credit-advices';
 const serviceInvoiceUri = 'garment-shipping/invoices';
+const servicePackingListUri = 'garment-shipping/packing-lists';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -35,6 +36,11 @@ class Service extends RestService {
 
     getInvoiceById(id) {
         var endpoint = `${serviceInvoiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getPackingListById(id) {
+        var endpoint = `${servicePackingListUri}/${id}`;
         return super.get(endpoint);
     }
 }

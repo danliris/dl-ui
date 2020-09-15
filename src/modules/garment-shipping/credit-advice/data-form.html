@@ -21,6 +21,10 @@
                         <au-numeric label="Amount To Be Paid" value.bind="data.amountToBePaid" read-only="true"
                             options.bind="controlOptions">
                         </au-numeric>
+
+                        <au-textbox label="Payment Term" value.bind="data.paymentTerm" error.bind="error.paymentTerm"
+                            read-only="true" options.bind="controlOptions">
+                        </au-textbox>
                     </div>
                 </div>
 
@@ -29,92 +33,107 @@
                     <div class="col-sm-6">
                         <h1 class="page-header">NEGOTIATION</h1>
 
-                        <au-checkbox label="Pembayaran Dengan Valas" value.bind="data.valas" error.bind="error.valas"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-checkbox>
+                        <au-textbox label="LC No" value.bind="data.lcNo" read-only="true" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
+                        </au-textbox>
 
                         <au-dropdown label="Jenis L/C" value.bind="data.lcType" error.bind="error.lcType"
                             items.bind="lcTypeOptions" change.delegate="lcTypeChanged()" read-only.bind="readOnly"
-                            options.bind="controlOptions">
+                            options.bind="controlOptions" show.bind="data.paymentTerm == 'LC'">
                         </au-dropdown>
 
                         <au-numeric label="Inkaso" value.bind="data.inkaso" error.bind="error.inkaso"
                             read-only.bind="readOnly || data.lcType=='AT SIGHT'" options.bind="controlOptions"
-                            show.bind="data.lcType=='AT SIGHT' || data.lcType=='COLLECTION'">
+                            show.bind="data.paymentTerm == 'LC' && (data.lcType=='AT SIGHT' || data.lcType=='COLLECTION')">
                         </au-numeric>
 
                         <au-numeric label="Disconto" value.bind="data.disconto" error.bind="error.disconto"
-                            read-only.bind="readOnly" options.bind="controlOptions" show.bind="data.lcType=='USANCE'">
+                            read-only.bind="readOnly" options.bind="controlOptions" show.bind="data.lcType=='USANCE'"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-numeric>
 
                         <au-textbox label="SR. No" value.bind="data.srNo" error.bind="error.srNo" placeholder="SR. No"
-                            read-only.bind="readOnly" options.bind="controlOptions">
+                            read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-textbox>
 
-                        <au-datepicker label="Tanggal" value.bind="data.negoDate" error.bind="error.negoDate"
-                            read-only.bind="readOnly" options.bind="controlOptions">
+                        <au-datepicker label="Tgl. SR" value.bind="data.negoDate" error.bind="error.negoDate"
+                            read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
+                        </au-datepicker>
+
+                        <au-datepicker label="Tgl. Pembayaran" value.bind="data.paymentDate"
+                            error.bind="error.paymentDate" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-datepicker>
 
                         <au-dropdown label="Condition" value.bind="data.condition" error.bind="error.condition"
-                            items.bind="conditionOptions" read-only.bind="readOnly" options.bind="controlOptions">
+                            items.bind="conditionOptions" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-dropdown>
 
-                        <au-textbox label="Kurs" value="USD" read-only="true" options.bind="controlOptions">
+                        <au-textbox label="Kurs" value="USD" read-only="true" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-textbox>
 
                         <au-numeric label="Bank Commision" value.bind="data.bankComission"
-                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions">
+                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-numeric>
 
                         <au-numeric label="Discrepancy Fee / Postage" value.bind="data.discrepancyFee"
-                            error.bind="error.discrepancyFee" read-only.bind="readOnly" options.bind="controlOptions">
+                            error.bind="error.discrepancyFee" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-numeric>
 
                         <au-numeric label="Nett Nego (US$)" value.bind="data.nettNego" error.bind="error.nettNego"
                             read-only.bind="readOnly" options.bind="controlOptions">
                         </au-numeric>
 
-                        <hr />
-                        <h1 class="page-header">PAYMENT BANK TO BANK</h1>
+                        <span show.bind="data.paymentTerm == 'LC'">
+                            <hr />
+                            <h1 class="page-header">PAYMENT BANK TO BANK</h1>
 
-                        <au-datepicker label="Tanggal CA" value.bind="data.btbCADate" error.bind="error.btbCADate"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-datepicker>
+                            <au-datepicker label="Tanggal CA" value.bind="data.btbCADate" error.bind="error.btbCADate"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-datepicker>
 
-                        <au-numeric label="Amount (US$)" value.bind="data.btbAmount" error.bind="error.btbAmount"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Amount (US$)" value.bind="data.btbAmount" error.bind="error.btbAmount"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-numeric label="Ratio (%)" value.bind="data.btbRatio" error.bind="error.btbRatio"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Ratio (%)" value.bind="data.btbRatio" error.bind="error.btbRatio"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-numeric label="Rate" value.bind="data.btbRate" error.bind="error.btbRate"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Rate" value.bind="data.btbRate" error.bind="error.btbRate"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-numeric label="Transfer" value.bind="data.btbTransfer" error.bind="error.btbTransfer"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Transfer" value.bind="data.btbTransfer" error.bind="error.btbTransfer"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-numeric label="Material" value.bind="data.btbMaterial" error.bind="error.btbMaterial"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Material" value.bind="data.btbMaterial" error.bind="error.btbMaterial"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
+                        </span>
 
-                        <hr />
-                        <h1 class="page-header">TAGIHAN BANK</h1>
+                        <span show.bind="data.paymentTerm == 'LC'">
+                            <hr />
+                            <h1 class="page-header">TAGIHAN BANK</h1>
 
-                        <au-numeric label="Jumlah Hari" value.bind="data.billDays" error.bind="error.billDays"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Jumlah Hari" value.bind="data.billDays" error.bind="error.billDays"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-numeric label="Amount" value.bind="data.billAmount" error.bind="error.billAmount"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
+                            <au-numeric label="Amount" value.bind="data.billAmount" error.bind="error.billAmount"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-numeric>
 
-                        <au-textbox label="CA" value.bind="data.billCA" error.bind="error.billCA" placeholder="CA"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-textbox>
+                            <au-textbox label="CA" value.bind="data.billCA" error.bind="error.billCA" placeholder="CA"
+                                read-only.bind="readOnly" options.bind="controlOptions">
+                            </au-textbox>
+                        </span>
                     </div>
 
                     <div class="col-sm-6">
@@ -144,50 +163,22 @@
                         <h1 class="page-header">BANK CHARGE</h1>
 
                         <au-numeric label="Credit Interest" value.bind="data.creditInterest"
-                            error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions">
+                            error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-numeric>
 
-                        <au-numeric label="Bank Charges" value.bind="data.bankCharges" error.bind="error.bankCharges"
+                        <au-numeric label="Bank Charge" value.bind="data.bankCharges" error.bind="error.bankCharges"
                             read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Other Charge" value.bind="data.otherCharge" error.bind="error.otherCharge"
+                            read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'TT/OA'">
                         </au-numeric>
 
                         <au-datepicker label="Document Presente" value.bind="data.documentPresente"
-                            error.bind="error.documentPresente" read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-datepicker>
-
-                        <hr />
-                        <h1 class="page-header">POLIS</h1>
-
-                        <au-textbox label="No. Polis Kargo" value.bind="data.cargoPolicyNo"
-                            error.bind="error.cargoPolicyNo" placeholder="No. Polis Kargo" read-only.bind="readOnly"
-                            options.bind="controlOptions">
-                        </au-textbox>
-
-                        <au-datepicker label="Tgl Polis Kargo" value.bind="data.cargoPolicyDate"
-                            error.bind="error.cargoPolicyDate" read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-datepicker>
-
-                        <au-numeric label="Nilai Polis Kargo" value.bind="data.cargoPolicyValue"
-                            error.bind="error.cargoPolicyValue" read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-numeric>
-
-                        <au-textbox label="No. Polis Piutang" value.bind="data.accountsReceivablePolicyNo"
-                            error.bind="error.accountsReceivablePolicyNo" placeholder="No. Polis Piutang"
-                            read-only.bind="readOnly" options.bind="controlOptions">
-                        </au-textbox>
-
-                        <au-datepicker label="Tgl polis Piutang" value.bind="data.accountsReceivablePolicyDate"
-                            error.bind="error.accountsReceivablePolicyDate" read-only.bind="readOnly"
-                            options.bind="controlOptions">
-                        </au-datepicker>
-
-                        <au-numeric label="Nilai polis Piutang" value.bind="data.accountsReceivablePolicyValue"
-                            error.bind="error.accountsReceivablePolicyValue" read-only.bind="readOnly"
-                            options.bind="controlOptions">
-                        </au-numeric>
-
-                        <au-datepicker label="Tgl kirim/upload dokumen" value.bind="data.documentSendDate"
-                            error.bind="error.documentSendDate" read-only.bind="readOnly" options.bind="controlOptions">
+                            error.bind="error.documentPresente" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
                         </au-datepicker>
 
                         <hr />
@@ -196,6 +187,10 @@
                         <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
                             placeholder="Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-multiline>
+
+                        <au-datepicker label="Tgl kirim/upload dokumen" value.bind="data.documentSendDate"
+                            error.bind="error.documentSendDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-datepicker>
                     </div>
                 </div>
                 <hr />
