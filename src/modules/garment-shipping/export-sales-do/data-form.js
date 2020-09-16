@@ -90,7 +90,7 @@ export class DataForm {
      };
     }
 
-    selectedInvoiceNoChanged(newValue){
+    async selectedInvoiceNoChanged(newValue){
         if(this.data.id) return;
 
         this.data.invoiceNo=null;
@@ -100,6 +100,10 @@ export class DataForm {
             this.data.invoiceNo=newValue.invoiceNo;
             this.data.packingListId=newValue.id;
             this.data.buyerAgent=newValue.buyerAgent;
+            var coverLetter=await this.service.getCoverLetterByInvoice({ filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo})});
+            if(coverLetter.data.length>0){
+                this.data.deliverTo= coverLetter.data[0].destination;
+            }
         }
     }
 }

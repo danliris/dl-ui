@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/export-sales-dos';
+const serviceUriCoverLetter = 'garment-shipping/cover-letters';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -15,6 +16,11 @@ class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    getCoverLetterByInvoice(info) {
+        var endpoint = `${serviceUriCoverLetter}`;
+        return super.list(endpoint, info);
     }
 
     create(data) {
