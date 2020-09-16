@@ -2,6 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/cover-letters';
 const packingListServiceUri = 'garment-shipping/packing-lists';
+const serviceUriShippingInstruction = 'garment-shipping/shipping-instructions';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -16,6 +17,11 @@ class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    searchShippingInstruction(info) {
+        var endpoint = `${serviceUriShippingInstruction}`;
+        return super.list(endpoint, info);
     }
 
     create(data) {

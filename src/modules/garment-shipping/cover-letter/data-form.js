@@ -69,7 +69,7 @@ export class DataForm {
         this.selectedEMKL=this.data.emkl;
     }
 
-    selectedShippingInvoiceChanged(newValue, oldValue) {
+    async selectedShippingInvoiceChanged(newValue, oldValue) {
         var forwarderName = "";
         if (newValue) {
             this.data.packingListId = newValue.packingListId;
@@ -87,12 +87,24 @@ export class DataForm {
                         this.data.exportEstimationDate = packingList.exportEstimationDate;
                     });
             }
+            if(!this.data.id){
+                var si= await this.service.searchShippingInstruction({ filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo})});
+                console.log(si)
+                if(si.data.length>0){
+                    this.data.forwarder= si.data[0].forwarder;
+                }
+                else{
+                    this.data.forwarder=null;
+                }
+            }
+            
         } else {
             this.data.packingListId = 0;
             this.data.invoiceId = 0;
             this.data.invoiceNo = null;
             this.data.shippingStaff = null;
             this.data.order = null;
+            this.data.forwarder=null;
             this.data.exportEstimationDate = null;
  
         }
