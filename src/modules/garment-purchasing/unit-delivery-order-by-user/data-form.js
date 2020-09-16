@@ -500,7 +500,7 @@ export class DataForm {
         return (keyword) => {
             var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
             if(this.isRemain || this.isSample){
-                filter= JSON.stringify({});
+                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
             }
             var info = {
               keyword: keyword,
