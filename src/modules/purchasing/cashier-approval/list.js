@@ -26,7 +26,7 @@ export class List {
             }
         },
         {
-            field: "ApprovedDate",
+            field: "ApprovalDate",
             title: "Tanggal Approval",
             formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
