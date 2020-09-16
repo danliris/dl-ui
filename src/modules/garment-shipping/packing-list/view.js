@@ -22,7 +22,7 @@ export class View {
             }
         }
         if(this.data.isUsed){
-            this.editCallback=null;
+            // this.editCallback=null;
             this.deleteCallback=null;
         }
 
