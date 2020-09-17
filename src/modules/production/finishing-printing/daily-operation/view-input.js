@@ -16,7 +16,6 @@ export class ViewInput {
         this.machine = this.data.Machine;
         this.step = this.data.Step;
         this.kanban = this.data.Kanban;
-        console.log(this.data)
         if (this.data.DateOutput == null)
             delete this.data.DateOutput;
 
@@ -32,9 +31,9 @@ export class ViewInput {
         this.router.navigateToRoute('edit-input', { id: this.data.Id });
     }
 
-    createOutput(){
-    this.router.navigateToRoute('create-output', { id: this.data.Id });
-  }
+    createOutput() {
+        this.router.navigateToRoute('create-output', { id: this.data.Id });
+    }
 
 
     // editOutput() {
