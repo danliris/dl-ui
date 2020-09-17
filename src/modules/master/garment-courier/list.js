@@ -1,22 +1,16 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-
-    context = ["Detail", "Cetak"]
-
+    context = ["Detail"];
     columns = [
-        { field: "noteNo", title: "No Credit Note" },
-        {
-            field: "date", title: "Tgl Credit Note", formatter: function (value) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "buyerCode", title: "Buyer" },
-        { field: "totalAmount", title: "Amount" },
+        { field: "Code", title: "Kode", width: "10%"},
+        { field: "Name", title: "Nama", width: "20%"},
+        { field: "Address", title: "Alamat", width: "35%"},
+        { field: "Attention", title: "Attention", width: "20%"},
+        { field: "PhoneNumber", title: "No Telepon", width: "15%"},
     ];
 
     loader = (info) => {
@@ -28,16 +22,12 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
+            select: ["Code", "Name", "Address", "Attention", "PhoneNumber"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
-                for (const data of result.data) {
-                    data.buyer = data.buyer || {};
-                    data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
-                }
-
                 return {
                     total: result.info.total,
                     data: result.data
@@ -50,15 +40,12 @@ export class List {
         this.router = router;
     }
 
-    contextClickCallback(event) {
+    contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
             case "Detail":
-                this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "Cetak":
-                this.service.getPdfById(data.id);
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }
@@ -66,4 +53,9 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    upload() {
+        this.router.navigateToRoute('upload');
+    }
+
 }
