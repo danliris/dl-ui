@@ -52,7 +52,8 @@
         </au-collection>
 
         <div class="btn-group pull-right">
-            <button class="btn btn-danger" click.delegate="rejectCallback($event)" if.one-way="isCreate">Reject</button>
+            <button class="btn btn-success" click.delegate="sendToCashierCallback($event)" if.one-way="isRejected">Kirim ke Kasir</button>
+            <button class="btn btn-danger" click.delegate="rejectCallback($event)" if.one-way="isCreate || isVerified">Reject</button>
         </div>
 
     </au-input-form>
