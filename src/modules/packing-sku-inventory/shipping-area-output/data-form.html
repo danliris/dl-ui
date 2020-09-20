@@ -56,17 +56,18 @@
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
 
-    <au-textbox if.bind="!isAdj" show.bind="isPenjualan" options.bind="controlOptions"
-      value.bind="data.shippingCode" error.bind="error.ShippingCode" label="Kode" read-only.bind="readOnly || isEdit">
+    <au-textbox if.bind="!isAdj" show.bind="isPenjualan" options.bind="controlOptions" value.bind="data.shippingCode"
+      error.bind="error.ShippingCode" label="Kode" read-only.bind="readOnly || isEdit">
     </au-textbox>
 
     <au-textbox if.bind="!isAdj" show.bind="isSales && readOnly && data.bonNo" options.bind="controlOptions"
       value.bind="data.bonNo" label="Nomor Bon" read-only.bind="true">
     </au-textbox>
 
-    <au-autocomplete if.bind="!isAdj" show.bind="isSales" options.bind="controlOptions" value.bind="selectedDO"
-      label="Nomor DO" read-only.bind="readOnly || isEdit" error.bind="error.DeliveryOrder" query.bind="doSalesQuery"
-      loader.bind="doSalesLoader" text.bind="doTextFormatter">
+    <au-autocomplete if.bind="!isAdj" show.bind="isSales && destinationArea == 'PENJUALAN'"
+      options.bind="controlOptions" value.bind="selectedDO" label="Nomor DO" read-only.bind="readOnly || isEdit"
+      error.bind="error.DeliveryOrder" query.bind="doSalesQuery" loader.bind="doSalesLoader"
+      text.bind="doTextFormatter">
     </au-autocomplete>
 
     <au-autocomplete if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" value.bind="selectedShipping"
@@ -77,6 +78,11 @@
     <au-textbox if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" value.bind="data.deliveryOrder.no"
       label="Nomor DO" read-only.bind="true" error.bind="error.DeliveryOrder">
     </au-textbox>
+
+    <au-autocomplete if.bind="!isAdj" show.bind="isSales && destinationArea != 'PENJUALAN'" options.bind="controlOptions" value.bind="selectedFilterSPP"
+      label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly"
+      error.bind="error.ProductionOrder" loader.bind="filterSPPLoader" text.bind="sppTextFormatter">
+    </au-autocomplete>
 
     <div if.bind="!isAdj">
       <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true"

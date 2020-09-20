@@ -3,6 +3,7 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { VBRealizationService } from './vb-realization-service';
 import { Dialog } from '../../../au-components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 
 @inject(Router, Service, Dialog, VBRealizationService)
 export class View {
@@ -18,7 +19,7 @@ export class View {
         let id = params.id;
         this.data.vbRealization = await this.vbRealizationService.getById(id);
 
-        
+
 
         // if (this.data.Status == "POSTED") {
         //     this.hasPosting = false;
@@ -65,4 +66,65 @@ export class View {
     //             }
     //         });
     // }
+
+    sendToCashierCallback(event) {
+
+        if (this.data.vbRealization.Header.Id)
+            this.service
+            .verified(this.data.vbRealization.Header.Id)
+            .then(result => {
+                alert("Data berhasil diubah");
+                this.list();
+            })
+            .catch(e => {
+                this.error = e;
+            });
+        else {
+            this.error = {
+                vbRealization: "ID Realisasi VB tidak dapat ditemukan"
+            }
+        }
+    }
+
+    rejectCallback(event) {
+        // this.service
+        //   .reject(this.data)
+        //   .then(result => {
+        //     alert("Data berhasil dibuat");
+        //     this.router.navigateToRoute(
+        //       "create",
+        //       {},
+        //       { replace: true, trigger: true }
+        //     );
+        //   })
+        //   .catch(e => {
+        //     this.error = e;
+        //   });
+
+        if (this.data.vbRealization && this.data.vbRealization.Header.Id) {
+            this.dialog.show(AlertView)
+                .then((response) => {
+
+                    if (!response.wasCancelled) {
+                        var body = {
+                            Reason: response.output.Remark
+                        }
+
+                        this.service
+                            .reject(this.data.vbRealization.Header.Id, body)
+                            .then(result => {
+                                alert("Data berhasil diubah");
+                                this.list();
+                            })
+                            .catch(e => {
+                                this.error = e;
+                            });
+                    }
+                });
+        } else {
+            this.error = {
+                vbRealization: "Data atau ID Realisasi VB tidak dapat ditemukan"
+            }
+        }
+    }
 }

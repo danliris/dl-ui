@@ -16,6 +16,7 @@ export class BadOutputItem {
         this.options = context.options;
         this.badOutputReason = this.data.BadOutput;
         this.filter = context.context.options.reason;
+        console.log(this.filter);
         // this.machineFilter=context.context.options.machineCode;
         this.machine = this.data.Machine;
         // this.data.precentage = this.error && this.error.length ? this.data.length : this.data.precentage;

@@ -28,6 +28,7 @@
 
     <au-datepicker label="Tanggal"
                    value.bind="data.Date"
+                   show.bind="isVisible"
                    error.bind="error.Date"
                    read-only.bind="readOnly || isEdit"
                    options.bind="controlOptions">
@@ -74,6 +75,13 @@
                   read-only.bind="readOnly"
                   options.bind="controlOptions">
     </au-multiline>
+
+    <au-checkbox label="Inklaring"
+                  value.bind="data.IsInklaring"
+                  placeholder="inklaring"
+                  read-only.bind="readOnly"
+                  options.bind="controlOptions">
+    </au-checkbox>
 
     <au-textbox show.bind="error.Item"
                 error.bind="error.Item"

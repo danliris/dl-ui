@@ -9,33 +9,44 @@ import VBNonPORequestService from '../shared/vb-non-po-request-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
 import { PO, NONPO } from '../shared/permission-constants';
 
+import { AlertView } from './custom-dialog-view/alert-view';
+
 @inject(Router, Service, VBWithPORequestService, VBNonPORequestService, Dialog, PermissionHelper)
 export class List {
     // context = ['Hapus'];
 
-    columns = [
-        {
-            field: "toBeCancelled", title: "toBeCancelled Checkbox", checkbox: true, sortable: false,
-            formatter: function (value, data, index) {
+    columns = [{
+            field: "toBeCancelled",
+            title: "toBeCancelled Checkbox",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
                 this.checkboxEnabled = !data.IsRealized;
                 return ""
             }
         },
         {
-            field: "ApprovedDate", title: "Tanggal Approval", formatter: function (value, data, index) {
+            field: "ApprovalDate",
+            title: "Tanggal Approval",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         { field: "DocumentNo", title: "No VB" },
         {
-            field: "Date", title: "Tgl VB", formatter: function (value, data, index) {
+            field: "Date",
+            title: "Tgl VB",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
-            field: "Amount", title: "VB Uang", formatter: function (value, data, index) {
+            field: "Amount",
+            title: "VB Uang",
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: "right"
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreatedBy", title: "Pemohon" },
@@ -107,7 +118,7 @@ export class List {
             order: order,
             filter: JSON.stringify({
                 Type: type,
-                IsApproved: true
+                ApprovalStatus: 2
             }),
         };
 
@@ -125,22 +136,31 @@ export class List {
     }
 
     cancel() {
-        var items = this.selectedItems.map(s => s.Id);
-        var data = {};
-        data.IsApproved = false;
-        data.Ids = items;
-        this.service.approval(data)
-            .then(result => {
-                alert("Data berhasil disimpan");
-                this.error = {};
-                this.tableList.refresh();
-                this.selectedItems = [];
+        this.dialog.show(AlertView)
+            .then((response) => {
+                console.log(response)
+                var items = this.selectedItems.map(s => s.Id);
+                var data = {};
+                data.IsApproved = false;
+                data.Ids = items;
+                data.Reason = response.output.Remark;
+                this.service.cancellation(data)
+                    .then(result => {
+                        alert("Data berhasil disimpan");
+                        this.error = {};
+                        this.tableList.refresh();
+                        this.selectedItems = [];
+                    })
+                    .catch(e => {
+                        if (e.message) {
+                            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                        }
+                        this.error = e;
+                    });
             })
             .catch(e => {
-                if (e.message) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                }
                 this.error = e;
-            });
+            })
+
     }
-}   
+}

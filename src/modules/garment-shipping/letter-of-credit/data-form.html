@@ -100,7 +100,45 @@
                     options.bind="controlOptions">
                 </au-numeric>
 
+                <au-collection 
+                    title="Amend"
+                    columns.bind="amendColumns" 
+                    items.bind="amendLCData" 
+                    show.bind="readOnly"
+                    read-only.bind="true">
+                </au-collection>
 
+                <au-numeric 
+                    label="Amount Akhir" 
+                    value.bind="finalAmount" 
+                    show.bind="readOnly"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                <au-collection 
+                    title="Invoice"
+                    columns.bind="invoiceColumns" 
+                    items.bind="invoiceData" 
+                    show.bind="readOnly"
+                    read-only.bind="true">
+                </au-collection>
+
+                <au-numeric 
+                    label="Total Invoice" 
+                    value.bind="totalInvoice" 
+                    show.bind="readOnly"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                <au-numeric 
+                    label="Amount Akhir" 
+                    value.bind="finalAmountInvoice" 
+                    show.bind="readOnly"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-numeric>
 
             </au-input-form>
         </div>

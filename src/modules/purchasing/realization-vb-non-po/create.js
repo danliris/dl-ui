@@ -1,7 +1,7 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service } from './service';
-import { activationStrategy } from 'aurelia-router';
+import { inject, Lazy } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
@@ -22,12 +22,14 @@ export class Create {
 
     bind(params) {
         this.data = {};
+        this.data.Date = new Date();
+        this.data.Date.setHours(0, 0, 0, 0);
         this.error = {};
     }
 
     cancel(event) {
         this.data = {};
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute("list");
     }
 
     determineActivationStrategy() {
@@ -37,12 +39,15 @@ export class Create {
     }
 
     save(event) {
-        this.service.create(this.data)
-            .then(result => {
+        this.service
+            .create(this.data)
+            .then((result) => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute(
+                    "create", {}, { replace: true, trigger: true }
+                );
             })
-            .catch(e => {
+            .catch((e) => {
                 this.error = e;
             });
     }

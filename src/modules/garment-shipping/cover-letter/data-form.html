@@ -15,8 +15,8 @@
                         </au-datepicker>
 
                         <au-autocomplete 
-                            label="EMKL" 
-                            placeholder="Pilih EMKL"
+                            label="Trucking" 
+                            placeholder="Pilih Trucking"
                             value.bind="selectedEMKL" 
                             error.bind="error.EMKL" 
                             loader.bind="emklLoader"
@@ -26,20 +26,28 @@
                             view-model.ref="EmklViewModel">
                         </au-autocomplete>
 
-                        <au-textbox label="Nama" value.bind="data.emkl.name || ''" error.bind="error.name" placeholder="Nama"
+                        <!-- <au-textbox label="Nama Trucking" value.bind="data.emkl.name || ''" error.bind="error.name" placeholder="Nama Trucking"
                             read-only.bind="true" options.bind="controlOptions">
-                        </au-textbox>
+                        </au-textbox> -->
 
-                        <au-multiline label="Alamat" value.bind="data.emkl.address || ''" error.bind="error.address"
-                            placeholder="Alamat" read-only.bind="true" options.bind="controlOptions">
+                        <au-multiline label="Tujuan" value.bind="data.destination" error.bind="error.address"
+                            placeholder="Tujuan" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-multiline>
 
-                        <au-textbox label="ATTN" value.bind="data.emkl.attn || ''" error.bind="error.attn" placeholder="ATTN"
-                            read-only.bind="true" options.bind="controlOptions">
+                        <au-multiline label="Alamat" value.bind="data.address" error.bind="error.address"
+                            placeholder="Alamat" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-multiline>
+
+                        <au-multiline label="PIC" value.bind="data.pic" error.bind="error.pic"
+                            placeholder="PIC" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-multiline>
+
+                        <au-textbox label="ATTN" value.bind="data.attn" error.bind="error.attn" placeholder="ATTN"
+                            read-only.bind="readOnly" options.bind="controlOptions">
                         </au-textbox>
 
-                        <au-textbox label="Telp" value.bind="data.emkl.phone||''" error.bind="error.phone" placeholder="Telepon"
-                            read-only.bind="true" options.bind="controlOptions">
+                        <au-textbox label="Telp" value.bind="data.phone" error.bind="error.phone" placeholder="Telepon"
+                            read-only.bind="readOnly" options.bind="controlOptions">
                         </au-textbox>
 
                         <au-datepicker label="Tgl Booking Shipment" value.bind="data.bookingDate"

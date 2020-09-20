@@ -51,6 +51,9 @@ export class DataForm {
         this.isCreate = this.context.isCreate;
 
         if (this.data.vbRealization) {
+            this.isVerified = (this.data.vbRealization.Header.Position == 4) ? true : false;
+            this.isRejected = (this.data.vbRealization.Header.Position == 6) ? true : false;
+
             this.selectedVBRealization = this.data.vbRealization.Header
             this.vbHeaderOptions = {
                 vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount,
@@ -125,7 +128,7 @@ export class DataForm {
                     "Total"
                 ];
             }
-            
+
             this.vbHeaderOptions = {
                 vbRequestDocumentAmount: this.data.vbRealization.Header.VBRequestDocumentAmount,
                 vbType: this.data.vbRealization.Header.Type

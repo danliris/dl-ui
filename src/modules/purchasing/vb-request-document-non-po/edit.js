@@ -5,32 +5,34 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
-  constructor(router, service) {
-    this.router = router;
-    this.service = service;
-  }
+    constructor(router, service) {
+        this.router = router;
+        this.service = service;
+    }
 
-  async activate(params) {
-    let id = params.id;
-    this.data = await this.service.getById(id);
-  }
+    isVisible = true;
 
-  cancelCallback(event) {
-    this.router.navigateToRoute('view', { id: this.data.Id });
-  }
+    async activate(params) {
+        let id = params.id;
+        this.data = await this.service.getById(id);
+    }
 
-  saveCallback(event) {
-
-    this.service.update(this.data)
-      .then(result => {
+    cancelCallback(event) {
         this.router.navigateToRoute('view', { id: this.data.Id });
-      })
-      .catch(e => {
-        if (e.message) {
-          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-        }
-        this.error = e;
-      });
+    }
 
-  }
+    saveCallback(event) {
+
+        this.service.update(this.data)
+            .then(result => {
+                this.router.navigateToRoute('view', { id: this.data.Id });
+            })
+            .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                this.error = e;
+            });
+
+    }
 }

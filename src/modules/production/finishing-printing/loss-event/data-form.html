@@ -5,9 +5,9 @@
             error.bind="error.ProcessType" loader.bind="processTypeLoader" text="Name" options.bind="controlOptions">
         </au-autocomplete> -->
 
-        <au-textbox value.bind="data.ProcessArea" label="Area" read-only.bind="readOnly" error.bind="error.ProcessArea"
-            options.bind="controlOptions">
-        </au-textbox>
+        <au-dropdown value.bind="data.ProcessArea" items.bind="areaOptions" label="Area" read-only.bind="readOnly"
+            error.bind="error.ProcessArea" options.bind="controlOptions">
+        </au-dropdown>
 
         <au-textbox value.bind="data.Losses" label="Losses" read-only.bind="readOnly" error.bind="error.Losses"
             options.bind="controlOptions">

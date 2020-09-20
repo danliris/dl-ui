@@ -75,6 +75,16 @@ export class DataForm {
             this.data.amount = newValue.totalAmount;
             this.data.amountToBePaid = newValue.amountToBePaid;
 
+            if (this.data.packingListId) {
+                this.service.getPackingListById(this.data.packingListId)
+                    .then(packingListData => {
+                        this.data.paymentTerm = packingListData.paymentTerm;
+                        if (this.data.paymentTerm == "LC") {
+                            this.data.lcNo = packingListData.lcNo;
+                        }
+                    });
+            }
+
             this.data.buyer = newValue.buyerAgent || {};
             if (this.data.buyer.id) {
                 this.coreService.getBuyerById(this.data.buyer.id)

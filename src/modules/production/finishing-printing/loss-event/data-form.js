@@ -20,7 +20,7 @@ export class DataForm {
             length: 4,
         },
     };
-
+    areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
     constructor(service) {
         this.service = service;
     }

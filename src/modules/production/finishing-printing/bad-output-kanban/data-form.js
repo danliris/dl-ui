@@ -394,24 +394,53 @@ export class DataForm {
             this.currentReprocess = undefined;
             this.data.reprocessStatus = false;
 
-            var reprocessString = this.cartNumber.split('/ ')[0];
-            var originalCartNumber = this.cartNumber.split('/ ').slice(1).join('/ ');
+            var reprocessString = this.cartNumber.split('/')[0];
+            var originalCartNumber = this.cartNumber.split('/').slice(1).join('/');
             var extractNumber = null;
             var reprocessCartNumber = "";
             if (this.data.IsReprocess && reprocessString && reprocessString.charAt(0) == 'R') {
                 extractNumber = parseInt(reprocessString.replace(/\D/g, ""));
                 if (extractNumber) {
-                    reprocessCartNumber = `R${extractNumber + 1}/ ${originalCartNumber}`
+                    var badOutputNumber = originalCartNumber.replace("/", " ");
+                    reprocessCartNumber = `R${extractNumber + 1}/${badOutputNumber}`
                 } else {
-                    reprocessCartNumber = `R1/ ${this.cartNumber}`
+                    var badOutputNumber = this.cartNumber.replace("/", " ");
+                    reprocessCartNumber = `R1/${badOutputNumber}`
                 }
             } else {
-                reprocessCartNumber = `R1/ ${this.cartNumber}`
+                var badOutputNumber = this.cartNumber.replace("/", " ");
+                reprocessCartNumber = `R1/${badOutputNumber}`
             }
+
+            // var badOutputString = this.cartNumber.split('/')[0];
+            // var originalbadOutputCartNumber = this.cartNumber.split('/').slice(1).join('/');
+            // var extractbadOutputNumber = null;
+            // var badOutputCartNumber = "";
+            // if (badOutputString && badOutputString.charAt(0) == 'T') {
+            //     extractbadOutputNumber = parseInt(badOutputString.replace(/\D/g, ""));
+            //     if (extractbadOutputNumber) {
+            //         badOutputCartNumber = `T${extractbadOutputNumber + 1}/${originalbadOutputCartNumber}`
+            //     } else {
+            //         badOutputCartNumber = `T1/${this.cartNumber}`
+            //     }
+            // } else {
+            //     if (badOutputString.charAt(0) == 'R') {
+            //         var badOutputArray = originalbadOutputCartNumber.split(' ');
+            //         var remainingNumber = badOutputArray.slice(1).join(' ');
+            //         var prefixNumber = parseInt(badOutputArray[0].replace(/\D/g, ""));
+            //         if (prefixNumber && badOutputArray[0].charAt(0) == 'T') {
+            //             badOutputCartNumber = `${badOutputString}/T${prefixNumber + 1} ${remainingNumber}`
+            //         } else {
+            //             badOutputCartNumber = `T1/${this.cartNumber}`;
+            //         }
+            //     } else {
+            //         badOutputCartNumber = `T1/${this.cartNumber}`;
+            //     }
+            // }
 
             if (e.detail == this.data.SEBAGIAN) {
                 // this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
-                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
+                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: this.cartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
                 this.options.reprocessSome = true;
                 this.options.reprocessStepsHide = true;
             }

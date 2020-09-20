@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-6" style="padding:0">
                 <fieldset>
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="machine"
-                        label="Mesin" 
-                        loader.bind="machineLoader" 
+                        label="Mesin"
+                        loader.bind="machineLoader"
                         text="Name"
                         read-only.bind="readOnly"
                         error.bind="error.machine"
@@ -16,15 +16,16 @@
                     </au-autocomplete> -->
 
                     <au-autocomplete value.bind="machine" label="Mesin" loader.bind="machineLoader" text="Name"
-                        read-only.bind="readOnly" error.bind="error.Machine" options.bind="auInputOptions">
+                        read-only.bind="readOnly || isCreateOutput" error.bind="error.Machine"
+                        options.bind="auInputOptions">
                     </au-autocomplete>
 
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="step"
                         error.bind="error.step"
                         label="Step / Proses"
                         read-only.bind="readOnly"
-                        loader.bind="stepLoader" 
+                        loader.bind="stepLoader"
                         text="process"
                         query.bind="isFilterStep"
                         options.bind="auInputOptions"
@@ -35,16 +36,17 @@
                     </au-autocomplete> -->
 
                     <au-autocomplete value.bind="step" error.bind="error.Step" label="Step / Proses"
-                        read-only.bind="readOnly" loader.bind="stepLoader" text="Process" options.bind="auInputOptions"
-                        change.trigger="stepChanged(data.Step)" show.bind="hasMachine" view-model.ref="stepAU">
+                        read-only.bind="readOnly || isCreateOutput" loader.bind="stepLoader" text="Process"
+                        options.bind="auInputOptions" change.trigger="stepChanged(data.Step)" show.bind="hasMachine"
+                        view-model.ref="stepAU">
                     </au-autocomplete>
 
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="kanban"
                         error.bind="error.Kanban"
-                        label="Nomor Order Produksi - Kereta" 
+                        label="Nomor Order Produksi - Kereta"
                         read-only.bind="readOnly"
-                        loader.bind="kanbanLoader" 
+                        loader.bind="kanbanLoader"
                         text.bind="kanbanView"
                         change.delegate="kanbanChanged(data.kanban)"
                         query.bind="isFilterKanban"
@@ -56,7 +58,7 @@
                     </au-autocomplete> -->
 
                     <au-autocomplete value.bind="kanban" error.bind="error.Kanban" label="Nomor Order Produksi - Kereta"
-                        read-only.bind="readOnly" loader.bind="kanbanLoader" text.bind="kanbanView"
+                        read-only.bind="readOnly || isCreateOutput" loader.bind="kanbanLoader" text.bind="kanbanView"
                         query.bind="isFilterKanban" options.bind="auInputOptions" show.bind="hasStep"
                         select.bind="selectKanban" view-model.ref="kanbanAU">
                     </au-autocomplete>

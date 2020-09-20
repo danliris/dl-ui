@@ -12,7 +12,6 @@ export class DataForm {
         this.service = service;
         this.coreService=coreService;
     }
-
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedForwarder;
@@ -44,14 +43,19 @@ export class DataForm {
     invoiceView = (data) => {
         return `${data.invoiceNo}`;
     }
-
+    
+    
     ShipOptions=["BY SEA", "BY AIR", "BY SEA - AIR"];
     bind(context) {
         this.context = context;
+        console.log(context.data);
         this.data = context.data;
         this.error = context.error;
 
         if(this.data.id){
+            if(this.data.forwarder){
+                this.data.forwarder.attn=this.data.attn;
+            }
             this.selectedForwarder=this.data.forwarder;
             this.selectedInvoice={
                 invoiceNo: this.data.invoiceNo
@@ -61,22 +65,26 @@ export class DataForm {
     }
 
     selectedForwarderChanged(newValue){
-        this.data.forwarder=null;
-        if(newValue){
+        this.data.forwarder=null;    
+        var _attnName = "";
+        //console.log(newValue);
+        if(newValue){            
             this.data.forwarder={
                 id: newValue.Id || newValue.id,
                 code:newValue.Code || newValue.code,
                 name:newValue.Name || newValue.name,
-                attn: newValue.Attention || newValue.attn,
+                //attn: newValue.Attention || newValue.attn,
                 address: newValue.Address || newValue.address,
                 phone: newValue.PhoneNumber ||newValue.phone,
-                fax: newValue.FaxNumber || newValue.fax
-            };
-            this.data.attn=newValue.Attention;
+                fax: newValue.FaxNumber || newValue.fax,   
+            };                           
             this.data.fax=newValue.FaxNumber;
-        }
+            this.data.attn=newValue.Attention || newValue.attn;
+        }  
+        // _attnName = newValue.attn;   
+        // this.data.attn = _attnName;
     }
-    
+
     selectedInvoiceChanged(newValue){
         if(this.data.id) return;
         if(newValue){
@@ -88,6 +96,7 @@ export class DataForm {
             this.data.shippingStaffName=newValue.shippingStaff;
             this.data.shippingStaffId=newValue.shippingStaffId;
             this.data.buyerAgentAddress=newValue.consigneeAddress;
+            
             this.service.searchPackingList({filter : JSON.stringify({ InvoiceNo: this.data.invoiceNo })})
             .then(result=>{
                 var pl= result.data[0];
