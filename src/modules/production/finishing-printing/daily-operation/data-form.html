@@ -16,7 +16,8 @@
                     </au-autocomplete> -->
 
                     <au-autocomplete value.bind="machine" label="Mesin" loader.bind="machineLoader" text="Name"
-                        read-only.bind="readOnly || isCreateOutput" error.bind="error.Machine" options.bind="auInputOptions">
+                        read-only.bind="readOnly || isCreateOutput" error.bind="error.Machine"
+                        options.bind="auInputOptions">
                     </au-autocomplete>
 
                     <!-- <au-autocomplete
@@ -35,8 +36,9 @@
                     </au-autocomplete> -->
 
                     <au-autocomplete value.bind="step" error.bind="error.Step" label="Step / Proses"
-                        read-only.bind="readOnly || isCreateOutput" loader.bind="stepLoader" text="Process" options.bind="auInputOptions"
-                        change.trigger="stepChanged(data.Step)" show.bind="hasMachine" view-model.ref="stepAU">
+                        read-only.bind="readOnly || isCreateOutput" loader.bind="stepLoader" text="Process"
+                        options.bind="auInputOptions" change.trigger="stepChanged(data.Step)" show.bind="hasMachine"
+                        view-model.ref="stepAU">
                     </au-autocomplete>
 
                     <!-- <au-autocomplete

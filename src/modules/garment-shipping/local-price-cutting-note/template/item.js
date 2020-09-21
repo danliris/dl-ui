@@ -41,10 +41,20 @@ export class Item {
             this.data.salesNoteNo = newValue.noteNo;
             this.service.getSalesNoteById(newValue.id)
                 .then(sn => {
-                    this.data.salesAmount = sn.items.reduce((acc, cur) => acc += cur.price * cur.quantity, 0);
+                    this.service.searchReturnNoteItem({ filter: JSON.stringify({ SalesNoteId: this.data.salesNoteId }) })
+                        .then(rniResult => {
+                            let totalAmount = 0;
+                            for (const item of rniResult.data) {
+                                const salesNoteItem = sn.items.find(i => i.id == item.salesNoteItemId);
+                                totalAmount += (item.returnQuantity * salesNoteItem.price);
+                            }
+                            this.data.salesAmount = sn.items.reduce((acc, cur) => acc += cur.price * cur.quantity, 0) - totalAmount;
+                        });
                 });
         } else {
-
+            delete this.data.salesNoteId;
+            delete this.data.salesNoteNo;
+            this.data.salesAmount = 0;
         }
     }
 }
