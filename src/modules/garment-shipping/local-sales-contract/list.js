@@ -37,6 +37,8 @@ export class List {
                 for (const data of result.data) {
                     data.buyer = data.buyer || {};
                     data.buyerName = `${data.buyer.code} - ${data.buyer.name}`;
+                    data.transactionType = data.transactionType || {};
+                    data.transactionTypeCode = `${data.transactionType.code}`;
                 }
 
                 return {
