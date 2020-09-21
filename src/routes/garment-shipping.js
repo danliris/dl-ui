@@ -352,6 +352,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/local-sales-contract",
+        name: "garment-shipping/local-sales-contract",
+        moduleId: "modules/garment-shipping/local-sales-contract/index",
+        nav: true,
+        title: "Sales Contract (Lokal)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/local-sales-note",
         name: "garment-shipping/local-sales-note",
         moduleId: "modules/garment-shipping/local-sales-note/index",
