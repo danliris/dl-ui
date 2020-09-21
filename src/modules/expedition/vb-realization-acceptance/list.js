@@ -9,7 +9,7 @@ import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constant
 
 @inject(Router, Service, Dialog, PermissionHelper)
 export class List {
-    context = ['Hapus'];
+    // context = ['Hapus'];
 
     columns = [{
             field: 'SendToVerificationDate',
@@ -142,24 +142,24 @@ export class List {
             });
     }
 
-    contextClickCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
+    // contextClickCallback(event) {
+    //     let arg = event.detail;
+    //     let data = arg.data;
 
-        switch (arg.name) {
-            case 'Hapus':
-                this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Pembelian')
-                    .then(response => {
-                        if (response.ok) {
-                            this.service.delete(data)
-                                .then(result => {
-                                    this.tableList.refresh();
-                                });
-                        }
-                    });
-                break;
-        }
-    }
+    //     switch (arg.name) {
+    //         case 'Hapus':
+    //             this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Pembelian')
+    //                 .then(response => {
+    //                     if (response.ok) {
+    //                         this.service.delete(data)
+    //                             .then(result => {
+    //                                 this.tableList.refresh();
+    //                             });
+    //                     }
+    //                 });
+    //             break;
+    //     }
+    // }
 
     create() {
         this.router.navigateToRoute('create');
