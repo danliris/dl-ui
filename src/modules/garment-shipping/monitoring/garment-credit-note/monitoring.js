@@ -51,7 +51,7 @@ export class List {
                             buyerCode : data.buyerCode,
                             buyerName : data.buyerName,
                             cnNo : data.cnNo,
-                            cnDate : moment(data.cnDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.ConfirmDate).format("DD MMM YYYY"),                 
+                            cnDate : moment(data.cnDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.cnDate).format("DD MMM YYYY"),                 
                             description : data.description,
                             currencyCode : data.currencyCode,                            
                             amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
