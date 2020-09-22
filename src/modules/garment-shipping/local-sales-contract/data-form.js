@@ -68,7 +68,6 @@ export class DataForm {
 
         if (this.data && this.data.transactionType) {
             this.items.options.transactionTypeId = this.data.transactionType.id;
-            this.selectedTransactionType=this.data.transactionType;
         }
         if(!this.data.sellerAddress || this.data.sellerAddress==""){
             this.data.sellerAddress="PT DANLIRIS (DIVISI GARMENT) - Kawasan Berikat \nKELURAHAN BANARAN, KECAMATAN GROGOL, SUKOHARJO";

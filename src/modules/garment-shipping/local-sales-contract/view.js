@@ -13,6 +13,11 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data.isUsed){
+            this.deleteCallback=null;
+            this.editCallback=null;
+        }
+        this.selectedTransactionType=this.data.transactionType;
     }
 
     cancelCallback(event) {
