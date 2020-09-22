@@ -31,6 +31,10 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 
