@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 import moment from "moment";
 let AvalAreaLoader = require("../../../loader/output-aval-loader");
+let DOAvalLoader = require("../../../loader/do-aval-loader");
 @inject(Service)
 export class DataForm {
   @bindable title;
@@ -36,6 +37,15 @@ export class DataForm {
   constructor(service) {
     this.service = service;
   }
+
+  get doAvalLoader() {
+    return DOAvalLoader;
+  }
+
+  doAvalTextFormatter = (doAval) => {
+    return `${doAval.DOAvalNo}`
+  }
+
   DOFormatter = (DoItem) => {
     return `${DoItem.DeliveryOrderSalesNO}`
   }
@@ -73,6 +83,12 @@ export class DataForm {
     this.detailOptions = {
       isEdit: this.isEdit
     };
+
+    if (this.data.deliveryOrderAvalId && this.data.deliveryOrderAvalNo) {
+      this.selectedDOAval = {};
+      this.selectedDOAval.Id = this.data.deliveryOrderAvalId;
+      this.selectedDOAval.DOAvalNo = this.data.deliveryOrderAvalNo;
+    }
 
     if (this.readOnly) {
       this.dyeingPrintingBuyerItemsColumns = [
@@ -385,5 +401,17 @@ export class DataForm {
     // this.data.DyeingPrintingItemsBuyer = null;
     // this.data.doNO = null;
     // }
+  }
+
+  @bindable selectedDOAval;
+  selectedDOAvalChanged(n, o) {
+    if (this.selectedDOAval) {
+      this.data.deliveryOrderAvalId = this.selectedDOAval.Id;
+      this.data.deliveryOrderAvalNo = this.selectedDOAval.DOAvalNo;
+
+    } else {
+      this.data.deliveryOrderAvalId = 0;
+      this.data.deliveryOrderAvalNo = null;
+    }
   }
 }
