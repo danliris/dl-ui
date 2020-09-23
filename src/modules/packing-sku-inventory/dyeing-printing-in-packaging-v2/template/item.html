@@ -35,6 +35,12 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+      <td>
+        <au-textbox value.bind="data.productionMachine" read-only.bind="true" error.bind="error.productionMachine"
+                    options.bind="controlOptions">
+        </au-textbox>
+      </td>
         <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">
@@ -45,6 +51,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
         <td>
             <au-numeric value.bind="data.inputQuantity" format="0.00" read-only.bind="true" error.bind="error.InputQuantity"
                 options.bind="controlOptions">

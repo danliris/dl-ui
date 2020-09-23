@@ -32,12 +32,13 @@ export class Create {
     }
 
     save() {
+
         if (this.data.type == "OUT") {
             this.data.inspectionMaterialProductionOrders = this.data.displayInspectionMaterialProductionOrders;
         } else {
             this.data.inspectionMaterialProductionOrders = this.data.adjInspectionMaterialProductionOrders;
         }
-        
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -50,5 +51,7 @@ export class Create {
                     this.error = e;
                 }
             })
+
+
     }
 }
