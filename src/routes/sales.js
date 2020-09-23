@@ -299,6 +299,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/do-aval',
+        name: 'do-aval',
+        moduleId: './modules/sales/do-aval/index',
+        nav: true,
+        title: 'DO Aval',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/sales-invoice',
         name: 'sales-invoice',
         moduleId: './modules/sales/sales-invoice/index',

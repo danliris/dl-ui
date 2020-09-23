@@ -52,6 +52,32 @@ module.exports = [
         }
     },
     {
+        route: "master/garment-courier",
+        name: "garment-courier",
+        moduleId: "modules/master/garment-courier/index",
+        nav: true,
+        title: "Courier",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "master/garment-insurance",
+        name: "garment-insurance",
+        moduleId: "modules/master/garment-insurance/index",
+        nav: true,
+        title: "Insurance",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "master/garment-transaction-type",
         name: "garment-transaction-type",
         moduleId: "modules/master/garment-transaction-type/index",
@@ -235,6 +261,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/shipping-instruction",
+        name: "garment-shipping/monitoring/shipping-instruction",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipping-instruction/index",
+        nav: true,
+        title: "Monitoring Shipping Instruction",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }, 
+    {
         route: "garment-shipping/monitoring/omzet-by-unit",
         name: "garment-shipping/monitoring/omzet-by-unit",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthy-by-unit/index",
@@ -344,6 +383,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
         nav: true,
         title: "Monitoring Credit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-sales-contract",
+        name: "garment-shipping/local-sales-contract",
+        moduleId: "modules/garment-shipping/local-sales-contract/index",
+        nav: true,
+        title: "Sales Contract (Lokal)",
         auth: true,
         settings: {
             group: "g-shipping",

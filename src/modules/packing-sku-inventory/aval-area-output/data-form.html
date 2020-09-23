@@ -68,6 +68,10 @@
       text.bind="avalBonTextFormatter" change.delegate="selectedAvalBonChanged" query.bind="penjualanFilter">
     </au-autocomplete>
 
+    <au-autocomplete if.bind="!isAdj" options.bind="controlOptions" value.bind="selectedDOAval" label="No. DO"
+      read-only.bind="readOnly || !isPenjualan || isEdit" error.bind="error.DeliveryOrderAvalNo"
+      loader.bind="doAvalLoader" text.bind="doAvalTextFormatter">
+    </au-autocomplete>
     <!-- <au-autocomplete
       options.bind="controlOptions"
       label="No. DO"
@@ -78,8 +82,8 @@
       loader.bind="DOLoader"
       text.bind = "DOFormatter"
     ></au-autocomplete> -->
-    <au-textbox if.bind="!isAdj" options.bind="controlOptions" label="No. DO" value.bind="data.doNO"
-      error.bind="error.DoNO" read-only.bind="readOnly || !isPenjualan || isEdit"></au-textbox>
+    <!-- <au-textbox if.bind="!isAdj" options.bind="controlOptions" label="No. DO" value.bind="data.doNO"
+      error.bind="error.DoNO" read-only.bind="readOnly || !isPenjualan || isEdit"></au-textbox> -->
     <!-- <div class="form-group"show.bind="isShowed">
       <div class="col-sm-12 text-center">
         <button click.delegate="searching()" class="btn btn-success">
