@@ -199,7 +199,7 @@ export class List {
     search: false,
     showToggle: false,
     sortable: false,
-    pagination: false,
+    pagination: true,
   };
 
   constructor(service) {
@@ -213,7 +213,12 @@ export class List {
     let order = {};
     if (info.sort) order[info.sort] = info.order;
 
-    let arg = {};
+    let arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      // keyword: info.search,
+      order: order,
+    };
 
     if (this.info.vbRequest && this.info.vbRequest.Id)
       arg.vbId = this.info.vbRequest.Id;
@@ -240,6 +245,7 @@ export class List {
     return this.flag
       ? this.service.search(arg).then((result) => {
           return {
+            total: result.info.total,
             data: result.data,
           };
         })
