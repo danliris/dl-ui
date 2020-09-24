@@ -299,6 +299,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/do-stock',
+        name: 'do-stock',
+        moduleId: './modules/sales/do-stock/index',
+        nav: true,
+        title: 'DO Stock',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/do-aval',
         name: 'do-aval',
         moduleId: './modules/sales/do-aval/index',

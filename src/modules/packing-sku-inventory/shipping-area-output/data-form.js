@@ -3,7 +3,7 @@ import { Service } from "./service";
 
 let ShippingAreaLoader = require("../../../loader/output-shipping-loader");
 let FilterSPPLoader = require("../../../loader/pre-output-shipping-spp-loader");
-var DOSalesLoader = require("../../../loader/do-sales-loader");
+var DOSalesLoader = require("../../../loader/do-stock-dyeingprinting-loader");
 @inject(Service)
 export class DataForm {
   @bindable title;
