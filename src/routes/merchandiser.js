@@ -481,7 +481,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "PGA": 1, "B7": 1, "C9": 1 },
+            permission: { "B7": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
