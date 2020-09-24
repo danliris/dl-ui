@@ -19,7 +19,7 @@ export class Edit {
             }
             this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.productionOrderDetails.length > 0);
         }
-        
+
     }
 
     view(data) {
@@ -27,7 +27,7 @@ export class Edit {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
