@@ -23,6 +23,8 @@ export class View {
         // this.data.inspectionMaterialProductionOrders = this.data.inspectionMaterialProductionOrders.filter(s => s.hasNextAreaDocument === false);
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
 
+
+
         this.canEdit = this.data.type == "ADJ" || this.data.inspectionMaterialProductionOrders.flatMap(s => s.productionOrderDetails).some(s => s.hasNextAreaDocument === false);
 
     }

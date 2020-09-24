@@ -81,7 +81,7 @@ export class DataForm {
     }
 
     async bind(context) {
-        //console.log(context);
+
         this.context = context;
         this.isCreateOutput = context.isCreateOutput;
         this.data = this.context.data;
@@ -377,7 +377,7 @@ export class DataForm {
     }
 
     get stepLoader() {
-        // console.log(this.data.Machine);
+
         return this.data.Machine && this.data.Machine.Steps ? this.data.Machine.Steps : [];
     }
 

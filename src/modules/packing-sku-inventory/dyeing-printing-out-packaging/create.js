@@ -80,6 +80,7 @@ export class Create {
                     itemSpp.uomUnit = item.uomUnit;
                     itemSpp.cartNo = item.cartNo;
                     itemSpp.remark = item.remark;
+                    itemSpp.productionMachine=item.productionMachine;
                     itemSpp.status = item.status;
                     itemSpp.material = item.material;
                     itemSpp.id = item.id;

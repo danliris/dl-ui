@@ -9,6 +9,7 @@
                 loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="true" options.bind="controlOptions">
             </au-autocomplete>
         </td>
+
         <td>
             <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true" error.bind="error.ProductionOrder"
                 options.bind="controlOptions">
@@ -19,6 +20,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
@@ -49,6 +51,13 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+      <td>
+        <au-textbox value.bind="data.productionMachine" read-only.bind="true" error.bind="error.productionMachine"
+                    options.bind="controlOptions">
+        </au-textbox>
+      </td>
+
         <td>
             <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.Grade"
                 options.bind="controlOptions">

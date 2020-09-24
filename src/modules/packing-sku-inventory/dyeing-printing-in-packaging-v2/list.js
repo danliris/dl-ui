@@ -20,9 +20,10 @@ export class List {
         { field: "buyer", title: "Buyer" },
         { field: "shift", title: "Shift" },
         { field: "material", title: "Material" },
-        { field: "unit", title: "Unit" },        
+        { field: "unit", title: "Unit" },
         { field: "warna", title: "Warna" },
         { field: "motif", title: "Motif" },
+
         { field: "grade", title: "Grade" },
         { field: "mtr", title: "Mtr" },
         { field: "yds", title: "Yds" },
