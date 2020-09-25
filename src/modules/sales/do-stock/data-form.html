@@ -7,12 +7,12 @@
         <div class="col-md-10" style="padding:0">
           <div class="row" style="padding-left:14.8%">
             <div class="col-md-6">
-              <au-textbox label="No. DO Aval" value.bind="data.DOAvalNo" error.bind="error.DOAvalNo"
+              <au-textbox label="No. DO Stock" value.bind="data.DOStockNo" error.bind="error.DOStockNo"
                 if.bind="readOnly || isEdit" read-only.bind="true">
               </au-textbox>
 
-              <au-dropdown label="Seri DO" value.bind="data.Type" items.bind="doAvalOptions"
-                error.bind="error.Type" read-only.bind="readOnly || isEdit">
+              <au-dropdown label="Seri DO" value.bind="type" items.bind="doStockOptions" error.bind="error.Type"
+                read-only.bind="readOnly || isEdit">
               </au-dropdown>
 
               <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly">
@@ -46,20 +46,16 @@
               </au-textbox>
 
               <au-dropdown label="Satuan Packing" value.bind="packingUom" items.bind="packingUomOptions"
-                error.bind="error.PackingUom" read-only.bind="true">
+                error.bind="error.PackingUom" read-only.bind="readOnly">
               </au-dropdown>
 
-              <au-dropdown label="Satuan Berat" value.bind="weightUom" items.bind="weightUomOptions"
-                error.bind="error.WeightUom" read-only.bind="true">
+              <au-dropdown label="Satuan Panjang" value.bind="lengthUom" items.bind="lengthUomOptions"
+                error.bind="error.LengthUom" read-only.bind="readOnly || isEdit">
               </au-dropdown>
 
               <au-numeric label="Disp" value.bind="disp" error.bind="error.Disp" read-only.bind="readOnly"
                 keypress.delegate="enterDelegate($event)" format="0">
               </au-numeric>
-
-              <au-multiline label="Konstruksi" value.bind="data.Construction" error.bind="error.Construction"
-                read-only.bind="readOnly" keypress.delegate="enterDelegate($event)">
-              </au-multiline>
 
               <au-multiline label="Catatan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly"
                 keypress.delegate="enterDelegate($event)">
@@ -71,12 +67,12 @@
       </div>
     </div>
 
-    <au-textbox show.bind="error.DOAvalItem" error.bind="error.DOAvalItem" style="color: red;" read-only.bind="true">
+    <au-textbox show.bind="error.DOStockItem" error.bind="error.DOStockItem" style="color: red;" read-only.bind="true">
     </au-textbox>
 
-    <au-collection columns.bind="columns" items.bind="data.DOAvalItems" errors.one-way="error.DOAvalItems"
+    <au-collection columns.bind="columns" items.bind="data.DOStockItems" errors.one-way="error.DOStockItems"
       read-only.bind="readOnly" add.bind="addItemCallback" options.bind="detailOptions" remove.bind="onremove"
-      item-template="modules/sales/do-aval/template/item">
+      item-template="modules/sales/do-stock/template/item">
     </au-collection>
 
   </au-input-form>

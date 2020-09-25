@@ -1,5 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-let DOSalesLoader = require("../../../../loader/do-sales-loader");
+let DOSalesLoader = require("../../../../loader/do-stock-dyeingprinting-loader");
 
 export class ProductionOrderItem {
   @bindable product;
