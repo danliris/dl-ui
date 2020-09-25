@@ -8,26 +8,37 @@
                     options.bind="controlOptions" if.bind="readOnly || isEdit">
                 </au-textbox>
 
+                <au-autocomplete label="No Sales Contract Lokal" placeholder="Pilih No Sales Contract"
+                    value.bind="selectedSalesContract" error.bind="error.salesContract"
+                    loader.bind="salesContractLoader" text="salesContractNo" query.bind="filterSC"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-autocomplete>
+
                 <au-datepicker label="Tgl Penjualan" value.bind="data.date" error.bind="error.date"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-datepicker>
 
                 <au-autocomplete label="Jenis Transaksi" placeholder="Pilih Jenis Transaksi"
-                    value.bind="selectedTransactionType" error.bind="error.transactionType"
+                    value.bind="data.transactionType" error.bind="error.transactionType"
                     loader.bind="transactionTypeLoader" text.bind="transactionTypeView"
-                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                    read-only.bind="true" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="data.buyer"
                     error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView"
-                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                    read-only.bind="true" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-autocomplete label="NPWP Buyer" value.bind="data.buyer" text.bind="buyerNPWPView" read-only="true"
                     options.bind="controlOptions">
                 </au-autocomplete>
 
-                <div class="row">
+                <au-dropdown label="Jenis Pembayaran" value.bind="selectedPaymentType"
+                    error.bind="error.paymentType" read-only.bind="readOnly"
+                    items.bind="paymentTypeOptions" options.bind="controlOptions">
+                </au-dropdown> 
+
+                <div class="row" show.bind="data.paymentType=='TEMPO'">
                     <div class="col-sm-3">
                         <p class="form-control-static text-right">Tempo Pembayaran</p>
                     </div>
@@ -40,7 +51,7 @@
                 </div>
 
                 <au-datepicker label="Tgl Jatuh Tempo" value.to-view="dueDate" error.bind="error.dueDate"
-                    read-only="true" options.bind="controlOptions">
+                    read-only="true" options.bind="controlOptions" show.bind="data.paymentType=='TEMPO'">
                 </au-datepicker>
 
                 <au-textbox label="No Disposisi" placeholder="No Disposisi" value.bind="data.dispositionNo"
@@ -48,7 +59,7 @@
                 </au-textbox>
 
                 <au-checkbox label="Apakah kena PPN ?" value.bind="data.useVat" error.bind="error.useVat"
-                    read-only.bind="readOnly" options.bind="controlOptions">
+                    read-only.bind="true" options.bind="controlOptions">
                 </au-checkbox>
 
                 <au-numeric label="Total Amount" value.to-view="totalAmount" error.bind="error.amount" read-only="true"
@@ -64,10 +75,20 @@
                 </au-textbox>
 
                 <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
-                    add.bind="items.onAdd" read-only.bind="readOnly || !data.transactionType"
+                    read-only.bind="readOnly || !data.transactionType"
                     options.bind="items.options"
                     item-template="modules/garment-shipping/local-sales-note/template/item">
                 </au-collection>
+
+                <au-numeric value.to-view="subtotal" read-only.bind="true" options.bind="controlOptions"
+                    label="Sub Total">
+                </au-numeric>
+                <au-numeric value.to-view="ppn" read-only.bind="true" options.bind="controlOptions"
+                    label="PPN 10%">
+                </au-numeric>
+                <au-numeric value.to-view="total" read-only.bind="true" options.bind="controlOptions"
+                    label="TOTAL">
+                </au-numeric>
 
             </au-input-form>
         </div>
