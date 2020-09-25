@@ -2,19 +2,19 @@
     <tr>
         <td class="col-sm-3">
             <au-autocomplete value.bind="data.product" error.bind="error.product" loader.bind="productLoader"
-                read-only.bind="readOnly" placeholder="Kode - Nama Barang" text.bind="productView"
+                read-only.bind="true" placeholder="Kode - Nama Barang" text.bind="productView"
                 query.bind="productFilter">
             </au-autocomplete>
         </td>
 
         <td class="col-sm-2">
-            <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="readOnly">
+            <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="true">
             </au-numeric>
         </td>
 
         <td class="col-sm-2">
             <au-autocomplete value.bind="data.uom" error.bind="error.uom" loader.bind="uomLoader"
-                read-only.bind="readOnly" placeholder="Satuan" text.bind="uomView">
+                read-only.bind="true" placeholder="Satuan" text.bind="uomView">
             </au-autocomplete>
         </td>
         
@@ -30,7 +30,7 @@
         </td>
 
         <td class="col-sm-2">
-            <au-numeric value.bind="data.price" error.bind="error.price" read-only.bind="readOnly">
+            <au-numeric value.bind="data.price" error.bind="error.price" read-only.bind="true">
             </au-numeric>
         </td>
 
@@ -39,8 +39,8 @@
             </au-numeric>
         </td>
 
-        <td class="col-sm-1" if.bind="!readOnly">
+        <!-- <td class="col-sm-1" if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-        </td>
+        </td> -->
     </tr>
 </template>
