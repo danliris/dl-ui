@@ -51,6 +51,17 @@
                      placeholder="Cari Unit Pemohon">
     </au-autocomplete>
 
+    <radiobutton
+      label="Jenis Pembelian"
+      selected.bind="selectedObjectTypePurchasing"
+      if.bind="isGarment"
+      error.bind="error.TypePurchasing"
+      selections.bind="garmentSelection"
+      read-only.bind="readOnly || isEdit"
+      change.delegate="selectedTypePurchasingChanged($event)"
+      options.bind="controlOptions">
+    </radiobutton>
+
     <au-autocomplete label="Mata Uang"
                      placeholder="pilih mata uang"
                      value.bind="selectedCurrency"
@@ -76,12 +87,12 @@
                   options.bind="controlOptions">
     </au-multiline>
 
-    <au-checkbox label="Inklaring"
+    <!-- <au-checkbox label="Inklaring"
                   value.bind="data.IsInklaring"
                   placeholder="inklaring"
                   read-only.bind="readOnly"
                   options.bind="controlOptions">
-    </au-checkbox>
+    </au-checkbox> -->
 
     <au-textbox show.bind="error.Item"
                 error.bind="error.Item"
