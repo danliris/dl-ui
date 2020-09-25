@@ -52,8 +52,10 @@ export class Create {
       // }
       // CreateData.DeliveryOrdeSalesId = this.data.doNO.DeliveryOrderSalesID;
       // CreateData.DeliveryOrderSalesNo = this.data.doNO.DeliveryOrderSalesNO;
-      CreateData.DeliveryOrdeSalesId = 0;
-      CreateData.DeliveryOrderSalesNo = this.data.doNO;
+      // CreateData.DeliveryOrdeSalesId = 0;
+      // CreateData.DeliveryOrderSalesNo = this.data.doNO;
+      CreateData.deliveryOrderAvalId = this.data.deliveryOrderAvalId;
+      CreateData.deliveryOrderAvalNo = this.data.deliveryOrderAvalNo;
       if (this.data.DyeingPrintingItems.length > 0) {
         CreateData.AvalItems = this.data.DyeingPrintingItems.map(
           (item) => {

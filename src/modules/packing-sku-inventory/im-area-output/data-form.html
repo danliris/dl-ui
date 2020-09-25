@@ -40,6 +40,7 @@
         item-template="modules/packing-sku-inventory/im-area-output/template/sppItem">
       </au-collection>
 
+
       <au-collection columns.bind="itemColumns" view-model.ref="ItemsCollection" if.bind="isEdit"
         items.bind="data.displayInspectionMaterialProductionOrders"
         errors.bind="error.InspectionMaterialProductionOrders" options.bind="detailOptions" read-only.bind="readOnly"

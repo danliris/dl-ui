@@ -21,13 +21,13 @@
 
     <au-dropdown options.bind="controlOptions" label="Group" value.bind="data.group" error.bind="error.Group"
       read-only.bind="readOnly" items.bind="groups"></au-dropdown>
-    
+
       <au-autocomplete options.bind="controlOptions" value.bind="selectedPackaging" label="Nomor Bon"
       read-only.bind="true" error.bind="error.BonNo" loader.bind="packagingAreaLoader"
       if.bind ="readOnly"
       text.bind="areaMovementTextFormatter">
     </au-autocomplete>
-      
+
     <!-- <br/>
     <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
     <br/> -->
@@ -37,7 +37,7 @@
       if.bind="readOnly"
       read-only.bind="false" item-template="modules/packing-sku-inventory/dyeing-printing-in-packaging-v2/template/item">
     </au-collection> -->
-    
+
     <au-table view-model.ref="table" data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"
     context-show.call="contextShowCallback(index, context, data)" options.bind="tableOptions" selections.bind="dataIsChecked"
     selectable.bind="true" read-only.bind="readOnly" class="${readOnly?'remove-first-td':''}">

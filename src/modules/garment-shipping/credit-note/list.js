@@ -9,9 +9,9 @@ export class List {
     context = ["Detail", "Cetak"]
 
     columns = [
-        { field: "noteNo", title: "No Nota Kredit" },
+        { field: "noteNo", title: "No Credit Note" },
         {
-            field: "date", title: "Tgl Nota Kredit", formatter: function (value) {
+            field: "date", title: "Tgl Credit Note", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

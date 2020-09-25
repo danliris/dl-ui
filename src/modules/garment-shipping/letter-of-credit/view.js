@@ -25,6 +25,7 @@ export class View {
                 amount: numeral(amend.amount).format("0,000.00"),
             });
         }
+        this.amendLCData.sort((a, b) => a.amendNumber - b.amendNumber);
         this.finalAmount = this.data.totalAmount + amendLC.data.reduce((acc, cur) => acc += cur.amount, 0);
 
         const packingList = await this.service.searchPackingList({ filter: JSON.stringify({ lcNo: this.data.documentCreditNo, isUsed: true }) });
@@ -39,6 +40,13 @@ export class View {
                     truckingDate: moment(pl.truckingDate).format("DD MMM YYYY")
                 });
             }
+            this.invoiceData.sort((a, b) => {
+                const x = a.invoiceNo.toLowerCase();
+                const y = b.invoiceNo.toLowerCase();
+                if (x < y) { return -1; }
+                if (x > y) { return 1; }
+                return 0;
+            });
             this.totalInvoice = invoice.data.reduce((acc, cur) => acc += cur.amountToBePaid, 0);
             this.finalAmountInvoice = this.finalAmount - this.totalInvoice;
         }
@@ -59,5 +67,4 @@ export class View {
             });
         }
     }
-
 }
