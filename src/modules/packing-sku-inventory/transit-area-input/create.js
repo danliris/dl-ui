@@ -17,7 +17,7 @@ export class Create {
     async activate(params) {
         this.data = {};
         this.transitProductionOrders = await this.service.getProductionOrderOutput();
-        
+
     }
 
     back() {

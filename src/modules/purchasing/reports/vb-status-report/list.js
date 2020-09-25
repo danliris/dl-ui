@@ -70,6 +70,14 @@ export class List {
       this.realizeEndDate && this.realizeEndDate != "Invalid Date"
         ? moment(this.realizeEndDate).format("YYYY-MM-DD")
         : null;
+    this.arg.clearanceDateFrom =
+      this.clearanceStartDate && this.clearanceStartDate != "Invalid Date"
+        ? moment(this.clearanceStartDate).format("YYYY-MM-DD")
+        : null;
+    this.arg.clearanceDateTo =
+      this.clearanceEndDate && this.clearanceEndDate != "Invalid Date"
+        ? moment(this.clearanceEndDate).format("YYYY-MM-DD")
+        : null;
   }
 
   columns = [
@@ -148,10 +156,10 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     this.arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
+      // page: parseInt(info.offset / info.limit, 10) + 1,
+      // size: info.limit,
       keyword: info.search,
-      order: order,
+      // order: order,
     };
 
     this.currencies = this.currencies.splice(0, this.currencies.length);
@@ -192,6 +200,8 @@ export class List {
     this.requestEndDate = null;
     this.realizeStartDate = null;
     this.realizeEndDate = null;
+    this.clearanceStartDate = null;
+    this.clearanceEndDate = null;
     this.errorRequestStartDate = null;
     this.errorRequestEndDate = null;
     this.listDataFlag = false;

@@ -9,6 +9,9 @@ export class CartItem {
     isProduksi = false;
     avalColumns = ["Grade", "Macam Barang", "Panjang"];
     avalMachines = ["QC 01", "QC 02", "QC 03", "QC 04", "QC 05", "QC 06", "QC 07", "QC 08", "QC 09", "QC 10"];
+    productionMachine=["BUSER","ICHINOSE","ROTARY","ZIMMER"] ;
+
+
     activate(context) {
 
         this.context = context;
@@ -17,6 +20,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.destinationArea = this.contextOptions.destinationArea;
+
 
         if (this.destinationArea == "GUDANG AVAL") {
             this.isAval = true;

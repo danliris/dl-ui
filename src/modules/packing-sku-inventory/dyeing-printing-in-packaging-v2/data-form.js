@@ -32,8 +32,8 @@ export class DataForm {
         pagination: false
     }
     // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
-    itemColumns = ["No. SPP", "Qty Order","Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan","Qty Masuk"];
-    
+    itemColumns = ["No. SPP", "Qty Order","Buyer", "Unit", "Material", "Warna", "Motif",  "Grade", "Satuan","Qty Masuk"];
+
     groups = ["","A", "B"];
 
     columns = [
@@ -42,15 +42,17 @@ export class DataForm {
         },
         { field: "productionOrder.no", title: "No. SPP" },
         { field: "qtyOrder", title: "Qty Order" },
-        
+
         { field: "buyer", title: "Buyer" },
-        { field: "unit", title: "Unit" },                
+        { field: "unit", title: "Unit" },
         { field: "construction", title: "Material" },
         { field: "color", title: "Warna" },
         { field: "motif", title: "Motif" },
+        { field: "productionMachine", title: "Mesin Produksi" },
         { field: "grade", title: "Grade" },
         { field: "uomUnit", title: "Satuan" },
         { field: "inputQuantity", title: "Qty Masuk" },
+
     ];
 
     shifts = ["","PAGI", "SIANG"];
@@ -82,9 +84,9 @@ export class DataForm {
             order[info.sort] = info.order;
         var arg = {
             // page: parseInt(info.offset / info.limit, 10) + 1,
-            page: 1,            
+            page: 1,
             // size: info.limit,
-            size: 9999,            
+            size: 9999,
             keyword: info.search,
             order: order,
         }
@@ -95,6 +97,7 @@ export class DataForm {
                     data.total = result.total;
                     data.data = result.data;
                     // this.data = result;
+                  console.log("listProductionOrderIn: ",result.data)
                     return data;
                 });
         }
@@ -126,7 +129,7 @@ export class DataForm {
             this.data.PackagingProductionOrders = this.data.packagingProductionOrders;
         }
         this.data.packagingProductionOrders = this.dataIsChecked;
-        
+
         if (this.data.bonNo) {
             this.selectedPackaging = {};
             this.selectedPackaging.bonNo = this.data.bonNo;

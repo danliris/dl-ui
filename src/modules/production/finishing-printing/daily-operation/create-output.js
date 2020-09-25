@@ -5,7 +5,7 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class CreateOutput {
-  isCreateOutput =true;
+    isCreateOutput = true;
 
     constructor(router, service) {
         this.router = router;
@@ -13,15 +13,20 @@ export class CreateOutput {
         this.data = {};
     }
 
-   async activate(params) {
-     var id = params.id;
-     this.data = await this.service.getData(id);
-     this.data.Id=0;
-     this.machine = this.data.Machine;
-     this.step = this.data.Step;
-     this.kanban = this.data.Kanban;
+    async activate(params) {
+        var id = params.id;
+        var inputData = await this.service.getData(id);
+        this.data = {};
+        this.data.Machine = inputData.Machine;
+        this.data.Step = inputData.Step;
+        this.data.Kanban = inputData.Kanban;
+        
 
-   }
+        this.machine = this.data.Machine;
+        this.step = this.data.Step;
+        this.kanban = this.data.Kanban;
+
+    }
 
     list() {
         this.router.navigateToRoute('list');
@@ -45,7 +50,7 @@ export class CreateOutput {
                 this.error = {};
                 alert("Data berhasil dibuat");
                 // this.router.navigateToRoute('create-output', {}, { replace: true, trigger: true });
-                 this.list();
+                this.list();
             })
             .catch(e => {
                 event.toElement.disabled = false;
