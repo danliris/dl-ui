@@ -79,6 +79,7 @@ export class List {
             .then(result => {
                 let searchOldKanban = [];
 
+
                 if (result.data.length > 0) {
                     for (let kanban of result.data) {
                         if (kanban.OldKanbanId) {
@@ -89,6 +90,7 @@ export class List {
 
                 return Promise.all(searchOldKanban)
                     .then((oldKanbanResults) => {
+
                         // modify display data
                         for (var kanban of result.data) {
                             kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
@@ -96,7 +98,7 @@ export class List {
                             kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
                             kanban.stepIndexPerTotal = `${kanban.CurrentStepIndex}/${kanban.Instruction.Steps.length}`;
                             kanban.isPending = function () {
-                                return !this.IsComplete && this.CurrentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+                                return !this.IsComplete && this.CurrentStepIndex >= this.Instruction.Steps.length && this.IsFulfilledOutput; // used for custom sort
                             };
                             kanban.isDone = function () {
                                 return this.IsComplete;
@@ -117,6 +119,7 @@ export class List {
                             total: result.info.total,
                             data: result.data
                         }
+
                     })
             });
     }
