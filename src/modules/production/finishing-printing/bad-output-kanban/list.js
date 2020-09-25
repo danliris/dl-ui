@@ -104,7 +104,8 @@ export class List {
                                 return this.IsComplete;
                             };
                             kanban.isIncomplete = function () {
-                                return !this.IsComplete && this.CurrentStepIndex < this.Instruction.Steps.length;
+
+                                return ((!this.IsComplete && this.CurrentStepIndex < this.Instruction.Steps.length) || (!this.IsComplete && this.CurrentStepIndex == this.Instruction.Steps.length && !this.IsFulfilledOutput) || (!this.IsFulfilledOutput));
                             }
                         }
 
