@@ -52,6 +52,7 @@
 
       <div if.bind="selectedVat">
         <au-numeric
+          value.bind="selectedVatManually"
           read-only.bind="readOnly"
           format="0,0.00"
           options.bind="controlOptions"
@@ -81,9 +82,10 @@
           placeholder="cari pph"
           read-only.bind="readOnly"
           options.bind="controlOptions"
-        >
-        </au-autocomplete> -->
+        > -->
+        </au-autocomplete>
         <au-numeric
+          value.bind="selectedPPhManually"
           read-only.bind="readOnly"
           format="0,0.00"
           options.bind="controlOptions"

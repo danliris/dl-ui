@@ -1,11 +1,14 @@
-import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var IncomeTaxLoader = require('../../../../loader/income-tax-loader');
+import {
+  bindable,
+  computedFrom,
+  BindingSignaler,
+  inject,
+} from "aurelia-framework";
+var IncomeTaxLoader = require("../../../../loader/income-tax-loader");
 
 // @inject(BindingSignaler)
 export class Item {
-
-  constructor() {
-  }
+  constructor() {}
 
   activate(context) {
     this.data = context.data;
@@ -18,12 +21,18 @@ export class Item {
     this.selectedAmount = this.data.Amount || 0;
     this.selectedPPh = this.data.IsGetPPh;
     this.selectedVat = this.data.IsGetPPn;
+    this.selectedVatManually = this.data.VatManually || 0;
+    this.selectedPPhManually = this.data.PPhManually || 0;
 
     if (this.data.IncomeTax) {
       this.selectedIncomeTax = this.data.IncomeTax;
       this.selectedIncomeTax.name = this.data.IncomeTax.Name;
-      this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
-      this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
+      this.selectedIncomeTax.rate = this.data.IncomeTax.Rate
+        ? this.data.IncomeTax.Rate
+        : 0;
+      this.data.IncomeTax.rate = this.data.IncomeTax.Rate
+        ? this.data.IncomeTax.Rate
+        : 0;
     }
 
     this.calculateTotalAmount();
@@ -36,18 +45,15 @@ export class Item {
   }
 
   incomeTaxView = (incomeTax) => {
-
     return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
-
-  }
+  };
 
   @bindable selectedIncomeTaxBy;
   selectedIncomeTaxByChanged(newValue) {
     if (newValue) {
-      this.data.IncomeTaxBy = newValue
+      this.data.IncomeTaxBy = newValue;
       this.calculateTotalAmount();
-    }
-    else {
+    } else {
       delete this.data.IncomeTaxBy;
       this.calculateTotalAmount();
     }
@@ -56,10 +62,19 @@ export class Item {
   @bindable selectedVat;
   selectedVatChanged(newValue) {
     if (newValue) {
-      this.data.IsGetPPn = newValue
+      this.data.IsGetPPn = newValue;
       this.calculateTotalAmount();
     } else {
       delete this.data.IsGetPPn;
+      this.data.VatManually = 0;
+      this.calculateTotalAmount();
+    }
+  }
+
+  @bindable selectedVatManually;
+  selectedVatManuallyChanged(newValue) {
+    if (newValue) {
+      this.data.VatManually = newValue;
       this.calculateTotalAmount();
     }
   }
@@ -77,31 +92,45 @@ export class Item {
     }
   }
 
+  @bindable selectedPPhManually;
+  selectedPPhManuallyChanged(newValue) {
+    if (newValue) {
+      this.data.PPhManually = newValue;
+      this.calculateTotalAmount();
+    }
+  }
+
   calculateTotalAmount() {
-    if (this.data.IncomeTaxBy == "Supplier" && this.data.IsGetPPh && this.data.IncomeTax) {
+    if (
+      this.data.IncomeTaxBy == "Supplier" &&
+      this.data.IsGetPPh
+      // &&
+      // this.data.IncomeTax
+    ) {
       let vatAmount = 0;
-      if (this.data.IsGetPPn)
-        vatAmount = this.data.Amount * 0.1;
-      this.data.Total = Math.round((this.data.Amount - (this.data.Amount * (this.data.IncomeTax.rate / 100)) + vatAmount + Number.EPSILON) * 100) / 100;
+      const pphAmount = this.data.PPhManually || 0;
+      if (this.data.IsGetPPn) vatAmount = this.data.VatManually || 0;
+      this.data.Total =
+        Math.round(
+          (this.data.Amount - pphAmount + vatAmount + Number.EPSILON) * 100
+        ) / 100;
     } else {
       let vatAmount = 0;
-      if (this.data.IsGetPPn)
-        vatAmount = this.data.Amount * 0.1;
-      this.data.Total = Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100;
+      if (this.data.IsGetPPn) vatAmount = this.data.VatManually || 0;
+      this.data.Total =
+        Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100;
     }
   }
 
   @bindable selectedIncomeTax;
   selectedIncomeTaxChanged(newValue) {
-
     if (newValue) {
       this.data.IncomeTax = newValue;
       this.data.IncomeTax.Rate = this.data.IncomeTax.rate;
       this.data.IncomeTax.Name = this.data.IncomeTax.name;
       this.calculateTotalAmount();
-
     } else {
-      delete this.data.IncomeTax
+      delete this.data.IncomeTax;
       this.calculateTotalAmount();
     }
   }
