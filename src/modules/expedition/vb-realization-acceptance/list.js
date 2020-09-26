@@ -9,7 +9,7 @@ import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constant
 
 @inject(Router, Service, Dialog, PermissionHelper)
 export class List {
-    // context = ['Hapus'];
+    context = ['Hapus'];
 
     columns = [{
             field: 'SendToVerificationDate',
@@ -129,8 +129,8 @@ export class List {
             position: this.activeRole.position != 7 ? this.activeRole.position : this.activeRole.position - 2
         };
 
-        console.log(this.activeRole)
-        console.log(arg)
+        // console.log(this.activeRole)
+        // console.log(arg)
 
         return this.service.search(arg)
             .then(result => {
@@ -142,24 +142,27 @@ export class List {
             });
     }
 
-    // contextClickCallback(event) {
-    //     let arg = event.detail;
-    //     let data = arg.data;
+    contextClickCallback(event) {
+        let arg = event.detail;
+        let data = arg.data;
 
-    //     switch (arg.name) {
-    //         case 'Hapus':
-    //             this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Pembelian')
-    //                 .then(response => {
-    //                     if (response.ok) {
-    //                         this.service.delete(data)
-    //                             .then(result => {
-    //                                 this.tableList.refresh();
-    //                             });
-    //                     }
-    //                 });
-    //             break;
-    //     }
-    // }
+        switch (arg.name) {
+            case 'Hapus':
+                this.dialog.prompt('Apakah anda yakin ingin mengembalikan data ke verifikasi?')
+                    .then(response => {
+                        if (response.ok) {
+                            this.service.cashierDelete(data.VBRealizationId, data)
+                                .then(result => {
+                                    this.tableList.refresh();
+                                });
+                        }
+                    })
+                    .catch(e => {
+                        this.error = e;
+                    });
+                break;
+        }
+    }
 
     create() {
         this.router.navigateToRoute('create');

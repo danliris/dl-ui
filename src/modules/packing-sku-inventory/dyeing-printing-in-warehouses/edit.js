@@ -23,8 +23,17 @@ export class Edit {
     }
 
     save() {
-        this.data.MappedWarehousesProductionOrders = this.data.warehousesProductionOrders;
+        // this.data.MappedWarehousesProductionOrders = this.data.warehousesProductionOrders;
+        var selectedProductionOrders = this.data.warehousesProductionOrders;
 
+        this.data.mappedWarehousesProductionOrders = [];
+        selectedProductionOrders.forEach((datum) => {
+          var datumSelected = datum.productionOrderItems.filter((s)=> s.IsSave ===true);
+          datumSelected.forEach((datumItem) => {
+            datumItem.qtyOrder = datum.productionOrderOrderQuantity;
+            this.data.mappedWarehousesProductionOrders.push(datumItem);
+          });
+        });
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
