@@ -21,8 +21,8 @@ export class Item {
     this.selectedAmount = this.data.Amount || 0;
     this.selectedPPh = this.data.IsGetPPh;
     this.selectedVat = this.data.IsGetPPn;
-    this.selectedVatManually = this.data.VatManually || 0;
-    this.selectedPPhManually = this.data.PPhManually || 0;
+    this.selectedVatManually = this.data.PPnAmount || 0;
+    this.selectedPPhManually = this.data.PPhAmount || 0;
 
     if (this.data.IncomeTax) {
       this.selectedIncomeTax = this.data.IncomeTax;
@@ -66,7 +66,7 @@ export class Item {
       this.calculateTotalAmount();
     } else {
       delete this.data.IsGetPPn;
-      this.data.VatManually = 0;
+      this.data.PPnAmount = 0;
       this.calculateTotalAmount();
     }
   }
@@ -74,7 +74,7 @@ export class Item {
   @bindable selectedVatManually;
   selectedVatManuallyChanged(newValue) {
     if (newValue) {
-      this.data.VatManually = newValue;
+      this.data.PPnAmount = newValue;
       this.calculateTotalAmount();
     }
   }
@@ -95,7 +95,7 @@ export class Item {
   @bindable selectedPPhManually;
   selectedPPhManuallyChanged(newValue) {
     if (newValue) {
-      this.data.PPhManually = newValue;
+      this.data.PPhAmount = newValue;
       this.calculateTotalAmount();
     }
   }
@@ -108,15 +108,15 @@ export class Item {
       // this.data.IncomeTax
     ) {
       let vatAmount = 0;
-      const pphAmount = this.data.PPhManually || 0;
-      if (this.data.IsGetPPn) vatAmount = this.data.VatManually || 0;
+      const pphAmount = this.data.PPhAmount || 0;
+      if (this.data.IsGetPPn) vatAmount = this.data.PPnAmount || 0;
       this.data.Total =
         Math.round(
           (this.data.Amount - pphAmount + vatAmount + Number.EPSILON) * 100
         ) / 100;
     } else {
       let vatAmount = 0;
-      if (this.data.IsGetPPn) vatAmount = this.data.VatManually || 0;
+      if (this.data.IsGetPPn) vatAmount = this.data.PPnAmount || 0;
       this.data.Total =
         Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100;
     }

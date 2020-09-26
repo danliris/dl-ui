@@ -107,16 +107,22 @@
       <!-- Readonly: Dengan Nomor VB-->
       <!-- Free text: Tanpa Nomor VB-->
       <au-textbox
-        label="No. BL/AWB"
-        read-only.bind="readOnly || isVB"
+        value.bind="blAwbNumber"
+        error.bind="error.BLAWBNumber"
+        label="No. BL / AWB"
+        read-only.bind="isVB || vbDocument"
         options.bind="controlOptions"
+        placeholder="Input No. BL / AWB"
       >
       </au-textbox>
 
       <au-textbox
-        label="No. Kontrak/PO"
+        value.bind="contractPoNumber"
+        error.bind="error.ContractPONumber"
+        label="No. Kontrak / PO"
         read-only.bind="readOnly || isVB"
         options.bind="controlOptions"
+        placeholder="Input No. Kontrak / PO"
       >
       </au-textbox>
 

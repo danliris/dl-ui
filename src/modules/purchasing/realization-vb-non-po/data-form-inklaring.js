@@ -92,6 +92,14 @@ export class DataForm {
       this.currency = this.data.Currency;
     }
 
+    if (this.data.BLAWBNumber) {
+      this.blAwbNumber = this.data.BLAWBNumber;
+    }
+
+    if (this.data.ContractPONumber) {
+      this.contractPoNumber = this.data.ContractPONumber;
+    }
+
     if (this.data.Unit) {
       this.unit = this.data.Unit;
     }
@@ -118,6 +126,14 @@ export class DataForm {
       if (tempCards.length > 0) {
         this.cards.push(tempCards);
       }
+
+      if (this.data.BLAWBNumber) {
+        this.blAwbNumber = this.data.BLAWBNumber;
+      }
+
+      if (this.data.ContractPONumber) {
+        this.contractPoNumber = this.data.ContractPONumber;
+      }
     }
   }
 
@@ -132,6 +148,8 @@ export class DataForm {
         this.vbDocument = null;
         this.unit = null;
         this.currency = null;
+        this.blAwbNumber = null;
+        this.contractPoNumber = null;
         this.data.Items.splice(0, this.data.Items.length);
         this.data.UnitCosts = [];
         this.cards = [];
@@ -279,6 +297,21 @@ export class DataForm {
       }
     }
   }
+
+  @bindable blAwbNumber;
+  blAwbNumberChanged(newValue) {
+    if (newValue) {
+      this.data.BLAWBNumber = newValue;
+    }
+  }
+
+  @bindable contractPoNumber;
+  contractPoNumberChanged(newValue) {
+    if (newValue) {
+      this.data.ContractPONumber = newValue;
+    }
+  }
+
   columns = [
     "Tanggal",
     "Keterangan",
