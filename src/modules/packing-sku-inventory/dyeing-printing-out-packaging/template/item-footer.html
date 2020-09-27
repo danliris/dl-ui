@@ -1,14 +1,14 @@
 <template>
 
   <tr>
-    <td colspan.bind="readOnly ? 9: 10" class="text-right">
+    <td colspan.bind="isEdit ? 9: 10" class="text-right">
       Total Qty Packaging
     </td>
     <td class="text-left">
       <require from="../../../../lib/number-format-value-converter"></require>
       ${itemSum | numberFormat:"0.00"}
     </td>
-    <td colspan="4" class="text-right">
+    <td colspan.bind="readOnly ? 3 :4" class="text-right">
       Total Qty Keluar
     </td>
     <td class="text-left">

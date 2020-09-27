@@ -3,8 +3,11 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
 export class DetailFooter {
+
   activate(context) {
     this.context = context;
+    this.options = context.options;
+    this.isEdit = this.options.isEdit;
   }
 
 
