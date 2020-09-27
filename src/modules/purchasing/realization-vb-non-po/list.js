@@ -63,7 +63,7 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
-      // filter: JSON.stringify({ VBRealizeCategory: "NONPO" }),
+      filter: JSON.stringify({ IsInklaring: this.IsInklaring }),
     };
 
     return this.service.search(arg).then((result) => {
@@ -84,13 +84,17 @@ export class List {
   initTab() {
     this.tabs = ["Realisasi VB Non PO", "Realisasi VB Inklaring Non PO"];
 
+    // Default tab is non-inklaring
     this.activeTab = this.tabs[0];
+    this.IsInklaring = false;
   }
 
   changeTab(tab) {
     if (tab !== this.activeTab) {
       this.activeTab = tab;
-      // this.tableList.refresh();
+      this.IsInklaring = this.activeTab !== this.tabs[0] ? true : false;
+
+      this.tableList.refresh();
     }
   }
 
