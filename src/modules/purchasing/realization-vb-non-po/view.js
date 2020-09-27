@@ -1,7 +1,7 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service } from './service';
-import { Dialog } from '../../../au-components/dialog/dialog';
+import { inject, Lazy } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+import { Dialog } from "../../../au-components/dialog/dialog";
 
 @inject(Router, Service, Dialog)
 export class View {
@@ -20,36 +20,36 @@ export class View {
   async activate(params) {
     let id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data);
 
     if (this.data.Position > 1 && this.data.Position < 6) {
       this.hasEdit = false;
       this.hasDelete = false;
     }
-
   }
 
   cancel(event) {
-    this.router.navigateToRoute('list');
+    this.router.navigateToRoute("list");
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
+    this.router.navigateToRoute("edit", { id: this.data.Id });
   }
 
   delete(event) {
     // this.service.delete(this.data).then(result => {
     //     this.cancel();
     // });
-    this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Realisasi VB Non PO')
-      .then(response => {
+    this.dialog
+      .prompt(
+        "Apakah anda yakin akan menghapus data ini?",
+        "Hapus Data Realisasi VB Non PO"
+      )
+      .then((response) => {
         if (response.ok) {
-          this.service.delete(this.data)
-            .then(result => {
-              this.cancel();
-            });
+          this.service.delete(this.data).then((result) => {
+            this.cancel();
+          });
         }
       });
   }
-
 }
