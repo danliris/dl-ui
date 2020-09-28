@@ -126,14 +126,6 @@ export class DataForm {
       if (tempCards.length > 0) {
         this.cards.push(tempCards);
       }
-
-      if (this.data.BLAWBNumber) {
-        this.blAwbNumber = this.data.BLAWBNumber;
-      }
-
-      if (this.data.ContractPONumber) {
-        this.contractPoNumber = this.data.ContractPONumber;
-      }
     }
   }
 
@@ -150,6 +142,8 @@ export class DataForm {
         this.currency = null;
         this.blAwbNumber = null;
         this.contractPoNumber = null;
+        this.data.BLAWBNumber = null;
+        this.data.ContractPONumber = null;
         this.data.Items.splice(0, this.data.Items.length);
         this.data.UnitCosts = [];
         this.cards = [];
@@ -212,6 +206,8 @@ export class DataForm {
           Symbol: this.data.VBDocument.CurrencySymbol,
           Rate: this.data.VBDocument.CurrencyRate,
         };
+        this.blAwbNumber = this.data.VBDocument.NoBL;
+        this.contractPoNumber = this.data.VBDocument.NoPO;
       }
 
       if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {

@@ -30,11 +30,25 @@ export class Index {
         title: "View:  Realisasi VB Non PO",
       },
       {
+        route: "view-inklaring/:id",
+        moduleId: "./view-inklaring",
+        name: "view-inklaring",
+        nav: false,
+        title: "View:  Realisasi VB Inklaring Non PO",
+      },
+      {
         route: "edit/:id",
         moduleId: "./edit",
         name: "edit",
         nav: false,
         title: "Edit: Realisasi VB Non PO",
+      },
+      {
+        route: "edit-inklaring/:id",
+        moduleId: "./edit-inklaring",
+        name: "edit-inklaring",
+        nav: false,
+        title: "Edit: Realisasi VB Inklaring Non PO",
       },
     ]);
 
