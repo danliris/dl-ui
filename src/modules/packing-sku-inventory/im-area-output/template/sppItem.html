@@ -40,6 +40,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
         <td>
             <au-textbox value.bind="data.motif" read-only.bind="true" error.bind="error.Motif"
                 options.bind="controlOptions">
@@ -50,11 +51,19 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td show.bind="isAval || !readOnly">
+
+        <td>
             <au-dropdown items.bind="avalMachines" value.bind="data.machine" read-only.bind="readOnly"
                 error.bind="error.Machine" options.bind="controlOptions">
             </au-dropdown>
         </td>
+
+      <td>
+        <au-dropdown items.bind="productionMachine" value.bind="data.productionMachine" read-only.bind="readOnly"
+                     error.bind="error.Machine" options.bind="controlOptions">
+        </au-dropdown>
+      </td>
+
         <td>
             <au-textbox value.bind="data.uomUnit" read-only.bind="true" error.bind="error.UomUnit"
                 options.bind="controlOptions">

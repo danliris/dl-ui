@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/local-sales-notes';
+const serviceUriSC = 'garment-shipping/local-sales-contracts';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -32,14 +33,15 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
     
-    searchStock(info) {
-        var endpoint = stockServiceUri;
-        return super.list(endpoint, info);
-    }
     
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getSCById(id) {
+        var endpoint = `${serviceUriSC}/${id}`;
+        return super.get(endpoint);
     }
 }
 

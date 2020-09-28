@@ -138,13 +138,6 @@ export class List {
                 }
             });
 
-        // console.log(this.machine);
-        // console.log(this.orderNo);
-        // console.log(this.stepProcess);
-        // console.log(this.cartNo);
-        // console.log(this.startDate);
-        // console.log(this.endDate);
-
         // console.log(info);
         // return {
         //     total: 0,
@@ -157,6 +150,7 @@ export class List {
     }
 
     contextClickCallback(event) {
+
         var arg = event.detail;
         var data = arg.data;
 

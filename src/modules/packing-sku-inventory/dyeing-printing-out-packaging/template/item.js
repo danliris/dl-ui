@@ -62,12 +62,24 @@ export class CartItem {
 
             }
 
+            // if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
+            //     var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+            //         .reduce((a, b) => {
+            //             return +a + +b.qtyOut
+            //         }, 0);
+            //     for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+
+            //         item.balanceRemains = item.previousBalance - sum;
+
+            //     }
+            // }
+
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
-                var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+                var sum = this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)
                     .reduce((a, b) => {
                         return +a + +b.qtyOut
                     }, 0);
-                for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+                for (var item of this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)) {
 
                     item.balanceRemains = item.previousBalance - sum;
 
@@ -156,11 +168,21 @@ export class CartItem {
             this.data.qtyOut = this.inputPackagingQTY * newValue;
             // this.data.packagingQTY = this.inputPackagingQTY;
             this.data.packingLength = this.saldoPerPackaging;
+            // if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
+
+            //     var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+            //         .reduce((a, b) => +a + +b.qtyOut, 0);
+            //     for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+            //         item.balanceRemains = item.previousBalance - sum;
+
+            //     }
+            // }
+
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
 
-                var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+                var sum = this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)
                     .reduce((a, b) => +a + +b.qtyOut, 0);
-                for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+                for (var item of this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)) {
                     item.balanceRemains = item.previousBalance - sum;
 
                 }
@@ -175,11 +197,20 @@ export class CartItem {
 
             this.data.packagingQTY = this.inputPackagingQTY;
 
+            // if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
+
+            //     var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+            //         .reduce((a, b) => +a + +b.qtyOut, 0);
+            //     for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+            //         item.balanceRemains = item.previousBalance - sum;
+
+            //     }
+            // }
             if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
 
-                var sum = this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)
+                var sum = this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)
                     .reduce((a, b) => +a + +b.qtyOut, 0);
-                for (var item of this.itemSPP.data.PackagingList.filter(s => s.dyeingPrintingAreaInputProductionOrderId == this.data.dyeingPrintingAreaInputProductionOrderId)) {
+                for (var item of this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)) {
                     item.balanceRemains = item.previousBalance - sum;
 
                 }

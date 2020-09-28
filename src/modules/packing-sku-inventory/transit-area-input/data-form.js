@@ -69,9 +69,9 @@ export class DataForm {
         // }
 
         if (this.isEdit && !this.readOnly) {
-            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima", ""];
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan","Mesin Produksi", "Grade", "Satuan", "Qty Terima", ""];
         } else {
-            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Grade", "Satuan", "Qty Terima"];
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Buyer", "Material", "Unit", "Warna", "Motif", "Keterangan", "Mesin Produksi", "Grade","Satuan", "Qty Terima"];
         }
 
         if(this.data.transitProductionOrders){

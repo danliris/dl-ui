@@ -7,11 +7,11 @@
         <div class="col-md-10" style="padding:0">
           <div class="row" style="padding-left:14.8%">
             <div class="col-md-6">
-              <au-textbox label="No. DO Penjualan" value.bind="data.DOAvalNo" error.bind="error.DOAvalNo"
+              <au-textbox label="No. DO Aval" value.bind="data.DOAvalNo" error.bind="error.DOAvalNo"
                 if.bind="readOnly || isEdit" read-only.bind="true">
               </au-textbox>
 
-              <au-dropdown label="Seri DO Lokal" value.bind="data.Type" items.bind="doAvalOptions"
+              <au-dropdown label="Seri DO" value.bind="data.Type" items.bind="doAvalOptions"
                 error.bind="error.Type" read-only.bind="readOnly || isEdit">
               </au-dropdown>
 

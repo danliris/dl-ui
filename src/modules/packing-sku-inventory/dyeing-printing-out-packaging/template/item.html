@@ -40,6 +40,12 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+      <td>
+        <au-textbox value.bind="data.productionMachine" read-only.bind="true" error.bind="error.productionMachine"
+                    options.bind="controlOptions">
+        </au-textbox>
+      </td>
         <td>
             <au-dropdown value.bind="data.packagingType" items.bind="packType" read-only.bind="readOnly"
                 error.bind="error.PackagingType" options.bind="controlOptions">
@@ -71,7 +77,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
+        <td show.bind="!readOnly || !isEdit">
             <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.BalanceRemains"
                 options.bind="controlOptions">
             </au-numeric>

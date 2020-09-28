@@ -24,38 +24,22 @@
                     ${role.label}
                 </div>
             </template>
-        </div>
-        <br>
-    </template>
-    
-    <h1 class="page-header">Penerimaan Dokumen Realisasi VB ${activeRole.position === 3 ? 'Dari Pembelian' : 'Dari Verifikasi'}</h1>
-    <au-table
-        view-model.ref="tableList"
-        data.bind="loader"
-        columns.bind="columns"
-        sortable.bind="true"    
-        page-size="25"
-        if.bind = "!code"
-        context.bind="context"
-        context-click.delegate="contextClickCallback($event)">
-        <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
-        </div>
-    </au-table>
-    <au-table
-        view-model.ref="tableList"
-        data.bind="loader"
-        columns.bind="columns2"
-        if.bind = "code"
-        sortable.bind="true"    
-        page-size="25"
-        context.bind="context"
-        context-click.delegate="contextClickCallback($event)">
-        <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
-        </div>
-    </au-table>
-    <!-- <au-table
+</div>
+<br>
+</template>
+
+<h1 class="page-header">Penerimaan Dokumen Realisasi VB ${activeRole.position === 3 ? 'Dari Pembelian' : 'Dari Verifikasi'}</h1>
+<au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" if.bind="!code">
+    <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="create()">Buat</button>
+    </div>
+</au-table>
+<au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns2" if.bind="code" sortable.bind="true" page-size="25" context.bind="context" context-click.delegate="contextClickCallback($event)">
+    <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="create()">Buat</button>
+    </div>
+</au-table>
+<!-- <au-table
         view-model.ref="tableList"
         data.bind="loader"
         columns.bind="columns"
