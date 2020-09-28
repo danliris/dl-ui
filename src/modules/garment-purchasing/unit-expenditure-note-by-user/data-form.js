@@ -1,10 +1,11 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
+import { AuthService } from "aurelia-authentication";
 var UnitDeliveryOrderLoader = require('../../../loader/garment-unit-delivery-order-for-unit-expenditure-note-loader');
 import moment from 'moment';
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(Service, BindingEngine,AuthService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -26,10 +27,10 @@ export class DataForm {
         }
     }
 
-    constructor(service, bindingEngine) {
+    constructor(service, bindingEngine,authService) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-        
+        this.authService=authService;
     }
 
      bind(context) {
@@ -86,6 +87,15 @@ export class DataForm {
 
     @computedFrom("data.ExpenditureType")
     get filterUnitDeliveryOrder() {
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+        // this.filter={
+        //   CreatedBy: username,
+        //   AdjustmentType: "BARANG JADI"
+        // }
         var unitDeliveryOrderFilter = {
             IsUsed : false
         };
@@ -96,6 +106,7 @@ export class DataForm {
         }
         else{
             unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
+            unitDeliveryOrderFilter[`CreatedBy== "${username}"`]=true;
         }
         return unitDeliveryOrderFilter;
     }
