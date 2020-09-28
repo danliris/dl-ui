@@ -54,12 +54,12 @@
                   options.bind="controlOptions">
     </au-multiline>
 
-    <!-- <au-checkbox label="Inklaring"
+    <au-checkbox label="Inklaring"
                  value.bind="data.IsInklaring"
                  placeholder="inklaring"
                  read-only.bind="readOnly"
                  options.bind="controlOptions">
-    </au-checkbox> -->
+    </au-checkbox>
 
     <div show.bind="data.IsInklaring">
       <au-textbox value.bind="data.NoBL" read-only.bind="readOnly" error.bind="error.NoBL" label="No. BL / AWB"
