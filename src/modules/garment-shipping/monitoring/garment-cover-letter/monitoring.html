@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Monitoring Shipping Instruction</h1>
+    <h1 class="page-header">Monitoring Surat Pengantar</h1>
     <form class="form-horizontal">
         <au-autocomplete 
             label="Buyer Agent"
@@ -12,8 +12,19 @@
             options.bind="controlOptions">
         </au-autocomplete>
  
-       <au-datepicker label="Tanggal Shippiing Instruction Awal" value.bind="dateFrom"></au-datepicker>
-       <au-datepicker label="Tanggal Shippiing Instruction Akhir" value.bind="dateTo"></au-datepicker>
+        <au-autocomplete 
+            label="Trucking"
+            value.bind="emkl"
+            error.bind="error.EMKL"
+            loader.bind="garmentemklLoader"
+            text.bind = "emklView"
+            key="Code"
+            placeholder="Cari Trucking"
+            options.bind="controlOptions">
+       </au-autocomplete>
+
+       <au-datepicker label="Tanggal Surat Pengantar Awal" value.bind="dateFrom"></au-datepicker>
+       <au-datepicker label="Tanggal Surat Pengantar Akhir" value.bind="dateTo"></au-datepicker>
   
        <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -31,21 +42,28 @@
                 <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">No Invoice</th>
-                    <th class="text-center">Tanggal SI</th>
-                    <th class="text-center">Tgl Trucking</th>
+                    <th class="text-center">Tanggal SP</th>
+                    <th class="text-center">Tgl Booking</th>
+                    <th class="text-center">Tgl Estimasi Export</th>
+                    <th class="text-center">Trucking</th>
                     <th class="text-center">Forwarder</th>
-                    <th class="text-center">Nama Forwarder</th>
                     <th class="text-center">Staff Shipping</th>
                     <th class="text-center">Buyer Agent</th>
-                    <th class="text-center">Nama Buyer Agent</th>
-                    <th class="text-center">Port Of Discharge</th>
-                    <th class="text-center">Place Of Delivery</th>
+                    <th class="text-center">Nama Buyer Agent</th>                    
+                    <th class="text-center">Tujuan</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">PIC</th>
+                    <th class="text-center">ATTN</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Container No</th>                    
+                    <th class="text-center">Qty Carton</th>
                     <th class="text-center">Qty PCS</th>
                     <th class="text-center">Qty Sets</th>
-                    <th class="text-center">Qty Pack</th>
-                    <th class="text-center">Qty Carton</th>
-                    <th class="text-center">Gross Weight</th>
-                    <th class="text-center">Nett Weight</th>
+                    <th class="text-center">Qty Pack</th>  
+                    <th class="text-center">Jenis Truk</th>
+                    <th class="text-center">No Polisi</th>
+                    <th class="text-center">Driver</th>
+                    <th class="text-center">Nama Unit</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,43 +71,47 @@
                     <tr repeat.for="data of buyer.data">
                         <td class="text-center"> ${$index + 1}</td>                        
                         <td>${data.invoiceNo}</td>
-                        <td>${data.siDate}</td>
-                        <td>${data.truckingDate}</td>
-                        <td>${data.forwarderCode}</td>
+                        <td>${data.clDate}</td>
+                        <td>${data.bookingDate}</td>                        
+                        <td>${data.exportDate}</td>
+                        <td>${data.emklName}</td>
                         <td>${data.forwarderName}</td>
                         <td>${data.shippingStaffName}</td>
                         <td>${data.buyerAgentCode}</td>
                         <td>${data.buyerAgentName}</td>
-                        <td>${data.portOfDischarge}</td>
-                        <td>${data.placeOfDelivery}</td>                        
+                        <td>${data.destination}</td>
+                        <td>${data.address}</td>
+                        <td>${data.pic}</td>
+                        <td>${data.attn}</td>
+                        <td>${data.phone}</td>
+                        <td>${data.containerNo}</td>                        
+                        <td class="text-right"><strong>${data.totalCarton}</strong></td>
                         <td class="text-right"><strong>${data.pcsQuantity}</strong></td>
                         <td class="text-right"><strong>${data.setsQuantity}</strong></td>
                         <td class="text-right"><strong>${data.packQuantity}</strong></td>
-                        <td class="text-right"><strong>${data.cartonNo}</strong></td>
-                        <td class="text-right"><strong>${data.grossWeight}</strong></td>
-                        <td class="text-right"><strong>${data.nettWeight}</strong></td>
-
+                        <td>${data.truck}</td>   
+                        <td>${data.plateNumber}</td>   
+                        <td>${data.driverName}</td>   
+                        <td>${data.unitName}</td>   
                     </tr>
                     <tr class="active">
                         <td class="text-center">.</td>
-                        <td colspan="8"><strong>${buyer.buyer}</strong></td>
+                        <td colspan="14"><strong>${buyer.buyer}</strong></td>
                         <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal1}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal2}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal3}</strong></td>
-                        <td class="text-right"><strong>${buyer.subTotal6}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal4}</strong></td>
-                        <td class="text-right"><strong>${buyer.subTotal5}</strong></td>                        
+                        <td colspan="4">.</td>
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="11"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="16"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-right"><strong>${TotCtns}</strong></td>
                         <td class="text-right"><strong>${TotPcs}</strong></td>
                         <td class="text-right"><strong>${TotSets}</strong></td>
                         <td class="text-right"><strong>${TotPack}</strong></td>
-                        <td class="text-right"><strong>${TotCtns}</strong></td>
-                        <td class="text-right"><strong>${TotGross}</strong></td>
-                        <td class="text-right"><strong>${TotNett}</strong></td>                        
+                        <td class="text-center" colspan="4">.</td>                                             
                     </tr>
             </tbody>
 
