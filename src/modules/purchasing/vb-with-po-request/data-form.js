@@ -14,8 +14,6 @@ export class DataForm {
     @bindable title;
     // useVat: false 
     @bindable selectedCurrency;
-    @bindable selectedObjectTypePurchasing;
-    @bindable selectedTypePurchasing;
     @bindable isGarment = false;
 
     controlOptions = {
@@ -29,9 +27,7 @@ export class DataForm {
 
     itemsColumns = ["Nomor PO"]
 
-    garmentSelection = [{ id: 2, label: "Job", value: "GARMENT" }, { id: 1, label: "Umum", value: "UMUM" }];
-
-    selectedObjectTypePurchasing = { id: 2 };
+    garmentSelection = [{ id: 2, label: "Job", value: "GARMENT", checked: true }, { id: 1, label: "Umum", value: "UMUM" }];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -47,17 +43,6 @@ export class DataForm {
         if (this.data.SuppliantUnit && this.data.SuppliantUnit.Id) {
             this.selectedSuppliantUnit = this.data.SuppliantUnit;
             this.options.Unit = this.data.SuppliantUnit;
-
-            if (this.data.SuppliantUnit.Division.Name == "GARMENT") {
-                this.isGarment = true;
-                this.selectedObjectTypePurchasing = { id: 2 };
-                this.selectedTypePurchasing = this.data.SuppliantUnit.Division.Name;
-            } else {
-                this.selectedObjectTypePurchasing = { id: 1 };
-                this.selectedTypePurchasing = "UMUM";
-            }
-
-            this.options.TypePurchasing = this.selectedTypePurchasing;
         }
         this.selectedCurrency = this.data.Currency;
 
@@ -100,9 +85,6 @@ export class DataForm {
             this.options.Unit = this.data.SuppliantUnit;
 
             this.isGarment = (this.data.SuppliantUnit.Division.Name == "GARMENT") ? true : false;
-            this.selectedObjectTypePurchasing = (this.data.SuppliantUnit.Division.Name == "GARMENT") ? { id: 2 } : {};
-            this.selectedTypePurchasing = (this.data.SuppliantUnit.Division.Name == "GARMENT") ? this.data.SuppliantUnit.Division.Name : "UMUM";
-            this.options.TypePurchasing = this.selectedTypePurchasing;
         } else
             delete this.data.SuppliantUnit;
     }
@@ -164,8 +146,8 @@ export class DataForm {
         let type = (e.detail) ? e.detail : "";
 
         if (type) {
-            this.selectedTypePurchasing = (type == "GARMENT") ? type : "UMUM";
-            this.options.TypePurchasing = this.selectedTypePurchasing;
+            this.data.TypePurchasing = (type == "GARMENT") ? type : "UMUM";
+            this.options.TypePurchasing = this.data.TypePurchasing;
         }
     }
 }
