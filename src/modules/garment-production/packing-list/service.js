@@ -36,6 +36,16 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
+
+    post(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.put(endpoint, data);
+    }
+
+    unpost(id) {
+        var endpoint = `${serviceUri}/unpost/${id}`;
+        return super.put(endpoint);
+    }
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';

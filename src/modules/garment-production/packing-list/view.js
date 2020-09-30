@@ -11,6 +11,10 @@ export class View {
         this.coreService = coreService;
     }
 
+    formOptions = {
+        saveText: "Unpost"
+    }
+
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
@@ -22,9 +26,6 @@ export class View {
                 idx++;
             }
         }
-        if(this.data.isUsed){
-            // this.editCallback=null;
-            this.deleteCallback=null;
 
         if (this.data.items) {
             for (const item of this.data.items) {
@@ -40,6 +41,12 @@ export class View {
                 }
             }
         }
+
+        if (this.data.isPosted) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+        } else {
+            this.saveCallback = null;
         }
     }
 
@@ -59,4 +66,12 @@ export class View {
         }
     }
 
+    saveCallback() {
+        if (confirm("Unpost?")) {
+            this.service.unpost(this.data.id)
+                .then(result => {
+                    this.cancelCallback();
+                });
+        }
+    }
 }
