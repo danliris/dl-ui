@@ -5,7 +5,8 @@ import { Service } from './../service';
 // var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-loader');
 // var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-sum-loader');
-var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
+// var ProductionOrderLoader = require('../../../../loader/output-packaging-inputspp-group-loader');
+var ProductionOrderLoader = require('../../../../loader/input-packing-spp-sum-by-grade-loader');
 
 // @inject(Service, BindingEngine, BindingSignaler, DataForm)
 @inject(Service, BindingEngine, BindingSignaler)
@@ -53,23 +54,23 @@ export class ItemSPP {
         if (this.isEdit) {
             if (this.readOnly) {
                 if (this.destinationArea == "TRANSIT") {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif","Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
                 } else {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif","Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
                 }
 
             } else {
                 if (this.destinationArea == "TRANSIT") {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif","Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
                 } else {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi","Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
                 }
 
             }
 
         } else {
             if (this.destinationArea == "TRANSIT") {
-                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif",  "Mesin Produksi","Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
             } else {
                 this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
             }

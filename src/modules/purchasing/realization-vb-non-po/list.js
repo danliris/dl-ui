@@ -99,19 +99,19 @@ export class List {
   }
 
   create(activeTab) {
-    if (activeTab === "Realisasi VB Non PO") {
-      this.router.navigateToRoute("create");
-    } else {
-      this.router.navigateToRoute("create-inklaring");
-    }
+    const createRoute =
+      activeTab === "Realisasi VB Non PO" ? "create" : "create-inklaring";
+    this.router.navigateToRoute(createRoute);
   }
 
-  contextClickCallback(event) {
+  contextClickCallback(event, activeTab) {
     var arg = event.detail;
     var data = arg.data;
+    const viewRoute =
+      activeTab === "Realisasi VB Non PO" ? "view" : "view-inklaring";
     switch (arg.name) {
       case "Detail":
-        this.router.navigateToRoute("view", {
+        this.router.navigateToRoute(viewRoute, {
           id: data.Id,
           search: this.ressearch,
         });
