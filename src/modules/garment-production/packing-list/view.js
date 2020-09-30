@@ -15,6 +15,7 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         var idx=0;
+
         if(this.data.measurements){
             for(var i of this.data.measurements){
                 i.MeasurementIndex=idx;
@@ -24,6 +25,21 @@ export class View {
         if(this.data.isUsed){
             // this.editCallback=null;
             this.deleteCallback=null;
+
+        if (this.data.items) {
+            for (const item of this.data.items) {
+                item.buyerAgent = this.data.buyerAgent;
+                item.section = this.data.section;
+            }
+
+            if (this.data.section) {
+                const section = await this.coreService.getSectionById(this.data.section.id);
+
+                for (const item of this.data.items) {
+                    item.sectionName = section.Name;
+                }
+            }
+        }
         }
     }
 
