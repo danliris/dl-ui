@@ -56,7 +56,7 @@ export class PurchaseOrderItem {
         //   "UnitName":this.context.context.options.unitCode,
         //   "IsPosted":false
         // };
-        console.log(this.context);
+        // console.log(this.context);
 
         let currencyCode = "";
         if (this.context.context.options.CurrencyCode)
@@ -66,9 +66,10 @@ export class PurchaseOrderItem {
         if (this.context.context.options.Unit) {
             if (this.context.context.options.Unit.Division)
             // division = this.context.context.options.Unit.Division.Name;
-                division = this.context.context.options.TypePurchasing;
+                division = (this.context.context.options.TypePurchasing) ? this.context.context.options.TypePurchasing : this.context.context.options.Unit.Division.Name;
         }
 
+        console.log(division);
         this.filter = {
             "currencyCode": currencyCode,
             "division": division

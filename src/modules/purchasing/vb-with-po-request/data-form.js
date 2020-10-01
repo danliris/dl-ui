@@ -27,7 +27,7 @@ export class DataForm {
 
     itemsColumns = ["Nomor PO"]
 
-    garmentSelection = [{ id: 2, label: "Job", value: "GARMENT", checked: true }, { id: 1, label: "Umum", value: "UMUM" }];
+    garmentSelection = [{ id: 2, label: "Job", value: "GARMENT" }, { id: 1, label: "Umum", value: "UMUM" }];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -85,6 +85,7 @@ export class DataForm {
             this.options.Unit = this.data.SuppliantUnit;
 
             this.isGarment = (this.data.SuppliantUnit.Division.Name == "GARMENT") ? true : false;
+            this.options.TypePurchasing = (this.data.SuppliantUnit.Division.Name == "GARMENT") ? "GARMENT" : "";
         } else
             delete this.data.SuppliantUnit;
     }
