@@ -121,12 +121,6 @@ export class DataForm {
         }
 
         this.data.items = this.Items;
-        if (this.data.items && this.data.id) {
-            for (var item of this.data.items) {
-                item.BuyerCode = this.data.buyerAgent.code;
-                item.Section = this.data.section.code;
-            }
-        }
 
         this.data.sayUnit = this.data.sayUnit || "CARTON";
     }

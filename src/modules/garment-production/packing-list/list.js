@@ -6,9 +6,18 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
+    dataToBePosted = [];
+
     context = ["Detail", "Cetak"]
 
     columns = [
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.isPosted;
+                return ""
+            }
+        },
         { field: "invoiceNo", title: "No Invoice" },
         {
             field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
@@ -68,5 +77,16 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+            this.service.post(this.dataToBePosted.map(d => d.id))
+                .then(result => {
+                    this.table.refresh();
+                }).catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }

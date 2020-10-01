@@ -19,7 +19,8 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.buyer.Name || data.buyer.name ||''"
+                value.bind="data.buyerAgent.Name || data.buyerAgent.name ||''"
+                error.bind="error.BuyerAgent"
                 read-only.bind="true">
             </au-textbox>
         </td>
@@ -32,6 +33,7 @@
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.sectionName"
+                error.bind="error.Section"
                 read-only.bind="true">
             </au-textbox>
         </td>

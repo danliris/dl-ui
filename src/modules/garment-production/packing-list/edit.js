@@ -23,6 +23,21 @@ export class Edit {
                 idx++;
             }
         }
+
+        if (this.data.items) {
+            for (const item of this.data.items) {
+                item.buyerAgent = this.data.buyerAgent;
+                item.section = this.data.section;
+            }
+
+            if (this.data.section) {
+                const section = await this.coreService.getSectionById(this.data.section.id);
+
+                for (const item of this.data.items) {
+                    item.sectionName = section.Name;
+                }
+            }
+        }
     }
 
     cancelCallback(event) {
