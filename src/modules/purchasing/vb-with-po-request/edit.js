@@ -14,10 +14,25 @@ export class Edit {
 
     isEdit = true;
     isVisible = true;
+    isGarment = false;
 
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+
+        if (this.data.TypePurchasing) {
+            this.isGarment = true;
+            switch (this.data.TypePurchasing) {
+                case "GARMENT":
+                    this.TypePurchasing = "JOB";
+                    break;
+                case "UMUM":
+                    this.TypePurchasing = "UMUM";
+                    break;
+                default:
+                    this.TypePurchasing = null;
+            }
+        }
     }
 
     cancelCallback(event) {
