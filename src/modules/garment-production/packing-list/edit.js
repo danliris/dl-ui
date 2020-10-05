@@ -29,14 +29,6 @@ export class Edit {
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
             }
-
-            if (this.data.section) {
-                const section = await this.coreService.getSectionById(this.data.section.id);
-
-                for (const item of this.data.items) {
-                    item.sectionName = section.Name;
-                }
-            }
         }
     }
 
@@ -45,6 +37,10 @@ export class Edit {
     }
 
     saveCallback(event) {
+        if (this.data.items && this.data.items[0]) {
+            this.data.buyerAgent = this.data.items[0].buyerAgent;
+            this.data.section = this.data.items[0].section;
+        }
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });

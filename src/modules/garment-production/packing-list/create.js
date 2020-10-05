@@ -29,6 +29,10 @@ export class Create {
     }
 
     saveCallback(event) {
+        if (this.data.items && this.data.items[0]) {
+            this.data.buyerAgent = this.data.items[0].buyerAgent;
+            this.data.section = this.data.items[0].section;
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat, No Invoice: " + result);

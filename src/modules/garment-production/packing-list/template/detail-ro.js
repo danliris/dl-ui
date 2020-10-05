@@ -89,12 +89,6 @@ export class Item {
                         .then(sc => {
                             this.salesService.getPreSalesContractById(result.PreSCId)
                                 .then(psc => {
-                                    this.context.context.options.header.buyerAgent = result.Buyer;
-                                    this.context.context.options.header.section = {
-                                        id: psc.SectionId,
-                                        code: result.Section,
-                                    };
-
                                     this.data.roNo = result.RO_Number;
                                     this.data.article = result.Article;
                                     this.data.buyerAgent = result.Buyer;
