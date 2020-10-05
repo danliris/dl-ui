@@ -12,11 +12,6 @@ export class Edit {
         this.coreService = coreService;
     }
 
-    formOptions = {
-        cancelText: "Back",
-        saveText: "Save Approval",
-    }
-
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
