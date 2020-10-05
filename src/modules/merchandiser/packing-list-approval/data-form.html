@@ -74,7 +74,7 @@
                         options.bind="controlOptions">
                     </au-datepicker>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" show.bind="isEdit">
                     <au-dropdown
                         label="Shipment Mode"
                         value.bind="data.shipmentMode"
@@ -121,6 +121,7 @@
                 </div>
                 <div class="tbl">
                     <au-collection 
+                        show.bind="isEdit"
                         items.bind="data.items" 
                         errors.bind="error.Items" 
                         columns.bind="itemsColumns"
@@ -129,7 +130,18 @@
                         remove.bind="removeItems"
                         options.bind="Options"
                         item-template="modules/merchandiser/packing-list-approval/template/detail-ro">
-                    </au-collection>    
+                    </au-collection>
+                    <au-collection 
+                        show.bind="!isEdit"
+                        items.bind="data.items" 
+                        errors.bind="error.Items" 
+                        columns.bind="itemsColumns"
+                        read-only.bind="readOnly" 
+                        add.bind="addItems" 
+                        remove.bind="removeItems"
+                        options.bind="Options"
+                        item-template="modules/garment-production/packing-list/template/detail-ro">
+                    </au-collection>
                 </div>
                 
             </div>
