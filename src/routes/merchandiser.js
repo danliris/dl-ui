@@ -714,7 +714,7 @@ module.exports = [
         name: 'packing-list',
         moduleId: './modules/merchandiser/packing-list/index',
         nav: true,
-        title: 'Packing List - Md',
+        title: 'Approved Packing List - Md',
         auth: true,
         settings: {
             group: "merchandiser",
