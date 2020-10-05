@@ -12,6 +12,7 @@ export class View {
     }
 
     formOptions = {
+        cancelText: "Back",
         saveText: "Unpost"
     }
 
@@ -41,12 +42,25 @@ export class View {
                 }
             }
         }
-
-        if (this.data.isPosted) {
-            this.editCallback = null;
-            this.deleteCallback = null;
-        } else {
-            this.saveCallback = null;
+        
+        switch (this.data.status) {
+            case "CANCELED":
+            case "APPROVED_MD":
+            case "APPROVED_SHIPPING":
+                this.saveCallback = null;
+            case "POSTED":
+            case "REJECTED_MD":
+            case "REVISED_MD":
+            case "REJECTED_SHIPPING":
+            case "REVISED_SHIPPING":
+                this.editCallback = null;
+                this.deleteCallback = null;
+                break;
+            case "ON_PROCESS":
+                this.saveCallback = null;
+                break;
+            default:
+                break;
         }
     }
 
