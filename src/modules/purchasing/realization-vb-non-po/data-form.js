@@ -28,7 +28,8 @@ export class DataForm {
     filter = {
         "ApprovalStatus": 2,
         "IsRealized": false,
-        "Type": 2
+        "Type": 2,
+        "IsInklaring": false
     };
 
     controlOptions = {
