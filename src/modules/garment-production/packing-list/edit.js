@@ -45,8 +45,23 @@ export class Edit {
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });
             })
-            .catch(e => {
-                this.error = e;
+            .catch(error => {
+                this.error = error;
+
+                let errorNotif = "";
+                if (error.InvoiceType || error.Type || error.Date || error.ItemsCount || error.Items) {
+                    errorNotif += "Tab DESCRIPTION ada kesalahan pengisian.\n"
+                }
+                if (error.GrossWeight || error.NettWeight || error.totalCartons || error.SayUnit || error.MeasurementsCount || error.Measurements) {
+                    errorNotif += "Tab DETAIL MEASUREMENT ada kesalahan pengisian.\n"
+                }
+                if (error.ShippingMark || error.SideMark || error.Remark) {
+                    errorNotif += "Tab SHIPPING MARK - SIDE MARK - REMARK ada kesalahan pengisian."
+                }
+
+                if (errorNotif) {
+                    alert(errorNotif);
+                }
             })
     }
 }
