@@ -81,45 +81,6 @@ export class Item {
         }
     }
 
-    selectedROChanged(newValue) {
-        if (newValue) {
-            this.salesService.getCostCalculationById(newValue.Id)
-                .then(result => {
-                    this.salesService.getSalesContractById(result.SCGarmentId)
-                        .then(sc => {
-                            this.salesService.getPreSalesContractById(result.PreSCId)
-                                .then(psc => {
-                                    this.context.context.options.header.buyerAgent = result.Buyer;
-                                    this.context.context.options.header.section = {
-                                        id: psc.SectionId,
-                                        code: result.Section,
-                                    };
-
-                                    this.data.roNo = result.RO_Number;
-                                    this.data.article = result.Article;
-                                    this.data.buyerAgent = result.Buyer;
-                                    this.data.buyerBrand = result.BuyerBrand;
-                                    this.data.sectionName = result.SectionName;
-                                    this.data.section = {
-                                        id: psc.SectionId,
-                                        code: result.Section,
-                                    };
-                                    this.data.unit = result.Unit;
-                                    this.data.uom = result.UOM;
-                                    this.data.valas = "USD";
-                                    this.data.quantity = result.Quantity;
-                                    this.data.scNo = sc.SalesContractNo;
-                                    //this.data.amount=sc.Amount;
-                                    this.data.price = sc.Price;
-                                    this.data.priceRO = sc.Price;
-                                    this.data.comodity = result.Comodity;
-                                    this.data.amount = sc.Amount;
-                                });
-                        })
-                });
-        }
-    }
-
     get addDetails() {
         return (event) => {
             const i = this.context.context.items.indexOf(this.context);
@@ -170,8 +131,8 @@ export class Item {
 
     get amount() {
         this.data.amount = 0;
-        if (this.data.quantity && this.data.price) {
-            this.data.amount = this.data.quantity * this.data.price
+        if (this.data.quantity && this.data.priceFOB) {
+            this.data.amount = this.data.quantity * this.data.priceFOB
         }
         return this.data.amount;
     }

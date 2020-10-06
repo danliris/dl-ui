@@ -32,7 +32,7 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.sectionName"
+                value.bind="data.section.code"
                 error.bind="error.Section"
                 read-only.bind="true">
             </au-textbox>
@@ -69,13 +69,13 @@
         </td>
         <td class="bg-primary col-md-1">
             <au-numeric
-                value.bind="data.priceCMT"
+                value.bind="data.priceFOB"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td class="bg-primary col-md-1">
             <au-numeric
-                value.bind="data.priceFOB"
+                value.bind="data.priceCMT"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>

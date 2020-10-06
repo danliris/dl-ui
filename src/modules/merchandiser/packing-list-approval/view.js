@@ -32,8 +32,11 @@ export class View {
             }
         }
 
-        if (this.data.section) {
-            this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
+        if (this.data.items) {
+            for (const item of this.data.items) {
+                item.buyerAgent = this.data.buyerAgent;
+                item.section = this.data.section;
+            }
         }
     }
 
@@ -42,7 +45,9 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('approve', { id: this.data.id });
+        if (confirm("Isi form untuk Approve")) {
+            this.router.navigateToRoute('approve', { id: this.data.id });
+        }
     }
 
     deleteCallback(event) {
