@@ -30,6 +30,7 @@ export class CartItem {
             this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
 
             this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
+            this.selectedProductionOrder.FinishWidth = this.data.finishWidth;
 
             this.selectedProductionOrder.Buyer = {};
             this.selectedProductionOrder.Buyer.Id = this.data.buyerId;
@@ -86,7 +87,7 @@ export class CartItem {
             if (this.selectedProductionOrder.Construction) {
                 this.data.construction = this.selectedProductionOrder.Construction;
             } else {
-                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.MaterialWidth}`
+                this.data.construction = `${this.selectedProductionOrder.Material.Name} / ${this.selectedProductionOrder.MaterialConstruction.Name} / ${this.selectedProductionOrder.FinishWidth} / ${this.selectedProductionOrder.YarnMaterial.Name}`
             }
             this.data.material = {};
             this.data.material.id = this.selectedProductionOrder.Material.Id;
@@ -97,6 +98,7 @@ export class CartItem {
             this.data.materialConstruction.name = this.selectedProductionOrder.MaterialConstruction.Name;
 
             this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
+            this.data.finishWidth = this.selectedProductionOrder.FinishWidth;
 
             this.data.buyerId = this.selectedProductionOrder.Buyer.Id;
             this.data.buyer = this.selectedProductionOrder.Buyer.Name;
