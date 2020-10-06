@@ -80,7 +80,7 @@
             </td>
             <td>
                 <div style="width: 200px;" class="tooltip-material-field">
-                    <au-textbox value.bind="data.Description" options.bind="controlOptions" read-only="true"></au-textbox>
+                    <au-multiline value.bind="data.Description" options.bind="controlOptions" read-only="true"></au-multiline>
                     <span class="tooltiptext">Deskripsi</span>
                 </div>
             </td>
@@ -139,8 +139,8 @@
             <!-- deskripsi -->
             <td>
                 <div style="width: 200px;" class="tooltip-material-field">
-                    <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
-                        show.bind="productCodeIsExist"></au-textbox>
+                    <au-multiline placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
+                        show.bind="productCodeIsExist"></au-multiline>
                     <span class="tooltiptext">Deskripsi</span>
                 </div>
             </td>

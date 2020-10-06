@@ -471,6 +471,15 @@
                           format="0,0">
               </au-numeric>
 
+              <au-dropdown label="Satuan Bale"
+                           value.bind="data.BaleUom"
+                           items.bind="baleUomDyeingOptions"
+                           error.bind="error.BaleUom"
+                           read-only.bind="readOnly"
+                           placeholder="Pilih Satuan Bale"
+                           if.bind="code2">
+              </au-dropdown>
+
               <au-multiline label="Catatan"
                             value.bind="data.Remark"
                             read-only.bind="readOnly"
