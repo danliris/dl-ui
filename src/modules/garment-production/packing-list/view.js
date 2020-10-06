@@ -54,6 +54,14 @@ export class View {
             default:
                 break;
         }
+
+        switch (this.data.status) {
+            case "REJECTED_MD":
+                this.alertInfo = "<strong>Alasan Reject:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            default:
+                break;
+        }
     }
 
     cancelCallback(event) {
