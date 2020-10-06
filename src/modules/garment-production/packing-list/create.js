@@ -29,6 +29,10 @@ export class Create {
     }
 
     saveCallback(event) {
+        if (this.data.items && this.data.items[0]) {
+            this.data.buyerAgent = this.data.items[0].buyerAgent;
+            this.data.section = this.data.items[0].section;
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat, No Invoice: " + result);
@@ -36,6 +40,21 @@ export class Create {
             })
             .catch(error => {
                 this.error = error;
+
+                let errorNotif = "";
+                if (error.InvoiceType || error.Type || error.Date || error.ItemsCount || error.Items) {
+                    errorNotif += "Tab DESCRIPTION ada kesalahan pengisian.\n"
+                }
+                if (error.GrossWeight || error.NettWeight || error.totalCartons || error.SayUnit || error.MeasurementsCount || error.Measurements) {
+                    errorNotif += "Tab DETAIL MEASUREMENT ada kesalahan pengisian.\n"
+                }
+                if (error.ShippingMark || error.SideMark || error.Remark) {
+                    errorNotif += "Tab SHIPPING MARK - SIDE MARK - REMARK ada kesalahan pengisian."
+                }
+
+                if (errorNotif) {
+                    alert(errorNotif);
+                }
             });
     }
 }

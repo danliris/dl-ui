@@ -36,10 +36,21 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
+
+    post(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.put(endpoint, data);
+    }
+
+    unpost(id) {
+        var endpoint = `${serviceUri}/unpost/${id}`;
+        return super.put(endpoint);
+    }
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
 const SalesContractserviceUri = "merchandiser/garment-sales-contracts";
+const PreSalesContractserviceUri = "merchandiser/garment-pre-sales-contracts";
 class SalesService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "sales");
@@ -54,6 +65,13 @@ class SalesService extends RestService {
         var endpoint = `${SalesContractserviceUri}/${id}`;
         return super.get(endpoint);
     }
+
+    getPreSalesContractById(id) {
+        var endpoint = `${PreSalesContractserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+
 }
 
 const sectionServiceUri = "master/garment-sections";

@@ -6,9 +6,18 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
+    dataToBePosted = [];
+
     context = ["Detail", "Cetak"]
 
     columns = [
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.isPosted;
+                return ""
+            }
+        },
         { field: "invoiceNo", title: "No Invoice" },
         {
             field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
@@ -17,7 +26,7 @@ export class List {
         },
         { field: "packingListType", title: "Jenis Packing List" },
         { field: "invoiceType", title: "Jenis Invoice" },
-        { field: "status", title: "Status" },
+        { field: "status", title: "Status", formatter: value => value.replace("_", " ") },
     ];
 
     loader = (info) => {
@@ -34,13 +43,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                for (const data of result.data) {
-                    if (data.isPosted) {
-                        data.status = "Posted";
-                    } else {
-                        data.status = "On Process";
-                    }
-                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -51,6 +53,25 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    rowFormatter(data, index) {
+        switch (data.status) {
+            case "CANCELED":
+                return { classes: "active" }
+            case "APPROVED_MD":
+                return { classes: "warning" }
+            // case "APPROVED_SHIPPING":
+            // case "POSTED":
+            case "REJECTED_MD":
+                return { classes: "danger" }
+            // case "REVISED_MD":
+            // case "REJECTED_SHIPPING":
+            // case "REVISED_SHIPPING":
+            // case "ON_PROCESS":
+            default:
+                return {}
+        }
     }
 
     contextClickCallback(event) {
@@ -68,5 +89,16 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+            this.service.post(this.dataToBePosted.map(d => d.id))
+                .then(result => {
+                    this.table.refresh();
+                }).catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }

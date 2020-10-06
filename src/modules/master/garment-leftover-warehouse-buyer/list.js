@@ -7,10 +7,12 @@ export class List {
     context = ["detail"];
     columns = [
         { field: "Code", title: "Kode", width: "8%" },
-        { field: "Name", title: "Nama", width: "23%" },
-        { field: "Address", title: "Alamat", width: "34%" },
-        { field: "NPWP", title: "No. NPWP", width: "12%" },
-        { field: "WPName", title: "Nama Wajib Pajak", width: "23%" },
+        { field: "Name", title: "Nama", width: "20%" },
+        { field: "Address", title: "Alamat", width: "22%" },
+        { field: "PhoneNumber", title: "No. Telepon", width: "10%" },
+        { field: "NIK", title: "NIK", width: "10%" },
+        { field: "NPWP", title: "No. NPWP", width: "10%" },
+        { field: "WPName", title: "Nama Wajib Pajak", width: "20%" },
     ];
 
     loader = (info) => {

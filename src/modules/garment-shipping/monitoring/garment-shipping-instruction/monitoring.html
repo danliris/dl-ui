@@ -40,10 +40,10 @@
                     <th class="text-center">Nama Buyer Agent</th>
                     <th class="text-center">Port Of Discharge</th>
                     <th class="text-center">Place Of Delivery</th>
-                    <th class="text-center">Qty Carton</th>
                     <th class="text-center">Qty PCS</th>
                     <th class="text-center">Qty Sets</th>
                     <th class="text-center">Qty Pack</th>
+                    <th class="text-center">Qty Carton</th>
                     <th class="text-center">Gross Weight</th>
                     <th class="text-center">Nett Weight</th>
                 </tr>
@@ -61,31 +61,33 @@
                         <td>${data.buyerAgentCode}</td>
                         <td>${data.buyerAgentName}</td>
                         <td>${data.portOfDischarge}</td>
-                        <td>${data.placeOfDelivery}</td>
-                        <td>${data.cartonNo}</td>
+                        <td>${data.placeOfDelivery}</td>                        
                         <td class="text-right"><strong>${data.pcsQuantity}</strong></td>
                         <td class="text-right"><strong>${data.setsQuantity}</strong></td>
                         <td class="text-right"><strong>${data.packQuantity}</strong></td>
+                        <td class="text-right"><strong>${data.cartonNo}</strong></td>
                         <td class="text-right"><strong>${data.grossWeight}</strong></td>
                         <td class="text-right"><strong>${data.nettWeight}</strong></td>
 
                     </tr>
                     <tr class="active">
                         <td class="text-center">.</td>
-                        <td colspan="9"><strong>${buyer.buyer}</strong></td>
+                        <td colspan="8"><strong>${buyer.buyer}</strong></td>
                         <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal1}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal2}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal3}</strong></td>
+                        <td class="text-right"><strong>${buyer.subTotal6}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal4}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal5}</strong></td>                        
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="12"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="11"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
                         <td class="text-right"><strong>${TotPcs}</strong></td>
                         <td class="text-right"><strong>${TotSets}</strong></td>
                         <td class="text-right"><strong>${TotPack}</strong></td>
+                        <td class="text-right"><strong>${TotCtns}</strong></td>
                         <td class="text-right"><strong>${TotGross}</strong></td>
                         <td class="text-right"><strong>${TotNett}</strong></td>                        
                     </tr>

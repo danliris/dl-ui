@@ -42,7 +42,7 @@ export class List {
                   this.data = result;
                   console.log(result);
                   var dataByBuyer = {};
-                  var subTotalBuyer = {};
+                  var subTotalBuyer6 = {};
                   var subTotalBuyer1 = {};
                   var subTotalBuyer2 = {};
                   var subTotalBuyer3 = {};    
@@ -64,7 +64,7 @@ export class List {
                             buyerAgentName : data.buyerAgentName,
                             portOfDischarge : data.portOfDischarge,
                             placeOfDelivery : data.placeOfDelivery,
-                            cartonNo : data.cartonNo,
+                            cartonNo : data.cartonNo.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             pcsQuantity : data.pcsQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             setsQuantity : data.setsQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             packQuantity : data.packQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
@@ -98,6 +98,11 @@ export class List {
                             subTotalBuyer5[Buyer] = 0;
                                 } 
                             subTotalBuyer5[Buyer] += data.nettWeight;
+
+                        if (!subTotalBuyer6[Buyer]) {
+                                subTotalBuyer6[Buyer] = 0;
+                                    } 
+                                subTotalBuyer6[Buyer] += data.cartonNo;
                 }
      
                var buyers = [];
@@ -106,6 +111,7 @@ export class List {
                this.TotPack = 0;
                this.TotGross = 0;
                this.TotNett = 0;
+               this.TotCtns = 0;
                               
                for (var data in dataByBuyer) {
                    buyers.push({
@@ -116,18 +122,21 @@ export class List {
                    subTotal3: (subTotalBuyer3[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal4: (subTotalBuyer4[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal5: (subTotalBuyer5[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                   subTotal6: (subTotalBuyer6[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                  });
                    this.TotPcs += subTotalBuyer1[data];   
                    this.TotSets += subTotalBuyer2[data];
                    this.TotPack += subTotalBuyer3[data];   
                    this.TotGross += subTotalBuyer4[data];
                    this.TotNett += subTotalBuyer5[data];   
+                   this.TotCtns += subTotalBuyer6[data];  
                }
                this.TotPcs = this.TotPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.TotSets = this.TotSets.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.TotPack = this.TotPack.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.TotGross = this.TotGross.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.TotNett = this.TotNett.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.TotCtns = this.TotCtns.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.buyers = buyers;
              });   
         }   
@@ -158,6 +167,7 @@ export class List {
         this.TotPack = null;
         this.TotGross = null;
         this.TotNett = null;
+        this.TotCtns = null;
     }
 
     dateFromChanged(e) {

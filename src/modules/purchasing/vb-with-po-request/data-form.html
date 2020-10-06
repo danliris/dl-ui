@@ -51,13 +51,21 @@
                      placeholder="Cari Unit Pemohon">
     </au-autocomplete>
 
+    <au-autocomplete value.bind="TypePurchasing || data.TypePurchasing"
+                     error.bind="error.TypePurchasing"
+                     label="Jenis Pembelian"
+                     show.bind="isVisible && isGarment"
+                     read-only.bind="true"
+                     options.bind="controlOptions">
+    </au-autocomplete>
+
     <radiobutton
       label="Jenis Pembelian"
-      selected.bind="selectedObjectTypePurchasing"
-      if.bind="isGarment"
+      checked.bind="data.TypePurchasing"
+      if.bind="isGarment && isCreate"
       error.bind="error.TypePurchasing"
       selections.bind="garmentSelection"
-      read-only.bind="readOnly || isEdit"
+      read-only.bind="readOnly"
       change.delegate="selectedTypePurchasingChanged($event)"
       options.bind="controlOptions">
     </radiobutton>
