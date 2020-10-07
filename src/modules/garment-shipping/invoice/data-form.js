@@ -468,14 +468,6 @@ export class DataForm {
 
 
     itemChanged(e) {
-        console.log(e)
         this.percentageProcess(this.data.items);
-        //this.context.percentageCollection.refresh();
-        console.log(this.context)
     }
-
-    // dataItemsChanged(newValue){
-    //     console.log(newValue);
-    //     this.percentageProcess(this.dataItems);
-    // }
 }
