@@ -29,6 +29,7 @@ export class CartItem {
             this.selectedProductionOrder.materialConstruction.name = this.data.materialConstruction.name;
             this.selectedProductionOrder.qty = this.data.qty;
             this.selectedProductionOrder.materialWidth = this.data.materialWidth;
+            this.selectedProductionOrder.finishWidth = this.data.finishWidth;
 
             this.selectedProductionOrder.buyerId = this.data.buyerId;
             this.selectedProductionOrder.buyer = this.data.buyer;
@@ -106,6 +107,7 @@ export class CartItem {
             this.data.materialConstruction.name = this.selectedProductionOrder.materialConstruction.name;
 
             this.data.materialWidth = this.selectedProductionOrder.materialWidth;
+            this.data.finishWidth = this.selectedProductionOrder.finishWidth;
             this.data.qty = this.selectedProductionOrder.qty;
             this.data.grade = this.selectedProductionOrder.grade;
             this.data.packing = this.selectedProductionOrder.packing;
