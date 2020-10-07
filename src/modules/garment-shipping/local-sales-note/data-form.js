@@ -145,7 +145,6 @@ export class DataForm {
                         item.quantity=a.quantity;
                         item.uom=a.uom;
                         item.price=a.price;
-                        console.log(item)
                         this.data.items.push(item);
                     }
                 }
