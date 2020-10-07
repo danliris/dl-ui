@@ -1,8 +1,8 @@
 <template>
     <h1 class="page-header">Monitoring Omzet Penjualan Lokal Garment</h1>
     <form class="form-horizontal">
-        <au-datepicker label="Tanggal Invoice Awal" value.bind="dateFrom"></au-datepicker>
-        <au-datepicker label="Tanggal Invoice Akhir" value.bind="dateTo"></au-datepicker>
+        <au-datepicker label="Tanggal Nota Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Nota Akhir" value.bind="dateTo"></au-datepicker>
   
        <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -19,10 +19,14 @@
             <thead>
                 <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">No Invoice</th>
-                    <th class="text-center">Tgl Invoice</th>
+                    <th class="text-center">No Nota</th>
+                    <th class="text-center">Tgl Nota</th>
                     <th class="text-center">Kode Buyer</th>
                     <th class="text-center">Nama Buyer</th>
+                    <th class="text-center">Kode Barang</th>
+                    <th class="text-center">Nama Barang</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Satuan</th>  
                     <th class="text-center">Kena PPN</th>
                     <th class="text-center">D P P</th>
                     <th class="text-center">P P N</th>
@@ -37,22 +41,32 @@
                         <td>${data.lsDate}</td>
                         <td>${data.buyerCode}</td>
                         <td>${data.buyerName}</td>
+                        <td>${data.productCode}</td>
+                        <td>${data.productName}</td>
+                        <td class="text-right"><strong>${data.quantity}</strong></td>
+                        <td>${data.uomUnit}</td>
                         <td>${data.useVat}</td>
                         <td class="text-right"><strong>${data.dpp}</strong></td>
                         <td class="text-right"><strong>${data.ppn}</strong></td>
                         <td class="text-right"><strong>${data.total}</strong></td>
                     </tr>
                     <tr class="active">
-                        <td class="text-center">.</td>
+                        <td class="text-center">Nomor Nota :</td>
                         <td colspan="3"><strong>${buyer.buyer}</strong></td>
-                        <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
+                        <td class="text-center" colspan="3"><strong>SUB TOTAL</strong></td>
+                        <td class="text-right"><strong>${buyer.subTotal3}</strong></td>
+                        <td class="text-right"><strong>.</strong></td>
+                        <td class="text-right"><strong>.</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal1}</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal2}</strong></td>                        
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="6"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="7"><strong>G R A N D . . T O T A L  . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-right"><strong>${TotQty}</strong></td>
+                        <td class="text-right"><strong>.</strong></td>
+                        <td class="text-right"><strong>.</strong></td>
                         <td class="text-right"><strong>${TotDPP}</strong></td>
                         <td class="text-right"><strong>${TotPPN}</strong></td>
                         <td class="text-right"><strong>${TotAmt}</strong></td>                        
