@@ -21,6 +21,8 @@ export class CartItem {
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
             this.selectedProductionOrder.Construction = this.data.construction;
 
+
+
             this.selectedProductionOrder.Material = {};
             this.selectedProductionOrder.Material.Id = this.data.material.id;
             this.selectedProductionOrder.Material.Name = this.data.material.name;
@@ -52,7 +54,7 @@ export class CartItem {
             this.selectedProductionOrder.ProcessType = {};
             this.selectedProductionOrder.ProcessType.Id = this.data.processType.id;
             this.selectedProductionOrder.ProcessType.Name = this.data.processType.name;
-            
+
             this.selectedProductionOrder.YarnMaterial = {};
             this.selectedProductionOrder.YarnMaterial.Id = this.data.yarnMaterial.id;
             this.selectedProductionOrder.YarnMaterial.Name = this.data.yarnMaterial.name;
@@ -78,6 +80,7 @@ export class CartItem {
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
+
         if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
@@ -102,6 +105,7 @@ export class CartItem {
 
             this.data.buyerId = this.selectedProductionOrder.Buyer.Id;
             this.data.buyer = this.selectedProductionOrder.Buyer.Name;
+
             this.data.packingInstruction = this.selectedProductionOrder.PackingInstruction;
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;
             this.data.motif = this.selectedProductionOrder.DesignCode;

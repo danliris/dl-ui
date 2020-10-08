@@ -81,7 +81,7 @@ export class Create {
                     itemSpp.uomUnit = item.uomUnit;
                     itemSpp.cartNo = item.cartNo;
                     itemSpp.remark = item.remark;
-                    itemSpp.productionMachine=item.productionMachine;
+                    itemSpp.productionMachine = item.productionMachine;
                     itemSpp.status = item.status;
                     itemSpp.material = item.material;
                     itemSpp.id = item.id;
@@ -94,11 +94,13 @@ export class Create {
                     itemSpp.fabricPackingId = item.fabricPackingId;
                     itemSpp.productPackingCode = item.productPackingCode;
                     itemSpp.hasPrintingProductPacking = item.hasPrintingProductPacking;
+                    itemSpp.dateIn = item.dateIn;
                     bodyRequest.packagingProductionOrders.push(itemSpp);
                 });
         });
         bodyRequest.packagingProductionOrdersAdj = this.data.packagingProductionOrdersAdj;
 
+        
         this.service.create(bodyRequest)
             .then(result => {
                 alert("Data berhasil dibuat");
