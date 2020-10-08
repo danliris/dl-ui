@@ -38,7 +38,7 @@ export class Create {
         } else {
             this.data.inspectionMaterialProductionOrders = this.data.adjInspectionMaterialProductionOrders;
         }
-
+console.log('data',this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

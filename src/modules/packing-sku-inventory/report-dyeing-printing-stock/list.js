@@ -57,10 +57,26 @@ export class List {
         { field: "grade", title: "Grade" },
         { field: "jenis", title: "Jenis" },
         { field: "ket", title: "Ket" },
-        { field: "awal", title: "Awal" },
-        { field: "masuk", title: "Masuk" },
-        { field: "keluar", title: "Keluar" },
-        { field: "akhir", title: "Akhir" },
+        {
+            field: "awal", title: "Awal", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "masuk", title: "Masuk", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "keluar", title: "Keluar", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "akhir", title: "Akhir", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
         { field: "satuan", title: "Satuan" }
     ];
 
@@ -263,43 +279,43 @@ export class List {
         { field: "avalType", title: "Nama Barang" },
         {
             field: "startAvalQuantity", title: "Awal Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "inAvalQuantity", title: "Masuk Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "outAvalQuantity", title: "Keluar Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "endAvalQuantity", title: "Akhir Qty Satuan", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "startAvalWeightQuantity", title: "Awal Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "inAvalWeightQuantity", title: "Masuk Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "outAvalWeightQuantity", title: "Keluar Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         {
             field: "endAvalWeightQuantity", title: "Akhir Qty Berat", formatter: function (value, data, index) {
-                return numeral(value).format('0.0');
-            }
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         }
     ];
 

@@ -274,6 +274,19 @@ module.exports = [
         }
     }, 
     {
+        route: "garment-shipping/monitoring/cover-letter",
+        name: "garment-shipping/monitoring/cover-letter",
+        moduleId: "modules/garment-shipping/monitoring/garment-cover-letter/index",
+        nav: true,
+        title: "Monitoring Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/omzet-by-unit",
         name: "garment-shipping/monitoring/omzet-by-unit",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthy-by-unit/index",
@@ -578,6 +591,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/monitoring/omzet-year-buyer-comodity/index",
         nav: true,
         title: "Report Omzet Per Tahun Per Buyer Per Komoditi",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/insurance-disposition",
+        name: "garment-shipping/insurance-disposition",
+        moduleId: "modules/garment-shipping/insurance-disposition/index",
+        nav: true,
+        title: "Disposisi Pembayaran Polis Asuransi ",
         auth: true,
         settings: {
             group: "g-shipping",

@@ -8,6 +8,7 @@ export class Create {
     hasCancel = true;
     hasSave = true;
     isVisible = false;
+    isCreate = true;
 
     constructor(router, service) {
         this.router = router;

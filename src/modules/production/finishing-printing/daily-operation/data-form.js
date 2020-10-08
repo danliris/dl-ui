@@ -129,7 +129,7 @@ export class DataForm {
                 Kanban: this.data.Kanban.Code
             }
 
-            if (this.output && this.data.Kanban.Id != 0)
+            if (!this.data.Id && this.output && this.data.Kanban.Id != 0)
                 this.data.GoodOutput = Number(this.data.Kanban.Cart.Qty);
 
 
@@ -272,7 +272,7 @@ export class DataForm {
                 this.data.GoodOutput = Number(selectedKanban.Cart.Qty);
 
             console.log(this.data.GoodOutput);
-            if (this.Output) {
+            if (this.output) {
                 var filterDaily = {
                     "KanbanCode": this.data.Kanban.Code,
                     IsDeleted: false,

@@ -282,17 +282,17 @@ export class DataForm {
     }
   }
 
-  DOLoader = (e) => {
-    var listDo = [
-      {
-        "DeliveryOrderSalesID": 52,
-        "DeliveryOrderSalesNO": "20US000017"
-      }
-    ]
-    return Promise.resolve(true).then(result => {
-      return listDo;
-    });
-  }
+  // DOLoader = (e) => {
+  //   var listDo = [
+  //     {
+  //       "DeliveryOrderSalesID": 52,
+  //       "DeliveryOrderSalesNO": "20US000017"
+  //     }
+  //   ]
+  //   return Promise.resolve(true).then(result => {
+  //     return listDo;
+  //   });
+  // }
 
   reset() {
     this.data.Date = undefined;
@@ -369,7 +369,15 @@ export class DataForm {
   selectedAvalBonChanged(n, o) {
     if (this.data.id == 0 || this.data.id == undefined || this.data.id == null) {
       this.service.getById(n.id).then((selectedBon) => {
-        this.data.doNO = selectedBon.deliveryOrderSalesNo;
+        // this.data.doNO = selectedBon.deliveryOrderSalesNo;
+        if (selectedBon.deliveryOrderAvalId && selectedBon.deliveryOrderAvalNo) {
+          
+          this.data.deliveryOrderAvalId = selectedBon.deliveryOrderAvalId;
+          this.data.deliveryOrderAvalNo = selectedBon.deliveryOrderAvalNo;
+          this.selectedDOAval = {};
+          this.selectedDOAval.Id = this.data.deliveryOrderAvalId;
+          this.selectedDOAval.DOAvalNo = this.data.deliveryOrderAvalNo;
+        }
         this.data.DyeingPrintingItems = selectedBon.avalItems.filter(s => !s.hasNextAreaDocument);
       });
 
@@ -392,8 +400,11 @@ export class DataForm {
 
     if (n != o && !this.data.id) {
       this.data.DyeingPrintingItems.splice(0, this.data.DyeingPrintingItems.length);
-      this.data.selectedAvalBon = null;
+      this.selectedAvalBon = null;
       this.data.doNO = null;
+      this.data.deliveryOrderAvalId = 0;
+      this.data.deliveryOrderAvalNo = null;
+      this.selectedDOAval = null;
 
     }
     // if( n!=o){

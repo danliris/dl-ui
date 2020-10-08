@@ -101,6 +101,9 @@ export class DataForm {
             this.itemsOptions.epoIds = vbRequestDocument.Items.map((item) => {
                 return item.PurchaseOrderExternal.Id;
             });
+            this.itemsOptions.division = vbRequestDocument.SuppliantUnit.Division.Name;
+            this.itemsOptions.currencyCode = vbRequestDocument.Currency.Code;
+            this.itemsOptions.typePurchasing = vbRequestDocument.TypePurchasing;
 
             this.ItemCollection.bind();
         }
@@ -148,7 +151,8 @@ export class DataForm {
                 return item.PurchaseOrderExternal.Id;
             });
             this.itemsOptions.division = vbRequestDocument.SuppliantUnit.Division.Name;
-            this.itemsOptions.currencyCode = vbRequestDocument.Currency.Code
+            this.itemsOptions.currencyCode = vbRequestDocument.Currency.Code;
+            this.itemsOptions.typePurchasing = vbRequestDocument.TypePurchasing;
         }
     }
 

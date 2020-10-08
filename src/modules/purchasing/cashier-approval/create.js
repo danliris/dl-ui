@@ -14,8 +14,11 @@ const VBWithPOLoader = require('../../../loader/vb-with-po-request-loader');
 const VBNonPOLoader = require('../../../loader/vb-non-po-request-loader');
 const VBLoader = require('../../../loader/vb-request-document-loader');
 const UnitLoader = require('../../../loader/unit-loader');
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service, VBWithPORequestService, VBNonPORequestService, PermissionHelper)
+import { CreateView } from './custom-dialog-view/create-view';
+
+@inject(Router, Service, VBWithPORequestService, VBNonPORequestService, PermissionHelper, Dialog)
 export class Create {
     columns = [
         { field: "IsApproved", checkbox: true, sortable: false },
@@ -69,11 +72,12 @@ export class Create {
 
     }
 
-    constructor(router, service, vbWithPORequestService, vbNonPORequestService, permissionHelper) {
+    constructor(router, service, vbWithPORequestService, vbNonPORequestService, permissionHelper, dialog) {
         this.router = router;
         this.service = service;
         this.vbWithPORequestService = vbWithPORequestService;
         this.vbNonPORequestService = vbNonPORequestService;
+        this.dialog = dialog;
 
         this.selectedItems = [];
 
@@ -163,21 +167,31 @@ export class Create {
 
     saveCallback(event) {
 
+        console.log("dialog")
+
         var items = this.selectedItems.map(s => s.Id);
         var data = {};
         data.IsApproved = true;
         data.Ids = items;
-        this.service.approval(data)
-            .then(result => {
-                alert("Data berhasil disimpan");
-                this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
+
+        this.dialog.show(CreateView)
+            .then((response) => {
+                data.Bank = response.output.Bank;
+                this.service.approval(data)
+                    .then(result => {
+                        alert("Data berhasil disimpan");
+                        this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
+                    })
+                    .catch(e => {
+                        if (e.message) {
+                            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                        }
+                        this.error = e;
+                    });
             })
             .catch(e => {
-                if (e.message) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                }
                 this.error = e;
-            });
+            })
     }
 
 

@@ -92,6 +92,7 @@ export class ItemSPP {
             this.selectedProductionOrder.materialConstruction.name = this.data.materialConstruction.name;
 
             this.selectedProductionOrder.materialWidth = this.data.materialWidth;
+            this.selectedProductionOrder.finishWidth = this.data.finishWidth;
 
             this.selectedProductionOrder.processType = {};
             this.selectedProductionOrder.processType.id = this.data.processType.id;
@@ -215,6 +216,7 @@ export class ItemSPP {
             this.data.balanceRemains = this.selectedProductionOrder.balanceRemains;
 
             this.data.materialWidth = this.selectedProductionOrder.materialWidth;
+            this.data.finishWidth = this.selectedProductionOrder.finishWidth;
             this.data.processType = {};
             this.data.processType.id = this.selectedProductionOrder.processType.id;
             this.data.processType.name = this.selectedProductionOrder.processType.name;
