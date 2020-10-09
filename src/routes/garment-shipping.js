@@ -603,7 +603,7 @@ module.exports = [
         name: "garment-shipping/insurance-disposition",
         moduleId: "modules/garment-shipping/insurance-disposition/index",
         nav: true,
-        title: "Disposisi Pembayaran Polis Asuransi ",
+        title: "Lampiran Disposisi Pembayaran Polis Asuransi ",
         auth: true,
         settings: {
             group: "g-shipping",

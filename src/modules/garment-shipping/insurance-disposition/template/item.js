@@ -30,7 +30,6 @@ export class items {
         this.isEdit = context.context.options.isEdit;
         this.type=context.context.options.type;
         this.rate=this.data.rate;
-        console.log(this.rate);
         this.selectedInvoice={
             invoiceNo:this.data.invoiceNo,
             id:this.data.invoiceId
@@ -53,6 +52,12 @@ export class items {
     }
 
     async selectedInvoiceChanged(newValue){
+        this.data.amount2APercentage=0;
+        this.data.amount2BPercentage=0;
+        this.data.amount2CPercentage=0;
+        this.data.amount1APercentage=0;
+        this.data.amount1BPercentage=0;
+        this.data.amount=0;
         if(newValue){
             this.data.buyerAgent=newValue.buyerAgent;
             this.data.invoiceNo=newValue.invoiceNo;
@@ -61,7 +66,6 @@ export class items {
                 this.data.amount=newValue.totalAmount;
             }
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
-            console.log(invoice)
             for(var item of invoice.garmentShippingInvoiceUnits){
                 if(item.unit.code.includes("2A"))
                     this.data.amount2APercentage=item.amountPercentage;
@@ -74,6 +78,17 @@ export class items {
                 if(item.unit.code.includes("1B"))
                     this.data.amount1BPercentage=item.amountPercentage;
             }
+        }
+        else{
+            this.data.buyerAgent=null;
+            this.data.invoiceNo="";
+            this.data.invoiceId=0;
+            this.data.amount2APercentage=0;
+            this.data.amount2BPercentage=0;
+            this.data.amount2CPercentage=0;
+            this.data.amount1APercentage=0;
+            this.data.amount1BPercentage=0;
+            this.data.amount=0;
         }
     }
 
@@ -160,8 +175,8 @@ export class items {
             }
         }
         else{
-            if(this.data.amount1APercentage && this.data.premi){
-                this.data.amount1A=this.data.premi*this.data.amount1APercentage/100;
+            if(this.data.amount1BPercentage && this.data.premi){
+                this.data.amount1B=this.data.premi*this.data.amount1BPercentage/100;
             }
         }
         return this.data.amount1B;
