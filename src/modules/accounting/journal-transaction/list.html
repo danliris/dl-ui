@@ -7,7 +7,6 @@
       label="Tanggal Awal"
       options.bind="controlOptions"
       error.bind="error.date"
-      change.delegate="dateChanged()"
     >
     </au-datepicker>
 
@@ -16,9 +15,16 @@
       label="Tanggal Akhir"
       options.bind="controlOptions"
       error.bind="error.date"
-      change.delegate="dateChanged()"
     >
     </au-datepicker>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="search()" class="btn btn-success">Cari</button>
+        <button click.delegate="reset()" class="btn btn-success">Reset</button>
+      </div>
+    </div>
   </form>
 
   <au-table

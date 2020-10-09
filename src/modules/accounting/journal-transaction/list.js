@@ -50,13 +50,22 @@ export class List {
         if (this.info.dateTo)
             arg.dateto = moment(this.info.dateTo).format("YYYY-MM-DD");
 
-        return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        if (this.info.dateTo && this.info.dateFrom)
+            return this.service.filter(arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                });
+        else
+            return this.service.search(arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                });
     }
 
     constructor(router, service) {
@@ -83,16 +92,15 @@ export class List {
         this.router.navigateToRoute('post');
     }
 
-    dateChanged() {
-        let startDate = Date.parse(this.info.dateFrom);
-        let endDate = Date.parse(this.info.dateTo);
+    reset() {
+        this.error = {};
+        this.info.dateFrom = undefined;
+        this.info.dateTo = undefined;
+        this.tableList.refresh();
+    }
 
-        if (startDate > endDate) {
-            let txtDateError = "Tanggal awal tidak dapat lebih besar";
-            this.error.date = txtDateError;
-        } else {
-            this.error = {};
-            this.tableList.refresh();
-        }
+    search() {
+        this.error = {};
+        this.tableList.refresh();
     }
 }
