@@ -6,7 +6,6 @@ export class Detail {
     @bindable length;
     @bindable width;
     @bindable height;
-    @bindable cartonsQuantity;
 
     constructor() {
         
@@ -50,7 +49,6 @@ export class Detail {
         this.length = this.data.length;
         this.width = this.data.width;
         this.height = this.data.height;
-        this.cartonsQuantity = this.data.cartonsQuantity;
     }
 
 
@@ -75,11 +73,13 @@ export class Detail {
             return 0;
     }
 
+    @computedFrom('data.carton1', 'data.carton2')
     get cartonQuantity(){
         this.data.cartonQuantity=0;
         if(this.data.carton1 && this.data.carton2){
             this.data.cartonQuantity = this.data.carton2-this.data.carton1+1;
         }
+        this.updateMeasurements();
         return this.data.cartonQuantity;
     }
 
@@ -96,8 +96,8 @@ export class Detail {
     }
 
     get cmb() {
-        if (this.data.length && this.data.width && this.data.height && this.data.cartonsQuantity)
-            return (this.data.length * this.data.width * this.data.height * this.data.cartonsQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+        if (this.data.length && this.data.width && this.data.height && this.data.cartonQuantity)
+            return (this.data.length * this.data.width * this.data.height * this.data.cartonQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
         else
             return "0";
     }
@@ -117,11 +117,6 @@ export class Detail {
         this.updateMeasurements();
     }
 
-    cartonsQuantityChanged(newValue) {
-        this.data.cartonsQuantity = newValue;
-        this.updateMeasurements();
-    }
-
     updateMeasurements() {
         let measurements = [];
 
@@ -129,13 +124,13 @@ export class Detail {
             for (const detail of item.details) {
                 let measurement = measurements.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
                 if (measurement) {
-                    measurement.cartonsQuantity += detail.cartonsQuantity;
+                    measurement.cartonsQuantity += detail.cartonQuantity;
                 } else {
                     measurements.push({
                         length: detail.length,
                         width: detail.width,
                         height: detail.height,
-                        cartonsQuantity: detail.cartonsQuantity
+                        cartonsQuantity: detail.cartonQuantity
                     });
                 }
             }

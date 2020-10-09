@@ -6,6 +6,8 @@ var UomLoader = require("../../../../loader/uom-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
+    @bindable avG_GW;
+    @bindable avG_NW;
 
     constructor(salesService) {
         this.salesService = salesService;
@@ -79,6 +81,9 @@ export class Item {
                 this.isShowing = true;
             }
         }
+
+        this.avG_GW = this.data.avG_GW;
+        this.avG_NW = this.data.avG_NW;
     }
 
     selectedROChanged(newValue) {
@@ -89,12 +94,6 @@ export class Item {
                         .then(sc => {
                             this.salesService.getPreSalesContractById(result.PreSCId)
                                 .then(psc => {
-                                    this.context.context.options.header.buyerAgent = result.Buyer;
-                                    this.context.context.options.header.section = {
-                                        id: psc.SectionId,
-                                        code: result.Section,
-                                    };
-
                                     this.data.roNo = result.RO_Number;
                                     this.data.article = result.Article;
                                     this.data.buyerAgent = result.Buyer;
@@ -118,6 +117,24 @@ export class Item {
                         })
                 });
         }
+    }
+
+    avG_GWChanged(newValue) {
+        this.data.avG_GW = newValue;
+        this.updateGrossWeight();
+    }
+
+    updateGrossWeight() {
+        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
+    }
+
+    avG_NWChanged(newValue) {
+        this.data.avG_NW = newValue;
+        this.updateNettWeight();
+    }
+
+    updateNettWeight() {
+        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
     }
 
     get addDetails() {

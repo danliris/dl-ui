@@ -12,6 +12,7 @@ export class View {
     }
 
     formOptions = {
+        cancelText: "Back",
         saveText: "Unpost"
     }
 
@@ -32,21 +33,34 @@ export class View {
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
             }
-
-            if (this.data.section) {
-                const section = await this.coreService.getSectionById(this.data.section.id);
-
-                for (const item of this.data.items) {
-                    item.sectionName = section.Name;
-                }
-            }
+        }
+        
+        switch (this.data.status) {
+            case "CANCELED":
+            case "APPROVED_MD":
+            case "APPROVED_SHIPPING":
+                this.saveCallback = null;
+            case "POSTED":
+            case "REJECTED_MD":
+            case "REVISED_MD":
+            case "REJECTED_SHIPPING":
+            case "REVISED_SHIPPING":
+                this.editCallback = null;
+                this.deleteCallback = null;
+                break;
+            case "ON_PROCESS":
+                this.saveCallback = null;
+                break;
+            default:
+                break;
         }
 
-        if (this.data.isPosted) {
-            this.editCallback = null;
-            this.deleteCallback = null;
-        } else {
-            this.saveCallback = null;
+        switch (this.data.status) {
+            case "REJECTED_MD":
+                this.alertInfo = "<strong>Alasan Reject:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            default:
+                break;
         }
     }
 

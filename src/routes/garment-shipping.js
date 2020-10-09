@@ -598,4 +598,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/insurance-disposition",
+        name: "garment-shipping/insurance-disposition",
+        moduleId: "modules/garment-shipping/insurance-disposition/index",
+        nav: true,
+        title: "Lampiran Disposisi Pembayaran Polis Asuransi ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
