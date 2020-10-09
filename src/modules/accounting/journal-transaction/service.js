@@ -12,6 +12,11 @@ export class Service extends RestService {
     }
 
     search(info) {
+        let endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    filter(info) {
         let endpoint = `${serviceUri}/transaction`;
         return super.list(endpoint, info);
     }
