@@ -15,12 +15,16 @@ export class List {
     columns = [
         { field: "dispositionNo", title: "No Disposisi" },
         {
-            field: "dispositionDate", title: "Tgl Disposisi", formatter: function (value, data, index) {
+            field: "dispositionDate",
+            title: "Tgl Disposisi",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
-            field: "paymentDueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {
+            field: "paymentDueDate",
+            title: "Tgl Jatuh Tempo",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
@@ -29,8 +33,10 @@ export class List {
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+            field: "payToSupplier",
+            title: "Total Bayar ke Supplier",
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
             },
         },
         { field: "currency.code", title: "Mata Uang" },
@@ -77,12 +83,12 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: this.activeRole.position, IsPaid:false }), // VERIFICATION_DIVISION
+            filter: JSON.stringify({ Position: this.activeRole.position, IsPaid: false }), // VERIFICATION_DIVISION
         };
 
         if (this.activeRole.key === 'CASHIER') {
             let filter = JSON.parse(arg.filter);
-            
+
             filter.IsPaid = false;
             filter.IsPaidPPH = false;
             arg.filter = JSON.stringify(filter);
@@ -117,6 +123,6 @@ export class List {
     }
 
     create() {
-        this.router.navigateToRoute('create',{role:this.activeRole});
+        this.router.navigateToRoute('create', { role: this.activeRole });
     }
 }

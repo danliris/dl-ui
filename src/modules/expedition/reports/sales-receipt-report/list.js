@@ -9,15 +9,18 @@ export class List {
     columns = [
         { field: 'SalesReceiptNo', title: 'No Kwitansi' },
         {
-            field: 'SalesReceiptDate', title: 'Tanggal Pembayaran',
-            formatter: function (value, data, index) {
+            field: 'SalesReceiptDate',
+            title: 'Tanggal Pembayaran',
+            formatter: function(value, data, index) {
                 return value ? moment(value).format('DD/MM/YYYY') : '-';
             },
         },
         // { field: 'Products', title: 'Nama Barang' },
         {
-            field: 'TotalPaid', title: 'Jumlah Pembayaran', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,0') : '0';
+            field: 'TotalPaid',
+            title: 'Jumlah Pembayaran',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         { field: 'CurrencyCode', title: 'Mata Uang' },
@@ -68,12 +71,12 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-                .then((result) => {
+            .then((result) => {
 
-                    return {
-                        data: result.data
-                    };
-                })
+                return {
+                    data: result.data
+                };
+            })
         ) : { total: 0, data: [] };
     }
 
