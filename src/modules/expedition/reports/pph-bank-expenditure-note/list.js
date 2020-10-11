@@ -205,6 +205,11 @@ export class List {
                 } else {
                     let wsData = [];
 
+                    let title = {
+                        "": "RuleTester",
+                        "": "RuleTester"
+                    }
+
                     for (let data of this.excelData) {
                         wsData.push({
                             'No Bukti Pengeluaran Bank': data.No,
@@ -229,7 +234,12 @@ export class List {
                     };
                     wb.SheetNames.push('Laporan PPH');
 
-                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    console.log(this);
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    XLSX.utils.sheet_add_aoa(ws, [
+                        ["Laporan Bukti Pengeluaran Bank PPH"],
+                        [`PERIODE : ${this.dateFrom ? moment(this.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.dateTo ? moment(this.dateTo).format('DD MMMM YYYY') : '-'}`]
+                    ], { origin: "A2" });
                     wb.Sheets['Laporan PPH'] = ws;
 
                     let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });

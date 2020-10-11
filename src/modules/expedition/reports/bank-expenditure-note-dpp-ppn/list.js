@@ -230,9 +230,9 @@ export class List {
                             'Category': data.CategoryName,
                             'Divisi': data.DivisionName,
                             'Cara Pembayaran': data.PaymentMethod,
-                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.0000') : '-',
-                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.0000') : '-',
-                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.0000') : '-',
+                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.00') : '-',
+                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.00') : '-',
+                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.00') : '-',
                             'Mata Uang': data.Currency,
                             'Bank Bayar PPH': data.BankName,
                             'Supplier': data.SupplierName,
@@ -250,7 +250,11 @@ export class List {
                     };
                     wb.SheetNames.push('Laporan DPP PPN');
 
-                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    XLSX.utils.sheet_add_aoa(ws, [
+                        ["Laporan Bukti Pengeluaran Bank DPP + PPN"],
+                        [`PERIODE : ${this.info.dateFrom ? moment(this.info.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.info.dateTo ? moment(this.info.dateTo).format('DD MMMM YYYY') : '-'}`]
+                    ], { origin: "A2" });
                     wb.Sheets['Laporan DPP PPN'] = ws;
 
                     let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
