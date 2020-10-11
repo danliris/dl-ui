@@ -89,8 +89,8 @@ export class List {
     excel() {
 
         let params = {
-            dateFrom: moment(this.info.dateFrom).format("MM/DD/YYYY"),
-            dateTo: moment(this.info.dateTo).format("MM/DD/YYYY")
+            dateFrom: this.info.dateFrom ? moment(this.info.dateFrom).format("MM/DD/YYYY") : "",
+            dateTo: this.info.dateTo ? moment(this.info.dateTo).format("MM/DD/YYYY") : ""
         };
 
         this.service.getXls(params)
