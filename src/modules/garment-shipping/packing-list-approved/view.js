@@ -29,17 +29,11 @@ export class View {
             }
         }
 
-        if (this.data.section) {
-            this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
-        }
-
-        switch (this.data.status) {
-            case "APPROVED_SHIPPING":
-                this.deleteCallback = null;
-                this.editCallback = null;
-            case "REJECTED_SHIPPING_MD":
-                this.saveCallback = null;
-                break;
+        if (this.data.items) {
+            for (const item of this.data.items) {
+                item.buyerAgent = this.data.buyerAgent;
+                item.section = this.data.section;
+            }
         }
     }
 

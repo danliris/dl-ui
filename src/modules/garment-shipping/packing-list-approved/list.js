@@ -19,20 +19,16 @@ export class List {
         { field: "SectionCode", title: "Seksi" },
         { field: "BuyerAgentName", title: "Buyer Agent" },
         {
-            field: "truckingEstimationDate", title: "Tgl Trucking / Ex-fty", formatter: function (value, data, index) {
+            field: "truckingDate", title: "Tgl Trucking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "status", title: "Status", formatter: value => {
-                if (value == "APPROVED_MD")
-                    return "ON PROCESS";
-                if (value == "REJECTED_SHIPPING_MD")
-                    return "REJECTED SHIPPING";
-                else
-                    return value.replaceAll("_", " ");
+            field: "exportEstimationDate", title: "Tgl Perkiraan Export", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "destination", title: "Destination" },
     ];
 
     loader = (info) => {
@@ -45,14 +41,14 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ "(Status == \"APPROVED_MD\" || Status == \"APPROVED_SHIPPING\" || Status == \"REJECTED_SHIPPING_MD\")": true })
+            filter: JSON.stringify({ Status: "APPROVED_SHIPPING" })
         }
 
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
-                    data.BuyerAgentName = data.buyerAgent.name;
+                    data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {
                     total: result.info.total,
