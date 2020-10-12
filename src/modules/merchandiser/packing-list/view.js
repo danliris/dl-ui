@@ -36,7 +36,8 @@ export class View {
         switch (this.data.status) {
             case "APPROVED_SHIPPING":
                 this.deleteCallback = null;
-            case "REJECTED_SHIPPING":
+                this.editCallback = null;
+            case "REJECTED_SHIPPING_MD":
                 this.saveCallback = null;
                 break;
         }

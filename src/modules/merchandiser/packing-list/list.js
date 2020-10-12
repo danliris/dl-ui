@@ -27,8 +27,10 @@ export class List {
             field: "status", title: "Status", formatter: value => {
                 if (value == "APPROVED_MD")
                     return "ON PROCESS";
+                if (value == "REJECTED_SHIPPING_MD")
+                    return "REJECTED SHIPPING";
                 else
-                    return value.replace("_", " ");
+                    return value.replaceAll("_", " ");
             }
         },
     ];
@@ -43,7 +45,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ "(Status == \"APPROVED_MD\" || Status == \"APPROVED_SHIPPING\" || Status == \"REJECTED_SHIPPING\")": true })
+            filter: JSON.stringify({ "(Status == \"APPROVED_MD\" || Status == \"APPROVED_SHIPPING\" || Status == \"REJECTED_SHIPPING_MD\")": true })
         }
 
         return this.service.search(arg)

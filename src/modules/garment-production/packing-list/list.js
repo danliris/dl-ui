@@ -26,7 +26,7 @@ export class List {
         },
         { field: "packingListType", title: "Jenis Packing List" },
         { field: "invoiceType", title: "Jenis Invoice" },
-        { field: "status", title: "Status", formatter: value => value.replace("_", " ") },
+        { field: "status", title: "Status", formatter: value => value.replaceAll("_", " ") },
     ];
 
     loader = (info) => {
@@ -60,13 +60,14 @@ export class List {
             case "CANCELED":
                 return { classes: "active" }
             case "APPROVED_MD":
+            case "APPROVED_SHIPPING":
                 return { classes: "warning" }
-            // case "APPROVED_SHIPPING":
             // case "POSTED":
             case "REJECTED_MD":
+            case "REJECTED_SHIPPING_UNIT":
+            case "REJECTED_SHIPPING_MD":
                 return { classes: "danger" }
             // case "REVISED_MD":
-            // case "REJECTED_SHIPPING":
             // case "REVISED_SHIPPING":
             // case "ON_PROCESS":
             default:
