@@ -25,18 +25,24 @@ export class List {
         { field: 'AccountNumber', title: 'Nomor Rekening' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
-            field: 'Debit', title: 'Debit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Debit',
+            title: 'Debit',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Credit', title: 'Kredit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Credit',
+            title: 'Kredit',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Balance', title: 'Saldo', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Balance',
+            title: 'Saldo',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         }
     ];
@@ -45,18 +51,24 @@ export class List {
 
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
-            field: 'Debit', title: 'Debit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Debit',
+            title: 'Debit',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Credit', title: 'Kredit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Credit',
+            title: 'Kredit',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Balance', title: 'Saldo', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Balance',
+            title: 'Saldo',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         }
     ];
@@ -136,40 +148,40 @@ export class List {
 
         return this.flag ? (
             this.service.searchCurrency(arg)
-                .then((result) => {
-                    // this.error = {}
+            .then((result) => {
+                // this.error = {}
 
-                    // let before = {};
+                // let before = {};
 
-                    // if (result.data.length != 0) {
-                    //     for (let i in result.data) {
-                    //         if (result.data[i].Currency != before.Currency) {
-                    //             before = result.data[i];
-                    //             before._Currency_rowspan = 1;
-                    //         } else {
-                    //             before._Currency_rowspan++;
+                // if (result.data.length != 0) {
+                //     for (let i in result.data) {
+                //         if (result.data[i].Currency != before.Currency) {
+                //             before = result.data[i];
+                //             before._Currency_rowspan = 1;
+                //         } else {
+                //             before._Currency_rowspan++;
 
-                    //             result.data[i].Currency = undefined;
-                    //         }
-                    //         result.data[i].Products = result.data[i].Products || "";
-                    //     }
-                    // }
-                    // setTimeout(() => {
-                    //     $('#credit-balance-table td').each(function () {
-                    //         if ($(this).html() === '-')
-                    //             $(this).hide();
-                    //     })
-                    // }, 10);
+                //             result.data[i].Currency = undefined;
+                //         }
+                //         result.data[i].Products = result.data[i].Products || "";
+                //     }
+                // }
+                // setTimeout(() => {
+                //     $('#credit-balance-table td').each(function () {
+                //         if ($(this).html() === '-')
+                //             $(this).hide();
+                //     })
+                // }, 10);
 
-                    // console.log(result)
-                    // this.currencyData = {
-                    //     data: result.data.CurrencyReports
-                    // }
-                    return {
-                        // total: result.info.Count,
-                        data: result.data
-                    };
-                })
+                // console.log(result)
+                // this.currencyData = {
+                //     data: result.data.CurrencyReports
+                // }
+                return {
+                    // total: result.info.Count,
+                    data: result.data
+                };
+            })
         ) : Promise.resolve({ total: 0, data: [] });
     }
 
@@ -201,40 +213,40 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-                .then((result) => {
-                    // this.error = {}
+            .then((result) => {
+                // this.error = {}
 
-                    // let before = {};
+                // let before = {};
 
-                    // if (result.data.length != 0) {
-                    //     for (let i in result.data) {
-                    //         if (result.data[i].Currency != before.Currency) {
-                    //             before = result.data[i];
-                    //             before._Currency_rowspan = 1;
-                    //         } else {
-                    //             before._Currency_rowspan++;
+                // if (result.data.length != 0) {
+                //     for (let i in result.data) {
+                //         if (result.data[i].Currency != before.Currency) {
+                //             before = result.data[i];
+                //             before._Currency_rowspan = 1;
+                //         } else {
+                //             before._Currency_rowspan++;
 
-                    //             result.data[i].Currency = undefined;
-                    //         }
-                    //         result.data[i].Products = result.data[i].Products || "";
-                    //     }
-                    // }
-                    // setTimeout(() => {
-                    //     $('#credit-balance-table td').each(function () {
-                    //         if ($(this).html() === '-')
-                    //             $(this).hide();
-                    //     })
-                    // }, 10);
+                //             result.data[i].Currency = undefined;
+                //         }
+                //         result.data[i].Products = result.data[i].Products || "";
+                //     }
+                // }
+                // setTimeout(() => {
+                //     $('#credit-balance-table td').each(function () {
+                //         if ($(this).html() === '-')
+                //             $(this).hide();
+                //     })
+                // }, 10);
 
-                    // console.log(result)
-                    // this.currencyData = {
-                    //     data: result.data.CurrencyReports
-                    // }
-                    return {
-                        // total: result.info.Count,
-                        data: result.data
-                    };
-                })
+                // console.log(result)
+                // this.currencyData = {
+                //     data: result.data.CurrencyReports
+                // }
+                return {
+                    // total: result.info.Count,
+                    data: result.data
+                };
+            })
         ) : Promise.resolve({ total: 0, data: [] });
     }
 

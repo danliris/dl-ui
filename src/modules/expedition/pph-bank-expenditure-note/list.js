@@ -10,7 +10,9 @@ export class List {
     columns = [
         { field: "No", title: "No Bukti Pengeluaran Bank" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "Date",
+            title: "Tanggal",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
@@ -18,13 +20,17 @@ export class List {
         { field: "IncomeTaxName", title: "Pasal PPH" },
         { field: "IncomeTaxRate", title: "Rate PPH (%)" },
         {
-            field: "TotalIncomeTax", title: "Total PPH", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+            field: "TotalIncomeTax",
+            title: "Total PPH",
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
             },
         },
         {
-            field: "TotalDPP", title: "Total DPP", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+            field: "TotalDPP",
+            title: "Total DPP",
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
             },
         },
         { field: "Currency", title: "Mata Uang" },
