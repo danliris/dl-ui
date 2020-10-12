@@ -34,16 +34,19 @@ export class List {
                   var subTotalBuyer = {};
                   var subTotalBuyer1 = {};
                   var subTotalBuyer2 = {};
-                  this.PPN = 0;
-                  this.Total = 0;
+                  var subTotalBuyer3 = {};
                                     
                   for (var data of result) {
-                       var Buyer = data.buyerName;
+                       var Buyer = data.lsNo;
                         if (!dataByBuyer[Buyer]) dataByBuyer[Buyer] = [];                 
                             dataByBuyer[Buyer].push({                            
                          
                             buyerCode : data.buyerCode,
                             buyerName : data.buyerName,
+                            productCode : data.productCode,
+                            productName : data.productName,
+                            quantity : data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                            uomUnit : data.uomUnit,
                             lsNo : data.lsNo,
                             useVat : data.useVat,
                             lsDate : moment(data.lsDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.lsDate).format("DD MMM YYYY"),
@@ -66,30 +69,38 @@ export class List {
                         if (!subTotalBuyer2[Buyer]) {
                             subTotalBuyer2[Buyer] = 0;
                             } 
-                            subTotalBuyer2[Buyer] += data.total;                    
+                            subTotalBuyer2[Buyer] += data.total;  
+                            
+                        if (!subTotalBuyer3[Buyer]) {
+                                subTotalBuyer3[Buyer] = 0;
+                            } 
+                            subTotalBuyer3[Buyer] += data.quantity;     
                 }
      
                var buyers = [];
                this.TotDPP = 0;
                this.TotPPN = 0;
                this.TotAmt = 0;
-               
+               this.TotQty = 0;
                 
                for (var data in dataByBuyer) {
                    buyers.push({
                    data: dataByBuyer[data],
-                   buyer: dataByBuyer[data][0].buyerName,
+                   buyer: dataByBuyer[data][0].lsNo,
                    subTotal: (subTotalBuyer[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal1: (subTotalBuyer1[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal2: (subTotalBuyer2[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),                   
+                   subTotal3: (subTotalBuyer3[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),                                      
                  });
                    this.TotDPP += subTotalBuyer[data];
                    this.TotPPN += subTotalBuyer1[data];  
                    this.TotAmt += subTotalBuyer2[data];  
+                   this.TotQty += subTotalBuyer3[data]; 
                }
                this.TotDPP = this.TotDPP.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.TotPPN = this.TotPPN.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-               this.TotAmt = this.TotAmt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });               
+               this.TotAmt = this.TotAmt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.TotQty = this.TotQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });              
                this.buyers = buyers;
              });   
         }   
@@ -115,7 +126,8 @@ export class List {
         this.buyers = [];
         this.TotDPP = null;            
         this.TotPPN = null; 
-        this.TotAmt = null;            
+        this.TotAmt = null;   
+        this.TotQty = null;          
     }
 
     dateFromChanged(e) {
