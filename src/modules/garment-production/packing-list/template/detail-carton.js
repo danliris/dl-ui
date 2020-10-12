@@ -136,12 +136,13 @@ export class Detail {
             }
         }
 
-        this.context.context.options.header.measurements = (this.context.context.options.header.measurements || []).filter(m => m.id);
+        this.context.context.options.header.measurements.splice(0);
 
         for (const mt of measurements) {
-            let measurement = this.context.context.options.header.measurements.find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
+            let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
             if (measurement) {
                 measurement.cartonsQuantity = mt.cartonsQuantity;
+                this.context.context.options.header.measurements.push(measurement);
             } else {
                 this.context.context.options.header.measurements.push(mt);
             }
