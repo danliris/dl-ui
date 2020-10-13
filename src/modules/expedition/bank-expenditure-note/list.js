@@ -110,7 +110,6 @@ export class List {
     }
 
     posting() {
-        console.log(response)
         var items = this.selectedItems.map(s => s.Id);
         this.service.posting(items)
             .then(result => {
