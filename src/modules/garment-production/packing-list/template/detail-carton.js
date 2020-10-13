@@ -136,6 +136,7 @@ export class Detail {
             }
         }
 
+        this.context.context.options.header.measurements = this.context.context.options.header.measurements || [];
         this.context.context.options.header.measurements.splice(0);
 
         for (const mt of measurements) {
