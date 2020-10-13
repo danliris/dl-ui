@@ -18,9 +18,11 @@ export class Edit {
         this.error = {};
         var idx=0;
         if(this.data.measurements){
+            this.data.measurementsTemp = [];
             for(var i of this.data.measurements){
                 i.MeasurementIndex=idx;
                 idx++;
+                this.data.measurementsTemp.push(i);
             }
         }
 

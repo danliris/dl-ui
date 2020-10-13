@@ -17,7 +17,7 @@
                     read-only.bind="readOnly || isEdit" options.bind="controlOptions">
                 </au-autocomplete>
 
-                <au-checkbox label="Apakah kena PPN ?" value.bind="data.useVat" error.bind="error.useVat"
+                <au-checkbox label="Apakah kena PPN ?" value.bind="useVat" error.bind="error.useVat"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-checkbox>
 
@@ -29,8 +29,9 @@
                     options.bind="controlOptions">
                 </au-textbox>
 
-                <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
-                    add.bind="items.onAdd" read-only.bind="readOnly || !data.buyer" options.bind="items.options"
+                <au-collection columns.bind="data.useVat ? columnsUseVat : items.columns" 
+                    items.bind="data.items"  errors.bind="error.items" add.bind="items.onAdd" 
+                    read-only.bind="readOnly || !data.buyer" options.bind="items.options"
                     item-template="modules/garment-shipping/local-price-cutting-note/template/item">
                 </au-collection>
 

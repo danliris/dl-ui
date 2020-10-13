@@ -36,6 +36,16 @@ export class Edit {
                 item.priceFOB = item.priceRO;
             }
         }
+
+        if (new Date(this.data.lcDate) <= new Date(1, 1, 1, 0, 0, 0, 0)) {
+            this.data.lcDate = new Date(new Date().setHours(0, 0, 0, 0));
+        }
+        if (new Date(this.data.truckingDate) <= new Date(1, 1, 1, 0, 0, 0, 0)) {
+            this.data.truckingDate = new Date(new Date().setHours(0, 0, 0, 0));
+        }
+        if (new Date(this.data.exportEstimationDate) <= new Date(1, 1, 1, 0, 0, 0, 0)) {
+            this.data.exportEstimationDate = new Date(new Date().setHours(0, 0, 0, 0));
+        }
     }
 
     cancelCallback(event) {
