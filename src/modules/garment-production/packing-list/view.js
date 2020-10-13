@@ -36,9 +36,13 @@ export class View {
         }
         
         switch (this.data.status) {
+            case "CREATED":
+                this.saveCallback = null;
+                break;
             case "CANCELED":
             case "APPROVED_MD":
             case "APPROVED_SHIPPING":
+            case "REJECTED_SHIPPING_MD":
                 this.saveCallback = null;
             case "POSTED":
             case "REJECTED_MD":
@@ -47,12 +51,6 @@ export class View {
             case "REVISED_SHIPPING":
                 this.editCallback = null;
                 this.deleteCallback = null;
-                break;
-            case "REJECTED_SHIPPING_MD":
-                this.editCallback = null;
-                this.deleteCallback = null;
-            case "ON_PROCESS":
-                this.saveCallback = null;
                 break;
             default:
                 break;
