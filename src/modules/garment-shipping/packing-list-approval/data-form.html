@@ -289,7 +289,7 @@
                 label="SHIPPING MARK"
                 value.bind="data.shippingMark"
                 error.bind="error.ShippingMark" 
-                read-only="true" 
+                read-only.bind="readOnly" 
                 options.bind="controlOptions">
             </au-multiline>
 
@@ -297,7 +297,7 @@
                 label="SIDE MARK"
                 value.bind="data.sideMark"
                 error.bind="error.SideMark"
-                read-only="true"  
+                read-only.bind="readOnly"  
                 options.bind="controlOptions">
             </au-multiline>
 
@@ -305,7 +305,7 @@
                 label="REMARK"
                 value.bind="data.remark"
                 error.bind="error.Remark" 
-                read-only="true" 
+                read-only.bind="readOnly" 
                 options.bind="controlOptions">
             </au-multiline>
         </div>
