@@ -7,9 +7,10 @@ import numeral from 'numeral';
 @inject(Router, Service)
 export class List {
     context = ["Rincian"];
-    columns = [
-        {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+    columns = [{
+            field: "Date",
+            title: "Tanggal",
+            formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
@@ -18,6 +19,15 @@ export class List {
         { field: "ReferenceNo", title: "No. Referensi" },
         { field: "Status", title: "Status" }
     ];
+
+    controlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        },
+    };
 
     loader = (info) => {
         let order = {};
@@ -31,21 +41,37 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
         };
 
-        return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        if (this.info.dateFrom)
+            arg.datefrom = moment(this.info.dateFrom).format("YYYY-MM-DD");
+
+        if (this.info.dateTo)
+            arg.dateto = moment(this.info.dateTo).format("YYYY-MM-DD");
+
+        if (this.info.dateTo && this.info.dateFrom)
+            return this.service.filter(arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                });
+        else
+            return this.service.search(arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                });
     }
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.info = {};
     }
 
     contextCallback(event) {
@@ -64,5 +90,17 @@ export class List {
 
     post() {
         this.router.navigateToRoute('post');
+    }
+
+    reset() {
+        this.error = {};
+        this.info.dateFrom = undefined;
+        this.info.dateTo = undefined;
+        this.tableList.refresh();
+    }
+
+    search() {
+        this.error = {};
+        this.tableList.refresh();
     }
 }

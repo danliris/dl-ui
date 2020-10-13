@@ -16,7 +16,9 @@ export class List {
     columns = [
         { field: 'DocumentNo', title: 'No Bukti Pengeluaran Bank' },
         {
-            field: 'Date', title: 'Tanggal Bayar DPP + PPN', formatter: function (value, data, index) {
+            field: 'Date',
+            title: 'Tanggal Bayar DPP + PPN',
+            formatter: function(value, data, index) {
                 return value ? moment(value).format('DD MMM YYYY') : '';
             },
         },
@@ -24,18 +26,24 @@ export class List {
         { field: 'DivisionName', title: 'Divisi' },
         { field: 'PaymentMethod', title: 'Cara Pembayaran' },
         {
-            field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '';
+            field: 'DPP',
+            title: 'DPP',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '';
             },
         },
         {
-            field: 'VAT', title: 'PPN', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '';
+            field: 'VAT',
+            title: 'PPN',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '';
             },
         },
         {
-            field: 'TotalPaid', title: 'Total Bayar Ke Supplier', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '';
+            field: 'TotalPaid',
+            title: 'Total Bayar Ke Supplier',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '';
             },
         },
         { field: 'Currency', title: 'Mata Uang' },
@@ -118,64 +126,64 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-                .then((result) => {
+            .then((result) => {
 
-                    let before = {};
+                let before = {};
 
-                    for (let i in result.data) {
-                        if (result.data[i].DocumentNo != before.DocumentNo) {
-                            before = result.data[i];
-                            before._DocumentNo_rowspan = 1;
-                            before._Date_rowspan = 1;
-                            before._CategoryName_rowspan = 1;
-                            before._DivisionName_rowspan = 1;
-                            before._PaymentMethod_rowspan = 1;
-                            before._DPP_rowspan = 1;
-                            before._VAT_rowspan = 1;
-                            before._TotalPaid_rowspan = 1;
-                            before._BankName_rowspan = 1;
-                            before._Currency_rowspan = 1;
-                        } else {
-                            before._DocumentNo_rowspan++;
-                            before._Date_rowspan++;
-                            before._CategoryName_rowspan++;
-                            before._DivisionName_rowspan++;
-                            before._PaymentMethod_rowspan++;
-                            before._DPP_rowspan++;
-                            before._VAT_rowspan++;
-                            before._TotalPaid_rowspan++;
-                            before._BankName_rowspan++;
-                            before._Currency_rowspan++;
+                for (let i in result.data) {
+                    if (result.data[i].DocumentNo != before.DocumentNo) {
+                        before = result.data[i];
+                        before._DocumentNo_rowspan = 1;
+                        before._Date_rowspan = 1;
+                        before._CategoryName_rowspan = 1;
+                        before._DivisionName_rowspan = 1;
+                        before._PaymentMethod_rowspan = 1;
+                        before._DPP_rowspan = 1;
+                        before._VAT_rowspan = 1;
+                        before._TotalPaid_rowspan = 1;
+                        before._BankName_rowspan = 1;
+                        before._Currency_rowspan = 1;
+                    } else {
+                        before._DocumentNo_rowspan++;
+                        before._Date_rowspan++;
+                        before._CategoryName_rowspan++;
+                        before._DivisionName_rowspan++;
+                        before._PaymentMethod_rowspan++;
+                        before._DPP_rowspan++;
+                        before._VAT_rowspan++;
+                        before._TotalPaid_rowspan++;
+                        before._BankName_rowspan++;
+                        before._Currency_rowspan++;
 
-                            before.DPP += result.data[i].DPP;
-                            before.VAT += result.data[i].VAT;
-                            before.TotalPaid += result.data[i].TotalPaid;
+                        before.DPP += result.data[i].DPP;
+                        before.VAT += result.data[i].VAT;
+                        before.TotalPaid += result.data[i].TotalPaid;
 
-                            result.data[i].DocumentNo = undefined;
-                            result.data[i].Date = undefined;
-                            result.data[i].CategoryName = undefined;
-                            result.data[i].DivisionName = undefined;
-                            result.data[i].PaymentMethod = undefined;
-                            result.data[i].DPP = undefined;
-                            result.data[i].VAT = undefined;
-                            result.data[i].TotalPaid = undefined;
-                            result.data[i].Currency = undefined;
-                            result.data[i].BankName = undefined;
-                        }
+                        result.data[i].DocumentNo = undefined;
+                        result.data[i].Date = undefined;
+                        result.data[i].CategoryName = undefined;
+                        result.data[i].DivisionName = undefined;
+                        result.data[i].PaymentMethod = undefined;
+                        result.data[i].DPP = undefined;
+                        result.data[i].VAT = undefined;
+                        result.data[i].TotalPaid = undefined;
+                        result.data[i].Currency = undefined;
+                        result.data[i].BankName = undefined;
                     }
+                }
 
-                    setTimeout(() => {
-                        $('#dpp-ppn-bank-table td').each(function () {
-                            if ($(this).html() === '-')
-                                $(this).hide();
-                        })
-                    }, 10);
+                setTimeout(() => {
+                    $('#dpp-ppn-bank-table td').each(function() {
+                        if ($(this).html() === '-')
+                            $(this).hide();
+                    })
+                }, 10);
 
-                    return {
-                        total: result.info.total,
-                        data: result.data
-                    };
-                })
+                return {
+                    total: result.info.total,
+                    data: result.data
+                };
+            })
         ) : { total: 0, data: [] };
     }
 
@@ -212,8 +220,7 @@ export class List {
                 if (this.excelData.length !== response.total) {
                     this.page++;
                     this.getExcelData();
-                }
-                else {
+                } else {
                     let wsData = [];
 
                     for (let data of this.excelData) {
@@ -223,9 +230,9 @@ export class List {
                             'Category': data.CategoryName,
                             'Divisi': data.DivisionName,
                             'Cara Pembayaran': data.PaymentMethod,
-                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.0000') : '-',
-                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.0000') : '-',
-                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.0000') : '-',
+                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.00') : '-',
+                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.00') : '-',
+                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.00') : '-',
                             'Mata Uang': data.Currency,
                             'Bank Bayar PPH': data.BankName,
                             'Supplier': data.SupplierName,
@@ -243,7 +250,11 @@ export class List {
                     };
                     wb.SheetNames.push('Laporan DPP PPN');
 
-                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    XLSX.utils.sheet_add_aoa(ws, [
+                        ["Laporan Bukti Pengeluaran Bank DPP + PPN"],
+                        [`PERIODE : ${this.info.dateFrom ? moment(this.info.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.info.dateTo ? moment(this.info.dateTo).format('DD MMMM YYYY') : '-'}`]
+                    ], { origin: "A2" });
                     wb.Sheets['Laporan DPP PPN'] = ws;
 
                     let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });

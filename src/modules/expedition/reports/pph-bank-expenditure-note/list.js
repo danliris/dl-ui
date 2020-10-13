@@ -13,19 +13,25 @@ export class List {
     columns = [
         { field: 'No', title: 'No Bukti Pengeluaran Bank' },
         {
-            field: 'Date', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
+            field: 'Date',
+            title: 'Tgl Bayar PPH',
+            formatter: function(value, data, index) {
                 return value ? moment(value).format('DD MMM YYYY') : '-';
             },
         },
         { field: 'Category', title: 'Category' },
         {
-            field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '-';
+            field: 'DPP',
+            title: 'DPP',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
         },
         {
-            field: 'IncomeTax', title: 'PPH', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '-';
+            field: 'IncomeTax',
+            title: 'PPH',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
         },
         { field: 'Currency', title: 'Mata Uang' },
@@ -118,51 +124,50 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-                .then(result => {
-                    let before = {};
+            .then(result => {
+                let before = {};
 
-                    for (let i in result.data) {
-                        if (result.data[i].No != before.No) {
-                            before = result.data[i];
-                            before._No_rowspan = 1;
-                            before._Date_rowspan = 1;
-                            before._DPP_rowspan = 1;
-                            before._IncomeTax_rowspan = 1;
-                            before._Currency_rowspan = 1;
-                            before._Bank_rowspan = 1;
-                        }
-                        else {
-                            before._No_rowspan++;
-                            before._Date_rowspan++;
-                            before._DPP_rowspan++;
-                            before._IncomeTax_rowspan++;
-                            before._Currency_rowspan++;
-                            before._Bank_rowspan++;
+                for (let i in result.data) {
+                    if (result.data[i].No != before.No) {
+                        before = result.data[i];
+                        before._No_rowspan = 1;
+                        before._Date_rowspan = 1;
+                        before._DPP_rowspan = 1;
+                        before._IncomeTax_rowspan = 1;
+                        before._Currency_rowspan = 1;
+                        before._Bank_rowspan = 1;
+                    } else {
+                        before._No_rowspan++;
+                        before._Date_rowspan++;
+                        before._DPP_rowspan++;
+                        before._IncomeTax_rowspan++;
+                        before._Currency_rowspan++;
+                        before._Bank_rowspan++;
 
-                            before.DPP += result.data[i].DPP;
-                            before.IncomeTax += result.data[i].IncomeTax;
+                        before.DPP += result.data[i].DPP;
+                        before.IncomeTax += result.data[i].IncomeTax;
 
-                            result.data[i].No = undefined;
-                            result.data[i].Date = undefined;
-                            result.data[i].DPP = undefined;
-                            result.data[i].IncomeTax = undefined;
-                            result.data[i].Currency = undefined;
-                            result.data[i].Bank = undefined;
-                        }
+                        result.data[i].No = undefined;
+                        result.data[i].Date = undefined;
+                        result.data[i].DPP = undefined;
+                        result.data[i].IncomeTax = undefined;
+                        result.data[i].Currency = undefined;
+                        result.data[i].Bank = undefined;
                     }
+                }
 
-                    setTimeout(() => {
-                        $('#pph-bank-table td').each(function () {
-                            if ($(this).html() === '-')
-                                $(this).hide();
-                        })
-                    }, 10);
+                setTimeout(() => {
+                    $('#pph-bank-table td').each(function() {
+                        if ($(this).html() === '-')
+                            $(this).hide();
+                    })
+                }, 10);
 
-                    return {
-                        total: result.info.total,
-                        data: result.data
-                    };
-                })
+                return {
+                    total: result.info.total,
+                    data: result.data
+                };
+            })
         ) : { total: 0, data: [] };
     }
 
@@ -176,8 +181,7 @@ export class List {
             this.error = {};
             this.flag = true;
             this.tableList.refresh();
-        }
-        else {
+        } else {
             if (!this.dateFrom)
                 this.error.dateFrom = "Tanggal Awal harus diisi";
             else if (!this.dateTo)
@@ -198,17 +202,21 @@ export class List {
                 if (this.excelData.length !== response.total) {
                     this.page++;
                     this.getExcelData();
-                }
-                else {
+                } else {
                     let wsData = [];
+
+                    let title = {
+                        "": "RuleTester",
+                        "": "RuleTester"
+                    }
 
                     for (let data of this.excelData) {
                         wsData.push({
                             'No Bukti Pengeluaran Bank': data.No,
                             'Tanggal Bayar PPH': data.Date ? moment(data.Date).format('DD MMM YYYY') : '-',
                             'Category': data.Category,
-                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.0000') : '-',
-                            'PPH': data.IncomeTax ? numeral(data.IncomeTax).format('0,000.0000') : '-',
+                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.00') : '-',
+                            'PPH': data.IncomeTax ? numeral(data.IncomeTax).format('0,000.00') : '-',
                             'Mata Uang': data.Currency,
                             'Bank Bayar PPH': data.Bank,
                             'Supplier': data.Supplier,
@@ -226,7 +234,12 @@ export class List {
                     };
                     wb.SheetNames.push('Laporan PPH');
 
-                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    console.log(this);
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    XLSX.utils.sheet_add_aoa(ws, [
+                        ["Laporan Bukti Pengeluaran Bank PPH"],
+                        [`PERIODE : ${this.dateFrom ? moment(this.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.dateTo ? moment(this.dateTo).format('DD MMMM YYYY') : '-'}`]
+                    ], { origin: "A2" });
                     wb.Sheets['Laporan PPH'] = ws;
 
                     let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });

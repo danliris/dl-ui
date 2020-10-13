@@ -16,6 +16,11 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    filter(info) {
+        let endpoint = `${serviceUri}/transaction`;
+        return super.list(endpoint, info);
+    }
+
     getById(id) {
         let endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);

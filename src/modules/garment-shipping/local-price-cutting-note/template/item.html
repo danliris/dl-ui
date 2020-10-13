@@ -16,6 +16,11 @@
             </au-numeric>
         </td>
 
+        <td class="col-sm-2" if.bind="useVat">
+            <au-checkbox value.bind="data.includeVat" read-only.bind="readOnly" if.bind="useVat">
+            </au-checkbox>
+        </td>
+
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>

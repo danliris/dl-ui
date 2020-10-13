@@ -598,4 +598,43 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/insurance-disposition",
+        name: "garment-shipping/insurance-disposition",
+        moduleId: "modules/garment-shipping/insurance-disposition/index",
+        nav: true,
+        title: "Lampiran Disposisi Pembayaran Polis Asuransi ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/packing-list-approval",
+        name: "garment-shipping/packing-list-approval",
+        moduleId: "modules/garment-shipping/packing-list-approval/index",
+        nav: true,
+        title: "Aprroval Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/packing-list-approved",
+        name: "garment-shipping/packing-list-approved",
+        moduleId: "modules/garment-shipping/packing-list-approved/index",
+        nav: true,
+        title: "Aprroved Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]

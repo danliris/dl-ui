@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
+import numeral from 'numeral';
 
 import { DialogDetailView } from './template/detail-dialog-view'
 
@@ -47,7 +48,7 @@ export class List {
         console.log(this.arg.isPaidOff)
         console.log(this.selectedStatus)
         console.log(this.selectedStatus.value)
-        
+
         this.arg.dateFrom = this.startDate && this.startDate != "Invalid Date" ? moment(this.startDate).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.endDate && this.endDate != "Invalid Date" ? moment(this.endDate).format("YYYY-MM-DD") : null;
     }
@@ -55,9 +56,21 @@ export class List {
     columns = [
         { field: "SalesInvoiceNo", title: "Nomor Faktur Jual" },
         { field: "Tempo", title: "Tempo (hari)" },
-        { field: "TotalPayment", title: "Total Harga" },
+        {
+            field: "TotalPayment",
+            title: "Total Harga",
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
+            }
+        },
         { field: "Unpaid", title: "Sisa Pembayaran" },
-        { field: "TotalPaid", title: "Akumulasi" },
+        {
+            field: "TotalPaid",
+            title: "Akumulasi",
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
+            }
+        },
         { field: "Status", title: "Status" }
     ];
 
@@ -77,13 +90,13 @@ export class List {
         return this.listDataFlag ? (
             this.setValue(),
             this.service.getReport(this.arg)
-                .then(result => {
-                    // var index = 0;
-                    return {
-                        // total: result.info.total,
-                        data: result.data,
-                    }
-                })
+            .then(result => {
+                // var index = 0;
+                return {
+                    // total: result.info.total,
+                    data: result.data,
+                }
+            })
         ) : { total: 0, data: {} };
     }
 
@@ -124,8 +137,7 @@ export class List {
 
     contextShowCallback(index, name, data) {
         switch (name) {
-            default:
-                return true;
+            default: return true;
         }
     }
 

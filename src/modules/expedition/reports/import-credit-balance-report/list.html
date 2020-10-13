@@ -52,14 +52,14 @@
                 <tr repeat.for="report of data">
                     <td>${report.SupplierName}</td>
                     <td>${report.Currency}</td>
-                    <td>${report.StartBalance | numberFormat: '0,000.000'}</td>
-                    <td>${report.Purchase | numberFormat: '0,000.000'}</td>
-                    <td>${report.Payment | numberFormat: '0,000.000'}</td>
-                    <td>${report.FinalBalance | numberFormat: '0,000.000'}</td>
-                    <td>${report.StartBalance * report.CurrencyRate | numberFormat: '0,000.000'}</td>
-                    <td>${report.Purchase * report.CurrencyRate | numberFormat: '0,000.000'}</td>
-                    <td>${report.Payment * report.CurrencyRate | numberFormat: '0,000.000'}</td>
-                    <td>${report.FinalBalance * report.CurrencyRate | numberFormat: '0,000.000'}</td>
+                    <td>${report.StartBalance | numberFormat: '0,000.00'}</td>
+                    <td>${report.Purchase | numberFormat: '0,000.00'}</td>
+                    <td>${report.Payment | numberFormat: '0,000.00'}</td>
+                    <td>${report.FinalBalance | numberFormat: '0,000.00'}</td>
+                    <td>${report.StartBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
+                    <td>${report.Purchase * report.CurrencyRate | numberFormat: '0,000.00'}</td>
+                    <td>${report.Payment * report.CurrencyRate | numberFormat: '0,000.00'}</td>
+                    <td>${report.FinalBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                 </tr>
             </tbody>
         </table>
