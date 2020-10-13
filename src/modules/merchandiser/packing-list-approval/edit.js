@@ -37,7 +37,9 @@ export class Edit {
             }
         }
         
-        this.data.truckingEstimationDate = new Date(new Date().setHours(0, 0, 0, 0));
+        if (new Date(this.data.truckingEstimationDate) <= new Date(1, 1, 1, 0, 0, 0, 0)) {
+            this.data.truckingEstimationDate = new Date(new Date().setHours(0, 0, 0, 0));
+        }
     }
 
     cancelCallback(event) {
