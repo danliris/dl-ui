@@ -235,8 +235,9 @@ export class List {
                     wb.SheetNames.push('Laporan PPH');
 
                     console.log(this);
-                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A6" });
                     XLSX.utils.sheet_add_aoa(ws, [
+                        ["PT.Dan Liris"],
                         ["Laporan Bukti Pengeluaran Bank PPH"],
                         [`PERIODE : ${this.dateFrom ? moment(this.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.dateTo ? moment(this.dateTo).format('DD MMMM YYYY') : '-'}`]
                     ], { origin: "A2" });

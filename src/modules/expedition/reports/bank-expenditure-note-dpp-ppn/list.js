@@ -250,8 +250,9 @@ export class List {
                     };
                     wb.SheetNames.push('Laporan DPP PPN');
 
-                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A5" });
+                    let ws = XLSX.utils.json_to_sheet(wsData, { origin: "A6" });
                     XLSX.utils.sheet_add_aoa(ws, [
+                        ["PT.Dan Liris"],
                         ["Laporan Bukti Pengeluaran Bank DPP + PPN"],
                         [`PERIODE : ${this.info.dateFrom ? moment(this.info.dateFrom).format('DD MMMM YYYY') : '-'} sampai dengan ${this.info.dateTo ? moment(this.info.dateTo).format('DD MMMM YYYY') : '-'}`]
                     ], { origin: "A2" });
