@@ -70,7 +70,7 @@ export class List {
     rowFormatter(data, index) {
         switch (data.status) {
             case "CANCELED":
-                return { classes: "active" }
+                return { css: { "background": "#eeeeee" } }
             case "APPROVED_MD":
             case "REJECTED_SHIPPING_MD":
                 return { classes: "warning" }
@@ -85,7 +85,7 @@ export class List {
             case "CREATED":
             case "POSTED":
             default:
-                return {}
+                return { css: { "background": "white" } }
         }
     }
 
