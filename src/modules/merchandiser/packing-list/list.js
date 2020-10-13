@@ -66,6 +66,18 @@ export class List {
         this.router = router;
     }
 
+    rowFormatter(data, index) {
+        switch (data.status) {
+            case "APPROVED_SHIPPING":
+                return { classes: "success" }
+            case "REJECTED_SHIPPING_MD":
+                return { classes: "danger" }
+            case "APPROVED_MD":
+            default:
+                return { css: { "background": "white" } }
+        }
+    }
+
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
