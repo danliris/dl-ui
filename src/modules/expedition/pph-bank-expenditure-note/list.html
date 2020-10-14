@@ -7,7 +7,8 @@
               selections.bind="selectedItems"
               page-size="25"
               context.bind="context"
-              context-click.delegate="contextCallback($event)">
+              context-click.delegate="contextCallback($event)"
+              row-formatter.bind="rowFormatter">
         <div slot="toolbar"
              class="btn-group">
             <button class="btn btn-success"

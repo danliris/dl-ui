@@ -115,4 +115,11 @@ export class List {
                 this.error = e;
             });
     }
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
 }
