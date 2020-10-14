@@ -47,6 +47,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    post(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.put(endpoint, data);
+    }
+
     // createCreditorAccount(creditorAccounts) {
     //     var config = Container.instance.get(Config);
     //     var endpoint = config.getEndpoint("finance");

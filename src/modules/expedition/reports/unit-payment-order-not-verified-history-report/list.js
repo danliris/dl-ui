@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 
 import moment from 'moment';
+import numeral from 'numeral';
 
 var SPBLoader = require('../../../../loader/purchasing-document-expedition-loader');
 var SupplierLoader = require('../../../../loader/supplier-loader');
@@ -16,8 +17,8 @@ export class List {
         this.flag = false;
         this.error = {};
     }
-    filter={
-        Position:6
+    filter = {
+        Position: 6
     }
     controlOptions = {
         label: {
@@ -34,20 +35,34 @@ export class List {
         showColumns: false
     }
 
-    columns = [
-        { field: "VerifyDate", title: "Tanggal Verifikasi", sortable: false, formatter: function (value, data, index) {
+    columns = [{
+            field: "VerifyDate",
+            title: "Tanggal Verifikasi",
+            sortable: false,
+            formatter: function(value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "UnitPaymentOrderNo", title: "No. SPB" , sortable: false },
-        { field: "UPODate", title: "Tanggal SPB", sortable: false, formatter: function (value, data, index) {
+        { field: "UnitPaymentOrderNo", title: "No. SPB", sortable: false },
+        {
+            field: "UPODate",
+            title: "Tanggal SPB",
+            sortable: false,
+            formatter: function(value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "SupplierName", title: "Supplier", sortable: false },
         { field: "DivisionName", title: "Divisi", sortable: false },
-        { field: "TotalPaid", title: "Total Bayar", sortable: false },
-        { field: "Currency", title: "Mata Uang" , sortable: false},
+        {
+            field: "TotalPaid",
+            title: "Total Bayar",
+            sortable: false,
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
+            }
+        },
+        { field: "Currency", title: "Mata Uang", sortable: false },
         { field: "NotVerifiedReason", title: "Alasan", sortable: false },
     ];
 
@@ -64,7 +79,7 @@ export class List {
     reset() {
         this.spb = null;
         this.supplier = null;
-        this.division=null;
+        this.division = null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
@@ -84,46 +99,46 @@ export class List {
             size: info.limit,
             no: this.spb ? this.spb.UnitPaymentOrderNo : "",
             supplier: this.supplier ? this.supplier.code : "",
-            division: this.division?this.division.Code : "",
-            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
-            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            division: this.division ? this.division.Code : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : "",
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : "",
 
         };
 
         return this.flag ?
             (
                 this.service.search(args)
-                    .then(result => {
-                        for(var a of result.data){
-                            a.TotalPaid=a.TotalPaid.toLocaleString();
-                            
-                        }
-                        return {
-                            total: result.info.total,
-                            data: result.data
-                        };
-                    })
+                .then(result => {
+                    for (var a of result.data) {
+                        a.TotalPaid = a.TotalPaid.toLocaleString();
+
+                    }
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    };
+                })
             ) : { total: 0, data: [] };
     }
 
     xls() {
-        
-            let args = {
+
+        let args = {
             no: this.spb ? this.spb.UnitPaymentOrderNo : "",
             supplier: this.supplier ? this.supplier.code : "",
-            division: this.division?this.division.Code : "",
-            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
-            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            division: this.division ? this.division.Code : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : "",
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : "",
 
         };
 
-            this.service.getXls(args);
-                
-                
-        
+        this.service.getXls(args);
+
+
+
     }
 
-    get divisionLoader(){
+    get divisionLoader() {
         return DivisionLoader;
     }
 
@@ -136,10 +151,10 @@ export class List {
     }
 
     spbView = (spb) => {
-      return `${spb.UnitPaymentOrderNo}`;
+        return `${spb.UnitPaymentOrderNo}`;
     }
 
     divisionView = (division) => {
-      return `${division.Name}`;
+        return `${division.Name}`;
     }
 }

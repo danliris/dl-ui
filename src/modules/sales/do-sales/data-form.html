@@ -190,6 +190,10 @@
                 format="0,0">
               </au-numeric>
 
+              <au-dropdown label="Satuan Bale" value.bind="data.BaleUom" items.bind="baleUomDyeingOptions"
+                  error.bind="error.BaleUom" read-only.bind="readOnly" placeholder="Pilih Satuan Bale">
+              </au-dropdown>
+
               <au-multiline label="Catatan" value.bind="data.Remark" read-only.bind="readOnly"
                 keypress.delegate="enterDelegate($event)" placeholder="Input Catatan">
               </au-multiline>

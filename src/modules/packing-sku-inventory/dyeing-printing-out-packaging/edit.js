@@ -64,6 +64,7 @@ export class Edit {
                     itemSpp.materialProduct = item.materialProduct;
                     itemSpp.materialConstruction = item.materialConstruction;
                     itemSpp.materialWidth = item.materialWidth;
+                    itemSpp.finishWidth = item.finishWidth;
                     itemSpp.processType = item.processType;
                     itemSpp.yarnMaterial = item.yarnMaterial;
                     itemSpp.balance = item.balance;

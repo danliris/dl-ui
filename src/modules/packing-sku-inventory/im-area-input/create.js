@@ -26,7 +26,9 @@ export class Create {
     }
 
     save() {
-        
+
+        console.log("ini data", this.data)
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

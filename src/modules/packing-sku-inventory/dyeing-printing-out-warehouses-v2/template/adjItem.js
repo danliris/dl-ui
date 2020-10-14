@@ -30,6 +30,7 @@ export class CartItem {
             this.selectedProductionOrder.materialConstruction.name = this.data.materialConstruction.name;
 
             this.selectedProductionOrder.materialWidth = this.data.materialWidth;
+            this.selectedProductionOrder.finishWidth = this.data.finishWidth;
 
             this.selectedProductionOrder.buyerId = this.data.buyerId;
             this.selectedProductionOrder.buyer = this.data.buyer;
@@ -114,6 +115,7 @@ export class CartItem {
             this.data.materialConstruction.name = this.selectedProductionOrder.materialConstruction.name;
 
             this.data.materialWidth = this.selectedProductionOrder.materialWidth;
+            this.data.finishWidth = this.selectedProductionOrder.finishWidth;
 
             this.data.grade = this.selectedProductionOrder.grade;
             this.data.packagingUnit = this.selectedProductionOrder.packagingUnit;

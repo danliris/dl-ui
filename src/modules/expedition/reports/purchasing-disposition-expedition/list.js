@@ -15,14 +15,18 @@ export class List {
         [
             { field: 'DispositionNo', title: 'No. Disposisi', rowspan: 2, sortable: true },
             {
-                field: 'CreatedUtc', title: 'Tgl Disposisi', formatter: function (value, data, index) {
+                field: 'CreatedUtc',
+                title: 'Tgl Disposisi',
+                formatter: function(value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
                 sortable: true,
             },
             {
-                field: 'PaymentDueDate', title: 'Tgl Jatuh Tempo', formatter: function (value, data, index) {
+                field: 'PaymentDueDate',
+                title: 'Tgl Jatuh Tempo',
+                formatter: function(value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
@@ -31,8 +35,11 @@ export class List {
             { field: 'InvoiceNo', title: 'Nomor Proforma', rowspan: 2, sortable: true },
             { field: 'SupplierName', title: 'Supplier', rowspan: 2, sortable: true },
             {
-                field: 'CurrencyRate', title: 'Kurs', rowspan: 2, formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+                field: 'CurrencyRate',
+                title: 'Kurs',
+                rowspan: 2,
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             { title: 'Jumlah', colspan: 4 },
@@ -42,7 +49,9 @@ export class List {
             { field: 'Division', title: 'Divisi', rowspan: 2, sortable: true },
 
             {
-                field: 'Position', title: 'Posisi', formatter: (value, data, index) => {
+                field: 'Position',
+                title: 'Posisi',
+                formatter: (value, data, index) => {
                     let status = this.itemsStatus.find(p => p.value === value);
                     return status.text;
                 },
@@ -50,7 +59,9 @@ export class List {
                 sortable: true,
             },
             {
-                field: 'SentToVerificationDivisionDate', title: 'Tgl Pembelian Kirim', formatter: function (value, data, index) {
+                field: 'SentToVerificationDivisionDate',
+                title: 'Tgl Pembelian Kirim',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
                 rowspan: 2,
@@ -67,62 +78,84 @@ export class List {
             { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
 
             { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
-        ], [
-            {
-                field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+        ],
+        [{
+                field: 'DPP',
+                title: 'DPP',
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             {
-                field: 'VAT', title: 'PPN', formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+                field: 'VAT',
+                title: 'PPN',
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             {
-                field: 'IncomeTax', title: 'PPh', formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+                field: 'IncomeTax',
+                title: 'PPh',
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             {
-                field: 'Total', title: 'Total', formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+                field: 'Total',
+                title: 'Total',
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             {
-                field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
+                field: 'VerificationDivisionDate',
+                title: 'Tgl Terima',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
-                field: 'VerifyDate', title: 'Tgl Cek', formatter: function (value, data, index) {
+                field: 'VerifyDate',
+                title: 'Tgl Cek',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
-                field: 'SendDate', title: 'Tgl Kirim', formatter: function (value, data, index) {
+                field: 'SendDate',
+                title: 'Tgl Kirim',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
-                field: 'CashierDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
+                field: 'CashierDivisionDate',
+                title: 'Tgl Terima',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
-                field: 'BankExpenditureNoteDate', title: 'Tgl Bayar', formatter: function (value, data, index) {
+                field: 'BankExpenditureNoteDate',
+                title: 'Tgl Bayar',
+                formatter: function(value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
-                field: 'BankExpenditureNoteNo', title: 'No Bukti Pengeluaran Bank'
+                field: 'BankExpenditureNoteNo',
+                title: 'No Bukti Pengeluaran Bank'
             },
             {
-                field: 'PayToSupplier', title: 'Nominal yang dibayar', formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.0000') : '-';
+                field: 'PayToSupplier',
+                title: 'Nominal yang dibayar',
+                formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
                 },
             },
             {
-                field: 'Currency', title: 'Mata Uang'
+                field: 'Currency',
+                title: 'Mata Uang'
             },
             // {
             //     field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
@@ -207,12 +240,12 @@ export class List {
         arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         return this.flag ? (
             this.service.getReport(arg)
-                .then(result => {
-                    return {
-                        total: result.info.Count,
-                        data: result.data
-                    };
-                })
+            .then(result => {
+                return {
+                    total: result.info.Count,
+                    data: result.data
+                };
+            })
         ) : { total: 0, data: [] };
     }
 

@@ -8,31 +8,48 @@ import numeral from 'numeral';
 export class List {
     context = ['Rincian', 'Cetak PDF'];
 
-    columns = [
-        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
-        {
-            field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
+    columns = [{
+        field: "IsPosted",
+        title: "IsPosted Checkbox",
+        checkbox: true,
+        sortable: false,
+        formatter: function (value, data, index) {
+            this.checkboxEnabled = !data.IsPosted;
+            return ""
+        }
+    },
+    { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
+    {
+        field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
+            return moment(value).format('DD MMM YYYY');
         },
-        {
-            field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
-                return data ? `${data.BankAccountName} - A/C : ${data.BankAccountNumber}` : '';
-            }
+    },
+    {
+        field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
+            return data ? `${data.BankAccountName} - A/C : ${data.BankAccountNumber}` : '';
+        }
+    },
+    {
+        field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
+            return numeral(value).format('0,000.00');
         },
-        {
-            field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-        },
-        { field: 'BankCurrencyCode', title: 'Mata Uang' },
-        { field: 'suppliers', title: 'Supplier' },
-        { field: 'unitPaymentOrders', title: 'Nomor SPB' }
+    },
+    { field: 'BankCurrencyCode', title: 'Mata Uang' },
+    { field: 'suppliers', title: 'Supplier' },
+    { field: 'unitPaymentOrders', title: 'Nomor SPB' }
     ];
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.selectedItems = [];
     }
 
     loader = (info) => {
@@ -97,5 +114,22 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        var items = this.selectedItems.map(s => s.Id);
+        this.service.posting(items)
+            .then(result => {
+                alert("Data berhasil disimpan");
+                this.error = {};
+                this.tableList.refresh();
+                this.selectedItems = [];
+            })
+            .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                this.error = e;
+            });
     }
 }

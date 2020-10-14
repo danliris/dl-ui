@@ -43,6 +43,7 @@ export class DataForm {
         this.detailOptions.isEdit = this.isEdit;
         this.error = this.context.error;
 
+
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;

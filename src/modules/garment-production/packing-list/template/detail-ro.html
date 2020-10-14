@@ -32,7 +32,7 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.sectionName"
+                value.bind="data.section.code"
                 error.bind="error.Section"
                 read-only.bind="true">
             </au-textbox>
@@ -164,14 +164,14 @@
         <td colspan="3">
             <au-numeric
                 label = "AVG GW"
-                value.bind="data.avG_GW"
+                value.bind="avG_GW"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td colspan="4">
             <au-numeric
                 label = "AVG NW"
-                value.bind="data.avG_NW"
+                value.bind="avG_NW"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>

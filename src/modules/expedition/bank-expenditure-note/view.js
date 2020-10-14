@@ -52,6 +52,11 @@ export class View {
             a.Currency = this.data.Bank.Currency.Code;
         }
 
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
+
         this.IDR = false;
         this.sameCurrency = false;
         this.GrandTotal = this.data.GrandTotal;

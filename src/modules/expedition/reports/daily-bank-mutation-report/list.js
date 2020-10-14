@@ -92,8 +92,8 @@ export class List {
                     if (result.data && result.data.length > 0) {
                         previousDate = moment(result.data[0].Date).format("DD-MMM-YYYY");
                         this.currency = result.data[0].AccountBankCurrencyCode;
-                        this.initialBalance = numeral(result.data[0].BeforeNominal).format('0,0.0000');
-                        this.closingBalance = numeral(result.data[result.data.length - 1].AfterNominal).format('0,0.0000');
+                        this.initialBalance = numeral(result.data[0].BeforeNominal).format('0,0.00');
+                        this.closingBalance = numeral(result.data[result.data.length - 1].AfterNominal).format('0,0.00');
                     }
                     let index = 0;
                     for (let data of result.data) {
@@ -103,8 +103,8 @@ export class List {
                             let dailyTotalDataSet = {
                                 DailyTotalTitle: "Total Harian",
                                 AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.0000'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.0000'),
+                                Debit: numeral(dailyTotalDebit).format('0,0.00'),
+                                Kredit: numeral(dailyTotalKredit).format('0,0.00'),
                                 AfterNominal: ""
                             }
 
@@ -125,9 +125,9 @@ export class List {
                             ReferenceNo: data.ReferenceNo,
                             ReferenceType: data.ReferenceType,
                             AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                            Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.0000') : '',
-                            Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.0000') : '',
-                            AfterNominal: numeral(data.AfterNominal).format('0,0.0000')
+                            Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.00') : '',
+                            Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.00') : '',
+                            AfterNominal: numeral(data.AfterNominal).format('0,0.00')
                         }
 
                         previousDate = date;
@@ -139,8 +139,8 @@ export class List {
                             let dailyTotalDataSet = {
                                 DailyTotalTitle: "Total Harian",
                                 AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.0000'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.0000'),
+                                Debit: numeral(dailyTotalDebit).format('0,0.00'),
+                                Kredit: numeral(dailyTotalKredit).format('0,0.00'),
                                 AfterNominal: ""
                             }
 

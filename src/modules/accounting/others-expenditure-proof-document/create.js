@@ -11,7 +11,7 @@ export class Create {
     this.data = {};
   }
 
-  activate(params) { }
+  activate(params) {}
 
   list() {
     this.router.navigateToRoute("list");
@@ -26,10 +26,10 @@ export class Create {
   }
 
   saveCallback(event) {
-    // console.log(this);
+    console.log(this.data);
     this.service
       .create(this.data)
-      .then(result => {
+      .then((result) => {
         alert("Data berhasil dibuat");
         this.router.navigateToRoute(
           "create",
@@ -37,7 +37,7 @@ export class Create {
           { replace: true, trigger: true }
         );
       })
-      .catch(e => {
+      .catch((e) => {
         this.error = e;
       });
   }

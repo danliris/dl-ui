@@ -9,6 +9,8 @@ export class View {
     hasEdit = true;
     hasDelete = true;
     isVisible = true;
+    isGarment = false;
+
 
     constructor(router, service, dialog) {
         this.router = router;
@@ -19,11 +21,25 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
+        // console.log(this.data);
 
         if (this.data.ApprovalStatus == "Cancelled" || this.data.ApprovalStatus == "Approved") {
             this.hasDelete = false;
             this.hasEdit = false;
+        }
+
+        if (this.data.TypePurchasing) {
+            this.isGarment = true;
+            switch (this.data.TypePurchasing) {
+                case "GARMENT":
+                    this.TypePurchasing = "JOB";
+                    break;
+                case "UMUM":
+                    this.TypePurchasing = "UMUM";
+                    break;
+                default:
+                    this.TypePurchasing = null;
+            }
         }
     }
 
