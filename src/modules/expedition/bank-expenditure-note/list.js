@@ -8,6 +8,13 @@ import numeral from 'numeral';
 export class List {
     context = ['Rincian', 'Cetak PDF'];
 
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
     columns = [{
         field: "IsPosted",
         title: "IsPosted Checkbox",

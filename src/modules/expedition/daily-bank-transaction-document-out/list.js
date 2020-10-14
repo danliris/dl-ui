@@ -8,7 +8,7 @@ export class List {
   dataToBePosted = [];
 
   rowFormatter(data, index) {
-    if (data.isPosted)
+    if (data.IsPosted)
       return { classes: "success" }
     else
       return {}
