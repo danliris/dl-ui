@@ -10,6 +10,7 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable title;
     @bindable selectedBuyer;
+    @bindable useVat;
 
     controlOptions = {
         label: {
@@ -19,6 +20,13 @@ export class DataForm {
             length: 5
         }
     };
+
+    columnsUseVat=[
+        "No Nota Penjualan",
+        "Amount",
+        "Potongan",
+        "Include PPN"
+    ];
 
     items = {
         columns: [
@@ -30,7 +38,8 @@ export class DataForm {
             this.data.items.push({});
         }.bind(this),
         options: {
-            buyerId: 0
+            buyerId: 0,
+            useVat : false
         }
     };
 
@@ -45,8 +54,7 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = context.data;
-        this.error = context.error;
-    }
+        this.error = context.error;    }
 
     selectedBuyerChanged(newValue, oldValue) {
         if (newValue) {
@@ -60,5 +68,14 @@ export class DataForm {
             this.data.buyer = null;
             this.data.items.splice(0);
         }
+    }
+
+    useVatChanged(newValue){
+        if(!this.data.id){
+            this.data.items.splice(0);
+        }
+        console.log(newValue)
+        this.data.useVat = newValue;
+        this.items.options.useVat = newValue;
     }
 }

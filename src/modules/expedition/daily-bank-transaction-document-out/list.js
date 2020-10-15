@@ -8,7 +8,7 @@ export class List {
   dataToBePosted = [];
 
   rowFormatter(data, index) {
-    if (data.isPosted)
+    if (data.IsPosted)
       return { classes: "success" }
     else
       return {}
@@ -16,17 +16,26 @@ export class List {
 
   context = ["detail"]
 
-  columns = [
-    { field: "Code", title: "No. Transaksi" },
-    {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
-      }
-    },
-    { field: "ReferenceNo", title: "No. Referensi" },
-    { field: "bankView", title: "Bank" },
-    { field: "Status", title: "Status" },
-    { field: "SourceType", title: "Jenis" }
+  columns = [{
+    field: "IsPosted",
+    title: "IsPosted Checkbox",
+    checkbox: true,
+    sortable: false,
+    formatter: function (value, data, index) {
+      this.checkboxEnabled = !data.IsPosted;
+      return ""
+    }
+  },
+  { field: "Code", title: "No. Transaksi" },
+  {
+    field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+      return moment(value).format("DD MMM YYYY");
+    }
+  },
+  { field: "ReferenceNo", title: "No. Referensi" },
+  { field: "bankView", title: "Bank" },
+  { field: "Status", title: "Status" },
+  { field: "SourceType", title: "Jenis" }
   ];
 
   loader = (info) => {
@@ -63,6 +72,7 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    this.selectedItems = [];
   }
 
   contextClickCallback(event) {
@@ -86,5 +96,22 @@ export class List {
 
   create() {
     this.router.navigateToRoute('create');
+  }
+
+  posting() {
+    var items = this.selectedItems.map(s => s.Id);
+    this.service.posting(items)
+      .then(result => {
+        alert("Data berhasil disimpan");
+        this.error = {};
+        this.table.refresh();
+        this.selectedItems = [];
+      })
+      .catch(e => {
+        if (e.message) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        }
+        this.error = e;
+      });
   }
 }

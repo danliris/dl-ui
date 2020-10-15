@@ -127,13 +127,17 @@ export class items {
 
     get amount2B(){
         this.data.amount2B=0;
-        if(this.data.amount && this.data.currencyRate&& this.data.amount2BPercentage && this.type=="Kargo"){
-            this.data.amount2B=this.data.amount*this.data.currencyRate*this.data.amount2BPercentage/100;
+        if(this.type=="Kargo"){
+            if(this.data.amount && this.data.currencyRate&& this.data.amount2BPercentage){
+                this.data.amount2B=this.data.amount*this.data.currencyRate*this.data.amount2BPercentage/100;
+            }
         }
-        else if(this.type!="Kargo" && this.data.amount2BPercentage && this.data.premi)
-        {
-            this.data.amount2B=this.data.premi*this.data.amount2BPercentage/100;
+        else{
+            if(this.data.amount2BPercentage && this.data.premi){
+                this.data.amount2B=this.data.premi*this.data.amount2BPercentage/100;
+            }
         }
+        
         return this.data.amount2B;
     }
 

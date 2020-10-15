@@ -106,12 +106,6 @@ export class DataForm {
         return this.data.dueDate;
     }
 
-    get totalAmount() {
-        this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
-        
-        return this.data.totalAmount;
-    }
-
     selectedTransactionTypeChanged(newValue, oldValue) {
         if (newValue) {
             this.data.transactionType = newValue;
@@ -182,13 +176,14 @@ export class DataForm {
     }
 
     get total() {
-        var total=0;
+        this.data.totalAmount=0;
         if(this.data.subTotal){
-            if( this.data.isUseVat)
-                total=(this.data.subTotal*10/100) + this.data.subTotal;
+            if( this.data.useVat)
+                this.data.totalAmount=(this.data.subTotal*10/100) + this.data.subTotal;
             else
-                total=this.data.subTotal;
+                this.data.totalAmount=this.data.subTotal;
         }
-        return total;
+        return this.data.totalAmount;
     }
+
 }

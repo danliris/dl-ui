@@ -14,6 +14,12 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.selectedBuyer = this.data.buyer;
+        this.useVat=this.data.useVat;
+        if(this.useVat){
+            for(var item of this.data.items){
+                item.useVat=this.useVat;
+            }
+        }
     }
 
     cancelCallback(event) {

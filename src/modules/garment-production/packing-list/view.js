@@ -36,20 +36,21 @@ export class View {
         }
         
         switch (this.data.status) {
+            case "CREATED":
+                this.saveCallback = null;
+                break;
             case "CANCELED":
             case "APPROVED_MD":
             case "APPROVED_SHIPPING":
+            case "REJECTED_SHIPPING_MD":
                 this.saveCallback = null;
             case "POSTED":
             case "REJECTED_MD":
             case "REVISED_MD":
-            case "REJECTED_SHIPPING":
+            case "REJECTED_SHIPPING_UNIT":
             case "REVISED_SHIPPING":
                 this.editCallback = null;
                 this.deleteCallback = null;
-                break;
-            case "ON_PROCESS":
-                this.saveCallback = null;
                 break;
             default:
                 break;
@@ -57,7 +58,10 @@ export class View {
 
         switch (this.data.status) {
             case "REJECTED_MD":
-                this.alertInfo = "<strong>Alasan Reject:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.alertInfo = "<strong>Alasan Reject oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            case "REJECTED_SHIPPING_UNIT":
+                this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 break;
             default:
                 break;
