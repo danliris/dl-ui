@@ -14,23 +14,31 @@ export class List {
         { field: 'Currency', title: 'Mata Uang' },
         // { field: 'Products', title: 'Nama Barang' },
         {
-            field: 'StartBalance', title: 'Saldo Awal', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'StartBalance',
+            title: 'Saldo Awal',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Purchase', title: 'Pembelian', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Purchase',
+            title: 'Pembelian',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'Payment', title: 'Pembayaran', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'Payment',
+            title: 'Pembayaran',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         },
         {
-            field: 'FinalBalance', title: 'Saldo Akhir', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000') : '0';
+            field: 'FinalBalance',
+            title: 'Saldo Akhir',
+            formatter: function(value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '0';
             }
         }
     ];
@@ -93,7 +101,7 @@ export class List {
             size: info.limit,
             order: order,
             select: [],
-            isImport : false,
+            isImport: false,
             isForeignCurrency: true
         };
 
@@ -108,35 +116,35 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-                .then((result) => {
+            .then((result) => {
 
-                    // let before = {};
+                // let before = {};
 
-                    // if (result.data.length != 0) {
-                    //     for (let i in result.data) {
-                    //         if (result.data[i].Currency != before.Currency) {
-                    //             before = result.data[i];
-                    //             before._Currency_rowspan = 1;
-                    //         } else {
-                    //             before._Currency_rowspan++;
+                // if (result.data.length != 0) {
+                //     for (let i in result.data) {
+                //         if (result.data[i].Currency != before.Currency) {
+                //             before = result.data[i];
+                //             before._Currency_rowspan = 1;
+                //         } else {
+                //             before._Currency_rowspan++;
 
-                    //             result.data[i].Currency = undefined;
-                    //         }
-                    //         result.data[i].Products = result.data[i].Products || "";
-                    //     }
-                    // }
-                    // setTimeout(() => {
-                    //     $('#credit-balance-table td').each(function () {
-                    //         if ($(this).html() === '-')
-                    //             $(this).hide();
-                    //     })
-                    // }, 10);
+                //             result.data[i].Currency = undefined;
+                //         }
+                //         result.data[i].Products = result.data[i].Products || "";
+                //     }
+                // }
+                // setTimeout(() => {
+                //     $('#credit-balance-table td').each(function () {
+                //         if ($(this).html() === '-')
+                //             $(this).hide();
+                //     })
+                // }, 10);
 
-                    return {
-                        total: result.info.Count,
-                        data: result.data
-                    };
-                })
+                return {
+                    total: result.info.Count,
+                    data: result.data
+                };
+            })
         ) : { total: 0, data: [] };
     }
 
@@ -159,7 +167,7 @@ export class List {
             supplierName: this.info.supplierName,
             month: this.info.month.value,
             year: this.info.year,
-            isImport:false
+            isImport: false
         }
 
         this.service.getXls(params)

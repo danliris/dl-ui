@@ -17,6 +17,11 @@ export class View {
         this.data.UnitPaymentOrders = this.data.PPHBankExpenditureNoteItems;
         this.bank = this.data.Bank;
         this.incomeTax = this.data.IncomeTax;
+
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
     }
 
     list() {

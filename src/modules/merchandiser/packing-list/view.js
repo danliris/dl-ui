@@ -36,8 +36,17 @@ export class View {
         switch (this.data.status) {
             case "APPROVED_SHIPPING":
                 this.deleteCallback = null;
-            case "REJECTED_SHIPPING":
+                this.editCallback = null;
+            case "REJECTED_SHIPPING_MD":
                 this.saveCallback = null;
+                break;
+        }
+
+        switch (this.data.status) {
+            case "REJECTED_SHIPPING_MD":
+                this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            default:
                 break;
         }
     }

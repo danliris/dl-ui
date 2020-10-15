@@ -98,8 +98,7 @@ export class List {
                             if (item.Mutation > 0) {
                                 subTotalPurchase += item.Mutation;
                                 this.purchase += item.Mutation
-                            }
-                            else {
+                            } else {
                                 subTotalPayment += item.Mutation;
                                 this.payment += item.Mutation;
                             }
@@ -112,13 +111,13 @@ export class List {
                                 MemoNo: item.MemoNo,
                                 InvoiceNo: item.InvoiceNo,
                                 PaymentDuration: item.PaymentDuration,
-                                DPP: item.DPP ? numeral(item.DPP).format('0,000.000') : 0,
-                                DPPCurrency: item.DPPCurrency ? numeral(item.DPPCurrency).format('0,000.000') : 0,
-                                PPN: item.PPN ? numeral(item.PPN).format('0,000.000') : 0,
-                                Total: item.Total ? numeral(item.Total).format('0,000.000') : 0,
-                                Purchase: item.Mutation ? numeral(item.Mutation > 0 ? item.Mutation : 0).format('0,000.000') : 0,
-                                Payment: item.Mutation ? numeral(item.Mutation < 0 ? item.Mutation : 0).format('0,000.000') : 0,
-                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.000')
+                                DPP: item.DPP ? numeral(item.DPP).format('0,000.00') : 0,
+                                DPPCurrency: item.DPPCurrency ? numeral(item.DPPCurrency).format('0,000.00') : 0,
+                                PPN: item.PPN ? numeral(item.PPN).format('0,000.00') : 0,
+                                Total: item.Total ? numeral(item.Total).format('0,000.00') : 0,
+                                Purchase: item.Mutation ? numeral(item.Mutation > 0 ? item.Mutation : 0).format('0,000.00') : 0,
+                                Payment: item.Mutation ? numeral(item.Mutation < 0 ? item.Mutation : 0).format('0,000.00') : 0,
+                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.00')
                             }
 
 
@@ -128,9 +127,9 @@ export class List {
                                 Date: null,
                                 InvoiceNo: item.InvoiceNo,
                                 DPP: "null",
-                                Purchase: numeral(subTotalPurchase).format('0,000.000'),
-                                Payment: numeral(subTotalPayment).format('0,000.000'),
-                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.000')
+                                Purchase: numeral(subTotalPurchase).format('0,000.00'),
+                                Payment: numeral(subTotalPayment).format('0,000.00'),
+                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.00')
                             }
 
                             subTotalPurchase = 0;
@@ -138,7 +137,7 @@ export class List {
                         } else {
                             var newData = {
                                 Previous: null,
-                                FinalBalance: item.FinalBalance != null ? numeral(item.FinalBalance).format('0,000.000') : null
+                                FinalBalance: item.FinalBalance != null ? numeral(item.FinalBalance).format('0,000.00') : null
                             }
 
                             subTotalPurchase = 0;
@@ -149,10 +148,10 @@ export class List {
                             this.currency = item.Currency;
                         newDatas.push(newData);
                     }
-                    this.closingBalance = numeral(result.finalBalance).format('0,000.000');
-                    this.payment = numeral(this.payment).format('0,000.000');
-                    this.purchase = numeral(this.purchase).format('0,000.000');
-                    // this.mutation = numeral(result.finalBalance).format('0,000');
+                    this.closingBalance = numeral(result.finalBalance).format('0,000.00');
+                    this.payment = numeral(this.payment).format('0,000.00');
+                    this.purchase = numeral(this.purchase).format('0,000.00');
+                    // this.mutation = numeral(result.finalBalance).format('0,00');
 
                     return newDatas;
                 });

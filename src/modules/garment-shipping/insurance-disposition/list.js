@@ -9,7 +9,7 @@ export class List {
     context = ["detail","Cetak PDF"]
 
     columns = [
-        { field: "dispositionNo", title: "No Disposisi" },
+        { field: "dispositionNo", title: "No Lampiran Disposisi" },
         { field: "policyType", title: "Jenis Polis Asuransi" },
         {
             field: "paymentDate", title: "Tgl Pembayaran", formatter: function (value) {
