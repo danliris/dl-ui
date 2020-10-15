@@ -7,11 +7,15 @@
             <button class="btn btn-default"
                     click.delegate="context.cancel($event)"
                     if.one-way="context.hasCancel">Kembali</button>
-            <!-- <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button> -->
+            <button class="btn btn-primary"
+                    click.delegate="context.edit($event)"
+                    if.bind="context.hasEdit && !data.IsPosted">Ubah</button>
             <button class="btn btn-success"
                     click.delegate="context.save($event)"
                     if.one-way="context.hasSave">Simpan</button>
-            <!-- <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button> -->
+            <button class="btn btn-danger"
+                    click.delegate="context.delete($event)"
+                    if.bind="context.hasDelete && !data.IsPosted">Hapus</button>
         </div>
 
         <au-textbox label="No. Transaksi"
