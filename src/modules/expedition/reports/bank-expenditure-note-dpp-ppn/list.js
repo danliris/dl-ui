@@ -31,6 +31,7 @@ export class List {
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '';
             },
+            align: 'right'
         },
         {
             field: 'VAT',
@@ -38,6 +39,7 @@ export class List {
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '';
             },
+            align: 'right'
         },
         {
             field: 'TotalPaid',
@@ -45,6 +47,7 @@ export class List {
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '';
             },
+            align: 'right'
         },
         { field: 'Currency', title: 'Mata Uang' },
         { field: 'BankName', title: 'Bank Bayar PPH' },

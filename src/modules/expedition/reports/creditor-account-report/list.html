@@ -58,6 +58,13 @@
                     </tr>
                     <tr repeat.for="datum of data">
                         <td repeat.for="key of datum | keys" style="white-space: pre;" 
+                        class="key.toString().toLowerCase() == 'dpp' ||
+                        key.toString().toLowerCase() == 'dppcurrency' ||
+                        key.toString().toLowerCase() == 'ppn' ||
+                        key.toString().toLowerCase() == 'total' ||
+                        key.toString().toLowerCase() == 'purchase' ||
+                        key.toString().toLowerCase() == 'payment' ||
+                        key.toString().toLowerCase() == 'finalbalance' ? text-right : '';" 
                             colspan="${key.toString().toLowerCase() == 'previous' ? 13 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 5 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}">${datum[key]}</td>
 
                     </tr>
