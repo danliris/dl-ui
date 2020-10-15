@@ -32,13 +32,13 @@ export class Service extends RestService {
         return super.put(endpoint, items);
     }
 
-    // update(data) {
-    //     var endpoint = `${serviceUri}/${data.Id}`;
-    //     return super.put(endpoint, data);
-    // }
+    update(data) {
+        var endpoint = `${serviceUri}/${data.Id}`;
+        return super.put(endpoint, data);
+    }
 
-    // delete(data) {
-    //     var endpoint = `${serviceUri}/${data.Id}`;
-    //     return super.delete(endpoint, data);
-    // }
+    delete(data) {
+        var endpoint = `${serviceUri}/${data.Id}`;
+        return super.delete(endpoint, data);
+    }
 } 

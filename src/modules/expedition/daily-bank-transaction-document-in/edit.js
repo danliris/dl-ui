@@ -4,33 +4,32 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
     hasCancel = true;
-    hasEdit = true;
-    hasDelete = true;
-
+    hasSave = true;
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
     async activate(params) {
-        var id = params.id;
+        let id = params.id;
         this.data = await this.service.getById(id);
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
-    edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    save(event) {
 
-    delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        this.service.update(this.data)
+            .then(result => {
+                this.router.navigateToRoute('view', { id: this.data.Id });
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
-
 }
