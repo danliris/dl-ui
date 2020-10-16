@@ -46,7 +46,7 @@ export class List {
     title: "Total",
     formatter: function (value, data, index) {
       return numeral(value).format("0,000.00");
-    },
+    }, align: "right"
   },
   {
     field: "AccountBank",
@@ -57,69 +57,69 @@ export class List {
   },
   { field: "Type", title: "Jenis Transaksi" }];
 
-  loader = (info) => {
-    // if (info.sort)
-    //     order[info.sort] = info.order;
-    // else
-    //     order["Date"] = "desc";
+    loader = (info) => {
+        // if (info.sort)
+        //     order[info.sort] = info.order;
+        // else
+        //     order["Date"] = "desc";
 
-    let arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
+        let arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+        };
+
+        return this.service.search(arg).then((result) => {
+            let itemPromises = result.data.map((datum) => {
+                return this.serviceCore
+                    .getBankById(datum.AccountBankId)
+                    .then((accountBank) => {
+                        datum.AccountBank = accountBank;
+                        return Promise.resolve(datum);
+                    });
+            });
+
+            return Promise.all(itemPromises).then((items) => {
+                return {
+                    total: result.info.total,
+                    data: items,
+                };
+            });
+        });
     };
 
-    return this.service.search(arg).then((result) => {
-      let itemPromises = result.data.map((datum) => {
-        return this.serviceCore
-          .getBankById(datum.AccountBankId)
-          .then((accountBank) => {
-            datum.AccountBank = accountBank;
-            return Promise.resolve(datum);
-          });
-      });
-
-      return Promise.all(itemPromises).then((items) => {
-        return {
-          total: result.info.total,
-          data: items,
-        };
-      });
-    });
-  };
-
-  constructor(router, service, serviceCore) {
-    this.service = service;
-    this.serviceCore = serviceCore;
-    this.router = router;
-  }
-
-  contextClickCallback(event) {
-    let arg = event.detail;
-    let data = arg.data;
-    switch (arg.name) {
-      case "Rincian":
-        this.router.navigateToRoute("view", { id: data.Id });
-        break;
-      case "Cetak Bukti Pengeluaran":
-        // console.log(data.Id);
-        this.service.getPDFById(data.Id);
-        break;
+    constructor(router, service, serviceCore) {
+        this.service = service;
+        this.serviceCore = serviceCore;
+        this.router = router;
     }
-  }
 
-  contextShowCallback(index, name, data) {
-    switch (name) {
-      case "Cetak Bukti Pengeluaran":
-        return data;
-      default:
-        return true;
+    contextClickCallback(event) {
+        let arg = event.detail;
+        let data = arg.data;
+        switch (arg.name) {
+            case "Rincian":
+                this.router.navigateToRoute("view", { id: data.Id });
+                break;
+            case "Cetak Bukti Pengeluaran":
+                // console.log(data.Id);
+                this.service.getPDFById(data.Id);
+                break;
+        }
     }
-  }
 
-  create() {
-    this.router.navigateToRoute("create");
-  }
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak Bukti Pengeluaran":
+                return data;
+            default:
+                return true;
+        }
+    }
+
+    create() {
+        this.router.navigateToRoute("create");
+    }
 
   posting() {
     var items = this.selectedItems.map(s => s.Id);
