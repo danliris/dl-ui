@@ -7,40 +7,55 @@ import numeral from "numeral";
 
 @inject(Router, Service, ServiceCore)
 export class List {
-    context = ["Rincian", "Cetak Bukti Pengeluaran"];
-    columns = [
-        { field: "DocumentNo", title: "No. Bukti Pengeluaran" },
-        {
-            field: "Date",
-            title: "Tanggal",
-            formatter: function(value, data, index) {
-                return moment.utc(value).local().format("DD MMM YYYY");
-            },
-        },
-        {
-            field: "AccountBank",
-            title: "Nama Bank",
-            formatter: function(value, data, index) {
-                return `${value.AccountName} - ${value.AccountNumber}`;
-            },
-        },
-        {
-            field: "Total",
-            title: "Total",
-            formatter: function(value, data, index) {
-                return numeral(value).format("0,000.00");
-            },
-            align: "right"
-        },
-        {
-            field: "AccountBank",
-            title: "Mata Uang",
-            formatter: function(value, data, index) {
-                return `${value.Currency.Code}`;
-            },
-        },
-        { field: "Type", title: "Jenis Transaksi" },
-    ];
+  context = ["Rincian", "Cetak Bukti Pengeluaran"];
+
+  rowFormatter(data, index) {
+    if (data.IsPosted)
+      return { classes: "success" }
+    else
+      return {}
+  }
+
+  columns = [{
+    field: "IsPosted",
+    title: "IsPosted Checkbox",
+    checkbox: true,
+    sortable: false,
+    formatter: function (value, data, index) {
+      this.checkboxEnabled = !data.IsPosted;
+      return ""
+    }
+  },
+  { field: "DocumentNo", title: "No. Bukti Pengeluaran" },
+  {
+    field: "Date",
+    title: "Tanggal",
+    formatter: function (value, data, index) {
+      return moment.utc(value).local().format("DD MMM YYYY");
+    },
+  },
+  {
+    field: "AccountBank",
+    title: "Nama Bank",
+    formatter: function (value, data, index) {
+      return `${value.AccountName} - ${value.AccountNumber}`;
+    },
+  },
+  {
+    field: "Total",
+    title: "Total",
+    formatter: function (value, data, index) {
+      return numeral(value).format("0,000.00");
+    }, align: "right"
+  },
+  {
+    field: "AccountBank",
+    title: "Mata Uang",
+    formatter: function (value, data, index) {
+      return `${value.Currency.Code}`;
+    },
+  },
+  { field: "Type", title: "Jenis Transaksi" }];
 
     loader = (info) => {
         // if (info.sort)
@@ -106,7 +121,20 @@ export class List {
         this.router.navigateToRoute("create");
     }
 
-    post() {
-        this.router.navigateToRoute("post");
-    }
+  posting() {
+    var items = this.selectedItems.map(s => s.Id);
+    this.service.posting(items)
+      .then(result => {
+        alert("Data berhasil disimpan");
+        this.error = {};
+        this.table.refresh();
+        this.selectedItems = [];
+      })
+      .catch(e => {
+        if (e.message) {
+          alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        }
+        this.error = e;
+      });
+  }
 }
