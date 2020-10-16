@@ -21,7 +21,8 @@ export class List {
             title: 'Jumlah Pembayaran',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         { field: 'Buyer', title: 'Buyer' },

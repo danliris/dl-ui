@@ -61,7 +61,8 @@ export class List {
             title: "Total Harga",
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         { field: "Unpaid", title: "Sisa Pembayaran" },
         {
@@ -69,7 +70,8 @@ export class List {
             title: "Akumulasi",
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         { field: "Status", title: "Status" }
     ];

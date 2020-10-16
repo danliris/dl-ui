@@ -87,6 +87,7 @@ export class List {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
                 sortable: true,
+                align: 'right'
             },
 
             {
@@ -96,6 +97,7 @@ export class List {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
                 sortable: true,
+                align: 'right'
             },
             {
                 field: 'PPh',
@@ -104,6 +106,7 @@ export class List {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
                 sortable: true,
+                align: 'right'
             },
             {
                 field: 'TotalTax',
@@ -112,6 +115,7 @@ export class List {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
                 sortable: true,
+                align: 'right'
             },
             {
                 field: 'VerificationDivisionDate',
