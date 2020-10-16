@@ -26,6 +26,7 @@ export class List {
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '-';
             },
+            align: 'right'
         },
         {
             field: 'IncomeTax',
@@ -33,6 +34,7 @@ export class List {
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '-';
             },
+            align: 'right'
         },
         { field: 'Currency', title: 'Mata Uang' },
         { field: 'Bank', title: 'Bank Bayar PPH' },

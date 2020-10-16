@@ -18,28 +18,32 @@ export class List {
             title: 'Saldo Awal',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Purchase',
             title: 'Pembelian',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Payment',
             title: 'Pembayaran',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'FinalBalance',
             title: 'Saldo Akhir',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         }
     ];
 

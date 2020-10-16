@@ -14,34 +14,44 @@ export class List {
     }
 
     context = ["Rincian"];
-    columns = [
-        {
-            field: "verifyDate", title: "Tanggal Cek", formatter: (value, data) => {
-                
+    columns = [{
+            field: "verifyDate",
+            title: "Tanggal Cek",
+            formatter: (value, data) => {
+
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
         { field: "dispositionNo", title: "No. Disposisi" },
         {
-            field: "dispositionDate", title: "Tanggal Disposisi", formatter: (value, data) => {
+            field: "dispositionDate",
+            title: "Tanggal Disposisi",
+            formatter: (value, data) => {
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
         { field: "supplier.name", title: "Supplier" },
         {
-            field: "position", title: "Status", formatter: (value, data) => {
+            field: "position",
+            title: "Status",
+            formatter: (value, data) => {
                 return (value == 6 ? "Not Verified" : "Verified");
             }
         },
         {
-            field: "position", title: "Di Kirim Ke?", formatter: (value, data) => {
+            field: "position",
+            title: "Di Kirim Ke?",
+            formatter: (value, data) => {
                 return (value == 6 ? "Pembelian" : (value == 5 ? "Accounting" : "Keuangan"));
             }
         },
-        { 
-            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: (value, data) => {
+        {
+            field: "payToSupplier",
+            title: "Total Bayar ke Supplier",
+            formatter: (value, data) => {
                 return numeral(value).format('(0,0.00)');
-            } 
+            },
+            align: 'right'
         },
         { field: "currency.code", title: "Currency" },
     ]
@@ -83,4 +93,3 @@ export class List {
     }
 
 }
-
