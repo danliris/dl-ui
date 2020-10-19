@@ -20,7 +20,6 @@ export class GarmentShippingInvoiceUnits {
       this.options = this.context.context.options;
       this.readOnly = this.options.isView;
       this.items=this.context.context.options.itemData;
-      console.log(this.items)
     }
   
     get amount(){

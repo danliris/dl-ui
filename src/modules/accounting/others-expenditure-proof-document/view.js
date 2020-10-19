@@ -40,6 +40,11 @@ export class View {
                     });
             });
 
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
+
         // this.data.AccountBank = await
     }
 

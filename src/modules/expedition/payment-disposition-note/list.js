@@ -8,33 +8,59 @@ import numeral from 'numeral';
 export class List {
     context = ['Rincian', 'Cetak PDF'];
 
-    columns = [
+    dataToBePosted = [];
+
+    columns = [{
+            field: "isPosting",
+            title: "Post",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                // console.log(data)
+                return ""
+            }
+        },
         { field: 'PaymentDispositionNo', title: 'No Bukti Pembayaran Disposisi' },
         {
-            field: 'PaymentDate', title: 'Tanggal Pembayaran', formatter: function (value, data, index) {
+            field: 'PaymentDate',
+            title: 'Tanggal Pembayaran',
+            formatter: function(value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
         },
         { field: 'dispositions', title: 'No Disposisi Pembayaran' },
         { field: 'Supplier.Name', title: 'Supplier' },
         {
-            field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
+            field: 'BankName',
+            title: 'Bank',
+            formatter: function(value, data, index) {
                 return data ? `${data.AccountBank.BankName}` : '';
             }
         },
         { field: 'AccountBank.Currency.Code', title: 'Mata Uang' },
         {
-            field: 'Amount', title: 'Amount', formatter: function (value, data, index) {
+            field: 'Amount',
+            title: 'Amount',
+            formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: 'right'
         },
-        { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo'},
-        { field: 'TransactionType', title: 'Jenis Transaksi'}
+        { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo' },
+        { field: 'TransactionType', title: 'Jenis Transaksi' }
     ];
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
     }
 
     loader = (info) => {
@@ -74,7 +100,7 @@ export class List {
                         return datum;
                     })
                 }
-                
+
 
                 return {
                     total: result.info.total,
@@ -99,5 +125,24 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+            var data = {
+                ListIds: this.dataToBePosted.map(d => {
+                    return {
+                        Id: d.Id
+                    }
+                })
+            }
+
+            this.service.post(data)
+                .then(result => {
+                    this.tableList.refresh();
+                }).catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }

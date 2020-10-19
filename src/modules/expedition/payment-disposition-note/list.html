@@ -12,9 +12,16 @@
         sortable.bind="true"
         page-size="25"
         context.bind="context"
-        context-click.delegate="contextClickCallback($event)">
+        context-click.delegate="contextClickCallback($event)"
+        selectable.bind="true"
+        selections.bind="dataToBePosted"
+        row-formatter.bind="rowFormatter">
+
         <div slot="toolbar" class="btn-group">
             <button class="btn btn-success" click.delegate="create()">Buat</button>
+            <button class="btn btn-primary"
+                    disabled.bind="!dataToBePosted.length > 0"
+                    click.delegate="posting()">Posting</button>
         </div>
     </au-table>
 </template>

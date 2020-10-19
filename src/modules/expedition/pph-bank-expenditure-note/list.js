@@ -8,42 +8,44 @@ import numeral from 'numeral';
 export class List {
     context = ["Rincian", "Cetak PDF"];
     columns = [{
-        field: "IsPosted",
-        title: "IsPosted Checkbox",
-        checkbox: true,
-        sortable: false,
-        formatter: function (value, data, index) {
-            this.checkboxEnabled = !data.IsPosted;
-            return ""
-        }
-    },
-    { field: "No", title: "No Bukti Pengeluaran Bank" },
-    {
-        field: "Date",
-        title: "Tanggal",
-        formatter: function (value, data, index) {
-            return moment.utc(value).local().format('DD MMM YYYY');
+            field: "IsPosted",
+            title: "IsPosted Checkbox",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return ""
+            }
         },
-    },
-    { field: "BankAccountName", title: "Bank" },
-    { field: "IncomeTaxName", title: "Pasal PPH" },
-    { field: "IncomeTaxRate", title: "Rate PPH (%)" },
-    {
-        field: "TotalIncomeTax",
-        title: "Total PPH",
-        formatter: function (value, data, index) {
-            return numeral(value).format('0,000.00');
+        { field: "No", title: "No Bukti Pengeluaran Bank" },
+        {
+            field: "Date",
+            title: "Tanggal",
+            formatter: function(value, data, index) {
+                return moment.utc(value).local().format('DD MMM YYYY');
+            },
         },
-    },
-    {
-        field: "TotalDPP",
-        title: "Total DPP",
-        formatter: function (value, data, index) {
-            return numeral(value).format('0,000.00');
+        { field: "BankAccountName", title: "Bank" },
+        { field: "IncomeTaxName", title: "Pasal PPH" },
+        { field: "IncomeTaxRate", title: "Rate PPH (%)" },
+        {
+            field: "TotalIncomeTax",
+            title: "Total PPH",
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+            align: 'right'
         },
-    },
-    { field: "Currency", title: "Mata Uang" },
-    { field: "UnitPaymentOrderList", title: "No SPB", sortable: false, width: '200px' }
+        {
+            field: "TotalDPP",
+            title: "Total DPP",
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+            align: 'right'
+        },
+        { field: "Currency", title: "Mata Uang" },
+        { field: "UnitPaymentOrderList", title: "No SPB", sortable: false, width: '200px' }
     ];
 
     loader = (info) => {
@@ -114,5 +116,12 @@ export class List {
                 }
                 this.error = e;
             });
+    }
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
     }
 }

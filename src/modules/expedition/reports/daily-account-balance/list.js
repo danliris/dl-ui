@@ -29,21 +29,24 @@ export class List {
             title: 'Debit',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Credit',
             title: 'Kredit',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Balance',
             title: 'Saldo',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         }
     ];
 
@@ -55,21 +58,24 @@ export class List {
             title: 'Debit',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Credit',
             title: 'Kredit',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         },
         {
             field: 'Balance',
             title: 'Saldo',
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '0';
-            }
+            },
+            align: 'right'
         }
     ];
 

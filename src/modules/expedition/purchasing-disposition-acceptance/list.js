@@ -38,6 +38,7 @@ export class List {
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
+            align: 'right'
         },
         { field: "currency.code", title: "Mata Uang" },
     ];

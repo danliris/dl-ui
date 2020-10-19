@@ -8,35 +8,49 @@ import numeral from 'numeral';
 export class List {
     context = ['Rincian', 'Cetak PDF'];
 
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
     columns = [{
-        field: "IsPosted",
-        title: "IsPosted Checkbox",
-        checkbox: true,
-        sortable: false,
-        formatter: function (value, data, index) {
-            this.checkboxEnabled = !data.IsPosted;
-            return ""
-        }
-    },
-    { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
-    {
-        field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
-            return moment(value).format('DD MMM YYYY');
+            field: "IsPosted",
+            title: "IsPosted Checkbox",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return ""
+            }
         },
-    },
-    {
-        field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
-            return data ? `${data.BankAccountName} - A/C : ${data.BankAccountNumber}` : '';
-        }
-    },
-    {
-        field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
-            return numeral(value).format('0,000.00');
+        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
+        {
+            field: 'CreatedUtc',
+            title: 'Tanggal',
+            formatter: function(value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
         },
-    },
-    { field: 'BankCurrencyCode', title: 'Mata Uang' },
-    { field: 'suppliers', title: 'Supplier' },
-    { field: 'unitPaymentOrders', title: 'Nomor SPB' }
+        {
+            field: 'BankName',
+            title: 'Bank',
+            formatter: function(value, data, index) {
+                return data ? `${data.BankAccountName} - A/C : ${data.BankAccountNumber}` : '';
+            }
+        },
+        {
+            field: 'GrandTotal',
+            title: 'Total DPP+PPN',
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+            align: 'right'
+        },
+        { field: 'BankCurrencyCode', title: 'Mata Uang' },
+        { field: 'suppliers', title: 'Supplier' },
+        { field: 'unitPaymentOrders', title: 'Nomor SPB' }
     ];
 
     constructor(router, service) {
@@ -110,7 +124,6 @@ export class List {
     }
 
     posting() {
-        console.log(response)
         var items = this.selectedItems.map(s => s.Id);
         this.service.posting(items)
             .then(result => {
