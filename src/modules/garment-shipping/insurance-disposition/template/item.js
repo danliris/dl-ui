@@ -62,7 +62,7 @@ export class items {
             this.data.buyerAgent=newValue.buyerAgent;
             this.data.invoiceNo=newValue.invoiceNo;
             this.data.invoiceId=newValue.id;
-            if(this.type=="Kargo"){
+            if(this.type!="Kargo"){
                 this.data.amount=newValue.totalAmount;
             }
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
