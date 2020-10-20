@@ -40,6 +40,7 @@ export class List {
         if (newvalue) {
             this.jnsSpl = newvalue === "LOCAL" ? false : true;          
         }
+        console.log(this.jnsSpl);
     }
 
     KtgrItemChanged(newvalue) {
@@ -73,6 +74,8 @@ export class List {
                 for(var _data of result){
                     
                     _data.Amount=_data.Amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    _data.AmountIDR=_data.AmountIDR.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
                     this.data.push(_data);
                 }
                   console.log(this.data);
@@ -110,6 +113,7 @@ export class List {
         this.jnsSpl = null;
         this.JenisSpl ="";
         this.KtgrItem="";
+        this.data=null;
     }
 
     dateFromChanged(e) {
