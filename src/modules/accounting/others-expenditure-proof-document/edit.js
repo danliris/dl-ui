@@ -12,11 +12,10 @@ export class Edit {
         this.serviceCore = serviceCore
     }
 
-    // isEdit = true;
+    isEdit = true;
 
     async activate(params) {
         let id = params.id;
-        this.isEdit = true;
         await this.service.getById(id)
             .then((result) => {
                 this.data = result;
@@ -49,7 +48,7 @@ export class Edit {
     }
 
     saveCallback(event) {
-
+        console.log(this.data);
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.Id });
