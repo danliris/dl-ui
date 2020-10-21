@@ -67,6 +67,22 @@ export class DataForm {
         { header: "Unit" },
     ]
 
+    viewItemsColumns = [
+        { header: "RO No" },
+        { header: "SC No" },
+        { header: "Buyer Agent" },
+        { header: "Buyer Brand" },
+        { header: "Seksi" },
+        { header: "Komoditi Description" },
+        { header: "Qty" },
+        { header: "Satuan" },
+        { header: "Price RO" },
+        { header: "Mata Uang" },
+        { header: "Amount" },
+        { header: "Unit" },
+        { header: "" },
+    ]
+
     measureColumns = [
         { header: "No", value: "MeasurementIndex" },
         { header: "Length" },
