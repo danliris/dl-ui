@@ -33,7 +33,9 @@ export class Edit {
             for (const item of this.data.items) {
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
-                item.priceFOB = item.priceRO;
+                if (!item.priceFOB) {
+                    item.priceFOB = item.priceRO;
+                }
             }
         }
         

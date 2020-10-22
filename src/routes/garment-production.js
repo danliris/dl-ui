@@ -887,4 +887,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-production/stock-opname",
+        name: "garment-production/stock-opname",
+        moduleId: "modules/garment-production/stock-opname/index",
+        nav: true,
+        title: "Stock Opname",
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ];

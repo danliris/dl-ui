@@ -25,48 +25,51 @@ export class View {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
-        
+
         this.collection = {
-            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
         };
     }
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        for(var a of this.data.Items){
-            a.SupplierName=this.data.Supplier.Name;
-            a.Currency=this.data.AccountBank.Currency.Code;
+        for (var a of this.data.Items) {
+            a.SupplierName = this.data.Supplier.Name;
+            a.Currency = this.data.AccountBank.Currency.Code;
         }
-        this.IDR=false;
-        this.sameCurrency=false;
-        this.Amount=this.data.Amount;
+        this.IDR = false;
+        this.sameCurrency = false;
+        this.Amount = this.data.Amount;
 
-        if(this.data.AccountBank.Currency.Code=="IDR"){
-            this.IDR=true;
-            if(this.data.CurrencyCode=="IDR"){
-                this.sameCurrency=true;
+        if (this.data.AccountBank.Currency.Code == "IDR") {
+            this.IDR = true;
+            if (this.data.CurrencyCode == "IDR") {
+                this.sameCurrency = true;
             }
-            this.Amount=this.data.Amount*this.data.CurrencyRate;
-            
-        }
-        console.log(this.IDR)
+            this.Amount = this.data.Amount * this.data.CurrencyRate;
 
-        if(!this.IDR || this.sameCurrency){
-            this.collection = {
-                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
-            };
         }
-        else{
+
+        if (!this.IDR || this.sameCurrency) {
             this.collection = {
-                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            };
+        } else {
+            this.collection = {
+                columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
             };
         }
 
-        this.collectionOptions={
-            IDR:this.IDR,
-            rate:this.data.CurrencyRate,
-            SameCurrency:this.sameCurrency
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
+
+        this.collectionOptions = {
+            IDR: this.IDR,
+            rate: this.data.CurrencyRate,
+            SameCurrency: this.sameCurrency
         };
     }
 

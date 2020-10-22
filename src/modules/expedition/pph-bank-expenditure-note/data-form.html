@@ -3,14 +3,14 @@
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">  
         <au-datepicker
             value.bind="dateFrom"
-            label="Tanggal Awal"
+            label="Tanggal Awal Jatuh Tempo"
             if.bind="!readOnly && !isEdit"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker
             value.bind="dateTo"
-            label="Tanggal Akhir"
+            label="Tanggal Akhir Jatuh Tempo"
             if.bind="!readOnly && !isEdit"
             options.bind="controlOptions">
         </au-datepicker>

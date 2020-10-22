@@ -68,7 +68,8 @@ export class List {
             sortable: false,
             formatter: function(value, data, index) {
                 return value ? numeral(value).format('0,000.00') : '-';
-            }
+            },
+            align: 'right'
         },
         { field: "Currency", title: "Mata Uang", sortable: false },
         { field: "NotVerifiedReason", title: "Alasan", sortable: false },

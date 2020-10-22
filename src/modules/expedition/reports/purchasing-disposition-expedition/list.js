@@ -41,6 +41,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             { title: 'Jumlah', colspan: 4 },
             { field: 'DueDateDays', title: 'Tempo', rowspan: 2, sortable: true },
@@ -85,6 +86,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             {
                 field: 'VAT',
@@ -92,6 +94,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             {
                 field: 'IncomeTax',
@@ -99,6 +102,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             {
                 field: 'Total',
@@ -106,6 +110,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             {
                 field: 'VerificationDivisionDate',
@@ -152,6 +157,7 @@ export class List {
                 formatter: function(value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
+                align: 'right'
             },
             {
                 field: 'Currency',
