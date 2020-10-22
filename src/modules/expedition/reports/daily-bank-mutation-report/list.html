@@ -75,27 +75,47 @@
                     <tr style="background-color: white; color: black">
                         <td style="border-right: none"
                             class="text-right"
-                            colspan="6">Saldo Awal: </td>
+                            colspan="9">Saldo Awal: </td>
                         <td style="border-left: none"
                             class="text-right"
                             colspan="2">${currency} ${initialBalance}</td>
                     </tr>
                     <tr>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
-                        <th>Nomor Referensi</th>
-                        <th>Jenis Referensi</th>
-                        <th>Currency</th>
-                        <th>DEBIT</th>
-                        <th>KREDIT</th>
-                        <th>After</th>
+                        <th rowspan="2">Tanggal</th>
+                        <th rowspan="2">Keterangan</th>
+                        <th rowspan="2">Nomor Referensi</th>
+                        <th rowspan="2">Jenis Referensi</th>
+                        <th rowspan="2">Currency</th>
+                        <th colspan="2">DEBIT</th>
+                        <th colspan="2">KREDIT</th>
+                        <th colspan="2">After</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Original Amount
+                        </th>
+                        <th>
+                            Equivalent
+                        </th>
+                        <th>
+                            Original Amount
+                        </th>
+                        <th>
+                            Equivalent
+                        </th>
+                        <th>
+                            Original Amount
+                        </th>
+                        <th>
+                            Equivalent
+                        </th>
                     </tr>
                 </thead>
                 <!--Table head-->
                 <!--Table body-->
                 <tbody>
                     <tr show.bind="isEmpty">
-                        <td colspan="8">
+                        <td colspan="11">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
                     </tr>
@@ -106,7 +126,7 @@
                             key.toString().toLowerCase() == 'debit' ||
                             key.toString().toLowerCase() == 'kredit' ||
                             key.toString().toLowerCase() == 'afternominal' ? 'text-right' : ''}"
-                            colspan="${key.toString().toLowerCase() == 'dailytotaltitle' ? 4 : 1}">${datum[key]}</td>
+                            colspan="${key.toString().toLowerCase() == 'dailytotaltitle' ? 4 : 1 }">${datum[key]}</td>
                         <!-- <td>${datum['Date']}</td>
                         <td>${datum.Remark}</td>
                         <td>${datum.ReferenceNo}</td>
@@ -119,7 +139,7 @@
                     <tr style="background-color: white; color: black">
                         <td style="border-right: none"
                             class="text-right"
-                            colspan="6">Saldo Akhir: </td>
+                            colspan="9">Saldo Akhir: </td>
                         <td style="border-left: none"
                             class="text-right"
                             colspan="2">${currency} ${closingBalance}</td>
