@@ -132,9 +132,9 @@ export class List {
                             ReferenceNo: data.ReferenceNo,
                             ReferenceType: data.ReferenceType,
                             AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                            Debit: data.Status.toString().toLowerCase() == "in" ? data.AccountBankCurrencyCode == 'IDR' ? numeral(data.Nominal).format('0,0.00') : numeral(data.NominalValas).format('0,0.00') : '',
+                            Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.00') : '',
                             DebitValas: data.Status.toString().toLowerCase() == "in" && data.AccountBankCurrencyCode == 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
-                            Kredit: data.Status.toString().toLowerCase() == "out" ? data.AccountBankCurrencyCode == 'IDR' ? numeral(data.Nominal).format('0,0.00') : numeral(data.NominalValas).format('0,0.00') : '',
+                            Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.00') : '',
                             KreditValas: data.Status.toString().toLowerCase() == "out" && data.AccountBankCurrencyCode == 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
                             AfterNominal: numeral(data.AfterNominal).format('0,0.00'),
                             AfterNominalValas: numeral(data.AfterNominalValas).format('0,0.00')
