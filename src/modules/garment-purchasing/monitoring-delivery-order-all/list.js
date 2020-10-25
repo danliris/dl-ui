@@ -92,6 +92,8 @@ export class List {
          },
 
          { field: "UnitName", title: "Nama Unit", sortable: false },
+         { field: "INNo", title: "No Nota Intern", sortable: false },
+         { field: "TermPayment", title: "Term Pembayaran", sortable: false },
     ];
 
     search() {

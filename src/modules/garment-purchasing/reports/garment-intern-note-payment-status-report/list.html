@@ -28,6 +28,27 @@
         text.bind = "DoView"
         options.bind="controlOptions">
         </au-autocomplete>
+
+        <au-autocomplete
+        value.bind="BillNo"
+        error.bind="error.Description"
+        read-only.bind="readOnly"
+        label="No BP Besar"
+        loader.bind="DOBBLoader"
+        text.bind = "DoBPBsrView"
+        options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+        value.bind="PaymentBill"
+        error.bind="error.Description"
+        read-only.bind="readOnly"
+        label="No BP Kecil"
+        loader.bind="DOBKLoader"
+        text.bind = "DoBPKclView"
+        options.bind="controlOptions">
+        </au-autocomplete>
+        
         <au-autocomplete
         value.bind="NPN"
         error.bind="error.Description"
