@@ -22,4 +22,9 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/download?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
+
+    printPdf(info) {
+        var endpoint = `${serviceUri}/pdf?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
 }
