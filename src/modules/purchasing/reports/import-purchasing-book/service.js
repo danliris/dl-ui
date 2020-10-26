@@ -24,6 +24,6 @@ export class Service extends RestService {
 
     printPdf(filter) {
         var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
-        return super.getXls(endpoint);
+        return super.getPdf(endpoint);
     }
 }
