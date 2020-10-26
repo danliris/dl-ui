@@ -36,7 +36,7 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, machine, kanban) {
+    generateExcel(sdate, edate, area, machine) {
         
         var endpoint = `${serviceUri}/downloads/xls`;
         var query = '';
@@ -48,13 +48,13 @@ export class Service extends RestService {
             if (query === '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
         }
-        if (machine) {
-            if (query === '') query = `machine=${machine.Id}`;
-            else query = `${query}&machine=${machine.Id}`;
+        if (area) {
+            if (query === '') query = `area=${area}`;
+            else query = `${query}&area=${area}`;
         }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban.Id}`;
-            else query = `${query}&kanban=${kanban.Id}`;
+        if (machine) {
+            if (query === '') query = `machineId=${machine.Id}`;
+            else query = `${query}&machineId=${machine.Id}`;
         }
         if (query !== '')
             endpoint = `${endpoint}?${query}`;

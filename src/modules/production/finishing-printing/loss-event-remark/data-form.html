@@ -2,7 +2,7 @@
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
         <au-autocomplete value.bind="lossEventCategory" label="Kategori Losses" read-only.bind="readOnly"
-            error.bind="error.LossEventCategory" loader.bind="lossEventCategoryLoader" text="LossesCategory"
+            error.bind="error.LossEventCategory" loader.bind="lossEventCategoryLoader" text.bind="lossEventView"
             options.bind="controlOptions">
         </au-autocomplete>
 

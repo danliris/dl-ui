@@ -15,7 +15,6 @@ export class CartItem {
         if (this.data.LossEventRemark) {
             this.lossEvent = this.data.LossEventRemark;
         }
-        console.log(this.contextOptions);
         this.lossQuery = {
             "LossEventProcessArea" : this.contextOptions.processArea
         };

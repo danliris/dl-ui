@@ -30,7 +30,7 @@ export class List {
 
     itemColumns = ["Design Speed", "Output", "Total Time", "Available Time", "Available Loading Time", "Loading Time", "Operating Time", "Value Operating Time", "Idle Time", "Asset Utilization", "OEE MMP", ""];
     areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
-    
+
     tableOptions = {
         search: false,
         showToggle: false,
@@ -63,7 +63,7 @@ export class List {
         var machine = this.machine;
 
         var result = [];
-        if (dateFrom && dateTo && area && machine) {
+        if (dateFrom && dateTo && area && machine && this.dateTo > this.dateFrom) {
             this.error = {};
 
             result = await this.service.getReport(dateFrom, dateTo, area, machine);
@@ -91,35 +91,76 @@ export class List {
             } else {
                 this.error.machine = null;
             }
+
+            if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
+                this.error.dateTo = "Tanggal Akhir harus lebih besar dari Tanggal Awal";
+            } else {
+                this.error.dateTo = null;
+            }
         }
 
-        console.log(result);
         this.tableData = result;
-        console.log(this.tableData);
-        if(this.ItemsCollections){
+        if (this.ItemsCollections) {
             this.ItemsCollections.bind();
         }
     }
 
     reset() {
-        this.listDataFlag = false;
         this.dateFrom = null;
         this.dateTo = null;
-        this.Machine = null;
-        this.Kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
-        this.error = '';
+        this.machine = null;
+        this.processArea = "";
+        this.tableData = [];
+        if (this.ItemsCollections) {
+            this.ItemsCollections.bind();
+        }
+        this.error = {};
     }
 
     ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY HH:mm") : null
-        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY HH:mm") : null
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY HH:mm") : null;
+        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY HH:mm") : null;
+        var area = this.processArea;
+        var machine = this.machine;
 
-        this.service.generateExcel(dateFrom, dateTo, this.Machine, this.Kanban);
+        if (dateFrom && dateTo && area && machine && this.dateTo > this.dateFrom) {
+            this.error = {};
+
+
+            this.service.generateExcel(dateFrom, dateTo, area, machine);
+        } else {
+            if (!dateFrom) {
+                this.error.dateFrom = "Tanggal Awal harus diisi";
+            } else {
+                this.error.dateFrom = null;
+            }
+
+            if (!dateTo) {
+                this.error.dateTo = "Tanggal Akhir harus diisi";
+            } else {
+                if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
+                    this.error.dateTo = "Tanggal Akhir harus lebih besar dari Tanggal Awal";
+                } else {
+                    this.error.dateTo = null;
+                }
+            }
+
+            if (!area) {
+                this.error.area = "Area harus diisi";
+            } else {
+                this.error.area = null;
+            }
+
+            if (!machine) {
+                this.error.machine = "Mesin harus diisi";
+            } else {
+                this.error.machine = null;
+            }
+
+           
+        }
+
+
     }
 
     get machineLoader() {

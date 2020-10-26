@@ -54,4 +54,13 @@ export class DataForm {
             this.data.LossEvent = null;
         }
     }
+
+    lossEventView(losses) {
+        if (losses.Losses && losses.ProcessArea) {
+            return `${losses.ProcessArea} - ${losses.Losses}`;
+        }
+
+        else
+            return '';
+    }
 }
