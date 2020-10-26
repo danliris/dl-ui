@@ -81,6 +81,25 @@ export class List {
     }
   }
 
+  printPdf() {
+    if (false) {
+      alert("");
+    }
+    else {
+      var filter = {
+        no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
+        category: this.category ? this.category.code : "",
+        unit: this.unit ? this.unit.Code : "",
+        dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
+        dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
+      }
+      this.service.printPdf(filter)
+        .catch(e => {
+          alert(e.replace(e, "Error: ", ""));
+        });
+    }
+  }
+
   reset() {
     this.unitReceiptNote = "";
     this.category = "";

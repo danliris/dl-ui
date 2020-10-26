@@ -37,13 +37,13 @@
             <au-numeric
                 value.bind="data.amount"
                 error.bind="error.amount"
-                read-only.bind="true"
+                read-only.bind="readOnly"
                 if.bind="type=='Kargo'">
             </au-numeric>
             <au-numeric
                 value.bind="data.amount"
                 error.bind="error.amount"
-                read-only.bind="readOnly"
+                read-only.bind="true"
                 if.bind="type!='Kargo'">
             </au-numeric>
         </td>
