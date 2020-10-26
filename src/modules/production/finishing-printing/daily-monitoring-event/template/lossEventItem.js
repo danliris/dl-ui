@@ -3,6 +3,7 @@ var LossEventLoader = require('../../../../../loader/loss-event-remark-loader');
 export class CartItem {
     @bindable DyeStuffCollections;
 
+    lossQuery = {};
     activate(context) {
 
         this.context = context;
@@ -14,7 +15,10 @@ export class CartItem {
         if (this.data.LossEventRemark) {
             this.lossEvent = this.data.LossEventRemark;
         }
-
+        console.log(this.contextOptions);
+        this.lossQuery = {
+            "LossEventProcessArea" : this.contextOptions.processArea
+        };
     }
 
     controlOptions = {

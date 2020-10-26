@@ -113,7 +113,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -156,6 +156,20 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/reports/monitoring-event-report',
+        name: 'daily-monitoring-event-report',
+        moduleId: './modules/production/finishing-printing/reports/daily-monitoring-event-report/index',
+        nav: true,
+        title: 'Laporan Monitoring Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
     },
     {
         route: 'production/finishing-printing/kanban',
