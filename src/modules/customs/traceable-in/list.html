@@ -2,6 +2,12 @@
     <h1 class="page-header">Laporan Traceable Masuk</h1>
     <form class="form-horizontal">
         <au-dropdown 
+            label="Tipe Beacukai" 
+            value.bind="typeBC"
+            items.bind="TypeBC"
+            options.bind="controlOptions" >
+        </au-dropdown>
+        <au-dropdown 
         label="Jenis" 
         value.bind="type"
         items.bind="Types"
@@ -184,34 +190,37 @@
                         <td >${IN.BCNo}</td>
                         <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
                         <td >${IN.BonNo}</td> 
-                        <td >${IN.PO}</td>
-                        <td >${IN.ItemCode}</td>
-                        <td >${IN.ItemName}</td>
-                        <td >${IN.ReceiptQty}</td>
-                        <td >${IN.SatuanReceipt}</td>  -->
+                        
+                          -->
                         <!-- <td >${IN.ROJob}</td> -->
+                        <!-- <td >${IN.PO}</td> -->
+                        <!-- <td >${IN.ItemCode}</td> -->
+                        <!-- <td >${IN.ItemName}</td> -->
+                        <!-- <td >${IN.ReceiptQty}</td> -->
+                        <!-- <td >${IN.SatuanReceipt}</td> -->
                         <td if.bind="IN.docspanpo" rowspan="${IN.docspanpo}">${IN.BUK}</td>
                         <!-- <td >${IN.BUK}</td> -->
                         <td if.bind="IN.qtybukspan" rowspan="${IN.qtybukspan}">${IN.QtyBUK}</td>
                         <td if.bind="IN.sisaspan" rowspan="${IN.sisaspan}">${IN.Sisa}</td>
                         <!-- <td >${IN.QtyBUK}</td> -->
+                        <!-- <td >${IN.Sisa}</td> -->
                         <td if.bind="IN.rospan" rowspan="${IN.rospan}">${IN.SatuanBUK}</td>
                         <!-- <td >${IN.SatuanBUK}</td> -->
-                        <!-- <td >${IN.Sisa}</td> -->
+                        
                         <td if.bind="IN.prospan" rowspan="${IN.prospan}">${IN.ProduksiQty}</td>
                         <!-- <td >${IN.ProduksiQty}</td> -->
                         <td if.bind="IN.prospan" rowspan="${IN.prospan}">${IN.BJQty}</td>
                         <!-- <td >${IN.BJQty}</td> -->
-                        <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.Invoice}</td>
-                        <!-- <td >${IN.Invoice}</td> -->
-                        <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.PEB}</td>
-                        <!-- <td >${IN.PEB}</td> -->
-                        <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.PEBDate}</td>
-                        <!-- <td >${IN.PEBDate}</td> -->
-                        <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.EksporQty}</td>
-                        <!-- <td >${IN.EksporQty}</td> -->
-                        <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.SampleQty}</td>
-                        <!-- <td >${IN.SampleQty}</td> -->
+                        <!-- <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.Invoice}</td> -->
+                        <td >${IN.Invoice}</td>
+                        <!-- <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.PEB}</td> -->
+                        <td >${IN.PEB}</td>
+                        <!-- <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.PEBDate}</td> -->
+                        <td >${IN.PEBDate}</td>
+                        <!-- <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.EksporQty}</td> -->
+                        <td >${IN.EksporQty}</td>
+                        <!-- <td if.bind="IN.eksporspan" rowspan="${IN.eksporspan}">${IN.SampleQty}</td> -->
+                        <td >${IN.SampleQty}</td>
 
                         <!-- <td >${$index + 1}</td>
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.PEB}</td>

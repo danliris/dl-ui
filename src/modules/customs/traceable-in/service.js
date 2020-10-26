@@ -20,7 +20,7 @@ export class Service extends RestService {
     }
     
     generateExcel(info) {
-        var endpoint = `${serviceUri}/traceable/in/download?bcno=${info.bcno}&type=${info.type}&DateFrom=${info.dateFrom}&DateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/traceable/in/download?bcno=${info.bcno}&type=${info.type}&tipebc=${info.tipebc}&DateFrom=${info.dateFrom}&DateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }
