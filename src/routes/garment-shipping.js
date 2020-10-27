@@ -637,4 +637,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/payment-disposition",
+        name: "garment-shipping/payment-disposition",
+        moduleId: "modules/garment-shipping/payment-disposition/index",
+        nav: true,
+        title: "Lampiran Disposisi Pembayaran Shipment ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
