@@ -8,8 +8,9 @@ export class List {
   context = ["Rincian"];
   columns = [
     // { field: "code", title: "Kode" },
-    { field: "Name", title: "Jenis Order" },    
-];
+    { field: "Name", title: "Jenis Order" },
+    { field: "Unit", title: "Unit" },
+  ];
 
   loader = (info) => {
     var order = {};
@@ -25,9 +26,11 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
+        
         return {
           total: result.info.total,
           data: result.data
+
         }
       });
   }

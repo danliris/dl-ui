@@ -29,7 +29,7 @@ export class DataForm {
 
     // detailColumns = [{ header: "Jenis Proses" }, { header: "Jenis Order" }, { header: "Keterangan" }];
 
-
+    units = ["", "DYEING", "PRINTING"];
     orderFields = ["name", "code"];
 
     constructor(service, bindingEngine) {
