@@ -13,19 +13,20 @@
             options.bind="controlOptions"
           ></au-textbox> -->
 
+        <au-autocomplete value.bind="selectedOrder" error.bind="error.Order" label="Jenis Order"
+          loader.bind="orderLoader" text.bind="orderView" placeholder="cari order" key="Name" read-only.bind="isEdit"
+          options.bind="controlOptions">
+        </au-autocomplete>
 
-        <au-textbox label="Jenis Proses" value.bind="data.Name" error.bind="error.name" read-only.bind="readOnly"
+        <au-textbox label="Unit" options.bind="controlOptions" value.bind="data.Unit" error.bind="error.Unit"
+          read-only.bind="true">
+        </au-textbox>
+
+        <au-textbox label="Jenis Proses" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"
           options.bind="controlOptions"></au-textbox>
 
-
-        <au-dropdown label="Unit        " value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
-          items.bind="units">
-        </au-dropdown>
-
-        <au-autocomplete value.bind="selectedOrder" error.bind="error.Order" label="Jenis Order"
-          loader.bind="orderLoader" text.bind="orderView" placeholder="cari order" key="Name" read-only.bind="readOnly"
-          options.bind="controlOptions" if.bind="!data.Code">
-        </au-autocomplete>
+        <au-dropdown label="Kode SPP" value.bind="data.SPPCode" error.bind="error.SPPCode" read-only.bind="readOnly"
+          options.bind="controlOptions" items.bind="sppCodes"></au-dropdown>
 
         <au-multiline label="Keterangan" value.bind="data.Remark" placeholder="tambah keterangan"
           read-only.bind="readOnly" options.bind="controlOptions">
