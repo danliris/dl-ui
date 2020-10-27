@@ -498,6 +498,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/event-organizer',
+        name: 'event-organizer',
+        moduleId: './modules/production/finishing-printing/event-organizer/index',
+        nav: true,
+        title: 'Master Pelaksana Event',
+        auth: true,
+        settings: {
+            group: "production",
+             permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/loss-event-category',
         name: 'losses-event-category',
         moduleId: './modules/production/finishing-printing/loss-event-category/index',
