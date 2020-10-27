@@ -77,6 +77,16 @@ export class List {
       
         return `${DONo.doNo}`
       }
+    
+    DoBPBsrView = (BillNo) => {
+      
+        return `${BillNo.billNo}`
+      }
+    DoBPKclView = (PaymentBill) => {
+      
+        return `${PaymentBill.paymentBill}`
+      }
+
     NKView = (NK) => {
         return `${NK.CorrectionNo}`
     }
@@ -88,6 +98,8 @@ export class List {
             inno : this.InternNo ? this.InternNo.inNo : "",
             invono : this.invoiceNo ? this.invoiceNo.invoiceNo : "",
             dono : this.DONo ? this.DONo.doNo : "",
+            billno : this.BillNo ? this.BillNo.billNo : "",
+            paymentbill : this.PaymentBill ? this.PaymentBill.paymentBill : "",   
             npn : this.NPN ? this.NPN.npn: "",
             nph : this.NPH ? this.NPH.nph : "",
             corrno : this.NK ? this.NK.CorrectionNo : "",
@@ -179,6 +191,8 @@ export class List {
                     inno : this.InternNo ? this.InternNo.inNo : "",
                     invono : this.invoiceNo ? this.invoiceNo.invoiceNo : "",
                     dono : this.DONo ? this.DONo.doNo : "",
+                    billno : this.BillNo ? this.BillNo.billNo : "",
+                    paymentbill : this.PaymentBill ? this.PaymentBill.paymentBill : "",   
                     npn : this.NPN ? this.NPN.npn: "",
                     nph : this.NPH ? this.NPH.nph : "",
                     corrno : this.NK ? this.NK.CorrectionNo : "",
@@ -208,6 +222,15 @@ export class List {
     get DOLoader(){
         return DOLoader;
     }
+
+    get DOBBLoader(){
+        return DOLoader;
+    }
+
+    get DOBKLoader(){
+        return DOLoader;
+    }
+
     get NKLoader(){
         return NKLoader;
     }
@@ -224,6 +247,8 @@ export class List {
         this.InternNo = null;
         this.invoiceNo = null;
         this.dono = null;
+        this.billno = null;
+        this.paymentbill = null;
         this.npn = null;
         this.nph = null;
         this.corrno = null;

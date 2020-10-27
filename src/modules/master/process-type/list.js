@@ -8,7 +8,8 @@ export class List {
   context = ["Rincian"];
   columns = [
     // { field: "code", title: "Kode" },
-    { field: "Name", title: "Jenis Proses" },    
+    { field: "Name", title: "Jenis Proses" }, 
+    { field: "Unit", title: "Unit" },   
     { field: "OrderType.Name", title: "Jenis Order" },
 ];
 
