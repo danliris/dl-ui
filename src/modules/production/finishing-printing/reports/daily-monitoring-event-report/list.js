@@ -63,7 +63,7 @@ export class List {
         var machine = this.machine;
 
         var result = [];
-        if (dateFrom && dateTo && area && machine && this.dateTo > this.dateFrom) {
+        if (dateFrom && dateTo && area && machine && this.dateTo >= this.dateFrom) {
             this.error = {};
 
             result = await this.service.getReport(dateFrom, dateTo, area, machine);
@@ -77,7 +77,11 @@ export class List {
             if (!dateTo) {
                 this.error.dateTo = "Tanggal Akhir harus diisi";
             } else {
-                this.error.dateTo = null;
+                if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
+                    this.error.dateTo = "Tanggal Akhir harus lebih besar dari Tanggal Awal";
+                } else {
+                    this.error.dateTo = null;
+                }
             }
 
             if (!area) {
@@ -92,11 +96,6 @@ export class List {
                 this.error.machine = null;
             }
 
-            if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
-                this.error.dateTo = "Tanggal Akhir harus lebih besar dari Tanggal Awal";
-            } else {
-                this.error.dateTo = null;
-            }
         }
 
         this.tableData = result;
@@ -123,7 +122,7 @@ export class List {
         var area = this.processArea;
         var machine = this.machine;
 
-        if (dateFrom && dateTo && area && machine && this.dateTo > this.dateFrom) {
+        if (dateFrom && dateTo && area && machine && this.dateTo >= this.dateFrom) {
             this.error = {};
 
 
