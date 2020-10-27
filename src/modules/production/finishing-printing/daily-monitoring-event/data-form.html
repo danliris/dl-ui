@@ -6,6 +6,7 @@
             loader.bind="machineLoader" text="Name" options.bind="controlOptions">
         </au-autocomplete>
 
+
         <au-datepicker options.bind="controlOptions" value.bind="data.Date" error.bind="error.Date"
             read-only.bind="readOnly" label="Tanggal">
         </au-datepicker>
@@ -14,20 +15,27 @@
             items.bind="shiftOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-dropdown label="Group" value.bind="data.Group" error.bind="error.Group" read-only.bind="readOnly"
-            items.bind="groupOptions" options.bind="controlOptions">
+        <au-autocomplete value.bind="eventOrganizer" label="Area" read-only.bind="readOnly"
+            error.bind="error.ProcessArea" loader.bind="eventOrganizerLoader" text="ProcessArea"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown label="Group" value.bind="data.Group" error.bind="error.Group"
+            read-only.bind="readOnly  || isSelected" items.bind="groupOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-dropdown value.bind="processArea" items.bind="areaOptions" label="Area" read-only.bind="readOnly || isEdit" error.bind="error.ProcessArea"
-            options.bind="controlOptions">
-        </au-dropdown>
 
-        <au-textbox value.bind="data.Kasie" label="Kasie" read-only.bind="readOnly" error.bind="error.Kasie"
-            options.bind="controlOptions">
+
+        <!-- <au-dropdown value.bind="processArea" items.bind="areaOptions" label="Area" read-only.bind="readOnly || isEdit"
+            error.bind="error.ProcessArea" options.bind="controlOptions">
+        </au-dropdown> -->
+
+        <au-textbox value.bind="data.Kasie" label="Kasie" read-only.bind="readOnly || isSelected"
+            error.bind="error.Kasie" options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox value.bind="data.Kasubsie" label="Kasubsie" read-only.bind="readOnly" error.bind="error.Kasubsie"
-            options.bind="controlOptions">
+        <au-textbox value.bind="data.Kasubsie" label="Kasubsie" read-only.bind="readOnly  || isSelected"
+            error.bind="error.Kasubsie" options.bind="controlOptions">
         </au-textbox>
 
         <au-textbox value.bind="data.ElectricMechanic" label="Mekanik/Elektrik" read-only.bind="readOnly"
