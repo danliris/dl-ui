@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import XLSX from 'xlsx';
@@ -19,6 +19,7 @@ export class List {
 
     monthList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     yearList = [];
+    isValas = false;
 
     tableOptions = {
         showColumns: false,
@@ -80,8 +81,9 @@ export class List {
 
             this.data = await this.service.search(params)
                 .then((result) => {
-                    let resultDataSet = [];
+                    this.isValas = this.info.bank.Currency.Code != "IDR" ? true : false;
 
+                    let resultDataSet = [];
                     // let sameDate = true;
                     let dailyTotalDebit = 0;
                     let dailyTotalDebitValas = 0;
@@ -98,76 +100,139 @@ export class List {
                         this.closingBalance = numeral(result.data[result.data.length - 1].AfterNominal).format('0,0.00');
                     }
                     let index = 0;
-                    for (let data of result.data) {
-                        let date = moment(data.Date).format("DD-MMM-YYYY");
+                    if (this.isValas)
+                        for (let data of result.data) {
+                            let date = moment(data.Date).format("DD-MMM-YYYY");
 
-                        if (moment(previousDate).diff(moment(date), 'days') != 0 || index == result.data.length) {
-                            let dailyTotalDataSet = {
-                                DailyTotalTitle: "Total Harian",
-                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.00'),
-                                DebitValas: numeral(dailyTotalDebitValas).format('0,0.00'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.00'),
-                                KreditValas: numeral(dailyTotalKreditValas).format('0,0.00'),
-                                AfterNominal: "",
-                                AfterNominalValas: ""
+                            if (moment(previousDate).diff(moment(date), 'days') != 0 || index == result.data.length) {
+                                let dailyTotalDataSet = {
+                                    DailyTotalTitle: "Total Harian",
+                                    AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                    Debit: numeral(dailyTotalDebit).format('0,0.00'),
+                                    DebitValas: numeral(dailyTotalDebitValas).format('0,0.00'),
+                                    Kredit: numeral(dailyTotalKredit).format('0,0.00'),
+                                    KreditValas: numeral(dailyTotalKreditValas).format('0,0.00'),
+                                    AfterNominal: "",
+                                    AfterNominalValas: ""
+                                }
+
+                                resultDataSet.push(dailyTotalDataSet);
+                                dailyTotalDebit = 0;
+                                dailyTotalKredit = 0;
                             }
 
-                            resultDataSet.push(dailyTotalDataSet);
-                            dailyTotalDebit = 0;
-                            dailyTotalKredit = 0;
-                        }
-
-                        if (data.Status.toString().toLowerCase() == "in") {
-                            dailyTotalDebit += data.Nominal;
-                            dailyTotalDebitValas += data.NominalValas;
-                        } else {
-                            dailyTotalKredit += data.Nominal;
-                            dailyTotalKreditValas += data.NominalValas;
-                        }
-
-                        let dataSet = {
-                            Date: date,
-                            Remark: data.Remark,
-                            ReferenceNo: data.ReferenceNo,
-                            ReferenceType: data.ReferenceType,
-                            AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                            Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.00') : '',
-                            DebitValas: data.Status.toString().toLowerCase() == "in" && data.AccountBankCurrencyCode == 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
-                            Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.00') : '',
-                            KreditValas: data.Status.toString().toLowerCase() == "out" && data.AccountBankCurrencyCode == 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
-                            AfterNominal: numeral(data.AfterNominal).format('0,0.00'),
-                            AfterNominalValas: numeral(data.AfterNominalValas).format('0,0.00')
-                        }
-
-                        previousDate = date;
-
-                        resultDataSet.push(dataSet);
-
-                        index++;
-                        if (!resultDataSet[resultDataSet.length - 1].DailyTotalTitle && index == result.data.length) {
-                            let dailyTotalDataSet = {
-                                DailyTotalTitle: "Total Harian",
-                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.00'),
-                                DebitValas: numeral(dailyTotalDebitValas).format('0,0.00'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.00'),
-                                KreditValas: numeral(dailyTotalKreditValas).format('0,0.00'),
-                                AfterNominal: "",
-                                AfterNominalValas: ""
+                            if (data.Status.toString().toLowerCase() == "in") {
+                                dailyTotalDebit += data.Nominal;
+                                dailyTotalDebitValas += data.NominalValas;
+                            } else {
+                                dailyTotalKredit += data.Nominal;
+                                dailyTotalKreditValas += data.NominalValas;
                             }
 
-                            resultDataSet.push(dailyTotalDataSet);
-                            dailyTotalDebit = 0;
-                            dailyTotalKredit = 0;
-                        }
+                            let dataSet = {
+                                Date: date,
+                                Remark: data.Remark,
+                                ReferenceNo: data.ReferenceNo,
+                                ReferenceType: data.ReferenceType,
+                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.00') : '',
+                                DebitValas: data.Status.toString().toLowerCase() == "in" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
+                                Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.00') : '',
+                                KreditValas: data.Status.toString().toLowerCase() == "out" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
+                                AfterNominal: numeral(data.AfterNominal).format('0,0.00'),
+                                AfterNominalValas: numeral(data.AfterNominalValas).format('0,0.00')
+                            }
 
-                    }
-                    console.log(resultDataSet);
+                            previousDate = date;
+
+                            resultDataSet.push(dataSet);
+
+                            index++;
+                            if (!resultDataSet[resultDataSet.length - 1].DailyTotalTitle && index == result.data.length) {
+                                let dailyTotalDataSet = {
+                                    DailyTotalTitle: "Total Harian",
+                                    AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                    Debit: numeral(dailyTotalDebit).format('0,0.00'),
+                                    DebitValas: numeral(dailyTotalDebitValas).format('0,0.00'),
+                                    Kredit: numeral(dailyTotalKredit).format('0,0.00'),
+                                    KreditValas: numeral(dailyTotalKreditValas).format('0,0.00'),
+                                    AfterNominal: "",
+                                    AfterNominalValas: ""
+                                }
+
+                                resultDataSet.push(dailyTotalDataSet);
+                                dailyTotalDebit = 0;
+                                dailyTotalKredit = 0;
+                            }
+                        }
+                    else
+                        for (let data of result.data) {
+                            let date = moment(data.Date).format("DD-MMM-YYYY");
+
+                            if (
+                                moment(previousDate).diff(moment(date), "days") != 0 ||
+                                index == result.data.length
+                            ) {
+                                let dailyTotalDataSet = {
+                                    DailyTotalTitle: "Total Harian",
+                                    AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                    Debit: numeral(dailyTotalDebit).format("0,0.00"),
+                                    Kredit: numeral(dailyTotalKredit).format("0,0.00"),
+                                    AfterNominal: "",
+                                };
+
+                                resultDataSet.push(dailyTotalDataSet);
+                                dailyTotalDebit = 0;
+                                dailyTotalKredit = 0;
+                            }
+
+                            if (data.Status.toString().toLowerCase() == "in") {
+                                dailyTotalDebit += data.Nominal;
+                            } else {
+                                dailyTotalKredit += data.Nominal;
+                            }
+
+                            let dataSet = {
+                                Date: date,
+                                Remark: data.Remark,
+                                ReferenceNo: data.ReferenceNo,
+                                ReferenceType: data.ReferenceType,
+                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                Debit: data.Status.toString().toLowerCase() == "in" ?
+                                    numeral(data.Nominal).format("0,0.00") : "",
+                                Kredit: data.Status.toString().toLowerCase() == "out" ?
+                                    numeral(data.Nominal).format("0,0.00") : "",
+                                AfterNominal: numeral(data.AfterNominal).format("0,0.00"),
+                            };
+
+                            previousDate = date;
+
+                            resultDataSet.push(dataSet);
+
+                            index++;
+                            if (!resultDataSet[resultDataSet.length - 1].DailyTotalTitle &&
+                                index == result.data.length
+                            ) {
+                                let dailyTotalDataSet = {
+                                    DailyTotalTitle: "Total Harian",
+                                    AccountBankCurrencyCode: data.AccountBankCurrencyCode,
+                                    Debit: numeral(dailyTotalDebit).format("0,0.00"),
+                                    Kredit: numeral(dailyTotalKredit).format("0,0.00"),
+                                    AfterNominal: "",
+                                };
+
+                                resultDataSet.push(dailyTotalDataSet);
+                                dailyTotalDebit = 0;
+                                dailyTotalKredit = 0;
+                            }
+
+                            // console.log(dataSet);
+                        }
+                        // console.log(resultDataSet);
 
                     this.isEmpty = false;
                     return resultDataSet;
-                })
+                });
         }
     }
 
