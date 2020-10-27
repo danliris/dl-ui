@@ -57,6 +57,11 @@ export class DataForm {
                 this.productionOrderItemColumns = ["No. Order", "Kecepatan (Mtr/Menit)", "Input", "Output"];
             }
         }
+
+        if (this.data.ProcessArea) {
+            this.processArea = this.data.ProcessArea;
+            this.detailOptions.processArea = this.data.ProcessArea;
+        }
     }
 
     get machineLoader() {
@@ -72,6 +77,19 @@ export class DataForm {
         this.data.DailyMonitoringEventProductionOrderItems = this.data.DailyMonitoringEventProductionOrderItems || [];
         this.data.DailyMonitoringEventProductionOrderItems.push({})
     };
+
+    @bindable processArea;
+    processAreaChanged(n, o) {
+        if (this.processArea) {
+            this.data.ProcessArea = this.processArea;
+            this.detailOptions.processArea = this.data.ProcessArea;
+
+            if (!this.isEdit)
+                this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
+        } else {
+            this.data.ProcessArea == null;
+        }
+    }
 
     @bindable machine;
     machineChanged(n, o) {
