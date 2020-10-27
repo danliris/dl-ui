@@ -6,18 +6,20 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail","Cetak PDF"]
+    context = ["detail"]
 
     columns = [
-        { field: "dispositionNo", title: "No Lampiran Disposisi" },
-        { field: "policyType", title: "Jenis Polis Asuransi" },
+        { field: "dispositionNo", title: "No LampiranDisposisi" },
+        { field: "paymentType", title: "Jenis Pembayaran" },
+        { field: "BuyerAgentName", title: "Buyer" },
+        { field: "ForwarderName", title: "Forwarder" },
+        { field: "EMKLName", title: "EMKL" },
+        { field: "CourierName", title: "Kurir" },
         {
-            field: "paymentDate", title: "Tgl Disposisi", formatter: function (value) {
+            field: "paymentDate", title: "Tanggal Pembayaran", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
-        },
-        { field: "insuranceName", title: "Dibayar Kepada" },
-        { field: "bankName", title: "Bank" },
+        }
     ];
 
     loader = (info) => {
@@ -35,17 +37,17 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
-                    data.insurance = data.insurance || {};
-                    data.insuranceName = `${data.insurance.name}`;
+                    data.ForwarderName = data.forwarder.name;
+                    data.EMKLName = data.emkl.name;
+                    data.CourierName=data.courier.name;
+                    data.BuyerAgentName=data.buyerAgent.name;
                 }
-
                 return {
                     total: result.info.total,
                     data: result.data
                 }
             });
     }
-
 
     constructor(router, service) {
         this.service = service;
@@ -55,12 +57,10 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
+        console.log(data)
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
-                break;
-            case "Cetak PDF": 
-                this.service.getPdfById(data.id); 
                 break;
         }
     }
