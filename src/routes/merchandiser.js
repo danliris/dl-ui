@@ -697,6 +697,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/packing-list-draft-approval',
+        name: 'packing-list-draft-approval',
+        moduleId: './modules/merchandiser/packing-list-draft-approval/index',
+        nav: true,
+        title: 'Approval Draft Packing List - Md',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "PGA": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/packing-list-approval',
         name: 'packing-list-approval',
         moduleId: './modules/merchandiser/packing-list-approval/index',
