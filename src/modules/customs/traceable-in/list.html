@@ -1,17 +1,19 @@
 <template>
     <h1 class="page-header">Laporan Traceable Masuk</h1>
     <form class="form-horizontal">
-        <au-dropdown 
-            label="Tipe Beacukai" 
-            value.bind="typeBC"
-            items.bind="TypeBC"
-            options.bind="controlOptions" >
-        </au-dropdown>
+        
         <au-dropdown 
         label="Jenis" 
         value.bind="type"
         items.bind="Types"
         options.bind="controlOptions" >
+        </au-dropdown>
+        <au-dropdown 
+            label="Tipe Beacukai" 
+            value.bind="typeBC"
+            items.bind="TypeBC"
+            if.bind="type == 'No BC Masuk'"
+            options.bind="controlOptions" >
         </au-dropdown>
         <au-autocomplete 
         value.bind="BCNo"
