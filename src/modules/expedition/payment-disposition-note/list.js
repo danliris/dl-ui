@@ -35,10 +35,16 @@ export class List {
             field: 'BankName',
             title: 'Bank',
             formatter: function(value, data, index) {
-                return data ? `${data.AccountBank.BankName}` : '';
+                return data ? `${data.AccountBank.BankName} - ${data.AccountBank.Currency.Code}` : '';
             }
         },
-        { field: 'AccountBank.Currency.Code', title: 'Mata Uang' },
+        {
+            field: 'CurrencyCode',
+            title: 'Mata Uang',
+            formatter: function(value, data, index) {
+                return value != "" ? value : "-";
+            }
+        },
         {
             field: 'Amount',
             title: 'Amount',
