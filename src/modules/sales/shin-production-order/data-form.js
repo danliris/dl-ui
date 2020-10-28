@@ -131,9 +131,9 @@ export class DataForm {
       this.data.Unit = this.data.FinishingPrintingSalesContract.PreSalesContract.Unit ?
         this.data.FinishingPrintingSalesContract.PreSalesContract.Unit.Name : "";
       this.data.BuyerType = this.data.FinishingPrintingSalesContract.PreSalesContract.Buyer.Type;
-      this.data.ProcessType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.Name;
+      this.data.ProcessType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType ? this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.Name : null;
       // this.data.OrderNo = this.data.FinishingPrintingSalesContract.ProductionOrderNo;
-      this.data.OrderType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.OrderType.Name;
+      this.data.OrderType = this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType && this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.OrderType ? this.data.FinishingPrintingSalesContract.PreSalesContract.ProcessType.OrderType.Name : null;
 
       this.data.Material = this.data.FinishingPrintingSalesContract.Material.Name;
       // this.data.MaterialConstruction = this.data.FinishingPrintingSalesContract.MaterialConstruction.Name;
