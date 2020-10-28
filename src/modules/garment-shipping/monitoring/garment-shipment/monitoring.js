@@ -93,8 +93,7 @@ export class List {
                                 docSendDate : moment(data.docSendDate).format("DD MMM YYYY")=="01 Jan 0001"? "-" : moment(data.docSendDate).format("DD MMM YYYY"),                      
                                 paymentDate : moment(data.paymentDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.paymentDate).format("DD MMM YYYY"),                      
                                 dueDate : moment(data.dueDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.dueDate).format("DD MMM YYYY"),                      
-                                diffBDCL : data.diffBDCL,
-                                diffSDDSD : data.diffSDDSD,
+                                diffBDCL : data.diffBDCL,                               
                                 diffETDDSD : data.diffETDDSD,
                                 diffDDPD : data.diffDDPD,
                         });
