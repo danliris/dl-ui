@@ -612,6 +612,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-draft-approval",
+        name: "garment-shipping/packing-list-draft-approval",
+        moduleId: "modules/garment-shipping/packing-list-draft-approval/index",
+        nav: true,
+        title: "Aprroval Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list-approval",
         name: "garment-shipping/packing-list-approval",
         moduleId: "modules/garment-shipping/packing-list-approval/index",

@@ -20,10 +20,10 @@ export class View {
         let id = params.id;
         this.data = await this.service.getById(id);
 
-        let idx=0;
-        if(this.data.measurements){
-            for(let i of this.data.measurements){
-                i.MeasurementIndex=idx;
+        let idx = 0;
+        if (this.data.measurements) {
+            for (let i of this.data.measurements) {
+                i.MeasurementIndex = idx;
                 idx++;
             }
         }
@@ -34,10 +34,27 @@ export class View {
                 item.section = this.data.section;
             }
         }
-        
-        if (this.data.status != "DRAFT") {
-            this.editCallback = null;
-            this.deleteCallback = null;
+
+        switch (this.data.status) {
+            case "DRAFT":
+                break;
+            case "DRAFT_CANCELED":
+            case "DRAFT_APPROVED_MD":
+            case "DRAFT_APPROVED_SHIPPING":
+            case "CANCELED":
+            case "APPROVED_MD":
+            case "APPROVED_SHIPPING":
+            case "REJECTED_SHIPPING_MD":
+            case "POSTED":
+            case "REJECTED_MD":
+            case "REVISED_MD":
+            case "REJECTED_SHIPPING_UNIT":
+            case "REVISED_SHIPPING":
+                this.saveCallback = null;
+            default:
+                this.editCallback = null;
+                this.deleteCallback = null;
+                break;
         }
 
         switch (this.data.status) {
@@ -45,6 +62,8 @@ export class View {
                 this.formOptions.saveText = "Post Booking";
                 break;
             case "DRAFT_POSTED":
+            case "DRAFT_REJECTED_MD":
+            case "DRAFT_REJECTED_SHIPPING":
                 this.formOptions.saveText = "Unpost Booking";
                 break;
             case "DRAFT_APPROVED_SHIPPING":
@@ -55,6 +74,12 @@ export class View {
         }
 
         switch (this.data.status) {
+            case "DRAFT_REJECTED_MD":
+                this.alertInfo = "<strong>Alasan Reject oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            case "DRAFT_REJECTED_SHIPPING":
+                this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
             case "REJECTED_MD":
                 this.alertInfo = "<strong>Alasan Reject oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 break;
@@ -92,6 +117,8 @@ export class View {
                         });
                     break;
                 case "DRAFT_POSTED":
+                case "DRAFT_REJECTED_MD":
+                case "DRAFT_REJECTED_SHIPPING":
                     this.service.unpostBooking(this.data.id)
                         .then(result => {
                             this.cancelCallback();
