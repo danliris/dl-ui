@@ -56,7 +56,6 @@ export class DataForm {
     itemsColumns = [
         { header: "RO No" },
         { header: "SC No" },
-        { header: "Buyer Agent" },
         { header: "Buyer Brand" },
         { header: "Seksi" },
         { header: "Komoditi Description" },
@@ -138,11 +137,19 @@ export class DataForm {
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
+
+        if (this.data.items && this.data.id) {
+            for (var item of this.data.items) {
+                item.BuyerCode = this.data.buyerAgent.code;
+            }
+        }
     }
 
     get addItems() {
         return (event) => {
-            this.data.items.push({});
+            this.data.items.push({
+                BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+            });
         };
     }
 

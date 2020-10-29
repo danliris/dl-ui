@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
 var UomLoader = require("../../../../loader/uom-loader");
+var UnitLoader = require("../../../../loader/unit-loader");
 
 @inject(SalesService)
 export class Item {
@@ -15,7 +16,7 @@ export class Item {
 
     get filter() {
         var filter = {
-            // BuyerCode:this.data.BuyerCode,
+            BuyerCode: this.data.BuyerCode,
             // Section: this.data.Section,
             "SCGarmentId!=null": true
         };
@@ -25,6 +26,7 @@ export class Item {
     detailsColumns = [
         { header: "Carton 1" },
         { header: "Carton 2" },
+        { header: "Style" },
         { header: "Colour" },
         { header: "Jml Carton" },
         { header: "Qty" },
@@ -36,6 +38,10 @@ export class Item {
         return CostCalculationLoader;
     }
 
+    roView = (costCal) => {
+        return `${costCal.RO_Number}`
+    }
+
     get uomLoader() {
         return UomLoader;
     }
@@ -44,8 +50,12 @@ export class Item {
         return `${uom.Unit || uom.unit}`
     }
 
-    roView = (costCal) => {
-        return `${costCal.RO_Number}`
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    unitView = (unit) => {
+        return `${unit.Code || unit.code}`
     }
 
     toggle() {
@@ -103,6 +113,7 @@ export class Item {
                                         id: psc.SectionId,
                                         code: result.Section,
                                     };
+                                    this.data.comodityDescription = result.CommodityDescription;
                                     this.data.unit = result.Unit;
                                     this.data.uom = result.UOM;
                                     this.data.valas = "USD";
