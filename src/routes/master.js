@@ -13,6 +13,19 @@ module.exports = [
       }
     },
     {
+        route: 'bi-currency',
+        name: 'bi-currency',
+        moduleId: './modules/master/bi-currency/index',
+        nav: true,
+        title: 'Kurs BI',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'buyers',
         name: 'buyers',
         moduleId: './modules/master/buyer/index',
