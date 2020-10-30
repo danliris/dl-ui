@@ -127,7 +127,7 @@ export class List {
       },
     },
     {
-      field: "SendToVerificationDate",
+      field: "VerificationReceiptDate",
       title: "Tanggal Verif Terima",
       formatter: function (value, data, index) {
         return value ? moment.utc(value).local().format("DD MMM YYYY") : "-";
@@ -151,8 +151,8 @@ export class List {
         return value
           ? moment.utc(value).local().format("DD MMM YYYY")
           : data.NotVerifiedDate
-          ? moment.utc(data.NotVerifiedDate).local().format("DD MMM YYYY")
-          : "-";
+            ? moment.utc(data.NotVerifiedDate).local().format("DD MMM YYYY")
+            : "-";
       },
     },
     {
@@ -244,11 +244,11 @@ export class List {
 
     return this.flag
       ? this.service.search(arg).then((result) => {
-          return {
-            total: result.info.total,
-            data: result.data,
-          };
-        })
+        return {
+          total: result.info.total,
+          data: result.data,
+        };
+      })
       : { total: 0, data: [] };
   };
 
