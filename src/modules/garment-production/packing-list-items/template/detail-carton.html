@@ -16,6 +16,13 @@
         </td>
         <td >
             <au-textbox
+                value.bind="data.style"
+                error.bind="error.Style"
+                read-only.bind="readOnly">
+            </au-textbox>
+        </td>
+        <td >
+            <au-textbox
                 value.bind="data.colour"
                 error.bind="error.Colour"
                 read-only.bind="readOnly">
@@ -68,8 +75,8 @@
                 add.bind="addSizes" 
                 remove.bind="removeSizes"
                 options.bind="itemOptions"
-                footer-template="modules/garment-production/packing-list/template/detail-size-footer" 
-                item-template="modules/garment-production/packing-list/template/detail-size" >
+                footer-template="modules/garment-production/packing-list-items/template/detail-size-footer" 
+                item-template="modules/garment-production/packing-list-items/template/detail-size" >
             </au-collection>
             <!-- <hr style="border: 5px solid #173250; border-radius: 0px 0px 5px 5px;"> -->
         </td>

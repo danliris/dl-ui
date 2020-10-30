@@ -19,6 +19,7 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        this.error = {};
 
         let idx = 0;
         if (this.data.measurements) {
@@ -40,7 +41,6 @@ export class View {
                 break;
             case "DRAFT_CANCELED":
             case "DRAFT_APPROVED_MD":
-            case "DRAFT_APPROVED_SHIPPING":
             case "CANCELED":
             case "APPROVED_MD":
             case "APPROVED_SHIPPING":
@@ -125,7 +125,28 @@ export class View {
                         });
                     break;
                 case "DRAFT_APPROVED_SHIPPING":
-                    this.formOptions.saveText = "Post Packing List";
+                    this.service.postPackingList(this.data.id)
+                        .then(result => {
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            this.error = error;
+
+                            let errorNotif = "";
+                            if (error.InvoiceType || error.Type || error.Date || error.ItemsCount || error.Items) {
+                                errorNotif += "Tab DESCRIPTION ada kesalahan pengisian.\n"
+                            }
+                            if (error.GrossWeight || error.NettWeight || error.totalCartons || error.SayUnit || error.MeasurementsCount || error.Measurements) {
+                                errorNotif += "Tab DETAIL MEASUREMENT ada kesalahan pengisian.\n"
+                            }
+                            if (error.ShippingMark || error.SideMark || error.Remark) {
+                                errorNotif += "Tab SHIPPING MARK - SIDE MARK - REMARK ada kesalahan pengisian."
+                            }
+
+                            if (errorNotif) {
+                                alert(errorNotif);
+                            }
+                        });
                     break;
                 default:
                     break;

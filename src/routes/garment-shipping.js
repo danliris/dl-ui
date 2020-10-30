@@ -616,7 +616,7 @@ module.exports = [
         name: "garment-shipping/packing-list-draft-approval",
         moduleId: "modules/garment-shipping/packing-list-draft-approval/index",
         nav: true,
-        title: "Aprroval Draft Packing List",
+        title: "Approval Draft Packing List",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -629,7 +629,7 @@ module.exports = [
         name: "garment-shipping/packing-list-approval",
         moduleId: "modules/garment-shipping/packing-list-approval/index",
         nav: true,
-        title: "Aprroval Packing List",
+        title: "Approval Packing List",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -642,7 +642,7 @@ module.exports = [
         name: "garment-shipping/packing-list-approved",
         moduleId: "modules/garment-shipping/packing-list-approved/index",
         nav: true,
-        title: "Aprroved Packing List",
+        title: "Approved Packing List",
         auth: true,
         settings: {
             group: "g-shipping",

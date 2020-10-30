@@ -19,13 +19,6 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.buyerAgent.Name || data.buyerAgent.name ||''"
-                error.bind="error.BuyerAgent"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td class="bg-primary">
-            <au-textbox
                 value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''"
                 read-only.bind="true">
             </au-textbox>
@@ -37,7 +30,7 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary col-md-2">
             <au-textbox
                 value.bind="data.comodityDescription"
                 error.bind="error.comodityDescription"
@@ -51,7 +44,7 @@
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-autocomplete
                 value.bind="data.uom"
                 error.bind="error.Uom"
@@ -79,11 +72,16 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
-            <au-textbox
-                value.bind="data.unit.Code || data.unit.code || ''"
-                read-only.bind="true">
-            </au-textbox>
+        <td class="bg-primary col-md-1">
+            <au-autocomplete
+                show.bind="data.roNo"
+                value.bind="data.unit"
+                error.bind="error.unit"
+                loader.bind="unitLoader"
+                text.bind="unitView"
+                placeholder="cari unit"
+                read-only.bind="readOnly">
+            </au-autocomplete>
         </td>
 
         <td if.bind="!readOnly">
@@ -112,12 +110,6 @@
         </td>
         
         <td colspan="5">
-            <au-multiline
-                label = "Description"
-                value.bind="data.description"
-                error.bind="error.Description"
-                read-only.bind="readOnly">
-            </au-multiline>
         </td>
     </tr>
     <tr >
@@ -137,7 +129,7 @@
                 add.bind="addDetails" 
                 remove.bind="removeDetails"
                 options.bind="itemOptions"
-                item-template="modules/garment-production/packing-list/template/detail-carton">
+                item-template="modules/garment-production/packing-list-items/template/detail-carton">
             </au-collection>
         </td>
         <td colspan="2" style='border:none;'>
