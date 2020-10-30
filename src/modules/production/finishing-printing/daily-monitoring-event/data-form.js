@@ -8,7 +8,7 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable isSelected = false;
-    
+
     isSelected = false;
     formOptions = {
         cancelText: "Kembali",
@@ -34,7 +34,7 @@ export class DataForm {
 
 
     detailOptions = {};
-    areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
+    // areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
     shiftOptions = ['', 'Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
     groupOptions = ['', 'A', 'B', 'C'];
 
@@ -55,11 +55,21 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
 
         if (this.data.ProcessArea) {
-            this.area = this.data.ProcessArea
+            this.ProcessArea = this.data.ProcessArea
+        }
+
+        if (this.data.EventOrganizer) {
+            this.eventOrganizer = this.data.EventOrganizer
+            this.data.Group = this.eventOrganizer.Group;
+            this.data.ProcessArea = this.eventOrganizer.ProcessArea;
+            this.data.Kasie = this.eventOrganizer.Kasie;
+            this.data.Kasubsie = this.eventOrganizer.Kasubsie;
+            this.detailOptions.processArea = this.eventOrganizer.ProcessArea;
         }
 
         if (this.data.Machine) {
             this.machine = this.data.Machine;
+
             if (this.machine.UseBQBS) {
                 this.productionOrderItemColumns = ["No. Order", "Kecepatan (Mtr/Menit)", "BQ", "BS"];
             } else {
@@ -91,28 +101,15 @@ export class DataForm {
         this.data.DailyMonitoringEventProductionOrderItems.push({})
     };
 
-    // @bindable processArea;
-    // processAreaChanged(n, o) {
-    //     console.log("processArea", this.processArea)
-    //     if (this.processArea) {
-    //         this.data.ProcessArea = this.processArea;
-    //         this.detailOptions.processArea = this.data.ProcessArea;
 
-    //         if (!this.isEdit)
-    //             this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
-    //     } else {
-    //         this.data.ProcessArea == null;
-    //     }
-    // }
 
     @bindable eventOrganizer;
     eventOrganizerChanged(n, o) {
 
         if (this.eventOrganizer) {
-            // this.areaGroup = string.concat(this.eventOrganizer.Group, " - ", this.eventOrganizer.ProcessArea)
-            console.log("readOnly", this.readOnly)
-            console.log("isSelected", this.isSelected)
+
             this.isSelected = true;
+            this.data.EventOrganizer = this.eventOrganizer;
             this.data.Group = this.eventOrganizer.Group;
             this.data.ProcessArea = this.eventOrganizer.ProcessArea;
             this.data.Kasie = this.eventOrganizer.Kasie;
@@ -129,6 +126,7 @@ export class DataForm {
 
     @bindable machine;
     machineChanged(n, o) {
+        console.log(this.machine)
 
         if (this.machine) {
 

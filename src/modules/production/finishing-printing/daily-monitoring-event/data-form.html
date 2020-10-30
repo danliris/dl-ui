@@ -15,20 +15,15 @@
             items.bind="shiftOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-autocomplete value.bind="eventOrganizer" label="Area" read-only.bind="readOnly"
-            error.bind="error.ProcessArea" loader.bind="eventOrganizerLoader" text="ProcessArea"
+        <au-autocomplete value.bind="eventOrganizer" label="Area" error.bind="error.ProcessArea"
+            read-only.bind="readOnly" loader.bind="eventOrganizerLoader" text="ProcessArea"
             options.bind="controlOptions">
         </au-autocomplete>
+
 
         <au-dropdown label="Group" value.bind="data.Group" error.bind="error.Group"
             read-only.bind="readOnly  || isSelected" items.bind="groupOptions" options.bind="controlOptions">
         </au-dropdown>
-
-
-
-        <!-- <au-dropdown value.bind="processArea" items.bind="areaOptions" label="Area" read-only.bind="readOnly || isEdit"
-            error.bind="error.ProcessArea" options.bind="controlOptions">
-        </au-dropdown> -->
 
         <au-textbox value.bind="data.Kasie" label="Kasie" read-only.bind="readOnly || isSelected"
             error.bind="error.Kasie" options.bind="controlOptions">
