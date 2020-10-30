@@ -2,8 +2,10 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { months } from '../../../../../node_modules/moment/moment';
 var moment = require('moment');
 var MachineLoader = require('../../../../loader/machines-loader');
-var EventOrganizerLoader = require('../../../../loader/event-organizer-loader');
+import { Service } from './service';
+//var EventOrganizerLoader = require('../../../../loader/event-organizer-loader');
 
+@inject(Service)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -34,7 +36,7 @@ export class DataForm {
 
 
     detailOptions = {};
-    // areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
+    areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
     shiftOptions = ['', 'Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
     groupOptions = ['', 'A', 'B', 'C'];
 
@@ -58,14 +60,6 @@ export class DataForm {
             this.ProcessArea = this.data.ProcessArea
         }
 
-        if (this.data.EventOrganizer) {
-            this.eventOrganizer = this.data.EventOrganizer
-            this.data.Group = this.eventOrganizer.Group;
-            this.data.ProcessArea = this.eventOrganizer.ProcessArea;
-            this.data.Kasie = this.eventOrganizer.Kasie;
-            this.data.Kasubsie = this.eventOrganizer.Kasubsie;
-            this.detailOptions.processArea = this.eventOrganizer.ProcessArea;
-        }
 
         if (this.data.Machine) {
             this.machine = this.data.Machine;
@@ -87,9 +81,9 @@ export class DataForm {
         return MachineLoader;
     }
 
-    get eventOrganizerLoader() {
-        return EventOrganizerLoader;
-    }
+    // get eventOrganizerLoader() {
+    //     return EventOrganizerLoader;
+    // }
 
     addLossEventItemCallback = (e) => {
         this.data.DailyMonitoringEventLossEventItems = this.data.DailyMonitoringEventLossEventItems || [];
@@ -102,25 +96,53 @@ export class DataForm {
     };
 
 
+    // @bindable eventOrganizer;
+    // eventOrganizerChanged(n, o) {
 
-    @bindable eventOrganizer;
-    eventOrganizerChanged(n, o) {
+    //     if (this.eventOrganizer) {
 
-        if (this.eventOrganizer) {
-
-            this.isSelected = true;
-            this.data.EventOrganizer = this.eventOrganizer;
-            this.data.Group = this.eventOrganizer.Group;
-            this.data.ProcessArea = this.eventOrganizer.ProcessArea;
-            this.data.Kasie = this.eventOrganizer.Kasie;
-            this.data.Kasubsie = this.eventOrganizer.Kasubsie;
-            this.detailOptions.processArea = this.data.ProcessArea;
+    //         this.isSelected = true;
+    //         this.data.EventOrganizer = this.eventOrganizer;
+    //         this.data.Group = this.eventOrganizer.Group;
+    //         this.data.ProcessArea = this.eventOrganizer.ProcessArea;
+    //         this.data.Kasie = this.eventOrganizer.Kasie;
+    //         this.data.Kasubsie = this.eventOrganizer.Kasubsie;
+    //         this.detailOptions.processArea = this.data.ProcessArea;
 
 
-            if (!this.isEdit)
-                this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
+    //         if (!this.isEdit)
+    //             this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
+    //     } else {
+    //         this.data.ProcessArea == null;
+    //     }
+    // }
+
+
+    @bindable group;
+    async  groupChanged(n, o) {
+        this.data.Group = this.group;
+        console.log(" this.data.ProcessArea", this.data.ProcessArea)
+        if (this.data.Group && this.data.ProcessArea) {
+
+            var info = { area: this.data.ProcessArea, group: this.data.Group }
+            var result = await this.service.getByAreaAndGroup(info);
+
+            if (result) {
+                this.data.EventOrganizer = result;
+                this.isSelected = true;
+                this.data.Kasie = result.Kasie;
+                this.data.Kasubsie = result.Kasubsie;
+                if (!this.isEdit)
+                    this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
+
+            } else {
+                this.isSelected = false;
+                this.data.Kasie = "";
+                this.data.Kasubsie = "";
+            }
+
         } else {
-            this.data.ProcessArea == null;
+            this.data.Group = null
         }
     }
 
