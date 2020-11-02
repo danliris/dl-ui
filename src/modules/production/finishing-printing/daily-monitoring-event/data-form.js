@@ -120,7 +120,7 @@ export class DataForm {
     @bindable area;
     async  areaChanged(n, o) {
         this.data.ProcessArea = this.area;
-        console.log(" this.data.ProcessArea", this.data.ProcessArea)
+
         if (this.data.Group && this.data.ProcessArea) {
 
             var info = { area: this.data.ProcessArea, group: this.data.Group }
@@ -149,7 +149,7 @@ export class DataForm {
     @bindable group;
     async  groupChanged(n, o) {
         this.data.Group = this.group;
-        console.log(" this.data.ProcessArea", this.data.ProcessArea)
+
         if (this.data.Group && this.data.ProcessArea) {
 
             var info = { area: this.data.ProcessArea, group: this.data.Group }
@@ -170,7 +170,7 @@ export class DataForm {
             }
 
         } else {
-            this.data.Group = null
+            this.data.Group = this.group
         }
     }
 
