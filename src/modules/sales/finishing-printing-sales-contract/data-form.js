@@ -125,7 +125,7 @@ export class DataForm {
   selectedOrderTypeChanged(newValue, oldValue) {
     this.data.OrderType = newValue;
     if (newValue) {
-      if (newValue.Name.toLowerCase() === "printing") {
+      if (newValue.Unit && newValue.Unit.toLowerCase() === "printing") {
         this.isPrinting = true;
       }
     } else {

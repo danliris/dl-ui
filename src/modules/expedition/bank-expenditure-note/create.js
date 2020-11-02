@@ -48,8 +48,7 @@ export class Create {
             this.collection = {
                 columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
             };
-        }
-        else {
+        } else {
             this.collection = {
                 columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
             };
@@ -205,7 +204,7 @@ export class Create {
 
         if (this.ItemsCollectionRate)
             this.ItemsCollectionRate.bind();
-        console.log(this);
+        // console.log(this);
     }
 
     @bindable selectedSupplier;
@@ -268,7 +267,7 @@ export class Create {
         this.data.Bank = newVal;
         this.IDR = false;
         if (newVal) {
-
+            console.log(newVal);
             if (this.selectedSupplier) {
                 let arg = {
                     page: 1,
@@ -294,8 +293,11 @@ export class Create {
                 this.collection = {
                     columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
                 };
-            }
-            else {
+
+                this.data.CurrencyCode = this.currency;
+                this.data.CurrencyId = newVal.Id;
+                this.data.CurrencyRate = newVal.Currency.Rate;
+            } else {
                 this.collection = {
                     columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
                 };
@@ -315,12 +317,6 @@ export class Create {
             this.selectedCurrency = null;
             this.selectedSupplier = null;
         }
-        this.data.CurrencyCode = "";
-        this.data.CurrencyId = 0;
-        this.data.CurrencyRate = 0;
-        //this.data.Supplier=null;
-        this.selectedCurrency = null;
-        this.selectedSupplier = null;
     }
 
     @bindable selectedCurrency;
@@ -361,8 +357,7 @@ export class Create {
                 this.collection = {
                     columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
                 };
-            }
-            else {
+            } else {
                 this.collection = {
                     columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
                 };
@@ -371,8 +366,7 @@ export class Create {
 
             // this.ItemsCollection.bind();
             // this.ItemsCollectionRate.bind();
-        }
-        else {
+        } else {
             this.data.CurrencyCode = null;
             this.data.CurrencyId = 0;
             this.sameCurrency = false;
@@ -453,11 +447,11 @@ export class Create {
 
             if (this.selectedSupplier)
                 this.UPOResults = await this.service.searchAllByPosition(arg)
-                    .then((result) => {
-                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                .then((result) => {
+                    let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
 
-                        return resultData;
-                    });
+                    return resultData;
+                });
         }
     }
 

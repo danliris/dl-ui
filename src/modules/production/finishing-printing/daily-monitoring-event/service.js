@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/daily-monitoring-event';
+const serviceUriEventOrganizer = 'master/event-organizer';
 
 export class Service extends RestService {
 
@@ -34,5 +35,11 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
+
+  getByAreaAndGroup(info) {
+    let endpoint = `${serviceUriEventOrganizer}/group-area?area=${info.area}&group=${info.group}`;
+    return super.get(endpoint);
+  }
+
 
 }

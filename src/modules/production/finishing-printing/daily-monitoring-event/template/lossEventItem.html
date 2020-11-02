@@ -1,7 +1,7 @@
 <template replace-part="StrikeOffItems">
     <tr>
         <td>
-            <au-autocomplete value.bind="lossEvent" error.bind="error.LossEventRemark"
+            <au-autocomplete value.bind="lossEvent" error.bind="error.LossEventRemark" query.bind="lossQuery"
                 loader.bind="lossEventRemarkLoader" read-only.bind="readOnly" text="ProductionLossCode"
                 options.bind="controlOptions">
             </au-autocomplete>

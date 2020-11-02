@@ -69,7 +69,8 @@ export class View {
         this.collectionOptions = {
             IDR: this.IDR,
             rate: this.data.CurrencyRate,
-            SameCurrency: this.sameCurrency
+            SameCurrency: this.sameCurrency,
+            payToSupplierCurrency: this.data.CurrencyCode
         };
     }
 

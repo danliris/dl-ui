@@ -405,15 +405,12 @@ export class DataForm {
 
     get removeItems() {
         return (event) => {
-            console.log(event)
-
             this.percentageProcess(this.data.items);
             this.error = null;
         };
     }
 
     percentageProcess(items) {
-        console.log(items)
         this.data.garmentShippingInvoiceUnits = [];
         var percents = [];
         var totalqty = 0;
@@ -421,7 +418,6 @@ export class DataForm {
         if (items) {
             if (items.length > 0) {
                 for (var i of items) {
-                    console.log(i.price)
                     totalqty += i.quantity;
                     totalamount += i.price * i.quantity;
                     var percent = {};
@@ -451,7 +447,6 @@ export class DataForm {
                 }
                 if (percents.length > 0) {
                     for (var p of percents) {
-                        console.log(p)
                         if (p.amount > 0 && totalamount > 0) {
                             p.amountPercentage = p.amount / totalamount * 100;
                         }
