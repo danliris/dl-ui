@@ -45,6 +45,7 @@
                     value.bind="data.sendBy"
                     error.bind="error.sendBy"
                     read-only.bind="readOnly"
+                    if.bind="data.paymentType!='COURIER'"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -56,6 +57,7 @@
                     loader.bind="buyerLoader" 
                     text.bind="buyerView"
                     read-only.bind="readOnly" 
+                    if.bind="data.paymentType!='COURIER'"
                     options.bind="controlOptions">
                 </au-autocomplete>
 

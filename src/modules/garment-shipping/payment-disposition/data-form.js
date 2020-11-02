@@ -140,7 +140,6 @@ export class DataForm {
         if(this.data.emkl){
             this.data.emklId=this.data.emkl.id;
             this.selectedEMKL=this.data.emkl;
-            console.log(this.selectedEMKL)
             this.selectedEMKL.Address=this.data.address;
             this.selectedEMKL.NPWP=this.data.npwp;
         }
@@ -150,6 +149,7 @@ export class DataForm {
             this.selectedCourier.Address=this.data.address;
             this.selectedCourier.NPWP=this.data.npwp;
         }
+        this.isFreightCharged=this.data.isFreightCharged;
     }
 
     buyerView = (data) => {
@@ -271,6 +271,9 @@ export class DataForm {
         if(newValue != this.data.buyerAgent){
             this.data.invoiceDetails.splice(0);
             this.data.buyerAgent=newValue;
+            if(this.data.unitCharges){
+                this.data.unitCharges=[];
+            }
         }
     }
 
@@ -278,6 +281,9 @@ export class DataForm {
         if(newValue != this.data.isFreightCharged){
             this.data.invoiceDetails.splice(0);
             this.data.isFreightCharged=newValue;
+            if(this.data.unitCharges){
+                this.data.unitCharges=[];
+            }
         }
     }
 
