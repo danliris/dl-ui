@@ -102,13 +102,12 @@
                     <td>${report.Uom}</td>
                     <td>${report.CurrencyCode}</td>
                     <td>${report.CurrencyRate}</td>
-                    <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="14"
-                        class="text-right">Jumlah</td>
+                    <td colspan="17" class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
             </tbody>
@@ -159,13 +158,20 @@
                         <tr>
                             <td>Mata Uang</td>
                             <td>Total</td>
+                            <td>Total (IDR)</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr repeat.for="currencySummary of data.CurrencySummaries">
                             <td>${currencySummary.CurrencyCode}</td>
-                            <td class="text-right"><strong>${currencySummary.SubTotal | numberFormat:
-                                    '0,000.0000'}</strong></td>
+                            <td class="text-right">
+                                <strong>${currencySummary.SubTotal | numberFormat:
+                                    '0,000.0000'}</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong>${currencySummary.SubTotalCurrency | numberFormat:
+                                    '0,000.0000'}</strong>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
