@@ -12,7 +12,7 @@ export class List {
         { field: "dispositionNo", title: "No Lampiran Disposisi" },
         { field: "policyType", title: "Jenis Polis Asuransi" },
         {
-            field: "paymentDate", title: "Tgl Pembayaran", formatter: function (value) {
+            field: "paymentDate", title: "Tgl Disposisi", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

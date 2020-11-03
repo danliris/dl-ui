@@ -1,14 +1,10 @@
 <template>
 
-    <div class="row">
-        <div class="col-md-6">
-          <au-input-form 
-            title.bind="title"
-            with.bind="context"
-            options.bind="formOptions"
-          >
-              
-          <!-- <au-textbox 
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+        <!-- <au-textbox 
             label="Kode"
             value.bind="data.code"
             error.bind="error.code"
@@ -16,26 +12,21 @@
             if.bind="data.code"
             options.bind="controlOptions"
           ></au-textbox> -->
-            
-          <au-textbox 
-            label="Jenis Order"
-            value.bind="data.Name"
-            error.bind="error.Name"
-            read-only.bind="readOnly"
-            options.bind="controlOptions"
-          ></au-textbox>
-         
-        <au-multiline 
-            label="Keterangan" 
-            value.bind="data.Remark"
-            placeholder="Tambah keterangan" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
+
+        <au-textbox label="Jenis Order" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"
+          options.bind="controlOptions"></au-textbox>
+
+        <au-dropdown label="Unit" value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
+          items.bind="units"></au-dropdown>
+
+
+        <au-multiline label="Keterangan" value.bind="data.Remark" placeholder="Tambah keterangan"
+          read-only.bind="readOnly" options.bind="controlOptions">
         </au-multiline>
-            
-          <template replaceable part="actions"></template>
-          </au-input-form>
-        </div>
+
+        <template replaceable part="actions"></template>
+      </au-input-form>
     </div>
-      
-  </template>
+  </div>
+
+</template>

@@ -29,8 +29,9 @@ export class DataForm {
 
     // detailColumns = [{ header: "Jenis Proses" }, { header: "Jenis Order" }, { header: "Keterangan" }];
 
-
+    units = ["", "DYEING", "PRINTING"];
     orderFields = ["name", "code"];
+    sppCodes = [""];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -42,10 +43,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        // if (this.data.orderTypeId) {
-        //     this.selectedOrder = await this.service.getOrderById(this.data.orderTypeId, this.orderFields);
-        //     this.data.orderTypeId = this.selectedOrder._id;
-        // }
+        if (this.data.OrderType) {
+            this.selectedOrder = this.data.OrderType;
+        }
     }
 
 
@@ -54,14 +54,27 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    selectedOrderChanged(newValue) {
+    selectedOrderChanged(newValue, oldValue) {
         var _selectedOrder = newValue;
         if (_selectedOrder) {
             this.data.OrderType = _selectedOrder;
-            // this.data.orderTypeId = _selectedOrder.Id ? _selectedOrder.Id : "";
+            this.data.Unit = this.data.OrderType.Unit;
+            this.selectedOrder = _selectedOrder;
+            if (this.data.Unit && this.data.Unit.toUpperCase() == "DYEING") {
+                this.sppCodes = ["", "SPD", "SPW", "SPLD", "SPDT", "SPWT", "SPYD", "SPPC", "SPBD", "SPBW"];
+            } else if (this.data.Unit && this.data.Unit.toUpperCase() == "PRINTING") {
+                this.sppCodes = ["", "SPP", "SPDP", "SPTP", "SPSO", "SPPT", "SPPC", "SPBP"];
+            } else if (this.data.Unit) {
+                this.sppCodes = ["", "SPPC"];
+            } else {
+                this.sppCodes = [""];
+            }
         } else {
             // delete this.data.orderTypeId;
             this.selectedOrder = {};
+            this.data.OrderType = null;
+            this.data.Unit = null;
+
         }
 
     }

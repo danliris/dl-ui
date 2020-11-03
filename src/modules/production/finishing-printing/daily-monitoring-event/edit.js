@@ -11,8 +11,10 @@ export class EditInput {
     }
 
     async activate(params) {
+
         let id = params.id;
         this.data = await this.service.getById(id);
+
     }
 
     cancelCallback(event) {
@@ -20,7 +22,7 @@ export class EditInput {
     }
 
     saveCallback(event) {
-        
+
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.Id });

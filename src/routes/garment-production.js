@@ -900,4 +900,30 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-production/packing-list-draft",
+        name: "garment-production/packing-list-draft",
+        moduleId: "modules/garment-production/packing-list-draft/index",
+        nav: true,
+        title: "Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-production/packing-list-items",
+        name: "garment-production/packing-list-items",
+        moduleId: "modules/garment-production/packing-list-items/index",
+        nav: true,
+        title: "Item Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ];

@@ -18,9 +18,9 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
-    
-    detailColumns = [{header: "Jenis Order"},{header: "Keterangan"}];
-    
+    units = ["", "DYEING", "PRINTING"];
+    detailColumns = [{ header: "Jenis Order" }, { header: "Keterangan" }];
+
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -33,7 +33,7 @@ export class DataForm {
         this.error = this.context.error;
 
     }
-    
+
 
     @computedFrom("data.Id")
     get isEdit() {
