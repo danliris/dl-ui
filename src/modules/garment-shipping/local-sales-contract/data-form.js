@@ -70,7 +70,7 @@ export class DataForm {
             this.items.options.transactionTypeId = this.data.transactionType.id;
         }
         if(!this.data.sellerAddress || this.data.sellerAddress==""){
-            this.data.sellerAddress="PT DANLIRIS (DIVISI GARMENT) - Kawasan Berikat \nKELURAHAN BANARAN, KECAMATAN GROGOL, SUKOHARJO";
+            this.data.sellerAddress="PT DANLIRIS (DIVISI GARMENT) - KAWASAN BERIKAT \nJL. MERAPI NO. 23, KELURAHAN BANARAN, KECAMATAN GROGOL, SUKOHARJO";
         }
 
         if(!this.data.sellerNPWP || this.data.sellerNPWP==""){

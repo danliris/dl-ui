@@ -612,11 +612,24 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-draft-approval",
+        name: "garment-shipping/packing-list-draft-approval",
+        moduleId: "modules/garment-shipping/packing-list-draft-approval/index",
+        nav: true,
+        title: "Approval Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list-approval",
         name: "garment-shipping/packing-list-approval",
         moduleId: "modules/garment-shipping/packing-list-approval/index",
         nav: true,
-        title: "Aprroval Packing List",
+        title: "Approval Packing List",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -629,7 +642,20 @@ module.exports = [
         name: "garment-shipping/packing-list-approved",
         moduleId: "modules/garment-shipping/packing-list-approved/index",
         nav: true,
-        title: "Aprroved Packing List",
+        title: "Approved Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/payment-disposition",
+        name: "garment-shipping/payment-disposition",
+        moduleId: "modules/garment-shipping/payment-disposition/index",
+        nav: true,
+        title: "Lampiran Disposisi Pembayaran Shipment ",
         auth: true,
         settings: {
             group: "g-shipping",

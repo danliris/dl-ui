@@ -35,6 +35,7 @@ export class DataForm {
         this.context = context;
 
         this.data = this.context.data;
+        this.context.isEdit = this.isEdit;
         this.data.IsPosting = true;
         this.selectedBank = this.data.AccountBank || null;
 

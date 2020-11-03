@@ -45,27 +45,27 @@
         <td>
             <au-numeric
                 value.bind="data.vatValue"
-                format="0,000.0000"
+                format="0,000.00"
                 read-only.bind="true">
             </au-numeric>
         </td>
         <td>
             <au-numeric
                 value.bind="data.payToSupplier"
-                format="0,000.0000"
+                format="0,000.00"
                 read-only.bind="true">
             </au-numeric>
         </td>
         <td>
             <au-textbox
-                value.bind="data.Currency"
+                value.bind="payToSupplierCurrency"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td show.bind= "IDR && !sameCurrency">
             <au-numeric
                 value.bind="data.payToSupplierIDR"
-                format="0,000.0000"
+                format="0,000.00"
                 if.bind="IDR && !sameCurrency"
                 read-only.bind="true">
             </au-numeric>

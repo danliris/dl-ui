@@ -12,13 +12,18 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(filter) { 
+    search(filter) {
         var endpoint = `${serviceUri}?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         return super.get(endpoint);
     }
-    
+
     generateExcel(filter) {
         var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         return super.getXls(endpoint);
+    }
+
+    printPdf(filter) {
+        var endpoint = `${serviceUri}/pdf?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        return super.getPdf(endpoint);
     }
 }
