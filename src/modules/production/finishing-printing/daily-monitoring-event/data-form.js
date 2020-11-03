@@ -117,11 +117,10 @@ export class DataForm {
     //     }
     // }
 
+    @bindable area;
+    async  areaChanged(n, o) {
+        this.data.ProcessArea = this.area;
 
-    @bindable group;
-    async  groupChanged(n, o) {
-        this.data.Group = this.group;
-        console.log(" this.data.ProcessArea", this.data.ProcessArea)
         if (this.data.Group && this.data.ProcessArea) {
 
             var info = { area: this.data.ProcessArea, group: this.data.Group }
@@ -142,7 +141,36 @@ export class DataForm {
             }
 
         } else {
-            this.data.Group = null
+            this.data.ProcessArea = this.area
+        }
+    }
+
+
+    @bindable group;
+    async  groupChanged(n, o) {
+        this.data.Group = this.group;
+
+        if (this.data.Group && this.data.ProcessArea) {
+
+            var info = { area: this.data.ProcessArea, group: this.data.Group }
+            var result = await this.service.getByAreaAndGroup(info);
+
+            if (result) {
+                this.data.EventOrganizer = result;
+                this.isSelected = true;
+                this.data.Kasie = result.Kasie;
+                this.data.Kasubsie = result.Kasubsie;
+                if (!this.isEdit)
+                    this.data.DailyMonitoringEventLossEventItems.splice(0, this.data.DailyMonitoringEventLossEventItems.length);
+
+            } else {
+                this.isSelected = false;
+                this.data.Kasie = "";
+                this.data.Kasubsie = "";
+            }
+
+        } else {
+            this.data.Group = this.group
         }
     }
 
