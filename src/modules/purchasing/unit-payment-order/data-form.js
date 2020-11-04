@@ -18,10 +18,11 @@ export class DataForm {
     @bindable selectedIncomeTax;
     @bindable selectedDivision;
     @bindable selectedCategory;
+    @bindable isImport = false;
 
     IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
-    importInfo = ['', 'CIF', 'FOB', 'CNF'];
+    importInfo = ['', 'CIF', 'FOB', 'CNF', 'DDU', 'DDP', 'EX WORK', 'OTHERS'];
     controlOptions = {
         label: {
             length: 4
@@ -52,8 +53,10 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.hasCreate = true;
-        if (this.data)
+        if (this.data) {
             this.hasCreate = false;
+            this.isImport = this.data.import;
+        }
         //console.log(this.context);
     }
 
@@ -94,6 +97,7 @@ export class DataForm {
         if (_selectedSupplier._id) {
             this.data.supplier = _selectedSupplier;
             this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+            this.isImport = _selectedSupplier.import;
         }
         this.resetErrorItems();
     }
