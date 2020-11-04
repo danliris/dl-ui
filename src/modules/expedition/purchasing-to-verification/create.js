@@ -54,7 +54,7 @@ export class Create {
 
         for (let unitPaymentOrder of this.data.UnitPaymentOrders) {
             console.log(unitPaymentOrder)
-            var objectSave={
+            var objectSave = {
                 No: unitPaymentOrder.no,
                 UPODate: unitPaymentOrder.date,
                 DueDate: unitPaymentOrder.dueDate,
@@ -72,12 +72,14 @@ export class Create {
                 CategoryId: unitPaymentOrder.category._id,
                 CategoryName: unitPaymentOrder.category.name,
                 InvoiceNo: unitPaymentOrder.invoiceNo,
-                PaymentMethod:unitPaymentOrder.paymentMethod
+                PaymentMethod: unitPaymentOrder.paymentMethod,
+                URNNo: unitPaymentOrder.no,
+                URNId: unitPaymentOrder.UId
             };
-            if(unitPaymentOrder.useIncomeTax){
-                objectSave.IncomeTaxId= unitPaymentOrder.incomeTaxId;
-                objectSave.IncomeTaxName= unitPaymentOrder.incomeTaxName;
-                objectSave.IncomeTaxRate= unitPaymentOrder.incomeTaxRate;
+            if (unitPaymentOrder.useIncomeTax) {
+                objectSave.IncomeTaxId = unitPaymentOrder.incomeTaxId;
+                objectSave.IncomeTaxName = unitPaymentOrder.incomeTaxName;
+                objectSave.IncomeTaxRate = unitPaymentOrder.incomeTaxRate;
             }
             data.UnitPaymentOrders.push(objectSave);
         }
