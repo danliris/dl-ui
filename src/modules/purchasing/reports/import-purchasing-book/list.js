@@ -1,11 +1,11 @@
-import { inject, computedFrom } from 'aurelia-framework';
+import { inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
-import moment from 'moment';
+import { Router } from "aurelia-router";
+import moment from "moment";
 
-var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader');
-var UnitLoader = require('../../../../loader/unit-loader');
-var CategoryLoader = require('../../../../loader/category-loader');
+var UnitReceiptNoteLoader = require("../../../../loader/unit-receipt-note-basic-loader");
+var UnitLoader = require("../../../../loader/unit-loader");
+var CategoryLoader = require("../../../../loader/category-loader");
 
 @inject(Router, Service)
 export class List {
@@ -16,12 +16,12 @@ export class List {
 
   controlOptions = {
     label: {
-      length: 4
+      length: 4,
     },
     control: {
-      length: 5
-    }
-  }
+      length: 5,
+    },
+  };
 
   bind() {
     this.reset();
@@ -34,69 +34,69 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.Code} - ${unit.Name}`
-  }
+    return `${unit.Code} - ${unit.Name}`;
+  };
   get categoryLoader() {
     return CategoryLoader;
   }
   categoryView = (category) => {
-    return `${category.code} - ${category.name}`
-  }
+    return `${category.code} - ${category.name}`;
+  };
 
   searching() {
     if (false) {
       alert("");
-    }
-    else {
+    } else {
       var filter = {
         no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
         category: this.category ? this.category.code : "",
         unit: this.unit ? this.unit.Code : "",
-        dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
-        dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
-      }
-      this.service.search(filter)
-        .then(result => {
-          this.data = result
-        });
+        dateFrom: this.dateFrom
+          ? moment(this.dateFrom).format("YYYY-MM-DD")
+          : "",
+        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+      };
+      this.service.search(filter).then((result) => {
+        this.data = result;
+      });
     }
   }
 
   ExportToExcel() {
     if (false) {
       alert("");
-    }
-    else {
+    } else {
       var filter = {
         no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
         category: this.category ? this.category.code : "",
         unit: this.unit ? this.unit.Code : "",
-        dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
-        dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
-      }
-      this.service.generateExcel(filter)
-        .catch(e => {
-          alert(e.replace(e, "Error: ", ""));
-        });
+        dateFrom: this.dateFrom
+          ? moment(this.dateFrom).format("YYYY-MM-DD")
+          : "",
+        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+      };
+      this.service.generateExcel(filter).catch((e) => {
+        alert(e.replace(e, "Error: ", ""));
+      });
     }
   }
 
   printPdf() {
     if (false) {
       alert("");
-    }
-    else {
+    } else {
       var filter = {
         no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
         category: this.category ? this.category.code : "",
         unit: this.unit ? this.unit.Code : "",
-        dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
-        dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
-      }
-      this.service.printPdf(filter)
-        .catch(e => {
-          alert(e.replace(e, "Error: ", ""));
-        });
+        dateFrom: this.dateFrom
+          ? moment(this.dateFrom).format("YYYY-MM-DD")
+          : "",
+        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+      };
+      this.service.printPdf(filter).catch((e) => {
+        alert(e.replace(e, "Error: ", ""));
+      });
     }
   }
 

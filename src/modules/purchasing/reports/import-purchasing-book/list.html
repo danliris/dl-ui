@@ -73,8 +73,8 @@
                     <td rowspan=2>No SPB/NI</td>
                     <td rowspan=2>Kategori</td>
                     <td rowspan=2>Unit</td>
-                    <td colspan=5>PIB</td>
-                    <td colspan=3>Pembelian</td>
+                    <td colspan=6>PIB</td>
+                    <td colspan=2>Pembelian</td>
                     <td rowspan=2>Rate</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
@@ -82,11 +82,11 @@
                     <td>Tanggal</td>
                     <td>No</td>
                     <td>BM</td>
-                    <td>PPH 22</td>
+                    <td>PPH Impor</td>
                     <td>PPN Impor</td>
-                    <td>DPP</td>
+                    <td>Ket. Nilai Import</td>
+                    <td>Mata Uang</td>
                     <td>DPP Valas</td>
-                    <td>PPN</td>
                 </tr>
             </thead>
             <tbody>
@@ -107,14 +107,14 @@
                     <td class="text-right">${report.PIBBM | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.PIBIncomeTax | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.PIBVat | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.PIBImportInfo}</td>
+                    <td class="text-right">${report.CurrencyCode}</td>
                     <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
-                    <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
-                    <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.CurrencyRate | numberFormat: '0,000.0000'}</td>
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="15"
+                    <td colspan="20"
                         class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
@@ -166,12 +166,15 @@
                         <tr>
                             <td>Mata Uang</td>
                             <td>Total</td>
+                            <td>Total (IDR)</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr repeat.for="currencySummary of data.CurrencySummaries">
                             <td>${currencySummary.CurrencyCode}</td>
                             <td class="text-right"><strong>${currencySummary.SubTotal | numberFormat:
+                                    '0,000.0000'}</strong></td>
+                            <td class="text-right"><strong>${currencySummary.SubTotalCurrency | numberFormat:
                                     '0,000.0000'}</strong></td>
                         </tr>
                     </tbody>
