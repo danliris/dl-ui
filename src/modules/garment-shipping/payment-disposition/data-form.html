@@ -56,7 +56,7 @@
                     error.bind="error.buyer" 
                     loader.bind="buyerLoader" 
                     text.bind="buyerView"
-                    read-only.bind="readOnly" 
+                    read-only.bind="readOnly || data.id" 
                     if.bind="data.paymentType!='COURIER'"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -285,7 +285,7 @@
                 </au-numeric>
                 
                 <au-datepicker 
-                    label="Tanggal Pembayaran" 
+                    label="Tanggal Disposisi" 
                     value.bind="data.paymentDate" 
                     error.bind="error.paymentDate"
                     read-only.bind="readOnly" 
@@ -409,6 +409,9 @@
                 <p if.bind="data.paymentType!='EMKL'">Beban Unit :</p>
                 <div if.bind="data.paymentType!='EMKL'" class="form-group has-error">
                     <p if.bind="error.unitChargesCount" class="help-block text-center">${error.unitChargesCount}</p>
+                </div>
+                <div if.bind="data.paymentType=='COURIER'" class="form-group has-error">
+                    <p if.bind="error.unitChargesValue" class="help-block text-center">${error.unitChargesValue}</p>
                 </div>
                 <au-collection 
                     items.bind="data.unitCharges" 
