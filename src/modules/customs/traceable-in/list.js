@@ -20,7 +20,9 @@ export class List {
         this.error = {};
     }
     @bindable type
-    Types = ["RO Job","Kode Barang", "No BC Masuk", "Tanggal BC Masuk"];
+    @bindable typeBC
+    Types = ["RO Job","No BC Masuk"];
+    TypeBC = ["","BC 2.6.2","BC 2.3","BC 4.0","BC 2.7"];
     bind(context) {
         console.log(context);
         this.context = context;
@@ -41,9 +43,7 @@ export class List {
             var jenis = {"filter":"BCNo"}
         }else if(this.type === "RO Job"){
             var jenis = {"filter":"ROJob"}
-        }else if(this.type === "Kode Barang"){
-            var jenis = {"filter":"ItemCode"}
-        }// }else{
+        }
         //     var jenis = {"filter":"ComodityName"} 
         // }
 
@@ -54,7 +54,7 @@ export class List {
     //     this.info.total = 0;
     //     this.searching();
     // }
-    typeChanged(newvalue){
+    typeChanged(newvalue) {
         if (newvalue) {
             if (newvalue === "RO Job") {
                 this.tipe = "ROJob";
@@ -69,23 +69,38 @@ export class List {
                 this.itemcode = null;
                 this.comodity = null;
             }
-            else if (newvalue === "Kode Barang") {
-                this.tipe = "ItemCode"; 
-                this.BCNo = null;
-                this.rojob = null;
-                //this.itemcode = null;
-                this.comodity = null;
-            } 
-            else{
-                this.tipe = "BCDate";
-                this.BCNo = null;
-                this.rojob = null;
-                this.itemcode = null;
-                this.comodity = null;
-        }
+        //     else if (newvalue === "Kode Barang") {
+        //         this.tipe = "ItemCode"; 
+        //         this.BCNo = null;
+        //         this.rojob = null;
+        //         //this.itemcode = null;
+        //         this.comodity = null;
+        //     } 
+        //     else{
+        //         this.tipe = "BCDate";
+        //         this.BCNo = null;
+        //         this.rojob = null;
+        //         this.itemcode = null;
+        //         this.comodity = null;
+        // }
         }
     }
-    
+    typeBCChanged(newvalue){
+        if(newvalue){
+            if (newvalue === "BC 2.6.2") {
+                this.typebc = "BC 262";
+            }
+            else if (newvalue === "BC 2.3") { 
+                this.typebc = "BC 23";
+            }
+            else if (newvalue === "BC 4.0") { 
+                this.typebc = "BC 40";
+            }
+            else if (newvalue === "BC 2.7") { 
+                this.typebc = "BC 27";
+            }
+        }
+    }
     
     searching() {
         let args = {
@@ -93,6 +108,7 @@ export class List {
             // size: this.info.size,
             bcno : this.BCNo ? this.BCNo.BCNo : this.rojob? this.rojob.ROJob : this.itemcode? this.itemcode.ItemCode : "",
             type : this.tipe ? this.tipe : "",
+            tipebc : this.typebc ? this.typebc : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
         }
@@ -157,10 +173,10 @@ export class List {
                         } else {
                             rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ]++
                         }
-                        if (!rowDoc[doc + bc + bon + ROJob ]) {
-                            rowDoc[doc + bc + bon +  ROJob ] = 1
+                        if (!rowDoc[doc + bc + bon + ROJob + po]) {
+                            rowDoc[doc + bc + bon +  ROJob + po] = 1
                         } else {
-                            rowDoc[doc + bc + bon + ROJob ]++
+                            rowDoc[doc + bc + bon + ROJob + po]++
                         }
                         if (!rowDoc[doc + bc + bon + po  +  QtyBuk]){
                             rowDoc[doc + bc + bon + po  + QtyBuk] = 1
@@ -177,10 +193,10 @@ export class List {
                         // }else{
                         //     rowDoc[doc + bc + bon  + ROJob + BjQty]++
                         // }
-                        if (!rowDoc[doc + bc + bon  + ROJob + proQty]){
-                            rowDoc[doc + bc + bon  + ROJob + proQty] = 1
+                        if (!rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]){
+                            rowDoc[doc + bc + bon  + ROJob + po + buk + proQty] = 1
                         }else{
-                            rowDoc[doc + bc + bon  + ROJob + proQty]++
+                            rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]++
                         }
                         if (!rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty]){
                             rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty] = 1
@@ -237,10 +253,10 @@ export class List {
                         if (satbukdoc) {
                             satbukdoc.satbukspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.SatuanBUK];
                         }
-                        let prodoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.ProduksiQty == b.BCNo + b.BCType + b.BonNo+ b.ROJob + b.ProduksiQty)
+                        let prodoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.PO + o.BUK + o.ProduksiQty == b.BCNo + b.BCType + b.BonNo+ b.ROJob + b.PO + b.BUK + b.ProduksiQty)
                         if (prodoc) {
-                            
-                            prodoc.prospan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.ProduksiQty];
+                            // console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.BUK + b.ProduksiQty]);
+                            prodoc.prospan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.PO + b.BUK + b.ProduksiQty];
                             //console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.ProduksiQty]);
                         }
                         // let bjdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.BJQty == b.BCNo + b.BCType + b.BonNo  + b.ROJob + b.BJQty)
@@ -259,9 +275,9 @@ export class List {
                         if(po){
                             po.docspanpo = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString() + b.ReceiptQty.toString() + b.SatuanReceipt.toString() + b.ROJob.toString() + b.BUK.toString()]
                         }
-                        let rojob = result.data.find(o => o.BCType + o.BCNo + o.BonNo +  o.ROJob == b.BCType + b.BCNo + b.BonNo +  b.ROJob )
+                        let rojob = result.data.find(o => o.BCType + o.BCNo + o.BonNo +  o.ROJob + o.PO == b.BCType + b.BCNo + b.BonNo +  b.ROJob + b.PO)
                         if(rojob){
-                            rojob.rojobspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString()  + b.ROJob.toString()]
+                            rojob.rojobspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString()  + b.ROJob.toString() + b.PO.toString()]
                         }
 
                       //   let ekspor = result.data.find(o=>o.Invoice + o.EksporQty + o.BJQty + o.ProduksiQty + o.PO == b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty + b.PO)
