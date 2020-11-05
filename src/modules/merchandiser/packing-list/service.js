@@ -34,12 +34,12 @@ class Service extends RestService {
 
     cancel(data) {
         var endpoint = `${serviceUri}/cancel/${data.id}`;
-        return super.put(endpoint);
+        return super.put(endpoint, JSON.stringify(data.reason));
     }
 
     revise(data) {
         var endpoint = `${serviceUri}/revise-md/${data.id}`;
-        return super.put(endpoint);
+        return super.put(endpoint, JSON.stringify(data.reason));
     }
 }
 
