@@ -18,6 +18,7 @@ export class List {
         },
         { field: "SectionCode", title: "Seksi" },
         { field: "BuyerAgentName", title: "Buyer Agent" },
+        { field: "destination", title: "Destination" },
     ];
 
     loader = (info) => {
