@@ -42,7 +42,8 @@ export class Item {
 
     unitPaymentOrderChanged(newV, oldV) {
         if (newV) {
-            let items = [], totalPaid = 0;
+            let items = [],
+                totalPaid = 0;
 
             let unitReceiptsNo = newV.items.map(p => p.unitReceiptNote.no);
 
@@ -132,7 +133,9 @@ export class Item {
                                         price: correctPriceTotal,
                                         unitId: urnObj.unit._id,
                                         unitCode: urnObj.unit.code,
-                                        unitName: urnObj.unit.name
+                                        unitName: urnObj.unit.name,
+                                        urnNo: urnObj.no,
+                                        urnId: urnObj.UId
                                     });
 
                                     totalPaid += correctPriceTotal;
@@ -174,8 +177,7 @@ export class Item {
                 })
 
 
-        }
-        else {
+        } else {
             Object.assign(this.data, {
                 id: undefined,
                 no: undefined,

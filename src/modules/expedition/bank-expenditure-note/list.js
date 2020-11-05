@@ -50,6 +50,7 @@ export class List {
         },
         { field: 'BankCurrencyCode', title: 'Mata Uang' },
         { field: 'suppliers', title: 'Supplier' },
+        { field: 'uRNNo', title: 'Nomor BTU' },
         { field: 'unitPaymentOrders', title: 'Nomor SPB' }
     ];
 
@@ -78,22 +79,26 @@ export class List {
                     result.data = result.data.map((datum) => {
                         let listSupplier = [];
                         let listUnitPaymentOrderNo = [];
+                        let listURNNo = [];
 
                         for (let detail of datum.Details) {
-                            let existSupplier = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
-                            if (!existSupplier) {
-                                listSupplier.push('- ' + detail.SupplierName);
+                            for (let item of detail.Items) {
+                                if (item.URNNo != null)
+                                    listURNNo.push('- ' + item.URNNo);
                             }
 
+                            let existSupplier = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
+                            if (!existSupplier)
+                                listSupplier.push('- ' + detail.SupplierName);
+
                             let existUnitPaymentOrderNo = listUnitPaymentOrderNo.find((unitPaymentOrderNo) => unitPaymentOrderNo == '- ' + detail.UnitPaymentOrderNo);
-                            if (!existUnitPaymentOrderNo) {
+                            if (!existUnitPaymentOrderNo)
                                 listUnitPaymentOrderNo.push('- ' + detail.UnitPaymentOrderNo);
-                            }
                         }
 
                         datum.suppliers = listSupplier.join('\n');
                         datum.unitPaymentOrders = listUnitPaymentOrderNo.join('\n');
-
+                        datum.uRNNo = listURNNo.join('\n');
                         return datum;
                     })
                 }

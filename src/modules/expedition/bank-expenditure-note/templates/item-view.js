@@ -15,6 +15,14 @@ export class ItemView {
                 this.data.TotalPaidIDR = this.data.TotalPaid * this.rate;
                 this.data.CurrencyIDR = "IDR";
             }
+
+            let listURNNo = [];
+            for (let item of this.data.Items) {
+                if (item.URNNo != null)
+                    listURNNo.push(item.URNNo);
+            }
+
+            this.listURNNo = listURNNo.length != 0 ? listURNNo.join('\n') : listURNNo;
         }
     }
 
