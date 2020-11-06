@@ -70,13 +70,13 @@
         <td class="bg-primary col-md-1">
             <au-numeric
                 value.bind="data.priceFOB"
-                read-only.bind="readOnly">
+                read-only="true">
             </au-numeric>
         </td>
         <td class="bg-primary col-md-1">
             <au-numeric
                 value.bind="data.priceCMT"
-                read-only.bind="readOnly">
+                read-only="true">
             </au-numeric>
         </td>
         <td class="bg-primary">
@@ -120,16 +120,22 @@
             </au-textbox>
         </td>
         
-        <td colspan="5">
+        <td colspan="4">
             <au-multiline
-                label = "Md Description"
+                label = "Md Desc"
                 value.bind="data.descriptionMd"
                 error.bind="error.DescriptionMd"
-                read-only.bind="readOnly">
+                read-only="true">
             </au-multiline>
         </td>
         
-        <td colspan="4">
+        <td colspan="5">
+            <au-multiline
+                label = "Description"
+                value.bind="data.description"
+                error.bind="error.Description"
+                read-only.bind="readOnly">
+            </au-multiline>
         </td>
     </tr>
     <tr >
