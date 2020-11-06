@@ -108,6 +108,15 @@
                         options.bind="controlOptions" >
                     </au-textbox>
                     
+                    <au-dropdown
+                        label="Final Destination"
+                        value.bind="data.finalDestination"
+                        error.bind="error.FinalDestination"
+                        read-only.bind="readOnly"
+                        items.bind="countries"
+                        options.bind="controlOptions">
+                    </au-dropdown>
+
                     <au-multiline
                         label="Keterangan dari Md"
                         value.bind="data.remarkMd"
