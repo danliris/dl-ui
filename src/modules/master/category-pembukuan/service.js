@@ -1,12 +1,10 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../utils/rest-service';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
+import { RestService } from "../../../utils/rest-service";
 
-
-const serviceUri = 'master/categories';
+const serviceUri = "master/accounting-categories";
 
 export class Service extends RestService {
-
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "core");
   }
@@ -25,5 +23,4 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/${data._id}`;
     return super.put(endpoint, data);
   }
-
 }
