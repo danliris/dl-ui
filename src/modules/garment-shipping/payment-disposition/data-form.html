@@ -354,6 +354,15 @@
                     options.bind="controlOptions">
                 </au-multiline>
                 
+                <au-textbox 
+                    label="Destination To" 
+                    value.bind="data.destination"
+                    error.bind="error.destination" 
+                    read-only.bind="readOnly" 
+                    if.bind="data.isFreightCharged"
+                    options.bind="controlOptions">
+                </au-textbox>
+                
                 <au-multiline 
                     label="Keterangan" 
                     value.bind="data.remark"
@@ -410,7 +419,7 @@
                 <div if.bind="data.paymentType!='EMKL'" class="form-group has-error">
                     <p if.bind="error.unitChargesCount" class="help-block text-center">${error.unitChargesCount}</p>
                 </div>
-                <div if.bind="data.paymentType=='COURIER'" class="form-group has-error">
+                <div class="form-group has-error">
                     <p if.bind="error.unitChargesValue" class="help-block text-center">${error.unitChargesValue}</p>
                 </div>
                 <au-collection 
