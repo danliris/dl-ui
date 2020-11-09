@@ -1,14 +1,17 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service, CoreService } from './service';
+import { DialogService } from 'aurelia-dialog';
+import { Dialog } from "./template/dialog";
 
-@inject(Router, Service, CoreService)
+@inject(Router, Service, CoreService, DialogService)
 export class View {
 
-    constructor(router, service, coreService) {
+    constructor(router, service, coreService, dialogService) {
         this.router = router;
         this.service = service;
         this.coreService = coreService;
+        this.dialogService = dialogService;
     }
 
     formOptions = {
@@ -46,18 +49,42 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm("Cancel?")) {
-            this.service.cancel(this.data).then(result => {
-                this.cancelCallback();
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Cancel" } })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.cancel({ id: this.data.id, reason: response.output })
+                        .then(result => {
+                            alert('Packing List berhasil di-Cancel');
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Cancel dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                }
             });
-        }
     }
 
     saveCallback(event) {
-        if (confirm("Revisi?")) {
-            this.service.revise(this.data).then(result => {
-                this.cancelCallback();
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Revisi" } })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.revise({ id: this.data.id, reason: response.output })
+                        .then(result => {
+                            alert('Packing List berhasil di-Revisi');
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Revisi dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                }
             });
-        }
     }
 }

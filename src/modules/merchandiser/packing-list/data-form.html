@@ -24,7 +24,7 @@
 
     <au-input-form  title.bind="title"  title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+        <div class="alert ${statusActivityAlert}" role="alert" if.bind="statusActivityRemark" innerhtml.bind="statusActivityRemark"></div>
 
         <div class="row">
             <div class="col-sm-4 tab ${activeTab === 0 ? 'active' : ''}" click.delegate="changeRole(0)">
@@ -110,6 +110,15 @@
                         options.bind="controlOptions" >
                     </au-textbox>
                     
+                    <au-dropdown
+                        label="Final Destination"
+                        value.bind="data.finalDestination"
+                        error.bind="error.FinalDestination"
+                        read-only.bind="readOnly"
+                        items.bind="countries"
+                        options.bind="controlOptions">
+                    </au-dropdown>
+
                     <au-multiline
                         label="Keterangan dari Md"
                         value.bind="data.remarkMd"
@@ -127,8 +136,6 @@
                         errors.bind="error.Items" 
                         columns.bind="itemsColumns"
                         read-only.bind="readOnly" 
-                        add.bind="addItems" 
-                        remove.bind="removeItems"
                         options.bind="Options"
                         item-template="modules/merchandiser/packing-list-approval/template/detail-ro">
                     </au-collection>    

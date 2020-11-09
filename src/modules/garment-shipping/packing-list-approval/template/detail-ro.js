@@ -2,13 +2,10 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
 var UomLoader = require("../../../../loader/uom-loader");
-var UnitLoader = require("../../../../loader/unit-loader");
 
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
-    @bindable avG_GW;
-    @bindable avG_NW;
 
     constructor(salesService) {
         this.salesService = salesService;
@@ -16,7 +13,7 @@ export class Item {
 
     get filter() {
         var filter = {
-            BuyerCode: this.data.BuyerCode,
+            // BuyerCode:this.data.BuyerCode,
             // Section: this.data.Section,
             "SCGarmentId!=null": true
         };
@@ -26,7 +23,6 @@ export class Item {
     detailsColumns = [
         { header: "Carton 1" },
         { header: "Carton 2" },
-        { header: "Style" },
         { header: "Colour" },
         { header: "Jml Carton" },
         { header: "Qty" },
@@ -38,10 +34,6 @@ export class Item {
         return CostCalculationLoader;
     }
 
-    roView = (costCal) => {
-        return `${costCal.RO_Number}`
-    }
-
     get uomLoader() {
         return UomLoader;
     }
@@ -50,16 +42,8 @@ export class Item {
         return `${uom.Unit || uom.unit}`
     }
 
-    get unitLoader() {
-        return UnitLoader;
-    }
-
-    get unitFilter() {
-        return { "(Code == \"C2A\" || Code == \"C2B\" || Code == \"C2C\" || Code == \"C1A\" || Code == \"C1B\")": true };
-    }
-
-    unitView = (unit) => {
-        return `${unit.Code || unit.code}`
+    roView = (costCal) => {
+        return `${costCal.RO_Number}`
     }
 
     toggle() {
@@ -95,61 +79,6 @@ export class Item {
                 this.isShowing = true;
             }
         }
-
-        this.avG_GW = this.data.avG_GW;
-        this.avG_NW = this.data.avG_NW;
-    }
-
-    selectedROChanged(newValue) {
-        if (newValue) {
-            this.salesService.getCostCalculationById(newValue.Id)
-                .then(result => {
-                    this.salesService.getSalesContractById(result.SCGarmentId)
-                        .then(sc => {
-                            this.salesService.getPreSalesContractById(result.PreSCId)
-                                .then(psc => {
-                                    this.data.roNo = result.RO_Number;
-                                    this.data.article = result.Article;
-                                    this.data.buyerAgent = result.Buyer;
-                                    this.data.buyerBrand = result.BuyerBrand;
-                                    this.data.sectionName = result.SectionName;
-                                    this.data.section = {
-                                        id: psc.SectionId,
-                                        code: result.Section,
-                                    };
-                                    this.data.comodityDescription = (result.Comodity || {}).Name;
-                                    this.data.unit = result.Unit;
-                                    this.data.uom = result.UOM;
-                                    this.data.valas = "USD";
-                                    this.data.quantity = result.Quantity;
-                                    this.data.scNo = sc.SalesContractNo;
-                                    //this.data.amount=sc.Amount;
-                                    this.data.price = sc.Price;
-                                    this.data.priceRO = sc.Price;
-                                    this.data.comodity = result.Comodity;
-                                    this.data.amount = sc.Amount;
-                                });
-                        })
-                });
-        }
-    }
-
-    avG_GWChanged(newValue) {
-        this.data.avG_GW = newValue;
-        this.updateGrossWeight();
-    }
-
-    updateGrossWeight() {
-        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
-    }
-
-    avG_NWChanged(newValue) {
-        this.data.avG_NW = newValue;
-        this.updateNettWeight();
-    }
-
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
     }
 
     get addDetails() {
@@ -202,8 +131,8 @@ export class Item {
 
     get amount() {
         this.data.amount = 0;
-        if (this.data.quantity && this.data.price) {
-            this.data.amount = this.data.quantity * this.data.price
+        if (this.data.quantity && this.data.priceFOB) {
+            this.data.amount = this.data.quantity * this.data.priceFOB
         }
         return this.data.amount;
     }

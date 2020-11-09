@@ -56,6 +56,12 @@
                 read-only.bind="readOnly" >
             </au-numeric>
         </td>
+        <td >
+            <au-numeric 
+                value.bind="data.cbm"
+                read-only.bind="true" >
+            </au-numeric>
+        </td>
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
