@@ -3,6 +3,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'garment-shipping/payment-dispositions';
 const serviceUriInvoice = 'garment-shipping/invoices';
 const serviceUriCoverLetter = 'garment-shipping/cover-letters';
+const serviceUriPL = 'garment-shipping/packing-lists';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -38,10 +39,24 @@ class Service extends RestService {
         var endpoint = `${serviceUriInvoice}/${id}`;
         return super.get(endpoint);
     }
-    
+
     getCoverLetterByInvoice(info) {
         var endpoint = `${serviceUriCoverLetter}`;
         return super.list(endpoint, info);
+    }
+    
+    getPackingListByInvoice(info) {
+        var endpoint = `${serviceUriPL}`;
+        return super.list(endpoint, info);
+    }
+    
+    getPLById(id) {
+        var endpoint = `${serviceUriPL}/${id}`;
+        return super.get(endpoint);
+    }
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
     }
 }
 

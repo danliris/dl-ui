@@ -131,11 +131,37 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/packing-list",
+        name: "garment-shipping/monitoring/packing-list",
+        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
+        nav: true,
+        title: "Monitoring Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },  
+    {
         route: "garment-shipping/invoice",
         name: "garment-shipping/invoice",
         moduleId: "modules/garment-shipping/invoice/index",
         nav: true,
         title: "Invoice Export Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/invoice",
+        name: "garment-shipping/monitoring/invoice",
+        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
+        nav: true,
+        title: "Monitoring Invoice Export Garment",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -157,6 +183,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/cover-letter",
+        name: "garment-shipping/monitoring/cover-letter",
+        moduleId: "modules/garment-shipping/monitoring/garment-cover-letter/index",
+        nav: true,
+        title: "Monitoring Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/shipping-instruction",
         name: "garment-shipping/shipping-instruction",
         moduleId: "modules/garment-shipping/shipping-instruction/index",
@@ -169,6 +208,19 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/monitoring/shipping-instruction",
+        name: "garment-shipping/monitoring/shipping-instruction",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipping-instruction/index",
+        nav: true,
+        title: "Monitoring Shipping Instruction",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }, 
     {
         route: "garment-shipping/export-sales-do",
         name: "garment-shipping/export-sales-do",
@@ -233,52 +285,13 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },    
     {
-        route: "garment-shipping/monitoring/packing-list",
-        name: "garment-shipping/monitoring/packing-list",
-        moduleId: "modules/garment-shipping/monitoring/packing-list/index",
+        route: "garment-shipping/monitoring/shipment-garment",
+        name: "garment-shipping/monitoring/shipment-garment",
+        moduleId: "modules/garment-shipping/monitoring/shipment-garment/index",
         nav: true,
-        title: "Monitoring Packing List",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },  
-    {
-        route: "garment-shipping/monitoring/invoice",
-        name: "garment-shipping/monitoring/invoice",
-        moduleId: "modules/garment-shipping/monitoring/garment-invoice/index",
-        nav: true,
-        title: "Monitoring Invoice Export Garment",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/monitoring/shipping-instruction",
-        name: "garment-shipping/monitoring/shipping-instruction",
-        moduleId: "modules/garment-shipping/monitoring/garment-shipping-instruction/index",
-        nav: true,
-        title: "Monitoring Shipping Instruction",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    }, 
-    {
-        route: "garment-shipping/monitoring/cover-letter",
-        name: "garment-shipping/monitoring/cover-letter",
-        moduleId: "modules/garment-shipping/monitoring/garment-cover-letter/index",
-        nav: true,
-        title: "Monitoring Surat Pengantar",
+        title: "Monitoring Shipment Garment",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -365,6 +378,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/credit-note",
+        name: "garment-shipping/monitoring/credit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
+        nav: true,
+        title: "Monitoring Credit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/debit-note",
         name: "garment-shipping/debit-note",
         moduleId: "modules/garment-shipping/debit-note/index",
@@ -389,20 +415,7 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
-    {
-        route: "garment-shipping/monitoring/credit-note",
-        name: "garment-shipping/monitoring/credit-note",
-        moduleId: "modules/garment-shipping/monitoring/garment-credit-note/index",
-        nav: true,
-        title: "Monitoring Credit Note",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
+    },   
     {
         route: "garment-shipping/local-sales-contract",
         name: "garment-shipping/local-sales-contract",
@@ -612,11 +625,24 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-draft-approval",
+        name: "garment-shipping/packing-list-draft-approval",
+        moduleId: "modules/garment-shipping/packing-list-draft-approval/index",
+        nav: true,
+        title: "Approval Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list-approval",
         name: "garment-shipping/packing-list-approval",
         moduleId: "modules/garment-shipping/packing-list-approval/index",
         nav: true,
-        title: "Aprroval Packing List",
+        title: "Approval Packing List",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -629,7 +655,7 @@ module.exports = [
         name: "garment-shipping/packing-list-approved",
         moduleId: "modules/garment-shipping/packing-list-approved/index",
         nav: true,
-        title: "Aprroved Packing List",
+        title: "Approved Packing List",
         auth: true,
         settings: {
             group: "g-shipping",

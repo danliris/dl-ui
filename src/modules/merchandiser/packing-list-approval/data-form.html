@@ -108,6 +108,14 @@
                         options.bind="controlOptions" >
                     </au-textbox>
                     
+                    <au-textbox
+                        label="Final Destination"
+                        value.bind="data.finalDestination"
+                        error.bind="error.FinalDestination"
+                        read-only.bind="readOnly"
+                        options.bind="controlOptions">
+                    </au-textbox>
+
                     <au-multiline
                         label="Keterangan dari Md"
                         value.bind="data.remarkMd"
@@ -126,8 +134,6 @@
                         errors.bind="error.Items" 
                         columns.bind="itemsColumns"
                         read-only.bind="readOnly" 
-                        add.bind="addItems" 
-                        remove.bind="removeItems"
                         options.bind="Options"
                         item-template="modules/merchandiser/packing-list-approval/template/detail-ro">
                     </au-collection>
@@ -137,8 +143,6 @@
                         errors.bind="error.Items" 
                         columns.bind="viewItemsColumns"
                         read-only.bind="readOnly" 
-                        add.bind="addItems" 
-                        remove.bind="removeItems"
                         options.bind="Options"
                         item-template="modules/garment-production/packing-list/template/detail-ro">
                     </au-collection>

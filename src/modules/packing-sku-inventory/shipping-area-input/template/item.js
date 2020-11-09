@@ -77,11 +77,7 @@ export class CartItem {
             this.selectedProductionOrder.YarnMaterial.Id = this.data.yarnMaterial.id;
             this.selectedProductionOrder.YarnMaterial.Name = this.data.yarnMaterial.name;
 
-            if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
-                this.data.unit = "PRINTING"
-            } else {
-                this.data.unit = "DYEING"
-            }
+            this.selectedProductionOrder.ProcessType.Unit = this.data.unit;
         }
 
         if (this.data.packingLength) {
@@ -173,10 +169,16 @@ export class CartItem {
             this.data.yarnMaterial.id = this.selectedProductionOrder.YarnMaterial.Id;
             this.data.yarnMaterial.name = this.selectedProductionOrder.YarnMaterial.Name;
 
-            if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
-                this.data.unit = "PRINTING"
-            } else {
-                this.data.unit = "DYEING"
+            if (this.selectedProductionOrder.ProcessType.Unit) {
+
+                this.data.unit = this.selectedProductionOrder.ProcessType.Unit;
+            }
+            else {
+                if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
+                    this.data.unit = "PRINTING"
+                } else {
+                    this.data.unit = "DYEING"
+                }
             }
         }
         else {

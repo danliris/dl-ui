@@ -8,8 +8,11 @@
         page-size="25"
         context.bind="context"
         context-click.delegate="contextClickCallback($event)">
-        <!-- <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
-        </div> -->
+        <au-dropdown
+            slot="toolbar"
+            label="Seksi"
+            value.bind="section"
+            items.bind="SectionOptions">
+        </au-dropdown>
     </au-table>
 </template>

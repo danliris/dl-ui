@@ -104,11 +104,11 @@ export class DataForm {
     return (this.data ? this.data.Id : "" || '').toString() != '';
   }
 
-  @computedFrom("data.OrderType")
+  @computedFrom("data.ProcessType")
   get isPrinting() {
     this.printing = false;
-    if (this.data.OrderType) {
-      if (this.data.OrderType.Name.trim().toLowerCase() == "printing") {
+    if (this.data.ProcessType && this.data.ProcessType.Unit) {
+      if (this.data.ProcessType.Unit.trim().toLowerCase() == "printing") {
         this.printing = true;
       }
     }
@@ -126,11 +126,11 @@ export class DataForm {
     return this.yarndyed;
   }
 
-  @computedFrom("data.OrderType")
+  @computedFrom("data.ProcessType")
   get isPrintingOnly() {
     this.printingOnly = false;
-    if (this.data.OrderType) {
-      if (this.data.OrderType.Name.toLowerCase() == "printing") {
+    if (this.data.ProcessType && this.data.ProcessType.Unit) {
+      if (this.data.ProcessType.Unit.toLowerCase() == "printing") {
         this.printingOnly = true;
       }
     }
@@ -207,27 +207,30 @@ export class DataForm {
           "OrderTypeCode": code
         };
       }
-      if (this.OrderType.Name) {
-        if (this.OrderType.Name.toLowerCase() == "printing") {
+      if (this.OrderType.Unit) {
+        if (this.OrderType.Unit.toLowerCase() == "printing") {
           this.printingOnly = true;
         }
         else {
           this.printingOnly = false;
         }
-        if (this.OrderType.Name.toLowerCase() == "printing") {
+        if (this.OrderType.Unit.toLowerCase() == "printing") {
           this.printing = true;
         }
         else {
           this.printing = false;
         }
+
+      }
+      if (this.OrderType.Name) {
         if (this.OrderType.Name.toLowerCase() == "yarn dyed") {
           this.yarndyed = true;
         }
         else {
           this.yarndyed = false;
         }
-
       }
+
 
     }
     else {
@@ -243,13 +246,13 @@ export class DataForm {
       }
       if (this.data != null) {
         if (this.data.OrderType) {
-          if (this.data.OrderType.Name.toLowerCase() == "printing" || this.data.OrderType.Name.toLowerCase() == "yarn dyed") {
+          if ((this.data.OrderType.Unit && this.data.OrderType.Unit.toLowerCase() == "printing") || this.data.OrderType.Name.toLowerCase() == "yarn dyed") {
             this.printing = true;
           }
           else {
             this.printing = false;
           }
-          if (this.data.OrderType.Name.toLowerCase() == "printing") {
+          if (this.data.OrderType.Unit && this.data.OrderType.Unit.toLowerCase() == "printing") {
             this.printingOnly = true;
           }
           else {
@@ -273,9 +276,9 @@ export class DataForm {
       if (selectedRUN == "1 RUN") {
 
         this.run = true;
-        this.data.RunWidth[0] = {Value : 0};
+        this.data.RunWidth[0] = { Value: 0 };
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth[0] = {Value : 0};
+          this.data.RunWidth[0] = { Value: 0 };
         }
 
       }
@@ -283,21 +286,21 @@ export class DataForm {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push({Value : 0}, {Value : 0});
+          this.data.RunWidth.push({ Value: 0 }, { Value: 0 });
         }
       }
       if (selectedRUN == "3 RUN") {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push({Value : 0}, {Value : 0}, {Value : 0});
+          this.data.RunWidth.push({ Value: 0 }, { Value: 0 }, { Value: 0 });
         }
       }
       if (selectedRUN == "4 RUN") {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push({Value : 0}, {Value : 0}, {Value : 0}, {Value : 0});
+          this.data.RunWidth.push({ Value: 0 }, { Value: 0 }, { Value: 0 }, { Value: 0 });
         }
       }
 
@@ -343,7 +346,7 @@ export class DataForm {
   }
 
   get detailHeader() {
-    if (!this.printing && !this.yarndyed) {
+    if (!this.isPrinting && !this.isYarndyed) {
       return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jenis Warna" }, { header: "Jumlah" }, { header: "Satuan" }];
     }
     else {

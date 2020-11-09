@@ -73,6 +73,7 @@ export class DataForm {
         { header: "Quantity"},
         { header: "Amount"},
         { header: "Total Carton"},
+        { header: "CBM"},
     ];
 
     invoicesColumnsFreightCharge = [
@@ -83,6 +84,7 @@ export class DataForm {
         { header: "GW"},
         { header: "Chargeable Weight"},
         { header: "Total Carton"},
+        { header: "CBM"},
     ];
 
     billsColumns=[
@@ -140,7 +142,6 @@ export class DataForm {
         if(this.data.emkl){
             this.data.emklId=this.data.emkl.id;
             this.selectedEMKL=this.data.emkl;
-            console.log(this.selectedEMKL)
             this.selectedEMKL.Address=this.data.address;
             this.selectedEMKL.NPWP=this.data.npwp;
         }
@@ -150,6 +151,7 @@ export class DataForm {
             this.selectedCourier.Address=this.data.address;
             this.selectedCourier.NPWP=this.data.npwp;
         }
+        this.isFreightCharged=this.data.isFreightCharged;
     }
 
     buyerView = (data) => {
@@ -271,6 +273,9 @@ export class DataForm {
         if(newValue != this.data.buyerAgent){
             this.data.invoiceDetails.splice(0);
             this.data.buyerAgent=newValue;
+            if(this.data.unitCharges){
+                this.data.unitCharges=[];
+            }
         }
     }
 
@@ -278,6 +283,14 @@ export class DataForm {
         if(newValue != this.data.isFreightCharged){
             this.data.invoiceDetails.splice(0);
             this.data.isFreightCharged=newValue;
+            this.data.freightNo=null;
+            this.data.freightDate=null;
+            this.data.flightVessel=null;
+            this.data.destination=null;
+            this.data.freightBy=null;
+            if(this.data.unitCharges){
+                this.data.unitCharges=[];
+            }
         }
     }
 
@@ -328,7 +341,6 @@ export class DataForm {
 
     selectedEMKLChanged(newValue){
         if(newValue && newValue.Id!=this.data.emklId){
-            console.log(newValue)
             this.data.emkl={
                 id:newValue.Id || newValue.id,
                 code:newValue.Code || newValue.code,

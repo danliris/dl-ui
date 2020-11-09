@@ -143,18 +143,6 @@ export class DataForm {
         this.data.sayUnit = this.data.sayUnit || "CARTON";
     }
 
-    get addItems() {
-        return (event) => {
-            this.data.items.push({});
-        };
-    }
-
-    get removeItems() {
-        return (event) => {
-            this.error = null;
-        };
-    }
-
     get totalCBM() {
         var total = 0;
         if (this.data.measurements) {
