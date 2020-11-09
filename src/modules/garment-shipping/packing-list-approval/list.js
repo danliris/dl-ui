@@ -1,9 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 import moment from 'moment';
 
-@inject(Router, Service)
+@inject(Router, Service, AuthService)
 export class List {
 
     context = ["Detail", "Cetak"]
@@ -25,12 +26,18 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+    
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Status: "APPROVED_MD" })
+            filter: JSON.stringify({ Status: "APPROVED_MD", ShippingStaffName: username })
         }
 
         return this.service.search(arg)
@@ -46,9 +53,10 @@ export class List {
             });
     }
 
-    constructor(router, service) {
+    constructor(router, service, authService) {
         this.service = service;
         this.router = router;
+        this.authService = authService;
     }
 
     contextClickCallback(event) {

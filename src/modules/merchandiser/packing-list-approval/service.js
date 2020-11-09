@@ -67,6 +67,11 @@ class CoreService extends RestService {
         super(http, aggregator, config, "core");
     }
 
+    getSections() {
+        var endpoint = `${sectionServiceUri}`;
+        return super.list(endpoint);
+    }
+
     getSectionById(id) {
         var endpoint = `${sectionServiceUri}/${id}`;
         return super.get(endpoint);
