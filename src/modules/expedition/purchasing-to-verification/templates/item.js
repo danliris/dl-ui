@@ -10,7 +10,7 @@ export class Item {
 
     constructor(service) {
         this.service = service;
-        this.queryUPO = { position: { $in: [1,6] } }; // PURCHASING_DIVISION
+        this.queryUPO = { position: { $in: [1, 6] } }; // PURCHASING_DIVISION
 
         this.selectUPO = [
             'paymentMethod', 'invoceNo', 'division.code', 'division.name',
@@ -104,6 +104,9 @@ export class Item {
 
                     let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(4)) : 0;
                     let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(4)) : 0;
+                    var totalPaid = totalPaid + vat;
+                    if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
+                        totalPaid = totalPaid - incomeTax;
                     console.log(newV)
                     Object.assign(this.data, {
                         id: newV._id,
