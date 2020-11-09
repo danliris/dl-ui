@@ -248,6 +248,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/garment-letter-of-credit",
+        name: "garment-shipping/monitoring/garment-letter-of-credit",
+        moduleId: "modules/garment-shipping/monitoring/garment-letter-of-credit/index",
+        nav: true,
+        title: "Monitoring Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/amend-letter-of-credit",
         name: "garment-shipping/amend-letter-of-credit",
         moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
@@ -266,6 +279,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/credit-advice/index",
         nav: true,
         title: "Credit Advice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/garment-credit-advice",
+        name: "garment-shipping/monitoring/garment-credit-advice",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-advice/index",
+        nav: true,
+        title: "Monitoring Credit Advice",
         auth: true,
         settings: {
             group: "g-shipping",
