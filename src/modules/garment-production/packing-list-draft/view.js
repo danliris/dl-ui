@@ -86,6 +86,15 @@ export class View {
             case "REJECTED_SHIPPING_UNIT":
                 this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 break;
+            case "REVISED_MD":
+                this.alertInfo = "<strong>Alasan Revisi oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            case "REVISED_SHIPPING":
+                this.alertInfo = "<strong>Alasan Revisi oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
+            case "CANCELED":
+                this.alertInfo = "<strong>Alasan Cancel:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                break;
             default:
                 break;
         }
