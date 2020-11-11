@@ -77,12 +77,14 @@
                     <td rowspan=2>Satuan</td>
                     <td rowspan=2>Mata Uang</td>
                     <td rowspan=2>Kurs</td>
-                    <td colspan=2>Pembelian</td>
+                    <td colspan=4>Pembelian</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
                 <tr>
                     <td>DPP Valas</td>
-                    <td>PPN</td>
+                    <td>DPP (IDR)</td>
+                    <td>PPN (IDR)</td>
+                    <td>PPH (IDR)</td>
                 </tr>
             </thead>
             <tbody>
@@ -103,11 +105,13 @@
                     <td>${report.CurrencyCode}</td>
                     <td>${report.CurrencyRate}</td>
                     <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
-                    <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.DPPCurrency | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.VAT * report.CurrencyRate | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.IncomeTax * report.CurrencyRate | numberFormat: '0,000.0000'}</td>
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="17" class="text-right">Jumlah</td>
+                    <td colspan="19" class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
             </tbody>

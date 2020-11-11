@@ -33,7 +33,7 @@ class Service extends RestService {
     }
 
     getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/draft/${id}`;
         return super.getPdf(endpoint);
     }
 
