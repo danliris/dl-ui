@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { PermissionHelper } from "../../../utils/permission-helper";
+var AccountingCategoryLoader = require("../../../loader/accounting-category-loader");
 
 @inject(PermissionHelper)
 export class DataForm {
@@ -42,5 +43,16 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+  }
+
+  get accountingCategoryLoader() {
+    return AccountingCategoryLoader;
+  }
+
+  accountingCategoryChanged(e) {
+    this.data.AccountingCategoryId =
+      this.data.AccountingCategoryId !== this.context.accountingCategory.Name.Id
+        ? this.context.accountingCategory.Name.Id
+        : this.data.AccountingCategoryId;
   }
 }
