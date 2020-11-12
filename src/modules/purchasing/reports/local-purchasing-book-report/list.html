@@ -71,8 +71,10 @@
                     <td rowspan=2>No Invoice</td>
                     <td rowspan=2>No Faktur Pajak</td>
                     <td rowspan=2>No SPB/NI</td>
-                    <td rowspan=2>Kategori</td>
-                    <td rowspan=2>Unit</td>
+                    <td rowspan=2>Kategori Pembelian</td>
+                    <td rowspan=2>Kategori Pembukuan</td>
+                    <td rowspan=2>Unit Pembelian</td>
+                    <td rowspan=2>Unit Pembukuan</td>
                     <td rowspan=2>Quantity</td>
                     <td rowspan=2>Satuan</td>
                     <td rowspan=2>Mata Uang</td>
@@ -97,7 +99,9 @@
                     <td>${report.VATNo}</td>
                     <td>${report.UPONo}</td>
                     <td>${report.AccountingCategoryName}</td>
+                    <td>${report.CategoryName}</td>
                     <td>${report.AccountingUnitName}</td>
+                    <td>${report.UnitName}</td>
                     <td>${report.Quantity}</td>
                     <td>${report.Uom}</td>
                     <td>${report.CurrencyCode}</td>
@@ -107,7 +111,7 @@
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="17"
+                    <td colspan="19"
                         class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
