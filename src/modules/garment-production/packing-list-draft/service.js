@@ -53,7 +53,7 @@ class Service extends RestService {
     }
 
     unpostPackingList(id) {
-        var endpoint = `${serviceUri}/unpost/${id}`;
+        var endpoint = `${serviceUri}/draft/unpost-packing-list/${id}`;
         return super.put(endpoint);
     }
 }
