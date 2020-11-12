@@ -20,7 +20,7 @@ export class Service extends RestService {
   }
 
   update(data) {
-    let endpoint = `${serviceUri}/${data._id}`;
+    let endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 }
