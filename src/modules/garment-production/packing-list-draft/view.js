@@ -45,11 +45,6 @@ export class View {
             case "APPROVED_MD":
             case "APPROVED_SHIPPING":
             case "REJECTED_SHIPPING_MD":
-            case "POSTED":
-            case "REJECTED_MD":
-            case "REVISED_MD":
-            case "REJECTED_SHIPPING_UNIT":
-            case "REVISED_SHIPPING":
                 this.saveCallback = null;
             default:
                 this.editCallback = null;
@@ -68,6 +63,13 @@ export class View {
                 break;
             case "DRAFT_APPROVED_SHIPPING":
                 this.formOptions.saveText = "Post Packing List";
+                break;
+            case "POSTED":
+            case "REJECTED_MD":
+            case "REVISED_MD":
+            case "REJECTED_SHIPPING_UNIT":
+            case "REVISED_SHIPPING":
+                this.formOptions.saveText = "Unpost Packing List";
                 break;
             default:
                 break;
@@ -155,6 +157,16 @@ export class View {
                             if (errorNotif) {
                                 alert(errorNotif);
                             }
+                        });
+                    break;
+                case "POSTED":
+                case "REJECTED_MD":
+                case "REVISED_MD":
+                case "REJECTED_SHIPPING_UNIT":
+                case "REVISED_SHIPPING":
+                    this.service.unpostPackingList(this.data.id)
+                        .then(result => {
+                            this.cancelCallback();
                         });
                     break;
                 default:

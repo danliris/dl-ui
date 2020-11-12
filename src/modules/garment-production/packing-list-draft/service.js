@@ -51,6 +51,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/draft/post-packing-list/${id}`;
         return super.put(endpoint);
     }
+
+    unpostPackingList(id) {
+        var endpoint = `${serviceUri}/unpost/${id}`;
+        return super.put(endpoint);
+    }
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
