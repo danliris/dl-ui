@@ -11,18 +11,18 @@
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="category"
+        <au-autocomplete value.bind="accountingCategory"
                          label="Kategori"
-                         loader.bind="categoryLoader"
-                         text.bind="categoryView"
+                         loader.bind="accountingCategoryLoader"
+                         text.bind="accountingCategoryView"
                          placeholder="Cari Kategori"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="unit"
+        <au-autocomplete value.bind="accountingUnit"
                          label="Unit"
-                         loader.bind="unitLoader"
-                         text.bind="unitView"
+                         loader.bind="accountingUnitLoader"
+                         text.bind="accountingUnitView"
                          placeholder="Cari Unit"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
@@ -96,7 +96,7 @@
                     <td>${report.InvoiceNo}</td>
                     <td>${report.VATNo}</td>
                     <td>${report.UPONo}</td>
-                    <td>${report.AccountingCategoryCode} - ${report.AccountingCategoryName}</td>
+                    <td>${report.AccountingCategoryName}</td>
                     <td>${report.AccountingUnitName}</td>
                     <td>${report.Quantity}</td>
                     <td>${report.Uom}</td>

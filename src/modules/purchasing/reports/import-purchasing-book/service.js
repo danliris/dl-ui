@@ -13,17 +13,20 @@ export class Service extends RestService {
     }
 
     search(filter) {
-        var endpoint = `${serviceUri}?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        // var endpoint = `${serviceUri}?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         return super.get(endpoint);
     }
 
     generateExcel(filter) {
-        var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        // var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}/download?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         return super.getXls(endpoint);
     }
 
     printPdf(filter) {
-        var endpoint = `${serviceUri}/pdf?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        // var endpoint = `${serviceUri}/pdf?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}/pdf?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         return super.getPdf(endpoint);
     }
 }
