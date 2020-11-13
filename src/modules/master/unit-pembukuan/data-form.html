@@ -13,19 +13,23 @@
           read-only.bind="(readOnly || isEdit)"
         ></au-textbox>
 
-        <au-textbox
-          label="Nama Divisi"
+        <au-autocomplete
           value.bind="data.DivisionName"
           error.bind="error.DivisionName"
+          loader.bind="divisionLoader"
+          label="Nama Divisi"
+          placeholder="cari divisi"
           read-only.bind="readOnly"
-        ></au-textbox>
+          change.delegate="divisionChanged($event)"
+        >
+        </au-autocomplete>
 
-        <au-multiline
+        <au-textbox
           label="Nama Unit"
           value.bind="data.Name"
           error.bind="error.Name"
           read-only.bind="readOnly"
-        ></au-multiline>
+        ></au-textbox>
 
         <template replaceable part="actions"></template>
       </au-input-form>
