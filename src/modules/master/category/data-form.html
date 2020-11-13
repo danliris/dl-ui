@@ -53,9 +53,12 @@
         ></au-textbox>
 
         <au-autocomplete
-          label="Kategori Pembukuan"
           value.bind="accountingCategory.Name"
+          loader.bind="accountingCategoryLoader"
+          label="Kategori Pembukuan"
+          placeholder="cari kategori pembukuan"
           read-only.bind="readOnly"
+          change.delegate="accountingCategoryChanged($event)"
         >
         </au-autocomplete>
 
