@@ -61,7 +61,7 @@
                     value.bind="data.invoiceType"
                     error.bind="error.InvoiceType"
                     read-only.bind="readOnly || isEdit"
-                    items.bind="InvoiceTypeOptions"
+                    items.bind="data.packingListType=='EXPORT' ? InvoiceTypeOptions : InvoiceTypeOptionsR"
                     options.bind="controlOptions">
                 </au-dropdown>
 
