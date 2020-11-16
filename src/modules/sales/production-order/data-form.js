@@ -126,16 +126,28 @@ export class DataForm {
     return this.yarndyed;
   }
 
-  @computedFrom("data.ProcessType")
+  // @computedFrom("data.ProcessType")
+  // get isPrintingOnly() {
+  //   this.printingOnly = false;
+  //   if (this.data.ProcessType && this.data.ProcessType.Unit) {
+  //     if (this.data.ProcessType.Unit.toLowerCase() == "printing") {
+  //       this.printingOnly = true;
+  //     }
+  //   }
+  //   return this.printingOnly;
+  // }
+
+  @computedFrom("data.OrderType")
   get isPrintingOnly() {
     this.printingOnly = false;
-    if (this.data.ProcessType && this.data.ProcessType.Unit) {
-      if (this.data.ProcessType.Unit.toLowerCase() == "printing") {
+    if (this.data.OrderType) {
+      if (this.data.OrderType.Name.trim().toLowerCase() == "printing") {
         this.printingOnly = true;
       }
     }
     return this.printingOnly;
   }
+
 
 
   @computedFrom("data")
