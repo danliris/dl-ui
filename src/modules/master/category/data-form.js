@@ -1,5 +1,6 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { PermissionHelper } from '../../../utils/permission-helper';
+import { inject, bindable, computedFrom } from "aurelia-framework";
+import { PermissionHelper } from "../../../utils/permission-helper";
+var AccountingCategoryLoader = require("../../../loader/accounting-category-loader");
 
 @inject(PermissionHelper)
 export class DataForm {
@@ -10,15 +11,14 @@ export class DataForm {
     saveText: "Simpan",
     deleteText: "Hapus",
     editText: "Ubah",
-  }
+  };
   @computedFrom("data._id")
   get isEdit() {
-    return (this.data._id || '').toString() != '';
+    return (this.data._id || "").toString() != "";
   }
 
   constructor(permissionHelper) {
     this.permissions = permissionHelper.getUserPermissions();
-    console.log(this.permissions);
     this.isPermitted = this.isPermittedRole();
   }
 
@@ -27,9 +27,8 @@ export class DataForm {
     let roleRules = ["C9", "B1"];
 
     for (var key in this.permissions) {
-      let hasPermittedRole = roleRules.find((roleRule) => roleRule == key)
-      if (hasPermittedRole)
-        return true;
+      let hasPermittedRole = roleRules.find((roleRule) => roleRule == key);
+      if (hasPermittedRole) return true;
     }
 
     return false;
@@ -45,4 +44,15 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
-} 
+
+  get accountingCategoryLoader() {
+    return AccountingCategoryLoader;
+  }
+
+  accountingCategoryChanged(e) {
+    this.data.AccountingCategoryId =
+      this.data.AccountingCategoryId !== this.context.accountingCategory.Name.Id
+        ? this.context.accountingCategory.Name.Id
+        : this.data.AccountingCategoryId;
+  }
+}

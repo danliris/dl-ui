@@ -702,4 +702,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/payment-disposition-recap",
+        name: "garment-shipping/payment-disposition-recap",
+        moduleId: "modules/garment-shipping/payment-disposition-recap/index",
+        nav: true,
+        title: "Lampiran Rekap Disposisi Pembayaran EMKL ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]

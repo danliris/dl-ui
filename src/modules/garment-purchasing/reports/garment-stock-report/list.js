@@ -38,6 +38,11 @@ export class List {
         this.service.search(info)
             .then(result=>{
                 this.data=[];
+                this.AmountTotal1 = 0;
+                this.AmountTotal2 = 0;
+                this.AmountTotal3 = 0;
+                this.AmountTotal4 = 0;
+                this.AmountTotal5 = 0;
                 for(var _data of result){
                     console.log(_data)
 
@@ -59,8 +64,22 @@ export class List {
                     //     _data.ReceiptPurchasePrice = _data.ReceiptPurchasePrice + _data.ReceiptKon2DPrice
                     // }
                     this.data.push(_data);
+                    this.AmountTotal1 += _data.BeginningBalanceQty;
+                    this.AmountTotal2 += _data.ReceiptQty;
+                    this.AmountTotal3 += _data.ReceiptCorrectionQty;
+                    this.AmountTotal4 += _data.ExpendQty;
+                    this.AmountTotal5 += _data.EndingBalanceQty;
 
-                 }
+                    
+
+                }
+                this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                this.AmountTotal3 = this.AmountTotal3.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                this.AmountTotal4 = this.AmountTotal4.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                this.AmountTotal5 = this.AmountTotal5.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+
                 console.log(this.data)
             })
     }

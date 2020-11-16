@@ -11,7 +11,7 @@ export class List {
     { field: "Code", title: "Kode" },
     { field: "Division.Name", title: "Nama Divisi" },
     { field: "Name", title: "Nama Unit" },
-    { field: "Unit.Pembukuan", title: "Unit Pembukuan" },
+    { field: "AccountingUnit.Name", title: "Unit Pembukuan" },
   ];
 
   loader = (info) => {
@@ -26,10 +26,27 @@ export class List {
     };
 
     return this.service.search(arg).then((result) => {
-      return {
-        total: result.info.total,
-        data: result.data,
-      };
+      var resultPromise = [];
+      if (result && result.data && result.data.length > 0) {
+        resultPromise = result.data.map((datum) => {
+          if (datum.AccountingUnitId !== 0) {
+            return this.service
+              .getAccountingUnit(datum.AccountingUnitId)
+              .then((accountingUnit) => {
+                datum.AccountingUnit = accountingUnit;
+                return Promise.resolve(datum);
+              });
+          } else {
+            return Promise.resolve(datum);
+          }
+        });
+      }
+      return Promise.all(resultPromise).then((newResult) => {
+        return {
+          total: result.info.total,
+          data: newResult,
+        };
+      });
     });
   };
 
@@ -45,7 +62,9 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { Id: data.Id });
+        this.router.navigateToRoute("view", {
+          Id: data.Id,
+        });
         break;
     }
   }
