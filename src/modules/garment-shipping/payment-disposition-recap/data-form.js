@@ -86,7 +86,7 @@ export class DataForm {
         let bills = {};
         if (this.data.items) {
             for (const item of this.data.items) {
-                if (item.paymentDisposition.invoiceDetails) {
+                if (item.paymentDisposition && item.paymentDisposition.invoiceDetails) {
                     for (const invoiceDetail of item.paymentDisposition.invoiceDetails) {
                         bills["C1A"] = invoiceDetail.amountPerUnit["C1A"];
                         bills["C1B"] = invoiceDetail.amountPerUnit["C1B"];
