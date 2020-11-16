@@ -72,24 +72,28 @@ export class item {
             }
 
             for (const invoiceDetail of disposition.invoiceDetails) {
-                invoiceDetail.invoice = invoices.find(inv => inv.id == invoiceDetail.invoiceId);
-                const invoiceUnits = invoiceDetail.invoice.items.map(i => i.unit.code).filter((value, index, self) => self.indexOf(value) == index);
-                invoiceDetail.invoice.unit = invoiceUnits.join(", ");
+                const invoice = invoices.find(inv => inv.id == invoiceDetail.invoiceId);
+                const invoiceUnits = invoice.items.map(i => i.unit.code).filter((value, index, self) => self.indexOf(value) == index);
+                invoiceDetail.invoice = {
+                    unit: invoiceUnits.join(", ")
+                };
 
-                invoiceDetail.packingList = packingLists.find(pl => pl.id == invoiceDetail.invoice.packingListId);
+                const packingList = packingLists.find(pl => pl.id == invoice.packingListId);
                 let totalCBM = 0;
-                for (const m of invoiceDetail.packingList.measurements) {
+                for (const m of packingList.measurements) {
                     if (m.length && m.width && m.height && m.cartonsQuantity) {
                         totalCBM += (m.length * m.width * m.height * m.cartonsQuantity / 1000000);
                     }
                 }
-                invoiceDetail.packingList.totalCBM = totalCBM.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+                invoiceDetail.packingList = {
+                    totalCBM: totalCBM.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+                };
 
                 invoiceDetail.paid = parseInt((invoiceDetail.amount - disposition.incomeTaxValue) * 100) / 100;
                 invoiceDetail.percentage = {};
                 invoiceDetail.amountPerUnit = {};
                 for (const unit of invoiceUnits) {
-                    const qtyByUnit = invoiceDetail.invoice.items.filter(i => i.unit.code == unit).reduce((acc, cur) => acc += cur.quantity, 0);
+                    const qtyByUnit = invoice.items.filter(i => i.unit.code == unit).reduce((acc, cur) => acc += cur.quantity, 0);
                     invoiceDetail.percentage[unit] = (qtyByUnit / invoiceDetail.quantity * 100).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     invoiceDetail.amountPerUnit[unit] = parseInt((invoiceDetail.percentage[unit] * invoiceDetail.paid / 100) * 100) / 100;
                 }
