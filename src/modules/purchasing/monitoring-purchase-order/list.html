@@ -87,7 +87,7 @@
                         <td colspan="2">SUPPLIER</td>
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                         <td colspan="5">PO EXTERN</td>
-                        <td colspan="3">SURAT JALAN</td>
+                        <td colspan="5">SURAT JALAN</td>
                         <td colspan="4">BON PENERIMAAN</td>
                         <td rowspan="3">TEMPO PEMBAYARAN</td>
                         <td colspan="2">INVOICE</td>
@@ -116,7 +116,8 @@
                         <td rowspan="2">TANGGAL</td>
                         <td rowspan="2">TANGGAL DATANG BARANG</td>
                         <td rowspan="2">NOMOR</td>
-                        <td rowspan="2">TANGGAL</td>
+                        <td colspan="2">JUMLAH</td>   
+                        <td rowspan="2">TANGGAL</td>                                            
                         <td rowspan="2">NOMOR</td>
                         <td colspan="2">JUMLAH</td>
                         <td rowspan="2">TANGGAL</td>
@@ -137,6 +138,8 @@
                         <td rowspan="2">KET.</td>
                     </tr>
                     <tr>
+                        <td>QTY</td>
+                        <td>SAT</td>
                         <td>QTY</td>
                         <td>SAT</td>
                     </tr>
@@ -170,6 +173,8 @@
                         <td>${item.doDate}</td>
                         <td>${item.doDeliveryDate}</td>
                         <td>${item.doNo}</td>
+                        <td align="right">${item.doQuantity}</td>
+                        <td>${item.doUom}</td>   
                         <td>${item.urnDate}</td>
                         <td>${item.urnNo}</td>
                         <td align="right">${item.urnQuantity}</td>
