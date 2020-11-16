@@ -57,6 +57,9 @@ export class item {
         if (newValue) {
             const disposition = await this.service.getDispositionById(newValue.id);
 
+            disposition.amount = disposition.billValue + disposition.vatValue;
+            disposition.paid = disposition.amount - disposition.incomeTaxValue;
+
             const invIds = disposition.invoiceDetails.map(i => i.invoiceId).filter((value, index, self) => self.indexOf(value) == index);
             const invoices = [];
             for (const id of invIds) {
@@ -75,6 +78,7 @@ export class item {
                 const invoice = invoices.find(inv => inv.id == invoiceDetail.invoiceId);
                 const invoiceUnits = invoice.items.map(i => i.unit.code).filter((value, index, self) => self.indexOf(value) == index);
                 invoiceDetail.invoice = {
+                    buyerAgent: invoice.buyerAgent,
                     unit: invoiceUnits.join(", ")
                 };
 
@@ -89,13 +93,12 @@ export class item {
                     totalCBM: totalCBM.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
                 };
 
-                invoiceDetail.paid = parseInt((invoiceDetail.amount - disposition.incomeTaxValue) * 100) / 100;
                 invoiceDetail.percentage = {};
                 invoiceDetail.amountPerUnit = {};
                 for (const unit of invoiceUnits) {
                     const qtyByUnit = invoice.items.filter(i => i.unit.code == unit).reduce((acc, cur) => acc += cur.quantity, 0);
                     invoiceDetail.percentage[unit] = (qtyByUnit / invoiceDetail.quantity * 100).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    invoiceDetail.amountPerUnit[unit] = parseInt((invoiceDetail.percentage[unit] * invoiceDetail.paid / 100) * 100) / 100;
+                    invoiceDetail.amountPerUnit[unit] = parseInt((invoiceDetail.percentage[unit] * disposition.paid / 100) * 100) / 100;
                 }
             }
 

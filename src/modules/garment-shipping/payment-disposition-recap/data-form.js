@@ -29,6 +29,10 @@ export class DataForm {
         { header: "No Disposisi EMKL" },
         { header: "Tgl Invoice / Tagihan" },
         { header: "No Invoice / Tagihan" },
+        { header: "Amount" },
+        { header: "Jasa" },
+        { header: "PPH" },
+        { header: "Terbayar" },
     ];
 
     billsColumns = [
@@ -83,16 +87,22 @@ export class DataForm {
     }
 
     get bills() {
-        let bills = {};
+        let bills = {
+            C1A: 0,
+            C1B: 0,
+            C2A: 0,
+            C2B: 0,
+            C2C: 0,
+        };
         if (this.data.items) {
             for (const item of this.data.items) {
                 if (item.paymentDisposition && item.paymentDisposition.invoiceDetails) {
                     for (const invoiceDetail of item.paymentDisposition.invoiceDetails) {
-                        bills["C1A"] = invoiceDetail.amountPerUnit["C1A"];
-                        bills["C1B"] = invoiceDetail.amountPerUnit["C1B"];
-                        bills["C2A"] = invoiceDetail.amountPerUnit["C2A"];
-                        bills["C2B"] = invoiceDetail.amountPerUnit["C2B"];
-                        bills["C2C"] = invoiceDetail.amountPerUnit["C2C"];
+                        bills["C1A"] += invoiceDetail.amountPerUnit["C1A"] || 0;
+                        bills["C1B"] += invoiceDetail.amountPerUnit["C1B"] || 0;
+                        bills["C2A"] += invoiceDetail.amountPerUnit["C2A"] || 0;
+                        bills["C2B"] += invoiceDetail.amountPerUnit["C2B"] || 0;
+                        bills["C2C"] += invoiceDetail.amountPerUnit["C2C"] || 0;
                     }
                 }
             }
@@ -102,7 +112,9 @@ export class DataForm {
         for (const key in bills) {
             if (bills.hasOwnProperty(key)) {
                 const element = bills[key];
-                result.push({ unit: key, bill: element });
+                if (element) {
+                    result.push({ unit: key, bill: element });
+                }
             }
         }
 
