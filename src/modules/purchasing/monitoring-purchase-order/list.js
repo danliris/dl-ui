@@ -92,6 +92,7 @@ export class List {
                     item.incomeTaxDate=item.incomeTaxDate==null? "-" : moment(item.incomeTaxDate).format("DD MMM YYYY");
                     item.correctionDate=moment(item.correctionDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.correctionDate).format("DD MMM YYYY");
 
+                    item.doQuantity=item.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                     item.quantity=item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                     item.pricePerDealUnit=item.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.priceTotal=item.priceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

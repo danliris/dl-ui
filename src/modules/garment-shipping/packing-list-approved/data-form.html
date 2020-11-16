@@ -205,9 +205,9 @@
                         items.bind="data.items" 
                         errors.bind="error.Items" 
                         columns.bind="itemsColumns"
-                        read-only="true" 
+                        read-only.bind="readOnly" 
                         options.bind="Options"
-                        item-template="modules/merchandiser/packing-list-approval/template/detail-ro">
+                        item-template="modules/garment-shipping/packing-list-approval/template/detail-ro">
                     </au-collection>
                 </div>
                 

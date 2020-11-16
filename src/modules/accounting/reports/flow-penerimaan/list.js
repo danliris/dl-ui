@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
@@ -11,12 +11,14 @@ var UnitReceiptLoader = require('../../../../loader/garment-unit-receipt-note-lo
 export class List {
 
      reprosesOption = ['','Bahan Baku', 'Bahan Embalase','Bahan Pendukung'];
+     unitOption = ['','CENTRAL 2A', 'CENTRAL 2B','CENTRAL 2C/EX. K4','CENTRAL 1A/EX. K3','CENTRAL 1B'];
   constructor(router, service) {
         this.service = service;
         this.router = router;
 
     }
-    
+    @bindable categoryselect
+    @bindable unitselect
     tableOptions = {
         search: false,
         showToggle: false,
@@ -28,7 +30,54 @@ export class List {
     unitView = (unit) => {
       
         return `${unit.Code} - ${unit.Name}`
-      }
+    }
+
+    categoryselectChanged(newvalue) {
+        //console.log(newvalue)
+        if (newvalue) {
+            if (newvalue === "Bahan Baku") {
+                this.category = "BB";
+            }
+            else if (newvalue === "Bahan Pendukung") { 
+                this.category = "BP"; 
+            }
+            else if (newvalue === "Bahan Embalase") {
+                this.category = "BE"; 
+            }else{
+                this.category = "";
+            }
+        }
+        console.log(this.category)
+    }
+    unitselectChanged(newvalue){
+        
+        if (newvalue) {
+            if (newvalue === "CENTRAL 2A") {
+                this.unit = "C2A";
+                this.unitname = "CENTRAL 2A";
+            }
+            else if (newvalue === "CENTRAL 2B") { 
+                this.unit = "C2B";
+                this.unitname = "CENTRAL 2B";
+            }
+            else if (newvalue === "CENTRAL 2C/EX. K4") {
+                this.unit = "C2C";
+                this.unitname = "CENTRAL 2C/EX. K4";
+            }else if(newvalue === "CENTRAL 1A/EX. K3"){
+                this.unit = "C1A";
+                this.unitname = "CENTRAL 1A/EX. K3";
+            }else if(newvalue === "CENTRAL 1B"){
+                this.unit = "C1B";
+                this.unitname = "CENTRAL 1B";
+            }else{
+                this.unit = "";
+                this.unitname = "";
+            }
+        }
+
+        console.log(this.unit);
+        console.log(this.uniname);
+    }
     get supplierLoader(){
         return SupplierLoader;
     }
@@ -55,9 +104,11 @@ export class List {
         { field: "satuanbeli", title: "Satuan Beli", sortable: false },
         { field: "jumlahterima", title: "Jumlah Terima", sortable: false },
         { field: "satuanterima", title: "Satuan Terima", sortable: false },
-        { field: "jumlah", title: "Jumlah", sortable: false, formatter:(value,data)=>{
+        { field: "jumlah", title: "Jumlah Harga", sortable: false, formatter:(value,data)=>{
             return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-        }  },
+            }  
+        },
+        { field: "tipepembayaran", title: "Metode Pembayaran", sortable: false },
        
     ]
     Values() {
@@ -68,7 +119,7 @@ export class List {
         // this.arg.roNo = this.roNo ? this.roNo : "";
         // this.arg.doNo =this.doNo ? this.doNo : "";
         // this.arg.supplier =  this.supplier ? this.supplier.code : "";
-        this.arg.unit = this.unit ? this.unit.Code : "";
+        this.arg.unit = this.unit ? this.unit : "";
         console.log(this.arg);
     }
     
@@ -104,12 +155,13 @@ export class List {
 
     
      ExportToExcel() {
+        console.log(this.unitname);
         var info = {
-           
+            
             category : this.category ? this.category : "",
-            categoryname: this.category === "Bahan Baku" ? "GUDANG BAHAN BAKU" : this.category === "Bahan Embalase" ? "GUDANG BAHAN EMBALASE" : this.category === "Bahan Pendukung" ?  "GUDANG BAHAN PENDUKUNG" : "",
-            unit : this.unit ? this.unit.Code : "",
-            unitname: this.unit ? this.unit.Name : "",
+            categoryname: this.category === "BB" ? "GUDANG BAHAN BAKU" : this.category === "BE" ? "GUDANG BAHAN EMBALASE" : this.category === "BP" ?  "GUDANG BAHAN PENDUKUNG" : "",
+            unit : this.unit ? this.unit : "",
+            unitname: this.unitname ? this.unitname: "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }

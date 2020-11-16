@@ -34,7 +34,7 @@ class Service extends RestService {
 
     cancel(data) {
         var endpoint = `${serviceUri}/cancel/${data.id}`;
-        return super.put(endpoint);
+        return super.put(endpoint, JSON.stringify(data.reason));
     }
 
     reject(data) {
@@ -65,6 +65,11 @@ const sectionServiceUri = "master/garment-sections";
 class CoreService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "core");
+    }
+
+    getSections() {
+        var endpoint = `${sectionServiceUri}`;
+        return super.list(endpoint);
     }
 
     getSectionById(id) {

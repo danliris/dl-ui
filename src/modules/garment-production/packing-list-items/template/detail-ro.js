@@ -54,6 +54,10 @@ export class Item {
         return UnitLoader;
     }
 
+    get unitFilter() {
+        return { "(Code == \"C2A\" || Code == \"C2B\" || Code == \"C2C\" || Code == \"C1A\" || Code == \"C1B\")": true };
+    }
+
     unitView = (unit) => {
         return `${unit.Code || unit.code}`
     }
@@ -113,7 +117,7 @@ export class Item {
                                         id: psc.SectionId,
                                         code: result.Section,
                                     };
-                                    this.data.comodityDescription = result.CommodityDescription;
+                                    this.data.comodityDescription = (result.Comodity || {}).Name;
                                     this.data.unit = result.Unit;
                                     this.data.uom = result.UOM;
                                     this.data.valas = "USD";

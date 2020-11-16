@@ -38,6 +38,14 @@ export class invoice {
         if(this.data.id){
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
             this.data.items=invoice.items;
+            var pl= await this.service.getPackingListByInvoice({ filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo})});
+            if(pl.data.length>0){
+                var packing= await this.service.getPLById(pl.data[0].id);
+                this.data.cbm=0;
+                for(var m of packing.measurements){
+                    this.data.cbm+=m.length * m.width * m.height * m.cartonsQuantity / 1000000;
+                }
+            }
         }
     }
     
@@ -59,10 +67,17 @@ export class invoice {
             this.data.items=invoice.items;
             this.data.totalCarton=0;
             var coverLetter=await this.service.getCoverLetterByInvoice({ filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo})});
-            console.log(coverLetter)
             if(coverLetter.data.length>0){
                 for(var cv of coverLetter.data){
                     this.data.totalCarton+=cv.cartoonQuantity;
+                }
+            }
+            var pl= await this.service.getPackingListByInvoice({ filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo})});
+            if(pl.data.length>0){
+                var packing= await this.service.getPLById(pl.data[0].id);
+                this.data.cbm=0;
+                for(var m of packing.measurements){
+                    this.data.cbm+=m.length * m.width * m.height * m.cartonsQuantity / 1000000;
                 }
             }
         }

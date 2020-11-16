@@ -226,6 +226,16 @@
                 <au-multiline label="Keterangan" value.bind="data.remark" placeholder="tambah keterangan" read-only.bind="readOnly"
                   options.bind="controlOptions">
                 </au-multiline>
+                <au-dropdown
+                    label="Keterangan Nilai Import"
+                    value.bind="data.importInfo"
+                    error.bind="error.importInfo"
+                    read-only.bind="(readOnly || isEdit)"
+                    items.bind="importInfo"
+                    if.bind="isImport"
+                    show.bind="isImport"
+                    options.bind="controlOptions">
+                </au-dropdown>
             </div>
         </div>
 

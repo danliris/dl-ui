@@ -127,18 +127,6 @@ export class DataForm {
         this.data.sayUnit = this.data.sayUnit || "CARTON";
     }
 
-    get addItems() {
-        return (event) => {
-            this.data.items.push({});
-        };
-    }
-
-    get removeItems() {
-        return (event) => {
-            this.error = null;
-        };
-    }
-
     get totalCBM() {
         var total = 0;
         if (this.data.measurements) {
@@ -152,18 +140,19 @@ export class DataForm {
     }
 
     get totalCartons() {
-        this.data.totalCartons = 0;
+        let cartons = [];
         if (this.data.items) {
             for (var item of this.data.items) {
                 if (item.details) {
                     for (var detail of item.details) {
-                        if (detail.cartonQuantity) {
-                            this.data.totalCartons += detail.cartonQuantity;
+                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2) < 0) {
+                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, cartonQuantity: detail.cartonQuantity });
                         }
                     }
                 }
             }
         }
+        this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
         return this.data.totalCartons;
     }
 }

@@ -42,7 +42,8 @@ export class Item {
 
     unitPaymentOrderChanged(newV, oldV) {
         if (newV) {
-            let items = [], totalPaid = 0;
+            let items = [],
+                totalPaid = 0;
 
             let unitReceiptsNo = newV.items.map(p => p.unitReceiptNote.no);
 
@@ -132,7 +133,9 @@ export class Item {
                                         price: correctPriceTotal,
                                         unitId: urnObj.unit._id,
                                         unitCode: urnObj.unit.code,
-                                        unitName: urnObj.unit.name
+                                        unitName: urnObj.unit.name,
+                                        urnNo: urnObj.no,
+                                        urnId: urnObj.UId
                                     });
 
                                     totalPaid += correctPriceTotal;
@@ -144,6 +147,9 @@ export class Item {
                             let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
                             let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
+
+                            if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
+                                totalPaid = Number((totalPaid + vat - incomeTax).toFixed(2))
                             // console.log(vat);
                             Object.assign(this.data, {
                                 id: newV._id,
@@ -159,7 +165,7 @@ export class Item {
                                 vat: vat,
                                 category: newV.category,
                                 paymentMethod: newV.paymentMethod,
-                                totalPaid: Number((totalPaid + vat).toFixed(2)),
+                                totalPaid: totalPaid,
                                 currency: newV.currency.code,
                                 items: items,
                                 useIncomeTax: newV.useIncomeTax,
@@ -174,8 +180,7 @@ export class Item {
                 })
 
 
-        }
-        else {
+        } else {
             Object.assign(this.data, {
                 id: undefined,
                 no: undefined,
