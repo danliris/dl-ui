@@ -19,6 +19,8 @@ export class Edit {
   }
 
   saveCallback(event) {
+    // console.log("save edit", this.data);
+
     this.service
       .update(this.data)
       .then((result) => {
