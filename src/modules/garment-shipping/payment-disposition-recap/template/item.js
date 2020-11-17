@@ -108,8 +108,8 @@ export class item {
             const totalQuantity = disposition.invoiceDetails.reduce((acc, cur) => acc += cur.quantity, 0);
             for (const unit of this.units) {
                 if (disposition.percentage[unit]) {
-                    disposition.percentage[unit] = parseInt((disposition.percentage[unit] / totalQuantity * 100) * 100) / 100;
-                    disposition.amountPerUnit[unit] = parseInt((disposition.percentage[unit] * disposition.paid / 100) * 100) / 100;
+                    disposition.percentage[unit] = Math.round((disposition.percentage[unit] / totalQuantity * 100) * 100) / 100;
+                    disposition.amountPerUnit[unit] = Math.round((disposition.percentage[unit] * disposition.paid / 100) * 100) / 100;
                 }
             }
 
