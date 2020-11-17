@@ -42,6 +42,8 @@ export class item {
         { header: "Amount per Unit" },
     ];
 
+    units = ["C1A", "C1B", "C2A", "C2B", "C2C"];
+
     get paymentDispositionsLoader() {
         return PaymentDispositionsLoader;
     }
@@ -74,15 +76,13 @@ export class item {
                 packingLists.push(pl);
             }
 
+            disposition.percentage = {};
+            disposition.amountPerUnit = {};
+
             for (const invoiceDetail of disposition.invoiceDetails) {
                 const invoice = invoices.find(inv => inv.id == invoiceDetail.invoiceId);
-                const invoiceUnits = invoice.items.map(i => i.unit.code).filter((value, index, self) => self.indexOf(value) == index);
-                invoiceDetail.invoice = {
-                    buyerAgent: invoice.buyerAgent,
-                    unit: invoiceUnits.join(", ")
-                };
-
                 const packingList = packingLists.find(pl => pl.id == invoice.packingListId);
+
                 let totalCBM = 0;
                 for (const m of packingList.measurements) {
                     if (m.length && m.width && m.height && m.cartonsQuantity) {
@@ -93,12 +93,23 @@ export class item {
                     totalCBM: totalCBM.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
                 };
 
-                invoiceDetail.percentage = {};
-                invoiceDetail.amountPerUnit = {};
+                const invoiceUnits = invoice.items.map(i => i.unit.code).filter((value, index, self) => self.indexOf(value) == index);
+                invoiceDetail.invoice = {
+                    buyerAgent: invoice.buyerAgent,
+                    unit: invoiceUnits.join(", ")
+                };
+
                 for (const unit of invoiceUnits) {
                     const qtyByUnit = invoice.items.filter(i => i.unit.code == unit).reduce((acc, cur) => acc += cur.quantity, 0);
-                    invoiceDetail.percentage[unit] = (qtyByUnit / invoiceDetail.quantity * 100).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    invoiceDetail.amountPerUnit[unit] = parseInt((invoiceDetail.percentage[unit] * disposition.paid / 100) * 100) / 100;
+                    disposition.percentage[unit] = (disposition.percentage[unit] || 0) + qtyByUnit;
+                }
+            }
+
+            const totalQuantity = disposition.invoiceDetails.reduce((acc, cur) => acc += cur.quantity, 0);
+            for (const unit of this.units) {
+                if (disposition.percentage[unit]) {
+                    disposition.percentage[unit] = parseInt((disposition.percentage[unit] / totalQuantity * 100) * 100) / 100;
+                    disposition.amountPerUnit[unit] = parseInt((disposition.percentage[unit] * disposition.paid / 100) * 100) / 100;
                 }
             }
 
