@@ -18,7 +18,7 @@ export class DataForm {
 
   constructor(permissionHelper) {
     this.permissions = permissionHelper.getUserPermissions();
-    console.log(this.permissions);
+    // console.log(this.permissions);
     this.isPermitted = this.isPermittedRole();
   }
 

@@ -12,8 +12,8 @@ export class List {
     { field: "Name", title: "Nama Barang" },
     { field: "Composition", title: "Komposisi" },
     { field: "Const", title: "Konstruksi" },
-    { field: "Yarn", title: "Komposisi" },
-    { field: "Width", title: "Komposisi" },
+    { field: "Yarn", title: "Yarn" },
+    { field: "Width", title: "Width" },
     { field: "UomUnit", title: "Satuan Default" },
   ];
 

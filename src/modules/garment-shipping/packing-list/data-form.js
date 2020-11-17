@@ -83,7 +83,8 @@ export class DataForm {
     ]
 
     PackingTypeOptions = ["EXPORT", "RE EXPORT"];
-    InvoiceTypeOptions = ["DL", "SM"];
+    InvoiceTypeOptions = ["DL","DS", "SM"];
+    InvoiceTypeOptionsR = ["DLR", "SMR"];
     PaymentTermOptions = ["LC", "TT/OA"];
 
     countries =

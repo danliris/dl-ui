@@ -1,23 +1,22 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, computedFrom } from "aurelia-framework";
+var DivisionLoader = require("../../../loader/division-loader-new");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly = false;
-  @bindable data = { "import": true };
+  @bindable data = { import: true };
   @bindable error = {};
   formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  };
 
-  constructor() {
-
-  }
+  constructor() {}
   @computedFrom("data.Id")
   get isEdit() {
-    return (this.data.Id || '').toString() != '';
+    return (this.data.Id || "").toString() != "";
   }
 
   bind(context) {
@@ -31,11 +30,15 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  activate() {
-
+  get divisionLoader() {
+    return DivisionLoader;
   }
 
-  attached() {
-
+  divisionChanged(e) {
+    console.log("this", this);
   }
-} 
+
+  activate() {}
+
+  attached() {}
+}
