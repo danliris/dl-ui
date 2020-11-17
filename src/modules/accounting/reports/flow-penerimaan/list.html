@@ -38,8 +38,9 @@
                 placeholder="masukkan nomor SJ"  >
             </au-textbox>
 -->
-<au-dropdown label="Jenis Bahan" value.bind="category" items.bind="reprosesOption"></au-dropdown>
-            <au-autocomplete 
+<au-dropdown label="Jenis Bahan" value.bind="categoryselect" items.bind="reprosesOption"></au-dropdown>
+<au-dropdown label="Unit" value.bind="unitselect" items.bind="unitOption"></au-dropdown>
+            <!-- <au-autocomplete 
                 value.bind="unit" 
                 label="Unit" 
                 loader.bind="unitLoader"
@@ -47,7 +48,8 @@
                 read-only.bind="readOnly" 
                 text.bind = "unitView" 
                 options.bind="controlOptions">
-            </au-autocomplete>
+            </au-autocomplete> -->
+            
             <!--
             <au-autocomplete 
                 value.bind="supplier" 

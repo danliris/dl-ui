@@ -112,7 +112,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: 'fa fa-calculator',
             byUser: false
         }
@@ -126,7 +126,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -139,7 +139,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  
@@ -152,7 +152,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -165,7 +165,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -178,7 +178,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -191,7 +191,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -204,7 +204,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -217,7 +217,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     }, 
@@ -230,7 +230,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -243,7 +243,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -256,7 +256,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -269,7 +269,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -282,7 +282,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -295,7 +295,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -308,7 +308,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },    
@@ -321,7 +321,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -334,7 +334,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -347,7 +347,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -360,7 +360,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -373,7 +373,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -386,7 +386,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },      
@@ -399,7 +399,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -412,7 +412,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -425,7 +425,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -438,7 +438,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },   
@@ -451,7 +451,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -464,7 +464,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -477,7 +477,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -490,7 +490,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  
@@ -503,7 +503,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -516,7 +516,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -529,7 +529,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -542,7 +542,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -555,7 +555,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     }, 
@@ -568,7 +568,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },    
@@ -581,7 +581,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -594,7 +594,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -607,7 +607,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -620,7 +620,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -633,7 +633,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -646,7 +646,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -659,7 +659,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -672,7 +672,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -685,7 +685,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -695,6 +695,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/payment-disposition/index",
         nav: true,
         title: "Lampiran Disposisi Pembayaran Shipment ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/payment-disposition-recap",
+        name: "garment-shipping/payment-disposition-recap",
+        moduleId: "modules/garment-shipping/payment-disposition-recap/index",
+        nav: true,
+        title: "Lampiran Rekap Disposisi Pembayaran EMKL ",
         auth: true,
         settings: {
             group: "g-shipping",

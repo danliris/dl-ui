@@ -909,7 +909,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -922,7 +922,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
