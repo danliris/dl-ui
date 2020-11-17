@@ -87,23 +87,15 @@ export class DataForm {
     }
 
     get bills() {
-        let bills = {
-            C1A: 0,
-            C1B: 0,
-            C2A: 0,
-            C2B: 0,
-            C2C: 0,
-        };
+        let bills = { C1A: 0, C1B: 0, C2A: 0, C2B: 0, C2C: 0, };
         if (this.data.items) {
             for (const item of this.data.items) {
-                if (item.paymentDisposition && item.paymentDisposition.invoiceDetails) {
-                    for (const invoiceDetail of item.paymentDisposition.invoiceDetails) {
-                        bills["C1A"] += invoiceDetail.amountPerUnit["C1A"] || 0;
-                        bills["C1B"] += invoiceDetail.amountPerUnit["C1B"] || 0;
-                        bills["C2A"] += invoiceDetail.amountPerUnit["C2A"] || 0;
-                        bills["C2B"] += invoiceDetail.amountPerUnit["C2B"] || 0;
-                        bills["C2C"] += invoiceDetail.amountPerUnit["C2C"] || 0;
-                    }
+                if (item.paymentDisposition && item.paymentDisposition.amountPerUnit) {
+                    bills["C1A"] += item.paymentDisposition.amountPerUnit["C1A"] || 0;
+                    bills["C1B"] += item.paymentDisposition.amountPerUnit["C1B"] || 0;
+                    bills["C2A"] += item.paymentDisposition.amountPerUnit["C2A"] || 0;
+                    bills["C2B"] += item.paymentDisposition.amountPerUnit["C2B"] || 0;
+                    bills["C2C"] += item.paymentDisposition.amountPerUnit["C2C"] || 0;
                 }
             }
         }
@@ -113,7 +105,7 @@ export class DataForm {
             if (bills.hasOwnProperty(key)) {
                 const element = bills[key];
                 if (element) {
-                    result.push({ unit: key, bill: element });
+                    result.push({ unit: key, bill: element.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) });
                 }
             }
         }
