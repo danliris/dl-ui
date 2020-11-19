@@ -33,6 +33,10 @@
                     options.bind="controlOptions">
                 </au-autocomplete>
 
+                <au-autocomplete label="Status Buyer" value.bind="data.buyer" text.bind="buyerKaberView" read-only="true"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
                 <au-dropdown label="Jenis Pembayaran" value.bind="selectedPaymentType"
                     error.bind="error.paymentType" read-only.bind="readOnly"
                     items.bind="paymentTypeOptions" options.bind="controlOptions">
@@ -53,6 +57,10 @@
                 <au-datepicker label="Tgl Jatuh Tempo" value.to-view="dueDate" error.bind="error.dueDate"
                     read-only="true" options.bind="controlOptions" show.bind="data.paymentType=='TEMPO'">
                 </au-datepicker>
+
+                <au-textbox label="No Bon Keluar" placeholder="No Bon Keluarr" value.bind="data.expenditureNo"
+                    error.bind="error.expenditureNo" read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
 
                 <au-textbox label="No Disposisi" placeholder="No Disposisi" value.bind="data.dispositionNo"
                     error.bind="error.dispositionNo" read-only.bind="readOnly" options.bind="controlOptions">
