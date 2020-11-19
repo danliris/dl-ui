@@ -24,8 +24,17 @@ export class Create {
   }
 
   saveCallback(event) {
+    const data = {
+      Code: this.data.Code,
+      DivisionId: this.data.DivisionId,
+      DivisionCode: this.data.DivisionCode,
+      DivisionName: this.data.DivisionName,
+      Name: this.data.Name,
+      Description: "",
+    };
+
     this.service
-      .create(this.data)
+      .create(data)
       .then((result) => {
         this.list();
       })
