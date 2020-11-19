@@ -107,7 +107,19 @@ export class List {
     }
 
     getPdf() {
-        console.log("pdf")
+        let arg = {
+            accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+            accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
+            divisionId: this.division ? this.division.Id : 0,
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            isValas: this.isValas,
+            isImport: this.isImport
+        };
+
+        return this.service.generatePdf(arg)
+            .catch(e => {
+                alert(e.replace(e, "Error: ", ""))
+            });
     }
 
     columns = [{
