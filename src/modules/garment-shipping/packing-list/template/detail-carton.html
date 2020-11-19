@@ -18,6 +18,13 @@
         </td>
         <td >
             <au-textbox
+                value.bind="data.style"
+                error.bind="error.Style"
+                read-only.bind="readOnly">
+            </au-textbox>
+        </td>
+        <td >
+            <au-textbox
                 value.bind="data.colour"
                 error.bind="error.Colour"
                 read-only.bind="readOnly">
@@ -79,6 +86,47 @@
             <!-- <hr style="border: 5px solid #173250; border-radius: 0px 0px 5px 5px;"> -->
         </td>
         <td colspan="1" style='border:none;'>
+        </td>
+    </tr>
+    <tr show.bind="isShowing">
+        <td colspan="7">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th><label>Length</label></th>
+                        <th><label>Width</label></th>
+                        <th><label>Height</label></th>
+                        <th><label>Qty Cartons</label></th>
+                        <th><label>CBM</label></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <au-numeric value.bind="length" read-only.bind="readOnly">
+                            </au-numeric>
+                        </td>
+                        <td>
+                            <au-numeric value.bind="width" read-only.bind="readOnly">
+                            </au-numeric>
+                        </td>
+                        <td>
+                            <au-numeric value.bind="height" read-only.bind="readOnly">
+                            </au-numeric>
+                        </td>
+                        <td>
+                            <au-numeric value.bind="data.cartonQuantity" format="0" read-only="true">
+                            </au-numeric>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <p class="form-control-static text-right">${cmb}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </td>
     </tr>
 <!-- 
