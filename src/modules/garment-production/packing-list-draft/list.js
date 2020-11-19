@@ -22,9 +22,7 @@ export class List {
         { field: "shippingStaffName", title: "Shipping Staff" },
         {
             field: "status", title: "Status", formatter: value => {
-                if (value == "CREATED") {
-                    return "ON PROCESS";
-                } if (value == "REJECTED_SHIPPING_MD") {
+                if (value == "REJECTED_SHIPPING_MD") {
                     return "APPROVED MD";
                 } if (value == "REJECTED_SHIPPING_UNIT") {
                     return "REJECTED SHIPPING";
@@ -44,7 +42,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter: JSON.stringify({ "(Status != \"CREATED\")": true })
         }
 
         return this.service.search(arg)
@@ -81,7 +80,6 @@ export class List {
             case "REVISED_MD":
             case "REVISED_SHIPPING":
                 return { classes: "info" }
-            case "CREATED":
             case "POSTED":
             default:
                 return { css: { "background": "white" } }
