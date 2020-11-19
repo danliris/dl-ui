@@ -12,6 +12,11 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+
+    this.isImport = false;
+    this.isForeignCurrency = false;
+    this.titles = ["Lokal", "Lokal Valas", "Impor"];
+    this.activeTitle = this.titles[0];
   }
 
   controlOptions = {
@@ -38,17 +43,15 @@ export class List {
     { field: "SupplierName", title: "Supplier" },
     { field: "CategoryName", title: "Kategori" },
     { field: "AccountingUnitName", title: "Unit" },
-    { field: "...", title: "Jatuh Tempo" },
+    { field: "DueDate", title: "Jatuh Tempo" },
     { field: "CurrencyCode", title: "Currency" },
     { field: "TotalSaldo", title: "Saldo" },
   ];
 
-  titles = ["Lokal", "Lokal Valas", "Impor"];
-
-  activeTitle = "Lokal";
-
   changeTitle(title) {
     this.isSearch = false;
+    this.isImport = title !== "Impor" ? false : true;
+    this.isForeignCurrency = title !== "Lokal Valas" ? false : true;
 
     if (title !== this.activeTitle) {
       this.activeTitle = title;
@@ -56,10 +59,6 @@ export class List {
 
     this.documentTable.refresh();
   }
-
-  bind() {}
-
-  changeTable(title) {}
 
   search() {
     this.isSearch = true;
@@ -87,9 +86,7 @@ export class List {
     return DivisionLoader;
   }
 
-  loader = (info) => {
-    let order = {};
-
+  loader = () => {
     let categoryId = 0;
     if (this.category && this.category._id) categoryId = this.category._id;
 
@@ -107,47 +104,16 @@ export class List {
       accountingUnitId,
       divisionId,
       dateTo,
+      isImport: this.isImport,
+      isForeignCurrency: this.isForeignCurrency,
     };
 
-    // console.log(this.activeRole);
-    // console.log(arg);
-
     if (this.isSearch) {
-      switch (this.activeTitle) {
-        case "Lokal":
-          return this.service.searchLocal(arg).then((result) => {
-            // console.log(result);
-            return {
-              //   total: result.TotalData,
-              data: result.Reports,
-            };
-          });
-        case "Lokal Valas":
-          return this.service.searchLocalForeignCurrency(arg).then((result) => {
-            // console.log(result);
-            return {
-              //   total: result.TotalData,
-              data: result.Reports,
-            };
-          });
-        case "Impor":
-          return this.service.searchImport(arg).then((result) => {
-            // console.log(result);
-            return {
-              //   total: result.TotalData,
-              data: result.Reports,
-            };
-          });
-        // default:
-        //   return {
-        //     // total: 0,
-        //     data: [],
-        //   };
-      }
-      return {
-        total: 0,
-        data: [],
-      };
+      return this.service.search(arg).then((result) => {
+        return {
+          data: result.Reports,
+        };
+      });
     } else {
       return {
         total: 0,
@@ -157,8 +123,6 @@ export class List {
   };
 
   xls() {
-    let order = {};
-
     let categoryId = 0;
     if (this.category && this.category._id) categoryId = this.category._id;
 
@@ -176,50 +140,18 @@ export class List {
       accountingUnitId,
       divisionId,
       dateTo,
+      isImport: this.isImport,
+      isForeignCurrency: this.isForeignCurrency,
     };
 
-    switch (this.activeTitle) {
-      case "Lokal":
-        return this.service.generateExcelLocal(arg).then((result) => {
-          //   console.log(result);
-          return {
-            //   total: result.TotalData,
-            data: result.Reports,
-          };
-        });
-      case "Lokal Valas":
-        return this.service
-          .generateExcelLocalForeignCurrency(arg)
-          .then((result) => {
-            //   console.log(result);
-            return {
-              //   total: result.TotalData,
-              data: result.Reports,
-            };
-          });
-      case "Impor":
-        return this.service.generateExcelImport(arg).then((result) => {
-          //   console.log(result);
-          return {
-            //   total: result.TotalData,
-            data: result.Reports,
-          };
-        });
-      //   default:
-      //     return {
-      //       //   total: 0,
-      //       data: [],
-      //     };
-    }
-    return {
-      //   total: 0,
-      data: [],
-    };
+    return this.service.xls(arg).then((result) => {
+      return {
+        data: result.Reports,
+      };
+    });
   }
 
   pdf() {
-    let order = {};
-
     let categoryId = 0;
     if (this.category && this.category._id) categoryId = this.category._id;
 
@@ -237,108 +169,14 @@ export class List {
       accountingUnitId,
       divisionId,
       dateTo,
+      isImport: this.isImport,
+      isForeignCurrency: this.isForeignCurrency,
     };
 
-    switch (this.activeTitle) {
-      case "Lokal":
-        return this.service.printPdfLocal(arg).then((result) => {
-          //   console.log(result);
-          return {
-            //   total: result.TotalData,
-            data: result.Reports,
-          };
-        });
-      case "Lokal Valas":
-        return this.service.printPdfLocalForeignCurrency(arg).then((result) => {
-          //   console.log(result);
-          return {
-            //   total: result.TotalData,
-            data: result.Reports,
-          };
-        });
-      case "Impor":
-        return this.service.printPdfImport(arg).then((result) => {
-          //   console.log(result);
-          return {
-            //   total: result.TotalData,
-            data: result.Reports,
-          };
-        });
-      //   default:
-      //     return {
-      //       //   total: 0,
-      //       data: [],
-      //     };
-    }
-    return {
-      //   total: 0,
-      data: [],
-    };
-  }
-
-  /*
-  searching() {
-    if (false) {
-      alert("");
-    } else {
-      var filter = {
-        categoryId: this.category ? this.category._id : 0,
-        accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
-        divisionId: this.division ? this.division.Id : 0,
-        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+    return this.service.pdf(arg).then((result) => {
+      return {
+        data: result.Reports,
       };
-      this.service.search(filter).then((result) => {
-        this.data = result;
-      });
-    }
+    });
   }
-*/
-  /*
-  ExportToExcel() {
-    if (false) {
-      alert("");
-    } else {
-      var filter = {
-        no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
-        // category: this.category ? this.category.code : "",
-        // unit: this.unit ? this.unit.Code : "",
-        accountingCategoryId: this.accountingCategory
-          ? this.accountingCategory.Id
-          : 0,
-        accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
-        dateFrom: this.dateFrom
-          ? moment(this.dateFrom).format("YYYY-MM-DD")
-          : "",
-        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-      };
-      this.service.generateExcel(filter).catch((e) => {
-        alert(e.replace(e, "Error: ", ""));
-      });
-    }
-  }
-  */
-  /*
-  printPdf() {
-    if (false) {
-      alert("");
-    } else {
-      var filter = {
-        no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
-        // category: this.category ? this.category.code : "",
-        // unit: this.unit ? this.unit.Code : "",
-        accountingCategoryId: this.accountingCategory
-          ? this.accountingCategory.Id
-          : 0,
-        accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
-        dateFrom: this.dateFrom
-          ? moment(this.dateFrom).format("YYYY-MM-DD")
-          : "",
-        dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-      };
-      this.service.printPdf(filter).catch((e) => {
-        alert(e.replace(e, "Error: ", ""));
-      });
-    }
-  }
-*/
 }

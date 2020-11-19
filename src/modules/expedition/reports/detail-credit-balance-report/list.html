@@ -1,7 +1,4 @@
 <template>
-  <require from="../../../../lib/number-format-value-converter"></require>
-  <require from="../../../../lib/date-format-value-converter"></require>
-
   <style>
     .tab {
       padding: 15px;
@@ -25,7 +22,6 @@
       <div
         class="col-sm-4 tab ${activeTitle === title ? 'active' : ''}"
         click.delegate="changeTitle(title)"
-        click.trigger="changeTable(title)"
       >
         ${title}
       </div>

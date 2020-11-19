@@ -11,69 +11,18 @@ export class Service extends RestService {
     super(http, aggregator, config, "purchasing-azure");
   }
 
-  searchLocal(info) {
-    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=false`;
+  search(info) {
+    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
     return super.get(endpoint);
   }
 
-  searchLocalForeignCurrency(info) {
-    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=true`;
-    return super.get(endpoint);
-  }
-
-  searchImport(info) {
-    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=true&isForeignCurrency=false`;
-    return super.get(endpoint);
-  }
-
-  generateExcelLocal(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=false`;
+  xls(info) {
+    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
     return super.getXls(endpoint);
   }
 
-  generateExcelLocalForeignCurrency(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=true`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcelImport(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=true&isForeignCurrency=false`;
-    return super.getXls(endpoint);
-  }
-
-  printPdfLocal(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=false`;
+  pdf(info) {
+    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
     return super.getPdf(endpoint);
   }
-
-  printPdfLocalForeignCurrency(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=false&isForeignCurrency=true`;
-    return super.getPdf(endpoint);
-  }
-
-  printPdfImport(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=true&isForeignCurrency=false`;
-    return super.getPdf(endpoint);
-  }
-
-  /*
-  search(filter) {
-    var endpoint = `${serviceUri}?categoryId=${filter.categoryId}&accountingUnitId=${filter.accountingUnitId}&divisionId=${filter.divisionId}&dateTo=${filter.dateTo}`;
-    return super.get(endpoint);
-  }
-*/
-
-  /*
-  generateExcel(filter) {
-    var endpoint = `${serviceUri}/download?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
-    return super.getXls(endpoint);
-  }
-  */
-
-  /*
-  printPdf(filter) {
-    var endpoint = `${serviceUri}/pdf?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
-    return super.getPdf(endpoint);
-  }
-  */
 }
