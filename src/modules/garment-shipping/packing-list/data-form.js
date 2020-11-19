@@ -83,7 +83,7 @@ export class DataForm {
     ]
 
     PackingTypeOptions = ["EXPORT", "RE EXPORT"];
-    InvoiceTypeOptions = ["DL","DS", "SM"];
+    InvoiceTypeOptions = ["DL", "DS", "SM"];
     InvoiceTypeOptionsR = ["DLR", "SMR"];
     PaymentTermOptions = ["LC", "TT/OA"];
 
@@ -150,7 +150,8 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
-            checkedAll: this.context.isCreate == true ? false : true
+            checkedAll: this.context.isCreate == true ? false : true,
+            header: this.data
         }
         if (this.data) {
             this.selectedBuyer = this.data.buyerAgent;
@@ -173,12 +174,16 @@ export class DataForm {
         this.data.items = this.Items;
         if (this.data.items && this.data.id) {
             for (var item of this.data.items) {
-                item.BuyerCode = this.data.buyerAgent.code;
-                item.Section = this.data.section.code;
+                item.BuyerCodeFilter = this.data.buyerAgent.code;
+                item.SectionFilter = this.data.section.code;
             }
         }
 
         this.data.sayUnit = this.data.sayUnit || "CARTON";
+
+        this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
+        this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
+        this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
     }
 
     get addMeasurements() {
@@ -199,8 +204,8 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.items.push({
-                Section: this.data.section.Code || this.data.section.code,
-                BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+                SectionFilter: this.data.section.Code || this.data.section.code,
+                BuyerCodeFilter: this.data.buyerAgent.Code || this.data.buyerAgent.code
             });
         };
     }
@@ -269,5 +274,81 @@ export class DataForm {
         }
         this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
         return this.data.totalCartons;
+    }
+
+    noImage = "images/no-image.jpg";
+    @bindable shippingMarkImageSrc = this.noImage;
+    @bindable shippingMarkImageUpload;
+    shippingMarkImageUploadChanged(newValue) {
+        if (newValue) {
+            let imageInput = document.getElementById('shippingMarkImageInput');
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Image = event.target.result;
+                const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
+
+                if (base64Content.length * 6 / 8 > 5242880) {
+                    this.shippingMarkImageSrc = this.noImage;
+                    delete this.data.shippingMarkImageFile;
+                    alert("Maximum Document Size is 5 MB");
+                } else {
+                    this.shippingMarkImageSrc = this.data.shippingMarkImageFile = base64Image;
+                }
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            this.shippingMarkImageSrc = this.noImage;
+            delete this.data.shippingMarkImageFile;
+        }
+    }
+
+    @bindable sideMarkImageSrc;
+    @bindable sideMarkImageUpload;
+    sideMarkImageUploadChanged(newValue) {
+        if (newValue) {
+            let imageInput = document.getElementById('sideMarkImageInput');
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Image = event.target.result;
+                const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
+
+                if (base64Content.length * 6 / 8 > 5242880) {
+                    this.sideMarkImageSrc = this.noImage;
+                    delete this.data.sideMarkImageFile;
+                    alert("Maximum Document Size is 5 MB");
+                } else {
+                    this.sideMarkImageSrc = this.data.sideMarkImageFile = base64Image;
+                }
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            this.sideMarkImageSrc = this.noImage;
+            delete this.data.sideMarkImageFile;
+        }
+    }
+
+    @bindable remarkImageSrc;
+    @bindable remarkImageUpload;
+    remarkImageUploadChanged(newValue) {
+        if (newValue) {
+            let imageInput = document.getElementById('remarkImageInput');
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Image = event.target.result;
+                const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
+
+                if (base64Content.length * 6 / 8 > 5242880) {
+                    this.remarkImageSrc = this.noImage;
+                    delete this.data.remarkImageFile;
+                    alert("Maximum Document Size is 5 MB");
+                } else {
+                    this.remarkImageSrc = this.data.remarkImageFile = base64Image;
+                }
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            this.remarkImageSrc = this.noImage;
+            delete this.data.remarkImageFile;
+        }
     }
 }

@@ -204,7 +204,7 @@
                     label="GROSS WEIGHT"
                     value.bind="data.grossWeight"
                     error.bind="error.GrossWeight"
-                    read-only.bind="readOnly" 
+                    read-only="true" 
                     options.bind="controlOptions">
                 </numeric>
             </div>
@@ -213,7 +213,7 @@
                     label="NETT WEIGHT"
                     value.bind="data.nettWeight"
                     error.bind="error.NettWeight"
-                    read-only.bind="readOnly" 
+                    read-only="true" 
                     options.bind="controlOptions">
                 </numeric>
             </div>
@@ -222,7 +222,7 @@
                     label="TOTAL CARTONS"
                     value.bind="totalCartons"
                     error.bind="error.totalCartons"
-                    read-only.bind="true" 
+                    read-only="true" 
                     options.bind="controlOptions">
                 </numeric>
             </div>
@@ -252,8 +252,7 @@
                 errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
                 read-only.bind="readOnly" 
-                add.bind="addMeasurements" 
-                remove.bind="removeMeasurements"
+                read-only="true"
                 options.bind="Options"
                 item-template="modules/garment-shipping/packing-list/template/detail-measurement">
             </au-collection>
@@ -264,30 +263,55 @@
 
     <!-- MARK -->
     <div class="row" if.bind="activeTab==2">
-        <au-multiline
-            label="SHIPPING MARK"
-            value.bind="data.shippingMark"
-            error.bind="error.ShippingMark" 
-            read-only.bind="readOnly" 
-            options.bind="controlOptions">
-        </au-multiline>
+        <div class="row">
+            <label class="col-sm-3 text-right">SHIPPING MARK</label>
+            <div class="col-sm-7">
+                <input show.bind="!readOnly" type="file" id="shippingMarkImageInput" value.bind="shippingMarkImageUpload" accept="image/*">
+                <div class="thumbnail">
+                    <img src.bind="shippingMarkImageSrc">
+                    <au-multiline
+                        placeholder="Tambah Keterangan"
+                        value.bind="data.shippingMark"
+                        error.bind="error.ShippingMark" 
+                        read-only.bind="readOnly">
+                    </au-multiline>
+                </div>
+            </div>
+        </div>
 
-        <au-multiline
-            label="SIDE MARK"
-            value.bind="data.sideMark"
-            error.bind="error.SideMark"
-            read-only.bind="readOnly"  
-            options.bind="controlOptions">
-        </au-multiline>
+        <div class="row">
+            <label class="col-sm-3 text-right">SIDE MARK</label>
+            <div class="col-sm-7">
+                <input show.bind="!readOnly" type="file" id="sideMarkImageInput" value.bind="sideMarkImageUpload" accept="image/*">
+                <div class="thumbnail">
+                    <img src.bind="sideMarkImageSrc">
+                    <au-multiline
+                        placeholder="Tambah Keterangan"
+                        value.bind="data.sideMark"
+                        error.bind="error.SideMark"
+                        read-only.bind="readOnly">
+                    </au-multiline>
+                </div>
+            </div>
+        </div>
 
-        <au-multiline
-            label="REMARK"
-            value.bind="data.remark"
-            error.bind="error.Remark" 
-            read-only.bind="readOnly" 
-            options.bind="controlOptions">
-        </au-multiline>
+        <div class="row">
+            <label class="col-sm-3 text-right">REMARK</label>
+            <div class="col-sm-7">
+                <input show.bind="!readOnly" type="file" id="remarkImageInput" value.bind="remarkImageUpload" accept="image/*">
+                <div class="thumbnail">
+                    <img src.bind="remarkImageSrc">
+                    <au-multiline
+                        placeholder="Tambah Keterangan"
+                        value.bind="data.remark"
+                        error.bind="error.Remark" 
+                        read-only.bind="readOnly">
+                    </au-multiline>
+                </div>
+            </div>
+        </div>
+
     </div>
-        
+    
     </au-input-form >
 </template>
