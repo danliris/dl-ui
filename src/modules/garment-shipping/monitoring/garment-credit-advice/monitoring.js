@@ -7,6 +7,8 @@ const GarmentShippingInvoiceLoader = require('../../../../loader/garment-shippin
 
 @inject(Router, Service)
 export class List {
+
+    PaymentTermOptions = [" ","LC", "TT/OA"];
     
     constructor(router, service) {
         this.service = service;
@@ -16,9 +18,9 @@ export class List {
     
     buyerAgent = null;
     invoiceNo = null;
+    paymentTerm = null;
     dateFrom = null;
     dateTo = null;
-
 
     get garmentbuyerLoader() {
         return GarmentBuyerLoader;
@@ -45,6 +47,7 @@ export class List {
         var info = {
             buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
             invoiceNo : this.invoiceNo ? this.invoiceNo.InvoiceNo : "",
+            paymentTerm : this.paymentTerm ? this.paymentTerm : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -132,6 +135,7 @@ export class List {
             var info = {
                 buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
                 invoiceNo : this.invoiceNo ? this.invoiceNo.InvoiceNo : "",
+                paymentTerm : this.paymentTerm ? this.paymentTerm : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -148,6 +152,7 @@ export class List {
         this.dateTo = null;
         this.buyerAgent = null;
         this.invoiceNo = null; 
+        this.paymentTerm = null;
         this.buyers = [];
         this.TotNett = null;            
     }

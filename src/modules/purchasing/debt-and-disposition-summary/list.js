@@ -72,10 +72,105 @@ export class List {
 
     exportExcel() {
         console.log("excel")
+        let categoryId = 0;
+        if (this.category && this.category._id)
+            categoryId = this.category._id;
+
+        let divisionId = 0;
+        if (this.division && this.division.Id)
+            divisionId = this.division.Id;
+
+        let unitId = 0;
+        if (this.unit && this.unit.Id)
+            unitId = this.unit.Id;
+
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+
+        let arg = {
+            categoryId, divisionId, unitId, dueDate
+        };
+        console.log("pdf");
+
+        switch (this.activeTitle) {
+            case "Lokal":
+                return this.service.generateExcelLocal(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Lokal Valas":
+                return this.service.generateExcelLocalForeignCurrency(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Import":
+                return this.service.generateExcelImport(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+        }
     }
 
     printPdf() {
-        console.log("pdf")
+        let categoryId = 0;
+        if (this.category && this.category._id)
+            categoryId = this.category._id;
+
+        let divisionId = 0;
+        if (this.division && this.division.Id)
+            divisionId = this.division.Id;
+
+        let unitId = 0;
+        if (this.unit && this.unit.Id)
+            unitId = this.unit.Id;
+
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+
+        let arg = {
+            categoryId, divisionId, unitId, dueDate
+        };
+        console.log("pdf");
+
+        switch (this.activeTitle) {
+            case "Lokal":
+                return this.service.printPdfLocal(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Lokal Valas":
+                return this.service.printPdfLocalForeignCurrency(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Import":
+                return this.service.printPdfImport(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+        }
     }
 
     columns = [
@@ -113,10 +208,10 @@ export class List {
         if (this.unit && this.unit.Id)
             unitId = this.unit.Id;
 
-        let date = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
 
         let arg = {
-            categoryId, divisionId, unitId, date
+            categoryId, divisionId, unitId, dueDate
         };
 
         console.log(this.activeRole)
@@ -171,8 +266,6 @@ export class List {
                 data: []
             }
         }
-
-
     }
 
 }

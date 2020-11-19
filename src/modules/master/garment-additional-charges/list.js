@@ -4,16 +4,9 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["detail"];
+    context = ["Detail"];
     columns = [
-        { field: "Code", title: "Kode", width: "8%" },
-        { field: "Name", title: "Nama", width: "17%" },
-        { field: "Address", title: "Alamat", width: "20%" },
-        { field: "PhoneNumber", title: "No. Telepon", width: "10%" },
-        { field: "NIK", title: "NIK", width: "10%" },
-        { field: "NPWP", title: "No. NPWP", width: "10%" },
-        { field: "WPName", title: "Nama Wajib Pajak", width: "15%" },
-        { field: "KaberType", title: "Status Buyer", width: "10%" }, 
+        { field: "Name", title: "Additional Charges"},
     ];
 
     loader = (info) => {
@@ -25,7 +18,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["Code", "Name", "Address"],
+            select: ["Name"],
             order: order
         }
 
@@ -47,7 +40,7 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail":
+            case "Detail":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
