@@ -148,6 +148,7 @@ export class Item {
                             let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
 
+                            totalPaid = totalPaid + vat;
                             if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
                                 totalPaid = Number((totalPaid + vat - incomeTax).toFixed(2))
                             // console.log(vat);
