@@ -121,12 +121,17 @@ export class Detail {
         let measurements = [];
 
         for (const item of this.context.context.options.header.items) {
-            for (const detail of item.details) {
+            for (const detail of (item.details || [])) {
                 let measurement = measurements.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
                 if (measurement) {
-                    measurement.cartonsQuantity += detail.cartonQuantity;
+                    const checkCarton = measurements.find(m => m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
+                    if (!checkCarton) {
+                        measurement.cartonsQuantity += detail.cartonQuantity;
+                    }
                 } else {
                     measurements.push({
+                        carton1: detail.carton1,
+                        carton2: detail.carton2,
                         length: detail.length,
                         width: detail.width,
                         height: detail.height,
