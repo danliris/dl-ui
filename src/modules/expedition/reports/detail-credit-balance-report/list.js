@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-
+import numeral from "numeral";
 var CategoryLoader = require("../../../../loader/category-loader");
 var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
 var DivisionLoader = require("../../../../loader/division-loader");
@@ -57,7 +57,14 @@ export class List {
       },
     },
     { field: "CurrencyCode", title: "Currency" },
-    { field: "TotalSaldo", title: "Saldo" },
+    {
+      field: "TotalSaldo",
+      title: "Saldo",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
   ];
 
   changeTitle(title) {
