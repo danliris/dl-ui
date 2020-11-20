@@ -59,12 +59,45 @@
 </div>
 <br>
 <div class="table-responsive">
-    <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable.bind="false" options.bind="tableOptions">
+    <!-- <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable.bind="false" options.bind="tableOptions">
         <div slot="toolbar" class="btn-group">
             <a click.delegate="getExcel()" class='btn btn-primary'>Cetak Excel</a>
             <a click.delegate="getPdf()" class='btn btn-info'>Cetak Pdf</a>
         </div>
-    </au-table>
+    </au-table> -->
+
+    <table class="table table-bordered">
+        <!--Table head-->
+        <thead>
+            <tr>
+                <th>Tgl Disposisi</th>
+                <th>No Disposisi</th>
+                <th>No SPB</th>
+                <th>No BP</th>
+                <th>No Invoice</th>
+                <th>Supplier</th>
+                <th>Kategori</th>
+                <th>Unit</th>
+                <th>Jatuh Tempo</th>
+                <th>Currency</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+            <tr show.bind="isEmpty">
+                <td colspan="11">
+                    <div class="alert alert-info">Tidak ada data</div>
+                </td>
+            </tr>
+            <tr repeat.for="datum of data">
+                <td repeat.for="key of datum | keys" style="white-space: pre" class="${key.toString().toLowerCase() == 'totalcategorybycurrency' ||
+              key.toString().toLowerCase() == 'total' ? 'text-right' : ''}" colspan="${key.toString().toLowerCase() == 'totalcategorybycurrency' ? 9 : 1}">${datum[key]}</td>
+            </tr>
+        </tbody>
+        <!--Table body-->
+    </table>
 </div>
 
 <div class="row">
