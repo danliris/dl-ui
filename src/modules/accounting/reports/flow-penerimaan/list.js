@@ -149,7 +149,7 @@ export class List {
     //     ) : { total: 0, data: {} };
     // }
     search() {
-        console.log(this.dateTo);
+        // console.log(this.dateTo);
         let args = {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
