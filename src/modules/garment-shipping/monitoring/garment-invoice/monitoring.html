@@ -32,63 +32,49 @@
         <table class="table table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">No Invoice</th>
-                    <th class="text-center">Tgl Invoice</th>
-                    <th class="text-center">Origin</th>
-                    <th class="text-center">Destination</th>
-                    <th class="text-center">Buyer Agent</th>
-                    <th class="text-center">Nama Buyer Agent</th>
-                    <th class="text-center">Consignee</th>
-                    <th class="text-center">Tgl Sailing</th>
-                    <th class="text-center">No PEB</th>
-                    <th class="text-center">Tgl PEB</th>
-                    <th class="text-center">No Order Buyer</th>
-                    <th class="text-center">Staff Shipping</th>
-                    <th class="text-center">Amount</th>
-                    <th class="text-center">To Be Paid</th>
+                    <td align="center" rowspan="2">NO.</td>
+                    <td align="center" rowspan="2">NO INVOICE</td>
+                    <td align="center" rowspan="2">TGL INVOICE</td>
+                    <td align="center" rowspan="2">DESTINATION</td>
+                    <td align="center" rowspan="2">BUYER AGENT</td>
+                    <td align="center" rowspan="2">CONSIGNEE</td>
+                    <td align="center" rowspan="2">TGL SAILING</td>
+                    <td align="center" rowspan="2">TGL TRUCKING</td>
+                    <td align="center" rowspan="2">NO PEB</td>
+                    <td align="center" rowspan="2">TGL PEB</td>
+                    <td align="center" rowspan="2">PO BUYER</td>
+                    <td align="center" rowspan="2">STAFF SHIPPING</td>
+                    <td align="center" rowspan="2">AMOUNT</td>
+                    <td align="center" rowspan="2">TO BE PAID</td>
+                    <td align="center" colspan="3">CREDIT ADVICE</td>
+                </tr>
+                <tr>
+                    <td align="center">TANGGAL</td>
+                    <td align="center">PAYMENT</td>
+                    <td align="center">AMOUNT</td>                        
                 </tr>
             </thead>
             <tbody>
-                <template repeat.for="buyer of buyers">
-                    <tr repeat.for="data of buyer.data">
-                        <td class="text-center"> ${$index + 1}</td>                        
-                        <td>${data.invoiceNo}</td>
-                        <td>${data.invoiceDate}</td>
-                        <td>${data.origin}</td>
-                        <td>${data.destination}</td>
-                        <td>${data.buyerAgentCode}</td>
-                        <td>${data.buyerAgentName}</td>
-
-                        <td>${data.consigneeName}</td>
-                        <td>${data.sailingDate}</td>
-                        <td>${data.pebNo}</td>
-                        <td>${data.pebDate}</td>
-                        <td>${data.orderNo}</td>
-                        <td>${data.shippingStaffName}</td>
-                        
-
-                        <td class="text-right"><strong>${data.amount}</strong></td>
-                        <td class="text-right"><strong>${data.toBePaid}</strong></td>
-
-                    </tr>
-                    <tr class="active">
-                        <td class="text-center">.</td>
-                        <td colspan="10"><strong>${buyer.buyer}</strong></td>
-                        <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
-                        <td class="text-right"><strong>${buyer.subTotal}</strong></td>
-                        <td class="text-right"><strong>${buyer.subTotal1}</strong></td>
-                        
-                    </tr>
-                </template>
-                    <tr class="active">
-                        <td class="text-center" colspan="13"><strong>T   O   T   A   L   . . . . . . . . . . . . . . .</strong></td>
-                        <td class="text-right"><strong>${TotAmount}</strong></td>
-                        <td class="text-right"><strong>${TotToBePaid}</strong></td>
-                        
-                    </tr>
+                <tr repeat.for="item of data">
+                    <td class="text-center"> ${$index + 1}</td>                        
+                    <td>${item.invoiceNo}</td>
+                    <td>${item.invoiceDate}</td>
+                    <td>${item.destination}</td>                  
+                    <td>${item.buyerAgentName}</td>
+                    <td>${item.consigneeName}</td>
+                    <td>${item.sailingDate}</td>
+                    <td>${item.truckingDate}</td>
+                    <td>${item.pebNo}</td>
+                    <td>${item.pebDate}</td>
+                    <td>${item.orderNo}</td>
+                    <td>${item.shippingStaffName}</td>
+                    <td class="text-right"><strong>${item.amount}</strong></td>
+                    <td class="text-right"><strong>${item.toBePaid}</strong></td>
+                    <td>${item.caDate}</td>
+                    <td>${item.paymentDate}</td>                        
+                    <td class="text-right"><strong>${item.amountPaid}</strong></td>
+                </tr>                    
             </tbody>
-
         </table>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak Ada Data Yang Ditemukan.

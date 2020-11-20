@@ -24,6 +24,10 @@
                     options.bind="controlOptions">
                 </au-multiline>
 
+                <au-textbox label="No BC" placeholder="No BC" value.bind="data.bcNo"
+                    error.bind="error.bcNo" read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
+
                 <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
                     placeholder="Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
                 </au-multiline>

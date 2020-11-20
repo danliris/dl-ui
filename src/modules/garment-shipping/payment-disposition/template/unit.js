@@ -70,7 +70,7 @@ export class unit {
     get billAmount(){
         let billAmount=0;
         if(this.headerData.totalBill && this.data.amountPercentage){
-            billAmount=this.headerData.billValue*this.data.amountPercentage/100;
+            billAmount=this.headerData.totalBill*this.data.amountPercentage.toFixed(2)/100;
         }
         this.data.billAmount=billAmount;
         return billAmount;

@@ -104,6 +104,19 @@ module.exports = [
         }
     },
     {
+        route: "master/garment-additional-charges",
+        name: "garment-additional-charges",
+        moduleId: "modules/master/garment-additional-charges/index",
+        nav: true,
+        title: "Additional Charges",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
@@ -112,7 +125,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: 'fa fa-calculator',
             byUser: false
         }
@@ -126,111 +139,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/invoice",
-        name: "garment-shipping/invoice",
-        moduleId: "modules/garment-shipping/invoice/index",
-        nav: true,
-        title: "Invoice Export Garment",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/cover-letter",
-        name: "garment-shipping/cover-letter",
-        moduleId: "modules/garment-shipping/cover-letter/index",
-        nav: true,
-        title: "Surat Pengantar",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/shipping-instruction",
-        name: "garment-shipping/shipping-instruction",
-        moduleId: "modules/garment-shipping/shipping-instruction/index",
-        nav: true,
-        title: "Shipping Instruction",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/export-sales-do",
-        name: "garment-shipping/export-sales-do",
-        moduleId: "modules/garment-shipping/export-sales-do/index",
-        nav: true,
-        title: "DO Penjualan Export",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/letter-of-credit",
-        name: "garment-shipping/letter-of-credit",
-        moduleId: "modules/garment-shipping/letter-of-credit/index",
-        nav: true,
-        title: "Letter Of Credit",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/amend-letter-of-credit",
-        name: "garment-shipping/amend-letter-of-credit",
-        moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
-        nav: true,
-        title: "Amend Letter Of Credit",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/credit-advice",
-        name: "garment-shipping/credit-advice",
-        moduleId: "modules/garment-shipping/credit-advice/index",
-        nav: true,
-        title: "Credit Advice",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/vb-payment",
-        name: "garment-shipping/vb-payment",
-        moduleId: "modules/garment-shipping/vb-payment/index",
-        nav: true,
-        title: "Pembayaran VB",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -243,10 +152,23 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "FP": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  
+    {
+        route: "garment-shipping/invoice",
+        name: "garment-shipping/invoice",
+        moduleId: "modules/garment-shipping/invoice/index",
+        nav: true,
+        title: "Invoice Export Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
     {
         route: "garment-shipping/monitoring/invoice",
         name: "garment-shipping/monitoring/invoice",
@@ -256,7 +178,46 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/cover-letter",
+        name: "garment-shipping/cover-letter",
+        moduleId: "modules/garment-shipping/cover-letter/index",
+        nav: true,
+        title: "Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/cover-letter",
+        name: "garment-shipping/monitoring/cover-letter",
+        moduleId: "modules/garment-shipping/monitoring/garment-cover-letter/index",
+        nav: true,
+        title: "Monitoring Surat Pengantar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/shipping-instruction",
+        name: "garment-shipping/shipping-instruction",
+        moduleId: "modules/garment-shipping/shipping-instruction/index",
+        nav: true,
+        title: "Shipping Instruction",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -269,20 +230,111 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     }, 
     {
-        route: "garment-shipping/monitoring/cover-letter",
-        name: "garment-shipping/monitoring/cover-letter",
-        moduleId: "modules/garment-shipping/monitoring/garment-cover-letter/index",
+        route: "garment-shipping/export-sales-do",
+        name: "garment-shipping/export-sales-do",
+        moduleId: "modules/garment-shipping/export-sales-do/index",
         nav: true,
-        title: "Monitoring Surat Pengantar",
+        title: "DO Penjualan Export",
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/letter-of-credit",
+        name: "garment-shipping/letter-of-credit",
+        moduleId: "modules/garment-shipping/letter-of-credit/index",
+        nav: true,
+        title: "Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/garment-letter-of-credit",
+        name: "garment-shipping/monitoring/garment-letter-of-credit",
+        moduleId: "modules/garment-shipping/monitoring/garment-letter-of-credit/index",
+        nav: true,
+        title: "Monitoring Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/amend-letter-of-credit",
+        name: "garment-shipping/amend-letter-of-credit",
+        moduleId: "modules/garment-shipping/amend-letter-of-credit/index",
+        nav: true,
+        title: "Amend Letter Of Credit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/credit-advice",
+        name: "garment-shipping/credit-advice",
+        moduleId: "modules/garment-shipping/credit-advice/index",
+        nav: true,
+        title: "Credit Advice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/garment-credit-advice",
+        name: "garment-shipping/monitoring/garment-credit-advice",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-advice/index",
+        nav: true,
+        title: "Monitoring Credit Advice",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/vb-payment",
+        name: "garment-shipping/vb-payment",
+        moduleId: "modules/garment-shipping/vb-payment/index",
+        nav: true,
+        title: "Pembayaran VB",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },    
+    {
+        route: "garment-shipping/monitoring/shipment-garment",
+        name: "garment-shipping/monitoring/shipment-garment",
+        moduleId: "modules/garment-shipping/monitoring/shipment-garment/index",
+        nav: true,
+        title: "Monitoring Shipment Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -295,7 +347,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -308,7 +360,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -321,7 +373,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -334,7 +386,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -347,7 +399,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },      
@@ -360,33 +412,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
-        route: "garment-shipping/debit-note",
-        name: "garment-shipping/debit-note",
-        moduleId: "modules/garment-shipping/debit-note/index",
-        nav: true,
-        title: "Debit Note",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
-     {
-        route: "garment-shipping/monitoring/debit-note",
-        name: "garment-shipping/monitoring/debit-note",
-        moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
-        nav: true,
-        title: "Monitoring Debit Note",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -399,10 +425,36 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/debit-note",
+        name: "garment-shipping/debit-note",
+        moduleId: "modules/garment-shipping/debit-note/index",
+        nav: true,
+        title: "Debit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+     {
+        route: "garment-shipping/monitoring/debit-note",
+        name: "garment-shipping/monitoring/debit-note",
+        moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
+        nav: true,
+        title: "Monitoring Debit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },   
     {
         route: "garment-shipping/local-sales-contract",
         name: "garment-shipping/local-sales-contract",
@@ -412,7 +464,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -425,7 +477,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -438,7 +490,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -451,7 +503,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  
@@ -464,7 +516,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -477,7 +529,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -490,7 +542,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -503,7 +555,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -516,7 +568,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     }, 
@@ -529,7 +581,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },    
@@ -542,7 +594,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -555,7 +607,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -568,7 +620,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -581,7 +633,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -594,7 +646,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -607,7 +659,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -620,7 +672,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -633,7 +685,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -646,7 +698,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -656,6 +708,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/payment-disposition/index",
         nav: true,
         title: "Lampiran Disposisi Pembayaran Shipment ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/payment-disposition-recap",
+        name: "garment-shipping/payment-disposition-recap",
+        moduleId: "modules/garment-shipping/payment-disposition-recap/index",
+        nav: true,
+        title: "Lampiran Rekap Disposisi Pembayaran EMKL ",
         auth: true,
         settings: {
             group: "g-shipping",

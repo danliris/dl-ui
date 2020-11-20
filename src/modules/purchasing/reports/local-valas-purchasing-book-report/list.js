@@ -3,8 +3,10 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var CategoryLoader = require('../../../../loader/category-loader');
-var UnitLoader = require('../../../../loader/unit-loader');
+// var CategoryLoader = require('../../../../loader/category-loader');
+// var UnitLoader = require('../../../../loader/unit-loader');
+var AccountingCategoryLoader = require('../../../../loader/accounting-category-loader');
+var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
 var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader');
 
 @inject(Router, Service)
@@ -28,19 +30,31 @@ export class List {
         return UnitReceiptNoteLoader;
     }
     unitReceiptNoteView = (unitReceiptNote) => {
-        return `${unitReceiptNote.no} `
+            return `${unitReceiptNote.no} `
+        }
+        // get categoryLoader() {
+        //     return CategoryLoader;
+        // }
+        // categoryView = (category) => {
+        //     return `${category.code} - ${category.name}`
+        // }
+        // get unitLoader() {
+        //     return UnitLoader;
+        // }
+        // unitView = (unit) => {
+        //     return `${unit.Code} - ${unit.Name}`
+        // }
+    get accountingCategoryLoader() {
+        return AccountingCategoryLoader;
     }
-    get categoryLoader() {
-        return CategoryLoader;
+    accountingCategoryView = (AccountingCategoryLoader) => {
+        return `${AccountingCategoryLoader.Code} - ${AccountingCategoryLoader.Name}`
     }
-    categoryView = (category) => {
-        return `${category.code} - ${category.name}`
+    get accountingUnitLoader() {
+        return AccountingUnitLoader;
     }
-    get unitLoader() {
-        return UnitLoader;
-    }
-    unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`
+    accountingUnittView = (accountingUnit) => {
+        return `${accountingUnit.Code} - ${accountingUnit.Name}`
     }
 
 
@@ -51,8 +65,10 @@ export class List {
         } else {
             var info = {
                 no: this.no ? this.no : "",
-                category: this.category ? this.category.code : "",
-                unit: this.unit ? this.unit.Code : "",
+                // category: this.category ? this.category.code : "",
+                // unit: this.unit ? this.unit.Code : "",
+                accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+                accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -69,8 +85,10 @@ export class List {
         } else {
             var filter = {
                 no: this.no ? this.no : "",
-                category: this.category ? this.category.code : "",
-                unit: this.unit ? this.unit.Code : "",
+                // category: this.category ? this.category.code : "",
+                // unit: this.unit ? this.unit.Code : "",
+                accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+                accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -88,8 +106,10 @@ export class List {
         } else {
             var filter = {
                 no: this.no ? this.no : "",
-                category: this.category ? this.category.code : "",
-                unit: this.unit ? this.unit.Code : "",
+                // category: this.category ? this.category.code : "",
+                // unit: this.unit ? this.unit.Code : "",
+                accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+                accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -104,8 +124,10 @@ export class List {
 
     reset() {
         this.no = "";
-        this.category = "";
-        this.unit = "";
+        // this.category = "";
+        // this.unit = "";
+        this.accountingCategory = "";
+        this.accountingUnit = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.data = [];

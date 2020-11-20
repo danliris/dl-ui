@@ -58,63 +58,22 @@ export class List {
             .then(result => {
                   this.data = result;
                   console.log(result);
-                  var dataByBuyer = {};
-                  var subTotalBuyer = {};
-                  var subTotalBuyer1 = {};
-                  
-                  for (var data of result) {
-                       var Buyer = data.buyerAgentName;
-                        if (!dataByBuyer[Buyer]) dataByBuyer[Buyer] = [];                 
-                            dataByBuyer[Buyer].push({                            
-                         
-                            buyerAgentCode : data.buyerAgentCode,
-                            buyerAgentName : data.buyerAgentName,
-                            invoiceNo : data.invoiceNo,
-                            invoiceDate : moment(data.invoiceDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.invoiceDate).format("DD MMM YYYY"),
-                 
-                            origin : data.origin,
-                            destination : data.destination,
-                            consigneeName : data.consigneeName,
-                            sailingDate : moment(data.sailingDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.sailingDate).format("DD MMM YYYY"),
-                            pebNo : data.pebNo,
-                            pebDate : moment(data.pebDate).format("DD MMM YYYY")=="01 Jan 0001"? "-" : moment(data.pebDate).format("DD MMM YYYY"),
-                            orderNo : data.orderNo,
-                            shippingStaffName : data.shippingStaffName,                            
-                            amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                            toBePaid : data.toBePaid.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-
-                        });
-                        
-                        if (!subTotalBuyer[Buyer]){
-                           subTotalBuyer[Buyer] = 0;
-                           } 
-                           subTotalBuyer[Buyer] += data.amount;
-
-                        if (!subTotalBuyer1[Buyer]) {
-                           subTotalBuyer1[Buyer] = 0;
-                           } 
-                           subTotalBuyer1[Buyer] += data.toBePaid;
-                    
-                }
-     
-               var buyers = [];
-               this.TotAmount = 0;
-               this.TotToBePaid = 0;
-                
-               for (var data in dataByBuyer) {
-                   buyers.push({
-                   data: dataByBuyer[data],
-                   buyer: dataByBuyer[data][0].buyerAgentName,
-                   subTotal: (subTotalBuyer[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                   subTotal1: (subTotalBuyer1[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-
-                 });
-                   this.TotAmount += subTotalBuyer[data];
-                   this.TotToBePaid += subTotalBuyer1[data];   
-               }
-               this.TotAmount = this.TotAmount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-               this.TotToBePaid = this.TotToBePaid.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-               this.buyers = buyers;
+                  var datas = [];
+                  for (var item of this.data){
+                      item.invoiceDate=moment(item.invoiceDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.invoiceDate).format("DD MMM YYYY");
+                      item.truckingDate=moment(item.truckingDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.truckingDate).format("DD MMM YYYY");                    
+                      item.sailingDate=moment(item.sailingDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.sailingDate).format("DD MMM YYYY");
+                      item.pebDate=moment(item.pebDate).format("DD MMM YYYY")=="01 Jan 0001" ? "-" : moment(item.pebDate).format("DD MMM YYYY");                    
+                      item.caDate=moment(item.caDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.caDate).format("DD MMM YYYY");
+                      item.paymentDate=moment(item.paymentDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.paymentDate).format("DD MMM YYYY");
+              
+                      item.amount=item.amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                      item.toBePaid=item.toBePaid.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                      item.amountPaid=item.amountPaid.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+ 
+                      datas.push(item);
+                  }
+                  this.data = datas;
              });   
         }   
     }
@@ -140,9 +99,7 @@ export class List {
         this.dateTo = null;
         this.buyerAgent = null;
         this.invoiceType = null; 
-        this.buyers = [];
-        this.TotAmount = null;            
-        this.TotToBePaid = null; 
+        this.datas = []; 
     }
 
     dateFromChanged(e) {

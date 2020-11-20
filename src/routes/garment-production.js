@@ -874,19 +874,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: "garment-production/packing-list",
-        name: "garment-production/packing-list",
-        moduleId: "modules/garment-production/packing-list/index",
-        nav: true,
-        title: "Packing List",
-        auth: true,
-        settings: {
-            group: "g-production",
-            // permission: { "C9": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },
+    // {
+    //     route: "garment-production/packing-list",
+    //     name: "garment-production/packing-list",
+    //     moduleId: "modules/garment-production/packing-list/index",
+    //     nav: true,
+    //     title: "Packing List",
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         permission: { "C9": 1 },
+    //         iconClass: "fa fa-dashboard"
+    //     }
+    // },
+
     {
         route: "garment-production/stock-opname",
         name: "garment-production/stock-opname",
@@ -909,7 +910,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -922,7 +923,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
     },

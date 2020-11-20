@@ -11,18 +11,18 @@
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="category"
+        <au-autocomplete value.bind="accountingCategory"
                          label="Kategori"
-                         loader.bind="categoryLoader"
-                         text.bind="categoryView"
+                         loader.bind="accountingCategoryLoader"
+                         text.bind="accountingCategoryView"
                          placeholder="Cari Kategori"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
-        <au-autocomplete value.bind="unit"
+        <au-autocomplete value.bind="accountingUnit"
                          label="Unit"
-                         loader.bind="unitLoader"
-                         text.bind="unitView"
+                         loader.bind="accountingUnitLoader"
+                         text.bind="accountingUnitView"
                          placeholder="Cari Unit"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
@@ -71,17 +71,20 @@
                     <td rowspan=2>No Invoice</td>
                     <td rowspan=2>No Faktur Pajak</td>
                     <td rowspan=2>No SPB/NI</td>
-                    <td rowspan=2>Kategori</td>
-                    <td rowspan=2>Unit</td>
+                    <td rowspan=2>Kategori Pembelian</td>
+                    <td rowspan=2>Kategori Pembukuan</td>
+                    <td rowspan=2>Unit Pembelian</td>
+                    <td rowspan=2>Unit Pembukuan</td>
                     <td rowspan=2>Quantity</td>
                     <td rowspan=2>Satuan</td>
                     <td rowspan=2>Mata Uang</td>
-                    <td colspan=2>Pembelian</td>
+                    <td colspan=3>Pembelian</td>
                     <td rowspan=2>Total (IDR)</td>
                 </tr>
                 <tr>
                     <td>DPP</td>
                     <td>PPN</td>
+                    <td>PPH</td>
                 </tr>
             </thead>
             <tbody>
@@ -95,17 +98,20 @@
                     <td>${report.InvoiceNo}</td>
                     <td>${report.VATNo}</td>
                     <td>${report.UPONo}</td>
-                    <td>${report.CategoryCode} - ${report.CategoryName}</td>
+                    <td>${report.AccountingCategoryName}</td>
+                    <td>${report.CategoryName}</td>
+                    <td>${report.AccountingUnitName}</td>
                     <td>${report.UnitName}</td>
                     <td>${report.Quantity}</td>
                     <td>${report.Uom}</td>
                     <td>${report.CurrencyCode}</td>
                     <td class="text-right">${report.DPP | numberFormat: '0,000.0000'}</td>
                     <td class="text-right">${report.VAT | numberFormat: '0,000.0000'}</td>
+                    <td class="text-right">${report.IncomeTax | numberFormat: '0,000.0000'}</td>
                     <td class="text-right"><strong>${report.Total | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="14"
+                    <td colspan="19"
                         class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>

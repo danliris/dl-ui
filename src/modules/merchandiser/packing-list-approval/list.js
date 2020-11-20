@@ -1,12 +1,13 @@
-import { inject } from 'aurelia-framework';
-import { Service } from "./service";
+import { inject, bindable } from 'aurelia-framework';
+import { Service, CoreService } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-@inject(Router, Service)
+@inject(Router, Service, CoreService)
 export class List {
+    @bindable section;
 
-    context = ["Detail", "Cetak"]
+    context = ["Detail"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
@@ -18,6 +19,7 @@ export class List {
         },
         { field: "SectionCode", title: "Seksi" },
         { field: "BuyerAgentName", title: "Buyer Agent" },
+        { field: "destination", title: "Destination" },
     ];
 
     loader = (info) => {
@@ -30,14 +32,14 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Status: "POSTED" })
+            filter: JSON.stringify({ Status: "POSTED", SectionCode: this.section })
         }
 
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
-                    data.BuyerAgentName=data.buyerAgent.name;
+                    data.BuyerAgentName = data.buyerAgent.name;
                 }
                 return {
                     total: result.info.total,
@@ -46,9 +48,16 @@ export class List {
             });
     }
 
-    constructor(router, service) {
+    constructor(router, service, coreService) {
         this.service = service;
         this.router = router;
+        this.coreService = coreService;
+    }
+
+    async activate() {
+        let sectionResult = await this.coreService.getSections();
+        this.SectionOptions = sectionResult.data.map(d => d.Code);
+        this.SectionOptions.unshift("Pilih Seksi");
     }
 
     contextClickCallback(event) {
@@ -58,9 +67,12 @@ export class List {
             case "Detail":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
-            case "Cetak":
-                this.service.getPdfById(data.id);
-                break;
+        }
+    }
+
+    sectionChanged() {
+        if (this.table) {
+            this.table.refresh();
         }
     }
 

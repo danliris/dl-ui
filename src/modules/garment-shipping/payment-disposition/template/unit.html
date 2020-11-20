@@ -20,7 +20,7 @@
         </td>
         <td if.bind="headerData.paymentType!='COURIER'">
             <au-numeric
-                value.bind="billAmount"
+                value.one-way="billAmount"
                 error.bind="error.billAmount"
                 if.bind="headerData.paymentType!='COURIER'"
                 read-only.bind="readOnly">

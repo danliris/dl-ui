@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
@@ -18,9 +18,11 @@ export class DataForm {
     @bindable selectedIncomeTax;
     @bindable selectedDivision;
     @bindable selectedCategory;
+    @bindable isImport = false;
 
-    IncomeTaxByOptions=["","Supplier","Dan Liris"];
+    IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+    importInfo = ['', 'CIF', 'FOB', 'CNF', 'DDU', 'DDP', 'EX WORK', 'OTHERS'];
     controlOptions = {
         label: {
             length: 4
@@ -34,7 +36,7 @@ export class DataForm {
 
     itemsInfo = {
         columns: [{ header: "Nomor Bon Unit- Nomor Surat Jalan", value: "unitReceiptNote.no" }],
-        onAdd: function () {
+        onAdd: function() {
             this.context.ItemsCollection.bind();
             this.data.items.push({ unitReceiptNote: { no: "" } });
         }.bind(this)
@@ -50,9 +52,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.hasCreate=true;
-        if(this.data)
-            this.hasCreate=false;
+        this.hasCreate = true;
+        if (this.data) {
+            this.hasCreate = false;
+            this.isImport = this.data.import;
+        }
         //console.log(this.context);
     }
 
@@ -61,7 +65,7 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.useIncomeTax", "data.incomeTax", "data.useVat","data.incomeTaxBy")
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.useIncomeTax", "data.incomeTax", "data.useVat", "data.incomeTaxBy")
     get filter() {
         var filter = {
             DivisionId: this.data.division ? this.data.division._id : this.data.division,
@@ -72,7 +76,7 @@ export class DataForm {
             UseIncomeTax: this.data.useIncomeTax,
             IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
             UseVat: this.data.useVat,
-            incomeTaxBy: this.data.incomeTaxBy ? this.data.incomeTaxBy:"",
+            incomeTaxBy: this.data.incomeTaxBy ? this.data.incomeTaxBy : "",
             CategoryCode: this.data.category ? this.data.category.code : this.data.category,
         }
         return filter;
@@ -80,7 +84,7 @@ export class DataForm {
 
     selectedDivisionChanged(newValue) {
         var _selectedDivision = newValue;
-        if (_selectedDivision.Id ||_selectedDivision._id) {
+        if (_selectedDivision.Id || _selectedDivision._id) {
             this.data.division = _selectedDivision;
             this.data.divisionId = _selectedDivision.Id || _selectedDivision._id || "";
             this.data.division._id = this.data.divisionId;
@@ -93,6 +97,7 @@ export class DataForm {
         if (_selectedSupplier._id) {
             this.data.supplier = _selectedSupplier;
             this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+            this.isImport = _selectedSupplier.import;
         }
         this.resetErrorItems();
     }
@@ -123,7 +128,7 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-    incomeTaxByChanged(e){
+    incomeTaxByChanged(e) {
         this.data.items = [];
     }
 
@@ -133,8 +138,7 @@ export class DataForm {
             this.data.incomeTax = _selectedIncomeTax;
             this.data.incomeTax._id = _selectedIncomeTax.Id;
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
-        }
-        else {
+        } else {
             this.data.incomeTax = {};
         }
         this.resetErrorItems();
@@ -147,7 +151,7 @@ export class DataForm {
         this.data.incomeTaxRate = 0;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
-        this.data.incomeTaxBy="";
+        this.data.incomeTaxBy = "";
     }
 
     useVatChanged(e) {
@@ -208,4 +212,4 @@ export class DataForm {
     addItems = (e) => {
         this.data.items.push({ unitReceiptNote: { no: "" } })
     };
-} 
+}

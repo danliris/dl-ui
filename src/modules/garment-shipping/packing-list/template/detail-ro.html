@@ -101,16 +101,16 @@
             </au-textbox>
         </td>
         
-        <td colspan="4">
+        <td colspan="3">
             <au-textbox
-                label = "Order No"
+                label = "PO Buyer"
                 error.bind="error.OrderNo"
                 value.bind="data.orderNo"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>
         
-        <td colspan="5">
+        <td colspan="6">
             <au-multiline
                 label = "Description"
                 value.bind="data.description"
@@ -163,14 +163,14 @@
         <td colspan="3">
             <au-numeric
                 label = "AVG GW"
-                value.bind="data.avG_GW"
+                value.bind="avG_GW"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td colspan="4">
             <au-numeric
                 label = "AVG NW"
-                value.bind="data.avG_NW"
+                value.bind="avG_NW"
                 read-only.bind="readOnly">
             </au-numeric>
         </td>

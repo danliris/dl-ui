@@ -58,10 +58,24 @@ export class View {
 
         switch (this.data.status) {
             case "REJECTED_MD":
-                this.alertInfo = "<strong>Alasan Reject oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityRemark = "<strong>Alasan Reject oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityAlert = "alert-danger";
                 break;
             case "REJECTED_SHIPPING_UNIT":
-                this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityRemark = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityAlert = "alert-danger";
+                break;
+            case "REVISED_MD":
+                this.statusActivityRemark = "<strong>Alasan Revisi oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityAlert = "alert-info";
+                break;
+            case "REVISED_SHIPPING":
+                this.statusActivityRemark = "<strong>Alasan Revisi oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityAlert = "alert-info";
+                break;
+            case "CANCELED":
+                this.statusActivityRemark = "<strong>Alasan Cancel:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                this.statusActivityAlert = "alert-success";
                 break;
             default:
                 break;
