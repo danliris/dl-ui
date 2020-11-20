@@ -228,10 +228,13 @@ export class List {
 
                             // console.log(dataSet);
                         }
-                        // console.log(resultDataSet);
+                    // console.log(resultDataSet);
 
                     this.isEmpty = false;
                     return resultDataSet;
+                })
+                .catch((e) => {
+                    console.log(e);
                 });
         }
     }
