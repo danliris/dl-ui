@@ -887,6 +887,7 @@ module.exports = [
     //         iconClass: "fa fa-dashboard"
     //     }
     // },
+
     {
         route: "garment-production/stock-opname",
         name: "garment-production/stock-opname",
