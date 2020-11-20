@@ -8,24 +8,28 @@ var UnitLoader = require('../../../../loader/garment-units-loader');
 @inject(Router, Service)
 export class List {
     @bindable KtgrItem;
-    KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE'];
+    KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE', 'INTERLINING'];
 
     KtgrItemChanged(newvalue){
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
                 this.categoryname = "BAHAN BAKU";
+                this.productcode = "";
             }
             else if (newvalue === "BAHAN PENDUKUNG") { 
                 this.category = "BP";
                 this.categoryname = "BAHAN PENDUKUNG";
+                this.productcode = "";
             }
             else if (newvalue === "BAHAN EMBALACE") {
                 this.category = "BE"; 
                 this.categoryname = "BAHAN EMBALACE";
-            }else if(newvalue === "PROSES"){
+                this.productcode = "";
+            }else if(newvalue === "INTERLINING"){
 
-                this.category = "PRC";
+                this.category = "BP";
+                this.productcode = "INT";
                 this.categoryname = "PROSES";
             }
         }
@@ -46,7 +50,8 @@ export class List {
         { field: "BuyerCode", title: "Kode Buyer", sortable: false },
         { field: "RONoDO", title: "Untuk RO", sortable: false },
         { field: "ArticleDO", title: "Untuk Artikel", sortable: false },
-        { field: "UnitDOType", title: "Tujuan", sortable: false },
+        { field: "UnitDestination", title: "Tujuan", sortable: false },
+        { field: "UnitDOType", title: "Jenis", sortable: false },
         { field: "UENNo", title: "No. Bukti", sortable: false },
          
         { field: "ExpenditureDate", title: "Tanggal", sortable: false, formatter: function (value, data, index) {
@@ -87,6 +92,9 @@ export class List {
 
         if (this.category) {
             filter.category = this.category;
+        }
+        if (this.productcode) {
+            filter.productcode = this.productcode;
         }
         if (this.unit) {
             filter.unit = this.unit.Code;
@@ -158,7 +166,9 @@ export class List {
             filter.category = this.category;
             filter.categoryname = this.categoryname;
         }
-
+        if (this.productcode) {
+            filter.productcode = this.productcode;
+        }
         if (this.unit){
           filter.unit = this.unit.Code,
           filter.unitname = this.unit.Name

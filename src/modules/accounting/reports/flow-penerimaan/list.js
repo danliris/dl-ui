@@ -47,7 +47,7 @@ export class List {
                 this.category = "";
             }
         }
-        console.log(this.category)
+       // console.log(this.category)
     }
     unitselectChanged(newvalue){
         
@@ -75,8 +75,8 @@ export class List {
             }
         }
 
-        console.log(this.unit);
-        console.log(this.uniname);
+        //console.log(this.unit);
+        //console.log(this.uniname);
     }
     get supplierLoader(){
         return SupplierLoader;
@@ -86,70 +86,98 @@ export class List {
      
     }
    
-    columns = [
-        { field: "no", title: "No" , sortable: false},
-        { field: "kdbarang", title: "Kode Barang", sortable: false },
-        { field: "nmbarang", title: "Nama Barang", sortable: false },
-        { field: "nopo", title: "No PO", sortable: false },
-        { field: "keterangan", title: "Keterangan Barang", sortable: false },
-        { field: "noro", title: "No RO", sortable: false },
-        { field: "artikel", title: "Artikel", sortable: false },
-        { field: "kdbuyer", title: "Kode Buyer", sortable: false },
-        { field: "asal", title: "Asal", sortable: false },
-        { field: "nobukti", title: "Nomor Bukti", sortable: false },
-         { field: "tanggal", title: "Tanggal", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD/MM/YYYY");
-         }},
-        { field: "jumlahbeli", title: "Jumlah Beli ", sortable: false },
-        { field: "satuanbeli", title: "Satuan Beli", sortable: false },
-        { field: "jumlahterima", title: "Jumlah Terima", sortable: false },
-        { field: "satuanterima", title: "Satuan Terima", sortable: false },
-        { field: "jumlah", title: "Jumlah Harga", sortable: false, formatter:(value,data)=>{
-            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-            }  
-        },
-        { field: "tipepembayaran", title: "Metode Pembayaran", sortable: false },
+    // columns = [
+    //     { field: "no", title: "No" , sortable: false},
+    //     { field: "kdbarang", title: "Kode Barang", sortable: false },
+    //     { field: "nmbarang", title: "Nama Barang", sortable: false },
+    //     { field: "nopo", title: "No PO", sortable: false },
+    //     { field: "keterangan", title: "Keterangan Barang", sortable: false },
+    //     { field: "noro", title: "No RO", sortable: false },
+    //     { field: "artikel", title: "Artikel", sortable: false },
+    //     { field: "kdbuyer", title: "Kode Buyer", sortable: false },
+    //     { field: "Jenis", title: "Jenis", sortable: false },
+    //     { field: "asal", title: "Asal", sortable: false },
+    //     { field: "nobukti", title: "Nomor Bukti", sortable: false },
+    //      { field: "tanggal", title: "Tanggal", sortable: false, formatter: function (value, data, index) {
+    //             return moment(value).format("DD/MM/YYYY");
+    //      }},
+    //     { field: "jumlahbeli", title: "Jumlah Beli ", sortable: false },
+    //     { field: "satuanbeli", title: "Satuan Beli", sortable: false },
+    //     { field: "jumlahterima", title: "Jumlah Terima", sortable: false },
+    //     { field: "satuanterima", title: "Satuan Terima", sortable: false },
+    //     { field: "jumlah", title: "Jumlah Harga", sortable: false, formatter:(value,data)=>{
+    //         return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    //         }  
+    //     },
+    //     { field: "tipepembayaran", title: "Metode Pembayaran", sortable: false },
        
-    ]
-    Values() {
-        this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
-        this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
-        this.arg.category = this.category ? this.category : "";
-        // this.arg.refNo = this.poRefPR ? this.poRefPR : "";
-        // this.arg.roNo = this.roNo ? this.roNo : "";
-        // this.arg.doNo =this.doNo ? this.doNo : "";
-        // this.arg.supplier =  this.supplier ? this.supplier.code : "";
-        this.arg.unit = this.unit ? this.unit : "";
-        console.log(this.arg);
-    }
+    // ]
+    // Values() {
+    //     this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
+    //     this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
+    //     this.arg.category = this.category ? this.category : "";
+    //     // this.arg.refNo = this.poRefPR ? this.poRefPR : "";
+    //     // this.arg.roNo = this.roNo ? this.roNo : "";
+    //     // this.arg.doNo =this.doNo ? this.doNo : "";
+    //     // this.arg.supplier =  this.supplier ? this.supplier.code : "";
+    //     this.arg.unit = this.unit ? this.unit : "";
+    //     console.log(this.arg);
+    // }
     
-    listDataFlag = false;
-    loader = (info) => {
-        var order = {};
+    // listDataFlag = false;
+    // loader = (info) => {
+    //     var order = {};
 
-        if (info.sort)
-            order[info.sort] = info.order;
+    //     if (info.sort)
+    //         order[info.sort] = info.order;
 
-        this.arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-            order: order
-        };
-        return this.listDataFlag ? (
-            this.Values(),
-            this.service.search(this.arg)
-                .then(result => {
-                            return {
-                        total: result.info.total,
-                        data: result.data,
-                    }
-                })
-        ) : { total: 0, data: {} };
-    }
+    //     this.arg = {
+    //         page: parseInt(info.offset / info.limit, 10) + 1,
+    //         size: info.limit,
+    //         keyword: info.search,
+    //         order: order
+    //     };
+    //     return this.listDataFlag ? (
+    //         this.Values(),
+    //         this.service.search(this.arg)
+    //             .then(result => {
+    //                         return {
+    //                     total: result.info.total,
+    //                     data: result.data,
+    //                 }
+    //             })
+    //     ) : { total: 0, data: {} };
+    // }
     search() {
-        this.listDataFlag = true;
-        this.table.refresh();
+        console.log(this.dateTo);
+        let args = {
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            category : this.category ? this.category : "",
+            unit : this.unit ? this.unit : ""
+          }
+        //this.listDataFlag = true;
+        this.service.search(args)
+            .then(result => {
+                console.log(result)
+                this.AmountTotal1 = 0;
+                this.AmountTotal2 = 0;
+                this.data=[];
+                //var datatemp = [];
+                for (var i of result){
+                    
+                    this.AmountTotal1 += i.jumlahterima;
+                    this.AmountTotal2 += i.jumlah;
+                    i.jumlah = i.jumlah.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+                    this.data.push(i);
+                }
+                this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                // this.data = result.data;
+            })
+
+        // this.table.refresh();
     }
 
 
