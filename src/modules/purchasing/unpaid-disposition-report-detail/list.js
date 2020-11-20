@@ -139,8 +139,6 @@ export class List {
             isImport: this.isImport
         };
 
-        this.unitSummary = this.unitSummary.splice(0, this.unitSummary.length);
-
         this.data = await this.service.search(arg)
             .then(result => {
                 if (result && result.UnitSummaries.length > 0)
