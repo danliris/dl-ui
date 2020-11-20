@@ -82,13 +82,40 @@
       <a click.delegate="pdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
     <br />
+    <!-- Main table -->
     <au-table
       view-model.ref="documentTable"
       data.bind="loader"
       columns.bind="columns"
       sortable.bind="false"
       options.bind="tableOptions"
+      groupBy.bind="UPONo"
     >
     </au-table>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <!-- Unit summary table -->
+        <au-table
+          view-model.ref="documentTableUnit"
+          data.bind="loaderUnit"
+          columns.bind="columnsUnit"
+          sortable.bind="false"
+          options.bind="tableOptions"
+        >
+        </au-table>
+      </div>
+      <div class="col-sm-6">
+        <!-- Currency summary table -->
+        <au-table
+          view-model.ref="documentTableCurrency"
+          data.bind="loaderCurrency"
+          columns.bind="columnsCurrency"
+          sortable.bind="false"
+          options.bind="tableOptions"
+        >
+        </au-table>
+      </div>
+    </div>
   </au-input-form>
 </template>

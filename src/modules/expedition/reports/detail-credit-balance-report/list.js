@@ -67,6 +67,30 @@ export class List {
     },
   ];
 
+  columnsUnit = [
+    { field: "AccountingUnitName", title: "Unit" },
+    {
+      field: "SubTotal",
+      title: "Total",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
+  ];
+
+  columnsCurrency = [
+    { field: "CurrencyCode", title: "Mata Uang" },
+    {
+      field: "SubTotal",
+      title: "Total",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
+  ];
+
   changeTitle(title) {
     this.isSearch = false;
     this.isImport = title !== "Impor" ? false : true;
@@ -77,11 +101,15 @@ export class List {
     }
 
     this.documentTable.refresh();
+    this.documentTableUnit.refresh();
+    this.documentTableCurrency.refresh();
   }
 
   search() {
     this.isSearch = true;
     this.documentTable.refresh();
+    this.documentTableUnit.refresh();
+    this.documentTableCurrency.refresh();
   }
 
   reset() {
@@ -91,6 +119,8 @@ export class List {
     this.dateTo = null;
     this.isSearch = false;
     this.documentTable.refresh();
+    this.documentTableUnit.refresh();
+    this.documentTableCurrency.refresh();
   }
 
   get categoryLoader() {
@@ -131,6 +161,78 @@ export class List {
       return this.service.search(arg).then((result) => {
         return {
           data: result.Reports,
+        };
+      });
+    } else {
+      return {
+        total: 0,
+        data: [],
+      };
+    }
+  };
+
+  loaderUnit = () => {
+    let categoryId = 0;
+    if (this.category && this.category._id) categoryId = this.category._id;
+
+    let accountingUnitId = 0;
+    if (this.accountingUnit && this.accountingUnit.Id)
+      accountingUnitId = this.accountingUnit.Id;
+
+    let divisionId = 0;
+    if (this.division && this.division.Id) divisionId = this.division.Id;
+
+    let dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+
+    let arg = {
+      categoryId,
+      accountingUnitId,
+      divisionId,
+      dateTo,
+      isImport: this.isImport,
+      isForeignCurrency: this.isForeignCurrency,
+    };
+
+    if (this.isSearch) {
+      return this.service.search(arg).then((result) => {
+        return {
+          data: result.AccountingUnitSummaries,
+        };
+      });
+    } else {
+      return {
+        total: 0,
+        data: [],
+      };
+    }
+  };
+
+  loaderCurrency = () => {
+    let categoryId = 0;
+    if (this.category && this.category._id) categoryId = this.category._id;
+
+    let accountingUnitId = 0;
+    if (this.accountingUnit && this.accountingUnit.Id)
+      accountingUnitId = this.accountingUnit.Id;
+
+    let divisionId = 0;
+    if (this.division && this.division.Id) divisionId = this.division.Id;
+
+    let dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+
+    let arg = {
+      categoryId,
+      accountingUnitId,
+      divisionId,
+      dateTo,
+      isImport: this.isImport,
+      isForeignCurrency: this.isForeignCurrency,
+    };
+
+    if (this.isSearch) {
+      return this.service.search(arg).then((result) => {
+        return {
+          data: result.CurrencySummaries,
         };
       });
     } else {
