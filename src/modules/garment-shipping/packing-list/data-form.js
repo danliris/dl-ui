@@ -277,78 +277,52 @@ export class DataForm {
     }
 
     noImage = "images/no-image.jpg";
-    @bindable shippingMarkImageSrc = this.noImage;
+
+    @bindable shippingMarkImageSrc;
     @bindable shippingMarkImageUpload;
     shippingMarkImageUploadChanged(newValue) {
-        if (newValue) {
-            let imageInput = document.getElementById('shippingMarkImageInput');
-            let reader = new FileReader();
-            reader.onload = event => {
-                let base64Image = event.target.result;
-                const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
-
-                if (base64Content.length * 6 / 8 > 5242880) {
-                    this.shippingMarkImageSrc = this.noImage;
-                    delete this.data.shippingMarkImageFile;
-                    alert("Maximum Document Size is 5 MB");
-                } else {
-                    this.shippingMarkImageSrc = this.data.shippingMarkImageFile = base64Image;
-                }
-            }
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            this.shippingMarkImageSrc = this.noImage;
-            delete this.data.shippingMarkImageFile;
-        }
+        this.uploadImage('shippingMark', newValue);
     }
 
     @bindable sideMarkImageSrc;
     @bindable sideMarkImageUpload;
     sideMarkImageUploadChanged(newValue) {
-        if (newValue) {
-            let imageInput = document.getElementById('sideMarkImageInput');
-            let reader = new FileReader();
-            reader.onload = event => {
-                let base64Image = event.target.result;
-                const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
-
-                if (base64Content.length * 6 / 8 > 5242880) {
-                    this.sideMarkImageSrc = this.noImage;
-                    delete this.data.sideMarkImageFile;
-                    alert("Maximum Document Size is 5 MB");
-                } else {
-                    this.sideMarkImageSrc = this.data.sideMarkImageFile = base64Image;
-                }
-            }
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            this.sideMarkImageSrc = this.noImage;
-            delete this.data.sideMarkImageFile;
-        }
+        this.uploadImage('sideMark', newValue);
     }
 
     @bindable remarkImageSrc;
     @bindable remarkImageUpload;
     remarkImageUploadChanged(newValue) {
+        this.uploadImage('remark', newValue);
+    }
+
+    uploadImage(mark, newValue) {
         if (newValue) {
-            let imageInput = document.getElementById('remarkImageInput');
+            let imageInput = document.getElementById(mark + 'ImageInput');
             let reader = new FileReader();
             reader.onload = event => {
                 let base64Image = event.target.result;
                 const base64Content = base64Image.substring(base64Image.indexOf(',') + 1);
 
                 if (base64Content.length * 6 / 8 > 5242880) {
-                    this.remarkImageSrc = this.noImage;
-                    delete this.data.remarkImageFile;
+                    this[mark + 'ImageSrc'] = this.noImage;
+                    delete this.data[mark + 'ImageFile'];
                     alert("Maximum Document Size is 5 MB");
                 } else {
-                    this.remarkImageSrc = this.data.remarkImageFile = base64Image;
+                    this[mark + 'ImageSrc'] = this.data[mark + 'ImageFile'] = base64Image;
                 }
             }
             reader.readAsDataURL(imageInput.files[0]);
         } else {
-            this.remarkImageSrc = this.noImage;
-            delete this.data.remarkImageFile;
+            this[mark + 'ImageSrc'] = this.noImage;
+            this.data[mark + 'ImageFile'] = null;
+            delete this.data[mark + 'ImageFile'];
         }
+    }
+
+    removeImage(mark) {
+        this[mark + "ImageSrc"] = this.noImage;
+        this.data[mark + "ImageFile"] = null;
+        delete this.data[mark + "ImageFile"];
     }
 }
