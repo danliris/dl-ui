@@ -2,6 +2,7 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 var CategoryLoader = require('../../../loader/category-loader');
 var DivisionLoader = require('../../../loader/division-loader');
@@ -176,9 +177,21 @@ export class List {
     columns = [
         { field: 'CategoryName', title: 'Kategori' },
         { field: 'CurrencyCode', title: 'Kurs' },
-        { field: 'DebtTotal', title: 'Hutang' },
-        { field: 'DispositionTotal', title: 'Disposisi' },
-        { field: 'Total', title: 'Total' }
+        {
+            field: 'DebtTotal', title: 'Hutang', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'DispositionTotal', title: 'Disposisi', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'Total', title: 'Total', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        }
     ];
 
     get categoryLoader() {
