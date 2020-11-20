@@ -29,6 +29,49 @@ export class List {
         showToggle: false,
     }
 
+    columns = [{
+            field: 'DispositionDate',
+            title: 'Tgl Disposisi',
+            formatter: function(value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: 'DispositionNo', title: 'No Disposisi' },
+        { field: 'URNNo', title: 'No SPB' },
+        { field: 'UPONo', title: 'No BP' },
+        { field: 'InvoiceNo', title: 'No Invoice' },
+        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'CategoryName', title: 'Kategori' },
+        { field: 'AccountingUnitName', title: 'Unit' },
+        {
+            field: 'PaymentDueDate',
+            title: 'Jatuh Tempo',
+            formatter: function(value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: 'CurrencyCode', title: 'Currency' },
+        {
+            field: 'Total',
+            title: 'Saldo',
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+            align: "right"
+        }
+    ];
+
+    columnsUnitValas = [
+        { header: 'Unit', value: 'Unit' },
+        { header: 'Currency', value: 'CurrencyCode' },
+        { header: 'Total (IDR)', value: 'Total' }
+    ];
+
+    columnsUnit = [
+        { header: 'Unit', value: 'Unit' },
+        { header: 'Total (IDR)', value: 'Total' }
+    ];
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -43,6 +86,7 @@ export class List {
     activeTitle = "Lokal";
     isValas = false;
     isImport = false;
+    unitSummary = [];
 
     bind() {}
 
@@ -51,6 +95,7 @@ export class List {
         this.isSearch = false;
         if (title !== this.activeTitle) {
             this.activeTitle = title;
+            this.unitSummary = [];
 
             switch (title) {
                 case "Lokal":
@@ -87,12 +132,13 @@ export class List {
         this.accountingUnit = null;
         this.dateTo = null;
         this.isSearch = false;
+        this.unitSummary = {};
         this.tableList.refresh();
     }
 
     getExcel() {
         let arg = {
-            accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+            categoryId: this.category ? this.category.Id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -108,7 +154,7 @@ export class List {
 
     getPdf() {
         let arg = {
-            accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+            categoryId: this.category ? this.category.Id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -122,40 +168,13 @@ export class List {
             });
     }
 
-    columns = [{
-            field: 'DispositionDate',
-            title: 'Tgl Disposisi',
-            formatter: function(value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: 'DispositionNo', title: 'No Disposisi' },
-        { field: 'URNNo', title: 'No SPB' },
-        { field: 'InvoiceNo', title: 'No Invoice' },
-        { field: 'SupplierName', title: 'Supplier' },
-        { field: 'AccountingCategoryName', title: 'Kategori' },
-        { field: 'AccountingUnitName', title: 'Unit' },
-        {
-            field: 'PaymentDueDate',
-            title: 'Jatuh Tempo',
-            formatter: function(value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: 'CurrencyCode', title: 'Currency' },
-        {
-            field: 'TotalCurrency',
-            title: 'Saldo',
-            formatter: function(value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-            align: "right"
-        }
-    ];
+    get categoryLoader() {
+        return CategoryLoader;
+    }
 
-    // get categoryLoader() {
-    //     return CategoryLoader;
-    // }
+    categoryLoaderView = (CategoryLoader) => {
+        return `${CategoryLoader.Code} - ${CategoryLoader.Name}`
+    }
 
     get divisionLoader() {
         return DivisionLoader;
@@ -164,12 +183,14 @@ export class List {
     // get unitLoader() {
     //     return UnitLoader;
     // }
-    get accountingCategoryLoader() {
-        return AccountingCategoryLoader;
-    }
-    accountingCategoryView = (AccountingCategoryLoader) => {
-        return `${AccountingCategoryLoader.Code} - ${AccountingCategoryLoader.Name}`
-    }
+
+    // get accountingCategoryLoader() {
+    //     return AccountingCategoryLoader;
+    // }
+    // accountingCategoryView = (AccountingCategoryLoader) => {
+    //     return `${AccountingCategoryLoader.Code} - ${AccountingCategoryLoader.Name}`
+    // }
+
     get accountingUnitLoader() {
         return AccountingUnitLoader;
     }
@@ -181,7 +202,7 @@ export class List {
         let order = {};
 
         let arg = {
-            accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+            categoryId: this.category ? this.category.Id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -189,9 +210,19 @@ export class List {
             isImport: this.isImport
         };
 
+        this.unitSummary = this.unitSummary.splice(0, this.unitSummary.length);
+
         if (this.isSearch)
             return this.service.search(arg)
                 .then(result => {
+                    if (result && result.UnitSummaries.length > 0)
+                        this.unitSummary = result.UnitSummaries.map(
+                            (item) => ({
+                                Unit: item.Unit,
+                                CurrencyCode: item.CurrencyCode,
+                                Total: numeral(item.SubTotal).format("0,000.00"),
+                            })
+                        );
                     return {
                         total: result.Reports.length,
                         data: result.Reports
