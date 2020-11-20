@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-
+import numeral from "numeral";
 var CategoryLoader = require("../../../../loader/category-loader");
 var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
 var DivisionLoader = require("../../../../loader/division-loader");
@@ -36,16 +36,35 @@ export class List {
   };
 
   columns = [
-    { field: "ReceiptDate", title: "Tanggal SPB" },
+    {
+      field: "ReceiptDate",
+      title: "Tanggal SPB",
+      formatter: function (value, data, index) {
+        return moment.utc(value).local().format("DD MMM YYYY");
+      },
+    },
     { field: "UPONo", title: "No SPB" },
     { field: "URNNo", title: "No BP" },
     { field: "InvoiceNo", title: "No Invoice" },
     { field: "SupplierName", title: "Supplier" },
     { field: "CategoryName", title: "Kategori" },
     { field: "AccountingUnitName", title: "Unit" },
-    { field: "DueDate", title: "Jatuh Tempo" },
+    {
+      field: "DueDate",
+      title: "Jatuh Tempo",
+      formatter: function (value, data, index) {
+        return moment.utc(value).local().format("DD MMM YYYY");
+      },
+    },
     { field: "CurrencyCode", title: "Currency" },
-    { field: "TotalSaldo", title: "Saldo" },
+    {
+      field: "TotalSaldo",
+      title: "Saldo",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
   ];
 
   changeTitle(title) {
