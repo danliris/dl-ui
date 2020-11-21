@@ -65,7 +65,7 @@ export class List {
     columnsUnitValas = [
         { header: 'Unit', value: 'Unit' },
         { header: 'Currency', value: 'CurrencyCode' },
-        { header: 'Total (IDR)', value: 'Total' }
+        { header: 'Total', value: 'Total' }
     ];
 
     columnsUnit = [
