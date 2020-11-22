@@ -13,47 +13,47 @@ export class Service extends RestService {
     }
 
     searchLocal(info) {
-        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
         return super.get(endpoint);
     }
 
     searchLocalForeignCurrency(info) {
-        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
+        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
         return super.get(endpoint);
     }
 
     searchImport(info) {
-        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
         return super.get(endpoint);
     }
 
     generateExcelLocal(info) {
-        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
         return super.getXls(endpoint);
     }
 
     generateExcelLocalForeignCurrency(info) {
-        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
+        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
         return super.getXls(endpoint);
     }
 
     generateExcelImport(info) {
-        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
         return super.getXls(endpoint);
     }
 
     printPdfLocal(info) {
-        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
         return super.getPdf(endpoint);
     }
 
     printPdfLocalForeignCurrency(info) {
-        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
+        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
         return super.getPdf(endpoint);
     }
 
     printPdfImport(info) {
-        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&unitId=${info.unitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
+        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
         return super.getPdf(endpoint);
     }
 }
