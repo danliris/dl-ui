@@ -14,28 +14,21 @@
     .tab.active {
       border-color: #173250 !important;
     }
-
-    .hide {
-      display: none;
-    }
   </style>
-
-  <!-- <template> -->
   <div class="row">
     <template repeat.for="title of titles">
       <div
         class="col-sm-4 tab ${activeTitle === title ? 'active' : ''}"
         click.delegate="changeTitle(title)"
+        click.trigger="changeTable(title)"
       >
         ${title}
       </div>
     </template>
   </div>
   <br />
-  <!-- </template> -->
-
   <au-input-form
-    title="Laporan Detail Saldo Hutang Usaha ${activeTitle}"
+    title="Laporan Saldo Hutang Usaha (Rekap) ${activeTitle}"
     options.bind="formOptions"
   >
     <au-autocomplete
@@ -44,35 +37,33 @@
       loader.bind="categoryLoader"
       text="name"
       placeholder="Cari Kategori"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
     <au-autocomplete
       value.bind="accountingUnit"
-      label="Unit Pembukuan"
+      label="Unit"
       loader.bind="accountingUnitLoader"
       text="Name"
       placeholder="Cari Unit"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
     <au-autocomplete
       value.bind="division"
-      label="Divisi"
+      label="Division"
       loader.bind="divisionLoader"
       text="Name"
       placeholder="Cari Divisi"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
     <au-datepicker
-      label="Periode Sampai"
-      value.bind="dateTo"
+      label="Jatuh Tempo"
+      value.bind="dueDate"
       options.bind="controlOptions"
-    ></au-datepicker>
+    >
+    </au-datepicker>
 
     <div class="form-group">
       <label for="contact" class="col-sm-6 control-label"></label>
@@ -86,40 +77,33 @@
       <a click.delegate="pdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
     <br />
-    <!-- Main table -->
     <au-table
       view-model.ref="documentTable"
       data.bind="loader"
       columns.bind="columns"
       sortable.bind="false"
       options.bind="tableOptions"
-      groupBy.bind="UPONo"
     >
     </au-table>
+    <!--
+        <au-table view-model.ref="documentTable"
+                  data.bind="loader"
+                  columns.bind="columns2"
+                  sortable.bind="true"
+                  if.bind="code"
+                  selections.bind="selectedItems"
+                  options.bind="tableOptions">
+        </au-table>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <!-- Unit summary table -->
-        <au-table
-          view-model.ref="documentTableUnit"
-          data.bind="loaderUnit"
-          columns.bind="columnsUnit"
-          sortable.bind="false"
-          options.bind="tableOptions"
-        >
+        <au-table view-model.ref="documentTable"
+                  data.bind="loader"
+                  columns.bind="columns"
+                  sortable.bind="true"
+                  if.bind="!code"
+                  selections.bind="selectedItems"
+                  options.bind="tableOptions">
         </au-table>
-      </div>
-      <div class="col-sm-6 ${activeTitle === 'Lokal' ? 'hide' : ''}">
-        <!-- Currency summary table -->
-        <au-table
-          view-model.ref="documentTableCurrency"
-          data.bind="loaderCurrency"
-          columns.bind="columnsCurrency"
-          sortable.bind="false"
-          options.bind="tableOptions"
-        >
-        </au-table>
-      </div>
-    </div>
+
+        <br> -->
   </au-input-form>
 </template>
