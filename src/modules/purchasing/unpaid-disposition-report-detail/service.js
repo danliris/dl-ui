@@ -14,17 +14,17 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}?accountingCategoryId=${info.accountingCategoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
+        var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
         return super.get(endpoint);
     }
 
     generateExcel(info) {
-        var endpoint = `${serviceUri}/download-excel?accountingCategoryId=${info.accountingCategoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
+        var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
         return super.getXls(endpoint);
     }
 
     generatePdf(info) {
-        var endpoint = `${serviceUri}/download-pdf?accountingCategoryId=${info.accountingCategoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
+        var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
         return super.getPdf(endpoint);
     }
 }
