@@ -12,6 +12,11 @@ export class Item {
         this.data = context.data
         this.isShowing = false;
         this.data.TotalPaidIDR = 0;
+        console.log("expenditure item", this.data)
+
+        if (this.data.IncomeTaxBy && this.data.IncomeTaxBy.toUpperCase() == "SUPPLIER")
+            this.data.TotalPaid = this.data.TotalPaid - this.data.IncomeTax;
+
         if (context.context.options) {
             this.IDR = context.context.options.IDR;
             this.rate = context.context.options.rate;
@@ -29,6 +34,8 @@ export class Item {
 
             this.listURNNo = listURNNo.length != 0 ? listURNNo.join('\n') : listURNNo;
         }
+
+
 
         console.log(context);
     }

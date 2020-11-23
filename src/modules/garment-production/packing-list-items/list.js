@@ -11,7 +11,7 @@ export class List {
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
         {
-            field: "date", title: "Tgl Invoice", formatter: function (value, data, index) {
+            field: "createdUtc", title: "Tgl Packing List", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

@@ -97,7 +97,9 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             unitcode : this.unit ? this.unit : "",
+            unitname : this.unitname ? this.unitname : "",
             category : this.category ? this.category : "",
+            categoryname : this.categoryname ? this.categoryname : ""
         };
         
         this.service.generateExcel(args);
@@ -118,18 +120,24 @@ export class List {
         if (newvalue) {
             if (newvalue === "KONFEKSI 2A") {
                 this.unit = "C2A";
+                this.unitname = "KONFEKSI 2A";
             }
             else if (newvalue === "KONFEKSI 2B") { 
-                this.unit = "C2B"; 
+                this.unit = "C2B";
+                this.unitname = "KONFEKSI 2B";
             }
             else if (newvalue === "KONFEKSI 2C") {
                 this.unit = "C2C"; 
+                this.unitname = "KONFEKSI 2C";
             }else if(newvalue === "KONFEKSI 1A"){
                 this.unit = "C1A";
+                this.unitname = "KONFEKSI 1A";
             }else if(newvalue === "KONFEKSI 1B"){
                 this.unit = "C1B";
+                this.unitname = "KONFEKSI 1B";
             }else{
                 this.unit = "";
+                this.unitname = "";
             }
         }
     }
@@ -138,14 +146,18 @@ export class List {
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
+                this.categoryname = "BAHAN BAKU";
             }
             else if (newvalue === "BAHAN PENDUKUNG") { 
                 this.category = "BP"; 
+                this.categoryname = "BAHAN PENDUKUNG";
             }
             else if (newvalue === "BAHAN EMBALANCE") {
                 this.category = "BE"; 
+                this.categoryname = "BAHAN EMBALANCE";
             }else{
                 this.category = "";
+                this.categoryname = "";
             }
         }
     }

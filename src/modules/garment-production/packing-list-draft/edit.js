@@ -40,10 +40,6 @@ export class Edit {
     }
 
     saveCallback(event) {
-        if (this.data.items && this.data.items[0]) {
-            this.data.buyerAgent = this.data.items[0].buyerAgent;
-            this.data.section = this.data.items[0].section;
-        }
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });

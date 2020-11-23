@@ -3,6 +3,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    KaberTypes = ['KABER', 'NON KABER']
 
     formOptions = {
         cancelText: "Kembali",

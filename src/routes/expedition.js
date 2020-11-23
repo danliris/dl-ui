@@ -1,5 +1,4 @@
-module.exports = [
-  {
+module.exports = [{
     route: '/expedition/purchasing-to-verification',
     name: 'purchasing-to-verification',
     moduleId: './modules/expedition/purchasing-to-verification/index',
@@ -7,12 +6,12 @@ module.exports = [
     title: 'Ekspedisi Penyerahan ke Verifikasi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/expedition/purchasing-document-acceptance',
     name: 'purchasing-document-acceptance',
     moduleId: './modules/expedition/purchasing-document-acceptance/index',
@@ -20,12 +19,12 @@ module.exports = [
     title: 'Penerimaan Dokumen Pembelian',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "B4": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/unit-payment-order-expedition',
     name: 'unit-payment-order-expedition',
     moduleId: './modules/expedition/reports/unit-payment-order-expedition/index',
@@ -33,12 +32,12 @@ module.exports = [
     title: 'Laporan Ekspedisi Surat Perintah Bayar',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1, "B4": 1, "B9": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1, "B4": 1, "B9": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/verification/unit-payment-order-verification',
     name: 'purchasing-document-expedition',
     moduleId: './modules/verification/unit-payment-order-verification/index',
@@ -46,12 +45,12 @@ module.exports = [
     title: 'Verifikasi Surat Perintah Bayar',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "C5": 1, "C9": 1, "B9": 1 },
-      iconClass: 'fa fa-calendar-check-o'
+        group: "finance",
+        permission: { "C5": 1, "C9": 1, "B9": 1 },
+        iconClass: 'fa fa-calendar-check-o'
     }
-  },
-  {
+},
+{
     route: 'unit-payment-order-not-verified-report',
     name: 'unit-payment-order-not-verified-report',
     moduleId: './modules/expedition/reports/unit-payment-order-not-verified-report/index',
@@ -59,12 +58,12 @@ module.exports = [
     title: 'Laporan SPB Not Verified',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'unit-payment-order-not-verified-history-report',
     name: 'unit-payment-order-not-verified-history-report',
     moduleId: './modules/expedition/reports/unit-payment-order-not-verified-history-report/index',
@@ -72,12 +71,12 @@ module.exports = [
     title: 'Histori SPB Not Verified',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/purchasing-disposition-expedition',
     name: 'purchasing-disposition-expedition',
     moduleId: './modules/expedition/purchasing-disposition-expedition/index',
@@ -85,12 +84,12 @@ module.exports = [
     title: 'Penyerahan Dokumen Disposisi Pembayaran ke Verifikasi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/purchasing-disposition-acceptance',
     name: 'purchasing-disposition-acceptance',
     moduleId: './modules/expedition/purchasing-disposition-acceptance/index',
@@ -98,12 +97,12 @@ module.exports = [
     title: 'Penerimaan Dokumen Disposisi Pembayaran',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "B4": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/verification/disposition-verification',
     name: 'disposition-verification',
     moduleId: './modules/verification/disposition-verification/index',
@@ -111,12 +110,12 @@ module.exports = [
     title: 'Verifikasi Disposisi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "C5": 1, "B9": 1, "C9": 1 },
-      iconClass: 'fa fa-calendar-check-o'
+        group: "finance",
+        permission: { "C5": 1, "B9": 1, "C9": 1 },
+        iconClass: 'fa fa-calendar-check-o'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/purchasing-disposition-expedition',
     name: 'purchasing-disposition-expedition',
     moduleId: './modules/expedition/reports/purchasing-disposition-expedition/index',
@@ -124,12 +123,12 @@ module.exports = [
     title: 'Laporan Ekspedisi Disposisi Pembayaran',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/expedition/payment-disposition-note',
     name: 'payment-disposition-note',
     moduleId: './modules/expedition/payment-disposition-note/index',
@@ -137,12 +136,12 @@ module.exports = [
     title: 'Bukti Pembayaran Disposisi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: 'payment-disposition-not-verified-report',
     name: 'payment-disposition-not-verified-report',
     moduleId: './modules/expedition/reports/payment-disposition-not-verified-report/index',
@@ -150,12 +149,12 @@ module.exports = [
     title: 'Laporan Disposisi Not Verified',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'payment-disposition-not-verified-history-report',
     name: 'payment-disposition-not-verified-history-report',
     moduleId: './modules/expedition/reports/payment-disposition-not-verified-history-report/index',
@@ -163,12 +162,12 @@ module.exports = [
     title: 'Histori Disposisi Not Verified',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/bank-expenditure-note',
     name: 'purchasing-document-expedition',
     moduleId: './modules/expedition/bank-expenditure-note/index',
@@ -176,12 +175,12 @@ module.exports = [
     title: 'Bukti Pengeluaran Bank DPP + PPN',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "C5": 1, "C9": 1 },
-      iconClass: 'fa fa-calendar-check-o'
+        group: "finance",
+        permission: { "B4": 1, "C5": 1, "C9": 1 },
+        iconClass: 'fa fa-calendar-check-o'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/bank-expenditure-note-dpp-ppn',
     name: 'bank-expenditure-note',
     moduleId: './modules/expedition/reports/bank-expenditure-note-dpp-ppn/index',
@@ -189,12 +188,12 @@ module.exports = [
     title: 'Laporan Bukti Pengeluaran Bank DPP + PPN',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "C5": 1, "C9": 1 },
-      iconClass: 'fa fa-clone'
+        group: "finance",
+        permission: { "B4": 1, "C5": 1, "C9": 1 },
+        iconClass: 'fa fa-clone'
     }
-  },
-  {
+},
+{
     route: '/expedition/daily-bank-transaction-document-in',
     name: 'daily-bank-transaction-document-in',
     moduleId: './modules/expedition/daily-bank-transaction-document-in/index',
@@ -202,12 +201,12 @@ module.exports = [
     title: 'Transaksi Harian Bank Masuk',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/daily-bank-transaction-document-out',
     name: 'daily-bank-transaction-document-out',
     moduleId: './modules/expedition/daily-bank-transaction-document-out/index',
@@ -215,12 +214,12 @@ module.exports = [
     title: 'Transaksi Harian Bank Keluar',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/daily-bank-mutation-document',
     name: 'daily-bank-mutation-report',
     moduleId: './modules/expedition/reports/daily-bank-mutation-report/index',
@@ -228,12 +227,12 @@ module.exports = [
     title: 'Laporan Mutasi Bank',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/daily-account-balance',
     name: 'daily-account-balance',
     moduleId: './modules/expedition/reports/daily-account-balance/index',
@@ -241,12 +240,12 @@ module.exports = [
     title: 'Laporan Saldo Bank Harian',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/sales-receipt',
     name: 'sales-receipt',
     moduleId: './modules/expedition/sales-receipt/index',
@@ -254,12 +253,12 @@ module.exports = [
     title: 'Kuitansi Penjualan',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/pph-bank-expenditure-note',
     name: 'pph-bank-expenditure-note',
     moduleId: './modules/expedition/pph-bank-expenditure-note/index',
@@ -267,12 +266,12 @@ module.exports = [
     title: 'Pengajuan Pembayaran PPH',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-calendar-check-o'
+        group: "finance",
+        permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
+        iconClass: 'fa fa-calendar-check-o'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/pph-bank-expenditure-note',
     name: 'pph-bank-expenditure-note',
     moduleId: './modules/expedition/reports/pph-bank-expenditure-note/index',
@@ -280,12 +279,12 @@ module.exports = [
     title: 'Laporan Bukti Pengeluaran Bank PPH',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-calendar-check-o'
+        group: "finance",
+        permission: { "B4": 1, "C5": 1, "C9": 1, "B1": 1 },
+        iconClass: 'fa fa-calendar-check-o'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/local-credit-balance',
     name: 'local-credit-balance-report',
     moduleId: './modules/expedition/reports/local-credit-balance-report/index',
@@ -293,12 +292,12 @@ module.exports = [
     title: 'Saldo Hutang Lokal',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/local-foreign-currency-credit-balance',
     name: 'local-foreign-currency-credit-balance-report',
     moduleId: './modules/expedition/reports/local-foreign-currency-credit-balance-report/index',
@@ -306,12 +305,12 @@ module.exports = [
     title: 'Saldo Hutang Lokal Valas',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/import-credit-balance',
     name: 'import-credit-balance-report',
     moduleId: './modules/expedition/reports/import-credit-balance-report/index',
@@ -319,12 +318,12 @@ module.exports = [
     title: 'Saldo Hutang Import',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/creditor-account',
     name: 'creditor-account-report',
     moduleId: './modules/expedition/reports/creditor-account-report/index',
@@ -332,12 +331,64 @@ module.exports = [
     title: 'Kartu Hutang',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
+    route: 'reports/debt-and-disposition-summary',
+    name: 'debt-and-disposition-summary',
+    moduleId: './modules/purchasing/debt-and-disposition-summary/index',
+    nav: true,
+    title: 'Laporan Rekap Data Hutang & Disposisi',
+    auth: true,
+    settings: {
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
+        iconClass: 'fa fa-dashboard'
+    }
+},
+{
+    route: "/expedition/reports/detail-credit-balance",
+    name: "detail-credit-balance-report",
+    moduleId: "./modules/expedition/reports/detail-credit-balance-report/index",
+    nav: true,
+    title: "Laporan Saldo Hutang Usaha (Detail)",
+    auth: true,
+    settings: {
+        group: "finance",
+        permission: {
+            P1: 1,
+            P3: 1,
+            P4: 1,
+            P6: 1,
+            P7: 1,
+            PI: 1,
+            PG: 1,
+            PK: 1,
+            B9: 1,
+            C9: 1,
+            B4: 1,
+            B1: 1,
+        },
+        iconClass: "fa fa-dashboard",
+    },
+},
+{
+    route: '/unpaid-disposition-report-detail',
+    name: 'unpaid-disposition-report-detail',
+    moduleId: './modules/purchasing/unpaid-disposition-report-detail/index',
+    nav: true,
+    title: 'Laporan Disposisi Belum Dibayar (Detail)',
+    auth: true,
+    settings: {
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
+    }
+},
+{
     route: '/expedition/down-payment',
     name: 'down-payment',
     moduleId: './modules/expedition/down-payment/index',
@@ -345,12 +396,12 @@ module.exports = [
     title: 'Bukti Pemasukan Bank',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'finance/memo',
     name: 'memo',
     moduleId: './modules/sales/memo/index',
@@ -358,12 +409,12 @@ module.exports = [
     title: 'Memo',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/sales-invoices-report',
     name: 'sales-invoices-report',
     moduleId: './modules/expedition/reports/sales-invoices-report/index',
@@ -371,12 +422,12 @@ module.exports = [
     title: 'Laporan Pembayaran Faktur',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: '/expedition/reports/sales-receipt-report',
     name: 'sales-receipt-report',
     moduleId: './modules/expedition/reports/sales-receipt-report/index',
@@ -384,12 +435,12 @@ module.exports = [
     title: 'Laporan Kwitansi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1, "B4": 1, "B1": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'garment-invoice-payment',
     name: 'garment-invoice-payment',
     moduleId: './modules/expedition/garment-invoice-payment/index',
@@ -397,12 +448,12 @@ module.exports = [
     title: 'Pembayaran Invoice Export Garment',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "C9": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "C9": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-request-document-non-po',
     name: 'vb-request-document-non-po',
     moduleId: './modules/purchasing/vb-request-document-non-po/index',
@@ -410,12 +461,12 @@ module.exports = [
     title: 'Permohonan VB Non PO',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-with-po-request',
     name: 'vb-with-po-request',
     moduleId: './modules/purchasing/vb-with-po-request/index',
@@ -423,12 +474,12 @@ module.exports = [
     title: 'Permohonan VB Dengan PO',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'cashier-approval',
     name: 'cashier-approval',
     moduleId: './modules/purchasing/cashier-approval/index',
@@ -436,12 +487,12 @@ module.exports = [
     title: 'Approval Kasir',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1, "B4": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1, "B4": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-status-report',
     name: 'vb-status-report',
     moduleId: './modules/purchasing/reports/vb-status-report/index',
@@ -449,12 +500,12 @@ module.exports = [
     title: 'Laporan Status VB',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'realization-vb-non-po',
     name: 'realization-vb-non-po',
     moduleId: './modules/purchasing/realization-vb-non-po/index',
@@ -462,12 +513,12 @@ module.exports = [
     title: 'Realisasi VB non PO',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-realization-with-po-document',
     name: 'vb-realization-with-po-document',
     moduleId: './modules/purchasing/vb-realization-with-po-document/index',
@@ -475,12 +526,12 @@ module.exports = [
     title: 'Realisasi VB dengan PO',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-realization-to-verification',
     name: 'vb-realization-to-verification',
     moduleId: './modules/expedition/vb-realization-to-verification/index',
@@ -488,12 +539,12 @@ module.exports = [
     title: 'Penyerahan VB Realisasi Ke Verifikasi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-realization-acceptance',
     name: 'vb-realization-acceptance',
     moduleId: './modules/expedition/vb-realization-acceptance/index',
@@ -501,12 +552,12 @@ module.exports = [
     title: 'Penerimaan VB Realisasi',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B4": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B4": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-realization-verification',
     name: 'vb-realization-verification',
     moduleId: './modules/expedition/vb-realization-verification/index',
@@ -514,12 +565,12 @@ module.exports = [
     title: 'Verifikasi Realisasi VB',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B9": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B9": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'clearance-vb',
     name: 'clearance-vb',
     moduleId: './modules/purchasing/clearance-vb/index',
@@ -527,12 +578,12 @@ module.exports = [
     title: 'Clearance VB',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "B4": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1, "B4": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  },
-  {
+},
+{
     route: 'vb-realization-expedition-report',
     name: 'vb-realization-expedition-report',
     moduleId: './modules/expedition/vb-realization-expedition-report/index',
@@ -540,9 +591,9 @@ module.exports = [
     title: 'Laporan Ekspedisi Realisasi VB',
     auth: true,
     settings: {
-      group: "finance",
-      permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
-      iconClass: 'fa fa-dashboard'
+        group: "finance",
+        permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "*": 1 },
+        iconClass: 'fa fa-dashboard'
     }
-  }
+}
 ];

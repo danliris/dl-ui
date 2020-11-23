@@ -35,7 +35,20 @@ export class DataForm {
   }
 
   divisionChanged(e) {
-    console.log("this", this);
+    this.data.DivisionId =
+      this.data.DivisionId !== this.context.data.DivisionName.Id
+        ? this.context.data.DivisionName.Id
+        : this.data.DivisionId;
+
+    this.data.DivisionCode =
+      this.data.DivisionCode !== this.context.data.DivisionName.Code
+        ? this.context.data.DivisionName.Code
+        : this.data.DivisionCode;
+
+    this.data.DivisionName =
+      this.data.DivisionName !== this.context.data.DivisionName.Name
+        ? this.context.data.DivisionName.Name
+        : this.data.DivisionName;
   }
 
   activate() {}

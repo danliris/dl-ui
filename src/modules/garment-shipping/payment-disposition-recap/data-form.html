@@ -15,8 +15,8 @@
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-textbox label="Alamat EMKL" value.bind="address" read-only.bind="true" options.bind="controlOptions">
-            </au-textbox>
+            <au-multiline label="Alamat EMKL" value.bind="address" read-only.bind="true" options.bind="controlOptions">
+            </au-multiline>
 
             <au-textbox label="NPWP EMKL" value.bind="npwp" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
@@ -34,7 +34,7 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <au-collection items.one-way="bills" columns.bind="billsColumns" read-only="true">
+                <au-collection title="Beban Per Unit" items.one-way="bills" columns.bind="billsColumns" read-only="true">
                 </au-collection>
             </div>
         </div>
