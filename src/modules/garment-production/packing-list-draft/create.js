@@ -13,7 +13,8 @@ export class Create {
 
     bind() {
         this.data = {
-            date: new Date()
+            date: new Date(),
+            createdUtc: new Date()
         };
         this.error = {};
     }

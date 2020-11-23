@@ -73,6 +73,11 @@ export class List {
         { header: 'Total (IDR)', value: 'Total' }
     ];
 
+    columnsCurrency = [
+        { header: 'Currency', value: 'CurrencyCode' },
+        { header: 'Total', value: 'Total' }
+    ];
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -91,17 +96,24 @@ export class List {
     isValas = false;
     isImport = false;
     unitSummary = [];
+    currencySummary = [];
 
     bind() {}
 
     changeTable(title) {
-        console.log(title);
+        // console.log(title);
         this.isSearch = false;
         if (title !== this.activeTitle) {
             this.activeTitle = title;
             this.unitSummary = [];
+            this.currencySummary = [];
             this.data = [];
             this.isEmpty = true;
+            this.division = null;
+            this.category = null;
+            this.accountingUnit = null;
+            this.dateTo = null;
+            this.isSearch = false;
 
             switch (title) {
                 case "Lokal":
@@ -129,9 +141,10 @@ export class List {
     async search() {
         // this.isSearch = true;
         // this.tableList.refresh();
+        let unitSummary = [];
 
         let arg = {
-            categoryId: this.category ? this.category.Id : 0,
+            categoryId: this.category ? this.category._id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -142,13 +155,19 @@ export class List {
         this.data = await this.service.search(arg)
             .then(result => {
                 if (result && result.UnitSummaries.length > 0)
-                    this.unitSummary = result.UnitSummaries.map(
-                        (item) => ({
-                            Unit: item.Unit,
-                            CurrencyCode: item.CurrencyCode,
-                            Total: numeral(item.SubTotal).format("0,000.00"),
-                        })
-                    );
+                    for (let data of result.UnitSummaries)
+                        unitSummary.push({
+                            // Unit: item.Unit,
+                            Unit: unitSummary.some(x => x.Unit === data.Name) ? "" : data.Name,
+                            CurrencyCode: data.CurrencyCode,
+                            Total: numeral(data.SubTotal).format("0,000.00")
+                        });
+
+                if (result && result.CurrencySummaries.length > 0)
+                    this.currencySummary = result.CurrencySummaries.map((data) => ({
+                        CurrencyCode: data.CurrencyCode,
+                        Total: numeral(data.SubTotal).format("0,000.00")
+                    }));
 
                 let viewDataSet = [];
                 let categoryDataSet = [];
@@ -156,7 +175,7 @@ export class List {
                 let dataCount = result.Reports.length;
                 for (let data of result.Reports) {
                     viewDataSet.push({
-                        DispositionDate: data.DispositionDate ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                        DispositionDate: data.DispositionDate ? moment(data.DispositionDate).format("DD-MM-YYYY") : "",
                         DispositionNo: data.DispositionNo,
                         URNNo: data.URNNo,
                         UPONo: data.UPONo,
@@ -164,7 +183,7 @@ export class List {
                         SupplierName: data.SupplierName,
                         CategoryName: data.CategoryName,
                         AccountingUnitName: data.AccountingUnitName,
-                        PaymentDueDate: data.PaymentDueDate ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                        PaymentDueDate: data.PaymentDueDate ? moment(data.PaymentDueDate).format("DD-MM-YYYY") : "",
                         CurrencyCode: data.CurrencyCode,
                         Total: numeral(data.Total).format('0,000.00')
                     });
@@ -203,26 +222,28 @@ export class List {
                 }
 
                 this.isEmpty = dataCount - 1 > 0 ? false : true;
+                this.unitSummary = unitSummary;
                 return viewDataSet;
             });
-        console.log(this.data);
+        // console.log(this.data);
     }
 
     reset() {
         this.isEmpty = true;
         this.division = null;
-        this.accountingCategory = null;
+        this.category = null;
         this.accountingUnit = null;
         this.dateTo = null;
         this.isSearch = false;
-        this.unitSummary = [];
         this.data = [];
+        this.unitSummary = [];
+        this.currencySummary = [];
         // this.tableList.refresh();
     }
 
     getExcel() {
         let arg = {
-            categoryId: this.category ? this.category.Id : 0,
+            categoryId: this.category ? this.category._id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -238,7 +259,7 @@ export class List {
 
     getPdf() {
         let arg = {
-            categoryId: this.category ? this.category.Id : 0,
+            categoryId: this.category ? this.category._id : 0,
             accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
             divisionId: this.division ? this.division.Id : 0,
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -256,8 +277,8 @@ export class List {
         return CategoryLoader;
     }
 
-    categoryLoaderView = (CategoryLoader) => {
-        return `${CategoryLoader.Code} - ${CategoryLoader.Name}`
+    categoryView = (CategoryLoader) => {
+        return `${CategoryLoader.code} - ${CategoryLoader.name}`
     }
 
     get divisionLoader() {
