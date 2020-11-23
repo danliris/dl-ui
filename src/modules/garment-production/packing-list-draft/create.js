@@ -12,7 +12,9 @@ export class Create {
     }
 
     bind() {
-        this.data = {};
+        this.data = {
+            date: new Date()
+        };
         this.error = {};
     }
 
