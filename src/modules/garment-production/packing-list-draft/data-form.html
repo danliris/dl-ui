@@ -114,10 +114,10 @@
                         items.bind="data.items"
                         errors.bind="error.Items"
                         columns.bind="itemsColumns"
-                        read-only="true"
-                        show.bind="readOnly"
+                        read-only.bind="readOnly"
+                        show.bind="readOnly || data.status == 'DRAFT_APPROVED_SHIPPING'"
                         options.bind="Options"
-                        item-template="modules/garment-production/packing-list-items/template/detail-ro">
+                        item-template="modules/garment-production/packing-list-draft/template/detail-ro">
                     </au-collection>    
                 </div>
                 
@@ -148,9 +148,9 @@
                 <div class="col-sm-4">
                     <numeric
                         label="TOTAL CARTONS"
-                        value.bind="totalCartons"
+                        value.bind="data.totalCartons"
                         error.bind="error.totalCartons"
-                        read-only.bind="true" 
+                        read-only.bind="readOnly" 
                         options.bind="controlOptions">
                     </numeric>
                 </div>
@@ -177,7 +177,7 @@
                     errors.bind="error.Measurements"
                     columns.bind="measureColumns"
                     read-only="true"
-                    show.bind="readOnly"
+                    show.bind="readOnly || data.status == 'DRAFT_APPROVED_SHIPPING'"
                     options.bind="Options"
                     item-template="modules/garment-production/packing-list-items/template/detail-measurement">
                 </au-collection>
