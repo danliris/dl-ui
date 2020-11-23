@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "reports/debt-and-disposition-summaries";
+const serviceUri = "reports/debt-and-disposition-summaries/debt";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -27,32 +27,32 @@ export class Service extends RestService {
   }
 
   generateExcelLocal(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
+    var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
     return super.getXls(endpoint);
   }
 
   generateExcelLocalForeignCurrency(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
+    var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
     return super.getXls(endpoint);
   }
 
   generateExcelImport(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
+    var endpoint = `${serviceUri}/download-excel?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
     return super.getXls(endpoint);
   }
 
   printPdfLocal(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
+    var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=false`;
     return super.getPdf(endpoint);
   }
 
   printPdfLocalForeignCurrency(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
+    var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=false&isForeignCurrency=true`;
     return super.getPdf(endpoint);
   }
 
   printPdfImport(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
+    var endpoint = `${serviceUri}/download-pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dueDate=${info.dueDate}&isImport=true&isForeignCurrency=false`;
     return super.getPdf(endpoint);
   }
 }
