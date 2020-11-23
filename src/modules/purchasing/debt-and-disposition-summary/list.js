@@ -2,10 +2,12 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 var CategoryLoader = require('../../../loader/category-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var UnitLoader = require('../../../loader/unit-loader');
+var AccountingUnitLoader = require('../../../loader/accounting-unit-loader');
 
 @inject(Router, Service)
 export class List {
@@ -64,7 +66,7 @@ export class List {
         console.log("reset");
         this.division = null;
         this.category = null;
-        this.unit = null;
+        this.accountingUnit = null;
         this.dueDate = null;
         this.isSearch = false;
         this.documentTable.refresh();
@@ -80,14 +82,14 @@ export class List {
         if (this.division && this.division.Id)
             divisionId = this.division.Id;
 
-        let unitId = 0;
-        if (this.unit && this.unit.Id)
-            unitId = this.unit.Id;
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
 
         let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
 
         let arg = {
-            categoryId, divisionId, unitId, dueDate
+            categoryId, divisionId, accountingUnitId, dueDate
         };
         console.log("pdf");
 
@@ -131,14 +133,14 @@ export class List {
         if (this.division && this.division.Id)
             divisionId = this.division.Id;
 
-        let unitId = 0;
-        if (this.unit && this.unit.Id)
-            unitId = this.unit.Id;
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
 
         let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
 
         let arg = {
-            categoryId, divisionId, unitId, dueDate
+            categoryId, divisionId, accountingUnitId, dueDate
         };
         console.log("pdf");
 
@@ -176,9 +178,21 @@ export class List {
     columns = [
         { field: 'CategoryName', title: 'Kategori' },
         { field: 'CurrencyCode', title: 'Kurs' },
-        { field: 'DebtTotal', title: 'Hutang' },
-        { field: 'DispositionTotal', title: 'Disposisi' },
-        { field: 'Total', title: 'Total' }
+        {
+            field: 'DebtTotal', title: 'Hutang', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'DispositionTotal', title: 'Disposisi', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'Total', title: 'Total', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        }
     ];
 
     get categoryLoader() {
@@ -189,8 +203,12 @@ export class List {
         return DivisionLoader;
     }
 
-    get unitLoader() {
-        return UnitLoader;
+    // get unitLoader() {
+    //     return UnitLoader;
+    // }
+
+    get accountingUnitLoader() {
+        return AccountingUnitLoader;
     }
 
     loader = (info) => {
@@ -204,14 +222,14 @@ export class List {
         if (this.division && this.division.Id)
             divisionId = this.division.Id;
 
-        let unitId = 0;
-        if (this.unit && this.unit.Id)
-            unitId = this.unit.Id;
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
 
         let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
 
         let arg = {
-            categoryId, divisionId, unitId, dueDate
+            categoryId, divisionId, accountingUnitId, dueDate
         };
 
         console.log(this.activeRole)

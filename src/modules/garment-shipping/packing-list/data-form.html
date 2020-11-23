@@ -266,9 +266,10 @@
         <div class="row">
             <label class="col-sm-3 text-right">SHIPPING MARK</label>
             <div class="col-sm-7">
-                <input show.bind="!readOnly" type="file" id="shippingMarkImageInput" value.bind="shippingMarkImageUpload" accept="image/*">
+                <input show.bind="!readOnly" class="form-control" type="file" id="shippingMarkImageInput" value.bind="shippingMarkImageUpload" accept="image/*">
                 <div class="thumbnail">
                     <img src.bind="shippingMarkImageSrc">
+                    <button show.bind="!readOnly && data.shippingMarkImageFile" type="button" class="btn btn-block btn-danger" click.delegate="removeImage('shippingMark')">Hapus Gambar</button>
                     <au-multiline
                         placeholder="Tambah Keterangan"
                         value.bind="data.shippingMark"
@@ -282,9 +283,10 @@
         <div class="row">
             <label class="col-sm-3 text-right">SIDE MARK</label>
             <div class="col-sm-7">
-                <input show.bind="!readOnly" type="file" id="sideMarkImageInput" value.bind="sideMarkImageUpload" accept="image/*">
+                <input show.bind="!readOnly" class="form-control" type="file" id="sideMarkImageInput" value.bind="sideMarkImageUpload" accept="image/*">
                 <div class="thumbnail">
                     <img src.bind="sideMarkImageSrc">
+                    <button show.bind="!readOnly && data.sideMarkImageFile" type="button" class="btn btn-block btn-danger" click.delegate="removeImage('sideMark')">Hapus Gambar</button>
                     <au-multiline
                         placeholder="Tambah Keterangan"
                         value.bind="data.sideMark"
@@ -298,9 +300,10 @@
         <div class="row">
             <label class="col-sm-3 text-right">REMARK</label>
             <div class="col-sm-7">
-                <input show.bind="!readOnly" type="file" id="remarkImageInput" value.bind="remarkImageUpload" accept="image/*">
+                <input show.bind="!readOnly" class="form-control" type="file" id="remarkImageInput" value.bind="remarkImageUpload" accept="image/*">
                 <div class="thumbnail">
                     <img src.bind="remarkImageSrc">
+                    <button show.bind="!readOnly && data.remarkImageFile" type="button" class="btn btn-block btn-danger" click.delegate="removeImage('remark')">Hapus Gambar</button>
                     <au-multiline
                         placeholder="Tambah Keterangan"
                         value.bind="data.remark"
