@@ -64,6 +64,7 @@ export class Create {
                 DivisionCode: unitPaymentOrder.divisionCode,
                 DivisionName: unitPaymentOrder.divisionName,
                 IncomeTax: unitPaymentOrder.incomeTax,
+                IncomeTaxBy: unitPaymentOrder.incomeTaxBy,
                 Vat: unitPaymentOrder.vat,
                 TotalPaid: unitPaymentOrder.totalPaid,
                 Currency: unitPaymentOrder.currency,

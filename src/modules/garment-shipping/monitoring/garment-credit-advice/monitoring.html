@@ -23,6 +23,13 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-dropdown 
+            label="Payment Term" 
+            value.bind="paymentTerm"
+            items.bind="PaymentTermOptions"
+            options.bind="controlOptions" >
+        </au-dropdown>
+
         <au-datepicker label="Tanggal Payment Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Payment Akhir" value.bind="dateTo"></au-datepicker>
   

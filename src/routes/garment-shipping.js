@@ -104,6 +104,19 @@ module.exports = [
         }
     },
     {
+        route: "master/garment-additional-charges",
+        name: "garment-additional-charges",
+        moduleId: "modules/master/garment-additional-charges/index",
+        nav: true,
+        title: "Additional Charges",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
@@ -139,7 +152,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "FP": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  

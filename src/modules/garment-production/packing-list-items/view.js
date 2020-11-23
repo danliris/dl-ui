@@ -35,23 +35,12 @@ export class View {
         }
 
         switch (this.data.status) {
-            case "CREATED":
-                this.saveCallback = null;
-                break;
-            case "CANCELED":
-            case "APPROVED_MD":
-            case "APPROVED_SHIPPING":
-            case "REJECTED_SHIPPING_MD":
-                this.saveCallback = null;
-            case "POSTED":
-            case "REJECTED_MD":
-            case "REVISED_MD":
-            case "REJECTED_SHIPPING_UNIT":
-            case "REVISED_SHIPPING":
-                this.editCallback = null;
-                this.deleteCallback = null;
+            case "DRAFT":
+            case "DRAFT_APPROVED_SHIPPING":
+                this.editCallback = this.editAction;
                 break;
             default:
+                this.editCallback = null;
                 break;
         }
 
@@ -71,24 +60,7 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    editCallback(event) {
+    editAction(event) {
         this.router.navigateToRoute('edit', { id: this.data.id });
     }
-
-    // deleteCallback(event) {
-    //     if (confirm("Hapus?")) {
-    //         this.service.delete(this.data).then(result => {
-    //             this.cancelCallback();
-    //         });
-    //     }
-    // }
-
-    // saveCallback() {
-    //     if (confirm("Unpost?")) {
-    //         this.service.unpost(this.data.id)
-    //             .then(result => {
-    //                 this.cancelCallback();
-    //             });
-    //     }
-    // }
 }

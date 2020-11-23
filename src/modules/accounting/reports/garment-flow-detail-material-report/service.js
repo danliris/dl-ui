@@ -10,9 +10,13 @@ export class Service extends RestService {
     }
     
     search(info) {
-        console.log(info);
-        let endpoint = `${uriGRC}`;
-        return super.list(endpoint, info);
+        // console.log(info);
+        // let endpoint = `${uriGRC}`;
+        // return super.list(endpoint, info);
+        // console.log(info);
+        var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
+        // return super.list(endpoint, info);
+        return super.get(endpoint);
     }
 
     xls(info) {

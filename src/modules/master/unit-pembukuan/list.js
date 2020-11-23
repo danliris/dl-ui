@@ -47,6 +47,7 @@ export class List {
         this.router.navigateToRoute("view", { id: data.Id });
         break;
     }
+    // console.log("list ke view", data);
   }
 
   create() {

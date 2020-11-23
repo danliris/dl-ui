@@ -9,9 +9,10 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
     search(info) {
-        console.log(info);
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
+        // console.log(info);
+        var endpoint = `${serviceUri}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}`;
+        // return super.list(endpoint, info);
+        return super.get(endpoint);
     }
     generateXls(unit,  category, dateFrom, dateTo, unitname, categoryname) { 
         console.log(unit,  category, dateFrom, dateTo);

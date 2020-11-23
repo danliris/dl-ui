@@ -76,6 +76,10 @@ export class DataForm {
         return data.NPWP || data.npwp;
     }
 
+    buyerKaberView = (data) => {
+        return data.KaberType || data.kaberType;
+    }
+
     bind(context) {
         this.context = context;
         this.data = context.data;

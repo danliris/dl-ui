@@ -2,10 +2,12 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 var CategoryLoader = require('../../../loader/category-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var UnitLoader = require('../../../loader/unit-loader');
+var AccountingUnitLoader = require('../../../loader/accounting-unit-loader');
 
 @inject(Router, Service)
 export class List {
@@ -64,7 +66,7 @@ export class List {
         console.log("reset");
         this.division = null;
         this.category = null;
-        this.unit = null;
+        this.accountingUnit = null;
         this.dueDate = null;
         this.isSearch = false;
         this.documentTable.refresh();
@@ -72,18 +74,125 @@ export class List {
 
     exportExcel() {
         console.log("excel")
+        let categoryId = 0;
+        if (this.category && this.category._id)
+            categoryId = this.category._id;
+
+        let divisionId = 0;
+        if (this.division && this.division.Id)
+            divisionId = this.division.Id;
+
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
+
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+
+        let arg = {
+            categoryId, divisionId, accountingUnitId, dueDate
+        };
+        console.log("pdf");
+
+        switch (this.activeTitle) {
+            case "Lokal":
+                return this.service.generateExcelLocal(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Lokal Valas":
+                return this.service.generateExcelLocalForeignCurrency(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Import":
+                return this.service.generateExcelImport(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+        }
     }
 
     printPdf() {
-        console.log("pdf")
+        let categoryId = 0;
+        if (this.category && this.category._id)
+            categoryId = this.category._id;
+
+        let divisionId = 0;
+        if (this.division && this.division.Id)
+            divisionId = this.division.Id;
+
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
+
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+
+        let arg = {
+            categoryId, divisionId, accountingUnitId, dueDate
+        };
+        console.log("pdf");
+
+        switch (this.activeTitle) {
+            case "Lokal":
+                return this.service.printPdfLocal(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Lokal Valas":
+                return this.service.printPdfLocalForeignCurrency(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+            case "Import":
+                return this.service.printPdfImport(arg)
+                    .then(result => {
+                        console.log(result);
+                        return {
+                            total: result.TotalData,
+                            data: result.Data
+                        }
+                    });
+        }
     }
 
     columns = [
         { field: 'CategoryName', title: 'Kategori' },
         { field: 'CurrencyCode', title: 'Kurs' },
-        { field: 'DebtTotal', title: 'Hutang' },
-        { field: 'DispositionTotal', title: 'Disposisi' },
-        { field: 'Total', title: 'Total' }
+        {
+            field: 'DebtTotal', title: 'Hutang', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'DispositionTotal', title: 'Disposisi', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: 'Total', title: 'Total', align: "right", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        }
     ];
 
     get categoryLoader() {
@@ -94,8 +203,12 @@ export class List {
         return DivisionLoader;
     }
 
-    get unitLoader() {
-        return UnitLoader;
+    // get unitLoader() {
+    //     return UnitLoader;
+    // }
+
+    get accountingUnitLoader() {
+        return AccountingUnitLoader;
     }
 
     loader = (info) => {
@@ -109,14 +222,14 @@ export class List {
         if (this.division && this.division.Id)
             divisionId = this.division.Id;
 
-        let unitId = 0;
-        if (this.unit && this.unit.Id)
-            unitId = this.unit.Id;
+        let accountingUnitId = 0;
+        if (this.accountingUnit && this.accountingUnit.Id)
+            accountingUnitId = this.accountingUnit.Id;
 
-        let date = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
+        let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
 
         let arg = {
-            categoryId, divisionId, unitId, date
+            categoryId, divisionId, accountingUnitId, dueDate
         };
 
         console.log(this.activeRole)
@@ -171,8 +284,6 @@ export class List {
                 data: []
             }
         }
-
-
     }
 
 }
