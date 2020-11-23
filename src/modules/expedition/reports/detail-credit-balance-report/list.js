@@ -89,6 +89,14 @@ export class List {
       },
       align: "right",
     },
+    {
+      field: "SubTotalIDR",
+      title: "Total (IDR)",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
   ];
 
   changeTitle(title) {
