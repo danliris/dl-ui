@@ -40,13 +40,18 @@ export class List {
 
     activeTitle = "Lokal";
     changeTitle(title) {
-        this.isSearch = false;
         if (title !== this.activeTitle) {
             this.activeTitle = title;
             // // this.selectedItems.splice(0, this.selectedItems.length);
             // // this.documentData.splice(0, this.documentData.length);
             // this.documentTable.refresh();
         }
+
+        this.division = null;
+        this.category = null;
+        this.accountingUnit = null;
+        this.dueDate = null;
+        this.isSearch = false;
 
         this.documentTable.refresh();
     }
@@ -178,11 +183,6 @@ export class List {
     columns = [
         { field: 'CategoryName', title: 'Kategori' },
         { field: 'CurrencyCode', title: 'Kurs' },
-        {
-            field: 'DebtTotal', title: 'Hutang', align: "right", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            }
-        },
         {
             field: 'DispositionTotal', title: 'Disposisi', align: "right", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
