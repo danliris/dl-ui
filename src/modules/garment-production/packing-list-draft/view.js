@@ -38,6 +38,9 @@ export class View {
 
         switch (this.data.status) {
             case "DRAFT":
+                if (!this.data.items || this.data.items.length < 1) {
+                    this.saveCallback = null;
+                }
                 break;
             case "DRAFT_CANCELED":
             case "DRAFT_APPROVED_MD":
