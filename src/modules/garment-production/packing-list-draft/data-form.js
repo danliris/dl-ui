@@ -44,7 +44,6 @@ export class DataForm {
     itemsColumns = [
         { header: "RO No" },
         { header: "SC No" },
-        { header: "Buyer Agent" },
         { header: "Buyer Brand" },
         { header: "Seksi" },
         { header: "Komoditi Description" },
@@ -166,54 +165,43 @@ export class DataForm {
     }
 
     noImage = "images/no-image.jpg";
-    @bindable shippingMarkImageSrc = this.noImage;
+
+    @bindable shippingMarkImageSrc;
     @bindable shippingMarkImageUpload;
     shippingMarkImageUploadChanged(newValue) {
-        if (newValue) {
-            let imageInput = document.getElementById('shippingMarkImageInput');
-            let reader = new FileReader();
-            reader.onload = event => {
-                let base64Image = event.target.result;
-                this.shippingMarkImageSrc = this.data.shippingMarkImageFile = base64Image;
-            }
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            this.shippingMarkImageSrc = this.noImage;
-            delete this.data.shippingMarkImageFile;
-        }
+        this.uploadImage('shippingMark', newValue);
     }
 
     @bindable sideMarkImageSrc;
     @bindable sideMarkImageUpload;
     sideMarkImageUploadChanged(newValue) {
-        if (newValue) {
-            let imageInput = document.getElementById('sideMarkImageInput');
-            let reader = new FileReader();
-            reader.onload = event => {
-                let base64Image = event.target.result;
-                this.sideMarkImageSrc = this.data.sideMarkImageFile = base64Image;
-            }
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            this.sideMarkImageSrc = this.noImage;
-            delete this.data.sideMarkImageFile;
-        }
+        this.uploadImage('sideMark', newValue);
     }
 
     @bindable remarkImageSrc;
     @bindable remarkImageUpload;
     remarkImageUploadChanged(newValue) {
+        this.uploadImage('remark', newValue);
+    }
+
+    uploadImage(mark, newValue) {
         if (newValue) {
-            let imageInput = document.getElementById('remarkImageInput');
+            let imageInput = document.getElementById(mark + 'ImageInput');
             let reader = new FileReader();
             reader.onload = event => {
                 let base64Image = event.target.result;
-                this.remarkImageSrc = this.data.remarkImageFile = base64Image;
+                this[mark + 'ImageSrc'] = this.data[mark + 'ImageFile'] = base64Image;
             }
             reader.readAsDataURL(imageInput.files[0]);
         } else {
-            this.remarkImageSrc = this.noImage;
-            delete this.data.remarkImageFile;
+            this[mark + 'ImageSrc'] = this.noImage;
+            this.data[mark + 'ImageFile'] = null;
         }
+    }
+
+    removeImage(mark) {
+        this[mark + "ImageUpload"] = null;
+        this[mark + "ImageSrc"] = this.noImage;
+        this.data[mark + "ImageFile"] = null;
     }
 }

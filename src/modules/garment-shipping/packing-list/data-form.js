@@ -306,7 +306,7 @@ export class DataForm {
 
                 if (base64Content.length * 6 / 8 > 5242880) {
                     this[mark + 'ImageSrc'] = this.noImage;
-                    delete this.data[mark + 'ImageFile'];
+                    this.data[mark + 'ImageFile'] = null;
                     alert("Maximum Document Size is 5 MB");
                 } else {
                     this[mark + 'ImageSrc'] = this.data[mark + 'ImageFile'] = base64Image;
@@ -316,13 +316,11 @@ export class DataForm {
         } else {
             this[mark + 'ImageSrc'] = this.noImage;
             this.data[mark + 'ImageFile'] = null;
-            delete this.data[mark + 'ImageFile'];
         }
     }
 
     removeImage(mark) {
         this[mark + "ImageSrc"] = this.noImage;
         this.data[mark + "ImageFile"] = null;
-        delete this.data[mark + "ImageFile"];
     }
 }
