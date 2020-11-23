@@ -73,6 +73,11 @@ export class List {
         { header: 'Total (IDR)', value: 'Total' }
     ];
 
+    columnsCurrency = [
+        { header: 'Currency', value: 'CurrencyCode' },
+        { header: 'Total', value: 'Total' }
+    ];
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -91,6 +96,7 @@ export class List {
     isValas = false;
     isImport = false;
     unitSummary = [];
+    currencySummary = [];
 
     bind() {}
 
@@ -100,6 +106,7 @@ export class List {
         if (title !== this.activeTitle) {
             this.activeTitle = title;
             this.unitSummary = [];
+            this.currencySummary = [];
             this.data = [];
             this.isEmpty = true;
             this.division = null;
@@ -151,17 +158,16 @@ export class List {
                     for (let data of result.UnitSummaries)
                         unitSummary.push({
                             // Unit: item.Unit,
-                            Unit: unitSummary.some(x => x.Unit === data.Unit) ? "" : data.Unit,
+                            Unit: unitSummary.some(x => x.Unit === data.Name) ? "" : data.Name,
                             CurrencyCode: data.CurrencyCode,
-                            Total: numeral(data.SubTotal).format("0,000.00"),
+                            Total: numeral(data.SubTotal).format("0,000.00")
                         });
-                //     this.unitSummary = result.UnitSummaries.map(
-                //     (item) => ({
-                //         Unit: this.unitSummary.some(x => x.Unit === item.Unit) ? "" : item.Unit,
-                //         CurrencyCode: item.CurrencyCode,
-                //         Total: numeral(item.SubTotal).format("0,000.00")
-                //     })
-                // );
+
+                if (result && result.CurrencySummaries.length > 0)
+                    this.currencySummary = result.CurrencySummaries.map((data) => ({
+                        CurrencyCode: data.CurrencyCode,
+                        Total: numeral(data.SubTotal).format("0,000.00")
+                    }));
 
                 let viewDataSet = [];
                 let categoryDataSet = [];
@@ -229,8 +235,9 @@ export class List {
         this.accountingUnit = null;
         this.dateTo = null;
         this.isSearch = false;
-        this.unitSummary = [];
         this.data = [];
+        this.unitSummary = [];
+        this.currencySummary = [];
         // this.tableList.refresh();
     }
 
