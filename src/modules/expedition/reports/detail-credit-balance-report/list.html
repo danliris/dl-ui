@@ -14,6 +14,10 @@
     .tab.active {
       border-color: #173250 !important;
     }
+
+    .hide {
+      display: none;
+    }
   </style>
 
   <!-- <template> -->
@@ -105,7 +109,7 @@
         >
         </au-table>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6 ${activeTitle === 'Lokal' ? 'hide' : ''}">
         <!-- Currency summary table -->
         <au-table
           view-model.ref="documentTableCurrency"
