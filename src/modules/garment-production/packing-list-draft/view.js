@@ -42,6 +42,9 @@ export class View {
                     this.saveCallback = null;
                 }
                 break;
+            case "DRAFT_APPROVED_SHIPPING":
+                this.deleteCallback = null;
+                break;
             case "DRAFT_CANCELED":
             case "DRAFT_APPROVED_MD":
             case "CANCELED":
