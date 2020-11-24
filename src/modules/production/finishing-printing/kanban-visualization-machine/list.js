@@ -40,19 +40,19 @@ export class List {
 
 		var arg = {
 			page: 1,
-			size: Number.MAX_SAFE_INTEGER,
+			size: 2147483647,
 			select: ["name", "process"]
 		};
 
 		await this.coreService.search(arg)
 			.then((results) => {
 				for (var data of results.data) {
-					this.map[data.name] = { input: [], output: [] };
+					this.map[data.Name] = { input: [], output: [] };
 					this.stages.push({
-						name: data.name,
-						map: this.map[data.name],
+						name: data.Name,
+						map: this.map[data.Name],
 						inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0,
-						process: data.process
+						process: data.Process
 					});
 				}
 
@@ -92,24 +92,24 @@ export class List {
 				this.count += result.info.count;
 
 				for (var data of result.data) {
-					if (data && data.process) {
-						var machine = data.dailyOperationMachine;
+					if (data && data.Process) {
+						var machine = data.DailyOperationMachine;
 						var stage = this.stages.find(o => o.name == machine);
 
-						if(data.type === "Input") {
+						if(data.Type === "Input") {
 							var obj = {
-								code: data.code,
-								process: data.process ? data.process : "-",
-								salesContractNo: (data.productionOrder && data.productionOrder.salesContractNo) ? data.productionOrder.salesContractNo : "-",
-								productionOrderNo: (data.productionOrder && data.productionOrder.orderNo) ? data.productionOrder.orderNo : "-",
-								buyer: (data.productionOrder && data.productionOrder.buyer && data.productionOrder.buyer.name) ? data.productionOrder.buyer.name : "-",
-								cart: data.cart ? data.cart.cartNumber : "-",
-								orderQuantity: data.productionOrder ? data.productionOrder.orderQuantity : "-",
-								deadline: data.deadline ? moment(data.deadline).format("DD MMM YYYY") : "-",
-								deliveryDate: (data.productionOrder && data.productionOrder.deliveryDate) ? moment(data.productionOrder.deliveryDate).format("DD MMM YYYY") : "-",
-								input: data.inputQuantity,
-								stepsLength: data.stepsLength,
-								currentStepIndex: data.currentStepIndex
+								code: data.Code,
+								process: data.Process ? data.Process : "-",
+								salesContractNo: (data.ProductionOrder && data.ProductionOrder.SalesContractNo) ? data.ProductionOrder.SalesContractNo : "-",
+								productionOrderNo: (data.ProductionOrder && data.ProductionOrder.OrderNo) ? data.ProductionOrder.OrderNo : "-",
+								buyer: (data.ProductionOrder && data.ProductionOrder.Buyer && data.ProductionOrder.Buyer.Name) ? data.ProductionOrder.Buyer.Name : "-",
+								cart: data.Cart ? data.Cart.CartNumber : "-",
+								orderQuantity: data.ProductionOrder ? data.ProductionOrder.OrderQuantity : "-",
+								deadline: data.Deadline ? moment(data.Deadline).format("DD MMM YYYY") : "-",
+								deliveryDate: (data.ProductionOrder && data.ProductionOrder.DeliveryDate) ? moment(data.ProductionOrder.DeliveryDate).format("DD MMM YYYY") : "-",
+								input: data.InputQuantity,
+								stepsLength: data.StepsLength,
+								currentStepIndex: data.CurrentStepIndex
 							};
 
 							if (!stage) {
@@ -118,32 +118,32 @@ export class List {
 								this.stages.push({
 									name: machine,
 									map: this.map[machine],
-									inputTotal: data.inputQuantity
+									inputTotal: data.InputQuantity
 								});
 								
 								this.machineLength++;
 							}
 							else {
-								stage.inputTotal += data.inputQuantity;
+								stage.inputTotal += data.InputQuantity;
 							}
 							
 							this.map[machine].input.push(obj);
 						}
 						else {
 							var obj = {
-								code: data.code,
-								process: data.process ? data.process : "-",
-								salesContractNo: (data.productionOrder && data.productionOrder.salesContractNo) ? data.productionOrder.salesContractNo : "-",
-								productionOrderNo: (data.productionOrder && data.productionOrder.orderNo) ? data.productionOrder.orderNo : "-",
-								buyer: (data.productionOrder && data.productionOrder.buyer && data.productionOrder.buyer.name) ? data.productionOrder.buyer.name : "-",
-								cart: data.cart ? data.cart.cartNumber : "-",
-								orderQuantity: data.productionOrder ? data.productionOrder.orderQuantity : "-",
-								deadline: data.deadline ? moment(data.deadline).format("DD MMM YYYY") : "-",
-								deliveryDate: (data.productionOrder && data.productionOrder.deliveryDate) ? moment(data.productionOrder.deliveryDate).format("DD MMM YYYY") : "-",
-								goodOutput: data.goodOutput,
-								badOutput: data.badOutput,
-								stepsLength: data.stepsLength,
-								currentStepIndex: data.currentStepIndex
+								code: data.Code,
+								process: data.Process ? data.Process : "-",
+								salesContractNo: (data.ProductionOrder && data.ProductionOrder.SalesContractNo) ? data.ProductionOrder.SalesContractNo : "-",
+								productionOrderNo: (data.ProductionOrder && data.ProductionOrder.OrderNo) ? data.ProductionOrder.OrderNo : "-",
+								buyer: (data.ProductionOrder && data.ProductionOrder.Buyer && data.ProductionOrder.Buyer.Name) ? data.ProductionOrder.Buyer.Name : "-",
+								cart: data.Cart ? data.Cart.CartNumber : "-",
+								orderQuantity: data.ProductionOrder ? data.ProductionOrder.OrderQuantity : "-",
+								deadline: data.Deadline ? moment(data.Deadline).format("DD MMM YYYY") : "-",
+								deliveryDate: (data.ProductionOrder && data.ProductionOrder.DeliveryDate) ? moment(data.ProductionOrder.DeliveryDate).format("DD MMM YYYY") : "-",
+								goodOutput: data.GoodOutput,
+								badOutput: data.BadOutput,
+								stepsLength: data.StepsLength,
+								currentStepIndex: data.CurrentStepIndex
 							};
 
 							if (!stage) {
@@ -152,15 +152,15 @@ export class List {
 								this.stages.push({
 									name: machine,
 									map: this.map[machine],
-									goodOutputTotal: data.goodOutput,
-									badOutputTotal: data.badOutput
+									goodOutputTotal: data.GoodOutput,
+									badOutputTotal: data.BadOutput
 								});
 								
 								this.machineLength++;
 							}
 							else {
-								stage.goodOutputTotal += data.goodOutput ? data.goodOutput : 0;
-								stage.badOutputTotal += data.badOutput ? data.badOutput : 0;
+								stage.goodOutputTotal += data.GoodOutput ? data.GoodOutput : 0;
+								stage.badOutputTotal += data.BadOutput ? data.BadOutput : 0;
 							}
 
 							this.map[machine].output.push(obj);
@@ -170,10 +170,10 @@ export class List {
 
 				this.kanbanMachine =  "width: " + (this.machineLength * 500) + "px; height: 600px;";
 				
-				if (this.totalData != this.count) {
-					this.page++;
-					this.getData();
-				}
+				// if (this.totalData != this.count) {
+				// 	this.page++;
+				// 	this.getData();
+				// }
 			});
 	}
 }
