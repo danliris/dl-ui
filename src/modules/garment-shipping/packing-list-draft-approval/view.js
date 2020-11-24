@@ -52,11 +52,23 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm("Cancel?")) {
-            this.service.cancel(this.data).then(result => {
-                this.cancelCallback();
+        this.dialog.show(RejectDialog, { title: "Alasan Cancel" })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.cancel({ id: this.data.id, reason: response.output })
+                        .then(result => {
+                            alert('Packing List berhasil di-Cancel');
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Cancel dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                }
             });
-        }
     }
 
     saveCallback(event) {
@@ -65,7 +77,7 @@ export class View {
                 if (!response.wasCancelled) {
                     this.service.reject({ id: this.data.id, reason: response.output })
                         .then(result => {
-                            alert('Packing List berhasil diReject');
+                            alert('Packing List berhasil di-Reject');
                             this.cancelCallback();
                         })
                         .catch(error => {

@@ -1,12 +1,12 @@
 <template>
     <ai-dialog style="width:500px;">
         <ai-dialog-header>
-            <h3>Alasan Reject</h3>
+            <h3>${title}</h3>
         </ai-dialog-header>
 
         <ai-dialog-body width>
             <form class="form-horizontal">
-                <au-multiline rows.bind="5" placeholder="Alasan Reject" value.bind="reason">
+                <au-multiline rows.bind="5" placeholder.bind="title" value.bind="reason">
                 </au-multiline>
             </form>
         </ai-dialog-body>
