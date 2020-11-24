@@ -106,6 +106,15 @@
                         read-only.bind="readOnly"
                         options.bind="controlOptions">
                     </au-autocomplete>
+
+                    <au-multiline
+                        value.bind="data.description"
+                        error.bind="error.description"
+                        label="Keterangan"
+                        read-only.bind="readOnly"
+                        placeholder="Masukkan Keterangan"
+                        options.bind="controlOptions">
+                    </au-multiline>
                 </div>
             </div>
             <div class="row">
