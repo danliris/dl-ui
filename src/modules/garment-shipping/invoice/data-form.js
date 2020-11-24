@@ -1,6 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 import { CoreService } from "./service";
+import moment from 'moment';
 var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var FabricTypeLoader = require('../../../loader/fabric-type-loader');
@@ -71,6 +72,12 @@ export class DataForm {
 
             this.data.bankAccountId = this.data.bankAccountId;
             this.packinglists = this.data.invoiceNo;
+
+            this.data.npeDate=moment(this.data.npeDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.npeDate;
+            this.data.blDate=moment(this.data.blDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.blDate;
+            this.data.coDate=moment(this.data.coDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.coDate;
+            this.data.pebDate=moment(this.data.pebDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.pebDate;
+            this.data.cotpDate=moment(this.data.cotpDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.cotpDate;
         }
 
     }
@@ -196,14 +203,16 @@ export class DataForm {
             var _consignee = "";
             var consignees = [];
             for (var item of packingItem.items) {
+                console.log(item)
                 var _item = {};
                 _item.BuyerCode = this.data.buyerAgent.code;
                 _item.Section = this.data.section.code;
                 _item.roNo = item.roNo;
                 _item.scNo = item.scNo;
-                _item.price = item.price;
+                _item.price = item.priceFOB;
                 _item.priceRO = item.priceRO;
                 _item.quantity = item.quantity;
+                _item.cmtPrice=item.priceCMT;
                 _item.comodity = {
                     id: item.comodity.id,
                     code: item.comodity.code,
