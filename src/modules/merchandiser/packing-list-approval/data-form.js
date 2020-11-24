@@ -121,6 +121,10 @@ export class DataForm {
         return word.toUpperCase();
     }
 
+    shippingStaffView = (data) => {
+        return `${data.Name || data.name}`
+    }
+
     bind(context) {
         this.context = context;
         this.data = context.data;

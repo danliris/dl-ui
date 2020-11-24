@@ -116,6 +116,9 @@
                     </au-multiline>
                 </div>
             </div>
+            <div class="form-group has-error">
+                <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+            </div>
             <div class="row">
                 <div class="tbl">
                     <au-collection 
