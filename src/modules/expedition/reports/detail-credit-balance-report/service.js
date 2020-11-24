@@ -4,6 +4,7 @@ import { RestService } from "../../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
+// const serviceUri = 'reports/debt-and-disposition-summaries';
 const serviceUri = "report/detail-credit-balance";
 
 export class Service extends RestService {
@@ -12,17 +13,17 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
+    var endpoint = `${serviceUri}?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
     return super.get(endpoint);
   }
 
-  xls(info) {
-    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
+  generateExcel(info) {
+    var endpoint = `${serviceUri}/xls?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
     return super.getXls(endpoint);
   }
 
-  pdf(info) {
-    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isForeignCurrency}`;
+  generatePdf(info) {
+    var endpoint = `${serviceUri}/pdf?categoryId=${info.categoryId}&accountingUnitId=${info.accountingUnitId}&divisionId=${info.divisionId}&dateTo=${info.dateTo}&isImport=${info.isImport}&isForeignCurrency=${info.isValas}`;
     return super.getPdf(endpoint);
   }
 }
