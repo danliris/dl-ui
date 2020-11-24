@@ -1,17 +1,17 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service, CoreService } from './service';
-import { Dialog } from "../../../au-components/dialog/dialog";
-import { RejectDialog } from "./template/dialog/reject";
+import { DialogService } from 'aurelia-dialog';
+import { Dialog } from "./template/dialog";
 
-@inject(Router, Service, CoreService, Dialog)
+@inject(Router, Service, CoreService, DialogService)
 export class View {
 
-    constructor(router, service, coreService, dialog) {
+    constructor(router, service, coreService, dialogService) {
         this.router = router;
         this.service = service;
         this.coreService = coreService;
-        this.dialog = dialog;
+        this.dialogService = dialogService;
     }
 
     formOptions = {
@@ -71,12 +71,12 @@ export class View {
     }
 
     saveCallback(event) {
-        this.dialog.show(RejectDialog, {})
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Reject" } })
             .then(response => {
                 if (!response.wasCancelled) {
                     this.service.reject({ id: this.data.id, reason: response.output })
                         .then(result => {
-                            alert('Packing List berhasil diReject');
+                            alert('Packing List berhasil di-Reject');
                             this.cancelCallback();
                         })
                         .catch(error => {

@@ -23,6 +23,7 @@ export class Item {
     detailsColumns = [
         { header: "Carton 1" },
         { header: "Carton 2" },
+        { header: "Style" },
         { header: "Colour" },
         { header: "Jml Carton" },
         { header: "Qty" },
