@@ -19,7 +19,7 @@ class Service extends RestService {
 
     cancel(data) {
         var endpoint = `${serviceUri}/draft/cancel/${data.id}`;
-        return super.put(endpoint);
+        return super.put(endpoint, JSON.stringify(data.reason));
     }
 
     approve(data) {
