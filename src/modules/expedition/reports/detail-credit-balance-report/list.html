@@ -1,4 +1,6 @@
 <template>
+  <!-- <require from="../../../lib/number-format-value-converter"></require>
+  <require from="../../../lib/date-format-value-converter"></require> -->
   <style>
     .tab {
       padding: 15px;
@@ -15,36 +17,38 @@
       border-color: #173250 !important;
     }
 
-    .hide {
-      display: none;
+    .collection .panel-body {
+      padding: 0;
+    }
+    .collection tbody > tr > td:nth-child(odd) {
+      text-align: center;
+    }
+    /* Membuat currency menjadi rata kanan */
+    .collection tbody > tr > td:nth-child(even) {
+      text-align: right;
     }
   </style>
-
-  <!-- <template> -->
   <div class="row">
     <template repeat.for="title of titles">
       <div
         class="col-sm-4 tab ${activeTitle === title ? 'active' : ''}"
-        click.delegate="changeTitle(title)"
+        \
+        click.trigger="changeTable(title)"
       >
-        ${title}
+        Laporan Saldo Hutang Usaha (Detail) ${title}
       </div>
     </template>
   </div>
   <br />
-  <!-- </template> -->
+  <br />
 
-  <au-input-form
-    title="Laporan Detail Saldo Hutang Usaha ${activeTitle}"
-    options.bind="formOptions"
-  >
+  <div class="form-horizontal">
     <au-autocomplete
       value.bind="category"
       label="Kategori"
       loader.bind="categoryLoader"
-      text="name"
+      text.bind="categoryView"
       placeholder="Cari Kategori"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
@@ -52,9 +56,8 @@
       value.bind="accountingUnit"
       label="Unit Pembukuan"
       loader.bind="accountingUnitLoader"
-      text="Name"
+      text.bind="accountingUnitView"
       placeholder="Cari Unit"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
@@ -64,7 +67,6 @@
       loader.bind="divisionLoader"
       text="Name"
       placeholder="Cari Divisi"
-      read-only.bind="readOnly"
       options.bind="controlOptions"
     >
     </au-autocomplete>
@@ -72,7 +74,8 @@
       label="Periode Sampai"
       value.bind="dateTo"
       options.bind="controlOptions"
-    ></au-datepicker>
+    >
+    </au-datepicker>
 
     <div class="form-group">
       <label for="contact" class="col-sm-6 control-label"></label>
@@ -81,45 +84,75 @@
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
     </div>
-    <div class="btn-group pull-left">
-      <a click.delegate="xls()" class="btn btn-primary">Cetak Excel</a>
-      <a click.delegate="pdf()" class="btn btn-info">Cetak Pdf</a>
-    </div>
-    <br />
-    <!-- Main table -->
-    <au-table
-      view-model.ref="documentTable"
-      data.bind="loader"
-      columns.bind="columns"
-      sortable.bind="false"
-      options.bind="tableOptions"
-      groupBy.bind="UPONo"
-    >
-    </au-table>
+  </div>
+  <br />
+  <div class="table-responsive">
+    <!-- <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable.bind="false" options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <a click.delegate="getExcel()" class='btn btn-primary'>Cetak Excel</a>
+            <a click.delegate="getPdf()" class='btn btn-info'>Cetak Pdf</a>
+        </div>
+    </au-table> -->
 
-    <div class="row">
-      <div class="col-sm-6">
-        <!-- Unit summary table -->
-        <au-table
-          view-model.ref="documentTableUnit"
-          data.bind="loaderUnit"
-          columns.bind="columnsUnit"
-          sortable.bind="false"
-          options.bind="tableOptions"
-        >
-        </au-table>
+    <table class="table table-bordered">
+      <!--Table head-->
+      <thead>
+        <tr>
+          <th>Tanggal SPB</th>
+          <th>No SPB</th>
+          <th>No BP</th>
+          <th>No Invoice</th>
+          <th>Supplier</th>
+          <th>Kategori</th>
+          <th>Unit</th>
+          <th>Jatuh Tempo</th>
+          <th>Currency</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+      <!--Table head-->
+      <!--Table body-->
+      <tbody>
+        <tr show.bind="isEmpty">
+          <td colspan="10">
+            <div class="alert alert-info">Tidak ada data</div>
+          </td>
+        </tr>
+        <tr repeat.for="datum of data">
+          <td
+            repeat.for="key of datum | keys"
+            style="white-space: pre"
+            class="${key.toString().toLowerCase() == 'totalcategorybycurrency' || key.toString().toLowerCase() == 'total' ? 'text-right' : ''}"
+            colspan="${key.toString().toLowerCase() == 'totalcategorybycurrency' ? 8 : 1}"
+          >
+            ${datum[key]}
+          </td>
+        </tr>
+      </tbody>
+      <!--Table body-->
+      <div slot="toolbar" class="btn-group">
+        <a click.delegate="getExcel()" class="btn btn-primary">Cetak Excel</a>
+        <a click.delegate="getPdf()" class="btn btn-info">Cetak Pdf</a>
       </div>
-      <div class="col-sm-6 ${activeTitle === 'Lokal' ? 'hide' : ''}">
-        <!-- Currency summary table -->
-        <au-table
-          view-model.ref="documentTableCurrency"
-          data.bind="loaderCurrency"
-          columns.bind="columnsCurrency"
-          sortable.bind="false"
-          options.bind="tableOptions"
-        >
-        </au-table>
-      </div>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <au-collection
+        items.bind="unitSummary"
+        columns.bind="!isImport && !isValas ? columnsUnit : columnsUnitValas"
+        read-only.bind="true"
+      >
+      </au-collection>
     </div>
-  </au-input-form>
+    <div class="col-sm-6">
+      <au-collection
+        items.bind="currencySummary"
+        columns.bind="columnsCurrency"
+        read-only.bind="true"
+      >
+      </au-collection>
+    </div>
+  </div>
 </template>
