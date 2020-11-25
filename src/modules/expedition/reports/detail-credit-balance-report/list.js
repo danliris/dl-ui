@@ -226,8 +226,9 @@ export class List {
         key++;
       }
 
-      this.isEmpty = dataCount - 1 > 0 ? false : true;
+      this.isEmpty = dataCount > 0 ? false : true;
       this.unitSummary = unitSummary;
+      // console.log(this.isEmpty);
       return viewDataSet;
     });
     // console.log(this.data);
