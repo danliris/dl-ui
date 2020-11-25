@@ -6,7 +6,7 @@
         <h1 class="page-header">Visualisasi Kanban Area</h1>
         <!--<dragula-and-drop drop-fn.call="itemDropped(item, target, source, sibling, itemVM, siblingVM)"></dragula-and-drop>-->
 
-        <div class="row" id="kanbanRow">
+        <div class="row" id="kanbanRow" css.bind="kanbanArea">
             <div class="stagesBox" repeat.for="stage of stages">
                 <div class="kanban__box ${type[$index % 4]}">
                     <div class="kanban__title">
