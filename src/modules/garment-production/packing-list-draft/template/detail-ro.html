@@ -19,13 +19,6 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.buyerAgent.Name || data.buyerAgent.name ||''"
-                error.bind="error.BuyerAgent"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td class="bg-primary">
-            <au-textbox
                 value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''"
                 read-only.bind="true">
             </au-textbox>
@@ -37,7 +30,7 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-2">
             <au-textbox
                 value.bind="data.comodityDescription"
                 error.bind="error.comodityDescription"
@@ -51,7 +44,7 @@
                 read-only="true">
             </au-numeric>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-autocomplete
                 value.bind="data.uom"
                 error.bind="error.Uom"
@@ -67,18 +60,6 @@
                 read-only.bind="true">
             </au-numeric>
         </td>
-        <td class="bg-primary col-md-1">
-            <au-numeric
-                value.bind="data.priceFOB"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
-        <td class="bg-primary col-md-1">
-            <au-numeric
-                value.bind="data.priceCMT"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.valas"
@@ -91,11 +72,17 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
-            <au-textbox
-                value.bind="data.unit.Code || data.unit.code || ''"
-                read-only.bind="true">
-            </au-textbox>
+        <td class="bg-primary col-md-1">
+            <au-autocomplete
+                show.bind="data.roNo"
+                value.bind="data.unit"
+                error.bind="error.unit"
+                loader.bind="unitLoader"
+                query.bind="unitFilter"
+                text.bind="unitView"
+                placeholder="cari unit"
+                read-only="true">
+            </au-autocomplete>
         </td>
 
         <td>
@@ -103,7 +90,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing" style="background-color:#C2B5B2;">
-        <td colspan="2">
+        <td colspan="3">
             <au-textbox
                 label = "Artikel"
                 value.bind="data.article"
@@ -111,7 +98,7 @@
             </au-textbox>
         </td>
         
-        <td colspan="3">
+        <td colspan="4">
             <au-textbox
                 label = "PO Buyer"
                 error.bind="error.OrderNo"
@@ -121,33 +108,24 @@
         </td>
         
         <td colspan="5">
-            <au-multiline
-                label = "Md Description"
-                value.bind="data.descriptionMd"
-                error.bind="error.DescriptionMd"
-                read-only.bind="readOnly">
-            </au-multiline>
-        </td>
-        
-        <td colspan="4">
         </td>
     </tr>
     <tr >
-        <td colspan="14">
+        <td colspan="13">
             <p if.bind="error.DetailsCount" class="help-block text-center" style='color:red;'>${error.DetailsCount}</p>
         </td>
     </tr>
     <tr  show.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
-        <td colspan="12" style='border:none;'>
+        <td colspan="10" style='border:none;'>
             <au-collection 
                 items.bind="data.details" 
                 errors.bind="error.Details" 
                 columns.bind="detailsColumns"
-                read-only="true" 
+                read-only.bind="readOnly" 
                 options.bind="itemOptions"
-                item-template="modules/garment-production/packing-list-items/template/detail-carton">
+                item-template="modules/garment-production/packing-list-draft/template/detail-carton">
             </au-collection>
         </td>
         <td colspan="2" style='border:none;'>
@@ -174,14 +152,14 @@
         <td colspan="3">
             <au-numeric
                 label = "AVG GW"
-                value.bind="data.avG_GW"
+                value.bind="avG_GW"
                 read-only="true">
             </au-numeric>
         </td>
         <td colspan="4">
             <au-numeric
                 label = "AVG NW"
-                value.bind="data.avG_NW"
+                value.bind="avG_NW"
                 read-only="true">
             </au-numeric>
         </td>

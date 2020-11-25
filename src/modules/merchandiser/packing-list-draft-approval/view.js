@@ -1,16 +1,16 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import { Dialog } from "../../../au-components/dialog/dialog";
-import { RejectDialog } from "../packing-list-approval/template/dialog/reject";
+import { DialogService } from 'aurelia-dialog';
+import { Dialog } from "../packing-list-approval/template/dialog";
 
-@inject(Router, Service, Dialog)
+@inject(Router, Service, DialogService)
 export class View {
 
-    constructor(router, service, dialog) {
+    constructor(router, service, dialogService) {
         this.router = router;
         this.service = service;
-        this.dialog = dialog;
+        this.dialogService = dialogService;
     }
 
     formOptions = {
@@ -52,20 +52,32 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm("Cancel?")) {
-            this.service.cancel(this.data).then(result => {
-                this.cancelCallback();
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Cancel" } })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.cancel({ id: this.data.id, reason: response.output })
+                        .then(result => {
+                            alert('Packing List berhasil di-Cancel');
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Cancel dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                }
             });
-        }
     }
 
     saveCallback(event) {
-        this.dialog.show(RejectDialog, {})
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Reject" } })
             .then(response => {
                 if (!response.wasCancelled) {
                     this.service.reject({ id: this.data.id, reason: response.output })
                         .then(result => {
-                            alert('Packing List berhasil diReject');
+                            alert('Packing List berhasil di-Reject');
                             this.cancelCallback();
                         })
                         .catch(error => {
