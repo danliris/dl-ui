@@ -98,10 +98,20 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+       
         <td if.bind="!options.readOnly">
             <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
+
+        
+        <td if.bind="options.readOnly">
+            <au-textbox value.bind="data.nextAreaInputStatus" read-only.bind="true" error.bind="error.nextAreaInputStatus"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        
 
     </tr>
 </template>
