@@ -44,9 +44,22 @@ export class List {
                 this.AmountTotal4 = 0;
                 this.AmountTotal5 = 0;
                 for(var _data of result){
-                    console.log(_data)
+                    // console.log(_data)
+
+                    this.AmountTotal1 += _data.BeginningBalanceQty;
+                    this.AmountTotal2 += _data.ReceiptQty;
+                    this.AmountTotal3 += _data.ReceiptCorrectionQty;
+                    this.AmountTotal4 += _data.ExpendQty;
+                    this.AmountTotal5 += _data.EndingBalanceQty;
+
 
                     _data.PaymentMethod = _data.PaymentMethod == "FREE FROM BUYER" || _data.PaymentMethod == "CMT" || _data.PaymentMethod == "CMT/IMPORT"? "BY":"BL" 
+                    _data.BeginningBalanceQty = _data.BeginningBalanceQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.ReceiptQty = _data.ReceiptQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.ReceiptCorrectionQty = _data.ReceiptCorrectionQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.ExpendQty = _data.ExpendQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.EndingBalanceQty = _data.EndingBalanceQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
                     // if(info.unitcode == "C2A"){
                     //     _data.ReceiptPurchaseQty = _data.ReceiptPurchaseQty + _data.ReceiptKon2AQty,
                     //     _data.ReceiptPurchasePrice = _data.ReceiptPurchasePrice + _data.ReceiptKon2APrice
@@ -64,11 +77,7 @@ export class List {
                     //     _data.ReceiptPurchasePrice = _data.ReceiptPurchasePrice + _data.ReceiptKon2DPrice
                     // }
                     this.data.push(_data);
-                    this.AmountTotal1 += _data.BeginningBalanceQty;
-                    this.AmountTotal2 += _data.ReceiptQty;
-                    this.AmountTotal3 += _data.ReceiptCorrectionQty;
-                    this.AmountTotal4 += _data.ExpendQty;
-                    this.AmountTotal5 += _data.EndingBalanceQty;
+                    
 
                     
 
