@@ -16,9 +16,10 @@ export class Item {
 
     get filter() {
         let section = {};
-        if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
-            section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
-        }
+        // if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
+        //     section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
+        // }
+        section = this.context.context.options.header.section || {};
 
         var filter = {
             BuyerCode: this.data.BuyerCode,
