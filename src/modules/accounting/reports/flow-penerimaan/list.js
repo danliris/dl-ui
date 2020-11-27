@@ -10,7 +10,7 @@ var UnitReceiptLoader = require('../../../../loader/garment-unit-receipt-note-lo
 @inject(Router, Service)
 export class List {
 
-     reprosesOption = ['','Bahan Baku', 'Bahan Embalase','Bahan Pendukung'];
+     reprosesOption = ['','Bahan Baku', 'Bahan Embalase','Bahan Pendukung','Subkon'];
      unitOption = ['','CENTRAL 2A', 'CENTRAL 2B','CENTRAL 2C/EX. K4','CENTRAL 1A/EX. K3','CENTRAL 1B'];
   constructor(router, service) {
         this.service = service;
@@ -43,6 +43,8 @@ export class List {
             }
             else if (newvalue === "Bahan Embalase") {
                 this.category = "BE"; 
+            }else if (newvalue === "Subkon"){
+                this.category = "SUBKON"
             }else{
                 this.category = "";
             }

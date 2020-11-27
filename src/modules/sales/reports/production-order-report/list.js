@@ -76,6 +76,7 @@ export class List {
         { field: "detail", title: "Detail", sortable: false },
         { field: "orderNo", title: "No. SPP" },
         { field: "NoSalesContract", title: "No Sales Kontrak"},
+        { field: "designNumber", title: "No Design"},
         { field: "colorType", title: "Warna" },
         { field: "Price", title : "Harga" },
         { field: "CurrCode", title : "Mata Uang"},
