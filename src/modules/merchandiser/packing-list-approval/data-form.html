@@ -93,6 +93,13 @@
                         read-only="true" 
                         options.bind="controlOptions">
                     </au-autocomplete>
+
+                    <au-multiline
+                        value.bind="data.description"
+                        label="Keterangan Unit"
+                        read-only="true"
+                        options.bind="controlOptions">
+                    </au-multiline>
                 </div>
                 <div class="col-sm-6" show.bind="isEdit">
                     <au-dropdown

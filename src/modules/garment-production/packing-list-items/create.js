@@ -32,6 +32,14 @@ export class Create {
         return PackingListLoader;
     }
 
+    get packingListFilter() {
+        var filter = {
+            "(Status == \"DRAFT\" || Status == \"DRAFT_APPROVED_SHIPPING\")": true
+        };
+
+        return filter;
+    }
+
     cancelCallback(event) {
         this.router.navigateToRoute('list');
     }

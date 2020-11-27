@@ -16,9 +16,10 @@ export class Item {
 
     get filter() {
         let section = {};
-        if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
-            section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
-        }
+        // if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
+        //     section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
+        // }
+        section = this.context.context.options.header.section || {};
 
         var filter = {
             BuyerCode: this.data.BuyerCode,
@@ -94,11 +95,10 @@ export class Item {
                 RO_Number: this.data.RONo || this.data.roNo
             };
         }
+
         this.isShowing = false;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
-                this.isShowing = true;
-            }
+        if (this.error && this.error.Details && this.error.Details.length > 0) {
+            this.isShowing = true;
         }
 
         this.avG_GW = this.data.avG_GW;

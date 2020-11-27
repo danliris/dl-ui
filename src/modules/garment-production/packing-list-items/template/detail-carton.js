@@ -38,12 +38,9 @@ export class Detail {
             isEdit:this.isEdit,
         };
 
-        this.isShowing = true;
-        
-        if(this.data.sizes){
-            if(this.data.sizes.length>0){
-                this.isShowing = true;
-            }
+        this.isShowing = false;
+        if (this.error && this.error.Sizes && this.error.Sizes.length > 0) {
+            this.isShowing = true;
         }
 
         this.length = this.data.length;

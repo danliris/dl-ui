@@ -145,6 +145,10 @@ export class DataForm {
         this.data.items = this.Items;
 
         this.data.sayUnit = this.data.sayUnit || "CARTON";
+
+        this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
+        this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
+        this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
     }
 
     get totalCBM() {
