@@ -88,8 +88,8 @@ export class List {
 
 		this.service.search(arg)
 			.then((result) => {
-				this.totalData = result.info.total;
-				this.count += result.info.count;
+				this.totalData = result.info.Total;
+				this.count += result.info.Count;
 
 				for (var data of result.data) {
 					if (data && data.Process) {
@@ -170,10 +170,10 @@ export class List {
 
 				this.kanbanMachine =  "width: " + (this.machineLength * 500) + "px; height: 600px;";
 				
-				// if (this.totalData != this.count) {
-				// 	this.page++;
-				// 	this.getData();
-				// }
+				if (this.totalData != this.count) {
+					this.page++;
+					this.getData();
+				}
 			});
 	}
 }
