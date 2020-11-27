@@ -51,8 +51,8 @@ export class List {
 
 		await this.service.search(arg)
 			.then((result) => {
-				this.totalData = result.info.total;
-				this.count += result.info.count;
+				this.totalData = result.info.Total;
+				this.count += result.info.Count;
 
 				for (var data of result.data) {
 					if (data && data.Process) {
@@ -113,10 +113,10 @@ export class List {
 				}
 				this.areaLength = this.stages.length;
 				this.kanbanArea =  "width: " + (this.areaLength * 500) + "px";
-				// if (this.totalData != this.count) {
-				// 	this.page++;
-				// 	this.getData();
-				// }
+				if (this.totalData != this.count) {
+					this.page++;
+					this.getData();
+				}
 			});
 	}
 
