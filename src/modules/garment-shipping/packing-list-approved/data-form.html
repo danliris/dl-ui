@@ -109,6 +109,13 @@
                     </au-textbox>
                     
                     <au-multiline
+                        value.bind="data.description"
+                        label="Keterangan Unit"
+                        read-only="true"
+                        options.bind="controlOptions">
+                    </au-multiline>
+
+                    <au-multiline
                         label="Keterangan dari Md"
                         value.bind="data.remarkMd"
                         error.bind="error.RemarkMd" 

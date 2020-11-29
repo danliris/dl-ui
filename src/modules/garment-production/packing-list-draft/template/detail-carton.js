@@ -38,12 +38,9 @@ export class Detail {
             isEdit: this.isEdit,
         };
 
-        this.isShowing = true;
-
-        if (this.data.sizes) {
-            if (this.data.sizes.length > 0) {
-                this.isShowing = true;
-            }
+        this.isShowing = false;
+        if (this.error && this.error.Sizes && this.error.Sizes.length > 0) {
+            this.isShowing = true;
         }
 
         this.length = this.data.length;
@@ -105,18 +102,12 @@ export class Detail {
     }
 
     updateMeasurements() {
-        let measurements = [];
-
+        let measurementCartons = [];
         for (const item of this.context.context.options.header.items) {
             for (const detail of (item.details || [])) {
-                let measurement = measurements.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
-                if (measurement) {
-                    const checkCarton = measurements.find(m => m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
-                    if (!checkCarton) {
-                        measurement.cartonsQuantity += detail.cartonQuantity;
-                    }
-                } else {
-                    measurements.push({
+                let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
+                if (!measurement) {
+                    measurementCartons.push({
                         carton1: detail.carton1,
                         carton2: detail.carton2,
                         length: detail.length,
@@ -125,6 +116,16 @@ export class Detail {
                         cartonsQuantity: detail.cartonQuantity
                     });
                 }
+            }
+        }
+
+        let measurements = [];
+        for (const measurementCarton of measurementCartons) {
+            let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
+            if (measurement) {
+                measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
+            } else {
+                measurements.push(Object.assign({}, measurementCarton));
             }
         }
 

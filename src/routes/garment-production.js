@@ -927,4 +927,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: 'garment-production/packing-list-draft-copy',
+        name: 'packing-list-draft-copy',
+        moduleId: './modules/garment-production/packing-list-draft/copy/index',
+        nav: true,
+        title: 'Copy Draft Packing List',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: { "C9": 1, "FP": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
