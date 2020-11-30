@@ -9,7 +9,18 @@
       loader.bind="supplierLoader"
       text.bind="supplierView"
       query.bind="supplierQuery"
-      placeholder="Input Supplier"
+      placeholder="Cari supplier"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+    >
+    </au-autocomplete>
+    <au-autocomplete
+      value.bind="info.division"
+      error.bind="error.division"
+      label="Divisi"
+      loader.bind="divisionLoader"
+      text.bind="divisionView"
+      placeholder="Cari divisi"
       read-only.bind="readOnly"
       options.bind="controlOptions"
     >
