@@ -94,11 +94,10 @@ export class Item {
                 RO_Number: this.data.RONo || this.data.roNo
             };
         }
+
         this.isShowing = false;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
-                this.isShowing = true;
-            }
+        if (this.error && this.error.Details && this.error.Details.length > 0) {
+            this.isShowing = true;
         }
 
         this.avG_GW = this.data.avG_GW;

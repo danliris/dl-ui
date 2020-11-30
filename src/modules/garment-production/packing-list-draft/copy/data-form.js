@@ -1,5 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service } from "../service";
+
+var BuyerLoader = require('../../../../loader/garment-buyers-loader');
+var ShippingStaffLoader = require('../../../../loader/garment-shipping-staff-loader');
 
 @inject(Service)
 export class DataForm {
@@ -53,24 +56,6 @@ export class DataForm {
     itemsColumns = [
         { header: "RO No" },
         { header: "SC No" },
-        { header: "Buyer Agent" },
-        { header: "Buyer Brand" },
-        { header: "Seksi" },
-        { header: "Komoditi Description" },
-        { header: "Qty" },
-        { header: "Satuan" },
-        { header: "Price RO" },
-        { header: "Price FOB" },
-        { header: "Price CMT" },
-        { header: "Mata Uang" },
-        { header: "Amount" },
-        { header: "Unit" },
-    ]
-
-    viewItemsColumns = [
-        { header: "RO No" },
-        { header: "SC No" },
-        { header: "Buyer Agent" },
         { header: "Buyer Brand" },
         { header: "Seksi" },
         { header: "Komoditi Description" },
@@ -94,7 +79,7 @@ export class DataForm {
 
     PackingTypeOptions = ["EXPORT", "RE EXPORT"];
     InvoiceTypeOptions = ["DL", "SM"];
-    ShipmentModeOptions = ["Air", "Sea", "Courier", "Sea-Air"];
+    countries = ["", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre and Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts and Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
 
     get say() {
         var number = this.data.totalCartons;
@@ -121,6 +106,18 @@ export class DataForm {
         return word.toUpperCase();
     }
 
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
+    }
+
+    get shippingStaffLoader() {
+        return ShippingStaffLoader;
+    }
     shippingStaffView = (data) => {
         return `${data.Name || data.name}`
     }
@@ -129,11 +126,7 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        this.save = this.context.saveCallback;
-        this.cancel = this.context.cancelCallback;
-        this.delete = this.context.deleteCallback;
-        this.edit = this.context.editCallback;
-        this.Items = this.data.items;
+
         this.Options = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
@@ -142,13 +135,31 @@ export class DataForm {
             header: this.data
         }
 
-        this.data.items = this.Items;
-
-        this.data.sayUnit = this.data.sayUnit || "CARTON";
-
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
+
+        if (this.data.items && this.data.id) {
+            for (var item of this.data.items) {
+                item.BuyerCode = this.data.buyerAgent.code;
+            }
+        }
+    }
+
+    get addItems() {
+        return (event) => {
+            this.data.items.push({
+                BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+            });
+        };
+    }
+
+    get removeItems() {
+        return (event) => {
+            this.data.grossWeight = this.data.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
+            this.data.nettWeight = this.data.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
+            this.error = null;
+        };
     }
 
     get totalCBM() {
@@ -178,5 +189,46 @@ export class DataForm {
         }
         this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
         return this.data.totalCartons;
+    }
+
+    noImage = "images/no-image.jpg";
+
+    @bindable shippingMarkImageSrc;
+    @bindable shippingMarkImageUpload;
+    shippingMarkImageUploadChanged(newValue) {
+        this.uploadImage('shippingMark', newValue);
+    }
+
+    @bindable sideMarkImageSrc;
+    @bindable sideMarkImageUpload;
+    sideMarkImageUploadChanged(newValue) {
+        this.uploadImage('sideMark', newValue);
+    }
+
+    @bindable remarkImageSrc;
+    @bindable remarkImageUpload;
+    remarkImageUploadChanged(newValue) {
+        this.uploadImage('remark', newValue);
+    }
+
+    uploadImage(mark, newValue) {
+        if (newValue) {
+            let imageInput = document.getElementById(mark + 'ImageInput');
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Image = event.target.result;
+                this[mark + 'ImageSrc'] = this.data[mark + 'ImageFile'] = base64Image;
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            this[mark + 'ImageSrc'] = this.noImage;
+            this.data[mark + 'ImageFile'] = null;
+        }
+    }
+
+    removeImage(mark) {
+        this[mark + "ImageUpload"] = null;
+        this[mark + "ImageSrc"] = this.noImage;
+        this.data[mark + "ImageFile"] = null;
     }
 }

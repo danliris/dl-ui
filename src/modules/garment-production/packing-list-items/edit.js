@@ -25,11 +25,15 @@ export class Edit {
             }
         }
 
-        if (this.data.items) {
+        if (this.data.items && this.data.items.length > 0) {
             for (const item of this.data.items) {
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
             }
+
+            this.data.mode = "UPDATE";
+        } else {
+            this.data.mode = "CREATE";
         }
     }
 

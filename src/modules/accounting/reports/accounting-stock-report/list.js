@@ -156,12 +156,15 @@ export class List {
                     this.data.push(_data);
 
                 }
-                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                this.AmountTotal4 = this.AmountTotal4.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal3 = this.AmountTotal3.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                this.AmountTotal6 = this.AmountTotal6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal4 = this.AmountTotal4.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal5 = this.AmountTotal5.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal6 = this.AmountTotal6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal7 = this.AmountTotal7.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal8 = this.AmountTotal8.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountTotal9 = this.AmountTotal9.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal10 = this.AmountTotal10.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal11 = this.AmountTotal11.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal12 = this.AmountTotal12.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -191,7 +194,7 @@ export class List {
                 this.AmountTotal36 = this.AmountTotal36.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal37 = this.AmountTotal37.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTotal38 = this.AmountTotal38.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                console.log(this.data)
+                //console.log(this.data)
             })
     }
 
