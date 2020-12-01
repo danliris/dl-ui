@@ -42,9 +42,6 @@ export class Edit {
     }
 
     saveCallback(event) {
-        if (this.data.items && this.data.items.length > 0) {
-            this.data.section = (this.data.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section;
-        }
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });
