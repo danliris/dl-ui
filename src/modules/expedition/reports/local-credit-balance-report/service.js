@@ -15,8 +15,12 @@ export class Service extends RestService {
 
   getXls(info) {
     var query = "";
-    if (info.supplierName != null) {
+    if (info.supplierName !== null && info.divisionId !== null) {
+      query = `?supplierName=${info.supplierName}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierName !== null && info.divisionId === null) {
       query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierName === null && info.divisionId !== null) {
+      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
     } else {
       query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
     }
@@ -27,8 +31,12 @@ export class Service extends RestService {
 
   getPdf(info) {
     var query = "";
-    if (info.supplierName != null) {
+    if (info.supplierName !== null && info.divisionId !== null) {
+      query = `?supplierName=${info.supplierName}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierName !== null && info.divisionId === null) {
       query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierName === null && info.divisionId !== null) {
+      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
     } else {
       query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
     }
