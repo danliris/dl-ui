@@ -115,7 +115,7 @@
             <p if.bind="error.DetailsCount" class="help-block text-center" style='color:red;'>${error.DetailsCount}</p>
         </td>
     </tr>
-    <tr  show.bind="isShowing">
+    <tr if.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
         <td colspan="10" style='border:none;'>
