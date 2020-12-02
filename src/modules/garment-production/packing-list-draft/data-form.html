@@ -40,7 +40,7 @@
         <br>
 
         <!-- DESC -->
-        <div class="row" if.bind="activeTab==0">
+        <div class="row" show.bind="activeTab==0">
             <div class="row">
                 <div class="col-sm-6">
                     <au-textbox 
@@ -137,7 +137,7 @@
         </div>
 
         <!-- DETAIL MEASURE -->
-        <div class="row" if.bind="activeTab==1">
+        <div class="row" show.bind="activeTab==1">
             <div class="row">
                 <div class="col-sm-4">
                     <numeric
@@ -199,7 +199,7 @@
         </div>
 
         <!-- MARK -->
-        <div class="row" if.bind="activeTab==2">
+        <div class="row" show.bind="activeTab==2">
             <div class="row">
                 <label class="col-sm-3 text-right">SHIPPING MARK</label>
                 <div class="col-sm-7">
