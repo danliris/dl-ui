@@ -15,7 +15,8 @@
 
             <au-autocomplete label="InvoiceNo" value.bind="packinglists" error.bind="error.InvoiceNo"
                 read-only.bind="readOnly || isEdit " loader.bind="invoiceLoader" text.bind="invoiceView"
-                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel">
+                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel"
+                query.bind="filter">
             </au-autocomplete>
             <au-datepicker label="TGL" value.bind="data.invoiceDate" error.bind="error.InvoiceDate"
                 read-only.bind="true" options.bind="length4">
@@ -151,7 +152,6 @@
                     errors.bind="error.GarmentShippingInvoiceAdjustments" 
                     remove.bind="adjustmentColumns.onRemove"
                     options.bind="options" 
-                    responsive.bind="true" 
                     read-only.bind="readOnly"
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-adjustment">
                 </au-collection>
@@ -164,9 +164,9 @@
                     read-only.bind="readOnly || isEdit" options.bind="length4">
                 </au-multiline>
 
-                <au-textbox label="C PRICE" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"
-                    options.bind="length4">
-                </au-textbox>
+                <au-dropdown label="INCOTERMS" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"
+                    options.bind="length4" items.bind="INCOTERMSOptions">
+                </au-dropdown>
 
                 <au-numeric label="TOTAL AMOUNT" value.bind="totalAmounts" error.bind="error.totalAmount"
                     read-only.bind="true" options.bind="length4">
