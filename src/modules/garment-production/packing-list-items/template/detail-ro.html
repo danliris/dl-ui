@@ -8,7 +8,7 @@
                 text.bind="roView"
                 placeholder="cari RO"
                 query.bind="filter"
-                read-only.bind="readOnly || (isEdit && data.id)">
+                read-only.bind="readOnly || (isEdit && data.id) || data.isCopy">
             </au-autocomplete>
         </td>
         <td class="bg-primary">
