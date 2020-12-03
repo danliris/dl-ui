@@ -94,7 +94,10 @@ export class Copy {
     }
 
     copy() {
-        this.service.create(this.data)
+        this.data.shippingMarkImagePath=null;
+        this.data.sideMarkImagePath=null;
+        this.data.remarkImagePath=null;
+        this.service.createCopy(this.data)
             .then(result => {
                 alert("Data berhasil dibuat, No Invoice: " + result);
                 this.router.navigateToRoute('list');
