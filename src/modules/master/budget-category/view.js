@@ -12,11 +12,11 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    if (this.data.AccountingCategoryId !== 0) {
-      this.accountingCategory = await this.service.getAccountingCategory(
-        this.data.AccountingCategoryId
-      );
-    }
+    // if (this.data.AccountingCategoryId !== 0) {
+    //   this.accountingCategory = await this.service.getAccountingCategory(
+    //     this.data.AccountingCategoryId
+    //   );
+    // }
   }
 
   list() {
@@ -28,6 +28,6 @@ export class View {
   }
 
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data._id });
+    this.router.navigateToRoute("edit", { id: this.data.Id });
   }
 }

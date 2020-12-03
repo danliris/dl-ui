@@ -8,9 +8,9 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["detail"];
   columns = [
-    { field: "code", title: "Kode" },
-    { field: "name", title: "Nama" },
-    { field: "AccountingCategory.Name", title: "Kategori Pembukuan" },
+    { field: "Code", title: "Kode" },
+    { field: "Name", title: "Nama" },
+    // { field: "AccountingCategory.Name", title: "Kategori Pembukuan" },
   ];
 
   /*
@@ -22,7 +22,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name"],
+      select: ["Code", "Name"],
       order: order,
     };
 
@@ -43,7 +43,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name"],
+      select: ["Code", "Name"],
       order: order,
     };
 
@@ -51,16 +51,17 @@ export class List {
       var resultPromise = [];
       if (result && result.data && result.data.length > 0) {
         resultPromise = result.data.map((datum) => {
-          if (datum.AccountingCategoryId !== 0) {
-            return this.service
-              .getAccountingCategory(datum.AccountingCategoryId)
-              .then((ac) => {
-                datum.AccountingCategory = ac;
-                return Promise.resolve(datum);
-              });
-          } else {
-            return Promise.resolve(datum);
-          }
+          // if (datum.AccountingCategoryId !== 0) {
+          //   return this.service
+          //     .getAccountingCategory(datum.AccountingCategoryId)
+          //     .then((ac) => {
+          //       datum.AccountingCategory = ac;
+          //       return Promise.resolve(datum);
+          //     });
+          // } else {
+          //   return Promise.resolve(datum);
+          // }
+          return Promise.resolve(datum);
         });
       }
       return Promise.all(resultPromise).then((newResult) => {
@@ -82,9 +83,9 @@ export class List {
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
-    switch (arg.name) {
+    switch (arg.Name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data._id });
+        this.router.navigateToRoute("view", { id: data.Id });
         break;
     }
   }

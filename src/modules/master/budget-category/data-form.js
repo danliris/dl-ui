@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { PermissionHelper } from "../../../utils/permission-helper";
-var AccountingCategoryLoader = require("../../../loader/accounting-category-loader");
+// var AccountingCategoryLoader = require("../../../loader/accounting-category-loader");
 
 @inject(PermissionHelper)
 export class DataForm {
@@ -12,9 +12,9 @@ export class DataForm {
     deleteText: "Hapus",
     editText: "Ubah",
   };
-  @computedFrom("data._id")
+  @computedFrom("data.Id")
   get isEdit() {
-    return (this.data._id || "").toString() != "";
+    return (this.data.Id || "").toString() != "";
   }
 
   constructor(permissionHelper) {
@@ -45,14 +45,14 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  get accountingCategoryLoader() {
-    return AccountingCategoryLoader;
-  }
+  // get accountingCategoryLoader() {
+  //   return AccountingCategoryLoader;
+  // }
 
-  accountingCategoryChanged(e) {
-    this.data.AccountingCategoryId =
-      this.data.AccountingCategoryId !== this.context.accountingCategory.Name.Id
-        ? this.context.accountingCategory.Name.Id
-        : this.data.AccountingCategoryId;
-  }
+  // accountingCategoryChanged(e) {
+  //   this.data.AccountingCategoryId =
+  //     this.data.AccountingCategoryId !== this.context.accountingCategory.Name.Id
+  //       ? this.context.accountingCategory.Name.Id
+  //       : this.data.AccountingCategoryId;
+  // }
 }
