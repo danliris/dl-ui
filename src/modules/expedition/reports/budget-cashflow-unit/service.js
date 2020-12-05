@@ -1,15 +1,9 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { RestService } from '../../../../utils/rest-service';
+import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = 'bank-expenditure-notes/reports/list';
+const serviceUri = "aaa/bbb";
 
 export class Service extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing-azure');
-    }
-
-    search(info) {
-        let endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
+  constructor(http, aggregator, config) {
+    super(http, aggregator, config, "purchasing-azure");
+  }
 }
