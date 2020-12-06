@@ -1,0 +1,34 @@
+<template>
+    <au-input-form title="Budget Cashflow Unit"
+                   options.bind="formOptions">
+
+        <au-autocomplete value.bind="unit"
+                         label="Unit"
+                         loader.bind="unitLoader"
+                         text="Name"
+                         placeholder="Cari Unit"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+        <au-datepicker label="Periode"
+                       value.bind="dueDate"
+                       options.bind="controlOptions">
+        </au-datepicker>
+
+        <div class="form-group">
+            <label for="contact"
+                   class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()"
+                        class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()"
+                        class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+        <div class="btn-group pull-left">
+            <a click.delegate="exportExcel()"
+               class='btn btn-primary'>Cetak Excel</a>
+            <a click.delegate="printPdf()"
+               class='btn btn-info'>Cetak Pdf</a>
+        </div>
+    </au-input-form>
+</template>
