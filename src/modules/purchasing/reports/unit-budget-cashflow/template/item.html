@@ -1,44 +1,48 @@
 <template>
-    <tr>
-        <td>
-            <au-textbox 
+  <tr>
+    <!-- <td>
+            <au-textbox
                 value.bind="data.LayoutName"
                 read-only.bind="true">
             </au-textbox>
-        </td>
-        <td>
-            <au-textbox 
-                value.bind="data.Currency.Code"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.BestCaseCurrencyNominal"
-                format="0,000.00"
-                read-only.bind="true">
-            </au-numeric>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.BestCaseNominal"
-                format="0,000.00"
-                read-only.bind="true">
-            </au-numeric>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.CurrencyNominal"
-                format="0,000.00"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.Nominal"
-                format="0,000.00"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
-    </tr>
+        </td> -->
+    <td>
+      <au-textbox value.bind="data.Currency.Code" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.BestCaseCurrencyNominal"
+        format="0,000.00"
+        read-only.bind="true"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.BestCaseNominal"
+        format="0,000.00"
+        read-only.bind="true"
+      >
+      </au-numeric>
+    </td>
+    <td>Best Case Actual</td>
+    <td>
+      <au-numeric
+        value.bind="data.CurrencyNominal"
+        format="0,000.00"
+        read-only.bind="readOnly"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.Nominal"
+        format="0,000.00"
+        read-only.bind="readOnly"
+      >
+      </au-numeric>
+    </td>
+    <td>Worst Case Actual</td>
+  </tr>
 </template>

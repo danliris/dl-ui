@@ -1,42 +1,608 @@
 <template>
-    <au-input-form title="Budget Cashflow Unit"
-                   options.bind="formOptions">
+  <style>
+    .text-rotate {
+      -webkit-writing-mode: tb-rl;
+      -ms-writing-mode: tb-rl;
+      -moz-writing-mode: tb-rl;
+      -o-writing-mode: tb-rl;
+      writing-mode: tb-rl;
+      -webkit-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+      -moz-transform: rotate(-180deg);
+      -o-transform: rotate(-180deg);
+      transform: rotate(-180deg);
+    }
 
-        <au-autocomplete value.bind="unit"
-                         label="Unit"
-                         loader.bind="unitLoader"
-                         text="Name"
-                         placeholder="Cari Unit"
-                         options.bind="controlOptions">
-        </au-autocomplete>
-        <au-datepicker label="Periode"
-                       value.bind="dueDate"
-                       options.bind="controlOptions">
-        </au-datepicker>
+    .text-right {
+      text-align: right;
+    }
 
-        <div class="form-group">
-            <label for="contact"
-                   class="col-sm-6 control-label"></label>
-            <div class="col-sm-3">
-                <button click.delegate="search()"
-                        class='btn btn-success'>Cari</button>
-                <button click.delegate="save()"
-                        class='btn btn-success'>Simpan</button>
-            </div>
-        </div>
-        <div class="btn-group pull-left">
-            <a click.delegate="edit()"
-               class='btn btn-primary'>Ubah</a>
-            <!-- <a click.delegate="printPdf()"
+    .flex {
+      display: flex;
+    }
+
+    .collection .panel-body {
+      padding: 0;
+    }
+
+    thead th {
+      height: 42px;
+    }
+
+    tbody tr td .form-control-static {
+      min-height: 1.98em;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  </style>
+  <au-input-form title="Budget Cashflow Unit" options.bind="formOptions">
+    <au-autocomplete
+      value.bind="unit"
+      label="Unit"
+      loader.bind="unitLoader"
+      text="Name"
+      placeholder="Cari Unit"
+      options.bind="controlOptions"
+    >
+    </au-autocomplete>
+    <au-datepicker
+      label="Periode"
+      value.bind="dueDate"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-6 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="search()" class="btn btn-success">Cari</button>
+        <button click.delegate="save()" class="btn btn-success">Simpan</button>
+      </div>
+    </div>
+    <div class="btn-group pull-left">
+      <a click.delegate="edit()" class="btn btn-primary">Ubah</a>
+      <!-- <a click.delegate="printPdf()"
                class='btn btn-info'>Cetak Pdf</a> -->
-        </div>
+    </div>
 
-        <br>
-        <au-collection view-model.ref="ItemsCollection"
-                       items.bind="data.Items"
-                       columns.bind="collection.columns"
-                       item-template="modules/purchasing/reports/unit-budget-cashflow/template/item"
-                       options.bind="collectionOptions">
-        </au-collection>
-    </au-input-form>
+    <br />
+    <div class="row">
+      <div class="col-md-12 table-responsive flex">
+        <!--Table-->
+        <table style="min-width: 500px" class="table table-bordered">
+          <!--Table head-->
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="4">KETERANGAN</th>
+            </tr>
+          </thead>
+          <!--Table head-->
+          <!--Table body-->
+          <tbody>
+            <tr show.bind="isEmpty">
+              <td colspan="5">
+                <div class="alert alert-info">No data.</div>
+              </td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="78">
+                <span class="text-rotate">OPERATING ACTIVITIES</span>
+              </td>
+              <td rowspan="11"><span class="text-rotate">CASH IN</span></td>
+              <td colspan="3">Revenue</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Export</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Lokal</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Tunai</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Intern (Antar Divisi)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Intern (Antar Unit Satu Divisi)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">PPN Masukan Intern (Perhitungan)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Revenue from other operating</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Penjualan Lain-lain</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">PPN Masukan Extern (Pembelian Lokal)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="66"><span class="text-rotate">CASH OUT</span></td>
+              <td colspan="3">Cost of Good Sold</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Bahan Baku Import</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Bahan Baku Lokal</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Tenaga Kerja Langsung/U.Karyawan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Bahan Pembantu</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">SubCount</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Embalage</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Listrik (PLN)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Batu Bara</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">BBM & Pelumas</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Spare Part & Pemeliharaan Mesin</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">BTKL Staf Unit</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">THR/Bonus Karyawan & Staf Unit</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Gaji/Honor Konsultan & TKA</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Askes & Jamsostek Unit</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Pesangon/Pensiun Unit</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Pengolahan Limbah, ABT, dll</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Import (Inklaring, Demurage, dll)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Pembelian Intern (Antar Divisi)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Pembelian Intern (Antar Unit Satu Divisi)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">PPN Keluaran Intern (Perhitungan)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Marketing Expenses</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Penjualan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>Beban Gaji Staf</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>Upah Karyawan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>jpk & jamsost staff& karyw</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>thr & bonus kary & staf</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban iklan, reklame, & pameran</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban perjalanan dinas</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban pengiriman/ongkos angkut</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban komisi penj lokal/exspP.</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban freight/emkl</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>biaya claim</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>biaya pengurusan doc</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban asuransi</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban penjualan lain2</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">General & Administrative Expenses</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">PPN Keluaran Extern (Pejualan Lokal)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Pajak (PPN, PPh,PBB, PNBP dll)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya umum dan administrasi</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban gaji staff kantor</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>upah karyw kantor</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>askes & jamsos kary& staf</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban gaji direksi/direktur</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>Beban Pemeliharaan gedung</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban perjalanan dinas</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban pengiriman surat</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban alat tulis</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban air/abt</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban listrik</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban notaris & konsultan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban training & pendidikan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban perijinan & sertifikat</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>sumbangan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>representatif, entertainment tamu dll</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>ass kend, gedung, dan mesin</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban URTP</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>pesangon staf & kary</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>thr & bonus kary & staf umum, dirktur &direksi</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban kendaraan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban keamanan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td>beban lain-lain</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Telephone, Fax & Internet</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Other Operating Expenses</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Lainya</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="4" class="text-right">
+                Surplus/Deficit-Cash from Operating Activities
+              </td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="13">
+                <span class="text-rotate">INVESTING ACTIVITIES</span>
+              </td>
+              <td rowspan="3"><span class="text-rotate">CASH IN</span></td>
+              <td colspan="3">Deposito</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Lain-lain</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="9"><span class="text-rotate">CASH OUT</span></td>
+              <td colspan="3">Pembayaran pembelian asset tetap :</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Mesin</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Kendaraan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Inventaris</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Alat Komputer</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Alat & Bahan Produksi</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Proyek</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Deposito</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="4" class="text-right">
+                Surplus/Deficit-Cash from Investing Activities
+              </td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="18">
+                <span class="text-rotate">FINANCING ACTIVITIES</span>
+              </td>
+              <td rowspan="7"><span class="text-rotate">CASH IN</span></td>
+              <td colspan="3">Loan Withdrawal</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Others :</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Afiliasi</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Jual Beli Valas</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Cadangan Perusahaan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">
+                Lain-lain (Klaim ass)/tab thr/vb import/giro/dll
+              </td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total:</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td rowspan="10"><span class="text-rotate">CASH OUT</span></td>
+              <td colspan="3">Loan Installment and Interest expense</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Angsuran Kredit</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Bunga Bank</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Bank Expenses</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Biaya Adm Bank</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3">Others :</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Afiliasi (Psr, Group)</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Jual Beli Valas</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="2">Lain-lain /efrata/b mndri/md/Cad THR</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="3" class="text-right">Total</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="4" class="text-right">
+                Surplus/Deficit-Cash from Financing Activities
+              </td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="5" class="text-right">BEGINNING BALANCE</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="5" class="text-right">CASH SURPLUS/DEFICIT</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td colspan="5" class="text-right">ENDING BALANCE</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="2">Kenyataan</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="2">Selisih</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="3">Rate $</td>
+              <td>14.675</td>
+            </tr>
+            <tr show.bind="!isEmpty">
+              <td></td>
+              <td colspan="4" class="text-right">
+                TOTAL SURPLUS (DEFISIT) EQUIVALENT
+              </td>
+            </tr>
+          </tbody>
+          <!--Table body-->
+        </table>
+        <!--Table-->
+
+        <div style="min-width: 1640px">
+          <au-collection
+            view-model.ref="ItemsCollection"
+            items.bind="data.Items"
+            columns.bind="collection.columns"
+            item-template="modules/purchasing/reports/unit-budget-cashflow/template/item"
+            options.bind="collectionOptions"
+          >
+          </au-collection>
+        </div>
+      </div>
+    </div>
+  </au-input-form>
 </template>

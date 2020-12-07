@@ -427,6 +427,19 @@ module.exports = [
     },
   },
   {
+    route: "budget-categories",
+    name: "budget-categories",
+    moduleId: "./modules/master/budget-category/index",
+    nav: true,
+    title: "Kategori Anggaran",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { C9: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "units",
     name: "units",
     moduleId: "./modules/master/unit/index",
