@@ -3,12 +3,20 @@
        
      
       <td  class="col-sm-9">
-          <au-textbox 
+            <au-autocomplete 
+                value.bind="addCharges" 
+                loader.bind="addChargesLoader"
+                text.bind = "chargesView"
+                placeholder ="Cari additional charges"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete> 
+          <!-- <au-textbox 
               value.bind="data.adjustmentDescription"
               read-only.bind="readOnly || isEdit"
               error.bind="error.AdjustmentDescription" 
               options.bind="controlOptions">
-          </au-textbox>
+          </au-textbox> -->
       </td>
         <td class="col-sm-3">
           <au-numeric 

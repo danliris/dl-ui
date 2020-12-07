@@ -32,6 +32,8 @@ export class DataForm {
         DivisionName: "G"
     };
 
+    INCOTERMSOptions=["FOB", "FAS","CFR","CIF","EXW","FCA","CPT","CIP","DAT","DAP","DDP"];
+
     bind(context) {
         this.context = context;
         this.data = context.data;
@@ -198,6 +200,7 @@ export class DataForm {
             this.data.items.splice(0);
             this.dataItems.splice(0);
             this.data.garmentShippingInvoiceAdjustments.splice(0);
+            console.log(packingItem)
             var consignee = "";
             var TotalAmount = 0;
             var _consignee = "";
@@ -404,7 +407,9 @@ export class DataForm {
         return `${section.Code} - ${section.Name}`
     }
 
-
+    filter={
+        'status=="CREATED" || status=="APPROVED_SHIPPING"':true
+    }
 
     get addItems() {
         return (event) => {

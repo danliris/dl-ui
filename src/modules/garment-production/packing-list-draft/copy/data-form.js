@@ -139,9 +139,10 @@ export class DataForm {
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
 
-        if (this.data.items && this.data.id) {
+        if (this.data.items) {
             for (var item of this.data.items) {
                 item.BuyerCode = this.data.buyerAgent.code;
+                item.isCopy=true;
             }
         }
     }
