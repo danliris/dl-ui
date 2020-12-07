@@ -7,7 +7,7 @@ const serviceUri = 'budget-cashflows';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     getBestCase(query) {
@@ -15,7 +15,7 @@ export class Service extends RestService {
         return super.list(endpoint, query);
     }
 
-    getWorstCase() {
+    getWorstCase(query) {
         let endpoint = `${serviceUri}/worst-case`;
         return super.list(endpoint, query);
     }

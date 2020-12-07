@@ -1,5 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
+import { CurrencyService } from "./currency-service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
@@ -9,7 +10,7 @@ var DivisionLoader = require('../../../../loader/division-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
 
-@inject(Router, Service)
+@inject(Router, Service, CurrencyService)
 export class List {
     controlOptions = {
         label: {
@@ -27,9 +28,10 @@ export class List {
         showToggle: false,
     }
 
-    constructor(router, service) {
+    constructor(router, service, currencyService) {
         this.service = service;
         this.router = router;
+        this.currencyService = currencyService;
     }
 
     bind() {
@@ -39,38 +41,138 @@ export class List {
     async search() {
         // this.isSearch = true;
         // this.documentTable.refresh();
-        console.log("search");
+        this.collectionOptions = {
+            readOnly: true
+        }
+        console.log(this.ItemsCollection);
+
+
 
         let unitId = 0;
         if (this.unit && this.unit.Id) {
             unitId = this.unit.Id;
+            this.data.UnitId = this.unit.Id;
         }
 
         let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD");
 
-        var promises = this.enums.map((enumItem, index) => {
+        this.data.DueDate = dueDate;
+
+        let bestCasePromises = this.enums.map((enumItem, index) => {
             return this.service.getBestCase({ layoutOrder: index + 1, unitId: unitId, dueDate: dueDate })
                 .then((bestCases) => {
-                    console.log(bestCases);
+                    return bestCases;
                 })
-        });
+        })
 
-        await Promise.all(promises)
-            .then((promiseResult) => {
+        let worstCaseResult = await this.service.getWorstCase({ unitId: unitId, dueDate: dueDate })
+            .then((worstCases) => {
+                return worstCases;
+            })
 
+        // let worstCaseResult = await Promise.all(worstCasePromises)
+        //     .then((promiseResult) => promiseResult)
+
+        await Promise.all(bestCasePromises)
+            .then((bestCasePromiseResult) => {
+                let bestCaseResult = bestCasePromiseResult;
+
+                let bestCases = bestCaseResult.map((response) => {
+                    if (!response.data || response.data.length <= 0) {
+                        response.data = [{}]
+                    }
+
+                    return response.data;
+                });
+                bestCases = [].concat.apply([], bestCases);
+
+                let currencyPromises = [];
+                for (let bestCase of bestCases) {
+                    if (bestCase.CurrencyId && bestCase.CurrencyId > 0) {
+                        currencyPromises.push(this.currencyService.getById(bestCase.CurrencyId));
+                    }
+                }
+
+                return Promise.all(currencyPromises)
+                    .then((currencyPromiseResult) => {
+                        let worstCases = [];
+                        let currencies = currencyPromiseResult;
+                        if (worstCaseResult)
+                            worstCases = worstCaseResult.data;
+
+
+                        // ini data yang akan di submit
+                        this.data.Items = [];
+                        for (let bestCase of bestCases) {
+                            let worstCase = worstCases.find((wc) => wc.LayoutOrder == bestCase.LayoutOrder && wc.CurrencyId == bestCase.CurrencyId);
+                            let currency = currencies.find((c) => c && c.Id == bestCase.CurrencyId)
+
+                            if (worstCase) {
+                                this.data.Items.push({
+                                    CurrencyId: bestCase.CurrencyId,
+                                    Currency: currency,
+                                    BestCaseCurrencyNominal: bestCase.CurrencyNominal,
+                                    BestCaseNominal: bestCase.Nominal,
+                                    CurrencyNominal: worstCase.CurrencyNominal,
+                                    Nominal: worstCase.Nominal,
+                                    LayoutOrder: bestCase.LayoutOrder,
+                                    LayoutName: bestCase.LayoutName,
+                                    IsHasBestCase: true
+                                })
+                            } else {
+                                if (bestCase.LayoutOrder > 0) {
+                                    this.data.Items.push({
+                                        CurrencyId: bestCase.CurrencyId,
+                                        Currency: currency,
+                                        BestCaseCurrencyNominal: bestCase.CurrencyNominal,
+                                        BestCaseNominal: bestCase.Nominal,
+                                        CurrencyNominal: 0,
+                                        Nominal: 0,
+                                        LayoutOrder: bestCase.LayoutOrder,
+                                        LayoutName: bestCase.LayoutName,
+                                        IsHasBestCase: true
+                                    })
+                                } else {
+                                    this.data.Items.push({
+                                        CurrencyId: bestCase.CurrencyId,
+                                        Currency: currency,
+                                        BestCaseCurrencyNominal: bestCase.CurrencyNominal,
+                                        BestCaseNominal: bestCase.Nominal,
+                                        CurrencyNominal: 0,
+                                        Nominal: 0,
+                                        LayoutOrder: bestCase.LayoutOrder,
+                                        LayoutName: bestCase.LayoutName,
+                                        IsHasBestCase: false
+                                    })
+                                }
+                            }
+                        }
+
+                        console.log(this.Items)
+
+                    })
             });
     }
 
-    reset() {
-        console.log("reset");
-        this.division = null;
-        this.category = null;
-        this.accountingUnit = null;
-        this.unit = null;
-        this.dueDate = null;
-        this.isSearch = false;
-        this.documentTable.refresh();
+    collection = {
+        columns: ["Nama", "Mata Uang", "Nominal Valas (Best Case)", "Nominal (IDR) (Best Case)", "Nominal Valas (Worst Case)", "Nominal (IDR) (Worst Case)"]
     }
+
+    save() {
+        this.service.upsertWorstCase(this.data)
+            .then(() => {
+                this.collectionOptions = {
+                    readOnly: true
+                }
+                this.ItemsCollection.bind();
+                alert("berhasil simpan!");
+            })
+            .catch((e) => {
+                alert("terjadi kesalahan");
+            })
+    }
+
+
 
     exportExcel() {
         console.log("excel")
@@ -264,6 +366,13 @@ export class List {
                 data: []
             }
         }
+    }
+
+    edit() {
+        this.collectionOptions = {
+            readOnly: false
+        }
+        this.ItemsCollection.bind();
     }
 
     enums = [

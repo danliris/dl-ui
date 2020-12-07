@@ -20,15 +20,23 @@
             <div class="col-sm-3">
                 <button click.delegate="search()"
                         class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()"
-                        class='btn btn-success'>Reset</button>
+                <button click.delegate="save()"
+                        class='btn btn-success'>Simpan</button>
             </div>
         </div>
         <div class="btn-group pull-left">
-            <a click.delegate="exportExcel()"
-               class='btn btn-primary'>Cetak Excel</a>
-            <a click.delegate="printPdf()"
-               class='btn btn-info'>Cetak Pdf</a>
+            <a click.delegate="edit()"
+               class='btn btn-primary'>Ubah</a>
+            <!-- <a click.delegate="printPdf()"
+               class='btn btn-info'>Cetak Pdf</a> -->
         </div>
+
+        <br>
+        <au-collection view-model.ref="ItemsCollection"
+                       items.bind="data.Items"
+                       columns.bind="collection.columns"
+                       item-template="modules/purchasing/reports/unit-budget-cashflow/template/item"
+                       options.bind="collectionOptions">
+        </au-collection>
     </au-input-form>
 </template>
