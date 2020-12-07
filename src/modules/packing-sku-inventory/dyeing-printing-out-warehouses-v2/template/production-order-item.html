@@ -92,9 +92,9 @@
         options.bind="controlOptions">
       </au-numeric>
     </td>
-    <!-- <td if.bind="!options.readOnly">
-      <button class="btn btn-success pull-right" click.delegate="copycallback(data)">+</button>
+    <td if.bind="!options.readOnly">
+      <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
       <button if.bind="data.isremovable" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-  </td> -->
+  </td>
   </tr>
 </template>

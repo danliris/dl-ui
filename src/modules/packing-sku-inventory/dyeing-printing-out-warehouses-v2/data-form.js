@@ -78,11 +78,9 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-
     this.data.area = "GUDANG JADI";
-
+    //console.log(this.error);
     this.error = this.context.error;
-
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -157,7 +155,10 @@ export class DataForm {
 
     }
   }
-
+  removeItems() {
+    // this.itemOptions.PackagingList = this.data.PackagingList;
+    this.bind();
+  }
   @bindable ItemsCollection;
   @bindable destinationArea;
   destinationAreaChanged(n, o) {
