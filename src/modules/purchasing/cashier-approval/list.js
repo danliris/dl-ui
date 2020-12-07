@@ -16,42 +16,42 @@ export class List {
     // context = ['Hapus'];
 
     columns = [{
-            field: "toBeCancelled",
-            title: "toBeCancelled Checkbox",
-            checkbox: true,
-            sortable: false,
-            formatter: function(value, data, index) {
-                this.checkboxEnabled = !data.IsRealized;
-                return ""
-            }
+        field: "toBeCancelled",
+        title: "toBeCancelled Checkbox",
+        checkbox: true,
+        sortable: false,
+        formatter: function (value, data, index) {
+            this.checkboxEnabled = !data.IsRealized;
+            return ""
+        }
+    },
+    {
+        field: "ApprovalDate",
+        title: "Tanggal Approval",
+        formatter: function (value, data, index) {
+            return moment.utc(value).local().format('DD MMM YYYY');
         },
-        {
-            field: "ApprovalDate",
-            title: "Tanggal Approval",
-            formatter: function(value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
+    },
+    { field: "DocumentNo", title: "No VB" },
+    {
+        field: "Date",
+        title: "Tgl VB",
+        formatter: function (value, data, index) {
+            return moment.utc(value).local().format('DD MMM YYYY');
         },
-        { field: "DocumentNo", title: "No VB" },
-        {
-            field: "Date",
-            title: "Tgl VB",
-            formatter: function(value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
+    },
+    {
+        field: "Amount",
+        title: "VB Uang",
+        formatter: function (value, data, index) {
+            return numeral(value).format('0,000.00');
         },
-        {
-            field: "Amount",
-            title: "VB Uang",
-            formatter: function(value, data, index) {
-                return numeral(value).format('0,000.00');
-            },
-            align: "right"
-        },
-        { field: "CurrencyCode", title: "Mata Uang" },
-        { field: "CreatedBy", title: "Pemohon" },
-        { field: "SuppliantUnitName", title: "Unit" },
-        { field: "ApprovedBy", title: "Approved By" }
+        align: "right"
+    },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "CreatedBy", title: "Pemohon" },
+    { field: "SuppliantUnitName", title: "Unit" },
+    { field: "ApprovedBy", title: "Approved By" }
     ];
 
     async activate(params) {
@@ -82,11 +82,11 @@ export class List {
         this.roles = [PO, NONPO];
         this.accessCount = 0;
         for (let i = this.roles.length - 1; i >= 0; i--) {
-            if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-                this.roles[i].hasPermission = true;
-                this.accessCount++;
-                this.activeRole = this.roles[i];
-            }
+            // if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+            this.roles[i].hasPermission = true;
+            this.accessCount++;
+            this.activeRole = this.roles[i];
+            // }
         }
     }
 
