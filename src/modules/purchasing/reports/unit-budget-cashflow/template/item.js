@@ -3,6 +3,8 @@ export class Item {
 
   activate(context) {
     this.data = context.data;
+    this.isObject = typeof context.data === "object" ? true : false;
+
     if (context.context.options) {
       this.readOnly = context.context.options.readOnly;
     }
