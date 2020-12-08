@@ -1,17 +1,23 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { CurrencyService } from "./currency-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 import numeral from "numeral";
 
-var CategoryLoader = require("../../../../loader/category-loader");
-var DivisionLoader = require("../../../../loader/division-loader");
 var UnitLoader = require("../../../../loader/unit-loader");
 var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
 
 @inject(Router, Service, CurrencyService)
 export class List {
+  constructor(router, service, currencyService) {
+    this.service = service;
+    this.router = router;
+    this.currencyService = currencyService;
+    this.isEmpty = true;
+    this.isEdit = false;
+  }
+
   controlOptions = {
     label: {
       length: 4,
@@ -28,20 +34,113 @@ export class List {
     showToggle: false,
   };
 
-  constructor(router, service, currencyService) {
-    this.service = service;
-    this.router = router;
-    this.currencyService = currencyService;
-    this.isEmpty = true;
-  }
+  collection = {
+    columns: [
+      "Mata Uang",
+      "Nominal Valas (Best Case)",
+      "Nominal IDR (Best Case)",
+      "Actual IDR (Best Case)",
+      "Nominal Valas (Worst Case)",
+      "Nominal IDR (Worst Case)",
+      "Actual IDR (Worst Case)",
+    ],
+  };
+
+  enums = [
+    "ExportSales",
+    "LocalSales",
+    "CashSales",
+    "InteralDivisionSales",
+    "InternalUnitSales",
+    "InternalIncomeVATCalculation",
+    "OthersSales",
+    "ExternalIncomeVATCalculation",
+    "ImportedRawMaterial",
+    "LocalRawMaterial",
+    "EmployeeExpenses", // Missing before
+    "AuxiliaryMaterial",
+    "SubCount",
+    "Embalage",
+    "Electricity",
+    "Coal",
+    "FuelOil",
+    "SparePartsMachineMaintenance",
+    "DirectLaborCost",
+    "HolidayAllowanceLaborCost",
+    "ConsultantCost",
+    "HealthInsuranceSocialSecurity",
+    "SeveranceCost",
+    "UtilityCost",
+    "ImportCost",
+    "InternalDivisionPurchase",
+    "InternalUnitPurchase",
+    "InternalOutcomeVATCalculation",
+    "MarketingSalaryCost",
+    "MarketingSalaryExpense",
+    "MarketingHealthInsuranceSocialSecurity",
+    "MarketingHolidayAllowance",
+    "AdvertisementCost",
+    "BusinessTripCost",
+    "ShippingCost",
+    "SalesComission",
+    "FreightCost",
+    "ClaimCost",
+    "DocumentationCost",
+    "InsuranceCost",
+    "OtherSalesCost",
+    "GeneralAdministrativeExternalOutcomeVATCalculation",
+    "TaxCost",
+    "GeneralAdministrativeSalaryCost",
+    "GeneralAdministrativeSalaryExpense",
+    "GeneralAdministrativeSocialSecurity",
+    "GeneralAdministrativeDirectorsSalary",
+    "GeneralAdministrativeBuildingMaintenance",
+    "GeneralAdministrativeBusinessTrip",
+    "GeneralAdministrativeMailingCost",
+    "GeneralAdministrativeStationary",
+    "GeneralAdministrativeWaterCost",
+    "GeneralAdministrativeElectricityCost",
+    "GeneralAdministrativeConsultant",
+    "GeneralAdministrativeTraining",
+    "GeneralAdministrativeCertification",
+    "GeneralAdministrativeDonation",
+    "GeneralAdministrativeGuestEntertainment",
+    "GeneralAdministrativeVehicleBuildingMachineInsurance",
+    "GeneralAdministrativeCorporateHousehold",
+    "GeneralAdministrativeSeveranceCost",
+    "GeneralAdministrativeHolidayAllowance",
+    "GeneralAdministrativeVehicleCost",
+    "GeneralAdministrativeSecurityCost",
+    "GeneralAdministrativeOthersCost",
+    "GeneralAdministrativeCommunicationCost",
+    "OthersOperationalCost",
+    "CashInDeposit",
+    "CashInOthers",
+    "MachineryPurchase",
+    "VehiclePurchase",
+    "InventoryPurchase",
+    "ComputerToolsPurchase",
+    "ProductionToolsMaterialsPurchase",
+    "ProjectPurchase",
+    "CashOutDesposit",
+    "CashInLoanWithdrawal", // Missing before
+    "CashInAffiliates",
+    "CashInForexTrading",
+    "CashInCompanyReserves",
+    "CashInLoanWithdrawalOthers",
+    "CashOutInstallments",
+    "CashOutBankInterest",
+    "CashOutBankAdministrationFee",
+    "CashOutAffiliates",
+    "CashOutForexTrading",
+    "CashOutOthers",
+  ];
 
   bind() {
     this.data = {};
   }
 
   async search() {
-    // this.isSearch = true;
-    // this.documentTable.refresh();
     this.collectionOptions = {
       readOnly: true,
     };
@@ -77,9 +176,6 @@ export class List {
         return worstCases;
       });
 
-    // let worstCaseResult = await Promise.all(worstCasePromises)
-    //     .then((promiseResult) => promiseResult)
-
     await Promise.all(bestCasePromises).then((bestCasePromiseResult) => {
       let bestCaseResult = bestCasePromiseResult;
 
@@ -90,6 +186,8 @@ export class List {
 
         return response.data;
       });
+
+      // console.log("arr", bestCases);
       bestCases = [].concat.apply([], bestCases);
 
       let currencyPromises = [];
@@ -161,33 +259,118 @@ export class List {
       });
     });
 
+    const getItem = (min, max) => (item) =>
+      item.LayoutOrder >= min && item.LayoutOrder <= max;
+
+    // OPERATING ACTIVITIES
+    const revenue = this.data.Items.filter(getItem(1, 6));
+    const otherRevenue = this.data.Items.filter(getItem(7, 8));
+    const cogSold = this.data.Items.filter(getItem(9, 28));
+    const sellingExpenses = this.data.Items.filter(getItem(29, 41));
+    const gaExpenses = this.data.Items.filter(getItem(42, 43));
+    const generalExpenses = this.data.Items.filter(getItem(44, 65));
+    const telpExpenses = this.data.Items.filter(getItem(66, 66));
+    const otherExpenses = this.data.Items.filter(getItem(67, 67));
+
+    // INVESTING ACTIVITIES
+    const depoInAndOthers = this.data.Items.filter(getItem(68, 69));
+    const assetTetap = this.data.Items.filter(getItem(70, 75));
+    const depoOut = this.data.Items.filter(getItem(76, 76));
+
+    // FINANCING ACTIVITIES
+    const loanWithdrawal = this.data.Items.filter(getItem(77, 77));
+    const othersCI = this.data.Items.filter(getItem(78, 81));
+    const loanInstallment = this.data.Items.filter(getItem(82, 83));
+    const bankExpenses = this.data.Items.filter(getItem(84, 84));
+    const othersCO = this.data.Items.filter(getItem(85, 87));
+
+    const joined = [
+      "Revenue",
+      ...revenue,
+      "Revenue from other operating",
+      ...otherRevenue,
+      "Total",
+      "Cost of Good Sold",
+      ...cogSold,
+      "Marketing Expenses",
+      "Biaya Penjualan",
+      ...sellingExpenses,
+      "General & Administrative Expenses",
+      ...gaExpenses,
+      "Biaya umum dan administrasi",
+      ...generalExpenses,
+      ...telpExpenses,
+      "Other Operating Expenses",
+      ...otherExpenses,
+      "Total",
+      "Surplus/Deficit-Cash from Operating Activities",
+      ...depoInAndOthers,
+      "Total",
+      "Pembayaran pembelian asset tetap :",
+      ...assetTetap,
+      ...depoOut,
+      "Total",
+      "Surplus/Deficit-Cash from Investing Activities",
+      ...loanWithdrawal,
+      "Others :",
+      ...othersCI,
+      "Total",
+      "Loan Installment and Interest expense",
+      ...loanInstallment,
+      "Bank Expenses",
+      ...bankExpenses,
+      "Others :",
+      ...othersCO,
+      "Total",
+      "Surplus/Deficit-Cash from Financing Activities",
+    ];
+
+    const modifiedJoined = [];
+    joined.map((item) => {
+      const newBestCaseNominal =
+        item && item.Currency && item.Currency.Code !== "IDR"
+          ? 0
+          : item.BestCaseNominal;
+      const newNominal =
+        item && item.Currency && item.Currency.Code !== "IDR"
+          ? 0
+          : item.Nominal;
+
+      const modifiedItem =
+        typeof item === "string"
+          ? item
+          : {
+              ...item,
+              newBestCaseNominal,
+              newNominal,
+            };
+
+      modifiedJoined.push(modifiedItem);
+    });
+
+    // console.log("Revenue", revenue);
+    // console.log("Revenue from other operating", otherRevenue);
+    // console.log("Cost of Good Sold", cogSold);
+    // console.log("Biaya Penjualan", sellingExpenses);
+    // console.log("General & Administrative Expenses", gaExpenses);
+    // console.log("Biaya umum dan administrasi", generalExpenses);
+    // console.log("Telephone, Fax & Internet", telpExpenses);
+    // console.log("Other Operating Expenses", otherExpenses);
+    // console.log("Deposito & Lain-lain", depoInAndOthers);
+    // console.log("Pembayaran pembelian asset tetap", assetTetap);
+    // console.log("Cash Out Deposito", depoOut);
+    // console.log("Loan Withdrawal", loanWithdrawal);
+    // console.log("Others Cash In", othersCI);
+    // console.log("Loan Installment and Interest expense", loanInstallment);
+    // console.log("Bank Expenses", bankExpenses);
+    // console.log("Others Cash Out", othersCO);
+
     this.isEmpty = this.data.Items.length !== 0 ? false : true;
+    // this.data.Items = joined;
+    this.data.Items = modifiedJoined;
 
     console.log("data.Items", this.data.Items);
-
-    const revenue = this.data.Items.filter((item) => item.LayoutOrder <= 6);
-    const revenueFromOtherOperating = this.data.Items.filter(
-      (item) => item.LayoutOrder >= 7 && item.LayoutOrder <= 8
-    );
-    // const costOfGoodSold = this.data.Items.filter(
-    //   (item) => item.LayoutOrder >= 7 && item.LayoutOrder <= 8
-    // );
-
-    console.log("revenue", revenue);
-    console.log("revenueFromOtherOperating", revenueFromOtherOperating);
   }
-
-  collection = {
-    columns: [
-      "Mata Uang",
-      "Nominal Valas (Best Case)",
-      "Nominal IDR (Best Case)",
-      "Actual IDR (Best Case)",
-      "Nominal Valas (Worst Case)",
-      "Nominal IDR (Worst Case)",
-      "Actual IDR (Worst Case)",
-    ],
-  };
 
   save() {
     this.service
@@ -196,6 +379,7 @@ export class List {
         this.collectionOptions = {
           readOnly: true,
         };
+        this.isEdit = false;
         this.ItemsCollection.bind();
         alert("berhasil simpan!");
       })
@@ -204,288 +388,16 @@ export class List {
       });
   }
 
-  exportExcel() {
-    // console.log("excel");
-    let categoryId = 0;
-    if (this.category && this.category._id) categoryId = this.category._id;
-
-    let divisionId = 0;
-    if (this.division && this.division.Id) divisionId = this.division.Id;
-
-    let accountingUnitId = 0;
-    if (this.accountingUnit && this.accountingUnit.Id)
-      accountingUnitId = this.accountingUnit.Id;
-
-    let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
-
-    let arg = {
-      categoryId,
-      divisionId,
-      accountingUnitId,
-      dueDate,
-    };
-    // console.log("pdf");
-
-    switch (this.activeTitle) {
-      case "Lokal":
-        return this.service.generateExcelLocal(arg).then((result) => {
-          //   console.log(result);
-          return {
-            total: result.TotalData,
-            data: result.Data,
-          };
-        });
-      case "Lokal Valas":
-        return this.service
-          .generateExcelLocalForeignCurrency(arg)
-          .then((result) => {
-            // console.log(result);
-            return {
-              total: result.TotalData,
-              data: result.Data,
-            };
-          });
-      case "Import":
-        return this.service.generateExcelImport(arg).then((result) => {
-          //   console.log(result);
-          return {
-            total: result.TotalData,
-            data: result.Data,
-          };
-        });
-    }
-  }
-
-  printPdf() {
-    let categoryId = 0;
-    if (this.category && this.category._id) categoryId = this.category._id;
-
-    let divisionId = 0;
-    if (this.division && this.division.Id) divisionId = this.division.Id;
-
-    let accountingUnitId = 0;
-    if (this.accountingUnit && this.accountingUnit.Id)
-      accountingUnitId = this.accountingUnit.Id;
-
-    let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
-
-    let arg = {
-      categoryId,
-      divisionId,
-      accountingUnitId,
-      dueDate,
-    };
-    // console.log("pdf");
-
-    switch (this.activeTitle) {
-      case "Lokal":
-        return this.service.printPdfLocal(arg).then((result) => {
-          //   console.log(result);
-          return {
-            total: result.TotalData,
-            data: result.Data,
-          };
-        });
-      case "Lokal Valas":
-        return this.service.printPdfLocalForeignCurrency(arg).then((result) => {
-          //   console.log(result);
-          return {
-            total: result.TotalData,
-            data: result.Data,
-          };
-        });
-      case "Import":
-        return this.service.printPdfImport(arg).then((result) => {
-          //   console.log(result);
-          return {
-            total: result.TotalData,
-            data: result.Data,
-          };
-        });
-    }
-  }
-
-  get categoryLoader() {
-    return CategoryLoader;
-  }
-
-  get divisionLoader() {
-    return DivisionLoader;
-  }
-
-  // get unitLoader() {
-  //     return UnitLoader;
-  // }
-
-  get unitLoader() {
-    return UnitLoader;
-  }
-
-  loader = (info) => {
-    let order = {};
-
-    let categoryId = 0;
-    if (this.category && this.category._id) categoryId = this.category._id;
-
-    let divisionId = 0;
-    if (this.division && this.division.Id) divisionId = this.division.Id;
-
-    let accountingUnitId = 0;
-    if (this.accountingUnit && this.accountingUnit.Id)
-      accountingUnitId = this.accountingUnit.Id;
-
-    let dueDate = this.dueDate ? moment(this.dueDate).format("YYYY-MM-DD") : "";
-
-    let arg = {
-      categoryId,
-      divisionId,
-      accountingUnitId,
-      dueDate,
-    };
-
-    // console.log(this.activeRole);
-    // console.log(arg);
-
-    // return this.service.search(arg)
-    //     .then(result => {
-    //         console.log(result);
-    //         return {
-    //             total: result.info.total,
-    //             data: result.data
-    //         }
-    //     });
-
-    if (this.isSearch) {
-      switch (this.activeTitle) {
-        case "Lokal":
-          return this.service.searchLocal(arg).then((result) => {
-            // console.log(result);
-            return {
-              total: result.TotalData,
-              data: result.Data,
-            };
-          });
-        case "Lokal Valas":
-          return this.service.searchLocalForeignCurrency(arg).then((result) => {
-            // console.log(result);
-            return {
-              total: result.TotalData,
-              data: result.Data,
-            };
-          });
-        case "Import":
-          return this.service.searchImport(arg).then((result) => {
-            // console.log(result);
-            return {
-              total: result.TotalData,
-              data: result.Data,
-            };
-          });
-      }
-      return {
-        total: 0,
-        data: [],
-      };
-    } else {
-      return {
-        total: 0,
-        data: [],
-      };
-    }
-  };
-
   edit() {
     this.collectionOptions = {
       readOnly: false,
     };
+
+    this.isEdit = true;
     this.ItemsCollection.bind();
   }
 
-  enums = [
-    "ExportSales",
-    "LocalSales",
-    "CashSales",
-    "InteralDivisionSales",
-    "InternalUnitSales",
-    "InternalIncomeVATCalculation",
-    "OthersSales",
-    "ExternalIncomeVATCalculation",
-    "ImportedRawMaterial",
-    "LocalRawMaterial",
-    "AuxiliaryMaterial",
-    "SubCount",
-    "Embalage",
-    "Electricity",
-    "Coal",
-    "FuelOil",
-    "SparePartsMachineMaintenance",
-    "DirectLaborCost",
-    "HolidayAllowanceLaborCost",
-    "ConsultantCost",
-    "HealthInsuranceSocialSecurity",
-    "SeveranceCost",
-    "UtilityCost",
-    "ImportCost",
-    "InternalDivisionPurchase",
-    "InternalUnitPurchase",
-    "InternalOutcomeVATCalculation",
-    "MarketingSalaryCost",
-    "MarketingSalaryExpense",
-    "MarketingHealthInsuranceSocialSecurity",
-    "MarketingHolidayAllowance",
-    "AdvertisementCost",
-    "BusinessTripCost",
-    "ShippingCost",
-    "SalesComission",
-    "FreightCost",
-    "ClaimCost",
-    "DocumentationCost",
-    "InsuranceCost",
-    "OtherSalesCost",
-    "GeneralAdministrativeExternalOutcomeVATCalculation",
-    "TaxCost",
-    "GeneralAdministrativeSalaryCost",
-    "GeneralAdministrativeSalaryExpense",
-    "GeneralAdministrativeSocialSecurity",
-    "GeneralAdministrativeDirectorsSalary",
-    "GeneralAdministrativeBuildingMaintenance",
-    "GeneralAdministrativeBusinessTrip",
-    "GeneralAdministrativeMailingCost",
-    "GeneralAdministrativeStationary",
-    "GeneralAdministrativeWaterCost",
-    "GeneralAdministrativeElectricityCost",
-    "GeneralAdministrativeConsultant",
-    "GeneralAdministrativeTraining",
-    "GeneralAdministrativeCertification",
-    "GeneralAdministrativeDonation",
-    "GeneralAdministrativeGuestEntertainment",
-    "GeneralAdministrativeVehicleBuildingMachineInsurance",
-    "GeneralAdministrativeCorporateHousehold",
-    "GeneralAdministrativeSeveranceCost",
-    "GeneralAdministrativeHolidayAllowance",
-    "GeneralAdministrativeVehicleCost",
-    "GeneralAdministrativeSecurityCost",
-    "GeneralAdministrativeOthersCost",
-    "GeneralAdministrativeCommunicationCost",
-    "OthersOperationalCost",
-    "CashInDeposit",
-    "CashInOthers",
-    "MachineryPurchase",
-    "VehiclePurchase",
-    "InventoryPurchase",
-    "ComputerToolsPurchase",
-    "ProductionToolsMaterialsPurchase",
-    "ProjectPurchase",
-    "CashOutDesposit",
-    "CashInAffiliates",
-    "CashInForexTrading",
-    "CashInCompanyReserves",
-    "CashInLoanWithdrawalOthers",
-    "CashOutInstallments",
-    "CashOutBankInterest",
-    "CashOutBankAdministrationFee",
-    "CashOutAffiliates",
-    "CashOutForexTrading",
-    "CashOutOthers",
-  ];
+  get unitLoader() {
+    return UnitLoader;
+  }
 }
