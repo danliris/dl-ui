@@ -54,6 +54,27 @@
                 read-only.bind="true">
             </au-numeric>
         </td>
+        <td >
+            <au-numeric
+                value.bind="grossWeight"
+                error.bind="error.GrossWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td >
+            <au-numeric
+                value.bind="netWeight"
+                error.bind="error.NetWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td >
+            <au-numeric
+                value.bind="data.netNetWeight"
+                error.bind="error.NetNetWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
         <td if.bind="!readOnly" class="bg-light">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
@@ -64,14 +85,14 @@
         </td>
     </tr>
     <tr>
-        <td colspan="7">
+        <td colspan="10">
             <p if.bind="error.SizesCount" class="help-block text-center" style='color:red;'>${error.SizesCount}</p>
         </td>
     </tr>
     <tr if.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
-        <td colspan="5" style='border:none;'>
+        <td colspan="8" style='border:none;'>
             <au-collection 
                 items.bind="data.sizes" 
                 errors.bind="error.Sizes" 
@@ -89,7 +110,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="7">
+        <td colspan="10">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
