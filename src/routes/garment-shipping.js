@@ -339,6 +339,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/invoice-history",
+        name: "garment-shipping/monitoring/invoice-history",
+        moduleId: "modules/garment-shipping/monitoring/garment-invoice-history/index",
+        nav: true,
+        title: "Monitoring Invoice History Garment",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/omzet-by-unit",
         name: "garment-shipping/monitoring/omzet-by-unit",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthy-by-unit/index",
