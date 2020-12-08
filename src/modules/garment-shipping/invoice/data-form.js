@@ -49,8 +49,8 @@ export class DataForm {
         }
         this.isEdit = this.context.isEdit;
         if (this.data.id != undefined) {
-
-            this.coreService.getBankAccountById(this.data.bankAccountId)
+            if(this.data.bankAccountId>0){
+                this.coreService.getBankAccountById(this.data.bankAccountId)
                 .then(result => {
 
                     this.bankAccount =
@@ -63,6 +63,8 @@ export class DataForm {
                     };
                     this.data.bankAccount = result.BankName;
                 });
+            }
+            
             this.shippingStaff = {
                 Id: this.data.shippingStaffId,
                 Name: this.data.shippingStaff
