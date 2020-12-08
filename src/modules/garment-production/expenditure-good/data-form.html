@@ -79,13 +79,25 @@
             </div>
             <div class="col-md-6">
 
-                <au-textbox
+                <!-- <au-textbox
                     value.bind="data.Invoice"
                     error.bind="error.Invoice"
                     label="Invoice"
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
-                </au-textbox>
+                </au-textbox> -->
+                <au-autocomplete
+                    value.bind="selectedInvoice"
+                    error.bind="error.Invoice"
+                    label="Invoice"
+                    loader.bind="plLoader"
+                    text="invoiceNo"
+                    placeholder="cari no invoice"
+                    read-only.bind="readOnly"
+                    query.bind="plFilter"
+                    options.bind="controlOptions"
+                    view-model.ref="selectedInvoiceViewModel">
+                </au-autocomplete>
 
                 <au-textbox
                     value.bind="data.ContractNo"
