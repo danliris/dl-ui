@@ -16,6 +16,10 @@ export class List {
     this.currencyService = currencyService;
     this.isEmpty = true;
     this.isEdit = false;
+    this.collectionOptions = {
+      readOnly: true,
+    };
+    this.rowSpan = {};
   }
 
   controlOptions = {
@@ -138,6 +142,7 @@ export class List {
 
   bind() {
     this.data = {};
+    // this.reset();
   }
 
   async search() {
@@ -304,6 +309,7 @@ export class List {
       ...otherExpenses,
       "Total",
       "Surplus/Deficit-Cash from Operating Activities",
+      "Free space",
       ...depoInAndOthers,
       "Total",
       "Pembayaran pembelian asset tetap :",
@@ -311,6 +317,7 @@ export class List {
       ...depoOut,
       "Total",
       "Surplus/Deficit-Cash from Investing Activities",
+      "Free space",
       ...loanWithdrawal,
       "Others :",
       ...othersCI,
@@ -323,6 +330,13 @@ export class List {
       ...othersCO,
       "Total",
       "Surplus/Deficit-Cash from Financing Activities",
+      "BEGINNING BALANCE",
+      "CASH SURPLUS/DEFICIT",
+      "ENDING BALANCE",
+      "Kenyataan",
+      "Selisih",
+      "Rate $",
+      "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
     ];
 
     const modifiedJoined = [];
@@ -366,35 +380,93 @@ export class List {
     // console.log("Others Cash Out", othersCO);
 
     this.isEmpty = this.data.Items.length !== 0 ? false : true;
-    // this.data.Items = joined;
     this.data.Items = modifiedJoined;
 
-    console.log("data.Items", this.data.Items);
+    const itemsNoString = this.data.Items.filter(
+      (item) => typeof item !== "string"
+    );
+
+    const rowSpan = itemsNoString
+      .map((item) => {
+        return {
+          count: 1,
+          layoutOrder: item.LayoutOrder,
+        };
+      })
+      .reduce((a, b) => {
+        a[b.layoutOrder] = (a[b.layoutOrder] || 0) + b.count;
+        return a;
+      }, {});
+
+    this.rowSpan = rowSpan;
+
+    const rowSpanArr = Object.values(rowSpan);
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    const oaciRowSpan = rowSpanArr.slice(0, 8).reduce(reducer, 3);
+    const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 8);
+    const iaciRowSpan = rowSpanArr.slice(67, 69).reduce(reducer, 2);
+    const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 3);
+    const faciRowSpan = rowSpanArr.slice(76, 81).reduce(reducer, 3);
+    const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 5);
+
+    this.calRowSpan = {
+      oaciRowSpan,
+      oacoRowSpan,
+      iaciRowSpan,
+      iacoRowSpan,
+      faciRowSpan,
+      facoRowSpan,
+      oaRowSpan: oaciRowSpan + oacoRowSpan,
+      iaRowSpan: iaciRowSpan + iacoRowSpan,
+      faRowSpan: faciRowSpan + facoRowSpan,
+    };
+
+    console.log(this.calRowSpan);
+    console.log("this.data.Items", this.data.Items);
+    console.log("this.rowSpan", this.rowSpan);
+  }
+
+  reset() {
+    this.unit = "";
+    this.dueDate = null;
   }
 
   save() {
+    const tempDataItems = this.data.Items;
+    const newDataItems = this.data.Items.filter(
+      (item) => typeof item !== "string"
+    );
+    this.data.Items = newDataItems;
     this.service
       .upsertWorstCase(this.data)
       .then(() => {
+        this.isEdit = false;
         this.collectionOptions = {
           readOnly: true,
         };
-        this.isEdit = false;
-        this.ItemsCollection.bind();
-        alert("berhasil simpan!");
+
+        setTimeout(() => {
+          this.ItemsCollection.bind();
+        }, 50);
+
+        this.data.Items = tempDataItems;
+        alert("Data berhasil disimpan!");
       })
       .catch((e) => {
-        alert("terjadi kesalahan");
+        alert("Terjadi kesalahan.");
       });
   }
 
   edit() {
+    this.isEdit = true;
     this.collectionOptions = {
       readOnly: false,
     };
 
-    this.isEdit = true;
-    this.ItemsCollection.bind();
+    setTimeout(() => {
+      this.ItemsCollection.bind();
+    }, 50);
   }
 
   get unitLoader() {
