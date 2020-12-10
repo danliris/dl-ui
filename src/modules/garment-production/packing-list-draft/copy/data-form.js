@@ -150,7 +150,8 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.items.push({
-                BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+                BuyerCode: this.data.buyerAgent.Code || this.data.buyerAgent.code,
+                details: []
             });
         };
     }
