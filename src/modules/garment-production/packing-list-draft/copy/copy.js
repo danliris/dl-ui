@@ -87,6 +87,11 @@ export class Copy {
                 });
             });
         });
+        this.data.measurements.forEach(item => {
+            this.identityProperties.concat([
+                "id",
+            ]).forEach(prop => delete item[prop]);
+        });
     }
 
     list() {
@@ -97,6 +102,7 @@ export class Copy {
         this.data.shippingMarkImagePath=null;
         this.data.sideMarkImagePath=null;
         this.data.remarkImagePath=null;
+        this.data.isUsed=false;
         this.service.createCopy(this.data)
             .then(result => {
                 alert("Data berhasil dibuat, No Invoice: " + result);
