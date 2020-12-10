@@ -29,7 +29,7 @@
     "prebuild:dev": "npm run clean:dist",
     "build:dev": "cross-env NODE_ENV=development npm run webpack -- --progress --profile",
     "prebuild:prod": "npm run clean:dist",
-    "build:prod": "cross-env NODE_ENV=production npm run webpack -- --progress --profile",
+    "build:prod": "cross-env NODE_OPTIONS=--max_old_space_size=4096 NODE_ENV=production npm run webpack -- --progress --profile",
     "start": "npm run server:dev",
     "server": "npm run server:dev",
     "server:dev": "cross-env NODE_ENV=development npm run webpack-dev-server -- --inline --progress --profile --watch",

@@ -48,6 +48,13 @@ export class View {
             this.deleteCallback=null;
             this.editCallback=null;
         }
+        if(this.data.PackingListId){
+            this.selectedInvoice={
+                invoiceNo:this.data.Invoice,
+                id:this.data.PackingListId
+            }
+        }
+        console.log(this.data)
     }
 
     cancelCallback(event) {
