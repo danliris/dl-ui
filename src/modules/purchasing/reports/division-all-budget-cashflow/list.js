@@ -1,17 +1,27 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { CoreService } from "./core-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 import numeral from "numeral";
 
-let CategoryLoader = require("../../../../loader/category-loader");
-let DivisionLoader = require("../../../../loader/division-loader");
-let UnitLoader = require("../../../../loader/unit-loader");
-let AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
-
 @inject(Router, Service, CoreService)
 export class List {
+  constructor(router, service, coreService) {
+    this.service = service;
+    this.router = router;
+    this.coreService = coreService;
+    this.error = {};
+    this.division = "";
+    this.dueDate = null;
+    this.isEmpty = false; // Default is set to false
+    // this.isEdit = false;
+    this.collectionOptions = {
+      readOnly: true,
+    };
+    this.rowSpan = {};
+  }
+
   controlOptions = {
     label: {
       length: 4,
@@ -21,173 +31,8 @@ export class List {
     },
   };
 
-  tableOptions = {
-    pagination: false,
-    showColumns: false,
-    search: false,
-    showToggle: false,
-  };
-
-  constructor(router, service, coreService) {
-    this.service = service;
-    this.router = router;
-    this.coreService = coreService;
-    this.isEmpty = true;
-  }
-
-  bind() {
-    this.data = {};
-  }
-
-  isShown = false;
-  async search() {
-    this.isShown = false;
-    // this.isSearch = true;
-    // this.documentTable.refresh();
-    this.collectionOptions = {
-      readOnly: true,
-    };
-    console.log(this.ItemsCollection);
-
-    let divisionId = 0;
-    if (this.division && this.division.Id) {
-      divisionId = this.division.Id;
-    }
-
-    let dueDate = this.dueDate
-      ? moment(this.dueDate).format("YYYY-MM-DD")
-      : moment(new Date()).format("YYYY-MM-DD");
-
-    let divisionPromises = this.enums.map((enumItem, index) => {
-      return this.service
-        .getDivision({
-          layoutOrder: index + 1,
-          divisionId: divisionId,
-          dueDate: dueDate,
-        })
-        .then((divisions) => {
-          return divisions;
-        });
-    });
-
-    // let worstCaseResult = await Promise.all(worstCasePromises)
-    //     .then((promiseResult) => promiseResult)
-
-    await Promise.all(divisionPromises).then((divisionPromiseResult) => {
-      let divisionResult = divisionPromiseResult;
-
-      let unitIds = [];
-      let layoutOrderData = [];
-      let currencyIds = [];
-      let data = [];
-
-      for (let response of divisionResult) {
-        for (let unitId of response.data.UnitIds) {
-          let existingUnitId = unitIds.find(id => id == unitId);
-          if (!existingUnitId && unitId > 0) {
-            unitIds.push(unitId);
-          }
-        }
-
-        for (let item of response.data.Items) {
-          let existingLayoutOrderData = layoutOrderData.find(datum => datum.LayoutOrder == item.LayoutOrder && datum.CurrencyId == item.CurrencyId);
-          if (!existingLayoutOrderData) {
-            layoutOrderData.push({ LayoutOrder: item.LayoutOrder, CurrencyId: item.CurrencyId });
-          }
-
-          let existingCurrencyId = currencyIds.find(id => item.CurrencyId == id);
-          if (!existingCurrencyId && item.CurrencyId > 0) {
-            currencyIds.push(item.CurrencyId);
-          }
-
-          data.push(item);
-        }
-
-      }
-
-      let unitPromises = unitIds.map((id) => this.coreService.getUnitById(id));
-      let currencyPromises = currencyIds.map((id) => this.coreService.getCurrencyById(id));
-
-      return Promise.all([Promise.all(unitPromises), Promise.all(currencyPromises)])
-        .then((promiseResult) => {
-          let units = promiseResult[0];
-          let currencies = promiseResult[1];
-
-          let columns = ["Mata Uang"];
-
-          for (let unit of units) {
-            columns.push(`Nominal Valas ${unit.Name}`);
-            columns.push(`Nominal IDR ${unit.Name}`);
-            columns.push(`Nominal Actual ${unit.Name}`);
-          }
-
-          let rows = [];
-          for (let datum of layoutOrderData) {
-            let currency = currencies.find(f => f.Id == datum.CurrencyId);
-
-            let row = Object.create({});
-            if (currency) {
-              row.CurrencyCode = currency.Code;
-            } else {
-              row.CurrencyCode = "";
-            }
-            for (let unit of units) {
-
-              let filteredDatum = data.find(f => f.LayoutOrder == datum.LayoutOrder && f.CurrencyId == datum.CurrencyId && f.UnitId == unit.Id);
-
-              if (filteredDatum) {
-                row[`${unit.Code}CurrencyNominal`] = filteredDatum.CurrencyNominal;
-                row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
-                row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
-              } else {
-                row[`${unit.Code}CurrencyNominal`] = 0;
-                row[`${unit.Code}Nominal`] = 0;
-                row[`${unit.Code}ActualNominal`] = 0;
-              }
-            }
-
-            rows.push(row);
-          }
-
-          this.columns = columns;
-          this.rows = rows;
-        })
-
-    });
-
-    this.isShown = true;
-
-    setTimeout(() => {
-      this.ItemsCollection.bind();
-
-    }, 50);
-  }
-
   columns = [];
   rows = [];
-
-  get categoryLoader() {
-    return CategoryLoader;
-  }
-
-  get divisionLoader() {
-    return DivisionLoader;
-  }
-
-  // get unitLoader() {
-  //     return UnitLoader;
-  // }
-
-  get unitLoader() {
-    return UnitLoader;
-  }
-
-  // edit() {
-  //   this.collectionOptions = {
-  //     readOnly: false,
-  //   };
-  //   this.ItemsCollection.bind();
-  // }
 
   enums = [
     "ExportSales",
@@ -279,8 +124,297 @@ export class List {
     "CashOutOthers",
   ];
 
+  bind() {
+    this.data = {};
+  }
+
+  isShown = false;
+  async search() {
+    this.isShown = false;
+    this.collectionOptions = {
+      readOnly: true,
+    };
+    // console.log(this.ItemsCollection);
+
+    if (this.dueDate === null) {
+      this.error.dueDate = "Periode harus diisi";
+    } else {
+      this.error.dueDate = "";
+
+      let divisionId = 0;
+      if (this.division && this.division.Id) {
+        divisionId = this.division.Id;
+        this.data.DivisionId = this.division.Id;
+      }
+
+      let dueDate = this.dueDate
+        ? moment(this.dueDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
+
+      this.data.DueDate = dueDate;
+
+      let divisionPromises = this.enums.map((enumItem, index) => {
+        return this.service
+          .getDivision({
+            layoutOrder: index + 1,
+            divisionId: divisionId,
+            dueDate: dueDate,
+          })
+          .then((divisions) => {
+            return divisions;
+          });
+      });
+
+      await Promise.all(divisionPromises).then((divisionPromiseResult) => {
+        let divisionResult = divisionPromiseResult;
+
+        let unitIds = [];
+        let layoutOrderData = [];
+        let currencyIds = [];
+        let data = [];
+
+        for (let response of divisionResult) {
+          for (let unitId of response.data.UnitIds) {
+            let existingUnitId = unitIds.find((id) => id == unitId);
+            if (!existingUnitId && unitId > 0) {
+              unitIds.push(unitId);
+            }
+          }
+
+          for (let item of response.data.Items) {
+            let existingLayoutOrderData = layoutOrderData.find(
+              (datum) =>
+                datum.LayoutOrder == item.LayoutOrder &&
+                datum.CurrencyId == item.CurrencyId
+            );
+            if (!existingLayoutOrderData) {
+              layoutOrderData.push({
+                LayoutOrder: item.LayoutOrder,
+                CurrencyId: item.CurrencyId,
+              });
+            }
+
+            let existingCurrencyId = currencyIds.find(
+              (id) => item.CurrencyId == id
+            );
+            if (!existingCurrencyId && item.CurrencyId > 0) {
+              currencyIds.push(item.CurrencyId);
+            }
+
+            data.push(item);
+          }
+        }
+
+        let unitPromises = unitIds.map((id) =>
+          this.coreService.getUnitById(id)
+        );
+        let currencyPromises = currencyIds.map((id) =>
+          this.coreService.getCurrencyById(id)
+        );
+
+        return Promise.all([
+          Promise.all(unitPromises),
+          Promise.all(currencyPromises),
+        ]).then((promiseResult) => {
+          let units = promiseResult[0];
+          let currencies = promiseResult[1];
+
+          let columns = ["Mata Uang"];
+
+          for (let unit of units) {
+            columns.push(`Nominal Valas ${unit.Name}`);
+            columns.push(`Nominal IDR ${unit.Name}`);
+            columns.push(`Nominal Actual ${unit.Name}`);
+          }
+
+          let rows = [];
+          for (let datum of layoutOrderData) {
+            let currency = currencies.find((f) => f.Id == datum.CurrencyId);
+
+            let row = Object.create({});
+            row.LayoutOrder = datum.LayoutOrder;
+
+            if (currency) {
+              row.CurrencyCode = currency.Code;
+            } else {
+              row.CurrencyCode = "";
+            }
+            for (let unit of units) {
+              let filteredDatum = data.find(
+                (f) =>
+                  f.LayoutOrder == datum.LayoutOrder &&
+                  f.CurrencyId == datum.CurrencyId &&
+                  f.UnitId == unit.Id
+              );
+
+              if (filteredDatum) {
+                row[`${unit.Code}CurrencyNominal`] =
+                  filteredDatum.CurrencyNominal;
+                row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
+                row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
+              } else {
+                row[`${unit.Code}CurrencyNominal`] = 0;
+                row[`${unit.Code}Nominal`] = 0;
+                row[`${unit.Code}ActualNominal`] = 0;
+              }
+            }
+
+            rows.push(row);
+          }
+
+          this.columns = columns;
+          this.rows = rows;
+        });
+      });
+
+      this.isShown = true;
+
+      setTimeout(() => {
+        this.ItemsCollection.bind();
+      }, 50);
+
+      const getItem = (min, max) => (item) =>
+        item.LayoutOrder >= min && item.LayoutOrder <= max;
+
+      // OPERATING ACTIVITIES
+      const revenue = this.rows.filter(getItem(1, 6));
+      const otherRevenue = this.rows.filter(getItem(7, 8));
+      const cogSold = this.rows.filter(getItem(9, 28));
+      const sellingExpenses = this.rows.filter(getItem(29, 41));
+      const gaExpenses = this.rows.filter(getItem(42, 43));
+      const generalExpenses = this.rows.filter(getItem(44, 65));
+      const telpExpenses = this.rows.filter(getItem(66, 66));
+      const otherExpenses = this.rows.filter(getItem(67, 67));
+
+      // INVESTING ACTIVITIES
+      const depoInAndOthers = this.rows.filter(getItem(68, 69));
+      const assetTetap = this.rows.filter(getItem(70, 75));
+      const depoOut = this.rows.filter(getItem(76, 76));
+
+      // FINANCING ACTIVITIES
+      const loanWithdrawal = this.rows.filter(getItem(77, 77));
+      const othersCI = this.rows.filter(getItem(78, 81));
+      const loanInstallment = this.rows.filter(getItem(82, 83));
+      const bankExpenses = this.rows.filter(getItem(84, 84));
+      const othersCO = this.rows.filter(getItem(85, 87));
+
+      const joined = [
+        "Revenue",
+        ...revenue,
+        "Revenue from other operating",
+        ...otherRevenue,
+        "Total",
+        "Cost of Good Sold",
+        ...cogSold,
+        "Marketing Expenses",
+        "Biaya Penjualan",
+        ...sellingExpenses,
+        "General & Administrative Expenses",
+        ...gaExpenses,
+        "Biaya umum dan administrasi",
+        ...generalExpenses,
+        ...telpExpenses,
+        "Other Operating Expenses",
+        ...otherExpenses,
+        "Total",
+        "Surplus/Deficit-Cash from Operating Activities",
+        "Free space",
+        ...depoInAndOthers,
+        "Total",
+        "Pembayaran pembelian asset tetap :",
+        ...assetTetap,
+        ...depoOut,
+        "Total",
+        "Surplus/Deficit-Cash from Investing Activities",
+        "Free space",
+        ...loanWithdrawal,
+        "Others :",
+        ...othersCI,
+        "Total",
+        "Loan Installment and Interest expense",
+        ...loanInstallment,
+        "Bank Expenses",
+        ...bankExpenses,
+        "Others :",
+        ...othersCO,
+        "Total",
+        "Surplus/Deficit-Cash from Financing Activities",
+        "BEGINNING BALANCE",
+        "CASH SURPLUS/DEFICIT",
+        "ENDING BALANCE",
+        "Kenyataan",
+        "Selisih",
+        "Rate $",
+        "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
+      ];
+
+      // console.log("Revenue", revenue);
+      // console.log("Revenue from other operating", otherRevenue);
+      // console.log("Cost of Good Sold", cogSold);
+      // console.log("Biaya Penjualan", sellingExpenses);
+      // console.log("General & Administrative Expenses", gaExpenses);
+      // console.log("Biaya umum dan administrasi", generalExpenses);
+      // console.log("Telephone, Fax & Internet", telpExpenses);
+      // console.log("Other Operating Expenses", otherExpenses);
+      // console.log("Deposito & Lain-lain", depoInAndOthers);
+      // console.log("Pembayaran pembelian asset tetap", assetTetap);
+      // console.log("Cash Out Deposito", depoOut);
+      // console.log("Loan Withdrawal", loanWithdrawal);
+      // console.log("Others Cash In", othersCI);
+      // console.log("Loan Installment and Interest expense", loanInstallment);
+      // console.log("Bank Expenses", bankExpenses);
+      // console.log("Others Cash Out", othersCO);
+
+      // this.isEmpty = this.rows.length !== 0 ? false : true;
+      this.rows = joined;
+
+      const itemsNoString = this.rows.filter(
+        (item) => typeof item !== "string"
+      );
+
+      const rowSpan = itemsNoString
+        .map((item) => {
+          return {
+            count: 1,
+            layoutOrder: item.LayoutOrder,
+          };
+        })
+        .reduce((a, b) => {
+          a[b.layoutOrder] = (a[b.layoutOrder] || 0) + b.count;
+          return a;
+        }, {});
+
+      this.rowSpan = rowSpan;
+
+      const rowSpanArr = Object.values(rowSpan);
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+      const oaciRowSpan = rowSpanArr.slice(0, 8).reduce(reducer, 3);
+      const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 8);
+      const iaciRowSpan = rowSpanArr.slice(67, 69).reduce(reducer, 2);
+      const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 3);
+      const faciRowSpan = rowSpanArr.slice(76, 81).reduce(reducer, 3);
+      const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 5);
+
+      this.calRowSpan = {
+        oaciRowSpan,
+        oacoRowSpan,
+        iaciRowSpan,
+        iacoRowSpan,
+        faciRowSpan,
+        facoRowSpan,
+        oaRowSpan: oaciRowSpan + oacoRowSpan,
+        iaRowSpan: iaciRowSpan + iacoRowSpan,
+        faRowSpan: faciRowSpan + facoRowSpan,
+      };
+
+      // console.log("this.rows", this.rows);
+      // console.log("this.calRowSpan", this.calRowSpan);
+      // console.log("this.rowSpan", this.rowSpan);
+    }
+  }
+
   reset() {
-    this.division = null;
     this.dueDate = null;
     this.isShown = false;
   }
