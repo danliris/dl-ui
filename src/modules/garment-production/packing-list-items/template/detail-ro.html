@@ -8,7 +8,7 @@
                 text.bind="roView"
                 placeholder="cari RO"
                 query.bind="filter"
-                read-only.bind="readOnly || (isEdit && data.id)">
+                read-only.bind="readOnly || (isEdit && data.id) || data.isCopy">
             </au-autocomplete>
         </td>
         <td class="bg-primary">
@@ -118,7 +118,7 @@
             <p if.bind="error.DetailsCount" class="help-block text-center" style='color:red;'>${error.DetailsCount}</p>
         </td>
     </tr>
-    <tr  show.bind="isShowing">
+    <tr if.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
         <td colspan="10" style='border:none;'>
@@ -154,18 +154,25 @@
             </au-numeric>
         </td>
         
-        <td colspan="3">
+        <td colspan="2">
             <au-numeric
-                label = "AVG GW"
-                value.bind="avG_GW"
-                read-only.bind="readOnly">
+                label = "Total GW"
+                value.one-way="subGrossWeight"
+                read-only="true">
             </au-numeric>
         </td>
-        <td colspan="4">
+        <td colspan="2">
             <au-numeric
-                label = "AVG NW"
-                value.bind="avG_NW"
-                read-only.bind="readOnly">
+                label = "Total NW"
+                value.one-way="subNetWeight"
+                read-only="true">
+            </au-numeric>
+        </td>
+        <td colspan="3">
+            <au-numeric
+                label = "Total NNW"
+                value.one-way="subNetNetWeight"
+                read-only="true">
             </au-numeric>
         </td>
     </tr>

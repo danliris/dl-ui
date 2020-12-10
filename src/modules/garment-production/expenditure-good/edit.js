@@ -39,6 +39,12 @@ export class View {
                 }
             }
         }
+        if(this.data.PackingListId){
+            this.selectedInvoice={
+                invoiceNo:this.data.Invoice,
+                id:this.data.PackingListId
+            }
+        }
         this.data.Items=items;
         this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) || a.Size.Size.localeCompare( b.Size.Size));
     }

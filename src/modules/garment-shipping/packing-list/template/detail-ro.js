@@ -30,6 +30,9 @@ export class Item {
         { header: "Jml Carton" },
         { header: "Qty" },
         { header: "Total Qty" },
+        { header: "GW" },
+        { header: "NW" },
+        { header: "NNW" },
         { header: "" },
     ];
 
@@ -111,23 +114,23 @@ export class Item {
         }
     }
 
-    avG_GWChanged(newValue) {
-        this.data.avG_GW = newValue;
-        this.updateGrossWeight();
-    }
+    // avG_GWChanged(newValue) {
+    //     this.data.avG_GW = newValue;
+    //     this.updateGrossWeight();
+    // }
 
-    updateGrossWeight() {
-        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
-    }
+    // updateGrossWeight() {
+    //     this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
+    // }
 
-    avG_NWChanged(newValue) {
-        this.data.avG_NW = newValue;
-        this.updateNettWeight();
-    }
+    // avG_NWChanged(newValue) {
+    //     this.data.avG_NW = newValue;
+    //     this.updateNettWeight();
+    // }
 
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
-    }
+    // updateNettWeight() {
+    //     this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
+    // }
 
     get addDetails() {
         return (event) => {
@@ -184,4 +187,16 @@ export class Item {
         }
         return this.data.amount;
     }
+
+  get subGrossWeight() {
+    return this.data.details.reduce((acc, cur) => acc += cur.grossWeight, 0);
+  }
+
+  get subNetWeight() {
+    return this.data.details.reduce((acc, cur) => acc += cur.netWeight, 0);
+  }
+
+  get subNetNetWeight() {
+    return this.data.details.reduce((acc, cur) => acc += cur.netNetWeight, 0);
+  }
 }

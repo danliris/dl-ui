@@ -6,6 +6,8 @@ export class Detail {
     @bindable length;
     @bindable width;
     @bindable height;
+    @bindable grossWeight;
+    @bindable netWeight;
 
     constructor() {
 
@@ -46,6 +48,10 @@ export class Detail {
         this.length = this.data.length;
         this.width = this.data.width;
         this.height = this.data.height;
+
+
+        this.grossWeight = this.data.grossWeight;
+        this.netWeight = this.data.netWeight;
     }
 
 
@@ -156,5 +162,33 @@ export class Detail {
         }
 
         this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
+    }
+
+    grossWeightChanged(newValue) {
+        this.data.grossWeight = newValue;
+        this.updateGrossWeight();
+    }
+
+    updateGrossWeight() {
+        this.context.context.options.header.grossWeight = 0;
+        for (const item of this.context.context.options.header.items) {
+            for (const detail of item.details) {
+                this.context.context.options.header.grossWeight += detail.grossWeight;
+            }
+        }
+    }
+
+    netWeightChanged(newValue) {
+        this.data.netWeight = newValue;
+        this.updateNettWeight();
+    }
+
+    updateNettWeight() {
+        this.context.context.options.header.nettWeight = 0;
+        for (const item of this.context.context.options.header.items) {
+            for (const detail of item.details) {
+                this.context.context.options.header.nettWeight += detail.netWeight;
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import numeral from "numeral";
 import XLSX from "xlsx";
 import { Service } from "./service";
 const SupplierLoader = require("../../../../loader/supplier-loader");
+const DivisionLoader = require("../../../../loader/division-loader");
 
 @inject(Service)
 export class List {
@@ -11,6 +12,7 @@ export class List {
   supplierQuery = { Import: true };
   columns = [
     { field: "SupplierName", title: "Supplier" },
+    { field: "DivisionName", title: "Divisi" },
     { field: "Currency", title: "Mata Uang" },
     // { field: 'Products', title: 'Nama Barang' },
     {
@@ -95,6 +97,10 @@ export class List {
     return supplier.name;
   };
 
+  divisionView = (division) => {
+    return division.Name;
+  };
+
   loader = (info) => {
     let order = {};
     if (info.sort) order[info.sort] = info.order;
@@ -109,6 +115,9 @@ export class List {
 
     if (this.info.supplier && this.info.supplier.name)
       arg.supplierName = this.info.supplier.name;
+
+    if (this.info.division && this.info.division.Id)
+      arg.divisionId = this.info.division.Id;
 
     if (this.info.month && this.info.month.value)
       arg.month = this.info.month.value;
@@ -162,6 +171,9 @@ export class List {
       if (this.info.supplier && this.info.supplier.name)
         arg.supplierName = this.info.supplier.name;
 
+      if (this.info.division && this.info.division.Id)
+        arg.divisionId = this.info.division.Id;
+
       if (this.info.month && this.info.month.value)
         arg.month = this.info.month.value;
 
@@ -197,11 +209,16 @@ export class List {
       this.info.supplierName = this.info.supplier.name;
     else this.info.supplierName = null;
 
+    if (this.info.division && this.info.division.Id)
+      this.info.divisionId = this.info.division.Id;
+    else this.info.divisionId = null;
+
     // this.flag = true;
     // this.tableList.refresh();
 
     let params = {
       supplierName: this.info.supplierName,
+      divisionId: this.info.divisionId,
       month: this.info.month.value,
       year: this.info.year,
       isImport: true,
@@ -217,11 +234,16 @@ export class List {
       this.info.supplierName = this.info.supplier.name;
     else this.info.supplierName = null;
 
+    if (this.info.division && this.info.division.Id)
+      this.info.divisionId = this.info.division.Id;
+    else this.info.divisionId = null;
+
     // this.flag = true;
     // this.tableList.refresh();
 
     let params = {
       supplierName: this.info.supplierName,
+      divisionId: this.info.divisionId,
       month: this.info.month.value,
       year: this.info.year,
       isImport: true,
@@ -234,7 +256,8 @@ export class List {
 
   reset() {
     this.flag = false;
-    this.info.supplier = undefined;
+    this.info.supplier = null;
+    this.info.division = null;
     this.error = {};
     this.info.year = moment().format("YYYY");
     this.info.month = { text: "January", value: 1 };
@@ -243,5 +266,9 @@ export class List {
 
   get supplierLoader() {
     return SupplierLoader;
+  }
+
+  get divisionLoader() {
+    return DivisionLoader;
   }
 }

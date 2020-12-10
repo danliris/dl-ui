@@ -160,20 +160,27 @@
             </au-numeric>
         </td>
         
+        <td colspan="2">
+            <au-numeric
+                label = "TOTAL GW"
+                value.one-way="subGrossWeight"
+                read-only="true">
+            </au-numeric>
+        </td>
         <td colspan="3">
             <au-numeric
-                label = "AVG GW"
-                value.bind="avG_GW"
-                read-only.bind="readOnly">
+                label = "TOTAL NW"
+                value.one-way="subNetWeight"
+                read-only="true">
             </au-numeric>
         </td>
         <td colspan="4">
-            <au-numeric
-                label = "AVG NW"
-                value.bind="avG_NW"
-                read-only.bind="readOnly">
-            </au-numeric>
-        </td>
+          <au-numeric
+              label = "TOTAL NNW"
+              value.one-way="subNetNetWeight"
+              read-only="true">
+          </au-numeric>
+      </td>
     </tr>
     <tr show.bind="isShowing" style='border:none;'>
         <td colspan="13">

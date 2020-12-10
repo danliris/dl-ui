@@ -5,8 +5,19 @@
     <form class="form-horizontal">
         <au-autocomplete value.bind="info.supplier" error.bind="error.supplier" label="Supplier"
             loader.bind="supplierLoader" text.bind="supplierView" query.bind="supplierQuery"
-            placeholder="Input Supplier" read-only.bind="readOnly" options.bind="controlOptions">
+            placeholder="Cari supplier" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
+    <au-autocomplete
+      value.bind="info.division"
+      error.bind="error.division"
+      label="Divisi"
+      loader.bind="divisionLoader"
+      text.bind="divisionView"
+      placeholder="Cari divisi"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+    >
+    </au-autocomplete>
         <au-dropdown value.bind="info.month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths"
             key="value" text="text">
         </au-dropdown>
@@ -35,6 +46,7 @@
             <thead align="center">
                 <tr>
                     <td rowspan=2>Supplier</td>
+                    <td rowspan=2>Divisi</td>
                     <td rowspan=2>Mata Uang</td>
                     <td rowspan=2>Saldo Awal</td>
                     <td rowspan=2>Pembelian</td>
@@ -53,6 +65,7 @@
             <tbody>
                 <tr repeat.for="report of data">
                     <td>${report.SupplierName}</td>
+                    <td>${report.DivisionName}</td>
                     <td>${report.Currency}</td>
                     <td class="text-right">${report.StartBalance | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Purchase | numberFormat: '0,000.00'}</td>

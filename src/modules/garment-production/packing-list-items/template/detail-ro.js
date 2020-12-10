@@ -7,19 +7,13 @@ var UnitLoader = require("../../../../loader/unit-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
-    @bindable avG_GW;
-    @bindable avG_NW;
 
     constructor(salesService) {
         this.salesService = salesService;
     }
 
     get filter() {
-        let section = {};
-        // if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
-        //     section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
-        // }
-        section = this.context.context.options.header.section || {};
+        let section = this.context.context.options.header.section || {};
 
         var filter = {
             BuyerCode: this.data.BuyerCode,
@@ -37,6 +31,9 @@ export class Item {
         { header: "Jml Carton" },
         { header: "Qty" },
         { header: "Total Qty" },
+        { header: "GW" },
+        { header: "NW" },
+        { header: "NNW" },
         { header: "" },
     ];
 
@@ -100,9 +97,6 @@ export class Item {
         if (this.error && this.error.Details && this.error.Details.length > 0) {
             this.isShowing = true;
         }
-
-        this.avG_GW = this.data.avG_GW;
-        this.avG_NW = this.data.avG_NW;
     }
 
     selectedROChanged(newValue) {
@@ -133,28 +127,24 @@ export class Item {
                                     this.data.priceRO = sc.Price;
                                     this.data.comodity = result.Comodity;
                                     this.data.amount = sc.Amount;
+
+                                    this.context.context.options.header.section = this.data.section;
                                 });
                         })
                 });
         }
     }
 
-    avG_GWChanged(newValue) {
-        this.data.avG_GW = newValue;
-        this.updateGrossWeight();
+    get subGrossWeight() {
+        return (this.data.details || []).reduce((acc, cur) => acc += cur.grossWeight, 0);
     }
 
-    updateGrossWeight() {
-        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
+    get subNetWeight() {
+        return (this.data.details || []).reduce((acc, cur) => acc += cur.netWeight, 0);
     }
 
-    avG_NWChanged(newValue) {
-        this.data.avG_NW = newValue;
-        this.updateNettWeight();
-    }
-
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
+    get subNetNetWeight() {
+        return (this.data.details || []).reduce((acc, cur) => acc += cur.netNetWeight, 0);
     }
 
     get addDetails() {
@@ -170,7 +160,8 @@ export class Item {
             }
 
             this.data.details.push({
-                carton1: lastDetail ? lastDetail.carton2 + 1 : 0
+                carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+                sizes: []
             });
         };
     }

@@ -138,6 +138,7 @@ export class List {
     // this.isSearch = true;
     // this.tableList.refresh();
     let unitSummary = [];
+    let currencySummary = [];
 
     let arg = {
       categoryId: this.category ? this.category._id : 0,
@@ -161,10 +162,12 @@ export class List {
           });
 
       if (result && result.CurrencySummaries.length > 0)
-        this.currencySummary = result.CurrencySummaries.map((data) => ({
-          CurrencyCode: data.CurrencyCode,
-          Total: numeral(data.SubTotal).format("0,000.00"),
-        }));
+        result.CurrencySummaries.map((data) =>
+          currencySummary.push({
+            CurrencyCode: data.CurrencyCode,
+            Total: numeral(data.SubTotal).format("0,000.00"),
+          })
+        );
 
       let viewDataSet = [];
       let categoryDataSet = [];
@@ -229,9 +232,12 @@ export class List {
 
       this.isEmpty = dataCount > 0 ? false : true;
       this.unitSummary = unitSummary;
+      this.currencySummary = currencySummary;
       return viewDataSet;
     });
     // console.log(this.data);
+    // console.log("uni", this.unitSummary);
+    // console.log("cur", this.currencySummary);
   }
 
   reset() {
