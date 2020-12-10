@@ -13,8 +13,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@master
-
+    - uses: actions/checkout@v2.3.1
+      with:
+          persist-credentials: false
+          
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
@@ -37,4 +39,4 @@ jobs:
         # Allows you to speicfy a different repository path so long as you have permissions to push to it. This should be formatted like so: JamesIves/github-pages-deploy-action
         REPOSITORY_NAME: danliris/danliris.github.io
         # Depending on the repository permissions you may need to provide the action with a GitHub personal access token instead of the provided GitHub token in order to deploy. This should be stored as a secret.
-        ACCESS_TOKEN: ${{ secrets.GithubPages }}
+        GITHUB_TOKEN: ${{ secrets.GithubPages }}
