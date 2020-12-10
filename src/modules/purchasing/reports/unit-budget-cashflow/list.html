@@ -64,9 +64,11 @@
       display: none;
     }
   </style>
+
   <au-input-form title="Budget Cashflow Unit" options.bind="formOptions">
     <au-autocomplete
       value.bind="unit"
+      error.bind="error.unit"
       label="Unit"
       loader.bind="unitLoader"
       text="Name"
@@ -77,6 +79,7 @@
     <au-datepicker
       label="Periode"
       value.bind="dueDate"
+      error.bind="error.dueDate"
       options.bind="controlOptions"
     >
     </au-datepicker>
