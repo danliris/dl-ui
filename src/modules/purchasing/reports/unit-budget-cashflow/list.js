@@ -34,13 +34,6 @@ export class List {
     },
   };
 
-  // tableOptions = {
-  //   pagination: false,
-  //   showColumns: false,
-  //   search: false,
-  //   showToggle: false,
-  // };
-
   collection = {
     columns: [
       "Mata Uang",
@@ -145,7 +138,6 @@ export class List {
 
   bind() {
     this.data = {};
-    // this.reset();
   }
 
   async search() {
@@ -202,7 +194,6 @@ export class List {
           return response.data;
         });
 
-        // console.log("arr", bestCases);
         bestCases = [].concat.apply([], bestCases);
 
         let currencyPromises = [];
@@ -351,22 +342,17 @@ export class List {
 
       const modifiedJoined = [];
       joined.map((item) => {
-        const newBestCaseNominal =
+        const bestCaseActual =
           item && item.Currency && item.Currency.Code !== "IDR"
-            ? 0
+            ? item.BestCaseCurrencyNominal
             : item.BestCaseNominal;
-        const newNominal =
-          item && item.Currency && item.Currency.Code !== "IDR"
-            ? 0
-            : item.Nominal;
 
         const modifiedItem =
           typeof item === "string"
             ? item
             : {
                 ...item,
-                newBestCaseNominal,
-                newNominal,
+                bestCaseActual,
               };
 
         modifiedJoined.push(modifiedItem);
@@ -432,7 +418,7 @@ export class List {
         faRowSpan: faciRowSpan + facoRowSpan,
       };
 
-      console.log("this.data.Items", this.data.Items);
+      // console.log("this.data.Items", this.data.Items);
       // console.log(this.calRowSpan);
       // console.log("this.rowSpan", this.rowSpan);
     }
