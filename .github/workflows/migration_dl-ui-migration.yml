@@ -21,11 +21,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.13.0'
-        
-    - name: Install rsync
-      run: |
-        apt-get update && apt-get install -y rsync
-
+    
     - name: npm install, build, and test
       run: |
         npm install
