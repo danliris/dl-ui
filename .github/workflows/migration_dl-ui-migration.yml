@@ -21,6 +21,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.13.0'
+        
+    - name: Install rsync
+      run: |
+        apt-get update && apt-get install -y rsync
 
     - name: npm install, build, and test
       run: |
@@ -39,4 +43,4 @@ jobs:
         # Allows you to speicfy a different repository path so long as you have permissions to push to it. This should be formatted like so: JamesIves/github-pages-deploy-action
         REPOSITORY_NAME: danliris/danliris.github.io
         # Depending on the repository permissions you may need to provide the action with a GitHub personal access token instead of the provided GitHub token in order to deploy. This should be stored as a secret.
-        GITHUB_TOKEN: ${{ secrets.GithubPages }}
+        ACCESS_TOKEN: ${{ secrets.GithubPages }}
