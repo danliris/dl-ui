@@ -17,7 +17,7 @@ export class List {
     this.division = "";
     this.dueDate = null;
     this.isEmpty = false; // Default is set to false
-    this.isEdit = false;
+    // this.isEdit = false;
     this.collectionOptions = {
       readOnly: true,
     };
@@ -423,13 +423,6 @@ export class List {
     this.dueDate = null;
     this.isShown = false;
   }
-
-  // edit() {
-  //   this.collectionOptions = {
-  //     readOnly: false,
-  //   };
-  //   this.ItemsCollection.bind();
-  // }
 
   get divisionLoader() {
     return DivisionLoader;
