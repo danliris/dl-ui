@@ -180,19 +180,29 @@ export class Detail {
         this.context.context.options.header.grossWeight += detail.grossWeight;
       }
     }
+
+    this.context.context.options.item.avG_GW = 0;
+    for (const detail of this.context.context.options.item.details) {
+      this.context.context.options.item.avG_GW += detail.grossWeight;
+    }
   }
 
   netWeightChanged(newValue) {
     this.data.netWeight = newValue;
-    this.updateNetWeight();
+    this.updateNettWeight();
   }
 
-  updateNetWeight() {
-    this.context.context.options.header.netWeight = 0;
+  updateNettWeight() {
+    this.context.context.options.header.nettWeight = 0;
     for (const item of this.context.context.options.header.items) {
       for (const detail of item.details) {
-        this.context.context.options.header.netWeight += detail.netWeight;
+        this.context.context.options.header.nettWeight += detail.netWeight;
       }
+    }
+
+    this.context.context.options.item.avG_NW = 0;
+    for (const detail of this.context.context.options.item.details) {
+      this.context.context.options.item.avG_NW += detail.netWeight;
     }
   }
 

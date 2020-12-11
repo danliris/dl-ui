@@ -72,7 +72,8 @@ export class Item {
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
-            header: context.context.options.header
+            header: context.context.options.header,
+            item: this.data
         };
         if (this.data.roNo) {
             this.selectedRO = {
@@ -145,7 +146,8 @@ export class Item {
             }
 
             this.data.details.push({
-                carton1: lastDetail ? lastDetail.carton2 + 1 : 0
+                carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+                sizes: []
             });
         };
     }
@@ -189,14 +191,14 @@ export class Item {
     }
 
   get subGrossWeight() {
-    return this.data.details.reduce((acc, cur) => acc += cur.grossWeight, 0);
+    return (this.data.details || []).reduce((acc, cur) => acc += cur.grossWeight, 0);
   }
 
   get subNetWeight() {
-    return this.data.details.reduce((acc, cur) => acc += cur.netWeight, 0);
+    return (this.data.details || []).reduce((acc, cur) => acc += cur.netWeight, 0);
   }
 
   get subNetNetWeight() {
-    return this.data.details.reduce((acc, cur) => acc += cur.netNetWeight, 0);
+    return (this.data.details || []).reduce((acc, cur) => acc += cur.netNetWeight, 0);
   }
 }
