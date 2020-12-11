@@ -41,7 +41,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Status: "APPROVED_SHIPPING" })
+            filter : JSON.stringify({ "(Status == \"APPROVED_SHIPPING\" || Status == \"DELIVERED\")": true })
         }
 
         return this.service.search(arg)
