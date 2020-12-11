@@ -67,15 +67,15 @@ export class DataForm {
             
         }
         if(this.data.PackingListId){
-            this.manual=false;
             this.selectedInvoice={
                 invoiceNo:this.data.Invoice,
                 id:this.data.PackingListId
             }
+           // this.manual=false;
         }
-        else{
-            this.manual=true;
-        }
+        // else{
+        //     this.manual=true;
+        // }
     }
 
     unitView = (unit) => {
@@ -360,7 +360,6 @@ export class DataForm {
         }
     }
     manualChanged(newValue){
-        console.log(newValue)
         if(!this.readOnly){
             if(this.context.selectedInvoiceViewModel)
                 this.context.selectedInvoiceViewModel.editorValue = "";

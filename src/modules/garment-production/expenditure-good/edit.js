@@ -40,11 +40,11 @@ export class View {
             }
         }
         if(this.data.PackingListId){
+            // this.selectedInvoice={
+            //     invoiceNo:this.data.Invoice,
+            //     id:this.data.PackingListId
+            // }
             this.manual=false;
-            this.selectedInvoice={
-                invoiceNo:this.data.Invoice,
-                id:this.data.PackingListId
-            }
         }
         else{
             this.manual=true;
