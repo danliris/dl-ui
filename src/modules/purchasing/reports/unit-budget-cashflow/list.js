@@ -3,10 +3,8 @@ import { Service } from "./service";
 import { CurrencyService } from "./currency-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import numeral from "numeral";
 
 var UnitLoader = require("../../../../loader/unit-loader");
-var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
 
 @inject(Router, Service, CurrencyService)
 export class List {
@@ -36,13 +34,13 @@ export class List {
 
   collection = {
     columns: [
-      "Mata Uang",
-      "Nominal Valas (Best Case)",
-      "Nominal IDR (Best Case)",
-      "Actual IDR (Best Case)",
-      "Nominal Valas (Worst Case)",
-      "Nominal IDR (Worst Case)",
-      "Actual IDR (Worst Case)",
+      "MATA UANG",
+      "NOMINAL VALAS (BEST CASE)",
+      "NOMINAL IDR (BEST CASE)",
+      "ACTUAL IDR (BEST CASE)",
+      "NOMINAL VALAS (WORST CASE)",
+      "NOMINAL IDR (WORST CASE)",
+      "ACTUAL IDR (WORST CASE)",
     ],
   };
 
@@ -144,7 +142,6 @@ export class List {
     this.collectionOptions = {
       readOnly: true,
     };
-    // console.log(this.ItemsCollection);
 
     if (this.unit === "" || this.dueDate === null) {
       this.error.unit = "Unit harus diisi";
@@ -195,8 +192,6 @@ export class List {
         });
 
         bestCases = [].concat.apply([], bestCases);
-
-        // console.log(bestCases);
 
         let currencyPromises = [];
         for (let bestCase of bestCases) {
@@ -298,6 +293,23 @@ export class List {
       const bankExpenses = this.data.Items.filter(getItem(84, 84));
       const othersCO = this.data.Items.filter(getItem(85, 87));
 
+      // console.log("Revenue", revenue);
+      // console.log("Revenue from other operating", otherRevenue);
+      // console.log("Cost of Good Sold", cogSold);
+      // console.log("Biaya Penjualan", sellingExpenses);
+      // console.log("General & Administrative Expenses", gaExpenses);
+      // console.log("Biaya umum dan administrasi", generalExpenses);
+      // console.log("Telephone, Fax & Internet", telpExpenses);
+      // console.log("Other Operating Expenses", otherExpenses);
+      // console.log("Deposito & Lain-lain", depoInAndOthers);
+      // console.log("Pembayaran pembelian asset tetap", assetTetap);
+      // console.log("Cash Out Deposito", depoOut);
+      // console.log("Loan Withdrawal", loanWithdrawal);
+      // console.log("Others Cash In", othersCI);
+      // console.log("Loan Installment and Interest expense", loanInstallment);
+      // console.log("Bank Expenses", bankExpenses);
+      // console.log("Others Cash Out", othersCO);
+
       const joined = [
         "Revenue",
         ...revenue,
@@ -348,46 +360,8 @@ export class List {
         "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
       ];
 
-      // const modifiedJoined = [];
-      // joined.map((item) => {
-      //   const bestCaseActualNominal =
-      //     item && item.Currency && item.Currency.Code !== "IDR"
-      //       ? item.BestCaseCurrencyNominal * item.Currency.Rate
-      //       : item.BestCaseNominal;
-
-      //   const modifiedItem =
-      //     typeof item === "string"
-      //       ? item
-      //       : {
-      //           ...item,
-      //           BestCaseActualNominal: bestCaseActualNominal,
-      //         };
-
-      //   modifiedJoined.push(modifiedItem);
-      // });
-
-      // console.log("Revenue", revenue);
-      // console.log("Revenue from other operating", otherRevenue);
-      // console.log("Cost of Good Sold", cogSold);
-      // console.log("Biaya Penjualan", sellingExpenses);
-      // console.log("General & Administrative Expenses", gaExpenses);
-      // console.log("Biaya umum dan administrasi", generalExpenses);
-      // console.log("Telephone, Fax & Internet", telpExpenses);
-      // console.log("Other Operating Expenses", otherExpenses);
-      // console.log("Deposito & Lain-lain", depoInAndOthers);
-      // console.log("Pembayaran pembelian asset tetap", assetTetap);
-      // console.log("Cash Out Deposito", depoOut);
-      // console.log("Loan Withdrawal", loanWithdrawal);
-      // console.log("Others Cash In", othersCI);
-      // console.log("Loan Installment and Interest expense", loanInstallment);
-      // console.log("Bank Expenses", bankExpenses);
-      // console.log("Others Cash Out", othersCO);
-
       this.isEmpty = this.data.Items.length !== 0 ? false : true;
-      // this.data.Items = modifiedJoined;
       this.data.Items = joined;
-
-      // console.log(joined);
 
       const itemsNoString = this.data.Items.filter(
         (item) => typeof item !== "string"
@@ -411,11 +385,11 @@ export class List {
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
       const oaciRowSpan = rowSpanArr.slice(0, 8).reduce(reducer, 3);
-      const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 8);
+      const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 7);
       const iaciRowSpan = rowSpanArr.slice(67, 69).reduce(reducer, 2);
-      const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 3);
+      const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 2);
       const faciRowSpan = rowSpanArr.slice(76, 81).reduce(reducer, 3);
-      const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 5);
+      const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 4);
 
       this.calRowSpan = {
         oaciRowSpan,
@@ -424,14 +398,10 @@ export class List {
         iacoRowSpan,
         faciRowSpan,
         facoRowSpan,
-        oaRowSpan: oaciRowSpan + oacoRowSpan,
-        iaRowSpan: iaciRowSpan + iacoRowSpan,
-        faRowSpan: faciRowSpan + facoRowSpan,
+        oaRowSpan: oaciRowSpan + oacoRowSpan + 1,
+        iaRowSpan: iaciRowSpan + iacoRowSpan + 1,
+        faRowSpan: faciRowSpan + facoRowSpan + 1,
       };
-
-      // console.log("this.data.Items", this.data.Items);
-      // console.log(this.calRowSpan);
-      // console.log("this.rowSpan", this.rowSpan);
     }
   }
 
@@ -459,7 +429,7 @@ export class List {
         }, 50);
 
         this.data.Items = tempDataItems;
-        alert("Data berhasil disimpan!");
+        alert("Data berhasil disimpan.");
       })
       .catch((e) => {
         this.data.Items = tempDataItems;
