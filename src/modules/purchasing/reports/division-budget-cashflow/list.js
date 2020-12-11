@@ -3,7 +3,6 @@ import { Service } from "./service";
 import { CoreService } from "./core-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import numeral from "numeral";
 
 let DivisionLoader = require("../../../../loader/division-loader");
 
