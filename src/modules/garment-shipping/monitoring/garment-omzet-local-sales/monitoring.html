@@ -23,6 +23,7 @@
                     <th class="text-center">Tgl Nota</th>
                     <th class="text-center">Kode Buyer</th>
                     <th class="text-center">Nama Buyer</th>
+                    <th class="text-center">Nama Buyer</th>
                     <th class="text-center">Kode Barang</th>
                     <th class="text-center">Nama Barang</th>
                     <th class="text-center">Quantity</th>
@@ -41,6 +42,7 @@
                         <td>${data.lsDate}</td>
                         <td>${data.buyerCode}</td>
                         <td>${data.buyerName}</td>
+                        <td>${data.kaberType}</td>      
                         <td>${data.productCode}</td>
                         <td>${data.productName}</td>
                         <td class="text-right"><strong>${data.quantity}</strong></td>
@@ -52,7 +54,7 @@
                     </tr>
                     <tr class="active">
                         <td class="text-center">Nomor Nota :</td>
-                        <td colspan="3"><strong>${buyer.buyer}</strong></td>
+                        <td colspan="4"><strong>${buyer.buyer}</strong></td>
                         <td class="text-center" colspan="3"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal3}</strong></td>
                         <td class="text-right"><strong>.</strong></td>
@@ -63,7 +65,7 @@
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="7"><strong>G R A N D . . T O T A L  . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="8"><strong>G R A N D . . T O T A L  . . . . . . . . . . . . . . .</strong></td>
                         <td class="text-right"><strong>${TotQty}</strong></td>
                         <td class="text-right"><strong>.</strong></td>
                         <td class="text-right"><strong>.</strong></td>

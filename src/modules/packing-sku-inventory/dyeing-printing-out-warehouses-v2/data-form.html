@@ -43,9 +43,10 @@
       <br>
       <au-collection columns.bind="itemColumns" view-model.ref="ItemsCollection"
         items.bind="data.displayWarehousesProductionOrders" errors.one-way="error.WarehousesProductionOrders"
-        options.bind="detailOptions" read-only.bind="readOnly"
+        options.bind="detailOptions" read-only.bind="readOnly" 
         header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/item-header"
-        item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/item">
+        item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/item"
+        >
 
       </au-collection>
     </div>

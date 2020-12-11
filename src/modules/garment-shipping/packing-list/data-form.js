@@ -205,7 +205,8 @@ export class DataForm {
         return (event) => {
             this.data.items.push({
                 SectionFilter: this.data.section.Code || this.data.section.code,
-                BuyerCodeFilter: this.data.buyerAgent.Code || this.data.buyerAgent.code
+                BuyerCodeFilter: this.data.buyerAgent.Code || this.data.buyerAgent.code,
+                details: []
             });
         };
     }

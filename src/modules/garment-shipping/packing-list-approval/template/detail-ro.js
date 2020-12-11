@@ -28,6 +28,9 @@ export class Item {
         { header: "Jml Carton" },
         { header: "Qty" },
         { header: "Total Qty" },
+        { header: "GW" },
+        { header: "NW" },
+        { header: "NNW" },
         { header: "" },
     ];
 
@@ -136,5 +139,17 @@ export class Item {
             this.data.amount = this.data.quantity * this.data.priceFOB
         }
         return this.data.amount;
+    }
+
+    get subGrossWeight() {
+      return this.data.details.reduce((acc, cur) => acc += cur.grossWeight, 0);
+    }
+  
+    get subNetWeight() {
+      return this.data.details.reduce((acc, cur) => acc += cur.netWeight, 0);
+    }
+  
+    get subNetNetWeight() {
+      return this.data.details.reduce((acc, cur) => acc += cur.netNetWeight, 0);
     }
 }

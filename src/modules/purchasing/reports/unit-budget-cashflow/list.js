@@ -34,13 +34,6 @@ export class List {
     },
   };
 
-  // tableOptions = {
-  //   pagination: false,
-  //   showColumns: false,
-  //   search: false,
-  //   showToggle: false,
-  // };
-
   collection = {
     columns: [
       "Mata Uang",
@@ -145,7 +138,6 @@ export class List {
 
   bind() {
     this.data = {};
-    // this.reset();
   }
 
   async search() {
@@ -202,8 +194,9 @@ export class List {
           return response.data;
         });
 
-        // console.log("arr", bestCases);
         bestCases = [].concat.apply([], bestCases);
+
+        // console.log(bestCases);
 
         let currencyPromises = [];
         for (let bestCase of bestCases) {
@@ -237,8 +230,10 @@ export class List {
                 Currency: currency,
                 BestCaseCurrencyNominal: bestCase.CurrencyNominal,
                 BestCaseNominal: bestCase.Nominal,
+                BestCaseActualNominal: bestCase.ActualNominal,
                 CurrencyNominal: worstCase.CurrencyNominal,
                 Nominal: worstCase.Nominal,
+                ActualNominal: worstCase.ActualNominal,
                 LayoutOrder: bestCase.LayoutOrder,
                 LayoutName: bestCase.LayoutName,
                 IsHasBestCase: true,
@@ -250,8 +245,10 @@ export class List {
                   Currency: currency,
                   BestCaseCurrencyNominal: bestCase.CurrencyNominal,
                   BestCaseNominal: bestCase.Nominal,
+                  BestCaseActualNominal: bestCase.ActualNominal,
                   CurrencyNominal: 0,
                   Nominal: 0,
+                  ActualNominal: 0,
                   LayoutOrder: bestCase.LayoutOrder,
                   LayoutName: bestCase.LayoutName,
                   IsHasBestCase: true,
@@ -262,8 +259,10 @@ export class List {
                   Currency: currency,
                   BestCaseCurrencyNominal: bestCase.CurrencyNominal,
                   BestCaseNominal: bestCase.Nominal,
+                  BestCaseActualNominal: bestCase.ActualNominal,
                   CurrencyNominal: 0,
                   Nominal: 0,
+                  ActualNominal: 0,
                   LayoutOrder: bestCase.LayoutOrder,
                   LayoutName: bestCase.LayoutName,
                   IsHasBestCase: false,
@@ -349,28 +348,23 @@ export class List {
         "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
       ];
 
-      const modifiedJoined = [];
-      joined.map((item) => {
-        const newBestCaseNominal =
-          item && item.Currency && item.Currency.Code !== "IDR"
-            ? 0
-            : item.BestCaseNominal;
-        const newNominal =
-          item && item.Currency && item.Currency.Code !== "IDR"
-            ? 0
-            : item.Nominal;
+      // const modifiedJoined = [];
+      // joined.map((item) => {
+      //   const bestCaseActualNominal =
+      //     item && item.Currency && item.Currency.Code !== "IDR"
+      //       ? item.BestCaseCurrencyNominal * item.Currency.Rate
+      //       : item.BestCaseNominal;
 
-        const modifiedItem =
-          typeof item === "string"
-            ? item
-            : {
-                ...item,
-                newBestCaseNominal,
-                newNominal,
-              };
+      //   const modifiedItem =
+      //     typeof item === "string"
+      //       ? item
+      //       : {
+      //           ...item,
+      //           BestCaseActualNominal: bestCaseActualNominal,
+      //         };
 
-        modifiedJoined.push(modifiedItem);
-      });
+      //   modifiedJoined.push(modifiedItem);
+      // });
 
       // console.log("Revenue", revenue);
       // console.log("Revenue from other operating", otherRevenue);
@@ -390,7 +384,10 @@ export class List {
       // console.log("Others Cash Out", othersCO);
 
       this.isEmpty = this.data.Items.length !== 0 ? false : true;
-      this.data.Items = modifiedJoined;
+      // this.data.Items = modifiedJoined;
+      this.data.Items = joined;
+
+      // console.log(joined);
 
       const itemsNoString = this.data.Items.filter(
         (item) => typeof item !== "string"
@@ -432,7 +429,7 @@ export class List {
         faRowSpan: faciRowSpan + facoRowSpan,
       };
 
-      console.log("this.data.Items", this.data.Items);
+      // console.log("this.data.Items", this.data.Items);
       // console.log(this.calRowSpan);
       // console.log("this.rowSpan", this.rowSpan);
     }
@@ -465,6 +462,7 @@ export class List {
         alert("Data berhasil disimpan!");
       })
       .catch((e) => {
+        this.data.Items = tempDataItems;
         alert("Terjadi kesalahan.");
       });
   }
