@@ -111,7 +111,7 @@ export class DataForm {
 
   @computedFrom("data.Id")
   get isEdit() {
-    return (this.data ? this.data.Id : "" || '').toString() != '';
+    return ((this.data ? this.data.Id : "") || '').toString() != '';
   }
 
   @computedFrom("data.ProcessType")
