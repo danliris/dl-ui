@@ -1,13 +1,8 @@
 <template>
-  <tr>
-    <!-- <td>
-            <au-textbox
-                value.bind="data.LayoutName"
-                read-only.bind="true">
-            </au-textbox>
-        </td> -->
-    <td repeat.for="prop of data | objectKeys">
-      ${prop}
-    </td>
+  <tr if.bind="!isObject">
+    <td colspan="13"></td>
+  </tr>
+  <tr if.bind="isObject">
+    <td repeat.for="prop of data | objectKeys">${prop}</td>
   </tr>
 </template>
