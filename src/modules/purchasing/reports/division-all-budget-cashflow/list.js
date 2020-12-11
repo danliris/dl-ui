@@ -224,8 +224,9 @@ export class List {
           for (let unit of units) {
             columns.push(`Nominal Valas ${unit.Name}`);
             columns.push(`Nominal IDR ${unit.Name}`);
-            columns.push(`Nominal Actual ${unit.Name}`);
+            // columns.push(`Nominal Actual ${unit.Name}`);
           }
+          columns.push(`Actual`);
 
           let rows = [];
           for (let datum of layoutOrderData) {
@@ -239,6 +240,8 @@ export class List {
             } else {
               row.CurrencyCode = "";
             }
+
+            let actualNominal = 0;
             for (let unit of units) {
               let filteredDatum = data.find(
                 (f) =>
@@ -251,14 +254,14 @@ export class List {
                 row[`${unit.Code}CurrencyNominal`] =
                   filteredDatum.CurrencyNominal;
                 row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
-                row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
+                // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
               } else {
                 row[`${unit.Code}CurrencyNominal`] = 0;
                 row[`${unit.Code}Nominal`] = 0;
-                row[`${unit.Code}ActualNominal`] = 0;
+                // row[`${unit.Code}ActualNominal`] = 0;
               }
             }
-
+            row.actualNominal = actualNominal;
             rows.push(row);
           }
 

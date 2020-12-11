@@ -8,7 +8,7 @@ export class Item {
       this.readOnly = context.context.options.readOnly;
     }
 
-    // console.log(context);
+    console.log(context);
   }
 }
 
