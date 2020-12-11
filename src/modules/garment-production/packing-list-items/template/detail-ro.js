@@ -85,7 +85,8 @@ export class Item {
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
-            header: context.context.options.header
+            header: context.context.options.header,
+            item: this.data,
         };
         if (this.data.roNo) {
             this.selectedRO = {
