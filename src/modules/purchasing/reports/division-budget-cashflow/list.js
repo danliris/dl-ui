@@ -1,24 +1,23 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
-import { CurrencyService } from "./currency-service";
+import { CoreService } from "./core-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 import numeral from "numeral";
 
-var UnitLoader = require("../../../../loader/unit-loader");
-var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
+let DivisionLoader = require("../../../../loader/division-loader");
 
-@inject(Router, Service, CurrencyService)
+@inject(Router, Service, CoreService)
 export class List {
-  constructor(router, service, currencyService) {
+  constructor(router, service, coreService) {
     this.service = service;
     this.router = router;
-    this.currencyService = currencyService;
+    this.coreService = coreService;
     this.error = {};
-    this.unit = "";
+    this.division = "";
     this.dueDate = null;
-    this.isEmpty = true;
-    this.isEdit = false;
+    this.isEmpty = false; // Default is set to false
+    // this.isEdit = false;
     this.collectionOptions = {
       readOnly: true,
     };
@@ -34,17 +33,8 @@ export class List {
     },
   };
 
-  collection = {
-    columns: [
-      "Mata Uang",
-      "Nominal Valas (Best Case)",
-      "Nominal IDR (Best Case)",
-      "Actual IDR (Best Case)",
-      "Nominal Valas (Worst Case)",
-      "Nominal IDR (Worst Case)",
-      "Actual IDR (Worst Case)",
-    ],
-  };
+  columns = [];
+  rows = [];
 
   enums = [
     "ExportSales",
@@ -140,23 +130,25 @@ export class List {
     this.data = {};
   }
 
+  isShown = false;
   async search() {
+    this.isShown = false;
     this.collectionOptions = {
       readOnly: true,
     };
     // console.log(this.ItemsCollection);
 
-    if (this.unit === "" || this.dueDate === null) {
-      this.error.unit = "Unit harus diisi";
+    if (this.division === "" || this.dueDate === null) {
+      this.error.division = "Divisi harus diisi";
       this.error.dueDate = "Periode harus diisi";
     } else {
-      this.error.unit = "";
+      this.error.division = "";
       this.error.dueDate = "";
 
-      let unitId = 0;
-      if (this.unit && this.unit.Id) {
-        unitId = this.unit.Id;
-        this.data.UnitId = this.unit.Id;
+      let divisionId = 0;
+      if (this.division && this.division.Id) {
+        divisionId = this.division.Id;
+        this.data.DivisionId = this.division.Id;
       }
 
       let dueDate = this.dueDate
@@ -165,130 +157,150 @@ export class List {
 
       this.data.DueDate = dueDate;
 
-      let bestCasePromises = this.enums.map((enumItem, index) => {
+      let divisionPromises = this.enums.map((enumItem, index) => {
         return this.service
-          .getBestCase({
+          .getDivision({
             layoutOrder: index + 1,
-            unitId: unitId,
+            divisionId: divisionId,
             dueDate: dueDate,
           })
-          .then((bestCases) => {
-            return bestCases;
+          .then((divisions) => {
+            return divisions;
           });
       });
 
-      let worstCaseResult = await this.service
-        .getWorstCase({ unitId: unitId, dueDate: dueDate })
-        .then((worstCases) => {
-          return worstCases;
-        });
+      await Promise.all(divisionPromises).then((divisionPromiseResult) => {
+        let divisionResult = divisionPromiseResult;
 
-      await Promise.all(bestCasePromises).then((bestCasePromiseResult) => {
-        let bestCaseResult = bestCasePromiseResult;
+        let unitIds = [];
+        let layoutOrderData = [];
+        let currencyIds = [];
+        let data = [];
 
-        let bestCases = bestCaseResult.map((response) => {
-          if (!response.data || response.data.length <= 0) {
-            response.data = [{}];
+        for (let response of divisionResult) {
+          for (let unitId of response.data.UnitIds) {
+            let existingUnitId = unitIds.find((id) => id == unitId);
+            if (!existingUnitId && unitId > 0) {
+              unitIds.push(unitId);
+            }
           }
 
-          return response.data;
-        });
-
-        bestCases = [].concat.apply([], bestCases);
-
-        let currencyPromises = [];
-        for (let bestCase of bestCases) {
-          if (bestCase.CurrencyId && bestCase.CurrencyId > 0) {
-            currencyPromises.push(
-              this.currencyService.getById(bestCase.CurrencyId)
+          for (let item of response.data.Items) {
+            let existingLayoutOrderData = layoutOrderData.find(
+              (datum) =>
+                datum.LayoutOrder == item.LayoutOrder &&
+                datum.CurrencyId == item.CurrencyId
             );
+            if (!existingLayoutOrderData) {
+              layoutOrderData.push({
+                LayoutOrder: item.LayoutOrder,
+                CurrencyId: item.CurrencyId,
+              });
+            }
+
+            let existingCurrencyId = currencyIds.find(
+              (id) => item.CurrencyId == id
+            );
+            if (!existingCurrencyId && item.CurrencyId > 0) {
+              currencyIds.push(item.CurrencyId);
+            }
+
+            data.push(item);
           }
         }
 
-        return Promise.all(currencyPromises).then((currencyPromiseResult) => {
-          let worstCases = [];
-          let currencies = currencyPromiseResult;
-          if (worstCaseResult) worstCases = worstCaseResult.data;
+        let unitPromises = unitIds.map((id) =>
+          this.coreService.getUnitById(id)
+        );
+        let currencyPromises = currencyIds.map((id) =>
+          this.coreService.getCurrencyById(id)
+        );
 
-          // ini data yang akan di submit
-          this.data.Items = [];
-          for (let bestCase of bestCases) {
-            let worstCase = worstCases.find(
-              (wc) =>
-                wc.LayoutOrder == bestCase.LayoutOrder &&
-                wc.CurrencyId == bestCase.CurrencyId
-            );
-            let currency = currencies.find(
-              (c) => c && c.Id == bestCase.CurrencyId
-            );
+        return Promise.all([
+          Promise.all(unitPromises),
+          Promise.all(currencyPromises),
+        ]).then((promiseResult) => {
+          let units = promiseResult[0];
+          let currencies = promiseResult[1];
 
-            if (worstCase) {
-              this.data.Items.push({
-                CurrencyId: bestCase.CurrencyId,
-                Currency: currency,
-                BestCaseCurrencyNominal: bestCase.CurrencyNominal,
-                BestCaseNominal: bestCase.Nominal,
-                CurrencyNominal: worstCase.CurrencyNominal,
-                Nominal: worstCase.Nominal,
-                LayoutOrder: bestCase.LayoutOrder,
-                LayoutName: bestCase.LayoutName,
-                IsHasBestCase: true,
-              });
+          let columns = ["Mata Uang"];
+
+          for (let unit of units) {
+            columns.push(`Nominal Valas ${unit.Name}`);
+            columns.push(`Nominal IDR ${unit.Name}`);
+            columns.push(`Nominal Actual ${unit.Name}`);
+          }
+
+          let rows = [];
+          for (let datum of layoutOrderData) {
+            let currency = currencies.find((f) => f.Id == datum.CurrencyId);
+
+            let row = Object.create({});
+            row.LayoutOrder = datum.LayoutOrder;
+
+            if (currency) {
+              row.CurrencyCode = currency.Code;
             } else {
-              if (bestCase.LayoutOrder > 0) {
-                this.data.Items.push({
-                  CurrencyId: bestCase.CurrencyId,
-                  Currency: currency,
-                  BestCaseCurrencyNominal: bestCase.CurrencyNominal,
-                  BestCaseNominal: bestCase.Nominal,
-                  CurrencyNominal: 0,
-                  Nominal: 0,
-                  LayoutOrder: bestCase.LayoutOrder,
-                  LayoutName: bestCase.LayoutName,
-                  IsHasBestCase: true,
-                });
+              row.CurrencyCode = "";
+            }
+            for (let unit of units) {
+              let filteredDatum = data.find(
+                (f) =>
+                  f.LayoutOrder == datum.LayoutOrder &&
+                  f.CurrencyId == datum.CurrencyId &&
+                  f.UnitId == unit.Id
+              );
+
+              if (filteredDatum) {
+                row[`${unit.Code}CurrencyNominal`] =
+                  filteredDatum.CurrencyNominal;
+                row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
+                row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
               } else {
-                this.data.Items.push({
-                  CurrencyId: bestCase.CurrencyId,
-                  Currency: currency,
-                  BestCaseCurrencyNominal: bestCase.CurrencyNominal,
-                  BestCaseNominal: bestCase.Nominal,
-                  CurrencyNominal: 0,
-                  Nominal: 0,
-                  LayoutOrder: bestCase.LayoutOrder,
-                  LayoutName: bestCase.LayoutName,
-                  IsHasBestCase: false,
-                });
+                row[`${unit.Code}CurrencyNominal`] = 0;
+                row[`${unit.Code}Nominal`] = 0;
+                row[`${unit.Code}ActualNominal`] = 0;
               }
             }
+
+            rows.push(row);
           }
+
+          this.columns = columns;
+          this.rows = rows;
         });
       });
+
+      this.isShown = true;
+
+      setTimeout(() => {
+        this.ItemsCollection.bind();
+      }, 50);
 
       const getItem = (min, max) => (item) =>
         item.LayoutOrder >= min && item.LayoutOrder <= max;
 
       // OPERATING ACTIVITIES
-      const revenue = this.data.Items.filter(getItem(1, 6));
-      const otherRevenue = this.data.Items.filter(getItem(7, 8));
-      const cogSold = this.data.Items.filter(getItem(9, 28));
-      const sellingExpenses = this.data.Items.filter(getItem(29, 41));
-      const gaExpenses = this.data.Items.filter(getItem(42, 43));
-      const generalExpenses = this.data.Items.filter(getItem(44, 65));
-      const telpExpenses = this.data.Items.filter(getItem(66, 66));
-      const otherExpenses = this.data.Items.filter(getItem(67, 67));
+      const revenue = this.rows.filter(getItem(1, 6));
+      const otherRevenue = this.rows.filter(getItem(7, 8));
+      const cogSold = this.rows.filter(getItem(9, 28));
+      const sellingExpenses = this.rows.filter(getItem(29, 41));
+      const gaExpenses = this.rows.filter(getItem(42, 43));
+      const generalExpenses = this.rows.filter(getItem(44, 65));
+      const telpExpenses = this.rows.filter(getItem(66, 66));
+      const otherExpenses = this.rows.filter(getItem(67, 67));
 
       // INVESTING ACTIVITIES
-      const depoInAndOthers = this.data.Items.filter(getItem(68, 69));
-      const assetTetap = this.data.Items.filter(getItem(70, 75));
-      const depoOut = this.data.Items.filter(getItem(76, 76));
+      const depoInAndOthers = this.rows.filter(getItem(68, 69));
+      const assetTetap = this.rows.filter(getItem(70, 75));
+      const depoOut = this.rows.filter(getItem(76, 76));
 
       // FINANCING ACTIVITIES
-      const loanWithdrawal = this.data.Items.filter(getItem(77, 77));
-      const othersCI = this.data.Items.filter(getItem(78, 81));
-      const loanInstallment = this.data.Items.filter(getItem(82, 83));
-      const bankExpenses = this.data.Items.filter(getItem(84, 84));
-      const othersCO = this.data.Items.filter(getItem(85, 87));
+      const loanWithdrawal = this.rows.filter(getItem(77, 77));
+      const othersCI = this.rows.filter(getItem(78, 81));
+      const loanInstallment = this.rows.filter(getItem(82, 83));
+      const bankExpenses = this.rows.filter(getItem(84, 84));
+      const othersCO = this.rows.filter(getItem(85, 87));
 
       const joined = [
         "Revenue",
@@ -340,24 +352,6 @@ export class List {
         "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
       ];
 
-      const modifiedJoined = [];
-      joined.map((item) => {
-        const bestCaseActual =
-          item && item.Currency && item.Currency.Code !== "IDR"
-            ? item.BestCaseCurrencyNominal
-            : item.BestCaseNominal;
-
-        const modifiedItem =
-          typeof item === "string"
-            ? item
-            : {
-                ...item,
-                bestCaseActual,
-              };
-
-        modifiedJoined.push(modifiedItem);
-      });
-
       // console.log("Revenue", revenue);
       // console.log("Revenue from other operating", otherRevenue);
       // console.log("Cost of Good Sold", cogSold);
@@ -375,10 +369,10 @@ export class List {
       // console.log("Bank Expenses", bankExpenses);
       // console.log("Others Cash Out", othersCO);
 
-      this.isEmpty = this.data.Items.length !== 0 ? false : true;
-      this.data.Items = modifiedJoined;
+      // this.isEmpty = this.rows.length !== 0 ? false : true;
+      this.rows = joined;
 
-      const itemsNoString = this.data.Items.filter(
+      const itemsNoString = this.rows.filter(
         (item) => typeof item !== "string"
       );
 
@@ -418,55 +412,19 @@ export class List {
         faRowSpan: faciRowSpan + facoRowSpan,
       };
 
-      // console.log("this.data.Items", this.data.Items);
-      // console.log(this.calRowSpan);
+      // console.log("this.rows", this.rows);
+      // console.log("this.calRowSpan", this.calRowSpan);
       // console.log("this.rowSpan", this.rowSpan);
     }
   }
 
   reset() {
-    this.unit = "";
+    this.division = null;
     this.dueDate = null;
+    this.isShown = false;
   }
 
-  save() {
-    const tempDataItems = this.data.Items;
-    const newDataItems = this.data.Items.filter(
-      (item) => typeof item !== "string"
-    );
-    this.data.Items = newDataItems;
-    this.service
-      .upsertWorstCase(this.data)
-      .then(() => {
-        this.isEdit = false;
-        this.collectionOptions = {
-          readOnly: true,
-        };
-
-        setTimeout(() => {
-          this.ItemsCollection.bind();
-        }, 50);
-
-        this.data.Items = tempDataItems;
-        alert("Data berhasil disimpan!");
-      })
-      .catch((e) => {
-        alert("Terjadi kesalahan.");
-      });
-  }
-
-  edit() {
-    this.isEdit = true;
-    this.collectionOptions = {
-      readOnly: false,
-    };
-
-    setTimeout(() => {
-      this.ItemsCollection.bind();
-    }, 50);
-  }
-
-  get unitLoader() {
-    return UnitLoader;
+  get divisionLoader() {
+    return DivisionLoader;
   }
 }

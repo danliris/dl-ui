@@ -43,6 +43,7 @@ export class List {
                          
                             buyerCode : data.buyerCode,
                             buyerName : data.buyerName,
+                            kaberType : data.kaberType,
                             productCode : data.productCode,
                             productName : data.productName,
                             quantity : data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
