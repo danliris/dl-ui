@@ -8,6 +8,7 @@ export class Detail {
     @bindable height;
     @bindable grossWeight;
     @bindable netWeight;
+    @bindable netNetWeight;
 
     constructor() {
 
@@ -52,6 +53,7 @@ export class Detail {
 
         this.grossWeight = this.data.grossWeight;
         this.netWeight = this.data.netWeight;
+        this.netNetWeight = this.data.netNetWeight;
     }
 
 
@@ -165,30 +167,44 @@ export class Detail {
     }
 
     grossWeightChanged(newValue) {
-        this.data.grossWeight = newValue;
-        this.updateGrossWeight();
+      this.data.grossWeight = newValue;
+      this.updateGrossWeight();
     }
-
+  
     updateGrossWeight() {
-        this.context.context.options.header.grossWeight = 0;
-        for (const item of this.context.context.options.header.items) {
-            for (const detail of item.details) {
-                this.context.context.options.header.grossWeight += detail.grossWeight;
-            }
+      this.context.context.options.header.grossWeight = 0;
+      for (const item of this.context.context.options.header.items) {
+        for (const detail of item.details) {
+          this.context.context.options.header.grossWeight += detail.grossWeight;
         }
+      }
     }
-
+  
     netWeightChanged(newValue) {
-        this.data.netWeight = newValue;
-        this.updateNettWeight();
+      this.data.netWeight = newValue;
+      this.updateNetWeight();
     }
-
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = 0;
-        for (const item of this.context.context.options.header.items) {
-            for (const detail of item.details) {
-                this.context.context.options.header.nettWeight += detail.netWeight;
-            }
+  
+    updateNetWeight() {
+      this.context.context.options.header.netWeight = 0;
+      for (const item of this.context.context.options.header.items) {
+        for (const detail of item.details) {
+          this.context.context.options.header.netWeight += detail.netWeight;
         }
+      }
+    }
+  
+    netNetWeightChanged(newValue) {
+      this.data.netNetWeight = newValue;
+      this.updateNetNetWeight();
+    }
+  
+    updateNetNetWeight() {
+      this.context.context.options.header.netNetWeight = 0;
+      for (const item of this.context.context.options.header.items) {
+        for (const detail of item.details) {
+          this.context.context.options.header.netNetWeight += detail.netNetWeight;
+        }
+      }
     }
 }
