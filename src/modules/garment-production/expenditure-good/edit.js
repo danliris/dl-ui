@@ -40,10 +40,14 @@ export class View {
             }
         }
         if(this.data.PackingListId){
+            this.manual=false;
             this.selectedInvoice={
                 invoiceNo:this.data.Invoice,
                 id:this.data.PackingListId
             }
+        }
+        else{
+            this.manual=true;
         }
         this.data.Items=items;
         this.data.Items.sort((a, b)=>a.Description.localeCompare( b.Description) || a.Size.Size.localeCompare( b.Size.Size));

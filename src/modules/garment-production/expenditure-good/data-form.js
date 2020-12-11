@@ -19,6 +19,7 @@ export class DataForm {
     @bindable sizes=[];
     @bindable selectedColor;
     @bindable selectedInvoice;
+    @bindable manual;
 
     constructor(service,salesService,purchasingService) {
         this.service = service;
@@ -66,10 +67,14 @@ export class DataForm {
             
         }
         if(this.data.PackingListId){
+            this.manual=false;
             this.selectedInvoice={
                 invoiceNo:this.data.Invoice,
                 id:this.data.PackingListId
             }
+        }
+        else{
+            this.manual=true;
         }
     }
 
@@ -349,5 +354,20 @@ export class DataForm {
             this.data.Invoice= newValue.invoiceNo;
             this.data.PackingListId=newValue.id;
         }
+        else{
+            this.data.Invoice= "";
+            this.data.PackingListId=0;
+        }
+    }
+    manualChanged(newValue){
+        console.log(newValue)
+        if(!this.readOnly){
+            if(this.context.selectedInvoiceViewModel)
+                this.context.selectedInvoiceViewModel.editorValue = "";
+            this.selectedInvoice=null;
+            this.data.Invoice= "";
+            this.data.PackingListId=0;
+        }
+        
     }
 }
