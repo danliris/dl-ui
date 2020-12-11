@@ -40,5 +40,3 @@ jobs:
         REPOSITORY_NAME: danliris/danliris.github.io
         # Depending on the repository permissions you may need to provide the action with a GitHub personal access token instead of the provided GitHub token in order to deploy. This should be stored as a secret.
         ACCESS_TOKEN: ${{ secrets.GithubPages }}
-        # This option can be toggled to true if you'd prefer to have a single commit on the deployment branch instead of maintaining the full history. Using this option will also cause any existing history to be wiped from the deployment branch.
-        SINGLE_COMMIT: true
