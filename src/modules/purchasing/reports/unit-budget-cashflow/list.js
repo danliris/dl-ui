@@ -460,7 +460,7 @@ export class List {
   save() {
     const tempDataItems = this.data.Items;
     const newDataItems = this.data.Items.filter(
-      (item) => typeof item !== "string"
+      (item) => typeof item !== "string" && item.LayoutOrder !== 0
     );
     this.data.Items = newDataItems;
     this.service
