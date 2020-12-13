@@ -7,13 +7,13 @@
                     options.bind="controlOptions">
                 </au-datepicker>
 
-                <au-autocomplete label="Unit" value.bind="data.unit" error.bind="error.Unit" loader.bind="unitLoader"
+                <au-autocomplete label="Unit" value.bind="unit" error.bind="error.unit" loader.bind="unitLoader"
                     text.bind="unitView" placeholder="Unit" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-autocomplete label="Nama Gudang" value.bind="data.storage" error.bind="error.storage"
-                    loader.bind="storageLoader" text.bind="storageView" placeholder="Nama Gudang"
-                    options.bind="controlOptions">
+                    loader.bind="storageLoader" query.bind="storageFilter" text.bind="storageView"
+                    placeholder="Nama Gudang" options.bind="controlOptions" view-model.ref="storageViewModel">
                 </au-autocomplete>
 
             </au-input-form>
