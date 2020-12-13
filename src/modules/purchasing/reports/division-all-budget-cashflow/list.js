@@ -18,6 +18,17 @@ export class List {
       readOnly: true,
     };
     this.rowSpan = {};
+    this.total = {
+      oaci: [],
+      oaco: [],
+      oadiff: [],
+      iaci: [],
+      iaco: [],
+      iadiff: [],
+      faci: [],
+      faco: [],
+      fadiff: [],
+    };
   }
 
   controlOptions = {
@@ -160,6 +171,42 @@ export class List {
           });
       });
 
+      let totalOACI = await this.service
+        .getOACI({ dueDate })
+        .then((result) => result);
+
+      let totalOACO = await this.service
+        .getOACO({ dueDate })
+        .then((result) => result);
+
+      let totalOADiff = await this.service
+        .getOADiff({ dueDate })
+        .then((result) => result);
+
+      let totalIACI = await this.service
+        .getIACI({ dueDate })
+        .then((result) => result);
+
+      let totalIACO = await this.service
+        .getIACO({ dueDate })
+        .then((result) => result);
+
+      let totalIADiff = await this.service
+        .getIADiff({ dueDate })
+        .then((result) => result);
+
+      let totalFACI = await this.service
+        .getFACI({ dueDate })
+        .then((result) => result);
+
+      let totalFACO = await this.service
+        .getFACO({ dueDate })
+        .then((result) => result);
+
+      let totalFADiff = await this.service
+        .getFADiff({ dueDate })
+        .then((result) => result);
+
       await Promise.all(divisionPromises).then((divisionPromiseResult) => {
         let divisionResult = divisionPromiseResult;
 
@@ -222,6 +269,16 @@ export class List {
             // columns.push(`Nominal Actual ${unit.Name}`);
           }
           columns.push(`ACTUAL`);
+
+          this.total.oaci = totalOACI.data;
+          this.total.oaco = totalOACO.data;
+          this.total.oadiff = totalOADiff.data;
+          this.total.iaci = totalIACI.data;
+          this.total.iaco = totalIACO.data;
+          this.total.iadiff = totalIADiff.data;
+          this.total.faci = totalFACI.data;
+          this.total.faco = totalFACO.data;
+          this.total.fadiff = totalFADiff.data;
 
           let rows = [];
           for (let datum of layoutOrderData) {
@@ -294,29 +351,12 @@ export class List {
       const bankExpenses = this.rows.filter(getItem(84, 84));
       const othersCO = this.rows.filter(getItem(85, 87));
 
-      // console.log("Revenue", revenue);
-      // console.log("Revenue from other operating", otherRevenue);
-      // console.log("Cost of Good Sold", cogSold);
-      // console.log("Biaya Penjualan", sellingExpenses);
-      // console.log("General & Administrative Expenses", gaExpenses);
-      // console.log("Biaya umum dan administrasi", generalExpenses);
-      // console.log("Telephone, Fax & Internet", telpExpenses);
-      // console.log("Other Operating Expenses", otherExpenses);
-      // console.log("Deposito & Lain-lain", depoInAndOthers);
-      // console.log("Pembayaran pembelian asset tetap", assetTetap);
-      // console.log("Cash Out Deposito", depoOut);
-      // console.log("Loan Withdrawal", loanWithdrawal);
-      // console.log("Others Cash In", othersCI);
-      // console.log("Loan Installment and Interest expense", loanInstallment);
-      // console.log("Bank Expenses", bankExpenses);
-      // console.log("Others Cash Out", othersCO);
-
       const joined = [
         "Revenue",
         ...revenue,
         "Revenue from other operating",
         ...otherRevenue,
-        "Total",
+        ...this.total.oaci,
         "Cost of Good Sold",
         ...cogSold,
         "Marketing Expenses",
@@ -329,29 +369,29 @@ export class List {
         ...telpExpenses,
         "Other Operating Expenses",
         ...otherExpenses,
-        "Total",
-        "Surplus/Deficit-Cash from Operating Activities",
+        ...this.total.oaco,
+        ...this.total.oadiff,
         "Free space",
         ...depoInAndOthers,
-        "Total",
+        ...this.total.iaci,
         "Pembayaran pembelian asset tetap :",
         ...assetTetap,
         ...depoOut,
-        "Total",
-        "Surplus/Deficit-Cash from Investing Activities",
+        ...this.total.iaco,
+        ...this.total.iadiff,
         "Free space",
         ...loanWithdrawal,
         "Others :",
         ...othersCI,
-        "Total",
+        ...this.total.faci,
         "Loan Installment and Interest expense",
         ...loanInstallment,
         "Bank Expenses",
         ...bankExpenses,
         "Others :",
         ...othersCO,
-        "Total",
-        "Surplus/Deficit-Cash from Financing Activities",
+        ...this.total.faco,
+        ...this.total.fadiff,
         "BEGINNING BALANCE",
         "CASH SURPLUS/DEFICIT",
         "ENDING BALANCE",
@@ -365,7 +405,7 @@ export class List {
       this.rows = joined;
 
       const itemsNoString = this.rows.filter(
-        (item) => typeof item !== "string"
+        (item) => typeof item !== "string" && item.LayoutOrder !== 0
       );
 
       const rowSpan = itemsNoString
@@ -385,12 +425,18 @@ export class List {
       const rowSpanArr = Object.values(rowSpan);
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-      const oaciRowSpan = rowSpanArr.slice(0, 8).reduce(reducer, 3);
-      const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 7);
-      const iaciRowSpan = rowSpanArr.slice(67, 69).reduce(reducer, 2);
-      const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 2);
-      const faciRowSpan = rowSpanArr.slice(76, 81).reduce(reducer, 3);
-      const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 4);
+      const oaciRowSpan =
+        rowSpanArr.slice(0, 8).reduce(reducer, 2) + this.total.oaci.length;
+      const oacoRowSpan =
+        rowSpanArr.slice(8, 67).reduce(reducer, 6) + this.total.oaco.length;
+      const iaciRowSpan =
+        rowSpanArr.slice(67, 69).reduce(reducer, 1) + this.total.iaci.length;
+      const iacoRowSpan =
+        rowSpanArr.slice(69, 76).reduce(reducer, 1) + this.total.iaco.length;
+      const faciRowSpan =
+        rowSpanArr.slice(76, 81).reduce(reducer, 2) + this.total.faci.length;
+      const facoRowSpan =
+        rowSpanArr.slice(81, 87).reduce(reducer, 3) + this.total.faco.length;
 
       this.calRowSpan = {
         oaciRowSpan,
@@ -399,9 +445,9 @@ export class List {
         iacoRowSpan,
         faciRowSpan,
         facoRowSpan,
-        oaRowSpan: oaciRowSpan + oacoRowSpan + 1,
-        iaRowSpan: iaciRowSpan + iacoRowSpan + 1,
-        faRowSpan: faciRowSpan + facoRowSpan + 1,
+        oaRowSpan: oaciRowSpan + oacoRowSpan + this.total.oadiff.length,
+        iaRowSpan: iaciRowSpan + iacoRowSpan + this.total.iadiff.length,
+        faRowSpan: faciRowSpan + facoRowSpan + this.total.fadiff.length,
       };
     }
   }
