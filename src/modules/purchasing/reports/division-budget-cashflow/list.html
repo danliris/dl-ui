@@ -112,6 +112,10 @@
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
     </div>
+    <div if.bind="!isEmpty" class="btn-group pull-left">
+      <a click.delegate="printXls()" class="btn btn-primary">Cetak Excel</a>
+      <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
+    </div>
 
     <br />
     <div if.bind="!isEmpty" class="row">
@@ -210,8 +214,10 @@
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.oaci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.oacoRowSpan}">
@@ -709,12 +715,16 @@
                   <span class="${ !$first ? 'hide' : ''}">Biaya Lainya</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.oaco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
+              <tr repeat.for="rs of total.oadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
-                  Surplus/Deficit-Cash from Operating Activities
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Operating Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
@@ -738,8 +748,10 @@
                   <span class="${ !$first ? 'hide' : ''}">Lain-lain</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.iaci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.iacoRowSpan}">
@@ -792,12 +804,16 @@
                   <span class="${ !$first ? 'hide' : ''}">Deposito</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.iaco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
+              <tr repeat.for="rs of total.iadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
-                  Surplus/Deficit-Cash from Investing Activities
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Investing Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
@@ -847,8 +863,10 @@
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.faci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.facoRowSpan}">
@@ -906,12 +924,16 @@
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right text-bold">Total</td>
+              <tr repeat.for="rs of total.faco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
+              <tr repeat.for="rs of total.fadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
-                  Surplus/Deficit-Cash from Financing Activities
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Financing Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
