@@ -23,4 +23,49 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/worst-case`;
     return super.put(endpoint, form);
   }
+
+  getOACI(query) {
+    let endpoint = `${serviceUri}/best-case/cash-in-operational`;
+    return super.list(endpoint, query);
+  }
+
+  getOACO(query) {
+    let endpoint = `${serviceUri}/best-case/cash-out-operational`;
+    return super.list(endpoint, query);
+  }
+
+  getOADiff(query) {
+    let endpoint = `${serviceUri}/best-case/diff-operational`;
+    return super.list(endpoint, query);
+  }
+
+  getIACI(query) {
+    let endpoint = `${serviceUri}/best-case/cash-in-investment`;
+    return super.list(endpoint, query);
+  }
+
+  getIACO(query) {
+    let endpoint = `${serviceUri}/best-case/cash-out-investment`;
+    return super.list(endpoint, query);
+  }
+
+  getIADiff(query) {
+    let endpoint = `${serviceUri}/best-case/diff-investment`;
+    return super.list(endpoint, query);
+  }
+
+  getFACI(query) {
+    let endpoint = `${serviceUri}/best-case/cash-in-financial`;
+    return super.list(endpoint, query);
+  }
+
+  getFACO(query) {
+    let endpoint = `${serviceUri}/best-case/cash-out-financial`;
+    return super.list(endpoint, query);
+  }
+
+  getFADiff(query) {
+    let endpoint = `${serviceUri}/best-case/diff-financial`;
+    return super.list(endpoint, query);
+  }
 }
