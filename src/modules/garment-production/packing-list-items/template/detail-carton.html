@@ -70,7 +70,7 @@
         </td>
         <td >
             <au-numeric
-                value.bind="data.netNetWeight"
+                value.bind="netNetWeight"
                 error.bind="error.NetNetWeight"
                 read-only.bind="readOnly">
             </au-numeric>
@@ -85,14 +85,14 @@
         </td>
     </tr>
     <tr>
-        <td colspan="10">
+        <td colspan="11">
             <p if.bind="error.SizesCount" class="help-block text-center" style='color:red;'>${error.SizesCount}</p>
         </td>
     </tr>
     <tr if.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
-        <td colspan="8" style='border:none;'>
+        <td colspan="9" style='border:none;'>
             <au-collection 
                 items.bind="data.sizes" 
                 errors.bind="error.Sizes" 
@@ -110,7 +110,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="10">
+        <td colspan="11">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>

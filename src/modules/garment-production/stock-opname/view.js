@@ -12,9 +12,6 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        for (const item of this.data.Items) {
-            Object.assign(item, item.DOItem);
-        }
     }
 
     cancelCallback(event) {

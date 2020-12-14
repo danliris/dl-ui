@@ -76,14 +76,14 @@
         </td>
     </tr>
     <tr>
-        <td colspan="7">
+        <td colspan="12">
             <p if.bind="error.SizesCount" class="help-block text-center" style='color:red;'>${error.SizesCount}</p>
         </td>
     </tr>
     <tr show.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
-        <td colspan="5" style='border:none;'>
+        <td colspan="10" style='border:none;'>
             <au-collection 
                 items.bind="data.sizes" 
                 errors.bind="error.Sizes" 
@@ -101,7 +101,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="7">
+        <td colspan="12">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>

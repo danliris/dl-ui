@@ -49,12 +49,15 @@ export class View {
             this.editCallback=null;
         }
         if(this.data.PackingListId){
+            this.manual=false;
             this.selectedInvoice={
                 invoiceNo:this.data.Invoice,
                 id:this.data.PackingListId
             }
         }
-        console.log(this.data)
+        else{
+            this.manual=true;
+        }
     }
 
     cancelCallback(event) {

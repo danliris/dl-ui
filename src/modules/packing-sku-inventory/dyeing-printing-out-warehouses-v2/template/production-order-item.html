@@ -83,7 +83,7 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="qty" format="0.00" read-only.bind="true" error.bind="error.qty"
+      <au-numeric value.bind="qty" format="0.00" read-only.bind="readOnly" error.bind="error.qty"
         options.bind="controlOptions">
       </au-numeric>
     </td>
@@ -92,5 +92,9 @@
         options.bind="controlOptions">
       </au-numeric>
     </td>
+    <td if.bind="!options.readOnly">
+      <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
+      <button if.bind="data.isremovable" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+  </td>
   </tr>
 </template>

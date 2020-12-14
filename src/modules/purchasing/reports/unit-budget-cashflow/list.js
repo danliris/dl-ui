@@ -255,15 +255,69 @@ export class List {
           let worstCases = [];
           if (worstCaseResult) worstCases = worstCaseResult.data;
 
-          this.total.oaci = totalOACI.data;
-          this.total.oaco = totalOACO.data;
-          this.total.oadiff = totalOADiff.data;
-          this.total.iaci = totalIACI.data;
-          this.total.iaco = totalIACO.data;
-          this.total.iadiff = totalIADiff.data;
-          this.total.faci = totalFACI.data;
-          this.total.faco = totalFACO.data;
-          this.total.fadiff = totalFADiff.data;
+          this.total.oaci = totalOACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.oaco = totalOACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.oadiff = totalOADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iaci = totalIACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iaco = totalIACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iadiff = totalIADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.faci = totalFACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.faco = totalFACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.fadiff = totalFADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
 
           // ini data yang akan di submit
           this.data.Items = [];
