@@ -37,6 +37,11 @@ class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getExcelById(id) {
+      var endpoint = `${serviceUri}/draft/${id}`;
+      return super.getXls(endpoint);
+    }
+
     postBooking(id) {
         var endpoint = `${serviceUri}/draft/post-booking/${id}`;
         return super.put(endpoint);
