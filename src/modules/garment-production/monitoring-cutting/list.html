@@ -42,7 +42,6 @@
             <tr>
                 <td>NO RO JOB</td>
                 <td>ARTICLE</td>
-                <td>KODE BARANG</td>
                 <td>QTY ORDER</td>
                 <td>STYLE</td>
                 <td>FC</td>
@@ -60,7 +59,6 @@
             <tr repeat.for="item of data">
                 <td class="text-center">${item.roJob}</td>
                 <td class="text-center">${item.article}</td>
-                <td class="text-center">${item.productCode}</td>
                 <td class="text-right">${item.qtyOrder}</td>
                 <td class="text-center">${item.style}</td>
                 <td class="text-center">${item.fc}</td>
@@ -72,7 +70,7 @@
                 <td class="text-right">${item.remainQtys}</td>
             </tr>
             <tr class="active">
-                <td class="text-center" colspan="8"><strong>T O T A L </strong></td>
+                <td class="text-center" colspan="7"><strong>T O T A L </strong></td>
                 <td class="text-right"><strong>${sumStock}</strong></td>        
                 <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
                 <td class="text-right"><strong>${sumExpenditure}</strong></td>
