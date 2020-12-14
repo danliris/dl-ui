@@ -7,8 +7,9 @@ export class List {
     context = ["Detail"];
     columns = [
         { field: "Code", title: "Kode", width: "10%" },
-        { field: "Name", title: "K e t e r a n g a n", width: "90%" },
-
+        { field: "Name", title: "Keterangan", width: "45%" },
+        { field: "COACode", title: "Kode Akun", width: "10%" },
+        { field: "COAName", title: "Nama Akun", width: "45%" },
     ];
 
     loader = (info) => {
@@ -20,7 +21,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["Code", "Name", "Address"],
+            select: ["Code", "Name"],
             order: order
         }
 

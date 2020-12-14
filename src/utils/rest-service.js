@@ -179,7 +179,11 @@ export class RestService {
           return response.json()
             .then(result => {
               this.publish(request);
-              return Promise.reject(new Error(result.error));
+              if (typeof result.error === 'string' || result.error instanceof String) {
+                return Promise.reject(new Error(result.error));
+              } else {
+                return Promise.reject(result.error);
+              }
             });
         }
       })

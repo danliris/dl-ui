@@ -1,3 +1,5 @@
+import numeral from "numeral";
+
 export class Item {
   constructor() {}
 
@@ -7,8 +9,6 @@ export class Item {
     if (context.context.options) {
       this.readOnly = context.context.options.readOnly;
     }
-
-    // console.log(this.data);
   }
 }
 
@@ -21,7 +21,11 @@ export class ObjectKeysValueConverter {
     // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for...in
     for (let prop in obj) {
       if (obj.hasOwnProperty(prop) && prop.toLowerCase() !== "layoutorder") {
-        temp.push(obj[prop]);
+        const item =
+          typeof obj[prop] === "number"
+            ? numeral(obj[prop]).format("0,000.00")
+            : obj[prop];
+        temp.push(item);
       }
     }
 

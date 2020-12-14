@@ -17,8 +17,26 @@
       text-align: right;
     }
 
+    .text-bold {
+      font-weight: 600 !important;
+    }
+
     .flex {
       display: flex;
+    }
+
+    .flex-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .no-border {
+      border-top: none !important;
+      border-bottom: none !important;
     }
 
     .collection {
@@ -43,7 +61,11 @@
     }
 
     table thead tr th {
-      height: 45px !important;
+      height: 59px !important;
+    }
+
+    table thead tr th.side {
+      padding-bottom: 20px !important;
     }
 
     table tbody tr td:not(.col-rotate) {
@@ -55,17 +77,12 @@
       height: 29px !important;
     }
 
-    .flex-end {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .hide {
-      display: none;
+    table tbody tr td div p.form-control-static {
+      margin-top: 5px;
     }
   </style>
 
-  <au-input-form title="Budget Cashflow Unit" options.bind="formOptions">
+  <au-input-form title="Budget Cashflow Unit">
     <au-autocomplete
       value.bind="unit"
       error.bind="error.unit"
@@ -91,10 +108,14 @@
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
     </div>
+    <div if.bind="!isEmpty" class="btn-group pull-left">
+      <a click.delegate="printXls()" class="btn btn-primary">Cetak Excel</a>
+      <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
+    </div>
 
     <br />
-    <div class="row">
-      <div class="col-md-12 table-responsive flex">
+    <div if.bind="!isEmpty" class="row">
+      <div class="col-md-12 flex">
         <div style="min-width: 450px">
           <!--Table-->
           <table class="table table-hover table-bordered">
@@ -102,7 +123,7 @@
             <thead>
               <tr>
                 <th></th>
-                <th colspan="4">KETERANGAN</th>
+                <th colspan="4" class="side text-bold">KETERANGAN</th>
               </tr>
             </thead>
             <!--Table head-->
@@ -115,15 +136,17 @@
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.oaRowSpan}">
-                  <span class="text-rotate">OPERATING ACTIVITIES</span>
+                  <span class="text-rotate text-bold"
+                    >OPERATING ACTIVITIES</span
+                  >
                 </td>
                 <td class="col-rotate" rowspan="${calRowSpan.oaciRowSpan}">
-                  <span class="text-rotate">CASH IN</span>
+                  <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3">Revenue</td>
+                <td colspan="3" class="text-bold">Revenue</td>
               </tr>
               <tr repeat.for="rs of rowSpan[1]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Penjualan Export</span
@@ -131,19 +154,19 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[2]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Penjualan Lokal</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[3]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Penjualan Tunai</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[4]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Penjualan Intern (Antar Divisi)</span
@@ -151,7 +174,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[5]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Penjualan Intern (Antar Unit Satu Divisi)</span
@@ -159,7 +182,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[6]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >PPN Masukan Intern (Perhitungan)</span
@@ -167,10 +190,12 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Revenue from other operating</td>
+                <td colspan="3" class="text-bold">
+                  Revenue from other operating
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[7]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Penjualan Lain-lain</span
@@ -178,24 +203,26 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[8]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >PPN Masukan Extern (Pembelian Lokal)</span
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total</td>
+              <tr repeat.for="rs of total.oaci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.oacoRowSpan}">
-                  <span class="text-rotate">CASH OUT</span>
+                  <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
-                <td colspan="3">Cost of Good Sold</td>
+                <td colspan="3" class="text-bold">Cost of Good Sold</td>
               </tr>
               <tr repeat.for="rs of rowSpan[9]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Bahan Baku Import</span
@@ -203,7 +230,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[10]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Bahan Baku Lokal</span
@@ -211,7 +238,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[11]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Biaya Tenaga Kerja Langsung/U.Karyawan</span
@@ -219,43 +246,43 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[12]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Bahan Pembantu</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[13]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">SubCount</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[14]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Embalage</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[15]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Listrik (PLN)</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[16]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Batu Bara</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[17]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">BBM & Pelumas</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[18]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Spare Part & Pemeliharaan Mesin</span
@@ -263,13 +290,13 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[19]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">BTKL Staf Unit</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[20]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >THR/Bonus Karyawan & Staf Unit</span
@@ -277,7 +304,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[21]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Gaji/Honor Konsultan & TKA</span
@@ -285,7 +312,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[22]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Askes & Jamsostek Unit</span
@@ -293,7 +320,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[23]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pesangon/Pensiun Unit</span
@@ -301,7 +328,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[24]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pengolahan Limbah, ABT, dll</span
@@ -309,7 +336,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[25]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Biaya Import (Inklaring, Demurage, dll)</span
@@ -317,7 +344,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[26]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pembelian Intern (Antar Divisi)</span
@@ -325,7 +352,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[27]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pembelian Intern (Antar Unit Satu Divisi)</span
@@ -333,7 +360,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[28]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >PPN Keluaran Intern (Perhitungan)</span
@@ -341,29 +368,29 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Marketing Expenses</td>
+                <td colspan="3" class="text-bold">Marketing Expenses</td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td colspan="2">Biaya Penjualan</td>
+                <td class="no-border"></td>
+                <td colspan="2" class="text-bold">Biaya Penjualan</td>
               </tr>
               <tr repeat.for="rs of rowSpan[29]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">Beban Gaji Staf</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[30]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">Upah Karyawan</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[31]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >jpk & jamsost staff& karyw</span
@@ -371,8 +398,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[32]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >thr & bonus kary & staf</span
@@ -380,8 +407,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[33]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban iklan, reklame, & pameran</span
@@ -389,8 +416,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[34]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban perjalanan dinas</span
@@ -398,8 +425,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[35]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban pengiriman/ongkos angkut</span
@@ -407,8 +434,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[36]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban komisi penj lokal/exspP.</span
@@ -416,8 +443,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[37]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban freight/emkl</span
@@ -425,15 +452,15 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[38]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">biaya claim</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[39]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >biaya pengurusan doc</span
@@ -441,15 +468,15 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[40]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban asuransi</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[41]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban penjualan lain2</span
@@ -457,10 +484,12 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">General & Administrative Expenses</td>
+                <td colspan="3" class="text-bold">
+                  General & Administrative Expenses
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[42]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >PPN Keluaran Extern (Pejualan Lokal)</span
@@ -468,7 +497,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[43]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pajak (PPN, PPh,PBB, PNBP dll)</span
@@ -476,12 +505,14 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td colspan="2">Biaya umum dan administrasi</td>
+                <td class="no-border"></td>
+                <td colspan="2" class="text-bold">
+                  Biaya umum dan administrasi
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[44]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban gaji staff kantor</span
@@ -489,8 +520,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[45]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >upah karyw kantor</span
@@ -498,8 +529,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[46]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >askes & jamsos kary& staf</span
@@ -507,8 +538,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[47]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban gaji direksi/direktur</span
@@ -516,8 +547,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[48]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >Beban Pemeliharaan gedung</span
@@ -525,8 +556,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[49]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban perjalanan dinas</span
@@ -534,8 +565,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[50]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban pengiriman surat</span
@@ -543,8 +574,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[51]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban alat tulis</span
@@ -552,22 +583,22 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[52]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban air/abt</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[53]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban listrik</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[54]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban notaris & konsultan</span
@@ -575,8 +606,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[55]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban training & pendidikan</span
@@ -584,8 +615,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[56]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >beban perijinan & sertifikat</span
@@ -593,15 +624,15 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[57]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">sumbangan</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[58]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >representatif, entertainment tamu dll</span
@@ -609,8 +640,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[59]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >ass kend, gedung, dan mesin</span
@@ -618,15 +649,15 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[60]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban URTP</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[61]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >pesangon staf & kary</span
@@ -634,8 +665,8 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[62]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}"
                     >thr & bonus kary & staf umum, dirktur &direksi</span
@@ -643,28 +674,28 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[63]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban kendaraan</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[64]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban keamanan</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[65]" show.bind="!isEmpty">
-                <td></td>
-                <td></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
                 <td>
                   <span class="${ !$first ? 'hide' : ''}">beban lain-lain</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[66]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Telephone, Fax & Internet</span
@@ -672,28 +703,34 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Other Operating Expenses</td>
+                <td colspan="3" class="text-bold">Other Operating Expenses</td>
               </tr>
               <tr repeat.for="rs of rowSpan[67]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Biaya Lainya</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total</td>
+              <tr repeat.for="rs of total.oaco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="4">
-                  Surplus/Deficit-Cash from Operating Activities
+              <tr repeat.for="rs of total.oadiff" show.bind="!isEmpty">
+                <td colspan="4" class="text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Operating Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.iaRowSpan}">
-                  <span class="text-rotate">INVESTING ACTIVITIES</span>
+                  <span class="text-rotate text-bold"
+                    >INVESTING ACTIVITIES</span
+                  >
                 </td>
                 <td class="col-rotate" rowspan="${calRowSpan.iaciRowSpan}">
-                  <span class="text-rotate">CASH IN</span>
+                  <span class="text-rotate text-bold">CASH IN</span>
                 </td>
                 <td colspan="3"></td>
               </tr>
@@ -707,41 +744,45 @@
                   <span class="${ !$first ? 'hide' : ''}">Lain-lain</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total</td>
+              <tr repeat.for="rs of total.iaci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.iacoRowSpan}">
-                  <span class="text-rotate">CASH OUT</span>
+                  <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
-                <td colspan="3">Pembayaran pembelian asset tetap :</td>
+                <td colspan="3" class="text-bold">
+                  Pembayaran pembelian asset tetap :
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[70]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Mesin</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[71]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Kendaraan</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[72]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Inventaris</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[73]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Alat Komputer</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[74]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Alat & Bahan Produksi</span
@@ -749,7 +790,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[75]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Proyek</span>
                 </td>
@@ -759,20 +800,26 @@
                   <span class="${ !$first ? 'hide' : ''}">Deposito</span>
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total</td>
+              <tr repeat.for="rs of total.iaco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="4">
-                  Surplus/Deficit-Cash from Investing Activities
+              <tr repeat.for="rs of total.iadiff" show.bind="!isEmpty">
+                <td colspan="4" class="text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Investing Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.faRowSpan}">
-                  <span class="text-rotate">FINANCING ACTIVITIES</span>
+                  <span class="text-rotate text-bold"
+                    >FINANCING ACTIVITIES</span
+                  >
                 </td>
                 <td class="col-rotate" rowspan="${calRowSpan.faciRowSpan}">
-                  <span class="text-rotate">CASH IN</span>
+                  <span class="text-rotate text-bold">CASH IN</span>
                 </td>
                 <td colspan="3"></td>
               </tr>
@@ -782,22 +829,22 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Others :</td>
+                <td colspan="3" class="text-bold">Others :</td>
               </tr>
               <tr repeat.for="rs of rowSpan[78]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Afiliasi</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[79]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Jual Beli Valas</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[80]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Cadangan Perusahaan</span
@@ -805,30 +852,34 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[81]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">
                     Lain-lain (Klaim ass)/tab thr/vb import/giro/dll</span
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total:</td>
+              <tr repeat.for="rs of total.faci" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.facoRowSpan}">
-                  <span class="text-rotate">CASH OUT</span>
+                  <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
-                <td colspan="3">Loan Installment and Interest expense</td>
+                <td colspan="3" class="text-bold">
+                  Loan Installment and Interest expense
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[82]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Angsuran Kredit</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[83]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Biaya Bunga Bank</span
@@ -836,19 +887,19 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Bank Expenses</td>
+                <td colspan="3" class="text-bold">Bank Expenses</td>
               </tr>
               <tr repeat.for="rs of rowSpan[84]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Biaya Adm Bank</span>
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3">Others :</td>
+                <td colspan="3" class="text-bold">Others :</td>
               </tr>
               <tr repeat.for="rs of rowSpan[85]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Afiliasi (Psr, Group)</span
@@ -856,56 +907,64 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[86]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Jual Beli Valas</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[87]" show.bind="!isEmpty">
-                <td></td>
+                <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Lain-lain /efrata/b mndri/md/Cad THR</span
                   >
                 </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-right">Total</td>
+              <tr repeat.for="rs of total.faco" show.bind="!isEmpty">
+                <td colspan="3" class="text-right text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                </td>
               </tr>
-              <tr show.bind="!isEmpty">
-                <td colspan="4">
-                  Surplus/Deficit-Cash from Financing Activities
+              <tr repeat.for="rs of total.fadiff" show.bind="!isEmpty">
+                <td colspan="4" class="text-bold">
+                  <span class="${ !$first ? 'hide' : ''}">
+                    Surplus/Deficit-Cash from Financing Activities</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="5" class="text-right">BEGINNING BALANCE</td>
+                <td colspan="5" class="text-right text-bold">
+                  BEGINNING BALANCE
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="5" class="text-right">CASH SURPLUS/DEFICIT</td>
+                <td colspan="5" class="text-right text-bold">
+                  CASH SURPLUS/DEFICIT
+                </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="5" class="text-right">ENDING BALANCE</td>
+                <td colspan="5" class="text-right text-bold">ENDING BALANCE</td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td colspan="2">Kenyataan</td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td colspan="2" class="text-bold">Kenyataan</td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td colspan="2">Selisih</td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td class="no-border"></td>
+                <td colspan="2" class="text-bold">Selisih</td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td colspan="3">Rate $</td>
-                <td>14.675</td>
+                <td class="no-border"></td>
+                <td colspan="3" class="text-bold">Rate</td>
+                <td class="no-border"></td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td></td>
-                <td colspan="4" class="text-right">
+                <td class="no-border"></td>
+                <td colspan="4" class="text-right text-bold">
                   TOTAL SURPLUS (DEFISIT) EQUIVALENT
                 </td>
               </tr>
@@ -914,16 +973,17 @@
           </table>
           <!--Table-->
         </div>
-
-        <div style="min-width: 1440px">
-          <au-collection
-            view-model.ref="ItemsCollection"
-            items.bind="data.Items"
-            columns.bind="collection.columns"
-            item-template="modules/purchasing/reports/unit-budget-cashflow/template/item"
-            options.bind="collectionOptions"
-          >
-          </au-collection>
+        <div class="table-responsive">
+          <div style="min-width: 1030px">
+            <au-collection
+              view-model.ref="ItemsCollection"
+              items.bind="data.Items"
+              columns.bind="collection.columns"
+              item-template="modules/purchasing/reports/unit-budget-cashflow/template/item"
+              options.bind="collectionOptions"
+            >
+            </au-collection>
+          </div>
         </div>
       </div>
       <div class="col-md-12 flex-end">

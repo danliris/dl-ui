@@ -26,6 +26,20 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-purchase-request-master',
+        name: 'purchase-request-master',
+        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        nav: true,
+        title: 'PR Master (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "PG": 1 },
+            iconClass: 'fa fa-calculator',
+            byUser: false
+        }
+    },
+    {
         route: '/garment/pr',
         name: 'purchase-request',
         moduleId: './modules/garment-purchasing/purchase-request/index',

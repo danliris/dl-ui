@@ -145,15 +145,15 @@ export class DataForm {
 
   @bindable selectedFilterSPP;
   async selectedFilterSPPChanged(n, o) {
-    if (this.selectedFilterSPP) {
+    // if (this.selectedFilterSPP) {
 
       this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2ById(this.selectedFilterSPP.productionOrder.id);
 
-    } else {
+    // } else {
 
-      this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
+    //   this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
 
-    }
+    // }
   }
   removeItems() {
     // this.itemOptions.PackagingList = this.data.PackagingList;

@@ -3,10 +3,8 @@ import { Service } from "./service";
 import { CurrencyService } from "./currency-service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import numeral from "numeral";
 
 var UnitLoader = require("../../../../loader/unit-loader");
-var AccountingUnitLoader = require("../../../../loader/accounting-unit-loader");
 
 @inject(Router, Service, CurrencyService)
 export class List {
@@ -23,6 +21,17 @@ export class List {
       readOnly: true,
     };
     this.rowSpan = {};
+    this.total = {
+      oaci: [],
+      oaco: [],
+      oadiff: [],
+      iaci: [],
+      iaco: [],
+      iadiff: [],
+      faci: [],
+      faco: [],
+      fadiff: [],
+    };
   }
 
   controlOptions = {
@@ -36,13 +45,13 @@ export class List {
 
   collection = {
     columns: [
-      "Mata Uang",
-      "Nominal Valas (Best Case)",
-      "Nominal IDR (Best Case)",
-      "Actual IDR (Best Case)",
-      "Nominal Valas (Worst Case)",
-      "Nominal IDR (Worst Case)",
-      "Actual IDR (Worst Case)",
+      "MATA UANG",
+      "NOMINAL VALAS (BEST CASE)",
+      "NOMINAL IDR (BEST CASE)",
+      "ACTUAL IDR (BEST CASE)",
+      "NOMINAL VALAS (WORST CASE)",
+      "NOMINAL IDR (WORST CASE)",
+      "ACTUAL IDR (WORST CASE)",
     ],
   };
 
@@ -144,7 +153,6 @@ export class List {
     this.collectionOptions = {
       readOnly: true,
     };
-    // console.log(this.ItemsCollection);
 
     if (this.unit === "" || this.dueDate === null) {
       this.error.unit = "Unit harus diisi";
@@ -183,6 +191,42 @@ export class List {
           return worstCases;
         });
 
+      let totalOACI = await this.service
+        .getOACI({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalOACO = await this.service
+        .getOACO({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalOADiff = await this.service
+        .getOADiff({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalIACI = await this.service
+        .getIACI({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalIACO = await this.service
+        .getIACO({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalIADiff = await this.service
+        .getIADiff({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalFACI = await this.service
+        .getFACI({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalFACO = await this.service
+        .getFACO({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
+      let totalFADiff = await this.service
+        .getFADiff({ unitId: unitId, dueDate: dueDate })
+        .then((result) => result);
+
       await Promise.all(bestCasePromises).then((bestCasePromiseResult) => {
         let bestCaseResult = bestCasePromiseResult;
 
@@ -196,8 +240,6 @@ export class List {
 
         bestCases = [].concat.apply([], bestCases);
 
-        // console.log(bestCases);
-
         let currencyPromises = [];
         for (let bestCase of bestCases) {
           if (bestCase.CurrencyId && bestCase.CurrencyId > 0) {
@@ -208,9 +250,74 @@ export class List {
         }
 
         return Promise.all(currencyPromises).then((currencyPromiseResult) => {
-          let worstCases = [];
           let currencies = currencyPromiseResult;
+
+          let worstCases = [];
           if (worstCaseResult) worstCases = worstCaseResult.data;
+
+          this.total.oaci = totalOACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.oaco = totalOACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.oadiff = totalOADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iaci = totalIACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iaco = totalIACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.iadiff = totalIADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.faci = totalFACI.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.faco = totalFACO.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
+          this.total.fadiff = totalFADiff.data.map((datum) => {
+            let currency = currencies.find(
+              (c) => c && c.Id == datum.CurrencyId
+            );
+            datum.Currency = currency;
+            return datum;
+          });
 
           // ini data yang akan di submit
           this.data.Items = [];
@@ -303,7 +410,7 @@ export class List {
         ...revenue,
         "Revenue from other operating",
         ...otherRevenue,
-        "Total",
+        ...this.total.oaci,
         "Cost of Good Sold",
         ...cogSold,
         "Marketing Expenses",
@@ -316,29 +423,29 @@ export class List {
         ...telpExpenses,
         "Other Operating Expenses",
         ...otherExpenses,
-        "Total",
-        "Surplus/Deficit-Cash from Operating Activities",
+        ...this.total.oaco,
+        ...this.total.oadiff,
         "Free space",
         ...depoInAndOthers,
-        "Total",
+        ...this.total.iaci,
         "Pembayaran pembelian asset tetap :",
         ...assetTetap,
         ...depoOut,
-        "Total",
-        "Surplus/Deficit-Cash from Investing Activities",
+        ...this.total.iaco,
+        ...this.total.iadiff,
         "Free space",
         ...loanWithdrawal,
         "Others :",
         ...othersCI,
-        "Total",
+        ...this.total.faci,
         "Loan Installment and Interest expense",
         ...loanInstallment,
         "Bank Expenses",
         ...bankExpenses,
         "Others :",
         ...othersCO,
-        "Total",
-        "Surplus/Deficit-Cash from Financing Activities",
+        ...this.total.faco,
+        ...this.total.fadiff,
         "BEGINNING BALANCE",
         "CASH SURPLUS/DEFICIT",
         "ENDING BALANCE",
@@ -348,49 +455,11 @@ export class List {
         "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
       ];
 
-      // const modifiedJoined = [];
-      // joined.map((item) => {
-      //   const bestCaseActualNominal =
-      //     item && item.Currency && item.Currency.Code !== "IDR"
-      //       ? item.BestCaseCurrencyNominal * item.Currency.Rate
-      //       : item.BestCaseNominal;
-
-      //   const modifiedItem =
-      //     typeof item === "string"
-      //       ? item
-      //       : {
-      //           ...item,
-      //           BestCaseActualNominal: bestCaseActualNominal,
-      //         };
-
-      //   modifiedJoined.push(modifiedItem);
-      // });
-
-      // console.log("Revenue", revenue);
-      // console.log("Revenue from other operating", otherRevenue);
-      // console.log("Cost of Good Sold", cogSold);
-      // console.log("Biaya Penjualan", sellingExpenses);
-      // console.log("General & Administrative Expenses", gaExpenses);
-      // console.log("Biaya umum dan administrasi", generalExpenses);
-      // console.log("Telephone, Fax & Internet", telpExpenses);
-      // console.log("Other Operating Expenses", otherExpenses);
-      // console.log("Deposito & Lain-lain", depoInAndOthers);
-      // console.log("Pembayaran pembelian asset tetap", assetTetap);
-      // console.log("Cash Out Deposito", depoOut);
-      // console.log("Loan Withdrawal", loanWithdrawal);
-      // console.log("Others Cash In", othersCI);
-      // console.log("Loan Installment and Interest expense", loanInstallment);
-      // console.log("Bank Expenses", bankExpenses);
-      // console.log("Others Cash Out", othersCO);
-
       this.isEmpty = this.data.Items.length !== 0 ? false : true;
-      // this.data.Items = modifiedJoined;
       this.data.Items = joined;
 
-      // console.log(joined);
-
       const itemsNoString = this.data.Items.filter(
-        (item) => typeof item !== "string"
+        (item) => typeof item !== "string" && item.LayoutOrder !== 0
       );
 
       const rowSpan = itemsNoString
@@ -410,12 +479,18 @@ export class List {
       const rowSpanArr = Object.values(rowSpan);
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-      const oaciRowSpan = rowSpanArr.slice(0, 8).reduce(reducer, 3);
-      const oacoRowSpan = rowSpanArr.slice(8, 67).reduce(reducer, 8);
-      const iaciRowSpan = rowSpanArr.slice(67, 69).reduce(reducer, 2);
-      const iacoRowSpan = rowSpanArr.slice(69, 76).reduce(reducer, 3);
-      const faciRowSpan = rowSpanArr.slice(76, 81).reduce(reducer, 3);
-      const facoRowSpan = rowSpanArr.slice(81, 87).reduce(reducer, 5);
+      const oaciRowSpan =
+        rowSpanArr.slice(0, 8).reduce(reducer, 2) + this.total.oaci.length;
+      const oacoRowSpan =
+        rowSpanArr.slice(8, 67).reduce(reducer, 6) + this.total.oaco.length;
+      const iaciRowSpan =
+        rowSpanArr.slice(67, 69).reduce(reducer, 1) + this.total.iaci.length;
+      const iacoRowSpan =
+        rowSpanArr.slice(69, 76).reduce(reducer, 1) + this.total.iaco.length;
+      const faciRowSpan =
+        rowSpanArr.slice(76, 81).reduce(reducer, 2) + this.total.faci.length;
+      const facoRowSpan =
+        rowSpanArr.slice(81, 87).reduce(reducer, 3) + this.total.faco.length;
 
       this.calRowSpan = {
         oaciRowSpan,
@@ -424,14 +499,10 @@ export class List {
         iacoRowSpan,
         faciRowSpan,
         facoRowSpan,
-        oaRowSpan: oaciRowSpan + oacoRowSpan,
-        iaRowSpan: iaciRowSpan + iacoRowSpan,
-        faRowSpan: faciRowSpan + facoRowSpan,
+        oaRowSpan: oaciRowSpan + oacoRowSpan + this.total.oadiff.length,
+        iaRowSpan: iaciRowSpan + iacoRowSpan + this.total.iadiff.length,
+        faRowSpan: faciRowSpan + facoRowSpan + this.total.fadiff.length,
       };
-
-      // console.log("this.data.Items", this.data.Items);
-      // console.log(this.calRowSpan);
-      // console.log("this.rowSpan", this.rowSpan);
     }
   }
 
@@ -443,7 +514,7 @@ export class List {
   save() {
     const tempDataItems = this.data.Items;
     const newDataItems = this.data.Items.filter(
-      (item) => typeof item !== "string"
+      (item) => typeof item !== "string" && item.LayoutOrder !== 0
     );
     this.data.Items = newDataItems;
     this.service
@@ -459,7 +530,7 @@ export class List {
         }, 50);
 
         this.data.Items = tempDataItems;
-        alert("Data berhasil disimpan!");
+        alert("Data berhasil disimpan.");
       })
       .catch((e) => {
         this.data.Items = tempDataItems;
