@@ -171,41 +171,41 @@ export class List {
           });
       });
 
-      let totalOACI = await this.service
-        .getOACI({ dueDate })
-        .then((result) => result);
+      // let totalOACI = await this.service
+      //   .getOACI({ dueDate })
+      //   .then((result) => result);
 
-      let totalOACO = await this.service
-        .getOACO({ dueDate })
-        .then((result) => result);
+      // let totalOACO = await this.service
+      //   .getOACO({ dueDate })
+      //   .then((result) => result);
 
-      let totalOADiff = await this.service
-        .getOADiff({ dueDate })
-        .then((result) => result);
+      // let totalOADiff = await this.service
+      //   .getOADiff({ dueDate })
+      //   .then((result) => result);
 
-      let totalIACI = await this.service
-        .getIACI({ dueDate })
-        .then((result) => result);
+      // let totalIACI = await this.service
+      //   .getIACI({ dueDate })
+      //   .then((result) => result);
 
-      let totalIACO = await this.service
-        .getIACO({ dueDate })
-        .then((result) => result);
+      // let totalIACO = await this.service
+      //   .getIACO({ dueDate })
+      //   .then((result) => result);
 
-      let totalIADiff = await this.service
-        .getIADiff({ dueDate })
-        .then((result) => result);
+      // let totalIADiff = await this.service
+      //   .getIADiff({ dueDate })
+      //   .then((result) => result);
 
-      let totalFACI = await this.service
-        .getFACI({ dueDate })
-        .then((result) => result);
+      // let totalFACI = await this.service
+      //   .getFACI({ dueDate })
+      //   .then((result) => result);
 
-      let totalFACO = await this.service
-        .getFACO({ dueDate })
-        .then((result) => result);
+      // let totalFACO = await this.service
+      //   .getFACO({ dueDate })
+      //   .then((result) => result);
 
-      let totalFADiff = await this.service
-        .getFADiff({ dueDate })
-        .then((result) => result);
+      // let totalFADiff = await this.service
+      //   .getFADiff({ dueDate })
+      //   .then((result) => result);
 
       await Promise.all(divisionPromises).then((divisionPromiseResult) => {
         let divisionResult = divisionPromiseResult;
@@ -270,15 +270,69 @@ export class List {
           }
           columns.push(`ACTUAL`);
 
-          this.total.oaci = totalOACI.data;
-          this.total.oaco = totalOACO.data;
-          this.total.oadiff = totalOADiff.data;
-          this.total.iaci = totalIACI.data;
-          this.total.iaco = totalIACO.data;
-          this.total.iadiff = totalIADiff.data;
-          this.total.faci = totalFACI.data;
-          this.total.faco = totalFACO.data;
-          this.total.fadiff = totalFADiff.data;
+          // this.total.oaci = totalOACI.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.oaco = totalOACO.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.oadiff = totalOADiff.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.iaci = totalIACI.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.iaco = totalIACO.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.iadiff = totalIADiff.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.faci = totalFACI.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.faco = totalFACO.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
+          // this.total.fadiff = totalFADiff.data.map((datum) => {
+          //   let currency = currencies.find(
+          //     (c) => c && c.Id == datum.CurrencyId
+          //   );
+          //   datum.Currency = currency;
+          //   return datum;
+          // });
 
           let rows = [];
           for (let datum of layoutOrderData) {
@@ -403,6 +457,9 @@ export class List {
 
       this.isEmpty = this.rows.length !== 0 ? false : true;
       this.rows = joined;
+
+      // console.log("this.total", this.total);
+      // console.log("this.rows", this.rows);
 
       const itemsNoString = this.rows.filter(
         (item) => typeof item !== "string" && item.LayoutOrder !== 0
