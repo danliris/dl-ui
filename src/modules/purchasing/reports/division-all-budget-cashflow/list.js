@@ -285,6 +285,8 @@ export class List {
             columns.push(`DIVISI ${division.Name} IDR`);
           }
 
+          columns.push(`ACTUAL`);
+
           // this.total.oaci = totalOACI.data.map((datum) => {
           //   let currency = currencies.find(
           //     (c) => c && c.Id == datum.CurrencyId
