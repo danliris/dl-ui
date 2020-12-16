@@ -430,8 +430,8 @@ export class DataForm {
     return DesignMotiveLoader;
   }
 
-  get processTypeLoader() {
-    return ProcessTypeLoader;
+  get orderTypeLoader() {
+    return OrderTypeLoader;
   }
 
   get processTypeLoader() {
