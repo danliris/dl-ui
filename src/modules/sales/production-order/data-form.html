@@ -44,8 +44,8 @@
 
           <div class="col-sm-10" style="padding-left:18%">
                 <au-autocomplete value.bind="data.OrderType" label="Jenis Order" error.bind="error.OrderType"
-                   text="Name" loader.bind="orderTypeLoader" 
-                   if.bind="!nameCheck">
+                   text="Name" loader.bind="orderTypeLoader" read-only.bind="(readOnly)" 
+                   if.bind="!nameCheck"> 
                 </au-autocomplete>
           </div>
    
@@ -82,7 +82,7 @@
           
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete loader.bind="materialLoader" value.bind="data.Material" label="Material" error.bind="error.Material" 
-                text="Name" query.bind="materialQuery" if.bind="!nameCheck">
+                text="Name" query.bind="materialQuery" read-only.bind="(readOnly)" if.bind="!nameCheck">
             </au-autocomplete>
           </div>
           
@@ -101,7 +101,7 @@
 
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete loader.bind="yarnmaterialLoader" value.bind="data.YarnMaterial" label="Nomor Benang Material"
-              error.bind="error.YarnMaterial" text="Name" if.bind="!nameCheck">
+              error.bind="error.YarnMaterial" text="Name" read-only.bind="(readOnly)" if.bind="!nameCheck">
             </au-autocomplete>
           </div>
  
@@ -137,7 +137,7 @@
           <textbox label="Lebar Finish" value.bind="data.FinishWidth" error.bind="error.FinishWidth" read-only="true" if.bind="nameCheck">
           </textbox>
 
-          <textbox label="Lebar Finish" value.bind="data.FinishWidth" error.bind="error.FinishWidth" if.bind="!nameCheck">
+          <textbox label="Lebar Finish" value.bind="data.FinishWidth" error.bind="error.FinishWidth" read-only.bind="(readOnly)" if.bind="!nameCheck">
           </textbox>
 
           <div class="col-sm-10" style="padding-left:18%">
