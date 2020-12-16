@@ -261,13 +261,30 @@ export class List {
           let units = promiseResult[0];
           let currencies = promiseResult[1];
 
+          let divisions = [];
+          if (units.length > 0) {
+            for (let unit of units) {
+              let existingDivision = divisions.find((division) => division.Id == unit.Division.Id);
+              if (!existingDivision && unit.Division && unit.Division.Id > 0) {
+                divisions.push(unit.Division)
+              }
+            }
+          }
+
           let columns = ["MATA UANG"];
 
-          for (let unit of units) {
-            columns.push(`NOMINAL VALAS ${unit.Name}`);
-            columns.push(`NOMINAL IDR ${unit.Name}`);
-            // columns.push(`Nominal Actual ${unit.Name}`);
+          for (let division of divisions) {
+            let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+            for (let unit of selectedUnits) {
+              columns.push(`${unit.Name} VALAS`);
+              columns.push(`${unit.Name} IDR`);
+              // columns.push(`Nominal Actual ${unit.Name}`);
+            }
+
+            columns.push(`DIVISI ${division.Name} VALAS`);
+            columns.push(`DIVISI ${division.Name} IDR`);
           }
+
           columns.push(`ACTUAL`);
 
           // this.total.oaci = totalOACI.data.map((datum) => {
@@ -348,25 +365,37 @@ export class List {
             }
 
             let actualNominal = 0;
-            for (let unit of units) {
-              let filteredDatum = data.find(
-                (f) =>
-                  f.LayoutOrder == datum.LayoutOrder &&
-                  f.CurrencyId == datum.CurrencyId &&
-                  f.UnitId == unit.Id
-              );
+            for (let division of divisions) {
+              let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+              let currencyNominal = 0;
+              let nominal = 0;
+              for (let unit of selectedUnits) {
+                let filteredDatum = data.find(
+                  (f) =>
+                    f.LayoutOrder == datum.LayoutOrder &&
+                    f.CurrencyId == datum.CurrencyId &&
+                    f.UnitId == unit.Id
+                );
 
-              if (filteredDatum) {
-                row[`${unit.Code}CurrencyNominal`] =
-                  filteredDatum.CurrencyNominal;
-                row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
-                // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
-              } else {
-                row[`${unit.Code}CurrencyNominal`] = 0;
-                row[`${unit.Code}Nominal`] = 0;
-                // row[`${unit.Code}ActualNominal`] = 0;
+                if (filteredDatum) {
+                  actualNominal += filteredDatum.ActualNominal;
+
+                  row[`${unit.Code}CurrencyNominal`] =
+                    filteredDatum.CurrencyNominal;
+                  currencyNominal += filteredDatum.CurrencyNominal
+                  row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
+                  nominal += filteredDatum.Nominal;
+                  // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
+                } else {
+                  row[`${unit.Code}CurrencyNominal`] = 0;
+                  row[`${unit.Code}Nominal`] = 0;
+                  // row[`${unit.Code}ActualNominal`] = 0;
+                }
               }
+              row[`${division.Code}CurrencyNominal`] = currencyNominal;
+              row[`${division.Code}Nominal`] = nominal;
             }
+
             row.actualNominal = actualNominal;
             rows.push(row);
           }
