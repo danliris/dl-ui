@@ -24,4 +24,12 @@ export class CoreService extends RestService {
       .then((response) => response)
       .catch((error) => console.error("error", error));
   }
+
+  getDivisionById(id) {
+    var endpoint = `${serviceUri}/divisions/${id}`;
+    return super
+      .get(endpoint)
+      .then((response) => response)
+      .catch((error) => console.error("error", error));
+  }
 }
