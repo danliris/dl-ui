@@ -65,13 +65,14 @@ export class Create {
     }
 
     editCallback() {
+        this.error = {};
         this.service.download({
             date: this.data.date ? this.data.date.toJSON() : null,
             unit: (this.data.unit || {}).Code,
             storage: (this.data.storage || {}).code,
             storageName: (this.data.storage || {}).name,
         }).catch(error => {
-            alert(error);
+            this.error = error;
         });
     }
 }
