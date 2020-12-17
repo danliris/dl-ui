@@ -136,16 +136,65 @@ export class Item {
         }
     }
 
+
+    
+    sumSubTotal(opt) {
+      let result = 0;
+      const newDetails = this.data.details.map(d => {
+        return {
+          carton1: d.carton1,
+          carton2: d.carton2,
+          cartonQuantity: d.cartonQuantity,
+          grossWeight: d.grossWeight,
+          netWeight: d.netWeight,
+          netNetWeight: d.netNetWeight
+        };
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2) === index);
+      for (const detail of newDetails) {
+        const cartonExist = false;
+        const indexItem = this.context.context.options.header.items.indexOf(this.data);
+        if (indexItem > 0) {
+          for (let i = 0; i < indexItem; i++) {
+            const item = this.context.context.options.header.items[i];
+            for (const prevDetail of item.details) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2) {
+                cartonExist = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!cartonExist) {
+          switch (opt) {
+            case 0:
+              result += detail.grossWeight * detail.cartonQuantity;
+              break;
+            case 1:
+              result += detail.netWeight * detail.cartonQuantity;
+              break;
+            case 2:
+              result += detail.netNetWeight * detail.cartonQuantity;
+              break;
+          }
+        }
+      }
+      return result;
+    }
+    
+
     get subGrossWeight() {
-        return (this.data.details || []).reduce((acc, cur) => acc += cur.grossWeight, 0);
+      return this.sumSubTotal(0);
+      //return (this.data.details || []).reduce((acc, cur) => acc += (cur.grossWeight * cur.cartonQuantity), 0);
     }
 
     get subNetWeight() {
-        return (this.data.details || []).reduce((acc, cur) => acc += cur.netWeight, 0);
+      return this.sumSubTotal(1);
+      // return (this.data.details || []).reduce((acc, cur) => acc += cur.netWeight, 0);
     }
 
     get subNetNetWeight() {
-        return (this.data.details || []).reduce((acc, cur) => acc += cur.netNetWeight, 0);
+      return this.sumSubTotal(2);
+      //  return (this.data.details || []).reduce((acc, cur) => acc += cur.netNetWeight, 0);
     }
 
     get addDetails() {
@@ -170,6 +219,15 @@ export class Item {
     get removeDetails() {
         return (event) => {
             this.error = null;
+            const gw = this.sumSubTotal(0);
+            const nw = this.sumSubTotal(1);
+            const nnw = this.sumSubTotal(2);
+            this.context.context.options.header.grossWeight = gw;
+            this.context.context.options.header.nettWeight = nw;
+            this.context.context.options.header.netNetWeight = nnw;
+            this.data.subGrossWeight = gw;
+            this.data.subNetWeight = nw;
+            this.data.subNetNetWeight = nnw;
         };
     }
 
