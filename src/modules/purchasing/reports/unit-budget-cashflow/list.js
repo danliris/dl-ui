@@ -552,4 +552,25 @@ export class List {
   get unitLoader() {
     return UnitLoader;
   }
+
+  printXls() {
+    if (this.unit === "" || this.dueDate === null) {
+      this.error.unit = "Unit harus diisi";
+      this.error.dueDate = "Periode harus diisi";
+    } else {
+      this.error.unit = "";
+      this.error.dueDate = "";
+
+      let unitId = 0;
+      if (this.unit && this.unit.Id) {
+        unitId = this.unit.Id;
+      }
+
+      let dueDate = this.dueDate
+        ? moment(this.dueDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
+
+      this.service.getXls({ unitId, dueDate });
+    }
+  }
 }

@@ -68,4 +68,9 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}/best-case/diff-financial`;
     return super.list(endpoint, query);
   }
+
+  getXls(query) {
+    let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+    return super.getXls(endpoint);
+  }
 }
