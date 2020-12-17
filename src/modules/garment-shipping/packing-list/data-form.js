@@ -324,4 +324,6 @@ export class DataForm {
         this[mark + "ImageSrc"] = this.noImage;
         this.data[mark + "ImageFile"] = null;
     }
+
+    
 }
