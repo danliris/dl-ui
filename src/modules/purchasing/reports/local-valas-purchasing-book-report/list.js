@@ -7,7 +7,7 @@ import moment from 'moment';
 // var UnitLoader = require('../../../../loader/unit-loader');
 var AccountingCategoryLoader = require('../../../../loader/accounting-category-loader');
 var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
-var DivisionLoader = require('../../../../loader/division-azure-loader');
+let DivisionLoader = require("../../../../loader/division-loader");
 var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader');
 
 @inject(Router, Service)

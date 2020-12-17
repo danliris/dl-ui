@@ -6,7 +6,7 @@ import moment from "moment";
 var UnitReceiptNoteLoader = require("../../../../loader/unit-receipt-note-basic-loader");
 // var UnitLoader = require("../../../../loader/unit-loader");
 // var CategoryLoader = require("../../../../loader/category-loader");
-var DivisionLoader = require('../../../../loader/division-azure-loader');
+let DivisionLoader = require("../../../../loader/division-loader");
 var AccountingCategoryLoader = require('../../../../loader/accounting-category-loader');
 var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
 
