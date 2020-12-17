@@ -2,7 +2,7 @@
     <tr>
         <td >
             <au-numeric
-                value.bind="data.carton1"
+                value.bind="carton1"
                 error.bind="error.Carton1"
                 format="0"
                 read-only.bind="readOnly">
@@ -10,7 +10,7 @@
         </td>
         <td >
             <au-numeric
-                value.bind="data.carton2"
+                value.bind="carton2"
                 error.bind="error.Carton2"
                 format="0"
                 read-only.bind="readOnly">
@@ -32,7 +32,7 @@
         </td>
         <td>
             <au-numeric
-                value.bind="cartonQuantity"
+                value.bind="data.cartonQuantity"
                 error.bind="error.CartonQuantity"
                 format="0"
                 read-only.bind="true">
