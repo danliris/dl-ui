@@ -6,6 +6,7 @@ import moment from "moment";
 var UnitReceiptNoteLoader = require("../../../../loader/unit-receipt-note-basic-loader");
 // var UnitLoader = require("../../../../loader/unit-loader");
 // var CategoryLoader = require("../../../../loader/category-loader");
+var DivisionLoader = require('../../../../loader/division-azure-loader');
 var AccountingCategoryLoader = require('../../../../loader/accounting-category-loader');
 var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
 
@@ -57,6 +58,10 @@ export class List {
         return `${accountingUnit.Code} - ${accountingUnit.Name}`
     }
 
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+
     searching() {
         if (false) {
             alert("");
@@ -70,6 +75,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             };
             this.service.search(filter).then((result) => {
                 this.data = result;
@@ -90,6 +96,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             };
             this.service.generateExcel(filter).catch((e) => {
                 alert(e.replace(e, "Error: ", ""));
@@ -110,6 +117,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             };
             this.service.printPdf(filter).catch((e) => {
                 alert(e.replace(e, "Error: ", ""));
