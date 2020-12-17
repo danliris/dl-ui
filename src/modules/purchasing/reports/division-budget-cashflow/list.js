@@ -265,13 +265,31 @@ export class List {
           let units = promiseResult[0];
           let currencies = promiseResult[1];
 
+          let divisions = [];
+          if (units.length > 0) {
+            for (let unit of units) {
+              let existingDivision = divisions.find((division) => division.Id == unit.Division.Id);
+              if (!existingDivision && unit.Division && unit.Division.Id > 0) {
+                divisions.push(unit.Division)
+              }
+            }
+          }
+
           let columns = ["MATA UANG"];
 
-          for (let unit of units) {
-            columns.push(`NOMINAL VALAS ${unit.Name}`);
-            columns.push(`NOMINAL IDR ${unit.Name}`);
-            // columns.push(`Nominal Actual ${unit.Name}`);
+          for (let division of divisions) {
+
+            let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+            for (let unit of selectedUnits) {
+              columns.push(`${unit.Name} VALAS`);
+              columns.push(`${unit.Name} IDR`);
+              // columns.push(`Nominal Actual ${unit.Name}`);
+            }
+
+            columns.push(`DIVISI ${division.Name} VALAS`);
+            columns.push(`DIVISI ${division.Name} IDR`);
           }
+
           columns.push(`ACTUAL`);
 
           // this.total.oaci = totalOACI.data.map((datum) => {
@@ -338,6 +356,8 @@ export class List {
           //   return datum;
           // });
 
+          console.log(columns);
+
           let rows = [];
           for (let datum of layoutOrderData) {
             let currency = currencies.find((f) => f.Id == datum.CurrencyId);
@@ -352,27 +372,37 @@ export class List {
             }
 
             let actualNominal = 0;
-            for (let unit of units) {
-              let filteredDatum = data.find(
-                (f) =>
-                  f.LayoutOrder == datum.LayoutOrder &&
-                  f.CurrencyId == datum.CurrencyId &&
-                  f.UnitId == unit.Id
-              );
+            for (let division of divisions) {
+              let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+              let currencyNominal = 0;
+              let nominal = 0;
+              for (let unit of selectedUnits) {
+                let filteredDatum = data.find(
+                  (f) =>
+                    f.LayoutOrder == datum.LayoutOrder &&
+                    f.CurrencyId == datum.CurrencyId &&
+                    f.UnitId == unit.Id
+                );
 
-              if (filteredDatum) {
-                actualNominal += filteredDatum.ActualNominal;
+                if (filteredDatum) {
+                  actualNominal += filteredDatum.ActualNominal;
 
-                row[`${unit.Code}CurrencyNominal`] =
-                  filteredDatum.CurrencyNominal;
-                row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
-                // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
-              } else {
-                row[`${unit.Code}CurrencyNominal`] = 0;
-                row[`${unit.Code}Nominal`] = 0;
-                // row[`${unit.Code}ActualNominal`] = 0;
+                  row[`${unit.Code}CurrencyNominal`] =
+                    filteredDatum.CurrencyNominal;
+                  currencyNominal += filteredDatum.CurrencyNominal
+                  row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
+                  nominal += filteredDatum.Nominal;
+                  // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
+                } else {
+                  row[`${unit.Code}CurrencyNominal`] = 0;
+                  row[`${unit.Code}Nominal`] = 0;
+                  // row[`${unit.Code}ActualNominal`] = 0;
+                }
               }
+              row[`${division.Code}CurrencyNominal`] = currencyNominal;
+              row[`${division.Code}Nominal`] = nominal;
             }
+
             row.actualNominal = actualNominal;
             rows.push(row);
           }
@@ -390,8 +420,10 @@ export class List {
         item.LayoutOrder >= min && item.LayoutOrder <= max;
 
       // OPERATING ACTIVITIES
+      // Cash In
       const revenue = this.rows.filter(getItem(1, 6));
       const otherRevenue = this.rows.filter(getItem(7, 8));
+      // Cash Out
       const cogSold = this.rows.filter(getItem(9, 28));
       const sellingExpenses = this.rows.filter(getItem(29, 41));
       const gaExpenses = this.rows.filter(getItem(42, 43));
@@ -400,16 +432,313 @@ export class List {
       const otherExpenses = this.rows.filter(getItem(67, 67));
 
       // INVESTING ACTIVITIES
+      // Cash In
       const depoInAndOthers = this.rows.filter(getItem(68, 69));
+      // Cash Out
       const assetTetap = this.rows.filter(getItem(70, 75));
       const depoOut = this.rows.filter(getItem(76, 76));
 
       // FINANCING ACTIVITIES
+      // Cash In
       const loanWithdrawal = this.rows.filter(getItem(77, 77));
       const othersCI = this.rows.filter(getItem(78, 81));
+      // Cash Out
       const loanInstallment = this.rows.filter(getItem(82, 83));
       const bankExpenses = this.rows.filter(getItem(84, 84));
       const othersCO = this.rows.filter(getItem(85, 87));
+
+      let objectSample = this.rows.find((f) => true);
+      // console.log("objectSample", objectSample);
+
+      // oaci
+      const oaciArr = [...revenue, ...otherRevenue];
+
+      let oaciCurrencyCodes = oaciArr.map((f) => f.CurrencyCode);
+      // console.log("oaciCurrencyCodes before", oaciCurrencyCodes);
+
+      oaciCurrencyCodes = oaciCurrencyCodes.filter(
+        (item, pos) => oaciCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("oaciCurrencyCodes after", oaciCurrencyCodes);
+
+      let oaci = oaciCurrencyCodes.map((currencyCode) => {
+        let data = oaciArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.oaci =
+        oaci.length !== 0 ? oaci : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.oaci", this.total.oaci);
+
+      // oaco
+      const oacoArr = [
+        ...cogSold,
+        ...sellingExpenses,
+        ...gaExpenses,
+        ...generalExpenses,
+        ...telpExpenses,
+        ...otherExpenses,
+      ];
+
+      let oacoCurrencyCodes = oacoArr.map((f) => f.CurrencyCode);
+      // console.log("oacoCurrencyCodes before", oacoCurrencyCodes);
+
+      oacoCurrencyCodes = oacoCurrencyCodes.filter(
+        (item, pos) => oacoCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("oacoCurrencyCodes after", oacoCurrencyCodes);
+
+      let oaco = oacoCurrencyCodes.map((currencyCode) => {
+        let data = oacoArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.oaco =
+        oaco.length !== 0 ? oaco : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.oaco", this.total.oaco);
+
+      // oadiff
+      let oadiffCurrencyCodes = [...oaciCurrencyCodes, ...oacoCurrencyCodes];
+      oadiffCurrencyCodes = oadiffCurrencyCodes.filter(
+        (item, pos) => oadiffCurrencyCodes.indexOf(item) == pos && item
+      );
+
+      let oadiff = oadiffCurrencyCodes.map((currencyCode) => {
+        let filteredOaci = oaci.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredOaci) filteredOaci = objectSample;
+        let filteredOaco = oaco.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredOaco) filteredOaco = objectSample;
+        let data = [filteredOaci, filteredOaco];
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a - (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.oadiff =
+        oadiff.length !== 0 ? oadiff : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.oadiff", this.total.oadiff);
+
+      // iaci
+      const iaciArr = [...depoInAndOthers];
+      let iaciCurrencyCodes = iaciArr.map((f) => f.CurrencyCode);
+      // console.log("iaciCurrencyCodes before", iaciCurrencyCodes);
+
+      iaciCurrencyCodes = iaciCurrencyCodes.filter(
+        (item, pos) => iaciCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("iaciCurrencyCodes after", iaciCurrencyCodes);
+
+      let iaci = iaciCurrencyCodes.map((currencyCode) => {
+        let data = iaciArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.iaci =
+        iaci.length !== 0 ? iaci : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.iaci", this.total.iaci);
+
+      // iaco
+      const iacoArr = [...assetTetap, ...depoOut];
+      let iacoCurrencyCodes = iacoArr.map((f) => f.CurrencyCode);
+      // console.log("iacoCurrencyCodes before", iacoCurrencyCodes);
+
+      iacoCurrencyCodes = iacoCurrencyCodes.filter(
+        (item, pos) => iacoCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("iacoCurrencyCodes after", iacoCurrencyCodes);
+
+      let iaco = iacoCurrencyCodes.map((currencyCode) => {
+        let data = iacoArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.iaco =
+        iaco.length !== 0 ? iaco : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.iaco", this.total.iaco);
+
+      // iadiff
+      let iadiffCurrencyCodes = [...iaciCurrencyCodes, ...iacoCurrencyCodes];
+      iadiffCurrencyCodes = iadiffCurrencyCodes.filter(
+        (item, pos) => iadiffCurrencyCodes.indexOf(item) == pos && item
+      );
+
+      let iadiff = iadiffCurrencyCodes.map((currencyCode) => {
+        let filteredIaci = iaci.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredIaci) filteredIaci = objectSample;
+        let filteredIaco = iaco.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredIaco) filteredIaco = objectSample;
+        let data = [filteredIaci, filteredIaco];
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a - (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.iadiff =
+        iadiff.length !== 0 ? iadiff : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.iadiff", this.total.iadiff);
+
+      // faci
+      const faciArr = [...loanWithdrawal, ...othersCI];
+
+      let faciCurrencyCodes = faciArr.map((f) => f.CurrencyCode);
+      // console.log("faciCurrencyCodes before", faciCurrencyCodes);
+
+      faciCurrencyCodes = faciCurrencyCodes.filter(
+        (item, pos) => faciCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("faciCurrencyCodes after", faciCurrencyCodes);
+
+      let faci = faciCurrencyCodes.map((currencyCode) => {
+        let data = faciArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.faci =
+        faci.length !== 0 ? faci : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.faci", this.total.faci);
+
+      // faco
+      const facoArr = [...loanInstallment, ...bankExpenses, ...othersCO];
+
+      let facoCurrencyCodes = facoArr.map((f) => f.CurrencyCode);
+      // console.log("facoCurrencyCodes before", facoCurrencyCodes);
+
+      facoCurrencyCodes = facoCurrencyCodes.filter(
+        (item, pos) => facoCurrencyCodes.indexOf(item) == pos && item
+      );
+      // console.log("facoCurrencyCodes after", facoCurrencyCodes);
+
+      let faco = facoCurrencyCodes.map((currencyCode) => {
+        let data = facoArr.filter((e) => e.CurrencyCode == currencyCode);
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a + (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.faco =
+        faco.length !== 0 ? faco : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.faco", this.total.faco);
+
+      // fadiff
+      let fadiffCurrencyCodes = [...faciCurrencyCodes, ...facoCurrencyCodes];
+      fadiffCurrencyCodes = fadiffCurrencyCodes.filter(
+        (item, pos) => fadiffCurrencyCodes.indexOf(item) == pos && item
+      );
+
+      let fadiff = fadiffCurrencyCodes.map((currencyCode) => {
+        let filteredFaci = faci.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredFaci) filteredFaci = objectSample;
+        let filteredFaco = faco.find((e) => e.CurrencyCode == currencyCode);
+        if (!filteredFaco) filteredFaco = objectSample;
+        let data = [filteredFaci, filteredFaco];
+
+        let result = {
+          CurrencyCode: currencyCode,
+        };
+
+        for (var key in objectSample) {
+          if (key == "CurrencyCode") continue;
+
+          result[key] = data.reduce((a, b) => a - (b[key] || 0), 0);
+        }
+
+        result.LayoutOrder = 0;
+
+        return result;
+      });
+      this.total.fadiff =
+        fadiff.length !== 0 ? fadiff : [{ ...objectSample, LayoutOrder: 0 }];
+      // console.log("this.total.fadiff", this.total.fadiff);
 
       const joined = [
         "Revenue",
@@ -464,7 +793,7 @@ export class List {
       this.isEmpty = this.rows.length !== 0 ? false : true;
       this.rows = joined;
 
-      // console.log("this.total", this.total);
+      console.log("this.total", this.total);
       // console.log("this.rows", this.rows);
 
       const itemsNoString = this.rows.filter(
