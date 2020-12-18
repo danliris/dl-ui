@@ -102,12 +102,12 @@
         </td>
         
         <td colspan="4">
-            <au-textbox
+            <au-multiline
                 label = "PO Buyer"
                 error.bind="error.OrderNo"
                 value.bind="data.orderNo"
                 read-only.bind="readOnly">
-            </au-textbox>
+            </au-multiline>
         </td>
         
         <td colspan="5">
@@ -157,7 +157,7 @@
         <td colspan="2">
             <au-numeric
                 label = "Total GW"
-                value.one-way="subGrossWeight"
+                value.one-way="data.subGrossWeight"
                 read-only="true">
             </au-numeric>
         </td>

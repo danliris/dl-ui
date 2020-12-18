@@ -137,6 +137,21 @@ export class List {
     this.data = {};
   }
 
+  printXls() {
+    if (this.dueDate === null) {
+      this.error.dueDate = "Periode harus diisi";
+    } else {
+      this.error.dueDate = "";
+
+      let dueDate = this.dueDate
+        ? moment(this.dueDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
+
+      this.service.getXls({ dueDate });
+
+    }
+  }
+
   async search() {
     this.collectionOptions = {
       readOnly: true,

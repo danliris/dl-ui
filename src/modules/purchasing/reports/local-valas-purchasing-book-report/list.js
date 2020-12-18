@@ -7,6 +7,7 @@ import moment from 'moment';
 // var UnitLoader = require('../../../../loader/unit-loader');
 var AccountingCategoryLoader = require('../../../../loader/accounting-category-loader');
 var AccountingUnitLoader = require('../../../../loader/accounting-unit-loader');
+let DivisionLoader = require("../../../../loader/division-loader");
 var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader');
 
 @inject(Router, Service)
@@ -30,20 +31,20 @@ export class List {
         return UnitReceiptNoteLoader;
     }
     unitReceiptNoteView = (unitReceiptNote) => {
-            return `${unitReceiptNote.no} `
-        }
-        // get categoryLoader() {
-        //     return CategoryLoader;
-        // }
-        // categoryView = (category) => {
-        //     return `${category.code} - ${category.name}`
-        // }
-        // get unitLoader() {
-        //     return UnitLoader;
-        // }
-        // unitView = (unit) => {
-        //     return `${unit.Code} - ${unit.Name}`
-        // }
+        return `${unitReceiptNote.no} `
+    }
+    // get categoryLoader() {
+    //     return CategoryLoader;
+    // }
+    // categoryView = (category) => {
+    //     return `${category.code} - ${category.name}`
+    // }
+    // get unitLoader() {
+    //     return UnitLoader;
+    // }
+    // unitView = (unit) => {
+    //     return `${unit.Code} - ${unit.Name}`
+    // }
     get accountingCategoryLoader() {
         return AccountingCategoryLoader;
     }
@@ -55,6 +56,10 @@ export class List {
     }
     accountingUnittView = (accountingUnit) => {
         return `${accountingUnit.Code} - ${accountingUnit.Name}`
+    }
+
+    get divisionLoader() {
+        return DivisionLoader;
     }
 
 
@@ -70,7 +75,8 @@ export class List {
                 accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             }
             this.service.search(info)
                 .then(result => {
@@ -90,7 +96,8 @@ export class List {
                 accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             }
 
             this.service.generateExcel(filter)
@@ -111,7 +118,8 @@ export class List {
                 accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
             }
 
             this.service.printPdf(filter)
