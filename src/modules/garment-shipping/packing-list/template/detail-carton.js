@@ -9,6 +9,8 @@ export class Detail {
     @bindable grossWeight;
     @bindable netWeight;
     @bindable netNetWeight;
+    @bindable carton1;
+    @bindable carton2;
 
     constructor() {
 
@@ -56,6 +58,9 @@ export class Detail {
         this.grossWeight = this.data.grossWeight;
         this.netWeight = this.data.netWeight;
         this.netNetWeight = this.data.netNetWeight;
+
+        this.carton1 = this.data.carton1;
+        this.carton2 = this.data.carton2;
     }
 
 
@@ -78,16 +83,6 @@ export class Detail {
         }
         else
             return 0;
-    }
-
-    @computedFrom('data.carton1', 'data.carton2')
-    get cartonQuantity() {
-        this.data.cartonQuantity = 0;
-        if (this.data.carton1 && this.data.carton2) {
-            this.data.cartonQuantity = this.data.carton2 - this.data.carton1 + 1;
-        }
-        this.updateMeasurements();
-        return this.data.cartonQuantity;
     }
 
     get totalQtySize() {
@@ -254,5 +249,41 @@ export class Detail {
         }
       }
       return result;
+    }
+
+    carton1Changed(newValue) {
+      this.data.carton1 = newValue;
+      this.updateCartonQuantity();
+      this.updateTotalSummary();
+    }
+
+    updateCartonQuantity() {
+      this.data.cartonQuantity = 0;
+        if (this.data.carton1 && this.data.carton2) {
+            this.data.cartonQuantity = this.data.carton2 - this.data.carton1 + 1;
+        }
+        this.updateMeasurements();
+    }
+
+    carton2Changed(newValue) {
+      this.data.carton2 = newValue;
+      this.updateCartonQuantity();
+      this.updateTotalSummary();
+    }
+
+    updateTotalSummary() {
+      this.context.context.options.header.grossWeight = 0;
+      this.context.context.options.header.nettWeight = 0;
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
+      this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
+      this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+          this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+          this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
+      }
     }
 }
