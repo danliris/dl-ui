@@ -219,15 +219,7 @@ export class Item {
     get removeDetails() {
         return (event) => {
             this.error = null;
-            const gw = this.sumSubTotal(0);
-            const nw = this.sumSubTotal(1);
-            const nnw = this.sumSubTotal(2);
-            this.context.context.options.header.grossWeight = gw;
-            this.context.context.options.header.nettWeight = nw;
-            this.context.context.options.header.netNetWeight = nnw;
-            this.data.subGrossWeight = gw;
-            this.data.subNetWeight = nw;
-            this.data.subNetNetWeight = nnw;
+            this.updateTotalSummary();
         };
     }
 
@@ -261,5 +253,21 @@ export class Item {
             this.data.amount = this.data.quantity * this.data.price
         }
         return this.data.amount;
+    }
+
+    updateTotalSummary() {
+      this.context.context.options.header.grossWeight = 0;
+      this.context.context.options.header.nettWeight = 0;
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.data.subGrossWeight = this.sumSubTotal(0);
+      this.data.subNetWeight = this.sumSubTotal(1);
+      this.data.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+        this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+        this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+        this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
+      }
     }
 }
