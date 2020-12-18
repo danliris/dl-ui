@@ -168,55 +168,91 @@ export class Detail {
         this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
     }
 
-  grossWeightChanged(newValue) {
-    this.data.grossWeight = newValue;
-    this.updateGrossWeight();
-  }
+    grossWeightChanged(newValue) {
+      this.data.grossWeight = newValue;
+      this.updateGrossWeight();
+    }
 
-  updateGrossWeight() {
-    this.context.context.options.header.grossWeight = 0;
-    for (const item of this.context.context.options.header.items) {
-      for (const detail of item.details) {
-        this.context.context.options.header.grossWeight += detail.grossWeight;
+    updateGrossWeight() {
+      this.context.context.options.header.grossWeight = 0;
+
+      this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+      }
+    }
+  
+    netWeightChanged(newValue) {
+      this.data.netWeight = newValue;
+      this.updateNettWeight();
+    }
+  
+    updateNettWeight() {
+      this.context.context.options.header.nettWeight = 0;
+
+      this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+      }
+    }
+  
+    netNetWeightChanged(newValue) {
+      this.data.netNetWeight = newValue;
+      this.updateNetNetWeight();
+    }
+  
+    updateNetNetWeight() {
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
       }
     }
 
-    this.context.context.options.item.avG_GW = 0;
-    for (const detail of this.context.context.options.item.details) {
-      this.context.context.options.item.avG_GW += detail.grossWeight;
-    }
-  }
-
-  netWeightChanged(newValue) {
-    this.data.netWeight = newValue;
-    this.updateNettWeight();
-  }
-
-  updateNettWeight() {
-    this.context.context.options.header.nettWeight = 0;
-    for (const item of this.context.context.options.header.items) {
-      for (const detail of item.details) {
-        this.context.context.options.header.nettWeight += detail.netWeight;
+    sumSubTotal(opt) {
+      let result = 0;
+      const newDetails = this.context.context.options.item.details.map(d => {
+        return {
+          carton1: d.carton1,
+          carton2: d.carton2,
+          cartonQuantity: d.cartonQuantity,
+          grossWeight: d.grossWeight,
+          netWeight: d.netWeight,
+          netNetWeight: d.netNetWeight
+        };
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2) === index);
+      for (const detail of newDetails) {
+        const cartonExist = false;
+        const indexItem = this.context.context.options.header.items.indexOf(this.context.context.options.item);
+        if (indexItem > 0) {
+          for (let i = 0; i < indexItem; i++) {
+            const item = this.context.context.options.header.items[i];
+            for (const prevDetail of item.details) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2) {
+                cartonExist = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!cartonExist) {
+          switch (opt) {
+            case 0:
+              result += detail.grossWeight * detail.cartonQuantity;
+              break;
+            case 1:
+              result += detail.netWeight * detail.cartonQuantity;
+              break;
+            case 2:
+              result += detail.netNetWeight * detail.cartonQuantity;
+              break;
+          }
+        }
       }
+      return result;
     }
-
-    this.context.context.options.item.avG_NW = 0;
-    for (const detail of this.context.context.options.item.details) {
-      this.context.context.options.item.avG_NW += detail.netWeight;
-    }
-  }
-
-  netNetWeightChanged(newValue) {
-    this.data.netNetWeight = newValue;
-    this.updateNetNetWeight();
-  }
-
-  updateNetNetWeight() {
-    this.context.context.options.header.netNetWeight = 0;
-    for (const item of this.context.context.options.header.items) {
-      for (const detail of item.details) {
-        this.context.context.options.header.netNetWeight += detail.netNetWeight;
-      }
-    }
-  }
 }
