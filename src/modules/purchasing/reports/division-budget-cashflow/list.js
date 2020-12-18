@@ -139,6 +139,28 @@ export class List {
     this.data = {};
   }
 
+  printXls() {
+    if (this.division === "" || this.dueDate === null) {
+      this.error.division = "Divisi harus diisi";
+      this.error.dueDate = "Periode harus diisi";
+    } else {
+      this.error.division = "";
+      this.error.dueDate = "";
+
+      let divisionId = 0;
+      if (this.division && this.division.Id) {
+        divisionId = this.division.Id;
+      }
+
+      let dueDate = this.dueDate
+        ? moment(this.dueDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
+
+      this.service.getXls({ divisionId, dueDate });
+
+    }
+  }
+
   async search() {
     this.collectionOptions = {
       readOnly: true,
