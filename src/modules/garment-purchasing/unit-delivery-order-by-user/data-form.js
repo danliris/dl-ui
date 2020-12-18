@@ -28,9 +28,10 @@ export class DataForm {
     @bindable isTransfer = false;
     @bindable isSample = false;
     @bindable isRemain = false;
+    @bindable isSubcon = false;
     @bindable RONoJob;
 
-    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE','SISA'];
+    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE','SISA', 'SUBCON'];
 
     controlOptions = {
         label: {
@@ -80,6 +81,7 @@ export class DataForm {
             this.isTransfer = this.data.UnitDOType === "TRANSFER";
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
+            this.isSubcon = this.data.UnitDOType === "SUBCON";
         }
     }
 
@@ -140,6 +142,7 @@ export class DataForm {
             this.isTransfer = this.data.UnitDOType === "TRANSFER";
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
+            this.isSubcon = this.data.UnitDOType === "SUBCON";
 
             this.unitRequest = null;
             this.unitSender = null;
@@ -182,13 +185,13 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitRequest = selectedUnit;
-            if (this.isProses || this.isSample || this.isRemain) {
+            if (this.isProses || this.isSample || this.isRemain || this.isSubcon) {
                 this.unitSender = selectedUnit;
             }
         }
         else {
             this.data.UnitRequest = null;
-            if (this.isProses || this.isSample|| this.isRemain) {
+            if (this.isProses || this.isSample|| this.isRemain || this.isSubcon) {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
