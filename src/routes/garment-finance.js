@@ -4,11 +4,24 @@ module.exports = [
         name: 'garment-purchasing-to-verification',
         moduleId: './modules/garment-finance/garment-purchasing-to-verification/index',
         nav: true,
-        title: 'Penyerahan Garment',
+        title: 'Ekspedisi Penyerahan ke Verifikasi',
         auth: true,
         settings: {
             group: "g-finance",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B9": 1 },
+            permission: { "B11": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-finance/garment-purchasing-document-expedition-acceptance',
+        name: 'garment-purchasing-document-expedition-acceptance',
+        moduleId: './modules/garment-finance/garment-purchasing-document-expedition-acceptance/index',
+        nav: true,
+        title: 'Penerimaan Dokumen Pembelian Garment',
+        auth: true,
+        settings: {
+            group: "g-finance",
+            permission: { "B13": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
