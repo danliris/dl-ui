@@ -29,7 +29,7 @@
         <br>
     </template>
 
-    <h1 class="page-header">Penerimaan Dokumen Pembelian Garment dari Verifikasi ${activeRole.position === 3 ? 'dari
+    <h1 class="page-header">Penerimaan Dokumen Pembelian Garment ${activeRole.position == 3 ? 'dari
         Pembelian' : 'dari Verifikasi'}</h1>
     <au-table view-model.ref="tableList"
               data.bind="loader"
