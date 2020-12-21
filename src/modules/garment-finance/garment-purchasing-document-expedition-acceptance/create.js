@@ -32,11 +32,6 @@ export class Create {
 
   fromVerificationColumns = [
     { field: "selected", checkbox: true, sortable: false },
-    {
-      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : '-';
-      },
-    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
