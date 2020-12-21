@@ -21,6 +21,19 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-finance",
+            permission: { "B13": 1, "C9": 1, "B12": 1, "B11": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-finance/garment-purchasing-verification',
+        name: 'garment-purchasing-verification',
+        moduleId: './modules/garment-finance/garment-purchasing-verification/index',
+        nav: true,
+        title: 'Verifikasi Nota Intern',
+        auth: true,
+        settings: {
+            group: "g-finance",
             permission: { "B13": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
