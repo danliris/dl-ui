@@ -1,0 +1,269 @@
+import { inject, Lazy } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { activationStrategy } from "aurelia-router";
+import moment from "moment";
+import numeral from "numeral";
+import { Service } from "./service";
+// import PurchasingDocumentExpeditionService from "../shared/purchasing-document-expedition-service";
+import { PermissionHelper } from "../../../utils/permission-helper";
+import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constants';
+const InternalNoteLoader = require("../../../loader/garment-intern-note-loader");
+const SupplierLoader = require("../../../loader/garment-supplier-loader");
+// const DivisionLoader = require("../../../loader/division-loader");
+
+@inject(Router, Service, PermissionHelper)
+export class Create {
+  fromPurchasingColumns = [
+    { field: "selected", checkbox: true, sortable: false },
+    { field: "InternalNoteNo", title: "No. Nota Intern" },
+    {
+      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      },
+    },
+    { field: "SupplierName", title: "Supplier" },
+    {
+      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }, align: "right"
+    },
+    { field: "CurrencyCode", title: "Mata Uang" }
+  ];
+
+  fromVerificationColumns = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : '-';
+      },
+    },
+    { field: "InternalNoteNo", title: "No. Nota Intern" },
+    {
+      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      },
+    },
+    { field: "SupplierName", title: "Supplier" },
+    {
+      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }, align: "right"
+    },
+    { field: "CurrencyCode", title: "Mata Uang" }
+  ];
+
+  tableOptions = {
+    pagination: false,
+    showColumns: false,
+    search: false,
+    showToggle: false,
+  };
+
+  formOptions = {
+    cancelText: "Kembali",
+    saveText: "Simpan",
+  };
+
+  controlOptions = {
+    label: {
+      length: 4,
+    },
+    control: {
+      length: 4,
+    },
+  };
+
+  constructor(
+    router,
+    service,
+    permissionHelper
+  ) {
+    this.router = router;
+    this.service = service;
+
+    this.documentData = [];
+    this.selectedItems = [];
+
+    this.permissions = permissionHelper.getUserPermissions();
+    this.initPermission();
+  }
+
+  initPermission() {
+    this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+    this.accessCount = 0;
+
+    for (let i = this.roles.length - 1; i >= 0; i--) {
+      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+        this.roles[i].hasPermission = true;
+        this.accessCount++;
+        this.activeRole = this.roles[i];
+      }
+    }
+
+    if (this.permissions.hasOwnProperty('C9')) {
+      this.accessCount = 0;
+      this.roles = this.roles.map((role) => {
+        role.hasPermission = true;
+        this.accessCount++;
+        return role;
+      });
+      this.activeRole = this.roles[0];
+    }
+  }
+
+  changeRole(role) {
+    console.log(role);
+    if (role.key !== this.activeRole.key) {
+      this.activeRole = role;
+      this.selectedItems.splice(0, this.selectedItems.length);
+      this.documentData.splice(0, this.documentData.length);
+      this.documentTable.refresh();
+    }
+  }
+
+  //   changeTable(role) {
+  //     this.code = role.key === "CASHIER" ? true : false;
+  //   }
+
+  changeTable(role) {
+    this.code = role.key !== "VERIFICATION";
+  }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace;
+  }
+
+  search() {
+
+    let position = 2;
+    if (this.activeRole)
+      position = this.activeRole.positionAutocomplete;
+
+    let internalNoteId = 0;
+    if (this.internalNote)
+      internalNoteId = this.internalNote.Id;
+
+    let supplierId = 0;
+    if (this.supplier)
+      supplierId = this.supplier.Id;
+
+    let arg = {
+      page: 1,
+      size: 255,
+      position: position,
+      internalNoteId: internalNoteId,
+      supplierId: supplierId
+    };
+
+    this.service.search(arg).then((result) => {
+      this.selectedItems.splice(0, this.selectedItems.length);
+      this.documentData.splice(0, this.documentData.length);
+      this.documentData.push(...result.data);
+      this.documentTable.refresh();
+    });
+  }
+
+  cancelCallback(event) {
+    this.router.navigateToRoute("list");
+  }
+
+  saveCallback(event) {
+    /*
+            let data = {
+                ReceiptDate: this.receiptDate,
+                Role: this.activeRole.key,
+                PurchasingDocumentExpedition: [],
+            };
+        */
+
+    if (!this.selectedItems || this.selectedItems.length <= 0)
+      alert('Harap pilih dokumen!');
+    else {
+      let ids = this.selectedItems.map((item) => item.Id);
+      switch (this.activeRole.key) {
+        case 'VERIFICATION':
+          this.service
+            .verificationAccepted(ids)
+            .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute(
+                "create",
+                {},
+                { replace: true, trigger: true }
+              );
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+          break;
+        case 'CASHIER':
+          this.service
+            .cashierAccepted(ids)
+            .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute(
+                "create",
+                {},
+                { replace: true, trigger: true }
+              );
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+          break;
+        case 'ACCOUNTING':
+          this.service
+            .accountingAccepted(ids)
+            .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute(
+                "create",
+                {},
+                { replace: true, trigger: true }
+              );
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+          break;
+        default:
+          break;
+      }
+    }
+
+    console.log(this);
+    // let data = {
+    //   Role: this.activeRole.key,
+    //   PurchasingDocumentExpedition: [],
+    // };
+
+    // for (let s of this.selectedItems) {
+    //   data.PurchasingDocumentExpedition.push({
+    //     Id: s.Id,
+    //     UnitPaymentOrderNo: s.UnitPaymentOrderNo,
+    //   });
+    // }
+
+    // this.service
+    //   .create(data)
+    //   .then((result) => {
+    //     alert("Data berhasil dibuat");
+    //     this.router.navigateToRoute(
+    //       "create",
+    //       {},
+    //       { replace: true, trigger: true }
+    //     );
+    //   })
+    //   .catch((e) => {
+    //     this.error = e;
+    //   });
+  }
+
+  get internalNoteLoader() {
+    return InternalNoteLoader;
+  }
+
+  get supplierLoader() {
+    return SupplierLoader;
+  }
+}
