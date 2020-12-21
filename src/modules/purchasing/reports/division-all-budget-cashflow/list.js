@@ -148,7 +148,20 @@ export class List {
         : moment(new Date()).format("YYYY-MM-DD");
 
       this.service.getXls({ dueDate });
+    }
+  }
 
+  printPdf() {
+    if (this.dueDate === null) {
+      this.error.dueDate = "Periode harus diisi";
+    } else {
+      this.error.dueDate = "";
+
+      let dueDate = this.dueDate
+        ? moment(this.dueDate).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
+
+      this.service.getPdf({ dueDate });
     }
   }
 
@@ -279,9 +292,11 @@ export class List {
           let divisions = [];
           if (units.length > 0) {
             for (let unit of units) {
-              let existingDivision = divisions.find((division) => division.Id == unit.Division.Id);
+              let existingDivision = divisions.find(
+                (division) => division.Id == unit.Division.Id
+              );
               if (!existingDivision && unit.Division && unit.Division.Id > 0) {
-                divisions.push(unit.Division)
+                divisions.push(unit.Division);
               }
             }
           }
@@ -289,7 +304,9 @@ export class List {
           let columns = ["MATA UANG"];
 
           for (let division of divisions) {
-            let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+            let selectedUnits = units.filter(
+              (unit) => unit.Division.Id == division.Id
+            );
             for (let unit of selectedUnits) {
               columns.push(`${unit.Name} VALAS`);
               columns.push(`${unit.Name} IDR`);
@@ -381,7 +398,9 @@ export class List {
 
             let actualNominal = 0;
             for (let division of divisions) {
-              let selectedUnits = units.filter((unit) => unit.Division.Id == division.Id);
+              let selectedUnits = units.filter(
+                (unit) => unit.Division.Id == division.Id
+              );
               let currencyNominal = 0;
               let nominal = 0;
               for (let unit of selectedUnits) {
@@ -397,7 +416,7 @@ export class List {
 
                   row[`${unit.Code}CurrencyNominal`] =
                     filteredDatum.CurrencyNominal;
-                  currencyNominal += filteredDatum.CurrencyNominal
+                  currencyNominal += filteredDatum.CurrencyNominal;
                   row[`${unit.Code}Nominal`] = filteredDatum.Nominal;
                   nominal += filteredDatum.Nominal;
                   // row[`${unit.Code}ActualNominal`] = filteredDatum.ActualNominal;
