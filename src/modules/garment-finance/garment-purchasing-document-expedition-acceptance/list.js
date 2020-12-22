@@ -13,7 +13,6 @@ export class List {
   context = ["Hapus"];
 
   fromPurchasingColumns = [
-    { field: "selected", checkbox: true, sortable: false },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -30,7 +29,6 @@ export class List {
   ];
 
   fromVerificationColumns = [
-    { field: "selected", checkbox: true, sortable: false },
     {
       field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
