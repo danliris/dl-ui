@@ -18,13 +18,13 @@ export class Create {
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
     {
       field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
-        return numeral(value).format("0,000.00");
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       }, align: "right"
     },
     { field: "CurrencyCode", title: "Mata Uang" }
@@ -32,10 +32,15 @@ export class Create {
 
   fromVerificationColumns = [
     { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
@@ -81,6 +86,8 @@ export class Create {
 
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
+
+    this.isVerification = this.activeRole.key == "VERIFICATION";
   }
 
   initPermission() {
@@ -104,6 +111,8 @@ export class Create {
       });
       this.activeRole = this.roles[0];
     }
+
+
   }
 
   changeRole(role) {
@@ -121,7 +130,8 @@ export class Create {
   //   }
 
   changeTable(role) {
-    this.code = role.key !== "VERIFICATION";
+    this.isVerification = role.key == "VERIFICATION";
+    this.documentTable.refresh();
   }
 
   determineActivationStrategy() {

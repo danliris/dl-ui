@@ -67,7 +67,7 @@
                   data.bind="documentData"
                   columns.bind="fromVerificationColumns"
                   sortable.bind="true"
-                  if.bind="code"
+                  if.bind="!isVerification"
                   selections.bind="selectedItems"
                   options.bind="tableOptions">
         </au-table>
@@ -76,7 +76,7 @@
                   data.bind="documentData"
                   columns.bind="fromPurchasingColumns"
                   sortable.bind="true"
-                  if.bind="!code"
+                  if.bind="isVerification"
                   selections.bind="selectedItems"
                   options.bind="tableOptions">
         </au-table>

@@ -12,11 +12,34 @@ import { VERIFICATION, CASHIER, ACCOUNTING } from "../shared/permission-constant
 export class List {
   context = ["Hapus"];
 
-  columns = [
+  fromPurchasingColumns = [
+    { field: "selected", checkbox: true, sortable: false },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "SupplierName", title: "Supplier" },
+    {
+      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      }, align: "right"
+    },
+    { field: "CurrencyCode", title: "Mata Uang" }
+  ];
+
+  fromVerificationColumns = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "InternalNoteNo", title: "No. Nota Intern" },
+    {
+      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
@@ -35,6 +58,8 @@ export class List {
 
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
+
+    this.isVerification = this.activeRole.key == "VERIFICATION";
   }
 
   initPermission() {
@@ -72,7 +97,8 @@ export class List {
   //     this.code = role.key === "CASHIER" ? true : false;
   //   }
   changeTable(role) {
-    this.code = role.key !== "VERIFICATION" ? true : false;
+    this.isVerification = role.key == "VERIFICATION";
+    this.tableList.refresh();
   }
 
   loader = (info) => {
