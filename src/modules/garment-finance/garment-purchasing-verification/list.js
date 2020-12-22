@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = [];
+    context = ["Detail"];
 
     columns = [
         {
@@ -73,16 +73,8 @@ export class List {
         let arg = event.detail;
         let data = arg.data;
         switch (arg.name) {
-            case "Hapus":
-                this.service.sendToPurchasing(data)
-                    .then(result => {
-                        alert("Data berhasil dibuat");
-                        this.tableList.refresh();
-                    })
-                    .catch(e => {
-                        alert("Terjadi kesalahan!");
-                        this.error = e;
-                    });
+            case "Detail":
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

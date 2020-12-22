@@ -28,4 +28,9 @@ export class Service extends RestService {
         var endpoint = `${uri}/verified`;
         return super.list(endpoint, info);
     }
+
+    getById(id) {
+        var endpoint = `${uri}/verified/${id}`;
+        return super.get(endpoint);
+    }
 }
