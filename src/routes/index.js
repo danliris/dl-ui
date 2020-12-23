@@ -22,8 +22,9 @@ let garmentProductionRoutes = require("./garment-production");
 let packingSKUInventory = require("./packing-sku-inventory");
 let customs = require("./customs");
 let garmentShippingRoutes= require("./garment-shipping");
+let garmentSubconRoutes= require("./garment-subcon");
 
-export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, intPurchasingRoutes, customsReportRoutes, authRoutes, expeditionRoutes, merchandiserRoutes, migrationLog, reportRoutes, weavingRoutes, accountingRoutes, garmentProductionRoutes,garmentShippingRoutes, packingSKUInventory, customs);
+export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, intPurchasingRoutes, customsReportRoutes, authRoutes, expeditionRoutes, merchandiserRoutes, migrationLog, reportRoutes, weavingRoutes, accountingRoutes, garmentProductionRoutes,garmentShippingRoutes,garmentSubconRoutes, packingSKUInventory, customs);
 
 
 
