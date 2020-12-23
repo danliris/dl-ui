@@ -224,7 +224,7 @@
         <!-- DETAIL MEASURE -->
         <div class="row" if.bind="activeTab==1">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <numeric
                         label="GROSS WEIGHT"
                         value.bind="data.grossWeight"
@@ -233,7 +233,7 @@
                         options.bind="controlOptions">
                     </numeric>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <numeric
                         label="NETT WEIGHT"
                         value.bind="data.nettWeight"
@@ -242,7 +242,16 @@
                         options.bind="controlOptions">
                     </numeric>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
+                  <numeric
+                      label="NET NET WEIGHT"
+                      value.bind="data.netNetWeight"
+                      error.bind="error.NetNetWeight"
+                      read-only="true" 
+                      options.bind="controlOptions">
+                  </numeric>
+              </div>
+                <div class="col-sm-3">
                     <numeric
                         label="TOTAL CARTONS"
                         value.bind="totalCartons"
