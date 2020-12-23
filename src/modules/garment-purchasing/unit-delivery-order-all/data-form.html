@@ -75,7 +75,7 @@
                     label="Unit yang mengirim"
                     value.bind = "unitSender"
                     error.bind="error.UnitSender"
-                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain"
+                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain || isSubcon"
                     loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
@@ -109,7 +109,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "unitReceiptNoteLoader"
                             text = "RONo"
-                            if.bind="!isProses && !isTransfer && !isRemain && !isSample"
+                            if.bind="!isProses && !isTransfer && !isRemain && !isSample && !isSubcon"
                             placeholder = "Cari Nomor RO"
                             query.bind = "filterRONoByUnit"
                             view-model.ref="RONoViewModel">
@@ -122,7 +122,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "roLoader"
                             text = "RONo"
-                            if.bind="isProses || isRemain || isSample"
+                            if.bind="isProses || isRemain || isSample || isSubcon"
                             placeholder = "Cari Nomor RO"
                             view-model.ref="RONoViewModel">
                         </au-autocomplete>
@@ -181,7 +181,7 @@
                     query.bind = "filterRONoAddProductByUnit"
                     options.bind="controlOptions"
                     view-model.ref="RONoHeaderViewModel"
-                    if.bind="isTransfer|| isProses || isSample || isRemain"
+                    if.bind="isTransfer|| isProses || isSample || isRemain || isSubcon"
                     >
                 </au-autocomplete>
 

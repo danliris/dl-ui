@@ -14,6 +14,16 @@ export class Service extends RestService {
     return super.list(endpoint, query);
   }
 
+  getXls(query) {
+    let endpoint = `${serviceUri}/division/xls?divisionId=${query.divisionId}&dueDate=${query.dueDate}`;
+    return super.getXls(endpoint);
+  }
+
+  getPdf(query) {
+    let endpoint = `${serviceUri}/division/pdf?divisionId=${query.divisionId}&dueDate=${query.dueDate}`;
+    return super.getPdf(endpoint);
+  }
+
   // getOACI(query) {
   //   let endpoint = `${serviceUri}/division/cash-in-operational`;
   //   return super.list(endpoint, query);
