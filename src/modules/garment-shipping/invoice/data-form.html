@@ -68,7 +68,7 @@
                 error.bind="error.ConfirmationOfOrderNo" read-only.bind="readOnly" options.bind="length4">
             </au-textbox>
             <au-autocomplete label="Shipping Staff" value.bind="shippingStaff" error.bind="error.ShippingStaff"
-                read-only.bind="readOnly || options.isUsed" loader.bind="shippingStaffLoader"
+                read-only="true" loader.bind="shippingStaffLoader"
                 text.bind="shippingStaffView" placeholder="Cari Shipping Staff" options.bind="length4"
                 view-model.ref="shippingStaffViewModel">
             </au-autocomplete>
