@@ -15,6 +15,11 @@ const SupplierLoader = require("../../../loader/garment-supplier-loader");
 export class Create {
   fromPurchasingColumns = [
     { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -33,6 +38,11 @@ export class Create {
 
   fromVerificationColumns = [
     { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     {
       field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";

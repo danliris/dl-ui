@@ -13,6 +13,11 @@ export class List {
   context = ["Hapus"];
 
   fromPurchasingColumns = [
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -30,6 +35,11 @@ export class List {
   ];
 
   fromVerificationColumns = [
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     {
       field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
