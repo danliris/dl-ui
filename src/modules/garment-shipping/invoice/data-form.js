@@ -67,10 +67,7 @@ export class DataForm {
                 });
             }
             
-            this.shippingStaff = {
-                Id: this.data.shippingStaffId,
-                Name: this.data.shippingStaff
-            }
+            
             this.fabricType = {
                 Id: this.data.fabricTypeId,
                 Name: this.data.fabricType
@@ -181,6 +178,11 @@ export class DataForm {
             this.data.packinglistId = selectedInv.id;
             this.data.invoiceNo = selectedInv.invoiceNo;
             this.data.invoiceDate = selectedInv.date;
+
+            this.shippingStaff = {
+              Id: selectedInv.shippingStaff.id,
+              Name: selectedInv.shippingStaff.name || ""
+            }
 
             console.log(newValue)
             this.data.section =
