@@ -90,4 +90,8 @@ export class View {
             this.items = [];
         }
     }
+
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.selectedExpedition.Id });
+    }
 }

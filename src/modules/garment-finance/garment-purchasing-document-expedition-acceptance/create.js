@@ -15,6 +15,11 @@ const SupplierLoader = require("../../../loader/garment-supplier-loader");
 export class Create {
   fromPurchasingColumns = [
     { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -24,14 +29,20 @@ export class Create {
     { field: "SupplierName", title: "Supplier" },
     {
       field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : "-";
+        return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   fromVerificationColumns = [
     { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     {
       field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -49,7 +60,8 @@ export class Create {
         return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   tableOptions = {

@@ -13,6 +13,11 @@ export class List {
   context = ["Hapus"];
 
   fromPurchasingColumns = [
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -22,13 +27,19 @@ export class List {
     { field: "SupplierName", title: "Supplier" },
     {
       field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : "-";
+        return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   fromVerificationColumns = [
+    {
+      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     {
       field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -46,7 +57,8 @@ export class List {
         return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   constructor(router, service, dialog, permissionHelper) {
