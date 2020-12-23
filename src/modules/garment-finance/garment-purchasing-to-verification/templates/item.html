@@ -23,6 +23,12 @@
             </au-textbox>
         </td>
         <td>
+            <au-numeric value.bind="data.InternalNote.AmountDPP"
+                        read-only.bind="true"
+                        format="0.00">
+            </au-numeric>
+        </td>
+        <td>
             <au-numeric value.bind="data.InternalNote.VAT"
                         read-only.bind="true"
                         format="0.00">

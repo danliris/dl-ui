@@ -24,10 +24,11 @@ export class Create {
     { field: "SupplierName", title: "Supplier" },
     {
       field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : "-";
+        return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   fromVerificationColumns = [
@@ -49,7 +50,8 @@ export class Create {
         return numeral(value).format("0,000.00");
       }, align: "right"
     },
-    { field: "CurrencyCode", title: "Mata Uang" }
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Remark", title: "Keterangan" }
   ];
 
   tableOptions = {

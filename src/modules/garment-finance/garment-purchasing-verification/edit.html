@@ -8,7 +8,7 @@
             margin-top: 0px !important;
         }
     </style>
-    <au-input-form title="Buat Verifikasi Nota Intern"
+    <au-input-form title="Ubah Verifikasi Nota Intern"
                    options.bind="formOptions">
 
         <au-datepicker label="Tanggal Verifikasi"
@@ -23,7 +23,7 @@
                          error.bind="error.internalNote"
                          placeholder="cari nomor nota intern"
                          text="InternalNoteNo"
-                         read-only.bind="readOnly"
+                         read-only.bind="true"
                          options.bind="controlOptions">
         </au-autocomplete>
 
@@ -50,13 +50,6 @@
                       read-only.bind="true"
                       options.bind="controlOptions">
         </au-multiline>
-
-        <!-- <au-collection items.bind="data.Items"
-                       errors.bind="error.Items"
-                       columns.bind="collection.columns"
-                       add.bind="collection.onAdd"
-                       item-template="modules/garment-finance/garment-purchasing-to-verification/templates/item">
-        </au-collection> -->
 
         <au-collection items.bind="items"
                        show.bind="items && items.length > 0"

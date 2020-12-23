@@ -25,7 +25,12 @@ export class List {
             },
         },
         { field: 'SupplierName', title: 'Supplier' },
-        { field: 'Amount', title: 'Total Bayar' },
+        { field: 'CurrencyCode', title: 'Mata Uang' },
+        {
+            field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }, align: "right"
+        },
         { field: 'Remark', title: 'Keterangan' },
         { field: 'Status', title: 'Status' }
     ];
