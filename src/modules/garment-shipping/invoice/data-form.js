@@ -1,6 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 import { CoreService } from "./service";
+import { AuthService } from 'aurelia-authentication';
 import moment from 'moment';
 var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
@@ -8,7 +9,7 @@ var FabricTypeLoader = require('../../../loader/fabric-type-loader');
 var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
 
 
-@inject(Service, CoreService)
+@inject(Service, CoreService, AuthService)
 export class DataForm {
     @bindable packinglists;
     @bindable shippingStaff;
@@ -23,9 +24,10 @@ export class DataForm {
     @bindable isUsed = false;
     @bindable dataItems=[];
 
-    constructor(service, coreService) {
+    constructor(service, coreService, authService) {
         this.service = service;
         this.coreService = coreService;
+        this.authService = authService;
     }
 
     bankFilter = {
@@ -409,8 +411,17 @@ export class DataForm {
         return `${section.Code} - ${section.Name}`
     }
 
-    filter={
-        'status=="CREATED" || status=="APPROVED_SHIPPING"':true
+    get filter() {
+      let username = null;
+      if (this.authService.authenticated) {
+          const me = this.authService.getTokenPayload();
+          username = me.username;
+      }
+
+      return {
+        'status=="CREATED" || status=="APPROVED_SHIPPING"':true,
+        CreatedBy: username
+      }
     }
 
     get addItems() {
