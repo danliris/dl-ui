@@ -18,6 +18,11 @@ export class List {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
+    {
+      field: "AcceptedDate", title: "Tanggal Penerimaan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
       field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
@@ -37,6 +42,11 @@ export class List {
   fromVerificationColumns = [
     {
       field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    {
+      field: "AcceptedDate", title: "Tanggal Penerimaan", formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
