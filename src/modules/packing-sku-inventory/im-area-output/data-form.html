@@ -27,7 +27,8 @@
       error.bind="error.ProductionOrder" loader.bind="filterSPPLoader" text.bind="sppTextFormatter">
     </au-autocomplete>
 
-    <div if.bind="!isAdj && selectedFilterSPP">
+
+    <div if.bind="!isAdj">
       <au-textbox show.bind="error.InspectionMaterialProductionOrder" read-only.bind="true"
         value.bind="error.InspectionMaterialProductionOrder" style="color: red;"></au-textbox>
       <br>
@@ -48,6 +49,8 @@
         item-template="modules/packing-sku-inventory/im-area-output/template/sppItem">
       </au-collection>
     </div>
+
+    
 
     <div if.bind="isAdj">
       <au-textbox show.bind="error.InspectionMaterialProductionOrder" read-only.bind="true"

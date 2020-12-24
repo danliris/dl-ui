@@ -36,7 +36,7 @@
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
 
-     <div if.bind="!isAdj && selectedFilterSPP">
+     <div if.bind="!isAdj">
       <au-textbox show.bind="error.WarehousesProductionOrder" read-only.bind="true"
         value.bind="error.WarehousesProductionOrder" style="color: red;"></au-textbox>
       <br>
