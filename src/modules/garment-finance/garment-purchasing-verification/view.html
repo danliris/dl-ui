@@ -8,7 +8,7 @@
             margin-top: 0px !important;
         }
     </style>
-    <au-input-form title="Detail Verifikasi Nota Intern"
+    <au-input-form title="Rincian Verifikasi Nota Intern"
                    options.bind="formOptions">
 
         <au-datepicker label="Tanggal Verifikasi"
@@ -50,12 +50,6 @@
                       read-only.bind="true"
                       options.bind="controlOptions">
         </au-multiline>
-
-        <au-textbox label="Admin Pembelian"
-                    value.bind="selectedExpedition.VerifiedBy"
-                    read-only.bind="true"
-                    options.bind="controlOptions">
-        </au-textbox>
 
         <au-collection items.bind="items"
                        show.bind="items && items.length > 0"

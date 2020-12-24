@@ -30,7 +30,7 @@ export class Create {
         this.error = {};
 
         this.collection = {
-            columns: ['No. Nota Intern', 'Tanggal Nota Intern', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Bayar', 'Mata Uang', 'Keterangan'],
+            columns: ['No. Nota Intern', 'Tanggal Nota Intern', 'Tanggal Jatuh Tempo', 'Supplier', 'DPP', 'PPN', 'PPh', 'Total Bayar', 'Mata Uang', 'Keterangan'],
             onAdd: () => {
                 this.data.Items.push({});
             },

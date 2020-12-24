@@ -143,7 +143,7 @@
                 <td class="col-rotate" rowspan="${calRowSpan.oaciRowSpan}">
                   <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3" class="text-bold">Revenue</td>
+                <td colspan="3" class="text-bold">Pendapatan Operasional:</td>
               </tr>
               <tr repeat.for="rs of rowSpan[1]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -191,7 +191,7 @@
               </tr>
               <tr show.bind="!isEmpty">
                 <td colspan="3" class="text-bold">
-                  Revenue from other operating
+                  Pendapatan Operasional Lain-lain:
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[7]" show.bind="!isEmpty">
@@ -212,14 +212,16 @@
               </tr>
               <tr repeat.for="rs of total.oaci" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total Penerimaan Operasional</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="col-rotate" rowspan="${calRowSpan.oacoRowSpan}">
                   <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
-                <td colspan="3" class="text-bold">Cost of Good Sold</td>
+                <td colspan="3" class="text-bold">HPP/Biaya Produksi:</td>
               </tr>
               <tr repeat.for="rs of rowSpan[9]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -368,11 +370,11 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-bold">Marketing Expenses</td>
+                <td colspan="3" class="text-bold"></td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="no-border"></td>
-                <td colspan="2" class="text-bold">Biaya Penjualan</td>
+                <td colspan="2" class="text-bold">Biaya Penjualan:</td>
               </tr>
               <tr repeat.for="rs of rowSpan[29]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -485,7 +487,7 @@
               </tr>
               <tr show.bind="!isEmpty">
                 <td colspan="3" class="text-bold">
-                  General & Administrative Expenses
+                  Biaya Administrasi & Umum:
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[42]" show.bind="!isEmpty">
@@ -703,7 +705,9 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-bold">Other Operating Expenses</td>
+                <td colspan="3" class="text-bold">
+                  Biaya Operasional Lain-lain:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[67]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -713,13 +717,15 @@
               </tr>
               <tr repeat.for="rs of total.oaco" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total Pengeluaran Biaya Operasional</span
+                  >
                 </td>
               </tr>
               <tr repeat.for="rs of total.oadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">
-                    Surplus/Deficit-Cash from Operating Activities</span
+                    Surplus/Deficit- Kas dari kegiatan Operasional</span
                   >
                 </td>
               </tr>
@@ -732,7 +738,7 @@
                 <td class="col-rotate" rowspan="${calRowSpan.iaciRowSpan}">
                   <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3"></td>
+                <td colspan="3">Penerimaan dari Investasi:</td>
               </tr>
               <tr repeat.for="rs of rowSpan[68]" show.bind="!isEmpty">
                 <td colspan="3">
@@ -746,7 +752,9 @@
               </tr>
               <tr repeat.for="rs of total.iaci" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total Penerimaan Investasi</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
@@ -754,7 +762,7 @@
                   <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
                 <td colspan="3" class="text-bold">
-                  Pembayaran pembelian asset tetap :
+                  Pembayaran pembelian asset tetap:
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[70]" show.bind="!isEmpty">
@@ -802,13 +810,15 @@
               </tr>
               <tr repeat.for="rs of total.iaco" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total Pengeluaran Investasi</span
+                  >
                 </td>
               </tr>
               <tr repeat.for="rs of total.iadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">
-                    Surplus/Deficit-Cash from Investing Activities</span
+                    Surplus/Deficit-Kas dalam kegiatan Investasi</span
                   >
                 </td>
               </tr>
@@ -821,15 +831,19 @@
                 <td class="col-rotate" rowspan="${calRowSpan.faciRowSpan}">
                   <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3"></td>
+                <td colspan="3">Penerimaan dari Pendanaan:</td>
               </tr>
               <tr repeat.for="rs of rowSpan[77]" show.bind="!isEmpty">
                 <td colspan="3">
-                  <span class="${ !$first ? 'hide' : ''}">Loan Withdrawal</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Pencairan pinjaman (Loan Withdrawal)</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-bold">Others :</td>
+                <td colspan="3" class="text-bold">
+                  Penerimaan lain-lain dari pendanaan:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[78]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -861,7 +875,9 @@
               </tr>
               <tr repeat.for="rs of total.faci" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total Penerimaan Pendanaan</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
@@ -869,7 +885,7 @@
                   <span class="text-rotate text-bold">CASH OUT</span>
                 </td>
                 <td colspan="3" class="text-bold">
-                  Loan Installment and Interest expense
+                  Pembayaran angsuran dan bunga Pinjaman:
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[82]" show.bind="!isEmpty">
@@ -887,7 +903,9 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-bold">Bank Expenses</td>
+                <td colspan="3" class="text-bold">
+                  Pembayaran Biaya Administrasi Bank:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[84]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -896,7 +914,9 @@
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="3" class="text-bold">Others :</td>
+                <td colspan="3" class="text-bold">
+                  Pengeluaran lain-lain dari Pendanaan:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[85]" show.bind="!isEmpty">
                 <td class="no-border"></td>
@@ -922,34 +942,36 @@
               </tr>
               <tr repeat.for="rs of total.faco" show.bind="!isEmpty">
                 <td colspan="3" class="text-right text-bold">
-                  <span class="${ !$first ? 'hide' : ''}">Total</span>
+                  <span class="${ !$first ? 'hide' : ''}"
+                    >Total pengeluaran pendanaan</span
+                  >
                 </td>
               </tr>
               <tr repeat.for="rs of total.fadiff" show.bind="!isEmpty">
                 <td colspan="4" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">
-                    Surplus/Deficit-Cash from Financing Activities</span
+                    Surplus/Deficit-Kas dalam kegiatan Pendanaan</span
                   >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
+                <td colspan="5" class="text-right text-bold">Saldo Awal Kas</td>
+              </tr>
+              <tr show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">
-                  BEGINNING BALANCE
+                  TOTAL SURPLUS/DEFISIT KAS
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">
-                  CASH SURPLUS/DEFICIT
+                  Saldo Akhir Kas
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
-                <td colspan="5" class="text-right text-bold">ENDING BALANCE</td>
-              </tr>
-              <tr show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td class="no-border"></td>
                 <td class="no-border"></td>
-                <td colspan="2" class="text-bold">Kenyataan</td>
+                <td colspan="2" class="text-bold">Saldo Real Kas</td>
               </tr>
               <tr show.bind="!isEmpty">
                 <td class="no-border"></td>
