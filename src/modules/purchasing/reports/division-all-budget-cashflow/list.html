@@ -732,15 +732,17 @@
                 <td class="col-rotate" rowspan="${calRowSpan.iaciRowSpan}">
                   <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3">Penerimaan dari Investasi:</td>
+                <td colspan="3" class="text-bold">
+                  Penerimaan dari Investasi:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[68]" show.bind="!isEmpty">
-                <td colspan="3">
+                <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">Deposito</span>
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[69]" show.bind="!isEmpty">
-                <td colspan="3">
+                <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">Lain-lain</span>
                 </td>
               </tr>
@@ -798,7 +800,7 @@
                 </td>
               </tr>
               <tr repeat.for="rs of rowSpan[76]" show.bind="!isEmpty">
-                <td colspan="3">
+                <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">Deposito</span>
                 </td>
               </tr>
@@ -825,10 +827,12 @@
                 <td class="col-rotate" rowspan="${calRowSpan.faciRowSpan}">
                   <span class="text-rotate text-bold">CASH IN</span>
                 </td>
-                <td colspan="3">Penerimaan dari Pendanaan:</td>
+                <td colspan="3" class="text-bold">
+                  Penerimaan dari Pendanaan:
+                </td>
               </tr>
               <tr repeat.for="rs of rowSpan[77]" show.bind="!isEmpty">
-                <td colspan="3">
+                <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pencairan pinjaman (Loan Withdrawal)</span
                   >
