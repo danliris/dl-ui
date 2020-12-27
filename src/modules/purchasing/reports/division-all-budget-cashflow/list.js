@@ -119,7 +119,7 @@ export class List {
     "VehiclePurchase",
     "InventoryPurchase",
     "ComputerToolsPurchase",
-    "ProductionToolsMaterialsPurchase",
+    // "ProductionToolsMaterialsPurchase",
     "ProjectPurchase",
     "CashOutDesposit",
     "CashInLoanWithdrawal", // Missing before
@@ -974,11 +974,11 @@ export class List {
       const iaciRowSpan =
         rowSpanArr.slice(67, 69).reduce(reducer, 1) + this.total.iaci.length;
       const iacoRowSpan =
-        rowSpanArr.slice(69, 76).reduce(reducer, 1) + this.total.iaco.length;
+        rowSpanArr.slice(69, 75).reduce(reducer, 1) + this.total.iaco.length;
       const faciRowSpan =
-        rowSpanArr.slice(76, 81).reduce(reducer, 2) + this.total.faci.length;
+        rowSpanArr.slice(75, 80).reduce(reducer, 2) + this.total.faci.length;
       const facoRowSpan =
-        rowSpanArr.slice(81, 87).reduce(reducer, 3) + this.total.faco.length;
+        rowSpanArr.slice(80, 86).reduce(reducer, 3) + this.total.faco.length;
 
       this.calRowSpan = {
         oaciRowSpan,
