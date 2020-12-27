@@ -21,7 +21,11 @@ export class ObjectKeysValueConverter {
     // A basic for..in loop to get object properties
     // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for...in
     for (let prop in obj) {
-      if (obj.hasOwnProperty(prop) && prop.toLowerCase() !== "layoutorder") {
+      if (
+        obj.hasOwnProperty(prop) &&
+        prop.toLowerCase() !== "layoutorder" &&
+        prop.toLowerCase() !== "currencyrate"
+      ) {
         const item =
           typeof obj[prop] === "number"
             ? numeral(obj[prop]).format("0,000.00")

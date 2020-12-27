@@ -961,9 +961,11 @@
               <tr show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">Saldo Awal Kas</td>
               </tr>
-              <tr show.bind="!isEmpty">
+              <tr repeat.for="rs of total.cashdiff" show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">
-                  TOTAL SURPLUS/DEFISIT KAS
+                  <span class="${ !$first ? 'hide' : ''}">
+                    TOTAL SURPLUS/DEFISIT KAS</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
