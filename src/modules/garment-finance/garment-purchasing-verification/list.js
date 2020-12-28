@@ -33,7 +33,7 @@ export class List {
         { field: 'Status', title: 'Dikirim ke?' },
         { field: 'Amount', title: 'Total Bayar' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
-        { field: 'SendToPurchasingRemark', title: 'Alasan' },
+        { field: 'Remark', title: 'Alasan' },
     ];
 
     constructor(router, service) {
