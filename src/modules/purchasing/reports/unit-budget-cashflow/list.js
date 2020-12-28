@@ -31,6 +31,8 @@ export class List {
       faci: [],
       faco: [],
       fadiff: [],
+      cashdiff: [],
+      eqdiff: [],
     };
   }
 
@@ -129,7 +131,7 @@ export class List {
     "VehiclePurchase",
     "InventoryPurchase",
     "ComputerToolsPurchase",
-    "ProductionToolsMaterialsPurchase",
+    // "ProductionToolsMaterialsPurchase",
     "ProjectPurchase",
     "CashOutDesposit",
     "CashInLoanWithdrawal", // Missing before
@@ -405,6 +407,81 @@ export class List {
       const bankExpenses = this.data.Items.filter(getItem(84, 84));
       const othersCO = this.data.Items.filter(getItem(85, 87));
 
+      const cashdiff = [
+        ...this.total.oadiff,
+        ...this.total.iadiff,
+        ...this.total.fadiff,
+      ];
+
+      const tempCashdiff = [];
+      cashdiff
+        .filter((item) => item.CurrencyId !== 0)
+        .reduce(function (res, value) {
+          if (!res[value.CurrencyId]) {
+            res[value.CurrencyId] = {
+              CurrencyId: value.CurrencyId,
+              Currency: {
+                Code: value.Currency.Code,
+                Rate: value.Currency.Rate,
+              },
+              ActualNominal: 0,
+              BestCaseActualNominal: 0,
+              BestCaseCurrencyNominal: 0,
+              BestCaseNominal: 0,
+              CurrencyNominal: 0,
+              Nominal: 0,
+            };
+            tempCashdiff.push(res[value.CurrencyId]);
+          }
+          res[value.CurrencyId].ActualNominal += value.ActualNominal;
+          res[value.CurrencyId].BestCaseActualNominal +=
+            value.BestCaseActualNominal;
+          res[value.CurrencyId].BestCaseCurrencyNominal +=
+            value.BestCaseCurrencyNominal;
+          res[value.CurrencyId].BestCaseNominal += value.BestCaseNominal;
+          res[value.CurrencyId].CurrencyNominal += value.CurrencyNominal;
+          res[value.CurrencyId].Nominal += value.Nominal;
+          return res;
+        }, {});
+
+      this.total.cashdiff = tempCashdiff;
+
+      const tempEqDiff = tempCashdiff.map((item) => {
+        return {
+          ActualNominal: item.ActualNominal * item.Currency.Rate,
+          BestCaseActualNominal:
+            item.BestCaseActualNominal * item.Currency.Rate,
+          BestCaseCurrencyNominal:
+            item.BestCaseCurrencyNominal * item.Currency.Rate,
+          BestCaseNominal: item.BestCaseNominal * item.Currency.Rate,
+          CurrencyNominal: item.CurrencyNominal * item.Currency.Rate,
+          Nominal: item.Nominal * item.Currency.Rate,
+        };
+      });
+
+      const eqDiff = tempEqDiff.reduce(function (previousValue, currentValue) {
+        return {
+          ActualNominal:
+            previousValue.ActualNominal + currentValue.ActualNominal,
+          BestCaseActualNominal:
+            previousValue.BestCaseActualNominal +
+            currentValue.BestCaseActualNominal,
+          BestCaseCurrencyNominal:
+            previousValue.BestCaseCurrencyNominal +
+            currentValue.BestCaseCurrencyNominal,
+          BestCaseNominal:
+            previousValue.BestCaseNominal + currentValue.BestCaseNominal,
+          CurrencyNominal:
+            previousValue.CurrencyNominal + currentValue.CurrencyNominal,
+          Nominal: previousValue.Nominal + currentValue.Nominal,
+          Currency: {
+            Code: "IDR",
+          },
+        };
+      });
+
+      this.total.eqdiff = eqDiff;
+
       const joined = [
         "Pendapatan Operasional:",
         ...revenue,
@@ -447,16 +524,21 @@ export class List {
         ...this.total.faco,
         ...this.total.fadiff,
         "Saldo Awal Kas",
-        "TOTAL SURPLUS/DEFISIT KAS",
+        ...this.total.cashdiff,
         "Saldo Akhir Kas",
         "Saldo Real Kas",
         "Selisih",
         "Rate $",
-        "TOTAL SURPLUS (DEFISIT) EQUIVALENT",
+        ...this.total.eqdiff,
       ];
 
       this.isEmpty = this.data.Items.length !== 0 ? false : true;
       this.data.Items = joined;
+
+      // console.log("this.data.Items", this.data.Items);
+      // console.log("this.total", this.total);
+      // console.log("tempEqDiff", tempEqDiff);
+      // console.log("eqDiff", eqDiff);
 
       const itemsNoString = this.data.Items.filter(
         (item) => typeof item !== "string" && item.LayoutOrder !== 0
@@ -486,11 +568,11 @@ export class List {
       const iaciRowSpan =
         rowSpanArr.slice(67, 69).reduce(reducer, 1) + this.total.iaci.length;
       const iacoRowSpan =
-        rowSpanArr.slice(69, 76).reduce(reducer, 1) + this.total.iaco.length;
+        rowSpanArr.slice(69, 75).reduce(reducer, 1) + this.total.iaco.length;
       const faciRowSpan =
-        rowSpanArr.slice(76, 81).reduce(reducer, 2) + this.total.faci.length;
+        rowSpanArr.slice(75, 80).reduce(reducer, 2) + this.total.faci.length;
       const facoRowSpan =
-        rowSpanArr.slice(81, 87).reduce(reducer, 3) + this.total.faco.length;
+        rowSpanArr.slice(80, 86).reduce(reducer, 3) + this.total.faco.length;
 
       this.calRowSpan = {
         oaciRowSpan,

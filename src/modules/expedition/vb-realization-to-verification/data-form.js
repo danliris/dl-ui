@@ -123,12 +123,16 @@ export class DataForm {
             {
                 field: "Date",
                 title: "Tanggal Realisasi VB",
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return moment.utc(value).local().format('DD MMM YYYY');
                 },
                 rowspan: "2"
             },
-            { field: "VBRequestDocumentCreatedBy", title: "Nama", rowspan: "2" },
+            {
+                field: "VBRequestDocumentCreatedBy", title: "Nama", rowspan: "2", formatter: function (value, data, index) {
+                    return value ? value : data.CreatedBy;
+                }
+            },
             { field: "SuppliantUnitName", title: "Bagian/Unit", rowspan: "2" },
             { field: "SuppliantDivisionName", title: "Divisi", rowspan: "2" },
             { title: "Nominal VB", colspan: "2" },
@@ -139,7 +143,7 @@ export class DataForm {
             {
                 field: "VBRequestDocumentAmount",
                 title: "Nominal VB",
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return numeral(value).format('0,000.00');
                 },
                 align: "right"
@@ -148,7 +152,7 @@ export class DataForm {
             {
                 field: "Amount",
                 title: "Nominal Realisasi VB",
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return numeral(value).format('0,000.00');
                 },
                 align: "right"

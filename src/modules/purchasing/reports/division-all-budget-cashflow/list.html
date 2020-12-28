@@ -65,7 +65,8 @@
     }
 
     table thead tr th {
-      height: 59px !important;
+      height: 120px !important;
+      min-height: 120px !important;
     }
 
     table thead tr th.side {
@@ -785,21 +786,21 @@
                   <span class="${ !$first ? 'hide' : ''}">Alat Komputer</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[74]" show.bind="!isEmpty">
+              <!-- <tr repeat.for="rs of rowSpan[74]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Alat & Bahan Produksi</span
                   >
                 </td>
-              </tr>
-              <tr repeat.for="rs of rowSpan[75]" show.bind="!isEmpty">
+              </tr> -->
+              <tr repeat.for="rs of rowSpan[74]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Proyek</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[76]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[75]" show.bind="!isEmpty">
                 <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}">Deposito</span>
                 </td>
@@ -831,7 +832,7 @@
                   Penerimaan dari Pendanaan:
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[77]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[76]" show.bind="!isEmpty">
                 <td colspan="3" class="text-bold">
                   <span class="${ !$first ? 'hide' : ''}"
                     >Pencairan pinjaman (Loan Withdrawal)</span
@@ -843,19 +844,19 @@
                   Penerimaan lain-lain dari pendanaan:
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[78]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[77]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Afiliasi</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[79]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[78]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Jual Beli Valas</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[80]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[79]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
@@ -863,7 +864,7 @@
                   >
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[81]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[80]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">
@@ -886,13 +887,13 @@
                   Pembayaran angsuran dan bunga Pinjaman:
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[82]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[81]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Angsuran Kredit</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[83]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[82]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
@@ -905,7 +906,7 @@
                   Pembayaran Biaya Administrasi Bank:
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[84]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[83]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Biaya Adm Bank</span>
@@ -916,7 +917,7 @@
                   Pengeluaran lain-lain dari Pendanaan:
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[85]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[84]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
@@ -924,13 +925,13 @@
                   >
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[86]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[85]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}">Jual Beli Valas</span>
                 </td>
               </tr>
-              <tr repeat.for="rs of rowSpan[87]" show.bind="!isEmpty">
+              <tr repeat.for="rs of rowSpan[86]" show.bind="!isEmpty">
                 <td class="no-border"></td>
                 <td colspan="2">
                   <span class="${ !$first ? 'hide' : ''}"
@@ -955,9 +956,11 @@
               <tr show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">Saldo Awal Kas</td>
               </tr>
-              <tr show.bind="!isEmpty">
+              <tr repeat.for="rs of total.cashdiff" show.bind="!isEmpty">
                 <td colspan="5" class="text-right text-bold">
-                  TOTAL SURPLUS/DEFISIT KAS
+                  <span class="${ !$first ? 'hide' : ''}">
+                    TOTAL SURPLUS/DEFISIT KAS</span
+                  >
                 </td>
               </tr>
               <tr show.bind="!isEmpty">
