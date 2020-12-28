@@ -11,7 +11,7 @@ export class Service extends RestService {
 
     sendToPurchasingRejected(id, remark) {
         let endpoint = `${uri}/send-to-purchasing-rejected/${id}`;
-        return super.put(endpoint, remark);
+        return super.put(endpoint, { Remark: remark });
     }
 
     sendToAccounting(id) {
