@@ -33,7 +33,11 @@ export class List {
         { field: 'Status', title: 'Dikirim ke?' },
         { field: 'Amount', title: 'Total Bayar' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
-        { field: 'Remark', title: 'Alasan' },
+        {
+            field: 'Status', title: 'Alasan', formatter: function (value, data, index) {
+                return value != 'Kirim ke Pembelian (Not Verified)' ? data.Remark : data.SendToPurchasingRemark;
+            }
+        },
     ];
 
     constructor(router, service) {
