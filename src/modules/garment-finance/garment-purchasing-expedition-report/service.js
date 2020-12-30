@@ -1,23 +1,21 @@
 import { buildQueryString } from "aurelia-path";
 import { RestService } from "../../../utils/rest-service";
 
-const uriPurchasingDocumentExpeditionReport =
-  "expedition/purchasing-document-expeditions-report";
-const uriUPO = "unit-payment-orders-expedition-report";
+const uri = "garment-purchasing-expeditions/report";
 
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "purchasing-azure");
+    super(http, aggregator, config, "finance");
   }
 
   search(info) {
-    let endpoint = `${uriUPO}`;
+    let endpoint = `${uri}`;
     return super.list(endpoint, info);
   }
 
   xls(info) {
     console.log(info);
-    let endpoint = `${uriUPO}?${buildQueryString(info)}`;
+    let endpoint = `${uri}/xls?${buildQueryString(info)}`;
     return super.getXls(endpoint);
   }
 }
