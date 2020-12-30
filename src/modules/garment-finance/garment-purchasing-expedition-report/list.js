@@ -37,7 +37,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "PaymentDueDays",
+        field: "PaymentMethod",
         title: "Term Pembayaran",
         rowspan: 2,
         sortable: true,
@@ -46,17 +46,17 @@ export class List {
         // field: 'totalDays', title: 'Tempo', rowspan: 2, sortable: true, formatter: function (value, data, index) {
         //     return moment(data.DueDate).diff(moment(data.Date), 'days', false);
         // }
-        field: "totalDays",
+        field: "PaymentDueDays",
         title: "Tempo",
         rowspan: 2,
         sortable: true,
-        formatter: function (value, data, index) {
-          return Math.abs(
-            Math.ceil(
-              (moment(data.DueDate) - moment(data.Date)) / (1000 * 60 * 60 * 24)
-            )
-          );
-        },
+        // formatter: function (value, data, index) {
+        //   return Math.abs(
+        //     Math.ceil(
+        //       (moment(data.DueDate) - moment(data.Date)) / (1000 * 60 * 60 * 24)
+        //     )
+        //   );
+        // },
       },
       {
         field: "Position",
@@ -69,7 +69,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "SendToVerificationDivisionDate",
+        field: "SendToVerificationDate",
         title: "Tgl Pembelian Kirim",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -77,10 +77,10 @@ export class List {
         rowspan: 2,
         sortable: true,
       },
-      { field: "CreatedBy", title: "Admin", rowspan: 2, sortable: true },
+      { field: "SendToVerificationBy", title: "Admin", rowspan: 2, sortable: true },
       { title: "Verifikasi", colspan: 3 },
       {
-        field: "VerifiedBy",
+        field: "VerificationAcceptedBy",
         title: "Verifikator",
         sortable: true,
         rowspan: 2,
@@ -99,8 +99,8 @@ export class List {
       },
 
       {
-        field: "PPn",
-        title: "PPn",
+        field: "VAT",
+        title: "PPN",
         formatter: function (value, data, index) {
           return value ? numeral(value).format("0,000.00") : "-";
         },
@@ -108,7 +108,7 @@ export class List {
         align: "right",
       },
       {
-        field: "PPh",
+        field: "IncomeTax",
         title: "PPh",
         formatter: function (value, data, index) {
           return value ? numeral(value).format("0,000.00") : "-";
@@ -117,7 +117,7 @@ export class List {
         align: "right",
       },
       {
-        field: "TotalTax",
+        field: "TotalPaid",
         title: "Total",
         formatter: function (value, data, index) {
           return value ? numeral(value).format("0,000.00") : "-";
@@ -126,7 +126,7 @@ export class List {
         align: "right",
       },
       {
-        field: "VerificationDivisionDate",
+        field: "VerificationAcceptedDate",
         title: "Tgl Terima",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -134,7 +134,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "VerifyDate",
+        field: "SendDate",
         title: "Tgl Cek",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -142,7 +142,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "SendDate",
+        field: "SendToVerificationDate",
         title: "Tgl Kirim",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -150,7 +150,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "CashierDivisionDate",
+        field: "CashierAcceptedDate",
         title: "Tgl Terima",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -178,6 +178,7 @@ export class List {
     showColumns: false,
     search: false,
     showToggle: false,
+    sortable: false
   };
 
   constructor(service, azureService) {
@@ -189,14 +190,14 @@ export class List {
     this.selectSupplier = ["code", "name"];
     this.itemsStatus = [
       { text: "", value: 0 },
-      { text: "Bag. Pembelian", value: 1 },
-      { text: "Dikirim ke Bag. Verifikasi", value: 2 },
-      { text: "Bag. Verifikasi", value: 3 },
-      { text: "Dikirim ke Bag. Keuangan", value: 4 },
-      { text: "Dikirim ke Bag. Accounting", value: 5 },
-      { text: "Dikirim ke Bag. Pembelian", value: 6 },
-      { text: "Bag. Kasir", value: 7 },
-      { text: "Bag. Keuangan", value: 8 },
+      { text: "Pembelian", value: 1 },
+      { text: "Kirim ke Verifikasi", value: 2 },
+      { text: "Verifikasi (Diterima)", value: 3 },
+      { text: "Kirim ke Kasir", value: 4 },
+      { text: "Kasir (Diterima)", value: 5 },
+      { text: "Kirim ke Pembelian (Not Verified)", value: 6 },
+      { text: "Kirim ke Accounting", value: 7 },
+      { text: "Accounting (Diterima)", value: 8 },
     ];
   }
 
@@ -207,23 +208,23 @@ export class List {
     let filter = {};
 
     if (this.garmentNotaIntern) {
-      filter.no = this.garmentNotaIntern.inNo;
+      filter.internalNoteId = this.garmentNotaIntern.Id;
     }
 
     if (this.supplier) {
-      filter.supplierCode = this.supplier.code;
+      filter.supplierId = this.supplier.code;
     }
 
     if (this.status && this.status.value && this.status.value != 0) {
-      filter.status = this.status.value;
+      filter.position = this.status.value;
     }
 
     if (this.dateFrom && this.dateFrom != "Invalid Date") {
-      filter.dateFrom = this.dateFrom;
-      filter.dateTo = this.dateTo;
+      filter.startDate = this.dateFrom;
+      filter.endDate = this.dateTo;
 
-      filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
     }
 
     let arg = {
@@ -238,12 +239,11 @@ export class List {
 
     return this.flag
       ? this.service.search(arg).then((result) => {
-          return {
-            total: result.info.total,
-            data: result.data,
-          };
-          // });
-        })
+        return {
+          data: result.data,
+        };
+        // });
+      })
       : { total: 0, data: [] };
   };
 
@@ -266,23 +266,23 @@ export class List {
     let filter = {};
 
     if (this.garmentNotaIntern) {
-      filter.no = this.garmentNotaIntern.inNo;
+      filter.internalNoteId = this.garmentNotaIntern.Id;
     }
 
     if (this.supplier) {
-      filter.supplierCode = this.supplier.code;
+      filter.supplierId = this.supplier.code;
     }
 
     if (this.status && this.status.value && this.status.value != 0) {
-      filter.status = this.status.value;
+      filter.position = this.status.value;
     }
 
     if (this.dateFrom && this.dateFrom != "Invalid Date") {
-      filter.dateFrom = this.dateFrom;
-      filter.dateTo = this.dateTo;
+      filter.startDate = this.dateFrom;
+      filter.endDate = this.dateTo;
 
-      filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
     }
 
     this.service.xls(filter);
