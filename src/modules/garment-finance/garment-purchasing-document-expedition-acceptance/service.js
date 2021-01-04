@@ -29,7 +29,7 @@ export class Service extends RestService {
   }
 
   returAccepted(ids) {
-    let endpoint = `${uri}/retur-accepted`;
+    let endpoint = `${uri}/purchasing-accepted`;
     return super.put(endpoint, ids);
   }
 

@@ -122,7 +122,7 @@ export class List {
       align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Alasan" },
+    { field: "SendToPurchasingRemark", title: "Alasan" },
   ];
 
   constructor(router, service, dialog, permissionHelper) {

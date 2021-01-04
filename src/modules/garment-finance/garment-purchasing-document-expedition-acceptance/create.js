@@ -112,7 +112,7 @@ export class Create {
       align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Alasan" },
+    { field: "SendToPurchasingRemark", title: "Alasan" },
   ];
 
   tableOptions = {
