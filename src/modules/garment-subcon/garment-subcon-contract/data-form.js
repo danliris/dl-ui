@@ -42,7 +42,9 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`;
+        var code= supplier.code || supplier.Code;
+        var name=supplier.name || supplier.Name;
+        return `${code} - ${name}`;
     }
 
     get supplierLoader() {
