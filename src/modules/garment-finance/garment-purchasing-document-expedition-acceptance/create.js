@@ -6,7 +6,12 @@ import numeral from "numeral";
 import { Service } from "./service";
 // import PurchasingDocumentExpeditionService from "../shared/purchasing-document-expedition-service";
 import { PermissionHelper } from "../../../utils/permission-helper";
-import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constants';
+import {
+  VERIFICATION,
+  CASHIER,
+  ACCOUNTING,
+  RETUR,
+} from "../shared/permission-constants";
 const InternalNoteLoader = require("../../../loader/garment-intern-note-loader");
 const SupplierLoader = require("../../../loader/garment-supplier-loader");
 // const DivisionLoader = require("../../../loader/division-loader");
@@ -16,52 +21,98 @@ export class Create {
   fromPurchasingColumns = [
     { field: "selected", checkbox: true, sortable: false },
     {
-      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+      field: "SentDate",
+      title: "Tanggal Penyerahan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
-      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
     {
-      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
-      }, align: "right"
+      },
+      align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Keterangan" }
+    { field: "Remark", title: "Keterangan" },
   ];
 
   fromVerificationColumns = [
     { field: "selected", checkbox: true, sortable: false },
     {
-      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+      field: "SentDate",
+      title: "Tanggal Penyerahan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     {
-      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+      field: "VerificationAcceptedDate",
+      title: "Tanggal Verifikasi",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
-      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
     {
-      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
-      }, align: "right"
+      },
+      align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Keterangan" }
+    { field: "Remark", title: "Keterangan" },
+  ];
+
+  returFromVerificationColumns = [
+    { field: "selected", checkbox: true, sortable: false },
+    {
+      field: "VerificationAcceptedDate",
+      title: "Tanggal Verifikasi",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "InternalNoteNo", title: "No. Nota Intern" },
+    {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "SupplierName", title: "Supplier" },
+    {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "SendToPurchasingRemark", title: "Alasan" },
   ];
 
   tableOptions = {
@@ -85,11 +136,7 @@ export class Create {
     },
   };
 
-  constructor(
-    router,
-    service,
-    permissionHelper
-  ) {
+  constructor(router, service, permissionHelper) {
     this.router = router;
     this.service = service;
 
@@ -100,10 +147,11 @@ export class Create {
     this.initPermission();
 
     this.isVerification = this.activeRole.key == "VERIFICATION";
+    this.isRetur = this.activeRole.key == "RETUR";
   }
 
   initPermission() {
-    this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+    this.roles = [VERIFICATION, CASHIER, ACCOUNTING, RETUR];
     this.accessCount = 0;
 
     for (let i = this.roles.length - 1; i >= 0; i--) {
@@ -114,7 +162,7 @@ export class Create {
       }
     }
 
-    if (this.permissions.hasOwnProperty('C9')) {
+    if (this.permissions.hasOwnProperty("C9")) {
       this.accessCount = 0;
       this.roles = this.roles.map((role) => {
         role.hasPermission = true;
@@ -123,8 +171,6 @@ export class Create {
       });
       this.activeRole = this.roles[0];
     }
-
-
   }
 
   changeRole(role) {
@@ -143,6 +189,7 @@ export class Create {
 
   changeTable(role) {
     this.isVerification = role.key == "VERIFICATION";
+    this.isRetur = role.key == "RETUR";
     this.documentTable.refresh();
   }
 
@@ -151,25 +198,21 @@ export class Create {
   }
 
   search() {
-
     let position = 2;
-    if (this.activeRole)
-      position = this.activeRole.positionAutocomplete;
+    if (this.activeRole) position = this.activeRole.positionAutocomplete;
 
     let internalNoteId = 0;
-    if (this.internalNote)
-      internalNoteId = this.internalNote.Id;
+    if (this.internalNote) internalNoteId = this.internalNote.Id;
 
     let supplierId = 0;
-    if (this.supplier)
-      supplierId = this.supplier.Id;
+    if (this.supplier) supplierId = this.supplier.Id;
 
     let arg = {
       page: 1,
       size: 255,
       position: position,
       internalNoteId: internalNoteId,
-      supplierId: supplierId
+      supplierId: supplierId,
     };
 
     this.service.search(arg).then((result) => {
@@ -194,11 +237,11 @@ export class Create {
         */
 
     if (!this.selectedItems || this.selectedItems.length <= 0)
-      alert('Harap pilih dokumen!');
+      alert("Harap pilih dokumen!");
     else {
       let ids = this.selectedItems.map((item) => item.Id);
       switch (this.activeRole.key) {
-        case 'VERIFICATION':
+        case "VERIFICATION":
           this.service
             .verificationAccepted(ids)
             .then((result) => {
@@ -213,7 +256,7 @@ export class Create {
               this.error = e;
             });
           break;
-        case 'CASHIER':
+        case "CASHIER":
           this.service
             .cashierAccepted(ids)
             .then((result) => {
@@ -228,9 +271,24 @@ export class Create {
               this.error = e;
             });
           break;
-        case 'ACCOUNTING':
+        case "ACCOUNTING":
           this.service
             .accountingAccepted(ids)
+            .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute(
+                "create",
+                {},
+                { replace: true, trigger: true }
+              );
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+          break;
+        case "RETUR":
+          this.service
+            .returAccepted(ids)
             .then((result) => {
               alert("Data berhasil dibuat");
               this.router.navigateToRoute(

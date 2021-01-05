@@ -6,7 +6,12 @@ import { Dialog } from "../../../au-components/dialog/dialog";
 import { Service } from "./service";
 // import PurchasingDocumentExpeditionService from "../shared/purchasing-document-expedition-service";
 import { PermissionHelper } from "../../../utils/permission-helper";
-import { VERIFICATION, CASHIER, ACCOUNTING } from "../shared/permission-constants";
+import {
+  VERIFICATION,
+  CASHIER,
+  ACCOUNTING,
+  RETUR,
+} from "../shared/permission-constants";
 
 @inject(Router, Service, Dialog, PermissionHelper)
 export class List {
@@ -14,61 +19,110 @@ export class List {
 
   fromPurchasingColumns = [
     {
-      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+      field: "SentDate",
+      title: "Tanggal Penyerahan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     {
-      field: "AcceptedDate", title: "Tanggal Penerimaan", formatter: function (value, data, index) {
+      field: "AcceptedDate",
+      title: "Tanggal Penerimaan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
-      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
     {
-      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
-      }, align: "right"
+      },
+      align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Keterangan" }
+    { field: "Remark", title: "Keterangan" },
   ];
 
   fromVerificationColumns = [
     {
-      field: "SentDate", title: "Tanggal Penyerahan", formatter: function (value, data, index) {
+      field: "SentDate",
+      title: "Tanggal Penyerahan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     {
-      field: "AcceptedDate", title: "Tanggal Penerimaan", formatter: function (value, data, index) {
+      field: "AcceptedDate",
+      title: "Tanggal Penerimaan",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     {
-      field: "VerificationAcceptedDate", title: "Tanggal Verifikasi", formatter: function (value, data, index) {
+      field: "VerificationAcceptedDate",
+      title: "Tanggal Verifikasi",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "InternalNoteNo", title: "No. Nota Intern" },
     {
-      field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "SupplierName", title: "Supplier" },
     {
-      field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
-      }, align: "right"
+      },
+      align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Remark", title: "Keterangan" }
+    { field: "Remark", title: "Keterangan" },
+  ];
+
+  returFromVerificationColumns = [
+    {
+      field: "VerificationAcceptedDate",
+      title: "Tanggal Verifikasi",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "InternalNoteNo", title: "No. Nota Intern" },
+    {
+      field: "InternalNoteDate",
+      title: "Tanggal Nota Intern",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY") : "-";
+      },
+    },
+    { field: "SupplierName", title: "Supplier" },
+    {
+      field: "Amount",
+      title: "Total Bayar",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "SendToPurchasingRemark", title: "Alasan" },
   ];
 
   constructor(router, service, dialog, permissionHelper) {
@@ -80,23 +134,25 @@ export class List {
     this.initPermission();
 
     this.isVerification = this.activeRole.key == "VERIFICATION";
+    this.isRetur = this.activeRole.key == "RETUR";
   }
 
   initPermission() {
-    this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+    this.roles = [VERIFICATION, CASHIER, ACCOUNTING, RETUR];
     this.accessCount = 0;
-    console.log(this.permissions);
+    // console.log("this.permissions", this.permissions);
+    // console.log("this.roles", this.roles);
 
     for (let i = this.roles.length - 1; i >= 0; i--) {
       if (this.permissions.hasOwnProperty(this.roles[i].code)) {
         this.roles[i].hasPermission = true;
         this.accessCount++;
         this.activeRole = this.roles[i];
-        // console.log(this.roles[i]);
+        // console.log("this.roles[i]", this.roles[i]);
       }
     }
 
-    if (this.permissions.hasOwnProperty('C9')) {
+    if (this.permissions.hasOwnProperty("C9")) {
       this.accessCount = 0;
       this.roles = this.roles.map((role) => {
         role.hasPermission = true;
@@ -110,6 +166,7 @@ export class List {
   changeRole(role) {
     if (role.key !== this.activeRole.key) {
       this.activeRole = role;
+      // console.log("this.activeRole",this.activeRole)
       this.tableList.refresh();
     }
   }
@@ -118,16 +175,16 @@ export class List {
   //   }
   changeTable(role) {
     this.isVerification = role.key == "VERIFICATION";
+    this.isRetur = role.key == "RETUR";
     this.tableList.refresh();
   }
 
   loader = (info) => {
     let order = {};
-    console.log(this.activeRole)
+    // console.log("this.activeRole", this.activeRole);
 
     let position = 3;
-    if (this.activeRole)
-      position = this.activeRole.position;
+    if (this.activeRole) position = this.activeRole.position;
 
     if (info.sort) order[info.sort] = info.order;
     let arg = {
@@ -138,14 +195,12 @@ export class List {
       position: position, // VERIFICATION_DIVISION
     };
 
-    return this.service
-      .search(arg)
-      .then((result) => {
-        return {
-          total: result.info.total,
-          data: result.data,
-        };
-      });
+    return this.service.search(arg).then((result) => {
+      return {
+        total: result.info.total,
+        data: result.data,
+      };
+    });
   };
 
   contextClickCallback(event) {
@@ -155,7 +210,7 @@ export class List {
     switch (arg.name) {
       case "Hapus":
         switch (this.activeRole.key) {
-          case 'VERIFICATION':
+          case "VERIFICATION":
             this.service
               .voidVerification(data.Id)
               .then((result) => {
@@ -165,7 +220,7 @@ export class List {
                 this.error = e;
               });
             break;
-          case 'CASHIER':
+          case "CASHIER":
             this.service
               .voidCashier(data.Id)
               .then((result) => {
@@ -175,9 +230,19 @@ export class List {
                 this.error = e;
               });
             break;
-          case 'ACCOUNTING':
+          case "ACCOUNTING":
             this.service
               .voidAccounting(data.Id)
+              .then((result) => {
+                this.tableList.refresh();
+              })
+              .catch((e) => {
+                this.error = e;
+              });
+            break;
+          case "RETUR":
+            this.service
+              .voidRetur(data.Id)
               .then((result) => {
                 this.tableList.refresh();
               })

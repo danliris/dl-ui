@@ -422,7 +422,7 @@ export class DataForm {
 
       return {
         'status=="CREATED" || status=="APPROVED_SHIPPING"':true,
-        CreatedBy: username
+        ShippingStaffName: username
       }
     }
 
