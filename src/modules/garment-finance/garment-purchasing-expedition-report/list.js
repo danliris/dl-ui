@@ -21,6 +21,12 @@ export class List {
         sortable: true,
       },
       {
+        field: "SupplierName",
+        title: "Supplier",
+        rowspan: 2,
+        sortable: true,
+      },
+      {
         field: "InternalNoteDueDate",
         title: "Tgl Jatuh Tempo",
         formatter: function (value, data, index) {
@@ -78,7 +84,7 @@ export class List {
         sortable: true,
       },
       { field: "SendToVerificationBy", title: "Admin", rowspan: 2, sortable: true },
-      { title: "Verifikasi", colspan: 3 },
+      { title: "Verifikasi", colspan: 2 },
       {
         field: "VerificationAcceptedBy",
         title: "Verifikator",
@@ -86,6 +92,8 @@ export class List {
         rowspan: 2,
       },
       { title: "Kasir", colspan: 2 },
+      { title: "Pembelian", colspan: 3 },
+      { title: "Accounting", colspan: 2 },
     ],
     [
       {
@@ -134,14 +142,6 @@ export class List {
         sortable: true,
       },
       {
-        field: "SendDate",
-        title: "Tgl Cek",
-        formatter: function (value, data, index) {
-          return value ? moment(value).format("DD MMM YYYY") : "-";
-        },
-        sortable: true,
-      },
-      {
         field: "SendToVerificationDate",
         title: "Tgl Kirim",
         formatter: function (value, data, index) {
@@ -162,6 +162,37 @@ export class List {
         title: "No Bukti Pengeluaran Bank",
         sortable: true,
       },
+      {
+        field: "SendToPurchasingDate",
+        title: "Tgl Terima",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
+        field: "SendToPurchasingBy",
+        title: "Staff",
+        sortable: true,
+      },
+      {
+        field: "SendToPurchasingRemark",
+        title: "Alasan",
+        sortable: true,
+      },
+      {
+        field: "AccountingAcceptedDate",
+        title: "Tgl Terima",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
+        field: "AccountingAcceptedBy",
+        title: "Staff",
+        sortable: true,
+      }
     ],
   ];
 
