@@ -1,11 +1,12 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { AuthService } from 'aurelia-authentication';
+import { Service, CoreService } from "./service";
 
 var SectionLoader = require('../../../loader/garment-sections-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
 
-@inject(Service)
+@inject(Service, AuthService, CoreService)
 export class DataForm {
 
     @bindable readOnly = false;
@@ -14,8 +15,10 @@ export class DataForm {
     @bindable selectedBuyer;
     @bindable selectedLC;
 
-    constructor(service) {
+    constructor(service, authService, coreService) {
         this.service = service;
+        this.authService = authService;
+        this.coreService = coreService;
     }
 
     formOptions = {
@@ -137,7 +140,7 @@ export class DataForm {
         return LCLoader;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -184,6 +187,19 @@ export class DataForm {
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
+
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+        var shippingStaff = await this.coreService.getStaffIdByName({size: 1, filter: JSON.stringify({ Name: username })});
+        this.data.shippingStaffName = shippingStaff.data[0].Name;
+        this.data.shippingStaff = {
+          id : shippingStaff.data[0].Id,
+          name : shippingStaff.data[0].Name
+        };
+
     }
 
     get addMeasurements() {
@@ -323,6 +339,14 @@ export class DataForm {
     removeImage(mark) {
         this[mark + "ImageSrc"] = this.noImage;
         this.data[mark + "ImageFile"] = null;
+    }
+
+    get shippingStaffLoader() {
+      return ShippingStaffLoader;
+    }
+
+    shippingStaffView = (data) => {
+        return `${data.Name || data.name}`
     }
 
     
