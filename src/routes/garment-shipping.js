@@ -586,6 +586,19 @@ module.exports = [
         }
     }, 
     {
+        route: "garment-shipping/monitoring/local-sales-book",
+        name: "garment-shipping/monitoring/local-sales-book",
+        moduleId: "modules/garment-shipping/monitoring/garment-local-sales-book/index",
+        nav: true,
+        title: "Monitoring Buku Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }, 
+    {
         route: "garment-shipping/monitoring/recap-omzet-per-month",
         name: "garment-shipping/monitoring/recap-omzet-per-month",
         moduleId: "modules/garment-shipping/monitoring/recap-omzet-per-month/index",
