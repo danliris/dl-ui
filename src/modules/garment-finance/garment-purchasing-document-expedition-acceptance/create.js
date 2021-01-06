@@ -180,6 +180,9 @@ export class Create {
       this.selectedItems.splice(0, this.selectedItems.length);
       this.documentData.splice(0, this.documentData.length);
       this.documentTable.refresh();
+      this.internalNoteFilter = {
+        Position: this.activeRole.positionAutocomplete
+      }
     }
   }
 
@@ -191,6 +194,8 @@ export class Create {
     this.isVerification = role.key == "VERIFICATION";
     this.isRetur = role.key == "RETUR";
     this.documentTable.refresh();
+
+
   }
 
   determineActivationStrategy() {
