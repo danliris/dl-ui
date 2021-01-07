@@ -9,73 +9,79 @@ export class Service extends RestService {
     super(http, aggregator, config, "purchasing-azure");
   }
 
-  getBestCase(query) {
-    let endpoint = `${serviceUri}/best-case`;
-    return super.list(endpoint, query);
+  search() {
+    return fetch(
+      "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
+    ).then((response) => response.json());
   }
 
-  getWorstCase(query) {
-    let endpoint = `${serviceUri}/worst-case`;
-    return super.list(endpoint, query);
-  }
+  // getBestCase(query) {
+  //   let endpoint = `${serviceUri}/best-case`;
+  //   return super.list(endpoint, query);
+  // }
 
-  upsertWorstCase(form) {
-    let endpoint = `${serviceUri}/worst-case`;
-    return super.put(endpoint, form);
-  }
+  // getWorstCase(query) {
+  //   let endpoint = `${serviceUri}/worst-case`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getOACI(query) {
-    let endpoint = `${serviceUri}/best-case/cash-in-operational`;
-    return super.list(endpoint, query);
-  }
+  // upsertWorstCase(form) {
+  //   let endpoint = `${serviceUri}/worst-case`;
+  //   return super.put(endpoint, form);
+  // }
 
-  getOACO(query) {
-    let endpoint = `${serviceUri}/best-case/cash-out-operational`;
-    return super.list(endpoint, query);
-  }
+  // getOACI(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-in-operational`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getOADiff(query) {
-    let endpoint = `${serviceUri}/best-case/diff-operational`;
-    return super.list(endpoint, query);
-  }
+  // getOACO(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-out-operational`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getIACI(query) {
-    let endpoint = `${serviceUri}/best-case/cash-in-investment`;
-    return super.list(endpoint, query);
-  }
+  // getOADiff(query) {
+  //   let endpoint = `${serviceUri}/best-case/diff-operational`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getIACO(query) {
-    let endpoint = `${serviceUri}/best-case/cash-out-investment`;
-    return super.list(endpoint, query);
-  }
+  // getIACI(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-in-investment`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getIADiff(query) {
-    let endpoint = `${serviceUri}/best-case/diff-investment`;
-    return super.list(endpoint, query);
-  }
+  // getIACO(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-out-investment`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getFACI(query) {
-    let endpoint = `${serviceUri}/best-case/cash-in-financial`;
-    return super.list(endpoint, query);
-  }
+  // getIADiff(query) {
+  //   let endpoint = `${serviceUri}/best-case/diff-investment`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getFACO(query) {
-    let endpoint = `${serviceUri}/best-case/cash-out-financial`;
-    return super.list(endpoint, query);
-  }
+  // getFACI(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-in-financial`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getFADiff(query) {
-    let endpoint = `${serviceUri}/best-case/diff-financial`;
-    return super.list(endpoint, query);
-  }
+  // getFACO(query) {
+  //   let endpoint = `${serviceUri}/best-case/cash-out-financial`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getXls(query) {
-    let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&dueDate=${query.dueDate}`;
-    return super.getXls(endpoint);
-  }
+  // getFADiff(query) {
+  //   let endpoint = `${serviceUri}/best-case/diff-financial`;
+  //   return super.list(endpoint, query);
+  // }
 
-  getPdf(query) {
-    let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&dueDate=${query.dueDate}`;
-    return super.getPdf(endpoint);
-  }
+  // getXls(query) {
+  //   let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+  //   return super.getXls(endpoint);
+  // }
+
+  // getPdf(query) {
+  //   let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+  //   return super.getPdf(endpoint);
+  // }
 }
