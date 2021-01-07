@@ -254,8 +254,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     let arg = {
@@ -312,8 +312,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     this.service.xls(filter);
