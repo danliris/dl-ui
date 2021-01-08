@@ -71,9 +71,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                for (const data of result.data) {
-                    data.BuyerName = data.Buyer.Name;
-                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -85,7 +82,7 @@ export class List {
         this.dialog.show(AddCashflowTypeDialog, {})
             .then((response) => {
                 console.log(response)
-
+                this.tableList.refresh();
             })
     }
 
@@ -93,7 +90,7 @@ export class List {
         this.dialog.show(AddCashflowCategoryDialog, {})
             .then((response) => {
                 console.log(response)
-
+                this.tableList.refresh();
             })
     }
 
@@ -101,7 +98,7 @@ export class List {
         this.dialog.show(AddCashflowSubCategoryDialog, {})
             .then((response) => {
                 console.log(response)
-
+                this.tableList.refresh();
             })
     }
 }

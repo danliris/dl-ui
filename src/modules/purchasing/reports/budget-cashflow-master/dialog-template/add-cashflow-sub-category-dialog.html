@@ -1,14 +1,14 @@
 <template>
 
-    <ai-dialog>
+    <ai-dialog style="width:750px; height: 300px;">
 
         <block>
 
             <ai-dialog-body>
-                <au-textbox label="Kategori Cashflow"
-                            value.bind="data.Name"
-                            error.bind="error.Name">
-                </au-textbox>
+                <au-autocomplete label="Kategori Cashflow"
+                                 value.bind="data.CashflowCategory"
+                                 error.bind="error.CashflowCategoryId">
+                </au-autocomplete>
 
                 <au-textbox label="Nama"
                             value.bind="data.Name"

@@ -5,16 +5,18 @@
         <block>
 
             <ai-dialog-body>
-                <au-textbox label="Nama"
-                            value.bind="data.Name"
-                            error.bind="error.Name">
-                </au-textbox>
+                <div class="row">
+                    <au-textbox label="Nama"
+                                value.bind="data.Name"
+                                error.bind="error.Name">
+                    </au-textbox>
 
-                <au-numeric label="Nomor Urut"
-                            value.bind="data.LayoutOrder"
-                            error.bind="error.LayoutOrder"
-                            format="0">
-                </au-numeric>
+                    <au-numeric label="Nomor Urut"
+                                value.bind="data.LayoutOrder"
+                                error.bind="error.LayoutOrder"
+                                format="0">
+                    </au-numeric>
+                </div>
             </ai-dialog-body>
 
             <ai-dialog-footer>

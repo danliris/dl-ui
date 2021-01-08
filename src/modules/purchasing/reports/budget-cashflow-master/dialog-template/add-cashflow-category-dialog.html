@@ -5,26 +5,36 @@
         <block>
 
             <ai-dialog-body>
-                <au-textbox label="Jenis Cashflow"
-                            value.bind="data.Name"
-                            error.bind="error.Name">
-                </au-textbox>
+                <div class="row">
+                    <au-autocomplete label="Jenis Cashflow"
+                                     value.bind="cashflowType"
+                                     loader.one-time="cashflowTypeLoader"
+                                     error.bind="CashflowTypeId"
+                                     text="Name">
+                    </au-autocomplete>
 
-                <au-dropdown label="Cash-In/Cash-Out"
-                             value.bind="data.Name"
-                             error.bind="error.Name">
-                </au-dropdown>
+                    <au-dropdown label="Cash-In/Cash-Out"
+                                 value.bind="selectedType"
+                                 items.bind="typesOption"
+                                 text="value"
+                                 error.bind="error.Type">
+                    </au-dropdown>
 
-                <au-textbox label="Nama"
-                            value.bind="data.Name"
-                            error.bind="error.Name">
-                </au-textbox>
+                    <au-textbox label="Nama"
+                                value.bind="data.Name"
+                                error.bind="error.Name">
+                    </au-textbox>
 
-                <au-numeric label="Nomor Urut"
-                            value.bind="data.LayoutOrder"
-                            error.bind="error.LayoutOrder"
-                            format="0">
-                </au-numeric>
+                    <au-numeric label="Nomor Urut"
+                                value.bind="data.LayoutOrder"
+                                error.bind="error.LayoutOrder"
+                                format="0">
+                    </au-numeric>
+
+                    <au-checkbox label="Hanya Label"
+                                 value.bind="data.IsLabelOnly">
+                    </au-checkbox>
+                </div>
             </ai-dialog-body>
 
             <ai-dialog-footer>
