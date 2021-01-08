@@ -6,8 +6,10 @@
 
             <ai-dialog-body>
                 <au-autocomplete label="Kategori Cashflow"
-                                 value.bind="data.CashflowCategory"
-                                 error.bind="error.CashflowCategoryId">
+                                 value.bind="cashflowCategory"
+                                 loader.one-time="cashflowCategoryLoader"
+                                 error.bind="CashflowCategoryId"
+                                 text="Name">
                 </au-autocomplete>
 
                 <au-textbox label="Nama"
@@ -20,6 +22,10 @@
                             error.bind="error.LayoutOrder"
                             format="0">
                 </au-numeric>
+
+                <au-checkbox label="Ambil dari Laporan"
+                             value.bind="data.IsReadOnly">
+                </au-checkbox>
             </ai-dialog-body>
 
             <ai-dialog-footer>
