@@ -30,6 +30,11 @@ export class View {
             })
             .catch(e => {
                 this.error = e;
+                if (typeof (this.error) == "string") {
+                    alert(this.error);
+                } else {
+                    alert("Missing Some Data");
+                }
             })
     }
 }
