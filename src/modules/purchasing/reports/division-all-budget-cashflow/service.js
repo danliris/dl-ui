@@ -9,63 +9,24 @@ export class Service extends RestService {
     super(http, aggregator, config, "purchasing-azure");
   }
 
-  getDivision(query) {
-    let endpoint = `${serviceUri}/division`;
-    return super.list(endpoint, query);
+  search() {
+    return fetch(
+      "http://localhost:9000/src/modules/purchasing/reports/division-all-budget-cashflow/dummy.json"
+    ).then((response) => response.json());
   }
 
-  getXls(query) {
-    let endpoint = `${serviceUri}/division/xls?dueDate=${query.dueDate}`;
-    return super.getXls(endpoint);
-  }
-
-  getPdf(query) {
-    let endpoint = `${serviceUri}/division/pdf?dueDate=${query.dueDate}`;
-    return super.getPdf(endpoint);
-  }
-
-  // getOACI(query) {
-  //   let endpoint = `${serviceUri}/division/cash-in-operational`;
+  // getDivision(query) {
+  //   let endpoint = `${serviceUri}/division`;
   //   return super.list(endpoint, query);
   // }
 
-  // getOACO(query) {
-  //   let endpoint = `${serviceUri}/division/cash-out-operational`;
-  //   return super.list(endpoint, query);
+  // getXls(query) {
+  //   let endpoint = `${serviceUri}/division/xls?dueDate=${query.dueDate}`;
+  //   return super.getXls(endpoint);
   // }
 
-  // getOADiff(query) {
-  //   let endpoint = `${serviceUri}/division/diff-operational`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getIACI(query) {
-  //   let endpoint = `${serviceUri}/division/cash-in-investment`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getIACO(query) {
-  //   let endpoint = `${serviceUri}/division/cash-out-investment`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getIADiff(query) {
-  //   let endpoint = `${serviceUri}/division/diff-investment`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getFACI(query) {
-  //   let endpoint = `${serviceUri}/division/cash-in-financial`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getFACO(query) {
-  //   let endpoint = `${serviceUri}/division/cash-out-financial`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getFADiff(query) {
-  //   let endpoint = `${serviceUri}/division/diff-financial`;
-  //   return super.list(endpoint, query);
+  // getPdf(query) {
+  //   let endpoint = `${serviceUri}/division/pdf?dueDate=${query.dueDate}`;
+  //   return super.getPdf(endpoint);
   // }
 }
