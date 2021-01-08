@@ -1,8 +1,10 @@
-import { inject, useView } from 'aurelia-framework';
+import { inject, useView, bindable } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 import { Service } from "../service";
 
-@inject(DialogController)
+const CashflowCategoryLoader = require("../loaders/cashflow-category-loader");
+
+@inject(DialogController, Service)
 @useView("./add-cashflow-sub-category-dialog.html")
 export class AddCashflowSubCategoryDialog {
     constructor(controller, service) {
@@ -18,7 +20,7 @@ export class AddCashflowSubCategoryDialog {
     }
 
     save() {
-        this.service.createCashflowType(this.data)
+        this.service.createCashflowSubCategory(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.controller.ok(this.data);
@@ -26,5 +28,18 @@ export class AddCashflowSubCategoryDialog {
             .catch(e => {
                 this.error = e;
             });
+    }
+
+    get cashflowCategoryLoader() {
+        return CashflowCategoryLoader;
+    }
+
+    @bindable cashflowCategory;
+    cashflowCategoryChanged(newVal, oldVal) {
+        if (newVal) {
+            this.data.CashflowCategoryId = newVal.Id;
+        } else {
+            this.data.CashflowCategoryId = 0;
+        }
     }
 }
