@@ -6,14 +6,19 @@ const serviceUri = "budget-cashflows";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "purchasing-azure");
+    super(http, aggregator, config, "finance");
   }
 
-  search() {
-    return fetch(
-      "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
-    ).then((response) => response.json());
+  search(arg) {
+    let endpoint = `${serviceUri}`;
+    return super.list(endpoint, arg);
   }
+
+  // search(unitId, dueDate) {
+  //   return fetch(
+  //     "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
+  //   ).then((response) => response.json());
+  // }
 
   // getBestCase(query) {
   //   let endpoint = `${serviceUri}/best-case`;

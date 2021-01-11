@@ -51,7 +51,12 @@ export class List {
         : moment(new Date()).format("YYYY-MM-DD");
       this.data.DueDate = dueDate;
 
-      this.items = await this.service.search().then((data) => data);
+      let arg = {
+        unitId,
+        dueDate,
+      };
+
+      this.items = await this.service.search(arg).then((result) => result.data);
       this.isEmpty = this.items.length !== 0 ? false : true;
 
       const getLength = (groupId, items) =>
@@ -93,9 +98,9 @@ export class List {
     this.dueDate = null;
   }
 
-  addItem(event) {
-    console.log("event", event);
-    this.dialogData.tes = true;
+  addItem(item) {
+    console.log("item", item);
+    this.dialogData.label = item.label;
     this.dialog.show(AddItemDialog, this.dialogData).then((response) => {
       console.log("response", response);
     });
