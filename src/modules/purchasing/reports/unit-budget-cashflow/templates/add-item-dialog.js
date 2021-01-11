@@ -17,9 +17,10 @@ export class AddItemDialog {
   }
 
   activate(data) {
+    console.log("data", data);
     this.data = data;
+    // this.data.Items = "";
     this.error = {};
-    // this.data.Remark = "";
   }
 
   save(context) {
