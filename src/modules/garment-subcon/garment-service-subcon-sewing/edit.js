@@ -17,26 +17,38 @@ export class View {
       this.selectedRO = {
         RONo: this.data.RONo
       };
-      this.selectedUnitTo = this.data.UnitTo;
       this.selectedUnit = this.data.Unit;
       this.data.BuyerView = this.data.Buyer.Code + ' - ' + this.data.Buyer.Name;
-      this.selectedSewingTo = this.data.SewingTo;
 
-      let priceResult = await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id, IsValid: true }) });
-      if (priceResult.data.length > 0) {
-        this.data.Price = priceResult.data[0].Price;
-        //console.log(this.data.Price)
-      }
-      else {
-        this.data.Price = 0;
-      }
+      let ssSewingItems = [];
+        let ssSewing = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
+        console.log(ssSewing)
+        if (ssSewing.data.length > 0) {
+          for (var ssS of ssSewing.data) {
+            for (var ssSItem of ssS.Items) {
+              var item = {};
+              item.sewingInItemId = ssSItem.SewingInItemId;
+              item.qty = ssSItem.Quantity;
+              if (ssSewingItems[ssSItem.SewingInItemId]) {
+                ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
+              }
+              else {
+                ssSewingItems[ssSItem.SewingInItemId] = item;
+              }
+            }
+          }
+        }
 
       for (var a of this.data.Items) {
         var SewingIn = await this.service.GetSewingInById(a.SewingInId);
         var sewIn = SewingIn.Items.find(x => x.Id == a.SewingInItemId);
         if (sewIn) {
+          var qtyOut = 0;
+          if(ssSewingItems[sewIn.Id]){
+            qtyOut+=ssSewingItems[sewIn.Id].qty;
+          }
           a.SewingInDate = SewingIn.SewingInDate;
-          a.SewingInQuantity = a.Quantity + sewIn.RemainingQuantity;
+          a.SewingInQuantity = sewIn.RemainingQuantity - qtyOut;
           if (this.data.IsDifferentSize) {
             a.Quantity += sewIn.RemainingQuantity;
           }
@@ -63,12 +75,7 @@ export class View {
             item.TotalQuantity = 0;
             if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
               this.data.SewingInDate = item.SewingInDate;
-            for (var detail of item.Details) {
-              item.TotalQuantity += detail.Quantity;
-              detail.Uom = item.Uom;
-            }
             item.RemainingQuantity = item.TotalQuantity;
-            item.Price = (item.BasicPrice + (this.data.Price * 50 / 100)) * item.TotalQuantity;
           }
         }
       }
@@ -80,7 +87,6 @@ export class View {
             if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
               this.data.SewingInDate = item.SewingInDate;
             item.RemainingQuantity = item.Quantity;
-            item.Price = (item.BasicPrice + (this.data.Price * 50 / 100)) * item.Quantity;
           }
         }
       }
