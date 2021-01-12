@@ -45,8 +45,8 @@
     </au-autocomplete>
     <au-datepicker
       label="Periode"
-      value.bind="dueDate"
-      error.bind="error.dueDate"
+      value.bind="date"
+      error.bind="error.date"
       options.bind="controlOptions"
     >
     </au-datepicker>
@@ -68,7 +68,8 @@
     <table if.bind="!isEmpty" class="table table-hover table-bordered">
       <thead>
         <tr>
-          <th colspan="5">KETERANGAN</th>
+          <!-- <th colspan="5">KETERANGAN</th> -->
+          <th colspan="4">KETERANGAN</th>
           <th>MATA UANG</th>
           <th>NOMINAL VALAS</th>
           <th>NOMINAL IDR</th>
@@ -77,67 +78,27 @@
       </thead>
       <tbody>
         <tr repeat.for="item of items">
-          <td if.bind="item.IsUseSection" rowspan="${rowspan.oa}">
+          <td
+            if.bind="item.IsUseSection"
+            rowspan="${item.CashflowTypeRowspan || 1}"
+          >
             <span class="text-rotate text-bold">${item.CashflowTypeName}</span>
           </td>
-          <!-- <td
-            if.bind="item.IsUseSection && item.sectionId === 2"
-            rowspan="${rowspan.ia}"
-          >
-            <span class="text-rotate text-bold">INVESTING ACTIVITIES</span>
+          <td if.bind="item.IsUseGroup" rowspan="${item.GroupRowspan || 1}">
+            <span class="text-rotate text-bold">${item.TypeName}</span>
           </td>
+          <!-- <td if.bind="item.level === 2"></td>
           <td
-            if.bind="item.IsUseSection && item.sectionId === 3"
-            rowspan="${rowspan.fa}"
-          >
-            <span class="text-rotate text-bold"
-              >FINANCING ACTIVITIES</span
-            >
-          </td> -->
-          <td
-            if.bind="item.useGroup && item.groupId === 1"
-            rowspan="${rowspan.oaci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="item.useGroup && item.groupId === 2"
-            rowspan="${rowspan.oaco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td
-            if.bind="item.useGroup && item.groupId === 4"
-            rowspan="${rowspan.iaci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="item.useGroup && item.groupId === 5"
-            rowspan="${rowspan.iaco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td
-            if.bind="item.useGroup && item.groupId === 7"
-            rowspan="${rowspan.faci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="item.useGroup && item.groupId === 8"
-            rowspan="${rowspan.faco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td if.bind="item.level === 2"></td>
-          <td
-            colspan="${item.level === 0 ? 4 : item.level === 1 && item.readOnly ? 3 : item.level === 1 && !item.readOnly ? 2 : item.level === 2 && item.readOnly ? 2 : 1}"
+            colspan="${item.level === 0 ? 4 : item.level === 1 && item.IsReadOnly ? 3 : item.level === 1 && !item.IsReadOnly ? 2 : item.level === 2 && item.IsReadOnly ? 2 : 1}"
             class="${item.level === 2 ? '' : 'text-bold'}"
           >
-            ${item.label}
+            ${item.CashflowCategoryName}
+          </td> -->
+          <!-- <td></td> -->
+          <td colspan="${!item.IsReadOnly ? 1 : 2}">
+            ${item.CashflowCategoryName}
           </td>
-          <td if.bind="!item.readOnly">
+          <td if.bind="!item.IsReadOnly">
             <div class="buttons-container">
               <button
                 class="btn btn-primary"
@@ -154,30 +115,33 @@
               </button>
             </div>
           </td>
-          <td if.bind="item.labelOnly" colspan="4"></td>
-          <td if.bind="!item.labelOnly" class="text-center">
-            <au-textbox value.bind="data.Currency.Code" read-only.bind="true">
+          <td if.bind="item.IsLabelOnly" colspan="4"></td>
+          <td if.bind="!item.IsLabelOnly" class="text-center">
+            <au-textbox
+              value.bind="item.Currency ? item.Currency.Code : '-'"
+              read-only.bind="true"
+            >
             </au-textbox>
           </td>
-          <td if.bind="!item.labelOnly">
+          <td if.bind="!item.IsLabelOnly">
             <au-numeric
-              value.bind="data.BestCaseCurrencyNominal"
+              value.bind="item.CurrencyNominal"
               format="0,000.00"
               read-only.bind="true"
             >
             </au-numeric>
           </td>
-          <td if.bind="!item.labelOnly">
+          <td if.bind="!item.IsLabelOnly">
             <au-numeric
-              value.bind="data.BestCaseNominal"
+              value.bind="item.Nominal"
               format="0,000.00"
               read-only.bind="true"
             >
             </au-numeric>
           </td>
-          <td if.bind="!item.labelOnly">
+          <td if.bind="!item.IsLabelOnly">
             <au-numeric
-              value.bind="data.BestCaseActualNominal"
+              value.bind="item.Total"
               format="0,000.00"
               read-only.bind="true"
             >

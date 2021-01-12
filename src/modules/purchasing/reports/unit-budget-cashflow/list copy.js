@@ -14,7 +14,7 @@ export class List {
     this.currencyService = currencyService;
     this.error = {};
     this.unit = "";
-    this.dueDate = null;
+    this.date = null;
     this.isEmpty = true;
     this.isEdit = false;
     this.collectionOptions = {
@@ -156,12 +156,12 @@ export class List {
       readOnly: true,
     };
 
-    if (this.unit === "" || this.dueDate === null) {
+    if (this.unit === "" || this.date === null) {
       this.error.unit = "Unit harus diisi";
-      this.error.dueDate = "Periode harus diisi";
+      this.error.date = "Periode harus diisi";
     } else {
       this.error.unit = "";
-      this.error.dueDate = "";
+      this.error.date = "";
 
       let unitId = 0;
       if (this.unit && this.unit.Id) {
@@ -169,18 +169,18 @@ export class List {
         this.data.UnitId = this.unit.Id;
       }
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
 
-      this.data.DueDate = dueDate;
+      this.data.DueDate = date;
 
       let bestCasePromises = this.enums.map((enumItem, index) => {
         return this.service
           .getBestCase({
             layoutOrder: index + 1,
             unitId: unitId,
-            dueDate: dueDate,
+            date: date,
           })
           .then((bestCases) => {
             return bestCases;
@@ -188,45 +188,45 @@ export class List {
       });
 
       let worstCaseResult = await this.service
-        .getWorstCase({ unitId: unitId, dueDate: dueDate })
+        .getWorstCase({ unitId: unitId, date: date })
         .then((worstCases) => {
           return worstCases;
         });
 
       let totalOACI = await this.service
-        .getOACI({ unitId: unitId, dueDate: dueDate })
+        .getOACI({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalOACO = await this.service
-        .getOACO({ unitId: unitId, dueDate: dueDate })
+        .getOACO({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalOADiff = await this.service
-        .getOADiff({ unitId: unitId, dueDate: dueDate })
+        .getOADiff({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalIACI = await this.service
-        .getIACI({ unitId: unitId, dueDate: dueDate })
+        .getIACI({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalIACO = await this.service
-        .getIACO({ unitId: unitId, dueDate: dueDate })
+        .getIACO({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalIADiff = await this.service
-        .getIADiff({ unitId: unitId, dueDate: dueDate })
+        .getIADiff({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalFACI = await this.service
-        .getFACI({ unitId: unitId, dueDate: dueDate })
+        .getFACI({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalFACO = await this.service
-        .getFACO({ unitId: unitId, dueDate: dueDate })
+        .getFACO({ unitId: unitId, date: date })
         .then((result) => result);
 
       let totalFADiff = await this.service
-        .getFADiff({ unitId: unitId, dueDate: dueDate })
+        .getFADiff({ unitId: unitId, date: date })
         .then((result) => result);
 
       await Promise.all(bestCasePromises).then((bestCasePromiseResult) => {
@@ -590,7 +590,7 @@ export class List {
 
   reset() {
     this.unit = "";
-    this.dueDate = null;
+    this.date = null;
   }
 
   save() {
@@ -636,44 +636,44 @@ export class List {
   }
 
   printXls() {
-    if (this.unit === "" || this.dueDate === null) {
+    if (this.unit === "" || this.date === null) {
       this.error.unit = "Unit harus diisi";
-      this.error.dueDate = "Periode harus diisi";
+      this.error.date = "Periode harus diisi";
     } else {
       this.error.unit = "";
-      this.error.dueDate = "";
+      this.error.date = "";
 
       let unitId = 0;
       if (this.unit && this.unit.Id) {
         unitId = this.unit.Id;
       }
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
 
-      this.service.getXls({ unitId, dueDate });
+      this.service.getXls({ unitId, date });
     }
   }
 
   printPdf() {
-    if (this.unit === "" || this.dueDate === null) {
+    if (this.unit === "" || this.date === null) {
       this.error.unit = "Unit harus diisi";
-      this.error.dueDate = "Periode harus diisi";
+      this.error.date = "Periode harus diisi";
     } else {
       this.error.unit = "";
-      this.error.dueDate = "";
+      this.error.date = "";
 
       let unitId = 0;
       if (this.unit && this.unit.Id) {
         unitId = this.unit.Id;
       }
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
 
-      this.service.getPdf({ unitId, dueDate });
+      this.service.getPdf({ unitId, date });
     }
   }
 }

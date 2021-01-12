@@ -14,7 +14,7 @@ export class Service extends RestService {
     return super.list(endpoint, arg);
   }
 
-  // search(unitId, dueDate) {
+  // search(unitId, date) {
   //   return fetch(
   //     "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
   //   ).then((response) => response.json());
@@ -81,12 +81,12 @@ export class Service extends RestService {
   // }
 
   // getXls(query) {
-  //   let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+  //   let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&date=${query.date}`;
   //   return super.getXls(endpoint);
   // }
 
   // getPdf(query) {
-  //   let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+  //   let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&date=${query.date}`;
   //   return super.getPdf(endpoint);
   // }
 }

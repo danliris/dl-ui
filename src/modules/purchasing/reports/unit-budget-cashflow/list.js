@@ -17,7 +17,7 @@ export class List {
     this.dialogData = {};
     this.error = {};
     this.unit = "";
-    this.dueDate = null;
+    this.date = null;
     this.items = [];
     this.rowspan = {};
     this.isEmpty = true;
@@ -33,12 +33,12 @@ export class List {
   };
 
   async search() {
-    if (this.unit === "" || this.dueDate === null) {
+    if (this.unit === "" || this.date === null) {
       this.error.unit = "Unit harus diisi";
-      this.error.dueDate = "Periode harus diisi";
+      this.error.date = "Periode harus diisi";
     } else {
       this.error.unit = "";
-      this.error.dueDate = "";
+      this.error.date = "";
 
       let unitId = 0;
       if (this.unit && this.unit.Id) {
@@ -46,14 +46,14 @@ export class List {
         this.data.UnitId = this.unit.Id;
       }
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-      this.data.DueDate = dueDate;
+      this.data.DueDate = date;
 
       let arg = {
         unitId,
-        dueDate,
+        date,
       };
 
       this.items = await this.service.search(arg).then((result) => result.data);
@@ -95,7 +95,7 @@ export class List {
 
   reset() {
     this.unit = "";
-    this.dueDate = null;
+    this.date = null;
   }
 
   addItem(item) {
@@ -145,44 +145,44 @@ export class List {
   // }
 
   // printXls() {
-  //   if (this.unit === "" || this.dueDate === null) {
+  //   if (this.unit === "" || this.date === null) {
   //     this.error.unit = "Unit harus diisi";
-  //     this.error.dueDate = "Periode harus diisi";
+  //     this.error.date = "Periode harus diisi";
   //   } else {
   //     this.error.unit = "";
-  //     this.error.dueDate = "";
+  //     this.error.date = "";
 
   //     let unitId = 0;
   //     if (this.unit && this.unit.Id) {
   //       unitId = this.unit.Id;
   //     }
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
+  //     let date = this.date
+  //       ? moment(this.date).format("YYYY-MM-DD")
   //       : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getXls({ unitId, dueDate });
+  //     this.service.getXls({ unitId, date });
   //   }
   // }
 
   // printPdf() {
-  //   if (this.unit === "" || this.dueDate === null) {
+  //   if (this.unit === "" || this.date === null) {
   //     this.error.unit = "Unit harus diisi";
-  //     this.error.dueDate = "Periode harus diisi";
+  //     this.error.date = "Periode harus diisi";
   //   } else {
   //     this.error.unit = "";
-  //     this.error.dueDate = "";
+  //     this.error.date = "";
 
   //     let unitId = 0;
   //     if (this.unit && this.unit.Id) {
   //       unitId = this.unit.Id;
   //     }
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
+  //     let date = this.date
+  //       ? moment(this.date).format("YYYY-MM-DD")
   //       : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getPdf({ unitId, dueDate });
+  //     this.service.getPdf({ unitId, date });
   //   }
   // }
 

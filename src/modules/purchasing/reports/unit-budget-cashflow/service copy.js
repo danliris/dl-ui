@@ -70,12 +70,12 @@ export class Service extends RestService {
   }
 
   getXls(query) {
-    let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+    let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&date=${query.date}`;
     return super.getXls(endpoint);
   }
 
   getPdf(query) {
-    let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&dueDate=${query.dueDate}`;
+    let endpoint = `${serviceUri}/unit/pdf?unitId=${query.unitId}&date=${query.date}`;
     return super.getPdf(endpoint);
   }
 }
