@@ -20,8 +20,11 @@ export class View {
 
             this.selectedUnit=this.data.Unit;
 
+            if(this.data.IsUsed){
+                this.deleteCallback=null;
+                this.editCallback=null;
+            }
         }
-        console.log(this.data)
     }
 
     cancelCallback(event) {
@@ -43,4 +46,8 @@ export class View {
                     }
                 })
     }
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
+
 }

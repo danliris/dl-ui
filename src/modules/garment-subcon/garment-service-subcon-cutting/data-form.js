@@ -9,6 +9,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
     @bindable isView = false;
+    @bindable isEdit = false;
     @bindable title;
     @bindable data = {};
     // @bindable error = {};
@@ -122,7 +123,7 @@ export class DataForm {
                 }
                 let ssCuttingItems=[];
                 let ssCutting = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-                console.log(ssCutting)
+                
                 if(ssCutting.data.length>0){
                     for(var ssC of ssCutting.data){
                         for(var ssCItem of ssC.Items){
