@@ -45,8 +45,7 @@
     <au-collection items.bind="data.Items" errors.bind="error.Items"
       columns.bind="readOnly ? itemsInfoView.columns : itemsInfo.columns" read-only.bind="readOnly"
       if.bind="data.Items && data.IsDifferentSize" options.bind="itemOptions"
-      header-template="modules/garment-subcon/garment-service-subcon-sewing/template/item-header"
-      item-template="modules/garment-subcon/garment-service-subcon-sewing/template/item-different-size">
+      header-template="modules/garment-subcon/garment-service-subcon-sewing/template/item-header">
     </au-collection>
 
     <p if.bind="data.Items"><b>Jumlah Total Subcon Sewing : ${totalQuantity} PCS</b></p>

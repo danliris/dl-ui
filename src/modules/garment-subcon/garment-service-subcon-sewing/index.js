@@ -1,11 +1,11 @@
 export class Index {
   configureRouter(config, router) {
     config.map([
-      { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'List: Subcon Sewing' },
-      { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create: Subcon Sewing' },
-      { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View: Subcon Sewing' },
-      { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Subcon Sewing' },
-    ]);
+      { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'List: Subcon Jasa - Sewing' },
+      { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create: Subcon Jasa - Sewing' },
+      { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View: Subcon Jasa - Sewing' },
+      { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Subcon Jasa - Sewing' },
+    ]); 
     this.router = router;
   }
 }

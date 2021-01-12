@@ -52,6 +52,11 @@ class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
+  searchComplete(info) {
+    var endpoint = `${serviceUri}/complete`;
+    return super.list(endpoint, info);
+  }
+
 }
 
 class PurchasingService extends RestService {

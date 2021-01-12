@@ -60,7 +60,6 @@ export class Create {
             if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
               this.data.SewingInDate = item.SewingInDate;
             item.RemainingQuantity = item.Quantity;
-            item.Price = (item.BasicPrice + (item.ComodityPrice * 50 / 100)) * item.Quantity;
           }
         }
       }
