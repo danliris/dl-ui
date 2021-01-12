@@ -20,6 +20,10 @@ export class View {
 
             this.selectedUnit=this.data.Unit;
 
+            if(this.data.IsUsed){
+                this.deleteCallback=null;
+                this.editCallback=null;
+            }
         }
     }
 
