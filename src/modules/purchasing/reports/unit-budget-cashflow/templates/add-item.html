@@ -1,0 +1,27 @@
+<template>
+  <tr>
+    <td>
+      <au-autocomplete
+        value.bind="data.Currency.Code"
+        error.bind="error.Currency.Code"
+        loader.one-time="currencyLoader"
+        text="Code"
+      >
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-numeric value.bind="data.BestCaseCurrencyNominal" format="0.00">
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric value.bind="data.BestCaseNominal" format="0.00"> </au-numeric>
+    </td>
+    <td>
+      <au-numeric value.bind="data.BestCaseActualNominal" format="0.00">
+      </au-numeric>
+    </td>
+    <td class="col-sm-1">
+      <button class="btn btn-danger" click.delegate="onremove(data)">-</button>
+    </td>
+  </tr>
+</template>

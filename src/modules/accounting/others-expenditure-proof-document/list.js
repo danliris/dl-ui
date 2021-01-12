@@ -10,127 +10,137 @@ export class List {
   context = ["Rincian", "Cetak Bukti Pengeluaran"];
 
   rowFormatter(data, index) {
-    if (data.IsPosted)
-      return { classes: "success" }
-    else
-      return {}
+    if (data.IsPosted) return { classes: "success" };
+    else return {};
   }
 
-  columns = [{
-    field: "IsPosted",
-    title: "IsPosted Checkbox",
-    checkbox: true,
-    sortable: false,
-    formatter: function (value, data, index) {
-      this.checkboxEnabled = !data.IsPosted;
-      return ""
-    }
-  },
-  { field: "DocumentNo", title: "No. Bukti Pengeluaran" },
-  {
-    field: "Date",
-    title: "Tanggal",
-    formatter: function (value, data, index) {
-      return moment.utc(value).local().format("DD MMM YYYY");
+  columns = [
+    {
+      field: "IsPosted",
+      title: "IsPosted Checkbox",
+      checkbox: true,
+      sortable: false,
+      formatter: function (value, data, index) {
+        this.checkboxEnabled = !data.IsPosted;
+        return "";
+      },
     },
-  },
-  {
-    field: "AccountBank",
-    title: "Nama Bank",
-    formatter: function (value, data, index) {
-      return `${value.AccountName} - ${value.AccountNumber}`;
+    { field: "DocumentNo", title: "No. Bukti Pengeluaran" },
+    {
+      field: "Date",
+      title: "Tanggal",
+      formatter: function (value, data, index) {
+        return moment.utc(value).local().format("DD MMM YYYY");
+      },
     },
-  },
-  {
-    field: "Total",
-    title: "Total",
-    formatter: function (value, data, index) {
-      return numeral(value).format("0,000.00");
-    }, align: "right"
-  },
-  {
-    field: "AccountBank",
-    title: "Mata Uang",
-    formatter: function (value, data, index) {
-      return `${value.Currency.Code}`;
+    {
+      field: "AccountBank",
+      title: "Nama Bank",
+      formatter: function (value, data, index) {
+        return `${value.AccountName} - ${value.AccountNumber}`;
+      },
     },
-  },
-  { field: "Type", title: "Jenis Transaksi" }];
+    {
+      field: "Total",
+      title: "Total",
+      formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      },
+      align: "right",
+    },
+    {
+      field: "AccountBank",
+      title: "Mata Uang",
+      formatter: function (value, data, index) {
+        return `${value.Currency.Code}`;
+      },
+    },
+    { field: "Type", title: "Jenis Transaksi" },
+  ];
 
-    loader = (info) => {
-        // if (info.sort)
-        //     order[info.sort] = info.order;
-        // else
-        //     order["Date"] = "desc";
+  tableOptions = {
+    // showColumns: false,
+    search: false,
+    // showToggle: false,
+    // sortable: false,
+    pagination: true,
+  };
 
-        let arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-        };
+  loader = (info) => {
+    // if (info.sort)
+    //     order[info.sort] = info.order;
+    // else
+    //     order["Date"] = "desc";
 
-        return this.service.search(arg).then((result) => {
-            let itemPromises = result.data.map((datum) => {
-                return this.serviceCore
-                    .getBankById(datum.AccountBankId)
-                    .then((accountBank) => {
-                        datum.AccountBank = accountBank;
-                        return Promise.resolve(datum);
-                    });
-            });
-
-            return Promise.all(itemPromises).then((items) => {
-                return {
-                    total: result.info.total,
-                    data: items,
-                };
-            });
-        });
+    let arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
     };
 
-    constructor(router, service, serviceCore) {
-        this.service = service;
-        this.serviceCore = serviceCore;
-        this.router = router;
-    }
+    return this.service.search(arg).then((result) => {
+      let itemPromises = result.data.map((datum) => {
+        return this.serviceCore
+          .getBankById(datum.AccountBankId)
+          .then((accountBank) => {
+            datum.AccountBank = accountBank;
+            return Promise.resolve(datum);
+          });
+      });
 
-    contextClickCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
-        switch (arg.name) {
-            case "Rincian":
-                this.router.navigateToRoute("view", { id: data.Id });
-                break;
-            case "Cetak Bukti Pengeluaran":
-                // console.log(data.Id);
-                this.service.getPDFById(data.Id);
-                break;
-        }
-    }
+      return Promise.all(itemPromises).then((items) => {
+        return {
+          total: result.info.total,
+          data: items,
+        };
+      });
+    });
+  };
 
-    contextShowCallback(index, name, data) {
-        switch (name) {
-            case "Cetak Bukti Pengeluaran":
-                return data;
-            default:
-                return true;
-        }
-    }
+  constructor(router, service, serviceCore) {
+    this.service = service;
+    this.serviceCore = serviceCore;
+    this.router = router;
+  }
 
-    create() {
-        this.router.navigateToRoute("create");
+  contextClickCallback(event) {
+    let arg = event.detail;
+    let data = arg.data;
+    switch (arg.name) {
+      case "Rincian":
+        this.router.navigateToRoute("view", { id: data.Id });
+        break;
+      case "Cetak Bukti Pengeluaran":
+        // console.log(data.Id);
+        this.service.getPDFById(data.Id);
+        break;
     }
+  }
+
+  contextShowCallback(index, name, data) {
+    switch (name) {
+      case "Cetak Bukti Pengeluaran":
+        return data;
+      default:
+        return true;
+    }
+  }
+
+  create() {
+    this.router.navigateToRoute("create");
+  }
 
   posting() {
-    var items = this.selectedItems.map(s => s.Id);
-    this.service.posting(items)
-      .then(result => {
+    var items = this.selectedItems.map((s) => s.Id);
+    this.service
+      .posting(items)
+      .then((result) => {
         alert("Data berhasil disimpan");
         this.error = {};
         this.table.refresh();
         this.selectedItems = [];
       })
-      .catch(e => {
+      .catch((e) => {
         if (e.message) {
           alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
         }

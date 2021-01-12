@@ -175,6 +175,12 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-textbox
+                    label="Shipping Staff"
+                    value.bind="data.shippingStaffName"
+                    read-only.bind="true">
+                </au-textbox>
             </div>
             <div class="form-group has-error">
                 <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
