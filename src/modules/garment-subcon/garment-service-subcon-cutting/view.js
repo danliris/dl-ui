@@ -21,7 +21,6 @@ export class View {
             this.selectedUnit=this.data.Unit;
 
         }
-        console.log(this.data)
     }
 
     cancelCallback(event) {
@@ -43,4 +42,8 @@ export class View {
                     }
                 })
     }
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
+
 }

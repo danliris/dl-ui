@@ -28,7 +28,7 @@
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -41,7 +41,7 @@
             query.bind="cuttingInFilter"
             show.bind="data.Unit"
             placeholder="Nomor RO"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isEdit"
             options.bind="controlOptions"
             view-model.ref="selectedCuttingInViewModel">
         </au-autocomplete>
@@ -69,7 +69,7 @@
             label="Tanggal Subcon Jasa Cutting"
             value.bind="data.SubconDate"
             error.bind="error.SubconDate"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
         
