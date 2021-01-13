@@ -79,9 +79,9 @@ export class DataForm {
         this.data.AgreementNo=value.toUpperCase();
     }
     
-    get ContractNo(){
-        return (this.data.ContractNo || "").toUpperCase();
-    }
+    // get ContractNo(){
+    //     return (this.data.ContractNo || "").toUpperCase();
+    // }
     set ContractNo(value){
         this.data.ContractNo=value.toUpperCase();
     }

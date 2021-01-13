@@ -13,6 +13,9 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
+        if(this.data.IsUsed){
+            this.deleteCallback=null;
+        }
     }
 
     cancelCallback(event) {
