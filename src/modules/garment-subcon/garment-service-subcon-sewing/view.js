@@ -19,6 +19,11 @@ export class View {
     };
     this.selectedUnit = this.data.Unit;
     this.data.BuyerView = this.data.Buyer.Code + ' - ' + this.data.Buyer.Name;
+    
+    if(this.data.IsUsed) {
+      this.deleteCallback = null;
+      this.editCallback = null;
+    }
   }
 
   cancelCallback(event) {
