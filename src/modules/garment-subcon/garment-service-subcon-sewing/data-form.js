@@ -161,23 +161,26 @@ export class DataForm {
                 var item = {};
                 if (sewingInItem.RemainingQuantity > 0) {
                   var qtyOut = 0;
-                  if(ssSewingItems[sewingInItem.Id]){
-                    qtyOut+=ssSewingItems[sewingInItem.Id].qty;
+                  if (ssSewingItems[sewingInItem.Id]) {
+                    qtyOut += ssSewingItems[sewingInItem.Id].qty;
                   }
-                  item.SewingInItemId = sewingInItem.Id;
-                  item.SewingInId = sewingIn.Id;
-                  item.Quantity = sewingInItem.RemainingQuantity - qtyOut;
-                  item.Product = sewingInItem.Product;
-                  item.Uom = sewingInItem.Uom;
-                  item.Size = sewingInItem.Size;
-                  item.SizeName = sewingInItem.Size.Size;
-                  item.SewingInQuantity = sewingInItem.RemainingQuantity - qtyOut;
-                  item.Color = sewingInItem.Color;
-                  item.DesignColor = sewingInItem.DesignColor;
-                  item.BasicPrice = sewingInItem.BasicPrice;
-                  item.ComodityPrice = this.data.Price;
-                  item.SewingInDate = sewingIn.SewingInDate;
-                  this.data.Items.push(item);
+                  var qty = sewingInItem.RemainingQuantity - qtyOut;
+                  if (qty > 0) {
+                    item.SewingInItemId = sewingInItem.Id;
+                    item.SewingInId = sewingIn.Id;
+                    item.Quantity = qty;
+                    item.Product = sewingInItem.Product;
+                    item.Uom = sewingInItem.Uom;
+                    item.Size = sewingInItem.Size;
+                    item.SizeName = sewingInItem.Size.Size;
+                    item.SewingInQuantity = qty;
+                    item.Color = sewingInItem.Color;
+                    item.DesignColor = sewingInItem.DesignColor;
+                    item.BasicPrice = sewingInItem.BasicPrice;
+                    item.ComodityPrice = this.data.Price;
+                    item.SewingInDate = sewingIn.SewingInDate;
+                    this.data.Items.push(item);
+                  }
                 }
               }
             }
