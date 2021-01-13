@@ -28,11 +28,13 @@ export class View {
             var item = {};
             item.sewingInItemId = ssSItem.SewingInItemId;
             item.qty = ssSItem.Quantity;
-            if (ssSewingItems[ssSItem.SewingInItemId]) {
-              ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
-            }
-            else {
-              ssSewingItems[ssSItem.SewingInItemId] = item;
+            if (ssS.Id != this.data.Id) {
+              if (ssSewingItems[ssSItem.SewingInItemId]) {
+                ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
+              }
+              else {
+                ssSewingItems[ssSItem.SewingInItemId] = item;
+              }
             }
           }
         }
@@ -43,7 +45,7 @@ export class View {
         var sewIn = SewingIn.Items.find(x => x.Id == a.SewingInItemId);
         if (sewIn) {
           var qtyOut = 0;
-          if (ssSewingItems[sewIn.Id].sewingInItemId != a.SewingInItemId) {
+          if (ssSewingItems[sewIn.Id]) {
             qtyOut += ssSewingItems[sewIn.Id].qty;
           }
           a.SewingInDate = SewingIn.SewingInDate;
