@@ -95,11 +95,16 @@
             ${item.CashflowCategoryName}
           </td> -->
           <!-- <td></td> -->
-          <td colspan="${!item.IsReadOnly ? 1 : 2}">
+          <td if.bind="item.IsLabelOnly" colspan="2" class="text-bold">
             ${item.CashflowCategoryName}
           </td>
+          <td if.bind="!item.IsLabelOnly" colspan="${!item.IsReadOnly ? 1 : 2}">
+            <span class="${!item.IsShowLabel ? 'hide' : ''}"
+              >${item.CashflowSubCategoryName}</span
+            >
+          </td>
           <td if.bind="!item.IsReadOnly">
-            <div class="buttons-container">
+            <div class="buttons-container ${!item.IsShowLabel ? 'hide' : ''}">
               <button
                 class="btn btn-primary"
                 click.delegate="addItem(item)"
@@ -107,10 +112,7 @@
               >
                 +
               </button>
-              <button
-                class="btn btn-primary"
-                click.delegate="updateItem($event)"
-              >
+              <button class="btn btn-primary" click.delegate="updateItem(item)">
                 Edit
               </button>
             </div>
