@@ -73,7 +73,9 @@ export class DataForm {
         this.itemOptions = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
-            checkedAll: this.context.isCreate == true ? false : true 
+            checkedAll: this.context.isCreate == true ? false : true,
+            isEdit: this.isEdit,
+
         }
 
         if (this.data && this.data.Items) {
@@ -149,13 +151,15 @@ export class DataForm {
                                     if(ssCuttingItems[cuttingInDetail.Id]){
                                         qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
                                     }
-                                    cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                    cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                    cuttingInDetail.Product=cuttingInDetail.Product;
-                                    cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
-                                    cuttingInDetail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                    cuttingInDetail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                    this.data.Items.push(cuttingInDetail);
+                                    if(cuttingInDetail.CuttingInQuantity-qtyOut>0){
+                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
+                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                        cuttingInDetail.Product=cuttingInDetail.Product;
+                                        cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
+                                        cuttingInDetail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                        cuttingInDetail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                        this.data.Items.push(cuttingInDetail);
+                                    }
                                     
                                 }
                             }
