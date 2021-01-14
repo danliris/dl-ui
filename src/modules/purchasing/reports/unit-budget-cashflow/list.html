@@ -78,33 +78,35 @@
       </thead>
       <tbody>
         <tr repeat.for="item of items">
-          <td
-            if.bind="item.IsUseSection"
-            rowspan="${item.CashflowTypeRowspan || 1}"
-          >
+          <!-- Contoh: Kegiatan Operasional -->
+          <td if.bind="item.IsUseSection" rowspan="${item.SectionRowSpan || 1}">
             <span class="text-rotate text-bold">${item.CashflowTypeName}</span>
           </td>
-          <td if.bind="item.IsUseGroup" rowspan="${item.GroupRowspan || 1}">
+
+          <!-- Contoh: Cash In -->
+          <td if.bind="item.IsUseGroup" rowspan="${item.GroupRowSpan || 1}">
             <span class="text-rotate text-bold">${item.TypeName}</span>
           </td>
-          <!-- <td if.bind="item.level === 2"></td>
-          <td
-            colspan="${item.level === 0 ? 4 : item.level === 1 && item.IsReadOnly ? 3 : item.level === 1 && !item.IsReadOnly ? 2 : item.level === 2 && item.IsReadOnly ? 2 : 1}"
-            class="${item.level === 2 ? '' : 'text-bold'}"
-          >
-            ${item.CashflowCategoryName}
-          </td> -->
-          <!-- <td></td> -->
+
+          <!-- Contoh: Pendapatan Operasional: -->
           <td if.bind="item.IsLabelOnly" colspan="2" class="text-bold">
             ${item.CashflowCategoryName}
           </td>
-          <td if.bind="!item.IsLabelOnly" colspan="${!item.IsReadOnly ? 1 : 2}">
-            <span class="${!item.IsShowLabel ? 'hide' : ''}"
-              >${item.CashflowSubCategoryName}</span
+
+          <!-- Contoh: Penjualan Export -->
+          <td
+            if.bind="!item.IsLabelOnly && !item.IsShowTotalLabel && !item.IsShowDifferenceLabel"
+            colspan="${!item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
+          >
+            <span class="${!item.IsShowSubCategoryLabel ? 'hide' : ''}"
+              >${item.SubCategoryName}</span
             >
           </td>
-          <td if.bind="!item.IsReadOnly">
-            <div class="buttons-container ${!item.IsShowLabel ? 'hide' : ''}">
+          <!-- Tombol tambah dan edit -->
+          <td if.bind="!item.IsReadOnly && item.IsShowSubCategoryLabel">
+            <div
+              class="buttons-container ${!item.IsShowSubCategoryLabel ? 'hide' : ''}"
+            >
               <button
                 class="btn btn-primary"
                 click.delegate="addItem(item)"
@@ -117,7 +119,25 @@
               </button>
             </div>
           </td>
+
+          <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
+          <td if.bind="item.IsShowTotalLabel" colspan="2" class="text-bold">
+            ${item.TotalLabel}
+          </td>
+
+          <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
+          <td
+            if.bind="item.IsShowDifferenceLabel"
+            colspan="3"
+            class="text-bold"
+          >
+            ${item.DifferenceLabel}
+          </td>
+
+          <!-- Kosong jika hanya label -->
           <td if.bind="item.IsLabelOnly" colspan="4"></td>
+
+          <!-- Fields mata uang dan nominal -->
           <td if.bind="!item.IsLabelOnly" class="text-center">
             <au-textbox
               value.bind="item.Currency ? item.Currency.Code : '-'"

@@ -89,7 +89,7 @@ export class List {
       // this.rowspan.ia = iaci + iaco + iadiff;
       // this.rowspan.fa = faci + faco + fadiff;
 
-      console.log("this.items", this.items);
+      // console.log("this.items", this.items);
     }
   }
 

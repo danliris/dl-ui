@@ -20,13 +20,13 @@ export class Service extends RestService {
   }
 
   create(data) {
-    console.log("service, create(data)", data);
+    // console.log("service, create(data)", data);
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
   update(data) {
-    console.log("service, update(data)", data);
+    // console.log("service, update(data)", data);
     var endpoint = `${serviceUri}`;
     return super.put(endpoint, data);
   }
