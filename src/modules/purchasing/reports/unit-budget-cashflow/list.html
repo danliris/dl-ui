@@ -96,7 +96,7 @@
           <!-- Contoh: Penjualan Export -->
           <td
             if.bind="!item.IsLabelOnly && !item.IsShowTotalLabel && !item.IsShowDifferenceLabel"
-            colspan="${!item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
+            colspan="${item.IsShowDifference ? 3 : !item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
           >
             <span class="${!item.IsShowSubCategoryLabel ? 'hide' : ''}"
               >${item.SubCategoryName}</span
