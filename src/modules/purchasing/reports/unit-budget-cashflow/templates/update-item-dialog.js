@@ -20,11 +20,11 @@ export class UpdateItemDialog {
   }
 
   async activate(data) {
-    console.log("update-item-dialog, activate(data)", data);
+    // console.log("update-item-dialog, activate(data)", data);
     this.data = data;
     this.data.UnitId = data.Unit.Id;
     this.data.DivisionId = data.Unit.Division.Id;
-    this.data.CashflowSubCategoryId = data.Info.CashflowSubCategoryId;
+    this.data.CashflowSubCategoryId = data.Info.SubCategoryId;
     this.error = {};
 
     let date = data.Date
