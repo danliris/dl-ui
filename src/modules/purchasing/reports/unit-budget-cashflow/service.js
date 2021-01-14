@@ -14,6 +14,23 @@ export class Service extends RestService {
     return super.list(endpoint, arg);
   }
 
+  getItems(args) {
+    let endpoint = `${serviceUri}/items`;
+    return super.list(endpoint, args);
+  }
+
+  create(data) {
+    console.log("service, create(data)", data);
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
+
+  update(data) {
+    console.log("service, update(data)", data);
+    var endpoint = `${serviceUri}`;
+    return super.put(endpoint, data);
+  }
+
   // search(unitId, date) {
   //   return fetch(
   //     "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
