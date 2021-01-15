@@ -7,8 +7,8 @@ export class Item {
         this.error = context.error;
 
         this.isCreate = context.context.options.isCreate;
-        this.isEdit = this.context.isEdit;
-        this.showOrigin = this.context.isEdit;
+        this.isEdit = context.context.options.isEdit;
+        
         
     }
 

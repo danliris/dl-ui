@@ -1,10 +1,9 @@
 <template >
     <tr>
-        <td if.bind="options.isCreate">
+        <td if.bind="options.isCreate || options.isEdit">
             <au-checkbox 
                 value.bind="data.IsSave" 
-                disabled.bind="isEdit"
-                if.bind="options.isCreate"
+                if.bind="options.isCreate || options.isEdit"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
