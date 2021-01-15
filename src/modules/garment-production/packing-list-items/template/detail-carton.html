@@ -1,5 +1,13 @@
 <template>
     <tr>
+        <td style="text-align: center important">
+          <au-numeric
+            value.bind="data.index"
+            error.bind="error.index"
+            read-only.bind="readOnly"
+            format="0">
+          </au-numeric>
+        </td>
         <td >
             <au-numeric
                 value.bind="carton1"
