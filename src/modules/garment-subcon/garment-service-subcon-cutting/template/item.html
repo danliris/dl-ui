@@ -1,0 +1,31 @@
+<template >
+    <tr>
+        <td if.bind="options.isCreate || options.isEdit">
+            <au-checkbox 
+                value.bind="data.IsSave" 
+                if.bind="options.isCreate || options.isEdit"
+                change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.Product.Code"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-multiline
+                value.bind="data.DesignColor"
+                read-only.bind="true">
+            </au-multiline>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.Quantity"
+                error.bind = "error.Quantity"
+                read-only.bind="readOnly"
+                format="0">
+            </au-numeric>                    
+        </td>
+    </tr>
+</template>

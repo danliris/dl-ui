@@ -1,4 +1,4 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import moment from "moment";
 import numeral from "numeral";
 import { Service, AzureService } from "./service";
@@ -17,6 +17,12 @@ export class List {
         formatter: function (value, data, index) {
           return moment(value).format("DD MMM YYYY");
         },
+        rowspan: 2,
+        sortable: true,
+      },
+      {
+        field: "SupplierName",
+        title: "Supplier",
         rowspan: 2,
         sortable: true,
       },
@@ -78,7 +84,7 @@ export class List {
         sortable: true,
       },
       { field: "SendToVerificationBy", title: "Admin", rowspan: 2, sortable: true },
-      { title: "Verifikasi", colspan: 3 },
+      { title: "Verifikasi", colspan: 2 },
       {
         field: "VerificationAcceptedBy",
         title: "Verifikator",
@@ -86,6 +92,8 @@ export class List {
         rowspan: 2,
       },
       { title: "Kasir", colspan: 2 },
+      { title: "Pembelian", colspan: 3 },
+      { title: "Accounting", colspan: 2 },
     ],
     [
       {
@@ -134,14 +142,6 @@ export class List {
         sortable: true,
       },
       {
-        field: "SendDate",
-        title: "Tgl Cek",
-        formatter: function (value, data, index) {
-          return value ? moment(value).format("DD MMM YYYY") : "-";
-        },
-        sortable: true,
-      },
-      {
         field: "SendToVerificationDate",
         title: "Tgl Kirim",
         formatter: function (value, data, index) {
@@ -162,6 +162,37 @@ export class List {
         title: "No Bukti Pengeluaran Bank",
         sortable: true,
       },
+      {
+        field: "SendToPurchasingDate",
+        title: "Tgl Terima",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
+        field: "SendToPurchasingBy",
+        title: "Staff",
+        sortable: true,
+      },
+      {
+        field: "SendToPurchasingRemark",
+        title: "Alasan",
+        sortable: true,
+      },
+      {
+        field: "AccountingAcceptedDate",
+        title: "Tgl Terima",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
+        field: "AccountingAcceptedBy",
+        title: "Staff",
+        sortable: true,
+      }
     ],
   ];
 
@@ -181,6 +212,9 @@ export class List {
     sortable: false
   };
 
+  startDateLabel = "Tgl Pembelian Kirim Awal";
+  endDateLabel = "Tgl Pembelian Kirim Akhir";
+
   constructor(service, azureService) {
     this.service = service;
     this.azureService = azureService;
@@ -199,6 +233,47 @@ export class List {
       { text: "Kirim ke Accounting", value: 7 },
       { text: "Accounting (Diterima)", value: 8 },
     ];
+  }
+
+  @bindable status;
+  statusChanged(newVal, oldVal) {
+    console.log(newVal);
+
+    if (newVal) {
+      switch (newVal.value) {
+        case 1:
+          this.startDateLabel = "Tgl Pembelian Terima Awal";
+          this.endDateLabel = "Tgl Pembelian Terima Akhir";
+          break;
+        case 2:
+          this.startDateLabel = "Tgl Pembelian Kirim Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          break;
+        case 3:
+          this.startDateLabel = "Tgl Verifikasi Terima Awal";
+          this.endDateLabel = "Tgl Verifikasi Terima Akhir";
+          break;
+        case 4:
+          this.startDateLabel = "Tgl Verifikasi Kirim Awal";
+          this.endDateLabel = "Tgl Verifikasi Kirim Akhir";
+          break;
+        case 5:
+          this.startDateLabel = "Tgl Kasir Terima Awal";
+          this.endDateLabel = "Tgl Kasir Terima Akhir";
+          break;
+        case 8:
+          this.startDateLabel = "Tgl Accounting Diterima Awal";
+          this.endDateLabel = "Tgl Accounting Diterima Akhir";
+          break;
+        default:
+          this.startDateLabel = "Tgl Pembelian Kirim Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          break;
+      }
+    } else {
+      this.startDateLabel = "Tgl Pembelian Kirim Awal";
+      this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+    }
   }
 
   loader = (info) => {
@@ -223,8 +298,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     let arg = {
@@ -281,8 +356,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     this.service.xls(filter);

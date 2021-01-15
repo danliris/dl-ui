@@ -42,7 +42,9 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`;
+        var code= supplier.code || supplier.Code;
+        var name=supplier.name || supplier.Name;
+        return `${code} - ${name}`;
     }
 
     get supplierLoader() {
@@ -77,9 +79,9 @@ export class DataForm {
         this.data.AgreementNo=value.toUpperCase();
     }
     
-    get ContractNo(){
-        return (this.data.ContractNo || "").toUpperCase();
-    }
+    // get ContractNo(){
+    //     return (this.data.ContractNo || "").toUpperCase();
+    // }
     set ContractNo(value){
         this.data.ContractNo=value.toUpperCase();
     }
