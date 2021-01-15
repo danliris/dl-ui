@@ -25,10 +25,19 @@
       display: none;
     }
 
-    .buttons-container {
+    .v-center {
+      vertical-align: middle !important;
+    }
+
+    .flex-center {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .nester {
+      border-bottom: none !important;
+      border-top: none !important;
     }
   </style>
 
@@ -63,114 +72,127 @@
       <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
 
-    <br />
+    <br /><br />
 
-    <table if.bind="!isEmpty" class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <!-- <th colspan="5">KETERANGAN</th> -->
-          <th colspan="4">KETERANGAN</th>
-          <th>MATA UANG</th>
-          <th>NOMINAL VALAS</th>
-          <th>NOMINAL IDR</th>
-          <th>ACTUAL IDR</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr repeat.for="item of items">
-          <!-- Contoh: Kegiatan Operasional -->
-          <td if.bind="item.IsUseSection" rowspan="${item.SectionRowSpan || 1}">
-            <span class="text-rotate text-bold">${item.CashflowTypeName}</span>
-          </td>
-
-          <!-- Contoh: Cash In -->
-          <td if.bind="item.IsUseGroup" rowspan="${item.GroupRowSpan || 1}">
-            <span class="text-rotate text-bold">${item.TypeName}</span>
-          </td>
-
-          <!-- Contoh: Pendapatan Operasional: -->
-          <td if.bind="item.IsLabelOnly" colspan="2" class="text-bold">
-            ${item.CashflowCategoryName}
-          </td>
-
-          <!-- Contoh: Penjualan Export -->
-          <td
-            if.bind="!item.IsLabelOnly && !item.IsShowTotalLabel && !item.IsShowDifferenceLabel"
-            colspan="${!item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
-          >
-            <span class="${!item.IsShowSubCategoryLabel ? 'hide' : ''}"
-              >${item.SubCategoryName}</span
+    <div class="table-responsive">
+      <table if.bind="!isEmpty" class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th colspan="5">KETERANGAN</th>
+            <th>MATA UANG</th>
+            <th>NOMINAL VALAS</th>
+            <th>NOMINAL IDR</th>
+            <th>ACTUAL IDR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="item of items">
+            <!-- Contoh: Kegiatan Operasional -->
+            <td
+              if.bind="item.IsUseSection"
+              rowspan="${item.SectionRowSpan || 1}"
+              class="v-center"
             >
-          </td>
-          <!-- Tombol tambah dan edit -->
-          <td if.bind="!item.IsReadOnly && item.IsShowSubCategoryLabel">
-            <div
-              class="buttons-container ${!item.IsShowSubCategoryLabel ? 'hide' : ''}"
-            >
-              <button
-                class="btn btn-primary"
-                click.delegate="addItem(item)"
-                style="margin-right: 5px"
+              <span class="text-rotate text-bold"
+                >${item.CashflowTypeName}</span
               >
-                +
-              </button>
-              <button class="btn btn-primary" click.delegate="updateItem(item)">
-                Edit
-              </button>
-            </div>
-          </td>
+            </td>
 
-          <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
-          <td if.bind="item.IsShowTotalLabel" colspan="2" class="text-bold">
-            ${item.TotalLabel}
-          </td>
+            <!-- Contoh: Cash In -->
+            <td
+              if.bind="item.IsUseGroup"
+              rowspan="${item.GroupRowSpan || 1}"
+              class="v-center"
+            >
+              <span class="text-rotate text-bold">${item.TypeName}</span>
+            </td>
 
-          <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
-          <td
-            if.bind="item.IsShowDifferenceLabel"
-            colspan="3"
-            class="text-bold"
-          >
-            ${item.DifferenceLabel}
-          </td>
+            <!-- Contoh: Pendapatan Operasional: -->
+            <td if.bind="item.CashflowCategoryId" colspan="3" class="text-bold">
+              ${item.CashflowCategoryName}
+            </td>
 
-          <!-- Kosong jika hanya label -->
-          <td if.bind="item.IsLabelOnly" colspan="4"></td>
+            <!-- Contoh: Penjualan Export -->
+            <td if.bind="item.SubCategoryId" class="nester"></td>
+            <td
+              if.bind="item.SubCategoryId"
+              colspan="${!item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
+            >
+              <span class="${!item.IsShowSubCategoryLabel ? 'hide' : ''}">
+                ${item.SubCategoryName}
+              </span>
+            </td>
+            <!-- Tombol tambah dan edit -->
+            <td if.bind="!item.IsReadOnly && item.IsShowSubCategoryLabel">
+              <div class="flex-center">
+                <button
+                  class="btn btn-primary"
+                  click.delegate="addItem(item)"
+                  style="margin-right: 5px"
+                >
+                  +
+                </button>
+                <button
+                  class="btn btn-primary"
+                  click.delegate="updateItem(item)"
+                >
+                  Edit
+                </button>
+              </div>
+            </td>
 
-          <!-- Fields mata uang dan nominal -->
-          <td if.bind="!item.IsLabelOnly" class="text-center">
-            <au-textbox
-              value.bind="item.Currency ? item.Currency.Code : '-'"
-              read-only.bind="true"
-            >
-            </au-textbox>
-          </td>
-          <td if.bind="!item.IsLabelOnly">
-            <au-numeric
-              value.bind="item.CurrencyNominal"
-              format="0,000.00"
-              read-only.bind="true"
-            >
-            </au-numeric>
-          </td>
-          <td if.bind="!item.IsLabelOnly">
-            <au-numeric
-              value.bind="item.Nominal"
-              format="0,000.00"
-              read-only.bind="true"
-            >
-            </au-numeric>
-          </td>
-          <td if.bind="!item.IsLabelOnly">
-            <au-numeric
-              value.bind="item.Total"
-              format="0,000.00"
-              read-only.bind="true"
-            >
-            </au-numeric>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
+            <td if.bind="item.TotalLabel" colspan="3" class="text-bold">
+              <span class="${!item.IsShowTotalLabel ? 'hide' : ''}">
+                ${item.TotalLabel}
+              </span>
+            </td>
+
+            <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
+            <td if.bind="item.IsShowDifference" colspan="4" class="text-bold">
+              <span class="${!item.IsShowDifferenceLabel ? 'hide' : ''}">
+                ${item.DifferenceLabel}
+              </span>
+            </td>
+
+            <!-- Kosong jika hanya label -->
+            <td if.bind="item.IsLabelOnly" colspan="4"></td>
+
+            <!-- Fields mata uang dan nominal -->
+            <td if.bind="!item.IsLabelOnly" class="text-center">
+              <au-textbox
+                value.bind="item.Currency ? item.Currency.Code : '-'"
+                read-only.bind="true"
+              >
+              </au-textbox>
+            </td>
+            <td if.bind="!item.IsLabelOnly">
+              <au-numeric
+                value.bind="item.CurrencyNominal"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td if.bind="!item.IsLabelOnly">
+              <au-numeric
+                value.bind="item.Nominal"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td if.bind="!item.IsLabelOnly">
+              <au-numeric
+                value.bind="item.Total"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </au-input-form>
 </template>
