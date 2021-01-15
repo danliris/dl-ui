@@ -45,7 +45,7 @@
             loader.bind="supplierLoader"
             text.bind="supplierView"
             placeholder="cari supplier"
-            read-only.bind="readOnly || data.IsUsed"
+            read-only.bind="readOnly || data.IsUsed || data.Id"
             options.bind="controlOptions">
         </au-autocomplete>
 
