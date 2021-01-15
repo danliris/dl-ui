@@ -6,6 +6,7 @@ import UnitLoader from "../../../../loader/unit-loader";
 import moment from "moment";
 import { Dialog } from "../../../../components/dialog/dialog";
 import { AddItemDialog } from "./templates/add-item-dialog";
+import { UpdateItemDialog } from "./templates/update-item-dialog";
 
 @inject(Router, Service, CurrencyService, Dialog)
 export class List {
@@ -19,8 +20,8 @@ export class List {
     this.unit = "";
     this.date = null;
     this.items = [];
-    this.rowspan = {};
     this.isEmpty = true;
+    // this.rowspan = {};
   }
 
   controlOptions = {
@@ -59,37 +60,36 @@ export class List {
       this.items = await this.service.search(arg).then((result) => result.data);
       this.isEmpty = this.items.length !== 0 ? false : true;
 
-      const getLength = (groupId, items) =>
-        items.filter((item) => item.groupId === groupId).length;
+      // const getLength = (groupId, items) =>
+      //   items.filter((item) => item.groupId === groupId).length;
 
-      this.rowspan.oaci = getLength(1, this.items);
-      this.rowspan.oaco = getLength(2, this.items);
-      this.rowspan.oadiff = getLength(3, this.items);
-      this.rowspan.iaci = getLength(4, this.items);
-      this.rowspan.iaco = getLength(5, this.items);
-      this.rowspan.iadiff = getLength(6, this.items);
-      this.rowspan.faci = getLength(7, this.items);
-      this.rowspan.faco = getLength(8, this.items);
-      this.rowspan.fadiff = getLength(9, this.items);
+      // this.rowspan.oaci = getLength(1, this.items);
+      // this.rowspan.oaco = getLength(2, this.items);
+      // this.rowspan.oadiff = getLength(3, this.items);
+      // this.rowspan.iaci = getLength(4, this.items);
+      // this.rowspan.iaco = getLength(5, this.items);
+      // this.rowspan.iadiff = getLength(6, this.items);
+      // this.rowspan.faci = getLength(7, this.items);
+      // this.rowspan.faco = getLength(8, this.items);
+      // this.rowspan.fadiff = getLength(9, this.items);
 
-      const {
-        oaci,
-        oaco,
-        oadiff,
-        iaci,
-        iaco,
-        iadiff,
-        faci,
-        faco,
-        fadiff,
-      } = this.rowspan;
+      // const {
+      //   oaci,
+      //   oaco,
+      //   oadiff,
+      //   iaci,
+      //   iaco,
+      //   iadiff,
+      //   faci,
+      //   faco,
+      //   fadiff,
+      // } = this.rowspan;
 
-      this.rowspan.oa = oaci + oaco + oadiff;
-      this.rowspan.ia = iaci + iaco + iadiff;
-      this.rowspan.fa = faci + faco + fadiff;
+      // this.rowspan.oa = oaci + oaco + oadiff;
+      // this.rowspan.ia = iaci + iaco + iadiff;
+      // this.rowspan.fa = faci + faco + fadiff;
 
-      console.log("this.items", this.items);
-      console.log("this.rowspan", this.rowspan);
+      // console.log("this.items", this.items);
     }
   }
 
@@ -99,10 +99,24 @@ export class List {
   }
 
   addItem(item) {
-    console.log("item", item);
-    this.dialogData.label = item.label;
+    this.dialogData.Info = item;
+    this.dialogData.Unit = this.unit;
+    this.dialogData.Date = this.date;
+
     this.dialog.show(AddItemDialog, this.dialogData).then((response) => {
-      console.log("response", response);
+      // console.log("response", response);
+      this.search();
+    });
+  }
+
+  updateItem(item) {
+    this.dialogData.Info = item;
+    this.dialogData.Unit = this.unit;
+    this.dialogData.Date = this.date;
+
+    this.dialog.show(UpdateItemDialog, this.dialogData).then((response) => {
+      // console.log("response", response);
+      this.search();
     });
   }
 

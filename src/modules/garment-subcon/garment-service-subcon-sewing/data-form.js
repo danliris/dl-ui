@@ -14,11 +14,7 @@ export class DataForm {
   // @bindable error = {};
   @bindable selectedRO;
   @bindable selectedUnit;
-  @bindable selectedUnitTo;
   @bindable itemOptions = {};
-  @bindable selectedSewingTo;
-
-  sewingToOptions = ['FINISHING', 'SEWING', 'CUTTING'];
 
   constructor(service, purchasingService) {
     this.service = service;
@@ -47,7 +43,6 @@ export class DataForm {
       "Keterangan",
       "Size",
       "Jumlah",
-      "JumlahKeluar",
       "Satuan",
       "Warna"
     ]
@@ -58,7 +53,7 @@ export class DataForm {
       "Kode Barang",
       "Keterangan",
       "Size",
-      "JumlahKeluar",
+      "Jumlah",
       "Satuan",
       "Warna"
     ]
@@ -122,15 +117,6 @@ export class DataForm {
     this.data.Items.splice(0);
   }
 
-  selectedUnitToChanged(newValue) {
-    if (newValue) {
-      this.data.UnitTo = newValue;
-    }
-    else {
-      this.data.UnitTo = null;
-    }
-  }
-
   async selectedROChanged(newValue, oldValue) {
     if (this.context.isCreate) {
       if (newValue) {
@@ -149,12 +135,23 @@ export class DataForm {
           this.data.BuyerView = this.data.Buyer.Code + ' - ' + this.data.Buyer.Name;
         }
 
-        let priceResult = await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id, IsValid: true }) });
-        if (priceResult.data.length > 0) {
-          this.data.Price = priceResult.data[0].Price;
-        }
-        else {
-          this.data.Price = 0;
+        let ssSewingItems = [];
+        let ssSewing = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
+        console.log(ssSewing)
+        if (ssSewing.data.length > 0) {
+          for (var ssS of ssSewing.data) {
+            for (var ssSItem of ssS.Items) {
+              var item = {};
+              item.sewingInItemId = ssSItem.SewingInItemId;
+              item.qty = ssSItem.Quantity;
+              if (ssSewingItems[ssSItem.SewingInItemId]) {
+                ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
+              }
+              else {
+                ssSewingItems[ssSItem.SewingInItemId] = item;
+              }
+            }
+          }
         }
 
         Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, "GarmentSewingInItem.Any(RemainingQuantity>0)": true }) }))
@@ -163,20 +160,27 @@ export class DataForm {
               for (var sewingInItem of sewingIn.Items) {
                 var item = {};
                 if (sewingInItem.RemainingQuantity > 0) {
-                  item.SewingInItemId = sewingInItem.Id;
-                  item.SewingInId = sewingIn.Id;
-                  item.Quantity = 0;
-                  item.Product = sewingInItem.Product;
-                  item.Uom = sewingInItem.Uom;
-                  item.Size = sewingInItem.Size;
-                  item.SizeName = sewingInItem.Size.Size;
-                  item.SewingInQuantity = sewingInItem.RemainingQuantity;
-                  item.Color = sewingInItem.Color;
-                  item.DesignColor = sewingInItem.DesignColor;
-                  item.BasicPrice = sewingInItem.BasicPrice;
-                  item.ComodityPrice = this.data.Price;
-                  item.SewingInDate = sewingIn.SewingInDate;
-                  this.data.Items.push(item);
+                  var qtyOut = 0;
+                  if (ssSewingItems[sewingInItem.Id]) {
+                    qtyOut += ssSewingItems[sewingInItem.Id].qty;
+                  }
+                  var qty = sewingInItem.RemainingQuantity - qtyOut;
+                  if (qty > 0) {
+                    item.SewingInItemId = sewingInItem.Id;
+                    item.SewingInId = sewingIn.Id;
+                    item.Quantity = qty;
+                    item.Product = sewingInItem.Product;
+                    item.Uom = sewingInItem.Uom;
+                    item.Size = sewingInItem.Size;
+                    item.SizeName = sewingInItem.Size.Size;
+                    item.SewingInQuantity = qty;
+                    item.Color = sewingInItem.Color;
+                    item.DesignColor = sewingInItem.DesignColor;
+                    item.BasicPrice = sewingInItem.BasicPrice;
+                    item.ComodityPrice = this.data.Price;
+                    item.SewingInDate = sewingIn.SewingInDate;
+                    this.data.Items.push(item);
+                  }
                 }
               }
             }
@@ -233,14 +237,7 @@ export class DataForm {
     var qty = 0;
     if (this.data.Items) {
       for (var item of this.data.Items) {
-        if (this.data.IsDifferentSize) {
-          if (item.Details) {
-            for (var detail of item.Details) {
-              qty += detail.Quantity;
-            }
-          }
-        }
-        else {
+        if (!this.data.IsDifferentSize) {
           qty += item.Quantity;
         }
       }
