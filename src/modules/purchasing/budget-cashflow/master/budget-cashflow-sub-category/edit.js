@@ -6,7 +6,7 @@ import { MasterService } from './master-service';
 
 @inject(Router, Service, MasterService)
 export class Edit {
-    constructor(router, service) {
+    constructor(router, service, masterService) {
         this.router = router;
         this.service = service;
         this.masterService = masterService;
@@ -15,7 +15,10 @@ export class Edit {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        this.cashflowType = await this.service.getBudgetCashflowTypeById(this.data.CashflowTypeId);
+        this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
+            item.Category = await this.masterService.getCategoryById(item);
+        })
+        this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
     }
 
     cancelCallback(event) {

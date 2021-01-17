@@ -6,7 +6,7 @@
         <au-autocomplete label="Kategori Cashflow"
                          value.bind="cashflowCategory"
                          loader.one-time="cashflowCategoryLoader"
-                         error.bind="CashflowCategoryId"
+                         error.bind="error.CashflowCategoryId"
                          text="Name"
                          options.bind="controlOptions">
         </au-autocomplete>
@@ -35,7 +35,7 @@
                        columns.bind="columns"
                        add.bind="addItems"
                        remove.bind="onremove"
-                       item-template="modules/purchasing/budget-cashflow/master/budget-cashflow-sub-category/templates/item">
+                       item-template="modules/purchasing/budget-cashflow/master/budget-cashflow-sub-category/templates/cashflow-item">
         </au-collection>
 
     </au-input-form>

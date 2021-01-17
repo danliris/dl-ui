@@ -26,6 +26,10 @@ export class Create {
     }
 
     saveCallback(event) {
+
+        this.data.PurchasingCategoryIds = this.data.Items.map((item) => {
+            return item.Category && item.Category._id ? item.Category._id : 0;
+        })
         this.service
             .create(this.data)
             .then(result => {
@@ -37,6 +41,7 @@ export class Create {
                 );
             })
             .catch(e => {
+                console.log(e);
                 this.error = e;
             });
     }

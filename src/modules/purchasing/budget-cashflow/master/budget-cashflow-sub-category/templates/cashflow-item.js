@@ -1,9 +1,9 @@
-import { inject, BindingEngine } from 'aurelia-framework';
+import { inject, BindingEngine, bindable } from 'aurelia-framework';
 
 const CategoryLoader = require('../../../loader/category-loader');
 
 @inject(BindingEngine)
-export class Item {
+export class CashflowItem {
     constructor(bindingEngine) {
         this.bindingEngine = bindingEngine;
     }
@@ -19,12 +19,12 @@ export class Item {
         return CategoryLoader;
     }
 
-    @bindable category;
-    categoryChanged(newVal, oldVal) {
-        if (newVal) {
-            this.data.CategoryId = newVal.Id;
-        } else {
-            this.data.CategoryId = 0;
-        }
-    }
+    // @bindable category;
+    // categoryChanged(newVal, oldVal) {
+    //     if (newVal) {
+    //         this.data.CategoryId = newVal.Id;
+    //     } else {
+    //         this.data.CategoryId = 0;
+    //     }
+    // }
 }
