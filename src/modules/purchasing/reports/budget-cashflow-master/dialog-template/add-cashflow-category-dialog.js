@@ -39,6 +39,10 @@ export class AddCashflowCategoryDialog {
         }
     }
 
+    get cashflowTypeLoader() {
+        return CashflowTypeLoader;
+    }
+
     save() {
         this.service.createCashflowCategory(this.data)
             .then(result => {
@@ -50,7 +54,5 @@ export class AddCashflowCategoryDialog {
             });
     }
 
-    get cashflowTypeLoader() {
-        return CashflowTypeLoader;
-    }
+
 }
