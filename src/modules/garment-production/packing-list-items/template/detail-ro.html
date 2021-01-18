@@ -67,10 +67,11 @@
             </au-textbox>
         </td>
         <td class="bg-primary">
-            <au-textbox
+            <au-numeric
                 value.bind="amount"
-                read-only.bind="true">
-            </au-textbox>
+                read-only.bind="true"
+                format="0.00">
+            </au-numeric>
         </td>
         <td class="bg-primary col-md-1">
             <au-autocomplete
