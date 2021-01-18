@@ -8,7 +8,7 @@ export class List {
 
     dataToBePosted = [];
 
-    context = ["Detail", "Cetak - By RO"]
+    context = ["Detail", "Cetak - By RO", "Cetak - By Carton"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
@@ -95,6 +95,9 @@ export class List {
                 break;
             case "Cetak - By RO":
                 this.service.getPdfById(data.id);
+                break;
+            case "Cetak - By Carton":
+                this.service.getPdfByFilterCarton(data.id);
                 break;
             // case "Cetak-Excel":
             //     this.service.getExcelById(data.id);
