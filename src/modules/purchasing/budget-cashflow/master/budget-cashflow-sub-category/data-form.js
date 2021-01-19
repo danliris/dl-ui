@@ -41,7 +41,7 @@ export class DataForm {
         this.service = service;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -51,6 +51,10 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+        this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
+            item.Category = await this.masterService.getCategoryById(item);
+        })
+        this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
     }
 
     get cashflowCategoryLoader() {
@@ -60,6 +64,7 @@ export class DataForm {
     @bindable cashflowCategory;
     cashflowCategoryChanged(newVal, oldVal) {
         if (newVal) {
+            console.log(newVal);
             this.data.CashflowCategoryId = newVal.Id;
         } else {
             this.data.CashflowCategoryId = 0;
