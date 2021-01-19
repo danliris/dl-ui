@@ -49,6 +49,7 @@ export class UpdateItemDialog {
   }
 
   save() {
+    this.error = {};
     this.service
       .update(this.data)
       .then(() => {
