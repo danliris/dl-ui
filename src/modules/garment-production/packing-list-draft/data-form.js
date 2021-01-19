@@ -123,7 +123,7 @@ export class DataForm {
 
         this.data.invoiceType = this.data.invoiceType || "DL";
         this.data.packingListType = this.data.packingListType || "EXPORT";
-        this.data.sayUnit = this.data.sayUnit || "CARTON";
+        this.data.sayUnit = this.data.sayUnit || "CARTONS";
 
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
