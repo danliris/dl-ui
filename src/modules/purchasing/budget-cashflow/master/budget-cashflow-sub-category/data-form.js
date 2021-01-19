@@ -95,7 +95,6 @@ export class DataForm {
 
     // @computedFrom("data.Items")
     get anyCategoryIsRawMaterial() {
-        console.log(this.data);
 
         if (this.data.Items && this.data.Items.length > 0) {
             return this.data.Items.find(f => f.Category && f.Category.code == "BB");
