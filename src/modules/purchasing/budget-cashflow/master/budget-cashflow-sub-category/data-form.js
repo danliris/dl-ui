@@ -17,6 +17,17 @@ export class DataForm {
         editText: "Ubah",
     }
 
+    reportTypeOptions = [{
+        value: 0,
+        text: ""
+    }, {
+        value: 1,
+        text: "Rekap Hutang dan Disposisi"
+    }, {
+        value: 2,
+        text: "Laporan Pembelian"
+    }]
+
     controlOptions = {
         label: {
             length: 4,
@@ -64,5 +75,14 @@ export class DataForm {
             console.log(this.data.Items);
             this.data.Items.push({})
         };
+    }
+
+    @bindable reportType
+    reportTypeChanged(newVal, oldVal) {
+        if (newVal) {
+            this.data.ReportType = newVal.value
+        } else {
+            this.data.ReportType = 0;
+        }
     }
 }
