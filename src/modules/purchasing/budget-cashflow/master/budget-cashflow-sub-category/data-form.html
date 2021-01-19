@@ -39,7 +39,7 @@
         </au-dropdown>
 
         <au-checkbox label="Import"
-                     show.bind="data.ReportType > 0"
+                     show.bind="data.ReportType > 0 && anyCategoryIsRawMaterial"
                      value.bind="data.IsImport"
                      options.bind="controlOptions">
         </au-checkbox>

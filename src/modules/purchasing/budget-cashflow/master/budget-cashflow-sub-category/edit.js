@@ -15,10 +15,7 @@ export class Edit {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
-            item.Category = await this.masterService.getCategoryById(item);
-        })
-        this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
+        
     }
 
     cancelCallback(event) {
