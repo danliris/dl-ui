@@ -51,9 +51,11 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
-        this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
-            item.Category = await this.masterService.getCategoryById(item);
-        })
+
+        if (this.data.PurchasingCategoryIds)
+            this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
+                item.Category = await this.masterService.getCategoryById(item);
+            })
         this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
     }
 
@@ -89,5 +91,15 @@ export class DataForm {
         } else {
             this.data.ReportType = 0;
         }
+    }
+
+    // @computedFrom("data.Items")
+    get anyCategoryIsRawMaterial() {
+        console.log(this.data);
+
+        if (this.data.Items && this.data.Items.length > 0) {
+            return this.data.Items.find(f => f.Category && f.Category.code == "BB");
+        }
+        return false;
     }
 }
