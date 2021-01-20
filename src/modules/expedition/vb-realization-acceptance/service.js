@@ -48,6 +48,14 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/post`;
     return super.put(endpoint, data);
   }
+
+  getVbRealizationById(id) {
+    let endpoint = `vb-realization-documents/${id}`;
+    return super
+      .get(endpoint)
+      .then((data) => data)
+      .catch(() => null);
+  }
 }
 
 // export class
