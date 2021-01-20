@@ -298,7 +298,7 @@ export class Item {
       }
     }
     
-    indexChanged(newValue) {
-      this.data.details[this.data.details.length - 1].index = newValue;
-    }
+    // indexChanged(newValue) {
+    //   this.data.details[this.data.details.length - 1].index = newValue;
+    // }
 }
