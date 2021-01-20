@@ -155,6 +155,20 @@
               </span>
             </td>
 
+            <!-- Contoh: Saldo Awal Kas -->
+            <td if.bind="item.IsSummaryBalance" colspan="5" class="text-bold">
+              <span class="${!item.IsShowSummaryBalance ? 'hide' : ''}">
+                ${item.SummaryBalanceLabel}
+              </span>
+            </td>
+
+            <!-- Contoh: SURPLUS/DEFISIT KAS -->
+            <td if.bind="item.IsShowSummary" colspan="5" class="text-bold">
+              <span class="${!item.IsShowSummaryLabel ? 'hide' : ''}">
+                ${item.SummaryLabel}
+              </span>
+            </td>
+
             <!-- Kosong jika hanya label -->
             <td if.bind="item.IsLabelOnly" colspan="4"></td>
 
