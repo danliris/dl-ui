@@ -89,6 +89,18 @@ export class List {
     },
   ];
 
+  rowFormatter(data, index) {
+    if (
+      data.VBRealization &&
+      data.VBRealization.Header &&
+      data.VBRealization.Header.IsCompleted
+    ) {
+      return { classes: "success" };
+    } else {
+      return {};
+    }
+  }
+
   constructor(router, service, dialog, permissionHelper) {
     this.service = service;
     // this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
@@ -141,11 +153,21 @@ export class List {
     // console.log(arg)
 
     return this.service.search(arg).then((result) => {
-      // console.log(result);
-      return {
-        total: result.info.total,
-        data: result.data,
-      };
+      console.log(result.data);
+      result.data = result.data.map((item) => {
+        return this.service
+          .getVbRealizationById(item.VBRealizationId)
+          .then((vbRealization) => {
+            item.VBRealization = vbRealization;
+            return item;
+          });
+      });
+      return Promise.all(result.data).then((data) => {
+        return {
+          total: result.info.total,
+          data,
+        };
+      });
     });
   };
 
