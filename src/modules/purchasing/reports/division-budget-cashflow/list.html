@@ -24,6 +24,10 @@
     .hide {
       display: none;
     }
+
+    .v-center {
+      vertical-align: middle !important;
+    }
   </style>
 
   <au-input-form title="Budget Cashflow Divisi">
@@ -39,8 +43,8 @@
     </au-autocomplete>
     <au-datepicker
       label="Periode"
-      error.bind="error.dueDate"
-      value.bind="dueDate"
+      value.bind="date"
+      error.bind="error.date"
       options.bind="controlOptions"
     >
     </au-datepicker>
@@ -57,110 +61,75 @@
       <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
 
-    <br />
+    <br /><br />
 
-    <table if.bind="!isEmpty" class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th colspan="4">KETERANGAN</th>
-          <th repeat.for="column of columns">${column}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr repeat.for="row of rows">
-          <td
-            if.bind="row.useSection && row.sectionId === 1"
-            rowspan="${rowspan.oa}"
-          >
-            <span class="text-rotate text-bold">OPERATING ACTIVITIES</span>
-          </td>
-          <td
-            if.bind="row.useSection && row.sectionId === 2"
-            rowspan="${rowspan.ia}"
-          >
-            <span class="text-rotate text-bold">INVESTING ACTIVITIES</span>
-          </td>
-          <td
-            if.bind="row.useSection && row.sectionId === 3"
-            rowspan="${rowspan.fa}"
-          >
-            <span class="text-rotate text-bold">FINANCING ACTIVITIES</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 1"
-            rowspan="${rowspan.oaci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 2"
-            rowspan="${rowspan.oaco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 4"
-            rowspan="${rowspan.iaci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 5"
-            rowspan="${rowspan.iaco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 7"
-            rowspan="${rowspan.faci}"
-          >
-            <span class="text-rotate text-bold">CASH IN</span>
-          </td>
-          <td
-            if.bind="row.useGroup && row.groupId === 8"
-            rowspan="${rowspan.faco}"
-          >
-            <span class="text-rotate text-bold">CASH OUT</span>
-          </td>
-          <td if.bind="row.level === 2"></td>
-          <td
-            colspan="${row.level === 0 ? 3 : row.level === 1 ? 2 : 1}"
-            class="${row.level === 2 ? '' : 'text-bold'}"
-          >
-            ${row.label}
-          </td>
-          <td if.bind="row.labelOnly" colspan="${columns.length}"></td>
-          <td if.bind="!row.labelOnly" repeat.for="column of columns">tes</td>
-          <!-- <td if.bind="!row.labelOnly" class="text-center">
-            <au-textbox value.bind="data.Currency.Code" read-only.bind="true">
-            </au-textbox>
-          </td>
-          <td if.bind="!row.labelOnly">
-            <au-numeric
-              value.bind="data.BestCaseCurrencyNominal"
-              format="0,000.00"
-              read-only.bind="true"
+    <div class="table-responsive">
+      <table if.bind="!isEmpty" class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th colspan="4">KETERANGAN</th>
+            <th repeat.for="column of columns">${column}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="row of rows">
+            <!-- Contoh: Kegiatan Operasional -->
+            <td
+              if.bind="row.IsUseSection"
+              rowspan="${row.SectionRowSpan || 1}"
+              class="v-center"
             >
-            </au-numeric>
-          </td>
-          <td if.bind="!row.labelOnly">
-            <au-numeric
-              value.bind="data.BestCaseNominal"
-              format="0,000.00"
-              read-only.bind="true"
+              <span class="text-rotate text-bold">${row.CashflowTypeName}</span>
+            </td>
+
+            <!-- Contoh: Cash In -->
+            <td
+              if.bind="row.IsUseGroup"
+              rowspan="${row.GroupRowSpan || 1}"
+              class="v-center"
             >
-            </au-numeric>
-          </td>
-          <td if.bind="!row.labelOnly">
-            <au-numeric
-              value.bind="data.BestCaseActualNominal"
-              format="0,000.00"
-              read-only.bind="true"
+              <span class="text-rotate text-bold">${row.TypeName}</span>
+            </td>
+
+            <!-- Contoh: Pendapatan Operasional: -->
+            <td if.bind="row.CashflowCategoryId" colspan="2" class="text-bold">
+              ${row.CashflowCategoryName}
+            </td>
+
+            <!-- Contoh: Penjualan Export -->
+            <td if.bind="row.SubCategoryId" class="nester"></td>
+            <td
+              if.bind="row.SubCategoryId"
+              colspan="${!row.IsReadOnly && row.IsShowSubCategoryLabel ? 1 : 2}"
             >
-            </au-numeric>
-          </td> -->
-        </tr>
-      </tbody>
-    </table>
+              <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
+                ${row.SubCategoryName}
+              </span>
+            </td>
+
+            <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
+            <td if.bind="row.TotalLabel" colspan="2" class="text-bold">
+              <span class="${!row.IsShowTotalLabel ? 'hide' : ''}">
+                ${row.TotalLabel}
+              </span>
+            </td>
+
+            <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
+            <td if.bind="row.IsShowDifference" colspan="3" class="text-bold">
+              <span class="${!row.IsShowDifferenceLabel ? 'hide' : ''}">
+                ${row.DifferenceLabel}
+              </span>
+            </td>
+
+            <!-- Kosong jika hanya label -->
+            <td if.bind="row.IsLabelOnly" colspan="${columns.length}"></td>
+
+            <td if.bind="!row.IsLabelOnly" repeat.for="column of columns">
+              nominal
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </au-input-form>
 </template>

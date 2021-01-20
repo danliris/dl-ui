@@ -1,22 +1,19 @@
 import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
-import { CoreService } from "./core-service";
 import moment from "moment";
 let DivisionLoader = require("../../../../loader/division-loader");
 
-@inject(Router, Service, CoreService)
+@inject(Router, Service)
 export class List {
-  constructor(router, service, coreService) {
+  constructor(router, service) {
     this.router = router;
     this.service = service;
-    this.coreService = coreService;
     this.error = {};
     this.division = "";
-    this.dueDate = null;
+    this.date = null;
     this.columns = [];
     this.rows = [];
-    this.rowspan = {};
     this.isEmpty = true;
   }
 
@@ -30,69 +27,45 @@ export class List {
   };
 
   async search() {
-    if (this.division === "" || this.dueDate === null) {
+    if (this.division === "" || this.date === null) {
       this.error.division = "Divisi harus diisi";
-      this.error.dueDate = "Periode harus diisi";
+      this.error.date = "Periode harus diisi";
     } else {
       this.error.division = "";
-      this.error.dueDate = "";
+      this.error.date = "";
 
       let divisionId = 0;
       if (this.division && this.division.Id) {
         divisionId = this.division.Id;
-        this.data.DivisionId = this.division.Id;
+        // this.data.DivisionId = this.division.Id;
       }
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-      this.data.DueDate = dueDate;
+      // this.data.DueDate = date;
 
-      await this.service.search().then((data) => {
-        this.columns = data[0].columns;
-        this.rows = data[0].rows;
+      let arg = {
+        divisionId,
+        date,
+      };
+
+      await this.service.search(arg).then((result) => {
+        this.columns = result.data.Headers;
+        this.rows = result.data.Items;
       });
 
       this.isEmpty = this.rows.length !== 0 ? false : true;
 
-      const getLength = (groupId, rows) =>
-        rows.filter((item) => item.groupId === groupId).length;
-
-      this.rowspan.oaci = getLength(1, this.rows);
-      this.rowspan.oaco = getLength(2, this.rows);
-      this.rowspan.oadiff = getLength(3, this.rows);
-      this.rowspan.iaci = getLength(4, this.rows);
-      this.rowspan.iaco = getLength(5, this.rows);
-      this.rowspan.iadiff = getLength(6, this.rows);
-      this.rowspan.faci = getLength(7, this.rows);
-      this.rowspan.faco = getLength(8, this.rows);
-      this.rowspan.fadiff = getLength(9, this.rows);
-
-      const {
-        oaci,
-        oaco,
-        oadiff,
-        iaci,
-        iaco,
-        iadiff,
-        faci,
-        faco,
-        fadiff,
-      } = this.rowspan;
-
-      this.rowspan.oa = oaci + oaco + oadiff;
-      this.rowspan.ia = iaci + iaco + iadiff;
-      this.rowspan.fa = faci + faco + fadiff;
-
+      console.log("this.isEmpty", this.isEmpty);
       console.log("this.columns", this.columns);
       console.log("this.rows", this.rows);
-      console.log("this.rowspan", this.rowspan);
     }
   }
 
   reset() {
-    this.division = null;
-    this.dueDate = null;
+    this.division = "";
+    this.date = null;
   }
 
   // printXls() {

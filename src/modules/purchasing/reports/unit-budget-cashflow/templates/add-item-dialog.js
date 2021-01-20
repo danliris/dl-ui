@@ -30,6 +30,8 @@ export class AddItemDialog {
   }
 
   save() {
+    this.error = {};
+    console.log(this.data);
     this.service
       .create(this.data)
       .then(() => {

@@ -13,7 +13,9 @@
       <au-numeric
         value.bind="data.CurrencyNominal"
         error.bind="error.CurrencyNominal"
+        read-only.bind="!isCurrency || data.IsIDR"
         format="0.00"
+        change.delegate="handleChangeAmount($event)"
       >
       </au-numeric>
     </td>
@@ -21,7 +23,9 @@
       <au-numeric
         value.bind="data.Nominal"
         error.bind="error.Nominal"
+        read-only.bind="!isCurrency || !data.IsIDR"
         format="0.00"
+        change.delegate="handleChangeAmount($event)"
       >
       </au-numeric>
     </td>
@@ -30,6 +34,7 @@
         value.bind="data.Total"
         error.bind="error.Total"
         format="0.00"
+        read-only.bind="true"
       >
       </au-numeric>
     </td>

@@ -41,7 +41,7 @@ export class DataForm {
         this.service = service;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -51,6 +51,12 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+
+        if (this.data.PurchasingCategoryIds)
+            this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
+                item.Category = await this.masterService.getCategoryById(item);
+            })
+        this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
     }
 
     get cashflowCategoryLoader() {
@@ -60,6 +66,7 @@ export class DataForm {
     @bindable cashflowCategory;
     cashflowCategoryChanged(newVal, oldVal) {
         if (newVal) {
+            console.log(newVal);
             this.data.CashflowCategoryId = newVal.Id;
         } else {
             this.data.CashflowCategoryId = 0;
@@ -84,5 +91,14 @@ export class DataForm {
         } else {
             this.data.ReportType = 0;
         }
+    }
+
+    // @computedFrom("data.Items")
+    get anyCategoryIsRawMaterial() {
+
+        if (this.data.Items && this.data.Items.length > 0) {
+            return this.data.Items.find(f => f.Category && f.Category.code == "BB");
+        }
+        return false;
     }
 }
