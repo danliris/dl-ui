@@ -49,15 +49,23 @@ export class UpdateItemDialog {
   }
 
   save() {
+    // console.log(this.data);
+
     this.error = {};
-    this.service
-      .update(this.data)
-      .then(() => {
-        // alert("Data berhasil dibuat");
-        this.controller.ok(this.data);
-      })
-      .catch((e) => {
-        this.error = e;
-      });
+    if (this.data.CashflowSubCategoryId) {
+      this.service
+        .update(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    } else {
+      this.service
+        .updateInitialCashBalance(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    }
   }
 }

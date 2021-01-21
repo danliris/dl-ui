@@ -280,11 +280,10 @@ export class Create {
           .then((response) => {
             const args = {
               ListIds: this.selectedItems.map((d) => {
-                //   console.log(d);
+                // console.log(d);
                 return {
-                  VBRequestId: d.Id,
+                  VBRequestId: d.VBId,
                   VBRealizationId: d.VBRealizationId,
-                  // VBRealizationId: d.VBRealizationDocumentId,
                 };
               }),
               Bank: response.output.Bank,

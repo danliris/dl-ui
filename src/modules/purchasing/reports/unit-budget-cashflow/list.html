@@ -156,10 +156,32 @@
             </td>
 
             <!-- Contoh: Saldo Awal Kas -->
-            <td if.bind="item.IsSummaryBalance" colspan="5" class="text-bold">
+            <td
+              if.bind="item.IsSummaryBalance"
+              colspan="${!item.IsReadOnly && item.IsSummaryBalance ? 4 : 5}"
+              class="text-bold"
+            >
               <span class="${!item.IsShowSummaryBalance ? 'hide' : ''}">
                 ${item.SummaryBalanceLabel}
               </span>
+            </td>
+            <!-- Tombol tambah dan edit -->
+            <td if.bind="!item.IsReadOnly && item.IsSummaryBalance">
+              <div class="flex-center">
+                <button
+                  class="btn btn-primary"
+                  click.delegate="addItem(item)"
+                  style="margin-right: 5px"
+                >
+                  +
+                </button>
+                <button
+                  class="btn btn-primary"
+                  click.delegate="updateItem(item)"
+                >
+                  Edit
+                </button>
+              </div>
             </td>
 
             <!-- Contoh: SURPLUS/DEFISIT KAS -->
