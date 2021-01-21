@@ -67,47 +67,47 @@ export class List {
   }
 
   addItem(item) {
-    // console.log(item);
-
     this.dialogData.Info = item;
     this.dialogData.Unit = this.unit;
     this.dialogData.Date = this.date;
+
+    // console.log(this.dialogData);
 
     this.dialog.show(AddItemDialog, this.dialogData).then(() => this.search());
   }
 
   updateItem(item) {
-    // console.log(item);
-
     this.dialogData.Info = item;
     this.dialogData.Unit = this.unit;
     this.dialogData.Date = this.date;
+
+    // console.log(this.dialogData);
 
     this.dialog
       .show(UpdateItemDialog, this.dialogData)
       .then(() => this.search());
   }
 
-  // printXls() {
-  //   if (this.unit === "" || this.date === null) {
-  //     this.error.unit = "Unit harus diisi";
-  //     this.error.date = "Periode harus diisi";
-  //   } else {
-  //     this.error.unit = "";
-  //     this.error.date = "";
+  printXls() {
+    if (this.unit === "" || this.date === null) {
+      this.error.unit = "Unit harus diisi";
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.unit = "";
+      this.error.date = "";
 
-  //     let unitId = 0;
-  //     if (this.unit && this.unit.Id) {
-  //       unitId = this.unit.Id;
-  //     }
+      let unitId = 0;
+      if (this.unit && this.unit.Id) {
+        unitId = this.unit.Id;
+      }
 
-  //     let date = this.date
-  //       ? moment(this.date).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getXls({ unitId, date });
-  //   }
-  // }
+      this.service.getXls({ unitId, date });
+    }
+  }
 
   printPdf() {
     if (this.unit === "" || this.date === null) {

@@ -19,7 +19,8 @@ export class AddItemDialog {
   }
 
   activate(data) {
-    // console.log("add-item-dialog, activate(data)", data);
+    // console.log("data", data);
+
     this.data = data;
     this.data.UnitId = data.Unit.Id;
     this.data.DivisionId = data.Unit.Division.Id;
@@ -40,9 +41,16 @@ export class AddItemDialog {
         .catch((e) => {
           this.error = e;
         });
-    } else {
+    } else if (this.data.Info.IsSummaryBalance) {
       this.service
         .createInitialCashBalance(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    } else {
+      this.service
+        .createRealCashBalance(this.data)
         .then(() => this.controller.ok(this.data))
         .catch((e) => {
           this.error = e;

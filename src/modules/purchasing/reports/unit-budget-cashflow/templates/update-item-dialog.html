@@ -3,7 +3,8 @@
     <block>
       <ai-dialog-body>
         <h5 style="margin-left: 10px; font-weight: bold">
-          ${data.Info.CashflowSubCategoryName}
+          ${data.Info.SubCategoryName || data.Info.SummaryBalanceLabel || 'Saldo
+          Real Kas'}
         </h5>
         <au-collection
           items.bind="data.Items"

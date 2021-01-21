@@ -28,6 +28,17 @@
     .v-center {
       vertical-align: middle !important;
     }
+
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nester {
+      border-bottom: none !important;
+      border-top: none !important;
+    }
   </style>
 
   <au-input-form title="Budget Cashflow Divisi">
@@ -121,9 +132,28 @@
               </span>
             </td>
 
+            <!-- Contoh: Saldo Awal Kas -->
+            <td
+              if.bind="row.IsSummaryBalance"
+              colspan="${!row.IsReadOnly && row.IsSummaryBalance ? 3 : 4}"
+              class="text-bold"
+            >
+              <span class="${!row.IsShowSummaryBalance ? 'hide' : ''}">
+                ${row.SummaryBalanceLabel}
+              </span>
+            </td>
+
+            <!-- Contoh: SURPLUS/DEFISIT KAS -->
+            <td if.bind="row.IsShowSummary" colspan="4" class="text-bold">
+              <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
+                ${row.SummaryLabel}
+              </span>
+            </td>
+
             <!-- Kosong jika hanya label -->
             <td if.bind="row.IsLabelOnly" colspan="${columns.length}"></td>
 
+            <!-- Fields mata uang dan nominal -->
             <td if.bind="!row.IsLabelOnly" repeat.for="column of columns">
               nominal
             </td>
