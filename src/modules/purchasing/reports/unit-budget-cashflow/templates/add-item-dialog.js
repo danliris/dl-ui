@@ -30,16 +30,23 @@ export class AddItemDialog {
   }
 
   save() {
+    // console.log(this.data);
+
     this.error = {};
-    console.log(this.data);
-    this.service
-      .create(this.data)
-      .then(() => {
-        // alert("Data berhasil dibuat");
-        this.controller.ok(this.data);
-      })
-      .catch((e) => {
-        this.error = e;
-      });
+    if (this.data.CashflowSubCategoryId) {
+      this.service
+        .create(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    } else {
+      this.service
+        .createInitialCashBalance(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    }
   }
 }

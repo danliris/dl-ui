@@ -67,64 +67,26 @@ export class List {
   }
 
   addItem(item) {
+    // console.log(item);
+
     this.dialogData.Info = item;
     this.dialogData.Unit = this.unit;
     this.dialogData.Date = this.date;
 
-    this.dialog.show(AddItemDialog, this.dialogData).then((response) => {
-      // console.log("response", response);
-      this.search();
-    });
+    this.dialog.show(AddItemDialog, this.dialogData).then(() => this.search());
   }
 
   updateItem(item) {
+    // console.log(item);
+
     this.dialogData.Info = item;
     this.dialogData.Unit = this.unit;
     this.dialogData.Date = this.date;
 
-    this.dialog.show(UpdateItemDialog, this.dialogData).then((response) => {
-      // console.log("response", response);
-      this.search();
-    });
+    this.dialog
+      .show(UpdateItemDialog, this.dialogData)
+      .then(() => this.search());
   }
-
-  // save() {
-  //   const tempDataItems = this.data.Items;
-  //   const newDataItems = this.data.Items.filter(
-  //     (item) => typeof item !== "string" && item.LayoutOrder !== 0
-  //   );
-  //   this.data.Items = newDataItems;
-  //   this.service
-  //     .upsertWorstCase(this.data)
-  //     .then(() => {
-  //       this.isEdit = false;
-  //       this.collectionOptions = {
-  //         readOnly: true,
-  //       };
-
-  //       setTimeout(() => {
-  //         this.ItemsCollection.bind();
-  //       }, 50);
-
-  //       this.data.Items = tempDataItems;
-  //       alert("Data berhasil disimpan.");
-  //     })
-  //     .catch((e) => {
-  //       this.data.Items = tempDataItems;
-  //       alert("Terjadi kesalahan.");
-  //     });
-  // }
-
-  // edit() {
-  //   this.isEdit = true;
-  //   this.collectionOptions = {
-  //     readOnly: false,
-  //   };
-
-  //   setTimeout(() => {
-  //     this.ItemsCollection.bind();
-  //   }, 50);
-  // }
 
   // printXls() {
   //   if (this.unit === "" || this.date === null) {
@@ -147,26 +109,26 @@ export class List {
   //   }
   // }
 
-  // printPdf() {
-  //   if (this.unit === "" || this.date === null) {
-  //     this.error.unit = "Unit harus diisi";
-  //     this.error.date = "Periode harus diisi";
-  //   } else {
-  //     this.error.unit = "";
-  //     this.error.date = "";
+  printPdf() {
+    if (this.unit === "" || this.date === null) {
+      this.error.unit = "Unit harus diisi";
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.unit = "";
+      this.error.date = "";
 
-  //     let unitId = 0;
-  //     if (this.unit && this.unit.Id) {
-  //       unitId = this.unit.Id;
-  //     }
+      let unitId = 0;
+      if (this.unit && this.unit.Id) {
+        unitId = this.unit.Id;
+      }
 
-  //     let date = this.date
-  //       ? moment(this.date).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getPdf({ unitId, date });
-  //   }
-  // }
+      this.service.getPdf({ unitId, date });
+    }
+  }
 
   bind() {
     this.data = {};
