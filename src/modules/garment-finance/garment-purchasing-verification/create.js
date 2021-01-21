@@ -70,7 +70,7 @@ export class Create {
     async selectedExpeditionChanged(newValue, oldValue) {
         console.log(this);
 
-        if (newValue) {
+        if (newValue && newValue.Id) {
             var internalNote = await this.purchasingService.getInternalNoteById(newValue.InternalNoteId);
             console.log(internalNote);
             this.items = internalNote.items;
