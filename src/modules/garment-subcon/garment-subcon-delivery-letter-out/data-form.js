@@ -79,6 +79,11 @@ export class DataForm {
         } 
     }
 
+    UENFilter={
+        IsPreparing:false,
+        ExpenditureType : "SUBCON"
+    };
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
