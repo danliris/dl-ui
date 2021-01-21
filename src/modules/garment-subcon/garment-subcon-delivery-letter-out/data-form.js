@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service,PurchasingService } from "./service";
 
 const ContractLoader = require('../../../loader/garment-subcon-contract-loader');
-const UENLoader = require('../../../loader/unit-expenditure-note-gpreparing-loader');
+const UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
 
 @inject(Service,PurchasingService)
 export class DataForm {
@@ -17,6 +17,7 @@ export class DataForm {
     @bindable itemOptions = {};
     @bindable selectedPO;
     @bindable selectedContract;
+    @bindable selectedDLType;
 
     constructor(service,purchasingService) {
         this.service = service;
@@ -54,24 +55,6 @@ export class DataForm {
         ]
     }
 
-    @computedFrom("data.Unit")
-    get cuttingInFilter() {
-        this.selectedCuttingIn = null;
-        if (this.data.Unit) {
-            return {
-                UnitId: this.data.Unit.Id,
-                CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
-            };
-        } else {
-            return {
-                UnitId: 0,
-                CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
-            };
-        }
-    }
-
     @computedFrom("data.ContractType")
     get contractFilter() {
         return {
@@ -79,11 +62,24 @@ export class DataForm {
         } 
     }
 
-    UENFilter={
-        IsPreparing:false,
-        ExpenditureType : "SUBCON"
-    };
-
+    @computedFrom("data.DLType")
+    get UENFilter() {
+        var UENFilter={};
+        if(this.data.DLType=="PROSES"){
+            UENFilter={
+                IsPreparing:false,
+                ExpenditureType : "SUBCON"
+            };
+        }
+        else{
+            UENFilter={
+                ExpenditureType : "SUBCON"
+            };
+        }
+        
+        return UENFilter;
+    }
+    
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -109,6 +105,16 @@ export class DataForm {
                 Id:this.data.EPOItemId
             }
         }
+    }
+
+    selectedDLTypeChanged(newValue){
+        console.log(newValue)
+        this.data.DLType=newValue;
+        this.selectedUEN=null;
+        this.data.UENId = newValue.Id;
+        this.data.UENNo = newValue.UENNo;
+        this.data.ContractQty=0;
+        this.data.Items.splice(0);
     }
 
     contractView = (contract) => {
@@ -141,7 +147,6 @@ export class DataForm {
                 this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
                 .then((contract)=>{
                     var usedQty= 0;
-                    var qtySaved=0;
                     if(contract.data.length>0){
                         for(var subcon of contract.data){
                             if(subcon.Id!=this.data.Id){
@@ -153,8 +158,8 @@ export class DataForm {
                                 this.data.savedItems=subcon.Items;
                             }
                         }
-
                     }
+                    this.data.QtyUsed=usedQty;
                     if(deliveryOrder){
                         for(var uenItem of newValue.Items){
                             var item={};
@@ -206,11 +211,12 @@ export class DataForm {
         this.selectedUEN=null;
         this.data.UENId = newValue.Id;
         this.data.UENNo = newValue.UENNo;
-        this.data.UsedQty=0;
+        this.data.ContractQty=0;
+        this.data.Items.splice(0);
         if(newValue){
             this.data.ContractNo=newValue.ContractNo;
             this.data.SubconContractId=newValue.Id;
-            this.data.UsedQty=newValue.Quantity;
+            this.data.ContractQty=newValue.Quantity;
         }
         else{
             this.data.ContractNo="";
@@ -218,12 +224,10 @@ export class DataForm {
             this.selectedUEN=null;
             this.data.UENId = null;
             this.data.UENNo = "";
-            this.data.UsedQty=0;
+            this.data.ContractQty=0;
             this.data.Items.splice(0);
         }
     }
-
-    
 
     get totalQuantity(){
         var qty=0;
@@ -257,7 +261,6 @@ export class DataForm {
     }
 
     selectedPOChanged(newValue){
-        console.log(newValue)
         if(newValue){
             this.data.PONo=newValue.PO_SerialNumber;
             this.data.EPOItemId=newValue.Id;
