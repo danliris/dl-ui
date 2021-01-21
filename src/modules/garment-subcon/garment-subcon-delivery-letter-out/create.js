@@ -29,6 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

@@ -13,8 +13,8 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        console.log(this.data)
         if (this.data) {
+            this.selectedDLType=this.data.DLType;
             if(this.data.IsUsed){
                 this.deleteCallback=null;
                 this.editCallback=null;
