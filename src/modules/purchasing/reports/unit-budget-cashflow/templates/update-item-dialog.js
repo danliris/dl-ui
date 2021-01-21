@@ -20,7 +20,8 @@ export class UpdateItemDialog {
   }
 
   async activate(data) {
-    // console.log("update-item-dialog, activate(data)", data);
+    // console.log("data", data);
+
     this.data = data;
     this.data.UnitId = data.Unit.Id;
     this.data.DivisionId = data.Unit.Division.Id;
@@ -39,13 +40,35 @@ export class UpdateItemDialog {
       date,
     };
 
-    this.data.Items = await this.service.getItems(args).then((result) => {
-      result.data = result.data.map((item) => {
-        item.CurrencyId = item.Currency.Id;
-        return item;
+    if (this.data.CashflowSubCategoryId) {
+      this.data.Items = await this.service.getItems(args).then((result) => {
+        result.data = result.data.map((item) => {
+          item.CurrencyId = item.Currency.Id;
+          return item;
+        });
+        return result.data;
       });
-      return result.data;
-    });
+    } else if (this.data.Info.IsSummaryBalance) {
+      this.data.Items = await this.service
+        .getItemsInitialCashBalance(args)
+        .then((result) => {
+          result.data = result.data.map((item) => {
+            item.CurrencyId = item.Currency.Id;
+            return item;
+          });
+          return result.data;
+        });
+    } else {
+      this.data.Items = await this.service
+        .getItemsRealCashBalance(args)
+        .then((result) => {
+          result.data = result.data.map((item) => {
+            item.CurrencyId = item.Currency.Id;
+            return item;
+          });
+          return result.data;
+        });
+    }
   }
 
   save() {
@@ -59,9 +82,16 @@ export class UpdateItemDialog {
         .catch((e) => {
           this.error = e;
         });
-    } else {
+    } else if (this.data.Info.IsSummaryBalance) {
       this.service
         .updateInitialCashBalance(this.data)
+        .then(() => this.controller.ok(this.data))
+        .catch((e) => {
+          this.error = e;
+        });
+    } else {
+      this.service
+        .updateRealCashBalance(this.data)
         .then(() => this.controller.ok(this.data))
         .catch((e) => {
           this.error = e;

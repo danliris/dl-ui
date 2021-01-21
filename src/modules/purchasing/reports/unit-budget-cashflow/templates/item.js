@@ -9,10 +9,14 @@ export class Item {
   }
 
   activate(context) {
+    // console.log("this.isCurrency", this.isCurrency);
+    // console.log("this.data.IsIDR", this.data.IsIDR);
+
     this.data = context.data;
     this.error = context.error;
     if (this.data.Currency) {
       this.currency = this.data.Currency;
+      this.isCurrency = true;
     }
   }
 

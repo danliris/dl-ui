@@ -29,6 +29,11 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
+  getItemsInitialCashBalance(args) {
+    let endpoint = `${serviceUri}/initial-cash-balance/items`;
+    return super.list(endpoint, args);
+  }
+
   createInitialCashBalance(data) {
     var endpoint = `${serviceUri}/initial-cash-balance`;
     return super.post(endpoint, data);
@@ -39,19 +44,34 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
-  // search(unitId, date) {
-  //   return fetch(
-  //     "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
-  //   ).then((response) => response.json());
-  // }
+  getItemsRealCashBalance(args) {
+    let endpoint = `${serviceUri}/real-cash-balance/items`;
+    return super.list(endpoint, args);
+  }
 
-  // getXls(query) {
-  //   let endpoint = `${serviceUri}/unit/xls?unitId=${query.unitId}&date=${query.date}`;
-  //   return super.getXls(endpoint);
-  // }
+  createRealCashBalance(data) {
+    var endpoint = `${serviceUri}/real-cash-balance`;
+    return super.post(endpoint, data);
+  }
+
+  updateRealCashBalance(data) {
+    var endpoint = `${serviceUri}/real-cash-balance`;
+    return super.put(endpoint, data);
+  }
+
+  getXls(query) {
+    let endpoint = `${serviceUri}/download/xls?unitId=${query.unitId}&date=${query.date}`;
+    return super.getXls(endpoint);
+  }
 
   getPdf(query) {
     let endpoint = `${serviceUri}/download/pdf?unitId=${query.unitId}&date=${query.date}`;
     return super.getPdf(endpoint);
   }
+
+  // search(unitId, date) {
+  //   return fetch(
+  //     "http://localhost:9000/src/modules/purchasing/reports/unit-budget-cashflow/dummy.json"
+  //   ).then((response) => response.json());
+  // }
 }
