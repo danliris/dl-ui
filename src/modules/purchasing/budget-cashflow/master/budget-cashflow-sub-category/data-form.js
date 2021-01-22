@@ -47,7 +47,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        console.log(this);
+        console.log(this.data);
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -73,7 +73,6 @@ export class DataForm {
     @bindable cashflowCategory;
     cashflowCategoryChanged(newVal, oldVal) {
         if (newVal) {
-            console.log(newVal);
             this.data.CashflowCategoryId = newVal.Id;
         } else {
             this.data.CashflowCategoryId = 0;
@@ -93,6 +92,7 @@ export class DataForm {
 
     @bindable reportType
     reportTypeChanged(newVal, oldVal) {
+        console.log("jangan nongol", newVal);
         if (newVal) {
             this.data.ReportType = newVal.value
         } else {
