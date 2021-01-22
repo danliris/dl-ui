@@ -1,11 +1,12 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
+import { MasterService } from './master-service';
 import moment from 'moment';
 
 const CashflowCategoryLoader = require("../../loader/cashflow-category-loader");
 
 
-@inject(Service)
+@inject(Service, MasterService)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -37,8 +38,9 @@ export class DataForm {
         },
     }
 
-    constructor(service) {
+    constructor(service, masterService) {
         this.service = service;
+        this.masterService = masterService;
     }
 
     async bind(context) {
@@ -53,10 +55,15 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
 
         if (this.data.PurchasingCategoryIds)
-            this.data.Items = this.data.PurchasingCategoryIds.map(async (item) => {
-                item.Category = await this.masterService.getCategoryById(item);
-            })
+            this.data.Items = await Promise.all(this.data.PurchasingCategoryIds.map(async (item) => {
+                let resultItem = {};
+                resultItem.Category = await this.masterService.getCategoryById(item);
+                return resultItem;
+            }));
+        console.log(this.data.Items);
         this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
+
+        this.reportType = this.reportTypeOptions.find(f => f.value == this.data.ReportType);
     }
 
     get cashflowCategoryLoader() {

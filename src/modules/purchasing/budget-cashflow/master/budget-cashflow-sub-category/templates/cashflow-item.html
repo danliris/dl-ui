@@ -3,6 +3,7 @@
         <td>
             <au-autocomplete placeholder="pilih kategori"
                              value.bind="data.Category"
+                             text="Name"
                              error.bind="error.CategoryId"
                              loader.one-time="categoryLoader">
             </au-autocomplete>
