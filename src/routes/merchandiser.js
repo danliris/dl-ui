@@ -697,6 +697,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-production/packing-list-draft-list",
+        name: "garment-production/packing-list-draft-list",
+        moduleId: "modules/garment-shipping/packing-list-draft-list/index",
+        nav: true,
+        title: "LIST | Draft Packing List",
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: '/merchandiser/packing-list-draft-approval',
         name: 'packing-list-draft-approval',
         moduleId: './modules/merchandiser/packing-list-draft-approval/index',

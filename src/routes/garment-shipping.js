@@ -716,6 +716,32 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/insurance-disposition",
+        name: "garment-shipping/monitoing/insurance-disposition",
+        moduleId: "modules/garment-shipping/monitoring/garment-insurance-disposition-report/index",
+        nav: true,
+        title: "Monitoring Disposisi Pembayaran Polis Asuransi",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-production/packing-list-draft-list",
+        name: "garment-production/packing-list-draft-list",
+        moduleId: "modules/garment-shipping/packing-list-draft-list/index",
+        nav: true,
+        title: "LIST | Draft Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/packing-list-draft-approval",
         name: "garment-shipping/packing-list-draft-approval",
         moduleId: "modules/garment-shipping/packing-list-draft-approval/index",
