@@ -7,7 +7,7 @@ const PreparingLoader = require('../../../loader/garment-preparing-ro-loader');
 
 @inject(Router, Service, SalesService)
 export class List {
-    @bindable roNo;
+    // @bindable roNo;
 
     constructor(router, service, salesService) {
         this.service = service;
@@ -45,39 +45,70 @@ export class List {
         }
     }
 
-    async roNoChanged(newValue){
-        if(newValue){
-            this.RONo=newValue.RONo;
-            this.article=newValue.Article;
+    // async roNoChanged(newValue){
+    //     if(newValue){
+    //         this.RONo=newValue;
+    //         this.article="";
+    //         this.comodity="";
+    //         this.buyer = "";
+    //         this.quantity = "";
 
-            let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.RONo }) });
-            if(noResult.data.length>0){
+    //         // let preparingresult = await this.service.searchPreparing({ size: 1, filter: JSON.stringify({ RONo: this.RONo}) });
+    //         // let dataprepare = preparingresult.data[0];
+    //         // this.article=dataprepare.Article;
+
+    //         let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.RONo }) });
+    //         if(noResult.data.length >0){
+    //             let dataComo=noResult.data[0];
+    //             this.comodity = dataComo.Comodity.Name;
+    //             this.buyer=dataComo.Buyer.Name;
+    //             this.quantity=dataComo.Quantity;
+    //         } else {
+    //             const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.RONo });
+    //             const comodityCode = comodityCodeResult.data[0];
+    //             if (comodityCode) {
+    //                 const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+    //                 this.comodity = comodityResult.data[0];
+    //             }
+    //         }
+    //     }
+    // }
+
+    async getcomodity(newValue){
+         this.RONo=newValue;
+         let noResult =  await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.RONo }) });
+            if(noResult.data.length >0){
                 let dataComo=noResult.data[0];
                 this.comodity = dataComo.Comodity.Name;
                 this.buyer=dataComo.Buyer.Name;
                 this.quantity=dataComo.Quantity;
             } else {
-                const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.RONo });
+                const comodityCodeResult =  await this.salesService.getHOrderKodeByNo({ no: this.RONo });
                 const comodityCode = comodityCodeResult.data[0];
                 if (comodityCode) {
-                    const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
+                    const comodityResult =  await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
                     this.comodity = comodityResult.data[0];
                 }
             }
-        }
     }
 
     searching() {
+        // 
+        // console.log(this.roNo);
+        this.RONo=this.roNo;
         if (!this.RONo) {
           alert("No RO Harus Diisi");
         }
         else {
-          this.service.searchPreparing({ filter: JSON.stringify({ RONo: this.RONo}) })
+
+            this.service.searchPreparing({ filter: JSON.stringify({ RONo: this.RONo}) })
             .then(result => {
               this.data = [];
               this.products=[];
               this.totalQuantity=0;
+              this.article = result.data[0].Article;
                 for(var prepare of result.data){
+                    // this.Article = prepare.Article;
                     let dataItem=[];
                     dataItem["UENNo"]=prepare.UENNo;
                     dataItem["date"]=prepare.ProcessDate;
@@ -417,6 +448,7 @@ export class List {
                                             this.totalExpenditureQuantity+=item.Quantity;
                                         }
                                     }
+                                    this.getcomodity(this.RONo);
                                     this.fillTable();
                                 });
                             });
@@ -425,6 +457,7 @@ export class List {
                 });
             });
         }
+        
       }
     
       fillTable() {
