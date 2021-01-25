@@ -67,15 +67,15 @@
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
     </div>
-    <div class="btn-group pull-left">
+    <div if.bind="!isEmpty" class="btn-group pull-left">
       <a click.delegate="printXls()" class="btn btn-primary">Cetak Excel</a>
       <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
 
     <br /><br />
 
-    <div class="table-responsive">
-      <table if.bind="!isEmpty" class="table table-hover table-bordered">
+    <div if.bind="!isEmpty" class="table-responsive">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr>
             <th colspan="5">KETERANGAN</th>
@@ -221,18 +221,16 @@
             </td>
 
             <!-- Contoh: Rate -->
-            <td if.bind="item.IsShowCurrencyRate" colspan="5" class="text-bold">
+            <td if.bind="item.IsShowCurrencyRate" colspan="4"></td>
+            <td if.bind="item.IsShowCurrencyRate" class="text-bold">
               <span class="${!item.IsShowCurrencyRateLabel ? 'hide' : ''}">
                 Rate
               </span>
             </td>
 
             <!-- Contoh: Selisih -->
-            <td
-              if.bind="item.IsShowRealCashDifference"
-              colspan="5"
-              class="text-bold"
-            >
+            <td if.bind="item.IsShowRealCashDifference" colspan="4"></td>
+            <td if.bind="item.IsShowRealCashDifference" class="text-bold">
               <span
                 class="${!item.IsShowRealCashDifferenceLabel ? 'hide' : ''}"
               >
