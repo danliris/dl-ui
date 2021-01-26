@@ -11,10 +11,9 @@ export class List {
     this.service = service;
     this.coreService = coreService;
     this.error = {};
-    this.dueDate = null;
+    this.date = null;
     this.columns = [];
     this.rows = [];
-    this.rowspan = {};
     this.isEmpty = true;
   }
 
@@ -28,55 +27,53 @@ export class List {
   };
 
   async search() {
-    if (this.dueDate === null) {
-      this.error.dueDate = "Periode harus diisi";
+    if (this.date === null) {
+      this.error.date = "Periode harus diisi";
     } else {
-      this.error.dueDate = "";
+      this.error.date = "";
 
-      let dueDate = this.dueDate
-        ? moment(this.dueDate).format("YYYY-MM-DD")
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-      this.data.DueDate = dueDate;
+      // this.data.DueDate = date;
 
-      await this.service.search().then((data) => {
-        this.columns = data[0].columns;
-        this.rows = data[0].rows;
+      let arg = {
+        date,
+      };
+
+      await this.service.search(arg).then((result) => {
+        this.columns = result.data.Headers;
+        this.subColumns = [];
+        for (const column of this.columns) {
+          this.subColumns = [
+            ...this.subColumns,
+            "NOMINAL VALAS",
+            "NOMINAL",
+            "ACTUAL",
+          ];
+        }
+
+        this.rows = result.data.Items;
+        this.rows.map((row) => {
+          row.ItemsCol = [];
+          row.Items &&
+            row.Items.map((item) => {
+              row.ItemsCol.push(
+                item.CurrencyNominal,
+                item.Nominal,
+                item.Actual
+              );
+            });
+          return row;
+        });
       });
 
       this.isEmpty = this.rows.length !== 0 ? false : true;
 
-      const getLength = (groupId, rows) =>
-        rows.filter((item) => item.groupId === groupId).length;
-
-      this.rowspan.oaci = getLength(1, this.rows);
-      this.rowspan.oaco = getLength(2, this.rows);
-      this.rowspan.oadiff = getLength(3, this.rows);
-      this.rowspan.iaci = getLength(4, this.rows);
-      this.rowspan.iaco = getLength(5, this.rows);
-      this.rowspan.iadiff = getLength(6, this.rows);
-      this.rowspan.faci = getLength(7, this.rows);
-      this.rowspan.faco = getLength(8, this.rows);
-      this.rowspan.fadiff = getLength(9, this.rows);
-
-      const {
-        oaci,
-        oaco,
-        oadiff,
-        iaci,
-        iaco,
-        iadiff,
-        faci,
-        faco,
-        fadiff,
-      } = this.rowspan;
-
-      this.rowspan.oa = oaci + oaco + oadiff;
-      this.rowspan.ia = iaci + iaco + iadiff;
-      this.rowspan.fa = faci + faco + fadiff;
-
-      console.log("this.columns", this.columns);
-      console.log("this.rows", this.rows);
-      console.log("this.rowspan", this.rowspan);
+      // console.log("this.isEmpty", this.isEmpty);
+      // console.log("this.columns", this.columns);
+      // console.log("this.subColumns", this.subColumns);
+      // console.log("this.rows", this.rows);
     }
   }
 
