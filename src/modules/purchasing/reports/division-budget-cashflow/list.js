@@ -56,9 +56,9 @@ export class List {
         for (const column of this.columns) {
           this.subColumns = [
             ...this.subColumns,
-            "Nominal",
-            "Nominal Valas",
-            "Actual",
+            "NOMINAL",
+            "NOMINAL VALAS",
+            "ACTUAL",
           ];
         }
         this.rows = result.data.Items;
