@@ -39,6 +39,14 @@
       border-bottom: none !important;
       border-top: none !important;
     }
+
+    .ket-header {
+      min-width: 400px;
+    }
+
+    .unit-header {
+      min-width: 500px;
+    }
   </style>
 
   <au-input-form title="Budget Cashflow Semua Divisi">
@@ -68,9 +76,11 @@
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th colspan="4" rowspan="2">KETERANGAN</th>
+            <th colspan="4" rowspan="2" class="ket-header">KETERANGAN</th>
             <th rowspan="2">MATA UANG</th>
-            <th colspan="3" repeat.for="column of columns">${column}</th>
+            <th colspan="3" repeat.for="column of columns" class="unit-header">
+              ${column}
+            </th>
           </tr>
           <tr>
             <th repeat.for="column of subColumns">${column}</th>
@@ -132,23 +142,23 @@
               </span>
             </td>
 
-            <!-- Contoh: Saldo Awal Kas -->
-            <!-- <td
-              if.bind="row.IsSummaryBalance"
-              colspan="${!row.IsReadOnly && row.IsSummaryBalance ? 3 : 4}"
-              class="text-bold"
-            >
-              <span class="${!row.IsShowSummaryBalance ? 'hide' : ''}">
-                ${row.SummaryBalanceLabel}
+            <!-- Contoh: Saldo Awal Kas, SURPLUS/DEFISIT KAS, Saldo Akhir Kas, Saldo Real Kas -->
+            <td if.bind="row.IsGeneralSummary" colspan="4" class="text-bold">
+              <span class="${!row.IsShowGeneralSummaryLabel ? 'hide' : ''}">
+                ${row.GeneralSummaryLabel}
               </span>
-            </td> -->
+            </td>
 
-            <!-- Contoh: SURPLUS/DEFISIT KAS -->
-            <!-- <td if.bind="row.IsShowSummary" colspan="4" class="text-bold">
-              <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
-                ${row.SummaryLabel}
+            <!-- Contoh: Rate -->
+            <td
+              if.bind="row.CurrencyRateLabel"
+              class="text-bold text-right"
+              colspan="4"
+            >
+              <span class="${!row.CurrencyRateLabel ? 'hide' : ''}">
+                ${row.CurrencyRateLabel}
               </span>
-            </td> -->
+            </td>
 
             <!-- Kosong jika hanya label -->
             <td
@@ -156,8 +166,35 @@
               colspan="${columns.length * 3 + 1}"
             ></td>
 
+            <!-- Fields khusus Rate -->
+            <td
+              if.bind="!row.IsLabelOnly && row.CurrencyRateLabel"
+              class="text-center"
+            >
+              <au-textbox
+                value.bind="row.Currency ? row.Currency.Code : '-'"
+                read-only.bind="true"
+              >
+              </au-textbox>
+            </td>
+            <td if.bind="!row.IsLabelOnly && row.CurrencyRateLabel">
+              <au-numeric
+                value.bind="row.Currency.Rate"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.CurrencyRateLabel"
+              colspan="${columns.length * 3 - 1}"
+            ></td>
+
             <!-- Field mata uang -->
-            <td if.bind="!row.IsLabelOnly" class="text-center">
+            <td
+              if.bind="!row.IsLabelOnly && !row.CurrencyRateLabel"
+              class="text-center"
+            >
               <au-textbox
                 value.bind="row.Currency && row.Currency.Code ? row.Currency.Code : '-'"
                 read-only.bind="true"
