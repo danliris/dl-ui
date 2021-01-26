@@ -35,6 +35,27 @@
       align-items: center;
     }
 
+    .table-responsive {
+      overflow-y: auto;
+      height: 500px;
+    }
+
+    .table-responsive table {
+      border-collapse: separate;
+    }
+
+    .table-responsive thead tr:first-child th {
+      position: sticky;
+      top: 0;
+      background-color: #173250;
+    }
+
+    .table-responsive thead tr:last-child th {
+      position: sticky;
+      top: 37px;
+      background-color: #173250;
+    }
+
     .nester {
       border-bottom: none !important;
       border-top: none !important;
