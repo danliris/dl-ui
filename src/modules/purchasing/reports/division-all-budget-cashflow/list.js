@@ -47,20 +47,33 @@ export class List {
         for (const column of this.columns) {
           this.subColumns = [
             ...this.subColumns,
-            "NOMINAL",
             "NOMINAL VALAS",
+            "NOMINAL",
             "ACTUAL",
           ];
         }
+
         this.rows = result.data.Items;
+        this.rows.map((row) => {
+          row.ItemsCol = [];
+          row.Items &&
+            row.Items.map((item) => {
+              row.ItemsCol.push(
+                item.CurrencyNominal,
+                item.Nominal,
+                item.Actual
+              );
+            });
+          return row;
+        });
       });
 
       this.isEmpty = this.rows.length !== 0 ? false : true;
 
-      console.log("this.isEmpty", this.isEmpty);
-      console.log("this.columns", this.columns);
-      console.log("this.subColumns", this.subColumns);
-      console.log("this.rows", this.rows);
+      // console.log("this.isEmpty", this.isEmpty);
+      // console.log("this.columns", this.columns);
+      // console.log("this.subColumns", this.subColumns);
+      // console.log("this.rows", this.rows);
     }
   }
 

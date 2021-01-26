@@ -79,7 +79,7 @@
         <thead>
           <tr>
             <th colspan="4" rowspan="2">KETERANGAN</th>
-            <th rowspan="2">CURRENCY</th>
+            <th rowspan="2">MATA UANG</th>
             <th colspan="3" repeat.for="column of columns">${column}</th>
           </tr>
           <tr>
@@ -122,17 +122,10 @@
               if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
               class="nester"
             ></td>
-            <!-- <td
-              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
-              colspan="${!row.CashflowSubCategory.IsReadOnly && row.IsShowSubCategoryLabel ? 1 : 2}"
-            > -->
-            <!-- <td
-              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
-              colspan="${!row.CashflowSubCategory.IsReadOnly  ? 1 : 2}"
-            > -->
             <td if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id">
               <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
-              <span>${row.CashflowSubCategory.Name}</span>
+                ${row.CashflowSubCategory.Name}
+              </span>
             </td>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
@@ -185,33 +178,10 @@
             <!-- Fields nominal, nominal valas dan actual -->
             <td
               if.bind="!row.IsLabelOnly && row.Items"
-              repeat.for="item of row.Items"
+              repeat.for="item of row.ItemsCol"
             >
               <au-numeric
-                value.bind="item.DivisionNominal"
-                format="0,000.00"
-                read-only.bind="true"
-              >
-              </au-numeric>
-            </td>
-            <td
-              if.bind="!row.IsLabelOnly && row.Items"
-              repeat.for="item of row.Items"
-            >
-              <au-numeric
-                value.bind="item.DivisionCurrencyNominal"
-                format="0,000.00"
-                read-only.bind="true"
-              >
-              </au-numeric>
-            </td>
-
-            <td
-              if.bind="!row.IsLabelOnly && row.Items"
-              repeat.for="item of row.Items"
-            >
-              <au-numeric
-                value.bind="item.DivisionActual"
+                value.bind="item"
                 format="0,000.00"
                 read-only.bind="true"
               >
