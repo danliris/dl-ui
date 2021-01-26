@@ -52,13 +52,10 @@
 
         <br>
 
-        <numeric label="Rate"
-                 value.bind="data.IncomeTax.rate"
-                 error.bind="error.incomeTaxRate"
-                 format="0"
-                 read-only.bind="true"
-                 post-fix="%"
-                 options.bind="controlOptions">
+
+        <numeric label="Rate" value.bind="data.IncomeTax.Rate" error.bind="error.incomeTaxRate" format="0"
+          read-only.bind="true" post-fix="%" options.bind="controlOptions">
+
         </numeric>
 
         <au-textbox value.bind="'Ditanggung Oleh:'"

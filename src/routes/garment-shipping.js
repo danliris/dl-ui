@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: "garment-shipping/generate-date",
+        name: "garment-shipping/generate-date",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipping-generate-data/index",
+        nav: true,
+        title: "Generate Data",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },     
+    {
         route: "master/garment-shipping-staff",
         name: "garment-shipping-staff",
         moduleId: "modules/master/garment-shipping-staff/index",
@@ -102,6 +115,19 @@ module.exports = [
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "garment-leftover-warehouse-buyer",
+        name: "garment-leftover-warehouse-buyer",
+        moduleId: "./modules/master/garment-leftover-warehouse-buyer/index",
+        nav: true,
+        title: "Buyer Gudang Sisa Garment",
+        auth: true,
+        settings: {
+          group: "master",
+          permission: { "C9": 1, "SG": 1 },
+          iconClass: "fa fa-dashboard",
+        },
     },
     {
         route: "master/garment-additional-charges",
@@ -682,6 +708,32 @@ module.exports = [
         moduleId: "modules/garment-shipping/insurance-disposition/index",
         nav: true,
         title: "Lampiran Disposisi Pembayaran Polis Asuransi ",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/insurance-disposition",
+        name: "garment-shipping/monitoing/insurance-disposition",
+        moduleId: "modules/garment-shipping/monitoring/garment-insurance-disposition-report/index",
+        nav: true,
+        title: "Monitoring Disposisi Pembayaran Polis Asuransi",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-production/packing-list-draft-list",
+        name: "garment-production/packing-list-draft-list",
+        moduleId: "modules/garment-shipping/packing-list-draft-list/index",
+        nav: true,
+        title: "LIST | Draft Packing List",
         auth: true,
         settings: {
             group: "g-shipping",

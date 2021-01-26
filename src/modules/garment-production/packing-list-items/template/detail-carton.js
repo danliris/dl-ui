@@ -119,24 +119,27 @@ export class Detail {
 
     updateMeasurements() {
         let measurementCartons = [];
+        let measurementCartons2 = [];
         for (const item of this.context.context.options.header.items) {
             for (const detail of (item.details || [])) {
-                let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
-                if (!measurement) {
-                    measurementCartons.push({
+                measurementCartons = [...item.details];
+                let measurement = measurementCartons.filter((value, index, self) => self.findIndex(f => value.index == f.index) === index).find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
+                if (measurement) {
+                    measurementCartons2.push({
                         carton1: detail.carton1,
                         carton2: detail.carton2,
                         length: detail.length,
                         width: detail.width,
                         height: detail.height,
-                        cartonsQuantity: detail.cartonQuantity
+                        cartonsQuantity: detail.cartonQuantity,
+                        index: detail.index
                     });
                 }
             }
         }
 
         let measurements = [];
-        for (const measurementCarton of measurementCartons) {
+        for (const measurementCarton of measurementCartons2.filter((value, index, self) => self.findIndex(f => value.index == f.index && value.carton1 == f.carton1 && value.carton2 == f.carton2) === index)) {
             let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
             if (measurement) {
                 measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
@@ -170,9 +173,10 @@ export class Detail {
           cartonQuantity: d.cartonQuantity,
           grossWeight: d.grossWeight,
           netWeight: d.netWeight,
-          netNetWeight: d.netNetWeight
+          netNetWeight: d.netNetWeight,
+          index: d.index
         };
-      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2) === index);
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
       for (const detail of newDetails) {
         const cartonExist = false;
         const indexItem = this.context.context.options.header.items.indexOf(this.context.context.options.item);
@@ -180,7 +184,7 @@ export class Detail {
           for (let i = 0; i < indexItem; i++) {
             const item = this.context.context.options.header.items[i];
             for (const prevDetail of item.details) {
-              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
                 cartonExist = true;
                 break;
               }
@@ -283,5 +287,9 @@ export class Detail {
           this.context.context.options.header.nettWeight += item.subNetWeight || 0;
           this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
       }
+    }
+
+    indexChanged(newValue) {
+      this.context.context.options.item.details[this.context.context.options.item.details.length - 1].index = newValue;
     }
 }

@@ -739,6 +739,66 @@ module.exports = [
     },
   },
   {
+    route: "/reports/budget-cashflow-type",
+    name: "budget-cashflow-type",
+    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-type/index",
+    nav: true,
+    title: "Jenis Budget Cashflow",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: {
+        C9: 1,
+      },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/reports/budget-cashflow-category",
+    name: "budget-cashflow-category",
+    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-category/index",
+    nav: true,
+    title: "Kategori Budget Cashflow",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: {
+        C9: 1,
+      },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/reports/budget-cashflow-sub-category",
+    name: "budget-cashflow-sub-category",
+    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-sub-category/index",
+    nav: true,
+    title: "Sub-Kategori Budget Cashflow",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: {
+        C9: 1,
+      },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/reports/budget-cashflow-master",
+    name: "budget-cashflow-master",
+    moduleId: "./modules/purchasing/reports/budget-cashflow-master/index",
+    nav: true,
+    title: "Konfigurasi Layout Laporan Budget Cashflow",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: {
+        C9: 1,
+      },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "/reports/unit-budget-cashflow",
     name: "unit-budget-cashflow",
     moduleId: "./modules/purchasing/reports/unit-budget-cashflow/index",

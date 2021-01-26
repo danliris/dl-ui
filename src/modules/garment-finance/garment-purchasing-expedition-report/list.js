@@ -1,4 +1,4 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import moment from "moment";
 import numeral from "numeral";
 import { Service, AzureService } from "./service";
@@ -212,6 +212,9 @@ export class List {
     sortable: false
   };
 
+  startDateLabel = "Tgl Pembelian Kirim Awal";
+  endDateLabel = "Tgl Pembelian Kirim Akhir";
+
   constructor(service, azureService) {
     this.service = service;
     this.azureService = azureService;
@@ -230,6 +233,47 @@ export class List {
       { text: "Kirim ke Accounting", value: 7 },
       { text: "Accounting (Diterima)", value: 8 },
     ];
+  }
+
+  @bindable status;
+  statusChanged(newVal, oldVal) {
+    console.log(newVal);
+
+    if (newVal) {
+      switch (newVal.value) {
+        case 1:
+          this.startDateLabel = "Tgl Pembelian Terima Awal";
+          this.endDateLabel = "Tgl Pembelian Terima Akhir";
+          break;
+        case 2:
+          this.startDateLabel = "Tgl Pembelian Kirim Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          break;
+        case 3:
+          this.startDateLabel = "Tgl Verifikasi Terima Awal";
+          this.endDateLabel = "Tgl Verifikasi Terima Akhir";
+          break;
+        case 4:
+          this.startDateLabel = "Tgl Verifikasi Kirim Awal";
+          this.endDateLabel = "Tgl Verifikasi Kirim Akhir";
+          break;
+        case 5:
+          this.startDateLabel = "Tgl Kasir Terima Awal";
+          this.endDateLabel = "Tgl Kasir Terima Akhir";
+          break;
+        case 8:
+          this.startDateLabel = "Tgl Accounting Diterima Awal";
+          this.endDateLabel = "Tgl Accounting Diterima Akhir";
+          break;
+        default:
+          this.startDateLabel = "Tgl Pembelian Kirim Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          break;
+      }
+    } else {
+      this.startDateLabel = "Tgl Pembelian Kirim Awal";
+      this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+    }
   }
 
   loader = (info) => {
@@ -254,8 +298,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     let arg = {
@@ -312,8 +356,8 @@ export class List {
       filter.startDate = this.dateFrom;
       filter.endDate = this.dateTo;
 
-      filter.startDate = moment(filter.dateFrom).format("MM/DD/YYYY");
-      filter.endDate = moment(filter.dateTo).format("MM/DD/YYYY");
+      filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
+      filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
 
     this.service.xls(filter);

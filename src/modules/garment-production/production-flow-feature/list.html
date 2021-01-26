@@ -9,19 +9,26 @@
       <h1 class="page-header">Fitur Flow Barang Produksi</h1>
   
       <form class="form-horizontal">
-        <au-autocomplete 
+        <!-- <au-autocomplete 
             value.bind="roNo" 
             label="No RO" 
             loader.bind="roLoader"
             placeholder="Cari RO" 
             text="RONo"
             options.bind="controlOptions">
-        </au-autocomplete>
+        </au-autocomplete> -->
+
+        <au-textbox
+            value.bind="roNo" 
+            label="No. RO"
+            placeholder="Masukkan RO" 
+            options.bind="controlOptions">
+        </au-textbox>
 
         <au-textbox
             value.bind="article" 
             label="Artikel"
-            if.bind="roNo"
+            if.bind="article"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -29,7 +36,7 @@
         <au-textbox
             value.bind="comodity" 
             label="Komoditi"
-            if.bind="roNo"
+            if.bind="comodity"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -37,7 +44,7 @@
         <au-textbox
             value.bind="buyer" 
             label="Buyer"
-            if.bind="roNo"
+            if.bind="buyer"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -45,7 +52,7 @@
         <au-textbox
             value.bind="quantity" 
             label="Jumlah Order"
-            if.bind="roNo"
+            if.bind="quantity"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>

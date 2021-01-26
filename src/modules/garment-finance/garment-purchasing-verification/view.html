@@ -45,6 +45,34 @@
                     options.bind="controlOptions">
         </au-textbox>
 
+        <au-numeric label="DPP"
+                    value.bind="selectedExpedition.AmountDPP"
+                    read-only.bind="true"
+                    format="0.00"
+                    options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric label="PPN"
+                    value.bind="selectedExpedition.VAT"
+                    read-only.bind="true"
+                    format="0.00"
+                    options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric label="PPh"
+                    value.bind="selectedExpedition.IncomeTax"
+                    read-only.bind="true"
+                    format="0.00"
+                    options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric label="Koreksi"
+                    value.bind="selectedExpedition.CorrectionAmount"
+                    read-only.bind="true"
+                    format="0.00"
+                    options.bind="controlOptions">
+        </au-numeric>
+
         <au-multiline label="Keterangan"
                       value.bind="selectedExpedition.Remark"
                       read-only.bind="true"
