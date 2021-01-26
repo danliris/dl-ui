@@ -52,6 +52,15 @@ export class List {
 
       await this.service.search(arg).then((result) => {
         this.columns = result.data.Headers;
+        this.subColumns = [];
+        for (const column of this.columns) {
+          this.subColumns = [
+            ...this.subColumns,
+            "Nominal",
+            "Nominal Valas",
+            "Actual",
+          ];
+        }
         this.rows = result.data.Items;
       });
 
@@ -59,6 +68,7 @@ export class List {
 
       console.log("this.isEmpty", this.isEmpty);
       console.log("this.columns", this.columns);
+      console.log("this.subColumns", this.subColumns);
       console.log("this.rows", this.rows);
     }
   }
@@ -68,47 +78,47 @@ export class List {
     this.date = null;
   }
 
-  // printXls() {
-  //   if (this.division === "" || this.dueDate === null) {
-  //     this.error.division = "Divisi harus diisi";
-  //     this.error.dueDate = "Periode harus diisi";
-  //   } else {
-  //     this.error.division = "";
-  //     this.error.dueDate = "";
+  printXls() {
+    if (this.division === "" || this.date === null) {
+      this.error.division = "Divisi harus diisi";
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.division = "";
+      this.error.date = "";
 
-  //     let divisionId = 0;
-  //     if (this.division && this.division.Id) {
-  //       divisionId = this.division.Id;
-  //     }
+      let divisionId = 0;
+      if (this.division && this.division.Id) {
+        divisionId = this.division.Id;
+      }
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getXls({ divisionId, dueDate });
-  //   }
-  // }
+      this.service.getXls({ divisionId, date });
+    }
+  }
 
-  // printPdf() {
-  //   if (this.division === "" || this.dueDate === null) {
-  //     this.error.division = "Divisi harus diisi";
-  //     this.error.dueDate = "Periode harus diisi";
-  //   } else {
-  //     this.error.division = "";
-  //     this.error.dueDate = "";
+  printPdf() {
+    if (this.division === "" || this.date === null) {
+      this.error.division = "Divisi harus diisi";
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.division = "";
+      this.error.date = "";
 
-  //     let divisionId = 0;
-  //     if (this.division && this.division.Id) {
-  //       divisionId = this.division.Id;
-  //     }
+      let divisionId = 0;
+      if (this.division && this.division.Id) {
+        divisionId = this.division.Id;
+      }
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getPdf({ divisionId, dueDate });
-  //   }
-  // }
+      this.service.getPdf({ divisionId, date });
+    }
+  }
 
   bind() {
     this.data = {};

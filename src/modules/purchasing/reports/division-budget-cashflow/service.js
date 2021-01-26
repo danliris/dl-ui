@@ -14,24 +14,19 @@ export class Service extends RestService {
     return super.list(endpoint, arg);
   }
 
+  getXls(query) {
+    let endpoint = `${serviceUri}/download/xls?divisionId=${query.divisionId}&date=${query.date}`;
+    return super.getXls(endpoint);
+  }
+
+  getPdf(query) {
+    let endpoint = `${serviceUri}/download/pdf?divisionId=${query.divisionId}&date=${query.date}`;
+    return super.getPdf(endpoint);
+  }
+
   // search() {
   //   return fetch(
   //     "http://localhost:9000/src/modules/purchasing/reports/division-budget-cashflow/dummy.json"
   //   ).then((response) => response.json());
-  // }
-
-  // getDivision(query) {
-  //   let endpoint = `${serviceUri}/division`;
-  //   return super.list(endpoint, query);
-  // }
-
-  // getXls(query) {
-  //   let endpoint = `${serviceUri}/division/xls?divisionId=${query.divisionId}&dueDate=${query.dueDate}`;
-  //   return super.getXls(endpoint);
-  // }
-
-  // getPdf(query) {
-  //   let endpoint = `${serviceUri}/division/pdf?divisionId=${query.divisionId}&dueDate=${query.dueDate}`;
-  //   return super.getPdf(endpoint);
   // }
 }

@@ -81,36 +81,36 @@ export class List {
   }
 
   reset() {
-    this.dueDate = null;
+    this.date = null;
   }
 
-  // printXls() {
-  //   if (this.dueDate === null) {
-  //     this.error.dueDate = "Periode harus diisi";
-  //   } else {
-  //     this.error.dueDate = "";
+  printXls() {
+    if (this.date === null) {
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.date = "";
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getXls({ dueDate });
-  //   }
-  // }
+      this.service.getXls({ date });
+    }
+  }
 
-  // printPdf() {
-  //   if (this.dueDate === null) {
-  //     this.error.dueDate = "Periode harus diisi";
-  //   } else {
-  //     this.error.dueDate = "";
+  printPdf() {
+    if (this.date === null) {
+      this.error.date = "Periode harus diisi";
+    } else {
+      this.error.date = "";
 
-  //     let dueDate = this.dueDate
-  //       ? moment(this.dueDate).format("YYYY-MM-DD")
-  //       : moment(new Date()).format("YYYY-MM-DD");
+      let date = this.date
+        ? moment(this.date).format("YYYY-MM-DD")
+        : moment(new Date()).format("YYYY-MM-DD");
 
-  //     this.service.getPdf({ dueDate });
-  //   }
-  // }
+      this.service.getPdf({ date });
+    }
+  }
 
   bind() {
     this.data = {};
