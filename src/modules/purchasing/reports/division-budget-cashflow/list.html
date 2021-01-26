@@ -67,19 +67,23 @@
         <button click.delegate="reset()" class="btn btn-success">Reset</button>
       </div>
     </div>
-    <div class="btn-group pull-left">
+    <div if.bind="!isEmpty" class="btn-group pull-left">
       <a click.delegate="printXls()" class="btn btn-primary">Cetak Excel</a>
       <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
     </div>
 
     <br /><br />
 
-    <div class="table-responsive">
-      <table if.bind="!isEmpty" class="table table-hover table-bordered">
+    <div if.bind="!isEmpty" class="table-responsive">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th colspan="4">KETERANGAN</th>
-            <th repeat.for="column of columns">${column}</th>
+            <th colspan="4" rowspan="2">KETERANGAN</th>
+            <th rowspan="2">CURRENCY</th>
+            <th colspan="3" repeat.for="column of columns">${column}</th>
+          </tr>
+          <tr>
+            <th repeat.for="column of subColumns">${column}</th>
           </tr>
         </thead>
         <tbody>
@@ -87,53 +91,66 @@
             <!-- Contoh: Kegiatan Operasional -->
             <td
               if.bind="row.IsUseSection"
-              rowspan="${row.SectionRowSpan || 1}"
+              rowspan="${row.SectionRows || 1}"
               class="v-center"
             >
-              <span class="text-rotate text-bold">${row.CashflowTypeName}</span>
+              <span class="text-rotate text-bold"
+                >${row.CashflowType.Name}</span
+              >
             </td>
 
             <!-- Contoh: Cash In -->
             <td
               if.bind="row.IsUseGroup"
-              rowspan="${row.GroupRowSpan || 1}"
+              rowspan="${row.GroupRows || 1}"
               class="v-center"
             >
               <span class="text-rotate text-bold">${row.TypeName}</span>
             </td>
 
             <!-- Contoh: Pendapatan Operasional: -->
-            <td if.bind="row.CashflowCategoryId" colspan="2" class="text-bold">
-              ${row.CashflowCategoryName}
+            <td
+              if.bind="row.CashflowCategory && row.CashflowCategory.Id"
+              colspan="2"
+              class="text-bold"
+            >
+              ${row.CashflowCategory.Name}
             </td>
 
             <!-- Contoh: Penjualan Export -->
-            <td if.bind="row.SubCategoryId" class="nester"></td>
             <td
-              if.bind="row.SubCategoryId"
-              colspan="${!row.IsReadOnly && row.IsShowSubCategoryLabel ? 1 : 2}"
-            >
-              <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
-                ${row.SubCategoryName}
-              </span>
+              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
+              class="nester"
+            ></td>
+            <!-- <td
+              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
+              colspan="${!row.CashflowSubCategory.IsReadOnly && row.IsShowSubCategoryLabel ? 1 : 2}"
+            > -->
+            <!-- <td
+              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
+              colspan="${!row.CashflowSubCategory.IsReadOnly  ? 1 : 2}"
+            > -->
+            <td if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id">
+              <!-- <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}"> -->
+              <span> ${row.CashflowSubCategory.Name} </span>
             </td>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
-            <td if.bind="row.TotalLabel" colspan="2" class="text-bold">
-              <span class="${!row.IsShowTotalLabel ? 'hide' : ''}">
-                ${row.TotalLabel}
+            <td if.bind="row.IsSummary" colspan="2" class="text-bold">
+              <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
+                ${row.SummaryLabel}
               </span>
             </td>
 
             <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
-            <td if.bind="row.IsShowDifference" colspan="3" class="text-bold">
+            <td if.bind="row.IsDifference" colspan="3" class="text-bold">
               <span class="${!row.IsShowDifferenceLabel ? 'hide' : ''}">
                 ${row.DifferenceLabel}
               </span>
             </td>
 
             <!-- Contoh: Saldo Awal Kas -->
-            <td
+            <!-- <td
               if.bind="row.IsSummaryBalance"
               colspan="${!row.IsReadOnly && row.IsSummaryBalance ? 3 : 4}"
               class="text-bold"
@@ -141,21 +158,64 @@
               <span class="${!row.IsShowSummaryBalance ? 'hide' : ''}">
                 ${row.SummaryBalanceLabel}
               </span>
-            </td>
+            </td> -->
 
             <!-- Contoh: SURPLUS/DEFISIT KAS -->
-            <td if.bind="row.IsShowSummary" colspan="4" class="text-bold">
+            <!-- <td if.bind="row.IsShowSummary" colspan="4" class="text-bold">
               <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
                 ${row.SummaryLabel}
               </span>
-            </td>
+            </td> -->
 
             <!-- Kosong jika hanya label -->
-            <td if.bind="row.IsLabelOnly" colspan="${columns.length}"></td>
+            <td
+              if.bind="row.IsLabelOnly && !row.Items"
+              colspan="${columns.length * 3 + 1}"
+            ></td>
 
-            <!-- Fields mata uang dan nominal -->
-            <td if.bind="!row.IsLabelOnly" repeat.for="column of columns">
-              nominal
+            <!-- Field mata uang -->
+            <td if.bind="row.Currency">
+              <au-textbox
+                value.bind="row.Currency.Code ? row.Currency.Code : '-'"
+                read-only.bind="true"
+              >
+              </au-textbox>
+            </td>
+
+            <!-- Fields nominal, nominal valas dan actual -->
+            <td
+              if.bind="!row.IsLabelOnly && row.Items"
+              repeat.for="item of row.Items"
+            >
+              <au-numeric
+                value.bind="item.DivisionNominal"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.Items"
+              repeat.for="item of row.Items"
+            >
+              <au-numeric
+                value.bind="item.DivisionCurrencyNominal"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+
+            <td
+              if.bind="!row.IsLabelOnly && row.Items"
+              repeat.for="item of row.Items"
+            >
+              <au-numeric
+                value.bind="item.DivisionActual"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
             </td>
           </tr>
         </tbody>
