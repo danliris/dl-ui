@@ -338,19 +338,19 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
-    {
-        route: "garment-shipping/vb-payment",
-        name: "garment-shipping/vb-payment",
-        moduleId: "modules/garment-shipping/vb-payment/index",
-        nav: true,
-        title: "Pembayaran VB",
-        auth: true,
-        settings: {
-            group: "g-shipping",
-            permission: { "C9": 1, "SG": 1 },
-            iconClass: "fa fa-dashboard"
-        }
-    },    
+    // {
+    //     route: "garment-shipping/vb-payment",
+    //     name: "garment-shipping/vb-payment",
+    //     moduleId: "modules/garment-shipping/vb-payment/index",
+    //     nav: true,
+    //     title: "Pembayaran VB",
+    //     auth: true,
+    //     settings: {
+    //         group: "g-shipping",
+    //         permission: { "C9": 1, "SG": 1 },
+    //         iconClass: "fa fa-dashboard"
+    //     }
+    // },    
     {
         route: "garment-shipping/monitoring/shipment-garment",
         name: "garment-shipping/monitoring/shipment-garment",

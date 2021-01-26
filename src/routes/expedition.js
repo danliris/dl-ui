@@ -1192,6 +1192,7 @@ module.exports = [
         PK: 1,
         C9: 1,
         B4: 1,
+        B9: 1
       },
       iconClass: "fa fa-dashboard",
     },

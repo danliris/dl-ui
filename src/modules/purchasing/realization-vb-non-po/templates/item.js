@@ -92,7 +92,7 @@ export class Item {
   }
 
   @bindable selectedIncomeTax;
-  selectedIncomeTaxChanged(newValue) {
+  selectedIncomeTaxChanged(newValue, oldValue) {
 
     if (newValue) {
       this.data.IncomeTax = newValue;
@@ -101,13 +101,13 @@ export class Item {
       this.calculateTotalAmount();
 
     } else {
-      delete this.data.IncomeTax
+      this.data.IncomeTax = undefined;
       this.calculateTotalAmount();
     }
   }
 
   @bindable selectedAmount;
-  selectedAmountChanged(newValue) {
+  selectedAmountChanged(newValue, oldValue) {
     if (newValue) {
       this.data.Amount = newValue;
       this.calculateTotalAmount();
