@@ -110,7 +110,7 @@
 
             <!-- Contoh: Pendapatan Operasional: -->
             <td
-              if.bind="row.CashflowCategory && row.CashflowCategory.Id"
+              if.bind="row.CashflowCategory && row.CashflowCategory.Id && row.IsLabelOnly"
               colspan="2"
               class="text-bold"
             >
@@ -131,8 +131,8 @@
               colspan="${!row.CashflowSubCategory.IsReadOnly  ? 1 : 2}"
             > -->
             <td if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id">
-              <!-- <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}"> -->
-              <span> ${row.CashflowSubCategory.Name} </span>
+              <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
+              <span>${row.CashflowSubCategory.Name}</span>
             </td>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
@@ -174,9 +174,9 @@
             ></td>
 
             <!-- Field mata uang -->
-            <td if.bind="row.Currency">
+            <td if.bind="!row.IsLabelOnly" class="text-center">
               <au-textbox
-                value.bind="row.Currency.Code ? row.Currency.Code : '-'"
+                value.bind="row.Currency && row.Currency.Code ? row.Currency.Code : '-'"
                 read-only.bind="true"
               >
               </au-textbox>
