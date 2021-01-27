@@ -35,8 +35,11 @@
       align-items: center;
     }
 
+    /* Use overflow:scroll on your container to enable scrolling: */
     .table-responsive {
-      overflow-y: auto;
+      overflow: scroll;
+      max-width: 1366px;
+      max-height: 500px;
       height: 500px;
     }
 
@@ -115,7 +118,7 @@
         <tbody>
           <tr repeat.for="item of items">
             <!-- Contoh: Kegiatan Operasional -->
-            <td
+            <th
               if.bind="item.IsUseSection"
               rowspan="${item.SectionRowSpan || 1}"
               class="v-center"
@@ -123,34 +126,34 @@
               <span class="text-rotate text-bold"
                 >${item.CashflowTypeName}</span
               >
-            </td>
+            </th>
 
             <!-- Contoh: Cash In -->
-            <td
+            <th
               if.bind="item.IsUseGroup"
               rowspan="${item.GroupRowSpan || 1}"
               class="v-center"
             >
               <span class="text-rotate text-bold">${item.TypeName}</span>
-            </td>
+            </th>
 
             <!-- Contoh: Pendapatan Operasional: -->
-            <td if.bind="item.CashflowCategoryId" colspan="3" class="text-bold">
+            <th if.bind="item.CashflowCategoryId" colspan="3" class="text-bold">
               ${item.CashflowCategoryName}
-            </td>
+            </th>
 
             <!-- Contoh: Penjualan Export -->
-            <td if.bind="item.SubCategoryId" class="nester"></td>
-            <td
+            <th if.bind="item.SubCategoryId" class="nester"></th>
+            <th
               if.bind="item.SubCategoryId"
               colspan="${!item.IsReadOnly && item.IsShowSubCategoryLabel ? 1 : 2}"
             >
               <span class="${!item.IsShowSubCategoryLabel ? 'hide' : ''}">
                 ${item.SubCategoryName}
               </span>
-            </td>
+            </th>
             <!-- Tombol tambah dan edit -->
-            <td if.bind="!item.IsReadOnly && item.IsShowSubCategoryLabel">
+            <th if.bind="!item.IsReadOnly && item.IsShowSubCategoryLabel">
               <div class="flex-center">
                 <button
                   class="btn btn-primary"
@@ -166,24 +169,24 @@
                   Edit
                 </button>
               </div>
-            </td>
+            </th>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
-            <td if.bind="item.TotalLabel" colspan="3" class="text-bold">
+            <th if.bind="item.TotalLabel" colspan="3" class="text-bold">
               <span class="${!item.IsShowTotalLabel ? 'hide' : ''}">
                 ${item.TotalLabel}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
-            <td if.bind="item.IsShowDifference" colspan="4" class="text-bold">
+            <th if.bind="item.IsShowDifference" colspan="4" class="text-bold">
               <span class="${!item.IsShowDifferenceLabel ? 'hide' : ''}">
                 ${item.DifferenceLabel}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Saldo Awal/Akhir Kas -->
-            <td
+            <th
               if.bind="item.IsSummaryBalance"
               colspan="${!item.IsReadOnly && item.IsSummaryBalance ? 4 : 5}"
               class="text-bold"
@@ -191,9 +194,9 @@
               <span class="${!item.IsShowSummaryBalance ? 'hide' : ''}">
                 ${item.SummaryBalanceLabel}
               </span>
-            </td>
+            </th>
             <!-- Tombol tambah dan edit -->
-            <td if.bind="!item.IsReadOnly && item.IsSummaryBalance">
+            <th if.bind="!item.IsReadOnly && item.IsSummaryBalance">
               <div class="flex-center">
                 <button
                   class="btn btn-primary"
@@ -209,17 +212,17 @@
                   Edit
                 </button>
               </div>
-            </td>
+            </th>
 
             <!-- Contoh: SURPLUS/DEFISIT KAS -->
-            <td if.bind="item.IsShowSummary" colspan="5" class="text-bold">
+            <th if.bind="item.IsShowSummary" colspan="5" class="text-bold">
               <span class="${!item.IsShowSummaryLabel ? 'hide' : ''}">
                 ${item.SummaryLabel}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Saldo Real Kas -->
-            <td
+            <th
               if.bind="item.IsRealCashBalance"
               colspan="${!item.IsReadOnly && item.IsRealCashBalance ? 4 : 5}"
               class="text-bold"
@@ -227,9 +230,9 @@
               <span class="${!item.IsShowRealCashBalanceLabel ? 'hide' : ''}">
                 Saldo Real Kas
               </span>
-            </td>
+            </th>
             <!-- Tombol tambah dan edit -->
-            <td if.bind="!item.IsReadOnly && item.IsRealCashBalance">
+            <th if.bind="!item.IsReadOnly && item.IsRealCashBalance">
               <div class="flex-center">
                 <button
                   class="btn btn-primary"
@@ -245,34 +248,34 @@
                   Edit
                 </button>
               </div>
-            </td>
+            </th>
 
             <!-- Contoh: Rate -->
-            <td if.bind="item.IsShowCurrencyRate" colspan="4"></td>
-            <td if.bind="item.IsShowCurrencyRate" class="text-bold">
+            <th if.bind="item.IsShowCurrencyRate" colspan="4"></th>
+            <th if.bind="item.IsShowCurrencyRate" class="text-bold">
               <span class="${!item.IsShowCurrencyRateLabel ? 'hide' : ''}">
                 Rate
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Selisih -->
-            <td if.bind="item.IsShowRealCashDifference" colspan="4"></td>
-            <td if.bind="item.IsShowRealCashDifference" class="text-bold">
+            <th if.bind="item.IsShowRealCashDifference" colspan="4"></th>
+            <th if.bind="item.IsShowRealCashDifference" class="text-bold">
               <span
                 class="${!item.IsShowRealCashDifferenceLabel ? 'hide' : ''}"
               >
                 ${item.RealCashDifferenceLabel}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Total Surplus (Defisit) Equivalent -->
-            <td
+            <th
               if.bind="item.IsEquivalentDifference"
               colspan="5"
               class="text-bold"
             >
               <span>${item.EquivalentDifferenceLabel}</span>
-            </td>
+            </th>
 
             <!-- Kosong jika hanya label -->
             <td if.bind="item.IsLabelOnly" colspan="4"></td>
