@@ -40,7 +40,7 @@
       overflow: scroll;
       max-width: 1366px;
       max-height: 500px;
-      height: 500px;
+      /* height: 500px; */
     }
 
     .table-responsive table {
@@ -229,7 +229,7 @@
               </span>
             </th>
 
-            <!-- Contoh: Saldo Awal Kas, SURPLUS/DEFISIT KAS, Saldo Akhir Kas, Saldo Real Kas -->
+            <!-- Contoh: Saldo Awal Kas, SURPLUS/DEFISIT KAS, Saldo Akhir Kas, Saldo Real Kas, Selisih -->
             <th
               if.bind="row.IsGeneralSummary"
               colspan="4"
@@ -242,13 +242,18 @@
 
             <!-- Contoh: Rate -->
             <th
-              if.bind="row.CurrencyRateLabel"
+              if.bind="row.IsCurrencyRate"
               class="th-1 text-bold text-right"
               colspan="4"
             >
-              <span class="${!row.CurrencyRateLabel ? 'hide' : ''}">
+              <span class="${!row.IsShowCurrencyLabel ? 'hide' : ''}">
                 ${row.CurrencyRateLabel}
               </span>
+            </th>
+
+            <!-- Contoh: Total Surplus (Defisit) Equivalent -->
+            <th if.bind="row.IsEquivalent" colspan="4" class="th-1 text-bold">
+              <span>${row.EquivalentLabel}</span>
             </th>
 
             <!-- Kosong jika hanya label -->
@@ -259,7 +264,7 @@
 
             <!-- Fields khusus Rate -->
             <td
-              if.bind="!row.IsLabelOnly && row.CurrencyRateLabel"
+              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
               class="text-center"
             >
               <au-textbox
@@ -268,7 +273,7 @@
               >
               </au-textbox>
             </td>
-            <td if.bind="!row.IsLabelOnly && row.CurrencyRateLabel">
+            <td if.bind="!row.IsLabelOnly && row.IsCurrencyRate">
               <au-numeric
                 value.bind="row.Currency.Rate"
                 format="0,000.00"
@@ -277,13 +282,36 @@
               </au-numeric>
             </td>
             <td
-              if.bind="!row.IsLabelOnly && row.CurrencyRateLabel"
+              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
+              colspan="${columns.length * 3 - 1}"
+            ></td>
+
+            <!-- Fields khusus equivalent -->
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+              class="text-center"
+            >
+              <au-textbox value.bind="'IDR'" read-only.bind="true">
+              </au-textbox>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+            >
+              <au-numeric
+                value.bind="row.Equivalent"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
               colspan="${columns.length * 3 - 1}"
             ></td>
 
             <!-- Field mata uang -->
             <td
-              if.bind="!row.IsLabelOnly && !row.CurrencyRateLabel"
+              if.bind="!row.IsLabelOnly && !row.IsCurrencyRate && !row.IsEquivalent"
               class="text-center"
             >
               <au-textbox
