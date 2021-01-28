@@ -43,27 +43,29 @@ export class DataForm {
         this.masterService = masterService;
     }
 
-    async bind(context) {
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        console.log(this.data);
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        if (this.data.PurchasingCategoryIds)
-            this.data.Items = await Promise.all(this.data.PurchasingCategoryIds.map(async (item) => {
-                let resultItem = {};
-                resultItem.Category = await this.masterService.getCategoryById(item);
-                return resultItem;
-            }));
-        console.log(this.data.Items);
-        this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
+        this.cashflowCategory = this.data.CashflowCategory || null;
+        this.reportType = this.reportTypeOptions.find((option) => option.value == this.data.ReportType)
 
-        this.reportType = this.reportTypeOptions.find(f => f.value == this.data.ReportType);
+        // if (this.data.PurchasingCategoryIds)
+        //     this.data.Items = await Promise.all(this.data.PurchasingCategoryIds.map(async (item) => {
+        //         let resultItem = {};
+        //         resultItem.Category = await this.masterService.getCategoryById(item);
+        //         return resultItem;
+        //     }));
+        // console.log(this.data.Items);
+        // this.cashflowCategory = await this.service.getBudgetCashflowCategoryById(this.data.CashflowCategoryId);
+
+        // this.reportType = this.reportTypeOptions.find(f => f.value == this.data.ReportType);
     }
 
     get cashflowCategoryLoader() {
@@ -92,7 +94,6 @@ export class DataForm {
 
     @bindable reportType
     reportTypeChanged(newVal, oldVal) {
-        console.log("jangan nongol", newVal);
         if (newVal) {
             this.data.ReportType = newVal.value
         } else {
