@@ -48,8 +48,8 @@ export class List {
           this.subColumns = [
             ...this.subColumns,
             "NOMINAL VALAS",
-            "NOMINAL",
-            "ACTUAL",
+            "NOMINAL IDR",
+            "ACTUAL IDR",
           ];
         }
 
