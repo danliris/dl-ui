@@ -45,11 +45,13 @@ export class Item {
 
   @bindable nominal
   nominalChanged(newVal, oldVal) {
+    this.data.Nominal = newVal;
     this.data.Total = newVal;
   }
 
   @bindable currencyNominal
   currencyNominalChanged(newVal, oldVal) {
+    this.data.CurrencyNominal = newVal
     this.data.Total = this.currency ? this.currency.Rate * newVal : 0;
   }
 
