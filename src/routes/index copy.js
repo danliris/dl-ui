@@ -14,41 +14,18 @@ var garmentMasterPlanRoutes = require("./garment-master-plan");
 var spinningRoutes = require("./spinning-production");
 var intPurchasingRoutes = require("./int-purchasing");
 var customsReportRoutes = require("./customs-report");
-let expeditionRoutes = require("./expedition");
-let merchandiserRoutes = require("./merchandiser");
-let accountingRoutes = require("./accounting");
-let weavingRoutes = require("./weaving");
+let expeditionRoutes = require('./expedition');
+let merchandiserRoutes = require('./merchandiser');
+let accountingRoutes = require('./accounting');
+let weavingRoutes = require('./weaving');
 let garmentProductionRoutes = require("./garment-production");
 let packingSKUInventory = require("./packing-sku-inventory");
 let customs = require("./customs");
-let garmentShippingRoutes = require("./garment-shipping");
-let garmentSubconRoutes = require("./garment-subcon");
-let garmentFinance = require("./garment-finance");
+let garmentShippingRoutes= require("./garment-shipping");
+let garmentSubconRoutes= require("./garment-subcon");
+let garmentFinance = require('./garment-finance');
 
-export default [].concat(
-  publicRoutes,
-  generalRoutes,
-  masterRoutes,
-  productionRoutes,
-  spinningRoutes,
-  purchasingRoutes,
-  salesRoutes,
-  inventoryRoutes,
-  garmentPurchasingRoutes,
-  garmentMasterPlanRoutes,
-  garmentFinance,
-  intPurchasingRoutes,
-  customsReportRoutes,
-  authRoutes,
-  expeditionRoutes,
-  merchandiserRoutes,
-  migrationLog,
-  reportRoutes,
-  weavingRoutes,
-  accountingRoutes,
-  garmentProductionRoutes,
-  garmentShippingRoutes,
-  garmentSubconRoutes,
-  packingSKUInventory,
-  customs
-);
+export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, garmentFinance, intPurchasingRoutes, customsReportRoutes, authRoutes, expeditionRoutes, merchandiserRoutes, migrationLog, reportRoutes, weavingRoutes, accountingRoutes, garmentProductionRoutes, garmentShippingRoutes,garmentSubconRoutes, packingSKUInventory, customs);
+
+
+
