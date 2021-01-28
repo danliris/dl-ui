@@ -11,21 +11,19 @@
     </td>
     <td>
       <au-numeric
-        value.bind="data.CurrencyNominal"
+        value.bind="currencyNominal"
         error.bind="error.CurrencyNominal"
         read-only.bind="!isCurrency || data.IsIDR"
         format="0.00"
-        change.delegate="handleChangeAmount($event)"
       >
       </au-numeric>
     </td>
     <td>
       <au-numeric
-        value.bind="data.Nominal"
+        value.bind="nominal"
         error.bind="error.Nominal"
         read-only.bind="!isCurrency || !data.IsIDR"
         format="0.00"
-        change.delegate="handleChangeAmount($event)"
       >
       </au-numeric>
     </td>
