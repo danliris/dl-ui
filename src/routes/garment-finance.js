@@ -50,5 +50,19 @@ module.exports = [
             permission: { "B13": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+      route: "/garment-finance/garment-bank-expenditure-note-dpp-ppn-report",
+      name: "garment-bank-expenditure-note-dpp-ppn-report",
+      moduleId:
+        "./modules/garment-finance/garment-bank-expenditure-note-dpp-ppn-report/index",
+      nav: true,
+      title: "Laporan Bukti Pengeluaran Bank DPP + PPN",
+      auth: true,
+      settings: {
+        group: "g-finance",
+        permission: { "B13": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      },
+    },
 ]
