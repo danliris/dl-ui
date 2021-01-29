@@ -421,7 +421,7 @@ export class DataForm {
       }
 
       return {
-        'status=="CREATED" || status=="APPROVED_SHIPPING"':true,
+        'status=="CREATED" || status=="DRAFT_APPROVED_SHIPPING"':true,
         ShippingStaffName: username
       }
     }
