@@ -65,4 +65,17 @@ module.exports = [
         iconClass: 'fa fa-dashboard'
       },
     },
+    {
+      route: "/garment-finance/garment-pph-bank-expenditure-note-report",
+      name: "garment-pph-bank-expenditure-note-report",
+      moduleId: "./modules/garment-finance/garment-pph-bank-expenditure-note-report/index",
+      nav: true,
+      title: "Laporan Pengajuan Pembayaran PPH",
+      auth: true,
+      settings: {
+        group: "g-finance",
+        permission: { "B13": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      },
+    },
 ]
