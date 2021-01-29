@@ -30,11 +30,9 @@ export class List {
         { field: "SubconNo", title: "No Subcon Jasa Cutting" },
         { field: "SubconType", title: "Jenis Subcon" },
         { field: "UnitName", title: "Unit Asal" },
-        { field: "RONo", title: "RO" },
-        { field: "Article", title: "No Artikel" },
-        { field: "TotalQuantity", title: "Jumlah Out", sortable: false},
+       // { field: "TotalQuantity", title: "Jumlah Out", sortable: false},
         { field: "SubconDate", title: "Tgl Subcon Jasa Cutting", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        //{ field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
     ]
 
     loader = (info) => {
@@ -56,7 +54,7 @@ export class List {
                 this.totalQuantity=result.info.totalQty;
                 result.data.forEach(d => {
                     d.UnitName = d.Unit.Name
-                    d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
+                   // d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
                     
                 });
                 return {
