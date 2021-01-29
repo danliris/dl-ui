@@ -41,6 +41,9 @@ export class Edit {
 
     saveCallback(event) {
 
+        this.data.PurchasingCategoryIds = this.data.Items.map((item) => {
+            return item.Category && item.Category._id ? item.Category._id : 0;
+        });
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('list');
