@@ -50,5 +50,32 @@ module.exports = [
             permission: { "B13": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+      route: "/garment-finance/garment-bank-expenditure-note-dpp-ppn-report",
+      name: "garment-bank-expenditure-note-dpp-ppn-report",
+      moduleId:
+        "./modules/garment-finance/garment-bank-expenditure-note-dpp-ppn-report/index",
+      nav: true,
+      title: "Laporan Bukti Pengeluaran Bank DPP + PPN",
+      auth: true,
+      settings: {
+        group: "g-finance",
+        permission: { "B13": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      },
+    },
+    {
+      route: "/garment-finance/garment-pph-bank-expenditure-note-report",
+      name: "garment-pph-bank-expenditure-note-report",
+      moduleId: "./modules/garment-finance/garment-pph-bank-expenditure-note-report/index",
+      nav: true,
+      title: "Laporan Pengajuan Pembayaran PPH",
+      auth: true,
+      settings: {
+        group: "g-finance",
+        permission: { "B13": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard'
+      },
+    },
 ]
