@@ -35,9 +35,91 @@
       align-items: center;
     }
 
+    /* Use overflow:scroll on your container to enable scrolling: */
+    .table-responsive {
+      overflow: scroll;
+      max-width: 1366px;
+      max-height: 500px;
+      /* height: 500px; */
+    }
+
+    .table-responsive table {
+      border-collapse: separate;
+    }
+
+    /* To have the header in the first column stick to the left: */
+    .table-responsive thead tr:first-child th:first-child {
+      left: 0;
+      z-index: 2;
+    }
+
+    /* Use position: sticky to have it stick to the edge
+     * and top, right, or left to choose which edge to stick to: */
+    .table-responsive thead tr:first-child th {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      top: 0;
+      background-color: #173250;
+      /* Ensure this stays above the emulated border right in tbody th {}: */
+      z-index: 1;
+    }
+
+    .table-responsive thead tr:last-child th {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      top: 37px;
+      background-color: #173250;
+      /* Ensure this stays above the emulated border right in tbody th {}: */
+      z-index: 1;
+    }
+
+    .table-responsive tbody tr th.th-1 {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #fff;
+    }
+
+    .table-responsive tbody tr th.th-2 {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      left: 38px;
+      z-index: 1;
+      background: #fff;
+    }
+
+    .table-responsive tbody tr th.th-3 {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      left: 76px;
+      z-index: 1;
+      background: #fff;
+    }
+
+    .table-responsive tbody tr th.th-4 {
+      position: -webkit-sticky; /* for Safari */
+      position: sticky;
+      left: 94px;
+      z-index: 1;
+      background: #fff;
+    }
+
+    .table-responsive tbody th {
+      text-align: left;
+    }
+
     .nester {
       border-bottom: none !important;
       border-top: none !important;
+    }
+
+    .ket-header {
+      min-width: 400px;
+    }
+
+    .unit-header {
+      min-width: 500px;
     }
   </style>
 
@@ -78,9 +160,12 @@
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th colspan="4" rowspan="2">KETERANGAN</th>
+            <th colspan="4" rowspan="2" class="ket-header">KETERANGAN</th>
             <th rowspan="2">MATA UANG</th>
-            <th colspan="3" repeat.for="column of columns">${column}</th>
+            <th colspan="3" repeat.for="column of columns" class="unit-header">
+              ${column}
+            </th>
+            <th rowspan="2">TOTAL IDR</th>
           </tr>
           <tr>
             <th repeat.for="column of subColumns">${column}</th>
@@ -89,85 +174,147 @@
         <tbody>
           <tr repeat.for="row of rows">
             <!-- Contoh: Kegiatan Operasional -->
-            <td
+            <th
               if.bind="row.IsUseSection"
               rowspan="${row.SectionRows || 1}"
-              class="v-center"
+              class="th-1 v-center"
             >
               <span class="text-rotate text-bold"
                 >${row.CashflowType.Name}</span
               >
-            </td>
+            </th>
 
             <!-- Contoh: Cash In -->
-            <td
+            <th
               if.bind="row.IsUseGroup"
               rowspan="${row.GroupRows || 1}"
-              class="v-center"
+              class="th-2 v-center"
             >
               <span class="text-rotate text-bold">${row.TypeName}</span>
-            </td>
+            </th>
 
             <!-- Contoh: Pendapatan Operasional: -->
-            <td
+            <th
               if.bind="row.CashflowCategory && row.CashflowCategory.Id && row.IsLabelOnly"
               colspan="2"
-              class="text-bold"
+              class="th-3 text-bold"
             >
               ${row.CashflowCategory.Name}
-            </td>
+            </th>
 
             <!-- Contoh: Penjualan Export -->
-            <td
+            <th
               if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
-              class="nester"
-            ></td>
-            <td if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id">
+              class="th-3 nester"
+            ></th>
+            <th
+              class="th-4"
+              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
+            >
               <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
                 ${row.CashflowSubCategory.Name}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
-            <td if.bind="row.IsSummary" colspan="2" class="text-bold">
+            <th if.bind="row.IsSummary" colspan="2" class="th-3 text-bold">
               <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
                 ${row.SummaryLabel}
               </span>
-            </td>
+            </th>
 
             <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
-            <td if.bind="row.IsDifference" colspan="3" class="text-bold">
+            <th if.bind="row.IsDifference" colspan="3" class="th-2 text-bold">
               <span class="${!row.IsShowDifferenceLabel ? 'hide' : ''}">
                 ${row.DifferenceLabel}
               </span>
-            </td>
+            </th>
 
-            <!-- Contoh: Saldo Awal Kas -->
-            <!-- <td
-              if.bind="row.IsSummaryBalance"
-              colspan="${!row.IsReadOnly && row.IsSummaryBalance ? 3 : 4}"
-              class="text-bold"
+            <!-- Contoh: Saldo Awal Kas, SURPLUS/DEFISIT KAS, Saldo Akhir Kas, Saldo Real Kas, Selisih -->
+            <th
+              if.bind="row.IsGeneralSummary"
+              colspan="4"
+              class="th-1 text-bold"
             >
-              <span class="${!row.IsShowSummaryBalance ? 'hide' : ''}">
-                ${row.SummaryBalanceLabel}
+              <span class="${!row.IsShowGeneralSummaryLabel ? 'hide' : ''}">
+                ${row.GeneralSummaryLabel}
               </span>
-            </td> -->
+            </th>
 
-            <!-- Contoh: SURPLUS/DEFISIT KAS -->
-            <!-- <td if.bind="row.IsShowSummary" colspan="4" class="text-bold">
-              <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
-                ${row.SummaryLabel}
+            <!-- Contoh: Rate -->
+            <th
+              if.bind="row.IsCurrencyRate"
+              class="th-1 text-bold text-right"
+              colspan="4"
+            >
+              <span class="${!row.IsShowCurrencyLabel ? 'hide' : ''}">
+                ${row.CurrencyRateLabel}
               </span>
-            </td> -->
+            </th>
+
+            <!-- Contoh: Total Surplus (Defisit) Equivalent -->
+            <th if.bind="row.IsEquivalent" colspan="4" class="th-1 text-bold">
+              <span>${row.EquivalentLabel}</span>
+            </th>
 
             <!-- Kosong jika hanya label -->
             <td
               if.bind="row.IsLabelOnly && !row.Items"
-              colspan="${columns.length * 3 + 1}"
+              colspan="${columns.length * 3 + 2}"
+            ></td>
+
+            <!-- Fields khusus Rate -->
+            <td
+              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
+              class="text-center"
+            >
+              <au-textbox
+                value.bind="row.Currency ? row.Currency.Code : '-'"
+                read-only.bind="true"
+              >
+              </au-textbox>
+            </td>
+            <td if.bind="!row.IsLabelOnly && row.IsCurrencyRate">
+              <au-numeric
+                value.bind="row.Currency.Rate"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
+              colspan="${columns.length * 3}"
+            ></td>
+
+            <!-- Fields khusus equivalent -->
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+              class="text-center"
+            >
+              <au-textbox value.bind="'IDR'" read-only.bind="true">
+              </au-textbox>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+            >
+              <au-numeric
+                value.bind="row.Equivalent"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+            <td
+              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+              colspan="${columns.length * 3}"
             ></td>
 
             <!-- Field mata uang -->
-            <td if.bind="!row.IsLabelOnly" class="text-center">
+            <td
+              if.bind="!row.IsLabelOnly && !row.IsCurrencyRate && !row.IsEquivalent"
+              class="text-center"
+            >
               <au-textbox
                 value.bind="row.Currency && row.Currency.Code ? row.Currency.Code : '-'"
                 read-only.bind="true"
@@ -182,6 +329,18 @@
             >
               <au-numeric
                 value.bind="item"
+                format="0,000.00"
+                read-only.bind="true"
+              >
+              </au-numeric>
+            </td>
+
+            <!-- Fields total -->
+            <td
+              if.bind="!row.IsLabelOnly && !row.IsEquivalent && !row.IsCurrencyRate && row.Items"
+            >
+              <au-numeric
+                value.bind="row.DivisionActualTotal || 0"
                 format="0,000.00"
                 read-only.bind="true"
               >

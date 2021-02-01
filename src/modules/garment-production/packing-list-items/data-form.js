@@ -225,7 +225,8 @@ export class DataForm {
             }
           }
         }
-        return result;
+        this.data.totalCartons = result;
+        return this.data.totalCartons;
       }
     }
 }
