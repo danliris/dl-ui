@@ -34,11 +34,10 @@ export class Item {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-console.log(this.context)
+        
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        
-console.log(this.isCreate)
+        this.itemOptions=context.context.options;
         if(this.data){
             this.selectedCuttingIn={
                 RONo:this.data.RONo,
@@ -53,11 +52,17 @@ console.log(this.isCreate)
         }
     }
     itemsColumns= [
-            "Kode Barang",
+           // "Kode Barang",
             "Keterangan",
             "Jumlah",
         ];
-    
+
+    toggle() {
+        if (!this.isShowing)
+            this.isShowing = true;
+        else
+            this.isShowing = !this.isShowing;
+    }
 
     comodityView = (comodity) => {
         return `${comodity.Code} - ${comodity.Name}`
@@ -106,24 +111,43 @@ console.log(this.isCreate)
                 //         }
                 //     }
                 // }
-                
+                console.log(this.isCreate)
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){
                                 for(var cuttingInDetail of cuttingInItem.Details){
                                     var qtyOut=0;
+                                    var detail={};
                                     // if(ssCuttingItems[cuttingInDetail.Id]){
                                     //     qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
                                     // }
                                    // if(cuttingInDetail.CuttingInQuantity-qtyOut>0){
-                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                        cuttingInDetail.Product=cuttingInDetail.Product;
-                                        cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
-                                        cuttingInDetail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                        cuttingInDetail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                        this.data.Details.push(cuttingInDetail);
+                                        // cuttingInDetail.CuttingInId = cuttingInHeader.Id;
+                                        // cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
+                                        // cuttingInDetail.Product=cuttingInDetail.Product;
+                                        //cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
+                                    if(this.data.Details.length==0){
+                                        detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                        detail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                        detail.DesignColor=cuttingInDetail.DesignColor;
+                                        this.data.Details.push(detail);
+                                    }
+                                    else{
+                                        var exist= this.data.Details.find(a=>a.DesignColor==cuttingInDetail.DesignColor);
+                                        if(!exist){
+                                            detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                            detail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                            detail.DesignColor=cuttingInDetail.DesignColor;
+                                            this.data.Details.push(detail);
+                                        }
+                                        else{
+                                            var idx= this.data.Details.indexOf(exist);
+                                            exist.Quantity+=cuttingInDetail.CuttingInQuantity;
+                                            exist.CuttingInQuantity+=cuttingInDetail.CuttingInQuantity;
+                                            this.data.Details[idx]=exist;
+                                        }
+                                    }    
                                    // }
                                     
                                 }

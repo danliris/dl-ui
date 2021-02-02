@@ -52,6 +52,7 @@ export class List {
             .then(result => {
                 
                 this.totalQuantity=result.info.totalQty;
+                console.log(result);
                 result.data.forEach(d => {
                     d.UnitName = d.Unit.Name
                    // d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`

@@ -79,7 +79,7 @@ export class DataForm {
         if (this.data && this.data.Items) {
             this.data.Items.forEach(
                 item => {
-                    item.IsSave = true;
+                    item.Unit = this.data.Unit;
                 }
             );
         }
@@ -128,8 +128,10 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                if(item.IsSave){
-                    qty += item.Quantity;
+                if(item.Details){
+                    for(var detail of item.Details){
+                        qty += detail.Quantity;
+                    }
                 }
             }
         }
