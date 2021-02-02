@@ -7,7 +7,7 @@ const serviceUri = "garment-purchasing-expeditions";
 export class ServicePurchasing extends RestService 
   {
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     getUnitPaymentOrders(info) {
