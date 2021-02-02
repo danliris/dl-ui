@@ -69,4 +69,23 @@ export class DataForm {
     get supplierLoader() {
         return SupplierLoader;
     }
+
+    bankView = (bank) => {
+        return bank.BankName + " - " + bank.AccountNumber
+    }
+
+    @bindable bankAccount;
+    bankAccountChanged(newValue, oldValue) {
+        this.data.Bank = newValue;
+    }
+
+    @bindable currency;
+    currencyChanged(newValue, oldValue) {
+        this.data.Currency = newValue;
+    }
+
+    @bindable supplier;
+    supplierChanged(newValue, oldValue) {
+        this.data.Supplier = newValue;
+    }
 }
