@@ -8,6 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: {
         P1: 1,
         P2: 1,
@@ -33,6 +34,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { B4: 1, B9: 1, C9: 1 },
       iconClass: "fa fa-clone",
     },
@@ -47,6 +49,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: {
         P1: 1,
         P2: 1,
@@ -75,6 +78,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { C5: 1, C9: 1, B9: 1 },
       iconClass: "fa fa-calendar-check-o",
     },
@@ -89,6 +93,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: {
         P1: 1,
         P3: 1,
@@ -114,6 +119,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: {
         P1: 1,
         P3: 1,
@@ -138,6 +144,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -162,6 +169,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: { B4: 1, B9: 1, C9: 1 },
       iconClass: "fa fa-clone",
     },
@@ -175,6 +183,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: { C5: 1, B9: 1, C9: 1 },
       iconClass: "fa fa-calendar-check-o",
     },
@@ -189,6 +198,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -216,6 +226,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: { B4: 1, C5: 1, C9: 1, B1: 1 },
       iconClass: "fa fa-clone",
     },
@@ -230,6 +241,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -257,6 +269,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -283,6 +296,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { B4: 1, C5: 1, C9: 1 },
       iconClass: "fa fa-calendar-check-o",
     },
@@ -297,6 +311,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { B4: 1, C5: 1, C9: 1 },
       iconClass: "fa fa-clone",
     },
@@ -375,6 +390,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { B4: 1, C5: 1, C9: 1, B1: 1 },
       iconClass: "fa fa-calendar-check-o",
     },
@@ -388,6 +404,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "ekspedisi spb",
       permission: { B4: 1, C5: 1, C9: 1, B1: 1 },
       iconClass: "fa fa-calendar-check-o",
     },
@@ -401,6 +418,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -428,6 +446,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -454,6 +473,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -480,6 +500,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -506,6 +527,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -569,6 +591,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -595,6 +618,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -621,6 +645,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -684,6 +709,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan hutang dan disposisi",
       permission: {
         P1: 1,
         P3: 1,
@@ -741,12 +767,14 @@ module.exports = [
   {
     route: "/reports/budget-cashflow-type",
     name: "budget-cashflow-type",
-    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-type/index",
+    moduleId:
+      "./modules/purchasing/budget-cashflow/master/budget-cashflow-type/index",
     nav: true,
     title: "Jenis Budget Cashflow",
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         C9: 1,
       },
@@ -756,12 +784,14 @@ module.exports = [
   {
     route: "/reports/budget-cashflow-category",
     name: "budget-cashflow-category",
-    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-category/index",
+    moduleId:
+      "./modules/purchasing/budget-cashflow/master/budget-cashflow-category/index",
     nav: true,
     title: "Kategori Budget Cashflow",
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         C9: 1,
       },
@@ -771,12 +801,14 @@ module.exports = [
   {
     route: "/reports/budget-cashflow-sub-category",
     name: "budget-cashflow-sub-category",
-    moduleId: "./modules/purchasing/budget-cashflow/master/budget-cashflow-sub-category/index",
+    moduleId:
+      "./modules/purchasing/budget-cashflow/master/budget-cashflow-sub-category/index",
     nav: true,
     title: "Sub-Kategori Budget Cashflow",
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         C9: 1,
       },
@@ -792,6 +824,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         C9: 1,
       },
@@ -807,6 +840,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         P1: 1,
         P3: 1,
@@ -833,6 +867,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         P1: 1,
         P3: 1,
@@ -859,6 +894,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "laporan budget cashflow",
       permission: {
         P1: 1,
         P3: 1,
@@ -1002,6 +1038,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P2: 1,
@@ -1028,6 +1065,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P2: 1,
@@ -1054,6 +1092,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 7,
         P3: 7,
@@ -1078,6 +1117,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P3: 1,
@@ -1105,6 +1145,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P3: 1,
@@ -1129,6 +1170,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P3: 1,
@@ -1153,6 +1195,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P2: 1,
@@ -1179,6 +1222,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P2: 1,
@@ -1206,6 +1250,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P3: 1,
@@ -1230,6 +1275,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P3: 1,
@@ -1257,6 +1303,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "finance",
+      subGroup: "vb",
       permission: {
         P1: 1,
         P2: 1,

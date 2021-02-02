@@ -1,0 +1,101 @@
+<template>
+    <tr>
+        <td>
+            <au-checkbox value.bind="data.Select"
+                         read-only.bind="readOnly">
+            </au-checkbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.UnitPaymentOrderNo"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-datepicker value.bind="data.UPODate"
+                           read-only.bind="true">
+            </au-datepicker>
+        </td>
+        <td>
+            <au-datepicker value.bind="data.DueDate"
+                           read-only.bind="true">
+            </au-datepicker>
+        </td>
+        <td>
+            <au-textbox value.bind="listURNNo"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.InvoiceNo"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.SupplierName"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.CategoryName"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.DivisionName"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.Vat"
+                        read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="data.IncomeTax"
+                        read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="data.TotalPaid"
+                        format="0,000.0000"
+                        read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.Currency"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td show.bind="IDR && !sameCurrency">
+            <au-numeric value.bind="data.TotalPaidIDR"
+                        format="0,000.0000"
+                        if.bind="IDR && !sameCurrency"
+                        read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td show.bind="IDR && !sameCurrency">
+            <au-textbox value.bind="data.CurrencyIDR"
+                        if.bind="IDR && !sameCurrency"
+                        read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="col-sm-1">
+            <button class="btn btn-info"
+                    click.delegate="toggle()">i</button>
+        </td>
+    </tr>
+    <tr show.bind="isShowing">
+        <td colspan="12">
+            <!-- <au-collection items.bind="data.Items"
+                           columns.bind="columns"
+                           item-template="modules/garment-finance/dpp-vat-bank-expenditure-note/templates/detail">
+            </au-collection> -->
+
+            <au-collection items.bind="data.InternalNote.Items"
+                           columns.bind="collection.columns"
+                           checkall.delegate="onCheckAll($event)"
+                           item-template="modules/garment-finance/dpp-vat-bank-expenditure-note/templates/item">
+            </au-collection>
+        </td>
+    </tr>
+</template>

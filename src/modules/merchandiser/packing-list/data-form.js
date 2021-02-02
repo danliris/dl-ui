@@ -144,19 +144,41 @@ export class DataForm {
     }
 
     get totalCartons() {
-        let cartons = [];
-        if (this.data.items) {
-            for (var item of this.data.items) {
-                if (item.details) {
-                    for (var detail of item.details) {
-                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2) < 0) {
-                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, cartonQuantity: detail.cartonQuantity });
-                        }
+      let result = 0;
+      if (this.data.items) {
+        for (var item of this.data.items) {
+          if (item.details) {
+            const newDetails = item.details.map(d => {
+              return {
+                carton1: d.carton1,
+                carton2: d.carton2,
+                cartonQuantity: d.cartonQuantity,
+                index: d.index
+              };
+            }).filter((value, i, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === i);
+
+            for (var detail of newDetails) {
+              const cartonExist = false;
+              const indexItem = this.data.items.indexOf(item);
+              if (indexItem > 0) {
+                for (let i = 0; i < indexItem; i++) {
+                  const item =  this.data.items[i];
+                  for (const prevDetail of item.details) {
+                    if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                      cartonExist = true;
+                      break;
                     }
+                  }
                 }
+              }
+              if (!cartonExist) {
+                result += detail.cartonQuantity;
+              }
             }
+          }
         }
-        this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
+        this.data.totalCartons = result;
         return this.data.totalCartons;
+      }
     }
 }

@@ -14,6 +14,9 @@ export class Item {
 
     this.data = context.data;
     this.error = context.error;
+
+    this.nominal = this.data.Nominal;
+    this.currencyNominal = this.data.CurrencyNominal;
     if (this.data.Currency) {
       this.currency = this.data.Currency;
       this.isCurrency = true;
@@ -40,6 +43,18 @@ export class Item {
     return CurrencyLoader;
   }
 
+  @bindable nominal
+  nominalChanged(newVal, oldVal) {
+    this.data.Nominal = newVal;
+    this.data.Total = newVal;
+  }
+
+  @bindable currencyNominal
+  currencyNominalChanged(newVal, oldVal) {
+    this.data.CurrencyNominal = newVal
+    this.data.Total = this.currency ? this.currency.Rate * newVal : 0;
+  }
+
   handleChangeAmount(e) {
     this.calculateTotalAmount();
   }
@@ -51,12 +66,11 @@ export class Item {
       this.data.IsIDR = newValue.Code === "IDR";
       this.data.Currency = newValue;
       this.isCurrency = newValue ? true : false;
-      if (this.data.IsIDR) {
-        this.data.CurrencyNominal = 0;
-      } else {
-        this.data.Nominal = 0;
-      }
-      this.calculateTotalAmount();
+      // if (this.data.IsIDR) {
+      this.data.CurrencyNominal = 0;
+      // } else {
+      this.data.Nominal = 0;
+      // }
     } else {
       this.data.CurrencyId = 0;
       this.data.IsIDR = false;
@@ -64,7 +78,6 @@ export class Item {
       this.isCurrency = false;
       this.data.CurrencyNominal = 0;
       this.data.Nominal = 0;
-      this.calculateTotalAmount();
     }
   }
 }
