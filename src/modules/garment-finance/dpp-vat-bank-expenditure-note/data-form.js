@@ -1,12 +1,13 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
+import { PurchasingService } from './purchasing-service';
 import moment from 'moment';
 
 const BankLoader = require('../shared/bank-account-loader');
 const SupplierLoader = require('../shared/garment-supplier-loader');
 const CurrencyLoader = require('../shared/garment-currency-loader');
 
-@inject(Service)
+@inject(Service, PurchasingService)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -27,8 +28,9 @@ export class DataForm {
         },
     };
 
-    constructor(service) {
+    constructor(service, purchasingService) {
         this.service = service;
+        this.purchasingService = purchasingService;
     }
 
     bind(context) {
@@ -43,11 +45,11 @@ export class DataForm {
 
         if (!this.readOnly) {
             this.collection = {
-                columns: ['__check', 'No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding']
+                columns: ['__check', 'No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding', '']
             };
         } else {
             this.collection = {
-                columns: ['No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding']
+                columns: ['No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding', '']
             };
         }
     }
@@ -68,5 +70,39 @@ export class DataForm {
 
     get supplierLoader() {
         return SupplierLoader;
+    }
+
+    bankView = (bank) => {
+        return bank.BankName + " - " + bank.AccountNumber
+    }
+
+    @bindable bankAccount;
+    bankAccountChanged(newValue, oldValue) {
+        this.data.Bank = newValue;
+    }
+
+    @bindable currency;
+    async currencyChanged(newValue, oldValue) {
+        this.data.Currency = newValue;
+
+        if (newValue) {
+
+        } else {
+            this.data.Items = [];
+        }
+    }
+
+    @bindable supplier;
+    async supplierChanged(newValue, oldValue) {
+        this.data.Supplier = newValue;
+
+        if (newValue) {
+            if (this.currency) {
+                var expenditureNotes = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id });
+                console.log(expenditureNotes);
+            }
+        } else {
+            this.data.Items = [];
+        }
     }
 }

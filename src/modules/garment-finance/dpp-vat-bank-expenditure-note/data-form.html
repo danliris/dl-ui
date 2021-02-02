@@ -50,17 +50,16 @@
         </au-textbox>
 
         <au-numeric value.bind="data.Amount"
-                    read-only.bind="true"
-                    label="Rate"
+                    read-only.bind="readOnly"
+                    label="Pembayaran Keluar"
                     options.bind="controlOptions"
                     format="0.00">
         </au-numeric>
 
-        <au-datepicker value.bind="data.Amount"
-                       read-only.bind="true"
-                       label="Rate"
-                       options.bind="controlOptions"
-                       format="0.00">
+        <au-datepicker value.bind="data.Date"
+                       read-only.bind="readOnly"
+                       label="Tanggal"
+                       options.bind="controlOptions">
         </au-datepicker>
 
         <!-- <au-collection show.bind="readOnly"
