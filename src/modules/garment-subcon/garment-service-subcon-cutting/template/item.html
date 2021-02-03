@@ -33,7 +33,7 @@
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
-        <td if.bind="!readOnly">
+        <td if.bind="isCreate">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
         </td>
         <td class="col-sm-1">
@@ -48,12 +48,12 @@
         </div>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="15">
+        <td colspan="4">
             <au-collection 
                 items.bind="data.Details" 
                 errors.bind="error.Details" 
                 columns.bind="itemsColumns"
-                read-only.bind="readOnly" 
+                read-only.bind="readOnly || isEdit" 
                 options.bind="itemOptions"
                 item-template="modules/garment-subcon/garment-service-subcon-cutting/template/detail" >
             </au-collection>
