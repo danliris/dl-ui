@@ -44,7 +44,7 @@ export class Item {
                 Article: this.data.Article
             }
         }
-        this.isShowing = false;
+        this.isShowing = true;
         if (this.data.details) {
             if (this.data.details.length > 0) {
                 this.isShowing = true;
@@ -93,25 +93,24 @@ export class Item {
                         this.data.Comodity = comodityResult.data[0];
                     }
                 }
-                // let ssCuttingItems=[];
-                // let ssCutting = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-                
-                // if(ssCutting.data.length>0){
-                //     for(var ssC of ssCutting.data){
-                //         for(var ssCItem of ssC.Items){
-                //             var item={};
-                //             item.cuttingInDetailId=ssCItem.CuttingInDetailId;
-                //             item.qty=ssCItem.Quantity;
-                //             if(ssCuttingItems[ssCItem.CuttingInDetailId]){
-                //                 ssCuttingItems[ssCItem.CuttingInDetailId].qty+=ssCItem.Quantity;
-                //             }
-                //             else{
-                //                 ssCuttingItems[ssCItem.CuttingInDetailId]=item;
-                //             }
-                //         }
-                //     }
-                // }
-                console.log(this.isCreate)
+                let ssCuttingItems=[];
+                let ssCutting = await this.service.searchItem({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
+                console.log(ssCutting)
+                if(ssCutting.data.length>0){
+                    for(var ssC of ssCutting.data){
+                        for(var ssCItem of ssC.Details){
+                            var item={};
+                            item.cuttingInDetailId=ssCItem.CuttingInDetailId;
+                            item.qty=ssCItem.Quantity;
+                            if(ssCuttingItems[ssCItem.CuttingInDetailId]){
+                                ssCuttingItems[ssCItem.CuttingInDetailId].qty+=ssCItem.Quantity;
+                            }
+                            else{
+                                ssCuttingItems[ssCItem.CuttingInDetailId]=item;
+                            }
+                        }
+                    }
+                }
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
@@ -119,9 +118,10 @@ export class Item {
                                 for(var cuttingInDetail of cuttingInItem.Details){
                                     var qtyOut=0;
                                     var detail={};
-                                    // if(ssCuttingItems[cuttingInDetail.Id]){
-                                    //     qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
-                                    // }
+                                    if(ssCuttingItems[cuttingInDetail.Id]){
+                                        qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
+                                    }
+                                    console.log(qtyOut)
                                    // if(cuttingInDetail.CuttingInQuantity-qtyOut>0){
                                         // cuttingInDetail.CuttingInId = cuttingInHeader.Id;
                                         // cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
@@ -143,8 +143,8 @@ export class Item {
                                         }
                                         else{
                                             var idx= this.data.Details.indexOf(exist);
-                                            exist.Quantity+=cuttingInDetail.CuttingInQuantity;
-                                            exist.CuttingInQuantity+=cuttingInDetail.CuttingInQuantity;
+                                            exist.Quantity+=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                            exist.CuttingInQuantity+=cuttingInDetail.CuttingInQuantity-qtyOut;
                                             this.data.Details[idx]=exist;
                                         }
                                     }    

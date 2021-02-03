@@ -82,6 +82,31 @@ export class DataForm {
                     item.Unit = this.data.Unit;
                 }
             );
+            for(var item of this.data.Items){
+                var details=[];
+                for(var d of item.Details){
+                    var detail={};
+                    if(details.length==0){
+                        detail.Quantity=d.Quantity;
+                        detail.DesignColor=d.DesignColor;
+                        details.push(detail);
+                    }
+                    else{
+                        var exist= details.find(a=>a.DesignColor==d.DesignColor);
+                        if(!exist){
+                            detail.Quantity=d.Quantity;
+                            detail.DesignColor=d.DesignColor;
+                            details.push(detail);
+                        }
+                        else{
+                            var idx= details.indexOf(exist);
+                            exist.Quantity+=d.Quantity;
+                            details[idx]=exist;
+                        }
+                    }  
+                }
+                item.Details=details;
+            }
         }
     }
 

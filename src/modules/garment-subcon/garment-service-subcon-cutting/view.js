@@ -46,8 +46,8 @@ export class View {
                     }
                 })
     }
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data.Id });
+    // }
 
 }
