@@ -4,7 +4,8 @@
             <au-textbox value.bind="data.InvoiceNo" read-only="true"></au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.InvoiceDate" read-only="true"></au-textbox>
+            <require from="../../../../lib/date-format-value-converter.js"></require>
+            <au-textbox value.bind="data.InvoiceDate | dateFormat: 'DD-MMM-YYYY'" read-only="true"></au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.ProductName" read-only="true"></au-textbox>

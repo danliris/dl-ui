@@ -39,7 +39,7 @@ export class List {
             align: 'right'
         },
         {
-            field: "TotalDPP",
+            field: "TotalDpp",
             title: "Total DPP",
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
