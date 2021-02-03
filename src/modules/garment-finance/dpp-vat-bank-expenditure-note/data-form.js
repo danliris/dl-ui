@@ -52,6 +52,10 @@ export class DataForm {
                 columns: ['No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding', '']
             };
         }
+
+        this.bankAccount = this.data.Bank || null;
+        this.currency = this.data.Currency || null;
+        this.supplier = this.data.Supplier || null;
     }
 
     onCheckAll(event) {
@@ -86,7 +90,7 @@ export class DataForm {
         this.data.Currency = newValue;
 
         if (newValue) {
-            if (this.supplier) {
+            if (this.supplier && !this.readOnly) {
                 this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
                     .then((items) => {
                         return items.map((item) => {
@@ -110,7 +114,7 @@ export class DataForm {
         this.data.Supplier = newValue;
 
         if (newValue) {
-            if (this.currency) {
+            if (this.currency && !this.readOnly) {
                 this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
                     .then((items) => {
                         return items.map((item) => {
