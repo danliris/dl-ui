@@ -3,17 +3,19 @@ import moment from "moment";
 import numeral from "numeral";
 import { Service } from "./service";
 import XLSX from "xlsx";
-const PPHBankExpenditureNoteLoader = require("../../../loader/pph-bank-expenditure-note-loader");
+const PPHBankExpenditureNoteLoader = require("../../../loader/garment-finance-pph-invoice-out-loader");
 const PurchasingDocumentExpeditionLoader = require("../../../loader/purchasing-document-expedition-loader");
-const SupplierLoader = require("../../../loader/supplier-loader");
+const SupplierLoader = require("../../../loader/garment-finance-pph-supplier-loader");
 const DivisionLoader = require("../../../loader/division-loader");
+const InvoiceLoader = require("../../../loader/garment-finance-pph-invoice-loader");
+const InternNoteLoader = require("../../../loader/garment-finance-pph-intern-note-loader");
 
 @inject(Service)
 export class List {
   columns = [
     { field: "No", title: "No Bukti Pengeluaran Bank" },
     {
-      field: "Date",
+      field: "PaidDate",
       title: "Tgl Bayar PPH",
       formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -21,17 +23,17 @@ export class List {
     },
     { field: "Category", title: "Category" },
     {
-      field: "IncomeTax",
+      field: "PPH",
       title: "PPH",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
-    { field: "Currency", title: "Mata Uang" },
-    { field: "Bank", title: "Bank Bayar PPH" },
-    { field: "Supplier", title: "Supplier" },
-    { field: "SPB", title: "No. NI" },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "BankName", title: "Bank Bayar PPH" },
+    { field: "SupplierName", title: "Supplier" },
+    { field: "INNO", title: "No. NI" },
     { field: "InvoiceNo", title: "No Invoice" },
   ];
 
@@ -314,6 +316,13 @@ export class List {
     return PPHBankExpenditureNoteLoader;
   }
 
+  get internNoteLoader(){
+    return InternNoteLoader;
+  }
+
+  get invoiceLoader(){
+    return InvoiceLoader;
+  }
   get unitPaymentOrderLoader() {
     return (keyword, filter) => {
       return PPHBankExpenditureNoteLoader(keyword, filter).then((response) => {

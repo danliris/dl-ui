@@ -17,7 +17,8 @@ export class View {
         this.data.UnitPaymentOrders = this.data.PPHBankExpenditureNoteItems;
         this.bank = this.data.Bank;
         this.incomeTax = this.data.IncomeTax;
-
+        if(!this.incomeTax.rate)
+            this.incomeTax.rate = this.incomeTax.Rate;
         if (this.data.IsPosted) {
             this.editCallback = undefined;
             this.deleteCallback = undefined;
