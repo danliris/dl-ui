@@ -23,7 +23,7 @@ export class Index {
                 title: "Rincian: Pengajuan Pembayaran PPH"
             },
             {
-                route:"edit/:id",
+                route:"edit",
                 moduleId: "./edit",
                 name: "edit",
                 nav: false,
