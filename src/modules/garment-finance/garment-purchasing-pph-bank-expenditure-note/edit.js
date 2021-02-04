@@ -11,18 +11,35 @@ export class Edit {
     }
 
     async activate(params) {
+        // let id = params.id;
+        // this.data = await this.service.getById(id);
+        // this.data.UnitPaymentOrders = [];
+        // this.data.UnitPaymentOrders.push(...this.data.PPHBankExpenditureNoteItems);
+
+        // for (let item of this.data.UnitPaymentOrders) {
+        //     item.PPHId = item.Id;
+        //     item.Check = true;
+        // }
+
+        // this.bank = this.data.Bank;
+        // this.incomeTax = this.data.IncomeTax;
+
+        console.log(params);
         let id = params.id;
         this.data = await this.service.getById(id);
-        this.data.UnitPaymentOrders = [];
-        this.data.UnitPaymentOrders.push(...this.data.PPHBankExpenditureNoteItems);
-
-        for (let item of this.data.UnitPaymentOrders) {
+        this.data.UnitPaymentOrders = this.data.PPHBankExpenditureNoteItems;
+        this.bank = this.data.Bank;
+        this.incomeTax = this.data.IncomeTax;
+        if(!this.incomeTax.rate)
+            this.incomeTax.rate = this.incomeTax.Rate;
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
+                for (let item of this.data.UnitPaymentOrders) {
             item.PPHId = item.Id;
             item.Check = true;
         }
-
-        this.bank = this.data.Bank;
-        this.incomeTax = this.data.IncomeTax;
     }
 
     cancelCallback(event) {

@@ -57,17 +57,25 @@ export class DataForm {
         if (this.data.Id && !this.readOnly) {
             this.isEdit = true;
 
-            // let info = {
-            //     incomeTaxName: this.data.IncomeTax.name,
-            //     incomeTaxRate: this.data.IncomeTax.rate,
-            //     currency: this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code
-            // };
+            let info = {
+                // incomeTaxName: this.data.IncomeTax.name,
+                // incomeTaxRate: this.data.IncomeTax.rate,
+                // isPPHMenu : true,
+                // currency: this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code
+                incomeTaxName: this.data.IncomeTax.name,
+                incomeTaxRate: this.data.IncomeTax.rate,
+                incomeTaxId: this.data.IncomeTax.Id,
+                currencyCode: this.data.Bank.Currency.Code,
+                isPPHMenu :1
+            };
 
 
             this.servicePurchasing.getUnitPaymentOrders(info)
                 .then(response => {
-                    console.log(response);
-                    this.data.UnitPaymentOrders.push(...response.data);
+                    // console.log(response);
+                    // this.data.UnitPaymentOrders.push(...response.data);
+                    this.data.UnitPaymentOrders = response.data;
+                                        
                 });
         }
 
