@@ -24,7 +24,7 @@ export class Edit {
         // this.bank = this.data.Bank;
         // this.incomeTax = this.data.IncomeTax;
 
-        console.log(params);
+        // console.log(params);
         let id = params.id;
         this.data = await this.service.getById(id);
         this.data.UnitPaymentOrders = [];
