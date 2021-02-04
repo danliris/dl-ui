@@ -239,10 +239,72 @@ export class List {
   }
 
   excel() {
-    this.flag = true;
+    // this.flag = true;
 
     this.page = 0;
     this.excelData = [];
+
+    if (this.info.dateFrom == "Invalid Date") this.info.dateFrom = undefined;
+    if (this.info.dateTo == "Invalid Date") this.info.dateTo = undefined;
+
+    if (
+      (this.info.dateFrom && this.info.dateTo) ||
+      (!this.info.dateFrom && !this.info.dateTo)
+    ) {
+      this.error = {};
+
+      let arg = {
+        page: 1,
+        size: Number.MAX_SAFE_INTEGER,
+      };
+
+      if (this.info.bankExpenditureNote)
+        arg.expenditureId = this.info.bankExpenditureNote.Id;
+      if (this.info.unitPaymentOrder)
+        arg.internalNoteId = this.info.unitPaymentOrder.Id;
+      if (this.info.invoice) arg.invoiceId = this.info.invoice.Id;
+      if (this.info.supplier) arg.supplierId = this.info.supplier.Id;
+      if (
+        (this.info.dateFrom && this.info.dateFrom != "Invalid Date") ||
+        (this.info.dateTo && this.info.dateTo != "Invalid Date")
+      ) {
+        arg.startDate =
+          this.info.dateFrom && this.info.dateFrom != "Invalid Date"
+            ? this.info.dateFrom
+            : "";
+        arg.endDate =
+          this.info.dateTo && this.info.dateTo != "Invalid Date"
+            ? this.info.dateTo
+            : "";
+
+        if (!arg.dateFrom) {
+          arg.startDate = new Date(arg.startDate);
+          arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+        }
+
+        if (!arg.endDate) {
+          arg.endDate = new Date(arg.startDate);
+          arg.endDate.setMonth(arg.endDate.getMonth() + 1);
+        }
+
+        arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+        arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
+      } else {
+        arg.startDate = new Date();
+        arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+        arg.endDate = new Date();
+
+        arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+        arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
+      }
+
+      return this.service.generateXls(arg);
+    } else {
+      // console.log(this.info.dateFrom);
+      // console.log(this.info.dateTo);
+      if (!this.info.dateFrom) this.error.dateFrom = "Tanggal Awal harus diisi";
+      if (!this.info.dateTo) this.error.dateTo = "Tanggal Akhir harus diisi";
+    }
   }
 
   reset() {
