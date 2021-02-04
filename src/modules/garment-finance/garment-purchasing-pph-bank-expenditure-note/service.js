@@ -17,8 +17,10 @@ export class Service extends RestService
     }
 
     posting(args){
-        return Promise.resolve(this.dataDummy);
-    }
+        // return Promise.resolve(this.dataDummy);
+        let endpoint = `${serviceUri}/posting`;
+        return super.post(endpoint,args);
+      }
 
     getPdfById(args){
       let endpoint = `${serviceUri}/pdf/${args}`;
@@ -42,7 +44,7 @@ export class Service extends RestService
     }
 
     update(data) {
-        let endpoint = `${serviceUri}/${data.Id}`;
+        let endpoint = `${serviceUri}`;
         return super.put(endpoint, data);
     }
 

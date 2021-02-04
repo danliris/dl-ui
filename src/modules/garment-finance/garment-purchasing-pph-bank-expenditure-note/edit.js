@@ -27,7 +27,9 @@ export class Edit {
         console.log(params);
         let id = params.id;
         this.data = await this.service.getById(id);
-        this.data.UnitPaymentOrders = this.data.PPHBankExpenditureNoteItems;
+        this.data.UnitPaymentOrders = [];
+        // this.data.UnitPaymentOrders = this.data.PPHBankExpenditureNoteItems;
+        this.data.UnitPaymentOrders.push(...this.data.PPHBankExpenditureNoteItems);
         this.bank = this.data.Bank;
         this.incomeTax = this.data.IncomeTax;
         if(!this.incomeTax.rate)

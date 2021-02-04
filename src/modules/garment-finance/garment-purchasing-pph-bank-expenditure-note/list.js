@@ -16,7 +16,7 @@ export class List {
             sortable: false,
             formatter: function(value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
-                return ""
+                return "";
             }
         },
         { field: "No", title: "No Bukti Pengeluaran Bank" },
@@ -89,6 +89,8 @@ export class List {
     contextCallback(event) {
         let arg = event.detail;
         let data = arg.data;
+        console.log(event.detail);
+        console.log(data);
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
