@@ -9,7 +9,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    let endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}/report`;
     return super.list(endpoint, info);
   }
 }

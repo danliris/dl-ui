@@ -21,7 +21,7 @@ export class List {
   isPaidFilter = { IsPaid: true };
 
   columns = [
-    { field: "DocumentNo", title: "No Bukti Pengeluaran Bank" },
+    { field: "ExpenditureNoteNo", title: "No Bukti Pengeluaran Bank" },
     {
       field: "ExpenditureDate",
       title: "Tanggal Bayar DPP + PPN",
@@ -35,7 +35,7 @@ export class List {
       field: "DPP",
       title: "DPP",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -43,7 +43,7 @@ export class List {
       field: "VAT",
       title: "PPN",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -51,7 +51,7 @@ export class List {
       field: "Amount",
       title: "Total Bayar Ke Supplier",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -64,7 +64,7 @@ export class List {
       field: "InvoiceAmount",
       title: "Nilai Invoice",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -212,7 +212,7 @@ export class List {
         // }, 10);
 
         return {
-          total: result.info.total,
+          total: result.data.length,
           data: result.data,
         };
       })
