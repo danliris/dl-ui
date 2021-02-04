@@ -7,20 +7,29 @@ import numeral from 'numeral';
 @inject(Router, Service)
 export class List {
     context = ["Rincian"];
-    columns = [
-        { field: "DocumentNo", title: "No. Bukti Pengeluaran Bank" },
-        {
-            field: "Date",
-            title: "Tanggal",
-            formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
+    columns = [{
+        field: "IsPosted",
+        title: "IsPosted Checkbox",
+        checkbox: true,
+        sortable: false,
+        formatter: function (value, data, index) {
+            this.checkboxEnabled = !data.IsPosted;
+            return ""
+        }
+    },
+    { field: "DocumentNo", title: "No. Bukti Pengeluaran Bank" },
+    {
+        field: "Date",
+        title: "Tanggal",
+        formatter: function (value, data, index) {
+            return moment.utc(value).local().format('DD MMM YYYY');
         },
-        { field: "BankName", title: "Bank" },
-        { field: "TotalAmount", title: "Total DPP + PPN" },
-        { field: "CurrencyCode", title: "Mata Uang" },
-        { field: "SupplierName", title: "Supplier" },
-        { field: "DocumentNoInternalNotes", title: "Nota Intern" }
+    },
+    { field: "BankName", title: "Bank" },
+    { field: "TotalAmount", title: "Total DPP + PPN" },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "SupplierName", title: "Supplier" },
+    { field: "DocumentNoInternalNotes", title: "Nota Intern" }
     ];
 
     controlOptions = {
@@ -59,6 +68,7 @@ export class List {
         this.service = service;
         this.router = router;
         this.info = {};
+        this.selectedItems = [];
     }
 
     contextCallback(event) {
@@ -82,5 +92,22 @@ export class List {
     search() {
         this.error = {};
         this.tableList.refresh();
+    }
+
+    posting() {
+        var items = this.selectedItems.map(s => s.Id);
+        this.service.posting(items)
+            .then(result => {
+                alert("Data berhasil disimpan");
+                this.error = {};
+                this.tableList.refresh();
+                this.selectedItems = [];
+            })
+            .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                this.error = e;
+            });
     }
 }

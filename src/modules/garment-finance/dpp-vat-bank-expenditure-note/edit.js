@@ -10,6 +10,8 @@ export class Edit {
         this.service = service;
     }
 
+    isNotEditable = true;
+
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);

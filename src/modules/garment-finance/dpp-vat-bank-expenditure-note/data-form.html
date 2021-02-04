@@ -24,7 +24,7 @@
                          error.bind="error.Currency"
                          text="Code"
                          label="Mata Uang"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || isNotEditable"
                          options.bind="controlOptions"
                          placeholder="pilih mata uang">
         </au-autocomplete>
@@ -41,7 +41,7 @@
                          error.bind="error.Supplier"
                          text="Name"
                          label="Supplier"
-                         read-only.bind="readOnly"
+                         read-only.bind="readOnly || isNotEditable"
                          options.bind="controlOptions"
                          placeholder="pilih supplier">
         </au-autocomplete>
