@@ -13,9 +13,9 @@
     </au-autocomplete>
 
     <au-autocomplete
-      value.bind="unitPaymentOrder"
-      loader.one-time="unitPaymentOrderLoader"
-      text="UnitPaymentOrderNo"
+      value.bind="internNote"
+      loader.one-time="internNoteLoader"
+      text="Name"
       label="No. NI"
       options.bind="controlOptions"
       placeholder="Masukkan No. NI"
@@ -23,9 +23,9 @@
     </au-autocomplete>
 
     <au-autocomplete
-      value.bind="expedition"
-      loader.one-time="purchasingDocumentExpeditionLoader"
-      text="InvoiceNo"
+      value.bind="invoice"
+      loader.one-time="invoiceLoader"
+      text="Name"
       label="No. Invoice"
       options.bind="controlOptions"
       placeholder="Masukkan No. Invoice"
@@ -35,11 +35,21 @@
     <au-autocomplete
       value.bind="supplier"
       loader.one-time="supplierLoader"
+      text="Name"
+      label="Supplier"
+      options.bind="controlOptions"
+      placeholder="Masukkan Supplier"
+    >
+    </au-autocomplete>
+    <!-- <au-autocomplete
+      value.bind="supplier"
+      loader.one-time="supplierLoader"
       label="Supplier"
       options.bind="controlOptions"
       placeholder="Masukkan Nama Supplier"
       select.bind="selectSupplier"
-    >
+      
+    > -->
     </au-autocomplete>
 
     <au-datepicker
