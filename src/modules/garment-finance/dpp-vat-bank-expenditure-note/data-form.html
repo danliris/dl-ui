@@ -8,6 +8,7 @@
                          error.bind="error.Bank"
                          text.bind="bankView"
                          label="Bank"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih bank">
         </au-autocomplete>
@@ -23,6 +24,7 @@
                          error.bind="error.Currency"
                          text="Code"
                          label="Mata Uang"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih mata uang">
         </au-autocomplete>
@@ -39,6 +41,7 @@
                          error.bind="error.Supplier"
                          text="Name"
                          label="Supplier"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih supplier">
         </au-autocomplete>
@@ -73,7 +76,7 @@
                        item-template="modules/garment-finance/dpp-vata-bank-expenditure-note/templates/item-view">
         </au-collection> -->
 
-        <au-collection show.bind="supplier && currency && !readOnly"
+        <au-collection show.bind="supplier && currency"
                        view-model.ref="ItemsCollection"
                        items.bind="data.Items"
                        columns.bind="collection.columns"

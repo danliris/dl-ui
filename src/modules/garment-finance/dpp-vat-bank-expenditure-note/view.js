@@ -14,15 +14,6 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-
-        if (this.data.Status == "POSTED") {
-            this.hasPosting = false;
-            this.editCallback = false;
-            this.deleteCallback = false;
-        } else {
-            this.hasPosting = true;
-        }
-
     }
 
     list() {

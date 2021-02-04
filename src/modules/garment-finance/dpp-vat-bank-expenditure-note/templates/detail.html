@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td>
+        <td if.bind="!readOnly">
             <au-checkbox value.bind="data.SelectInvoice"
                          read-only.bind="readOnly">
             </au-checkbox>
