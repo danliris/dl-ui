@@ -5,7 +5,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 @inject(Router, Service)
 export class List {
-    context = [ "Cetak PDF","Rincian"];
+    context = ["Rincian", "Cetak PDF"];
 
     columns = 
     [
