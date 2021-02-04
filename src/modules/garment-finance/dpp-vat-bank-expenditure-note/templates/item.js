@@ -38,18 +38,18 @@ export class Item {
 
     //     console.log(context);
     // }
-    get total() {
+
+    get outstanding() {
         var result = 0;
 
         if (this.data.InternalNote.Items && this.data.InternalNote.Items.length > 0) {
             for (let item of this.data.InternalNote.Items) {
-                console.log(item);
                 if (item.SelectInvoice)
                     result += item.Invoice.Amount;
             }
         }
 
-        this.data.OutstandingAmount = result;
+        this.data.OutstandingAmount = this.data.InternalNote.TotalAmount - result;
 
         return result;
     }

@@ -38,6 +38,10 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        console.log(this);
+
+        this.isNotEditable = this.context.isNotEditable;
+
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -91,7 +95,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.supplier && !this.readOnly) {
-                this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;
@@ -103,6 +107,8 @@ export class DataForm {
                             return item;
                         })
                     });
+                if (newItems)
+                    this.data.Items = this.data.Items.concat(newItems);
             }
         } else {
             this.data.Items = [];
@@ -115,7 +121,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.currency && !this.readOnly) {
-                this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;
@@ -127,6 +133,9 @@ export class DataForm {
                             return item;
                         })
                     });
+
+                if (newItems)
+                    this.data.Items = this.data.Items.concat(newItems);
             }
         } else {
             this.data.Items = [];
