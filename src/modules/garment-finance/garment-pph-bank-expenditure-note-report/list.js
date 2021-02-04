@@ -124,14 +124,14 @@ export class List {
       arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
     }
 
-    if (Object.getOwnPropertyNames(arg).length === 4) {
-      arg.DateStart = new Date();
-      arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
-      arg.DateEnd = new Date();
+    // if (Object.getOwnPropertyNames(arg).length === 4) {
+    //   arg.DateStart = new Date();
+    //   arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
+    //   arg.DateEnd = new Date();
 
-      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
-      arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
-    }
+    //   arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+    //   arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
+    // }
 
     return this.flag
       ? this.service.search(arg).then((result) => {

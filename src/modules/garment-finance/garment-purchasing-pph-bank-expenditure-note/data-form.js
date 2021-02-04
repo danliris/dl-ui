@@ -73,8 +73,8 @@ export class DataForm {
             this.servicePurchasing.getUnitPaymentOrders(info)
                 .then(response => {
                     // console.log(response);
-                    // this.data.UnitPaymentOrders.push(...response.data);
-                    this.data.UnitPaymentOrders = response.data;
+                    this.data.UnitPaymentOrders.push(...response.data);
+                    // this.data.UnitPaymentOrders = response.data;
                                         
                 });
         }
@@ -87,8 +87,6 @@ export class DataForm {
         this.options = {
             calculateTotalPPHCallback: this.calculateTotalPPHCallback
         };
-
-        console.log(this);
     }
 
     dateFromChanged(newV, oldV) {
