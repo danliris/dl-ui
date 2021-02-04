@@ -13,6 +13,11 @@ export class Service extends RestService {
     let endpoint = `${serviceURI}/report`;
     return super.list(endpoint, info);
   }
+
+  searchGroup(info) {
+    let endpoint = `${serviceURI}/report-group`;
+    return super.list(endpoint, info);
+  }
   downloadXls(args){
     let endpoint = `${serviceURI}/report/xls`;
     return super.getPdf(endpoint,args);
