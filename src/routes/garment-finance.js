@@ -77,6 +77,19 @@ module.exports = [
       permission: { "B13": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     },
+  },    
+  {
+    route: "/garment-finance/garment-purchasing-pph-bank-expenditure-note",
+    name: "garment-purchasing-pph-bank-expenditure-note",
+    moduleId: "./modules/garment-finance/garment-purchasing-pph-bank-expenditure-note/index",
+    nav: true,
+    title: "Pengajuan Pembayaran PPH",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    },
   },
   {
     route: "/garment-finance/garment-pph-bank-expenditure-note-report",
@@ -91,30 +104,18 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
     },
-    {
-        route: '/garment-finance/garment-purchasing-expedition-report',
-        name: 'garment-purchasing-expedition-report',
-        moduleId: './modules/garment-finance/garment-purchasing-expedition-report/index',
-        nav: true,
-        title: 'Laporan Ekspedisi Pembelian Garment',
-        auth: true,
-        settings: {
-            group: "g-finance",
-            permission: { "B13": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: "/garment-finance/garment-purchasing-pph-bank-expenditure-note",
-        name: "garment-purchasing-pph-bank-expenditure-note",
-        moduleId: "./modules/garment-finance/garment-purchasing-pph-bank-expenditure-note/index",
-        nav: true,
-        title: "Pengajuan Pembayaran PPH",
-        auth: true,
-        settings: {
-          group: "g-finance",
-          permission: { "B13": 1, "C9": 1 },
-          iconClass: "fa fa-dashboard",
-        },
-      },
+    // {
+    //     route: '/garment-finance/garment-purchasing-expedition-report',
+    //     name: 'garment-purchasing-expedition-report',
+    //     moduleId: './modules/garment-finance/garment-purchasing-expedition-report/index',
+    //     nav: true,
+    //     title: 'Laporan Ekspedisi Pembelian Garment',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-finance",
+    //         permission: { "B13": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+
 ]
