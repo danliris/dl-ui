@@ -2,7 +2,6 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-const CuttingInLoader = require('../../../loader/garment-cutting-in-by-ro-loader');
 
 @inject(Service, SalesService, CoreService)
 export class DataForm {
@@ -13,9 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable data = {};
     // @bindable error = {};
-    @bindable selectedCuttingIn;
     @bindable itemOptions = {};
-    @bindable selectedCuttingIn;
     @bindable selectedUnit;
 
     constructor(service, salesService, coreService) {
@@ -42,9 +39,10 @@ export class DataForm {
 
     itemsInfo = {
         columns: [
-            "Kode Barang",
-            "Keterangan",
-            "Jumlah",
+            "RO",
+            "No Artikel",
+            "Komoditi",
+            ""
         ]
     }
 
@@ -81,9 +79,34 @@ export class DataForm {
         if (this.data && this.data.Items) {
             this.data.Items.forEach(
                 item => {
-                    item.IsSave = true;
+                    item.Unit = this.data.Unit;
                 }
             );
+            for(var item of this.data.Items){
+                var details=[];
+                for(var d of item.Details){
+                    var detail={};
+                    if(details.length==0){
+                        detail.Quantity=d.Quantity;
+                        detail.DesignColor=d.DesignColor;
+                        details.push(detail);
+                    }
+                    else{
+                        var exist= details.find(a=>a.DesignColor==d.DesignColor);
+                        if(!exist){
+                            detail.Quantity=d.Quantity;
+                            detail.DesignColor=d.DesignColor;
+                            details.push(detail);
+                        }
+                        else{
+                            var idx= details.indexOf(exist);
+                            exist.Quantity+=d.Quantity;
+                            details[idx]=exist;
+                        }
+                    }  
+                }
+                item.Details=details;
+            }
         }
     }
 
@@ -91,89 +114,22 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
-    comodityView = (comodity) => {
-        return `${comodity.Code} - ${comodity.Name}`
-    }
-
     get unitLoader() {
         return UnitLoader;
     }
 
-    get cuttingInLoader() {
-        return CuttingInLoader;
+    get addItems() {
+        return (event) => {
+            this.data.Items.push({
+                Unit:this.data.Unit
+            });
+        };
     }
 
-    async selectedCuttingInChanged(newValue, oldValue){
-        if(this.context.isCreate){
-            if(newValue) {
-                if(this.data.Items.length>0){
-                    this.data.Items.splice(0);
-                }
-                this.context.error.Items = [];
-                this.data.RONo = newValue.RONo;
-                this.data.Article = newValue.Article;
-                let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
-                if(noResult.data.length>0){
-                    this.data.Comodity = noResult.data[0].Comodity;
-                } else {
-                    const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
-                    const comodityCode = comodityCodeResult.data[0];
-                    if (comodityCode) {
-                        const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
-                        this.data.Comodity = comodityResult.data[0];
-                    }
-                }
-                let ssCuttingItems=[];
-                let ssCutting = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-                
-                if(ssCutting.data.length>0){
-                    for(var ssC of ssCutting.data){
-                        for(var ssCItem of ssC.Items){
-                            var item={};
-                            item.cuttingInDetailId=ssCItem.CuttingInDetailId;
-                            item.qty=ssCItem.Quantity;
-                            if(ssCuttingItems[ssCItem.CuttingInDetailId]){
-                                ssCuttingItems[ssCItem.CuttingInDetailId].qty+=ssCItem.Quantity;
-                            }
-                            else{
-                                ssCuttingItems[ssCItem.CuttingInDetailId]=item;
-                            }
-                        }
-                    }
-                }
-                
-                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
-                    .then(result => {
-                        for(var cuttingInHeader of result.data){
-                            for(var cuttingInItem of cuttingInHeader.Items){
-                                for(var cuttingInDetail of cuttingInItem.Details){
-                                    var qtyOut=0;
-                                    if(ssCuttingItems[cuttingInDetail.Id]){
-                                        qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
-                                    }
-                                    if(cuttingInDetail.CuttingInQuantity-qtyOut>0){
-                                        cuttingInDetail.CuttingInId = cuttingInHeader.Id;
-                                        cuttingInDetail.CuttingInDetailId = cuttingInDetail.Id;
-                                        cuttingInDetail.Product=cuttingInDetail.Product;
-                                        cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
-                                        cuttingInDetail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                        cuttingInDetail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
-                                        this.data.Items.push(cuttingInDetail);
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    });
-            }
-            else {
-                this.context.selectedCuttingInViewModel.editorValue = "";
-                this.data.RONo = null;
-                this.data.Article = null;
-                this.data.Comodity = null;
-                this.data.Items.splice(0);
-            }
-        }
+    get removeItems() {
+        return (event) => {
+            this.error = null;
+        };
     }
 
     selectedUnitChanged(newValue){
@@ -197,8 +153,10 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
-                if(item.IsSave){
-                    qty += item.Quantity;
+                if(item.Details){
+                    for(var detail of item.Details){
+                        qty += detail.Quantity;
+                    }
                 }
             }
         }

@@ -8,6 +8,7 @@
                          error.bind="error.Bank"
                          text.bind="bankView"
                          label="Bank"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih bank">
         </au-autocomplete>
@@ -23,6 +24,7 @@
                          error.bind="error.Currency"
                          text="Code"
                          label="Mata Uang"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih mata uang">
         </au-autocomplete>
@@ -39,12 +41,14 @@
                          error.bind="error.Supplier"
                          text="Name"
                          label="Supplier"
+                         read-only.bind="readOnly"
                          options.bind="controlOptions"
                          placeholder="pilih supplier">
         </au-autocomplete>
 
         <au-textbox value.bind="data.BGCheckNo"
                     read-only.bind="readOnly"
+                    error.bind="error.BGCheckNo"
                     label="No. BG/Check"
                     options.bind="controlOptions">
         </au-textbox>
@@ -52,6 +56,7 @@
         <au-numeric value.bind="data.Amount"
                     read-only.bind="readOnly"
                     label="Pembayaran Keluar"
+                    error.bind="error.Amount"
                     options.bind="controlOptions"
                     format="0.00">
         </au-numeric>
@@ -71,10 +76,11 @@
                        item-template="modules/garment-finance/dpp-vata-bank-expenditure-note/templates/item-view">
         </au-collection> -->
 
-        <au-collection show.bind="supplier && currency && !readOnly"
+        <au-collection show.bind="supplier && currency"
                        view-model.ref="ItemsCollection"
                        items.bind="data.Items"
                        columns.bind="collection.columns"
+                       read-only.bind="readOnly"
                        checkall.delegate="onCheckAll($event)"
                        item-template="modules/garment-finance/dpp-vat-bank-expenditure-note/templates/item"
                        options.bind="collectionOptions">

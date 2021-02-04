@@ -1,0 +1,24 @@
+<template >
+    <tr>
+        <!-- <td>
+            <au-textbox
+                value.bind="data.Product.Code"
+                read-only.bind="true">
+            </au-textbox>
+        </td> -->
+        <td>
+            <au-multiline
+                value.bind="data.DesignColor"
+                read-only.bind="true">
+            </au-multiline>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.Quantity"
+                error.bind = "error.Quantity"
+                read-only.bind="readOnly|| isEdit"
+                format="0">
+            </au-numeric>                    
+        </td>
+    </tr>
+</template>

@@ -52,6 +52,10 @@ export class DataForm {
                 columns: ['No NI', 'Tanggal NI', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Outstanding', '']
             };
         }
+
+        this.bankAccount = this.data.Bank || null;
+        this.currency = this.data.Currency || null;
+        this.supplier = this.data.Supplier || null;
     }
 
     onCheckAll(event) {
@@ -73,7 +77,7 @@ export class DataForm {
     }
 
     bankView = (bank) => {
-        return bank.BankName + " - " + bank.AccountNumber
+        return bank.BankName + " " + bank.Currency.Code + " - " + bank.AccountNumber
     }
 
     @bindable bankAccount;
@@ -86,7 +90,20 @@ export class DataForm {
         this.data.Currency = newValue;
 
         if (newValue) {
+            if (this.supplier && !this.readOnly) {
+                this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                    .then((items) => {
+                        return items.map((item) => {
+                            item.Id = 0;
+                            item.InternalNote.Items = item.InternalNote.Items.map((internalNoteItem) => {
+                                internalNoteItem.Id = 0;
+                                return internalNoteItem;
+                            })
 
+                            return item;
+                        })
+                    });
+            }
         } else {
             this.data.Items = [];
         }
@@ -97,9 +114,19 @@ export class DataForm {
         this.data.Supplier = newValue;
 
         if (newValue) {
-            if (this.currency) {
-                var expenditureNotes = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id });
-                console.log(expenditureNotes);
+            if (this.currency && !this.readOnly) {
+                this.data.Items = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                    .then((items) => {
+                        return items.map((item) => {
+                            item.Id = 0;
+                            item.InternalNote.Items = item.InternalNote.Items.map((internalNoteItem) => {
+                                internalNoteItem.Id = 0;
+                                return internalNoteItem;
+                            })
+
+                            return item;
+                        })
+                    });
             }
         } else {
             this.data.Items = [];
