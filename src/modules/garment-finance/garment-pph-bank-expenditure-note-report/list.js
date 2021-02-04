@@ -13,7 +13,7 @@ const InternNoteLoader = require("../../../loader/garment-finance-pph-intern-not
 @inject(Service)
 export class List {
   columns = [
-    { field: "No", title: "No Bukti Pengeluaran Bank" },
+    { field: "InvoiceOutNo", title: "No Bukti Pengeluaran Bank" },
     {
       field: "PaidDate",
       title: "Tgl Bayar PPH",
@@ -90,23 +90,19 @@ export class List {
     };
 
     if (this.pphBankExpenditureNote) {
-      arg.no = this.pphBankExpenditureNote.No;
+      arg.InvoiceOutNo = this.pphBankExpenditureNote.Name;
     }
 
-    if (this.unitPaymentOrder) {
-      arg.unitPaymentOrderNo = this.unitPaymentOrder.UnitPaymentOrderNo;
+    if (this.internNote) {
+      arg.INNo = this.internNote.Name;
     }
 
-    if (this.expedition) {
-      arg.invoiceNo = this.expedition.InvoiceNo;
+    if (this.invoice) {
+      arg.InvoiceNo = this.invoice.Name;
     }
 
     if (this.supplier) {
-      arg.supplierCode = this.supplier.code;
-    }
-
-    if (this.division) {
-      arg.divisionCode = this.division.code;
+      arg.SupplierName = this.supplier.Name;
     }
 
     /*
@@ -121,20 +117,20 @@ export class List {
       this.dateTo &&
       this.dateTo != "Invalid Date"
     ) {
-      arg.dateFrom = this.dateFrom;
-      arg.dateTo = this.dateTo;
+      arg.DateStart = this.dateFrom;
+      arg.DateEnd = this.dateTo;
 
-      arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-      arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
     }
 
     if (Object.getOwnPropertyNames(arg).length === 4) {
-      arg.dateFrom = new Date();
-      arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
-      arg.dateTo = new Date();
+      arg.DateStart = new Date();
+      arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
+      arg.DateEnd = new Date();
 
-      arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-      arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
     }
 
     return this.flag
@@ -287,7 +283,81 @@ export class List {
 
     this.page = 0;
     this.excelData = [];
-    this.getExcelData();
+    // this.getExcelData();
+
+    if (this.dateFrom == "Invalid Date") this.dateFrom = undefined;
+    if (this.dateTo == "Invalid Date") this.dateTo = undefined;
+
+    if ((this.dateFrom && this.dateTo) || (!this.dateFrom && !this.dateTo)) {
+      this.error = {};
+      this.flag = true;
+      // this.tableList.refresh();
+    } else {
+      if (!this.dateFrom) this.error.dateFrom = "Tanggal Awal harus diisi";
+      else if (!this.dateTo) this.error.dateTo = "Tanggal Akhir harus diisi";
+    }
+
+
+    let arg = {
+      page: 1,
+      size: 10,
+      select: [
+        "no",
+        "date",
+        "dueDate",
+        "invoceNo",
+        "supplier.name",
+        "division.name",
+        "position",
+      ],
+    };
+
+    if (this.pphBankExpenditureNote) {
+      arg.InvoiceOutNo = this.pphBankExpenditureNote.Name;
+    }
+
+    if (this.internNote) {
+      arg.INNo = this.internNote.Name;
+    }
+
+    if (this.invoice) {
+      arg.InvoiceNo = this.invoice.Name;
+    }
+
+    if (this.supplier) {
+      arg.SupplierName = this.supplier.Name;
+    }
+
+    /*
+        if (this.paymentMethod != '') {
+            arg.paymentMethod = this.paymentMethod;
+        }
+        */
+
+    if (
+      this.dateFrom &&
+      this.dateFrom != "Invalid Date" &&
+      this.dateTo &&
+      this.dateTo != "Invalid Date"
+    ) {
+      arg.DateStart = this.dateFrom;
+      arg.DateEnd = this.dateTo;
+
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
+    }
+
+    if (Object.getOwnPropertyNames(arg).length === 4) {
+      arg.DateStart = new Date();
+      arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
+      arg.DateEnd = new Date();
+
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
+    }
+
+    this.service.downloadXls(arg);
+
   }
 
   reset() {
