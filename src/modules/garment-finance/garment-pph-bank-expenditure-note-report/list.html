@@ -116,7 +116,8 @@
             css="background-color: ${item.status === 'NonActive' ? 'lightgray': ''}"
           >
             <td rowspan="${item.InvoiceItems.length}">${item.InvoiceOutNo}</td>
-            <td rowspan="${item.InvoiceItems.length}">${item.PaidDate}</td>
+            
+            <td rowspan="${item.InvoiceItems.length}">${item.PaidDateView}</td>
             <td rowspan="${item.InvoiceItems.length}">${item.Category}</td>
             <td rowspan="${item.InvoiceItems.length}">${item.PPH}</td>
             <td rowspan="${item.InvoiceItems.length}">${item.CurrencyCode}</td>
