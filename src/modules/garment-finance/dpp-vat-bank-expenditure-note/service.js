@@ -21,7 +21,7 @@ export class Service extends RestService {
     }
 
     getPdfById(id) {
-        let endpoint = `${serviceUri}/${id}`;
+        let endpoint = `${serviceUri}/download/pdf/${id}`;
         return super.getPdf(endpoint);
     }
 

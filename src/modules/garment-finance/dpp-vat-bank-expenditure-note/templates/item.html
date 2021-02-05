@@ -2,7 +2,8 @@
     <tr>
         <td if.bind="!readOnly">
             <au-checkbox value.bind="data.Select"
-                         read-only.bind="readOnly">
+                         read-only.bind="readOnly"
+                         change.delegate="onCheckInternalNotes($event)">
             </au-checkbox>
         </td>
         <td>
@@ -69,7 +70,6 @@
             <au-collection items.bind="data.InternalNote.Items"
                            read-only.bind="readOnly"
                            columns.bind="collection.columns"
-                           checkall.delegate="onCheckAllInvoices($event)"
                            item-template="modules/garment-finance/dpp-vat-bank-expenditure-note/templates/detail">
             </au-collection>
         </td>
