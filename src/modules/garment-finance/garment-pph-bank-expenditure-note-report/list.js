@@ -231,11 +231,16 @@ export class List {
     }
 
     return this.service.searchGroup(arg).then((result) => {
-          this.data = result.data
+        
+          var formatData = result.data.map((item) => {
+            item.PaidDateView = moment(item.PaidDate).format("DD-MMM-YYYY");
+            return item;
+          })
+          this.data = formatData
 
           return {
             total: result.info.total,
-            data: result.data,
+            data: formatData,
           };
         })
   };
