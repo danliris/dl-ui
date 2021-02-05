@@ -7,7 +7,7 @@ export class Item {
 
         if (!this.readOnly) {
             this.collection = {
-                columns: ['__check', 'No. Invoice', 'Tanggal Invoice', 'Nama Barang', 'Kategori', 'Total']
+                columns: ['', 'No. Invoice', 'Tanggal Invoice', 'Nama Barang', 'Kategori', 'Total']
             };
         } else {
             this.collection = {
@@ -16,9 +16,9 @@ export class Item {
         }
     }
 
-    onCheckAllInvoices(event) {
+    onCheckInternalNotes(e) {
         for (var item of this.data.InternalNote.Items) {
-            item.SelectInvoice = event.detail.target.checked;
+            item.SelectInvoice = e.target.checked;
         }
     }
 
