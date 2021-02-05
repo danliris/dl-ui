@@ -48,6 +48,12 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getDeliveryOrderInputv2ById(deliveryOrderSalesId) {
+        var endpoint = `${serviceUri}/output-production-orders?deliveryOrderSalesId=${deliveryOrderSalesId}`;
+
+        return super.get(endpoint);
+    }
+
     generateExcel(info) {
         var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
