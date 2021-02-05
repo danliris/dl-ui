@@ -5,6 +5,7 @@
                          read-only.bind="readOnly"
                          change.delegate="onCheckInternalNotes($event)">
             </au-checkbox>
+            <div show.bind="false">${checkedInvoices}</div>
         </td>
         <td>
             <au-textbox value.bind="data.InternalNote.DocumentNo"

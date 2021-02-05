@@ -22,6 +22,17 @@ export class Item {
         }
     }
 
+    get checkedInvoices() {
+        if (this.data.InternalNote.Items) {
+            for (var item of this.data.InternalNote.Items) {
+                if (item.SelectInvoice)
+                    this.data.Select = item.SelectInvoice
+            }
+        }
+
+        return 0;
+    }
+
     // activate(context) {
     //     this.data = context.data
     //     this.isShowing = false;
