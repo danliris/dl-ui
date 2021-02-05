@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 let PreShippingAreaLoader = require("../../../loader/pre-input-shipping-loader");
+let FilterDOLoader = require("../../../loader/pre-input-shipping-do-loader");
 
 @inject(Service)
 export class DataForm {
@@ -95,7 +96,7 @@ export class DataForm {
         }
 
         if (this.data.shippingProductionOrders) {
-            this.shippingProductionOrders = this.data.shippingProductionOrders;
+            this.data.displayShippingProductionOrders = this.data.shippingProductionOrders;
         }
 
         if (this.data.shippingType) {
@@ -113,6 +114,44 @@ export class DataForm {
         this.data.shippingProductionOrders = this.data.shippingProductionOrders || [];
         this.data.shippingProductionOrders.push({})
     };
+
+
+    get filterDOLoader() {
+        return FilterDOLoader;
+      }
+
+      doTextFormatter = (doNo) => {
+        return `${doNo.deliveryOrder.no}`
+      }
+
+
+      @bindable selectedFilterDO;
+      async selectedFilterDOChanged(n, o) {
+        // if (this.selectedFilterSPP) {
+            console.log(n);
+       
+            if (this.selectedFilterDO) {
+
+                this.data.displayShippingProductionOrders = await this.service.getDeliveryOrderInputv2ById(this.selectedFilterDO.deliveryOrder.id);
+                if (this.ItemsCollection) {
+                    this.ItemsCollection.bind();
+                }
+            } else {
+    
+                this.data.displayShippingProductionOrders = await this.service.getProductionOrderOutput();
+                if (this.ItemsCollection) {
+                    this.ItemsCollection.bind();
+                }
+            }
+
+           
+
+
+        //   this.shippingProductionOrders = await this.service.getDeliveryOrderInputv2ById(this.selectedFilterDO.deliveryOrder.id);
+        //   console.log(this.shippingProductionOrders);
+     
+    
+      }
 
     // @bindable selectedPreShipping;
     // selectedPreShippingChanged(n, o) {

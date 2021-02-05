@@ -16,7 +16,7 @@ export class Create {
 
     async activate(params) {
         this.data = {};
-        this.shippingProductionOrders = await this.service.getProductionOrderOutput();
+        this.data.displayShippingProductionOrders = await this.service.getProductionOrderOutput();
 
     }
 
@@ -37,7 +37,7 @@ export class Create {
 
     save() {
         if (this.data.shippingType == "ZONA GUDANG") {
-            this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+            this.data.shippingProductionOrders = this.data.displayShippingProductionOrders.filter(s => s.IsSave === true);
         }
 
         this.service.create(this.data)
@@ -56,7 +56,7 @@ export class Create {
 
     reject() {
         if (this.data.shippingType == "ZONA GUDANG") {
-            this.data.shippingProductionOrders = this.shippingProductionOrders.filter(s => s.IsSave === true);
+            this.data.shippingProductionOrders = this.data.displayShippingProductionOrders.filter(s => s.IsSave === true);
         }
 
         this.service.reject(this.data)
