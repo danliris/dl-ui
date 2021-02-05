@@ -1,33 +1,31 @@
 <template>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-    <au-textbox if.bind="data.ServiceSubconSewingNo" value.bind="data.ServiceSubconSewingNo" label="No Subcon Jasa Sewing" read-only="true"
+    <au-textbox 
+      if.bind="data.ServiceSubconSewingNo" 
+      value.bind="data.ServiceSubconSewingNo" 
+      label="No Subcon Jasa Sewing" 
+      read-only="true"
       options.bind="controlOptions">
     </au-textbox>
 
-    <au-autocomplete value.bind="selectedUnit" error.bind="error.Unit" label="Unit Subcon Jasa Sewing" loader.bind="unitLoader"
-      text.bind="unitView" placeholder="Unit" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
-    </au-autocomplete>
-
-    <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" label="RO" loader.bind="roLoader"
-      text.bind="ROView" show.bind="selectedUnit" placeholder="Nomor RO" read-only.bind="readOnly || isEdit"
-      options.bind="controlOptions" view-model.ref="selectedROViewModel">
-    </au-autocomplete>
-
-    <au-textbox value.bind="data.Article" error.bind="error.Article" label="No Artikel" read-only="true"
-      if.bind="data.Article" options.bind="controlOptions">
-    </au-textbox>
-
-    <au-textbox value.bind="data.BuyerView" label="Buyer" read-only="true" if.bind="data.Buyer"
+    <au-autocomplete 
+      value.bind="selectedUnit" 
+      error.bind="error.Unit" 
+      label="Unit Subcon Jasa Sewing" 
+      loader.bind="unitLoader"
+      text.bind="unitView" 
+      placeholder="Unit" 
+      read-only.bind="readOnly || isEdit" 
       options.bind="controlOptions">
-    </au-textbox>
-
-    <au-autocomplete value.bind="data.Comodity" error.bind="error.Comodity" label="Komoditi" text.bind="comodityView"
-      read-only.bind="true" if.bind="data.Comodity" options.bind="controlOptions">
     </au-autocomplete>
 
-    <au-datepicker label="Tanggal Subcon Jasa Sewing" value.bind="data.ServiceSubconSewingDate" error.bind="error.ServiceSubconSewingDate"
-      read-only.bind="readOnly" options.bind="controlOptions">
+    <au-datepicker 
+      label="Tanggal Subcon Jasa Sewing" 
+      value.bind="data.ServiceSubconSewingDate" 
+      error.bind="error.ServiceSubconSewingDate"
+      read-only.bind="readOnly" 
+      options.bind="controlOptions">
     </au-datepicker>
 
     <div class="form-group has-error">
@@ -35,17 +33,16 @@
       <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
     </div>
 
-    <au-collection items.bind="data.Items" errors.bind="error.Items"
-      columns.bind="readOnly ? itemsInfoView.columns : itemsInfo.columns" read-only.bind="readOnly"
-      if.bind="data.Items && !data.IsDifferentSize" options.bind="itemOptions"
-      header-template="modules/garment-subcon/garment-service-subcon-sewing/template/item-header"
+    <au-collection 
+      items.bind="data.Items" 
+      errors.bind="error.Items"
+      columns.bind="itemsInfo.columns" 
+      read-only.bind="readOnly || !isCreate"
+      show.bind="data.Unit" 
+      remove.bind="removeItems"
+      add.bind="addItems"
+      options.bind="itemOptions"
       item-template="modules/garment-subcon/garment-service-subcon-sewing/template/item">
-    </au-collection>
-
-    <au-collection items.bind="data.Items" errors.bind="error.Items"
-      columns.bind="readOnly ? itemsInfoView.columns : itemsInfo.columns" read-only.bind="readOnly"
-      if.bind="data.Items && data.IsDifferentSize" options.bind="itemOptions"
-      header-template="modules/garment-subcon/garment-service-subcon-sewing/template/item-header">
     </au-collection>
 
     <p if.bind="data.Items"><b>Jumlah Total Subcon Sewing : ${totalQuantity} PCS</b></p>

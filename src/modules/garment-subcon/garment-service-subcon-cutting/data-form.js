@@ -46,23 +46,23 @@ export class DataForm {
         ]
     }
 
-    @computedFrom("data.Unit")
-    get cuttingInFilter() {
-        this.selectedCuttingIn = null;
-        if (this.data.Unit) {
-            return {
-                UnitId: this.data.Unit.Id,
-                CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
-            };
-        } else {
-            return {
-                UnitId: 0,
-                CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
-            };
-        }
-    }
+    // @computedFrom("data.Unit")
+    // get cuttingInFilter() {
+    //     this.selectedCuttingIn = null;
+    //     if (this.data.Unit) {
+    //         return {
+    //             UnitId: this.data.Unit.Id,
+    //             CuttingFrom:"PREPARING",
+    //             CuttingType:"MAIN FABRIC"
+    //         };
+    //     } else {
+    //         return {
+    //             UnitId: 0,
+    //             CuttingFrom:"PREPARING",
+    //             CuttingType:"MAIN FABRIC"
+    //         };
+    //     }
+    // }
 
     bind(context) {
         this.context = context;
@@ -138,14 +138,8 @@ export class DataForm {
         }
         else{
             this.data.Unit=null;
-            this.data.RONo = null;
-            this.data.Article = null;
-            this.data.Comodity = null;
             this.data.Items.splice(0);
         }
-        this.data.RONo = null;
-        this.data.Article = null;
-        this.data.Comodity = null;
         this.data.Items.splice(0);
     }
 

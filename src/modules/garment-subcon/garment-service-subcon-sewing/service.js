@@ -17,6 +17,11 @@ class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  searchItem(info) {
+    var endpoint = `${serviceUri}/item`;
+    return super.list(endpoint, info);
+  }
+
   getComodityPrice(info) {
     var endpoint = `${comodityPriceserviceUri}`;
     return super.list(endpoint, info);
