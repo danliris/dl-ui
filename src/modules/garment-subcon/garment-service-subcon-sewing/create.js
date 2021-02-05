@@ -29,39 +29,51 @@ export class Create {
   }
 
   saveCallback(event) {
-    this.data.SewingInDate=null;
-    if (this.data && this.data.IsDifferentSize) {
-      if (this.data.Items) {
-        for (var item of this.data.Items) {
-          if (item.Quantity > 0) {
-            item.IsSave = true;
+    // this.data.SewingInDate=null;
+    // if (this.data && this.data.IsDifferentSize) {
+    //   if (this.data.Items) {
+    //     for (var item of this.data.Items) {
+    //       if (item.Quantity > 0) {
+    //         item.IsSave = true;
+    //       }
+    //       else {
+    //         item.IsSave = false;
+    //       }
+    //       if (item.IsSave) {
+    //         item.TotalQuantity = 0;
+    //         if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
+    //           this.data.SewingInDate = item.SewingInDate;
+    //       }
+    //     }
+    //   }
+    // }
+    // if (this.data && !this.data.IsDifferentSize) {
+    //   if (this.data.Items) {
+    //     for (var item of this.data.Items) {
+    //       if (item.Quantity > 0) {
+    //         item.IsSave = true;
+    //       }
+    //       else {
+    //         item.IsSave = false;
+    //       }
+    //       if (item.IsSave) {
+    //         if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
+    //           this.data.SewingInDate = item.SewingInDate;
+    //         item.RemainingQuantity = item.Quantity;
+    //       }
+    //     }
+    //   }
+    // }
+    if(this.data.Items){
+      for(var item of this.data.Items){
+          for(var detail of item.Details){
+              if(detail.Quantity>0){
+                  detail.IsSave=true;
+              }
+              else{
+                  detail.IsSave=false;
+              }
           }
-          else {
-            item.IsSave = false;
-          }
-          if (item.IsSave) {
-            item.TotalQuantity = 0;
-            if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
-              this.data.SewingInDate = item.SewingInDate;
-          }
-        }
-      }
-    }
-    if (this.data && !this.data.IsDifferentSize) {
-      if (this.data.Items) {
-        for (var item of this.data.Items) {
-          if (item.Quantity > 0) {
-            item.IsSave = true;
-          }
-          else {
-            item.IsSave = false;
-          }
-          if (item.IsSave) {
-            if (this.data.SewingInDate == null || this.data.SewingInDate < item.SewingInDate)
-              this.data.SewingInDate = item.SewingInDate;
-            item.RemainingQuantity = item.Quantity;
-          }
-        }
       }
     }
     this.service.create(this.data)
