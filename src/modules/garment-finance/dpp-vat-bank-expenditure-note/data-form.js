@@ -65,6 +65,9 @@ export class DataForm {
     onCheckAll(event) {
         for (var item of this.data.Items) {
             item.Select = event.detail.target.checked;
+            for (var itemInvoice of item.InternalNote.Items) {
+                itemInvoice.SelectInvoice = event.detail.target.checked;
+            }
         }
     }
 
@@ -107,8 +110,25 @@ export class DataForm {
                             return item;
                         })
                     });
-                if (newItems)
-                    this.data.Items = this.data.Items.concat(newItems);
+
+                if (newItems) {
+                    this.data.Items = this.data.Items.map((item) => {
+                        var newItem = newItems.find((element => element.InternalNote.Id == item.InternalNote.Id));
+
+                        if (newItem) {
+                            item.InternalNote.Items = item.InternalNote.Items.concat(newItem.InternalNote.Items)
+                        }
+
+                        return item;
+                    })
+
+                    let items = newItems.filter((element) => {
+                        let exist = this.data.Items.find((item) => item.InternalNote.Id == element.InternalNote.Id);
+
+                        return !exist
+                    });
+                    this.data.Items = this.data.Items.concat(items);
+                }
             }
         } else {
             this.data.Items = [];
@@ -134,8 +154,25 @@ export class DataForm {
                         })
                     });
 
-                if (newItems)
-                    this.data.Items = this.data.Items.concat(newItems);
+                if (newItems) {
+                    this.data.Items = this.data.Items.map((item) => {
+                        var newItem = newItems.find((element => element.InternalNote.Id == item.InternalNote.Id));
+
+                        if (newItem) {
+                            item.InternalNote.Items = item.InternalNote.Items.concat(newItem.InternalNote.Items)
+                        }
+
+                        return item;
+                    })
+
+                    let items = newItems.filter((element) => {
+                        let exist = this.data.Items.find((item) => item.InternalNote.Id == element.InternalNote.Id);
+
+                        return !exist
+                    });
+                    this.data.Items = this.data.Items.concat(items);
+                }
+
             }
         } else {
             this.data.Items = [];

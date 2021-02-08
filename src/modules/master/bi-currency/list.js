@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -9,14 +9,11 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["detail"];
   columns = [
-    {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY")
-      }
-    },
-    { field: "Code", title: "Mata Uang" },
+    { field: "Currency.Code", title: "Mata Uang" },
+    { field: "Year", title: "Tahun" },
+    { field: "Month", title: "Bulan" },
     { field: "Rate", title: "Kurs" },
-    
+
   ]
 
   loader = (info) => {
