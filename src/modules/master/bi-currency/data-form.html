@@ -5,18 +5,29 @@
                      with.bind="context"
                      options.bind="formOptions">
 
+        <au-autocomplete label="Mata Uang"
+                         value.bind="data.Currency"
+                         text="Code"
+                         error.bind="error.Code"
+                         read-only.bind="(readOnly || isEdit)">
+        </au-autocomplete>
 
-        <au-datepicker label="Tanggal"
-                       value.bind="data.Date"
-                       error.bind="error.Date"
-                       read-only.bind="(readOnly)">
-        </au-datepicker>
+        <au-dropdown label="Tahun"
+                     items.bind="yearOptions"
+                     value.bind="data.Year"
+                     error.bind="error.Year"
+                     options.bind="controlOptions"
+                     read-only.bind="(readOnly || isEdit)">
+        </au-dropdown>
 
-        <au-textbox label="Mata Uang"
-                    value.bind="data.Code"
-                    error.bind="error.Code"
-                    read-only.bind="(readOnly || isEdit)">
-        </au-textbox>
+        <au-dropdown label="Bulan"
+                     items.bind="monthOptions"
+                     value.bind="selectedMonth"
+                     text="label"
+                     error.bind="error.Month"
+                     options.bind="controlOptions"
+                     read-only.bind="(readOnly || isEdit)">
+        </au-dropdown>
 
         <au-numeric label="Kurs"
                     value.bind="data.Rate"
