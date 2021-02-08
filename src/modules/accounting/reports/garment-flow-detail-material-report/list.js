@@ -10,7 +10,7 @@ export class List {
     @bindable KtgrItem;
     // @bindable categoryselect
     @bindable unitselect
-    KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE', 'INTERLINING'];
+    KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE'];
     unitOption = ['','CENTRAL 2A', 'CENTRAL 2B','CENTRAL 2C/EX. K4','CENTRAL 1A/EX. K3','CENTRAL 1B'];
 
     KtgrItemChanged(newvalue){
@@ -29,12 +29,13 @@ export class List {
                 this.category = "BE"; 
                 this.categoryname = "BAHAN EMBALACE";
                 this.productcode = "";
-            }else if(newvalue === "INTERLINING"){
-
-                this.category = "BP";
-                this.productcode = "INT";
-                this.categoryname = "PROSES";
             }
+            // else if(newvalue === "INTERLINING"){
+
+            //     this.category = "BP";
+            //     this.productcode = "INT";
+            //     this.categoryname = "PROSES";
+            // }
         }
     }
     unitselectChanged(newvalue){

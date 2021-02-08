@@ -670,7 +670,7 @@ module.exports = [
         name: 'flow-penerimaan',
         moduleId: './modules/accounting/reports/flow-penerimaan/index',
         nav: true,
-        title: 'Laporan Flow Detail Penerimaan',
+        title: 'Laporan Rekap Bon Terima Unit (BUM)',
         auth: true,
         settings: {
             group: "g-purchasing",
@@ -813,7 +813,7 @@ module.exports = [
         name: 'garment-flow-detail-material-report',
         moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
         nav: true,
-        title: 'Laporan Detail Flow Pengeluaran',
+        title: 'Laporan Rekap Bon Keluar Unit (BUK)',
         auth: true,
         settings: {
             group: "g-purchasing",

@@ -141,5 +141,19 @@ module.exports = [
       permission: { "B1": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
-  }
+  },
+  {
+        route: 'garment-flow-detail-material/reports',
+        name: 'garment-flow-detail-material-report',
+        moduleId: './modules/accounting/reports/garment-flow-detail-material-report/index',
+        nav: true,
+        title: 'Laporan Rekap Bon Keluar Unit (BUK)',
+        auth: true,
+        settings: {
+            group: "accounting",
+            subGroup: "report",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
