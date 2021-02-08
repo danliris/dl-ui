@@ -34,13 +34,13 @@
         
         <au-dropdown
             label="Tipe Bea Cukai"
-            value.bind="data.customType"
+            value.bind="selectedCustomType"
             error.bind="error.customType"
             read-only.bind="readOnlyBCDL "
             items.bind="typeCustoms"
             options.bind="controlOptions">
         </au-dropdown>
-<!-- 
+<!--    
         <au-textbox 
             label="Asal Bea Cukai" 
             value.bind="data.customsOrigin"
@@ -151,6 +151,17 @@
             options.bind="controlOptions">
         </au-numeric>-->
         
+        <au-dropdown
+            label="Keterangan Nilai Import"
+            value.bind="data.importValue"
+            error.bind="error.importValue"
+            read-only.bind="readOnlyBCDL "
+            items.bind="importValueBC23"
+            options.bind="controlOptions"
+            show.bind="data.IsBC23"    
+        >
+        </au-dropdown>
+
         <au-layout error.bind="item"></au-layout>
         <au-collection 
             title="Surat Jalan"
