@@ -57,11 +57,11 @@ export class DataForm {
     }
 
     if (this.data && this.data.Items) {
-      this.data.Items.forEach(
-        item => {
-            item.Unit = this.data.Unit;
-        }
-      );
+      // this.data.Items.forEach(
+      //   item => {
+      //       item.Unit = this.data.Unit;
+      //   }
+      // );
       for(var item of this.data.Items){
         var details=[];
         for(var d of item.Details){
@@ -113,7 +113,7 @@ export class DataForm {
   get addItems() {
     return (event) => {
         this.data.Items.push({
-            Unit:this.data.Unit
+          //  Unit:this.data.Unit
         });
     };
   }

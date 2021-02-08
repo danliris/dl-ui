@@ -35,7 +35,7 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    { field: "UnitCode", title: "Unit" },
+    //{ field: "UnitCode", title: "Unit" },
     // { field: "RONo", title: "RO" },
     // { field: "Article", title: "No Artikel" },
     // { field: "TotalQuantity", title: "Jumlah", sortable: false },
@@ -63,7 +63,7 @@ export class List {
         data.total = result.info.total;
         data.data = result.data;
         result.data.forEach(s => {
-          s.UnitCode = s.Unit.Code;
+         // s.UnitCode = s.Unit.Code;
           // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
           // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
         });
