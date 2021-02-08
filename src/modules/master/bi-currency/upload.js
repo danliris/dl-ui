@@ -46,7 +46,7 @@ export class Create {
         } else if (Object.getOwnPropertyNames(e) == 0) {
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'master/bi-currencies/upload';
+            var endpoint = 'master/bi-currencies/imports';
             var request = {
                 method: 'POST',
                 headers: {
