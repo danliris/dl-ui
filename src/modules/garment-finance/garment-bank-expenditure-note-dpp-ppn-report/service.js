@@ -14,7 +14,7 @@ export class Service extends RestService {
   }
 
   generateXls(info) {
-    let endpoint = `${serviceUri}/report/download/xls`;
-    return super.list(endpoint, info);
+    let endpoint = `${serviceUri}/report/download/xls?expenditureId=${info.expenditureId}&internalNoteId=${info.internalNoteId}&invoiceId=${info.invoiceId}&supplierId=${info.supplierId}&startDate=${info.startDate}&endDate=${info.endDate}`;
+    return super.getXls(endpoint, info);
   }
 }
