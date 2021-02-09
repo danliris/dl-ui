@@ -108,7 +108,6 @@ export class DataForm {
     }
 
     selectedDLTypeChanged(newValue){
-        console.log(newValue)
         this.data.DLType=newValue;
         this.selectedUEN=null;
         this.data.UENId = newValue.Id;
@@ -135,7 +134,6 @@ export class DataForm {
 
     async selectedUENChanged(newValue, oldValue){
         if(newValue) {
-            console.log(newValue)
             if(this.data.Items.length>0){
                 this.data.Items.splice(0);
             }
@@ -164,9 +162,11 @@ export class DataForm {
                         for(var uenItem of newValue.Items){
                             var item={};
                             item.UENItemId=uenItem._id || uenItem.Id;
-                            console.log(uenItem,this.data.savedItems)
                             if(this.data.savedItems){
                                 var qty= this.data.savedItems.find(a=>a.UENItemId == uenItem.Id );
+                                if(this.isEdit) {
+                                    item.Id = qty.Id;
+                                }
                                 if(qty)
                                     item.Quantity=qty.Quantity;
                             }
@@ -249,7 +249,6 @@ export class DataForm {
             };
             return this.purchasingService.getGarmentEPO(infoEPO)
             .then((epo)=>{
-                console.log(epo)
                 return epo.data;
             });
                     
