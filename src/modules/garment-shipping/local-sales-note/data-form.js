@@ -104,6 +104,7 @@ export class DataForm {
                     item.remQty=scItem.remainingQuantity+item.quantity;
                 }
             }
+            
         }
     }
 
