@@ -96,18 +96,18 @@ export class Item {
             }
           }
         }
-
-        Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, "GarmentSewingInItem.Any(RemainingQuantity>0)": true }) }))
+        //UnitId: this.data.Unit.Id,
+        Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, "GarmentSewingInItem.Any(RemainingQuantity>0)": true }) }))
           .then(result => {
             for (var sewingIn of result.data) {
               for (var sewingInItem of sewingIn.Items) {
                 var detail = {};
-                if (sewingInItem.RemainingQuantity > 0) {
+                if (sewingInItem.Quantity > 0) {
                   var qtyOut = 0;
                   if (ssSewingItems[sewingInItem.Id]) {
                     qtyOut += ssSewingItems[sewingInItem.Id].qty;
                   }
-                  var qty = sewingInItem.RemainingQuantity - qtyOut;
+                  var qty = sewingInItem.Quantity - qtyOut;
                   if (qty > 0) {
                     if(this.data.Details.length==0){
                       detail.Quantity=qty;
@@ -156,7 +156,7 @@ export class Item {
     return (keyword) => {
       var info = {
         keyword: keyword,
-        filter: JSON.stringify({ UnitId: this.data.Unit.Id})
+        //filter: JSON.stringify({ UnitId: this.data.Unit.Id})
       };
       return this.service.searchSewingIn(info)
         .then((result) => {

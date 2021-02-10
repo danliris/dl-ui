@@ -35,7 +35,7 @@ export class Item {
     }
 
     uomView = (data) => {
-        return `${data.Unit || data.unit}`;
+        return `${data.Unit || data.unit || ""}`;
     }
 
     get total() {

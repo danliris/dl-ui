@@ -27,6 +27,9 @@ export class Create {
     }
 
     saveCallback(event) {
+        for(var item of this.data.items){
+            item.remainingQuantity=item.quantity;
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

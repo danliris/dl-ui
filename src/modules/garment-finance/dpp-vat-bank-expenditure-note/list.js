@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
     columns = [{
         field: "IsPosted",
         title: "IsPosted Checkbox",
