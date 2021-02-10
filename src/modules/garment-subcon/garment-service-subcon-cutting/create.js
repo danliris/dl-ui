@@ -29,6 +29,18 @@ export class Create {
     }
 
     saveCallback(event) {
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                for(var detail of item.Details){
+                    if(detail.Quantity>0){
+                        detail.IsSave=true;
+                    }
+                    else{
+                        detail.IsSave=false;
+                    }
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

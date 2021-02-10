@@ -3,17 +3,19 @@ import moment from "moment";
 import numeral from "numeral";
 import { Service } from "./service";
 import XLSX from "xlsx";
-const PPHBankExpenditureNoteLoader = require("../../../loader/pph-bank-expenditure-note-loader");
+const PPHBankExpenditureNoteLoader = require("../../../loader/garment-finance-pph-invoice-out-loader");
 const PurchasingDocumentExpeditionLoader = require("../../../loader/purchasing-document-expedition-loader");
-const SupplierLoader = require("../../../loader/supplier-loader");
+const SupplierLoader = require("../../../loader/garment-finance-pph-supplier-loader");
 const DivisionLoader = require("../../../loader/division-loader");
+const InvoiceLoader = require("../../../loader/garment-finance-pph-invoice-loader");
+const InternNoteLoader = require("../../../loader/garment-finance-pph-intern-note-loader");
 
 @inject(Service)
 export class List {
   columns = [
-    { field: "No", title: "No Bukti Pengeluaran Bank" },
+    { field: "InvoiceOutNo", title: "No Bukti Pengeluaran Bank" },
     {
-      field: "Date",
+      field: "PaidDate",
       title: "Tgl Bayar PPH",
       formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
@@ -21,17 +23,17 @@ export class List {
     },
     { field: "Category", title: "Category" },
     {
-      field: "IncomeTax",
+      field: "PPH",
       title: "PPH",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
-    { field: "Currency", title: "Mata Uang" },
-    { field: "Bank", title: "Bank Bayar PPH" },
-    { field: "Supplier", title: "Supplier" },
-    { field: "SPB", title: "No. NI" },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "BankName", title: "Bank Bayar PPH" },
+    { field: "SupplierName", title: "Supplier" },
+    { field: "INNO", title: "No. NI" },
     { field: "InvoiceNo", title: "No Invoice" },
   ];
 
@@ -66,6 +68,7 @@ export class List {
       "DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)",
       "RETENSI",
     ];
+    this.data=[];
   }
 
   loader = (info) => {
@@ -88,23 +91,19 @@ export class List {
     };
 
     if (this.pphBankExpenditureNote) {
-      arg.no = this.pphBankExpenditureNote.No;
+      arg.InvoiceOutNo = this.pphBankExpenditureNote.Name;
     }
 
-    if (this.unitPaymentOrder) {
-      arg.unitPaymentOrderNo = this.unitPaymentOrder.UnitPaymentOrderNo;
+    if (this.internNote) {
+      arg.INNo = this.internNote.Name;
     }
 
-    if (this.expedition) {
-      arg.invoiceNo = this.expedition.InvoiceNo;
+    if (this.invoice) {
+      arg.InvoiceNo = this.invoice.Name;
     }
 
     if (this.supplier) {
-      arg.supplierCode = this.supplier.code;
-    }
-
-    if (this.division) {
-      arg.divisionCode = this.division.code;
+      arg.SupplierName = this.supplier.Name;
     }
 
     /*
@@ -119,60 +118,60 @@ export class List {
       this.dateTo &&
       this.dateTo != "Invalid Date"
     ) {
-      arg.dateFrom = this.dateFrom;
-      arg.dateTo = this.dateTo;
+      arg.DateStart = this.dateFrom;
+      arg.DateEnd = this.dateTo;
 
-      arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-      arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
     }
 
-    if (Object.getOwnPropertyNames(arg).length === 4) {
-      arg.dateFrom = new Date();
-      arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
-      arg.dateTo = new Date();
+    // if (Object.getOwnPropertyNames(arg).length === 4) {
+    //   arg.DateStart = new Date();
+    //   arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
+    //   arg.DateEnd = new Date();
 
-      arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-      arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
-    }
+    //   arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+    //   arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
+    // }
 
     return this.flag
-      ? this.service.search(arg).then((result) => {
+      ? this.service.searchGroup(arg).then((result) => {
           let before = {};
+          this.data = result.data
+          // for (let i in result.data) {
+          //   if (result.data[i].No != before.No) {
+          //     before = result.data[i];
+          //     before._No_rowspan = 1;
+          //     before._Date_rowspan = 1;
+          //     before._DPP_rowspan = 1;
+          //     before._IncomeTax_rowspan = 1;
+          //     before._Currency_rowspan = 1;
+          //     before._Bank_rowspan = 1;
+          //   } else {
+          //     before._No_rowspan++;
+          //     before._Date_rowspan++;
+          //     before._DPP_rowspan++;
+          //     before._IncomeTax_rowspan++;
+          //     before._Currency_rowspan++;
+          //     before._Bank_rowspan++;
 
-          for (let i in result.data) {
-            if (result.data[i].No != before.No) {
-              before = result.data[i];
-              before._No_rowspan = 1;
-              before._Date_rowspan = 1;
-              before._DPP_rowspan = 1;
-              before._IncomeTax_rowspan = 1;
-              before._Currency_rowspan = 1;
-              before._Bank_rowspan = 1;
-            } else {
-              before._No_rowspan++;
-              before._Date_rowspan++;
-              before._DPP_rowspan++;
-              before._IncomeTax_rowspan++;
-              before._Currency_rowspan++;
-              before._Bank_rowspan++;
+          //     before.DPP += result.data[i].DPP;
+          //     before.IncomeTax += result.data[i].IncomeTax;
 
-              before.DPP += result.data[i].DPP;
-              before.IncomeTax += result.data[i].IncomeTax;
+          //     result.data[i].No = undefined;
+          //     result.data[i].Date = undefined;
+          //     result.data[i].DPP = undefined;
+          //     result.data[i].IncomeTax = undefined;
+          //     result.data[i].Currency = undefined;
+          //     result.data[i].Bank = undefined;
+          //   }
+          // }
 
-              result.data[i].No = undefined;
-              result.data[i].Date = undefined;
-              result.data[i].DPP = undefined;
-              result.data[i].IncomeTax = undefined;
-              result.data[i].Currency = undefined;
-              result.data[i].Bank = undefined;
-            }
-          }
-
-          setTimeout(() => {
-            $("#pph-bank-table td").each(function () {
-              if ($(this).html() === "-") $(this).hide();
-            });
-          }, 10);
+          // setTimeout(() => {
+          //   $("#pph-bank-table td").each(function () {
+          //     if ($(this).html() === "-") $(this).hide();
+          //   });
+          // }, 10);
 
           return {
             total: result.info.total,
@@ -182,6 +181,70 @@ export class List {
       : { total: 0, data: [] };
   };
 
+
+  loadData(info) {
+    let order = {};
+    if (info.sort) order[info.sort] = info.order;
+
+    let arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      order: order,
+      select: [
+        "no",
+        "date",
+        "dueDate",
+        "invoceNo",
+        "supplier.name",
+        "division.name",
+        "position",
+      ],
+    };
+
+    if (this.pphBankExpenditureNote) {
+      arg.InvoiceOutNo = this.pphBankExpenditureNote.Name;
+    }
+
+    if (this.internNote) {
+      arg.INNo = this.internNote.Name;
+    }
+
+    if (this.invoice) {
+      arg.InvoiceNo = this.invoice.Name;
+    }
+
+    if (this.supplier) {
+      arg.SupplierName = this.supplier.Name;
+    }
+
+    if (
+      this.dateFrom &&
+      this.dateFrom != "Invalid Date" &&
+      this.dateTo &&
+      this.dateTo != "Invalid Date"
+    ) {
+      arg.DateStart = this.dateFrom;
+      arg.DateEnd = this.dateTo;
+
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
+    }
+
+    return this.service.searchGroup(arg).then((result) => {
+        
+          var formatData = result.data.map((item) => {
+            item.PaidDateView = moment(item.PaidDate).format("DD-MMM-YYYY");
+            return item;
+          })
+          this.data = formatData
+
+          return {
+            total: result.info.total,
+            data: formatData,
+          };
+        })
+  };
+
   search() {
     if (this.dateFrom == "Invalid Date") this.dateFrom = undefined;
     if (this.dateTo == "Invalid Date") this.dateTo = undefined;
@@ -189,11 +252,14 @@ export class List {
     if ((this.dateFrom && this.dateTo) || (!this.dateFrom && !this.dateTo)) {
       this.error = {};
       this.flag = true;
-      this.tableList.refresh();
+      // this.tableList.refresh();
+      var info = {};
+      this.loadData(info)
     } else {
       if (!this.dateFrom) this.error.dateFrom = "Tanggal Awal harus diisi";
       else if (!this.dateTo) this.error.dateTo = "Tanggal Akhir harus diisi";
     }
+    console.log(this);
   }
 
   getExcelData() {
@@ -285,7 +351,81 @@ export class List {
 
     this.page = 0;
     this.excelData = [];
-    this.getExcelData();
+    // this.getExcelData();
+
+    if (this.dateFrom == "Invalid Date") this.dateFrom = undefined;
+    if (this.dateTo == "Invalid Date") this.dateTo = undefined;
+
+    if ((this.dateFrom && this.dateTo) || (!this.dateFrom && !this.dateTo)) {
+      this.error = {};
+      this.flag = true;
+      // this.tableList.refresh();
+    } else {
+      if (!this.dateFrom) this.error.dateFrom = "Tanggal Awal harus diisi";
+      else if (!this.dateTo) this.error.dateTo = "Tanggal Akhir harus diisi";
+    }
+
+
+    let arg = {
+      page: 1,
+      size: 10,
+      select: [
+        "no",
+        "date",
+        "dueDate",
+        "invoceNo",
+        "supplier.name",
+        "division.name",
+        "position",
+      ],
+    };
+
+    if (this.pphBankExpenditureNote) {
+      arg.InvoiceOutNo = this.pphBankExpenditureNote.Name;
+    }
+
+    if (this.internNote) {
+      arg.INNo = this.internNote.Name;
+    }
+
+    if (this.invoice) {
+      arg.InvoiceNo = this.invoice.Name;
+    }
+
+    if (this.supplier) {
+      arg.SupplierName = this.supplier.Name;
+    }
+
+    /*
+        if (this.paymentMethod != '') {
+            arg.paymentMethod = this.paymentMethod;
+        }
+        */
+
+    if (
+      this.dateFrom &&
+      this.dateFrom != "Invalid Date" &&
+      this.dateTo &&
+      this.dateTo != "Invalid Date"
+    ) {
+      arg.DateStart = this.dateFrom;
+      arg.DateEnd = this.dateTo;
+
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.dateTo).format("MM/DD/YYYY");
+    }
+
+    if (Object.getOwnPropertyNames(arg).length === 4) {
+      arg.DateStart = new Date();
+      arg.DateStart.setMonth(arg.DateStart.getMonth() - 1);
+      arg.DateEnd = new Date();
+
+      arg.DateStart = moment(arg.DateStart).format("MM/DD/YYYY");
+      arg.DateEnd = moment(arg.DateEnd).format("MM/DD/YYYY");
+    }
+
+    this.service.downloadXls(arg);
+
   }
 
   reset() {
@@ -314,6 +454,13 @@ export class List {
     return PPHBankExpenditureNoteLoader;
   }
 
+  get internNoteLoader(){
+    return InternNoteLoader;
+  }
+
+  get invoiceLoader(){
+    return InvoiceLoader;
+  }
   get unitPaymentOrderLoader() {
     return (keyword, filter) => {
       return PPHBankExpenditureNoteLoader(keyword, filter).then((response) => {

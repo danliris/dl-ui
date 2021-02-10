@@ -79,10 +79,14 @@ export class Item {
             };
         }
         this.isShowing = false;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
-                this.isShowing = true;
-            }
+        // if (this.data.details) {
+        //     if (this.data.details.length > 0) {
+        //         this.isShowing = true;
+        //     }
+        // }
+
+        if (this.error && this.error.Details && this.error.Details.length > 0) {
+          this.isShowing = true;
         }
     }
 
