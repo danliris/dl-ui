@@ -674,7 +674,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "B1": 1, "C9": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1 },
+            // permission: { "B1": 1, "C9": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -765,7 +765,7 @@ module.exports = [
           auth: true,
           settings: {
               group: "g-purchasing",
-              permission: {"B1": 1, "C9": 1},
+            //   permission: {"B1": 1, "C9": 1},
               iconClass: 'fa fa-dashboard'
           }
     },
@@ -817,7 +817,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
+            // permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
     },
