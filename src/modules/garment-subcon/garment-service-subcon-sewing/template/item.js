@@ -102,12 +102,12 @@ export class Item {
             for (var sewingIn of result.data) {
               for (var sewingInItem of sewingIn.Items) {
                 var detail = {};
-                if (sewingInItem.RemainingQuantity > 0) {
+                if (sewingInItem.Quantity > 0) {
                   var qtyOut = 0;
                   if (ssSewingItems[sewingInItem.Id]) {
                     qtyOut += ssSewingItems[sewingInItem.Id].qty;
                   }
-                  var qty = sewingInItem.RemainingQuantity - qtyOut;
+                  var qty = sewingInItem.Quantity - qtyOut;
                   if (qty > 0) {
                     if(this.data.Details.length==0){
                       detail.Quantity=qty;
