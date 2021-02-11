@@ -781,6 +781,19 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-approved-all-user",
+        name: "garment-shipping/packing-list-approved-all-user",
+        moduleId: "modules/garment-shipping/packing-list-approved-all-user/index",
+        nav: true,
+        title: "Approved Packing List ( All User )",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/payment-disposition",
         name: "garment-shipping/payment-disposition",
         moduleId: "modules/garment-shipping/payment-disposition/index",
