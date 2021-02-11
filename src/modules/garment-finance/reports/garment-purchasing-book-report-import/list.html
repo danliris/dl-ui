@@ -1,0 +1,68 @@
+<template>
+  <h1 class="page-header">Laporan Buku Pembelian Import</h1>
+
+  <form class="form-horizontal">
+    <au-autocomplete value.bind="selectedBillNo"
+                     label="Nomor BP Besar"
+                     loader.bind="billNoLoader"
+                     text="Value"
+                     placeholder="cari nomor bp besar"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete value.bind="selectedPaymentBill"
+                     label="Nomor BP Kecil"
+                     loader.bind="paymentBillLoader"
+                     text="Value"
+                     placeholder="cari nomor bp kecil"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-dropdown value.bind="info.purchasingCategory"
+                 label="Kategori"
+                 options.bind="controlOptions"
+                 items.bind="purchasingCategoryOptions"
+                 text="text">
+    </au-dropdown>
+
+    <au-datepicker value.bind="info.startDate"
+                   label="Tanggal Awal"
+                   options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-datepicker value.bind="info.endDate"
+                   label="Tanggal Akhir"
+                   options.bind="controlOptions">
+    </au-datepicker>
+
+    <div class="form-group">
+      <label for="contact"
+             class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="search()"
+                class="btn btn-success">Cari</button>
+        <button click.delegate="reset()"
+                class="btn btn-success">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <div id="credit-balance-table">
+    <au-table view-model.ref="tableList"
+              data.bind="loader"
+              columns.bind="columns"
+              sortable="true"
+              page-size="25"
+              options.bind="tableOptions">
+      <div slot="toolbar"
+           class="btn-group">
+        <button class="btn btn-primary"
+                click.delegate="excel()">Excel</button>
+        <button class="btn btn-primary"
+                click.delegate="pdf()">PDF</button>
+      </div>
+    </au-table>
+  </div>
+</template>
