@@ -338,19 +338,19 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
-    // {
-    //     route: "garment-shipping/vb-payment",
-    //     name: "garment-shipping/vb-payment",
-    //     moduleId: "modules/garment-shipping/vb-payment/index",
-    //     nav: true,
-    //     title: "Pembayaran VB",
-    //     auth: true,
-    //     settings: {
-    //         group: "g-shipping",
-    //         permission: { "C9": 1, "SG": 1 },
-    //         iconClass: "fa fa-dashboard"
-    //     }
-    // },    
+    {
+        route: "garment-shipping/vb-payment",
+        name: "garment-shipping/vb-payment",
+        moduleId: "modules/garment-shipping/vb-payment/index",
+        nav: true,
+        title: "Pembayaran VB",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },    
     {
         route: "garment-shipping/monitoring/shipment-garment",
         name: "garment-shipping/monitoring/shipment-garment",
@@ -773,6 +773,19 @@ module.exports = [
         moduleId: "modules/garment-shipping/packing-list-approved/index",
         nav: true,
         title: "Approved Packing List",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/packing-list-approved-all-user",
+        name: "garment-shipping/packing-list-approved-all-user",
+        moduleId: "modules/garment-shipping/packing-list-approved-all-user/index",
+        nav: true,
+        title: "Approved Packing List ( All User )",
         auth: true,
         settings: {
             group: "g-shipping",

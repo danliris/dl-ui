@@ -419,9 +419,9 @@ export class DataForm {
           const me = this.authService.getTokenPayload();
           username = me.username;
       }
-
+//   
       return {
-        'status=="CREATED" || status=="DRAFT_APPROVED_SHIPPING"':true,
+        'status=="CREATED" || status=="DRAFT_APPROVED_SHIPPING" || status=="POSTED" || status=="APPROVED_MD" || status=="APPROVED_SHIPPING" || status=="REVISED_MD" || status=="REVISED_SHIPPING" || status=="REJECTED_MD" || status=="REJECTED_SHIPPING_UNIT"':true,
         ShippingStaffName: username
       }
     }

@@ -29,7 +29,7 @@ export class DataForm {
     };
 
     filterSC={
-        IsUsed:false
+        "Items.Any(RemainingQuantity>0)":true
     };
 
     paymentTypeOptions=["TUNAI","TEMPO"];
@@ -80,7 +80,7 @@ export class DataForm {
         return data.KaberType || data.kaberType;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -88,7 +88,7 @@ export class DataForm {
         if (this.data && this.data.transactionType) {
             this.items.options.transactionTypeId = this.data.transactionType.id;
         }
-        if(this.data){
+        if(this.data.id){
             this.selectedSalesContract={
                 salesContractNo:this.data.salesContractNo,
                 id:this.data.localSalesContractId
@@ -96,6 +96,15 @@ export class DataForm {
             if(this.data.paymentType){
                 this.selectedPaymentType=this.data.paymentType;
             }
+            var sc = await this.service.getSCById(this.data.localSalesContractId);
+            for(var item of this.data.items){
+                var scItem= sc.items.find(a=>a.id==item.localSalesContractItemId);
+                console.log(sc,item)
+                if(scItem){
+                    item.remQty=scItem.remainingQuantity+item.quantity;
+                }
+            }
+            
         }
     }
 
@@ -138,12 +147,15 @@ export class DataForm {
                     var sc = await this.service.getSCById(newValue.id);
                     for(var a of sc.items){
                         var item={};
-                        item.localSalesContractItemId=a.id;
-                        item.product=a.product;
-                        item.quantity=a.quantity;
-                        item.uom=a.uom;
-                        item.price=a.price;
-                        this.data.items.push(item);
+                        if(a.remainingQuantity>0){
+                            item.localSalesContractItemId=a.id;
+                            item.product=a.product;
+                            item.quantity=a.remainingQuantity;
+                            item.uom=a.uom;
+                            item.price=a.price;
+                            item.remQty=a.remainingQuantity;
+                            this.data.items.push(item);
+                        }
                     }
                 }
                 
