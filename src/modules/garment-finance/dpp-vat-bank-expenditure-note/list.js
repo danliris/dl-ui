@@ -29,8 +29,14 @@ export class List {
     { field: "TotalAmount", title: "Total DPP + PPN" },
     { field: "CurrencyCode", title: "Mata Uang" },
     { field: "SupplierName", title: "Supplier" },
-    { field: "DocumentNoInternalNotes", title: "Nota Intern" }
-    ];
+    { field: "DocumentNoInternalNotes", title: "Nota Intern" }];
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
 
     controlOptions = {
         label: {
