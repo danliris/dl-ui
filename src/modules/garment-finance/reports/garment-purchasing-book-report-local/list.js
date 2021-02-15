@@ -76,6 +76,7 @@ export class List {
       endDate: endDate
     };
 
+    console.log(params);
 
     return this.flag
       ? this.service.search(params).then((result) => {
