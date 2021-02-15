@@ -48,7 +48,7 @@ export class List {
       align: "right",
     },
     {
-      field: "Amount",
+      field: "InvoiceAmount",
       title: "Total Bayar Ke Supplier",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
