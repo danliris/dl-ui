@@ -277,7 +277,7 @@ export class List {
             ? this.info.dateTo
             : "";
 
-        if (!arg.dateFrom) {
+        if (!arg.startDate) {
           arg.startDate = new Date(arg.startDate);
           arg.startDate.setMonth(arg.startDate.getMonth() - 1);
         }

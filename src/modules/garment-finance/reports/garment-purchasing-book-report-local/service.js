@@ -1,7 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = "credit-balance/reports";
+const serviceUri = "garment-purchasing-book-reports";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -14,34 +14,13 @@ export class Service extends RestService {
   }
 
   getXls(info) {
-    var query = "";
-    if (info.supplierName !== null && info.divisionId !== null) {
-      query = `?supplierName=${info.supplierName}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else if (info.supplierName !== null && info.divisionId === null) {
-      query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else if (info.supplierName === null && info.divisionId !== null) {
-      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else {
-      query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    }
-
-    let endpoint = `${serviceUri}/downloads/xls${query}&isForeignCurrency=${true}`;
+    let endpoint = `${serviceUri}/downloads/xls?billNo=${info.billNo}&paymentBill=${info.paymentBill}&category=${info.category}&startDate=${info.startDate}&endDate=${info.endDate}&isForeignCurrency=${false}&isImportSupplier=${false}`;
     return super.getXls(endpoint);
   }
 
   getPdf(info) {
-    var query = "";
-    if (info.supplierName !== null && info.divisionId !== null) {
-      query = `?supplierName=${info.supplierName}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else if (info.supplierName !== null && info.divisionId === null) {
-      query = `?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else if (info.supplierName === null && info.divisionId !== null) {
-      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    } else {
-      query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
-    }
 
-    let endpoint = `${serviceUri}/downloads/pdf${query}&isForeignCurrency=${true}`;
+    let endpoint = `${serviceUri}/downloads/xls?billNo=${info.billNo}&paymentBill=${info.paymentBill}&category=${info.category}&startDate=${info.startDate}&endDate=${info.endDate}&isForeignCurrency=${false}&isImportSupplier=${false}`;
     return super.getPdf(endpoint);
   }
 }
