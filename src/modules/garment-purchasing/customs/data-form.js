@@ -272,6 +272,7 @@ export class DataForm {
     selectedCustomTypeChanged(o,n){
         // console.log(n);
         // console.log(o);
+        this.data.customType = o;
         if(o =="BC 23")
             this.data.IsBC23 =true;
         else
