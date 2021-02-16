@@ -40,6 +40,16 @@ export class List {
     { field: "Total", title: "Total(IDR)" }
   ];
 
+  categoryColumns = [
+    { field: "CategoryName", title: "Kategori" },
+    { field: "Amount", title: "Total(IDR)" }
+  ];
+
+  currencyColumns = [
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Amount", title: "Total(IDR)" }
+  ];
+
   controlOptions = {
     label: {
       length: 4,
@@ -62,6 +72,8 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
+    this.categories = [];
+    this.currencies = [];
   }
 
   loader = (info) => {
@@ -100,6 +112,9 @@ export class List {
         //             $(this).hide();
         //     })
         // }, 10);
+
+        this.currencies = result.data.Currencies;
+        this.categories = result.data.Categories;
 
         return {
           total: 0,
