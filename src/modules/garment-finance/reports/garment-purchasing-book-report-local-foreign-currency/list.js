@@ -18,13 +18,13 @@ export class List {
       field: "CustomsArrivalDate",
       title: "Tanggal Bon",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
+        return value ? moment(value).format("DD MMM YYYY") : "";
       },
       align: "right",
     },
     { field: "SupplierName", title: "Supplier" },
     { field: "ProductName", title: "Keterangan" },
-    { field: "DeliveryOrderNo", title: "No Surat Jalan" },
+    { field: "GarmentDeliveryOrderNo", title: "No Surat Jalan" },
     { field: "BillNo", title: "No BP Besar" },
     { field: "PaymentBill", title: "No BP Kecil" },
     { field: "InvoiceNo", title: "No Invoice" },
@@ -103,7 +103,7 @@ export class List {
 
         return {
           total: 0,
-          data: result.data,
+          data: result.data.Data,
         };
       })
       : { total: 0, data: [] };
