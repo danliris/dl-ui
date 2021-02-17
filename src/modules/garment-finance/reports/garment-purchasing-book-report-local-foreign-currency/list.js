@@ -148,8 +148,8 @@ export class List {
   }
 
   loader = (info) => {
-    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("MM/DD/YYYY") : null;
-    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("MM/DD/YYYY") : null;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
     let params = {
       billNo: this.info.billNo,
@@ -202,13 +202,13 @@ export class List {
   }
 
   excel() {
-    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("MM/DD/YYYY") : null;
-    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("MM/DD/YYYY") : null;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
     let params = {
-      billNo: this.info.billNo,
-      paymentBill: this.info.paymentBill,
-      category: this.info.purchasingCategory,
+      billNo: this.info.billNo ? this.info.billNo : "",
+      paymentBill: this.info.paymentBill ? this.info.paymentBill : "",
+      category: this.info.purchasingCategory ? this.info.purchasingCategory : "",
       startDate: startDate,
       endDate: endDate
     };
@@ -219,13 +219,13 @@ export class List {
   }
 
   pdf() {
-    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("MM/DD/YYYY") : null;
-    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("MM/DD/YYYY") : null;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
     let params = {
-      billNo: this.info.billNo,
-      paymentBill: this.info.paymentBill,
-      category: this.info.purchasingCategory,
+      billNo: this.info.billNo ? this.info.billNo : "",
+      paymentBill: this.info.paymentBill ? this.info.paymentBill : "",
+      category: this.info.purchasingCategory ? this.info.purchasingCategory : "",
       startDate: startDate,
       endDate: endDate
     };
