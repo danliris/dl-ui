@@ -72,7 +72,7 @@ export class List {
       field: "PaidAmount",
       title: "Nilai Dibayar",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -80,7 +80,7 @@ export class List {
       field: "Difference",
       title: "Selisih",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
