@@ -8,6 +8,7 @@ const DivisionLoader = require("../../../../loader/division-loader");
 
 const BillNoLoader = require("../../shared/bill-no-loader");
 const PaymentBillLoader = require("../../shared/payment-bill-loader");
+const AccountingCategoryLoader = require("../../shared/garment-accounting-category-loader");
 
 @inject(Service)
 export class List {
@@ -255,5 +256,17 @@ export class List {
     else
       this.info.paymentBill = null;
     console.log(newValue);
+  }
+
+  get accountingCategoryLoader() {
+    return AccountingCategoryLoader;
+  }
+
+  @bindable selectedAccountingCategory;
+  selectedAccountingCategoryChanged(newValue, oldValue) {
+    if (newValue)
+      this.info.purchasingCategory = newValue.Value;
+    else
+      this.info.purchasingCategory = null;
   }
 }

@@ -8,6 +8,7 @@ const DivisionLoader = require("../../../../loader/division-loader");
 
 const BillNoLoader = require("../../shared/bill-no-loader");
 const PaymentBillLoader = require("../../shared/payment-bill-loader");
+const AccountingCategoryLoader = require("../../shared/garment-accounting-category-loader");
 
 @inject(Service)
 export class List {
@@ -41,8 +42,13 @@ export class List {
       }
     ],
     [
-      { field: "CustomsDate", title: "Tanggal BC" },
-      { field: "CustomsDocumentNo", title: "No BC" },
+      {
+        field: "CustomsDate", title: "Tanggal BC",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }
+      },
+      { field: "CustomsNo", title: "No BC" },
       { field: "CustomsType", title: "Jenis BC" },
       { field: "ImportValueRemark", title: "Ket Nilai Impor" },
       { field: "CurrencyCode", title: "Mata Uang" },
@@ -226,5 +232,17 @@ export class List {
     else
       this.info.paymentBill = null;
     console.log(newValue);
+  }
+
+  get accountingCategoryLoader() {
+    return AccountingCategoryLoader;
+  }
+
+  @bindable selectedAccountingCategory;
+  selectedAccountingCategoryChanged(newValue, oldValue) {
+    if (newValue)
+      this.info.purchasingCategory = newValue.Value;
+    else
+      this.info.purchasingCategory = null;
   }
 }
