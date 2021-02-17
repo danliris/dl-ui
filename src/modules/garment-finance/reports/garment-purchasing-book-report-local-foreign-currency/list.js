@@ -34,9 +34,10 @@ export class List {
     { field: "AccountingCategoryName", title: "Kategori Pembukuan" },
     { field: "InternalNoteQuantity", title: "Quantity" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "DPPAmount", title: "DPP" },
-    { field: "VATAmount", title: "PPN" },
-    { field: "IncomeTaxAmount", title: "PPh" },
+    { field: "CurrencyDPPAmount", title: "DPP Valas" },
+    { field: "DPPAmount", title: "DPP (IDR)" },
+    { field: "VATAmount", title: "PPN (IDR)" },
+    { field: "IncomeTaxAmount", title: "PPh (IDR)" },
     { field: "Total", title: "Total(IDR)" }
   ];
 

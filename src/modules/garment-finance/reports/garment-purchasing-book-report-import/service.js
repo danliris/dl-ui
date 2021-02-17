@@ -9,6 +9,7 @@ export class Service extends RestService {
   }
 
   search(info) {
+    info.isImportSupplier = true;
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }

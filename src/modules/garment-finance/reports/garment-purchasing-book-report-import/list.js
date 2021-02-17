@@ -32,11 +32,14 @@ export class List {
     { field: "InternalNoteNo", title: "No NI" },
     { field: "PurchasingCategoryName", title: "Kategori Pembelian" },
     { field: "AccountingCategoryName", title: "Kategori Pembukuan" },
+    { field: "CustomsDate", title: "Tanggal BC" },
+    { field: "CustomsDocumentNo", title: "No BC" },
+    { field: "CustomsType", title: "Jenis BC" },
+    { field: "ImportValueRemark", title: "Ket Nilai Impor" },
     { field: "InternalNoteQuantity", title: "Quantity" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "DPPAmount", title: "DPP" },
-    { field: "VATAmount", title: "PPN" },
-    { field: "IncomeTaxAmount", title: "PPh" },
+    { field: "CurrencyDPPAmount", title: "DPP Valas" },
+    { field: "CurrencyRate", title: "Rate" },
     { field: "Total", title: "Total(IDR)" }
   ];
 
