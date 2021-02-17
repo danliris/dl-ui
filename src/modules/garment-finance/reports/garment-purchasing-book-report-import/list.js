@@ -61,12 +61,16 @@ export class List {
 
   categoryColumns = [
     { field: "CategoryName", title: "Kategori" },
-    { field: "Amount", title: "Total(IDR)" }
+    { field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+      return numeral(value).format("0,000.00");
+    } }
   ];
 
   currencyColumns = [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Amount", title: "Total(IDR)" }
+    { field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+      return numeral(value).format("0,000.00");
+    } }
   ];
 
   controlOptions = {

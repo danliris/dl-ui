@@ -64,7 +64,9 @@ export class List {
         title: "Pembelian", colspan: 3
       },
       {
-        field: "Total", title: "Total(IDR)", rowspan: 2
+        field: "Total", title: "Total(IDR)", rowspan: 2, formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
       }
     ],
     [
@@ -88,12 +90,16 @@ export class List {
 
   categoryColumns = [
     { field: "CategoryName", title: "Kategori" },
-    { field: "Amount", title: "Total(IDR)" }
+    { field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+      return numeral(value).format("0,000.00");
+    } }
   ];
 
   currencyColumns = [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Amount", title: "Total(IDR)" }
+    { field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+      return numeral(value).format("0,000.00");
+    } }
   ];
 
   controlOptions = {

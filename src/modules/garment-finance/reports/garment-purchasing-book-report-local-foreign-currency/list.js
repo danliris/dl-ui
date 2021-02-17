@@ -61,13 +61,17 @@ export class List {
         field: "CurrencyCode", title: "Mata Uang", rowspan: 2
       },
       {
-        field: "CurrencyRate", title: "Kurs", rowspan: 2
+        field: "CurrencyRate", title: "Kurs", rowspan: 2, formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
       },
       {
         title: "Pembelian", colspan: 4
       },
       {
-        field: "Total", title: "Total(IDR)", rowspan: 2
+        field: "Total", title: "Total(IDR)", align: "right", rowspan: 2, formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
       }
     ],
     [
@@ -96,13 +100,25 @@ export class List {
 
   categoryColumns = [
     { field: "CategoryName", title: "Kategori" },
-    { field: "Amount", title: "Total(IDR)" }
+    {
+      field: "Amount", align: "right", title: "Total(IDR)", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    }
   ];
 
   currencyColumns = [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "CurrencyAmount", title: "Total" },
-    { field: "Amount", title: "Total(IDR)" }
+    {
+      field: "CurrencyAmount", title: "Total", align: "right", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    },
+    {
+      field: "Amount", title: "Total(IDR)", align: "right", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    }
   ];
 
   controlOptions = {
