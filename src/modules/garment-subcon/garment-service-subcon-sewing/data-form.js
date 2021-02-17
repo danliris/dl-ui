@@ -74,7 +74,7 @@ export class DataForm {
               details.push(detail);
           }
           else{
-            var exist= details.find(a=>a.DesignColor==d.DesignColor && a.UnitId==d.UnitId);
+            var exist= details.find(a=>a.DesignColor==d.DesignColor && a.Unit.Id==d.Unit.Id);
             if(!exist){
                 detail.Quantity=d.Quantity;
                 detail.DesignColor=d.DesignColor;

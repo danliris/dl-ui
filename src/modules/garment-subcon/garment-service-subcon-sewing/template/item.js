@@ -119,7 +119,7 @@ export class Item {
                       this.data.Details.push(detail);
                     }
                     else{
-                      var exist= this.data.Details.find(a=>a.DesignColor==sewingInItem.DesignColor && a.Unit==sewingIn.Unit);
+                      var exist= this.data.Details.find(a=>a.DesignColor==sewingInItem.DesignColor && a.Unit.Id==sewingIn.Unit.Id);
                       if(!exist){
                           detail.Quantity=qty;
                           detail.SewingInQuantity=qty;
