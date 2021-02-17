@@ -70,14 +70,16 @@ export class DataForm {
               detail.Quantity=d.Quantity;
               detail.DesignColor=d.DesignColor;
               detail.Uom=d.Uom;
+              detail.Unit=d.Unit;
               details.push(detail);
           }
           else{
-            var exist= details.find(a=>a.DesignColor==d.DesignColor);
+            var exist= details.find(a=>a.DesignColor==d.DesignColor && a.UnitId==d.UnitId);
             if(!exist){
                 detail.Quantity=d.Quantity;
                 detail.DesignColor=d.DesignColor;
                 detail.Uom=d.Uom;
+                detail.Unit=d.Unit;
                 details.push(detail);
             }
             else{
