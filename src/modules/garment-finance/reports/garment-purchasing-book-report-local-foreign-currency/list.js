@@ -14,31 +14,84 @@ export class List {
   purchasingCategoryOptions = ["", "Bahan Baku", "Bahan Embalage", "Bahan Pendukung"];
   supplierQuery = { Import: false };
   columns = [
-    {
-      field: "CustomsArrivalDate",
-      title: "Tanggal Bon",
-      formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : "";
+    [
+      {
+        field: "CustomsArrivalDate",
+        title: "Tanggal Bon",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        },
+        align: "right",
+        rowspan: 2
       },
-      align: "right",
-    },
-    { field: "SupplierName", title: "Supplier" },
-    { field: "ProductName", title: "Keterangan" },
-    { field: "GarmentDeliveryOrderNo", title: "No Surat Jalan" },
-    { field: "BillNo", title: "No BP Besar" },
-    { field: "PaymentBill", title: "No BP Kecil" },
-    { field: "InvoiceNo", title: "No Invoice" },
-    { field: "VATNo", title: "No Faktur Pajak" },
-    { field: "InternalNoteNo", title: "No NI" },
-    { field: "PurchasingCategoryName", title: "Kategori Pembelian" },
-    { field: "AccountingCategoryName", title: "Kategori Pembukuan" },
-    { field: "InternalNoteQuantity", title: "Quantity" },
-    { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "CurrencyDPPAmount", title: "DPP Valas" },
-    { field: "DPPAmount", title: "DPP (IDR)" },
-    { field: "VATAmount", title: "PPN (IDR)" },
-    { field: "IncomeTaxAmount", title: "PPh (IDR)" },
-    { field: "Total", title: "Total(IDR)" }
+      {
+        field: "SupplierName", title: "Supplier", rowspan: 2
+      },
+      {
+        field: "ProductName", title: "Keterangan", rowspan: 2
+      },
+      {
+        field: "GarmentDeliveryOrderNo", title: "No Surat Jalan", rowspan: 2
+      },
+      {
+        field: "BillNo", title: "No BP Besar", rowspan: 2
+      },
+      {
+        field: "PaymentBill", title: "No BP Kecil", rowspan: 2
+      },
+      {
+        field: "InvoiceNo", title: "No Invoice", rowspan: 2
+      },
+      {
+        field: "VATNo", title: "No Faktur Pajak", rowspan: 2
+      },
+      {
+        field: "InternalNoteNo", title: "No NI", rowspan: 2
+      },
+      {
+        field: "PurchasingCategoryName", title: "Kategori Pembelian", rowspan: 2
+      },
+      {
+        field: "AccountingCategoryName", title: "Kategori Pembukuan", rowspan: 2
+      },
+      {
+        field: "InternalNoteQuantity", title: "Quantity", rowspan: 2
+      },
+      {
+        field: "CurrencyCode", title: "Mata Uang", rowspan: 2
+      },
+      {
+        field: "CurrencyRate", title: "Kurs", rowspan: 2
+      },
+      {
+        title: "Pembelian", colspan: 4
+      },
+      {
+        field: "Total", title: "Total(IDR)", rowspan: 2
+      }
+    ],
+    [
+      {
+        field: "CurrencyDPPAmount", title: "DPP Valas", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "DPPAmount", title: "DPP (IDR)", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "VATAmount", title: "PPN (IDR)", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "IncomeTaxAmount", title: "PPh (IDR)", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      }
+    ]
   ];
 
   categoryColumns = [
@@ -48,6 +101,7 @@ export class List {
 
   currencyColumns = [
     { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "CurrencyAmount", title: "Total" },
     { field: "Amount", title: "Total(IDR)" }
   ];
 
