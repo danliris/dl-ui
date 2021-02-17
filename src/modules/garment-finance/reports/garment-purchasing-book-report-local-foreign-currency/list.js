@@ -18,13 +18,13 @@ export class List {
       field: "CustomsArrivalDate",
       title: "Tanggal Bon",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
+        return value ? moment(value).format("DD MMM YYYY") : "";
       },
       align: "right",
     },
     { field: "SupplierName", title: "Supplier" },
     { field: "ProductName", title: "Keterangan" },
-    { field: "DeliveryOrderNo", title: "No Surat Jalan" },
+    { field: "GarmentDeliveryOrderNo", title: "No Surat Jalan" },
     { field: "BillNo", title: "No BP Besar" },
     { field: "PaymentBill", title: "No BP Kecil" },
     { field: "InvoiceNo", title: "No Invoice" },
@@ -38,6 +38,16 @@ export class List {
     { field: "VATAmount", title: "PPN" },
     { field: "IncomeTaxAmount", title: "PPh" },
     { field: "Total", title: "Total(IDR)" }
+  ];
+
+  categoryColumns = [
+    { field: "CategoryName", title: "Kategori" },
+    { field: "Amount", title: "Total(IDR)" }
+  ];
+
+  currencyColumns = [
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "Amount", title: "Total(IDR)" }
   ];
 
   controlOptions = {
@@ -62,6 +72,8 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
+    this.categories = [];
+    this.currencies = [];
   }
 
   loader = (info) => {
@@ -101,9 +113,12 @@ export class List {
         //     })
         // }, 10);
 
+        this.currencies = result.data.Currencies;
+        this.categories = result.data.Categories;
+
         return {
           total: 0,
-          data: result.data,
+          data: result.data.Data,
         };
       })
       : { total: 0, data: [] };
