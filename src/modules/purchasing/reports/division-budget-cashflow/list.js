@@ -56,8 +56,8 @@ export class List {
         for (const column of this.columns) {
           this.subColumns = [
             ...this.subColumns,
-            "NOMINAL VALAS",
-            "NOMINAL IDR",
+            "VALAS",
+            "IDR",
             "ACTUAL IDR",
           ];
         }
