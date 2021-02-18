@@ -25,10 +25,11 @@
                     <td align="center" rowspan="2">TGL J/T</td>
                     <td align="center" rowspan="2">KODE BUYER</td>
                     <td align="center" rowspan="2">NAMA BUYER</td>
+                    <td align="center" rowspan="2">NO R/O</td>
                     <td align="center" rowspan="2">NO S/C</td>
                     <td align="center" rowspan="2">DESTINATION</td>
                     <td align="center" rowspan="2">TGL EXPORT</td>
-                    <td align="center" rowspan="2">MATA UANG</td>
+                    <td align="center" rowspan="2">KODE</td>                    
                     <td align="center" rowspan="2">KOMODITI</td>
                     <td align="center" rowspan="2">NO PEB</td>
                     <td align="center" rowspan="2">TGL PEB</td>
@@ -36,6 +37,10 @@
                     <td align="center" rowspan="2">ACCOUNTING</td>
                     <td align="center" rowspan="2">AMOUNT</td>
                     <td align="center" rowspan="2">TO BE PAID</td>
+                    <td align="center" rowspan="2">QUANTITY</td>
+                    <td align="center" rowspan="2">SATUAN</td>
+                    <td align="center" rowspan="2">PRICE</td>
+                    <td align="center" rowspan="2">SUB AMOUNT</td>
                 </tr>
             </thead>
             <tbody>
@@ -47,17 +52,23 @@
                     <td>${item.dueDate}</td>
                     <td>${item.buyerCode}</td>
                     <td>${item.buyerName}</td>
+                    <td>${item.roNo}</td>
                     <td>${item.scNo}</td>
                     <td>${item.destination}</td>
                     <td>${item.sailingDate}</td>
-                    <td>${item.currencyCode}</td>
+                    <td>${item.comoditCode}</td>
                     <td>${item.comodityName}</td>
                     <td>${item.pebNo}</td>
                     <td>${item.pebDate}</td>
                     <td>${item.def}</td>
                     <td>${item.acc}</td>
                     <td class="text-right"><strong>${item.amount}</strong></td>
-                    <td class="text-right"><strong>${item.toBePaid}</strong></td>             
+                    <td class="text-right"><strong>${item.toBePaid}</strong></td>                          
+                    <td class="text-right"><strong>${item.quantity}</strong></td>
+                    <td>${item.uomUnit}</td>
+                    <td class="text-right"><strong>${item.price}</strong></td>
+                    <td class="text-right"><strong>${item.subAmount}</strong></td>      
+                    
                 </tr>                    
             </tbody>
         </table>

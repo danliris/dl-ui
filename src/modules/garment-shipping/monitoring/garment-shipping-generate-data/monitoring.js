@@ -40,7 +40,9 @@ export class List {
                       item.dueDate=moment(item.dueDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.ueDate).format("DD MMM YYYY");              
                       item.amount=item.amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                       item.toBePaid=item.toBePaid.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
-                   
+                      item.quantity=item.quantity.toLocaleString('en-EN',{minimumFractionDigits: 0, maximumFractionDigits: 0});
+                      item.price=item.price.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                      item.subAmount=item.subAmount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});  
                       datas.push(item);
                   }
                   this.data = datas;
