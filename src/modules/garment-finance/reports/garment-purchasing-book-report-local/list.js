@@ -1,4 +1,4 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import moment from "moment";
 import numeral from "numeral";
 import XLSX from "xlsx";
@@ -6,35 +6,105 @@ import { Service } from "./service";
 const SupplierLoader = require("../../../../loader/supplier-loader");
 const DivisionLoader = require("../../../../loader/division-loader");
 
+const BillNoLoader = require("../../shared/bill-no-loader");
+const PaymentBillLoader = require("../../shared/payment-bill-loader");
+const AccountingCategoryLoader = require("../../shared/garment-accounting-category-loader");
+
 @inject(Service)
 export class List {
-  itemYears = [];
+  purchasingCategoryOptions = ["", "Bahan Baku", "Bahan Embalage", "Bahan Pendukung"];
   supplierQuery = { Import: false };
   columns = [
-    {
-      field: "CustomsArrivalDate",
-      title: "Tanggal Bon",
-      formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
+    [
+      {
+        field: "CustomsArrivalDate",
+        title: "Tanggal Bon",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        },
+        align: "right",
+        rowspan: 2
       },
-      align: "right",
-    },
-    { field: "SupplierName", title: "Supplier" },
-    { field: "ProductName", title: "Keterangan" },
-    { field: "DeliveryOrderNo", title: "No Surat Jalan" },
-    { field: "BillNo", title: "No BP Besar" },
-    { field: "PaymentBill", title: "No BP Kecil" },
-    { field: "InvoiceNo", title: "No Invoice" },
-    { field: "VATNo", title: "No Faktur Pajak" },
-    { field: "InternalNoteNo", title: "No NI" },
-    { field: "PurchasingCategoryName", title: "Kategori Pembelian" },
-    { field: "AccountingCategoryName", title: "Kategori Pembukuan" },
-    { field: "InternalNoteQuantity", title: "Quantity" },
+      {
+        field: "SupplierName", title: "Supplier", rowspan: 2
+      },
+      {
+        field: "ProductName", title: "Keterangan", rowspan: 2
+      },
+      {
+        field: "GarmentDeliveryOrderNo", title: "No Surat Jalan", rowspan: 2
+      },
+      {
+        field: "BillNo", title: "No BP Besar", rowspan: 2
+      },
+      {
+        field: "PaymentBill", title: "No BP Kecil", rowspan: 2
+      },
+      {
+        field: "InvoiceNo", title: "No Invoice", rowspan: 2
+      },
+      {
+        field: "VATNo", title: "No Faktur Pajak", rowspan: 2
+      },
+      {
+        field: "InternalNoteNo", title: "No NI", rowspan: 2
+      },
+      {
+        field: "PurchasingCategoryName", title: "Kategori Pembelian", rowspan: 2
+      },
+      {
+        field: "AccountingCategoryName", title: "Kategori Pembukuan", rowspan: 2
+      },
+      {
+        field: "InternalNoteQuantity", title: "Quantity", rowspan: 2
+      },
+      {
+        field: "CurrencyCode", title: "Mata Uang", rowspan: 2
+      },
+      {
+        title: "Pembelian", colspan: 3
+      },
+      {
+        field: "Total", title: "Total(IDR)", rowspan: 2, formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      }
+    ],
+    [
+      {
+        field: "DPPAmount", title: "DPP", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "VATAmount", title: "PPN", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "IncomeTaxAmount", title: "PPh", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      }
+    ]
+  ];
+
+  categoryColumns = [
+    { field: "CategoryName", title: "Kategori" },
+    {
+      field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    }
+  ];
+
+  currencyColumns = [
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "DPPAmount", title: "DPP" },
-    { field: "VATAmount", title: "PPN" },
-    { field: "IncomeTaxAmount", title: "PPh" },
-    { field: "Total", title: "Total(IDR)" }
+    {
+      field: "Amount", title: "Total(IDR)", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    }
   ];
 
   controlOptions = {
@@ -59,62 +129,25 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
-
-    this.itemMonths = [
-      { text: "January", value: 1 },
-      { text: "February", value: 2 },
-      { text: "March", value: 3 },
-      { text: "April", value: 4 },
-      { text: "May", value: 5 },
-      { text: "June", value: 6 },
-      { text: "July", value: 7 },
-      { text: "August", value: 8 },
-      { text: "September", value: 9 },
-      { text: "October", value: 10 },
-      { text: "November", value: 11 },
-      { text: "Desember", value: 12 },
-    ];
-    this.currentYear = moment().format("YYYY");
-
-    for (var i = parseInt(this.currentYear); i >= 2018; i--) {
-      this.itemYears.push(i.toString());
-    }
+    this.categories = [];
+    this.currencies = [];
   }
 
-  supplierView = (supplier) => {
-    return supplier.name;
-  };
-
-  divisionView = (division) => {
-    return division.Name;
-  };
-
   loader = (info) => {
-    let order = {};
-    if (info.sort) order[info.sort] = info.order;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
-    let arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      order: order,
-      select: [],
-      isImport: false,
-      isForeignCurrency: true,
+    let params = {
+      billNo: this.info.billNo,
+      paymentBill: this.info.paymentBill,
+      category: this.info.purchasingCategory,
+      startDate: startDate,
+      endDate: endDate
     };
 
-    if (this.info.supplier && this.info.supplier.name)
-      arg.supplierName = this.info.supplier.name;
-
-    if (this.info.division && this.info.division.Id)
-      arg.divisionId = this.info.division.Id;
-
-    if (this.info.month && this.info.month.value)
-      arg.month = this.info.month.value;
-
-    if (this.info.year) arg.year = this.info.year;
 
     return this.flag
-      ? this.service.search(arg).then((result) => {
+      ? this.service.search(params).then((result) => {
         // let before = {};
 
         // if (result.data.length != 0) {
@@ -137,9 +170,12 @@ export class List {
         //     })
         // }, 10);
 
+        this.currencies = result.data.Currencies;
+        this.categories = result.data.Categories;
+
         return {
-          total: result.info.Count,
-          data: result.data,
+          total: 0,
+          data: result.data.Data,
         };
       })
       : { total: 0, data: [] };
@@ -152,23 +188,15 @@ export class List {
   }
 
   excel() {
-    if (this.info.supplier && this.info.supplier.name)
-      this.info.supplierName = this.info.supplier.name;
-    else this.info.supplierName = null;
-
-    if (this.info.division && this.info.division.Id)
-      this.info.divisionId = this.info.division.Id;
-    else this.info.divisionId = null;
-
-    // this.flag = true;
-    // this.tableList.refresh();
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
     let params = {
-      supplierName: this.info.supplierName,
-      divisionId: this.info.divisionId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isImport: false,
+      billNo: this.info.billNo ? this.info.billNo : "",
+      paymentBill: this.info.paymentBill ? this.info.paymentBill : "",
+      category: this.info.purchasingCategory ? this.info.purchasingCategory : "",
+      startDate: startDate,
+      endDate: endDate
     };
 
     this.service.getXls(params);
@@ -177,23 +205,15 @@ export class List {
   }
 
   pdf() {
-    if (this.info.supplier && this.info.supplier.name)
-      this.info.supplierName = this.info.supplier.name;
-    else this.info.supplierName = null;
-
-    if (this.info.division && this.info.division.Id)
-      this.info.divisionId = this.info.division.Id;
-    else this.info.divisionId = null;
-
-    // this.flag = true;
-    // this.tableList.refresh();
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
 
     let params = {
-      supplierName: this.info.supplierName,
-      divisionId: this.info.divisionId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isImport: false,
+      billNo: this.info.billNo ? this.info.billNo : "",
+      paymentBill: this.info.paymentBill ? this.info.paymentBill : "",
+      category: this.info.purchasingCategory ? this.info.purchasingCategory : "",
+      startDate: startDate,
+      endDate: endDate
     };
 
     this.service.getPdf(params);
@@ -203,19 +223,50 @@ export class List {
 
   reset() {
     this.flag = false;
-    this.info.supplier = null;
-    this.info.division = null;
+    this.info.purchasingCategory = null;
+    this.info.startDate = null;
+    this.info.endDate = null;
     this.error = {};
-    this.info.year = moment().format("YYYY");
-    this.info.month = { text: "January", value: 1 };
     this.tableList.refresh();
+    this.selectedBillNo = null;
+    this.selectedPaymentBill = null;
   }
 
-  get supplierLoader() {
-    return SupplierLoader;
+  get billNoLoader() {
+    return BillNoLoader;
   }
 
-  get divisionLoader() {
-    return DivisionLoader;
+  @bindable selectedBillNo;
+  selectedBillNoChanged(newValue, oldValue) {
+    if (newValue)
+      this.info.billNo = newValue.Value;
+    else
+      this.info.billNo = null;
+    console.log(newValue);
+  }
+
+  get paymentBillLoader() {
+    return PaymentBillLoader;
+  }
+
+  @bindable selectedPaymentBill;
+  selectedPaymentBillChanged(newValue, oldValue) {
+    if (newValue)
+      this.info.paymentBill = newValue.Value;
+    else
+      this.info.paymentBill = null;
+    console.log(newValue);
+  }
+
+  get accountingCategoryLoader() {
+    return AccountingCategoryLoader;
+  }
+
+  @bindable selectedAccountingCategory;
+  selectedAccountingCategoryChanged(newValue, oldValue) {
+    if (newValue)
+      this.info.purchasingCategory = newValue.Value;
+    else
+      this.info.purchasingCategory = null;
   }
 }

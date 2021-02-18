@@ -2,7 +2,7 @@ import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 import moment from "moment";
-import UnitLoader from "../../../../loader/unit-loader";
+import UnitLoader from "../../../../loader/unit-accounting-loader";
 import { Dialog } from "../../../../components/dialog/dialog";
 import { AddItemDialog } from "./templates/add-item-dialog";
 import { UpdateItemDialog } from "./templates/update-item-dialog";
