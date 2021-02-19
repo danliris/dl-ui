@@ -64,6 +64,17 @@ class PurchasingService extends RestService {
     }
     
 }
+const uomServiceUri = 'master/uoms';
+class CoreService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "core");
+    }
+
+    getUom(info) {
+        var endpoint = `${uomServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
 
 
-export { Service,PurchasingService}
+export { Service,PurchasingService, CoreService}
