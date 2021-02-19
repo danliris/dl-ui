@@ -9,6 +9,7 @@ export class Service extends RestService {
   }
 
   search(info) {
+    info.isImportSupplier = true;
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
@@ -19,7 +20,7 @@ export class Service extends RestService {
   }
 
   getPdf(info) {
-    let endpoint = `${serviceUri}/downloads/pdf?billNo=${info.billNo}&paymentBill=${info.paymentBill}&category=${info.category}&startDate=${info.startDate}&endDate=${info.endDate}&isForeignCurrency=${false}&isImportSupplier=${true}`;
+    let endpoint = `${serviceUri}/download/pdf?billNo=${info.billNo}&paymentBill=${info.paymentBill}&category=${info.category}&startDate=${info.startDate}&endDate=${info.endDate}&isForeignCurrency=${false}&isImportSupplier=${true}`;
     return super.getPdf(endpoint);
   }
 }

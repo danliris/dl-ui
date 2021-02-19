@@ -1,7 +1,7 @@
 <template>
   <require from="../../../../lib/number-format-value-converter"></require>
 
-  <h1 class="page-header">Laporan Buku Pembelian Lokal Valas</h1>
+  <h1 class="page-header">Laporan Buku Pembelian Lokal</h1>
 
   <form class="form-horizontal">
     <au-autocomplete value.bind="selectedBillNo"
@@ -22,12 +22,14 @@
                      options.bind="controlOptions">
     </au-autocomplete>
 
-    <au-dropdown value.bind="info.purchasingCategory"
-                 label="Kategori"
-                 options.bind="controlOptions"
-                 items.bind="purchasingCategoryOptions"
-                 text="text">
-    </au-dropdown>
+    <au-autocomplete value.bind="selectedAccountingCategory"
+                     label="Kategori Pembukuan"
+                     loader.bind="accountingCategoryLoader"
+                     text="Value"
+                     placeholder="cari kategori pembukuan"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
 
     <au-datepicker value.bind="info.startDate"
                    label="Tanggal Awal"
