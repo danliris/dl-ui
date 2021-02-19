@@ -242,6 +242,8 @@ export class List {
     this.tableList.refresh();
     this.selectedBillNo = null;
     this.selectedPaymentBill = null;
+    this.currencies = [];
+    this.categories = [];
   }
 
   get billNoLoader() {
