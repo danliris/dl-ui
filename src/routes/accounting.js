@@ -150,13 +150,13 @@ module.exports = [
     title: 'Laporan Rekap Bon Keluar Unit (BUK)',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/accounting/reports/flow-penerimaan',
     name: 'flow-penerimaan',
     moduleId: './modules/accounting/reports/flow-penerimaan/index',
@@ -164,13 +164,13 @@ module.exports = [
     title: 'Laporan Rekap Bon Terima Unit (BUM)',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: { "B1": 1, "C9": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1 },
-        iconClass: 'fa fa-clone'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "B1": 1, "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      iconClass: 'fa fa-clone'
     }
-},
-{
+  },
+  {
     route: 'accounting/accounting-stock-report',
     name: 'accounting-stock-report',
     moduleId: './modules/accounting/reports/accounting-stock-report/index',
@@ -178,14 +178,14 @@ module.exports = [
     title: 'Laporan Stok Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"B1": 1, "C9": 1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
+  },
 
-{
+  {
     route: '/garment-production/monitoring-prepare-bookkeeping',
     name: 'garment-production-monitoring-prepare-bookkeeping',
     moduleId: './modules/garment-production/monitoring-prepare-bookkeeping/index',
@@ -193,13 +193,13 @@ module.exports = [
     title: 'Monitoring Prepare Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-cutting-bookkeeping',
     name: 'garment-production-monitoring-cutting-bookkeeping',
     moduleId: './modules/garment-production/monitoring-cutting-bookkeeping/index',
@@ -207,13 +207,13 @@ module.exports = [
     title: 'Monitoring Cutting Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-loading-bookkeeping',
     name: 'garment-production-monitoring-loading-bookkeeping',
     moduleId: './modules/garment-production/monitoring-loading-bookkeeping/index',
@@ -221,13 +221,13 @@ module.exports = [
     title: 'Monitoring Loading Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-sewing-bookkeeping',
     name: 'garment-production-monitoring-sewing-bookkeeping',
     moduleId: './modules/garment-production/monitoring-sewing-bookkeeping/index',
@@ -235,13 +235,13 @@ module.exports = [
     title: 'Monitoring Sewing Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-finishing-bookkeeping',
     name: 'garment-production-monitoring-finishing-bookkeeping',
     moduleId: './modules/garment-production/monitoring-finishing-bookkeeping/index',
@@ -249,13 +249,13 @@ module.exports = [
     title: 'Monitoring Finishing Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-expenditure-good-delivery-bookkeeping',
     name: 'garment-production-monitoring-expenditure-good-delivery-bookkeeping',
     moduleId: './modules/garment-production/monitoring-expenditure-good-delivery-bookkeeping/index',
@@ -263,13 +263,13 @@ module.exports = [
     title: 'Monitoring Pengiriman Barang Jadi Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
-{
+  },
+  {
     route: '/garment-production/monitoring-production-flow-by-size-bookkeeping',
     name: 'garment-production-monitoring-production-flow-by-size-bookkeeping',
     moduleId: './modules/garment-production/monitoring-production-flow-by-size-bookkeeping/index',
@@ -277,14 +277,14 @@ module.exports = [
     title: 'Monitoring Flow Produksi per Size Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
     }
-},
+  },
 
-{
+  {
     route: '/garment-production/monitoring-production-stock-flow-bookkeeping',
     name: 'garment-production-monitoring-production-stock-flow-bookkeeping',
     moduleId: './modules/garment-production/monitoring-production-stock-flow-bookkeeping/index',
@@ -292,11 +292,53 @@ module.exports = [
     title: 'Monitoring Flow Persediaan Pembukuan',
     auth: true,
     settings: {
-        group: "accounting",
-        subGroup: "report",
-        permission: {"C9": 1, "B1":1},
-       
-        iconClass: 'fa fa-dashboard'
+      group: "accounting",
+      subGroup: "report",
+      permission: { "C9": 1, "B1": 1 },
+
+      iconClass: 'fa fa-dashboard'
     }
-},
+  },
+  {
+    route: 'garment-purchasing-book-report-local',
+    name: 'garment-purchasing-book-report-local',
+    moduleId: './modules/garment-finance/reports/garment-purchasing-book-report-local/index',
+    nav: true,
+    title: 'Laporan Buku Pembelian Lokal',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'garment-purchasing-book-report-local-foreign-currency',
+    name: 'garment-purchasing-book-report-local-foreign-currency',
+    moduleId: './modules/garment-finance/reports/garment-purchasing-book-report-local-foreign-currency/index',
+    nav: true,
+    title: 'Laporan Buku Pembelian Lokal Valas',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'garment-purchasing-book-report-import',
+    name: 'garment-purchasing-book-report-import',
+    moduleId: './modules/garment-finance/reports/garment-purchasing-book-report-import/index',
+    nav: true,
+    title: 'Laporan Buku Pembelian Import',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  }
 ];
