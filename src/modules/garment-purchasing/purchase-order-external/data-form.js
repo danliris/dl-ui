@@ -156,11 +156,9 @@ export class DataForm {
             this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
             this.data.IsUseVat = _selectedSupplier.usevat;
             this.data.IsIncomeTax = _selectedSupplier.usetax;
-            if(_selectedSupplier.usetax == true){
-                this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
-                this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
-                this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate == null ? 0 : _selectedSupplier.IncomeTaxes.rate;
-            }
+            this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
+            this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
+            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
             
         }
     }
