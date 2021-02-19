@@ -898,6 +898,19 @@ module.exports = [
         //   permission: { "B1": 1, "C9": 1 },
           iconClass: 'fa fa-dashboard'
         }
-     }
+    },
+    {
+        route: '/ro-feature',
+        name: 'ro-feature',
+        moduleId: './modules/garment-purchasing/ro-feature/index',
+        nav: true,
+        title: 'Fitur Pencarian RO',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 
 ]
