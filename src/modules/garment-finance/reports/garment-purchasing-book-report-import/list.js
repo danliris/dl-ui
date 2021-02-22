@@ -23,7 +23,11 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, rowspan: "2"
       },
-      { field: "SupplierName", title: "Supplier", rowspan: "2" },
+      {
+        field: "SupplierName", title: "Supplier", rowspan: "2", formatter: function (value, data, index) {
+          return value ? data.SupplierCode + " - " + data.SupplierName : "";
+        }
+      },
       { field: "ProductName", title: "Nama Barang", rowspan: "2" },
       { field: "GarmentDeliveryOrderNo", title: "No Surat Jalan", rowspan: "2" },
       { field: "BillNo", title: "No BP Besar", rowspan: "2" },

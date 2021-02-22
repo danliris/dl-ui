@@ -43,9 +43,13 @@ export class DataForm {
         this.isNotEditable = this.context.isNotEditable;
 
         this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
+
         this.saveCallback = this.context.saveCallback;
+
+        if (!this.data.IsPosted) {
+            this.deleteCallback = this.context.deleteCallback;
+            this.editCallback = this.context.editCallback;
+        }
 
         if (!this.readOnly) {
             this.collection = {

@@ -14,6 +14,7 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        this.data.IsPosted = true;
     }
 
     list() {
