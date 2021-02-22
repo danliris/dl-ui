@@ -24,14 +24,13 @@ export class List {
         }, rowspan: "2"
       },
       { field: "SupplierName", title: "Supplier", rowspan: "2" },
-      { field: "ProductName", title: "Keterangan", rowspan: "2" },
+      { field: "ProductName", title: "Nama Barang", rowspan: "2" },
       { field: "GarmentDeliveryOrderNo", title: "No Surat Jalan", rowspan: "2" },
       { field: "BillNo", title: "No BP Besar", rowspan: "2" },
       { field: "PaymentBill", title: "No BP Kecil", rowspan: "2" },
       { field: "InvoiceNo", title: "No Invoice", rowspan: "2" },
       { field: "VATNo", title: "No Faktur Pajak", rowspan: "2" },
       { field: "InternalNoteNo", title: "No NI", rowspan: "2" },
-      { field: "PurchasingCategoryName", title: "Kategori Pembelian", rowspan: "2" },
       { field: "AccountingCategoryName", title: "Kategori Pembukuan", rowspan: "2" },
       { title: "Bea Cukai", colspan: "4" },
       { title: "Pembelian", colspan: "3" },
@@ -206,6 +205,8 @@ export class List {
     this.tableList.refresh();
     this.selectedBillNo = null;
     this.selectedPaymentBill = null;
+    this.currencies = [];
+    this.categories = [];
   }
 
   get billNoLoader() {

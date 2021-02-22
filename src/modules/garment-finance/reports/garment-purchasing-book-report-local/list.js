@@ -29,7 +29,7 @@ export class List {
         field: "SupplierName", title: "Supplier", rowspan: 2
       },
       {
-        field: "ProductName", title: "Keterangan", rowspan: 2
+        field: "ProductName", title: "Nama Barang", rowspan: 2
       },
       {
         field: "GarmentDeliveryOrderNo", title: "No Surat Jalan", rowspan: 2
@@ -48,9 +48,6 @@ export class List {
       },
       {
         field: "InternalNoteNo", title: "No NI", rowspan: 2
-      },
-      {
-        field: "PurchasingCategoryName", title: "Kategori Pembelian", rowspan: 2
       },
       {
         field: "AccountingCategoryName", title: "Kategori Pembukuan", rowspan: 2
@@ -230,6 +227,8 @@ export class List {
     this.tableList.refresh();
     this.selectedBillNo = null;
     this.selectedPaymentBill = null;
+    this.currencies = [];
+    this.categories = [];
   }
 
   get billNoLoader() {

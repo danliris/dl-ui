@@ -43,12 +43,12 @@ export class List {
       field: "VAT",
       title: "PPN",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "-";
+        return value || value == 0 ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
     {
-      field: "Amount",
+      field: "InternalNoteAmount",
       title: "Total Bayar Ke Supplier",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "-";
@@ -69,7 +69,7 @@ export class List {
       align: "right",
     },
     {
-      field: "PaidAmount",
+      field: "InvoiceAmount",
       title: "Nilai Dibayar",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
@@ -172,7 +172,7 @@ export class List {
             before._PaymentMethod_rowspan = 1;
             before._DPP_rowspan = 1;
             before._VAT_rowspan = 1;
-            before._Amount_rowspan = 1;
+            before._InternalNoteAmount_rowspan = 1;
             before._CurrencyCode_rowspan = 1;
             before._BankName_rowspan = 1;
           } else {
@@ -182,7 +182,7 @@ export class List {
             before._PaymentMethod_rowspan++;
             before._DPP_rowspan++;
             before._VAT_rowspan++;
-            before._Amount_rowspan++;
+            before._InternalNoteAmount_rowspan++;
             before._CurrencyCode_rowspan++;
             before._BankName_rowspan++;
 
@@ -195,7 +195,7 @@ export class List {
             result.data[i].PaymentMethod = undefined;
             result.data[i].DPP = undefined;
             result.data[i].VAT = undefined;
-            result.data[i].Amount = undefined;
+            result.data[i].InternalNoteAmount = undefined;
             result.data[i].CurrencyCode = undefined;
             result.data[i].BankName = undefined;
           }

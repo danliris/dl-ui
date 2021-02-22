@@ -19,11 +19,12 @@ export class AddItemDialog {
   }
 
   activate(data) {
-    // console.log("data", data);
+    console.log("data", data);
 
     this.data = data;
     this.data.UnitId = data.Unit.Id;
-    this.data.DivisionId = data.Unit.Division.Id;
+    // this.data.DivisionId = data.Unit.Division.Id;
+    this.data.DivisionId = data.Unit.DivisionId;
     this.data.Date = data.Date;
     this.data.CashflowSubCategoryId = data.Info.SubCategoryId;
     this.data.Items = [];
