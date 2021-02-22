@@ -159,6 +159,7 @@ export class DataForm {
             this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
             this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
             this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
+            
         }
     }
 
