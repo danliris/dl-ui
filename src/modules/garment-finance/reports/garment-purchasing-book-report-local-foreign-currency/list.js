@@ -26,7 +26,9 @@ export class List {
         rowspan: 2
       },
       {
-        field: "SupplierName", title: "Supplier", rowspan: 2
+        field: "SupplierName", title: "Supplier", rowspan: "2", formatter: function (value, data, index) {
+          return value ? data.SupplierCode + " - " + data.SupplierName : "";
+        }
       },
       {
         field: "ProductName", title: "Nama Barang", rowspan: 2
