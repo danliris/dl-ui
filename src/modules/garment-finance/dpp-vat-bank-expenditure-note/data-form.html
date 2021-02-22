@@ -33,7 +33,7 @@
                     read-only.bind="true"
                     label="Rate"
                     options.bind="controlOptions"
-                    format="0.00">
+                    format="0,000.0000">
         </au-numeric>
 
         <au-autocomplete value.bind="supplier"
@@ -58,7 +58,7 @@
                     label="Pembayaran Keluar"
                     error.bind="error.Amount"
                     options.bind="controlOptions"
-                    format="0.00">
+                    format="0,000.0000">
         </au-numeric>
 
         <au-datepicker value.bind="data.Date"
