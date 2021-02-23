@@ -58,7 +58,7 @@
 
                 <au-dropdown
                     label="Jenis Invoice"
-                    value.bind="data.invoiceType"
+                    value.bind="selectedInvoiceType"
                     error.bind="error.InvoiceType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="data.packingListType=='EXPORT' ? InvoiceTypeOptions : InvoiceTypeOptionsR"
@@ -266,8 +266,9 @@
                 items.bind="data.measurements" 
                 errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
-                read-only.bind="readOnly" 
-                read-only="true"
+                read-only.bind="readOnly || data.invoiceType!='SM'" 
+                add.bind="addMeasurements" 
+                remove.bind="removeMeasurements"
                 options.bind="Options"
                 item-template="modules/garment-shipping/packing-list/template/detail-measurement">
             </au-collection>
