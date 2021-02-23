@@ -50,9 +50,10 @@ export class Edit {
           cartonQuantity: d.cartonQuantity,
           grossWeight: d.grossWeight,
           netWeight: d.netWeight,
-          netNetWeight: d.netNetWeight
+          netNetWeight: d.netNetWeight,
+          index: d.index
         };
-      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2) === index);
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
       for (const detail of newDetails) {
         const cartonExist = false;
         const indexItem = this.data.items.indexOf(item);
@@ -60,7 +61,7 @@ export class Edit {
           for (let i = 0; i < indexItem; i++) {
             const item = this.data.items[i];
             for (const prevDetail of item.details) {
-              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
                 cartonExist = true;
                 break;
               }

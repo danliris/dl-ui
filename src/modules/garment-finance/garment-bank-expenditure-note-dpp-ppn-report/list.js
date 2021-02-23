@@ -26,7 +26,7 @@ export class List {
       field: "ExpenditureDate",
       title: "Tanggal Bayar DPP + PPN",
       formatter: function (value, data, index) {
-        return value ? moment(value).format("DD MMM YYYY") : "";
+        return value ? moment(value).format("DD MMM YYYY") : "-";
       },
     },
     { field: "CategoryName", title: "Category" },
@@ -35,7 +35,7 @@ export class List {
       field: "DPP",
       title: "DPP",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
+        return value ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
@@ -43,15 +43,15 @@ export class List {
       field: "VAT",
       title: "PPN",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
+        return value || value == 0 ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
     {
-      field: "Amount",
+      field: "InternalNoteAmount",
       title: "Total Bayar Ke Supplier",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
+        return value ? numeral(value).format("0,000.00") : "-";
       },
       align: "right",
     },
@@ -69,10 +69,10 @@ export class List {
       align: "right",
     },
     {
-      field: "PaidAmount",
+      field: "InvoiceAmount",
       title: "Nilai Dibayar",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -80,7 +80,7 @@ export class List {
       field: "Difference",
       title: "Selisih",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "";
+        return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
       },
       align: "right",
     },
@@ -163,53 +163,50 @@ export class List {
       ? this.service.search(arg).then((result) => {
         let before = {};
 
-        // for (let i in result.data) {
-        //   if (result.data[i].DocumentNo != before.DocumentNo) {
-        //     before = result.data[i];
-        //     before._DocumentNo_rowspan = 1;
-        //     before._Date_rowspan = 1;
-        //     before._CategoryName_rowspan = 1;
-        //     before._DivisionName_rowspan = 1;
-        //     before._PaymentMethod_rowspan = 1;
-        //     before._DPP_rowspan = 1;
-        //     before._VAT_rowspan = 1;
-        //     before._TotalPaid_rowspan = 1;
-        //     before._BankName_rowspan = 1;
-        //     before._Currency_rowspan = 1;
-        //   } else {
-        //     before._DocumentNo_rowspan++;
-        //     before._Date_rowspan++;
-        //     before._CategoryName_rowspan++;
-        //     before._DivisionName_rowspan++;
-        //     before._PaymentMethod_rowspan++;
-        //     before._DPP_rowspan++;
-        //     before._VAT_rowspan++;
-        //     before._TotalPaid_rowspan++;
-        //     before._BankName_rowspan++;
-        //     before._Currency_rowspan++;
+        for (let i in result.data) {
+          if (result.data[i].ExpenditureNoteNo != before.ExpenditureNoteNo) {
+            before = result.data[i];
+            before._ExpenditureNoteNo_rowspan = 1;
+            before._ExpenditureDate_rowspan = 1;
+            before._CategoryName_rowspan = 1;
+            before._PaymentMethod_rowspan = 1;
+            before._DPP_rowspan = 1;
+            before._VAT_rowspan = 1;
+            before._InternalNoteAmount_rowspan = 1;
+            before._CurrencyCode_rowspan = 1;
+            before._BankName_rowspan = 1;
+          } else {
+            before._ExpenditureNoteNo_rowspan++;
+            before._ExpenditureDate_rowspan++;
+            before._CategoryName_rowspan++;
+            before._PaymentMethod_rowspan++;
+            before._DPP_rowspan++;
+            before._VAT_rowspan++;
+            before._InternalNoteAmount_rowspan++;
+            before._CurrencyCode_rowspan++;
+            before._BankName_rowspan++;
 
-        //     before.DPP += result.data[i].DPP;
-        //     before.VAT += result.data[i].VAT;
-        //     before.TotalPaid += result.data[i].TotalPaid;
+            // before.DPP += result.data[i].DPP;
+            // before.IncomeTax += result.data[i].IncomeTax;
 
-        //     result.data[i].DocumentNo = undefined;
-        //     result.data[i].Date = undefined;
-        //     result.data[i].CategoryName = undefined;
-        //     result.data[i].DivisionName = undefined;
-        //     result.data[i].PaymentMethod = undefined;
-        //     result.data[i].DPP = undefined;
-        //     result.data[i].VAT = undefined;
-        //     result.data[i].TotalPaid = undefined;
-        //     result.data[i].Currency = undefined;
-        //     result.data[i].BankName = undefined;
-        //   }
-        // }
+            result.data[i].ExpenditureNoteNo = undefined;
+            result.data[i].ExpenditureDate = undefined;
+            result.data[i].CategoryName = undefined;
+            result.data[i].PaymentMethod = undefined;
+            result.data[i].DPP = undefined;
+            result.data[i].VAT = undefined;
+            result.data[i].InternalNoteAmount = undefined;
+            result.data[i].CurrencyCode = undefined;
+            result.data[i].BankName = undefined;
+          }
+        }
 
-        // setTimeout(() => {
-        //   $("#dpp-ppn-bank-table td").each(function () {
-        //     if ($(this).html() === "-") $(this).hide();
-        //   });
-        // }, 10);
+        setTimeout(() => {
+          $('#dpp-ppn-bank-table td').each(function () {
+            if ($(this).html() === '-')
+              $(this).hide();
+          })
+        }, 10);
 
         return {
           total: result.data.length,
@@ -277,7 +274,7 @@ export class List {
             ? this.info.dateTo
             : "";
 
-        if (!arg.dateFrom) {
+        if (!arg.startDate) {
           arg.startDate = new Date(arg.startDate);
           arg.startDate.setMonth(arg.startDate.getMonth() - 1);
         }

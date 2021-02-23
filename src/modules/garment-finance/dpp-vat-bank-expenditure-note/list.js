@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
     columns = [{
         field: "IsPosted",
         title: "IsPosted Checkbox",
@@ -26,11 +26,21 @@ export class List {
         },
     },
     { field: "BankName", title: "Bank" },
-    { field: "TotalAmount", title: "Total DPP + PPN" },
+    {
+        field: "TotalAmount", title: "Total DPP + PPN", align: "right", formatter: function (value, data, index) {
+            return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
+        }
+    },
     { field: "CurrencyCode", title: "Mata Uang" },
     { field: "SupplierName", title: "Supplier" },
-    { field: "DocumentNoInternalNotes", title: "Nota Intern" }
-    ];
+    { field: "DocumentNoInternalNotes", title: "Nota Intern" }];
+
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
 
     controlOptions = {
         label: {

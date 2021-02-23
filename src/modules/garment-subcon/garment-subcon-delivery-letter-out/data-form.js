@@ -1,10 +1,10 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service,PurchasingService } from "./service";
+import { Service,PurchasingService,CoreService } from "./service";
 
 const ContractLoader = require('../../../loader/garment-subcon-contract-loader');
 const UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
 
-@inject(Service,PurchasingService)
+@inject(Service,PurchasingService,CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
@@ -19,9 +19,10 @@ export class DataForm {
     @bindable selectedContract;
     @bindable selectedDLType;
 
-    constructor(service,purchasingService) {
+    constructor(service,purchasingService,coreService) {
         this.service = service;
         this.purchasingService=purchasingService;
+        this.coreService = coreService;
     }
 
     formOptions = {
@@ -50,6 +51,7 @@ export class DataForm {
             "Design/Color",
             "Jumlah",
             "Satuan",
+            "Satuan Keluar",
             "Tipe Fabric",
             "Jumlah Keluar",
         ]
@@ -180,6 +182,14 @@ export class DataForm {
                                 Id: uenItem.UomId,
                                 Unit: uenItem.UomUnit
                             };
+                            this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) })
+                            .then((uomResult)=>{
+                                item.UomOut={
+                                    Id: uomResult.data[0].Id,
+                                    Unit: uomResult.data[0].Unit
+                                };
+                            });
+                            
                             item.ProductRemark=uenItem.ProductRemark;
                             //item.Quantity=uenItem.Quantity;
                             var doItem= deliveryOrder.Items.find(a=>a._id == uenItem.UnitDOItemId );

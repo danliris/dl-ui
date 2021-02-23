@@ -56,7 +56,8 @@
     /* Use position: sticky to have it stick to the edge
      * and top, right, or left to choose which edge to stick to: */
     .table-responsive thead tr:first-child th {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       top: 0;
       background-color: #173250;
@@ -65,7 +66,8 @@
     }
 
     .table-responsive thead tr:last-child th {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       top: 37px;
       background-color: #173250;
@@ -74,7 +76,8 @@
     }
 
     .table-responsive tbody tr th.th-1 {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       left: 0;
       z-index: 1;
@@ -82,7 +85,8 @@
     }
 
     .table-responsive tbody tr th.th-2 {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       left: 38px;
       z-index: 1;
@@ -90,7 +94,8 @@
     }
 
     .table-responsive tbody tr th.th-3 {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       left: 76px;
       z-index: 1;
@@ -98,7 +103,8 @@
     }
 
     .table-responsive tbody tr th.th-4 {
-      position: -webkit-sticky; /* for Safari */
+      position: -webkit-sticky;
+      /* for Safari */
       position: sticky;
       left: 94px;
       z-index: 1;
@@ -124,45 +130,51 @@
   </style>
 
   <au-input-form title="Budget Cashflow Divisi">
-    <au-autocomplete
-      value.bind="division"
-      error.bind="error.division"
-      label="Division"
-      loader.bind="divisionLoader"
-      text="Name"
-      placeholder="Cari Divisi"
-      options.bind="controlOptions"
-    >
+    <au-autocomplete value.bind="division"
+                     error.bind="error.division"
+                     label="Division"
+                     loader.bind="divisionLoader"
+                     text="Name"
+                     placeholder="Cari Divisi"
+                     options.bind="controlOptions">
     </au-autocomplete>
-    <au-datepicker
-      label="Periode"
-      value.bind="date"
-      error.bind="error.date"
-      options.bind="controlOptions"
-    >
+    <au-datepicker label="Periode"
+                   value.bind="date"
+                   error.bind="error.date"
+                   options.bind="controlOptions">
     </au-datepicker>
 
     <div class="form-group">
       <div class="col-sm-6"></div>
       <div class="col-sm-3">
-        <button click.delegate="search()" class="btn btn-success">Cari</button>
-        <button click.delegate="reset()" class="btn btn-success">Reset</button>
+        <button click.delegate="search()"
+                class="btn btn-success">Cari</button>
+        <button click.delegate="reset()"
+                class="btn btn-success">Reset</button>
       </div>
     </div>
-    <div if.bind="!isEmpty" class="btn-group pull-left">
-      <a click.delegate="printXls()" class="btn btn-primary">Cetak Excel</a>
-      <a click.delegate="printPdf()" class="btn btn-info">Cetak Pdf</a>
+    <div if.bind="!isEmpty"
+         class="btn-group pull-left">
+      <a click.delegate="printXls()"
+         class="btn btn-primary">Cetak Excel</a>
+      <a click.delegate="printPdf()"
+         class="btn btn-info">Cetak Pdf</a>
     </div>
 
     <br /><br />
 
-    <div if.bind="!isEmpty" class="table-responsive">
+    <div if.bind="!isEmpty"
+         class="table-responsive">
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th colspan="4" rowspan="2" class="ket-header">KETERANGAN</th>
+            <th colspan="4"
+                rowspan="2"
+                class="ket-header">KETERANGAN</th>
             <th rowspan="2">MATA UANG</th>
-            <th colspan="3" repeat.for="column of columns" class="unit-header">
+            <th colspan="3"
+                repeat.for="column of columns"
+                class="unit-header">
               ${column}
             </th>
             <th rowspan="2">TOTAL IDR</th>
@@ -174,176 +186,138 @@
         <tbody>
           <tr repeat.for="row of rows">
             <!-- Contoh: Kegiatan Operasional -->
-            <th
-              if.bind="row.IsUseSection"
-              rowspan="${row.SectionRows || 1}"
-              class="th-1 v-center"
-            >
-              <span class="text-rotate text-bold"
-                >${row.CashflowType.Name}</span
-              >
+            <th if.bind="row.IsUseSection"
+                rowspan="${row.SectionRows || 1}"
+                class="th-1 v-center">
+              <span class="text-rotate text-bold">${row.CashflowType.Name}</span>
             </th>
 
             <!-- Contoh: Cash In -->
-            <th
-              if.bind="row.IsUseGroup"
-              rowspan="${row.GroupRows || 1}"
-              class="th-2 v-center"
-            >
+            <th if.bind="row.IsUseGroup"
+                rowspan="${row.GroupRows || 1}"
+                class="th-2 v-center">
               <span class="text-rotate text-bold">${row.TypeName}</span>
             </th>
 
             <!-- Contoh: Pendapatan Operasional: -->
-            <th
-              if.bind="row.CashflowCategory && row.CashflowCategory.Id && row.IsLabelOnly"
-              colspan="2"
-              class="th-3 text-bold"
-            >
+            <th if.bind="row.CashflowCategory && row.CashflowCategory.Id && row.IsLabelOnly"
+                colspan="2"
+                class="th-3 text-bold">
               ${row.CashflowCategory.Name}
             </th>
 
             <!-- Contoh: Penjualan Export -->
-            <th
-              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
-              class="th-3 nester"
-            ></th>
-            <th
-              class="th-4"
-              if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
-            >
+            <th if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id"
+                class="th-3 nester"></th>
+            <th class="th-4"
+                if.bind="row.CashflowSubCategory && row.CashflowSubCategory.Id">
               <span class="${!row.IsShowSubCategoryLabel ? 'hide' : ''}">
                 ${row.CashflowSubCategory.Name}
               </span>
             </th>
 
             <!-- Contoh: Total Penerimaan Kegiatan Operasional -->
-            <th if.bind="row.IsSummary" colspan="2" class="th-3 text-bold">
+            <th if.bind="row.IsSummary"
+                colspan="2"
+                class="th-3 text-bold">
               <span class="${!row.IsShowSummaryLabel ? 'hide' : ''}">
                 ${row.SummaryLabel}
               </span>
             </th>
 
             <!-- Contoh: Surplus/Deficit-Kas dari Kegiatan Investasi -->
-            <th if.bind="row.IsDifference" colspan="3" class="th-2 text-bold">
+            <th if.bind="row.IsDifference"
+                colspan="3"
+                class="th-2 text-bold">
               <span class="${!row.IsShowDifferenceLabel ? 'hide' : ''}">
                 ${row.DifferenceLabel}
               </span>
             </th>
 
             <!-- Contoh: Saldo Awal Kas, SURPLUS/DEFISIT KAS, Saldo Akhir Kas, Saldo Real Kas, Selisih -->
-            <th
-              if.bind="row.IsGeneralSummary"
-              colspan="4"
-              class="th-1 text-bold"
-            >
+            <th if.bind="row.IsGeneralSummary"
+                colspan="4"
+                class="th-1 text-bold">
               <span class="${!row.IsShowGeneralSummaryLabel ? 'hide' : ''}">
                 ${row.GeneralSummaryLabel}
               </span>
             </th>
 
             <!-- Contoh: Rate -->
-            <th
-              if.bind="row.IsCurrencyRate"
-              class="th-1 text-bold text-right"
-              colspan="4"
-            >
+            <th if.bind="row.IsCurrencyRate"
+                class="th-1 text-bold text-right"
+                colspan="4">
               <span class="${!row.IsShowCurrencyLabel ? 'hide' : ''}">
                 ${row.CurrencyRateLabel}
               </span>
             </th>
 
             <!-- Contoh: Total Surplus (Defisit) Equivalent -->
-            <th if.bind="row.IsEquivalent" colspan="4" class="th-1 text-bold">
+            <th if.bind="row.IsEquivalent"
+                colspan="4"
+                class="th-1 text-bold">
               <span>${row.EquivalentLabel}</span>
             </th>
 
             <!-- Kosong jika hanya label -->
-            <td
-              if.bind="row.IsLabelOnly && !row.Items"
-              colspan="${columns.length * 3 + 2}"
-            ></td>
+            <td if.bind="row.IsLabelOnly && !row.Items"
+                colspan="${columns.length * 3 + 2}"></td>
 
             <!-- Fields khusus Rate -->
-            <td
-              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
-              class="text-center"
-            >
-              <au-textbox
-                value.bind="row.Currency ? row.Currency.Code : '-'"
-                read-only.bind="true"
-              >
+            <td if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
+                class="text-center">
+              <au-textbox value.bind="row.Currency ? row.Currency.Code : '-'"
+                          read-only.bind="true">
               </au-textbox>
             </td>
             <td if.bind="!row.IsLabelOnly && row.IsCurrencyRate">
-              <au-numeric
-                value.bind="row.Currency.Rate"
-                format="0,000.00"
-                read-only.bind="true"
-              >
+              <au-numeric value.bind="row.Currency.Rate"
+                          format="0,000.00"
+                          read-only.bind="true">
               </au-numeric>
             </td>
-            <td
-              if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
-              colspan="${columns.length * 3}"
-            ></td>
+            <td if.bind="!row.IsLabelOnly && row.IsCurrencyRate"
+                colspan="${columns.length * 3}"></td>
 
             <!-- Fields khusus equivalent -->
-            <td
-              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
-              class="text-center"
-            >
-              <au-textbox value.bind="'IDR'" read-only.bind="true">
+            <td if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+                class="text-center">
+              <au-textbox value.bind="'IDR'"
+                          read-only.bind="true">
               </au-textbox>
             </td>
-            <td
-              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
-            >
-              <au-numeric
-                value.bind="row.Equivalent"
-                format="0,000.00"
-                read-only.bind="true"
-              >
+
+            <td if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
+                colspan="${columns.length * 3}"></td>
+            <td if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate">
+              <au-numeric value.bind="row.Equivalent"
+                          format="0,000.00"
+                          read-only.bind="true">
               </au-numeric>
             </td>
-            <td
-              if.bind="!row.IsLabelOnly && row.IsEquivalent && !row.IsCurrencyRate"
-              colspan="${columns.length * 3}"
-            ></td>
 
             <!-- Field mata uang -->
-            <td
-              if.bind="!row.IsLabelOnly && !row.IsCurrencyRate && !row.IsEquivalent"
-              class="text-center"
-            >
-              <au-textbox
-                value.bind="row.Currency && row.Currency.Code ? row.Currency.Code : '-'"
-                read-only.bind="true"
-              >
+            <td if.bind="!row.IsLabelOnly && !row.IsCurrencyRate && !row.IsEquivalent"
+                class="text-center">
+              <au-textbox value.bind="row.Currency && row.Currency.Code ? row.Currency.Code : '-'"
+                          read-only.bind="true">
               </au-textbox>
             </td>
 
             <!-- Fields nominal, nominal valas dan actual -->
-            <td
-              if.bind="!row.IsLabelOnly && row.Items"
-              repeat.for="item of row.ItemsCol"
-            >
-              <au-numeric
-                value.bind="item"
-                format="0,000.00"
-                read-only.bind="true"
-              >
+            <td if.bind="!row.IsLabelOnly && row.Items"
+                repeat.for="item of row.ItemsCol">
+              <au-numeric value.bind="item"
+                          format="0,000.00"
+                          read-only.bind="true">
               </au-numeric>
             </td>
 
             <!-- Fields total -->
-            <td
-              if.bind="!row.IsLabelOnly && !row.IsEquivalent && !row.IsCurrencyRate && row.Items"
-            >
-              <au-numeric
-                value.bind="row.DivisionActualTotal || 0"
-                format="0,000.00"
-                read-only.bind="true"
-              >
+            <td if.bind="!row.IsLabelOnly && !row.IsEquivalent && !row.IsCurrencyRate && row.Items">
+              <au-numeric value.bind="row.DivisionActualTotal || 0"
+                          format="0,000.00"
+                          read-only.bind="true">
               </au-numeric>
             </td>
           </tr>
