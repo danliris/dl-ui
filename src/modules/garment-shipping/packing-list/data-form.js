@@ -14,6 +14,7 @@ export class DataForm {
     @bindable selectedSection;
     @bindable selectedBuyer;
     @bindable selectedLC;
+    @bindable selectedInvoiceType;
 
     constructor(service, authService, coreService) {
         this.service = service;
@@ -253,6 +254,17 @@ export class DataForm {
         this.data.buyerAgent = null;
         if (newValue) {
             this.data.buyerAgent = newValue;
+        }
+    }
+
+    selectedInvoiceTypeChanged(newValue){
+        if (newValue != this.data.invoiceType && this.data.items){
+            this.data.items.splice(0);
+            if(this.data.measurements)
+                this.data.measurements.splice(0);
+        }
+        if (newValue) {
+            this.data.invoiceType = newValue;
         }
     }
 

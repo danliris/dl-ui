@@ -116,15 +116,15 @@
                 <tbody>
                     <tr>
                         <td>
-                            <au-numeric value.bind="length" read-only.bind="readOnly">
+                            <au-numeric value.bind="length" read-only.bind="readOnly||type=='SM'">
                             </au-numeric>
                         </td>
                         <td>
-                            <au-numeric value.bind="width" read-only.bind="readOnly">
+                            <au-numeric value.bind="width" read-only.bind="readOnly||type=='SM'">
                             </au-numeric>
                         </td>
                         <td>
-                            <au-numeric value.bind="height" read-only.bind="readOnly">
+                            <au-numeric value.bind="height" read-only.bind="readOnly||type=='SM'">
                             </au-numeric>
                         </td>
                         <td>

@@ -68,12 +68,17 @@
           <thead align="center">
             <tr>
               <td>Kategori</td>
+              <td>Mata Uang</td>
+              <td>Total Valas</td>
               <td>Total (IDR)</td>
             </tr>
           </thead>
           <tbody>
             <tr repeat.for="category of categories">
               <td>${category.CategoryName}</td>
+              <td>${category.CurrencyCode}</td>
+              <td class="text-right"><strong>${category.CurrencyAmount | numberFormat:
+                '0,000.0000'}</strong></td>
               <td class="text-right"><strong>${category.Amount | numberFormat:
                   '0,000.0000'}</strong></td>
             </tr>

@@ -89,15 +89,12 @@
           <thead align="center">
             <tr>
               <td>Mata Uang</td>
-              <td>Total (Valas)</td>
               <td>Total (IDR)</td>
             </tr>
           </thead>
           <tbody>
             <tr repeat.for="currency of currencies">
               <td>${currency.CurrencyCode}</td>
-              <td class="text-right"><strong>${currency.CurrencyAmount | numberFormat:
-                  '0,000.0000'}</strong></td>
               <td class="text-right"><strong>${currency.Amount | numberFormat:
                   '0,000.0000'}</strong></td>
             </tr>
