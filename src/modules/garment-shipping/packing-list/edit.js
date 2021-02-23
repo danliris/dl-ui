@@ -27,6 +27,9 @@ export class Edit {
         if (this.data.section) {
             this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
         }
+        if(this.data.invoiceType){
+          this.selectedInvoiceType= this.data.invoiceType;
+        }
 
         if (this.data.items && this.data.items.length > 0) {
           for (const item of this.data.items) {

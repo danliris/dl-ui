@@ -22,6 +22,7 @@ export class measurement {
             isEdit: this.isEdit,
         };
 
+        console.log(this.context)
     }
 
     get cmb() {

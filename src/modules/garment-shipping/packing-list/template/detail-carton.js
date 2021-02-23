@@ -36,12 +36,14 @@ export class Detail {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
+        this.type=context.context.options.header.invoiceType;
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
         };
+        console.log(this.context,this.type)
 
         this.isShowing = true;
 
