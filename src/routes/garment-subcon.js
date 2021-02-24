@@ -17,7 +17,7 @@ module.exports = [
         name: 'service-subcon-cutting',
         moduleId: './modules/garment-subcon/garment-service-subcon-cutting/index',
         nav: true,
-        title: 'Subcon Jasa - Cutting',
+        title: 'Subcon Jasa - Komponen',
         auth: true,
         settings: {
             group: "g-subcon",
