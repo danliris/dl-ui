@@ -31,6 +31,7 @@ export class View {
           for(var detail of item.Details){
               if(detail.Quantity>0){
                   detail.IsSave=true;
+                  detail.SewingInQuantity=detail.Quantity;
               }
               else{
                   detail.IsSave=false;

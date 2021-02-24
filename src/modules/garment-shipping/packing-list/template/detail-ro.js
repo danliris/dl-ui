@@ -86,8 +86,6 @@ export class Item {
                 this.isShowing = true;
             }
         }
-        
-        console.log(this.context)
     }
 
     selectedROChanged(newValue) {
