@@ -27,11 +27,11 @@ export class List {
     context = ["Rincian"];
 
     columns = [
-        { field: "SubconNo", title: "No Subcon Jasa Cutting" },
+        { field: "SubconNo", title: "No Subcon Jasa Komponen" },
         { field: "SubconType", title: "Jenis Subcon" },
         { field: "UnitName", title: "Unit Asal" },
        // { field: "TotalQuantity", title: "Jumlah Out", sortable: false},
-        { field: "SubconDate", title: "Tgl Subcon Jasa Cutting", formatter: value => moment(value).format("DD MMM YYYY") },
+        { field: "SubconDate", title: "Tgl Subcon Jasa Komponen", formatter: value => moment(value).format("DD MMM YYYY") },
         //{ field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
     ]
 

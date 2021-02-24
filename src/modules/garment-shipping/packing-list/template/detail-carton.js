@@ -43,7 +43,6 @@ export class Detail {
             readOnly: this.readOnly,
             isEdit: this.isEdit,
         };
-        console.log(this.context,this.type)
 
         this.isShowing = true;
 
