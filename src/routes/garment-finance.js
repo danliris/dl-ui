@@ -104,6 +104,19 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: "/garment-finance/garment-purchasing-debt-balance",
+    name: "garment-purchasing-debt-balance",
+    moduleId: "./modules/garment-finance/garment-purchasing-debt-balance/index",
+    nav: true,
+    title: "Kartu Hutang",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
