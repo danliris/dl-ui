@@ -3,7 +3,7 @@ import moment from "moment";
 import numeral from "numeral";
 import XLSX from "xlsx";
 import { Service } from "./service";
-const SupplierLoader = require("../../../loader/supplier-loader");
+const SupplierLoader = require("../../../loader/garment-supplier-loader");
 
 @inject(Service)
 export class List {
@@ -56,7 +56,7 @@ export class List {
   }
 
   supplierView = (supplier) => {
-    return supplier.name;
+    return supplier.code +" - "+ supplier.name;
   };
 
   async search() {
@@ -66,8 +66,11 @@ export class List {
     if (this.info.supplier && this.info.supplier.name)
       this.info.name = this.info.supplier.name;
 
-      if (this.info.supplier && this.info.supplier.id)
-      this.info.id = this.info.supplier.id;
+    if (this.info.supplier && this.info.supplier.Id)
+      this.info.id = this.info.supplier.Id;
+
+    if (this.info.supplier && this.info.supplier.import)
+      this.info.import = this.info.supplier.import;
 
     let validationError = false;
 
@@ -75,7 +78,11 @@ export class List {
       this.error.supplier = "Supplier harus diisi";
       validationError = true;
     }
-    if (this.info && (!this.info.supplier || this.info.supplier.id == null)) {
+    if (this.info && (!this.info.supplier || this.info.supplier.Id == null)) {
+      this.error.supplier = "Supplier harus diisi";
+      validationError = true;
+    }
+    if (this.info && (!this.info.supplier || this.info.supplier.import == null)) {
       this.error.supplier = "Supplier harus diisi";
       validationError = true;
     }
@@ -87,6 +94,7 @@ export class List {
       let params = {
         supplierName: this.info.name,
         supplierId : this.info.id,
+        import : this.info.import,
         month: this.info.month.value,
         year: this.info.year,
       };
@@ -110,7 +118,7 @@ export class List {
 
             var newData = {
               Date: item.InvoiceDate ? moment(item.InvoiceDate).format("DD-MMM-YYYY") : null,
-              Products: item.ProductName,
+              Products: item.ProductNames,
               PurchasingCategoryName: item.PurchasingCategoryName,
               BillsNo: item.BillsNo,
               PaymentBills: item.PaymentBills,
@@ -172,6 +180,10 @@ export class List {
   excel() {
     if (this.info.supplier && this.info.supplier.name)
       this.info.supplierName = this.info.supplier.name;
+    if (this.info.supplier && this.info.supplier.import)
+      this.info.supplierImport = this.info.supplier.import;
+    if (this.info.supplier && this.info.supplier.Id)
+      this.info.supplierId = this.info.supplier.Id;
 
     let validationError = false;
 
@@ -179,7 +191,14 @@ export class List {
       this.error.supplier = "Supplier harus diisi";
       validationError = true;
     }
-
+    if (this.info && (!this.info.supplier || this.info.supplier.import == null)) {
+      this.error.supplier = "Supplier harus diisi";
+      validationError = true;
+    }
+    if (this.info && (!this.info.supplier || this.info.supplier.Id == null)) {
+      this.error.supplier = "Supplier harus diisi";
+      validationError = true;
+    }
     if (!validationError) {
       this.error = {};
       // this.flag = true;
@@ -187,6 +206,8 @@ export class List {
 
       let params = {
         supplierName: this.info.supplierName,
+        supplierId: this.info.supplierId,
+        import:this.info.supplierImport,
         month: this.info.month.value,
         year: this.info.year,
       };
@@ -199,10 +220,22 @@ export class List {
   pdf() {
     if (this.info.supplier && this.info.supplier.name)
       this.info.supplierName = this.info.supplier.name;
+    if (this.info.supplier && this.info.supplier.import)
+      this.info.supplierImport = this.info.supplier.import;
+    if (this.info.supplier && this.info.supplier.Id)
+      this.info.supplierId = this.info.supplier.Id;
 
     let validationError = false;
 
     if (this.info && (!this.info.supplier || this.info.supplier.name == null)) {
+      this.error.supplier = "Supplier harus diisi";
+      validationError = true;
+    }
+    if (this.info && (!this.info.supplier || this.info.supplier.import == null)) {
+      this.error.supplier = "Supplier harus diisi";
+      validationError = true;
+    }
+    if (this.info && (!this.info.supplier || this.info.supplier.Id == null)) {
       this.error.supplier = "Supplier harus diisi";
       validationError = true;
     }
@@ -214,6 +247,8 @@ export class List {
 
       let params = {
         supplierName: this.info.supplierName,
+        supplierId: this.info.supplierId,
+        import: this.info.supplierImport,
         month: this.info.month.value,
         year: this.info.year,
       };
