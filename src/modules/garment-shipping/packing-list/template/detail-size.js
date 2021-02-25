@@ -20,7 +20,6 @@ export class Detail {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        console.log(this.context)
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
