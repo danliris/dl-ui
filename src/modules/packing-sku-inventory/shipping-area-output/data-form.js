@@ -39,7 +39,8 @@ export class DataForm {
     "Qty Packing",
     "Packing",
     "Qty Keluar",
-    "Berat (KG)"
+    "Berat (KG)",
+    "Bon Penjualan"
   ];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
@@ -198,6 +199,7 @@ export class DataForm {
               "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
+              "Bon Penjualan",
               ""
             ];
           }
@@ -238,9 +240,12 @@ export class DataForm {
               "Packing",
               "Panjang Packing",
               "Qty Keluar",
-              "Berat (KG)"
+              "Berat (KG)",
+              "Bon Penjualan",
+              ""
             ];
           }
+          
 
         }
       }
@@ -370,6 +375,7 @@ export class DataForm {
   }
   shippingQuery = {
     DestinationArea: "PENJUALAN",
+    "DyeingPrintingAreaOutputProductionOrders.Any(HasNextAreaDocument == false)":true
   };
   @bindable selectedDO;
   async selectedDOChanged(n, o) {
@@ -519,7 +525,8 @@ export class DataForm {
                 "Packing",
                 "Panjang Packing",
                 "Qty Keluar",
-                "Berat (KG)"
+                "Berat (KG)",
+                "BonNo"
               ];
             }
 
