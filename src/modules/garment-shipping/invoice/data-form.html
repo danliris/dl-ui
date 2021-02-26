@@ -6,6 +6,8 @@
                 if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"
                 if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-warning" click.delegate="context.update($event)"
+                if.one-way="context.hasUpdated">Update</button>
             <button class="btn btn-success" click.delegate="context.save($event)"
                 if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger" click.delegate="context.delete($event)"
@@ -14,7 +16,7 @@
         <div class="col-md-4">
 
             <au-autocomplete label="InvoiceNo" value.bind="packinglists" error.bind="error.InvoiceNo"
-                read-only.bind="readOnly || isEdit " loader.bind="invoiceLoader" text.bind="invoiceView"
+                read-only.bind="readOnly || isEdit || isUpdated" loader.bind="invoiceLoader" text.bind="invoiceView"
                 placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel"
                 query.bind="filter">
             </au-autocomplete>
@@ -67,7 +69,7 @@
             <au-textbox label="Confirmation Of Order No" value.bind="data.confirmationOfOrderNo"
                 error.bind="error.ConfirmationOfOrderNo" read-only.bind="readOnly" options.bind="length4">
             </au-textbox>
-            <au-autocomplete label="Shipping Staff" value.bind="shippingStaff" error.bind="error.ShippingStaff"
+            <au-autocomplete label="Shipping Staff" value.bind="data.shippingStaff" error.bind="error.ShippingStaff"
                 read-only="true" loader.bind="shippingStaffLoader"
                 text.bind="shippingStaffView" placeholder="Cari Shipping Staff" options.bind="length4"
                 view-model.ref="shippingStaffViewModel">
@@ -165,7 +167,7 @@
             <div class="col-md-6">
 
                 <au-multiline label="MEMO" value.bind="data.memo" error.bind="error.memo"
-                    read-only.bind="readOnly || isEdit" options.bind="length4">
+                    read-only.bind="readOnly || isEdit || isUpdated" options.bind="length4">
                 </au-multiline>
 
                 <au-dropdown label="INCOTERMS" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"

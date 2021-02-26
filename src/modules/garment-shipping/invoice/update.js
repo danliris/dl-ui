@@ -1,20 +1,22 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { CoreService } from "./service";
 
 
-@inject(Router, Service)
-export class Edit {
+@inject(Router, Service, CoreService)
+export class Update {
     hasCancel = true;
     hasSave = true;
-    isEdit = true;
-    isUpdated = false;
+    isEdit = false;
+    isUpdated = true;
     isCreate =false;
 
 
-    constructor(router, service) {
+    constructor(router, service, coreService) {
         this.router = router;
         this.service = service;
+        this.coreService = coreService;
     }
 
     bind() {
@@ -33,6 +35,7 @@ export class Edit {
         }
        
     }
+    
 
     cancel(event) {
         this.router.navigateToRoute('view', { id: this.data.id });
