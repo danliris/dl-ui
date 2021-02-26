@@ -29,6 +29,9 @@ export class View {
         if (this.data.section) {
             this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
         }
+        if(this.data.invoiceType){
+            this.selectedInvoiceType= this.data.invoiceType;
+        }
     }
 
     cancelCallback(event) {
