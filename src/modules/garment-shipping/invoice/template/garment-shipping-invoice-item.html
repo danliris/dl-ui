@@ -4,7 +4,7 @@
             <au-autocomplete 
                 value.bind="roNo" 
                 error.bind="error.RONo" 
-                read-only.bind="readOnly || (isEdit && data.id)"
+                read-only.bind="readOnly || (isEdit && data.id) || (isUpdated && data.id)"
                 loader.bind="costCalLoader"
                 text.bind = "costCalView"
                 placeholder = "Cari RO"

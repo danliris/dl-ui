@@ -10,12 +10,13 @@ export class View {
     }
     isView= true;
     isEdit =false;
+    isUpdated = false;
 
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
         this.hasEdit=true;
-       console.log(this.data)
+        this.hasUpdated = true;
         this.hasCancel=true;
         if(this.data.isUsed == true)
         {
@@ -44,6 +45,9 @@ export class View {
                 .catch(e => {
                     this.error = e;
                 })
+    }
+    update(event) {
+        this.router.navigateToRoute('update', {id: this.data.id });
     }
    
 }
