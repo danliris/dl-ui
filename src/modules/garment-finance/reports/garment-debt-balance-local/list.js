@@ -8,25 +8,25 @@ const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 @inject(Service)
 export class List {
   columns = [
-    { field: "SupplierName", title: "Supplier", rowspan: 2 },
-    { field: "CurrencyCode", title: "Mata Uang", rowspan: 2 },
+    { field: "SupplierName", title: "Supplier" },
+    { field: "CurrencyCode", title: "Mata Uang" },
     {
-      field: "InitialBalance", title: "Saldo Awal", rowspan: 2, align: "right", formatter: function (value, data, index) {
+      field: "InitialBalance", title: "Saldo Awal", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     },
     {
-      field: "PurchaseAmount", title: "Pembelian", rowspan: 2, align: "right", formatter: function (value, data, index) {
+      field: "PurchaseAmount", title: "Pembelian", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     },
     {
-      field: "PaymentAmount", title: "Pembayaran", rowspan: 2, align: "right", formatter: function (value, data, index) {
+      field: "PaymentAmount", title: "Pembayaran", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     },
     {
-      field: "CurrentBalance", title: "Saldo Akhir", rowspan: 2, align: "right", formatter: function (value, data, index) {
+      field: "CurrentBalance", title: "Saldo Akhir", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     }
@@ -74,6 +74,9 @@ export class List {
       { text: "Desember", value: 12 },
     ];
     this.currentYear = moment().format("YYYY");
+
+    this.info.month = { text: "January", value: 1 };
+    this.info.year = this.currentYear;
 
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());

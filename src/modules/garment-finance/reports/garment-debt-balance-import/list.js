@@ -100,6 +100,9 @@ export class List {
     ];
     this.currentYear = moment().format("YYYY");
 
+    this.info.month = { text: "January", value: 1 };
+    this.info.year = this.currentYear;
+
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());
     }
