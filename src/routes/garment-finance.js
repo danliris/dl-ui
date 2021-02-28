@@ -118,6 +118,19 @@ module.exports = [
     }
   },
   {
+    route: "/garment-finance/reports/garment-debt-balance-local",
+    name: "garment-debt-balance-local",
+    moduleId: "./modules/garment-finance/reports/garment-debt-balance-local/index",
+    nav: true,
+    title: "Saldo Hutang Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: "/garment-finance/reports/garment-purchasing-debt-balance-local-foreign",
     name: "garment-purchasing-debt-balance-local-foreign",
     moduleId: "./modules/garment-finance/reports/garment-purchasing-debt-balance-local-foreign/index",
@@ -130,6 +143,19 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: "/garment-finance/reports/garment-debt-balance-import",
+    name: "garment-debt-balance-import",
+    moduleId: "./modules/garment-finance/reports/garment-debt-balance-import/index",
+    nav: true,
+    title: "Saldo Hutang Impor",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  }
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
