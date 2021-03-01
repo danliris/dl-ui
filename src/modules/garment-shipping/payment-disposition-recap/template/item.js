@@ -20,9 +20,12 @@ export class item {
         this.readOnly = this.options.readOnly;
         this.isEdit = this.context.context.options.isEdit;
 
+        this.isShowing = false;
         if (this.data && this.data.paymentDisposition && this.data.paymentDisposition.id) {
             this.selectedPaymentDisposition = this.data.paymentDisposition;
+            this.isShowing = true;
         }
+
     }
 
     invoicesColumns = [
@@ -117,5 +120,31 @@ export class item {
         } else {
             this.data.paymentDisposition = {};
         }
+    }
+
+    toggle() {
+        if (!this.isShowing)
+            this.isShowing = true;
+        else
+            this.isShowing = !this.isShowing;
+    }
+
+    @computedFrom('data.service')
+    get vatService() {
+        var value = 0.1 * this.data.service;
+        this.data.vatService = value;
+        return value;
+    }
+
+    get amountService() {
+        var value = this.data.paymentDisposition.amount - this.data.service - this.data.truckingPayment - this.data.vatService;
+        this.data.amountService = value;
+        return value; 
+    }
+
+    get paidDisposition() {
+        var value = this.data.paymentDisposition.amount - this.data.paymentDisposition.incomeTaxValue + this.data.othersPayment;
+        this.data.paymentDisposition.paid = value;
+        return value;
     }
 }
