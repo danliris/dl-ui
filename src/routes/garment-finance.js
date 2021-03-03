@@ -155,6 +155,19 @@ module.exports = [
       permission: { "B13": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route: "/garment-finance/reports/garment-debt-detail-report",
+    name: "garment-debt-detail-report",
+    moduleId: "./modules/garment-finance/reports/garment-debt-detail-report/index",
+    nav: true,
+    title: "Laporan Rincian Hutang",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
   }
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
