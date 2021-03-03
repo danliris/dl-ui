@@ -129,7 +129,7 @@ export class List {
       month: this.info.month.value,
       year: this.info.year,
       isForeignCurrency: false,
-      supplierIsImport: true
+      supplierIsImport: false
     };
 
     this.service.getXls(params);
@@ -145,7 +145,7 @@ export class List {
       month: this.info.month.value,
       year: this.info.year,
       isForeignCurrency: false,
-      supplierIsImport: true
+      supplierIsImport: false
     };
 
     this.service.getPdf(params);
