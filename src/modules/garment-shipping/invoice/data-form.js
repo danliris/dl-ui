@@ -334,13 +334,25 @@ export class DataForm {
 
             };
             this.shippingStaff = {
-                Id: item.shippingStaffId,
-                Name: item.shippingStaff || ""
+                Id: packingItem.shippingStaff.id,
+                Name: packingItem.shippingStaff.name || ""
             }
             _item.amount = item.amount;
             _item.currencyCode = item.valas;
             _item.packingListItemId = item.id;
+            _item.createdUtc = item.createdUtc;
+            _item.createdBy = item.createdBy;
+            _item.lastModifiedUtc = item.lastModifiedUtc;
+            _item.lastModifiedBy = item.lastModifiedBy;
+            _item.lastModifiedAgent = item.lastModifiedAgent;
             if(dataInvoiceLama) {
+                _item.id = dataInvoiceLama.id;
+                _item.createdUtc = dataInvoiceLama.createdUtc;
+                _item.createdBy = dataInvoiceLama.createdBy;
+                _item.lastModifiedUtc = dataInvoiceLama.lastModifiedUtc;
+                _item.lastModifiedBy = dataInvoiceLama.lastModifiedBy;
+                _item.lastModifiedAgent = dataInvoiceLama.lastModifiedAgent;
+
                 _item.comodityDesc= dataInvoiceLama.comodityDesc;
                 _item.desc2 = dataInvoiceLama.desc2;
                 _item.desc3 = dataInvoiceLama.desc3;
