@@ -44,20 +44,23 @@ export class Edit {
                     for(var a of this.data.Items){
                         RO=a.RONo; break;
                     }
-                    this.RONoJob = {
-                        RONo: this.data.RONo,
-                        Items: []
-                    };
-                    this.RONo = {
-                        RONo: RO,
-                        Items: []
-                    };
+                    // this.RONoJob = {
+                    //     RONo: this.data.RONo,
+                    //     Items: []
+                    // };
+                    this.RONoJob = this.data.RONo,
+                    // this.RONo = {
+                    //     RONo: RO,
+                    //     Items: []
+                    // };
+                    this.RONo = RO
                 }
                 else{
-                    this.RONo = {
-                        RONo: this.data.RONo,
-                        Items: []
-                    };
+                    // this.RONo = {
+                    //     RONo: this.data.RONo,
+                    //     Items: []
+                    // };
+                    this.RONo = this.data.RONo
                 }
             }
 
