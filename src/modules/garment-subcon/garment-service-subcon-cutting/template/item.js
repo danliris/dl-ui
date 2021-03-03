@@ -104,7 +104,7 @@ export class Item {
                 }
                 let ssCuttingItems=[];
                 let ssCutting = await this.service.searchItem({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-                console.log(ssCutting)
+                //console.log(ssCutting)
                 if(ssCutting.data.length>0){
                     for(var ssC of ssCutting.data){
                         for(var ssCItem of ssC.Details){
@@ -122,7 +122,7 @@ export class Item {
                         }
                     }
                 }
-                console.log()
+                //console.log()
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
