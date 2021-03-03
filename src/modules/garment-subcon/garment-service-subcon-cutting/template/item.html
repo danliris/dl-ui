@@ -52,7 +52,7 @@
             <au-collection 
                 items.bind="data.Details" 
                 errors.bind="error.Details" 
-                columns.bind="itemsColumns"
+                columns.bind="isCreate ? itemsColumnsCreate : itemsColumns"
                 read-only.bind="readOnly || isEdit" 
                 options.bind="itemOptions"
                 item-template="modules/garment-subcon/garment-service-subcon-cutting/template/detail" >
