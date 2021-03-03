@@ -83,29 +83,35 @@ export class DataForm {
                 }
             );
             for(var item of this.data.Items){
-                var details=[];
                 for(var d of item.Details){
-                    var detail={};
-                    if(details.length==0){
-                        detail.Quantity=d.Quantity;
-                        detail.DesignColor=d.DesignColor;
-                        details.push(detail);
-                    }
-                    else{
-                        var exist= details.find(a=>a.DesignColor==d.DesignColor);
-                        if(!exist){
-                            detail.Quantity=d.Quantity;
-                            detail.DesignColor=d.DesignColor;
-                            details.push(detail);
+                    var Sizes=[];
+                    for(var s of d.Sizes){
+                        var detail={};
+                        if(Sizes.length==0){
+                            detail.Quantity=s.Quantity;
+                            detail.Size=s.Size;
+                            detail.Color=s.Color;
+                            detail.Uom=s.Uom;
+                            Sizes.push(detail);
                         }
                         else{
-                            var idx= details.indexOf(exist);
-                            exist.Quantity+=d.Quantity;
-                            details[idx]=exist;
+                            var exist= Sizes.find(a=>a.Size.Id==s.Size.Id);
+                            if(!exist){
+                                detail.Quantity=s.Quantity;
+                                detail.Size=s.Size;
+                                detail.Color=s.Color;
+                                detail.Uom=s.Uom;
+                                Sizes.push(detail);
+                            }
+                            else{
+                                var idx= Sizes.indexOf(exist);
+                                exist.Quantity+=s.Quantity;
+                                Sizes[idx]=exist;
+                            }
                         }
-                    }  
+                    }
+                    d.Sizes=Sizes;
                 }
-                item.Details=details;
             }
         }
     }

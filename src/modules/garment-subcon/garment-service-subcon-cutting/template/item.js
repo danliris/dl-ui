@@ -45,16 +45,25 @@ export class Item {
             }
         }
         this.isShowing = true;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
+        if (this.data.Details) {
+            if (this.data.Details.length > 0) {
                 this.isShowing = true;
             }
         }
     }
-    itemsColumns= [
+    itemsColumnsCreate= [
            // "Kode Barang",
             "Keterangan",
             "Jumlah",
+            "Jumlah Keluar",
+            ""
+        ];
+
+    itemsColumns= [
+        // "Kode Barang",
+            "Keterangan",
+            "Jumlah Keluar",
+            ""
         ];
 
     toggle() {
@@ -99,18 +108,21 @@ export class Item {
                 if(ssCutting.data.length>0){
                     for(var ssC of ssCutting.data){
                         for(var ssCItem of ssC.Details){
-                            var item={};
-                            item.cuttingInDetailId=ssCItem.CuttingInDetailId;
-                            item.qty=ssCItem.Quantity;
-                            if(ssCuttingItems[ssCItem.CuttingInDetailId]){
-                                ssCuttingItems[ssCItem.CuttingInDetailId].qty+=ssCItem.Quantity;
-                            }
-                            else{
-                                ssCuttingItems[ssCItem.CuttingInDetailId]=item;
+                            for(var scSize of ssCItem.Sizes){
+                                var item={};
+                                item.cuttingInDetailId=scSize.CuttingInDetailId;
+                                item.qty=scSize.Quantity;
+                                if(ssCuttingItems[scSize.CuttingInDetailId]){
+                                    ssCuttingItems[scSize.CuttingInDetailId].qty+=scSize.Quantity;
+                                }
+                                else{
+                                    ssCuttingItems[scSize.CuttingInDetailId]=item;
+                                }
                             }
                         }
                     }
                 }
+                console.log()
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
@@ -118,6 +130,7 @@ export class Item {
                                 for(var cuttingInDetail of cuttingInItem.Details){
                                     var qtyOut=0;
                                     var detail={};
+                                    
                                     if(ssCuttingItems[cuttingInDetail.Id]){
                                         qtyOut+=ssCuttingItems[cuttingInDetail.Id].qty;
                                     }
@@ -128,7 +141,7 @@ export class Item {
                                         // cuttingInDetail.Product=cuttingInDetail.Product;
                                         //cuttingInDetail.CuttingInDate=cuttingInHeader.CuttingInDate;
                                     if(this.data.Details.length==0){
-                                        detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                       // detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
                                         detail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
                                         detail.DesignColor=cuttingInDetail.DesignColor;
                                         this.data.Details.push(detail);
@@ -136,14 +149,14 @@ export class Item {
                                     else{
                                         var exist= this.data.Details.find(a=>a.DesignColor==cuttingInDetail.DesignColor);
                                         if(!exist){
-                                            detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                            //detail.Quantity=cuttingInDetail.CuttingInQuantity-qtyOut;
                                             detail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
                                             detail.DesignColor=cuttingInDetail.DesignColor;
                                             this.data.Details.push(detail);
                                         }
                                         else{
                                             var idx= this.data.Details.indexOf(exist);
-                                            exist.Quantity+=cuttingInDetail.CuttingInQuantity-qtyOut;
+                                            //exist.Quantity+=cuttingInDetail.CuttingInQuantity-qtyOut;
                                             exist.CuttingInQuantity+=cuttingInDetail.CuttingInQuantity-qtyOut;
                                             this.data.Details[idx]=exist;
                                         }
