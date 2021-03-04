@@ -180,27 +180,31 @@ export class List {
   excel() {
 
     if (this.info.supplier && this.info.supplier.Id)
-      this.info.supplierId = this.info.supplier.Id;
+    this.info.id = this.info.supplier.Id;
+    
+  let validationError = false;
 
-    let validationError = false;
+  
+  if (this.info && (!this.info.supplier || this.info.supplier.Id == null)) {
+    this.error.supplier = "Supplier harus diisi";
+    validationError = true;
+  }
 
-    if (this.info && (!this.info.supplier || this.info.supplier.Id == null)) {
-      this.error.supplier = "Supplier harus diisi";
-      validationError = true;
-    }
     if (!validationError) {
       this.error = {};
       // this.flag = true;
       // this.tableList.refresh();
 
       let params = {
-        supplierId: this.info.supplierId,
+        supplierId : this.info.id,
         month: this.info.month.value,
         year: this.info.year,
         isForeignCurrency:true,
         supplierIsImport:false
       };
 
+      console.log("params",params);
+      console.log("info",this.info);
       this.service.getXls(params);
     }
     // this.getExcelData();
