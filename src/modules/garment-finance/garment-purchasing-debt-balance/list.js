@@ -117,7 +117,7 @@ export class List {
           //   }
 
             var newData = {
-              Date: item.InvoiceDate ? moment(item.InvoiceDate).format("DD-MMM-YYYY") : null,
+              Date: item.ArrivalDate ? moment(item.ArrivalDate).format("DD-MMM-YYYY") : null,
               Products: item.ProductNames,
               PurchasingCategoryName: item.PurchasingCategoryName,
               BillsNo: item.BillsNo,
