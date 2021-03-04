@@ -333,6 +333,8 @@ export class DataForm {
                 name: item.unit.name
 
             };
+            this.data.shippingStaffId = packingItem.shippingStaff.id;
+            this.data.shippingStaff = packingItem.shippingStaff.name;
             this.shippingStaff = {
                 Id: packingItem.shippingStaff.id,
                 Name: packingItem.shippingStaff.name || ""
