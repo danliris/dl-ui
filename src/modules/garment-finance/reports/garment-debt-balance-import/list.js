@@ -9,6 +9,7 @@ const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 export class List {
   columns = [
     [
+      { field: "SupplierCode", title: "Kode Supplier", rowspan: 2 },
       { field: "SupplierName", title: "Supplier", rowspan: 2 },
       { field: "CurrencyCode", title: "Mata Uang", rowspan: 2 },
       {
