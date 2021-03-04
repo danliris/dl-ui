@@ -8,6 +8,7 @@ const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 @inject(Service)
 export class List {
   columns = [
+    { field: "SupplierCode", title: "Kode Supplier" },
     { field: "SupplierName", title: "Supplier" },
     { field: "CurrencyCode", title: "Mata Uang" },
     {
