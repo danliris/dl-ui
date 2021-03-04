@@ -43,6 +43,8 @@
                     <th class="text-center">Supplier</th>
                     <th class="text-center">Nomor Nota</th>
                     <th class="text-center">No Bon Kecil</th>
+                    <th class="text-center">No Bea Cukai</th>
+                    <th class="text-center">Tipe Bea Cukai</th>
                     <th class="text-center">No Surat Jalan</th>
                     <th class="text-center">Nota Intern</th>
                     <th class="text-center">Nama Unit</th>
@@ -65,6 +67,8 @@
                         <td>${data.SplName}</td>
                         <td>${data.BPBesar}</td>
                         <td>${data.BPKecil}</td>
+                        <td>${data.BCNomor}</td>
+                        <td>${data.BCTipe}</td>                    
                         <td>${data.NoSJ}</td>
                         <td>${data.NotaInt}</td>
                         <td>${data.Konveksi}</td>
@@ -82,8 +86,8 @@
                     <tr class="active">
                        <td class="text-center" >.</td>
                        <td class="text-center" colspan="4"><strong>BO BON PUSAT KECIL</strong></td>
-                       <td class="text-right" colspan="3"><strong>${supplier.supplier}</strong></td>
-                       <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
+                       <td class="text-right" colspan="4"><strong>${supplier.supplier}</strong></td>
+                       <td class="text-center" colspan="3"><strong>SUB TOTAL</strong></td>
                        <td class="text-right"><strong>${supplier.subTotal5}</strong></td>                        
                        <td class="text-left"><strong>${supplier.mtuang}</strong></td>     
                        <td class="text-center">.</td>                       
@@ -93,13 +97,18 @@
                        <td class="text-right"><strong>${supplier.subTotal4}</strong></td>                    
                     </tr>
                 </template>
-                    <!-- <tr class="active">
-                        <td class="text-center" colspan="10"><strong>T O T A L  P E M B E L I A N . . . . . . . . . . . . . . .</strong></td>
+                    <tr class="active">
+                        <td class="text-center">.</td>                       
+                        <td class="text-center" colspan="10"><strong>T O T A L  P E M B E L I A N . . . . . . . .</strong></td>
+                        <td class="text-center">.</td>                       
+                        <td class="text-right"><strong>${AmountTotal5}</strong></td>
+                        <td class="text-center">.</td>                       
+                        <td class="text-center">.</td>                       
                         <td class="text-right"><strong>${AmountTotal1}</strong></td>
                         <td class="text-right"><strong>${AmountTotal2}</strong></td>
                         <td class="text-right"><strong>${AmountTotal3}</strong></td>
                         <td class="text-right"><strong>${AmountTotal4}</strong></td>                        
-                    </tr> -->
+                    </tr>
             </tbody>
 
         </table>
