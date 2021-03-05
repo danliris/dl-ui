@@ -132,7 +132,9 @@ export class List {
               IncomeTaxAmount: item.IncomeTaxAmount ? numeral(item.IncomeTaxAmount).format("0,000.00") : 0,              
               TotalInvoice: item.TotalInvoice ? numeral(item.TotalInvoice).format("0,000.00") : 0,
               MutationPurchase: item.MutationPurchase ? numeral(item.MutationPurchase).format("0,000.00"): 0,
+              CurrencyMutationPurchase: item.CurrencyMutationPurchase ? numeral(item.CurrencyMutationPurchase).format("0,000.00"): 0,              
               MutationPayment: item.MutationPayment? numeral(item.MutationPayment).format("0,000.00"): 0,
+              CurrencyMutationPayment: item.CurrencyMutationPayment? numeral(item.CurrencyMutationPayment).format("0,000.00"): 0,
               RemainBalance: item.RemainBalance? numeral(item.RemainBalance).format("0,000.00"): 0,
             };
           // } else if (!item.InvoiceDate && item.Mutation != null) {
@@ -161,11 +163,11 @@ export class List {
 
             subTotalPurchase = 0;
             subTotalPayment = 0;
-          }
+          // }
 
           if (item.Currency) this.currency = item.Currency;
           newDatas.push(newData);
-        // }
+        }
         this.closingBalance = numeral(result.finalBalance).format("0,000.00");
         this.payment = numeral(this.payment).format("0,000.00");
         this.purchase = numeral(this.purchase).format("0,000.00");

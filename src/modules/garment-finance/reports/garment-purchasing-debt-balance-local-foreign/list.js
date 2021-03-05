@@ -163,7 +163,6 @@ export class List {
 
     this.service.getXls(params);
 
-    // this.getExcelData();
   }
 
   pdf() {
