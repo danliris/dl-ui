@@ -203,8 +203,8 @@ export class List {
         supplierIsImport:false
       };
 
-      console.log("params",params);
-      console.log("info",this.info);
+      // console.log("params",params);
+      // console.log("info",this.info);
       this.service.getXls(params);
     }
     // this.getExcelData();
