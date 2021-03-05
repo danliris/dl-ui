@@ -124,6 +124,7 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             invoiceNo: this.invoice ? this.invoice.invoiceNo  : "",
+            npn: this.npn ? this.npn  : "",
             doNo : this.deliveryorder ? this.deliveryorder.doNo : "",
             billNo : this.bill ? this.bill.billNo : "", 
             paymentBill: this.paymentbill ? this.paymentbill.paymentBill : ""
@@ -157,6 +158,7 @@ export class List {
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
                 invoiceNo: this.invoice ? this.invoice.invoiceNo : "",
+                npn: this.npn ? this.npn  : "",
                 doNo: this.deliveryorder ? this.deliveryorder.doNo : "",
                 billNo: this.bill ? this.bill.billNo : "",
                 paymentBill: this.paymentBill ? this.paymentbill.paymentBill : ""
@@ -224,9 +226,11 @@ export class List {
         this.internNote = null;
         this.currency = null;
         this.bill = null;
+        this.npn = null;
         this.deliveryorder = null;
         this.paymentbill = null;
         this.invoice = null;
+        this.data = [];
   }
   changePage(e) {
         var page = e.detail;

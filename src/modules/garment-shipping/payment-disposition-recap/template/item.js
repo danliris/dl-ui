@@ -25,6 +25,9 @@ export class item {
             this.selectedPaymentDisposition = this.data.paymentDisposition;
             this.isShowing = true;
         }
+        if(!this.data.paymentDisposition) {
+            this.data.paymentDisposition = {};
+        }
 
     }
 
@@ -63,7 +66,7 @@ export class item {
             const disposition = await this.service.getDispositionById(newValue.id);
 
             disposition.amount = disposition.billValue + disposition.vatValue;
-            disposition.paid = disposition.amount - disposition.incomeTaxValue;
+            disposition.paid = disposition.amount - disposition.incomeTaxValue + this.data.othersPayment;
 
             const invIds = disposition.invoiceDetails.map(i => i.invoiceId).filter((value, index, self) => self.indexOf(value) == index);
             const invoices = [];
@@ -131,20 +134,29 @@ export class item {
 
     @computedFrom('data.service')
     get vatService() {
-        var value = 0.1 * this.data.service;
-        this.data.vatService = value;
-        return value;
+        if(this.data.service) {
+            var value = 0.1 * this.data.service;
+            this.data.vatService = value;
+            return value;
+        }
+        return 0;        
     }
 
     get amountService() {
-        var value = this.data.paymentDisposition.amount - this.data.service - this.data.truckingPayment - this.data.vatService;
-        this.data.amountService = value;
-        return value; 
+        if(this.data.service > 0 && this.data.truckingPayment > 0 && this.data.vatService > 0) {
+            var value = this.data.paymentDisposition.amount - this.data.service - this.data.truckingPayment - this.data.vatService;
+            this.data.amountService = value;
+            return value; 
+        }
+        return 0;
     }
 
     get paidDisposition() {
-        var value = this.data.paymentDisposition.amount - this.data.paymentDisposition.incomeTaxValue + this.data.othersPayment;
-        this.data.paymentDisposition.paid = value;
-        return value;
+        if(this.data.paymentDisposition.amount > 0 && this.data.paymentDisposition.incomeTaxValue > 0 && this.data.othersPayment > 0) {
+            var value = this.data.paymentDisposition.amount - this.data.paymentDisposition.incomeTaxValue + this.data.othersPayment;
+            this.data.paymentDisposition.paid = value;
+            return value;
+        }
+        return 0;
     }
 }

@@ -764,7 +764,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            subGroup: "monitoring",
+            subGroup: "transaksi",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
