@@ -53,6 +53,7 @@ export class List {
         { field: "construction", title: "Material" },
         { field: "unit", title: "Unit" },
         { field: "motif", title: "Motif" },
+        { field: "buyer", title: "Buyer" },
         { field: "color", title: "Warna" },
         { field: "grade", title: "Grade" },
         { field: "jenis", title: "Jenis" },

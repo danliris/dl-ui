@@ -9,8 +9,11 @@ const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 export class List {
   columns = [
     [
-      { field: "SupplierCode", title: "Kode Supplier", rowspan: 2 },
-      { field: "SupplierName", title: "Supplier", rowspan: 2 },
+      {
+        field: "SupplierName", title: "Supplier", rowspan: 2, formatter: function (value, data, index) {
+          return `${data.SupplierCode} - ${value}`;
+        }
+      },
       { field: "CurrencyCode", title: "Mata Uang", rowspan: 2 },
       {
         field: "CurrencyInitialBalance", title: "Saldo Awal", rowspan: 2, align: "right", formatter: function (value, data, index) {
@@ -119,7 +122,7 @@ export class List {
 
   loader = (info) => {
 
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
 
     let params = {
       supplierId: supplierId,
@@ -148,7 +151,7 @@ export class List {
   }
 
   excel() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
 
     let params = {
       supplierId: supplierId,
@@ -164,7 +167,7 @@ export class List {
   }
 
   pdf() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
 
     let params = {
       supplierId: supplierId,
