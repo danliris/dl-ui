@@ -7,15 +7,15 @@
             </au-autocomplete>
         </td>
         <td class="col-sm-1">
-            <au-datepicker value.bind="data.paymentDisposition.invoiceDate" read-only="true">
+            <au-datepicker value.bind="data.paymentDisposition.invoiceDate" error.bind="error.invoiceDate" read-only="true">
             </au-datepicker>
         </td>
         <td class="col-sm-1">
-            <au-textbox value.bind="data.paymentDisposition.invoiceNumber" read-only="true">
+            <au-textbox value.bind="data.paymentDisposition.invoiceNumber" eror.bind="error.invoiceNumber" read-only="true">
             </au-textbox>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.paymentDisposition.amount" read-only="true">
+            <au-numeric value.bind="data.paymentDisposition.amount" error.bind="error.amount" read-only="true">
             </au-numeric>
         </td>
         <td class="col-sm-1">
@@ -27,15 +27,15 @@
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.truckingPayment" read-only.bind="readOnly">
+            <au-numeric value.bind="data.truckingPayment" error.bind="error.truckingPayment" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="vatService" read-only="true">
+            <au-numeric value.bind="vatService" error.bind="error.vatService" read-only="true">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="amountService" read-only="true">
+            <au-numeric value.bind="amountService" error.bind="error.amountService" read-only="true">
             </au-numeric>
         </td>
         <td class="col-sm-1">
