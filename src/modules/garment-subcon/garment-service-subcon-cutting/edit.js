@@ -75,6 +75,20 @@ export class View {
     }
 
     saveCallback(event) {
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                for(var detail of item.Details){
+                    if(detail.Quantity>0){
+                        detail.IsSave=true;
+                        detail.CuttingInQuantity=detail.Quantity;
+                    }
+                    else{
+                        detail.IsSave=false;
+                        detail.CuttingInQuantity=detail.Quantity;
+                    }
+                }
+            }
+        }
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

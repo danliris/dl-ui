@@ -36,7 +36,9 @@ export class GarmentShippingInvoiceUnits {
         }
         
       }
-      this.data.amountPercentage=amount / totAmount * 100;
+      if(amount > 0 && totAmount > 0) {
+        this.data.amountPercentage=amount / totAmount * 100;
+      }
     }
     return this.data.amountPercentage;
   }
