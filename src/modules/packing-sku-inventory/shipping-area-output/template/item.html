@@ -90,6 +90,10 @@
                 error.bind="error.Weight" options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td if.bind="!options.readOnly && isSales">
+            <au-textbox value.bind="data.bonNo" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
         <td show.bind="!isSales">
             <au-textbox value.bind="data.deliveryNote" read-only.bind="readOnly" error.bind="error.DeliveryNote"
                 options.bind="controlOptions">

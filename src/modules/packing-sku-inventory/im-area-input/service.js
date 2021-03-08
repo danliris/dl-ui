@@ -9,6 +9,15 @@ export class Service extends RestService {
     search(info) {
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
+
+        console.log(info);
+    }
+
+    search1(info) {
+        var endpoint = `${serviceUri}/monitoring`;
+        return super.list(endpoint, info);
+
+        console.log(info);
     }
 
     getById(id) {
@@ -37,7 +46,7 @@ export class Service extends RestService {
     }
 
     generateExcel(info) {
-        var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;       
         return super.getXls(endpoint);
     }
 
