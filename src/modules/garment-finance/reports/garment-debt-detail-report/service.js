@@ -14,12 +14,12 @@ export class Service extends RestService {
   }
 
   getXls(info) {
-    let endpoint = `${serviceUri}/downloads/xls?supplierId=${info.supplierId}&month=${info.month}&year=${info.year}&isForeignCurrency=${info.isForeignCurrency}&supplierIsImport=${info.supplierIsImport}`;
+    let endpoint = `${serviceUri}/downloads/xls?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.month}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
     return super.getXls(endpoint);
   }
 
   getPdf(info) {
-    let endpoint = `${serviceUri}/downloads/pdf?supplierId=${info.supplierId}&month=${info.month}&year=${info.year}&isForeignCurrency=${info.isForeignCurrency}&supplierIsImport=${info.supplierIsImport}`;
+    let endpoint = `${serviceUri}/downloads/xls?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.month}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
     return super.getPdf(endpoint);
   }
 }

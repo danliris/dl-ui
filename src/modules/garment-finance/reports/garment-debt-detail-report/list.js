@@ -136,7 +136,7 @@ export class List {
   excel() {
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
     let currencyId = this.info && this.info.currency ? this.info.currency.Id : 0;
-    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : null
+    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
 
     let params = {
       supplierId: supplierId,
@@ -154,7 +154,7 @@ export class List {
   pdf() {
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
     let currencyId = this.info && this.info.currency ? this.info.currency.Id : 0;
-    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : null
+    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
 
     let params = {
       supplierId: supplierId,
