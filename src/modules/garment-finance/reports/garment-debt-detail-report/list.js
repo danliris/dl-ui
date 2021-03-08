@@ -14,7 +14,11 @@ export class List {
     { field: "PaymentBill", title: "No BP Kecil" },
     { field: "DeliveryOrderNo", title: "No Surat Jalan" },
     { field: "PaymentType", title: "Tipe Bayar" },
-    { field: "ArrivalDate", title: "Tanggal Nota" },
+    {
+      field: "ArrivalDate", title: "Tanggal Nota", formatter: (value, data, index) => {
+        return moment(value).format("YYYY-MM-DD");
+      }
+    },
     { field: "DebtAging", title: "Umur Hutang" },
     { field: "InternalNoteNo", title: "No Nota Intern" },
     { field: "InvoiceNo", title: "Nomor Invoice" },
