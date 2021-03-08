@@ -19,7 +19,7 @@ export class Service extends RestService {
   }
 
   getPdf(info) {
-    let endpoint = `${serviceUri}/downloads/xls?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.supplierTypeFilter}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
+    let endpoint = `${serviceUri}/downloads/pdf?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.supplierTypeFilter}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
     return super.getPdf(endpoint);
   }
 }
