@@ -43,6 +43,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/pdf/${id}/${type}`;
         return super.getPdf(endpoint);
     }
+
+    getInvoiceNo(info) {
+        var endpoint = `${resourceStockUri}`;
+        return super.list(endpoint, info);
+    }
   
 }
 

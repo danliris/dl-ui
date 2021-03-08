@@ -16,12 +16,12 @@ export class Service extends RestService {
   }
 
   getXls(info) {
-    let endpoint = `${serviceUri}/downloads/xls?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
+    let endpoint = `${serviceUri}/downloads/xls?supplierId=${info.supplierId}&supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
     return super.getXls(endpoint);
   }
 
   getPdf(info) {
-    let endpoint = `${serviceUri}/downloads/pdf?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
+    let endpoint = `${serviceUri}/downloads/pdf?supplierId=${info.supplierId}&supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
     return super.getPdf(endpoint);
   }
 }

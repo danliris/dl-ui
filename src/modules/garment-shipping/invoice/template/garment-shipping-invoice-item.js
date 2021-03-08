@@ -38,6 +38,7 @@ export class items {
     this.options = this.context.context.options;
     this.readOnly = this.options.isView;
     this.isEdit = this.options.isEdit;
+    this.isUpdated = this.options.isUpdated;
 
     this.roNo = this.data.roNo;
     if (this.data) {

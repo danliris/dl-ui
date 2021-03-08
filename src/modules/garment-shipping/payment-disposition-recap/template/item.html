@@ -1,42 +1,61 @@
 <template>
     <tr style="background-color:#14c0eb;">
-        <td class="col-sm-3">
+        <td class="col-sm-1">
             <au-autocomplete placeholder="Pilih No Disposisi" value.bind="selectedPaymentDisposition"
                 error.bind="error.paymentDisposition" loader.bind="paymentDispositionsLoader" text="dispositionNo"
                 query.bind="dispositionFilter" read-only.bind="readOnly || data.id" options.bind="controlOptions">
             </au-autocomplete>
         </td>
-        <td class="col-sm-2">
-            <au-datepicker value.bind="data.paymentDisposition.invoiceDate" read-only="true">
+        <td class="col-sm-1">
+            <au-datepicker value.bind="data.paymentDisposition.invoiceDate" error.bind="error.invoiceDate" read-only="true">
             </au-datepicker>
         </td>
-        <td class="col-sm-2">
-            <au-textbox value.bind="data.paymentDisposition.invoiceNumber" read-only="true">
+        <td class="col-sm-1">
+            <au-textbox value.bind="data.paymentDisposition.invoiceNumber" eror.bind="error.invoiceNumber" read-only="true">
             </au-textbox>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.paymentDisposition.amount" read-only="true">
+            <au-numeric value.bind="data.paymentDisposition.amount" error.bind="error.amount" read-only="true">
             </au-numeric>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-numeric value.bind="data.service" error.bind="error.service" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.paymentDisposition.incomeTaxValue" read-only="true">
+            <au-numeric value.bind="data.othersPayment" read-only.bind="readOnly">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.paymentDisposition.paid" read-only="true">
+            <au-numeric value.bind="data.truckingPayment" error.bind="error.truckingPayment" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric value.bind="vatService" error.bind="error.vatService" read-only="true">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric value.bind="amountService" error.bind="error.amountService" read-only="true">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric value.bind="data.paymentDisposition.incomeTaxValue" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric value.bind="paidDisposition" read-only="true">
             </au-numeric>
         </td>
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
+        <td>
+            <button class="btn btn-default pull-right" if.bind="selectedPaymentDisposition" click.delegate="toggle()">i</button>
+        </td>
     </tr>
 
-    <tr style="background-color:#C2B5B2;" show.bind="selectedPaymentDisposition">
-        <td class="col-sm-6" colspan="7">
+    <tr style="background-color:#C2B5B2;" show.bind="isShowing">
+        <td class="col-sm-6" colspan="12">
 
             <table class="table table-bordered">
                 <thead>
@@ -68,8 +87,8 @@
         </td>
     </tr>
 
-    <tr style="background-color:#C2B5B2;" show.bind="selectedPaymentDisposition">
-        <td class="col-sm-6" colspan="7">
+    <tr style="background-color:#C2B5B2;" show.bind="isShowing">
+        <td class="col-sm-6" colspan="12">
 
             <table class="table table-bordered">
                 <thead>

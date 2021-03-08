@@ -31,8 +31,13 @@ export class DataForm {
         { header: "No Invoice / Tagihan" },
         { header: "Amount" },
         { header: "Jasa" },
+        { header: "Biaya Lain-Lain"},
+        { header: "Biaya Trucking"},
+        { header: "PPN (Jasa)"},
+        { header: "Amount (-Jasa-PPN)"},
         { header: "PPH" },
         { header: "Terbayar" },
+        { header: ""}
     ];
 
     billsColumns = [

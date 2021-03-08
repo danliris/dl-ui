@@ -14,6 +14,7 @@ export class _Input {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) inputOptions;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) disabled;
 
   @bindable editorState = STATE.VIEW;
   @bindable type;
