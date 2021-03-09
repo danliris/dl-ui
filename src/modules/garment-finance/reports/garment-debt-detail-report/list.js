@@ -10,32 +10,36 @@ const GarmentCurrencyLoader = require("../../../../loader/garment-currency-loade
 export class List {
   columns = [
     { field: "SupplierName", title: "Supplier" },
-    { field: "BillsNo", title: "No BP Besar" },
-    { field: "PaymentBills", title: "No BP Kecil" },
+    { field: "BillNo", title: "No BP Besar" },
+    { field: "PaymentBill", title: "No BP Kecil" },
     { field: "DeliveryOrderNo", title: "No Surat Jalan" },
     { field: "PaymentType", title: "Tipe Bayar" },
-    { field: "ArrivalDate", title: "Tanggal Nota" },
+    {
+      field: "ArrivalDate", title: "Tanggal Nota", formatter: (value, data, index) => {
+        return moment(value).format("YYYY-MM-DD");
+      }
+    },
     { field: "DebtAging", title: "Umur Hutang" },
     { field: "InternalNoteNo", title: "No Nota Intern" },
     { field: "InvoiceNo", title: "Nomor Invoice" },
     {
       field: "DPPAmount", title: "DPP", align: "right", formatter: function (value, data, index) {
-        return numeral(value).format("0,000.00");
+        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
       }
     },
     {
       field: "VATAmount", title: "PPN", align: "right", formatter: function (value, data, index) {
-        return numeral(value).format("0,000.00");
+        return data.CurrencyVATAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyVATAmount).format("0,000.00");
       }
     },
     {
       field: "IncomeTaxAmount", title: "PPh", align: "right", formatter: function (value, data, index) {
-        return numeral(value).format("0,000.00");
+        return data.CurrencyIncomeTaxAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyIncomeTaxAmount).format("0,000.00");
       }
     },
     {
-      field: "TotalAmount", title: "Total (DPP + PPN - PPh)", align: "right", formatter: function (value, data, index) {
-        return numeral(value).format("0,000.00");
+      field: "Total", title: "Total (DPP + PPN - PPh)", align: "right", formatter: function (value, data, index) {
+        return data.CurrencyTotal == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyTotal).format("0,000.00");
       }
     },
     { field: "CurrencyCode", title: "Mata Uang" },
@@ -45,7 +49,7 @@ export class List {
       }
     },
     {
-      field: "TotalAmount", title: "Total (IDR)", align: "right", formatter: function (value, data, index) {
+      field: "Total", title: "Total (IDR)", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     }
@@ -78,28 +82,15 @@ export class List {
     this.purchase = 0;
     this.payment = 0;
     this.closingBalance = 0;
-    this.itemMonths = [
-      { text: "January", value: 1 },
-      { text: "February", value: 2 },
-      { text: "March", value: 3 },
-      { text: "April", value: 4 },
-      { text: "May", value: 5 },
-      { text: "June", value: 6 },
-      { text: "July", value: 7 },
-      { text: "August", value: 8 },
-      { text: "September", value: 9 },
-      { text: "October", value: 10 },
-      { text: "November", value: 11 },
-      { text: "Desember", value: 12 },
+    this.itemSupplierTypes = [
+      { text: "", value: 0 },
+      { text: "Lokal", value: 1 },
+      { text: "Impor", value: 2 }
     ];
-    this.currentYear = moment().format("YYYY");
 
-    this.info.month = { text: "January", value: 1 };
-    this.info.year = this.currentYear;
+    this.info.supplierTypeFilter = { text: "", value: 0 };
 
-    for (var i = parseInt(this.currentYear); i >= 2018; i--) {
-      this.itemYears.push(i.toString());
-    }
+    this.itemPaymentTypes = ["", "T/T AFTER", "FREE", "CASH", "T/T BEFORE"];
   }
 
   get supplierLoader() {
@@ -116,14 +107,16 @@ export class List {
 
   loader = (info) => {
 
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let currencyId = this.info && this.info.currency ? this.info.currency.Id : 0;
+    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
 
     let params = {
       supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: false
+      supplierTypeFilter: this.info.supplierTypeFilter.value,
+      paymentType: this.info.paymentType,
+      arrivalDate: arrivalDate,
+      currencyId: currencyId
     };
 
 
@@ -145,14 +138,16 @@ export class List {
   }
 
   excel() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let currencyId = this.info && this.info.currency ? this.info.currency.Id : 0;
+    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
 
     let params = {
       supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: false
+      supplierTypeFilter: this.info.supplierTypeFilter.value,
+      paymentType: this.info.paymentType,
+      arrivalDate: arrivalDate,
+      currencyId: currencyId
     };
 
     this.service.getXls(params);
@@ -161,14 +156,16 @@ export class List {
   }
 
   pdf() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplierId : 0;
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let currencyId = this.info && this.info.currency ? this.info.currency.Id : 0;
+    let arrivalDate = this.info && this.info.arrivalDate && this.info.arrivalDate != "Invalid Date" ? moment(this.info.arrivalDate).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
 
     let params = {
       supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: false
+      supplierTypeFilter: this.info.supplierTypeFilter.value,
+      paymentType: this.info.paymentType,
+      arrivalDate: arrivalDate,
+      currencyId: currencyId
     };
 
     this.service.getPdf(params);
@@ -179,9 +176,14 @@ export class List {
   reset() {
     this.flag = false;
     this.info.supplier = undefined;
+    this.info.currency = undefined;
+    this.info.supplierTypeFilter = 0;
+    this.info.arrivalDate = null;
+    this.info.paymentType = "";
+
+
+    this.supplierTypeFilter = { text: "", value: 0 };
     this.data = [];
     this.tableList.refresh();
-    this.info.year = moment().format("YYYY");
-    this.info.month = { text: "January", value: 1 };
   }
 }

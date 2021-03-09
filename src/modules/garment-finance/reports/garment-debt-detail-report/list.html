@@ -8,16 +8,18 @@
       loader.bind="supplierLoader" text.bind="supplierView" placeholder="Input Supplier" read-only.bind="readOnly"
       options.bind="controlOptions">
     </au-autocomplete>
+    <au-dropdown value.bind="info.supplierTypeFilter" label="Jenis Supplier" options.bind="controlOptions"
+      items.bind="itemSupplierTypes" key="value" text="text">
+    </au-dropdown>
     <au-autocomplete value.bind="info.currency" error.bind="error.currency" label="Mata Uang"
       loader.bind="currencyLoader" text="code" placeholder="Input Mata Uang" read-only.bind="readOnly"
       options.bind="controlOptions">
     </au-autocomplete>
-    <au-dropdown value.bind="info.month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths" key="value"
-      text="text">
+    <au-dropdown value.bind="info.paymentType" label="Jenis Pembayaran" options.bind="controlOptions"
+      items.bind="itemPaymentTypes" key="value" text="text">
     </au-dropdown>
-    <au-dropdown value.bind="info.year" label="Tahun" options.bind="controlOptions" items.bind="itemYears" key="value"
-      text="text">
-    </au-dropdown>
+    <au-datepicker value.bind="info.arrivalDate" label="Tanggal" options.bind="controlOptions">
+    </au-datepicker>
 
     <div class="form-group">
       <label for="contact" class="col-sm-5 control-label"></label>

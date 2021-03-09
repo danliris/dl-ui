@@ -1,7 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = "garment-debt-balances/summary";
+const serviceUri = "garment-debt-balances/detail";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -14,12 +14,12 @@ export class Service extends RestService {
   }
 
   getXls(info) {
-    let endpoint = `${serviceUri}/downloads/xls?supplierId=${info.supplierId}&month=${info.month}&year=${info.year}&isForeignCurrency=${info.isForeignCurrency}&supplierIsImport=${info.supplierIsImport}`;
+    let endpoint = `${serviceUri}/downloads/xls?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.supplierTypeFilter}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
     return super.getXls(endpoint);
   }
 
   getPdf(info) {
-    let endpoint = `${serviceUri}/downloads/pdf?supplierId=${info.supplierId}&month=${info.month}&year=${info.year}&isForeignCurrency=${info.isForeignCurrency}&supplierIsImport=${info.supplierIsImport}`;
+    let endpoint = `${serviceUri}/downloads/pdf?arrivalDate=${info.arrivalDate}&supplierTypeFilter=${info.supplierTypeFilter}&supplierId=${info.supplierId}&currencyId=${info.currencyId}&paymentType=${info.paymentType}`;
     return super.getPdf(endpoint);
   }
 }
