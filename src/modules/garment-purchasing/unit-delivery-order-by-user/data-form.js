@@ -337,14 +337,17 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        if(ro.length==0){
-                            ro.push(a);
-                        }
-                        else{
-                            var dup=ro.find(b=>b.RONo==a.RONo);
-                            if(!dup){
-                                ro.push(a);
-                            }
+                        // if(ro.length==0){
+                        //     ro.push(a);
+                        // }
+                        // else{
+                        //     var dup=ro.find(b=>b.RONo==a.RONo);
+                        //     if(!dup){
+                        //         ro.push(a);
+                        //     }
+                        // }
+                        if(a.RONo==this.data.RONo){
+                            ro.push(a);break;
                         }
                     }
                     this.data.Article = ro[0].Article;
@@ -456,16 +459,18 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        if(ro.length==0){
-                            ro.push(a);
+                        // if(ro.length==0){
+                        //     ro.push(a);
+                        // }
+                        // else{
+                        //     var dup=ro.find(b=>b.RONo==a.RONo);
+                        //     if(!dup){
+                        //         ro.push(a);
+                        //     }
+                        // }
+                        if(a.RONo==this.data.RONo){
+                            ro.push(a);break;
                         }
-                        else{
-                            var dup=ro.find(b=>b.RONo==a.RONo);
-                            if(!dup){
-                                ro.push(a);
-                            }
-                        }
-                        
                     }
                     this.data.Article = ro[0].Article;
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
