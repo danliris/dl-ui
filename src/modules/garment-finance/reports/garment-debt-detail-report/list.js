@@ -22,6 +22,7 @@ export class List {
     { field: "DebtAging", title: "Umur Hutang" },
     { field: "InternalNoteNo", title: "No Nota Intern" },
     { field: "InvoiceNo", title: "Nomor Invoice" },
+    { field: "VATNo", title: "Nomor Faktur" },
     {
       field: "DPPAmount", title: "DPP", align: "right", formatter: function (value, data, index) {
         return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
