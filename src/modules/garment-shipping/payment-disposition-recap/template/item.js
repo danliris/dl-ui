@@ -66,6 +66,9 @@ export class item {
             const disposition = await this.service.getDispositionById(newValue.id);
 
             disposition.amount = disposition.billValue + disposition.vatValue;
+            if(this.data.paymentDisposition.incomeTaxValue != disposition.incomeTaxValue) {
+                disposition.incomeTaxValue = this.data.paymentDisposition.incomeTaxValue;
+            }
             disposition.paid = disposition.amount - disposition.incomeTaxValue + this.data.othersPayment;
 
             const invIds = disposition.invoiceDetails.map(i => i.invoiceId).filter((value, index, self) => self.indexOf(value) == index);
@@ -126,10 +129,12 @@ export class item {
     }
 
     toggle() {
-        if (!this.isShowing)
+        if (!this.isShowing){
             this.isShowing = true;
-        else
+        }
+        else {
             this.isShowing = !this.isShowing;
+        }
     }
 
     @computedFrom('data.service')
@@ -155,8 +160,13 @@ export class item {
         if(this.data.paymentDisposition.amount > 0 && this.data.paymentDisposition.incomeTaxValue > 0 && this.data.othersPayment > 0) {
             var value = this.data.paymentDisposition.amount - this.data.paymentDisposition.incomeTaxValue + this.data.othersPayment;
             this.data.paymentDisposition.paid = value;
+            
             return value;
         }
         return 0;
+    }
+
+    itemChanged(e) {
+        this.selectedPaymentDisposition = this.data.paymentDisposition;
     }
 }
