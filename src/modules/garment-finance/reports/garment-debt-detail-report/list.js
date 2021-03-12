@@ -16,7 +16,7 @@ export class List {
     { field: "PaymentType", title: "Tipe Bayar" },
     {
       field: "ArrivalDate", title: "Tanggal Nota", formatter: (value, data, index) => {
-        return moment(value).format("YYYY-MM-DD");
+        return value ? moment(value).format("YYYY-MM-DD") : "";
       }
     },
     { field: "DebtAging", title: "Umur Hutang" },
@@ -25,12 +25,12 @@ export class List {
     { field: "VATNo", title: "Nomor Faktur" },
     {
       field: "DPPAmount", title: "DPP", align: "right", formatter: function (value, data, index) {
-        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
+        return numeral(data.DPPAmount).format("0,000.00");
       }
     },
     {
       field: "CurrencyDPPAmount", title: "DPP Valas", align: "right", formatter: function (value, data, index) {
-        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
+        return numeral(data.CurrencyDPPAmount).format("0,000.00");
       }
     },
     {
