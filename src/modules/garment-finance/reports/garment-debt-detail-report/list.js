@@ -29,6 +29,11 @@ export class List {
       }
     },
     {
+      field: "CurrencyDPPAmount", title: "DPP Valas", align: "right", formatter: function (value, data, index) {
+        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
+      }
+    },
+    {
       field: "VATAmount", title: "PPN", align: "right", formatter: function (value, data, index) {
         return data.CurrencyVATAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyVATAmount).format("0,000.00");
       }
@@ -46,6 +51,11 @@ export class List {
     { field: "CurrencyCode", title: "Mata Uang" },
     {
       field: "CurrencyRate", title: "Kurs", align: "right", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    },
+    {
+      field: "CurrencyTotal", title: "Total Valas", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     },
