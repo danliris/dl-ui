@@ -16,7 +16,7 @@ export class List {
     { field: "PaymentType", title: "Tipe Bayar" },
     {
       field: "ArrivalDate", title: "Tanggal Nota", formatter: (value, data, index) => {
-        return moment(value).format("YYYY-MM-DD");
+        return value ? moment(value).format("YYYY-MM-DD") : "";
       }
     },
     { field: "DebtAging", title: "Umur Hutang" },
