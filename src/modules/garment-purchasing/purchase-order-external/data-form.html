@@ -112,11 +112,11 @@
                 </au-checkbox>
 
                 <au-checkbox label="Apakah bayar PPN?" value.bind="data.IsPayVAT" error.bind="error.IsPayVAT"
-                    read-only.bind="readOnly" if.bind="data.Supplier.usetax" options.bind="controlOptions">
+                    read-only.bind="readOnly" if.bind="data.Supplier.usevat" options.bind="controlOptions">
                 </au-checkbox>
 
-                <au-checkbox label="Apakah bayar PPh?" value.bind="data.IsIncomeTax" error.bind="error.IsIncomeTax"
-                    read-only.bind="readOnly" if.bind="data.Supplier.useIncomeTax" options.bind="controlOptions">
+                <au-checkbox label="Apakah bayar PPh?" value.bind="data.IsPayIncomeTax" error.bind="error.IsPayIncomeTax"
+                    read-only.bind="readOnly" if.bind="data.Supplier.usetax" options.bind="controlOptions">
                 </au-checkbox>
 
                 <au-dropdown label="Kategori" value.bind="data.Category" error.bind="error.category"
