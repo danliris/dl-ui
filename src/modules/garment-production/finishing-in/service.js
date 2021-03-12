@@ -1,7 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'finishing-ins';
-const serviceUriSewingOut = 'sewing-outs/complete';
+const serviceUriSewingOut = 'sewing-outs';
 const costCalculationServiceUri = 'cost-calculation-garments';
 const comodityPriceserviceUri = 'comodity-prices';
 
@@ -19,9 +19,14 @@ class Service extends RestService {
         var endpoint = `${comodityPriceserviceUri}`;
         return super.list(endpoint, info);
     }
+
+    searchRoSewingOut(info) {
+        var endpoint = `${serviceUriSewingOut}/get-ro`;
+        return super.list(endpoint, info);
+    }
     
     searchSewingOut(info) {
-        var endpoint = `${serviceUriSewingOut}`;
+        var endpoint = `${serviceUriSewingOut}/complete`;
         return super.list(endpoint, info);
     }
 
