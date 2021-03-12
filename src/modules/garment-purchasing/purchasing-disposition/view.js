@@ -42,19 +42,51 @@ export class View {
             _id : this.data.SupplierId,
             name : this.data.SupplierName,
             code : this.data.SupplierCode,
+            import: this.data.SupplierIsImport
         }
     }
 
-    // if(this.data.CurrencyId){
-    //     this.selectedCurrency = {
-    //         Id : this.data.CurrencyId,
-    //         Code :this.data.CurrencyCode,
-    //         Rate : this.data.CurrencyRate,
-    //         Name : this.data.CurrencyName
-    //     }
-    // }
+    if(this.data.CurrencyId){
+        this.selectedCurrency = {
+            id : this.data.CurrencyId,
+            code :this.data.CurrencyCode?this.data.CurrencyCode:"",
+            rate : this.data.CurrencyRate,
+            name: this.data.CurrencyCode?this.data.CurrencyCode:"",
+            Name :this.data.CurrencyCode?this.data.CurrencyCode:"",
+        }
+        this.data.Currency = this.selectedCurrency;
+    }
+
+    if(this.data.Items){
+        this.data.Items = this.data.Items.map(item => {
+            var mappingItem = {
+                Currency: {
+                    Code : item.CurrencyCode,
+                    Rate : item.CurrencyRate,
+                    Id :item.CurrencyId,
+                },
+                IncomeTax:{
+                    Name : item.IncomeTaxName,
+                    Id :item.IncomeTaxId,
+                    Rate:item.IncomeTaxRate,
+                },
+                Details:item.Details,
+                EPOId:item.EPOId,
+                EPONo:item.EPONo,
+                GarmentDispositionPurchaseId:item.GarmentDispositionPurchaseId,
+                IncomeTaxValue: item.IncomeTaxValue,
+                IsDispositionCreated:item.IsDispositionCreated,
+                IsDispositionPaid:item.IsDispositionPaid,
+                IsUseIncomeTax:item.IsUseIncomeTax,
+                IsUseVat:item.IsUseVat,
+                VatValue:item.VatValue
+            };
+            return mappingItem;
+        });
+    }
+    console.log("view by id",this.data);
     // this.data.Items
-    console.log("view",this.data);
+    // console.log("view",this.data);
   }
 
   // cancelCallback(event) {
