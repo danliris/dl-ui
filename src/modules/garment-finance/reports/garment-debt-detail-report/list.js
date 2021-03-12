@@ -25,12 +25,12 @@ export class List {
     { field: "VATNo", title: "Nomor Faktur" },
     {
       field: "DPPAmount", title: "DPP", align: "right", formatter: function (value, data, index) {
-        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
+        return numeral(data.DPPAmount).format("0,000.00");
       }
     },
     {
       field: "CurrencyDPPAmount", title: "DPP Valas", align: "right", formatter: function (value, data, index) {
-        return data.CurrencyDPPAmount == 0 ? numeral(value).format("0,000.00") : numeral(data.CurrencyDPPAmount).format("0,000.00");
+        return numeral(data.CurrencyDPPAmount).format("0,000.00");
       }
     },
     {
