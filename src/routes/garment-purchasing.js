@@ -980,7 +980,7 @@ module.exports = [
         name: 'garment-purchasing-disposition',
         moduleId: './modules/garment-purchasing/purchasing-disposition/index',
         nav: true,
-        title: 'Disposisi Pembelian',
+        title: 'Disposisi Pembayaran',
         auth: true,
         settings: {
             group: "g-purchasing",

@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const EPOLoader = require('../../../../loader/garment-purchase-order-external-loader');
+const EPOLoader = require('../../../../loader/garment-purchase-order-external-simply-loader');
 
 var moment = require('moment');
 
@@ -142,8 +142,8 @@ export class PurchasingDispositionItem {
                 this.data.IsUseIncomeTax=this.selectedEPO.Id ? this.selectedEPO.IsIncomeTax : this.data.IsUseIncomeTax;
                 this.data.DispositionAmountCreated = this.selectedEPO.Id? this.selectedEPO.DispositionAmountCreated : this.data.DispositionAmountCreated;
                 this.data.DispositionPaidCreated= this.selectedEPO.Id? this.selectedEPO.DispositionAmountPaid: this.data.DispositionAmountPaid;
-                this.data.CurrencyId =  this.selectedEPO.Id? this.selectedEPO.Currency.Id: this.data.CurrencyId;
-                this.data.CurrencyCode =  this.selectedEPO.Id? this.selectedEPO.Currency.Code: this.data.CurrencyCode;
+                // this.data.CurrencyId =  this.selectedEPO.Id? this.selectedEPO.Currency.Id: this.data.CurrencyId;
+                // this.data.CurrencyCode =  this.selectedEPO.Id? this.selectedEPO.Currency.Code: this.data.CurrencyCode;
                 this.data.CurrencyRate =  this.selectedEPO.Id? this.selectedEPO.Currency.Rate: this.data.CurrencyRate;
                 if(this.selectedEPO.IsIncomeTax){
                     this.data.IncomeTax=this.selectedEPO.IsIncomeTax ? this.selectedEPO.IncomeTax : this.data.IncomeTax;
@@ -156,7 +156,7 @@ export class PurchasingDispositionItem {
                 else{
                     this.data.IncomeTax={};
                     this.data.IncomeTaxName="";
-                    this.data.IncomeTaxId="";
+                    this.data.IncomeTaxId=0;
                     this.data.IncomeTaxRate=0;
                     this.incomeTax="-";
                 }
@@ -224,7 +224,17 @@ export class PurchasingDispositionItem {
     }
 
     get epoLoader() {
-        return EPOLoader;
+        // console.log("loader",EPOLoader);
+        this.filter = this.data.SupplierId && this.data.CurrencyId && this.data.Category && this.data.PaymentType ? 
+                      { "SupplierId": this.data.SupplierId, 
+                        "CurrencyId":this.data.CurrencyId, 
+                        "Category": this.data.Category, 
+                        "PaymentType": this.data.PaymentType} : {};
+        console.log("filter",this.filter);
+        console.log("filterData",this.data);
+        var loader = EPOLoader;
+        // console.log(loader);
+        return loader;
     }
 
     epoView = (epo) => {

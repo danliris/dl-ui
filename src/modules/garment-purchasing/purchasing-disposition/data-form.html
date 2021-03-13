@@ -204,7 +204,7 @@
             options.one-way="filter"
             read-only.bind="readOnly"
             change.delegate="itemsChanged($event)"
-            if.bind="selectedSupplier && selectedCurrency"
+            if.bind="selectedSupplier && selectedCurrency && data.Category && data.PaymentType"
             item-template="modules/garment-purchasing/purchasing-disposition/template/item"
             >
         </au-collection>
