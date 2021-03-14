@@ -34,7 +34,7 @@ export class Service extends RestService {
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data}`;
         return super.delete(endpoint, data);
     }
 
