@@ -54,6 +54,12 @@ export class DataForm {
             "Satuan Keluar",
             "Tipe Fabric",
             "Jumlah Keluar",
+        ],
+        columnsCutting:[
+            "RO",
+            "No Cutting Out Subcon",
+            "Plan PO",
+            "Jumlah",
         ]
     }
 
@@ -95,16 +101,18 @@ export class DataForm {
         }
 
         if (this.data.Id) {
-            var uen= await this.purchasingService.getUENById(this.data.UENId);
-            this.selectedUEN={
-                UENNo:this.data.UENNo,
-                Id : this.data.UENId,
-                UnitDOId: uen.UnitDOId,
-                Items:uen.Items
-            };
-            this.selectedPO={
-                PO_SerialNumber: this.data.PONo,
-                Id:this.data.EPOItemId
+            if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+                var uen= await this.purchasingService.getUENById(this.data.UENId);
+                this.selectedUEN={
+                    UENNo:this.data.UENNo,
+                    Id : this.data.UENId,
+                    UnitDOId: uen.UnitDOId,
+                    Items:uen.Items
+                };
+                this.selectedPO={
+                    PO_SerialNumber: this.data.PONo,
+                    Id:this.data.EPOItemId
+                }
             }
         }
     }
@@ -222,7 +230,8 @@ export class DataForm {
         this.data.UENId = newValue.Id;
         this.data.UENNo = newValue.UENNo;
         this.data.ContractQty=0;
-        this.data.Items.splice(0);
+        if(this.data.ContractType!='SUBCON CUTTING')
+            this.data.Items.splice(0);
         if(newValue){
             this.data.ContractNo=newValue.ContractNo;
             this.data.SubconContractId=newValue.Id;
@@ -235,18 +244,21 @@ export class DataForm {
             this.data.UENId = null;
             this.data.UENNo = "";
             this.data.ContractQty=0;
-            this.data.Items.splice(0);
+            if(this.data.ContractType!='SUBCON CUTTING')
+                this.data.Items.splice(0);
         }
     }
 
     get totalQuantity(){
         var qty=0;
         if(this.data.Items){
-            for(var item of this.data.Items){
-                qty += item.Quantity;
-                
+            if(this.data.Items.length>0){
+                for(var item of this.data.Items){
+                    qty += item.Quantity;
+                }
+
             }
-            this.data.TotalQty=qty;
+            this.data.TotalQty=qty ? qty:0;
         }
         return qty;
     }
@@ -274,5 +286,17 @@ export class DataForm {
             this.data.PONo=newValue.PO_SerialNumber;
             this.data.EPOItemId=newValue.Id;
         }
+    }
+
+    get addItems() {
+        return (event) => {
+            this.data.Items.push({});
+        };
+    }
+
+    get removeItems() {
+        return (event) => {
+            this.error = null;
+        };
     }
 }

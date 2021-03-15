@@ -337,14 +337,17 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        if(ro.length==0){
-                            ro.push(a);
-                        }
-                        else{
-                            var dup=ro.find(b=>b.RONo==a.RONo);
-                            if(!dup){
-                                ro.push(a);
-                            }
+                        // if(ro.length==0){
+                        //     ro.push(a);
+                        // }
+                        // else{
+                        //     var dup=ro.find(b=>b.RONo==a.RONo);
+                        //     if(!dup){
+                        //         ro.push(a);
+                        //     }
+                        // }
+                        if(a.RONo==this.data.RONo){
+                            ro.push(a);break;
                         }
                     }
                     this.data.Article = ro[0].Article;
@@ -456,14 +459,17 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        if(ro.length==0){
-                            ro.push(a);
-                        }
-                        else{
-                            var dup=ro.find(b=>b.RONo==a.RONo);
-                            if(!dup){
-                                ro.push(a);
-                            }
+                        // if(ro.length==0){
+                        //     ro.push(a);
+                        // }
+                        // else{
+                        //     var dup=ro.find(b=>b.RONo==a.RONo);
+                        //     if(!dup){
+                        //         ro.push(a);
+                        //     }
+                        // }
+                        if(a.RONo==this.data.RONo){
+                            ro.push(a);break;
                         }
                         
                     }
