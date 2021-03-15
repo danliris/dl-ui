@@ -43,6 +43,8 @@ export class PurchasingDispositionDetail {
   paidChanged(e) {
     this.data.QTYPaid=parseFloat(e.srcElement.value)/this.data.PricePerQTY;
     this.data.PaidPrice=parseFloat(e.srcElement.value);
+    this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    // this.data.DppValue = this.data.PaidPrice;
     this.calculatedOver();
   }
 
@@ -51,6 +53,8 @@ export class PurchasingDispositionDetail {
     // console.log("detailPricePerDeal",this.data.PricePerQTY);
     this.data.PaidPrice=parseFloat(e.srcElement.value)*this.data.PricePerQTY;
     this.data.QTYPaid = parseFloat(e.srcElement.value);
+    this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    // this.data.DppValue = this.data.PaidPrice;
     this.calculatedOver();
   }
 

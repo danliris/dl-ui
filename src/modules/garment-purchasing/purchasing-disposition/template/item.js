@@ -65,7 +65,7 @@ export class PurchasingDispositionItem {
         this.incomeTaxValue = this.data.IncomeTaxValue;
         this.dppValue = this.data.DPPValue? this.data.DPPValue: 0;
         // console.log("epono not null")
-        console.log("items",this);
+        // console.log("items",this);
         // this.GetDisposition();
 
         // this.GetTax();
@@ -230,8 +230,8 @@ export class PurchasingDispositionItem {
                         "CurrencyId":this.data.CurrencyId, 
                         "Category": this.data.Category, 
                         "PaymentType": this.data.PaymentType} : {};
-        console.log("filter",this.filter);
-        console.log("filterData",this.data);
+        // console.log("filter",this.filter);
+        // console.log("filterData",this.data);
         var loader = EPOLoader;
         // console.log(loader);
         return loader;
@@ -243,28 +243,34 @@ export class PurchasingDispositionItem {
     }
 
     GetTax(){
+        console.log("getax");
         this.incomeTaxValue=0;
         this.vatValue=0;
         this.dppValue=0;
+        console.log("before gettax", this.data);
         if(this.data.Details){
             for(var detail of this.data.Details){
                 var ppn=0;
                 var pph=0;
                 if(this.data.IsUseIncomeTax){
-                    pph=parseFloat(detail.PriceTotal) *(parseFloat(this.data.IncomeTax.Rate)/100);
+                    pph=parseFloat(detail.PaidPrice) *(parseFloat(this.data.IncomeTax.Rate)/100);
                 }
                 if(this.data.IsUseVat){
-                    ppn= parseFloat(detail.PriceTotal)*0.1;
+                    ppn= parseFloat(detail.PaidPrice)*0.1;
                 }
                 this.incomeTaxValue+=pph;
                 this.vatValue+=ppn;
-                this.dppValue+=parseFloat(detail.PriceTotal);
+                this.dppValue+=parseFloat(detail.PaidPrice);
+                this.data.IncomeTaxValue = this.incomeTaxValue;
+                this.data.VatValue = this.vatValue;
+                this.data.DPPValue = this.dppValue;
             }
-
         }
+        console.log("after gettax", this.data);        
     }
 
     detailChanged(e){
+        console.log("detttailchanged");
         this.GetTax();
     }
 

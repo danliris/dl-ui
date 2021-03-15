@@ -1,8 +1,10 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
+import {moment} from "moment";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currency-loader');
 var CategoryLoader = require('../../../loader/garment-category-loader');
+
 //var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 
 @containerless()
@@ -51,7 +53,7 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
-        console.log("bindForm",this.data)
+        // console.log("bindForm",this.data)
     }
 
     @computedFrom("data.Id")
@@ -125,6 +127,7 @@ export class DataForm {
             this.data.CurrencyCode=newValue.code;
             this.data.CurrencyName=newValue.code;
             this.data.CurrencyRate=newValue.rate;
+            this.data.CurrencyDate=newValue.date;
         } 
         else{
             this.data.Currency = {};
@@ -153,7 +156,7 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code || currency.Code;
+        return currency.code+ " - " + currency.date.substring(0,10);
     }
 
     supplierView = (supplier) => {
