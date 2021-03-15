@@ -29,7 +29,25 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+        if(this.data.ContractType=="SUBCON BAHAN BAKU")
+            this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+        else{
+            this.data.UENId=0;
+            this.data.UsedQty=this.data.ContractQty;
+            if(this.data.Items.length>0){
+                for(var item of this.data.Items){
+                    item.Product={
+                        Id:0
+                    };
+                    item.Uom={
+                        Id:0
+                    }
+                    item.UomOut={
+                        Id:0
+                    }
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
