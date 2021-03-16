@@ -167,7 +167,13 @@ export class PurchasingDispositionItem {
                 var details=[];
                 for(var item of this.selectedEPO.Items){
                         var qtyRemains=item.DefaultQuantity-item.DispositionQuantityCreated;
-                        var OverQty = ((((qtyRemains + qtyRemains) - item.DefaultQuantity) /item.DefaultQuantity)*100);
+                        var OverQty = 0;
+                        if(qtyRemains< 0){
+                            OverQty = (qtyRemains/iem.DefaultQuantity)*100;
+                        }else
+                        {
+                            OverQty = 0;
+                        }
 
                         
                         details.push({
@@ -190,7 +196,11 @@ export class PurchasingDispositionItem {
                             UnitId: item.UnitId,
                             UnitCode: item.UnitCode,
                             UnitName: item.UnitName,
-                            EPO_POId: item._id
+                            EPO_POId: item._id,
+                            DispositionAmountCreated: item.DispositionAmountCreated,
+                            DispositionAmountPaid:item.DispositionAmountPaid,
+                            DispositionQuantityCreated: item.DispositionQuantityCreated,
+                            DispositionQuantityPaid:item.DispositionQuantityPaid
                         })
                         var ppn=0;
                         var pph=0;

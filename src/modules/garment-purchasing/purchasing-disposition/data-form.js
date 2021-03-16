@@ -2,7 +2,8 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 import {moment} from "moment";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/garment-currency-loader');
+// var CurrencyLoader = require('../../../loader/garment-currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-latest-date-loader');
 var CategoryLoader = require('../../../loader/garment-category-loader');
 
 //var IncomeTaxLoader = require('../../../loader/income-tax-loader');
@@ -156,7 +157,9 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code+ " - " + currency.date.substring(0,10);
+        // return currency.code+ " - " + currency.date.substring(0,10);
+        return currency.code;
+        
     }
 
     supplierView = (supplier) => {
@@ -179,7 +182,7 @@ export class DataForm {
                     // console.log("itemchange list item ",item);
                         var pph=0;
                         var ppn=0;
-                        var dpp = item.DPPValue? item.DPPValue:0;
+                        var dpp = item.DPPValue != undefined || item.DPPValue != null? item.DPPValue:0;
                         if(item.IsUseIncomeTax){
                             // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
                             // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.1;
@@ -215,7 +218,9 @@ export class DataForm {
                     //     for(var detail of item.Details){
                             var pph=0;
                             var ppn=0;
-                            var dpp = item.DPPValue? item.DPPValue:0;
+                            // var dpp = item.DPPValue? item.DPPValue:0;
+                            var dpp = item.DPPValue != undefined || item.DPPValue != null? item.DPPValue:0;
+                            
                             
                             if(item.IsUseIncomeTax){
                                 // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
@@ -267,7 +272,10 @@ export class DataForm {
                     //     for(var detail of item.Details){
                             var pph=0;
                             var ppn=0;
-                            var dpp = item.DPPValue? item.DPPValue:0;
+                            // var dpp = item.DPPValue? item.DPPValue:0;
+                            var dpp = item.DPPValue != undefined || item.DPPValue != null? item.DPPValue:0;
+                            
+                            
                             
                             if(item.IsUseIncomeTax){
                                 // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
@@ -308,7 +316,9 @@ export class DataForm {
                     //     for(var detail of item.Details){
                             var pph=0;
                             var ppn=0;
-                            var dpp = item.DPPValue? item.DPPValue:0;
+                            // var dpp = item.DPPValue? item.DPPValue:0;
+                            var dpp = item.DPPValue != undefined || item.DPPValue != null? item.DPPValue:0;
+                            
                             
                             if(item.IsUseIncomeTax){
                                 // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
@@ -347,7 +357,9 @@ export class DataForm {
                     //     for(var detail of item.Details){
                             var pph=0;
                             var ppn=0;
-                            var dpp = item.DPPValue? item.DPPValue:0;
+                            // var dpp = item.DPPValue? item.DPPValue:0;
+                            var dpp = item.DPPValue != undefined || item.DPPValue != null? item.DPPValue:0;
+                            
                             
                             if(item.IsUseIncomeTax){
                                 // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;

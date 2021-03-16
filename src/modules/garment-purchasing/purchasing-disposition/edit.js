@@ -83,8 +83,13 @@ export class Edit {
     }
 
     if(this.data.Items){
+        var calculateDppSplit = this.data.DPP/ this.data.Items.length;
         this.data.Items = this.data.Items.map(item => {
             var mappingItem = {
+                Id: item.Id,
+                CurrencyCode:item.CurrencyCode,
+                CurrencyRate:item.CurrencyRate,
+                CurrencyId:item.CurrencyId,
                 Currency: {
                     Code : item.CurrencyCode,
                     Rate : item.CurrencyRate,
@@ -95,6 +100,9 @@ export class Edit {
                     Id :item.IncomeTaxId,
                     Rate:item.IncomeTaxRate,
                 },
+                IncomeTaxName :item.IncomeTaxName,
+                IncomeTaxId: item.IncomeTaxId,
+                IncomeTaxRate: item.IncomeTaxRate,
                 Details:item.Details,
                 EPOId:item.EPOId,
                 EPONo:item.EPONo,
@@ -109,11 +117,12 @@ export class Edit {
                 DispositionAmountCreated: item.DispositionAmountCreated,
                 DispositionQuantityCreated: item.DispositionQuantityCreated,
                 DispositionQuantityPaid: item.DispositionQuantityPaid,
+                DPPValue : calculateDppSplit
             };
             return mappingItem;
         });
     }
-    // console.log("view by id",this.data);
+    console.log(this);
   }
 
   cancel(event) {
@@ -121,42 +130,89 @@ export class Edit {
   }
 
   save(event) {
+    // if(this.data.Items){
+    //     this.data.Amount=0;
+    //     this.data.IncomeTaxValue=0;
+    //     this.data.DPP=0;
+    //     this.data.VatValue=0;
+    //     for(var item of this.data.Items){
+    //         if(item.Details){
+    //             for(var detail of item.Details){
+    //                 var pph=0;
+    //                 var ppn=0;
+    //                 if(item.UseIncomeTax){
+    //                     var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
+    //                     pph=detail.PaidPrice*(parseFloat(rate)/100);
+    //                 }
+    //                 if(item.UseVat){
+    //                     ppn=detail.PaidPrice*0.1;
+    //                 }
+    //                 this.data.IncomeTaxValue+=pph;
+    //                 this.data.VatValue+=ppn;
+    //                 this.data.DPP+=detail.PaidPrice;
+    //                 if(this.data.IncomeTaxBy=="Supplier"){
+    //                     this.data.Amount+=detail.PaidPrice+ppn;
+    //                 }
+    //                 else
+    //                     this.data.Amount+=detail.PaidPrice+ppn+pph;
+    //             }
+    //         }
+    //     }
+    // }
+    // this.service.update(this.data)
+    //   .then(result => {
+    //     this.cancel();
+    //   })
+    //   .catch(e => {
+    //     this.error = e;
+    //   })
     if(this.data.Items){
         this.data.Amount=0;
         this.data.IncomeTaxValue=0;
         this.data.DPP=0;
         this.data.VatValue=0;
         for(var item of this.data.Items){
-            if(item.Details){
-                for(var detail of item.Details){
+            // if(item.Details){
+            //     for(var detail of item.Details){
                     var pph=0;
                     var ppn=0;
-                    if(item.UseIncomeTax){
-                        var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                        pph=detail.PaidPrice*(parseFloat(rate)/100);
+                    if(item.IsUseIncomeTax){
+                        // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
+                        // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
+                        pph = item.IncomeTaxValue;
                     }
-                    if(item.UseVat){
-                        ppn=detail.PaidPrice*0.1;
+                    if(item.IsUseVat){
+                        // ppn=detail.PriceTotal*0.1;
+                        ppn = item.VatValue
                     }
                     this.data.IncomeTaxValue+=pph;
                     this.data.VatValue+=ppn;
-                    this.data.DPP+=detail.PaidPrice;
-                    if(this.data.IncomeTaxBy=="Supplier"){
-                        this.data.Amount+=detail.PaidPrice+ppn;
-                    }
-                    else
-                        this.data.Amount+=detail.PaidPrice+ppn+pph;
-                }
-            }
+                    this.data.DPP+=item.DPPValue;
+                    this.data.Amount+=item.DPPValue+ppn+pph+this.data.MiscAmount;
+                    // if(this.data.IncomeTaxBy=="Supplier"){
+                    //     this.data.Amount+=detail.PaidPrice+ppn;
+                    // }
+                    // else
+                    //     this.data.Amount+=detail.PaidPrice+ppn+pph;
+            //     }
+            // }
         }
     }
+    console.log("save edit",this.data);
     this.service.update(this.data)
-      .then(result => {
-        this.cancel();
-      })
-      .catch(e => {
-        this.error = e;
-      })
+        .then(result => {
+            alert("Data berhasil dibuat");
+            // this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+            this.router.navigateToRoute('view', { id: this.data.Id });
+            
+        })
+        .catch(e => {
+            if (e.statusCode == 500) {
+                alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+            } else {
+                this.error = e;
+            }
+        })
   }
 }
 
