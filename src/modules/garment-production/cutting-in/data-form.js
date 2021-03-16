@@ -111,7 +111,28 @@ export class DataForm {
     }
 
     get preparingLoader() {
-        return PreparingLoader;
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({UnitId: this.data.Unit.Id || 0})
+            };
+            return this.service.getPreparingByRo(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= roList.find(d=>d.RONo==a.RONo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                        }
+                        return roList;
+                });
+        }
     }
 
     async selectedPreparingChanged(newValue, oldValue){
