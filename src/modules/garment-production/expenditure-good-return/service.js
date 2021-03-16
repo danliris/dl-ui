@@ -26,6 +26,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    getExpenditureGoodByRo(info) {
+        var endpoint = `${expenditureGoodServiceUri}/get-by-ro`;
+        return super.list(endpoint, info);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
