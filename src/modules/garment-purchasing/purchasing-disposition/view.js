@@ -53,6 +53,7 @@ export class View {
             rate : this.data.CurrencyRate,
             name: this.data.CurrencyCode?this.data.CurrencyCode:"",
             Name :this.data.CurrencyCode?this.data.CurrencyCode:"",
+            date: this.data.CurrencyDate?this.data.CurrencyDate:"",
         }
         this.data.Currency = this.selectedCurrency;
     }
@@ -79,12 +80,16 @@ export class View {
                 IsDispositionPaid:item.IsDispositionPaid,
                 IsUseIncomeTax:item.IsUseIncomeTax,
                 IsUseVat:item.IsUseVat,
-                VatValue:item.VatValue
+                VatValue:item.VatValue,
+                DispositionAmountPaid: item.DispositionAmountPaid,
+                DispositionAmountCreated: item.DispositionAmountCreated,
+                DispositionQuantityCreated: item.DispositionQuantityCreated,
+                DispositionQuantityPaid: item.DispositionQuantityPaid,
             };
             return mappingItem;
         });
     }
-    console.log("view by id",this.data);
+    // console.log("view by id",this.data);
     // this.data.Items
     // console.log("view",this.data);
   }
@@ -113,7 +118,7 @@ export class View {
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
+        this.service.delete(this.data.Id).then(result => {
             this.cancel();
         });
     }
