@@ -21,7 +21,7 @@ class Service extends RestService {
     }
 
     searchRoSewingOut(info) {
-        var endpoint = `${serviceUriSewingOut}/get-ro`;
+        var endpoint = `${serviceUriSewingOut}/get-by-ro`;
         return super.list(endpoint, info);
     }
     

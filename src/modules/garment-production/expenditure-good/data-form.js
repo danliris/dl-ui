@@ -88,7 +88,7 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.Unit.Id, "Quantity>0":true})
             };
-            return this.service.getFinishedGood(info)
+            return this.service.getFinishedGoodByRo(info)
                 .then((result) => {
                     var roList=[];
                         for(var a of result.data){
