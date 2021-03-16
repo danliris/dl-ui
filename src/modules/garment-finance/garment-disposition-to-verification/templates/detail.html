@@ -1,19 +1,25 @@
 <template>
     <tr>
         <td>
-            <au-datepicker value.bind="data.UnitName" read-only="true">
-            </au-datepicker>
+            <au-textbox value.bind="data.UnitName"
+                           read-only="true">
+            </au-textbox>
         </td>
         <td>
-            <au-datepicker value.bind="data.ProductName" read-only="true">
-            </au-datepicker>
+            <au-textbox value.bind="data.ProductName"
+                           read-only="true">
+            </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Quantity" read-only="true" format="0.00">
+            <au-numeric value.bind="data.Quantity"
+                        read-only="true"
+                        format="0.00">
             </au-numeric>
         </td>
         <td>
-            <au-numeric value.bind="data.Price" read-only="true" format="0.00">
+            <au-numeric value.bind="data.Price"
+                        read-only="true"
+                        format="0.00">
             </au-numeric>
         </td>
     </tr>
