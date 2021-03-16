@@ -43,7 +43,9 @@ export class PurchasingDispositionDetail {
   paidChanged(e) {
     this.data.QTYPaid=parseFloat(e.srcElement.value)/this.data.PricePerQTY;
     this.data.PaidPrice=parseFloat(e.srcElement.value);
-    this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    // this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    this.data.QTYRemains = this.data.QTYOrder - this.data.DispositionQuantityCreated - this.data.QTYPaid;
+    
     // this.data.DppValue = this.data.PaidPrice;
     this.calculatedOver();
   }
@@ -53,15 +55,22 @@ export class PurchasingDispositionDetail {
     // console.log("detailPricePerDeal",this.data.PricePerQTY);
     this.data.PaidPrice=parseFloat(e.srcElement.value)*this.data.PricePerQTY;
     this.data.QTYPaid = parseFloat(e.srcElement.value);
-    this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    // this.data.QTYRemains = this.data.QTYRemains - this.data.QTYPaid;
+    this.data.QTYRemains = this.data.QTYOrder - this.data.DispositionQuantityCreated - this.data.QTYPaid;    
     // this.data.DppValue = this.data.PaidPrice;
     this.calculatedOver();
   }
 
   calculatedOver(){
-    var OverQTy = (((this.data.QTYRemains+this.data.QTYPaid)-this.data.QTYOrder)/this.data.QTYOrder)*100;
-    OverQTy = OverQTy<0?0: OverQTy;
+    console.log("calculateOver",this.data);
+    if(this.data.QTYRemains < 0 ){
+    // var OverQTy = (((this.data.QTYRemains+this.data.QTYPaid)-this.data.QTYOrder)/this.data.QTYOrder)*100;
+    var OverQTy = (Math.abs(this.data.QTYRemains)/ this.data.QTYOrder)*100;
+    // OverQTy = OverQTy<0?0: OverQTy;
     this.data.PercentageOverQTY = OverQTy;
+    }else{
+      this.data.PercentageOverQTY = 0;
+    }
     // console.log("calculateOver",OverQTy);
   }
 
