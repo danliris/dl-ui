@@ -9,10 +9,10 @@ export class List {
     context = ['Hapus'];
 
     columns = [
-        { field: 'DispositionNoteNo', title: 'No. Nota Intern' },
+        { field: 'DispositionNoteNo', title: 'No. Disposisi' },
         {
             field: 'DispositionNoteDate',
-            title: 'Tanggal Nota Intern',
+            title: 'Tanggal Disposisi',
             formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
@@ -27,12 +27,11 @@ export class List {
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
-            field: "Amount", title: "Total Bayar", formatter: function (value, data, index) {
+            field: "TotalPaid", title: "Total Bayar", formatter: function (value, data, index) {
                 return numeral(value).format("0,000.00");
             }, align: "right"
         },
-        { field: 'Remark', title: 'Keterangan' },
-        { field: 'Status', title: 'Status' }
+        { field: 'Remark', title: 'Keterangan' }
     ];
 
     constructor(router, service) {
