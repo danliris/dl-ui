@@ -13,7 +13,16 @@ export class Service extends RestService {
 
     create(data) {
         let endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
+        if(data.Role == "VERIFICATION")
+         endpoint+="/verification-accepted";
+        else if(data.Role == "CASHIER")
+         endpoint+="/cashier-accepted";
+        else if(data.Role=="RETUR")
+         endpoint+="/purchasing-accepted";
+        else
+         console.log("Cannot View Role");
+        
+        return super.put(endpoint, data.Items);
     }
 
     delete(data) {
