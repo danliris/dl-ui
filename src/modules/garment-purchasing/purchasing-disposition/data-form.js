@@ -196,7 +196,9 @@ export class DataForm {
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
                         this.data.DPP+=dpp;
-                        this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                        // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                        this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                        
                 //     }
                 // }
             }
@@ -235,7 +237,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -292,7 +296,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -334,7 +340,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -373,7 +381,7 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
 
                     //     }
                     // }
