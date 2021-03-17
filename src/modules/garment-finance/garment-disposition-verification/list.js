@@ -16,10 +16,10 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             }
         },
-        { field: 'InternalNoteNo', title: 'No. Nota Intern' },
+        { field: 'DispositionNoteNo', title: 'No. Disposisi' },
         {
-            field: 'InternalNoteDate',
-            title: 'Tanggal Nota Intern',
+            field: 'DispositionNoteDate',
+            title: 'Tanggal Disposisi',
             formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             }

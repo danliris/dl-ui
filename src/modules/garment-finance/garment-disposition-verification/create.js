@@ -4,7 +4,7 @@ import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
 import { Dialog } from '../../../components/dialog/dialog';
-const ExpeditionLoader = require('../shared/expedition-loader');
+const ExpeditionLoader = require('../shared/disposition-expedition-loader');
 import { CreateSubmit } from './dialog-template/create-submit';
 import { PurchasingService } from '../shared/purchasing-service';
 
@@ -35,7 +35,7 @@ export class Create {
         this.verificationDate = new Date();
 
         // this.collection = {
-        //     columns: ['No. Nota Intern', 'Tanggal Nota Intern', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Bayar', 'Mata Uang', 'Keterangan'],
+        //     columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Bayar', 'Mata Uang', 'Keterangan'],
         //     onAdd: () => {
         //         this.data.Items.push({});
         //     },
@@ -71,9 +71,9 @@ export class Create {
         console.log(this);
 
         if (newValue && newValue.Id) {
-            var internalNote = await this.purchasingService.getInternalNoteById(newValue.InternalNoteId);
-            console.log(internalNote);
-            this.items = internalNote.items;
+            var dispositionNote = await this.purchasingService.getDispositionNoteById(newValue.DispositionNoteId);
+            console.log(dispositionNote);
+            this.items = dispositionNote.items;
         } else {
             this.items = [];
         }
@@ -88,7 +88,7 @@ export class Create {
         */
 
         if (!this.selectedExpedition) {
-            this.error.internalNote = "Nomor Nota Intern harus diisi";
+            this.error.dispositionNote = "Nomor Disposisi harus diisi";
         } else {
             this.error = {};
 
@@ -123,7 +123,7 @@ export class Create {
 
     rejectCallback(event) {
         if (!this.selectedExpedition) {
-            this.error.internalNote = "Nomor Nota Intern harus diisi";
+            this.error.dispositionNote = "Nomor Disposisi harus diisi";
         } else {
             this.error = {};
 
