@@ -40,7 +40,8 @@
             query.bind="contractFilter"
             placeholder="subcon contract"
             read-only.bind="readOnly|| isEdit"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            view-model.ref="selectedContractViewModel">
         </au-autocomplete>
 
         <au-datepicker 

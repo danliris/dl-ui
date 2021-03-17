@@ -34,7 +34,7 @@ export class Create {
         }
         else{
             this.data.UENId=0;
-            this.data.UsedQty=this.data.ContractQty;
+            //this.data.UsedQty=this.data.ContractQty;
             if(this.data.Items.length>0){
                 this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
                 for(var item of this.data.Items){

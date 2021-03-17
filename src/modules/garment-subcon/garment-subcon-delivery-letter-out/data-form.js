@@ -131,6 +131,7 @@ export class DataForm {
         this.data.UsedQty=0;
         this.data.QtyUsed=0;
         this.data.Items.splice(0);
+        this.context.selectedContractViewModel.editorValue="";
     }
 
     selectedContractTypeChanged(newValue){
@@ -145,6 +146,7 @@ export class DataForm {
         this.data.UsedQty=0;
         this.data.QtyUsed=0;
         this.data.Items.splice(0);
+        this.context.selectedContractViewModel.editorValue="";
     }
 
     contractView = (contract) => {
@@ -257,25 +259,7 @@ export class DataForm {
             this.data.ContractNo=newValue.ContractNo;
             this.data.SubconContractId=newValue.Id;
             this.data.ContractQty=newValue.Quantity;
-            if(this.data.ContractType=='SUBCON CUTTING'){
-                this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
-                .then((contract)=>{
-                    var usedQty= 0;
-                    if(contract.data.length>0){
-                        for(var subcon of contract.data){
-                            if(subcon.Id!=this.data.Id){
-                                for(var subconItem of subcon.Items){
-                                    usedQty+=subconItem.Quantity;
-                                }
-                            }
-                            else{
-                                this.data.savedItems=subcon.Items;
-                            }
-                        }
-                    }
-                    this.data.QtyUsed=usedQty;
-                });
-            }
+            
         }
         else{
             this.data.ContractNo="";
@@ -284,6 +268,7 @@ export class DataForm {
             this.data.UENId = null;
             this.data.UENNo = "";
             this.data.ContractQty=0;
+            this.context.selectedContractViewModel.editorValue="";
             if(this.data.ContractType!='SUBCON CUTTING')
                 this.data.Items.splice(0);
         }
