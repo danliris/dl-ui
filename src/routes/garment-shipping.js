@@ -895,4 +895,18 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/cost-structure",
+        name: "garment-shipping/cost-structure",
+        moduleId: "modules/garment-shipping/cost-structure/index",
+        nav: true,
+        title: "Struktur Biaya",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
