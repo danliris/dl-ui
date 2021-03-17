@@ -4,7 +4,7 @@ import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
 import { Dialog } from '../../../components/dialog/dialog';
-const ExpeditionLoader = require('../shared/expedition-loader');
+const ExpeditionLoader = require('../shared/disposition-expedition-loader');
 import { CreateSubmit } from './dialog-template/create-submit';
 import { PurchasingService } from '../shared/purchasing-service';
 
@@ -49,8 +49,8 @@ export class View {
         if (this.selectedExpedition) {
             this.verificationDate = this.selectedExpedition.VerificationAcceptedDate;
 
-            let internalNote = await this.purchasingService.getInternalNoteById(this.selectedExpedition.InternalNoteId);
-            this.items = internalNote.items
+            let dispositionNote = await this.purchasingService.getDispositionNoteById(this.selectedExpedition.DispositionNoteId);
+            this.items = dispositionNote.items
         }
     }
 
@@ -83,9 +83,9 @@ export class View {
         console.log(this);
 
         if (newValue) {
-            var internalNote = await this.purchasingService.getInternalNoteById(newValue.InternalNoteId);
-            console.log(internalNote);
-            this.items = internalNote.items;
+            var dispositionNote = await this.purchasingService.getDispositionNoteById(newValue.DispositionNoteId);
+            console.log(dispositionNote);
+            this.items = dispositionNote.items;
         } else {
             this.items = [];
         }
