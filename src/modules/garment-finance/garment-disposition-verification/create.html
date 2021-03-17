@@ -8,7 +8,7 @@
             margin-top: 0px !important;
         }
     </style>
-    <au-input-form title="Buat Verifikasi Nota Intern"
+    <au-input-form title="Buat Verifikasi Disposisi"
                    options.bind="formOptions">
 
         <au-datepicker label="Tanggal Verifikasi"
@@ -19,16 +19,16 @@
 
         <au-autocomplete value.bind="selectedExpedition"
                          loader.bind="expeditionLoader"
-                         label="No. Nota Intern"
-                         error.bind="error.internalNote"
-                         placeholder="cari nomor nota intern"
-                         text="InternalNoteNo"
+                         label="No. Disposisi"
+                         error.bind="error.dispositionNote"
+                         placeholder="cari nomor disposisi"
+                         text="DispositionNoteNo"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-datepicker label="Tgl. Nota Intern"
-                       value.bind="selectedExpedition.InternalNoteDate"
+        <au-datepicker label="Tgl. Disposisi"
+                       value.bind="selectedExpedition.DispositionNoteDate"
                        read-only.bind="true"
                        options.bind="controlOptions">
         </au-datepicker>
