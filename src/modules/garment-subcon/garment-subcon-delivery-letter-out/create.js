@@ -29,12 +29,14 @@ export class Create {
     }
 
     saveCallback(event) {
-        if(this.data.ContractType=="SUBCON BAHAN BAKU")
+        if(this.data.ContractType=="SUBCON BAHAN BAKU"){
             this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+        }
         else{
             this.data.UENId=0;
             this.data.UsedQty=this.data.ContractQty;
             if(this.data.Items.length>0){
+                this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
                 for(var item of this.data.Items){
                     item.Product={
                         Id:0

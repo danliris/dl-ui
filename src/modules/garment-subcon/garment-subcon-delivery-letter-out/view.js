@@ -23,6 +23,7 @@ export class View {
                 ContractNo: this.data.ContractNo,
                 Id:this.data.SubconContractId,
             };
+            this.selectedContractType=this.data.ContractType;
         }
     }
 

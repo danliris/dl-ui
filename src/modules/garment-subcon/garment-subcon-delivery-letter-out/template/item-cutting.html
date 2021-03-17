@@ -7,7 +7,7 @@
                 loader.bind="roLoader"
                 text="RONo"
                 placeholder="Nomor RO"
-                read-only.bind="readOnly"
+                read-only.bind="readOnly || data.Id"
                 options.bind="controlOptions"
                 view-model.ref="selectedROViewModel">
             </au-autocomplete>
@@ -21,7 +21,7 @@
                 text="CutOutNo"
                 query.bind="subconCuttingOutFilter"
                 placeholder="Nomor Cutting Out Subcon"
-                read-only.bind="readOnly"
+                read-only.bind="readOnly|| data.Id"
                 options.bind="controlOptions"
                 show.bind="data.RONo"
                 view-model.ref="selectedCuttingOutViewModel">
