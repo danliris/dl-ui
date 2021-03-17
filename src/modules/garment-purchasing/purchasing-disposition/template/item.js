@@ -169,7 +169,7 @@ export class PurchasingDispositionItem {
                         var qtyRemains=item.DefaultQuantity-item.DispositionQuantityCreated;
                         var OverQty = 0;
                         if(qtyRemains< 0){
-                            OverQty = (qtyRemains/iem.DefaultQuantity)*100;
+                            OverQty = (qtyRemains/item.DefaultQuantity)*100;
                         }else
                         {
                             OverQty = 0;

@@ -194,7 +194,21 @@ module.exports = [
       },
       iconClass: "fa fa-clone",
     },
-  }
+  },
+  {
+    route: "garment-finance/expedition-garment-purchasing-disposition-acceptance",
+    name: "garment-purchasing-disposition-acceptance",
+    moduleId: "./modules/garment-purchasing/expedition-garment-purchasing-disposition-acceptance/index",
+    nav: true,
+    title: "Penerimaan Dokumen Disposisi Pembayaran",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
