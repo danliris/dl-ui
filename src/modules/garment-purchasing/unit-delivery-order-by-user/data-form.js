@@ -471,7 +471,6 @@ export class DataForm {
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
-                        
                     }
                     this.data.Article = ro[0].Article;
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
