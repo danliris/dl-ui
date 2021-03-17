@@ -20,6 +20,7 @@ export class View {
                 Id:this.data.SubconContractId,
             };
            
+            this.selectedContractType=this.data.ContractType;
         }
         this.getContractQty();
     }

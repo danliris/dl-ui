@@ -18,6 +18,7 @@ export class DataForm {
     @bindable selectedPO;
     @bindable selectedContract;
     @bindable selectedDLType;
+    @bindable selectedContractType;
 
     constructor(service,purchasingService,coreService) {
         this.service = service;
@@ -51,9 +52,9 @@ export class DataForm {
             "Design/Color",
             "Jumlah",
             "Satuan",
-            "Satuan Keluar",
             "Tipe Fabric",
             "Jumlah Keluar",
+            "Satuan Keluar",
         ],
         columnsCutting:[
             "RO",
@@ -96,8 +97,7 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
-            isEdit: this.isEdit,
-
+            isEdit: this.isEdit
         }
 
         if (this.data.Id) {
@@ -120,9 +120,30 @@ export class DataForm {
     selectedDLTypeChanged(newValue){
         this.data.DLType=newValue;
         this.selectedUEN=null;
-        this.data.UENId = newValue.Id;
-        this.data.UENNo = newValue.UENNo;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
+        this.selectedContract=null;
+        this.data.ContractNo="";
+        this.data.SubconContractId=0;
+
+        this.itemOptions.DLType = this.data.DLType;
         this.data.ContractQty=0;
+        this.data.UsedQty=0;
+        this.data.QtyUsed=0;
+        this.data.Items.splice(0);
+    }
+
+    selectedContractTypeChanged(newValue){
+        this.data.ContractType=newValue;
+        this.selectedUEN=null;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
+        this.selectedContract=null;
+        this.data.ContractNo="";
+        this.data.SubconContractId=0;
+        this.data.ContractQty=0;
+        this.data.UsedQty=0;
+        this.data.QtyUsed=0;
         this.data.Items.splice(0);
     }
 
@@ -225,10 +246,10 @@ export class DataForm {
         
     }
 
-    selectedContractChanged(newValue){
+    async selectedContractChanged(newValue){
         this.selectedUEN=null;
-        this.data.UENId = newValue.Id;
-        this.data.UENNo = newValue.UENNo;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
         this.data.ContractQty=0;
         if(this.data.ContractType!='SUBCON CUTTING')
             this.data.Items.splice(0);
@@ -236,6 +257,25 @@ export class DataForm {
             this.data.ContractNo=newValue.ContractNo;
             this.data.SubconContractId=newValue.Id;
             this.data.ContractQty=newValue.Quantity;
+            if(this.data.ContractType=='SUBCON CUTTING'){
+                this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
+                .then((contract)=>{
+                    var usedQty= 0;
+                    if(contract.data.length>0){
+                        for(var subcon of contract.data){
+                            if(subcon.Id!=this.data.Id){
+                                for(var subconItem of subcon.Items){
+                                    usedQty+=subconItem.Quantity;
+                                }
+                            }
+                            else{
+                                this.data.savedItems=subcon.Items;
+                            }
+                        }
+                    }
+                    this.data.QtyUsed=usedQty;
+                });
+            }
         }
         else{
             this.data.ContractNo="";
@@ -290,7 +330,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({});
+            this.data.Items.push({DLType:this.data.DLType});
         };
     }
 
