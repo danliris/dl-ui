@@ -152,7 +152,8 @@ export class DataForm {
                     CurrencyId:this.data.CurrencyId,
                     CurrencyCode: this.data.CurrencyCode,
                     Category: this.data.Category, 
-                    PaymentType: this.data.PaymentType })
+                    PaymentType: this.data.PaymentType,
+                    Id:0 })
         };
     }
 
