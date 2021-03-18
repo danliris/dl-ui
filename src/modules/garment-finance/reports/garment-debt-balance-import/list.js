@@ -11,7 +11,7 @@ export class List {
     [
       {
         field: "SupplierName", title: "Supplier", rowspan: 2, formatter: function (value, data, index) {
-          return data.SupplierCode ? `${data.SupplierCode} - ${value}` : value;
+          return data.SupplierCode ? `${data.SupplierCode} - ${value}` : "Total";
         }
       },
       { field: "CurrencyCode", title: "Mata Uang", rowspan: 2 },
