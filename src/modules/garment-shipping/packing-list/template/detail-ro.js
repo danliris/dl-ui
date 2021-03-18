@@ -6,6 +6,7 @@ var UomLoader = require("../../../../loader/uom-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
+    @bindable uom;
     @bindable avG_GW;
     @bindable avG_NW;
 
@@ -23,6 +24,7 @@ export class Item {
     }
 
     detailsColumns = [
+        { header: "Index"},
         { header: "Carton 1" },
         { header: "Carton 2" },
         { header: "Style" },
@@ -79,6 +81,7 @@ export class Item {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo
             };
+            this.uom = this.data.uom;
         }
         this.isShowing = false;
         if (this.data.details) {
@@ -99,6 +102,7 @@ export class Item {
                             this.data.buyerBrand = result.BuyerBrand;
                             this.data.unit = result.Unit;
                             this.data.uom = result.UOM;
+                            this.uom = result.UOM;
                             this.data.valas = "USD";
                             this.data.quantity = result.Quantity;
                             this.data.scNo = sc.SalesContractNo;
@@ -112,13 +116,22 @@ export class Item {
         }
     }
 
+    uomChanged(newValue) {
+        if(newValue) {
+            this.data.uom = newValue;
+            this.uom = newValue;
+        }
+    }
+
     get addDetails() {
         return (event) => {
             const i = this.context.context.items.indexOf(this.context);
+            let lastIndex;
 
             let lastDetail;
             if (this.data.details.length > 0) {
                 lastDetail = this.data.details[this.data.details.length - 1];
+                lastIndex = this.data.details[this.data.details.length - 1].index;
             } else if (i > 0) {
                 const lastItem = this.context.context.items[i - 1];
                 lastDetail = lastItem.data.details[lastItem.data.details.length - 1];
@@ -126,6 +139,7 @@ export class Item {
 
             this.data.details.push({
                 carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+                index: lastIndex ? lastIndex : 1,
                 sizes: []
             });
         };

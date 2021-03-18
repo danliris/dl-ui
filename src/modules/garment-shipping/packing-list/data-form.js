@@ -305,6 +305,36 @@ export class DataForm {
         return this.data.totalCartons;
     }
 
+    get totalQuantities() {
+        let quantities = [];
+        let result = [];
+        let units = [];
+        if (this.data.items) {
+            var no = 1;
+            for (var item of this.data.items) {
+                let unit = item.uom.unit || item.uom.Unit;
+                if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
+                    quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
+                    if(units.findIndex(u => u.unit == unit) < 0) {
+                        units.push({ unit: unit });
+                    }
+                }
+                no++;
+                
+            }
+        }
+        for (var u of units) {
+            let countableQuantities = 0;
+            for (var q of quantities) {
+                if (q.unit == u.unit) {
+                    countableQuantities += q.quantityTotal;
+                }
+            }
+            result.push(countableQuantities + " " + u.unit);
+        }
+        return result.join(" / ");
+    }
+
     noImage = "images/no-image.jpg";
 
     @bindable shippingMarkImageSrc;
