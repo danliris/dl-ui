@@ -50,16 +50,13 @@ export class View {
             this.verificationDate = this.selectedExpedition.VerificationAcceptedDate;
 
             let dispositionNote = await this.purchasingService.getDispositionNoteById(this.selectedExpedition.DispositionNoteId);
-            this.items = dispositionNote.items
+            this.dispositionNote = dispositionNote;
+            this.items = dispositionNote.Items
         }
     }
 
-    invoiceNoteItem = {
-        columns: [
-            { header: "Nomor Invoice", value: "invoice.invoiceNo" },
-            { header: "Tanggal Invoice" },
-            { header: "Total Amount" }
-        ],
+    collection = {
+        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", "Harga yang Sudah Dibayar", ""],
         onAdd: function () {
             // this.context.ItemsCollection.bind();
             // this.data.items.push({});
