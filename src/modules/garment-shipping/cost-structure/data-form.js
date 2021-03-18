@@ -3,7 +3,7 @@ import { Service } from "./service";
 import { AuthService } from 'aurelia-authentication';
 import moment from 'moment';
 
-var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
+var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-cost-structure-loader');
 var ComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
 
 
@@ -194,7 +194,7 @@ export class DataForm {
         var selectedInv = newValue;
         if (selectedInv && this.data.id == undefined) {
             this.data.invoiceNo = selectedInv.invoiceNo;
-
+            this.data.packinglistId = selectedInv.id;
         }
     }
 
