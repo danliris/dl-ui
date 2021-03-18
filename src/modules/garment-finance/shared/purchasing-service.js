@@ -12,4 +12,9 @@ export class PurchasingService extends RestService {
         var endpoint = `garment-intern-notes/${id}`;
         return super.get(endpoint);
     }
+
+    getDispositionNoteById(id) {
+        var endpoint = `garment-disposition-purchase/${id}`;
+        return super.get(endpoint);
+    }
 }

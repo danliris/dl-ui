@@ -988,17 +988,4 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: "garment-purchasing/expedition-garment-purchasing-disposition-acceptance",
-        name: "garment-purchasing-disposition-acceptance",
-        moduleId: "./modules/garment-purchasing/expedition-garment-purchasing-disposition-acceptance/index",
-        nav: true,
-        title: "Penerimaan Dokumen Disposisi Pembayaran",
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
-          iconClass: "fa fa-dashboard",
-        },
-      },
 ]

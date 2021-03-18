@@ -34,9 +34,12 @@ export class Item {
                 var subcon = await this.service.readSubconCuttingOutById(this.data.SubconCuttingOutId);
             
                 this.data.Details=subcon.Items;
+                
             }
         }
         this.isShowing = false;
+        console.log(context)
+        
     }
 
     itemsColumns= [
@@ -62,6 +65,12 @@ export class Item {
         var filter={
             RONo:this.data.RONo
         };
+        for(var item of this.context.context.items){
+            filter[`CutOutNo == "${item.data.SubconCuttingOutNo}"`]=false;
+        }
+        if(this.context.context.options.DLType!="RE PROSES"){
+            filter["IsUsed"]=false;
+        }
         return filter;
     }
 

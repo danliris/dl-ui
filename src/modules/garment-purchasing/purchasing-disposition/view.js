@@ -85,11 +85,18 @@ export class View {
                 DispositionAmountCreated: item.DispositionAmountCreated,
                 DispositionQuantityCreated: item.DispositionQuantityCreated,
                 DispositionQuantityPaid: item.DispositionQuantityPaid,
+                Active: item.Active,
+                CreatedAgent: item.CreatedAgent,
+                CreatedBy: item.CreatedBy,
+                CreatedUtc: item.CreatedUtc,
+                LastModifiedAgent: item.LastModifiedAgent,
+                LastModifiedBy: item.LastModifiedBy,
+                LastModifiedUtc: item.LastModifiedUtc
             };
             return mappingItem;
         });
     }
-    // console.log("view by id",this.data);
+    console.log("view by id",this.data);
     // this.data.Items
     // console.log("view",this.data);
   }
