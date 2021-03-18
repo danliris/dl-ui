@@ -42,12 +42,8 @@ export class Create {
         // };
     }
 
-    invoiceNoteItem = {
-        columns: [
-            { header: "Nomor Invoice", value: "invoice.invoiceNo" },
-            { header: "Tanggal Invoice" },
-            { header: "Total Amount" }
-        ],
+    collection = {
+        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", "Harga yang Sudah Dibayar", ""],
         onAdd: function () {
             // this.context.ItemsCollection.bind();
             // this.data.items.push({});
@@ -67,15 +63,18 @@ export class Create {
     }
 
     @bindable selectedExpedition;
+    dispositionNote = null;
     async selectedExpeditionChanged(newValue, oldValue) {
         console.log(this);
 
         if (newValue && newValue.Id) {
             var dispositionNote = await this.purchasingService.getDispositionNoteById(newValue.DispositionNoteId);
+            this.dispositionNote = dispositionNote;
             console.log(dispositionNote);
-            this.items = dispositionNote.items;
+            this.items = dispositionNote.Items;
         } else {
             this.items = [];
+            this.dispositionNote = null;
         }
     }
 
