@@ -117,7 +117,14 @@ export class Edit {
                 DispositionAmountCreated: item.DispositionAmountCreated,
                 DispositionQuantityCreated: item.DispositionQuantityCreated,
                 DispositionQuantityPaid: item.DispositionQuantityPaid,
-                DPPValue : calculateDppSplit
+                DPPValue : calculateDppSplit,
+                Active: item.Active,
+                CreatedAgent: item.CreatedAgent,
+                CreatedBy: item.CreatedBy,
+                CreatedUtc: item.CreatedUtc,
+                LastModifiedAgent: item.LastModifiedAgent,
+                LastModifiedBy: item.LastModifiedBy,
+                LastModifiedUtc: item.LastModifiedUtc
             };
             return mappingItem;
         });

@@ -51,6 +51,7 @@ export class PurchasingDispositionDetail {
   }
 
   paidQtyChanged(e){
+    // console.log("detail change",)
     // console.log("paidQTYChanged",e.srcElement.value);
     // console.log("detailPricePerDeal",this.data.PricePerQTY);
     this.data.PaidPrice=parseFloat(e.srcElement.value)*this.data.PricePerQTY;
