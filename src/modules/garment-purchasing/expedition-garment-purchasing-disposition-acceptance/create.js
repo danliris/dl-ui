@@ -48,11 +48,11 @@ export class Create {
     };
 
     filterQuery={
-        "Position":"4"
+        "Position":"2"
     }
 
     filterQueryVerified={
-        "Position":"2"
+        "Position":"4"
     }
 
     filterQueryRetur={
@@ -158,7 +158,7 @@ export class Create {
         let arg = {
             page: 1,
             size: 255,
-            filter: JSON.stringify(filter),
+            // filter: JSON.stringify(filter),
             dispositionNoteId:this.disposition? this.disposition.Id:0,
             supplierId :filter.SupplierId?filter.SupplierId:0,
             position : filter.Position
@@ -201,7 +201,7 @@ export class Create {
                 })
                 
             });
-        console.log("after search",this);
+        // console.log("after search",this);
             
     }
 
