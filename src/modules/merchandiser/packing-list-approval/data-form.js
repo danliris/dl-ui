@@ -1,14 +1,15 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service,SalesService } from "./service";
 
-@inject(Service)
+@inject(Service,SalesService)
 export class DataForm {
 
     @bindable readOnly = false;
     @bindable title;
 
-    constructor(service) {
+    constructor(service,salesService) {
         this.service = service;
+        this.salesService = salesService;
     }
 
     formOptions = {
@@ -125,7 +126,7 @@ export class DataForm {
         return `${data.Name || data.name}`
     }
 
-    bind(context) {
+   async bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -143,6 +144,35 @@ export class DataForm {
         }
 
         this.data.items = this.Items;
+        for(var item of this.data.items){
+            var selectField = ["Id"];
+            var ccgResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: item.roNo }), select : selectField });
+            
+            if(ccgResult.data.length>0){
+                var ccg= await this.salesService.getCostCalculationById(ccgResult.data[0].Id);
+                var isFabricCM=false;
+                
+                for(var material of ccg.CostCalculationGarment_Materials){
+                    if(material.isFabricCM){
+                        isFabricCM=true;break;
+                    }
+                }
+                var fob=0;
+                for(var material of ccg.CostCalculationGarment_Materials){
+                    if(material.isFabricCM){
+                        fob+=material.CM_Price*1.05/ccg.Rate.Value;
+                    }
+                }
+                if(isFabricCM){
+                    item.priceCMT=ccg.ConfirmPrice;
+                    item.priceFOB=ccg.ConfirmPrice+fob;
+                }
+                else{
+                    item.priceCMT=0;
+                    item.priceFOB=ccg.ConfirmPrice;
+                }
+            }
+        }
 
         this.data.sayUnit = this.data.sayUnit || "CARTON";
 
