@@ -7,6 +7,7 @@ var UnitLoader = require("../../../../loader/unit-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
+    @bindable uom;
 
     constructor(salesService) {
         this.salesService = salesService;
@@ -93,6 +94,7 @@ export class Item {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo
             };
+            this.uom = this.data.uom;
         }
 
         this.isShowing = false;
@@ -121,6 +123,7 @@ export class Item {
                                     this.data.comodityDescription = (result.Comodity || {}).Name;
                                     this.data.unit = result.Unit;
                                     this.data.uom = result.UOM;
+                                    this.uom = result.UOM;
                                     this.data.valas = "USD";
                                     this.data.quantity = result.Quantity;
                                     this.data.scNo = sc.SalesContractNo;
@@ -301,4 +304,11 @@ export class Item {
     // indexChanged(newValue) {
     //   this.data.details[this.data.details.length - 1].index = newValue;
     // }
+
+    uomChanged(newValue) {
+      if (newValue) {
+        this.data.uom = newValue;
+        this.uom = newValue;
+      }
+    }
 }
