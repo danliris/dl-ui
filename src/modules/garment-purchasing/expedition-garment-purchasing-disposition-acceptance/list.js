@@ -48,7 +48,11 @@ export class List {
             align: 'right'
         },
         { field: "CurrencyCode", title: "Mata Uang" },
+<<<<<<< HEAD
         { field: "Remark", title: "Keterangan" },
+=======
+        { field: "Remark", title: "Mata Uang" }
+>>>>>>> 03fec11dd0ceee9b1c739194e8f0f5f7d16ccecd
     ];
 
     constructor(router, service, purchasingDispositionExpeditionService, dialog, permissionHelper) {
