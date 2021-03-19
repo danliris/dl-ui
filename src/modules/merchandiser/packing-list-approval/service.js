@@ -41,6 +41,7 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/reject-md/${data.id}`;
         return super.put(endpoint, JSON.stringify(data.reason));
     }
+
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
@@ -58,6 +59,11 @@ class SalesService extends RestService {
     getSalesContractById(id) {
         var endpoint = `${SalesContractserviceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}/dynamic`;
+        return super.list(endpoint, info);
     }
 }
 
