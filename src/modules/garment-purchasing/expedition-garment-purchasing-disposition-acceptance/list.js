@@ -14,10 +14,10 @@ export class List {
 
     columns = [
         {
-            field: "SendToVerificationDate",
-            title: "Tgl Pembelian Kirim",
+            field: "VerifiedDateSend",
+            title: "Tanggal Pembelian Kirim",
             formatter: function(value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
+                return moment.utc(value).local().year() == 1?"-":moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         { field: "DispositionNoteNo", title: "No Disposisi" },

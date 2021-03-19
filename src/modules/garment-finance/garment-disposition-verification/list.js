@@ -10,6 +10,15 @@ export class List {
 
     columns = [
         {
+            field: 'VerifiedDateReceived',
+            title: 'Tanggal Verifikasi Terima',
+            formatter: function (value, data, index) {
+                // return moment(value).format('DD MMM YYYY');
+                return moment.utc(value).local().year() == 1?"-":moment.utc(value).local().format('DD MMM YYYY');
+                
+            }
+        },
+        {
             field: 'Date',
             title: 'Tanggal Cek',
             formatter: function (value, data, index) {
@@ -38,6 +47,7 @@ export class List {
                 return value != 'Kirim ke Pembelian (Not Verified)' ? data.Remark : data.SendToPurchasingRemark;
             }
         },
+        { field: 'Remark', title: 'Keterangan' },
     ];
 
     constructor(router, service) {
