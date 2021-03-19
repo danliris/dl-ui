@@ -14,10 +14,10 @@ export class List {
 
     columns = [
         {
-            field: "SendToVerificationDate",
-            title: "Tgl Pembelian Kirim",
+            field: "VerifiedDateSend",
+            title: "Tanggal Pembelian Kirim",
             formatter: function(value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
+                return moment.utc(value).local().year() == 1?"-":moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         { field: "DispositionNoteNo", title: "No Disposisi" },
@@ -48,7 +48,11 @@ export class List {
             align: 'right'
         },
         { field: "CurrencyCode", title: "Mata Uang" },
+<<<<<<< HEAD
+        { field: "Remark", title: "Keterangan" },
+=======
         { field: "Remark", title: "Mata Uang" }
+>>>>>>> 03fec11dd0ceee9b1c739194e8f0f5f7d16ccecd
     ];
 
     constructor(router, service, purchasingDispositionExpeditionService, dialog, permissionHelper) {
