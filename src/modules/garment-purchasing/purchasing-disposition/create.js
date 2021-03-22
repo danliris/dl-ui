@@ -58,7 +58,6 @@ export class Create {
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
                         this.data.DPP+=item.DPPValue;
-                        this.data.Amount+=(item.DPPValue+ppn+this.data.MiscAmount)-pph;
                         // if(this.data.IncomeTaxBy=="Supplier"){
                         //     this.data.Amount+=detail.PaidPrice+ppn;
                         // }
@@ -67,6 +66,8 @@ export class Create {
                 //     }
                 // }
             }
+            this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;
+            
         }
         this.service.create(this.data)
             .then(result => {

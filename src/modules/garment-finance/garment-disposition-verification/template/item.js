@@ -8,16 +8,18 @@ export class Item {
 	@bindable invoice;
 
 	itemsColumns = [
-		{ header: "PR No" },
-		{ header: "Unit" },
-		{ header: "Kategori" },
+		{ header: "RO No" },		
+		{ header: "PR Internal" },
 		{ header: "Barang" },
-		{ header: "Jumlah Dipesan" },
+		{ header: "Unit" },
+		{ header: "QTY Dipesan" },
 		{ header: "Satuan" },
-		{ header: "Jumlah Dibayar" },
-		{ header: "Harga Satuan" },
+		{ header: "QTY Sisa" },
+		{ header: "Harga Satuan" },		
 		{ header: "Harga Total" },
-		{ header: "Harga Dibayar" }
+		{ header: "QTY Dibayar" },		
+		{ header: "Harga Dibayar" },
+		{ header: "% Over QTY" },
 	]
 	constructor(service, bindingEngine) {
 		this.service = service;
