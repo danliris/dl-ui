@@ -35,6 +35,7 @@ export class Create {
       },
     },
     { field: "SupplierName", title: "Supplier" },
+    { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
       field: "Amount",
       title: "Total Bayar",
@@ -72,6 +73,7 @@ export class Create {
       },
     },
     { field: "SupplierName", title: "Supplier" },
+    { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
       field: "Amount",
       title: "Total Bayar",
@@ -102,6 +104,7 @@ export class Create {
       },
     },
     { field: "SupplierName", title: "Supplier" },
+    { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
       field: "Amount",
       title: "Total Bayar",
