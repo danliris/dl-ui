@@ -56,7 +56,7 @@ export class View {
     }
 
     collection = {
-        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", "Harga yang Sudah Dibayar", ""],
+        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", ""],
         onAdd: function () {
             // this.context.ItemsCollection.bind();
             // this.data.items.push({});
