@@ -19,6 +19,7 @@ export class List {
     @bindable selectedBuyer;
     @bindable unit;
     @bindable packingType;
+    @bindable inventoryType;
     @bindable selectedConstruction;
     @bindable selectedProductionOrder;
     listDataFlag = false;
@@ -40,6 +41,7 @@ export class List {
         sortable: false
     }
 
+    inventoryTypes = ["","LAMA","BARU"];
     units = ["", "DYEING", "PRINTING"];
     packingTypes = ["", "WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT"];
     zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING"];
@@ -79,6 +81,45 @@ export class List {
             }, align: "right", halign: "center"
         },
         { field: "satuan", title: "Satuan" }
+        //{ field: "inventoryType", title: "Gudang"}
+    ];
+
+    columns2 = [
+        // {
+        //     field: "date", title: "Tanggal", formatter: function (value, data, index) {
+        //         return moment(value).format("DD MMM YYYY");
+        //     }
+        // },
+        { field: "noSpp", title: "No. SPP" },
+        { field: "construction", title: "Material" },
+        { field: "unit", title: "Unit" },
+        { field: "motif", title: "Motif" },
+        { field: "color", title: "Warna" },
+        { field: "grade", title: "Grade" },
+        { field: "jenis", title: "Jenis" },
+        { field: "ket", title: "Ket" },
+        {
+            field: "awal", title: "Awal", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "masuk", title: "Masuk", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "keluar", title: "Keluar", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "akhir", title: "Akhir", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        { field: "satuan", title: "Satuan" },
+        { field: "inventoryType", title: "Gudang"}
     ];
 
     get productionOrderLoader() {
@@ -130,11 +171,12 @@ export class List {
             // dateTo: moment(this.dateTo).format("YYYY-MM-DD"),
             dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
             zona: this.zona,
-            unit: this.unit,
+            unit: this.unit,       
             packingType: this.packingType,
             construction: this.construction ? this.construction.Code : null,
             buyer: this.buyer ? this.buyer.Name : null,
-            productionOrderId: this.productionOrder ? this.productionOrder.Id : null
+            productionOrderId: this.productionOrder ? this.productionOrder.Id : null,
+            inventoryType : this.inventoryType,
         }
 
         return this.listDataFlag ? this.service.search(arg)
@@ -172,7 +214,8 @@ export class List {
                 packingType: this.packingType,
                 construction: this.construction ? this.construction.Code : null,
                 buyer: this.buyer ? this.buyer.Name : null,
-                productionOrderId: this.productionOrder ? this.productionOrder.Id : null
+                productionOrderId: this.productionOrder ? this.productionOrder.Id : null,
+                inventoryType : this.inventoryType,
             }
             this.service.generateExcel(arg);
         } else {
@@ -226,6 +269,7 @@ export class List {
         this.dateTo = undefined;
         this.unit = undefined;
         this.packingType = undefined;
+        this.inventoryType = undefined;
         this.selectedConstruction = null;
         this.selectedBuyer = null;
         this.selectedProductionOrder = null;
