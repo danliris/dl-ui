@@ -19,7 +19,7 @@ export class List {
             }
         },
         {
-            field: 'Date',
+            field: 'CreatedDate',
             title: 'Tanggal Cek',
             formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
@@ -40,7 +40,7 @@ export class List {
             }
         },
         { field: 'Status', title: 'Dikirim ke?' },
-        { field: 'Amount', title: 'Total Bayar' },
+        { field: 'TotalPaid', title: 'Total Bayar' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
             field: 'Status', title: 'Alasan', formatter: function (value, data, index) {
