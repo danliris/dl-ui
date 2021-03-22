@@ -21,6 +21,9 @@
     <au-dropdown if.bind="!isAval" options.bind="controlOptions" label="Unit" value.bind="unit"
       read-only.bind="readOnly" items.bind="units"></au-dropdown>
 
+      <au-dropdown if.bind="!isAval && isPackingType" options.bind="controlOptions" label="Jenis Gudang" value.bind="inventoryType"
+      read-only.bind="readOnly" items.bind="inventoryTypes"></au-dropdown>
+
     <au-dropdown if.bind="!isAval && isPackingType" options.bind="controlOptions" label="Jenis" value.bind="packingType"
       read-only.bind="readOnly" items.bind="packingTypes"></au-dropdown>
 
@@ -45,7 +48,7 @@
   <br>
   <br>
 
-  <au-table if.bind="!isAval" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
+  <au-table if.bind="!isAval && !isPackingType" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
     options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
     context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">
@@ -57,6 +60,14 @@
     context.bind="context" options.bind="tableOptions">
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-primary" click.delegate="exportAval()">Excel</button>
+    </div>
+  </au-table>
+
+  <au-table if.bind="!isAval  && isPackingType" view-model.ref="table" data.bind="loader" columns.bind="columns2" context.bind="context"
+    options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)">
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-primary" click.delegate="export()">Excel</button>
     </div>
   </au-table>
 
