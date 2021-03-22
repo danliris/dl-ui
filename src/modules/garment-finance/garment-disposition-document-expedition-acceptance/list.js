@@ -42,7 +42,7 @@ export class List {
     { field: "SupplierName", title: "Supplier" },
     { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
-      field: "Amount",
+      field: "TotalPaid",
       title: "Total Bayar",
       formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
@@ -70,7 +70,7 @@ export class List {
     },
     {
       field: "VerificationAcceptedDate",
-      title: "Tanggal Verifikasi",
+      title: "Tanggal Verifikasi (Kirim)",
       formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
@@ -86,7 +86,7 @@ export class List {
     { field: "SupplierName", title: "Supplier" },
     { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
-      field: "Amount",
+      field: "TotalPaid",
       title: "Total Bayar",
       formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
@@ -100,7 +100,7 @@ export class List {
   returFromVerificationColumns = [
     {
       field: "VerificationAcceptedDate",
-      title: "Tanggal Verifikasi",
+      title: "Tanggal Verifikasi (Kirim)",
       formatter: function (value, data, index) {
         return value ? moment(value).format("DD MMM YYYY") : "-";
       },
@@ -116,7 +116,7 @@ export class List {
     { field: "SupplierName", title: "Supplier" },
     { field: "ProformaNo", title: "No. Proforma / Invoice" },
     {
-      field: "Amount",
+      field: "TotalPaid",
       title: "Total Bayar",
       formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
