@@ -10,7 +10,7 @@ export class List {
 
     columns = [
         {
-            field: 'VerifiedDateReceived',
+            field: 'VerificationAcceptedDate',
             title: 'Tanggal Verifikasi Terima',
             formatter: function (value, data, index) {
                 // return moment(value).format('DD MMM YYYY');
@@ -40,7 +40,9 @@ export class List {
             }
         },
         { field: 'Status', title: 'Dikirim ke?' },
-        { field: 'TotalPaid', title: 'Total Bayar' },
+        { field: 'TotalPaid', title: 'Total Bayar',formatter: function(value,data,index){
+            return numeral(value).format('0.00');
+        } },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
             field: 'SendToPurchasingRemark', title: 'Alasan', formatter: function (value, data, index) {
