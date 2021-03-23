@@ -68,7 +68,7 @@ export class Create {
         console.log(this);
 
         if (newValue && newValue.Id) {
-            var dispositionNote = await this.purchasingService.getDispositionNoteById(newValue.DispositionNoteId);
+            var dispositionNote = await this.purchasingService.getDispositionNoteByIdVerifiedCalculated(newValue.DispositionNoteId);
             this.dispositionNote = dispositionNote;
             console.log(dispositionNote);
             this.items = dispositionNote.Items;

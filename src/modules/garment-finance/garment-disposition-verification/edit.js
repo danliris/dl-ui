@@ -49,14 +49,14 @@ export class Edit {
         if (this.selectedExpedition) {
             this.verificationDate = this.selectedExpedition.VerificationAcceptedDate;
 
-            let dispositionNote = await this.purchasingService.getDispositionNoteById(this.selectedExpedition.DispositionNoteId);
+            let dispositionNote = await this.purchasingService.getDispositionNoteByIdVerifiedCalculated(this.selectedExpedition.DispositionNoteId);
             this.dispositionNote = dispositionNote;
             this.items = dispositionNote.Items
         }
     }
 
     collection = {
-        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", "Harga yang Sudah Dibayar", ""],
+        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", ""],
         onAdd: function () {
             // this.context.ItemsCollection.bind();
             // this.data.items.push({});
