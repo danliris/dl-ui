@@ -49,7 +49,7 @@ export class View {
         if (this.selectedExpedition) {
             this.verificationDate = this.selectedExpedition.VerificationAcceptedDate;
 
-            let dispositionNote = await this.purchasingService.getDispositionNoteById(this.selectedExpedition.DispositionNoteId);
+            let dispositionNote = await this.purchasingService.getDispositionNoteByIdVerifiedNotCalculated(this.selectedExpedition.DispositionNoteId);
             this.dispositionNote = dispositionNote;
             this.items = dispositionNote.Items
         }
