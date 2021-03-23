@@ -219,6 +219,17 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-12">
+                    <au-textbox
+                        label="TOTAL QUANTITY"
+                        value.bind="data.totalQuantities"
+                        error.bind="error.totalQuantities"
+                        read-only="true" 
+                        options.bind="controlOptions">
+                    </au-textbox>
+                </div>
+            </div>
+            <div class="row">
                 <au-textbox
                     label="SAY"
                     value.bind="say"
