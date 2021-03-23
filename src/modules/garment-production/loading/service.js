@@ -3,6 +3,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'loadings';
 const serviceUriSewingDO = 'sewing-dos';
 const comodityPriceserviceUri = 'comodity-prices';
+const serviceUriSewingIn = 'sewing-ins';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -49,6 +50,10 @@ class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    searchSewingIn(info) {
+        var endpoint = `${serviceUriSewingIn}`;
+        return super.list(endpoint, info);
+    }
 }
 
 const serviceUriPR = 'garment-purchase-requests';
