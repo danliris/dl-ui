@@ -100,6 +100,14 @@
                     options.bind="controlOptions">
         </au-numeric>
 
+        <au-numeric label="Biaya Lain - lain"
+                    if.bind="selectedExpedition"
+                    value.bind="dispositionNote.MiscAmount"
+                    read-only.bind="true"
+                    format="0.00"
+                    options.bind="controlOptions">
+        </au-numeric>
+
         <au-numeric label="Amount"
                     if.bind="selectedExpedition"
                     value.bind="dispositionNote.Amount"
@@ -108,13 +116,6 @@
                     options.bind="controlOptions">
         </au-numeric>
 
-        <au-numeric label="Biaya Lain - lain"
-                    if.bind="selectedExpedition"
-                    value.bind="dispositionNote.MiscAmount"
-                    read-only.bind="true"
-                    format="0.00"
-                    options.bind="controlOptions">
-        </au-numeric>
 
         <!-- <au-collection items.bind="data.Items"
                        errors.bind="error.Items"

@@ -10,7 +10,16 @@ export class List {
 
     columns = [
         {
-            field: 'Date',
+            field: 'VerificationAcceptedDate',
+            title: 'Tanggal Verifikasi Terima',
+            formatter: function (value, data, index) {
+                // return moment(value).format('DD MMM YYYY');
+                return moment.utc(value).local().year() == 1?"-":moment.utc(value).local().format('DD MMM YYYY');
+                
+            }
+        },
+        {
+            field: 'CreatedDate',
             title: 'Tanggal Cek',
             formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
@@ -31,13 +40,17 @@ export class List {
             }
         },
         { field: 'Status', title: 'Dikirim ke?' },
-        { field: 'Amount', title: 'Total Bayar' },
+        { field: 'TotalPaid', title: 'Total Bayar',formatter: function(value,data,index){
+            return numeral(value).format('0.00');
+        } },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
-            field: 'Status', title: 'Alasan', formatter: function (value, data, index) {
-                return value != 'Kirim ke Pembelian (Not Verified)' ? data.Remark : data.SendToPurchasingRemark;
+            field: 'SendToPurchasingRemark', title: 'Alasan', formatter: function (value, data, index) {
+                // return value != 'Kirim ke Pembelian (Not Verified)' ? data.Remark : data.SendToPurchasingRemark;
+                return value;
             }
         },
+        { field: 'Remark', title: 'Keterangan' },
     ];
 
     constructor(router, service) {

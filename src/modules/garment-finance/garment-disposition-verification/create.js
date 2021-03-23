@@ -43,7 +43,7 @@ export class Create {
     }
 
     collection = {
-        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", "Harga yang Sudah Dibayar", ""],
+        columns: ["Nomor External PO", "Kena PPN", "Nominal PPN", "Kena PPh", "PPh", "Nominal PPh", "Verified Amount", ""],
         onAdd: function () {
             // this.context.ItemsCollection.bind();
             // this.data.items.push({});
@@ -68,7 +68,7 @@ export class Create {
         console.log(this);
 
         if (newValue && newValue.Id) {
-            var dispositionNote = await this.purchasingService.getDispositionNoteById(newValue.DispositionNoteId);
+            var dispositionNote = await this.purchasingService.getDispositionNoteByIdVerifiedCalculated(newValue.DispositionNoteId);
             this.dispositionNote = dispositionNote;
             console.log(dispositionNote);
             this.items = dispositionNote.Items;

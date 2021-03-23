@@ -222,9 +222,9 @@ module.exports = [
     },
   },
   {
-    route: "garment-finance/expedition-garment-purchasing-disposition-acceptance",
-    name: "garment-purchasing-disposition-acceptance",
-    moduleId: "./modules/garment-purchasing/expedition-garment-purchasing-disposition-acceptance/index",
+    route: "garment-finance/garment-disposition-document-expedition-acceptance",
+    name: "garment-disposition-document-expedition-acceptance",
+    moduleId: "./modules/garment-finance/garment-disposition-document-expedition-acceptance/index",
     nav: true,
     title: "Penerimaan Dokumen Disposisi Pembayaran",
     auth: true,

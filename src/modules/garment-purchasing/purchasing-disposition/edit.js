@@ -195,7 +195,6 @@ export class Edit {
                     this.data.IncomeTaxValue+=pph;
                     this.data.VatValue+=ppn;
                     this.data.DPP+=item.DPPValue;
-                    this.data.Amount+=item.DPPValue+ppn+pph+this.data.MiscAmount;
                     // if(this.data.IncomeTaxBy=="Supplier"){
                     //     this.data.Amount+=detail.PaidPrice+ppn;
                     // }
@@ -204,6 +203,9 @@ export class Edit {
             //     }
             // }
         }
+        // this.data.Amount+=item.DPPValue+ppn+pph+this.data.MiscAmount;
+        this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;        
+        
     }
     console.log("save edit",this.data);
     this.service.update(this.data)
