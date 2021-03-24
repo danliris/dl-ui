@@ -39,7 +39,7 @@ export class DataForm {
                     { header: "PPH"},
                     { header: "Nominal PPH"},
                     { header: "Disposisi yang sudah dibuat"},
-                    { header: "Disposisi yang sudah dibayar"},
+                    // { header: "Disposisi yang sudah dibayar"},
                     { header: ""}];
 
     constructor(service, bindingEngine) {
@@ -152,7 +152,8 @@ export class DataForm {
                     CurrencyId:this.data.CurrencyId,
                     CurrencyCode: this.data.CurrencyCode,
                     Category: this.data.Category, 
-                    PaymentType: this.data.PaymentType })
+                    PaymentType: this.data.PaymentType,
+                    Id:0 })
         };
     }
 
@@ -196,7 +197,9 @@ export class DataForm {
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
                         this.data.DPP+=dpp;
-                        this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                        // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                        this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                        
                 //     }
                 // }
             }
@@ -235,7 +238,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -292,7 +297,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -334,7 +341,9 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
+                            
 
                     //     }
                     // }
@@ -373,7 +382,7 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=dpp;
-                            this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
+                            this.data.Amount+=(dpp+ppn+this.data.MiscAmount)-pph;
 
                     //     }
                     // }

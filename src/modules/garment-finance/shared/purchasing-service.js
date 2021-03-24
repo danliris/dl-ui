@@ -12,4 +12,19 @@ export class PurchasingService extends RestService {
         var endpoint = `garment-intern-notes/${id}`;
         return super.get(endpoint);
     }
+
+    getDispositionNoteById(id) {
+        var endpoint = `garment-disposition-purchase/${id}`;
+        return super.get(endpoint);
+    }
+
+    getDispositionNoteByIdVerifiedCalculated(id) {
+        var endpoint = `garment-disposition-purchase/${id}?isVerifiedAmountCalculated=true`;
+        return super.get(endpoint);
+    }
+
+    getDispositionNoteByIdVerifiedNotCalculated(id) {
+        var endpoint = `garment-disposition-purchase/${id}?isVerifiedAmountCalculated=false`;
+        return super.get(endpoint);
+    }
 }

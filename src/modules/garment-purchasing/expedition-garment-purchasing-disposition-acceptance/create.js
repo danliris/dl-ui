@@ -16,28 +16,28 @@ const SupplierLoader = require('../../../loader/garment-supplier-loader');
 export class Create {
     columns = [
         { field: "selected", checkbox: true, sortable: false },
-        { field: "dispositionNo", title: "No Disposisi" },
+        { field: "DispositionNoteNo", title: "No Disposisi" },
         {
-            field: "dispositionDate", title: "Tgl Disposisi", formatter: function (value, data, index) {
+            field: "CreatedUtc", title: "Tgl Disposisi", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
-            field: "paymentDueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {
+            field: "PaymentDueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "supplier.name", title: "Supplier" },
-        { field: "proformaNo", title: "No Proforma / Invoice" },
+        { field: "SupplierName", title: "Supplier" },
+        { field: "ProformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "payToSupplier", title: "Total Bayar", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+            field: "CurrencyTotalPaid", title: "Total Bayar", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
             },
         },
-        { field: "currency.code", title: "Mata Uang" },
-        { field: "dispoCreatedby", title: "Nama Pembelian" },
+        { field: "CurrencyCode", title: "Mata Uang" },
+        { field: "CreatedBy", title: "Nama Pembelian" },
     ];
 
     tableOptions = {
@@ -48,11 +48,11 @@ export class Create {
     };
 
     filterQuery={
-        "Position":"4"
+        "Position":"2"
     }
 
     filterQueryVerified={
-        "Position":"2"
+        "Position":"4"
     }
 
     filterQueryRetur={
@@ -88,7 +88,7 @@ export class Create {
         this.service = service;
         this.purchasingDispositionExpeditionService = purchasingDispositionExpeditionService;
 
-        this.selectDisposition = ['DispositionNo'];
+        this.selectDisposition = ['DispositionNoteNo'];
         this.selectSupplier = ['code', 'name'];
         this.documentData = [];
         this.selectedItems = [];
@@ -150,14 +150,20 @@ export class Create {
         if (this.disposition)
             filter.dispositionNo = this.disposition.DispositionNo;
 
-        if (this.supplier)
-            filter.SupplierCode = this.supplier.code;
-
+        if (this.supplier){
+            filter.SupplierCode = this.supplier.Code;
+            filter.SupplierId = this.supplier.Id;
+        }
+        // console.log("search",this);
         let arg = {
             page: 1,
             size: 255,
-            filter: JSON.stringify(filter),
+            // filter: JSON.stringify(filter),
+            dispositionNoteId:this.disposition? this.disposition.Id:0,
+            supplierId :filter.SupplierId?filter.SupplierId:0,
+            position : filter.Position
         };
+        // console.log("search arg",arg);
 
         this.purchasingDispositionExpeditionService.search(arg)
             .then(result => {
@@ -165,7 +171,7 @@ export class Create {
                 for(var data of result.data){
                     var config = Container.instance.get(Config);
                     var _endpoint = config.getEndpoint("purchasing-azure");
-                    const resource = `garment-purchasing-dispositions/${data.dispositionId}`;
+                    const resource = `garment-disposition-purchase/${data.DispositionNoteId}`;
                     var disp=  _endpoint.find(resource);
                         // .then(result => {
                         //     var dispoData= result.data;
@@ -178,16 +184,16 @@ export class Create {
                     for(var dataResult of dispo){
                         dataDisposition.push(dataResult.data);
                     }
-                    for(var data of result.data){
-                        var same= dataDisposition.find(a=>a.Id==data.dispositionId);
-                        if(same){
-                            // data.totalPaid=same.DPP+same.VatValue;
-                            // if(same.IncomeTaxBy=="Supplier"){
-                            //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
-                            // }
-                            data.dispoCreatedby=same.CreatedBy;
-                        }
-                    }
+                    // for(var data of result.data){
+                    //     var same= dataDisposition.find(a=>a.Id==data.DispositionNoteId);
+                    //     if(same){
+                    //         // data.totalPaid=same.DPP+same.VatValue;
+                    //         // if(same.IncomeTaxBy=="Supplier"){
+                    //         //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
+                    //         // }
+                    //         data.dispoCreatedby=same.CreatedBy;
+                    //     }
+                    // }
                     this.selectedItems.splice(0, this.selectedItems.length);
                     this.documentData.splice(0, this.documentData.length);
                     this.documentData.push(...result.data)
@@ -195,6 +201,8 @@ export class Create {
                 })
                 
             });
+        // console.log("after search",this);
+            
     }
 
     cancelCallback(event) {
@@ -212,14 +220,38 @@ export class Create {
         
         let data = {
             Role: this.activeRole.key,
-            PurchasingDispositionExpedition: [],
+            Items: [],
         };
 
         for (let s of this.selectedItems) {
-            data.PurchasingDispositionExpedition.push({
-                Id: s.Id,
-                DispositionNo: s.dispositionNo,
-            });
+            // data.PurchasingDispositionExpedition.push({
+            //     Id: s.Id,
+            //     DispositionNo: s.DispositionNoteNo,
+            // });
+            // data.Items.push({
+            //     DispositionNote:{
+            //         Id : s.Id,
+            //         DocumentNo : s.DispositionNoteNo,
+            //         Date : s.DispositionNoteDate,
+            //         DueDate : s.DispositionNoteDueDate,
+            //         SupplierId : s.SupplierId,
+            //         SupplierCode : s.SupplierCode,
+            //         SupplierName : s.SupplierName,
+            //         VATAmount : s.VATAmount,
+            //         CurrencyVATAmount : s.CurrencyVATAmount,
+            //         IncomeTaxAmount : s.IncomeTaxAmount,
+            //         CurrencyIncomeTaxAmount : s.CurrencyIncomeTaxAmount,
+            //         TotalPaid : s.TotalPaid,
+            //         CurrencyTotalPaid : s.CurrencyTotalPaid,
+            //         CurrencyId : s.CurrencyId,
+            //         CurrencyCode : s.CurrencyCode,
+            //         CurrencyRate : s.CurrencyRate,
+            //         DPPAmount : s.DPPAmount,
+            //         CurrencyDPPAmount : s.CurrencyDPPAmount
+            //     },
+            //     Remark:s.Remark
+            // });
+            data.Items.push(s.Id);
         }
 
         this.service.create(data)

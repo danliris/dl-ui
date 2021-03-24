@@ -84,7 +84,7 @@
           <tr repeat.for="datum of data">
 
             <!-- <td repeat.for="key of datum | keys"
-                if.bind="!datum.IsInitialBalance"
+                if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
                 style="white-space: pre"
                 class="key.toString().toLowerCase() == 'dpp' || key.toString().toLowerCase() == 'dppcurrency' || key.toString().toLowerCase() == 'ppn' || key.toString().toLowerCase() == 'total' || key.toString().toLowerCase() == 'purchase' || key.toString().toLowerCase() == 'payment' || key.toString().toLowerCase() == 'finalbalance' ? text-right : '';"
                 colspan="${key.toString().toLowerCase() == 'previous' ? 13 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 5 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}">
@@ -94,27 +94,42 @@
             <td if.bind="datum.IsInitialBalance"
                 colspan="19">Saldo Awal </td>
             <td if.bind="datum.IsInitialBalance"
-                class="text-right">${datum.InitialBalance} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.Date} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.Products} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.PurchasingCategoryName} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.BillsNo} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.PaymentBills} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.GarmentDeliveryOrderNo} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.BankExpenditureNoteNo} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.InternalNoteNo} </td>
-            <td if.bind="!datum.IsInitialBalance">${datum.InvoiceNo} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.DPPAmount} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.CurrencyDPPAmount} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.VATAmount} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.IncomeTaxAmount} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.TotalInvoice} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.MutationPurchase} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.CurrencyMutationPurchase} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.MutationPayment} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.CurrencyMutationPayment} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.CurrencyRemainBalance} </td>
-            <td if.bind="!datum.IsInitialBalance" class="text-right">${datum.RemainBalance} </td>
+                class="text-right">${datum.RemainBalance} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.Date} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.Products} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.PurchasingCategoryName} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.BillsNo} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.PaymentBills} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.GarmentDeliveryOrderNo} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.BankExpenditureNoteNo} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.InternalNoteNo} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance">${datum.InvoiceNo} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.DPPAmount} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.CurrencyDPPAmount} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.VATAmount} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.IncomeTaxAmount} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.TotalInvoice} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.MutationPurchase} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.CurrencyMutationPurchase} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.MutationPayment} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.CurrencyMutationPayment} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.CurrencyRemainBalance} </td>
+            <td if.bind="!datum.IsInitialBalance && !datum.IsTotalBalance"
+                class="text-right">${datum.RemainBalance} </td>
+            <td if.bind="datum.IsTotalBalance"
+                colspan="19">Saldo Akhir </td>
+            <td if.bind="datum.IsTotalBalance"
+                class="text-right">${datum.RemainBalance} </td>
           </tr>
           <!-- <tr>
             <td class="text-right" colspan="7">TOTAL</td>

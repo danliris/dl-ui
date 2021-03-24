@@ -13,9 +13,16 @@ export class List {
     context = ['Hapus'];
 
     columns = [
-        { field: "dispositionNo", title: "No Disposisi" },
         {
-            field: "dispositionDate",
+            field: "VerifiedDateSend",
+            title: "Tanggal Pembelian Kirim",
+            formatter: function(value, data, index) {
+                return moment.utc(value).local().year() == 1?"-":moment.utc(value).local().format('DD MMM YYYY');
+            },
+        },
+        { field: "DispositionNoteNo", title: "No Disposisi" },
+        {
+            field: "DispositionNoteDate",
             title: "Tgl Disposisi",
             formatter: function(value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
@@ -28,19 +35,20 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "supplier.name", title: "Supplier" },
-        { field: "proformaNo", title: "No Proforma / Invoice" },
+        { field: "SupplierName", title: "Supplier" },
+        { field: "ProformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "payToSupplier",
+            field: "CurrencyTotalPaid",
             title: "Total Bayar ke Supplier",
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
             },
             align: 'right'
         },
-        { field: "currency.code", title: "Mata Uang" },
+        { field: "CurrencyCode", title: "Mata Uang" },
+        { field: "Remark", title: "Keterangan" }
     ];
 
     constructor(router, service, purchasingDispositionExpeditionService, dialog, permissionHelper) {
@@ -85,7 +93,8 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: this.activeRole.position, IsPaid: false }), // VERIFICATION_DIVISION
+            filter: JSON.stringify({ IsPaid: false }),
+            position: this.activeRole.position, // VERIFICATION_DIVISION
         };
 
         if (this.activeRole.key === 'CASHIER') {

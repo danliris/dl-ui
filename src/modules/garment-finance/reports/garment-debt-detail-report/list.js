@@ -19,7 +19,11 @@ export class List {
         return value ? moment(value).format("YYYY-MM-DD") : "";
       }
     },
-    { field: "DebtAging", title: "Umur Hutang" },
+    {
+      field: "DebtAging", title: "Umur Hutang", formatter: (value, data, index) => {
+        return data.SupplierName  ? value : "";
+      }
+    },
     { field: "InternalNoteNo", title: "No Nota Intern" },
     { field: "InvoiceNo", title: "Nomor Invoice" },
     { field: "VATNo", title: "Nomor Faktur" },

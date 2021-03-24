@@ -118,6 +118,7 @@ export class List {
 
           var newData = {
             IsInitialBalance: item.IsInitialBalance,
+            IsTotalBalance: item.IsTotalBalance,
             Date: item.ArrivalDate ? moment(item.ArrivalDate).format("DD-MMM-YYYY") : null,
             Products: item.ProductNames,
             PurchasingCategoryName: item.PurchasingCategoryName,

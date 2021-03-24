@@ -117,7 +117,14 @@ export class Edit {
                 DispositionAmountCreated: item.DispositionAmountCreated,
                 DispositionQuantityCreated: item.DispositionQuantityCreated,
                 DispositionQuantityPaid: item.DispositionQuantityPaid,
-                DPPValue : calculateDppSplit
+                DPPValue : calculateDppSplit,
+                Active: item.Active,
+                CreatedAgent: item.CreatedAgent,
+                CreatedBy: item.CreatedBy,
+                CreatedUtc: item.CreatedUtc,
+                LastModifiedAgent: item.LastModifiedAgent,
+                LastModifiedBy: item.LastModifiedBy,
+                LastModifiedUtc: item.LastModifiedUtc
             };
             return mappingItem;
         });
@@ -188,7 +195,6 @@ export class Edit {
                     this.data.IncomeTaxValue+=pph;
                     this.data.VatValue+=ppn;
                     this.data.DPP+=item.DPPValue;
-                    this.data.Amount+=item.DPPValue+ppn+pph+this.data.MiscAmount;
                     // if(this.data.IncomeTaxBy=="Supplier"){
                     //     this.data.Amount+=detail.PaidPrice+ppn;
                     // }
@@ -197,6 +203,9 @@ export class Edit {
             //     }
             // }
         }
+        // this.data.Amount+=item.DPPValue+ppn+pph+this.data.MiscAmount;
+        this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;        
+        
     }
     console.log("save edit",this.data);
     this.service.update(this.data)

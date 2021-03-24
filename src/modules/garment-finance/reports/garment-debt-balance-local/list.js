@@ -10,7 +10,7 @@ export class List {
   columns = [
     {
       field: "SupplierName", title: "Supplier", formatter: function (value, data, index) {
-        return data.SupplierCode ? `${data.SupplierCode} - ${value}` : value;
+        return data.SupplierCode ? `${data.SupplierCode} - ${value}` : "Total";
       }
     },
     { field: "CurrencyCode", title: "Mata Uang" },

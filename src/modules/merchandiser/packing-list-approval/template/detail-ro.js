@@ -58,7 +58,7 @@ export class Item {
             this.isShowing = !this.isShowing;
     }
 
-    activate(context) {
+    async activate(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
