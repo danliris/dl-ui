@@ -52,4 +52,11 @@ export class Service extends RestService {
     let endpoint = `${uri}/void-retur-accepted/${id}`;
     return super.put(endpoint, {});
   }
+
+  accountingDispositionNotOk(ids,remark) {
+    var body = {"ids":ids,"Remark":remark};
+    let endpoint = `${uri}/accounting-disposition-not-ok`;
+    return super.put(endpoint, body);
+    
+  }
 }
