@@ -69,13 +69,13 @@
 
         <au-checkbox label="Apakah bayar Ppn?" value.bind="data.isPayVat" 
             error.bind="error.isPayVat" read-only.bind="readOnly"  
-            show.bind="data.useVat" 
+            show.bind="data.useVat" change.delegate="isPayVatChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
 
         <au-checkbox label="Apakah bayar Pph?" value.bind="data.isPayTax" 
             error.bind="error.isPayTax" read-only.bind="readOnly"  
-            show.bind="data.useIncomeTax" 
+            show.bind="data.useIncomeTax" change.delegate="isPayTaxChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
 

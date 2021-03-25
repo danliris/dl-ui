@@ -146,4 +146,8 @@ export class DataForm {
             this.data.shipmentNo = "";
         }
     }
+    itemChanged(e){
+        console.log("after change parent",this);
+        console.log("after change parent event",e);
+    }
 } 

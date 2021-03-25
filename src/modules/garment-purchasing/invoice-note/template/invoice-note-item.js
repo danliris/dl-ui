@@ -53,7 +53,9 @@ export class DeliveryOrderItem {
         "IsDeleted" :false,
         "DOCurrencyCode":this.options.currencyCode,
         "useVat":this.options.useVat, 
-        "useIncomeTax":false
+        "useIncomeTax":false,
+        "isPayVAT": this.options.isPayVat,
+        "isPayIncomeTax": this.options.isPayTax
       };
     }
     else if(this.options.supplierId && this.options.currencyCode && this.options.useIncomeTax ){
@@ -70,7 +72,9 @@ export class DeliveryOrderItem {
         "useVat":this.options.useVat,
         "incomeTaxId":this.options.incomeTaxId,
         "useIncomeTax":this.options.useIncomeTax  ,
-        "incomeTaxName":this.options.incomeTaxName
+        "incomeTaxName":this.options.incomeTaxName,
+        "isPayVAT": this.options.isPayVat,
+        "isPayIncomeTax": this.options.isPayTax
       }
     }
   
