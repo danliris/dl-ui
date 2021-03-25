@@ -275,6 +275,15 @@ export class DataForm {
             // this.options.incomeTaxId = null;
         
     }
+    isPayTaxChanged(e){
+        var selectedisPayTax = e.srcElement.checked || false;
+        this.options.isPayTax = selectedisPayTax;
+    }
+
+    isPayVatChanged(e){
+        var selectedisPayVat = e.srcElement.checked || false;
+        this.options.isPayVat = selectedisPayVat;
+    }
       
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;

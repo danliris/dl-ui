@@ -139,6 +139,7 @@
             options.one-way="filter"
             read-only.bind="readOnly"
             if.bind="data.supplier"
+            change.delegate="itemChanged($event)"
             view-model.ref="ItemsCollection"
             item-template="modules/garment-purchasing/delivery-order/template/delivery-order-item"
             footer-template="modules/garment-purchasing/delivery-order/template/delivery-order-item-footer"
