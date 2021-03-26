@@ -163,41 +163,13 @@ export class Item {
     get totalQty() {
         let qty = 0;
         if (this.data.details) {
-            const newDetails = this.data.details.map(d => {
-                return {
-                    carton1: d.carton1,
-                    carton2: d.carton2,
-                    cartonQuantity: d.cartonQuantity,
-                    quantityPCS: d.quantityPCS,
-                    index: d.index
-                };
-            }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
-            for (const detail of newDetails) {
-                const cartonExist = false;
-                const indexItem = this.context.context.options.header.items.indexOf(this.data);
-                if (indexItem > 0) {
-                    for (let i = 0; i < indexItem; i++) {
-                        const item = this.context.context.options.header.items[i];
-                        for (const prevDetail of item.details) {
-                            if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
-                                cartonExist = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (!cartonExist) {
+            for (var detail of this.data.details) {
+                if (detail.cartonQuantity && detail.quantityPCS) {
                     qty += detail.cartonQuantity * detail.quantityPCS;
                 }
             }
-            return qty;
         }
-        // for (var detail of this.data.details) {
-        //     if (detail.cartonQuantity && detail.quantityPCS) {
-        //         qty += detail.cartonQuantity * detail.quantityPCS;
-        //     }
-        // }
-        // return qty;
+        return qty;
     }
 
     get totalCtn() {
