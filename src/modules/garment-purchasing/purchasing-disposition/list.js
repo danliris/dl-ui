@@ -13,18 +13,18 @@ export class List {
     columns = [
         { field: "DispositionNo", title: "Nomor Disposisi Pembayaran" },
         {
-            field: "DispositionDate", title: "Tanggal Disposisi", formatter: function (value, data, index) {
+            field: "CreatedUtc", title: "Tanggal Disposisi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "Category", title: "Kategori"},
-        { field: "Supplier", title: "Supplier" },
+        { field: "SupplierName", title: "Supplier" },
         {
             field: "DueDate", title: "Tanggal Jatuh Tempo", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "Currency", title: "Mata Uang"},
+        { field: "CurrencyName", title: "Mata Uang"},
         { field: "AmountDisposition", title: "Nominal Disposisi", sortable: false,formatter:function(value, data, index) {
             return numeral(value).format("0,000.00");
         }},

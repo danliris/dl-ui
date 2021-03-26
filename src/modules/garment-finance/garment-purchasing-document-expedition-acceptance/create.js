@@ -3,7 +3,9 @@ import { Router } from "aurelia-router";
 import { activationStrategy } from "aurelia-router";
 import moment from "moment";
 import numeral from "numeral";
+import { Dialog } from '../../../components/dialog/dialog';
 import { Service } from "./service";
+import { CreateSubmit } from './dialog-template/create-submit';
 // import PurchasingDocumentExpeditionService from "../shared/purchasing-document-expedition-service";
 import { PermissionHelper } from "../../../utils/permission-helper";
 import {
@@ -16,7 +18,7 @@ const InternalNoteLoader = require("../../../loader/garment-intern-note-loader")
 const SupplierLoader = require("../../../loader/garment-supplier-loader");
 // const DivisionLoader = require("../../../loader/division-loader");
 
-@inject(Router, Service, PermissionHelper)
+@inject(Router, Service, PermissionHelper,Dialog)
 export class Create {
   fromPurchasingColumns = [
     { field: "selected", checkbox: true, sortable: false },
@@ -136,18 +138,20 @@ export class Create {
     },
   };
 
-  constructor(router, service, permissionHelper) {
+  constructor(router, service, permissionHelper,dialog) {
     this.router = router;
     this.service = service;
 
     this.documentData = [];
     this.selectedItems = [];
+    this.submitContext = {};
 
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
 
     this.isVerification = this.activeRole.key == "VERIFICATION";
     this.isRetur = this.activeRole.key == "RETUR";
+    this.dialog = dialog;
   }
 
   initPermission() {
@@ -245,9 +249,11 @@ export class Create {
         */
 
     if (!this.selectedItems || this.selectedItems.length <= 0)
+    // if (false)    
       alert("Harap pilih dokumen!");
     else {
       let ids = this.selectedItems.map((item) => item.Id);
+      console.log("activerole",this.activeRole);
       switch (this.activeRole.key) {
         case "VERIFICATION":
           this.service
@@ -280,7 +286,14 @@ export class Create {
             });
           break;
         case "ACCOUNTING":
-          this.service
+       this.submitContext.verifiedAlert = true;        
+        this.dialog.show(CreateSubmit, this.submitContext)
+        .then((response)=>{
+          console.log("response acooutning",response);
+          var isOk = response.output.verifiedAlert;
+          var remark = response.output.Remark;
+          if(isOk){
+            this.service
             .accountingAccepted(ids)
             .then((result) => {
               alert("Data berhasil dibuat");
@@ -293,6 +306,23 @@ export class Create {
             .catch((e) => {
               this.error = e;
             });
+          }else{
+            this.service
+            .accountingDispositionNotOk(ids,remark)
+            .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute(
+                "create",
+                {},
+                { replace: true, trigger: true }
+              );
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+          }
+        });
+          
           break;
         case "RETUR":
           this.service
