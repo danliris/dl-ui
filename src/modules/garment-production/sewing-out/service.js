@@ -27,9 +27,14 @@ class Service extends RestService {
         var endpoint = `${serviceUriSewIn}`;
         return super.list(endpoint, info);
     }
-
+    
     searchFinishingIn(info) {
         var endpoint = `${serviceUriFinIn}`;
+        return super.list(endpoint, info);
+    }
+    
+    searchSewingInByRo(info) {
+        var endpoint = `${serviceUriSewIn}/get-by-ro`;
         return super.list(endpoint, info);
     }
 

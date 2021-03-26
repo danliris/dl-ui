@@ -840,6 +840,20 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-approved-all-user",
+        name: "garment-shipping/packing-list-approved-all-user",
+        moduleId: "modules/garment-shipping/packing-list-approved-all-user/index",
+        nav: true,
+        title: "Approved Packing List ( All User )",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "approval",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/payment-disposition",
         name: "garment-shipping/payment-disposition",
         moduleId: "modules/garment-shipping/payment-disposition/index",
@@ -891,6 +905,20 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/cost-structure",
+        name: "garment-shipping/cost-structure",
+        moduleId: "modules/garment-shipping/cost-structure/index",
+        nav: true,
+        title: "Struktur Biaya",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }

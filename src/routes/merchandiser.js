@@ -459,7 +459,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "monitoring",
-            permission: {  "PGA": 1, "C7": 1, "C9": 1 },
+            permission: { "PGA": 1, "C7": 1, "C9": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C1A": 1, "C1B": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

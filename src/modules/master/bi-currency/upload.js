@@ -45,7 +45,7 @@ export class Create {
             this.error = e;
         } else if (Object.getOwnPropertyNames(e) == 0) {
             formData.append("fileUpload", fileList[0]);
-
+            console.log(formData);
             var endpoint = 'master/bi-currencies/imports';
             var request = {
                 method: 'POST',
@@ -63,7 +63,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Code, Name, Date, Rate");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Mata Uang, Tahun, Bulan, Rate");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

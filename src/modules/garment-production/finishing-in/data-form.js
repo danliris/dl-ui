@@ -71,7 +71,7 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitToId: this.data.Unit.Id,UnitId: this.data.UnitFrom.Id, SewingTo: "FINISHING", "GarmentSewingOutItem.Any(RemainingQuantity>0)":true})
             };
-            return this.service.searchSewingOut(info)
+            return this.service.searchRoSewingOut(info)
                 .then((result) => {
                     var roList=[];
                         for(var a of result.data){

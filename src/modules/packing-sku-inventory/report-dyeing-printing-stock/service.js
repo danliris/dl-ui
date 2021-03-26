@@ -41,6 +41,10 @@ export class Service extends RestService {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
         }
+        if (info.inventoryType) {
+            if (query === '') query = `inventoryType=${info.inventoryType}`;
+            else query = `${query}&inventoryType=${info.inventoryType}`;
+        }
         if (info.packingType) {
             if (query === '') query = `packingType=${info.packingType}`;
             else query = `${query}&packingType=${info.packingType}`;

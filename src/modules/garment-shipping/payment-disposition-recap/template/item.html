@@ -23,11 +23,11 @@
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.othersPayment" read-only.bind="readOnly">
+            <au-numeric value.bind="data.othersPayment" read-only.bind="readOnly" change.delegate="itemChanged($event)">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.truckingPayment" error.bind="error.truckingPayment" read-only.bind="readOnly">
+            <au-numeric value.bind="data.truckingPayment" error.bind="error.truckingPayment" read-only.bind="readOnly" change.delegate="itemChanged($event)">
             </au-numeric>
         </td>
         <td class="col-sm-1">
@@ -35,11 +35,11 @@
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="amountService" error.bind="error.amountService" read-only="true">
+            <au-numeric value.bind="amountService" error.bind="error.amountService" read-only="true" change.delegate="itemChanged($event)">
             </au-numeric>
         </td>
         <td class="col-sm-1">
-            <au-numeric value.bind="data.paymentDisposition.incomeTaxValue" read-only.bind="readOnly">
+            <au-numeric value.bind="data.paymentDisposition.incomeTaxValue" read-only.bind="readOnly" change.delegate="itemChanged($event)">
             </au-numeric>
         </td>
         <td class="col-sm-1">

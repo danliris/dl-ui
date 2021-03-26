@@ -202,7 +202,7 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.Unit.Id,"Items.Any(RemainingQuantity>0)":true})
             };
-            return this.service.searchFinishingIn(info)
+            return this.service.searchFinishingInByRo(info)
                 .then((result) => {
                     var roList=[];
                         for(var a of result.data){

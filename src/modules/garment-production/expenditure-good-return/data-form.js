@@ -71,7 +71,7 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
             };
-            return this.service.getExpenditureGood(info)
+            return this.service.getExpenditureGoodByRo(info)
                 .then((result) => {
                     var roList=[];
                         for(var a of result.data){
