@@ -116,24 +116,7 @@ export class DataForm {
     }
 
     selectedUnitChanged(newValue){
-        this.selectedSewingOut=null;
-        this.data.RONo = null;
-        this.data.Article = null;
-        this.data.Comodity=null;
-        this.data.UnitFrom=null;
-        this.data.SewingOutId=null;
-        this.data.SewingOutNo=null;
-        this.data.Items.splice(0);
-        this.data.Price=0;
-        this.context.selectedSewingOutViewModel.editorValue = "";
-        if(newValue){
-            this.data.Unit=newValue;
-            this.selectedUnitFrom=this.data.Unit;
-        }
-        else{
-            this.context.selectedSewingOutViewModel.editorValue = "";
-            this.data.Unit=null;
-            this.selectedSewingOut=null;
+        if(!this.data.Id){
             this.selectedSewingOut=null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -143,26 +126,31 @@ export class DataForm {
             this.data.SewingOutNo=null;
             this.data.Items.splice(0);
             this.data.Price=0;
+            this.context.selectedSewingOutViewModel.editorValue = "";
+            if(newValue){
+                this.data.Unit=newValue;
+                this.selectedUnitFrom=this.data.Unit;
+            }
+            else{
+                this.context.selectedSewingOutViewModel.editorValue = "";
+                this.data.Unit=null;
+                this.selectedSewingOut=null;
+                this.selectedSewingOut=null;
+                this.data.RONo = null;
+                this.data.Article = null;
+                this.data.Comodity=null;
+                this.data.UnitFrom=null;
+                this.data.SewingOutId=null;
+                this.data.SewingOutNo=null;
+                this.data.Items.splice(0);
+                this.data.Price=0;
+            }
         }
+        
     }
 
     selectedUnitFromChanged(newValue){
-        this.selectedSewingOut=null;
-        this.data.RONo = null;
-        this.data.Article = null;
-        this.data.Comodity=null;
-        this.data.SewingOutId=null;
-        this.data.SewingOutNo=null;
-        this.data.Items.splice(0);
-        this.data.Price=0;
-        this.context.selectedSewingOutViewModel.editorValue = "";
-        if(newValue){
-            this.data.UnitFrom=newValue;
-        }
-        else{
-            this.context.selectedSewingOutViewModel.editorValue = "";
-            this.data.UnitFrom=null;
-            this.selectedSewingOut=null;
+        if(!this.data.Id){
             this.selectedSewingOut=null;
             this.data.RONo = null;
             this.data.Article = null;
@@ -171,6 +159,23 @@ export class DataForm {
             this.data.SewingOutNo=null;
             this.data.Items.splice(0);
             this.data.Price=0;
+            this.context.selectedSewingOutViewModel.editorValue = "";
+            if(newValue){
+                this.data.UnitFrom=newValue;
+            }
+            else{
+                this.context.selectedSewingOutViewModel.editorValue = "";
+                this.data.UnitFrom=null;
+                this.selectedSewingOut=null;
+                this.selectedSewingOut=null;
+                this.data.RONo = null;
+                this.data.Article = null;
+                this.data.Comodity=null;
+                this.data.SewingOutId=null;
+                this.data.SewingOutNo=null;
+                this.data.Items.splice(0);
+                this.data.Price=0;
+            }
         }
     }
 

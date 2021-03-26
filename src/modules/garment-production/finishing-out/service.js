@@ -6,6 +6,7 @@ const serviceUri = 'finishing-outs';
 const serviceUriFinIn = 'finishing-ins';
 const serviceUriPR = 'garment-purchase-requests';
 const comodityPriceserviceUri = 'comodity-prices';
+const serviceUriSewIn = 'sewing-ins';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -60,6 +61,11 @@ class Service extends RestService {
     getPdfById(id,buyer) {
         var endpoint = `${serviceUri}/${id}/${buyer}`;
         return super.getPdf(endpoint);
+    }
+
+    searchSewingIn(info) {
+        var endpoint = `${serviceUriSewIn}`;
+        return super.list(endpoint, info);
     }
 
 }
