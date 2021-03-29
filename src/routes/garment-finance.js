@@ -235,6 +235,20 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-finance/payment-disposition-note",
+    name: "payment-disposition-note",
+    moduleId: "./modules/garment-finance/payment-disposition-note/index",
+    nav: true,
+    title: "Bukti Pembayaran Disposisi",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: { B4: 1, B11: 1, B9: 1, B13: 1,B1:1, B12:1,C9:7 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
