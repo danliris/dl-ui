@@ -37,13 +37,15 @@ export class ItemFooter {
         }
       }
 
+
+
       return amount - incomeTax + vat;
     });
     var sum = qty.reduce((prev, curr, index) => {
       return prev + curr;
     }, 0);
 
-    return this.context.options.vbRequestDocumentAmount - sum;
+    return parseFloat(this.context.options.vbRequestDocumentAmount.toFixed(2)) - parseFloat(sum.toFixed(2));
   }
 
   get getIncomeTax() {
