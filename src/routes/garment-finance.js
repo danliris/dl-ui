@@ -245,10 +245,24 @@ module.exports = [
     settings: {
       group: "g-finance",
       subGroup: "ekspedisi disposisi",
-      permission: { B4: 1, B11: 1, B9: 1, B13: 1,B1:1, B12:1,C9:7 },
+      permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
-    },
+    }
   },
+  {
+    route: "garment-finance/reports/garment-disposition-payment-expedition",
+    name: "garment-disposition-payment-expedition-report",
+    moduleId: "./modules/garment-finance/reports/garment-disposition-payment-expedition/index",
+    nav: true,
+    title: "Laporan Ekspedisi Bukti Pembayaran Disposisi",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  }
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
