@@ -20,6 +20,6 @@ export class Service extends RestService {
 
   getPosition() {
     let endpoint = `${serviceUri}/position-options`;
-    return super.list(endpoint, info);
+    return super.list(endpoint);
   }
 }
