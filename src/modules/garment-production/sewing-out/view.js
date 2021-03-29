@@ -28,6 +28,30 @@ export class View {
                 break;
             }
         }
+        if(this.data.SewingTo=="SEWING"){
+            this.editCallback=null;
+            var filter = {};
+            filter[`GarmentSewingInItem.Any(SewingOutItemId.ToString()=="${this.data.Items[0].Id.toString()}")`] = true;
+            var sewIn= await this.service.searchSewingIn({ filter: JSON.stringify(filter),size:1});
+            
+            if(sewIn.data.length>0){
+                if(sewIn.data[0].TotalRemainingQuantity!=sewIn.data[0].TotalQuantity){
+                    this.deleteCallback = null;
+                }
+            }
+        }
+        if(this.data.SewingTo=="FINISHING"){
+            this.editCallback=null;
+            var filter = {};
+            filter[`Items.Any(SewingOutItemId.ToString()=="${this.data.Items[0].Id.toString()}")`] = true;
+            var finIn= await this.service.searchFinishingIn({ filter: JSON.stringify(filter),size:1});
+        
+            if(finIn.data.length>0){
+                if(finIn.data[0].TotalFinishingInQuantity!=finIn.data[0].TotalRemainingQuantity){
+                    this.deleteCallback = null;
+                }
+            }
+        }
     }
 
     cancelCallback(event) {
