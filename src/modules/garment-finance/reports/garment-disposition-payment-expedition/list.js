@@ -108,6 +108,7 @@ export class List {
   }
 
   async bind() {
+    console.log("here");
     this.positionOptions = await this.service.getPosition()
       .then((response) => response.data)
   }
