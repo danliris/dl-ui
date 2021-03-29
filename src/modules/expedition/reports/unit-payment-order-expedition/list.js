@@ -34,6 +34,7 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
+            { field: 'PaymentMethod', title: 'Term Pembayaran', rowspan: 2, sortable: true},
             { field: 'Currency', title: 'Kurs', rowspan: 2, sortable: true },
             { title: 'Jumlah', colspan: 4 },
             {

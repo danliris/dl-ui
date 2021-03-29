@@ -236,6 +236,20 @@ module.exports = [
     },
   },
   {
+    route: "/garment-finance/payment-disposition-note",
+    name: "payment-disposition-note",
+    moduleId: "./modules/garment-finance/payment-disposition-note/index",
+    nav: true,
+    title: "Bukti Pembayaran Disposisi",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
     route: "garment-finance/reports/garment-disposition-payment-expedition",
     name: "garment-disposition-payment-expedition-report",
     moduleId: "./modules/garment-finance/reports/garment-disposition-payment-expedition/index",
@@ -247,8 +261,8 @@ module.exports = [
       subGroup: "ekspedisi disposisi",
       permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
-    },
-  },
+    }
+  }
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',

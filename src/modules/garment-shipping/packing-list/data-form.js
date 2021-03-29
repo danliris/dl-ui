@@ -294,8 +294,8 @@ export class DataForm {
             for (var item of this.data.items) {
                 if (item.details) {
                     for (var detail of item.details) {
-                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2) < 0) {
-                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, cartonQuantity: detail.cartonQuantity });
+                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2 && c.index == detail.index) < 0) {
+                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, index: detail.index, cartonQuantity: detail.cartonQuantity });
                         }
                     }
                 }

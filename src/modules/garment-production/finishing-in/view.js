@@ -22,6 +22,7 @@ export class View {
             }
         }
         this.selectedUnit=this.data.Unit;
+        this.selectedUnitFrom=this.data.UnitFrom;
         this.selectedSewingOut={
             RONo:this.data.RONo
         }
