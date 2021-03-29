@@ -4,6 +4,8 @@ import numeral from "numeral";
 import XLSX from "xlsx";
 import { Service } from "./service";
 const SupplierLoader = require("../../../../loader/garment-supplier-loader");
+const AccountLoader = require("../../../../loader/account-loader");
+const DispositionLoader = require("../../shared/disposition-note-loader");
 
 @inject(Service)
 export class List {
@@ -105,6 +107,11 @@ export class List {
     }
   }
 
+  async bind() {
+    this.positionOptions = await this.service.getPosition()
+      .then((response) => response.data)
+  }
+
   get supplierLoader() {
     return SupplierLoader;
   }
@@ -182,5 +189,13 @@ export class List {
     this.tableList.refresh();
     this.info.year = moment().format("YYYY");
     this.info.month = { text: "January", value: 1 };
+  }
+
+  get accountLoader() {
+    return AccountLoader;
+  }
+
+  get dispositionLoader() {
+    return DispositionLoader;
   }
 }
