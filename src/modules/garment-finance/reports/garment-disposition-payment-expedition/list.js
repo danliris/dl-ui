@@ -123,14 +123,16 @@ export class List {
 
   loader = (info) => {
 
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
 
@@ -152,14 +154,16 @@ export class List {
   }
 
   excel() {
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
     this.service.getXls(params);
@@ -168,14 +172,16 @@ export class List {
   }
 
   pdf() {
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
     this.service.getPdf(params);
@@ -186,10 +192,12 @@ export class List {
   reset() {
     this.flag = false;
     this.info.supplier = undefined;
+    this.info.position = this.positionOptions[0];
+    this.info.dispositionNote = undefined;
+    this.info.startDate = null;
+    this.info.endDate = null;
     this.data = [];
     this.tableList.refresh();
-    this.info.year = moment().format("YYYY");
-    this.info.month = { text: "January", value: 1 };
   }
 
   get accountLoader() {
