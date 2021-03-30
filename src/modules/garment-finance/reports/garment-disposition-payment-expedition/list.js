@@ -13,8 +13,16 @@ export class List {
   columns = [
     [
       { field: "DispositionNoteNo", title: "No. Disposisi", rowspan: 2 },
-      { field: "DispositionNoteDate", title: "Tgl. Disposisi", rowspan: 2 },
-      { field: "DispositionNoteDueDate", title: "Tgl. Jatuh Tempo", rowspan: 2 },
+      {
+        field: "DispositionNoteDate", title: "Tgl. Disposisi", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
+      {
+        field: "DispositionNoteDueDate", title: "Tgl. Jatuh Tempo", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "ProformaNo", title: "Nomor Proforma", rowspan: 2 },
       { field: "SupplierName", title: "Supplier", rowspan: 2 },
       { field: "CurrencyCode", title: "Kurs", rowspan: 2 },
@@ -22,7 +30,11 @@ export class List {
       { field: "CategoryName", title: "Kategori", rowspan: 2 },
       { field: "PositionDescription", title: "Posisi", rowspan: 2 },
       { field: "SendToPurchasingRemark", title: "Alasan Retur", rowspan: 2 },
-      { field: "SendToVerificationDate", title: "Tanggal Pembelian Kirim", rowspan: 2 },
+      {
+        field: "SendToVerificationDate", title: "Tanggal Pembelian Kirim", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { title: "Verifikasi", colspan: 2 },
       { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
       { title: "Kasir", colspan: 5 },
@@ -34,10 +46,18 @@ export class List {
       { field: "BillsNo", title: "Nomor BP Kecil", rowspan: 2 },
       { field: "PaymentBils", title: "Nomor BP Besar", rowspan: 2 },
       { field: "CustomsNoteNo", title: "Nomor Beacukai", rowspan: 2 },
-      { field: "CustomsNoteDate", title: "Tanggal Beacukai", rowspan: 2 },
+      {
+        field: "CustomsNoteDate", title: "Tanggal Beacukai", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "UnitReceiptNoteNo", title: "Nomor Bon Terima", rowspan: 2 },
       { field: "InternalNoteNo", title: "Nomor Nota Intern", rowspan: 2 },
-      { field: "InternalNoteDate", title: "Tanggal Nota Intern", rowspan: 2 },
+      {
+        field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "PurchasingStaff", title: "Staff", rowspan: 2 }
     ],
     [
@@ -46,10 +66,22 @@ export class List {
       { field: "IncomeTaxAmount", title: "PPh" },
       { field: "OthersExpenditureAmount", title: "Biaya Lain-lain" },
       { field: "TotalAmount", title: "Total" },
-      { field: "VerificationAcceptedDate", title: "Tgl Terima" },
+      {
+        field: "VerificationAcceptedDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Terima"
+      },
       { field: "VerifiedDate", title: "Tgl Kirim" },
-      { field: "CashierAcceptedDate", title: "Tgl Terima" },
-      { field: "BankExpenditureNoteDate", title: "Tgl Bayar" },
+      {
+        field: "CashierAcceptedDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Terima"
+      },
+      {
+        field: "BankExpenditureNoteDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Bayar"
+      },
       { field: "BankExpenditureNoteNo", title: "No Bukti Pengeluaran Bank" },
       { field: "PaidAmount", title: "Nominal Yang Dibayar" },
       { field: "CurrencyCode", title: "Mata Uang" }
