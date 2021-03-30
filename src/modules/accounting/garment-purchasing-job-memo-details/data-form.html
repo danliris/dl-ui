@@ -1,0 +1,45 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-danger" click.delegate="context.update()" if.one-way="context.isVoid">Void</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
+
+        <fieldset>
+            <au-autocomplete 
+                value.bind="Packing"
+                error.bind="error.PackingId" 
+                label="Nomor Memo" 
+                loader.bind="packingLoader"
+                placeholder="Cari Nomor Memo" 
+                query.bind="packingFilter" 
+                read-only.bind="packingReadOnly" 
+                key="Code" 
+                text="Code">
+            </au-autocomplete>
+
+            <au-textbox label="Tanggal Memo" value.bind="data.Packing.ProductionOrderNo" read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Buku" value.bind="data.Packing.OrderTypeName" read-only.bind="true"></au-textbox>
+            <au-textbox label="Mata Uang" value.bind="data.Packing.ColorName" read-only.bind="true"></au-textbox>
+            <au-textbox label="Rate" value.bind="data.Packing.ColorType" read-only.bind="true" if.bind="isSolid"></au-textbox>
+
+            <au-multiline label="Keterangan" placeholder="Masukkan keterangan" value.bind="data.remarks"></au-multiline>
+        </fieldset>
+
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            read-only.bind="false" 
+            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-item">
+        </au-collection>
+
+        <p style="text-align: right; margin-right: 30px;">JUMLAH RINCIAN TOTAL: IDR 50,000</p>
+
+    </au-input-form>
+</template>
