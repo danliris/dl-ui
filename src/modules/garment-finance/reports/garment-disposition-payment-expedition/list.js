@@ -196,6 +196,7 @@ export class List {
     this.info.dispositionNote = undefined;
     this.info.startDate = null;
     this.info.endDate = null;
+    this.info.account = undefined;
     this.data = [];
     this.tableList.refresh();
   }
