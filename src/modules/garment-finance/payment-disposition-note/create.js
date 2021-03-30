@@ -112,10 +112,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: 1000,
-                    filter: JSON.stringify({ "CurrencyCode": currency, "SupplierId": newVal.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": currency, "SupplierId": newVal.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: currency,
                     SupplierId: newVal.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }
@@ -169,10 +169,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: 1000,
-                    filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: this.selectedCurrency.code,
                     SupplierId: this.selectedSupplier.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }
@@ -217,7 +217,7 @@ export class Create {
         this.data.CurrencyRate = 0;
         if (newVal) {
             this.data.CurrencyCode = newVal.code;
-            this.data.CurrencyId = newVal.id;
+            this.data.CurrencyId = newVal.Id;
             this.data.CurrencyRate = newVal.rate;
             // if (newVal.Code == "IDR") {
             //     this.sameCurrency = true;
@@ -227,10 +227,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: Number.MAX_SAFE_INTEGER,
-                    filter: JSON.stringify({ "CurrencyCode": this.data.CurrencyCode, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": this.data.CurrencyCode, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: this.data.CurrencyCode,
                     SupplierId: this.selectedSupplier.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }

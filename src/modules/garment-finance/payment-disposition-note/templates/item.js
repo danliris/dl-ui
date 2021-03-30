@@ -10,7 +10,7 @@ export class Item {
         this.data = context.data
         this.isShowing = false;
         // this.data.Details= this.data.items;
-        console.log("items",this);
+        // console.log("items",this);
         // if(context.context.options){
         //     this.IDR= context.context.options.IDR;
         //     this.rate= context.context.options.rate;

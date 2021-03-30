@@ -354,5 +354,19 @@ module.exports = [
       permission: {"C9": 1},
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route: "accounting/garment-purchasing-job-memo-details",
+    name: "garment-purchasing-job-memo-details",
+    moduleId: "./modules/accounting/garment-purchasing-job-memo-details/index",
+    nav: true,
+    title: "Rincian Memorial Pembelian Job Garment",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
   }
 ];
