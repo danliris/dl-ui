@@ -342,6 +342,20 @@ module.exports = [
     }
   },
   {
+    route:'master-pembukuan',
+    name:'master-pembukuan',
+    moduleId: './modules/garment-finance/master-pembukuan/index',
+    nav: true,
+    title: 'Master Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: {"C9": 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: "accounting/garment-purchasing-job-memo-details",
     name: "garment-purchasing-job-memo-details",
     moduleId: "./modules/accounting/garment-purchasing-job-memo-details/index",
