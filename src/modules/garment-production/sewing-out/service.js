@@ -6,6 +6,7 @@ const serviceUri = 'sewing-outs';
 const serviceUriSewIn = 'sewing-ins';
 const serviceUriPR = 'garment-purchase-requests';
 const comodityPriceserviceUri = 'comodity-prices';
+const serviceUriFinIn = 'finishing-ins';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -24,6 +25,16 @@ class Service extends RestService {
 
     searchSewingIn(info) {
         var endpoint = `${serviceUriSewIn}`;
+        return super.list(endpoint, info);
+    }
+    
+    searchFinishingIn(info) {
+        var endpoint = `${serviceUriFinIn}`;
+        return super.list(endpoint, info);
+    }
+    
+    searchSewingInByRo(info) {
+        var endpoint = `${serviceUriSewIn}/get-by-ro`;
         return super.list(endpoint, info);
     }
 

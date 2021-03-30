@@ -35,11 +35,13 @@
             <au-autocomplete value.bind="paymentbill" label="Nomor Bon Kecil" loader.bind="dOLoader"
               placeholder="Cari Nomor Bon Kecil" read-only.bind="readOnly" key="Id" text.bind="PaymentBillNoView" options.bind="controlOptions">
             </au-autocomplete>
-            <!--<au-textbox
-            value.bind="internNote" 
-                label="Nomor Nota Intern" 
+            
+            <au-textbox
+                value.bind="npn" 
+                label="Nomor Nota PPN" 
                 options.bind="controlOptions"
-                placeholder="Cari Nomor Nota Intern"></au-textbox>-->
+                placeholder="Cari Nomor Nota PPN">
+            </au-textbox>
 
             <au-autocomplete 
                 value.bind="supplier" 
@@ -118,8 +120,12 @@
                         <td rowspan="2">NO BON KECIL</td>
                         <td rowspan="2">MATA UANG</td>
                         <td rowspan="2">NOMINAL</td>
+                        <td rowspan="2">NPN</td>
+                        <td rowspan="2">NO FAKTUR</td>
+                        <td rowspan="2">JENIS BARANG</td>                        
                         <td rowspan="2">RATE</td>
                         <td rowspan="2">TIPE BAYAR</td>
+                        <td rowspan="2">PEMBAYARAN</td>                        
                     </tr>
                     <tr>
                         <!--//>-->
@@ -149,9 +155,12 @@
                         <td>${IN.paymentBill}</td>
                         <td>${IN.currencyCode}</td>
                         <td>${IN.priceTotal}</td>
+                        <td>${IN.NPN}</td>
+                        <td>${IN.VatNo}</td>
+                        <td>${IN.ProductName}</td>
                         <td>${IN.doCurrencyRate}</td>
                         <td>${IN.paymentType}</td>
-                        <!--<td>${SJ['Satuan Barang']}</td>-->
+                        <td>-</td>
                     </tr>
                 </tbody>
             </table>

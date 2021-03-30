@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service,SalesService,PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+const PlLoader= require('../../../loader/garment-packing-list-loader');
 
 @inject(Service,SalesService,PurchasingService)
 export class DataForm {
@@ -17,6 +18,8 @@ export class DataForm {
     @bindable selectedSize;
     @bindable sizes=[];
     @bindable selectedColor;
+    @bindable selectedInvoice;
+    @bindable manual;
 
     constructor(service,salesService,purchasingService) {
         this.service = service;
@@ -61,7 +64,18 @@ export class DataForm {
                     item.IsSave = true;
                 }
             );
+            
         }
+        if(this.data.PackingListId){
+            this.selectedInvoice={
+                invoiceNo:this.data.Invoice,
+                id:this.data.PackingListId
+            }
+           // this.manual=false;
+        }
+        // else{
+        //     this.manual=true;
+        // }
     }
 
     unitView = (unit) => {
@@ -74,7 +88,7 @@ export class DataForm {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.Unit.Id, "Quantity>0":true})
             };
-            return this.service.getFinishedGood(info)
+            return this.service.getFinishedGoodByRo(info)
                 .then((result) => {
                     var roList=[];
                         for(var a of result.data){
@@ -98,8 +112,16 @@ export class DataForm {
         return UnitLoader;
     }
 
+    get plLoader() {
+        return PlLoader;
+    }
+
     get sewingOutLoader() {
         return SewingOutLoader;
+    }
+
+    plFilter={
+        status:"DELIVERED"
     }
 
     selectedUnitChanged(newValue){
@@ -325,5 +347,26 @@ export class DataForm {
             }
             this.error = null;
      };
+    }
+
+    selectedInvoiceChanged(newValue){
+        if(newValue){
+            this.data.Invoice= newValue.invoiceNo;
+            this.data.PackingListId=newValue.id;
+        }
+        else{
+            this.data.Invoice= "";
+            this.data.PackingListId=0;
+        }
+    }
+    manualChanged(newValue){
+        if(!this.readOnly){
+            if(this.context.selectedInvoiceViewModel)
+                this.context.selectedInvoiceViewModel.editorValue = "";
+            this.selectedInvoice=null;
+            this.data.Invoice= "";
+            this.data.PackingListId=0;
+        }
+        
     }
 }

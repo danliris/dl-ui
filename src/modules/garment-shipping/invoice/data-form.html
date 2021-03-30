@@ -6,6 +6,8 @@
                 if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"
                 if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-warning" click.delegate="context.update($event)"
+                if.one-way="context.hasUpdated">Update</button>
             <button class="btn btn-success" click.delegate="context.save($event)"
                 if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger" click.delegate="context.delete($event)"
@@ -14,8 +16,9 @@
         <div class="col-md-4">
 
             <au-autocomplete label="InvoiceNo" value.bind="packinglists" error.bind="error.InvoiceNo"
-                read-only.bind="readOnly || isEdit " loader.bind="invoiceLoader" text.bind="invoiceView"
-                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel">
+                read-only.bind="readOnly || isEdit || isUpdated" loader.bind="invoiceLoader" text.bind="invoiceView"
+                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel"
+                query.bind="filter">
             </au-autocomplete>
             <au-datepicker label="TGL" value.bind="data.invoiceDate" error.bind="error.InvoiceDate"
                 read-only.bind="true" options.bind="length4">
@@ -50,9 +53,9 @@
             <au-textbox label="Seksi" value.bind="data.section.code" error.bind="error.Section.code"
                 read-only.bind="true" options.bind="length4">
             </au-textbox>
-            <au-textbox label="Deliver To" value.bind="data.deliverTo" error.bind="error.deliverTo"
+            <au-multiline label="Deliver To" value.bind="data.deliverTo" error.bind="error.deliverTo"
                 read-only.bind="readOnly" options.bind="length4">
-            </au-textbox>
+            </au-multiline>
 
         </div>
         <div class="col-sm-4">
@@ -66,8 +69,8 @@
             <au-textbox label="Confirmation Of Order No" value.bind="data.confirmationOfOrderNo"
                 error.bind="error.ConfirmationOfOrderNo" read-only.bind="readOnly" options.bind="length4">
             </au-textbox>
-            <au-autocomplete label="Shipping Staff" value.bind="shippingStaff" error.bind="error.ShippingStaff"
-                read-only.bind="readOnly || options.isUsed" loader.bind="shippingStaffLoader"
+            <au-autocomplete label="Shipping Staff" value.bind="data.shippingStaff" error.bind="error.ShippingStaff"
+                read-only="true" loader.bind="shippingStaffLoader"
                 text.bind="shippingStaffView" placeholder="Cari Shipping Staff" options.bind="length4"
                 view-model.ref="shippingStaffViewModel">
             </au-autocomplete>
@@ -119,6 +122,9 @@
             <au-multiline label="Description" value.bind="data.description" error.bind="error.description"
                 read-only.bind="readOnly" options.bind="length4">
             </au-multiline>
+            <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
+                read-only.bind="readOnly" options.bind="length4">
+            </au-multiline>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -135,6 +141,7 @@
                     options.bind="options" 
                     read-only.bind="readOnly" 
                     show.bind="packinglists" 
+                    responsive.bind="true"
                     change.delegate="itemChanged($event)"
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-item">
                 </au-collection>
@@ -151,7 +158,6 @@
                     errors.bind="error.GarmentShippingInvoiceAdjustments" 
                     remove.bind="adjustmentColumns.onRemove"
                     options.bind="options" 
-                    responsive.bind="true" 
                     read-only.bind="readOnly"
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-adjustment">
                 </au-collection>
@@ -161,12 +167,12 @@
             <div class="col-md-6">
 
                 <au-multiline label="MEMO" value.bind="data.memo" error.bind="error.memo"
-                    read-only.bind="readOnly || isEdit" options.bind="length4">
+                    read-only.bind="readOnly || isEdit || isUpdated" options.bind="length4">
                 </au-multiline>
 
-                <au-textbox label="C PRICE" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"
-                    options.bind="length4">
-                </au-textbox>
+                <au-dropdown label="INCOTERMS" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"
+                    options.bind="length4" items.bind="INCOTERMSOptions">
+                </au-dropdown>
 
                 <au-numeric label="TOTAL AMOUNT" value.bind="totalAmounts" error.bind="error.totalAmount"
                     read-only.bind="true" options.bind="length4">

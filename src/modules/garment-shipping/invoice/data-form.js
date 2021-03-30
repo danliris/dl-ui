@@ -1,13 +1,15 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 import { CoreService } from "./service";
+import { AuthService } from 'aurelia-authentication';
+import moment from 'moment';
 var InvoiceLoader = require('../../../loader/garment-packing-list-not-used-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var FabricTypeLoader = require('../../../loader/fabric-type-loader');
 var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
 
 
-@inject(Service, CoreService)
+@inject(Service, CoreService, AuthService)
 export class DataForm {
     @bindable packinglists;
     @bindable shippingStaff;
@@ -20,16 +22,20 @@ export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
     @bindable isUsed = false;
+    @bindable isUpdated = false;
     @bindable dataItems=[];
 
-    constructor(service, coreService) {
+    constructor(service, coreService, authService) {
         this.service = service;
         this.coreService = coreService;
+        this.authService = authService;
     }
 
     bankFilter = {
         DivisionName: "G"
     };
+
+    INCOTERMSOptions=["FOB", "FAS","CFR","CIF","EXW","FCA","CPT","CIP","DAT","DAP","DDP"];
 
     bind(context) {
         this.context = context;
@@ -41,13 +47,17 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
+            isUpdated: this.context.isUpdated,
             isUsed: this.context.isUsed,
             itemData:this.data.items
         }
         this.isEdit = this.context.isEdit;
-        if (this.data.id != undefined) {
+        this.isUpdated = this.context.isUpdated;
+        
 
-            this.coreService.getBankAccountById(this.data.bankAccountId)
+        if (this.data.id != undefined) {
+            if(this.data.bankAccountId>0){
+                this.coreService.getBankAccountById(this.data.bankAccountId)
                 .then(result => {
 
                     this.bankAccount =
@@ -60,10 +70,9 @@ export class DataForm {
                     };
                     this.data.bankAccount = result.BankName;
                 });
-            this.shippingStaff = {
-                Id: this.data.shippingStaffId,
-                Name: this.data.shippingStaff
             }
+            
+            
             this.fabricType = {
                 Id: this.data.fabricTypeId,
                 Name: this.data.fabricType
@@ -71,6 +80,13 @@ export class DataForm {
 
             this.data.bankAccountId = this.data.bankAccountId;
             this.packinglists = this.data.invoiceNo;
+            this.isUpdated && this.updateItems(this.data.invoiceNo);
+
+            this.data.npeDate=moment(this.data.npeDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.npeDate;
+            this.data.blDate=moment(this.data.blDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.blDate;
+            this.data.coDate=moment(this.data.coDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.coDate;
+            this.data.pebDate=moment(this.data.pebDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.pebDate;
+            this.data.cotpDate=moment(this.data.cotpDate).format("DD-MMM-YYYY")=="01-Jan-0001" ? null : this.data.cotpDate;
         }
 
     }
@@ -143,7 +159,6 @@ export class DataForm {
         }
     }
     bankAccountChanged(newValue, oldValue) {
-        console.log(newValue)
         var selectedAccount = newValue;
         if (selectedAccount) {
 
@@ -164,12 +179,16 @@ export class DataForm {
     async packinglistsChanged(newValue, oldValue) {
         var selectedInv = newValue;
         if (selectedInv && this.data.id == undefined) {
-
             this.data.packinglistId = selectedInv.id;
             this.data.invoiceNo = selectedInv.invoiceNo;
             this.data.invoiceDate = selectedInv.date;
 
-            console.log(newValue)
+            this.shippingStaff = {
+              Id: selectedInv.shippingStaff.id,
+              Name: selectedInv.shippingStaff.name || ""
+            }
+
+            //console.log(newValue)
             this.data.section =
             {
                 id: selectedInv.section.id,
@@ -191,19 +210,22 @@ export class DataForm {
             this.data.items.splice(0);
             this.dataItems.splice(0);
             this.data.garmentShippingInvoiceAdjustments.splice(0);
+           // console.log(packingItem)
             var consignee = "";
             var TotalAmount = 0;
             var _consignee = "";
             var consignees = [];
             for (var item of packingItem.items) {
+                //console.log(item)
                 var _item = {};
                 _item.BuyerCode = this.data.buyerAgent.code;
                 _item.Section = this.data.section.code;
                 _item.roNo = item.roNo;
                 _item.scNo = item.scNo;
-                _item.price = item.price;
+                _item.price = item.priceFOB;
                 _item.priceRO = item.priceRO;
                 _item.quantity = item.quantity;
+                _item.cmtPrice=item.priceCMT;
                 _item.comodity = {
                     id: item.comodity.id,
                     code: item.comodity.code,
@@ -229,6 +251,7 @@ export class DataForm {
                 };
                 _item.amount = item.amount;
                 _item.currencyCode = item.valas;
+                _item.packingListItemId = item.id;
                 consignee += item.buyerBrand.name;
                 if (consignees.length > 0) {
                     var dup = consignees.find(a => a == item.buyerBrand.name);
@@ -263,6 +286,102 @@ export class DataForm {
         //     this.data.items.slice(0);
         // }
 
+    }
+    async updateItems(invoiceNo) {
+        var dataPackingList = await this.service.getInvoiceNo({ filter: JSON.stringify({ InvoiceNo:invoiceNo })});
+        var invoiceData = await this.service.getById(this.data.id);
+        var packingItem = await this.service.getPackingListById(dataPackingList.data[0].id);
+        var buyer = await this.coreService.getBuyerById(this.data.buyerAgent.id);
+        this.data.consigneeAddress = buyer.Address;
+        this.data.items.splice(0);
+        this.dataItems.splice(0);
+        var consignee = "";
+        var TotalAmount = 0;
+        var _consignee = "";
+        var consignees = [];
+        for (var item of packingItem.items) {
+            var _item = {};
+            var dataInvoiceLama = invoiceData.items.find(a => a.packingListItemId == item.id);
+            _item.BuyerCode = this.data.buyerAgent.code;
+            _item.Section = this.data.section.code;
+            _item.roNo = item.roNo;
+            _item.scNo = item.scNo;
+            _item.price = item.priceFOB;
+            _item.priceRO = item.priceRO;
+            _item.quantity = item.quantity;
+            _item.cmtPrice = item.priceCMT;
+            _item.comodity = {
+                id: item.comodity.id,
+                code: item.comodity.code,
+                name: item.comodity.name
+
+            };
+            _item.buyerBrand = {
+                id: item.buyerBrand.id,
+                code: item.buyerBrand.code,
+                name: item.buyerBrand.name
+
+            };
+            _item.uom = {
+                id: item.uom.id,
+                unit: item.uom.unit
+
+            };
+            _item.unit = {
+                id: item.unit.id,
+                code: item.unit.code,
+                name: item.unit.name
+
+            };
+            this.data.shippingStaffId = packingItem.shippingStaff.id;
+            this.data.shippingStaff = packingItem.shippingStaff.name;
+            this.shippingStaff = {
+                Id: packingItem.shippingStaff.id,
+                Name: packingItem.shippingStaff.name || ""
+            }
+            _item.amount = item.amount;
+            _item.currencyCode = item.valas;
+            _item.packingListItemId = item.id;
+            _item.createdUtc = item.createdUtc;
+            _item.createdBy = item.createdBy;
+            _item.lastModifiedUtc = item.lastModifiedUtc;
+            _item.lastModifiedBy = item.lastModifiedBy;
+            _item.lastModifiedAgent = item.lastModifiedAgent;
+            if(dataInvoiceLama) {
+                _item.id = dataInvoiceLama.id;
+                _item.createdUtc = dataInvoiceLama.createdUtc;
+                _item.createdBy = dataInvoiceLama.createdBy;
+                _item.lastModifiedUtc = dataInvoiceLama.lastModifiedUtc;
+                _item.lastModifiedBy = dataInvoiceLama.lastModifiedBy;
+                _item.lastModifiedAgent = dataInvoiceLama.lastModifiedAgent;
+
+                _item.comodityDesc= dataInvoiceLama.comodityDesc;
+                _item.desc2 = dataInvoiceLama.desc2;
+                _item.desc3 = dataInvoiceLama.desc3;
+                _item.desc4 = dataInvoiceLama.desc4;
+                _item.quantity = dataInvoiceLama.quantity;
+                _item.price = dataInvoiceLama.price;
+                _item.cmtPrice = dataInvoiceLama.cmtPrice;
+            }
+            consignee += item.buyerBrand.name;
+            if (consignees.length > 0) {
+                var dup = consignees.find(a => a == item.buyerBrand.name);
+                if (!dup) {
+                    consignees.push(item.buyerBrand.name)
+                }
+            }
+            else {
+                consignees.push(item.buyerBrand.name);
+            }
+            TotalAmount = TotalAmount + item.amount;
+            this.data.items.push(_item);
+            _consignee += item.buyerBrand.name + "\n";
+        }
+        this.dataItems = this.data.items;
+        this.data.totalAmount = TotalAmount;
+
+        this.data.consignee = consignees.join("\n");
+        this.percentageProcess(this.dataItems);
     }
     packinglistColumns = {
         columns: [
@@ -395,7 +514,18 @@ export class DataForm {
         return `${section.Code} - ${section.Name}`
     }
 
-
+    get filter() {
+      let username = null;
+      if (this.authService.authenticated) {
+          const me = this.authService.getTokenPayload();
+          username = me.username;
+      }
+//   
+      return {
+        'status=="CREATED" || status=="DRAFT_APPROVED_SHIPPING" || status=="POSTED" || status=="APPROVED_MD" || status=="APPROVED_SHIPPING" || status=="REVISED_MD" || status=="REVISED_SHIPPING" || status=="REJECTED_MD" || status=="REJECTED_SHIPPING_UNIT"':true,
+        ShippingStaffName: username
+      }
+    }
 
     get addItems() {
         return (event) => {

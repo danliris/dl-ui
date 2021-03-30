@@ -6,6 +6,7 @@ var UomLoader = require("../../../../loader/uom-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
+    @bindable uom;
     @bindable avG_GW;
     @bindable avG_NW;
 
@@ -23,6 +24,7 @@ export class Item {
     }
 
     detailsColumns = [
+        { header: "Index"},
         { header: "Carton 1" },
         { header: "Carton 2" },
         { header: "Style" },
@@ -30,6 +32,9 @@ export class Item {
         { header: "Jml Carton" },
         { header: "Qty" },
         { header: "Total Qty" },
+        { header: "GW" },
+        { header: "NW" },
+        { header: "NNW" },
         { header: "" },
     ];
 
@@ -69,12 +74,14 @@ export class Item {
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
-            header: context.context.options.header
+            header: context.context.options.header,
+            item: this.data
         };
         if (this.data.roNo) {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo
             };
+            this.uom = this.data.uom;
         }
         this.isShowing = false;
         if (this.data.details) {
@@ -82,9 +89,6 @@ export class Item {
                 this.isShowing = true;
             }
         }
-
-        this.avG_GW = this.data.avG_GW;
-        this.avG_NW = this.data.avG_NW;
     }
 
     selectedROChanged(newValue) {
@@ -98,6 +102,7 @@ export class Item {
                             this.data.buyerBrand = result.BuyerBrand;
                             this.data.unit = result.Unit;
                             this.data.uom = result.UOM;
+                            this.uom = result.UOM;
                             this.data.valas = "USD";
                             this.data.quantity = result.Quantity;
                             this.data.scNo = sc.SalesContractNo;
@@ -111,38 +116,31 @@ export class Item {
         }
     }
 
-    avG_GWChanged(newValue) {
-        this.data.avG_GW = newValue;
-        this.updateGrossWeight();
-    }
-
-    updateGrossWeight() {
-        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
-    }
-
-    avG_NWChanged(newValue) {
-        this.data.avG_NW = newValue;
-        this.updateNettWeight();
-    }
-
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
+    uomChanged(newValue) {
+        if(newValue) {
+            this.data.uom = newValue;
+            this.uom = newValue;
+        }
     }
 
     get addDetails() {
         return (event) => {
             const i = this.context.context.items.indexOf(this.context);
+            let lastIndex;
 
             let lastDetail;
             if (this.data.details.length > 0) {
                 lastDetail = this.data.details[this.data.details.length - 1];
+                lastIndex = this.data.details[this.data.details.length - 1].index;
             } else if (i > 0) {
                 const lastItem = this.context.context.items[i - 1];
                 lastDetail = lastItem.data.details[lastItem.data.details.length - 1];
             }
 
             this.data.details.push({
-                carton1: lastDetail ? lastDetail.carton2 + 1 : 0
+                carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+                index: lastIndex ? lastIndex : 1,
+                sizes: []
             });
         };
     }
@@ -150,6 +148,15 @@ export class Item {
     get removeDetails() {
         return (event) => {
             this.error = null;
+            const gw = this.sumSubTotal(0);
+            const nw = this.sumSubTotal(1);
+            const nnw = this.sumSubTotal(2);
+            this.context.context.options.header.grossWeight = gw;
+            this.context.context.options.header.nettWeight = nw;
+            this.context.context.options.header.netNetWeight = nnw;
+            this.data.subGrossWeight = gw;
+            this.data.subNetWeight = nw;
+            this.data.subNetNetWeight = nnw;
         };
     }
 
@@ -168,13 +175,43 @@ export class Item {
     get totalCtn() {
         let qty = 0;
         if (this.data.details) {
-            for (var detail of this.data.details) {
-                if (detail.cartonQuantity) {
+            const newDetails = this.data.details.map(d => {
+                return {
+                    carton1: d.carton1,
+                    carton2: d.carton2,
+                    cartonQuantity: d.cartonQuantity,
+                    index: d.index
+                };
+            }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
+            for (const detail of newDetails) {
+                const cartonExist = false;
+                const indexItem = this.context.context.options.header.items.indexOf(this.data);
+                if (indexItem > 0) {
+                    for (let i = 0; i < indexItem; i++) {
+                        const item = this.context.context.options.header.items[i];
+                        for (const prevDetail of item.details) {
+                            if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                                cartonExist = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!cartonExist) {
                     qty += detail.cartonQuantity;
                 }
             }
+            return qty;
         }
-        return qty;
+        
+        // if (this.data.details) {
+        //     for (var detail of this.data.details) {
+        //         if (detail.cartonQuantity) {
+        //             qty += detail.cartonQuantity;
+        //         }
+        //     }
+        // }
+        // return qty;
     }
 
     get amount() {
@@ -183,5 +220,61 @@ export class Item {
             this.data.amount = this.data.quantity * this.data.price
         }
         return this.data.amount;
+    }
+
+    get subGrossWeight() {
+      return this.sumSubTotal(0);
+    }
+
+    get subNetWeight() {
+      return this.sumSubTotal(1);
+    }
+
+    get subNetNetWeight() {
+      return this.sumSubTotal(2);
+    }
+
+    sumSubTotal(opt) {
+      let result = 0;
+      const newDetails = this.data.details.map(d => {
+        return {
+          carton1: d.carton1,
+          carton2: d.carton2,
+          cartonQuantity: d.cartonQuantity,
+          grossWeight: d.grossWeight,
+          netWeight: d.netWeight,
+          netNetWeight: d.netNetWeight,
+          index: d.index
+        };
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
+      for (const detail of newDetails) {
+        const cartonExist = false;
+        const indexItem = this.context.context.options.header.items.indexOf(this.data);
+        if (indexItem > 0) {
+          for (let i = 0; i < indexItem; i++) {
+            const item = this.context.context.options.header.items[i];
+            for (const prevDetail of item.details) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                cartonExist = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!cartonExist) {
+          switch (opt) {
+            case 0:
+              result += detail.grossWeight * detail.cartonQuantity;
+              break;
+            case 1:
+              result += detail.netWeight * detail.cartonQuantity;
+              break;
+            case 2:
+              result += detail.netNetWeight * detail.cartonQuantity;
+              break;
+          }
+        }
+      }
+      return result;
     }
 }

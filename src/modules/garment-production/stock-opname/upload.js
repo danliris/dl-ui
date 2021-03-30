@@ -36,14 +36,20 @@ export class Create {
             this.error = e;
         } else {
             this.service.upload(fileList[0])
-                .then(response => {
-                    if (response.status == 500) {
-                        alert("Gagal");
+                .then(result => {
+                    alert("Data Berhasil Diupload");
+                    this.cancelCallback();
+                })
+                .catch(error => {
+                    e.upload = "";
+                    for (const key in error) {
+                        if (error.hasOwnProperty(key)) {
+                            const element = error[key];
+                            e.upload += `${key} : ${element}\n`;
+                        }
                     }
-                    else if (response.status == 201) {
-                        alert("Data Berhasil Diupload");
-                        this.cancelCallback();
-                    }
+                    this.error = e;
+                    alert("Gagal");
                 });
         }
     }

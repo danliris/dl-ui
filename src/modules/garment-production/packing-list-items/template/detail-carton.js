@@ -6,22 +6,27 @@ export class Detail {
     @bindable length;
     @bindable width;
     @bindable height;
+    @bindable grossWeight;
+    @bindable netWeight;
+    @bindable netNetWeight;
+    @bindable carton1;
+    @bindable carton2;
 
     constructor() {
-        
+
     }
     sizesColumns = [
         { header: "Size" },
         { header: "Quantity" },
     ];
-    
+
 
     toggle() {
         if (!this.isShowing)
-          this.isShowing = true;
+            this.isShowing = true;
         else
-          this.isShowing = !this.isShowing;
-      }
+            this.isShowing = !this.isShowing;
+    }
 
     activate(context) {
         this.context = context;
@@ -35,20 +40,25 @@ export class Detail {
             error: this.error,
             isCreate: this.isCreate,
             readOnly: this.readOnly,
-            isEdit:this.isEdit,
+            isEdit: this.isEdit,
         };
 
-        this.isShowing = true;
-        
-        if(this.data.sizes){
-            if(this.data.sizes.length>0){
-                this.isShowing = true;
-            }
+        this.isShowing = false;
+        if (this.error && this.error.Sizes && this.error.Sizes.length > 0) {
+            this.isShowing = true;
         }
 
         this.length = this.data.length;
         this.width = this.data.width;
         this.height = this.data.height;
+
+
+        this.grossWeight = this.data.grossWeight;
+        this.netWeight = this.data.netWeight;
+        this.netNetWeight = this.data.netNetWeight;
+
+        this.carton1 = this.data.carton1;
+        this.carton2 = this.data.carton2;
     }
 
 
@@ -61,34 +71,24 @@ export class Detail {
     get removeSizes() {
         return (event) => {
             this.error = null;
-     };
+        };
     }
 
-    get totalQuantity(){
-        if(this.data.cartonQuantity && this.data.quantityPCS){
-            this.data.totalQuantity=this.data.cartonQuantity*this.data.quantityPCS;
+    get totalQuantity() {
+        if (this.data.cartonQuantity && this.data.quantityPCS) {
+            this.data.totalQuantity = this.data.cartonQuantity * this.data.quantityPCS;
             return this.data.totalQuantity;
         }
         else
             return 0;
     }
 
-    @computedFrom('data.carton1', 'data.carton2')
-    get cartonQuantity(){
-        this.data.cartonQuantity=0;
-        if(this.data.carton1 && this.data.carton2){
-            this.data.cartonQuantity = this.data.carton2-this.data.carton1+1;
-        }
-        this.updateMeasurements();
-        return this.data.cartonQuantity;
-    }
-
-    get totalQtySize(){
-        var qtytot=0;
-        if(this.data.sizes){
-            for(var size of this.data.sizes){
-                if(size.quantity){
-                    qtytot+=size.quantity;
+    get totalQtySize() {
+        var qtytot = 0;
+        if (this.data.sizes) {
+            for (var size of this.data.sizes) {
+                if (size.quantity) {
+                    qtytot += size.quantity;
                 }
             }
         }
@@ -118,26 +118,33 @@ export class Detail {
     }
 
     updateMeasurements() {
-        let measurements = [];
-
+        let measurementCartons = [];
+        let measurementCartons2 = [];
         for (const item of this.context.context.options.header.items) {
             for (const detail of (item.details || [])) {
-                let measurement = measurements.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
+                measurementCartons = [...item.details];
+                let measurement = measurementCartons.filter((value, index, self) => self.findIndex(f => value.index == f.index) === index).find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
                 if (measurement) {
-                    const checkCarton = measurements.find(m => m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
-                    if (!checkCarton) {
-                        measurement.cartonsQuantity += detail.cartonQuantity;
-                    }
-                } else {
-                    measurements.push({
+                    measurementCartons2.push({
                         carton1: detail.carton1,
                         carton2: detail.carton2,
                         length: detail.length,
                         width: detail.width,
                         height: detail.height,
-                        cartonsQuantity: detail.cartonQuantity
+                        cartonsQuantity: detail.cartonQuantity,
+                        index: detail.index
                     });
                 }
+            }
+        }
+
+        let measurements = [];
+        for (const measurementCarton of measurementCartons2.filter((value, index, self) => self.findIndex(f => value.index == f.index && value.carton1 == f.carton1 && value.carton2 == f.carton2) === index)) {
+            let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
+            if (measurement) {
+                measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
+            } else {
+                measurements.push(Object.assign({}, measurementCarton));
             }
         }
 
@@ -155,5 +162,134 @@ export class Detail {
         }
 
         this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
+    }
+
+    sumSubTotal(opt) {
+      let result = 0;
+      const newDetails = this.context.context.options.item.details.map(d => {
+        return {
+          carton1: d.carton1,
+          carton2: d.carton2,
+          cartonQuantity: d.cartonQuantity,
+          grossWeight: d.grossWeight,
+          netWeight: d.netWeight,
+          netNetWeight: d.netNetWeight,
+          index: d.index
+        };
+      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
+      for (const detail of newDetails) {
+        const cartonExist = false;
+        const indexItem = this.context.context.options.header.items.indexOf(this.context.context.options.item);
+        if (indexItem > 0) {
+          for (let i = 0; i < indexItem; i++) {
+            const item = this.context.context.options.header.items[i];
+            for (const prevDetail of item.details) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                cartonExist = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!cartonExist) {
+          switch (opt) {
+            case 0:
+              result += detail.grossWeight * detail.cartonQuantity;
+              break;
+            case 1:
+              result += detail.netWeight * detail.cartonQuantity;
+              break;
+            case 2:
+              result += detail.netNetWeight * detail.cartonQuantity;
+              break;
+          }
+        }
+      }
+      return result;
+    }
+
+    grossWeightChanged(newValue) {
+      this.data.grossWeight = newValue;
+      this.updateGrossWeight();
+    }
+  
+    updateGrossWeight() {
+      this.context.context.options.header.grossWeight = 0;
+
+      this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+      }
+    }
+  
+    netWeightChanged(newValue) {
+      this.data.netWeight = newValue;
+      this.updateNettWeight();
+    }
+  
+    updateNettWeight() {
+      this.context.context.options.header.nettWeight = 0;
+
+      this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+      }
+    }
+  
+    netNetWeightChanged(newValue) {
+      this.data.netNetWeight = newValue;
+      this.updateNetNetWeight();
+    }
+  
+    updateNetNetWeight() {
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
+      }
+    }
+
+    carton1Changed(newValue) {
+      this.data.carton1 = newValue;
+      this.updateCartonQuantity();
+      this.updateTotalSummary();
+    }
+
+    updateCartonQuantity() {
+      this.data.cartonQuantity = 0;
+        if (this.data.carton1 && this.data.carton2) {
+            this.data.cartonQuantity = this.data.carton2 - this.data.carton1 + 1;
+        }
+        this.updateMeasurements();
+    }
+
+    carton2Changed(newValue) {
+      this.data.carton2 = newValue;
+      this.updateCartonQuantity();
+      this.updateTotalSummary();
+    }
+
+    updateTotalSummary() {
+      this.context.context.options.header.grossWeight = 0;
+      this.context.context.options.header.nettWeight = 0;
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
+      this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
+      this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+          this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+          this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+          this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
+      }
+    }
+
+    indexChanged(newValue) {
+      this.context.context.options.item.details[this.context.context.options.item.details.length - 1].index = newValue;
     }
 }

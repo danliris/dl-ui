@@ -7,18 +7,14 @@ var UnitLoader = require("../../../../loader/unit-loader");
 @inject(SalesService)
 export class Item {
     @bindable selectedRO;
-    @bindable avG_GW;
-    @bindable avG_NW;
+    @bindable uom;
 
     constructor(salesService) {
         this.salesService = salesService;
     }
 
     get filter() {
-        let section = {};
-        if (this.context.context.options.header.items && this.context.context.options.header.items.length > 0) {
-            section = (this.context.context.options.header.items.find(i => i.section && (i.section.code || i.section.Code)) || {}).section || {};
-        }
+        let section = this.context.context.options.header.section || {};
 
         var filter = {
             BuyerCode: this.data.BuyerCode,
@@ -29,6 +25,7 @@ export class Item {
     }
 
     detailsColumns = [
+        { header: "Index"},
         { header: "Carton 1" },
         { header: "Carton 2" },
         { header: "Style" },
@@ -36,6 +33,9 @@ export class Item {
         { header: "Jml Carton" },
         { header: "Qty" },
         { header: "Total Qty" },
+        { header: "GW" },
+        { header: "NW" },
+        { header: "NNW" },
         { header: "" },
     ];
 
@@ -87,22 +87,20 @@ export class Item {
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
-            header: context.context.options.header
+            header: context.context.options.header,
+            item: this.data,
         };
         if (this.data.roNo) {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo
             };
-        }
-        this.isShowing = false;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
-                this.isShowing = true;
-            }
+            this.uom = this.data.uom;
         }
 
-        this.avG_GW = this.data.avG_GW;
-        this.avG_NW = this.data.avG_NW;
+        this.isShowing = false;
+        if (this.error && this.error.Details && this.error.Details.length > 0) {
+            this.isShowing = true;
+        }
     }
 
     selectedROChanged(newValue) {
@@ -125,6 +123,7 @@ export class Item {
                                     this.data.comodityDescription = (result.Comodity || {}).Name;
                                     this.data.unit = result.Unit;
                                     this.data.uom = result.UOM;
+                                    this.uom = result.UOM;
                                     this.data.valas = "USD";
                                     this.data.quantity = result.Quantity;
                                     this.data.scNo = sc.SalesContractNo;
@@ -133,44 +132,92 @@ export class Item {
                                     this.data.priceRO = sc.Price;
                                     this.data.comodity = result.Comodity;
                                     this.data.amount = sc.Amount;
+
+                                    this.context.context.options.header.section = this.data.section;
                                 });
                         })
                 });
         }
     }
+    
+    sumSubTotal(opt) {
+      let result = 0;
+      const newDetails = this.data.details.map(d => {
+        return {
+          carton1: d.carton1,
+          carton2: d.carton2,
+          cartonQuantity: d.cartonQuantity,
+          grossWeight: d.grossWeight,
+          netWeight: d.netWeight,
+          netNetWeight: d.netNetWeight,
+          index: d.index
+        };
+      }).filter((value, i, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === i);
+      for (const detail of newDetails) {
+        const cartonExist = false;
+        const indexItem = this.context.context.options.header.items.indexOf(this.data);
+        if (indexItem > 0) {
+          for (let i = 0; i < indexItem; i++) {
+            const item = this.context.context.options.header.items[i];
+            for (const prevDetail of item.details) {
+              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                cartonExist = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!cartonExist) {
+          switch (opt) {
+            case 0:
+              result += detail.grossWeight * detail.cartonQuantity;
+              break;
+            case 1:
+              result += detail.netWeight * detail.cartonQuantity;
+              break;
+            case 2:
+              result += detail.netNetWeight * detail.cartonQuantity;
+              break;
+          }
+        }
+      }
+      return result;
+    }
+    
 
-    avG_GWChanged(newValue) {
-        this.data.avG_GW = newValue;
-        this.updateGrossWeight();
+    get subGrossWeight() {
+      return this.sumSubTotal(0);
+      //return (this.data.details || []).reduce((acc, cur) => acc += (cur.grossWeight * cur.cartonQuantity), 0);
     }
 
-    updateGrossWeight() {
-        this.context.context.options.header.grossWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
+    get subNetWeight() {
+      return this.sumSubTotal(1);
+      // return (this.data.details || []).reduce((acc, cur) => acc += cur.netWeight, 0);
     }
 
-    avG_NWChanged(newValue) {
-        this.data.avG_NW = newValue;
-        this.updateNettWeight();
-    }
-
-    updateNettWeight() {
-        this.context.context.options.header.nettWeight = this.context.context.options.header.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
+    get subNetNetWeight() {
+      return this.sumSubTotal(2);
+      //  return (this.data.details || []).reduce((acc, cur) => acc += cur.netNetWeight, 0);
     }
 
     get addDetails() {
         return (event) => {
             const i = this.context.context.items.indexOf(this.context);
+            let lastIndex;
 
             let lastDetail;
             if (this.data.details.length > 0) {
                 lastDetail = this.data.details[this.data.details.length - 1];
+                lastIndex = this.data.details[this.data.details.length - 1].index;
             } else if (i > 0) {
                 const lastItem = this.context.context.items[i - 1];
                 lastDetail = lastItem.data.details[lastItem.data.details.length - 1];
             }
 
             this.data.details.push({
-                carton1: lastDetail ? lastDetail.carton2 + 1 : 0
+                carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+                index: lastIndex ? lastIndex : 1,
+                sizes: []
             });
         };
     }
@@ -178,6 +225,7 @@ export class Item {
     get removeDetails() {
         return (event) => {
             this.error = null;
+            this.updateTotalSummary();
         };
     }
 
@@ -194,15 +242,39 @@ export class Item {
     }
 
     get totalCtn() {
-        let qty = 0;
-        if (this.data.details) {
-            for (var detail of this.data.details) {
-                if (detail.cartonQuantity) {
-                    qty += detail.cartonQuantity;
+      let qty = 0;
+      if (this.data.details) {
+        const newDetails = this.data.details.map(d => {
+          return {
+            carton1: d.carton1,
+            carton2: d.carton2,
+            cartonQuantity: d.cartonQuantity,
+            grossWeight: d.grossWeight,
+            netWeight: d.netWeight,
+            netNetWeight: d.netNetWeight,
+            index: d.index
+          };
+        }).filter((value, i, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === i);
+        for (var detail of newDetails) {
+          const cartonExist = false;
+          const indexItem = this.context.context.options.header.items.indexOf(this.data);
+          if (indexItem > 0) {
+            for (let i = 0; i < indexItem; i++) {
+              const item = this.context.context.options.header.items[i];
+              for (const prevDetail of item.details) {
+                if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                  cartonExist = true;
+                  break;
                 }
+              }
             }
+          }
+          if (!cartonExist) {
+            qty += detail.cartonQuantity;
+          }
         }
-        return qty;
+      }
+      return qty;
     }
 
     get amount() {
@@ -211,5 +283,32 @@ export class Item {
             this.data.amount = this.data.quantity * this.data.price
         }
         return this.data.amount;
+    }
+
+    updateTotalSummary() {
+      this.context.context.options.header.grossWeight = 0;
+      this.context.context.options.header.nettWeight = 0;
+      this.context.context.options.header.netNetWeight = 0;
+
+      this.data.subGrossWeight = this.sumSubTotal(0);
+      this.data.subNetWeight = this.sumSubTotal(1);
+      this.data.subNetNetWeight = this.sumSubTotal(2);
+
+      for (const item of this.context.context.options.header.items) {
+        this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
+        this.context.context.options.header.nettWeight += item.subNetWeight || 0;
+        this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
+      }
+    }
+    
+    // indexChanged(newValue) {
+    //   this.data.details[this.data.details.length - 1].index = newValue;
+    // }
+
+    uomChanged(newValue) {
+      if (newValue) {
+        this.data.uom = newValue;
+        this.uom = newValue;
+      }
     }
 }

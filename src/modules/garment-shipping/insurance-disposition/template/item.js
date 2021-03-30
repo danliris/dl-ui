@@ -104,8 +104,7 @@ export class items {
     get premi(){
         this.data.premi=0;
         if(this.data.amount && this.rate && this.type!="Kargo"){
-            console.log(this.data.rate)
-            this.data.premi= this.data.amount*this.data.rate;
+            this.data.premi= this.data.amount*this.data.rate/100;
         }
         return this.data.premi;
     }

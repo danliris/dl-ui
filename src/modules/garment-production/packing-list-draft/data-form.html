@@ -40,7 +40,7 @@
         <br>
 
         <!-- DESC -->
-        <div class="row" if.bind="activeTab==0">
+        <div class="row" show.bind="activeTab==0">
             <div class="row">
                 <div class="col-sm-6">
                     <au-textbox 
@@ -69,7 +69,7 @@
 
                     <au-datepicker 
                         label="TGL" 
-                        value.bind="data.date" 
+                        value.bind="data.createdUtc" 
                         error.bind="error.Date"
                         read-only="true" 
                         options.bind="controlOptions">
@@ -106,7 +106,19 @@
                         read-only.bind="readOnly"
                         options.bind="controlOptions">
                     </au-autocomplete>
+
+                    <au-multiline
+                        value.bind="data.description"
+                        error.bind="error.description"
+                        label="Keterangan"
+                        read-only.bind="readOnly"
+                        placeholder="Masukkan Keterangan"
+                        options.bind="controlOptions">
+                    </au-multiline>
                 </div>
+            </div>
+            <div class="form-group has-error">
+                <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
             </div>
             <div class="row">
                 <div class="tbl">
@@ -114,10 +126,10 @@
                         items.bind="data.items"
                         errors.bind="error.Items"
                         columns.bind="itemsColumns"
-                        read-only="true"
-                        show.bind="readOnly"
+                        read-only.bind="readOnly"
+                        show.bind="readOnly || data.status == 'DRAFT_APPROVED_SHIPPING'"
                         options.bind="Options"
-                        item-template="modules/garment-production/packing-list-items/template/detail-ro">
+                        item-template="modules/garment-production/packing-list-draft/template/detail-ro">
                     </au-collection>    
                 </div>
                 
@@ -125,9 +137,9 @@
         </div>
 
         <!-- DETAIL MEASURE -->
-        <div class="row" if.bind="activeTab==1">
+        <div class="row" show.bind="activeTab==1">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <numeric
                         label="GROSS WEIGHT"
                         value.bind="data.grossWeight"
@@ -136,7 +148,7 @@
                         options.bind="controlOptions">
                     </numeric>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <numeric
                         label="NETT WEIGHT"
                         value.bind="data.nettWeight"
@@ -145,14 +157,34 @@
                         options.bind="controlOptions">
                     </numeric>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
+                  <numeric
+                      label="NET NET WEIGHT"
+                      value.bind="data.netNetWeight"
+                      error.bind="error.NetNetWeight"
+                      read-only.bind="readOnly" 
+                      options.bind="controlOptions">
+                  </numeric>
+              </div>
+                <div class="col-sm-3">
                     <numeric
                         label="TOTAL CARTONS"
                         value.bind="totalCartons"
                         error.bind="error.totalCartons"
-                        read-only.bind="true" 
+                        read-only.bind="readOnly" 
                         options.bind="controlOptions">
                     </numeric>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <au-textbox
+                        label="TOTAL QUANTITY"
+                        value.bind="totalQuantities"
+                        error.bind="error.totalQuantities"
+                        read-only.bind="readOnly" 
+                        options.bind="controlOptions">
+                    </au-textbox>
                 </div>
             </div>
             <div class="row">
@@ -177,7 +209,7 @@
                     errors.bind="error.Measurements"
                     columns.bind="measureColumns"
                     read-only="true"
-                    show.bind="readOnly"
+                    show.bind="readOnly || data.status == 'DRAFT_APPROVED_SHIPPING'"
                     options.bind="Options"
                     item-template="modules/garment-production/packing-list-items/template/detail-measurement">
                 </au-collection>
@@ -187,7 +219,7 @@
         </div>
 
         <!-- MARK -->
-        <div class="row" if.bind="activeTab==2">
+        <div class="row" show.bind="activeTab==2">
             <div class="row">
                 <label class="col-sm-3 text-right">SHIPPING MARK</label>
                 <div class="col-sm-7">

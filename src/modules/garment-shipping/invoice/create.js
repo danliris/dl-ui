@@ -28,7 +28,7 @@ export class Create {
     }
 
     save(event) {
-        for(var item in this.data.items)
+        for(var item of this.data.items)
         {
             if(item.quantity == "")
             {item.quantity =0;}

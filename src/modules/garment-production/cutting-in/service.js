@@ -44,6 +44,11 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    getPreparingByRo(info) {
+        var endpoint = `${preparingServiceUri}/get-by-ro`;
+        return super.list(endpoint, info);
+    }
+
     getPreparing(info) {
         var endpoint = `${preparingServiceUri}`;
         return super.list(endpoint, info);

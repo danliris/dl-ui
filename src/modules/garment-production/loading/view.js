@@ -20,6 +20,13 @@ export class View {
                 break;
             }
         }
+        // var sewIn= await this.service.searchSewingIn({ filter: JSON.stringify({LoadingNo: this.data.LoadingNo}),size:1});
+        
+        // if(sewIn.data.length>0){
+        //     if(sewIn.data[0].TotalRemainingQuantity!=sewIn.data[0].TotalQuantity){
+        //         this.deleteCallback = null;
+        //     }
+        // }
         this.selectedUnit=this.data.Unit;
     }
 

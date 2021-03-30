@@ -18,7 +18,6 @@ export class Item {
       isEdit: this.isEdit,
       destinationArea: this.destinationArea
     };
-
     if (this.destinationArea == "TRANSIT") {
       this.itemColumns = [
         "Nomor DO",
@@ -36,6 +35,7 @@ export class Item {
         "Jenis",
         "Panjang Per Packing",
         "Qty Keluar",
+        "",
       ];
     } else {
       this.itemColumns = [
@@ -53,6 +53,7 @@ export class Item {
         "Jenis",
         "Panjang Per Packing",
         "Qty Keluar",
+        "",
       ];
     }
 
@@ -182,6 +183,11 @@ export class Item {
     } else {
       this.data.productionOrder = {};
     }
+  }
+
+  removeItems() {
+    // this.itemOptions.PackagingList = this.data.PackagingList;
+    this.bind();
   }
 
   // remarks = [];

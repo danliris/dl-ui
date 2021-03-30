@@ -36,7 +36,21 @@ class Service extends RestService {
 
         let promise = this.endpoint.client.fetch(endpoint, request);
         super.publish(promise);
-        return promise;
+        return promise.then(response => {
+            if (response.status == 201)
+                return Promise.resolve(response);
+            else {
+                return response.json()
+                    .then(result => {
+                        this.publish(promise);
+                        if (typeof result.error === 'string' || result.error instanceof String) {
+                            return Promise.reject(new Error(result.error));
+                        } else {
+                            return Promise.reject(result.error);
+                        }
+                    });
+            }
+        })
     }
 
     createStock(data) {

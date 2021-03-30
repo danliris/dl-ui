@@ -17,17 +17,23 @@
 
     <au-dropdown options.bind="controlOptions" label="Penerimaan" value.bind="shippingType"
       error.bind="error.ShippingType" read-only.bind="readOnly || isEdit" items.bind="shippingTypes"></au-dropdown>
+      
+
+    <au-autocomplete  options.bind="controlOptions" value.bind="selectedFilterDO"
+      label="Filter Nomor DO" show.bind="!readOnly && !isEdit" read-only.bind="readOnly" loader.bind="filterDOLoader"
+      text.bind="doTextFormatter">
+    </au-autocomplete>
 
     <div if.bind="!isRetur">
       <au-textbox show.bind="error.ShippingProductionOrder" read-only.bind="true"
         value.bind="error.ShippingProductionOrder" style="color: red;"></au-textbox>
-      <au-collection columns.bind="itemColumns" items.bind="shippingProductionOrders" options.bind="detailOptions"
+      <au-collection view-model.ref="ItemCollections" columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders" options.bind="detailOptions"
         errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly" if.bind="!isEdit"
         header-template="modules/packing-sku-inventory/shipping-area-input/template/item-header"
         item-template="modules/packing-sku-inventory/shipping-area-input/template/item">
       </au-collection>
 
-      <au-collection view-model.ref="ItemCollections" columns.bind="itemColumns" items.bind="shippingProductionOrders" options.bind="returDetailOptions"
+      <au-collection view-model.ref="ItemCollections" columns.bind="itemColumns" items.bind="data.displayShippingProductionOrders" options.bind="returDetailOptions"
         errors.one-way="error.ShippingProductionOrders" read-only.bind="readOnly" if.bind="isEdit"
         remove.bind="onremove" header-template="modules/packing-sku-inventory/shipping-area-input/template/item-header"
         item-template="modules/packing-sku-inventory/shipping-area-input/template/item">

@@ -8,7 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1 },
+      permission: { C9: 1, B4: 1, B1: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -21,7 +21,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1 },
+      permission: { C9: 1, B11: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -414,11 +414,24 @@ module.exports = [
     },
   },
   {
-    route: "categories-pembukuan",
-    name: "categories-pembukuan",
-    moduleId: "./modules/master/category-pembukuan/index",
+    route: "accounting-categories",
+    name: "accounting-categories",
+    moduleId: "./modules/master/accounting-category/index",
     nav: true,
     title: "Kategori Pembukuan",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { C9: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "budget-categories",
+    name: "budget-categories",
+    moduleId: "./modules/master/budget-category/index",
+    nav: true,
+    title: "Kategori Anggaran",
     auth: true,
     settings: {
       group: "master",
@@ -440,9 +453,9 @@ module.exports = [
     },
   },
   {
-    route: "units-pembukuan",
-    name: "units-pembukuan",
-    moduleId: "./modules/master/unit-pembukuan/index",
+    route: "accounting-units",
+    name: "accounting-units",
+    moduleId: "./modules/master/accounting-unit/index",
     nav: true,
     title: "Unit Pembukuan",
     auth: true,

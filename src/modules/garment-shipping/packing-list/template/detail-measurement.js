@@ -21,7 +21,6 @@ export class measurement {
             readOnly: this.readOnly,
             isEdit: this.isEdit,
         };
-
     }
 
     get cmb() {

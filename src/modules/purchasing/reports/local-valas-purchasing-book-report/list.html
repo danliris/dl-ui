@@ -27,6 +27,14 @@
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
+        <au-autocomplete value.bind="division"
+                         label="Division"
+                         loader.bind="divisionLoader"
+                         text="Name"
+                         placeholder="Cari Divisi"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
         <au-datepicker label="Dari Tanggal"
                        value.bind="dateFrom"
                        options.bind="controlOptions"></au-datepicker>

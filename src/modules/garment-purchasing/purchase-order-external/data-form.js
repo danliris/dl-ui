@@ -25,7 +25,7 @@ export class DataForm {
     typePaymentOptions = ['T/T AFTER', 'FREE', 'CASH', 'T/T BEFORE'];
     typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
+    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO', 'AS']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -159,6 +159,7 @@ export class DataForm {
             this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
             this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
             this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
+            
         }
     }
 

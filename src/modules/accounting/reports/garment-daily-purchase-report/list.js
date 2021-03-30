@@ -99,6 +99,8 @@ export class List {
                             dataBySupplier[Supplier].push({                            
                             SplName : data.SupplierName,
                             Konveksi : data.UnitName,
+                            BCNomor : data.BCNo,
+                            BCTipe : data.BCType,
                             BPBesar : data.BillNo,
                             BPKecil : data.PaymentBill,
                             NoSJ : data.DONo,

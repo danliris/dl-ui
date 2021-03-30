@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
@@ -7,6 +7,8 @@ const StorageLoader = require('../../../loader/storage-loader');
 
 @inject(Router, Service)
 export class Create {
+    @bindable unit;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -34,17 +36,28 @@ export class Create {
         return StorageLoader;
     }
 
+    get storageFilter() {
+        return { UnitId: (this.data.unit || {}).Id || -1 };
+    }
+
     unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`;
+        return unit.Code;
     }
 
     storageView = (storage) => {
         return storage.name;
     }
 
-    bind() {
+    bind(context) {
+        this.context = context;
         this.data = {};
         this.error = {};
+    }
+
+    unitChanged(newValue) {
+        this.data.unit = newValue;
+        this.context.storageViewModel.editorValue = "";
+        this.data.storage = null;
     }
 
     cancelCallback() {
@@ -52,13 +65,14 @@ export class Create {
     }
 
     editCallback() {
+        this.error = {};
         this.service.download({
             date: this.data.date ? this.data.date.toJSON() : null,
             unit: (this.data.unit || {}).Code,
             storage: (this.data.storage || {}).code,
             storageName: (this.data.storage || {}).name,
         }).catch(error => {
-            alert(error);
+            this.error = error;
         });
     }
 }

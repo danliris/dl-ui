@@ -42,7 +42,6 @@
             <tr>
                 <td>NO RO JOB</td>
                 <td>ARTICLE</td>
-                <td>KODE BARANG</td>
                 <td>KODE BUYER</td>
                 <td>QTY ORDER</td>
                 <td>STYLE</td>
@@ -63,7 +62,6 @@
             <tr repeat.for="item of data">
                 <td class="text-center">${item.roJob}</td>
                 <td class="text-center">${item.article}</td>
-                <td class="text-center">${item.productCode}</td>
                 <td class="text-center">${item.buyerCode}</td>
                 <td class="text-right">${item.qtyOrder}</td>
                 <td class="text-center">${item.style}</td>
@@ -78,7 +76,7 @@
                 <td class="text-right">${item.remainNominals}</td>
             </tr>
             <tr class="active">
-                <td class="text-center" colspan="10"><strong>T O T A L </strong></td>
+                <td class="text-center" colspan="9"><strong>T O T A L </strong></td>
                 <td class="text-right"><strong>${sumStock}</strong></td>        
                 <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
                 <td class="text-right"><strong>${sumExpenditure}</strong></td>

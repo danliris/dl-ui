@@ -58,7 +58,7 @@
 
                 <au-dropdown
                     label="Jenis Invoice"
-                    value.bind="data.invoiceType"
+                    value.bind="selectedInvoiceType"
                     error.bind="error.InvoiceType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="data.packingListType=='EXPORT' ? InvoiceTypeOptions : InvoiceTypeOptionsR"
@@ -175,6 +175,12 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-textbox
+                    label="Shipping Staff"
+                    value.bind="data.shippingStaffName"
+                    read-only.bind="true">
+                </au-textbox>
             </div>
             <div class="form-group has-error">
                 <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
@@ -199,7 +205,7 @@
 <!-- DETAIL MEASURE -->
     <div class="row" if.bind="activeTab==1">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <numeric
                     label="GROSS WEIGHT"
                     value.bind="data.grossWeight"
@@ -208,7 +214,7 @@
                     options.bind="controlOptions">
                 </numeric>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <numeric
                     label="NETT WEIGHT"
                     value.bind="data.nettWeight"
@@ -217,7 +223,16 @@
                     options.bind="controlOptions">
                 </numeric>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+              <numeric
+                  label="NET NET WEIGHT"
+                  value.bind="data.netNetWeight"
+                  error.bind="error.NetNetWeight"
+                  read-only="true" 
+                  options.bind="controlOptions">
+              </numeric>
+            </div>
+            <div class="col-sm-3">
                 <numeric
                     label="TOTAL CARTONS"
                     value.bind="totalCartons"
@@ -225,6 +240,13 @@
                     read-only="true" 
                     options.bind="controlOptions">
                 </numeric>
+            </div>
+        </div>
+        <div class="class row">
+            <div class="col-sm-12">
+                <au-textbox label="TOTAL QUANTITY" value.bind="totalQuantities" error.bind="error.totalQuantities" read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
             </div>
         </div>
         <div class="row">
@@ -251,8 +273,9 @@
                 items.bind="data.measurements" 
                 errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
-                read-only.bind="readOnly" 
-                read-only="true"
+                read-only.bind="readOnly || data.invoiceType!='SM'" 
+                add.bind="addMeasurements" 
+                remove.bind="removeMeasurements"
                 options.bind="Options"
                 item-template="modules/garment-shipping/packing-list/template/detail-measurement">
             </au-collection>

@@ -54,9 +54,9 @@ export class ItemSPP {
         if (this.isEdit) {
             if (this.readOnly) {
                 if (this.destinationArea == "TRANSIT") {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
                 } else {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan"];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan","Status"];
                 }
 
             } else {
@@ -156,7 +156,7 @@ export class ItemSPP {
             id: this.selectedProductionOrder.id
         });
     };
-
+    
     get productionOrderList() {
         // return (keyword) => {
         //     return Promise.resolve().then(result => { return this.productionOrderListItem; });

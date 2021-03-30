@@ -48,6 +48,16 @@ export class View {
             this.deleteCallback=null;
             this.editCallback=null;
         }
+        if(this.data.PackingListId){
+            this.manual=false;
+            this.selectedInvoice={
+                invoiceNo:this.data.Invoice,
+                id:this.data.PackingListId
+            }
+        }
+        else{
+            this.manual=true;
+        }
     }
 
     cancelCallback(event) {

@@ -17,6 +17,15 @@ export class Create {
   async activate(params) {
     this.data = {};
     this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
+    console.log(this.data.displayWarehousesProductionOrders);
+    // for (var item in this.data.displayWarehousesProductionOrders){
+    //   //console.log(this.data.displayWarehousesProductionOrders[item]);
+    //   for(var detail in this.data.displayWarehousesProductionOrders[item].productionOrderItems){
+    //     this.data.displayWarehousesProductionOrders[item].productionOrderItems[detail].isremovable = false;
+    //   }
+    //   //item.isremovable = true;
+    // }
+    // console.log(this.data.displayWarehousesProductionOrders)
     // this.data.warehousesProductionOrders = [];
 
     // debugger
@@ -103,6 +112,11 @@ export class Create {
           })
         });
         this.data.warehousesProductionOrders = sppWarehouseList;
+        for(var i = 0; i < this.data.warehousesProductionOrders.length; i++){
+          if(this.data.warehousesProductionOrders[i].id == null){
+            this.data.warehousesProductionOrders[i].id = this.data.warehousesProductionOrders[i-1].id
+          }
+        }
       } else {
         this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
       }
@@ -121,7 +135,9 @@ export class Create {
           if (e.statusCode == 500) {
             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
           } else {
+            
             this.error = e;
+            console.log(this.error);
           }
         });
     }

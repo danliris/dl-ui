@@ -23,6 +23,9 @@ export class Edit {
     }
 
     saveCallback(event) {
+        for(var item of this.data.items){
+            item.remainingQuantity=item.quantity;
+        }
         this.service.update(this.data)
             .then(result => {
                 this.router.navigateToRoute('view', { id: this.data.id });

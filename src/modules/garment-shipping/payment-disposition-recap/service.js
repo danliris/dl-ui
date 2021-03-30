@@ -49,6 +49,10 @@ class Service extends RestService {
         var endpoint = `${packingListServiceUri}/${id}`;
         return super.get(endpoint);
     }
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 export { Service }

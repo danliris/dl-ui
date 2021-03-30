@@ -5,9 +5,11 @@ import { Service } from './service';
 
 var FinishingPrintingSalesContractLoader = require('../../../loader/finishing-printing-sales-contract-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
+var OrderTypeLoader = require('../../../loader/order-type-loader');
 var ProcessTypeLoader = require('../../../loader/process-type-loader');
 var DesignMotiveLoader = require('../../../loader/design-motive-loader');
 var MaterialConstructionLoader = require('../../../loader/material-construction-loader');
+var MaterialLoader = require("../../../loader/product-loader");
 var FinishTypeLoader = require('../../../loader/finish-type-loader');
 var StandardTests = require('../../../loader/standard-tests-loader');
 var AccountLoader = require('../../../loader/account-loader');
@@ -21,8 +23,16 @@ export class DataForm {
   @bindable OrderType;
   @bindable Material;
   @bindable account;
+  @bindable nameCheck;
+  @bindable POTypes;
+
+  POTypes = [' ','SALES', 'UNIT']
 
   lampHeader = [{ header: "Standar Lampu" }];
+
+  materialQuery = {
+    "Tags" : "MATERIAL"
+  }
 
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
   rq = false;
@@ -101,7 +111,7 @@ export class DataForm {
 
   @computedFrom("data.Id")
   get isEdit() {
-    return (this.data ? this.data.Id : "" || '').toString() != '';
+    return ((this.data ? this.data.Id : "") || '').toString() != '';
   }
 
   @computedFrom("data.ProcessType")
@@ -320,6 +330,24 @@ export class DataForm {
   }
 
 
+  POTypeChanged(e) {
+    console.log(e);
+    var selectedPOType = e.srcElement.value;
+    if(selectedPOType=="SALES"){
+         this.nameCheck=true;
+    }
+    else{
+         this.nameCheck=false;        
+         this.data.Buyer = {
+              Id : 567,
+              Code : "DL01",
+              Name : "PT. DAN LIRIS",
+              Type : "Internal",
+         };        
+         console.log(this.data.Buyer);
+    }
+  }
+  
   accountChanged(e) {
     var selectedAccount = this.account;
     if (selectedAccount) {
@@ -402,12 +430,24 @@ export class DataForm {
     return DesignMotiveLoader;
   }
 
+  get orderTypeLoader() {
+    return OrderTypeLoader;
+  }
+
   get processTypeLoader() {
     return ProcessTypeLoader;
   }
 
+  get yarnmaterialLoader() {
+    return YarnMaterialLoader;
+  }
+  
   get materialConstructionLoader() {
     return MaterialConstructionLoader;
+  }
+
+  get materialLoader() {
+    return MaterialLoader;
   }
 
   get finishTypeLoader() {

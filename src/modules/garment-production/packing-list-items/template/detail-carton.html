@@ -1,8 +1,16 @@
 <template>
     <tr>
+        <td style="text-align: center important">
+          <au-numeric
+            value.bind="data.index"
+            error.bind="error.index"
+            read-only.bind="readOnly"
+            format="0">
+          </au-numeric>
+        </td>
         <td >
             <au-numeric
-                value.bind="data.carton1"
+                value.bind="carton1"
                 error.bind="error.Carton1"
                 format="0"
                 read-only.bind="readOnly">
@@ -10,7 +18,7 @@
         </td>
         <td >
             <au-numeric
-                value.bind="data.carton2"
+                value.bind="carton2"
                 error.bind="error.Carton2"
                 format="0"
                 read-only.bind="readOnly">
@@ -32,7 +40,7 @@
         </td>
         <td>
             <au-numeric
-                value.bind="cartonQuantity"
+                value.bind="data.cartonQuantity"
                 error.bind="error.CartonQuantity"
                 format="0"
                 read-only.bind="true">
@@ -54,6 +62,27 @@
                 read-only.bind="true">
             </au-numeric>
         </td>
+        <td >
+            <au-numeric
+                value.bind="grossWeight"
+                error.bind="error.GrossWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td >
+            <au-numeric
+                value.bind="netWeight"
+                error.bind="error.NetWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td >
+            <au-numeric
+                value.bind="netNetWeight"
+                error.bind="error.NetNetWeight"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
         <td if.bind="!readOnly" class="bg-light">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
@@ -64,14 +93,14 @@
         </td>
     </tr>
     <tr>
-        <td colspan="7">
+        <td colspan="11">
             <p if.bind="error.SizesCount" class="help-block text-center" style='color:red;'>${error.SizesCount}</p>
         </td>
     </tr>
-    <tr show.bind="isShowing">
+    <tr if.bind="isShowing">
         <td colspan="1" style='border:none;'>
         </td>
-        <td colspan="5" style='border:none;'>
+        <td colspan="9" style='border:none;'>
             <au-collection 
                 items.bind="data.sizes" 
                 errors.bind="error.Sizes" 
@@ -89,7 +118,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="7">
+        <td colspan="11">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>

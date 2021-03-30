@@ -19,7 +19,21 @@ export class DataForm {
     @bindable amount;
     @bindable item;
     @bindable beacukai;
+    @bindable selectedCustomType;
     typeCustoms = ["","BC 262", "BC 23","BC 40", "BC 27"]
+    importValueBC23=[
+        "EXW",
+        "FCA",
+        "FAS",
+        "FOB",
+        "CFR",
+        "CIF",
+        "CPT",
+        "CIP",
+        "DPU",
+        "DAP",
+        "DDP"
+    ]
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -51,6 +65,7 @@ export class DataForm {
                 this.data.beacukaiNo = selectedBeacukai.BCNo;
                 this.data.beacukaiDate = selectedBeacukai.TglBCNo;
                 this.data.customType = selectedBeacukai.JenisBC;
+                this.selectedCustomType = selectedBeacukai.JenisBC;
                 this.data.billNo=selectedBeacukai.BCId;
                 this.data.arrivalDate = selectedBeacukai.Hari;
                 this.context.beacukaiAU.editorValue="";
@@ -58,6 +73,7 @@ export class DataForm {
                 this.data.beacukaiDate = null;
                 this.data.beacukaiNo = null;
                 this.data.customType=null;
+                this.selectedCustomType = null;
                 this.data.billNo="";
                 this.data.arrivalDate = null;
             }
@@ -86,6 +102,7 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.selectedCustomType = undefined;
             this.data.arrivalDate =undefined;
        }else
        {
@@ -95,12 +112,14 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.selectedCustomType = undefined;
             this.data.arrivalDate =undefined;
        }
     }
     bind(context) {
         this.context = context;
         this.data = this.context.data;
+        this.selectedCustomType = this.context.data.customType;
         this.error = this.context.error;
         this.hasView = this.context.hasView ? this.context.hasView : false;
         this.deliveryOrderColumns = this.hasView ? [
@@ -249,5 +268,15 @@ export class DataForm {
         else{
             delete this.data.currencyId;
         }
+    }
+    selectedCustomTypeChanged(o,n){
+        // console.log(n);
+        // console.log(o);
+        this.data.customType = o;
+        if(o =="BC 23")
+            this.data.IsBC23 =true;
+        else
+            this.data.IsBC23 = false;
+            this.data.importValue = null;
     }
 }

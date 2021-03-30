@@ -1,11 +1,12 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { AuthService } from 'aurelia-authentication';
+import { Service, CoreService } from "./service";
 
 var SectionLoader = require('../../../loader/garment-sections-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
 
-@inject(Service)
+@inject(Service, AuthService, CoreService)
 export class DataForm {
 
     @bindable readOnly = false;
@@ -13,9 +14,12 @@ export class DataForm {
     @bindable selectedSection;
     @bindable selectedBuyer;
     @bindable selectedLC;
+    @bindable selectedInvoiceType;
 
-    constructor(service) {
+    constructor(service, authService, coreService) {
         this.service = service;
+        this.authService = authService;
+        this.coreService = coreService;
     }
 
     formOptions = {
@@ -137,7 +141,7 @@ export class DataForm {
         return LCLoader;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -184,6 +188,19 @@ export class DataForm {
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
+
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+        }
+        var shippingStaff = await this.coreService.getStaffIdByName({size: 1, filter: JSON.stringify({ Name: username })});
+        this.data.shippingStaffName = shippingStaff.data[0].Name;
+        this.data.shippingStaff = {
+          id : shippingStaff.data[0].Id,
+          name : shippingStaff.data[0].Name
+        };
+
     }
 
     get addMeasurements() {
@@ -205,7 +222,8 @@ export class DataForm {
         return (event) => {
             this.data.items.push({
                 SectionFilter: this.data.section.Code || this.data.section.code,
-                BuyerCodeFilter: this.data.buyerAgent.Code || this.data.buyerAgent.code
+                BuyerCodeFilter: this.data.buyerAgent.Code || this.data.buyerAgent.code,
+                details: []
             });
         };
     }
@@ -239,6 +257,17 @@ export class DataForm {
         }
     }
 
+    selectedInvoiceTypeChanged(newValue){
+        if (newValue != this.data.invoiceType && this.data.items){
+            this.data.items.splice(0);
+            if(this.data.measurements)
+                this.data.measurements.splice(0);
+        }
+        if (newValue) {
+            this.data.invoiceType = newValue;
+        }
+    }
+
     selectedLCChanged(newValue) {
         if (newValue) {
             this.data.lcNo = newValue.documentCreditNo;
@@ -265,8 +294,8 @@ export class DataForm {
             for (var item of this.data.items) {
                 if (item.details) {
                     for (var detail of item.details) {
-                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2) < 0) {
-                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, cartonQuantity: detail.cartonQuantity });
+                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2 && c.index == detail.index) < 0) {
+                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, index: detail.index, cartonQuantity: detail.cartonQuantity });
                         }
                     }
                 }
@@ -274,6 +303,36 @@ export class DataForm {
         }
         this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
         return this.data.totalCartons;
+    }
+
+    get totalQuantities() {
+        let quantities = [];
+        let result = [];
+        let units = [];
+        if (this.data.items) {
+            var no = 1;
+            for (var item of this.data.items) {
+                let unit = item.uom.unit || item.uom.Unit;
+                if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
+                    quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
+                    if(units.findIndex(u => u.unit == unit) < 0) {
+                        units.push({ unit: unit });
+                    }
+                }
+                no++;
+                
+            }
+        }
+        for (var u of units) {
+            let countableQuantities = 0;
+            for (var q of quantities) {
+                if (q.unit == u.unit) {
+                    countableQuantities += q.quantityTotal;
+                }
+            }
+            result.push(countableQuantities + " " + u.unit);
+        }
+        return result.join(" / ");
     }
 
     noImage = "images/no-image.jpg";
@@ -323,4 +382,14 @@ export class DataForm {
         this[mark + "ImageSrc"] = this.noImage;
         this.data[mark + "ImageFile"] = null;
     }
+
+    get shippingStaffLoader() {
+      return ShippingStaffLoader;
+    }
+
+    shippingStaffView = (data) => {
+        return `${data.Name || data.name}`
+    }
+
+    
 }

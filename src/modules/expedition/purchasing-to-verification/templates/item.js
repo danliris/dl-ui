@@ -147,11 +147,13 @@ export class Item {
                             let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
                             let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
-                      
-                            totalPaid = totalPaid + vat;
-                            if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
-                                totalPaid = Number((totalPaid + vat - incomeTax).toFixed(2))
-                      
+
+                            console.log(newV.useVat);
+                            if (newV.useVat)
+                                totalPaid += vat
+
+                            // if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
+                            // totalPaid = Number((totalPaid + vat).toFixed(2))
                             // console.log(vat);
                             Object.assign(this.data, {
                                 id: newV._id,
