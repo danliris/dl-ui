@@ -46,7 +46,7 @@ export class List {
             }
         },
         {
-            field: 'Amount',
+            field: 'TotalAmount',
             title: 'Amount',
             formatter: function(value, data, index) {
                 return numeral(value).format('0,000.00');
@@ -87,22 +87,23 @@ export class List {
                     result.data = result.data.map((datum) => {
                         let listDispo = [];
                         let listDueDate = [];
-
+                        let totalAmount= 0;
                         for (let item of datum.Items) {
-                            let existDispo = listDispo.find((disposisi) => disposisi == '- ' + item.dispositionNo);
+                            let existDispo = listDispo.find((disposisi) => disposisi == '- ' + item.DispositionNoteNo);
                             if (!existDispo) {
-                                listDispo.push('- ' + item.dispositionNo);
+                                listDispo.push('- ' + item.DispositionNoteNo);
                             }
 
-                            let existDueDate = listDueDate.find((dueDate) => dueDate == '- ' + moment(item.paymentDueDate).format('DD MMM YYYY'));
+                            let existDueDate = listDueDate.find((dueDate) => dueDate == '- ' + moment(item.DispositionNoteDueDate).format('DD MMM YYYY'));
                             if (!existDueDate) {
-                                listDueDate.push('- ' + moment(item.paymentDueDate).format('DD MMM YYYY'));
+                                listDueDate.push('- ' + moment(item.DispositionNoteDueDate).format('DD MMM YYYY'));
                             }
+                            totalAmount +=item.TotalPaidPayment;
                         }
 
                         datum.dispositions = listDispo.join('\n');
                         datum.paymentDueDates = listDueDate.join('\n');
-
+                        datum.TotalAmount= totalAmount;
                         return datum;
                     })
                 }
