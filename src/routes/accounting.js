@@ -340,5 +340,19 @@ module.exports = [
       permission: { "B1": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route:'master-pembukuan',
+    name:'master-pembukuan',
+    moduleId: './modules/garment-finance/master-pembukuan/index',
+    nav: true,
+    title: 'Master Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: {"C9": 1},
+      iconClass: 'fa fa-dashboard'
+    }
   }
 ];
