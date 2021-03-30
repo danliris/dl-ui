@@ -131,15 +131,15 @@ export class DataForm {
         };
     }
 
-    get countTotal() {
-        let total = 0;
-        if (this.data.items) {
-            items?.map(item => {
-                console.log(item);
-            })
-        }
-        return total;
-    }
+    // get countTotal() {
+    //     let total = 0;
+    //     if (this.data.items) {
+    //         items?.map(item => {
+    //             console.log(item);
+    //         })
+    //     }
+    //     return total;
+    // }
 
     // get packingFilter() {
     //     return packingFilter = { DeliveryType: "BARU" };
