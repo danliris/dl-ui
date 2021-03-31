@@ -14,9 +14,6 @@ export class Service extends RestService {
   }
 
   getXls(info) {
-    let params = {
-      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
-    };
     let endpoint = `${serviceUri}/xls?dispositionId=${info.dispositionId}&supplierId=${info.supplierId}&startDate=${info.startDate}&endDate=${info.endDate}&purchasingStaff=${info.purchasingStaff}`;
     return super.getXls(endpoint);
   }
