@@ -13,8 +13,16 @@ export class List {
   columns = [
     [
       { field: "DispositionNoteNo", title: "No. Disposisi", rowspan: 2 },
-      { field: "DispositionNoteDate", title: "Tgl. Disposisi", rowspan: 2 },
-      { field: "DispositionNoteDueDate", title: "Tgl. Jatuh Tempo", rowspan: 2 },
+      {
+        field: "DispositionNoteDate", title: "Tgl. Disposisi", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
+      {
+        field: "DispositionNoteDueDate", title: "Tgl. Jatuh Tempo", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "ProformaNo", title: "Nomor Proforma", rowspan: 2 },
       { field: "SupplierName", title: "Supplier", rowspan: 2 },
       { field: "CurrencyCode", title: "Kurs", rowspan: 2 },
@@ -22,7 +30,11 @@ export class List {
       { field: "CategoryName", title: "Kategori", rowspan: 2 },
       { field: "PositionDescription", title: "Posisi", rowspan: 2 },
       { field: "SendToPurchasingRemark", title: "Alasan Retur", rowspan: 2 },
-      { field: "SendToVerificationDate", title: "Tanggal Pembelian Kirim", rowspan: 2 },
+      {
+        field: "SendToVerificationDate", title: "Tanggal Pembelian Kirim", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { title: "Verifikasi", colspan: 2 },
       { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
       { title: "Kasir", colspan: 5 },
@@ -34,10 +46,18 @@ export class List {
       { field: "BillsNo", title: "Nomor BP Kecil", rowspan: 2 },
       { field: "PaymentBils", title: "Nomor BP Besar", rowspan: 2 },
       { field: "CustomsNoteNo", title: "Nomor Beacukai", rowspan: 2 },
-      { field: "CustomsNoteDate", title: "Tanggal Beacukai", rowspan: 2 },
+      {
+        field: "CustomsNoteDate", title: "Tanggal Beacukai", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "UnitReceiptNoteNo", title: "Nomor Bon Terima", rowspan: 2 },
       { field: "InternalNoteNo", title: "Nomor Nota Intern", rowspan: 2 },
-      { field: "InternalNoteDate", title: "Tanggal Nota Intern", rowspan: 2 },
+      {
+        field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, rowspan: 2
+      },
       { field: "PurchasingStaff", title: "Staff", rowspan: 2 }
     ],
     [
@@ -46,10 +66,22 @@ export class List {
       { field: "IncomeTaxAmount", title: "PPh" },
       { field: "OthersExpenditureAmount", title: "Biaya Lain-lain" },
       { field: "TotalAmount", title: "Total" },
-      { field: "VerificationAcceptedDate", title: "Tgl Terima" },
+      {
+        field: "VerificationAcceptedDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Terima"
+      },
       { field: "VerifiedDate", title: "Tgl Kirim" },
-      { field: "CashierAcceptedDate", title: "Tgl Terima" },
-      { field: "BankExpenditureNoteDate", title: "Tgl Bayar" },
+      {
+        field: "CashierAcceptedDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Terima"
+      },
+      {
+        field: "BankExpenditureNoteDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Bayar"
+      },
       { field: "BankExpenditureNoteNo", title: "No Bukti Pengeluaran Bank" },
       { field: "PaidAmount", title: "Nominal Yang Dibayar" },
       { field: "CurrencyCode", title: "Mata Uang" }
@@ -123,14 +155,16 @@ export class List {
 
   loader = (info) => {
 
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
 
@@ -152,14 +186,16 @@ export class List {
   }
 
   excel() {
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
     this.service.getXls(params);
@@ -168,14 +204,16 @@ export class List {
   }
 
   pdf() {
+    let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let position = this.info && this.info.position ? this.info.position.Value : 0;
+    let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
+    let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+
 
     let params = {
-      supplierId: supplierId,
-      month: this.info.month.value,
-      year: this.info.year,
-      isForeignCurrency: false,
-      supplierIsImport: true
+      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
     this.service.getPdf(params);
@@ -186,10 +224,13 @@ export class List {
   reset() {
     this.flag = false;
     this.info.supplier = undefined;
+    this.info.position = this.positionOptions[0];
+    this.info.dispositionNote = undefined;
+    this.info.startDate = null;
+    this.info.endDate = null;
+    this.info.account = undefined;
     this.data = [];
     this.tableList.refresh();
-    this.info.year = moment().format("YYYY");
-    this.info.month = { text: "January", value: 1 };
   }
 
   get accountLoader() {

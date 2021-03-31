@@ -87,6 +87,7 @@
                        items.bind="Items"
                        columns.bind="collection.columns"
                        checkall.delegate="onCheckAll($event)"
+                       error.bind="error.Items"
                        item-template="modules/garment-finance/payment-disposition-note/templates/item">
         </au-collection>
 
@@ -95,6 +96,7 @@
                        items.bind="Items"
                        columns.bind="collection.columns"
                        checkall.delegate="onCheckAll($event)"
+                       error.bind="error.Items"
                        item-template="modules/garment-finance/payment-disposition-note/templates/item"
                        options.bind="collectionOptions">
         </au-collection>
