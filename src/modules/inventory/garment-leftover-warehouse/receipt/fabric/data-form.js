@@ -1,14 +1,15 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { GarmentPurchasingService } from "./service";
+import { GarmentCoreService, GarmentPurchasingService } from "./service";
 
 const UnitLoader = require('../../../../../loader/garment-units-loader');
 const UnitExpenditureNoteLoader = require('../../../../../loader/garment-unit-expenditure-note-loader');
 
-@inject(GarmentPurchasingService)
+@inject(GarmentPurchasingService, GarmentCoreService)
 export class DataForm {
 
-    constructor(garmentPurchasingService) {
+    constructor(garmentPurchasingService, garmentCoreService) {
         this.garmentPurchasingService = garmentPurchasingService;
+        this.garmentCoreService = garmentCoreService;
     }
 
     @bindable readOnly = false;
@@ -29,6 +30,7 @@ export class DataForm {
         { header: "Kode Barang", value: "ProductCode" },
         { header: "Nama Barang", value: "ProductName" },
         { header: "Keterangan Barang", value: "ProductRemark" },
+        { header: "Keterangan Fabric", value: "FabricRemark" },
         { header: "Jumlah", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
     ]
@@ -50,6 +52,7 @@ export class DataForm {
         return {
             IsReceived: false,
             ExpenditureType: "SISA",
+            StorageName: "GUDANG BAHAN BAKU",
             UnitSenderId: (this.data.UnitFrom || {}).Id || 0
         };
     }
@@ -109,24 +112,32 @@ export class DataForm {
                             this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
 
                             for (const item of dataUnitExpenditureNote.Items) {
-                                this.data.Items.push({
-                                    UENItemId: item.Id,
-                                    POSerialNumber: item.POSerialNumber,
-                                    Product: {
-                                        Id: item.ProductId,
-                                        Code: item.ProductCode,
-                                        Name: item.ProductName
-                                    },
-                                    ProductCode: item.ProductCode,
-                                    ProductName: item.ProductName,
-                                    ProductRemark: item.ProductRemark,
-                                    Quantity: item.Quantity,
-                                    Uom: {
-                                        Id: item.UomId,
-                                        Unit: item.UomUnit
-                                    },
-                                    UomUnit: item.UomUnit
-                                });
+                                var fabricRemark;
+
+                                this.garmentCoreService.getProductById(item.ProductId)
+                                    .then(product => {
+                                        fabricRemark = product.Remark;
+                                        this.data.Items.push({
+                                            UENItemId: item.Id,
+                                            POSerialNumber: item.POSerialNumber,
+                                            Product: {
+                                                Id: item.ProductId,
+                                                Code: item.ProductCode,
+                                                Name: item.ProductName
+                                            },
+                                            ProductCode: item.ProductCode,
+                                            ProductName: item.ProductName,
+                                            ProductRemark: item.ProductRemark,
+                                            FabricRemark: fabricRemark,
+                                            Quantity: item.Quantity,
+                                            Uom: {
+                                                Id: item.UomId,
+                                                Unit: item.UomUnit
+                                            },
+                                            UomUnit: item.UomUnit
+                                        });
+
+                                    });
                             }
 
                             this.data.ROJob = dataUnitDeliveryOrder.RONo;

@@ -30,12 +30,12 @@ export class DataForm {
     get items() {
         return {
             columns: this.readOnly ? [
-                "Unit",
+                "Unit Asal",
                 "PO No",
                 "Satuan",
                 "Jumlah Keluar"
             ] : [
-                "Unit",
+                "Unit Asal",
                 "PO No",
                 "Satuan",
                 "Jumlah Stock",
