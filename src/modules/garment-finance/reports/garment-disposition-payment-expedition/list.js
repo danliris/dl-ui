@@ -44,7 +44,7 @@ export class List {
       { field: "DeliveryOrderQuantity", title: "Qty Surat Jalan", rowspan: 2 },
       { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
       { field: "BillsNo", title: "Nomor BP Kecil", rowspan: 2 },
-      { field: "PaymentBils", title: "Nomor BP Besar", rowspan: 2 },
+      { field: "PaymentBilsNo", title: "Nomor BP Besar", rowspan: 2 },
       { field: "CustomsNoteNo", title: "Nomor Beacukai", rowspan: 2 },
       {
         field: "CustomsNoteDate", title: "Tanggal Beacukai", formatter: function (value, data, index) {
