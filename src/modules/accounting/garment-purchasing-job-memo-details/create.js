@@ -7,17 +7,17 @@ var moment = require('moment');
 
 @inject(Router, Service)
 export class Create {
-    hasCancel = true;
-    hasSave = true;
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.data = { }
     }
 
     bind() {
         this.data = { items: [] };
         this.error = {};
+        this.cancelCallback = this.cancel;
+        this.saveCallback = this.save;
     }
 
     cancel(event) {
@@ -31,16 +31,17 @@ export class Create {
     }
 
     save(event) {
-        this.data.Accepted = true;
-        this.data.Date = moment().format("YYYY-MM-DD");
+        console.log(this.data);
+        // this.data.Accepted = true;
+        // this.data.Date = moment().format("YYYY-MM-DD");
 
-        this.service.create(this.data)
-            .then((result) => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch((e) => {
-                this.error = e;
-            })
+        // this.service.create(this.data)
+        //     .then((result) => {
+        //         alert("Data berhasil dibuat");
+        //         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+        //     })
+        //     .catch((e) => {
+        //         this.error = e;
+        //     })
     }
 }

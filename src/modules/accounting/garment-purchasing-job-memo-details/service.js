@@ -10,6 +10,7 @@ const serviceUri = 'finishing-printing/packing-receipt';
 const serviceUriCore = 'master/products';
 const serviceUriCoreUom = 'master/uoms';
 const serviceUriFinnanceAccounting = 'garment-debt-balances';
+const serviceUriAccountingBook = 'accounting-book';
 
 export class Service extends RestService {
 
@@ -79,6 +80,17 @@ export class ServiceGarmentDebtBalance extends RestService {
 
     searchDeliveryOrderNo(info) {
         let endpoint = `${serviceUriFinnanceAccounting}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export class ServiceAccountingBook extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "finance")
+    }
+
+    searchMemoNumber(info) {
+        let endpoint = `${serviceUriAccountingBook}`;
         return super.list(endpoint, info);
     }
 }

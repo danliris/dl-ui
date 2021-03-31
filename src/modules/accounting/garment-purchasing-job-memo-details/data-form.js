@@ -1,29 +1,42 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
-import { Service, ServiceProduct } from './service';
+import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework'
+import { Service, ServiceProduct, ServiceAccountingBook } from './service';
 var StorageLoader = require('../../../loader/storage-loader');
 var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 var PackingLoader = require('../../../loader/packing-loader');
+var MemoGarmentPurchasingLoader = require('../../../loader/memo-garment-purchasing-loader');
 
-@inject(ServiceProduct, Service)
+@inject(ServiceProduct, Service, ServiceAccountingBook, BindingEngine)
 export class DataForm {
-    @bindable readOnly = false;
+    @bindable readOnly;
     @bindable packingReadOnly = false;
     @bindable data = {}
     @bindable error;
     @bindable Packing;
     @bindable title;
-    
+
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    };
 
     packingFilter = { DeliveryType: "BARU" };
 
-    constructor(serviceProduct, service) {
+    constructor(serviceProduct, service, bindingEngine) {
         this.serviceProduct = serviceProduct;
+        this.bindingEngine = bindingEngine;
     }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
     }
 
     itemsColumns = [
@@ -43,6 +56,10 @@ export class DataForm {
 
     get packingLoader() {
         return PackingLoader;
+    }
+
+    get memoGarmentPurchasingLoader() {
+        return MemoGarmentPurchasingLoader;
     }
 
     get isSolid() {
@@ -89,7 +106,6 @@ export class DataForm {
                 };
 
                 var data = await this.serviceProduct.searchProductByName(productQuery);
-                console.log(data);
                 var product = data.data;
                 var Uom = await this.serviceProduct.searchUom(uomFilter);
                 var _item = {};
