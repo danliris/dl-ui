@@ -53,7 +53,6 @@ export class DataForm {
     }
 
     get addItems() {
-        console.log(this.error);
         return (event) => {
             this.data.MemoDetailGarmentPurchasingDetail.push({})
         };

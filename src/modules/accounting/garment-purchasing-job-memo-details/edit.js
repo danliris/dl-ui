@@ -21,14 +21,14 @@ export class Edit {
     // }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data.Id });
+        this.router.navigateToRoute('view', { id: 1 });
     }
 
     saveCallback(event) {
                 
         this.service.update(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.Id });
+                this.router.navigateToRoute('view', { id: 1 });
             })
             .catch(e => {
                 this.error = e;

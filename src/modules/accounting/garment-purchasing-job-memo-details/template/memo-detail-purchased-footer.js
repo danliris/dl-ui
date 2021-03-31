@@ -1,7 +1,6 @@
 export class ItemFooter {
   activate(context) {
     this.context = context;
-    console.log(context);
   }
 
   get getTotal() {
