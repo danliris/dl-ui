@@ -164,7 +164,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
@@ -195,7 +195,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
@@ -213,7 +213,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
