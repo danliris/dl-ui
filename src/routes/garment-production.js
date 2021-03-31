@@ -115,7 +115,7 @@ module.exports = [
         name: 'aval-product',
         moduleId: './modules/garment-production/aval-product/index',
         nav: true,
-        title: 'Barang Aval',
+        title: 'Aval Kain Besar',
         auth: true,
         settings: {
             group: "g-production",
