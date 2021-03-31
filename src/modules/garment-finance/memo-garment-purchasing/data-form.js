@@ -1,9 +1,11 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-import { Service } from "./service";
-let GarmentCurrencyLoader = require('../../../loader/garment-currency-loader-camelcase');
+import { event } from 'jquery';
+import { Service, CoreService } from "./service";
+// let GarmentCurrencyLoader = require('../../../loader/garment-currency-loader-camelcase');
+// let GarmentCurrencyLoader = require('../../../loader/garment-currency-loader-by-code-after-date');
 let AccountingBookLoader = require('../../../loader/accounting-book-loader');
 
-@inject(Service)
+@inject(Service, CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -25,8 +27,9 @@ export class DataForm {
         { header: "Kredit", value: "CreditNominal" }
     ];
 
-    constructor(service) {
+    constructor(service, coreService) {
         this.service = service;
+        this.coreService = coreService;
     }
 
     bind(context) {
@@ -47,7 +50,18 @@ export class DataForm {
     // }
 
     get currencyLoader() {
-        return GarmentCurrencyLoader;
+        return (keyword) => {
+            // return fetch("https://api.github.com/users").then(response => response.json())
+            let args = {
+                keyword: keyword,
+                filter: JSON.stringify({date: this.data.MemoDate})
+            }
+            
+            return this.coreService.search(args).then(res => {
+                return res;
+            });
+          }
+        // return GarmentCurrencyLoader;
     }
 
     // currencyView = (currency) => {
