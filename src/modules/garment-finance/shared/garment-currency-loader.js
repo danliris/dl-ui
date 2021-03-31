@@ -16,7 +16,7 @@ module.exports = function (keyword, filter) {
             return results.data.map((currency) => {
                 currency.Id = currency.Id;
                 currency.Code = currency.code;
-                currency.Rate = currency.rate
+                currency.Rate = currency.rate;
                 return currency;
             })
         });

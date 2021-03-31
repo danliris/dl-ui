@@ -20,6 +20,13 @@ module.exports = function (keyword, filter) {
             Object.keys(resultGroup).forEach(function(k){
                 oneResult.push(resultGroup[k][0]);
             });
-            return oneResult;
+            // return oneResult;
+
+            return oneResult.map((currency) => {
+                currency.Id = currency.Id;
+                currency.Code = currency.code;
+                currency.Rate = currency.rate;
+                return currency;
+            })
         });
 }
