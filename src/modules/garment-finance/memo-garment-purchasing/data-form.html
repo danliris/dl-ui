@@ -19,7 +19,7 @@
         </au-datepicker>
         
         <au-autocomplete
-            value.bind="selectedAccountingBook"
+            value.bind="data.AccountingBook"
             error.bind="error.AccountingBook"
             label="Jenis Buku"
             loader.bind="accountingBookLoader"
@@ -30,20 +30,20 @@
         </au-autocomplete>
 
         <au-autocomplete
-            value.bind="selectedGarmentCurrency"
+            value.bind="data.Currency"
             error.bind="error.Currency"
             label="Mata Uang"
-            loader.bind="garmentCurrencyLoader"
-            text.bind = "garmentCurrencyView"
+            loader.bind="currencyLoader"
+            text = "Code"
             placeholder="pilih mata uang"
             read-only.bind="readOnly || isEdit"
+            if.bind="data.MemoDate"
             options.bind="controlOptions">
         </au-autocomplete>
 
         <numeric
             label="Rate"
-            value.bind="data.Currency.rate"
-            error.bind="error.Currency"
+            value.bind="data.Currency.Rate"
             show.bind="data.Currency"
             format="0"
             read-only="true">
@@ -51,18 +51,19 @@
         
         <au-multiline 
             label="Keterangan"
-            value.bind="data.Remaks"
+            value.bind="data.Remarks"
             placeholder="tambah keterangan"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
 
         <au-collection 
-            items.bind="data.memoGarmentPurchasingDetails" 
-            errors.bind="error.memoGarmentPurchasingDetails" 
+            items.bind="data.MemoGarmentPurchasingDetails" 
+            errors.bind="error.MemoGarmentPurchasingDetails" 
             columns.bind="detailColumns" 
             add.bind="addDetails" 
             remove.bind="removeDetails"
+            read-only.bind="readOnly"
             item-template="modules/garment-finance/memo-garment-purchasing/templates/memo-garment-purchasing-detail"
             footer-template="modules/garment-finance/memo-garment-purchasing/templates/memo-garment-purchasing-detail-footer"
             >
