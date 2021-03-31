@@ -1,0 +1,71 @@
+<template>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-datepicker
+            label="Tanggal Memo"
+            value.bind="data.MemoDate"
+            error.bind="error.MemoDate"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-datepicker>
+        
+        <au-autocomplete
+            value.bind="selectedAccountingBook"
+            error.bind="error.AccountingBook"
+            label="Jenis Buku"
+            loader.bind="accountingBookLoader"
+            text.bind = "accountingBookView"
+            placeholder="pilih jenis buku"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="selectedGarmentCurrency"
+            error.bind="error.Currency"
+            label="Mata Uang"
+            loader.bind="garmentCurrencyLoader"
+            text.bind = "garmentCurrencyView"
+            placeholder="pilih mata uang"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <numeric
+            label="Rate"
+            value.bind="data.Currency.rate"
+            error.bind="error.Currency"
+            show.bind="data.Currency"
+            format="0"
+            read-only="true">
+        </numeric>
+        
+        <au-multiline 
+            label="Keterangan"
+            value.bind="data.Remaks"
+            placeholder="tambah keterangan"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.memoGarmentPurchasingDetails" 
+            errors.bind="error.memoGarmentPurchasingDetails" 
+            columns.bind="detailColumns" 
+            add.bind="addDetails" 
+            remove.bind="removeDetails"
+            item-template="modules/garment-finance/memo-garment-purchasing/templates/memo-garment-purchasing-detail"
+            footer-template="modules/garment-finance/memo-garment-purchasing/templates/memo-garment-purchasing-detail-footer"
+            >
+        </au-collection>
+  </au-input-form>
+</template>
