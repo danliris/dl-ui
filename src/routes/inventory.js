@@ -275,6 +275,20 @@ module.exports = [
         }
     },
     {
+        route: "inventory/garment/leftover-warehouse/receipt/accessories",
+        name: "inventory/garment/leftover-warehouse/receipt/accessories",
+        moduleId: "modules/inventory/garment-leftover-warehouse/receipt/accessories/index",
+        nav: true,
+        title: "Penerimaan Gudang Sisa - ACCESSORIES",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "inventory/garment/leftover-warehouse/receipt/finished-good",
         name: "inventory/garment/leftover-warehouse/receipt/finished-good",
         moduleId: "modules/inventory/garment-leftover-warehouse/receipt/finished-good/index",
