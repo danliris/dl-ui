@@ -32,14 +32,14 @@ export class DataForm {
     };
 
     itemsColumns = [
-        { header: "Unit", value: "UnitCode" },
+        { header: "Unit Asal", value: "UnitCode" },
         { header: "RO", value: "RONo" },
         { header: "Jumlah Stock", value: "StockQuantity" },
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
 
     viewItemsColumns = [
-        { header: "Unit", value: "UnitCode" },
+        { header: "Unit Asal", value: "UnitCode" },
         { header: "RO", value: "RONo" },
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
