@@ -36,6 +36,7 @@ export class DataForm {
         { header: "Unit", value: "UnitCode" },
         { header: "Bon No", value: "AvalReceiptNo" },
         { header: "Jumlah ", value: "Quantity" },
+        { header: "Jumlah Keluar ", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
     ];
 
