@@ -8,28 +8,28 @@
 
         <fieldset>
             <au-autocomplete 
-                value.bind="Packing"
-                error.bind="error.PackingId" 
+                value.bind="data.Memo"
+                error.bind="error.MemoNo" 
                 label="Nomor Memo" 
                 loader.bind="memoGarmentPurchasingLoader"
                 placeholder="Cari Nomor Memo" 
                 read-only.bind="readOnly"
-                key="memoNo" 
-                text="memoNo">
+                key="MemoNo" 
+                text="MemoNo">
             </au-autocomplete>
 
-            <au-textbox label="Tanggal Memo" value.bind="data.Packing.ProductionOrderNo" read-only.bind="true"></au-textbox>
-            <au-textbox label="Jenis Buku" value.bind="data.Packing.OrderTypeName" read-only.bind="true"></au-textbox>
-            <au-textbox label="Mata Uang" value.bind="data.Packing.ColorName" read-only.bind="true"></au-textbox>
-            <au-textbox label="Rate" value.bind="data.Packing.ColorType" read-only.bind="true" if.bind="isSolid"></au-textbox>
+            <au-textbox label="Tanggal Memo" value.bind="data.Memo.MemoDate" read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Buku" value.bind="data.Memo.AccountingBook.Type" read-only.bind="true"></au-textbox>
+            <au-textbox label="Mata Uang" value.bind="data.Memo.Currency.Code" read-only.bind="true"></au-textbox>
+            <au-textbox label="Rate" value.bind="data.Memo.Currency.Rate " read-only.bind="true"></au-textbox>
 
             <au-multiline label="Keterangan" placeholder="Masukkan keterangan" value.bind="data.remarks" read-only.bind="readOnly"></au-multiline>
         </fieldset>
 
 
         <au-collection 
-            items.bind="data.items" 
-            errors.bind="error.items" 
+            items.bind="data.MemoDetailGarmentPurchasingDetail" 
+            errors.bind="error.MemoGarmentPurchasingDetails" 
             columns.bind="itemsColumns" 
             add.bind="addItems" 
             remove.bind="removeItems"

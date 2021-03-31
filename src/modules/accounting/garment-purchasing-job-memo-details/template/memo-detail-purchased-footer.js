@@ -8,9 +8,7 @@ export class ItemFooter {
     var total = 0
     if (this.context.items) {
       this.context.items.map(item => {
-        if (item.data.items.CurrencyRate && item.data.items.debitNominal) {
-          total = (item.data.items.debitNominal * item.data.items.CurrencyRate) + total;
-        }
+        total = (item.data.MemoAmount || 0 * item.data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0) + total;
       });
     }
     return total;

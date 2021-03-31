@@ -15,36 +15,36 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.InternalNoteNo" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.InternalNoteNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.BillsNo" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.BillsNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.PaymentBills" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.PaymentBills" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.SupplierCode" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.SupplierCode" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td class="col">
             <au-textbox 
-                value.bind="data.remark" 
-                error.bind="error.remark"
+                value.bind="data.RemarksDetail" 
+                error.bind="error.RemarksDetail"
                 read-only.bind="readOnly"
                 placeholder="Tambah keterangan" 
                 options.bind="controlOptions">
@@ -52,15 +52,15 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.CurrencyCode" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyCode" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td class="col">
             <au-numeric 
-                value.bind="data.quantity" 
-                error.bind="error.quantity"
+                value.bind="data.PaymentRate" 
+                error.bind="error.PaymentRate"
                 read-only.bind="readOnly" 
                 format = "0,0.00"
                 options.bind="controlOptions">
@@ -68,14 +68,14 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.items.CurrencyRate" 
+                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyRate" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-numeric
-                value.bind="data.items.DPPAmount + data.items.VATAmount - data.items.IncomeTaxAmount"
+                value.bind="data.MemoDetailGarmentPurchasingDetail.DPPAmount + data.MemoDetailGarmentPurchasingDetail.VATAmount - data.MemoDetailGarmentPurchasingDetail.IncomeTaxAmount"
                 read-only.bind="true" 
                 format = "0,0.00"
                 options.bind="controlOptions">
@@ -83,8 +83,8 @@
         </td>
         <td class="col">
             <au-numeric 
-                value.bind="data.items.debitNominal" 
-                error.bind="error.quantity"
+                value.bind="data.MemoAmount" 
+                error.bind="error.MemoAmount"
                 read-only.bind="readOnly"
                 format = "0,0.0000"
                 options.bind="controlOptions">
@@ -92,7 +92,7 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-numeric
-                value.bind="data.items.debitNominal * data.items.CurrencyRate || 0" 
+                value.bind="data.MemoAmount * data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0" 
                 read-only.bind="true" 
                 format = "0,0.00"
                 options.bind="controlOptions">

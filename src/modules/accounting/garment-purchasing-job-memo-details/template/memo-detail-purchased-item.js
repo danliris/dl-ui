@@ -1,5 +1,5 @@
 import { inject, bindable} from 'aurelia-framework'
-import { Service, ServiceProduct } from '../service';
+import { Service } from '../service';
 
 var GarmentDebtLoader = require('../../../../loader/garment-debt-loader');
 
@@ -11,22 +11,24 @@ export class MemoDetailPurchasedItem {
     return GarmentDebtLoader;
   }
 
+  constructor() {}
+
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options; 
-    if (!this.data.items) {
-      this.data.items = {};
+    if (!this.data.MemoDetailGarmentPurchasingDetail) {
+      this.data.MemoDetailGarmentPurchasingDetail = {};
     }
-    if (this.data.items) {
-      this.dataDebt = this.data.items;
+    if (this.data.MemoDetailGarmentPurchasingDetail) {
+      this.dataDebt = this.data.MemoDetailGarmentPurchasingDetail;
     }
   }
 
   dataDebtChanged(newValue) {
-    this.data.items = newValue;
-    if (this.data.items) {
-      this.data.GarmentDeliveryOrderNo = this.data.items.GarmentDeliveryOrderNo || {};
+    this.data.MemoDetailGarmentPurchasingDetail = newValue;
+    if (this.data.MemoDetailGarmentPurchasingDetail) {
+      this.data.GarmentDeliveryOrderNo = this.data.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderNo || {};
     }
   }
 
