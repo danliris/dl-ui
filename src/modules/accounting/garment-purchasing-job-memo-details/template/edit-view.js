@@ -1,14 +1,12 @@
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from './service';
-var MemoGarmentPurchasingLoader = require('../../../loader/memo-garment-purchasing-loader');
+import { Service } from '../service';
+var MemoGarmentPurchasingLoader = require('../../../../loader/memo-garment-purchasing-loader');
 
 @inject(Service,  BindingEngine)
 export class DataForm {
     @bindable readOnly;
-    @bindable packingReadOnly = false;
     @bindable data = {}
     @bindable error;
-    @bindable memo;
     @bindable title;
 
     formOptions = {
@@ -26,7 +24,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+   
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -54,7 +52,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({})
+            this.data.Items.push({})
         };
     }
 } 

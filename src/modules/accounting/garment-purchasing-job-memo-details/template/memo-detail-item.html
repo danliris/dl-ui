@@ -10,33 +10,34 @@
                 key="GarmentDeliveryOrderNo"
                 text="GarmentDeliveryOrderNo"
                 read-only.bind="readOnly"
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                view-model.ref="dataDebtModel">
             </au-autocomplete>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.InternalNoteNo" 
+                value.bind="data.InternalNoteNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.BillsNo" 
+                value.bind="data.BillsNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.PaymentBills" 
+                value.bind="data.PaymentBills" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.SupplierCode" 
+                value.bind="data.SupplierCode" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
@@ -52,7 +53,7 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyCode" 
+                value.bind="data.CurrencyCode" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
@@ -68,14 +69,14 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyRate" 
+                value.bind="data.PurchasingRate" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-numeric
-                value.bind="data.MemoDetailGarmentPurchasingDetail.DPPAmount + data.MemoDetailGarmentPurchasingDetail.VATAmount - data.MemoDetailGarmentPurchasingDetail.IncomeTaxAmount"
+                value.bind="data.SaldoAkhir"
                 read-only.bind="true" 
                 format = "0,0.0000"
                 options.bind="controlOptions">
@@ -92,13 +93,13 @@
         </td>
         <td style="text-align:center;" class="col">
             <au-numeric
-                value.bind="data.MemoAmount * data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0" 
+                value.bind="getAmountIdr" 
                 read-only.bind="true" 
                 format = "0,0.0000"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col" if.bind="!options.readOnly">
+        <td class="col" if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
