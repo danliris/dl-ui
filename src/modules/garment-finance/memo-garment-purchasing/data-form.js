@@ -54,7 +54,8 @@ export class DataForm {
             // return fetch("https://api.github.com/users").then(response => response.json())
             let args = {
                 keyword: keyword,
-                filter: JSON.stringify({date: this.data.MemoDate})
+                filter: JSON.stringify({date: this.data.MemoDate}),
+                size: 10
             }
             
             return this.coreService.search(args).then(res => {
