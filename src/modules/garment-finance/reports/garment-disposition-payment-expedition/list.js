@@ -39,12 +39,12 @@ export class List {
       { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
       { title: "Kasir", colspan: 5 },
       { field: "ExternalPurchaseOrderNo", title: "PO Eksternal", rowspan: 2 },
-      { field: "DispositionNoteQuantity", title: "Qty Disposisi", rowspan: 2 },
+      { field: "DispositionQuantity", title: "Qty Disposisi", rowspan: 2 },
       { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
       { field: "DeliveryOrderQuantity", title: "Qty Surat Jalan", rowspan: 2 },
       { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
-      { field: "BillsNo", title: "Nomor BP Kecil", rowspan: 2 },
-      { field: "PaymentBils", title: "Nomor BP Besar", rowspan: 2 },
+      { field: "PaymentBillsNo", title: "Nomor BP Kecil", rowspan: 2 },
+      { field: "BillsNo", title: "Nomor BP Besar", rowspan: 2 },
       { field: "CustomsNoteNo", title: "Nomor Beacukai", rowspan: 2 },
       {
         field: "CustomsNoteDate", title: "Tanggal Beacukai", formatter: function (value, data, index) {
@@ -58,7 +58,7 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, rowspan: 2
       },
-      { field: "PurchasingStaff", title: "Staff", rowspan: 2 }
+      { field: "SendToVerificationby", title: "Staff", rowspan: 2 }
     ],
     [
       { field: "DPPAmount", title: "DPP" },
@@ -71,7 +71,11 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, title: "Tgl Terima"
       },
-      { field: "VerifiedDate", title: "Tgl Kirim" },
+      {
+        field: "VerifiedDate", formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "";
+        }, title: "Tgl Kirim"
+      },
       {
         field: "CashierAcceptedDate", formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "";
@@ -160,7 +164,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
@@ -191,7 +195,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
@@ -209,7 +213,7 @@ export class List {
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
-    let purchasingStaff = this.info && this.info.account ? this.info.account.username : null;
+    let purchasingStaff = this.info && this.info.account ? this.info.account.username : "";
 
 
     let params = {
