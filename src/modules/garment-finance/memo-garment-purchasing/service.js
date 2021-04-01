@@ -44,15 +44,35 @@ class CoreService extends RestService {
   }
 
   search(info) {
-    var uri = `${coreServiceUri}/by-code-after-date`;
+    var resource = `${coreServiceUri}/by-before-date`;
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("core");
 
-    let promise = this.endpoint.find(uri, info);
-    this.publish(promise);
-    return promise
-      .then((result) => {
-        this.publish(promise);
-        return Promise.resolve(result.data)
-      });
+    return endpoint.find(resource, info)
+    .then(results => {
+      return results.data;
+    });
+
+    // let promise = this.endpoint.find(uri, info);
+    // this.publish(promise);
+    // return promise
+    //   .then((result) => {
+    //     this.publish(promise);
+    //     return Promise.resolve(result.data)
+    //     return result.data;
+    //   });
+
+    // var config = Container.instance.get(Config);
+    // var endpoint = config.getEndpoint("core");
+    // return endpoint.find(resource, info)
+    //     .then(results => {
+    //         return results.data.map(unitPaymentOrder => {
+    //             unitPaymentOrder.toString = function () {
+    //                 return `${this.no}`;
+    //             }
+    //             return unitPaymentOrder;
+    //         });
+    //     });
     // return super.list(endpoint, info);
   }
 }
