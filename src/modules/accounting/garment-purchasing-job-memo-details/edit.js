@@ -26,70 +26,51 @@ export class Edit {
   isValid() {
     let isValid = true;
     const Items = [];
-    const errorData = [];
 
     this.data.Items.map(item => {
-      let itemError = {};
-      if (!item.GarmentCurrenciesId) {
-        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
+      if (!item.GarmentDeliveryOrderNo) {
         isValid = false;
       } 
-
-      if (!item.MemoAmount) {
-        itemError.MemoAmount = 'Jumlah tidak boleh kosong';
-        isValid = false;
-      }
-
-      if (!item.PaymentRate) {
-        itemError.PaymentRate = 'Tidak boleh kosong';
-        isValid = false;
-      }
+      item.MemoIdrAmount = item.MemoAmount * item.PurchasingRate;
       Items.push(item);
-      errorData.push(itemError);
     });
-    this.error = { Items: errorData };
+    
     return { isValid, Items }
   }
 
   saveCallback(event) {  
-    const { isValid, Items } = this.isValid;
+    let valid = this.isValid();
+    const isValid = valid.isValid;
+    const Items = valid.Items;
     if (isValid) {
-      if (this.data.Memo) {
-        if (Items.length > 0) {
-          const constructedData = {
-            MemoId: this.data.MemoId,
-            MemoDate: this.data.MemoDate,
-            AccountingBookId: this.data.AccountingBookId,
-            AccountingBookType: this.data.AccountingBookType,
-            GarmentCurrenciesId: this.data.CurrencyId,
-            GarmentCurrenciesCode: this.data.CurrencyCode,
-            GarmentCurrenciesRate: this.data.CurrencyRate,
-            IsPosted: this.data.IsPosted,
-            Remarks: this.data.Remarks,
-            Items: Items
-          };
-          this.service.update(constructedData)
-            .then((result) => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch((e) => {
-              console.log(e);
-                this.error = e;
-            })
-        } else {
-          alert('Item tidak boleh kosong!')
-        }
+      if (Items.length > 0) {
+        const constructedData = {
+          MemoId: this.data.MemoId,
+          MemoDate: this.data.MemoDate,
+          AccountingBookId: this.data.AccountingBookId,
+          AccountingBookType: this.data.AccountingBookType,
+          GarmentCurrenciesId: this.data.GarmentCurrenciesId,
+          GarmentCurrenciesCode: this.data.GarmentCurrenciesCode,
+          GarmentCurrenciesRate: this.data.GarmentCurrenciesRate,
+          IsPosted: this.data.IsPosted,
+          Remarks: this.data.Remarks,
+          Items: Items
+        };
+        console.log(constructedData);
+        this.service.update(constructedData)
+          .then((result) => {
+              alert("Data berhasil dibuat");
+              this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+          })
+          .catch((e) => {
+            console.log(e);
+              this.error = e;
+          })
       } else {
-        alert("No Memo tidak boleh kosong!");
+        alert('Item tidak boleh kosong!')
       }
-    } 
-    this.service.update(this.data)
-        .then(result => {
-            this.router.navigateToRoute('view', { id: this.data.Id });
-        })
-        .catch(e => {
-            this.error = e;
-        })
+    } else {
+      alert('Surat jalan tidak boleh kosong')
+    }
   }
 }

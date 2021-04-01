@@ -1,5 +1,6 @@
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework'
+import { inject, bindable, BindingEngine } from 'aurelia-framework'
 import { Service } from '../service';
+import moment from 'moment';
 var MemoGarmentPurchasingLoader = require('../../../../loader/memo-garment-purchasing-loader');
 
 @inject(Service,  BindingEngine)
@@ -54,7 +55,14 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({})
+            this.data.MemoDetailGarmentPurchasingDetail.push({});
         };
+    }
+
+    get getMemoDate() {
+        if (this.data.Memo) {
+            return moment(this.data.Memo.MemoDate).format("DD-MMM-YYYY")
+        }
+        return '';
     }
 } 

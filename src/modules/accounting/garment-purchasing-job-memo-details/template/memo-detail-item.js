@@ -27,16 +27,17 @@ export class MemoDetailPurchasedItem {
   }
 
   dataDebtChanged(newValue) {
-    if (newValue !== null) {
-      this.data.InternalNoteNo = newValue.InternalNoteNo;
-      this.data.BillsNo = newValue.BillsNo;
-      this.data.PaymentBills = newValue.PaymentBills;
-      this.data.SupplierCode = newValue.SupplierCode;
-      this.data.CurrencyCode = newValue.CurrencyCode;
-      this.data.PurchasingRate = newValue.CurrencyRate;
-      this.data.SaldoAkhir = newValue.DPPAmount + newValue.VATAmount - newValue.IncomeTaxAmount;
-      this.data.MemoAmount = 0;
-    }
+    this.data.Id = 0;
+    this.data.GarmentDeliveryOrderId = newValue.GarmentDeliveryOrderId;
+    this.data.GarmentDeliveryOrderNo = newValue.GarmentDeliveryOrderNo;
+    this.data.InternalNoteNo = newValue.InternalNoteNo;
+    this.data.BillsNo = newValue.BillsNo;
+    this.data.PaymentBills = newValue.PaymentBills;
+    this.data.SupplierCode = newValue.SupplierCode;
+    this.data.CurrencyCode = newValue.CurrencyCode;
+    this.data.PurchasingRate = newValue.CurrencyRate;
+    this.data.SaldoAkhir = newValue.DPPAmount + newValue.VATAmount - newValue.IncomeTaxAmount;
+    this.data.MemoAmount = 0;
   }
 
   get getAmountIdr() {
