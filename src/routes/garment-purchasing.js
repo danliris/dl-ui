@@ -962,6 +962,20 @@ module.exports = [
         }
     },
     {
+        route: '/laporan/laporan-flow-penerimaan',
+        name: 'laporan-flow-pengeluaran',
+        moduleId: './modules/garment-purchasing/reports/garment-unit-flow-penerimaan-report/index',
+        nav: true,
+        title: 'Laporan Flow Penerimaan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "laporan",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1, "GU" : 1, "P" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/laporan/laporan-flow-pengeluaran',
         name: 'laporan-flow-pengeluaran',
         moduleId: './modules/garment-purchasing/reports/garment-unit-flow-detail-material-report/index',
