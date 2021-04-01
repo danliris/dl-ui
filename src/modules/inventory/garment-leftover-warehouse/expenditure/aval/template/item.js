@@ -54,6 +54,7 @@ export class items {
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
         this.isFabric=this.data.type==="AVAL FABRIC";
+
         if(this.data){
             this.selectedUnit = this.data.Unit;
             this.selectedAval = {AvalReceiptNo : this.data.AvalReceiptNo || "" };

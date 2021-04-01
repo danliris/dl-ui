@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import {Service} from './service';
+import { Service } from './service';
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
@@ -11,7 +11,7 @@ export class List {
     dataToBePosted = [];
 
     columns = [{
-            field: "isPosting",
+            field: "IsPosted",
             title: "Post",
             checkbox: true,
             sortable: false,
@@ -48,16 +48,16 @@ export class List {
 
     loader = (info) => {
         let order = {};
+
         if (info.sort)
             order[info.sort] = info.order;
+
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
         };
-
-        return [];
 
         // return {
         //     MemoNo: "string",
@@ -86,40 +86,15 @@ export class List {
         //     ]
         //   };
 
-        // return this.service.search(arg)
-        //     .then(result => {
-        //         console.log(result)
-        //         if (result.data && result.data.length > 0) {
-        //             result.data = result.data.map((datum) => {
-        //                 let listDispo = [];
-        //                 let listDueDate = [];
-        //                 let totalAmount= 0;
-        //                 for (let item of datum.Items) {
-        //                     let existDispo = listDispo.find((disposisi) => disposisi == '- ' + item.DispositionNoteNo);
-        //                     if (!existDispo) {
-        //                         listDispo.push('- ' + item.DispositionNoteNo);
-        //                     }
+        return this.service.search(arg)
+            .then(result => {
+                console.log(result);
 
-        //                     let existDueDate = listDueDate.find((dueDate) => dueDate == '- ' + moment(item.DispositionNoteDueDate).format('DD MMM YYYY'));
-        //                     if (!existDueDate) {
-        //                         listDueDate.push('- ' + moment(item.DispositionNoteDueDate).format('DD MMM YYYY'));
-        //                     }
-        //                     totalAmount +=item.TotalPaidPayment;
-        //                 }
-
-        //                 datum.dispositions = listDispo.join('\n');
-        //                 datum.paymentDueDates = listDueDate.join('\n');
-        //                 datum.TotalAmount= totalAmount;
-        //                 return datum;
-        //             })
-        //         }
-
-
-        //         return {
-        //             total: result.info.total,
-        //             data: result.data
-        //         }
-        //     });
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
     }
 
     contextClickCallback(event) {
@@ -128,7 +103,7 @@ export class List {
 
         switch (arg.name) {
             case 'Rincian':
-                // this.router.navigateToRoute('view', { id: data.Id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
                 // this.service.getPdfById(data.Id);

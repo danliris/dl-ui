@@ -3,18 +3,19 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'finishing-printing/packing-receipt';
+const serviceUri = 'detail-garment-purchasing/memo';
 // const packingUnacceptedServiceUri = 'finishing-printing/quality-control/packings-unaccepted';
 // const packingServiceUri = 'finishing-printing/quality-control/packings';
 // const packingReceiptUnvoidServiceUri = 'inventory/packing-receipts-unvoid';
 const serviceUriCore = 'master/products';
 const serviceUriCoreUom = 'master/uoms';
 const serviceUriFinnanceAccounting = 'garment-debt-balances';
+const serviceUriAccountingBook = 'accounting-book';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production-azure");
+        super(http, aggregator, config, "finance");
     }
 
     search(info) {
@@ -68,40 +69,6 @@ export class Service extends RestService {
 
     searchUnvoid(info) {
         var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
-}
-
-export class ServiceGarmentDebtBalance extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "finance")
-    }
-
-    searchDeliveryOrderNo(info) {
-        let endpoint = `${serviceUriFinnanceAccounting}`;
-        return super.list(endpoint, info);
-    }
-}
-
-
-export class ServiceProduct extends RestService {
-
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "core");
-    }
-
-    searchProduct(info) {
-        var endpoint = `${serviceUriCore}`;
-        return super.list(endpoint, info);
-    }
-
-    searchProductByName(info) {
-        var endpoint = `${serviceUriCore}/by-name`;
-        return super.list(endpoint, info);
-    }
-
-    searchUom(info) {
-        var endpoint = `${serviceUriCoreUom}`;
         return super.list(endpoint, info);
     }
 }

@@ -13,7 +13,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { memoGarmentPurchasingDetails: [] };
+        this.data = { MemoGarmentPurchasingDetails: [] };
         this.error = {};
         console.log(this.data);
     }
