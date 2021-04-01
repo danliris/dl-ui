@@ -46,7 +46,8 @@ export class Edit {
         this.service.update(this.data)
             .then(result => {
                 alert("Data berhasil diupdate");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('view', { id: this.data.Id });
             })
             .catch(e => {
                 if (e.statusCode == 500) {
