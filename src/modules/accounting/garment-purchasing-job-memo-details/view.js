@@ -17,21 +17,20 @@ export class View {
 
 
     bind() {
-        this.data = { items: [] };
+        // this.data = { };
         this.error = {};
     }
 
     async activate(params) {
         let id = params.id;
-        // this.data = await this.service.getById(id);
-
-        // if (this.data.Status == "POSTED") {
-        //     this.hasPosting = false;
-        //     this.editCallback = false;
-        //     this.deleteCallback = false;
-        // } else {
-        //     this.hasPosting = true;
-        // }
+        this.data = await this.service.getById(id);
+        if (this.data.Status == "POSTED") {
+            this.hasPosting = false;
+            this.editCallback = false;
+            this.deleteCallback = false;
+        } else {
+            this.hasPosting = true;
+        }
 
     }
 
@@ -44,7 +43,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: 1 }); // Will be changed soon to this.data.Id
+        this.router.navigateToRoute('edit', { id: this.data.Id }); // Will be changed soon to this.data.Id
     }
 
     postingCallback(event) {
