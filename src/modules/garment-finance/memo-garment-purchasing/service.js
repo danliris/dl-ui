@@ -5,8 +5,9 @@ import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
 const serviceUri = "garment-purchasing/memo";
+const coreServiceUri = "master/garment-currencies";
 
-export class Service extends RestService {
+class Service extends RestService {
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "finance");
   }
@@ -36,3 +37,24 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 }
+
+class CoreService extends RestService {
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
+  }
+
+  search(info) {
+    var uri = `${coreServiceUri}/by-code-after-date`;
+
+    let promise = this.endpoint.find(uri, info);
+    this.publish(promise);
+    return promise
+      .then((result) => {
+        this.publish(promise);
+        return Promise.resolve(result.data)
+      });
+    // return super.list(endpoint, info);
+  }
+}
+
+export { Service, CoreService };

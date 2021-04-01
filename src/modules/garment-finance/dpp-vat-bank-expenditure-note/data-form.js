@@ -5,7 +5,8 @@ import moment from 'moment';
 
 const BankLoader = require('../shared/bank-account-loader');
 const SupplierLoader = require('../shared/garment-supplier-loader');
-const CurrencyLoader = require('../shared/garment-currency-loader');
+// const CurrencyLoader = require('../shared/garment-currency-loader');
+const CurrencyLoader = require('../../../loader/garment-currencies-by-latest-date-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {

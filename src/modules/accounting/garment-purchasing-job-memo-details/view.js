@@ -5,25 +5,33 @@ import { Dialog } from '../../../au-components/dialog/dialog';
 
 @inject(Router, Service, Dialog)
 export class View {
+    hasCancel = true;
+    hasEdit = true;
+    hasDelete = true;
+
     constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
     }
 
+
+    bind() {
+        this.data = { items: [] };
+        this.error = {};
+    }
+
     async activate(params) {
         let id = params.id;
-        this.data = await this.service.getById(id);
+        // this.data = await this.service.getById(id);
 
-        console.log(this);
-
-        if (this.data.Status == "POSTED") {
-            this.hasPosting = false;
-            this.editCallback = false;
-            this.deleteCallback = false;
-        } else {
-            this.hasPosting = true;
-        }
+        // if (this.data.Status == "POSTED") {
+        //     this.hasPosting = false;
+        //     this.editCallback = false;
+        //     this.deleteCallback = false;
+        // } else {
+        //     this.hasPosting = true;
+        // }
 
     }
 
@@ -36,7 +44,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
+        this.router.navigateToRoute('edit', { id: 1 }); // Will be changed soon to this.data.Id
     }
 
     postingCallback(event) {

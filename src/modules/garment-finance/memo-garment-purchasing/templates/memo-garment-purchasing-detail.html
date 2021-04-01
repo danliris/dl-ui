@@ -5,7 +5,7 @@
             placeholder="pilih akun"
             value.bind="data.COA"
             error.bind="error.COA" 
-            read-only.bind="options.readOnly" 
+            read-only.bind="readOnly" 
             loader.one-time="chartOfAccountLoader"
             text= "No"
             options.bind="controlOption" >
@@ -15,8 +15,7 @@
           <td width="25%">
             <au-textbox
               value.bind="data.COA.Name"
-              read-only="true"
-              if.bind="data.COA"
+              read-only.bind="true"
               options.bind="controlOptions">
             </au-textbox>
           </td>
@@ -25,7 +24,7 @@
             <au-numeric 
             value.bind="data.DebitNominal" 
             error.bind="error.DebitNominal" 
-            read-only.bind="options.readOnly" 
+            read-only.bind="readOnly || data.CreditNominal" 
             format = "0,0.0000"
             options.bind="controlOption">
             </au-numeric>
@@ -35,7 +34,7 @@
             <au-numeric 
             value.bind="data.CreditNominal" 
             error.bind="error.CreditNominal" 
-            read-only.bind="options.readOnly" 
+            read-only.bind="readOnly || data.DebitNominal" 
             format = "0,0.0000"
             options.bind="controlOption">
             </au-numeric>

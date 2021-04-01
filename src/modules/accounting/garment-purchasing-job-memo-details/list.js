@@ -6,9 +6,21 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["detail"]
+    context = ["Rincian","PDF"]
+
+    dataTobePosted = []
 
     columns = [
+        {
+            field: "isPosting",
+            title: "Post",
+            checkbox: true,
+            sortable: false,
+            formatter: function(value, data, index) {
+                this.checkboxEnabled = !data.IsPosted;
+                return ""
+            }
+        },
         { field: "memoNO", title: "No Memo" },
         { field: "memoDate", title: "Tanggal", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");

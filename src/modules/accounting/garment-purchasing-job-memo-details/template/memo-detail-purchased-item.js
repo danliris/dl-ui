@@ -1,10 +1,9 @@
 import { inject, bindable} from 'aurelia-framework'
-import { Service, ServiceProduct } from '../service';
+import { Service } from '../service';
 
-var ProductLoader = require('../../../../loader/product-purchasing-null-tags-loader');
 var GarmentDebtLoader = require('../../../../loader/garment-debt-loader');
 
-@inject(ServiceProduct, Service)
+@inject(Service)
 export class MemoDetailPurchasedItem {
   @bindable dataDebt;
 
@@ -12,25 +11,24 @@ export class MemoDetailPurchasedItem {
     return GarmentDebtLoader;
   }
 
+  constructor() {}
+
   activate(context) {
-    console.log(context);
     this.data = context.data;
     this.error = context.error;
     this.options = context.options; 
-    if (!this.data.items) {
-      this.data.items = {};
+    if (!this.data.MemoDetailGarmentPurchasingDetail) {
+      this.data.MemoDetailGarmentPurchasingDetail = {};
     }
-    if (this.data.items) {
-      this.dataDebt = this.data.items;
+    if (this.data.MemoDetailGarmentPurchasingDetail) {
+      this.dataDebt = this.data.MemoDetailGarmentPurchasingDetail;
     }
   }
 
   dataDebtChanged(newValue) {
-    console.log(newValue);
-    this.data.items = newValue;
-    if (this.data.items) {
-      this.data.items.total = this.data.items.debitNominal * this.data.items.CurrencyRate;
-      this.data.GarmentDeliveryOrderNo = this.data.GarmentDeliveryOrderNo || {};
+    this.data.MemoDetailGarmentPurchasingDetail = newValue;
+    if (this.data.MemoDetailGarmentPurchasingDetail) {
+      this.data.GarmentDeliveryOrderNo = this.data.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderNo || {};
     }
   }
 
