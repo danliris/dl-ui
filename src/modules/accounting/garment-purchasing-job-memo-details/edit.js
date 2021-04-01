@@ -25,6 +25,7 @@ export class Edit {
 
   isValid() {
     let isValid = true;
+    const Items = [];
     const errorData = [];
 
     this.data.Items.map(item => {
@@ -43,16 +44,16 @@ export class Edit {
         itemError.PaymentRate = 'Tidak boleh kosong';
         isValid = false;
       }
-
+      Items.push(item);
       errorData.push(itemError);
     });
     this.error = { Items: errorData };
-    return isValid;
+    return { isValid, Items }
   }
 
-  saveCallback(event) {    
-    console.log(this.error);
-    if (this.isValid()) {
+  saveCallback(event) {  
+    const { isValid, Items } = this.isValid;
+    if (isValid) {
       if (this.data.Memo) {
         if (Items.length > 0) {
           const constructedData = {
@@ -67,7 +68,7 @@ export class Edit {
             Remarks: this.data.Remarks,
             Items: Items
           };
-          this.service.create(constructedData)
+          this.service.update(constructedData)
             .then((result) => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

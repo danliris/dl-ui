@@ -35,13 +35,4 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
-    getPR(id) {
-        var endpoint = `${serviceUriPr}/${id}`;
-        return super.get(endpoint);
-    }
-
-    searchUnvoid(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
 }

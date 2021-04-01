@@ -12,9 +12,6 @@ export class MemoDetailPurchasedItem {
   }
 
   constructor() {
-    if (this.data) {
-      this.dataDebt = this.data.GarmentDeliveryOrderNo;
-    }
   }
 
   activate(context) {
@@ -23,6 +20,9 @@ export class MemoDetailPurchasedItem {
     this.options = context.context.options;
     if (!this.data) {
       this.data.MemoDetailGarmentPurchasingDetail = {};
+    }
+    if (this.data) {
+      this.dataDebt = this.data;
     }
   }
 
@@ -37,9 +37,6 @@ export class MemoDetailPurchasedItem {
       this.data.SaldoAkhir = newValue.DPPAmount + newValue.VATAmount - newValue.IncomeTaxAmount;
       this.data.MemoAmount = 0;
     }
-
-    this.dataDebtModel.editorValue = "";
-    this.dataDebtModel.valueChanged();
   }
 
   get getAmountIdr() {
