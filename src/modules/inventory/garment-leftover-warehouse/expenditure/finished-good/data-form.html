@@ -46,6 +46,13 @@
             if.bind="data.ExpenditureTo=='LAIN-LAIN'">
         </au-textbox>
 
+        <au-checkbox
+            label="Titip Jual"
+            value.bind="data.Consignment"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-checkbox>
+
         <au-multiline 
             label="Keterangan" 
             placeholder="Masukkan Keterangan" 
