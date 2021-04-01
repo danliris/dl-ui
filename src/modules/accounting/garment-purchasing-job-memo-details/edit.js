@@ -25,27 +25,50 @@ export class Edit {
 
   isValid() {
     let isValid = true;
+    const errorList = [];
     const Items = [];
 
     this.data.Items.map(item => {
+      let itemError = {};
       if (!item.GarmentDeliveryOrderNo) {
+        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
         isValid = false;
       } 
+
+      if (!item.MemoAmount) {
+        itemError.MemoAmount = 'Jumlah tidak boleh kosong';
+        isValid = false;
+      }
+
+      if (!item.PaymentRate) {
+        itemError.PaymentRate = 'Rate Beli tidak boleh kosong';
+        isValid = false;
+      }
+
+      if (!item.RemarksDetail) {
+        itemError.RemarksDetail = 'Keterangan tidak boleh kosong';
+        isValid = false;
+      }
       item.MemoIdrAmount = item.MemoAmount * item.PurchasingRate;
       Items.push(item);
+      errorList.push(itemError);
     });
     
-    return { isValid, Items }
+    return { isValid, Items, errorList }
   }
 
   saveCallback(event) {  
     let valid = this.isValid();
+    this.error = { Items: valid.errorList };
     const isValid = valid.isValid;
     const Items = valid.Items;
+    console.log(this.error);
     if (isValid) {
       if (Items.length > 0) {
         const constructedData = {
+          Id: this.data.Id,
           MemoId: this.data.MemoId,
+          MemoNo: this.data.MemoNo,
           MemoDate: this.data.MemoDate,
           AccountingBookId: this.data.AccountingBookId,
           AccountingBookType: this.data.AccountingBookType,
@@ -59,8 +82,8 @@ export class Edit {
         console.log(constructedData);
         this.service.update(constructedData)
           .then((result) => {
-              alert("Data berhasil dibuat");
-              this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+              alert("Data berhasil diupdate");
+              this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
           })
           .catch((e) => {
             console.log(e);
@@ -69,8 +92,6 @@ export class Edit {
       } else {
         alert('Item tidak boleh kosong!')
       }
-    } else {
-      alert('Surat jalan tidak boleh kosong')
     }
   }
 }

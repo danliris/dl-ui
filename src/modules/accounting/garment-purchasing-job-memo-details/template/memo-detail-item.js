@@ -27,7 +27,9 @@ export class MemoDetailPurchasedItem {
   }
 
   dataDebtChanged(newValue) {
-    this.data.Id = 0;
+    if (!this.data.Id) {
+      this.data.Id = 0;
+    }
     this.data.GarmentDeliveryOrderId = newValue.GarmentDeliveryOrderId;
     this.data.GarmentDeliveryOrderNo = newValue.GarmentDeliveryOrderNo;
     this.data.InternalNoteNo = newValue.InternalNoteNo;
