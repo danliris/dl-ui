@@ -23,7 +23,7 @@ export class List {
         order[info.sort] = info.order;
 
     var arg = {
-        page: parseInt(),
+        page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
         order: order

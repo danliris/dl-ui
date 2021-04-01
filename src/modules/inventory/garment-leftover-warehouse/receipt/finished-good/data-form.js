@@ -28,7 +28,8 @@ export class DataForm {
         { header: "Size", value: "SizeName" },
         { header: "Jumlah", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
-        { header: "Keterangan", value: "Remark" }
+        { header: "Keterangan", value: "Remark" },
+        { header: "Komoditi", value: "ComodityName" }
     ]
 
     get unitLoader() {
@@ -69,7 +70,11 @@ export class DataForm {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-
+        this.itemOptions = {
+            isCreate: this.context.isCreate,
+            isView: this.context.isView,
+            isEdit: this.context.isEdit,
+        }
         if (this.data && this.data.Id) {
             this.selectedUnitFrom = {
                 Code: this.data.UnitFrom.Code,
@@ -98,7 +103,8 @@ export class DataForm {
                         item.Quantity=item.Quantity;
                         item.Uom= item.Uom;
                         item.UomUnit= item.Uom.Unit;
-                        item.Remark= item.Description;
+                        item.Remark= item.Remark;
+                        
                         this.data.DataItems.push(item);
                     }
                 }
@@ -111,7 +117,7 @@ export class DataForm {
                     item.Quantity=item.Quantity;
                     item.Uom= item.Uom;
                     item.UomUnit= item.Uom.Unit;
-                    item.Remark= item.Description;
+                    item.Remark= item.Remark;
                     this.data.DataItems.push(item);
                 }
             
