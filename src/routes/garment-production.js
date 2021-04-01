@@ -685,6 +685,20 @@ module.exports = [
         }
     },
     {
+        route: '/garment-production/adjustment-cutting',
+        name: 'garment-production-adjustment-cutting',
+        moduleId: './modules/garment-production/adjustment-cutting/index',
+        nav: true,
+        title: 'Adjustment Cutting',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "adjustment",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-production/monitoring-prepare',
         name: 'garment-production-monitoring-prepare',
         moduleId: './modules/garment-production/monitoring-prepare/index',

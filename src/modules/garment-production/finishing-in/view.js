@@ -26,6 +26,7 @@ export class View {
         this.selectedSewingOut={
             RONo:this.data.RONo
         }
+        this.deleteCallback = null;
     }
 
     cancelCallback(event) {

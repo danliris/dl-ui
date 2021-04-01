@@ -262,6 +262,17 @@
                 options.bind="controlOptions">
             </au-textbox>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <au-textbox
+                    label="Komoditi"
+                    value.bind="data.otherCommodity"
+                    error.bind="error.OtherCommodity"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+        </div>
         <div>
             <p class="help-block text-left tbl">MEASUREMENT</p>
         </div>
