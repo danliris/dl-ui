@@ -13,7 +13,7 @@
                 text="MemoNo">
             </au-autocomplete>
 
-            <au-textbox label="Tanggal Memo" value.bind="data.MemoDate" read-only.bind="true"></au-textbox>
+            <au-textbox label="Tanggal Memo" value.bind="getMemoDate" read-only.bind="true"></au-textbox>
             <au-textbox label="Jenis Buku" value.bind="data.AccountingBookType" read-only.bind="true"></au-textbox>
             <au-textbox label="Mata Uang" value.bind="data.GarmentCurrenciesCode" read-only.bind="true"></au-textbox>
             <au-textbox label="Rate" value.bind="data.GarmentCurrenciesRate " read-only.bind="true"></au-textbox>
@@ -24,6 +24,7 @@
 
         <au-collection 
             items.bind="data.Items" 
+            errors.bind="error.Items" 
             columns.bind="itemsColumns" 
             add.bind="addItems" 
             remove.bind="removeItems"
