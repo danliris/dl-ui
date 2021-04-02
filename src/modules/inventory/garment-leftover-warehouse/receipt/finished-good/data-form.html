@@ -125,12 +125,19 @@
             </div> -->
         </div>
 
-        <au-collection 
+        <!-- <au-collection 
             columns.bind="itemsColumns" 
             items.bind="data.DataItems" 
             errors.bind="error.Items"
             read-only.bind="true">
+        </au-collection> -->
+        <au-collection
+            items.bind="data.DataItems"
+            errors.bind="error.Items"
+            columns.bind="itemsColumns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/item">
         </au-collection>
-
     </au-input-form>
 </template>

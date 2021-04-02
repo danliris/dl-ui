@@ -12,7 +12,7 @@
                 text="MemoNo">
             </au-autocomplete>
 
-            <au-textbox label="Tanggal Memo" value.bind="data.Memo.MemoDate" read-only.bind="true"></au-textbox>
+            <au-textbox label="Tanggal Memo" value.bind="getMemoDate" read-only.bind="true"></au-textbox>
             <au-textbox label="Jenis Buku" value.bind="data.Memo.AccountingBook.Type" read-only.bind="true"></au-textbox>
             <au-textbox label="Mata Uang" value.bind="data.Memo.Currency.Code" read-only.bind="true"></au-textbox>
             <au-textbox label="Rate" value.bind="data.Memo.Currency.Rate " read-only.bind="true"></au-textbox>
