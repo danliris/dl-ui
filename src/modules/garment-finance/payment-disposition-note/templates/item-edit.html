@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td show.bind="!readOnly">
+        <td>
             <au-checkbox 
                 value.bind="data.Select"
                 read-only.bind="readOnly">
@@ -8,25 +8,25 @@
         </td>
         <td>
             <au-textbox 
-                value.bind="data.dispositionNo"
+                value.bind="data.DispositionNoteNo"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-datepicker 
-                value.bind="data.dispositionDate"
+                value.bind="data.DispositionNoteDate"
                 read-only.bind="true">
             </au-datepicker>
         </td>
         <td>
             <au-datepicker 
-                value.bind="data.paymentDueDate"
+                value.bind="data.DispositionNoteDueDate"
                 read-only.bind="true">
             </au-datepicker>
         </td>
         <td>
             <au-textbox
-                value.bind="data.proformaNo"
+                value.bind="data.ProformaNo"
                 read-only.bind="true">
             </au-textbox>
         </td>
@@ -38,56 +38,53 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.category.name"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-textbox
-                value.bind="data.division.name"
+                value.bind="data.Category"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-numeric
-                value.bind="data.vatValue"
+                value.bind="data.VATAmount"
+                read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.TotalPaid"
                 format="0,000.0000"
                 read-only.bind="true">
             </au-numeric>
         </td>
         <td>
             <au-numeric
-                value.bind="data.payToSupplier"
+                value.bind="data.TotalPaidPayment"
+                format="0,000.0000",
+                change.delegate="TotalPaidPaymentChanged($event)"
+                >
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.DiffTotalPaidPayment"
+                format="0,000.0000"
+                read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.TotalPaidPaymentBefore"
                 format="0,000.0000"
                 read-only.bind="true">
             </au-numeric>
         </td>
         <td>
             <au-textbox
-                value.bind="data.Currency"
+                value.bind="data.CurrencyCode"
                 read-only.bind="true">
             </au-textbox>
-        </td>
-        <td show.bind= "IDR && !sameCurrency">
-            <au-numeric
-                value.bind="data.payToSupplierIDR"
-                format="0,000.0000"
-                if.bind="IDR && !sameCurrency"
-                read-only.bind="true">
-            </au-numeric>
-        </td>
-        <td show.bind= "IDR && !sameCurrency">
-            <au-textbox
-                value.bind="data.currencyIDR"
-                if.bind="IDR && !sameCurrency"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td class="col-sm-1">
-            <button class="btn btn-info" click.delegate="toggle()">i</button> 
         </td>
     </tr>
-    <tr show.bind="isShowing">
+    <!-- <tr show.bind="isShowing">
         <td colspan="11">
             <au-collection
                 items.bind="data.Details" 
@@ -95,5 +92,5 @@
                 item-template="modules/expedition/payment-disposition-note/templates/detail-view">
             </au-collection>
         </td>  
-    </tr>
+    </tr> -->
 </template>

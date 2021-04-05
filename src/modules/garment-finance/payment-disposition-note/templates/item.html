@@ -59,7 +59,15 @@
             <au-numeric
                 value.bind="data.TotalPaidPayment"
                 format="0,000.0000"
+                change.delegate="TotalPaidPaymentChanged($event)"
                 >
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.DiffTotalPaidPayment"
+                format="0,000.0000"
+                read-only.bind="true">
             </au-numeric>
         </td>
         <td>

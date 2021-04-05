@@ -115,7 +115,7 @@ module.exports = [
         name: 'aval-product',
         moduleId: './modules/garment-production/aval-product/index',
         nav: true,
-        title: 'Barang Aval',
+        title: 'Aval Kain Besar',
         auth: true,
         settings: {
             group: "g-production",
@@ -676,6 +676,20 @@ module.exports = [
         moduleId: './modules/garment-production/adjustment-expenditure-good-alluser/index',
         nav: true,
         title: 'Adjustment Barang Jadi (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "adjustment",
+            permission: {"C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-production/adjustment-cutting',
+        name: 'garment-production-adjustment-cutting',
+        moduleId: './modules/garment-production/adjustment-cutting/index',
+        nav: true,
+        title: 'Adjustment Cutting',
         auth: true,
         settings: {
             group: "g-production",
