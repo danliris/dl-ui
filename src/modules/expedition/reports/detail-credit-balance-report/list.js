@@ -182,10 +182,7 @@ export class List {
 
         if (result && result.CategorySummaries.length > 0)
         result.CategorySummaries.map((data) =>
-          categorySummary.push({
-            // Unit: unitSummary.some((x) => x.Unit === data.AccountingUnitName)
-            //   ? ""
-            //   : data.AccountingUnitName,
+          categorySummary.push({            
             CategoryName: categorySummary.some((x) => x.CategoryName === data.CategoryName)?
             ""
             :data.CategoryName,
