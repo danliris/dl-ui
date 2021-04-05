@@ -51,7 +51,7 @@ export class List {
         this.currentYear = moment().format('YYYY');
 
         for (var i = parseInt(this.currentYear); i >= 2018; i--) {
-        this.itemYears.push(i.toString());
+            this.itemYears.push(i.toString());
         }
 
     }
@@ -104,12 +104,14 @@ export class List {
     }
 
     selectedYearChanged(newValue, oldValue){
+        console.log('year', newValue);
         if(newValue){
           this.data.Year = newValue;
         }
     }
 
     selectedMonthChanged(newValue, oldValue){
+        console.log('month', newValue)
         if(newValue){
           this.data.Month = newValue;
         }
@@ -143,11 +145,11 @@ export class List {
         this.selectedYear = parseInt(moment().format('YYYY'));
         this.accountingBook = undefined;
         this.data.accountingBookType = undefined;
+        this.data.result = [];
         this.data.Month = { text: 'January', value: 1 };
         this.data.Year = parseInt(moment().format('YYYY'));
         this.isEmpty = true;
         this.totalIdrAmount = numeral(0).format('0,0.0000');
-        this.data = [];
     }
 }
 export class KeysValueConverter {
