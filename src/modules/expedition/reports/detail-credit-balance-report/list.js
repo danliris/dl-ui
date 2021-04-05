@@ -81,7 +81,12 @@ export class List {
   columnsCategory = [
     {header : "Category", value: "CategoryName"},
     {header: "Total", value:"Total"},
+  ];
 
+  columnsCategoryValas = [
+    {header : "Category", value: "CategoryName"},
+    {header :"Currency", value: "CurrencyCode"},
+    {header: "Total", value:"Total"},
   ];
 
   constructor(router, service) {
