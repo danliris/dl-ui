@@ -41,7 +41,7 @@ export class items {
     @computedFrom("data.Unit")
     get filterAcc() {
         return {
-            ReferenceType:"AVAL_ACCECORIES",
+            ReferenceType:"AVAL_BAHAN_PENOLONG",
             UnitId: (this.data.Unit || {}).Id || 0,
             "Quantity>0": true
         };
@@ -49,7 +49,7 @@ export class items {
     @computedFrom("data.Unit","data.Product")
     get filterUom() {
         return {
-            ReferenceType:"AVAL_ACCECORIES",
+            ReferenceType:"AVAL_BAHAN_PENOLONG",
             UnitId: (this.data.Unit || {}).Id || 0,
             "Quantity>0": true,
             ProductId: (this.data.Product || {}).Id || 0,
@@ -75,7 +75,7 @@ export class items {
             this.selectedStock={Uom : this.data.Uom || null}
         }
         if(this.data.Id && !this.isFabric){
-            var stock= await this.service.getStock({ size: 1, filter: JSON.stringify({ ProductId: this.data.Product.Id, UomId: this.data.Uom.Id, UnitId: this.data.Unit.Id,ReferenceType:"AVAL_ACCECORIES" }) });
+            var stock= await this.service.getStock({ size: 1, filter: JSON.stringify({ ProductId: this.data.Product.Id, UomId: this.data.Uom.Id, UnitId: this.data.Unit.Id,ReferenceType:"AVAL_BAHAN_PENOLONG" }) });
             if(!this.error)
                 this.data.StockQuantity=stock.data[0].Quantity+ this.data.Quantity;
         }
@@ -92,7 +92,7 @@ export class items {
         }
     }
 
-    selectedStockChanged(newValue){
+    async selectedStockChanged(newValue){
         this.data.StockId=0;
         this.data.Uom=null;
         this.data.StockQuantity=0;
@@ -100,8 +100,7 @@ export class items {
         if(newValue){
             this.data.StockId=newValue.Id;
             this.data.Uom=newValue.Uom;
-            this.data.StockQuantity=newValue.Quantity;
-
+            this.data.Quantity=newValue.Quantity;
             const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.StockId) || { Quantity: 0 };
             this.data.StockQuantity = this.data.Quantity+ existingItem.Quantity;
             this.data.Quantity=this.data.StockQuantity;
