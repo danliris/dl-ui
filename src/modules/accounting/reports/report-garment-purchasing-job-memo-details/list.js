@@ -104,14 +104,12 @@ export class List {
     }
 
     selectedYearChanged(newValue, oldValue){
-        console.log('year', newValue);
         if(newValue){
           this.data.Year = newValue;
         }
     }
 
     selectedMonthChanged(newValue, oldValue){
-        console.log('month', newValue)
         if(newValue){
           this.data.Month = newValue;
         }
