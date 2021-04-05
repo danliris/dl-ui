@@ -30,11 +30,33 @@ export class Create {
       // or activationStrategy.noChange to explicitly use the default behavior
   }
 
-  save(event) {
-    const errorData = [];
-    const memoDetailGarmentPurchasingDetail = []
-    let isCanotAdded = false;
+  isValid() {
+    let isValid = true;
+    const errorList = [];
+    const Items = [];
+
     this.data.MemoDetailGarmentPurchasingDetail.map(item => {
+      let itemError = {};
+      if (!item.GarmentDeliveryOrderNo) {
+        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
+        isValid = false;
+      } 
+
+      if (!item.MemoAmount) {
+        itemError.MemoAmount = 'Jumlah tidak boleh kosong';
+        isValid = false;
+      }
+
+      if (!item.PaymentRate) {
+        itemError.PaymentRate = 'Rate Bayar tidak boleh kosong';
+        isValid = false;
+      }
+
+      if (!item.RemarksDetail) {
+        itemError.RemarksDetail = 'Keterangan tidak boleh kosong';
+        isValid = false;
+      }
+
       if (item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderId) {
         memoDetailGarmentPurchasingDetail.push({
           RemarksDetail: item.RemarksDetail,
@@ -45,16 +67,27 @@ export class Create {
           MemoAmount: item.MemoAmount,
           MemoIdrAmount: item.MemoAmount * item.MemoDetailGarmentPurchasingDetail.CurrencyRate,
         })
-      } else {
-        errorData.push({ 'GarmentDeliveryOrderNo': 'Surat Jalan tidak boleh kosong' })
-        isCanotAdded = true;
       }
+
+      Items.push(item);
+      errorList.push(itemError);
     });
-    if (isCanotAdded) {
-      this.error = { MemoGarmentPurchasingDetails: errorData }
-    } else {
+    
+    return { isValid, Items, errorList }
+  }
+
+  save(event) {
+    let valid = this.isValid();
+    this.error = { MemoGarmentPurchasingDetails: valid.errorList };
+    let isValid = valid.isValid;
+    if (!this.data.Memo) {
+      isValid = false;
+      this.error = { MemoNo: 'Nomor Memo tidak boleh kosong', MemoGarmentPurchasingDetails: valid.errorList };
+    }
+    const Items = valid.Items;
+    if (isValid) {
       if (this.data.Memo) {
-        if (memoDetailGarmentPurchasingDetail.length > 0) {
+        if (Items.length > 0) {
           const constructedData = {
             MemoId: this.data.Memo.Id || undefined,
             MemoDate: this.data.Memo.MemoDate,
@@ -66,7 +99,7 @@ export class Create {
             GarmentCurrenciesRate: this.data.Memo.Currency.Rate,
             IsPosted: false,
             Remarks: this.data.remarks,
-            MemoDetailGarmentPurchasingDetail: memoDetailGarmentPurchasingDetail
+            MemoDetailGarmentPurchasingDetail: Items
           };
           this.service.create(constructedData)
             .then((result) => {
@@ -74,8 +107,7 @@ export class Create {
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch((e) => {
-              console.log(e);
-                this.error = e;
+              this.error = e;
             })
         } else {
           alert('Item tidak boleh kosong!')
