@@ -21,7 +21,7 @@
             show.bind="data.ExpenditureDestination == 'UNIT'" view-model.ref="selectedUnitViewModel">
         </au-autocomplete>
 
-        <au-autocomplete label="Byuer" placeholder="Pilih Buyer" value.bind="selectedBuyer" error.bind="error.Buyer"
+        <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="selectedBuyer" error.bind="error.Buyer"
             loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="readOnly || isEdit"
             options.bind="controlOptions" show.bind="data.ExpenditureDestination == 'JUAL LOKAL'"
             view-model.ref="selectedBuyerViewModel">
@@ -29,7 +29,7 @@
 
         <au-autocomplete label="No Nota Penjualan Lokal" placeholder="Pilih Nota Penjualan Lokal"
             error.bind="error.LocalSalesNoteNo" loader.bind="localSalesNoteLoader" value.bind="selectedSalesNote"
-            text="noteNo" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+            text="noteNo" if.bind="data.ExpenditureDestination == 'JUAL LOKAL'" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
         </au-autocomplete>
 
         <au-textbox label="Keterangan Lain-lain" placeholder="Masukkan Keterangan" value.bind="data.EtcRemark"

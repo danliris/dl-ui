@@ -113,10 +113,36 @@ export class List {
         this.service.search(args)
                 .then(result => {
                     this.rowCount=[];
-                    var rowDoc=[]
+                    var rowDoc=[];
                     console.log(result);
                     var datas=[];
                     var index=0;
+
+                    for (var a of result.data ){
+
+                        var doc=a.InvoiceNo;
+                       // var  = a.Jumlah;
+
+                        // if(!this.rowCount[doc]){
+                        //     this.rowCount[doc]=1;
+                        // }
+                        // else{
+                        //     this.rowCount[doc]++;
+                        // }
+
+
+                        if(!rowDoc[doc]){
+                            index++;
+                            //a.count=index;
+                            rowDoc[doc]=1;
+                        }
+
+                        else{
+                            rowDoc[doc]++;
+                        }
+                    }
+
+
                     for (var _data of result.data){
                         _data.VatDate = moment(_data.VatDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.VatDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.VatDate).format("DD MMM YYYY");
                         _data.IncomeTaxDate = moment(_data.IncomeTaxDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.IncomeTaxDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.IncomeTaxDate).format("DD MMM YYYY");
@@ -129,6 +155,17 @@ export class List {
                         _data.CorrNo = _data.CorrNo == "" ? "-" : _data.CorrNo;
                         _data.CorrType = _data.CorrType == "" ? "-" : _data.CorrType;
                         _data.Nomor = _data.Nomor == "" ? "-" : _data.Nomor;
+
+                        
+                        let invoice=result.data.find(o=> o.InvoiceNo == _data.InvoiceNo);
+                            // if(invoice){
+                            //     invoice.rowspan=this.rowCount[_data.InvoiceNo];
+                            // }
+
+                           // let bcno=result.data.find(o=> o.BCType + o.BCNo==b.BCType + b.BCNo);
+                            if(invoice){
+                                 invoice.docspan=rowDoc[_data.InvoiceNo];
+                            }
 
                     }  
                     // for(var _data of result.data){
