@@ -58,7 +58,7 @@ export class Create {
       }
 
       if (item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderId) {
-        memoDetailGarmentPurchasingDetail.push({
+        Items.push({
           RemarksDetail: item.RemarksDetail,
           GarmentDeliveryOrderId: item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderId,
           GarmentDeliveryOrderNo: item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderNo,
@@ -69,7 +69,6 @@ export class Create {
         })
       }
 
-      Items.push(item);
       errorList.push(itemError);
     });
     
