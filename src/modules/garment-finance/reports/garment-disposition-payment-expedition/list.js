@@ -24,9 +24,13 @@ export class List {
         }, rowspan: 2
       },
       { field: "ProformaNo", title: "Nomor Proforma", rowspan: 2 },
-      { field: "SupplierName", title: "Supplier", rowspan: 2 , align:"left",width:"100px"},
+      { field: "SupplierName", title: "Supplier", rowspan: 2, align: "left", width: "100px" },
       { field: "CurrencyCode", title: "Kurs", rowspan: 2 },
-      { title: "Jumlah", colspan: 5 },
+      {
+        title: "Jumlah", colspan: 5, formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
       { field: "CategoryName", title: "Kategori", rowspan: 2 },
       { field: "PositionDescription", title: "Posisi", rowspan: 2 },
       { field: "SendToPurchasingRemark", title: "Alasan Retur", rowspan: 2 },
@@ -39,9 +43,17 @@ export class List {
       { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
       { title: "Kasir", colspan: 5 },
       { field: "ExternalPurchaseOrderNo", title: "PO Eksternal", rowspan: 2 },
-      { field: "DispositionQuantity", title: "Qty Disposisi", rowspan: 2 },
+      {
+        field: "DispositionQuantity", title: "Qty Disposisi", rowspan: 2, formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
       { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
-      { field: "DeliveryOrderQuantity", title: "Qty Surat Jalan", rowspan: 2 },
+      {
+        field: "DeliveryOrderQuantity", title: "Qty Surat Jalan", rowspan: 2, formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
       { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
       { field: "PaymentBillsNo", title: "Nomor BP Kecil", rowspan: 2 },
       { field: "BillsNo", title: "Nomor BP Besar", rowspan: 2 },
@@ -61,11 +73,31 @@ export class List {
       { field: "SendToVerificationby", title: "Staff", rowspan: 2 }
     ],
     [
-      { field: "DPPAmount", title: "DPP" },
-      { field: "VATAmount", title: "PPN" },
-      { field: "IncomeTaxAmount", title: "PPh" },
-      { field: "OthersExpenditureAmount", title: "Biaya Lain-lain" },
-      { field: "TotalAmount", title: "Total" },
+      {
+        field: "DPPAmount", title: "DPP", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
+      {
+        field: "VATAmount", title: "PPN", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
+      {
+        field: "IncomeTaxAmount", title: "PPh", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
+      {
+        field: "OthersExpenditureAmount", title: "Biaya Lain-lain", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
+      {
+        field: "TotalAmount", title: "Total", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
       {
         field: "VerificationAcceptedDate", formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "";
@@ -82,12 +114,14 @@ export class List {
         }, title: "Tgl Terima"
       },
       {
-        field: "BankExpenditureNoteDate", formatter: function (value, data, index) {
-          return value ? moment(value).format("DD MMM YYYY") : "";
-        }, title: "Tgl Bayar"
+        field: "BankExpenditureNoteDate", title: "Tgl Bayar"
       },
       { field: "BankExpenditureNoteNo", title: "No Bukti Pengeluaran Bank" },
-      { field: "PaidAmount", title: "Nominal Yang Dibayar" },
+      {
+        field: "PaidAmount", title: "Nominal Yang Dibayar", formatter: (value, data) => {
+          return numeral(value).format("0,0.00")
+        }, align: "right"
+      },
       { field: "CurrencyCode", title: "Mata Uang" }
     ]
   ]
