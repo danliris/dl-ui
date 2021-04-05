@@ -1,6 +1,6 @@
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'garment/leftover-warehouse-receipts/accesories';
+const serviceUri = 'garment/leftover-warehouse-receipts/accessories';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {

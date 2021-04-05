@@ -34,7 +34,7 @@ export class Create {
         this.dialog = dialog;
         this.data = {};
         this.collection = {
-            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
+            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Selisih Total Yang Dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
         };
         
 
@@ -149,6 +149,9 @@ export class Create {
                     //     exItem.purchasingDispositionExpeditionItemId = exItem.Id;
                     //     delete exItem.Id;
                     // }
+                    // console.log("Total paid",ex.TotalPaid )
+                    // console.log("Total PaidBefore",ex.TotalPaidPaymentBefore)
+                    // ex.DiffTotalPaidPayment=parseFloat(0);
                     expeditionDatas.push(ex);
                 }
                 console.log("expeditionDatas", expeditionDatas);
