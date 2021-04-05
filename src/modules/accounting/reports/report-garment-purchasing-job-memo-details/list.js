@@ -1,12 +1,32 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import XLSX from 'xlsx';
 import { Service } from './service';
-const SupplierLoader = require('../../../../loader/supplier-loader');
+let AccountingBookLoader = require('../../../../loader/accounting-book-loader');
 
 @inject(Service)
 export class List {
+    @bindable data = [];
+    @bindable selectedYear;
+    @bindable selectedMonth;
+    @bindable accountingBook;
+
+    itemMonths = [
+        { text: 'January', value: 1 },
+        { text: 'February', value: 2 },
+        { text: 'March', value: 3 },
+        { text: 'April', value: 4 },
+        { text: 'May', value: 5 },
+        { text: 'June', value: 6 },
+        { text: 'July', value: 7 },
+        { text: 'August', value: 8 },
+        { text: 'September', value: 9 },
+        { text: 'October', value: 10 },
+        { text: 'November', value: 11 },
+        { text: 'Desember', value: 12 }
+    ];
+
     itemYears = [];
 
     controlOptions = {
@@ -22,73 +42,92 @@ export class List {
         this.service = service;
         this.info = {};
         this.error = {};
-        this.data = [];
+        this.data = {};
+        this.data.result = [];
 
         this.isEmpty = true;
-        this.totalCredit = 0;
-        this.totalDebit = 0;
+        this.totalIdrAmount = numeral(0).format('0,0.0000');
+
+        this.currentYear = moment().format('YYYY');
+
+        for (var i = parseInt(this.currentYear); i >= 2018; i--) {
+        this.itemYears.push(i.toString());
+        }
 
     }
 
 
     async search() {
-
-        let arg = {
-            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null
+        let arg = {}
+        if(this.data.accountingBookType) {
+            arg = {
+                size: 100,
+                date: this.data.Year + '-' + this.data.Month.value,
+                filter : JSON.stringify({
+                    AccountingBookId: this.data.accountingBookType.Id
+                })
+            }
+        } else {
+            arg = {
+                size: 100,
+                date: this.data.Year + '-' + this.data.Month.value,
+            }
         }
 
-        this.data = await this.service.search(arg)
+        this.data.result = await this.service.search(arg)
             .then((result) => {
                 if (result.data.length == 0)
                     this.isEmpty = true;
                 else
                     this.isEmpty = false;
 
+                let totalIdrAmount = 0;
                 var newData = [];
-                for (var item of result.data) {
-                    let rowspanNumber = item.Items.length;
-                    for (let i = 0; i < item.Items.length; i++) {
-                        let detail = item.Items[i];
-                        if (i == 0) {
-                            detail.isHeader = true;
-                            detail.rowspanNumber = rowspanNumber;
-                        }
-                        detail.Date = detail.Date ? moment(detail.Date).format('DD MMM YYYY') : "-";
-                        detail.COAName = detail.COAName ? detail.COAName : "-";
-                        detail.COACode = detail.COACode ? detail.COACode : "-";
-                        detail.Remark = detail.Remark ? detail.Remark : "-";
-                        detail.Debit = detail.Debit ? numeral(detail.Debit).format('0,0.0000') : '0';
-                        detail.Credit = detail.Credit ? numeral(detail.Credit).format('0,0.0000') : '0';
-                        detail.header = item;
-                        detail.header.Description = detail.header.Description ? detail.header.Description : "-";
-                        detail.header.ReferenceNo = detail.header.ReferenceNo ? detail.header.ReferenceNo : "-";
-                        newData.push(detail);
-                    }
-                    // var newVM = {
-                    //     Date: item.Date ? moment(item.Date).format('DD MMM YYYY') : "-",
-                    //     COAName: item.COAName ? item.COAName : "-",
-                    //     COACode: item.COACode ? item.COACode : "-",
-                    //     Remark: item.Remark ? item.Remark : "-",
-                    //     Debit: item.Debit ? numeral(item.Debit).format('0,0.0000') : '0',
-                    //     Credit: item.Credit ? numeral(item.Credit).format('0,0.0000') : '0'
-                    // }
-                    // newData.push(newVM);
-                }
+                result.data.map(item => {
+                    let newItem = item;
+                    totalIdrAmount = item.MemoIdrAmount + totalIdrAmount;
+                    newItem.MemoDate = moment(item.MemoDate).format('DD MMM YYYY');
+                    newItem.MemoAmount = numeral(item.MemoAmount).format('0,0.0000');
+                    newItem.MemoIdrAmount = numeral(item.MemoIdrAmount).format('0,0.0000');
+                    newData.push(newItem);
+                })
 
-                this.totalCredit = numeral(result.info.TotalCredit).format('0,0.0000');
-                this.totalDebit = numeral(result.info.TotalDebit).format('0,0.0000');
+                this.totalIdrAmount = numeral(totalIdrAmount).format('0,0.0000');
 
                 return newData;
             });
-        //console.log(this.data);
+
+    }
+
+    get accountingLoader() {
+        return AccountingBookLoader;
+    }
+
+    selectedYearChanged(newValue, oldValue){
+        if(newValue){
+          this.data.Year = newValue;
+        }
+    }
+
+    selectedMonthChanged(newValue, oldValue){
+        if(newValue){
+          this.data.Month = newValue;
+        }
+    }
+
+    accountingBookChanged(newValue) {
+        this.data.accountingBookType = newValue;
+    }
+
+    accountingBookView = (accountingBook) => {
+        return `${accountingBook.Type}`
+    }
+
+    pdf() {
 
     }
 
     excel() {
-
-        // this.flag = true;
-        // this.tableList.refresh();
 
         let arg = {
             dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
@@ -96,20 +135,19 @@ export class List {
         }
 
         this.service.getXls(arg)
-
-        // this.getExcelData();
     }
 
     reset() {
         this.error = {};
-        this.dateFrom = undefined;
-        this.dateTo = undefined;
+        this.selectedMonth = { text: 'January', value: 1 };
+        this.selectedYear = parseInt(moment().format('YYYY'));
+        this.accountingBook = undefined;
+        this.data.accountingBookType = undefined;
+        this.data.Month = { text: 'January', value: 1 };
+        this.data.Year = parseInt(moment().format('YYYY'));
         this.isEmpty = true;
-        // this.flag = false;
-        this.totalCredit = 0;
-        this.totalDebit = 0;
+        this.totalIdrAmount = numeral(0).format('0,0.0000');
         this.data = [];
-        // this.tableList.refresh();
     }
 }
 export class KeysValueConverter {
