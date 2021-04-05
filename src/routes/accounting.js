@@ -398,9 +398,9 @@ module.exports = [
     }
   },
   {
-    route: "accounting/report-garment-purchasing-job-memo-details",
-    name: "report-garment-purchasing-job-memo-details",
-    moduleId: "./modules/accounting/report/report-garment-purchasing-job-memo-details/index",
+    route: "accounting/reports-garment-purchasing-job-memo-details",
+    name: "reports-garment-purchasing-job-memo-details",
+    moduleId: "./modules/accounting/reports/report-garment-purchasing-job-memo-details/index",
     nav: true,
     title: "Laporan Rincian Memorial Pembelian Job Garment",
     auth: true,
