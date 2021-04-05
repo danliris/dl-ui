@@ -53,6 +53,7 @@
             error.bind="error.LocalSalesNoteNo" 
             loader.bind="localSalesNoteLoader" 
             value.bind="selectedSalesNote"
+            if.bind="data.ExpenditureTo == 'JUAL LOKAL' "
             text="noteNo"
             read-only.bind="readOnly || isEdit" 
             options.bind="controlOptions">
