@@ -36,7 +36,7 @@
                 query.bind= "filterAcc">
             </au-autocomplete>
         </td>
-        <td>
+        <td if.bind="!readOnly">
             <au-numeric
                 value.bind="data.Quantity"
                 error.bind="error.Quantity"
