@@ -46,13 +46,13 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
-    @computedFrom("data.UnitFrom")
+    @computedFrom("data.RequestUnit")
     get unitExpenditureNoteFilter() {
         return {
             IsReceived: false,
             ExpenditureType: "SISA",
             StorageName: "GUDANG BAHAN BAKU",
-            UnitSenderId: (this.data.UnitFrom || {}).Id || 0
+            UnitSenderId: (this.data.RequestUnit || {}).Id || 0
         };
     }
 
@@ -63,8 +63,8 @@ export class DataForm {
 
         if (this.data && this.data.Id) {
             this.selectedUnitFrom = {
-                Code: this.data.UnitFrom.Code,
-                Name: this.data.UnitFrom.Name
+                Code: this.data.RequestUnit.Code,
+                Name: this.data.RequestUnit.Name
             };
             this.selectedUnitExpenditureNote = {
                 UENNo: this.data.UENNo
@@ -76,7 +76,7 @@ export class DataForm {
                 item.UomUnit = item.Uom.Unit;
             }
 
-            this.garmentPurchasingService.getUnitExpenditureNoteById(this.data.UENId)
+            this.garmentPurchasingService.getUnitExpenditureNoteById(this.data.UENid)
                 .then(dataUnitExpenditureNote => {
                     this.garmentPurchasingService.getUnitDeliveryOrderById(dataUnitExpenditureNote.UnitDOId)
                         .then(dataUnitDeliveryOrder => {
@@ -89,7 +89,7 @@ export class DataForm {
     selectedUnitFromChanged(newValue) {
         if (this.data.Id) return;
 
-        this.data.UnitFrom = newValue;
+        this.data.RequestUnit = newValue;
 
         this.selectedUnitExpenditureNote = null;
     }
@@ -105,6 +105,7 @@ export class DataForm {
                     this.garmentPurchasingService.getUnitDeliveryOrderById(dataUnitExpenditureNote.UnitDOId)
                         .then(dataUnitDeliveryOrder => {
                             this.data.UENId = dataUnitExpenditureNote.Id;
+                            this.data.UENid = dataUnitExpenditureNote.Id;
                             this.data.UENNo = dataUnitExpenditureNote.UENNo;
                             this.data.StorageFrom = dataUnitExpenditureNote.Storage;
                             this.data.StorageFromName = dataUnitExpenditureNote.Storage.name;
@@ -143,7 +144,7 @@ export class DataForm {
                         })
                 });
         } else {
-            this.data.UENId = 0;
+            this.data.UENid = 0;
             this.data.UENNo = null;
             this.data.StorageFrom = null;
             this.data.StorageFromName = null;

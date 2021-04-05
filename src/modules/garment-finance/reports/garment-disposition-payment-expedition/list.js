@@ -24,7 +24,7 @@ export class List {
         }, rowspan: 2
       },
       { field: "ProformaNo", title: "Nomor Proforma", rowspan: 2 },
-      { field: "SupplierName", title: "Supplier", rowspan: 2 },
+      { field: "SupplierName", title: "Supplier", rowspan: 2 , align:"left",width:"100px"},
       { field: "CurrencyCode", title: "Kurs", rowspan: 2 },
       { title: "Jumlah", colspan: 5 },
       { field: "CategoryName", title: "Kategori", rowspan: 2 },
