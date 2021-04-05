@@ -24,7 +24,7 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        if (this.data.Status == "POSTED") {
+        if (this.data.isPosted) {
             this.hasPosting = false;
             this.editCallback = false;
             this.deleteCallback = false;
@@ -47,7 +47,7 @@ export class View {
     }
 
     postingCallback(event) {
-        this.dialog.prompt('Transaksi yang sudah di POSTING tidak dapat diubah dan dihapus. Apakah anda yakin?', 'Posting Jurnal Transaksi')
+        this.dialog.prompt('Transaksi yang sudah di POSTING tidak dapat diubah dan dihapus. Apakah anda yakin?', 'Rincian Memorial Pembelian Job Garment')
             .then(response => {
                 if (response.ok) {
                     this.service.posting(this.data)
@@ -59,7 +59,7 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Jurnal Transaksi')
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Rincian Memorial Pembelian Job Garment')
             .then(response => {
                 if (response.ok) {
                     this.service.delete(this.data)

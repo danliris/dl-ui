@@ -41,7 +41,7 @@ export class Edit {
       }
 
       if (!item.PaymentRate) {
-        itemError.PaymentRate = 'Rate Beli tidak boleh kosong';
+        itemError.PaymentRate = 'Rate Bayar tidak boleh kosong';
         isValid = false;
       }
 
@@ -62,7 +62,6 @@ export class Edit {
     this.error = { Items: valid.errorList };
     const isValid = valid.isValid;
     const Items = valid.Items;
-    console.log(this.error);
     if (isValid) {
       if (Items.length > 0) {
         const constructedData = {
@@ -79,15 +78,13 @@ export class Edit {
           Remarks: this.data.Remarks,
           Items: Items
         };
-        console.log(constructedData);
         this.service.update(constructedData)
           .then((result) => {
               alert("Data berhasil diupdate");
               this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
           })
           .catch((e) => {
-            console.log(e);
-              this.error = e;
+            this.error = e;
           })
       } else {
         alert('Item tidak boleh kosong!')
