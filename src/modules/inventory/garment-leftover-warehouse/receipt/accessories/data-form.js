@@ -95,7 +95,7 @@ export class DataForm {
             this.selectedUnitExpenditureNote = {
                 UENNo: this.data.UENNo
             };
-            this.data.StorageFromName = this.data.StorageFrom.name;
+            this.data.StorageFromName = this.data.Storage.name;
             for (const item of this.data.Items) {
                 item.ProductCode = item.Product.Code;
                 item.ProductName = item.Product.Name;
@@ -133,7 +133,7 @@ export class DataForm {
                             this.data.UENId = dataUnitExpenditureNote.Id;
                             this.data.UENid = dataUnitExpenditureNote.Id;
                             this.data.UENNo = dataUnitExpenditureNote.UENNo;
-                            this.data.StorageFrom = dataUnitExpenditureNote.Storage;
+                            this.data.Storage = dataUnitExpenditureNote.Storage;
                             this.data.StorageFromName = dataUnitExpenditureNote.Storage.name;
                             this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
 
@@ -172,7 +172,7 @@ export class DataForm {
         } else {
             this.data.UENid = 0;
             this.data.UENNo = null;
-            this.data.StorageFrom = null;
+            this.data.Storage = null;
             this.data.StorageFromName = null;
             delete this.data.ExpenditureDate;
             this.data.ROJob = null;
