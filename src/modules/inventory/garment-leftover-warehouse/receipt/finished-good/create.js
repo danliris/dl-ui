@@ -27,6 +27,12 @@ export class Create {
     }
 
     saveCallback(event) {
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                var dataItem= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                item.LeftoverComodity=dataItem.LeftoverComodity;
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

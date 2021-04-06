@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
+const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
 
 @inject(Service)
 export class DataForm {
@@ -12,6 +13,7 @@ export class DataForm {
 
     @bindable readOnly = false;
     @bindable title;
+    @bindable selectedSalesNote;
 
     controlOptions = {
         label: {
@@ -55,6 +57,10 @@ export class DataForm {
         return `${buyer.Code} - ${buyer.Name}`;
     }
 
+    get localSalesNoteLoader() {
+        return SalesNoteLoader;
+    }
+
     bind(context) {
         this.context = context;
         this.data = context.data;
@@ -73,6 +79,10 @@ export class DataForm {
                 };
             });
             this.Options.existingItems=this.existingItems;
+            this.selectedSalesNote = {
+                noteNo: this.data.LocalSalesNoteNo
+            };
+
         }
     }
 
@@ -88,5 +98,17 @@ export class DataForm {
             //this.Options.error = null;
      };
     }
+
+    selectedSalesNoteChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.LocalSalesNoteNo = null;
+        this.data.LocalSalesNoteId = 0;
+        if (newValue) {
+            this.data.LocalSalesNoteNo = newValue.noteNo;
+            this.data.LocalSalesNoteId = newValue.id;
+        }
+    }
+
 
 }

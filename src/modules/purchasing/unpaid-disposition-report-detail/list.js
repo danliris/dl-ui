@@ -78,6 +78,17 @@ export class List {
     { header: "Total", value: "Total" },
   ];
 
+  columnsCategory = [
+    {header : "Category", value: "CategoryName"},
+    {header: "Total", value:"Total"},
+  ];
+
+  columnsCategoryValas = [
+    {header : "Category", value: "CategoryName"},
+    {header :"Currency", value: "CurrencyCode"},
+    {header: "Total", value:"Total"},
+  ];
+
   constructor(router, service) {
     this.service = service;
     this.router = router;
@@ -93,6 +104,7 @@ export class List {
   isImport = false;
   unitSummary = [];
   currencySummary = [];
+  categorySummary = [];
 
   bind() {}
 
@@ -103,6 +115,7 @@ export class List {
       this.activeTitle = title;
       this.unitSummary = [];
       this.currencySummary = [];
+      this.categorySummary = [];
       this.data = [];
       this.isEmpty = true;
       this.division = null;
@@ -139,6 +152,7 @@ export class List {
     // this.tableList.refresh();
     let unitSummary = [];
     let currencySummary = [];
+    let categorySummary = [];
 
     let arg = {
       categoryId: this.category ? this.category._id : 0,
@@ -164,6 +178,18 @@ export class List {
       if (result && result.CurrencySummaries.length > 0)
         result.CurrencySummaries.map((data) =>
           currencySummary.push({
+            CurrencyCode: data.CurrencyCode,
+            Total: numeral(data.SubTotal).format("0,000.00"),
+          })
+        );
+
+        if (result && result.CategorySummaries.length > 0)
+        result.CategorySummaries.map((data) =>
+          categorySummary.push({            
+            CategoryName: categorySummary.some((x) => x.CategoryName === data.CategoryName)?
+            ""
+            :data.CategoryName,
+            //CategoryName: data.CategoryName,
             CurrencyCode: data.CurrencyCode,
             Total: numeral(data.SubTotal).format("0,000.00"),
           })
@@ -233,6 +259,7 @@ export class List {
       this.isEmpty = dataCount > 0 ? false : true;
       this.unitSummary = unitSummary;
       this.currencySummary = currencySummary;
+      this.categorySummary = categorySummary;
       return viewDataSet;
     });
     // console.log(this.data);
@@ -250,6 +277,7 @@ export class List {
     this.data = [];
     this.unitSummary = [];
     this.currencySummary = [];
+    this.categorySummary = [];
     // this.tableList.refresh();
   }
 

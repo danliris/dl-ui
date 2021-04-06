@@ -16,9 +16,16 @@ export class ItemView {
         //         this.data.currencyIDR="IDR";
         //     }
         // }
+        // this.data.DiffTotalPaidPayment = this.data.TotalPaid-(this.data.TotalPaidPayment+this.data.TotalPaidPaymentBefore)
+        // this.data.DiffTotalPaidPayment = parseInt(this.data.TotalPaid,10) - (parseInt(this.data.TotalPaidPayment,10)+parseInt(this.data.TotalPaidPaymentBefore,10));
     }
 
     toggle() {
         this.isShowing = !this.isShowing;
+    }
+    TotalPaidPaymentChanged(e){
+        // console.log("Total Paid Changed",e)
+        this.data.DiffTotalPaidPayment = this.data.TotalPaid-(e.srcElement.value+this.data.TotalPaidPaymentBefore)
+        
     }
 }

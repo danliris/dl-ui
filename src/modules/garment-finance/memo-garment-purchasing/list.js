@@ -88,7 +88,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result);
+                // console.log(result);
 
                 return {
                     total: result.info.total,
@@ -106,7 +106,7 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                // this.service.getPdfById(data.Id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
