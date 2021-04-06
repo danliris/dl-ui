@@ -343,6 +343,20 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+{
+        route: "inventory/garment/leftover-warehouse/expenditure/accessories",
+        name: "inventory/garment/leftover-warehouse/expenditure/accessories",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/accessories/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - ACCESSORIES",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
     {
         route: "inventory/garment/leftover-warehouse/expenditure/finished-good",
         name: "inventory/garment/leftover-warehouse/expenditure/finished-good",
@@ -385,4 +399,5 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    
 ]
