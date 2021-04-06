@@ -138,15 +138,17 @@ export class DataForm {
     async selectedROChanged(newValue, oldValue){
         if(this.context.isCreate){
             if(newValue) {
-                
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);
                 }
                 this.context.error.Items = [];
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
-                this.data.Comodity = newValue.Comodity;
-                
+                this.data.Comodity = {
+                    Id:newValue.ComodityId,
+                    Code:newValue.ComodityCode,
+                    Name: newValue.ComodityName
+                }
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
                 
                 if(priceResult.data.length>0){
@@ -158,7 +160,6 @@ export class DataForm {
 
                 Promise.resolve(this.service.searchFinishingInComplete({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id ,"Items.Any(RemainingQuantity>0)":true}) }))
                     .then(result => {
-                        
                         for(var finishingIn of result.data){
                             for(var finishingInItem of finishingIn.Items){
                                 var item={};
