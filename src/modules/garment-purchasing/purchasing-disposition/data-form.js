@@ -3,7 +3,8 @@ import { Service } from "./service";
 import {moment} from "moment";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 // var CurrencyLoader = require('../../../loader/garment-currency-loader');
-var CurrencyLoader = require('../../../loader/garment-currencies-by-latest-date-loader');
+// var CurrencyLoader = require('../../../loader/garment-currencies-by-latest-date-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-bi-by-latest-date-loader');
 var CategoryLoader = require('../../../loader/garment-category-loader');
 
 //var IncomeTaxLoader = require('../../../loader/income-tax-loader');
@@ -159,7 +160,7 @@ export class DataForm {
 
     currencyView = (currency) => {
         // return currency.code+ " - " + currency.date.substring(0,10);
-        return currency.code;
+        return currency.Code;
         
     }
 
