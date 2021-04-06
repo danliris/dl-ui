@@ -192,6 +192,7 @@ export class List {
             ""
             :data.CategoryName,
             //CategoryName: data.CategoryName,
+            CurrencyCode :data.CurrencyCode,
             Total: numeral(data.SubTotal).format("0,000.00"),
           })
         );
