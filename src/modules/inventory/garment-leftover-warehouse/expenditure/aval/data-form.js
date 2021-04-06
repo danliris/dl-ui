@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
+const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
 
 @inject(Service)
 export class DataForm {
@@ -13,6 +14,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedType;
+    @bindable selectedSalesNote;
 
     controlOptions = {
         label: {
@@ -33,14 +35,22 @@ export class DataForm {
     };
 
     itemsColumnsFabric = [
-        { header: "Unit", value: "UnitCode" },
+        { header: "Unit Asal", value: "UnitCode" },
         { header: "Bon No", value: "AvalReceiptNo" },
         { header: "Jumlah ", value: "Quantity" },
+        { header: "Jumlah Keluar ", value: "Quantity" },
+        { header: "Satuan", value: "UomUnit" },
+    ];
+
+    viewItemsColumnsFabric = [
+        { header: "Unit Asal", value: "UnitCode" },
+        { header: "Bon No", value: "AvalReceiptNo" },
+        { header: "Jumlah Keluar ", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
     ];
 
     itemsColumnsAcc= [
-        { header: "Unit" },
+        { header: "Unit Asal" },
         { header: "Kode - Nama Barang" },
         { header: "Satuan" },
         { header: "Jumlah Stock" },
@@ -48,14 +58,14 @@ export class DataForm {
     ];
 
     viewItemsColumnsAcc=[
-        { header: "Unit" },
+        { header: "Unit Asal" },
         { header: "Kode - Nama Barang" },
         { header: "Satuan" },
         { header: "Jumlah Keluar" },
     ]
 
     expenditureToOptions=["JUAL LOKAL", "LAIN-LAIN"];
-    avalTypes=["AVAL FABRIC", "AVAL ACCESSORIES"];
+    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG"];
 
     get buyerLoader() {
         return BuyerLoader;
@@ -64,6 +74,10 @@ export class DataForm {
     
     buyerView = (buyer) => {
         return `${buyer.Code} - ${buyer.Name}`;
+    }
+
+    get localSalesNoteLoader() {
+        return SalesNoteLoader;
     }
 
     bind(context) {
@@ -87,6 +101,10 @@ export class DataForm {
                 };
             });
             this.Options.existingItems=this.existingItems;
+            this.selectedSalesNote = {
+                noteNo: this.data.LocalSalesNoteNo
+            };
+
         }
     }
 
@@ -114,4 +132,16 @@ export class DataForm {
             this.data.Items.splice(0);
         }
     }
+
+    selectedSalesNoteChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.LocalSalesNoteNo = null;
+        this.data.LocalSalesNoteId = 0;
+        if (newValue) {
+            this.data.LocalSalesNoteNo = newValue.noteNo;
+            this.data.LocalSalesNoteId = newValue.id;
+        }
+    }
+
 }

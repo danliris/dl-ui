@@ -16,6 +16,7 @@ export class DataForm {
     @bindable selectedType;
     @bindable isFabric = false;
     @bindable isAccessories = false;
+    @bindable isComponent = false;
 
     controlOptions = {
         label: {
@@ -45,7 +46,16 @@ export class DataForm {
         { header: "Satuan", value: "UomUnit" },
     ]
 
-    avalTypes=["AVAL FABRIC", "AVAL ACCESSORIES"];
+    componentItemsColumns=[
+        { header: "No Aval Komponen", value: "AvalComponentNo" },
+        { header: "RO No", value: "RONo" },
+        { header: "Artikel",value: "Article" },
+        { header: "Jumlah Aval",value: "Quantity" },
+        { header: "Satuan",value: "UomUnit" },
+    ]
+
+
+    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG","AVAL KOMPONEN"];
 
     get unitLoader() {
         return UnitLoader;
@@ -69,8 +79,10 @@ export class DataForm {
         this.selectedType=this.data.AvalType;
 
         this.isFabric= this.data.AvalType==="AVAL FABRIC";
-        this.isAccessories= this.data.AvalType==="AVAL ACCESSORIES";
+        this.isAccessories= this.data.AvalType==="AVAL BAHAN PENOLONG";
+        this.isComponent= this.data.AvalType==="AVAL KOMPONEN";
 
+       
         if (this.data && this.data.Id) {
             this.selectedUnitFrom = {
                 Code: this.data.UnitFrom.Code,
@@ -139,9 +151,12 @@ export class DataForm {
         if(newValue){
             this.data.AvalType=newValue;
             this.isFabric= this.data.AvalType==="AVAL FABRIC";
-            this.isAccessories= this.data.AvalType==="AVAL ACCESSORIES";
+            this.isAccessories= this.data.AvalType==="AVAL BAHAN PENOLONG";
+            this.isComponent= this.data.AvalType==="AVAL KOMPONEN";
 
         }
+
+        
         if(this.data.ROList && !this.data.Id)
             this.data.ROList.splice(0);
 
@@ -150,6 +165,8 @@ export class DataForm {
             this.data.Items.splice(0);
             this.data.TotalAval=0;
         }
+
+
     }
 
     selectedUnitFromChanged(newValue){
@@ -175,6 +192,12 @@ export class DataForm {
         };
     }
 
+    get addItemsComponent() {
+        return (event) => {
+            this.data.Items.push({})
+        };
+    }
+
     get removeItems() {
         return (event) => {
             this.error = null;
@@ -182,8 +205,10 @@ export class DataForm {
      };
     }
 
+
    //@computedFrom("data.Unit")
     get totalQuantity(){
+        
         if(this.data.ROList && this.isFabric){
             var qty=0;
             for(var item of this.data.ROList){
@@ -194,5 +219,17 @@ export class DataForm {
             }
             return qty;
         }
+
+        if(this.data.Items && this.isComponent ){
+            var qty=0;
+            for(var item of this.data.Items){
+                qty += item.Quantity;
+            }
+            return qty;
+        }
+
+       
     }
+
+    
 }

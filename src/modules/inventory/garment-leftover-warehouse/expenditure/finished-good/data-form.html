@@ -46,6 +46,25 @@
             if.bind="data.ExpenditureTo=='LAIN-LAIN'">
         </au-textbox>
 
+        <au-checkbox
+            label="Titip Jual"
+            value.bind="data.Consignment"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-autocomplete 
+            label="No Nota Penjualan Lokal" 
+            placeholder="Pilih Nota Penjualan Lokal" 
+            error.bind="error.LocalSalesNoteNo" 
+            loader.bind="localSalesNoteLoader" 
+            value.bind="selectedSalesNote"
+            if.bind="data.ExpenditureTo == 'JUAL LOKAL'"
+            text="noteNo"
+            read-only.bind="readOnly || isEdit" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-multiline 
             label="Keterangan" 
             placeholder="Masukkan Keterangan" 

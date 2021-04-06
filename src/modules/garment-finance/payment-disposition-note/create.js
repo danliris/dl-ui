@@ -34,7 +34,7 @@ export class Create {
         this.dialog = dialog;
         this.data = {};
         this.collection = {
-            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
+            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Selisih Total Yang Dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
         };
         
 
@@ -112,10 +112,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: 1000,
-                    filter: JSON.stringify({ "CurrencyCode": currency, "SupplierId": newVal.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": currency, "SupplierId": newVal.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: currency,
                     SupplierId: newVal.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }
@@ -149,6 +149,9 @@ export class Create {
                     //     exItem.purchasingDispositionExpeditionItemId = exItem.Id;
                     //     delete exItem.Id;
                     // }
+                    // console.log("Total paid",ex.TotalPaid )
+                    // console.log("Total PaidBefore",ex.TotalPaidPaymentBefore)
+                    // ex.DiffTotalPaidPayment=parseFloat(0);
                     expeditionDatas.push(ex);
                 }
                 console.log("expeditionDatas", expeditionDatas);
@@ -169,10 +172,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: 1000,
-                    filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: this.selectedCurrency.code,
                     SupplierId: this.selectedSupplier.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }
@@ -217,7 +220,7 @@ export class Create {
         this.data.CurrencyRate = 0;
         if (newVal) {
             this.data.CurrencyCode = newVal.code;
-            this.data.CurrencyId = newVal.id;
+            this.data.CurrencyId = newVal.Id;
             this.data.CurrencyRate = newVal.rate;
             // if (newVal.Code == "IDR") {
             //     this.sameCurrency = true;
@@ -227,10 +230,10 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: Number.MAX_SAFE_INTEGER,
-                    filter: JSON.stringify({ "CurrencyCode": this.data.CurrencyCode, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "4" }),
+                    filter: JSON.stringify({ "CurrencyCode": this.data.CurrencyCode, "SupplierId": this.selectedSupplier.Id, "IsPaid": false, "Position": "5" }),
                     CurrencyCode: this.data.CurrencyCode,
                     SupplierId: this.selectedSupplier.Id,
-                    Position: 4
+                    Position: 5
                 };
                 await this.DispositionData(arg);
             }

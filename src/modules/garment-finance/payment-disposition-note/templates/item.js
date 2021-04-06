@@ -10,7 +10,7 @@ export class Item {
         this.data = context.data
         this.isShowing = false;
         // this.data.Details= this.data.items;
-        console.log("items",this);
+        // console.log("items",this);
         // if(context.context.options){
         //     this.IDR= context.context.options.IDR;
         //     this.rate= context.context.options.rate;
@@ -20,6 +20,11 @@ export class Item {
         //         this.data.currencyIDR="IDR";
         //     }
         // }
+        // this.data.DiffTotalPaidPayment = this.data.TotalPaid-(this.data.TotalPaidPayment+this.data.TotalPaidPaymentBefore)     
+        // console.log("activae item ", this)   ;
+        // this.data.DiffTotalPaidPayment = parseInt(this.data.TotalPaid,10) - (parseInt(this.data.TotalPaidPayment,10)+parseInt(this.data.TotalPaidPaymentBefore,10));
+        // this.data.DiffTotalPaidPayment = parseFloat(this.data.TotalPaid)-(parseFloat(this.data.TotalPaidPayment)+parseFloat(this.data.TotalPaidPaymentBefore));
+        
         
     }
 
@@ -29,6 +34,11 @@ export class Item {
 
     onRemove() {
         this.bind();
+    }
+
+    TotalPaidPaymentChanged(e){
+        // console.log("Total Paid Changed",e);
+        this.data.DiffTotalPaidPayment = parseFloat(this.data.TotalPaid)-(parseFloat(e.srcElement.value)+parseFloat(this.data.TotalPaidPaymentBefore));
     }
 
 }

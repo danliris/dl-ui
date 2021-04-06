@@ -52,4 +52,18 @@ class GarmentPurchasingService extends RestService {
     }
 }
 
-export { Service, GarmentPurchasingService }
+const serviceCoreUri = 'master/garmentProducts';
+
+class GarmentCoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    getProductById(id) {
+        var endpoint = `${serviceCoreUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+}
+
+export { Service, GarmentPurchasingService, GarmentCoreService }

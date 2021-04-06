@@ -1,7 +1,7 @@
 <template>
     <au-input-form title.bind="title" with.bind="context">
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6"> -->
                 <au-textbox 
                     label="No Bon Penerimaan" 
                     value.bind="data.FinishedGoodReceiptNo" 
@@ -88,7 +88,7 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-multiline>
-            </div>
+            <!-- </div>
 
             <div class="col-md-6">
                 <au-textbox 
@@ -122,15 +122,26 @@
                     show.bind="selectedExpenditureGood"
                     options.bind="controlOptions">
                 </au-multiline>
-            </div>
+            </div> -->
         </div>
 
-        <au-collection 
+        <!-- <au-collection 
             columns.bind="itemsColumns" 
             items.bind="data.DataItems" 
             errors.bind="error.Items"
             read-only.bind="true">
-        </au-collection>
+        </au-collection> -->
 
+        <div class="form-group has-error">
+            <p if.bind="error.LeftoverComodity" class="help-block text-center">${error.LeftoverComodity}</p>
+        </div>
+        <au-collection
+            items.bind="data.DataItems"
+            errors.bind="error.Items"
+            columns.bind="itemsColumns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/item">
+        </au-collection>
     </au-input-form>
 </template>

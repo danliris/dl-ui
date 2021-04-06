@@ -1,6 +1,7 @@
 import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = 'garment/leftover-warehouse-receipts/aval';
+const uomServiceUri = 'master/uoms';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -19,6 +20,7 @@ class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
+       
         return super.post(endpoint, data);
     }
 
@@ -46,4 +48,17 @@ class GarmentProductionService extends RestService {
     }
 }
 
-export { Service, GarmentProductionService }
+class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    getUom(info) {
+        var endpoint = `${uomServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    
+}
+
+export { Service, GarmentProductionService,CoreService }

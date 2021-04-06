@@ -47,6 +47,18 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-autocomplete 
+            label="No Nota Penjualan Lokal" 
+            placeholder="Pilih Nota Penjualan Lokal" 
+            error.bind="error.LocalSalesNoteNo" 
+            loader.bind="localSalesNoteLoader" 
+            value.bind="selectedSalesNote"
+            if.bind="data.ExpenditureTo == 'JUAL LOKAL' "
+            text="noteNo"
+            read-only.bind="readOnly || isEdit" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-textbox 
             label="Keterangan Lain-lain" 
             value.bind="data.OtherDescription" 
@@ -71,7 +83,7 @@
         <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items" 
-            columns.bind="itemsColumnsFabric"
+            columns.bind="!readOnly ? itemsColumnsFabric : viewItemsColumnsFabric"
             read-only.bind="readOnly" 
             add.bind="addItems" 
             remove.bind="removeItems"
