@@ -2,7 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { GarmentCoreService, GarmentPurchasingService } from "./service";
 
 const UnitLoader = require('../../../../../loader/garment-units-loader');
-const UnitExpenditureNoteLoader = require('../../../../../loader/garment-unit-expenditure-note-loader');
+const UnitExpenditureNoteLoader = require('../../../../../loader/garment-unit-expenditure-note-custom-loader');
 
 @inject(GarmentPurchasingService, GarmentCoreService)
 export class DataForm {
@@ -48,13 +48,39 @@ export class DataForm {
 
     @computedFrom("data.RequestUnit")
     get unitExpenditureNoteFilter() {
-        return {
-            IsReceived: false,
-            ExpenditureType: "SISA",
-            StorageName: "GUDANG BAHAN BAKU",
-            UnitSenderId: (this.data.RequestUnit || {}).Id || 0
+        // return {
+        //     IsReceived: false,
+        //     ExpenditureType: "SISA",
+        //     StorageName: "GUDANG BAHAN BAKU",
+        //     UnitSenderId: (this.data.RequestUnit || {}).Id || 0
+        // };
+        return  [
+            {
+                Key: "IsReceived",
+                Condition: 2,
+                Value:false
+
+            },
+            {
+                Key: "ExpenditureType",
+                Condition: 2,
+                Value:"SISA"
+
+            },
+            {
+                Key: "StorageName",
+                Condition: 3,
+                Value:"GUDANG BAHAN BAKU"
+
+            },
+            {
+                Key: "UnitSenderId",
+                Condition: 2,
+                Value:(this.data.RequestUnit || {}).Id || 0
+
+            },
+        ]
         };
-    }
 
     bind(context) {
         this.context = context;
