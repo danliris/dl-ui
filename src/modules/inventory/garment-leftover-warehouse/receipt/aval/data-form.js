@@ -45,7 +45,7 @@ export class DataForm {
         { header: "Satuan", value: "UomUnit" },
     ]
 
-    avalTypes=["AVAL FABRIC", "AVAL ACCESSORIES"];
+    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG"];
 
     get unitLoader() {
         return UnitLoader;
@@ -69,7 +69,7 @@ export class DataForm {
         this.selectedType=this.data.AvalType;
 
         this.isFabric= this.data.AvalType==="AVAL FABRIC";
-        this.isAccessories= this.data.AvalType==="AVAL ACCESSORIES";
+        this.isAccessories= this.data.AvalType==="AVAL BAHAN PENOLONG";
 
         if (this.data && this.data.Id) {
             this.selectedUnitFrom = {
@@ -139,7 +139,7 @@ export class DataForm {
         if(newValue){
             this.data.AvalType=newValue;
             this.isFabric= this.data.AvalType==="AVAL FABRIC";
-            this.isAccessories= this.data.AvalType==="AVAL ACCESSORIES";
+            this.isAccessories= this.data.AvalType==="AVAL BAHAN PENOLONG";
 
         }
         if(this.data.ROList && !this.data.Id)
