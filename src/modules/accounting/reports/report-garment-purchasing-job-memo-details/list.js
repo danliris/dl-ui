@@ -124,7 +124,11 @@ export class List {
     }
 
     pdf() {
-
+        let url = "downloads/pdf?size=100&date="+this.data.Year + '-' + this.data.Month.value;
+        if(this.data.accountingBookType) {
+            url = url + "&filter=" +JSON.stringify({AccountingBookId: this.data.accountingBookType.Id})
+        }
+        this.service.getPdf(url);
     }
 
     excel() {
