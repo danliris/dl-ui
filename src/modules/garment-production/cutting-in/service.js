@@ -45,7 +45,7 @@ class Service extends RestService {
     }
 
     getPreparingByRo(info) {
-        var endpoint = `${preparingServiceUri}/get-by-ro`;
+        var endpoint = `${preparingServiceUri}/loader/ro`;
         return super.list(endpoint, info);
     }
 
