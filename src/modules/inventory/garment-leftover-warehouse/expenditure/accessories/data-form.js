@@ -3,7 +3,6 @@ import { GarmentPurchasingService } from "./service";
 
 const UnitLoader = require('../../../../../loader/garment-units-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
-const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
 
 @inject(GarmentPurchasingService)
 export class DataForm {
@@ -76,11 +75,6 @@ export class DataForm {
         return `${data.Code} - ${data.Name}`;
     }
 
-    get localSalesNoteLoader() {
-        return SalesNoteLoader;
-    }
-
-
     bind(context) {
         this.context = context;
         this.data = context.data;
@@ -98,10 +92,6 @@ export class DataForm {
                     Quantity: i.Quantity
                 };
             });
-
-            this.selectedSalesNote = {
-                noteNo: this.data.LocalSalesNoteNo
-            };
 
         }
 
@@ -134,17 +124,5 @@ export class DataForm {
 
         this.data.Buyer = newValue;
     }
-
-    selectedSalesNoteChanged(newValue) {
-        if (this.data.Id) return;
-
-        this.data.LocalSalesNoteNo = null;
-        this.data.LocalSalesNoteId = 0;
-        if (newValue) {
-            this.data.LocalSalesNoteNo = newValue.noteNo;
-            this.data.LocalSalesNoteId = newValue.id;
-        }
-    }
-
 
 }
