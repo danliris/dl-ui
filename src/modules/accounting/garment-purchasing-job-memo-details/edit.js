@@ -25,12 +25,12 @@ export class Edit {
 
   isValid() {
     let isValid = true;
+    const errorList = [];
     const Items = [];
-    const errorData = [];
 
     this.data.Items.map(item => {
       let itemError = {};
-      if (!item.GarmentCurrenciesId) {
+      if (!item.GarmentDeliveryOrderNo) {
         itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
         isValid = false;
       } 
@@ -41,55 +41,54 @@ export class Edit {
       }
 
       if (!item.PaymentRate) {
-        itemError.PaymentRate = 'Tidak boleh kosong';
+        itemError.PaymentRate = 'Rate Bayar tidak boleh kosong';
         isValid = false;
       }
+
+      if (!item.RemarksDetail) {
+        itemError.RemarksDetail = 'Keterangan tidak boleh kosong';
+        isValid = false;
+      }
+      item.MemoIdrAmount = item.MemoAmount * item.PurchasingRate;
       Items.push(item);
-      errorData.push(itemError);
+      errorList.push(itemError);
     });
-    this.error = { Items: errorData };
-    return { isValid, Items }
+    
+    return { isValid, Items, errorList }
   }
 
   saveCallback(event) {  
-    const { isValid, Items } = this.isValid;
+    let valid = this.isValid();
+    this.error = { Items: valid.errorList };
+    const isValid = valid.isValid;
+    const Items = valid.Items;
     if (isValid) {
-      if (this.data.Memo) {
-        if (Items.length > 0) {
-          const constructedData = {
-            MemoId: this.data.MemoId,
-            MemoDate: this.data.MemoDate,
-            AccountingBookId: this.data.AccountingBookId,
-            AccountingBookType: this.data.AccountingBookType,
-            GarmentCurrenciesId: this.data.CurrencyId,
-            GarmentCurrenciesCode: this.data.CurrencyCode,
-            GarmentCurrenciesRate: this.data.CurrencyRate,
-            IsPosted: this.data.IsPosted,
-            Remarks: this.data.Remarks,
-            Items: Items
-          };
-          this.service.update(constructedData)
-            .then((result) => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch((e) => {
-              console.log(e);
-                this.error = e;
-            })
-        } else {
-          alert('Item tidak boleh kosong!')
-        }
-      } else {
-        alert("No Memo tidak boleh kosong!");
-      }
-    } 
-    this.service.update(this.data)
-        .then(result => {
-            this.router.navigateToRoute('view', { id: this.data.Id });
-        })
-        .catch(e => {
+      if (Items.length > 0) {
+        const constructedData = {
+          Id: this.data.Id,
+          MemoId: this.data.MemoId,
+          MemoNo: this.data.MemoNo,
+          MemoDate: this.data.MemoDate,
+          AccountingBookId: this.data.AccountingBookId,
+          AccountingBookType: this.data.AccountingBookType,
+          GarmentCurrenciesId: this.data.GarmentCurrenciesId,
+          GarmentCurrenciesCode: this.data.GarmentCurrenciesCode,
+          GarmentCurrenciesRate: this.data.GarmentCurrenciesRate,
+          IsPosted: this.data.IsPosted,
+          Remarks: this.data.Remarks,
+          Items: Items
+        };
+        this.service.update(constructedData)
+          .then((result) => {
+              alert("Data berhasil diupdate");
+              this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+          })
+          .catch((e) => {
             this.error = e;
-        })
+          })
+      } else {
+        alert('Item tidak boleh kosong!')
+      }
+    }
   }
 }

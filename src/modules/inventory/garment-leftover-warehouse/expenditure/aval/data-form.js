@@ -42,6 +42,13 @@ export class DataForm {
         { header: "Satuan", value: "UomUnit" },
     ];
 
+    viewItemsColumnsFabric = [
+        { header: "Unit Asal", value: "UnitCode" },
+        { header: "Bon No", value: "AvalReceiptNo" },
+        { header: "Jumlah Keluar ", value: "Quantity" },
+        { header: "Satuan", value: "UomUnit" },
+    ];
+
     itemsColumnsAcc= [
         { header: "Unit Asal" },
         { header: "Kode - Nama Barang" },
