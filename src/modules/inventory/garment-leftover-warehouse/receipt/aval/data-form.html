@@ -59,6 +59,7 @@
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/ro-fabric">
         </au-collection>
 
+        
         <au-collection 
                 items.bind="data.Items" 
                 errors.bind="error.Items" 
@@ -69,6 +70,18 @@
                 options.bind="Options"
                 show.bind="isAccessories"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/accessories-item">
+        </au-collection>
+
+        <au-collection 
+                items.bind="data.Items" 
+                errors.bind="error.Items" 
+                columns.bind="componentItemsColumns"
+                read-only.bind="readOnly || isEdit" 
+                add.bind="addItemsComponent" 
+                remove.bind="removeItems"
+                options.bind="Options"
+                show.bind="isComponent"
+                item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/component-item">
         </au-collection>
 
         <au-numeric 
@@ -86,5 +99,23 @@
             options.bind="footerOptions"
             show.bind="isFabric">
         </au-numeric>
+
+        <au-numeric 
+            label="TOTAL AVAL KOMPONEN (PCS)" 
+            read-only.bind="true"
+            value.one-way="totalQuantity" 
+            options.bind="footerOptions"
+            if.bind="isComponent">
+        </au-numeric>
+        <au-numeric 
+            label="TOTAL AVAL KOMPONEN (KG)" 
+            value.bind="data.TotalAval" 
+            error.bind="error.TotalAval"
+            read-only.bind="readOnly"
+            options.bind="footerOptions"
+            show.bind="isComponent">
+        </au-numeric>
+
+        
     </au-input-form>
 </template>

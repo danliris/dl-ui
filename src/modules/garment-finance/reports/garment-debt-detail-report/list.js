@@ -112,7 +112,7 @@ export class List {
     return SupplierLoader;
   }
 
-  get currencyloader() {
+  get currencyLoader() {
     return GarmentCurrencyLoader;
   }
 

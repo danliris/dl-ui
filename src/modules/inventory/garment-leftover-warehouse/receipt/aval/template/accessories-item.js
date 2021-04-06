@@ -57,6 +57,7 @@ export class items {
 
     selectedProductChanged(newValue){
         this.data.Product=newValue;
+       
 
     }
 }
