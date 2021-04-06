@@ -132,13 +132,11 @@ export class List {
     }
 
     excel() {
-
-        let arg = {
-            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null
+        let url = "downloads/xls?size=100&date="+this.data.Year + '-' + this.data.Month.value;
+        if(this.data.accountingBookType) {
+            url = url + "&filter=" +JSON.stringify({AccountingBookId: this.data.accountingBookType.Id})
         }
-
-        this.service.getXls(arg)
+        this.service.getXls(url)
     }
 
     reset() {
