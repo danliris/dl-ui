@@ -131,6 +131,10 @@
             errors.bind="error.Items"
             read-only.bind="true">
         </au-collection> -->
+
+        <div class="form-group has-error">
+            <p if.bind="error.LeftoverComodity" class="help-block text-center">${error.LeftoverComodity}</p>
+        </div>
         <au-collection
             items.bind="data.DataItems"
             errors.bind="error.Items"
