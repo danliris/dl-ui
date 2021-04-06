@@ -9,15 +9,16 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "InvoiceNoReceive", title: "No Bon Penerimaan" },
-        { field: "RequestUnitName", title: "Unit Asal" },
-        { field: "UENNo", title: "No Bon Pengeluaran Unit" },
-        { field: "StorageFromName", title: "Gudang Asal" },
+        { field: "ExpenditureNo", title: "No Bon Pengeluaran" },
         {
-            field: "ReceiptDate", title: "Tgl Penerimaan Gudang", formatter: function (value, data, index) {
+            field: "ExpenditureDate", title: "Tgl Pengeluaran Gudang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "ExpenditureDestination", title: "Tujuan Pengeluaran " },
+        { field: "UnitExpenditureName", title: "Unit Tujuan" },
+        { field: "BuyerName", title: "Buyer" },
+        { field: "EtcRemark", title: "Keterangan Lain-lain" },
     ];
 
     loader = (info) => {
@@ -34,10 +35,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                // for (const data of result.data) {
-                //     data.UnitFromName = data.UnitFrom.Name;
-                //     data.StorageFromName = data.StorageFrom.name;
-                // }
+                for (const data of result.data) {
+                    data.UnitExpenditureName = data.UnitExpenditure.Name;
+                    data.BuyerName = data.Buyer.Name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -53,8 +54,6 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        console.log(arg);
-        console.log(arg.name);
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.Id });

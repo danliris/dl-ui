@@ -1,7 +1,7 @@
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'garment/leftover-warehouse-receipts/aval';
-const uomServiceUri = 'master/uoms';
+const serviceUri = 'garment/leftover-warehouse-expenditures/accessories';
+const stockServiceUri = 'garment/leftover-warehouse-stocks';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -20,7 +20,6 @@ class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
-       
         return super.post(endpoint, data);
     }
 
@@ -33,32 +32,30 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
-}
-
-const unitAvalProductsUri = 'aval-products';
-
-class GarmentProductionService extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-production");
-    }
-
-    getAvalProduct(info) {
-        var endpoint = `${unitAvalProductsUri}`;
-        return super.list(endpoint, info);
-    }
-}
-
-class CoreService extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "core");
-    }
-
-    getUom(info) {
-        var endpoint = `${uomServiceUri}`;
-        return super.list(endpoint, info);
-    }
-
     
+    searchStock(info) {
+        var endpoint = stockServiceUri;
+        return super.list(endpoint, info);
+    }
 }
 
-export { Service, GarmentProductionService,CoreService }
+const unitExpenditureNoteUri = 'garment-unit-expenditure-notes';
+const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
+
+class GarmentPurchasingService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    getUnitExpenditureNoteById(id) {
+        var endpoint = `${unitExpenditureNoteUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDeliveryOrderById(id) {
+        var endpoint = `${unitDeliveryOrderUri}/${id}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, GarmentPurchasingService }

@@ -3,8 +3,7 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 
 @inject(Router, Service)
-export class Edit {
-    isEdit = true;
+export class View {
 
     constructor(router, service) {
         this.router = router;
@@ -14,21 +13,22 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-      
-        this.error = {};
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data.Id });
+        this.router.navigateToRoute('list');
     }
 
-    saveCallback(event) {
-        this.service.update(this.data)
-            .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.Id });
-            })
-            .catch(e => {
-                this.error = e;
-            })
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
+
+    deleteCallback(event) {
+        if (confirm("Hapus?")) {
+            this.service.delete(this.data).then(result => {
+                this.cancelCallback();
+            });
+        }
+    }
+
 }
