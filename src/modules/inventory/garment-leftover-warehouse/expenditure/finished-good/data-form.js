@@ -32,6 +32,7 @@ export class DataForm {
     };
 
     itemsColumns = [
+        { header: "Komoditi", value: "LeftoverComodity" },
         { header: "Unit Asal", value: "UnitCode" },
         { header: "RO", value: "RONo" },
         { header: "Jumlah Stock", value: "StockQuantity" },
@@ -39,6 +40,7 @@ export class DataForm {
     ]
 
     viewItemsColumns = [
+        { header: "Komoditi", value: "LeftoverComodity" },
         { header: "Unit Asal", value: "UnitCode" },
         { header: "RO", value: "RONo" },
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
