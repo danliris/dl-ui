@@ -7,7 +7,7 @@ import { activationStrategy } from 'aurelia-router';
 import SupplierLoader from '../../../loader/garment-supplier-loader';
 import BankLoader from '../../../loader/account-banks-loader';
 
-import CurrencyLoader from '../../../loader/garment-currencies-by-latest-date-loader';
+import CurrencyLoader from '../../../loader/garment-currencies-bi-by-latest-date-loader';
 import Service from './service';
 
 @inject(Router, Service, Dialog)
