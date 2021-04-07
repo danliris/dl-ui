@@ -7,6 +7,7 @@ let AccountingBookLoader = require('../../../loader/accounting-book-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
+    @bindable title;
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
@@ -37,6 +38,11 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
+
         // if(this.data.AccountingBook)
         //     this.selectedGarmentCurrency = this.data.AccountingBook;
         // if(this.data.Currency)
@@ -54,7 +60,8 @@ export class DataForm {
             // return fetch("https://api.github.com/users").then(response => response.json())
             let args = {
                 keyword: keyword,
-                filter: JSON.stringify({date: this.data.MemoDate})
+                filter: JSON.stringify({date: this.data.MemoDate}),
+                size: 10
             }
             
             return this.coreService.search(args).then(res => {

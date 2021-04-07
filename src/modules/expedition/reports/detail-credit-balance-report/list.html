@@ -153,6 +153,17 @@
         read-only.bind="true"
       >
       </au-collection>
+      
     </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <au-collection
+          items.bind="categorySummary"
+          columns.bind="!isImport && !isValas ? columnsCategory : columnsCategoryValas"
+          read-only.bind="true"
+        >
+        </au-collection>
+  </div>
   </div>
 </template>

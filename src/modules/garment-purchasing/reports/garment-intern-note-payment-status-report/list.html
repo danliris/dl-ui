@@ -176,7 +176,7 @@
                     <td>Jenis Koreksi</td>
                     <td>No Kasbon</td>
                     <td>Tgl Kasbon</td>
-                    <td>Jumlah Bayar</td>  
+                    <td>Jumlah Bayar</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -210,7 +210,8 @@
                         <td>${IN.CorrType}</td>
                         <td>${IN.Nomor}</td>
                         <td>${IN.Tgl}</td>
-                        <td>${IN.Jumlah}</td>
+                        <!-- <td >${IN.Jumlah}</td> -->
+                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.Jumlah}</td>
                         <!--<td>${SJ['Satuan Barang']}</td>-->
                     </tr>
                 </tbody>

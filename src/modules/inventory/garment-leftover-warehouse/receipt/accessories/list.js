@@ -9,8 +9,8 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "ReceiptNoteNo", title: "No Bon Penerimaan" },
-        { field: "UnitFromName", title: "Unit Asal" },
+        { field: "InvoiceNoReceive", title: "No Bon Penerimaan" },
+        { field: "RequestUnitName", title: "Unit Asal" },
         { field: "UENNo", title: "No Bon Pengeluaran Unit" },
         { field: "StorageFromName", title: "Gudang Asal" },
         {
@@ -34,10 +34,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                for (const data of result.data) {
-                    data.UnitFromName = data.UnitFrom.Name;
-                    data.StorageFromName = data.StorageFrom.name;
-                }
+                // for (const data of result.data) {
+                //     data.UnitFromName = data.UnitFrom.Name;
+                //     data.StorageFromName = data.StorageFrom.name;
+                // }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -53,6 +53,8 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
+        console.log(arg);
+        console.log(arg.name);
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.Id });

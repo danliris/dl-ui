@@ -79,5 +79,19 @@ module.exports = [
             permission : {"C9": 1,"B6": 1,"B1": 1},
             iconClass : 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/customs/bc-23',
+        name: 'bc-23',
+        moduleId: './modules/customs/laporan-bc-23/index',
+        nav: true,
+        title: 'Laporan BC 23',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
 ]

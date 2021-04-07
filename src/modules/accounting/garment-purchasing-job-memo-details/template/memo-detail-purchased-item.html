@@ -62,7 +62,7 @@
                 value.bind="data.PaymentRate" 
                 error.bind="error.PaymentRate"
                 read-only.bind="readOnly" 
-                format = "0,0.00"
+                format = "0,0"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
@@ -77,7 +77,7 @@
             <au-numeric
                 value.bind="data.MemoDetailGarmentPurchasingDetail.DPPAmount + data.MemoDetailGarmentPurchasingDetail.VATAmount - data.MemoDetailGarmentPurchasingDetail.IncomeTaxAmount"
                 read-only.bind="true" 
-                format = "0,0.00"
+                format = "0,0.0000"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
@@ -94,7 +94,7 @@
             <au-numeric
                 value.bind="data.MemoAmount * data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0" 
                 read-only.bind="true" 
-                format = "0,0.00"
+                format = "0,0.0000"
                 options.bind="controlOptions">
             </au-numeric>
         </td>

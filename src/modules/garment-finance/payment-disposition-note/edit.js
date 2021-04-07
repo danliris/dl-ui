@@ -28,7 +28,7 @@ export class Edit {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
+            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Selisih Total Yang Dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
         };
     }
 

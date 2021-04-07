@@ -262,6 +262,20 @@ module.exports = [
       permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
+  },
+  {
+    route: "garment-finance/reports/down-payment-report",
+    name: "down-paymant-report",
+    moduleId: "./modules/garment-finance/reports/down-payment-report/index",
+    nav: true,
+    title: "Laporan Uang Muka",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: {"C9": 1},
+      iconClass: "fa fa-dashboard",
+    }
   }
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
