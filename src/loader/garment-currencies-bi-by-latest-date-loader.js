@@ -10,7 +10,7 @@ module.exports = function (keyword, filter) {
     var order = {
         "_LastModifiedUtc": "desc"
     };
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify(order), size: 10 })
+    return endpoint.find(resource, { keyword: keyword.toUpperCase(), filter: JSON.stringify(filter), order: JSON.stringify(order), size: 10 })
         .then(results => {
             var oneResult = [];
             // if (results.data.length > 0)
@@ -26,7 +26,9 @@ module.exports = function (keyword, filter) {
             return oneResult.map((currency) => {
                 currency.Id = currency.Id;
                 currency.Code = currency.Currency.Code;
+                currency.code = currency.Currency.Code;
                 currency.Rate = currency.Rate;
+                currency.rate = currency.Rate;
                 return currency;
             })
         });
