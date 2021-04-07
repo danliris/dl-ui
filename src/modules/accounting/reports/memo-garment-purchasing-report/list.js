@@ -45,6 +45,7 @@ export class List {
     this.isEmpty = true;
     this.totalCredit = 0;
     this.totalDebit = 0;
+    this.isValas = false;
   }
 
   async bind() {
@@ -64,8 +65,13 @@ export class List {
         month: this.info.month.value
     };
     
-    if (this.info.AccountingBook)
+    if (this.info.AccountingBook){
       arg.accountingBookId = this.info.AccountingBook.Id;
+      
+      if(this.info.AccountingBook.Type.toLowerCase() == 'pembelian lokal'){
+        arg.valas = this.isValas;
+      }
+    }
 
     this.data = await this.service.search(arg).then((result) => {
       if (result.data.length == 0) this.isEmpty = true;
@@ -92,8 +98,14 @@ export class List {
         month: this.info.month.value
     };
     
-    if (this.info.AccountingBook)
+    if (this.info.AccountingBook){
       arg.accountingBookId = this.info.AccountingBook.Id;
+      arg.accountingBookType = this.info.AccountingBook.Type;
+      
+      if(this.info.AccountingBook.Type.toLowerCase() == 'pembelian lokal'){
+        arg.valas = this.isValas;
+      }
+    }
 
     this.service.getXls(arg);
   }
@@ -104,8 +116,14 @@ export class List {
         month: this.info.month.value
     };
     
-    if (this.info.AccountingBook)
+    if (this.info.AccountingBook) {
       arg.accountingBookId = this.info.AccountingBook.Id;
+      arg.accountingBookType = this.info.AccountingBook.Type;
+      
+      if(this.info.AccountingBook.Type.toLowerCase() == 'pembelian lokal'){
+        arg.valas = this.isValas;
+      }
+    }
 
     this.service.getPdf(arg);
   }
@@ -128,4 +146,8 @@ export class List {
   accountingBookView = (accountingBook) => {
     return `${accountingBook.Code} - ${accountingBook.Type}`;
   };
+
+  onClickValas(e) {
+    this.isValas = e.target.checked
+  }
 }

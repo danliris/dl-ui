@@ -16,8 +16,13 @@ export class Service extends RestService {
   getXls(info) {
     var query = `?year=${info.year}&month=${info.month}`;
 
-    if (info.accountingBookId)
-      query += `&accountingBookId=${info.accountingBookId}`;
+    if (info.accountingBookId){
+      query += `&accountingBookId=${info.accountingBookId}&accountingBookType=${info.accountingBookType}`;
+
+      if(info.valas){
+        query += `&valas=${info.valas}`;
+      }
+    }
 
     let endpoint = `${serviceUri}/xls${query}`;
     return super.getXls(endpoint);
@@ -26,8 +31,13 @@ export class Service extends RestService {
   getPdf(info) {
     var query = `?year=${info.year}&month=${info.month}`;
 
-    if (info.accountingBookId)
-      query += `&accountingBookId=${info.accountingBookId}`;
+    if (info.accountingBookId){
+      query += `&accountingBookId=${info.accountingBookId}&accountingBookType=${info.accountingBookType}`;
+
+      if(info.valas){
+        query += `&valas=${info.valas}`;
+      }
+    }
 
     let endpoint = `${serviceUri}/pdf${query}`;
     return super.getPdf(endpoint);

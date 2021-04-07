@@ -32,6 +32,14 @@
             options.bind="controlOptions" >
         </au-autocomplete>
 
+        <au-checkbox 
+            label="Valas?" 
+            show.bind="isShowValas" 
+            value.bind="isValas" 
+            change.delegate="onClickValas($event)" 
+            options.bind="controlOptions">
+        </au-checkbox>
+
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
