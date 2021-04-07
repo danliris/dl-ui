@@ -54,6 +54,9 @@ export class List {
             this.itemYears.push(i.toString());
         }
 
+        this.isShowValas = false;
+        this.isValas = 0;
+
     }
 
 
@@ -64,9 +67,14 @@ export class List {
                 size: 100,
                 date: this.data.Year + '-' + this.data.Month.value,
                 filter : JSON.stringify({
-                    AccountingBookId: this.data.accountingBookType.Id
+                    AccountingBookId: this.data.accountingBookType.Id,
                 })
             }
+
+            if(this.isShowValas){
+                arg.valas = this.isValas ? 1 : 0;
+            }
+            
         } else {
             arg = {
                 size: 100,
@@ -117,6 +125,11 @@ export class List {
 
     accountingBookChanged(newValue) {
         this.data.accountingBookType = newValue;
+        if(newValue && newValue.Type.toLowerCase() == 'pembelian lokal'){
+            this.isShowValas = true;
+        }else {
+            this.isShowValas = false;
+        }
     }
 
     accountingBookView = (accountingBook) => {
@@ -127,6 +140,10 @@ export class List {
         let url = "downloads/pdf?size=100&date="+this.data.Year + '-' + this.data.Month.value;
         if(this.data.accountingBookType) {
             url = url + "&filter=" +JSON.stringify({AccountingBookId: this.data.accountingBookType.Id})
+
+            if(this.isShowValas){
+                url = url + "&valas=" + this.isValas;
+            }
         }
         this.service.getPdf(url);
     }
@@ -135,6 +152,10 @@ export class List {
         let url = "downloads/xls?size=100&date="+this.data.Year + '-' + this.data.Month.value;
         if(this.data.accountingBookType) {
             url = url + "&filter=" +JSON.stringify({AccountingBookId: this.data.accountingBookType.Id})
+
+            if(this.isShowValas){
+                url = url + "&valas=" + this.isValas;
+            }
         }
         this.service.getXls(url)
     }
@@ -150,6 +171,10 @@ export class List {
         this.data.Year = parseInt(moment().format('YYYY'));
         this.isEmpty = true;
         this.totalIdrAmount = numeral(0).format('0,0.0000');
+    }
+
+    onClickValas(e) {
+        this.isValas = e.target.checked
     }
 }
 export class KeysValueConverter {
