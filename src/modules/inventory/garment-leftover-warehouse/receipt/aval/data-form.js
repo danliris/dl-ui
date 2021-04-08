@@ -74,7 +74,8 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
-            checkedAll: this.context.isCreate == true ? false : true 
+            checkedAll: this.context.isCreate == true ? false : true,
+            header: this.data
         }
         this.selectedType=this.data.AvalType;
 
