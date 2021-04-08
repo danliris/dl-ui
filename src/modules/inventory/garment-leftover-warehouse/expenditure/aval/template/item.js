@@ -53,25 +53,26 @@ export class items {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        this.isFabric=this.data.type==="AVAL FABRIC";
+        //this.isFabric=this.data.type==="AVAL FABRIC";
 
         if(this.data){
             this.selectedUnit = this.data.Unit;
             this.selectedAval = {AvalReceiptNo : this.data.AvalReceiptNo || "" };
         }
-        if(this.isFabric){
-            this.uom="KG";
-        }
+        
+        this.uom="KG";
     }
 
     selectedAvalChanged(newValue){
         this.data.AvalReceiptId=0;
         this.data.AvalReceiptNo="";
         this.data.Quantity=0;
+        this.data.ActualQuantity=0;
         if(newValue){
             this.data.AvalReceiptId=newValue.Id;
             this.data.AvalReceiptNo=newValue.AvalReceiptNo;
             this.data.Quantity=newValue.TotalAval;
+            this.data.ActualQuantity=newValue.TotalAval;
         }
     }
 
@@ -80,6 +81,7 @@ export class items {
         this.data.AvalReceiptNo="";
         this.selectedAval=null;
         this.data.Quantity=0;
+        this.data.ActualQuantity=0;
         if(newValue)
             this.data.Unit=newValue;
         else{
@@ -88,6 +90,7 @@ export class items {
             this.data.AvalReceiptId=0;
             this.data.AvalReceiptNo="";
             this.data.Quantity=0;
+            this.data.ActualQuantity=0;
         }
     }
 }

@@ -27,6 +27,11 @@
             view-model.ref="selectedBuyerViewModel">
         </au-autocomplete>
 
+        <au-autocomplete label="No Nota Penjualan Lokal" placeholder="Pilih Nota Penjualan Lokal"
+            error.bind="error.LocalSalesNoteNo" loader.bind="localSalesNoteLoader" value.bind="selectedSalesNote"
+            text="noteNo" if.bind="data.ExpenditureDestination == 'JUAL LOKAL'" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-textbox label="Keterangan Lain-lain" placeholder="Masukkan Keterangan" value.bind="data.EtcRemark"
             error.bind="error.EtcRemark" read-only.bind="readOnly || isEdit" options.bind="controlOptions"
             show.bind="data.ExpenditureDestination == 'LAIN-LAIN'">
