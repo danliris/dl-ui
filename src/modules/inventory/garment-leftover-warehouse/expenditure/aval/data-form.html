@@ -88,7 +88,7 @@
             add.bind="addItems" 
             remove.bind="removeItems"
             options.bind="Options"
-            if.bind="data.AvalType=='AVAL FABRIC'"
+            if.bind="data.AvalType!='AVAL BAHAN PENOLONG'"
             item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item">
         </au-collection>
 
@@ -100,7 +100,7 @@
             add.bind="addItems" 
             remove.bind="removeItems"
             options.bind="Options"
-            if.bind="data.AvalType!='AVAL FABRIC'"
+            if.bind="data.AvalType=='AVAL BAHAN PENOLONG'"
             item-template="modules/inventory/garment-leftover-warehouse/expenditure/aval/template/item-accessories">
         </au-collection>
         
