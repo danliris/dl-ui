@@ -224,6 +224,8 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+
+    
     {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
@@ -752,6 +754,21 @@ module.exports = [
             group: "g-shipping",
             subGroup: "laporan",
             permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+
+    {
+        route: "garment-shipping/monitoring/cmt-sales",
+        name: "garment-shipping/monitoring/cmt-sales",
+        moduleId: "modules/garment-shipping/monitoring/garment-cmt-sales/index",
+        nav: true,
+        title: "Report Realisasi CMT Penjualan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "A3":1, "B1:":1, "B12":1,  "C9": 1, "C11": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
