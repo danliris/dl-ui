@@ -11,7 +11,7 @@ export class PurchasingService extends RestService {
     }
 
     dppVATBankExpenditureNotes(info) {
-        let endpoint = `${serviceUri}?supplierId=${info.supplierId}&currencyId=${info.currencyId}`;
+        let endpoint = `${serviceUri}?supplierId=${info.supplierId}&currencyCode=${info.currencyCode}`;
         return super.get(endpoint);
     }
 }

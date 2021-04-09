@@ -65,7 +65,7 @@ export class DataForm {
     ]
 
     expenditureToOptions=["JUAL LOKAL", "LAIN-LAIN"];
-    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG"];
+    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG", "AVAL KOMPONEN"];
 
     get buyerLoader() {
         return BuyerLoader;

@@ -2,6 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'detail-garment-purchasing/memo/report';
+const serviceUri2 = 'detail-garment-purchasing/memo/reports';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -13,10 +14,13 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getXls(info) {
-        var query = `?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+    getPdf(url) {
+        let endpoint = `${serviceUri2}/${url}`;
+        return super.getPdf(endpoint);
+    }
 
-        let endpoint = `${serviceUri}/downloads/xls${query}`;
+    getXls(url) {
+        let endpoint = `${serviceUri2}/${url}`;
         return super.getXls(endpoint);
     }
 }

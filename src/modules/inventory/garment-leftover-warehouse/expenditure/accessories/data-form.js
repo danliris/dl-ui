@@ -99,9 +99,16 @@ export class DataForm {
                 };
             });
 
+            this.selectedBuyer = {
+               Id: this.data.Buyer.Id,
+               Code: this.data.Buyer.Code,
+               Name: this.data.Buyer.Name 
+            };
+
             this.selectedSalesNote = {
                 noteNo: this.data.LocalSalesNoteNo
             };
+
 
         }
 

@@ -29,7 +29,7 @@
                 value.bind="selectedComodity"
                 error.bind="error.LeftoverComodity"
                 loader.bind="leftoverComodityLoader"
-                read-only.bind="readOnly"
+                read-only.bind="readOnly || data.Id"
                 placeholder="leftoverComodity"
                 text.bind="leftoverComodityView">
             </au-autocomplete>

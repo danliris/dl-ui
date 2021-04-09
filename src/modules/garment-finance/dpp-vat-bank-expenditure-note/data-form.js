@@ -103,7 +103,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.supplier && !this.readOnly) {
-                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyCode: this.currency.Code })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;
@@ -146,7 +146,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.currency && !this.readOnly) {
-                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyCode: this.currency.Code })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;
