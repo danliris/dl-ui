@@ -31,6 +31,13 @@ export class List {
         },
         { field: 'AccountingBook.Type', title: 'Jenis Buku' },
         { field: 'Currency.Code', title: 'Mata Uang' },
+        { 
+            field: 'TotalAmount', 
+            title: 'Nominal',
+            formatter: function(value, data, index) {
+                return numeral(value).format("0,000.00");
+            },
+        },
         { field: 'Remarks', title: 'Keterangan' }
     ];
 
