@@ -18,6 +18,12 @@ export class View {
         this.data = await this.service.getById(id);
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
+        console.log('detail', this.data)
+
+        if (this.data.isEdit){
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }
     }
 
     cancel(event) {
