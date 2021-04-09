@@ -30,8 +30,14 @@ export class Edit {
 
     this.data.Items.map(item => {
       let itemError = {};
-      if (!item.GarmentDeliveryOrderNo) {
-        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
+      
+      if (!item.BillsNo) {
+        itemError.BillsNo = 'No. BP Besar tidak boleh kosong';
+        isValid = false;
+      } 
+
+      if (!item.PaymentBills) {
+        itemError.PaymentBills = 'No. BP Kecil tidak boleh kosong';
         isValid = false;
       } 
 
@@ -78,14 +84,15 @@ export class Edit {
           Remarks: this.data.Remarks,
           Items: Items
         };
-        this.service.update(constructedData)
-          .then((result) => {
-              alert("Data berhasil diupdate");
-              this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
-          })
-          .catch((e) => {
-            this.error = e;
-          })
+        console.log('constructedData',constructedData);
+        // this.service.update(constructedData)
+        //   .then((result) => {
+        //       alert("Data berhasil diupdate");
+        //       this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+        //   })
+        //   .catch((e) => {
+        //     this.error = e;
+        //   })
       } else {
         alert('Item tidak boleh kosong!')
       }

@@ -2,7 +2,7 @@
     <tr>
         <require from="../../../../lib/number-format-value-converter"></require>
         <td>
-            <au-autocomplete 
+            <!--<au-autocomplete 
                 value.bind="dataDebt" 
                 error.bind="error.GarmentDeliveryOrderNo"
                 loader.bind="garmenDebtLoader"
@@ -11,7 +11,13 @@
                 text="GarmentDeliveryOrderNo"
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
-            </au-autocomplete>
+            </au-autocomplete>-->
+            <au-textbox 
+                value.bind="data.GarmentDeliveryOrderNo" 
+                read-only.bind="true" 
+                error.bind="error.GarmentDeliveryOrderNo"
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
@@ -21,18 +27,38 @@
             </au-textbox>
         </td>
         <td style="text-align:center;" class="col">
-            <au-textbox 
+            <!--<au-textbox 
                 value.bind="data.BillsNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox>-->
+            <au-autocomplete 
+                value.bind="dataDebt" 
+                error.bind="error.BillsNo"
+                loader.bind="garmentDebtLoaderBillsNo"
+                placeholder="Cari No. BP Besar" 
+                key="BillsNo"
+                text="BillsNo"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
         </td>
         <td style="text-align:center;" class="col">
-            <au-textbox 
+            <!--<au-textbox 
                 value.bind="data.PaymentBills" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox>-->
+            <au-autocomplete 
+                value.bind="dataDebt" 
+                error.bind="error.PaymentBills"
+                loader.bind="garmentDebtLoaderPaymentBills"
+                placeholder="Cari No. BP Kecil"
+                key="PaymentBills"
+                text="PaymentBills"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
         </td>
         <td style="text-align:center;" class="col">
             <au-textbox 
@@ -42,11 +68,16 @@
             </au-textbox>
         </td>
         <td class="col">
-            <au-textbox 
+            <!--<au-textbox 
                 value.bind="data.RemarksDetail" 
                 error.bind="error.RemarksDetail"
                 read-only.bind="readOnly"
                 placeholder="Tambah keterangan" 
+                options.bind="controlOptions">
+            </au-textbox>-->
+            <au-textbox 
+                value.bind="data.RemarksDetail"
+                read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
