@@ -17,7 +17,7 @@ search(info) {
     }
     
 generateExcel(info) { 
-        var endpoint = `${serviceUri}/download?unitName=${info.unitName}&supplierType=${info.supplierType}&supplierName=${info.supplierName}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/download?unitName=${info.unitName}&supplierType=${info.supplierType}&supplierName=${info.supplierName}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&jnsbc=${info.jnsbc}`;
         return super.getXls(endpoint);
     }
 }
