@@ -22,12 +22,18 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
+    reset(){
+        this.data = {};
+        this.error ={};        
+    }
+
     save(event) {
         console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {} , { replace: true, trigger: true });
+                this.reset();
             })
             .catch(e => {
                 if (e.statusCode == 500) {
@@ -37,4 +43,6 @@ export class Create {
                 }
             })
     }
+
+    
 }

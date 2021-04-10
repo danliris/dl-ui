@@ -35,7 +35,7 @@ export class InternNoteItem {
 		this.error = context.error;
 		this.isShowing = false;
     this.options = context.context.options;
-    console.log(context);
+    // console.log(context);
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
 			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
