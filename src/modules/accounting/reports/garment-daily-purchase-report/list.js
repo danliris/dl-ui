@@ -15,14 +15,14 @@ export class List {
     }
    
     unitName=null;    
-    supplierType = false;
+    supplierType = null;
     supplierName= " ";
     dateFrom = null;
     dateTo = null;
     @bindable JenisSpl;
     @bindable NamaSpl;
          
-    SupplierType = ['LOCAL', 'IMPORT'];
+    SupplierType = ['','LOCAL', 'IMPORT'];
     SupplierName = ['','DAN LIRIS', 'SELAIN DAN LIRIS'];
       
     get unitLoader() {
@@ -35,7 +35,8 @@ export class List {
 
     JenisSplChanged(newvalue) {
         if (newvalue) {
-            this.supplierType = newvalue === "LOCAL" ? false : true;          
+            this.supplierType = newvalue === "LOCAL" ? false : true;  
+            console.log(this.supplierType);        
         }
     }
 
@@ -43,7 +44,7 @@ export class List {
         {
             var info = {
             unitName : this.unitName ? this.unitName.Id : "",
-            supplierType : this.supplierType ? this.supplierType : "",
+            supplierType : this.JenisSpl ? this.supplierType : "",
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
@@ -59,39 +60,73 @@ export class List {
                   var subTotalSupplier3 = {};
                   var subTotalSupplier4 = {};
                   var subTotalSupplier5 = {}; 
+                  var subTotalSupplier6 = {}; 
+                  var subTotalSupplier7 = {}; 
+                  var subTotalSupplier8 = {};                                   
 
                   for (var data of result) {
                        var Supplier = data.PaymentBill;
-                       let Amount1 = 0,Amount2 = 0,Amount3 = 0,Amount4 = 0,Amount5 = 0;
+                       let Amount1 = 0,Amount2 = 0,Amount3 = 0,Amount4 = 0,Amount5 = 0,Amount6 = 0,Amount7 = 0,Amount8 = 0;
                        switch ( data.CodeRequirement) {
                        case 'BE' :
                             Amount1 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                             Amount2 = 0;
                             Amount3 = 0;
                             Amount4 = 0;
-                            Amount5 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                            
                             break;
                         case 'BP' :
                             Amount1 = 0;
                             Amount2 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                             Amount3 = 0;
                             Amount4 = 0;
-                            Amount5 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                            break;
-                            
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+                            break;                            
                         case 'BB' :
                             Amount1 = 0;
                             Amount2 = 0;
                             Amount3 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                             Amount4 = 0;
-                            Amount5 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                            
                             break;
-                        default:
+                        case 'PRC' :
                             Amount1 = 0;
                             Amount2 = 0;
                             Amount3 = 0;
                             Amount4 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                            Amount5 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                            
+                            break;    
+                        case 'PPN' :
+                            Amount1 = 0;
+                            Amount2 = 0;
+                            Amount3 = 0;
+                            Amount4 = 0;
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                          
+                            break;                                                       
+                        default:
+                            Amount1 = 0;
+                            Amount2 = 0;
+                            Amount3 = 0;
+                            Amount4 = 0;
+                            Amount5 = 0;
+                            Amount6 = 0;
+                            Amount7 = data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            Amount8 = data.Amount6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                            
                             break;     
                         }      
                      
@@ -115,7 +150,10 @@ export class List {
                             AmountBP : Amount2,
                             AmountBB : Amount3,
                             AmountBX : Amount4,
-                            AmountDPP : Amount5,
+                            AmountPPN : Amount5,
+                            AmountPPH : Amount6, 
+                            AmountDPPVLS : Amount7,
+                            AmountDPPIDR : Amount8, 
                         });
                     
                         if (!subTotalSupplier1[Supplier]) {
@@ -138,22 +176,50 @@ export class List {
                             subTotalSupplier5[Supplier] = 0;
                            } 
 
+                        if (!subTotalSupplier6[Supplier]) {
+                            subTotalSupplier6[Supplier] = 0;
+                           } 
+
+                        if (!subTotalSupplier7[Supplier]) {
+                            subTotalSupplier7[Supplier] = 0;
+                           } 
+                           
+                        if (!subTotalSupplier8[Supplier]) {
+                            subTotalSupplier8[Supplier] = 0;
+                           } 
+                       
                        switch (data.CodeRequirement) {
-                       case 'BE' :
+                        case 'BE' :
                             subTotalSupplier1[Supplier] += data.Amount6;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
                             break;
                         case 'BP' :
                             subTotalSupplier2[Supplier] += data.Amount6;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
                             break;                            
                         case 'BB' :
                             subTotalSupplier3[Supplier] += data.Amount6;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
                             break;
-                        default:
+                        case 'PRC' :
                             subTotalSupplier4[Supplier] += data.Amount6;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
+                            break;
+                        case 'PPN' :
+                            subTotalSupplier5[Supplier] = 0;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
+                            break;          
+                        default:
+                            subTotalSupplier6[Supplier] = 0;
+                            subTotalSupplier7[Supplier] += data.Amount;
+                            subTotalSupplier8[Supplier] += data.Amount6;
                             break;
                         }      
-
-                        subTotalSupplier5[Supplier] += data.Amount;
 
                         }
      
@@ -162,7 +228,11 @@ export class List {
                this.AmountTotal2 = 0;
                this.AmountTotal3 = 0;
                this.AmountTotal4 = 0;
-               this.AmountTotal5 = 0;   
+               this.AmountTotal5 = 0;
+               this.AmountTotal6 = 0; 
+               this.AmountTotal7 = 0;
+               this.AmountTotal8 = 0; 
+                                
                 
                for (var data in dataBySupplier) {
                    suppliers.push({
@@ -173,19 +243,28 @@ export class List {
                    subTotal2: (subTotalSupplier2[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal3: (subTotalSupplier3[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    subTotal4: (subTotalSupplier4[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),               
-                   subTotal5: (subTotalSupplier5[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),               
+                   subTotal5: (subTotalSupplier5[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),  
+                   subTotal6: (subTotalSupplier6[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 
+                   subTotal7: (subTotalSupplier7[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),  
+                   subTotal8: (subTotalSupplier8[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),                     
              });
                    this.AmountTotal1 += subTotalSupplier1[data];
                    this.AmountTotal2 += subTotalSupplier2[data];
                    this.AmountTotal3 += subTotalSupplier3[data];
                    this.AmountTotal4 += subTotalSupplier4[data];
-                   this.AmountTotal5 += subTotalSupplier5[data];                                      
+                   this.AmountTotal5 += subTotalSupplier5[data];  
+                   this.AmountTotal6 += subTotalSupplier6[data];   
+                   this.AmountTotal7 += subTotalSupplier7[data];  
+                   this.AmountTotal8 += subTotalSupplier8[data];                                                                            
                }
                this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.AmountTotal3 = this.AmountTotal3.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.AmountTotal4 = this.AmountTotal4.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.AmountTotal5 = this.AmountTotal5.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });            
+               this.AmountTotal6 = this.AmountTotal6.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                           
+               this.AmountTotal7 = this.AmountTotal7.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                           
+               this.AmountTotal8 = this.AmountTotal8.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });                                          
                this.suppliers = suppliers;
              });
         }
@@ -195,10 +274,11 @@ export class List {
         {
             var filter = {
             unitName : this.unitName ? this.unitName.Id : "",
-            supplierType : this.supplierType ? this.supplierType : "",
+            supplierType : this.JenisSpl ? this.supplierType : "",
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
            }
 
         this.service.generateExcel(filter)
@@ -219,7 +299,10 @@ export class List {
         this.AmountTotal2 = null;
         this.AmountTotal3 = null;
         this.AmountTotal4 = null;
-        this.AmountTotal5 = null;           
+        this.AmountTotal5 = null;     
+        this.AmountTotal6 = null;     
+        this.AmountTotal7 = null;     
+        this.AmountTotal8 = null;                   
     }
 
     dateFromChanged(e) {

@@ -32,19 +32,24 @@ export class items {
         return `${garmentAvalComponent.AvalComponentNo}`
     }
 
-  
+    @computedFrom("data.UnitFrom")
+    get avalLoaderFilter() {
+        return {
+            UnitId: (this.header.UnitFrom || {}).Id || 0,
+            "IsReceived==false":true
+        };
+    }
 
    async activate(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
+        this.header = context.context.options.header;
         if(!this.data.Uom){
             let result = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
             this.data.Uom=result.data[0];
         }
-        
-   
         if(this.data){
             this.selectedAvalComponent = this.data.AvalComponentNo;
             this.selectedUom = this.data.Uom;

@@ -37,27 +37,28 @@
           </div>
         <br>
         <table class="table table-bordered table-hover" id="myTable">
-            <thead>
+            <thead align="center">
                 <tr>
-                    <th class="text-center">Nomor</th>
-                    <th class="text-center">Supplier</th>
-                    <th class="text-center">Nomor Nota</th>
-                    <th class="text-center">No Bon Kecil</th>
-                    <th class="text-center">No Bea Cukai</th>
-                    <th class="text-center">Tipe Bea Cukai</th>
-                    <th class="text-center">No Surat Jalan</th>
-                    <th class="text-center">Nota Intern</th>
-                    <th class="text-center">Nama Unit</th>
-                    <th class="text-center">Nama Barang</th>
-                    <th class="text-center">Jumlah</th>
-                    <th class="text-center">Satuan</th>
-                    <th class="text-center">DPP</th>
-                    <th class="text-center">Mata Uang</th>
-                    <th class="text-center">Rate</th>     
-                    <th class="text-center">Bahan Embalase [Rp]</th>
-                    <th class="text-center">Bahan Pendukung [Rp]</th>
-                    <th class="text-center">Bahan Baku [Rp]</th>
-                    <th class="text-center">Proses [Rp]</th>                    
+                    <td class="text-center">Nomor</td>
+                    <td class="text-center">Supplier</td>
+                    <td class="text-center">Nomor Nota</td>
+                    <td class="text-center">No Bon Kecil</td>
+                    <td class="text-center">No Bea Cukai</td>
+                    <td class="text-center">Tipe Bea Cukai</td>
+                    <td class="text-center">No Surat Jalan</td>
+                    <td class="text-center">Nota Intern</td>
+                    <td class="text-center">Nama Unit</td>
+                    <td class="text-center">Nama Barang</td>
+                    <td class="text-center">Jumlah</td>
+                    <td class="text-center">Satuan</td>
+                    <td class="text-center">DPP VLS</td>
+                    <td class="text-center">DPP IDR</td>                    
+                    <td class="text-center">Mata Uang</td>
+                    <td class="text-center">Rate</td>     
+                    <td class="text-center">Bahan Embalase [Rp]</td>
+                    <td class="text-center">Bahan Pendukung [Rp]</td>
+                    <td class="text-center">Bahan Baku [Rp]</td>
+                    <td class="text-center">Proses [Rp]</td>                    
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +76,8 @@
                         <td>${data.NmBrg}</td>
                         <td class="text-right">${data.Jumlah}</td>
                         <td>${data.Satuan}</td>
-                        <td class="text-right"><strong>${data.AmountDPP}</strong></td>
+                        <td class="text-right"><strong>${data.AmountDPPVLS}</strong></td>                    
+                        <td class="text-right"><strong>${data.AmountDPPIDR}</strong></td>
                         <td>${data.MtUang}</td>
                         <td class="text-right">${data.Rate}</td>   
                         <td class="text-right"><strong>${data.AmountBE}</strong></td>
@@ -88,7 +90,8 @@
                        <td class="text-center" colspan="4"><strong>BO BON PUSAT KECIL</strong></td>
                        <td class="text-right" colspan="4"><strong>${supplier.supplier}</strong></td>
                        <td class="text-center" colspan="3"><strong>SUB TOTAL</strong></td>
-                       <td class="text-right"><strong>${supplier.subTotal5}</strong></td>                        
+                       <td class="text-right"><strong>${supplier.subTotal7}</strong></td>                                               
+                       <td class="text-right"><strong>${supplier.subTotal8}</strong></td>                        
                        <td class="text-left"><strong>${supplier.mtuang}</strong></td>     
                        <td class="text-center">.</td>                       
                        <td class="text-right"><strong>${supplier.subTotal1}</strong></td>
@@ -101,7 +104,8 @@
                         <td class="text-center">.</td>                       
                         <td class="text-center" colspan="10"><strong>T O T A L  P E M B E L I A N . . . . . . . .</strong></td>
                         <td class="text-center">.</td>                       
-                        <td class="text-right"><strong>${AmountTotal5}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal7}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal8}</strong></td>                        
                         <td class="text-center">.</td>                       
                         <td class="text-center">.</td>                       
                         <td class="text-right"><strong>${AmountTotal1}</strong></td>

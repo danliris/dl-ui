@@ -37,8 +37,14 @@ export class Create {
 
     this.data.MemoDetailGarmentPurchasingDetail.map(item => {
       let itemError = {};
-      if (!item.GarmentDeliveryOrderNo) {
-        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
+      console.log('item',item);
+      if (!item.BillsNo) {
+        itemError.BillsNo = 'No. BP Besar tidak boleh kosong';
+        isValid = false;
+      } 
+
+      if (!item.PaymentBills) {
+        itemError.PaymentBills = 'No. BP Kecil tidak boleh kosong';
         isValid = false;
       } 
 
@@ -52,20 +58,17 @@ export class Create {
         isValid = false;
       }
 
-      if (!item.RemarksDetail) {
-        itemError.RemarksDetail = 'Keterangan tidak boleh kosong';
-        isValid = false;
-      }
-
       if (item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderId) {
         Items.push({
-          RemarksDetail: item.RemarksDetail,
+          RemarksDetail: `${item.MemoDetailGarmentPurchasingDetail.SupplierCode} - ${item.MemoDetailGarmentPurchasingDetail.SupplierName}`,
           GarmentDeliveryOrderId: item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderId,
           GarmentDeliveryOrderNo: item.MemoDetailGarmentPurchasingDetail.GarmentDeliveryOrderNo,
           PaymentRate: item.PaymentRate,
           PurchasingRate: item.MemoDetailGarmentPurchasingDetail.CurrencyRate,
           MemoAmount: item.MemoAmount,
           MemoIdrAmount: item.MemoAmount * item.MemoDetailGarmentPurchasingDetail.CurrencyRate,
+          SupplierCode: item.MemoDetailGarmentPurchasingDetail.SupplierCode,
+          SupplierName: item.MemoDetailGarmentPurchasingDetail.SupplierName,
         })
       }
 
@@ -100,6 +103,7 @@ export class Create {
             Remarks: this.data.remarks,
             MemoDetailGarmentPurchasingDetail: Items
           };
+
           this.service.create(constructedData)
             .then((result) => {
                 alert("Data berhasil dibuat");

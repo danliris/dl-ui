@@ -84,6 +84,7 @@ export class List {
           x.MemoGarmentPurchasing.MemoDate = x.MemoGarmentPurchasing.MemoDate ? moment(x.MemoGarmentPurchasing.MemoDate).format('DD MMM YYYY') : "-";
           x.DebitNominal = x.DebitNominal ? numeral(x.DebitNominal).format('0,0.0000') : '0';
           x.CreditNominal = x.CreditNominal ? numeral(x.CreditNominal).format('0,0.0000') : '0';
+          x.MemoGarmentPurchasing.Remarks = x.MemoGarmentPurchasing.Remarks ? x.MemoGarmentPurchasing.Remarks : '-'; 
           return x;
       });
     });

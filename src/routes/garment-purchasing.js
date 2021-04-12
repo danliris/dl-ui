@@ -912,13 +912,15 @@ module.exports = [
      {
         route: 'garment-cmt-report',
         name: 'garment-cmt-report',
-        moduleId: './modules/garment-purchasing/reports/garment-report-cmt/index',
+        moduleId: './modules/garment-purchasing/reports/garment-realization-cmt-report/index',
+     
         nav: true,
         title: 'Laporan Realisasi CMT',
         auth: true,
         settings: {
             group: "g-purchasing",
-            // permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
+            subGroup: "laporan",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
      },
