@@ -84,15 +84,15 @@ export class Edit {
           Remarks: this.data.Remarks,
           Items: Items
         };
-        console.log('constructedData',constructedData);
-        // this.service.update(constructedData)
-        //   .then((result) => {
-        //       alert("Data berhasil diupdate");
-        //       this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
-        //   })
-        //   .catch((e) => {
-        //     this.error = e;
-        //   })
+        
+        this.service.update(constructedData)
+          .then((result) => {
+              alert("Data berhasil diupdate");
+              this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+          })
+          .catch((e) => {
+            this.error = e;
+          })
       } else {
         alert('Item tidak boleh kosong!')
       }
