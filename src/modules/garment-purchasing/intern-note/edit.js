@@ -21,6 +21,7 @@ export class Edit {
         this.data.items.map((items) => {
             items.check = true;
         });
+        this.data.isView = false;
     }
 
     bind() {

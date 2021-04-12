@@ -85,8 +85,12 @@ export class DataForm {
             this.data.items = [];
             this.supplier = null;
         }
-        this.data.items = [];
-        this.context.error.items = [];
+
+        if (!this.data.isView){
+            this.data.items = [];
+            this.context.error.items = [];
+        }
+        
     }
 
     supplierChanged(newValue, oldValue) {
@@ -96,14 +100,18 @@ export class DataForm {
             this.data.supplierId = selectedSupplier.Id;
             this.options.supplierId = selectedSupplier.Id;
             this.options.currencyCode = this.data.currency.code;   
+            this.data.supplier.isView = false;
         }
         else {
             this.data.supplier = null;
             this.data.supplierId = null;
             this.data.items = [];
         }
-        this.data.items = [];
-        this.context.error.items = [];
+
+        if (!this.data.isView){
+            this.data.items = [];
+            this.context.error.items = [];
+        }
     }
 
     resetErrorItems() {

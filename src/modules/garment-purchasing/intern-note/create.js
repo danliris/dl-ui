@@ -27,6 +27,7 @@ export class Create {
 
     bind() {
         this.error = {};
+        this.data.isView = false;
     }
 
     save() {

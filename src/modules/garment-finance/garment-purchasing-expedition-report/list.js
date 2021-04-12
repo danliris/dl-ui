@@ -287,7 +287,7 @@ export class List {
     }
 
     if (this.supplier) {
-      filter.supplierId = this.supplier.code;
+      filter.supplierId = this.supplier.Id;
     }
 
     if (this.status && this.status.value && this.status.value != 0) {
