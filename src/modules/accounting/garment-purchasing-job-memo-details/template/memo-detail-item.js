@@ -50,6 +50,7 @@ export class MemoDetailPurchasedItem {
     this.data.PurchasingRate = newValue.CurrencyRate;
     this.data.SaldoAkhir = newValue.DPPAmount + newValue.VATAmount - newValue.IncomeTaxAmount;
     this.data.MemoAmount = 0;
+    this.data.RemarksDetail = `${newValue.SupplierCode} - ${newValue.SupplierName}`
   }
 
   get getAmountIdr() {

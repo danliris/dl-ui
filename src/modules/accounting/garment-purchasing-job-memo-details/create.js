@@ -67,6 +67,8 @@ export class Create {
           PurchasingRate: item.MemoDetailGarmentPurchasingDetail.CurrencyRate,
           MemoAmount: item.MemoAmount,
           MemoIdrAmount: item.MemoAmount * item.MemoDetailGarmentPurchasingDetail.CurrencyRate,
+          SupplierCode: item.MemoDetailGarmentPurchasingDetail.SupplierCode,
+          SupplierName: item.MemoDetailGarmentPurchasingDetail.SupplierName,
         })
       }
 
