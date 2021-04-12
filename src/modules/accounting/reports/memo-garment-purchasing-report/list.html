@@ -41,6 +41,7 @@
                         <th>Tanggal Memo</th>
                         <th>Account No</th>
                         <th>Nama Perkiraan</th>
+                        <th>Keterangan</th>
                         <th>Debit</th>
                         <th>Kredit</th>
                     </tr>
@@ -49,7 +50,7 @@
                 <!--Table body-->
                 <tbody>
                     <tr show.bind="isEmpty">
-                        <td colspan="6">
+                        <td colspan="7">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
                     </tr>
@@ -65,11 +66,12 @@
                         <td>${datum.MemoGarmentPurchasing.MemoDate}</td>
                         <td>${datum.COA.No}</td>
                         <td>${datum.COA.Name}</td>
+                        <td>${datum.MemoGarmentPurchasing.Remarks}</td>
                         <td class="text-right">${datum.DebitNominal}</td>
                         <td class="text-right">${datum.CreditNominal}</td>
                     </tr>
                     <tr>
-                        <td class="text-right" colspan="4">TOTAL </td>
+                        <td class="text-right" colspan="5">TOTAL </td>
                         <td class="text-right">${totalDebit}</td>
                         <td class="text-right">${totalCredit}</td>
                     </tr>
