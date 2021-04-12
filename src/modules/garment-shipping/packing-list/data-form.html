@@ -58,7 +58,7 @@
 
                 <au-dropdown
                     label="Jenis Invoice"
-                    value.bind="data.invoiceType"
+                    value.bind="selectedInvoiceType"
                     error.bind="error.InvoiceType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="data.packingListType=='EXPORT' ? InvoiceTypeOptions : InvoiceTypeOptionsR"
@@ -242,6 +242,13 @@
                 </numeric>
             </div>
         </div>
+        <div class="class row">
+            <div class="col-sm-12">
+                <au-textbox label="TOTAL QUANTITY" value.bind="totalQuantities" error.bind="error.totalQuantities" read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+        </div>
         <div class="row">
             <au-textbox
                 label="SAY"
@@ -255,6 +262,17 @@
                 options.bind="controlOptions">
             </au-textbox>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <au-textbox
+                    label="Komoditi"
+                    value.bind="data.otherCommodity"
+                    error.bind="error.OtherCommodity"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+        </div>
         <div>
             <p class="help-block text-left tbl">MEASUREMENT</p>
         </div>
@@ -266,8 +284,9 @@
                 items.bind="data.measurements" 
                 errors.bind="error.Measurements" 
                 columns.bind="measureColumns"
-                read-only.bind="readOnly" 
-                read-only="true"
+                read-only.bind="readOnly || data.invoiceType=='DL'" 
+                add.bind="addMeasurements" 
+                remove.bind="removeMeasurements"
                 options.bind="Options"
                 item-template="modules/garment-shipping/packing-list/template/detail-measurement">
             </au-collection>

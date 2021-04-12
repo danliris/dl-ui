@@ -39,6 +39,8 @@ export class Edit {
                 this.data.useVat = this.data.items[0].useVat;
                 this.data.useIncomeTax = this.data.items[0].useIncomeTax;
                 this.data.incomeTax = this.data.items[0].incomeTax;
+                this.data.isPayVAT = this.data.items[0].isPayVAT;
+                this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
             }
         }
         this.service.update(this.data).then(result => {

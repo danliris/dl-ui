@@ -53,6 +53,8 @@ export class DeliveryOrderItem {
             "IsIncomeTax": this.context.context.items[0].data.useIncomeTax,
             "IncomeTaxName": this.context.context.items[0].data.incomeTax.Name,
             "IncomeTaxRate": this.context.context.items[0].data.incomeTax.Rate,
+            "IsPayVAT":this.context.context.items[0].data.isPayVAT,
+            "IsPayIncomeTax": this.context.context.items[0].data.isPayIncomeTax
           } 
           for(var item of this.context.context.items){
             this.filter[`EPONo == "${item.data.purchaseOrderExternal.no}"`]=false;
@@ -77,6 +79,8 @@ export class DeliveryOrderItem {
           "IsIncomeTax": this.context.context.options.isIncomeTax,
           "IncomeTaxName": this.context.context.options.incomeTaxName,
           "IncomeTaxRate": this.context.context.options.incomeTaxRate,
+          "IsPayVAT":this.context.context.items[0].data.isPayVAT,
+          "IsPayIncomeTax": this.context.context.items[0].data.isPayIncomeTax
         } 
         for(var item of this.context.context.items){
           this.filter[`EPONo == "${item.data.purchaseOrderExternal.no}"`]=false;
@@ -141,6 +145,8 @@ export class DeliveryOrderItem {
       this.data.currency.Code = newValue.Currency.Code;
       this.data.useVat = newValue.IsUseVat;
       this.data.useIncomeTax = newValue.IsIncomeTax;
+      this.data.isPayVAT = newValue.IsPayVAT;
+      this.data.isPayIncomeTax = newValue.IsPayIncomeTax;
       this.data.incomeTax={};
       if(this.data.useIncomeTax==true){
         this.data.incomeTax.Id = newValue.IncomeTax.Id;
@@ -232,6 +238,8 @@ export class DeliveryOrderItem {
         this.isShowing = true;
     }
     this.activate(this.context);
+    this.dataPassing ="passing data";
+    console.log("after change",this);
   }
 
   toggle() {

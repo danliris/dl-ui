@@ -18,7 +18,7 @@ export class Service extends RestService {
     }
     
     generateExcel(info) {
-      var endpoint = `${serviceUri}/monitoring/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&no=${info.no}&supplierCode=${info.supplierCode}&curencyCode=${info.curencyCode}&invoiceNo=${info.invoiceNo}&doNo=${info.doNo}&billNo=${info.billNo}&paymentBill=${info.paymentBill}`;
+      var endpoint = `${serviceUri}/monitoring/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&no=${info.no}&supplierCode=${info.supplierCode}&curencyCode=${info.curencyCode}&invoiceNo=${info.invoiceNo}&npn=${info.npn}&doNo=${info.doNo}&billNo=${info.billNo}&paymentBill=${info.paymentBill}`;
       return super.getXls(endpoint);
     }
     searchDeliveryOrder(info) {

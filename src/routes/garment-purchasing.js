@@ -586,7 +586,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            subGroup: "monitoring",
+            subGroup: "laporan",
             permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -912,13 +912,15 @@ module.exports = [
      {
         route: 'garment-cmt-report',
         name: 'garment-cmt-report',
-        moduleId: './modules/garment-purchasing/reports/garment-report-cmt/index',
+        moduleId: './modules/garment-purchasing/reports/garment-realization-cmt-report/index',
+     
         nav: true,
         title: 'Laporan Realisasi CMT',
         auth: true,
         settings: {
             group: "g-purchasing",
-            // permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
+            subGroup: "laporan",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B":1, "C1A":1, "C2C":1,"C2B":1,"C2A":1},
             iconClass: 'fa fa-dashboard'
         }
      },
@@ -962,6 +964,20 @@ module.exports = [
         }
     },
     {
+        route: '/laporan/laporan-flow-penerimaan',
+        name: 'laporan-flow-pengeluaran',
+        moduleId: './modules/garment-purchasing/reports/garment-unit-flow-penerimaan-report/index',
+        nav: true,
+        title: 'Laporan Flow Penerimaan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "laporan",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1, "GU" : 1, "P" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/laporan/laporan-flow-pengeluaran',
         name: 'laporan-flow-pengeluaran',
         moduleId: './modules/garment-purchasing/reports/garment-unit-flow-detail-material-report/index',
@@ -975,5 +991,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
+    {
+        route: '/garment-purchasing-disposition',
+        name: 'garment-purchasing-disposition',
+        moduleId: './modules/garment-purchasing/purchasing-disposition/index',
+        nav: true,
+        title: 'Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]

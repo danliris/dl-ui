@@ -270,6 +270,21 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "inventory/garment/leftover-warehouse/receipt/accessories",
+        name: "inventory/garment/leftover-warehouse/receipt/accessories",
+        moduleId: "modules/inventory/garment-leftover-warehouse/receipt/accessories/index",
+        nav: true,
+        title: "Penerimaan Gudang Sisa - ACCESSORIES",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
@@ -283,6 +298,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
@@ -296,6 +312,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
@@ -322,6 +339,21 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+{
+        route: "inventory/garment/leftover-warehouse/expenditure/accessories",
+        name: "inventory/garment/leftover-warehouse/expenditure/accessories",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/accessories/index",
+        nav: true,
+        title: "Pengeluaran Gudang Sisa - ACCESSORIES",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
@@ -335,9 +367,11 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
-    },{
+    },
+    {
         route: "inventory/garment/leftover-warehouse/expenditure/aval",
         name: "inventory/garment/leftover-warehouse/expenditure/aval",
         moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/aval/index",
@@ -347,7 +381,23 @@ module.exports = [
         settings: {
             group: "Inventory",
             permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "inventory/garment/leftover-warehouse/master/comodity",
+        name: "inventory/garment/leftover-warehouse/master/comodity",
+        moduleId: "modules/inventory/garment-leftover-warehouse/master/comodity/index",
+        nav: true,
+        title: "Master Komoditi Gudang Sisa",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    
 ]

@@ -21,7 +21,7 @@
         <td class="col-sm-3">
           <au-numeric 
               value.bind="data.adjustmentValue" 
-              read-only.bind="readOnly || isEdit"
+              read-only.bind="readOnly || isEdit || isUpdated"
               options.bind="controlOptions"
               error.bind="error.AdjustmentValue" 
               format="0.0000">

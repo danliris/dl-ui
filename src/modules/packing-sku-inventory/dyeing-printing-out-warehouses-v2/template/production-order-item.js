@@ -27,6 +27,8 @@ export class ProductionOrderItem {
 
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
+      this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
+      
     }
     if (this.data.id == null){
       this.data.isremovable = true;
@@ -61,6 +63,8 @@ export class ProductionOrderItem {
     if (this.selectedDeliveryOrderSales && this.selectedDeliveryOrderSales.Id) {
       this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
       this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
+      this.data.destinationBuyerName = this.selectedDeliveryOrderSales.DestinationBuyerName;
+      console.log(this.selectedDeliveryOrderSales);
     }
   }
   changeCheckBox() {

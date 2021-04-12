@@ -20,12 +20,32 @@ export class View {
                 Id:this.data.SubconContractId,
             };
            
+            this.selectedContractType=this.data.ContractType;
         }
         this.getContractQty();
     }
 
     async getContractQty() {
         var subconContract = await this.service.readSubconContractById(this.data.SubconContractId);
+        if(this.data.ContractType=='SUBCON CUTTING'){
+            this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
+            .then((contract)=>{
+                var usedQty= 0;
+                if(contract.data.length>0){
+                    for(var subcon of contract.data){
+                        if(subcon.Id!=this.data.Id){
+                            for(var subconItem of subcon.Items){
+                                usedQty+=subconItem.Quantity;
+                            }
+                        }
+                        else{
+                            this.data.savedItems=subcon.Items;
+                        }
+                    }
+                }
+                this.data.QtyUsed=usedQty;
+            });
+        }
         this.data.ContractQty = subconContract.Quantity;
     }
 
@@ -39,7 +59,26 @@ export class View {
     }
 
     saveCallback(event) {
-        this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+        if(this.data.ContractType=="SUBCON BAHAN BAKU")
+            this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+        else{
+            this.data.UENId=0;
+            //this.data.UsedQty=this.data.ContractQty;
+            if(this.data.Items.length>0){
+                this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+                for(var item of this.data.Items){
+                    item.Product={
+                        Id:0
+                    };
+                    item.Uom={
+                        Id:0
+                    }
+                    item.UomOut={
+                        Id:0
+                    }
+                }
+            }
+        }
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

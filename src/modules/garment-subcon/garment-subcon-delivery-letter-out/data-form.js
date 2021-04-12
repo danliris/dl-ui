@@ -18,6 +18,7 @@ export class DataForm {
     @bindable selectedPO;
     @bindable selectedContract;
     @bindable selectedDLType;
+    @bindable selectedContractType;
 
     constructor(service,purchasingService,coreService) {
         this.service = service;
@@ -51,9 +52,15 @@ export class DataForm {
             "Design/Color",
             "Jumlah",
             "Satuan",
-            "Satuan Keluar",
             "Tipe Fabric",
             "Jumlah Keluar",
+            "Satuan Keluar",
+        ],
+        columnsCutting:[
+            "RO",
+            "No Cutting Out Subcon",
+            "Plan PO",
+            "Jumlah",
         ]
     }
 
@@ -90,21 +97,22 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
-            isEdit: this.isEdit,
-
+            isEdit: this.isEdit
         }
 
         if (this.data.Id) {
-            var uen= await this.purchasingService.getUENById(this.data.UENId);
-            this.selectedUEN={
-                UENNo:this.data.UENNo,
-                Id : this.data.UENId,
-                UnitDOId: uen.UnitDOId,
-                Items:uen.Items
-            };
-            this.selectedPO={
-                PO_SerialNumber: this.data.PONo,
-                Id:this.data.EPOItemId
+            if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+                var uen= await this.purchasingService.getUENById(this.data.UENId);
+                this.selectedUEN={
+                    UENNo:this.data.UENNo,
+                    Id : this.data.UENId,
+                    UnitDOId: uen.UnitDOId,
+                    Items:uen.Items
+                };
+                this.selectedPO={
+                    PO_SerialNumber: this.data.PONo,
+                    Id:this.data.EPOItemId
+                }
             }
         }
     }
@@ -112,10 +120,33 @@ export class DataForm {
     selectedDLTypeChanged(newValue){
         this.data.DLType=newValue;
         this.selectedUEN=null;
-        this.data.UENId = newValue.Id;
-        this.data.UENNo = newValue.UENNo;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
+        this.selectedContract=null;
+        this.data.ContractNo="";
+        this.data.SubconContractId=0;
+
+        this.itemOptions.DLType = this.data.DLType;
         this.data.ContractQty=0;
+        this.data.UsedQty=0;
+        this.data.QtyUsed=0;
         this.data.Items.splice(0);
+        this.context.selectedContractViewModel.editorValue="";
+    }
+
+    selectedContractTypeChanged(newValue){
+        this.data.ContractType=newValue;
+        this.selectedUEN=null;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
+        this.selectedContract=null;
+        this.data.ContractNo="";
+        this.data.SubconContractId=0;
+        this.data.ContractQty=0;
+        this.data.UsedQty=0;
+        this.data.QtyUsed=0;
+        this.data.Items.splice(0);
+        this.context.selectedContractViewModel.editorValue="";
     }
 
     contractView = (contract) => {
@@ -217,16 +248,18 @@ export class DataForm {
         
     }
 
-    selectedContractChanged(newValue){
+    async selectedContractChanged(newValue){
         this.selectedUEN=null;
-        this.data.UENId = newValue.Id;
-        this.data.UENNo = newValue.UENNo;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
         this.data.ContractQty=0;
-        this.data.Items.splice(0);
+        if(this.data.ContractType!='SUBCON CUTTING')
+            this.data.Items.splice(0);
         if(newValue){
             this.data.ContractNo=newValue.ContractNo;
             this.data.SubconContractId=newValue.Id;
             this.data.ContractQty=newValue.Quantity;
+            
         }
         else{
             this.data.ContractNo="";
@@ -235,18 +268,22 @@ export class DataForm {
             this.data.UENId = null;
             this.data.UENNo = "";
             this.data.ContractQty=0;
-            this.data.Items.splice(0);
+            this.context.selectedContractViewModel.editorValue="";
+            if(this.data.ContractType!='SUBCON CUTTING')
+                this.data.Items.splice(0);
         }
     }
 
     get totalQuantity(){
         var qty=0;
         if(this.data.Items){
-            for(var item of this.data.Items){
-                qty += item.Quantity;
-                
+            if(this.data.Items.length>0){
+                for(var item of this.data.Items){
+                    qty += item.Quantity;
+                }
+
             }
-            this.data.TotalQty=qty;
+            this.data.TotalQty=qty ? qty:0;
         }
         return qty;
     }
@@ -274,5 +311,17 @@ export class DataForm {
             this.data.PONo=newValue.PO_SerialNumber;
             this.data.EPOItemId=newValue.Id;
         }
+    }
+
+    get addItems() {
+        return (event) => {
+            this.data.Items.push({DLType:this.data.DLType});
+        };
+    }
+
+    get removeItems() {
+        return (event) => {
+            this.error = null;
+        };
     }
 }

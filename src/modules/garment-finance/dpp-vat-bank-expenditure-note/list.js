@@ -26,7 +26,11 @@ export class List {
         },
     },
     { field: "BankName", title: "Bank" },
-    { field: "TotalAmount", title: "Total DPP + PPN" },
+    {
+        field: "TotalAmount", title: "Total DPP + PPN", align: "right", formatter: function (value, data, index) {
+            return value ? numeral(value).format("0,000.00") : numeral(0).format("0,000.00");
+        }
+    },
     { field: "CurrencyCode", title: "Mata Uang" },
     { field: "SupplierName", title: "Supplier" },
     { field: "DocumentNoInternalNotes", title: "Nota Intern" }];

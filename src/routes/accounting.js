@@ -340,5 +340,75 @@ module.exports = [
       permission: { "B1": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route:'master-pembukuan',
+    name:'master-pembukuan',
+    moduleId: './modules/garment-finance/master-pembukuan/index',
+    nav: true,
+    title: 'Master Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: {"C9": 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route:'accounting/memo-garment-puchasing',
+    name:'memo-garment-puchasing',
+    moduleId: './modules/accounting/memo-garment-purchasing/index',
+    nav: true,
+    title: 'Memorial Pembelian Job Garment',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route:'accounting/reports/memo-garment-purchasing-report',
+    name:'memo-garment-puchasing-report',
+    moduleId: './modules/accounting/reports/memo-garment-purchasing-report/index',
+    nav: true,
+    title: 'Laporan Memo Pembelian Job Garment',  
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: "accounting/garment-purchasing-job-memo-details",
+    name: "garment-purchasing-job-memo-details",
+    moduleId: "./modules/accounting/garment-purchasing-job-memo-details/index",
+    nav: true,
+    title: "Rincian Memorial Pembelian Job Garment",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/reports-garment-purchasing-job-memo-details",
+    name: "reports-garment-purchasing-job-memo-details",
+    moduleId: "./modules/accounting/reports/report-garment-purchasing-job-memo-details/index",
+    nav: true,
+    title: "Laporan Rincian Memorial Pembelian Job Garment",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
   }
 ];

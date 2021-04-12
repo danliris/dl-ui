@@ -5,7 +5,8 @@ import moment from 'moment';
 
 const BankLoader = require('../shared/bank-account-loader');
 const SupplierLoader = require('../shared/garment-supplier-loader');
-const CurrencyLoader = require('../shared/garment-currency-loader');
+// const CurrencyLoader = require('../shared/garment-currency-loader');
+const CurrencyLoader = require('../../../loader/garment-currencies-by-latest-date-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {
@@ -43,9 +44,13 @@ export class DataForm {
         this.isNotEditable = this.context.isNotEditable;
 
         this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
+
         this.saveCallback = this.context.saveCallback;
+
+        if (!this.data.IsPosted) {
+            this.deleteCallback = this.context.deleteCallback;
+            this.editCallback = this.context.editCallback;
+        }
 
         if (!this.readOnly) {
             this.collection = {
@@ -98,7 +103,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.supplier && !this.readOnly) {
-                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyCode: this.currency.Code })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;
@@ -141,7 +146,7 @@ export class DataForm {
 
         if (newValue) {
             if (this.currency && !this.readOnly) {
-                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyId: this.currency.Id })
+                let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyCode: this.currency.Code })
                     .then((items) => {
                         return items.map((item) => {
                             item.Id = 0;

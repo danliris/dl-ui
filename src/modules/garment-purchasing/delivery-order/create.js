@@ -41,6 +41,8 @@ export class Create {
             this.data.currency = this.data.items[0].currency;
             this.data.useVat = this.data.items[0].useVat;
             this.data.useIncomeTax = this.data.items[0].useIncomeTax;
+            this.data.isPayVAT = this.data.items[0].isPayVAT;
+            this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
             this.data.incomeTax = this.data.items[0].incomeTax;
         }
         this.service.create(this.data)

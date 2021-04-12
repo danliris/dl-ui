@@ -8,6 +8,7 @@ export class Edit {
     hasCancel = true;
     hasSave = true;
     isEdit = true;
+    isUpdated = false;
     isCreate =false;
 
 

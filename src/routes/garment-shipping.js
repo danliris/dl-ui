@@ -224,6 +224,8 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+
+    
     {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
@@ -755,6 +757,21 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+
+    {
+        route: "garment-shipping/monitoring/cmt-sales",
+        name: "garment-shipping/monitoring/cmt-sales",
+        moduleId: "modules/garment-shipping/monitoring/garment-cmt-sales/index",
+        nav: true,
+        title: "Report Realisasi CMT Penjualan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "A3":1, "B1:":1, "B12":1,  "C9": 1, "C11": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
     {
         route: "garment-shipping/insurance-disposition",
         name: "garment-shipping/insurance-disposition",
@@ -764,7 +781,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-shipping",
-            subGroup: "monitoring",
+            subGroup: "transaksi",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
@@ -840,6 +857,20 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/packing-list-approved-all-user",
+        name: "garment-shipping/packing-list-approved-all-user",
+        moduleId: "modules/garment-shipping/packing-list-approved-all-user/index",
+        nav: true,
+        title: "Approved Packing List ( All User )",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "approval",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/payment-disposition",
         name: "garment-shipping/payment-disposition",
         moduleId: "modules/garment-shipping/payment-disposition/index",
@@ -891,6 +922,20 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/cost-structure",
+        name: "garment-shipping/cost-structure",
+        moduleId: "modules/garment-shipping/cost-structure/index",
+        nav: true,
+        title: "Struktur Biaya",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }

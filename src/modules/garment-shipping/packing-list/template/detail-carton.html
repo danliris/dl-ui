@@ -1,5 +1,13 @@
 <template>
     <tr>
+        <td>
+            <au-numeric
+                value.bind="data.index"
+                error.bind="error.Index"
+                format="0"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
         <td >
             <au-numeric
                 value.bind="carton1"
@@ -116,15 +124,15 @@
                 <tbody>
                     <tr>
                         <td>
-                            <au-numeric value.bind="length" read-only.bind="readOnly">
+                            <au-numeric value.bind="length" read-only.bind="readOnly||type!='DL'">
                             </au-numeric>
                         </td>
                         <td>
-                            <au-numeric value.bind="width" read-only.bind="readOnly">
+                            <au-numeric value.bind="width" read-only.bind="readOnly||type!='DL'">
                             </au-numeric>
                         </td>
                         <td>
-                            <au-numeric value.bind="height" read-only.bind="readOnly">
+                            <au-numeric value.bind="height" read-only.bind="readOnly||type!='DL'">
                             </au-numeric>
                         </td>
                         <td>

@@ -14,6 +14,7 @@ export class DataForm {
     @bindable selectedSection;
     @bindable selectedBuyer;
     @bindable selectedLC;
+    @bindable selectedInvoiceType;
 
     constructor(service, authService, coreService) {
         this.service = service;
@@ -256,6 +257,17 @@ export class DataForm {
         }
     }
 
+    selectedInvoiceTypeChanged(newValue){
+        if (newValue != this.data.invoiceType && this.data.items){
+            this.data.items.splice(0);
+            if(this.data.measurements)
+                this.data.measurements.splice(0);
+        }
+        if (newValue) {
+            this.data.invoiceType = newValue;
+        }
+    }
+
     selectedLCChanged(newValue) {
         if (newValue) {
             this.data.lcNo = newValue.documentCreditNo;
@@ -282,8 +294,8 @@ export class DataForm {
             for (var item of this.data.items) {
                 if (item.details) {
                     for (var detail of item.details) {
-                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2) < 0) {
-                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, cartonQuantity: detail.cartonQuantity });
+                        if (detail.cartonQuantity && cartons.findIndex(c => c.carton1 == detail.carton1 && c.carton2 == detail.carton2 && c.index == detail.index) < 0) {
+                            cartons.push({ carton1: detail.carton1, carton2: detail.carton2, index: detail.index, cartonQuantity: detail.cartonQuantity });
                         }
                     }
                 }
@@ -291,6 +303,36 @@ export class DataForm {
         }
         this.data.totalCartons = cartons.reduce((acc, cur) => acc + cur.cartonQuantity, 0);
         return this.data.totalCartons;
+    }
+
+    get totalQuantities() {
+        let quantities = [];
+        let result = [];
+        let units = [];
+        if (this.data.items) {
+            var no = 1;
+            for (var item of this.data.items) {
+                let unit = item.uom.unit || item.uom.Unit;
+                if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
+                    quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
+                    if(units.findIndex(u => u.unit == unit) < 0) {
+                        units.push({ unit: unit });
+                    }
+                }
+                no++;
+                
+            }
+        }
+        for (var u of units) {
+            let countableQuantities = 0;
+            for (var q of quantities) {
+                if (q.unit == u.unit) {
+                    countableQuantities += q.quantityTotal;
+                }
+            }
+            result.push(countableQuantities + " " + u.unit);
+        }
+        return result.join(" / ");
     }
 
     noImage = "images/no-image.jpg";

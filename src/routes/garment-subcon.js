@@ -17,7 +17,7 @@ module.exports = [
         name: 'service-subcon-cutting',
         moduleId: './modules/garment-subcon/garment-service-subcon-cutting/index',
         nav: true,
-        title: 'Subcon Jasa - Cutting',
+        title: 'Subcon Jasa - Komponen',
         auth: true,
         settings: {
             group: "g-subcon",
@@ -30,7 +30,7 @@ module.exports = [
       name: 'subcon-sewing',
       moduleId: './modules/garment-subcon/garment-service-subcon-sewing/index',
       nav: true,
-      title: 'Subcon Jasa - Sewing',
+      title: 'Subcon Jasa - Garment Wash',
       auth: true,
       settings: {
         group: "g-subcon",
