@@ -129,7 +129,7 @@ export class List {
               ),
             };
           } else if (!item.Date && item.Mutation != null) {
-            continue;
+            // continue;
             var newData = {
               Date: null,
               InvoiceNo: item.InvoiceNo,
@@ -166,7 +166,10 @@ export class List {
 
         return newDatas;
       });
-      //console.log(this.data);
+
+      console.log(this.data);
+      this.data = this.data.filter((element) => !(element.FinalBalance == null && element.Previous == null) || element.Date);
+      console.log(this.data);
     }
   }
 
