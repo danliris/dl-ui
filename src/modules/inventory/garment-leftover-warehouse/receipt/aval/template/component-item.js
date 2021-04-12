@@ -39,9 +39,11 @@ export class items {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-
-        let result = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
-        this.data.Uom=result.data[0];
+        if(!this.data.Uom){
+            let result = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
+            this.data.Uom=result.data[0];
+        }
+        
    
         if(this.data){
             this.selectedAvalComponent = this.data.AvalComponentNo;
