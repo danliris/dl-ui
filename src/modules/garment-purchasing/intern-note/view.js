@@ -5,22 +5,25 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class View {
-    hasCancel = true;
-    hasEdit = true;
-    hasDelete = true;
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.hasCancel = true;
+        this.hasEdit = true;
+        this.hasDelete = true;
     }
 
     async activate(params) {
         var id = params.id;
+        this.hasEdit = true;
+        this.hasDelete = true;
         this.data = await this.service.getById(id);
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
-        console.log('detail', this.data)
+        this.data.isView = true;
 
-        if (this.data.isEdit){
+        if (!this.data.isEdit){
             this.hasEdit = false;
             this.hasDelete = false;
         }
