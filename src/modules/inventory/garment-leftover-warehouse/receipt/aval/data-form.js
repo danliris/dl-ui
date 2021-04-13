@@ -161,7 +161,7 @@ export class DataForm {
         if(this.data.ROList && !this.data.Id)
             this.data.ROList.splice(0);
 
-        if(!this.data.Id){
+        if(!this.data.Id && this.data.Items){
 
             this.data.Items.splice(0);
             this.data.TotalAval=0;
@@ -174,8 +174,8 @@ export class DataForm {
         if (this.data.Id) return;
 
         this.data.UnitFrom = newValue;
-
-        this.data.ROList.splice(0);
+        if(this.data.ROList)
+            this.data.ROList.splice(0);
     }
 
     get addItems() {
