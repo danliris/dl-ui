@@ -80,7 +80,7 @@
                 add.bind="addItemsComponent" 
                 remove.bind="removeItems"
                 options.bind="Options"
-                if.bind="isComponent"
+                if.bind="data.UnitFrom &&isComponent"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/component-item">
         </au-collection>
 
