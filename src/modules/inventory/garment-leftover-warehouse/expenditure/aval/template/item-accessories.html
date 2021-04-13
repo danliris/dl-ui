@@ -22,6 +22,7 @@
                 text.bind = "productView"
                 show.bind="data.Unit"
                 select.bind="selectProduct"
+                view-model.ref="selectedProductViewModel"
                 query.bind= "filterAcc">
             </au-autocomplete>
         </td>
@@ -34,6 +35,7 @@
                 placeholder="satuan"
                 text.bind = "uomView"
                 show.bind="data.Unit && data.Product"
+                view-model.ref="selectedStockViewModel"
                 query.bind= "filterUom">
             </au-autocomplete>
         </td>

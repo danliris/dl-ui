@@ -83,12 +83,26 @@ export class items {
     }
 
     selectedProductChanged(newValue){
+        this.data.StockId=0;
+        this.data.Uom=null;
+        this.data.StockQuantity=0;
+        this.selectedStock=null;
+        this.data.Quantity=0;
+        this.selectedStockViewModel.editorValue="";
         if(newValue){
             this.data.Product={
                 Name: newValue.ProductName,
                 Code: newValue.ProductCode,
                 Id: newValue.ProductId
             }
+        }
+        else{
+            this.data.StockId=0;
+            this.data.Uom=null;
+            this.data.StockQuantity=0;
+            this.selectedStock=null;
+            this.data.Quantity=0;
+            this.selectedStockViewModel.editorValue="";
         }
     }
 
@@ -115,6 +129,8 @@ export class items {
         this.data.Quantity=0;
         this.selectedProduct=null;
         this.data.Product=null;
+        this.selectedStockViewModel.editorValue="";
+        this.selectedProductViewModel.editorValue="";
         if(newValue)
             this.data.Unit=newValue;
         else{
@@ -126,6 +142,8 @@ export class items {
             this.selectedProduct=null;
             this.data.Quantity=0;
             this.data.Product=null;
+            this.selectedStockViewModel.editorValue="";
+            this.selectedProductViewModel.editorValue="";
         }
     }
 }
