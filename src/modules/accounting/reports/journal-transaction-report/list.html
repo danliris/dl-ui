@@ -2,17 +2,24 @@
     <h1 class="page-header">Laporan Jurnal Transaksi</h1>
 
     <form class="form-horizontal">
-        <au-datepicker value.bind="dateFrom" label="Tanggal Awal" options.bind="controlOptions">
+        <au-datepicker value.bind="dateFrom"
+                       label="Tanggal Awal"
+                       options.bind="controlOptions">
         </au-datepicker>
 
-        <au-datepicker value.bind="dateTo" label="Tanggal Akhir" options.bind="controlOptions">
+        <au-datepicker value.bind="dateTo"
+                       label="Tanggal Akhir"
+                       options.bind="controlOptions">
         </au-datepicker>
 
         <div class="form-group">
-            <label for="contact" class="col-sm-5 control-label"></label>
+            <label for="contact"
+                   class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <button click.delegate="search()"
+                        class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()"
+                        class='btn btn-success'>Reset</button>
             </div>
         </div>
     </form>
@@ -26,6 +33,7 @@
                     <tr>
                         <th>Deskripsi</th>
                         <th>No Referensi</th>
+                        <th>Remark</th>
                         <th>Tanggal</th>
                         <th>Nama Akun</th>
                         <th>No Akun</th>
@@ -44,11 +52,16 @@
                     </tr>
                     <tr repeat.for="datum of data">
                         <!-- <td repeat.for="key of datum | keys" style="white-space: pre;" colspan="1">${datum[key]}</td> -->
-                        <td if.bind="datum.isHeader" rowspan.bind="datum.rowspanNumber">
+                        <td if.bind="datum.isHeader"
+                            rowspan.bind="datum.rowspanNumber">
                             ${datum.header.Description}
                         </td>
-                        <td if.bind="datum.isHeader" rowspan.bind="datum.rowspanNumber">
+                        <td if.bind="datum.isHeader"
+                            rowspan.bind="datum.rowspanNumber">
                             ${datum.header.ReferenceNo}</td>
+                        <td if.bind="datum.isHeader"
+                            rowspan.bind="datum.rowspanNumber">
+                            ${datum.header.HeaderRemark}</td>
 
                         <td>${datum.Date}</td>
                         <td>${datum.COAName}</td>
@@ -58,14 +71,18 @@
                         <td>${datum.Credit}</td>
                     </tr>
                     <tr>
-                        <td class="text-right" colspan="6">TOTAL </td>
+                        <td class="text-right"
+                            colspan="6">TOTAL </td>
                         <td>${totalDebit}</td>
                         <td>${totalCredit}</td>
                     </tr>
                 </tbody>
                 <!--Table body-->
-                <div style="margin-bottom: 1%" slot="toolbar" class="btn-group">
-                    <button class='btn btn-primary' click.delegate="excel()">Cetak Excel</button>
+                <div style="margin-bottom: 1%"
+                     slot="toolbar"
+                     class="btn-group">
+                    <button class='btn btn-primary'
+                            click.delegate="excel()">Cetak Excel</button>
                 </div>
             </table>
             <!--Table-->
