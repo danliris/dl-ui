@@ -37,8 +37,8 @@ export class DataForm {
     itemsColumnsFabric = [
         { header: "Unit Asal", value: "UnitCode" },
         { header: "Bon No", value: "AvalReceiptNo" },
-        { header: "Jumlah ", value: "Quantity" },
-        { header: "Jumlah Keluar ", value: "Quantity" },
+        { header: "Jumlah Awal", value: "Quantity" },
+        { header: "Jumlah Aktual ", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
     ];
 
