@@ -1,4 +1,4 @@
-import { RestService } from '../../../utils/rest-service';
+import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = "master/garment-leftover-warehouse-buyers";
 
