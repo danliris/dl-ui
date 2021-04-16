@@ -400,6 +400,20 @@ module.exports = [
         }
     },
     {
+        route: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
+        name: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/expenditure-leftover-report/index",
+        nav: true,
+        title: "Report Pengeluaran Gudang Sisa",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
       route: "inventory/garment/leftover-warehouse/master/buyer",
       name: "inventory/garment/leftover-warehouse/master/buyer",
       moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
@@ -427,5 +441,4 @@ module.exports = [
         iconClass: "fa fa-dashboard",
       },
     },
-    
 ]
