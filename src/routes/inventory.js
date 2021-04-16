@@ -413,6 +413,7 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
       route: "inventory/garment/leftover-warehouse/master/buyer",
       name: "inventory/garment/leftover-warehouse/master/buyer",
       moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
