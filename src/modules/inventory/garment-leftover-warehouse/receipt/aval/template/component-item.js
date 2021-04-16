@@ -31,16 +31,20 @@ export class items {
     AvalComponentNoView = (garmentAvalComponent) => {
         return `${garmentAvalComponent.AvalComponentNo}`
     }
-
+    
     @computedFrom("data.UnitFrom")
-    get avalLoaderFilter() {
-        return {
+    get avalLoaderFilter(){
+        var filter={
             UnitId: (this.header.UnitFrom || {}).Id || 0,
             "IsReceived==false":true
-        };
+        }
+        for(var item of this.context.context.items){
+            filter[`AvalComponentNo == "${item.data.AvalComponentNo}"`]=false;
+        }
+        return filter;
     }
-
-   async activate(context) {
+    
+    async activate(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
