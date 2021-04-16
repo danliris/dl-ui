@@ -252,6 +252,7 @@ export class DataForm {
 
     storageChanged(newValue) {
         var selectedStorage = newValue;
+        console.log(newValue)
         if (selectedStorage) {
             this.data.Storage = selectedStorage;
         }
@@ -446,11 +447,11 @@ export class DataForm {
                     })
             });
         }else{
-
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
+//, 'CreatedUtc > DateTime(2018, 12, 31)': "true"
+            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false"});
+            // if(this.isRemain || this.isSample){
+            //     filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
+            // }
             var info = {
               keyword: this.RONo,
               filter: filter
