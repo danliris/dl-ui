@@ -7,7 +7,7 @@ const serviceUri = 'preparings/wip';
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
         // super(http, aggregator, config, "customs-report");
-        super(http, aggregator, config, "garmentProduction");
+        super(http, aggregator, config, "garment-production");
     }
 
     search(info) {
