@@ -31,6 +31,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
+    
+    getPdfByFilterCarton(id) {
+        var endpoint = `${serviceUri}/draft/${id}/md/carton`;
+        return super.getPdf(endpoint);
+    }
 
     cancel(data) {
         var endpoint = `${serviceUri}/cancel/${data.id}`;
