@@ -339,15 +339,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -461,15 +452,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -661,7 +643,7 @@ export class DataForm {
         }
         else if (newValue) {
             console.log(newValue)
-            this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
+            this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id, POSerialNumber : newValue.POSerialNumber}) })
                     .then(result=>{
                         var selectedROHeader= result.data[0];
                         console.log(selectedROHeader)
