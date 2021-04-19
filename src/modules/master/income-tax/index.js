@@ -2,7 +2,8 @@ export class Index {
     configureRouter(config, router) {
         config.map([
             { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'List' },
-            { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View:Income Tax' }, 
+            { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View:Income Tax' },
+            { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Ubah:Income Tax' },
             { route: 'upload', moduleId: './upload', name: 'upload', nav: false, title: 'Upload:Income Tax' }
         ]);
 
