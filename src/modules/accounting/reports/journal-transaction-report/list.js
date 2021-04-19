@@ -63,6 +63,7 @@ export class List {
                         detail.header = item;
                         detail.header.Description = detail.header.Description ? detail.header.Description : "-";
                         detail.header.ReferenceNo = detail.header.ReferenceNo ? detail.header.ReferenceNo : "-";
+                        detail.header.HeaderRemark = detail.header.HeaderRemark ? detail.header.HeaderRemark : "-";
                         newData.push(detail);
                     }
                     // var newVM = {
