@@ -25,6 +25,14 @@ export class List {
         { field: 'CategoryName', title: 'Category' },
         { field: 'DivisionName', title: 'Divisi' },
         { field: 'PaymentMethod', title: 'Cara Pembayaran' },
+        { field: 'TotalDPP', title: 'Total DPP',formatter: function(value, data, index) {
+            return value ? numeral(value).format("0,000.00") : "-";
+        },
+        align: 'right' },
+        { field: 'TotalPPN', title: 'Total PPN',formatter: function(value, data, index) {
+            return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+        },
+        align: 'right' },
         // {
         //     field: 'DPP',
         //     title: 'DPP',
@@ -151,8 +159,9 @@ export class List {
         return this.flag ? (
             this.service.search(arg)
             .then((result) => {
-                console.log('hasil', result)
-
+                console.log('hasil', result);
+                // result.data = result.data.map(item=>{ item.TotalDPP =0; item.TotalPPN=0;});
+                // console.log('after map', result.data);
                 let before = {};
 
                 const dummy = [
@@ -296,7 +305,7 @@ export class List {
                 }
 
                 console.log('dummy', dummy);
-
+                
                 //#region 
                 for (let i in result.data) {
                     if (result.data[i].DocumentNo != before.DocumentNo) {
@@ -308,7 +317,9 @@ export class List {
                         before._PaymentMethod_rowspan = 1;
                         // before._DPP_rowspan = 1;
                         // before._VAT_rowspan = 1;
-                        // before._TotalPaid_rowspan = 1;
+                        before._TotalDPP_rowspan=1;
+                        before._TotalPPN_rowspan=1;
+                        before._TotalPaid_rowspan = 1;
                         before._BankName_rowspan = 1;
                         before._Currency_rowspan = 1;
                     } else {
@@ -319,13 +330,19 @@ export class List {
                         before._PaymentMethod_rowspan++;
                         // before._DPP_rowspan++;
                         // before._VAT_rowspan++;
-                        // before._TotalPaid_rowspan++;
+                        before._TotalDPP_rowspan++;
+                        before._TotalPPN_rowspan++;
+                        before._TotalPaid_rowspan++;
                         before._BankName_rowspan++;
                         before._Currency_rowspan++;
 
                         // before.DPP += result.data[i].DPP;
                         // before.VAT += result.data[i].VAT;
-                        // before.TotalPaid += result.data[i].TotalPaid;
+                        // before.TotalDPP += result.data[i].DPP;
+                        // before.TotalPPN += result.data[i].VAT;
+                        before.TotalDPP += result.data[i].TotalDPP;
+                        before.TotalPPN += result.data[i].TotalPPN;
+                        before.TotalPaid += result.data[i].TotalPaid;
 
                         result.data[i].DocumentNo = undefined;
                         result.data[i].Date = undefined;
@@ -334,11 +351,14 @@ export class List {
                         result.data[i].PaymentMethod = undefined;
                         // result.data[i].DPP = undefined;
                         // result.data[i].VAT = undefined;
-                        // result.data[i].TotalPaid = undefined;
+                        result.data[i].TotalDPP = undefined;
+                        result.data[i].TotalPPN = undefined;
+                        result.data[i].TotalPaid = undefined;
                         result.data[i].Currency = undefined;
                         result.data[i].BankName = undefined;
                     }
                 }
+                console.log("data",result.data);
                 //#endregion
 
                 setTimeout(() => {
