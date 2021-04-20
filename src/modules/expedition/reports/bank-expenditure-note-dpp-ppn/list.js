@@ -19,33 +19,34 @@ export class List {
             field: 'Date',
             title: 'Tanggal Bayar DPP + PPN',
             formatter: function(value, data, index) {
-                return value ? moment(value).format('DD MMM YYYY') : '';
+                return value ? moment(value).format('DD MMM YYYY') : "-";
             },
         },
         { field: 'CategoryName', title: 'Category' },
         { field: 'DivisionName', title: 'Divisi' },
         { field: 'PaymentMethod', title: 'Cara Pembayaran' },
-        {
-            field: 'DPP',
-            title: 'DPP',
-            formatter: function(value, data, index) {
-                return value ? numeral(value).format('0,000.00') : '';
-            },
-            align: 'right'
-        },
-        {
-            field: 'VAT',
-            title: 'PPN',
-            formatter: function(value, data, index) {
-                return value ? numeral(value).format('0,000.00') : '';
-            },
-            align: 'right'
-        },
+        // {
+        //     field: 'DPP',
+        //     title: 'DPP',
+        //     formatter: function(value, data, index) {
+        //         // return value ? numeral(value).format("0,000.00") : "-";
+        //         return value ? numeral(value).format("0,000.00") : undefined;
+        //     },
+        //     align: 'right'
+        // },
+        // {
+        //     field: 'VAT',
+        //     title: 'PPN',
+        //     formatter: function(value, data, index) {
+        //         return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+        //     },
+        //     align: 'right'
+        // },
         {
             field: 'TotalPaid',
             title: 'Total Bayar Ke Supplier',
             formatter: function(value, data, index) {
-                return value ? numeral(value).format('0,000.00') : '';
+                return value ? numeral(value).format("0,000.00") : undefined;
             },
             align: 'right'
         },
@@ -53,6 +54,23 @@ export class List {
         { field: 'BankName', title: 'Bank Bayar PPH' },
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'UnitPaymentOrderNo', title: 'No SPB' },
+        {
+            field: 'DPP',
+            title: 'DPP',
+            formatter: function(value, data, index) {
+                // return value ? numeral(value).format("0,000.00") : "-";
+                return value ? numeral(value).format("0,000.00") : undefined;
+            },
+            align: 'right'
+        },
+        {
+            field: 'VAT',
+            title: 'PPN',
+            formatter: function(value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        },
         { field: 'InvoiceNumber', title: 'No Invoice' }
     ];
 
@@ -76,6 +94,9 @@ export class List {
         this.service = service;
         this.info = {};
         this.error = {};
+
+        this.data = [];
+        this.isEmpty = true;
     }
 
     loader = (info) => {
@@ -130,9 +151,153 @@ export class List {
         return this.flag ? (
             this.service.search(arg)
             .then((result) => {
+                console.log('hasil', result)
 
                 let before = {};
 
+                const dummy = [
+                    {
+                        DocumentNo: "1910K0001",
+                        Date: "2019-10-27T17:00:00+00:00",
+                        SupplierName: "BUKUPEN-A",
+                        CategoryName: "ALAT TULIS",
+                        DivisionName: "Umum",
+                        PaymentMethod: "KREDIT",
+                        DPP: 11500,
+                        VAT: 0,
+                        Currency: "IDR",
+                        BankName: "CIMB NIAGA IDR - CIMB NIAGA - 8001.918.14.600 - IDR",
+                        UnitPaymentOrderNo: "18-07-T-NKL-0002",
+                        InvoiceNumber: "ewr",
+                        TotalPaid: 11500
+                      },
+                      {
+                        DocumentNo: "1910K0003",
+                        Date: "2019-10-27T17:00:00+00:00",
+                        SupplierName: "RAINBOW",
+                        CategoryName: "METERAI",
+                        DivisionName: "Garment",
+                        PaymentMethod: "KREDIT",
+                        DPP: 6.25,
+                        VAT: 0,
+                        Currency: "USD",
+                        BankName: "BCA USD - BCA - 015.29.7344.4 - USD",
+                        UnitPaymentOrderNo: "18-10-G-NKL-0001",
+                        InvoiceNumber: "inv",
+                        TotalPaid: 6.25
+                      },
+                      {
+                        DocumentNo: "1910K0003",
+                        Date: "2019-10-27T17:00:00+00:00",
+                        SupplierName: "RAINBOW CAKE",
+                        CategoryName: "METERAI",
+                        DivisionName: "Garment",
+                        PaymentMethod: "KREDIT",
+                        DPP: 6.25,
+                        VAT: 567,
+                        Currency: "USD",
+                        BankName: "BCA USD - BCA - 015.29.7344.4 - USD",
+                        UnitPaymentOrderNo: "18-10-G-NKL-0002",
+                        InvoiceNumber: "inv4",
+                        TotalPaid: 6.25
+                      },
+                      {
+                        DocumentNo: "1910K00035",
+                        Date: "2019-10-27T17:00:00+00:00",
+                        SupplierName: "MERAPI",
+                        CategoryName: "METERAI",
+                        DivisionName: "Garment",
+                        PaymentMethod: "KREDIT",
+                        DPP: 300,
+                        VAT: 567,
+                        Currency: "USD",
+                        BankName: "BCA USD - BCA - 015.29.7344.4 - USD",
+                        UnitPaymentOrderNo: "18-10-G-JKT-0002",
+                        InvoiceNumber: "inv46",
+                        TotalPaid: 60
+                      },
+                      {
+                        DocumentNo: "1910K00035",
+                        Date: "2019-10-27T17:00:00+00:00",
+                        SupplierName: "MERAPI KOTA",
+                        CategoryName: "METERAI",
+                        DivisionName: "Garment",
+                        PaymentMethod: "KREDIT",
+                        DPP: 6.25,
+                        VAT: 567,
+                        Currency: "USD",
+                        BankName: "BCA USD - BCA - 015.29.7344.4 - USD",
+                        UnitPaymentOrderNo: "18-10-G-JKT-0003",
+                        InvoiceNumber: "inv47",
+                        TotalPaid: 6.25
+                      }
+                ];
+                
+
+                // var myNewArrObj = [];
+                // for (var oldData of dummy) {
+                //     let existed = myNewArrObj.find(f => f.DocumentNo === oldData.DocumentNo);
+                //     console.log('adakah', existed);
+                //     if (!existed) {
+                //         var myObj = Object.assign({}, oldData);
+                //         oldData.items = [myObj];
+                //         myNewArrObj.push(oldData);
+                //     }
+                //     else {
+                //         existed.items.push(oldData);
+                //     }
+                // }
+
+                // console.log('akhir', myNewArrObj);
+
+                for (let i in dummy) {
+                    if (dummy[i].DocumentNo != before.DocumentNo) {
+                        before = dummy[i];
+                        before._DocumentNo_rowspan = 1;
+                        before._Date_rowspan = 1;
+                        before._CategoryName_rowspan = 1;
+                        before._DivisionName_rowspan = 1;
+                        before._PaymentMethod_rowspan = 1;
+                        before._DPP_rowspan = 1;
+                        before._VAT_rowspan = 1;
+                        before._TotalPaid_rowspan = 1;
+                        before._BankName_rowspan = 1;
+                        before._Currency_rowspan = 1;
+                    } else {
+                        before._DocumentNo_rowspan++;
+                        before._Date_rowspan++;
+                        before._CategoryName_rowspan++;
+                        before._DivisionName_rowspan++;
+                        before._PaymentMethod_rowspan++;
+                        before._DPP_rowspan++;
+                        before._VAT_rowspan++;
+                        before._TotalPaid_rowspan++;
+                        before._BankName_rowspan++;
+                        before._Currency_rowspan++;
+                        // before._SupplierName_rowspan++;
+
+                        before.DPP += dummy[i].DPP;
+                        before.VAT += dummy[i].VAT;
+                        before.TotalPaid += dummy[i].TotalPaid;
+
+                        dummy[i].DocumentNo = undefined;
+                        dummy[i].Date = undefined;
+                        dummy[i].CategoryName = undefined;
+                        dummy[i].DivisionName = undefined;
+                        dummy[i].PaymentMethod = undefined;
+                        dummy[i].DPP = undefined;
+                        dummy[i].VAT = undefined;
+                        dummy[i].TotalPaid = undefined;
+                        dummy[i].BankName = undefined;
+                        dummy[i].Currency = undefined;
+                        
+                        // dummy[i].SupplierName = dummy[i].SupplierName;
+                    }
+                }
+
+                console.log('dummy', dummy);
+
+                //#region 
                 for (let i in result.data) {
                     if (result.data[i].DocumentNo != before.DocumentNo) {
                         before = result.data[i];
@@ -174,6 +339,7 @@ export class List {
                         result.data[i].BankName = undefined;
                     }
                 }
+                //#endregion
 
                 setTimeout(() => {
                     $('#dpp-ppn-bank-table td').each(function() {
@@ -181,10 +347,14 @@ export class List {
                             $(this).hide();
                     })
                 }, 10);
+                
 
                 return {
                     total: result.info.total,
                     data: result.data
+
+                    // total: dummy.length,
+                    // data: dummy
                 };
             })
         ) : { total: 0, data: [] };

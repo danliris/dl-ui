@@ -6,7 +6,7 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["Rincian","PDF"]
+    context = ["Rincian"]
 
     dataTobePosted = []
 

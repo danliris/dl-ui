@@ -14,7 +14,12 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        this.data.IsPosted = true;
+        // this.data.IsPosted = true;
+
+        if (this.data.IsPosted) {
+            this.editCallback = undefined;
+            this.deleteCallback = undefined;
+        }
     }
 
     list() {

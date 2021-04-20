@@ -37,7 +37,14 @@ export class DataForm {
     itemsColumnsFabric = [
         { header: "Unit Asal", value: "UnitCode" },
         { header: "Bon No", value: "AvalReceiptNo" },
-        { header: "Jumlah ", value: "Quantity" },
+        { header: "Jumlah Awal", value: "Quantity" },
+        { header: "Jumlah Aktual ", value: "Quantity" },
+        { header: "Satuan", value: "UomUnit" },
+    ];
+
+    viewItemsColumnsFabric = [
+        { header: "Unit Asal", value: "UnitCode" },
+        { header: "Bon No", value: "AvalReceiptNo" },
         { header: "Jumlah Keluar ", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
     ];
@@ -58,7 +65,7 @@ export class DataForm {
     ]
 
     expenditureToOptions=["JUAL LOKAL", "LAIN-LAIN"];
-    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG"];
+    avalTypes=["AVAL FABRIC", "AVAL BAHAN PENOLONG", "AVAL KOMPONEN"];
 
     get buyerLoader() {
         return BuyerLoader;

@@ -2,6 +2,8 @@ import { inject, bindable} from 'aurelia-framework'
 import { Service } from '../service';
 
 var GarmentDebtLoader = require('../../../../loader/garment-debt-loader');
+var GarmentDebtLoaderBillsNo = require('../../../../loader/garment-debt-loader-bills-no');
+var GarmentDebtLoaderPaymentBills = require('../../../../loader/garment-debt-loader-payment-bills');
 
 @inject(Service)
 export class MemoDetailPurchasedItem {
@@ -11,6 +13,14 @@ export class MemoDetailPurchasedItem {
     return GarmentDebtLoader;
   }
 
+  get garmentDebtLoaderBillsNo() {
+    return GarmentDebtLoaderBillsNo;
+  }
+
+  get garmentDebtLoaderPaymentBills() {
+    return GarmentDebtLoaderPaymentBills;
+  }
+  
   constructor() {
   }
 
@@ -40,6 +50,7 @@ export class MemoDetailPurchasedItem {
     this.data.PurchasingRate = newValue.CurrencyRate;
     this.data.SaldoAkhir = newValue.DPPAmount + newValue.VATAmount - newValue.IncomeTaxAmount;
     this.data.MemoAmount = 0;
+    this.data.RemarksDetail = `${newValue.SupplierCode} - ${newValue.SupplierName}`
   }
 
   get getAmountIdr() {
