@@ -141,9 +141,9 @@ export class List {
                         before._CategoryName_rowspan = 1;
                         before._DivisionName_rowspan = 1;
                         before._PaymentMethod_rowspan = 1;
-                        before._DPP_rowspan = 1;
-                        before._VAT_rowspan = 1;
-                        before._TotalPaid_rowspan = 1;
+                        // before._DPP_rowspan = 1;
+                        // before._VAT_rowspan = 1;
+                        // before._TotalPaid_rowspan = 1;
                         before._BankName_rowspan = 1;
                         before._Currency_rowspan = 1;
                     } else {
@@ -152,24 +152,24 @@ export class List {
                         before._CategoryName_rowspan++;
                         before._DivisionName_rowspan++;
                         before._PaymentMethod_rowspan++;
-                        before._DPP_rowspan++;
-                        before._VAT_rowspan++;
-                        before._TotalPaid_rowspan++;
+                        // before._DPP_rowspan++;
+                        // before._VAT_rowspan++;
+                        // before._TotalPaid_rowspan++;
                         before._BankName_rowspan++;
                         before._Currency_rowspan++;
 
-                        before.DPP += result.data[i].DPP;
-                        before.VAT += result.data[i].VAT;
-                        before.TotalPaid += result.data[i].TotalPaid;
+                        // before.DPP += result.data[i].DPP;
+                        // before.VAT += result.data[i].VAT;
+                        // before.TotalPaid += result.data[i].TotalPaid;
 
                         result.data[i].DocumentNo = undefined;
                         result.data[i].Date = undefined;
                         result.data[i].CategoryName = undefined;
                         result.data[i].DivisionName = undefined;
                         result.data[i].PaymentMethod = undefined;
-                        result.data[i].DPP = undefined;
-                        result.data[i].VAT = undefined;
-                        result.data[i].TotalPaid = undefined;
+                        // result.data[i].DPP = undefined;
+                        // result.data[i].VAT = undefined;
+                        // result.data[i].TotalPaid = undefined;
                         result.data[i].Currency = undefined;
                         result.data[i].BankName = undefined;
                     }
