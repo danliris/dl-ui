@@ -142,7 +142,7 @@ export class List {
         sortable: true,
       },
       {
-        field: "SendToVerificationDate",
+        field: "VerificationSendDate",
         title: "Tgl Kirim",
         formatter: function (value, data, index) {
           return value ? moment(value).format("DD MMM YYYY") : "-";

@@ -52,6 +52,14 @@
           read-only.bind="readOnly"
         ></au-textbox>
 
+        <au-textbox
+          if.bind="isPermitted"
+          label="COA Alternatif"
+          value.bind="data.AlternateCOA"
+          error.bind="error.AlternateCOA"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
         <au-autocomplete
           value.bind="accountingCategory.Name"
           loader.bind="accountingCategoryLoader"
