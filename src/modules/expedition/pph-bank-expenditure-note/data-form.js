@@ -193,10 +193,10 @@ export class DataForm {
                         break;
                     default:
                         this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
-                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                            if (item1.No < item2.No) {
                                 return -1;
                             }
-                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                            if (item1.No > item2.No) {
                                 return 1;
                             }
                             return 0;
@@ -218,10 +218,10 @@ export class DataForm {
                         break;
                     default:
                         this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
-                            if (item1.UnitPaymentOrderNo > item2.UnitPaymentOrderNo) {
+                            if (item1.No > item2.No) {
                                 return -1;
                             }
-                            if (item1.UnitPaymentOrderNo < item2.UnitPaymentOrderNo) {
+                            if (item1.No < item2.No) {
                                 return 1;
                             }
                             return 0;
