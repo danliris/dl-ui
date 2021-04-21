@@ -680,7 +680,7 @@ export class DataForm {
     }
 
     roNoView = (rono) => {
-        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber}`;
+        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity}`;
     }
 
     unitRequestView = (unitRequest) => {
