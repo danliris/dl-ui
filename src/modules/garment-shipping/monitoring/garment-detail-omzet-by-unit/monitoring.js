@@ -33,7 +33,7 @@ export class List {
     unit = null;
     dateFrom = null;
     dateTo = null;
-    tableData = [];
+    invoices = [];
     
     get unitLoader() {
         return UnitLoader;
@@ -60,40 +60,42 @@ export class List {
                     var subTotalInv2 = {};
                     var subTotalInv3 = {};
 
-                    for (var item of result) {
-                        var Invoice = item.invoiceNo;
+                    for (var data of result) {
+                        var Invoice = data.invoiceNo;
                          if (!dataByInvoice[Invoice]) dataByInvoice[Invoice] = [];                 
                              dataByInvoice[Invoice].push({   
 
-                             invoiceNo : item.invoiceNo,
-                             unitCode : item.unitCode,
-                             buyerAgentName : item.buyerAgentName,
-                             comodityName : item.comodityName,
-                             articleStyle : item.articleStyle,
-                             roNumber : item.roNumber,
-                             quantity : item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                             uomUnit : item.uomUnit,
-                             amount : item.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                             amountIDR : item.amountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                             truckingDate : moment(item.truckingDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.truckingDate).format("DD MMM YYYY"),                  
-                             roNumber : item.roNumber,
-                             expenditureGoodNo : item.expenditureGoodNo,                            
+                             invoiceNo : data.invoiceNo,
+                             unitCode : data.unitCode,
+                             buyerAgentName : data.buyerAgentName,
+                             comodityName : data.comodityName,
+                             articleStyle : data.articleStyle,
+                             roNumber : data.roNumber,
+                             quantity : data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                             uomUnit : data.uomUnit,
+                             amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                             amountIDR : data.amountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                             truckingDate : moment(data.truckingDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.truckingDate).format("DD MMM YYYY"),                  
+                             roNumber : data.roNumber,
+                             expenditureGoodNo : data.expenditureGoodNo,  
+
                          });
-                     
+                            data.truckigDate = moment(data.truckingDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.truckingDate).format("DD MMM YYYY");  
+                                
                             if (!subTotalInv1[Invoice]) {
                                subTotalInv1[Invoice] = 0;
                             } 
-                               subTotalInv1[Invoice] += item.quantity;
+                               subTotalInv1[Invoice] += data.quantity;
                              
                             if (!subTotalInv2[Invoice]) {
                                subTotalInv2[Invoice] = 0;
                             } 
-                               subTotalInv2[Invoice] += item.amount;
+                               subTotalInv2[Invoice] += data.amount;
                                
                             if (!subTotalInv3[Invoice]) {
                                 subTotalInv3[Invoice] = 0;
                             } 
-                                subTotalInv3[Invoice] += item.amountIDR;
+                                subTotalInv3[Invoice] += data.amountIDR;
                         }
       
                 var invoices = [];
@@ -118,8 +120,10 @@ export class List {
                 this.AmountTtlUSD = this.AmountTtlUSD.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.AmountTtlIDR = this.AmountTtlIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 this.invoices = invoices;
-
+                //console.log(this.invoices); 
                 });
+
+                //console.log(data.truckingDate); 
             }               
     }
 
