@@ -33,18 +33,10 @@ export class Service extends RestService {
         // if (info.keyword)
         //     query = `${query}&keyword=${info.keyword}`;
 
-        if (info.type)
-            if (query === '') query = `type=${info.type}`;
-            else query = `${query}&type=${info.type}`;
+        if (info.receiptType)
+            if (query === '') query = `receiptType=${info.receiptType}`;
+            else query = `${query}&receiptType=${info.receiptType}`;
     
-        if (info.storageCode)
-            if (query === '') query = `storageCode=${info.storageCode}`;
-            else query = `${query}&storageCode=${info.storageCode}`;
-
-        if (info.productCode)
-            if(query === '') query = `productCode=${info.productCode}`
-            else query = `${query}&productCode=${info.productCode}`; 
-
         if (info.dateFrom)
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;    

@@ -48,33 +48,6 @@ export class List {
                 return "-";
             }
         },
-
-        /*{ field: "referenceNo", title: "Nomor Referensi" },
-        { field: "referenceType", title: "Jenis Referensi" },
-        {
-            field: "date", title: "Tanggal",
-            formatter: (value, data) => {
-                return moment(value).format("DD-MMM-YYYY");
-            }
-        },
-        { field: "productName", title: "Nama Barang" },
-        { field: "uomUnit", title: "UOM" },
-        {
-            field: "before", title: "Before", formatter: (value, data) => {
-                return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-            }
-        },
-        {
-            field: "quantity", title: "Kuantiti", formatter: (value, data) => {
-                return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-            }
-        },
-        {
-            field: "after", title: "After", formatter: (value, data) => {
-                return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-            }
-        },
-        { field: "type", title: "Status" }*/
     ]
 
     bind() {
@@ -118,8 +91,6 @@ export class List {
     }
 
     reset() {
-        this.selectedStorage = "";
-        this.selectedProduct = "";
         this.receiptType = this.receiptTypeOptions[0];
         this.dateFrom = null;
         this.dateTo = null;
