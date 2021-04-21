@@ -47,7 +47,8 @@
                 </tr>
             </thead>
                 <tbody>
-                    <tr repeat.for="item of data">
+                    <template repeat.for="invoice of invoices">
+                    <tr repeat.for="item of invoice.data">
                         <td class="text-center"> ${$index + 1}</td>  
                         <td>${item.invoiceNo}</td>
                         <td>${item.unitCode}</td>                                    
@@ -73,7 +74,8 @@
                         <td>${item.roNumber}</td>                                    
                         <td>${item.truckingDate}</td>
                         <td>${item.expenditureGoodNo}</td>
-                    </tr>  
+                    </tr>      
+                    </template>        
                     <tr class="active">
                         <td class="text-center" colspan="6"><strong>T O T A L . . . . . . :</strong></td>
                         <td class="text-right"><strong>${QtyTotal}</strong></td>    
