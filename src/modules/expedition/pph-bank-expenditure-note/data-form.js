@@ -177,6 +177,7 @@ export class DataForm {
     }
 
     sortItems() {
+        console.log(this);
         if (this.data.UnitPaymentOrders && this.data.UnitPaymentOrders.length > 0) {
             if (this.selectedSortTypeOption == "A - Z") {
                 switch (this.selectedSortOption) {
@@ -234,6 +235,8 @@ export class DataForm {
         // this.Item
         if (this.ItemsCollection) {
             this.ItemsCollection.bind();
+        } else if (this.context.ItemsCollection) {
+            this.context.ItemsCollection.bind();
         }
         // console.log(this);
     }
