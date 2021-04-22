@@ -107,9 +107,10 @@ export class Detail {
         let measurementCartons = [];
         for (const item of this.context.context.options.header.items) {
             for (const detail of (item.details || [])) {
-                let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
+                let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2 && m.index == detail.index);
                 if (!measurement) {
                     measurementCartons.push({
+                        index: detail.index,
                         carton1: detail.carton1,
                         carton2: detail.carton2,
                         length: detail.length,
