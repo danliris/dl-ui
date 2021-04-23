@@ -1,8 +1,7 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../../../utils/rest-service';
+import { buildQueryString } from 'aurelia-path';
+import { RestService } from '../../../../../../utils/rest-service';
 
-const serviceUri = "garment/leftover-warehouse-expenditures/report-expenditures";
+const serviceUri = 'garment/leftover-warehouse-expenditures/finished-goods';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -10,11 +9,12 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        let endpoint = `${serviceUri}/report`;
         return super.list(endpoint, info);
+        console.log(endpoint);
     }
 
-    generateExcel(info) {
+    xls(info) {
         var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);
     }
@@ -22,21 +22,7 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/download`;
         var query = '';
-        // if (info.order && typeof info.order === "object"){
-        //     info.order = JSON.stringify(info.order);
-
-        //     query = `${query}&order=${info.order}`;
-        // }
-        // else
-        //     delete info.order;
-
-        // if (info.keyword)
-        //     query = `${query}&keyword=${info.keyword}`;
-
-        if (info.receiptType)
-            if (query === '') query = `receiptType=${info.receiptType}`;
-            else query = `${query}&receiptType=${info.receiptType}`;
-    
+        
         if (info.dateFrom)
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;    

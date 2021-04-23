@@ -1,6 +1,8 @@
-import { inject, bindable } from 'aurelia-framework'
+import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from "./service";
 
+import numeral from 'numeral';
+numeral.defaultFormat("0,0.00");
 var ShippingInvoiceLoader = require('../../../loader/garment-shipping-invoice-loader');
 var ForwarderLoader = require('../../../loader/garment-forwarders-loader');
 
@@ -74,7 +76,7 @@ export class DataForm {
             this.data.date = newValue.invoiceDate;
             this.data.amount = newValue.totalAmount;
             this.data.amountToBePaid = newValue.amountToBePaid;
-
+            
             if (this.data.packingListId) {
                 this.service.getPackingListById(this.data.packingListId)
                     .then(packingListData => {
@@ -114,5 +116,33 @@ export class DataForm {
             this.data.bank = null;
         }
     }
+
+    //
+    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discreapancyFee', 'data.creditInterest')
+    get NETTNEGO() {
+        // console.log(this.data.paymentTerm)
+        if (this.data.paymentTerm === "TT/OA") {
+            // console.log(this.data.amountToBePaid);
+            // console.log(this.data.bankCharges);
+            // console.log(this.data.otherCharge);
+            let NETTNEGO = this.data.amountToBePaid - (this.data.bankCharges + this.data.otherCharge);
+            // console.log(NETTNEGO);
+            NETTNEGO = numeral(NETTNEGO).format();
+            this.data.nettNego = numeral(NETTNEGO).value();           
+            return NETTNEGO;
+        }
+        else {
+            // console.log(this.data.amountToBePaid);
+            // console.log(this.data.bankComission);
+            // console.log(this.data.discrepancyFee);
+            // console.log(this.data.creditInterest);
+            // console.log(this.data.bankCharges);
+
+            let NETTNEGO = this.data.amountToBePaid - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
+            NETTNEGO = numeral(NETTNEGO).format();
+            this.data.NETTNEGO = numeral(NETTNEGO).value();
+            return NETTNEGO;
+        }    
+      }
 
 }
