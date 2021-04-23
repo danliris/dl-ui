@@ -121,6 +121,7 @@ export class List {
                 obj.IsReverser = false;
                 obj.IsReversed = false;
                 obj.Status = "DRAFT";
+                obj.Id = this.dataToBePosted[i].Id;
                 obj.Items = this.generateItems(this.dataToBePosted[i].MemoGarmentPurchasingDetails);
 
                 dataParams.push(obj);
