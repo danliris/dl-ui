@@ -140,40 +140,44 @@
         <div class="row" show.bind="activeTab==1">
             <div class="row">
                 <div class="col-sm-3">
-                    <numeric
+                    <au-numeric
                         label="GROSS WEIGHT"
                         value.bind="data.grossWeight"
                         error.bind="error.GrossWeight"
                         read-only.bind="readOnly" 
+                        format="0.00"
                         options.bind="controlOptions">
-                    </numeric>
+                    </au-numeric>
                 </div>
                 <div class="col-sm-3">
-                    <numeric
+                    <au-numeric
                         label="NETT WEIGHT"
                         value.bind="data.nettWeight"
                         error.bind="error.NettWeight"
                         read-only.bind="readOnly" 
+                        format="0.00"
                         options.bind="controlOptions">
-                    </numeric>
+                    </au-numeric>
                 </div>
                 <div class="col-sm-3">
-                  <numeric
+                  <au-numeric
                       label="NET NET WEIGHT"
                       value.bind="data.netNetWeight"
                       error.bind="error.NetNetWeight"
                       read-only.bind="readOnly" 
+                      format="0.00"
                       options.bind="controlOptions">
-                  </numeric>
+                  </au-numeric>
               </div>
                 <div class="col-sm-3">
-                    <numeric
+                    <au-numeric
                         label="TOTAL CARTONS"
                         value.bind="totalCartons"
                         error.bind="error.totalCartons"
                         read-only.bind="readOnly" 
+                        format="0"
                         options.bind="controlOptions">
-                    </numeric>
+                    </au-numeric>
                 </div>
             </div>
             <div class="row">

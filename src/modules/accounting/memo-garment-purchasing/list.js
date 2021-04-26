@@ -66,33 +66,6 @@ export class List {
             order: order,
         };
 
-        // return {
-        //     MemoNo: "string",
-        //     MemoDate: "2021-03-30T09:49:50.271Z",
-        //     AccountingBook: {
-        //       Id: 0,
-        //       Type: "string"
-        //     },
-        //     Currency: {
-        //       Id: 0,
-        //       Code: "string",
-        //       Rate: 0
-        //     },
-        //     Remarks: "string",
-        //     IsPosted: true,
-        //     MemoGarmentPurchasingDetails: [
-        //       {
-        //         COA: {
-        //           Id: 0,
-        //           No: "string",
-        //           Name: "string"
-        //         },
-        //         DebitNominal: 0,
-        //         CreditNominal: 0
-        //       }
-        //     ]
-        //   };
-
         return this.service.search(arg)
             .then(result => {
                 // console.log(result);
@@ -122,22 +95,51 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
-    posting() {
-        // if (this.dataToBePosted.length > 0) {
-        //     var data = {
-        //         ListIds: this.dataToBePosted.map(d => {
-        //             return {
-        //                 Id: d.Id
-        //             }
-        //         })
-        //     }
+    generateItems(details) {
+        let result = details.map(d => {
+            return{
+                COAId: d.COA.Id,
+                Remark: "",
+                Debit: d.DebitNominal,
+                Credit: d.CreditNominal,
+            }
+        })
+        
+        return result;
+    }
 
-        //     this.service.post(data)
-        //         .then(result => {
-        //             this.tableList.refresh();
-        //         }).catch(e => {
-        //             this.error = e;
-        //         })
-        // }
+    posting() {
+        if (this.dataToBePosted.length > 0) {
+
+            let dataParams = [];
+            for(let i = 0; i < this.dataToBePosted.length; i++){
+                let obj = {}
+                obj.DocumentNo = "";
+                obj.Description = "Auto Journal Memo Pembelian Job Garment";
+                obj.Date = this.dataToBePosted[i].MemoDate;
+                obj.ReferenceNo = this.dataToBePosted[i].MemoNo;
+                obj.IsReverser = false;
+                obj.IsReversed = false;
+                obj.Status = "DRAFT";
+                obj.Id = this.dataToBePosted[i].Id;
+                obj.Items = this.generateItems(this.dataToBePosted[i].MemoGarmentPurchasingDetails);
+
+                dataParams.push(obj);
+            }
+
+            this.service.posting(dataParams)
+                .then(result => {
+                    alert("Data berhasil diposting");
+                    
+                    this.tableList.refresh();
+                })
+                .catch(e => {
+                    if (e.statusCode == 500) {
+                        alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                    } else {
+                        this.error = e;
+                    }
+                })
+        }
     }
 }
