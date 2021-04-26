@@ -56,7 +56,7 @@ export class Item {
         console.log(context)
         this.itemOptions = {
             isCreate: this.isCreate,
-            Id: this.data.Id
+            Id: this.data.Id || 0
         }
         this.selectedExpenditureGood={
             ExpenditureGoodNo:this.data.ExpenditureGoodNo,
