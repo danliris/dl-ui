@@ -1000,7 +1000,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
+            permission: { "PG": 1, "APG": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
