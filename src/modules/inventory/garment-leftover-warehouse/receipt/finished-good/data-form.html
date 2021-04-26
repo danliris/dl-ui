@@ -20,51 +20,6 @@
                     read-only.bind="readOnly || isEdit" options.bind="controlOptions">
                 </au-autocomplete>
 
-                <au-autocomplete 
-                    label="No Bon Pengeluaran Barang Jadi" 
-                    placeholder="Pilih No Bon Pengeluaran Barang Jadi"
-                    value.bind="selectedExpenditureGood" 
-                    error.bind="error.ExpenditureGoodNo" 
-                    loader.bind="expenditureGoodLoader"
-                    text="ExpenditureGoodNo" 
-                    read-only.bind="readOnly || isEdit" 
-                    show.bind="data.UnitFrom"
-                    options.bind="controlOptions"
-                    view-model.ref="ExpenditureGoodViewModel">
-                </au-autocomplete>
-
-                <au-textbox 
-                    label="No RO" 
-                    value.bind="data.RONo" 
-                    read-only="true" 
-                    show.bind="selectedExpenditureGood"
-                    options.bind="controlOptions">
-                </au-textbox>
-
-                <au-textbox 
-                    label="Artikel" 
-                    value.bind="data.Article" 
-                    read-only="true" 
-                    show.bind="selectedExpenditureGood"
-                    options.bind="controlOptions">
-                </au-textbox>
-
-                <au-textbox 
-                    label="Buyer" 
-                    value.bind="data.BuyerName" 
-                    read-only="true" 
-                    show.bind="selectedExpenditureGood"
-                    options.bind="controlOptions">
-                </au-textbox>
-
-                <au-textbox 
-                    label="Komoditi" 
-                    value.bind="data.ComodityName" 
-                    read-only="true" 
-                    show.bind="selectedExpenditureGood"
-                    options.bind="controlOptions">
-                </au-textbox>
-
                 <au-datepicker 
                     label="Tgl Pengeluaran Barang Jadi" 
                     value.bind="data.ExpenditureDate" 
@@ -134,13 +89,18 @@
 
         <div class="form-group has-error">
             <p if.bind="error.LeftoverComodity" class="help-block text-center">${error.LeftoverComodity}</p>
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+            <p if.bind="error.ExpenditureGoodNo" class="help-block text-center">${error.ExpenditureGoodNo}</p>
         </div>
         <au-collection
             items.bind="data.DataItems"
             errors.bind="error.Items"
             columns.bind="itemsColumns"
             read-only.bind="readOnly"
+            add.bind="addItems" 
+            remove.bind="removeItems"
             options.bind="itemOptions"
+            show.bind="data.UnitFrom"
             item-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/item">
         </au-collection>
     </au-input-form>
