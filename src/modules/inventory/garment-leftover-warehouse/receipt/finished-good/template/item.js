@@ -53,7 +53,6 @@ export class Item {
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        console.log(context)
         this.itemOptions = {
             isCreate: this.isCreate,
             Id: this.data.Id || 0
@@ -92,7 +91,6 @@ export class Item {
                     this.data.details=[];
                     //this.data.DataItems=[];
                     for (const item of exGood.Items) {
-                        console.log(item)
                         this.data.details.push({
                             ExpenditureGoodItemId: item.Id,
                             Size: {
