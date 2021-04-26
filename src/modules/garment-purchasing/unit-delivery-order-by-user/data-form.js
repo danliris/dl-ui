@@ -659,11 +659,9 @@ export class DataForm {
             this.data.RONoHeader = null;
         }
         else if (newValue) {
-            console.log(newValue)
             this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id, POSerialNumber : newValue.POSerialNumber, DOItemsId: newValue.DOItemsId}) })
                     .then(result=>{
                         var selectedROHeader= result.data[0];
-                        console.log(selectedROHeader)
                         this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
                         this.newProduct.URNItemId = selectedROHeader.URNItemId;
                         this.newProduct.URNNo = selectedROHeader.URNNo;
