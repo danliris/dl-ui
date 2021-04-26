@@ -252,6 +252,7 @@ export class DataForm {
                 _item.amount = item.amount;
                 _item.currencyCode = item.valas;
                 _item.packingListItemId = item.id;
+                _item.comodityDesc = item.orderNo;
                 consignee += item.buyerBrand.name;
                 if (consignees.length > 0) {
                     var dup = consignees.find(a => a == item.buyerBrand.name);
@@ -360,8 +361,18 @@ export class DataForm {
                 _item.desc3 = dataInvoiceLama.desc3;
                 _item.desc4 = dataInvoiceLama.desc4;
                 _item.quantity = dataInvoiceLama.quantity;
-                _item.price = dataInvoiceLama.price;
-                _item.cmtPrice = dataInvoiceLama.cmtPrice;
+
+                if(dataInvoiceLama.price > 0) {
+                    _item.price = dataInvoiceLama.price;
+                } else {
+                    _item.price = item.price;
+                }
+
+                if(dataInvoiceLama.cmtPrice > 0) {
+                    _item.cmtPrice = dataInvoiceLama.cmtPrice;
+                } else {
+                    _item.cmtPrice = item.cmtPrice;
+                }
             }
             consignee += item.buyerBrand.name;
             if (consignees.length > 0) {
