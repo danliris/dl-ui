@@ -348,6 +348,8 @@ export class DataForm {
             _item.lastModifiedUtc = item.lastModifiedUtc;
             _item.lastModifiedBy = item.lastModifiedBy;
             _item.lastModifiedAgent = item.lastModifiedAgent;
+            _item.price = item.price;
+            _item.cmtPrice = item.cmtPrice;
             if(dataInvoiceLama) {
                 _item.id = dataInvoiceLama.id;
                 _item.createdUtc = dataInvoiceLama.createdUtc;
@@ -361,18 +363,6 @@ export class DataForm {
                 _item.desc3 = dataInvoiceLama.desc3;
                 _item.desc4 = dataInvoiceLama.desc4;
                 _item.quantity = dataInvoiceLama.quantity;
-
-                if(dataInvoiceLama.price > 0) {
-                    _item.price = dataInvoiceLama.price;
-                } else {
-                    _item.price = item.price;
-                }
-
-                if(dataInvoiceLama.cmtPrice > 0) {
-                    _item.cmtPrice = dataInvoiceLama.cmtPrice;
-                } else {
-                    _item.cmtPrice = item.cmtPrice;
-                }
             }
             consignee += item.buyerBrand.name;
             if (consignees.length > 0) {
