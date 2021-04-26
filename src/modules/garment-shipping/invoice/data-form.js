@@ -348,8 +348,6 @@ export class DataForm {
             _item.lastModifiedUtc = item.lastModifiedUtc;
             _item.lastModifiedBy = item.lastModifiedBy;
             _item.lastModifiedAgent = item.lastModifiedAgent;
-            _item.price = item.price;
-            _item.cmtPrice = item.cmtPrice;
             if(dataInvoiceLama) {
                 _item.id = dataInvoiceLama.id;
                 _item.createdUtc = dataInvoiceLama.createdUtc;
