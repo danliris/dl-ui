@@ -35,11 +35,11 @@
                     <tr>
                         <td align="center" rowspan="3">NO</td>
                         <td align="center" rowspan="3">KODE</td>
-                        <td align="center" rowspan="3">NAMA BARANG</td>
-                        <td align="center" rowspan="3">RO</td>
-                        <td align="center" rowspan="3">BUYER</td>
+                        <td align="center" rowspan="3">NO RO</td>
                         <td align="center" rowspan="3">PLANPO</td>
                         <td align="center" rowspan="3">NO ARTIKEL</td>
+                        <td align="center" rowspan="3">NAMA BARANG</td>
+                        <td align="center" rowspan="3">BUYER</td>
                         <td align="center" colspan="3" rowspan="2">SALDO AWAL</td>
                         <td if.bind ="UnitItem != ''" colspan="14">P E M A S U K A N</td>
                         <td if.bind ="UnitItem == ''" colspan="16">P E M A S U K A N</td>
@@ -135,11 +135,11 @@
                     <tr repeat.for="item of data">
                         <td>${$index + 1}</td>
                         <td>${item.ProductCode}</td>
-                        <td>${item.ProductName}</td>
                         <td>${item.RO}</td>
-                        <td>${item.Buyer}</td>
                         <td>${item.PlanPo}</td>
                         <td>${item.NoArticle}</td>
+                        <td>${item.ProductName}</td>
+                        <td>${item.Buyer}</td>
                         <td>${item.BeginningBalanceQty}</td>
                         <td>${item.BeginningBalanceUom}</td>
                         <td>${item.BeginningBalancePrice}</td>
