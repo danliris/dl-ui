@@ -59,13 +59,22 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${item.Count}</td>
+                        <!-- <td if.bind="item.docspan" rowspan="${item.docspan}">${item.Count}</td>
                         <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.InvoiceNo}</td>
                         <td if.bind="item.docspan" rowspan="${item.docspan}">${item.ExpenditureGoodNo}</td>
                         <td if.bind="item.docspan" rowspan="${item.docspan}">${item.RONo}</td>
                         <td if.bind="item.docspan" rowspan="${item.docspan}">${item.Article}</td>
                         <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.UnitQty}</td>
-                        <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.EGAmountIDR}</td>                        
+                        <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.EGAmountIDR}</td>                         -->
+                        
+                        <td>${item.Count}</td>
+                        <td>${item.InvoiceNo}</td>
+                        <td>${item.ExpenditureGoodNo}</td>
+                        <td>${item.RONo}</td>
+                        <td>${item.Article}</td>
+                        <td align="right">${item.UnitQty}</td>
+                        <td align="right">${item.EGAmountIDR}</td>                        
+                        
                         <td>${item.UENNo}</td>
                         <td>${item.ProductRemark}</td>
                         <td align="right">${item.Quantity}</td>
