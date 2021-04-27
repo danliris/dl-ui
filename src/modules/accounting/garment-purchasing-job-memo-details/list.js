@@ -16,15 +16,17 @@ export class List {
             title: "Post",
             checkbox: true,
             sortable: false,
-            formatter: function(value, data, index) {
+            formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
                 return ""
             }
         },
         { field: "MemoNo", title: "No Memo" },
-        { field: "MemoDate", title: "Tanggal", formatter: function (value, data, index) {
-            return moment(value).format("DD MMM YYYY");
-        }},
+        {
+            field: "MemoDate", title: "Tanggal", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
         { field: "AccountingBookType", title: "Jenis Buku" },
         { field: "GarmentCurrenciesCode", title: "Mata Uang" },
         { field: "Remarks", title: "Keterangan" }
@@ -70,6 +72,19 @@ export class List {
     }
 
     posting() {
-        this.router.navigateToRoute('create');
+        var items = this.dataTobePosted.map(s => s.Id);
+        this.service.posting(items)
+            .then(result => {
+                alert("Data berhasil disimpan");
+                this.error = {};
+                this.tableList.refresh();
+                this.selectedItems = [];
+            })
+            .catch(e => {
+                if (e.message) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                this.error = e;
+            });
     }
 }
