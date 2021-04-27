@@ -101,15 +101,15 @@ export class Create {
     //   MemoDetailGarmentPurchasingDetail: Items
     // };
 
-    console.log(this.data);
+    // console.log(this.data);
 
-    // this.service.create(this.data)
-    //   .then((result) => {
-    //     alert("Data berhasil dibuat");
-    //     this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-    //   })
-    //   .catch((e) => {
-    //     this.error = e;
-    //   });
+    this.service.create(this.data)
+      .then((result) => {
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+      })
+      .catch((e) => {
+        this.error = e;
+      });
   }
 }
