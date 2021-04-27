@@ -40,15 +40,23 @@ export class DataForm {
         return MemoGarmentPurchasingLoader;
     }
 
+    @bindable memo;
+    memoChanged(newValue, oldValue) {
+        if (newValue)
+            this.data.MemoId = newValue.Id;
+        else
+            this.data.MemoId = 0;
+    }
+
     get addItems() {
         return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({});
+            this.data.MemoDetailGarmentPurchasingDispositions.push({});
         };
     }
 
     get getMemoDate() {
-        if (this.data.Memo) {
-            return moment(this.data.Memo.MemoDate).format("DD-MMM-YYYY")
+        if (this.memo) {
+            return moment(this.memo.MemoDate).format("DD-MMM-YYYY")
         }
         return '';
     }

@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework'
 import { Service } from '../service';
 
-var GarmentDebtLoader = require('../../../../loader/garment-debt-loader');
+var DispositionLoader = require('../../../../loader/garment-disposition-memo-detail-loader');
 var GarmentDebtLoaderBillsNo = require('../../../../loader/garment-debt-loader-bills-no');
 var GarmentDebtLoaderPaymentBills = require('../../../../loader/garment-debt-loader-payment-bills');
 
@@ -9,8 +9,8 @@ var GarmentDebtLoaderPaymentBills = require('../../../../loader/garment-debt-loa
 export class MemoDetailPurchasedItem {
     @bindable dataDebt;
 
-    get garmenDebtLoader() {
-        return GarmentDebtLoader;
+    get dispositionLoader() {
+        return DispositionLoader;
     }
 
     get garmentDebtLoaderBillsNo() {
@@ -27,13 +27,22 @@ export class MemoDetailPurchasedItem {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-        if (!this.data.MemoDetailGarmentPurchasingDetail) {
-            this.data.MemoDetailGarmentPurchasingDetail = {};
+        this.readOnly = this.options.readOnly;
+        if (this.data.Disposition && !this.data.Disposition.MemoDetails) {
+            thi.data.Disposition.MemoDetails = [];
         }
-        if (this.data.MemoDetailGarmentPurchasingDetail) {
-            this.dataDebt = this.data.MemoDetailGarmentPurchasingDetail;
-        }
+        // this.disposition = this.data.disposition || null;
     }
+
+    // @bindable disposition;
+    // dispositionChanged(newValue, oldValue) {
+    //     if (newValue) {
+    //         this.data = newValue;
+    //         this.data.disposition = newValue;
+    //     } else {
+    //         this.data = null;
+    //     }
+    // }
 
     controlOptions = {
         control: {
@@ -41,13 +50,7 @@ export class MemoDetailPurchasedItem {
         }
     };
 
-    get addItems() {
-        return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({});
-        };
-    }
-
-    itemsColumns = [
+    memoDetailsColumns = [
         { header: "No. Surat Jalan", value: "Product" },
         { header: "No. Nota Intern", value: "Quantity" },
         { header: "No. BP Besar", value: "AvailableQuantity" },
