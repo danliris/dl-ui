@@ -341,6 +341,8 @@ export class DataForm {
                 Id: packingItem.shippingStaff.id,
                 Name: packingItem.shippingStaff.name || ""
             }
+
+            _item.comodityDesc = item.orderNo;
             _item.amount = item.amount;
             _item.currencyCode = item.valas;
             _item.packingListItemId = item.id;
@@ -357,11 +359,9 @@ export class DataForm {
                 _item.lastModifiedBy = dataInvoiceLama.lastModifiedBy;
                 _item.lastModifiedAgent = dataInvoiceLama.lastModifiedAgent;
 
-                _item.comodityDesc= dataInvoiceLama.comodityDesc;
                 _item.desc2 = dataInvoiceLama.desc2;
                 _item.desc3 = dataInvoiceLama.desc3;
                 _item.desc4 = dataInvoiceLama.desc4;
-                _item.quantity = dataInvoiceLama.quantity;
             }
             consignee += item.buyerBrand.name;
             if (consignees.length > 0) {
