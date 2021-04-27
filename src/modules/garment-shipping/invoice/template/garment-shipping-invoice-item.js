@@ -37,12 +37,16 @@ export class items {
     this.error = context.error;
     this.options = this.context.context.options;
     this.readOnly = this.options.isView;
+    this.readOnlyDesc1 = this.options.isAdd;
     this.isEdit = this.options.isEdit;
     this.isUpdated = this.options.isUpdated;
 
     this.roNo = this.data.roNo;
     if (this.data) {
       this.uom = this.data.uom;
+    }
+    if(this.data.isAdd == null || this.data.isAdd == undefined) {
+      this.data.isAdd = true;
     }
   }
 
