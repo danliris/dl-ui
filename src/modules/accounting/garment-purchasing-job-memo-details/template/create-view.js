@@ -42,7 +42,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({});
+            this.data.MemoDetailGarmentPurchasingDispositions.push({});
         };
     }
 
