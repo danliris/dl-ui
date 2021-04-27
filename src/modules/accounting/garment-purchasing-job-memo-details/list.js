@@ -12,7 +12,7 @@ export class List {
 
     columns = [
         {
-            field: "isPosting",
+            field: "IsPosted",
             title: "Post",
             checkbox: true,
             sortable: false,

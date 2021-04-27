@@ -1,0 +1,35 @@
+<template>
+    <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
+        <td>
+            <au-autocomplete value.bind="disposition"
+                             error.bind="error.DispositionId"
+                             loader.bind="dispositionLoader"
+                             placeholder="Cari Disposisi"
+                             text="DispositionNo"
+                             read-only.bind="readOnly"
+                             options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td class="col"
+            if.bind="!readOnly">
+            <button class="btn btn-danger pull-right"
+                    click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+    <tr show.bind="isShowing">
+        <td>
+            <!-- <div if.bind="error.fulfillmentscount"
+                 class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span>
+            </div> -->
+            <au-collection items.bind="data.MemoDetailGarmentPurchasingDetail"
+                           errors.bind="error.MemoGarmentPurchasingDetails"
+                           columns.bind="itemsColumns"
+                           add.bind="addItems"
+                           read-only.bind="true"
+                           footer-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-footer"
+                           item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-item">
+            </au-collection>
+        </td>
+    </tr>
+</template>
