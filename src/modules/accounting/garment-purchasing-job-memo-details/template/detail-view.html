@@ -22,13 +22,14 @@
 
 
         <au-collection 
-            items.bind="data.Items" 
+            items.bind="data.MemoDetailGarmentPurchasingDispositions" 
+            errors.bind="error.MemoDetailGarmentPurchasingDispositions" 
             columns.bind="itemsColumns" 
             add.bind="addItems" 
             remove.bind="removeItems"
-            read-only.bind="readOnly"
-            footer-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-footer"
-            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-item">
+            read-only.bind="true"
+            footer-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-footer"
+            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-disposition">
         </au-collection>
     </au-input-form>
 </template>
