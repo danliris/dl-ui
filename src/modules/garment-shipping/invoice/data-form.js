@@ -18,6 +18,7 @@ export class DataForm {
     @bindable data = {};
     @bindable items = {};
     @bindable readOnly = false;
+    @bindable readOnlyDesc1 = false;
     @bindable read = true;
     @bindable isCreate = false;
     @bindable isEdit = false;
@@ -49,7 +50,7 @@ export class DataForm {
             isEdit: this.context.isEdit,
             isUpdated: this.context.isUpdated,
             isUsed: this.context.isUsed,
-            itemData:this.data.items
+            itemData:this.data.items,
         }
         this.isEdit = this.context.isEdit;
         this.isUpdated = this.context.isUpdated;
@@ -406,7 +407,8 @@ export class DataForm {
 
             this.data.items.push({
                 BuyerCode: this.data.buyerAgent.code,
-                Section: this.data.section.code
+                Section: this.data.section.code,
+                isAdd: false 
             });
             this.data.items.forEach((m, i) => m.MaterialIndex = i);
 
