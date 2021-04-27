@@ -252,6 +252,7 @@ export class DataForm {
 
     storageChanged(newValue) {
         var selectedStorage = newValue;
+        console.log(newValue)
         if (selectedStorage) {
             this.data.Storage = selectedStorage;
         }
@@ -325,10 +326,8 @@ export class DataForm {
         this.dataItems = [];
 
         if(this.isTransfer){
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
+            var filter= JSON.stringify({RONo:this.RONoJob});
+            
             var info = {
               keyword: this.RONoJob,
               filter: filter
@@ -338,15 +337,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -446,11 +436,7 @@ export class DataForm {
                     })
             });
         }else{
-
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
+            var filter= JSON.stringify({RONo:this.RONo});
             var info = {
               keyword: this.RONo,
               filter: filter
@@ -460,15 +446,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -659,11 +636,9 @@ export class DataForm {
             this.data.RONoHeader = null;
         }
         else if (newValue) {
-            console.log(newValue)
             this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id, POSerialNumber : newValue.POSerialNumber, DOItemsId: newValue.DOItemsId}) })
                     .then(result=>{
                         var selectedROHeader= result.data[0];
-                        console.log(selectedROHeader)
                         this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
                         this.newProduct.URNItemId = selectedROHeader.URNItemId;
                         this.newProduct.URNNo = selectedROHeader.URNNo;
@@ -742,33 +717,30 @@ export class DataForm {
         ],
     };
 
-    get roLoader() {
-        return (keyword) => {
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
-            var info = {
-              keyword: keyword,
-              filter: filter
-            };
-            var ro=[];
-            return this.service.getGarmentEPOByRONo(info)
-            .then((epo)=>{
-                for(var a of epo.data){
-                    if(ro.length==0){
-                        ro.push(a);
-                    }
-                    else{
-                        var dup=ro.find(b=>b.RONo==a.RONo);
-                        if(!dup){
-                            ro.push(a);
-                        }
-                    }
-                }
-                return ro;
-            });
+    // get roLoader() {
+    //     return (keyword) => {
+    //         var filter= JSON.stringify({RONo:this.RONoJob});
+    //         var info = {
+    //           keyword: keyword,
+    //           filter: filter
+    //         };
+    //         var ro=[];
+    //         return this.service.getGarmentEPOByRONo(info)
+    //         .then((epo)=>{
+    //             for(var a of epo.data){
+    //                 if(ro.length==0){
+    //                     ro.push(a);
+    //                 }
+    //                 else{
+    //                     var dup=ro.find(b=>b.RONo==a.RONo);
+    //                     if(!dup){
+    //                         ro.push(a);
+    //                     }
+    //                 }
+    //             }
+    //             return ro;
+    //         });
                     
-        }
-    }
+    //     }
+    // }
 }

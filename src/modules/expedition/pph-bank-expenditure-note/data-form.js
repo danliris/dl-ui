@@ -160,4 +160,84 @@ export class DataForm {
     get accountBankLoader() {
         return AccountBankLoader;
     }
+
+    sortingOptions = ["", "Tanggal SPB"];
+    sortingTypeOptions = ["A - Z", "Z - A"];
+
+    @bindable selectedSortOption;
+    selectedSortOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    @bindable selectedSortTypeOption
+    selectedSortTypeOptionChanged(newValue, oldValue) {
+        if (newValue)
+            this.sortItems();
+    }
+
+    sortItems() {
+        console.log(this);
+        if (this.data.UnitPaymentOrders && this.data.UnitPaymentOrders.length > 0) {
+            if (this.selectedSortTypeOption == "A - Z") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal SPB":
+                        this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
+                            if (item1.UPODate < item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate > item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
+                            if (item1.No < item2.No) {
+                                return -1;
+                            }
+                            if (item1.No > item2.No) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            } else if (this.selectedSortTypeOption == "Z - A") {
+                switch (this.selectedSortOption) {
+                    case "Tanggal SPB":
+                        this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
+                            if (item1.UPODate > item2.UPODate) {
+                                return -1;
+                            }
+                            if (item1.UPODate < item2.UPODate) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                    default:
+                        this.data.UnitPaymentOrders = this.data.UnitPaymentOrders.sort((item1, item2) => {
+                            if (item1.No > item2.No) {
+                                return -1;
+                            }
+                            if (item1.No < item2.No) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        break;
+                }
+            }
+        }
+
+        // this.Item
+        if (this.ItemsCollection) {
+            this.ItemsCollection.bind();
+        } else if (this.context.ItemsCollection) {
+            this.context.ItemsCollection.bind();
+        }
+        // console.log(this);
+    }
 }

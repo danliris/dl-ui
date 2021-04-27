@@ -59,6 +59,15 @@ export class List {
         { field: "NotVerifiedReason", title: "Alasan" }
     ];
 
+    tableOptions = {
+        showColumns: false,
+        search: false,
+        showToggle: false,
+        sortable: false,
+        pagination: true,
+        pageList:[10,25,50,100,250]
+      };
+
     loader = (info) => {
         let order = {};
 
@@ -66,7 +75,7 @@ export class List {
         //     order[info.sort] = info.order;
         // else
         //     order["Date"] = "desc";
-
+        // console.log("loader parameter", info);
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -77,7 +86,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 return {
-                    total: result.info.total,
+                    total: result.info.Count,
                     data: result.data
                 }
             });

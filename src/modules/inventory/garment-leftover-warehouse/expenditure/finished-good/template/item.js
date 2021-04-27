@@ -63,9 +63,9 @@ export class items {
             "Quantity>0": true,
             LeftoverComodityId:(this.data.LeftoverComodity || {}).Id || 0,
         };
-        for(var item of this.context.context.items){
-            filter[`RONo == "${item.data.RONo}"`]=false;
-        }
+        // for(var item of this.context.context.items){
+        //     filter[`RONo == "${item.data.RONo}"`]=false;
+        // }
         return filter;
     }
     constructor(service) {

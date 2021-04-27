@@ -325,7 +325,7 @@ module.exports = [
         name: 'incometax-vat-monitoring',
         moduleId: './modules/purchasing/monitoring-ppn-pph/index',
         nav: true,
-        title: 'Monitoring PPH & PPH',
+        title: 'Monitoring PPN & PPH',
         auth: true,
         settings: {
             group: "purchasing",
