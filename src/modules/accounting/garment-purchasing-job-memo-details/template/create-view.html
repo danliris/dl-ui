@@ -2,7 +2,7 @@
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
         <fieldset>
             <au-autocomplete 
-                value.bind="data.Memo"
+                value.bind="memo"
                 error.bind="error.MemoNo" 
                 label="Nomor Memo" 
                 loader.bind="memoGarmentPurchasingLoader"
@@ -13,9 +13,9 @@
             </au-autocomplete>
 
             <au-textbox label="Tanggal Memo" value.bind="getMemoDate" read-only.bind="true"></au-textbox>
-            <au-textbox label="Jenis Buku" value.bind="data.Memo.AccountingBook.Type" read-only.bind="true"></au-textbox>
-            <au-textbox label="Mata Uang" value.bind="data.Memo.Currency.Code" read-only.bind="true"></au-textbox>
-            <au-textbox label="Rate" value.bind="data.Memo.Currency.Rate " read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Buku" value.bind="memo.AccountingBook.Type" read-only.bind="true"></au-textbox>
+            <au-textbox label="Mata Uang" value.bind="memo.Currency.Code" read-only.bind="true"></au-textbox>
+            <au-textbox label="Rate" value.bind="memo.Currency.Rate " read-only.bind="true"></au-textbox>
 
             <au-multiline label="Keterangan" placeholder="Masukkan keterangan" value.bind="data.remarks" read-only.bind="readOnly"></au-multiline>
         </fieldset>
