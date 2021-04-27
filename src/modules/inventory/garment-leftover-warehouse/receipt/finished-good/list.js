@@ -11,10 +11,6 @@ export class List {
     columns = [
         { field: "FinishedGoodReceiptNo", title: "No Bon Penerimaan" },
         { field: "UnitFromName", title: "Unit Asal" },
-        { field: "ExpenditureGoodNo", title: "No Bon Pengeluaran Barang" },
-        { field: "RONo", title: "RO" },
-        { field: "Article", title: "Artikel" },
-        { field: "ComodityName", title: "Komoditi" },
         {
             field: "ReceiptDate", title: "Tgl Penerimaan Gudang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -38,7 +34,7 @@ export class List {
             .then(result => {
                 for (const data of result.data) {
                     data.UnitFromName = data.UnitFrom.Name;
-                    data.ComodityName = data.Comodity.Name;
+                    
                 }
                 return {
                     total: result.info.total,
