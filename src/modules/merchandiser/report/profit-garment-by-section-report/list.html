@@ -1,4 +1,6 @@
 <template>
+    <require from="../../../../au-components/form/input/_input"></require>
+    <require from="../../../../lib/number-format-value-converter"></require>
     <h1 class="page-header">Display Profit Garment Per Seksi</h1>
     <form class="form-horizontal">
           <au-autocomplete 
@@ -24,7 +26,8 @@
             <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
         </div>
         <br>
-        <table class="table table-bordered table-hover" id="myTable">
+        <div class="table-responsive">
+             <table class="table table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
                     <th class="text-center">Nomor</th>
@@ -99,21 +102,24 @@
                         <td class="text-center"><strong>.</strong></td>                                                                     
                     </tr>
                 </template>
-                   <tr class="active">
-                        <td class="text-center" colspan="16"><strong>T O T A L . . . . . . :</strong></td>
-                        <td class="text-center"><strong>.</strong></td>                     
-                        <td class="text-center"><strong>.</strong></td>                                                                     
-                        <td class="text-center"><strong>.</strong></td>                                                                                             
-                        <td class="text-right"><strong>${AmountTotal}</strong></td>   
-                        <td class="text-center"><strong>.</strong></td>                                             
-                        <td class="text-center"><strong>.</strong></td>                                             
-                        <td class="text-right"><strong>${AmountTotal1}</strong></td>   
-                        <td class="text-right"><strong>${AmountTotal2}</strong></td>  
-                        <td class="text-center"><strong>.</strong></td>                                                                      
-                    </tr>
-            </tbody>
-
-        </table>
+                </tbody>
+                </table>
+                    </div>
+                    <div class="row" if.bind="grandTotalByUom.length > 0">
+                        <div class="form-group col-md-1"></div>
+                        <div class="form-group col-md-5">
+                            <template repeat.for="uomIndex of grandTotalByUom.length">
+                                <label class="control-label text-left col-md-4">${uomIndex==0 ? 'GRAND TOTAL' : ''}</label>
+                                <p class="form-control-static text-right col-md-3">${grandTotalByUom[uomIndex].quantity | numberFormat:'0,000'}</p>
+                                <p class="form-control-static col-md-2">${grandTotalByUom[uomIndex].uom}</p>
+                                <p class="form-control-static text-right col-md-3">${grandTotalByUom[uomIndex].amount | numberFormat:'0,000.00'}</p>
+                            </template>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label text-left col-md-4">GRAND TOTAL</label>
+                            <p class="form-control-static col-md-8">${grandTotal | numberFormat:'0,000.00'}</p>
+                        </div>
+                    </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak Ada Data Yang Ditemukan.
         </div>
