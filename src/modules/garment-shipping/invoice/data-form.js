@@ -18,6 +18,7 @@ export class DataForm {
     @bindable data = {};
     @bindable items = {};
     @bindable readOnly = false;
+    @bindable readOnlyDesc1 = false;
     @bindable read = true;
     @bindable isCreate = false;
     @bindable isEdit = false;
@@ -49,7 +50,7 @@ export class DataForm {
             isEdit: this.context.isEdit,
             isUpdated: this.context.isUpdated,
             isUsed: this.context.isUsed,
-            itemData:this.data.items
+            itemData:this.data.items,
         }
         this.isEdit = this.context.isEdit;
         this.isUpdated = this.context.isUpdated;
@@ -340,6 +341,8 @@ export class DataForm {
                 Id: packingItem.shippingStaff.id,
                 Name: packingItem.shippingStaff.name || ""
             }
+
+            _item.comodityDesc = item.orderNo;
             _item.amount = item.amount;
             _item.currencyCode = item.valas;
             _item.packingListItemId = item.id;
@@ -356,11 +359,9 @@ export class DataForm {
                 _item.lastModifiedBy = dataInvoiceLama.lastModifiedBy;
                 _item.lastModifiedAgent = dataInvoiceLama.lastModifiedAgent;
 
-                _item.comodityDesc= dataInvoiceLama.comodityDesc;
                 _item.desc2 = dataInvoiceLama.desc2;
                 _item.desc3 = dataInvoiceLama.desc3;
                 _item.desc4 = dataInvoiceLama.desc4;
-                _item.quantity = dataInvoiceLama.quantity;
             }
             consignee += item.buyerBrand.name;
             if (consignees.length > 0) {
@@ -406,7 +407,8 @@ export class DataForm {
 
             this.data.items.push({
                 BuyerCode: this.data.buyerAgent.code,
-                Section: this.data.section.code
+                Section: this.data.section.code,
+                isAdd: false 
             });
             this.data.items.forEach((m, i) => m.MaterialIndex = i);
 

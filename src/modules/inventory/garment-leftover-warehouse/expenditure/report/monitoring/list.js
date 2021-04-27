@@ -43,7 +43,8 @@ export class List {
         { field: "LeftoverComodityName", title: "Komoditi", sortable: false, width: '10%' },
         { field: "ExpenditureQuantity", title: "Quantity", sortable: false, width: '5%' },
         { field: "Uom", title: "Satuan", sortable: false, width: '3%'},
-        { field: "LocalSalesNoteNo", title: "No Nota Penjualan " , sortable: false, width: '10%'},
+        { field: "Consignment", title: "Titip Jual", sortable: false, width: '3%'},
+       { field: "LocalSalesNoteNo", title: "No Nota Penjualan " , sortable: false, width: '10%'},
         
     ];
 

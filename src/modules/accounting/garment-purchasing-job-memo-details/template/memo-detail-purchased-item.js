@@ -1,4 +1,4 @@
-import { inject, bindable} from 'aurelia-framework'
+import { inject, bindable } from 'aurelia-framework'
 import { Service } from '../service';
 
 var GarmentDebtLoader = require('../../../../loader/garment-debt-loader');
@@ -21,12 +21,13 @@ export class MemoDetailPurchasedItem {
     return GarmentDebtLoaderPaymentBills;
   }
 
-  constructor() {}
+  constructor() { }
 
   activate(context) {
     this.data = context.data;
     this.error = context.error;
-    this.options = context.options; 
+    this.options = context.options;
+    this.readOnly = this.options.readOnly;
     if (!this.data.MemoDetailGarmentPurchasingDetail) {
       this.data.MemoDetailGarmentPurchasingDetail = {};
     }
