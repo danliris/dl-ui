@@ -72,8 +72,9 @@ export class List {
     }
 
     posting() {
+        console.log(this.dataTobePosted);
         var items = this.dataTobePosted.map(s => s.Id);
-        this.service.posting(items)
+        this.service.posting({Ids: items})
             .then(result => {
                 alert("Data berhasil disimpan");
                 this.error = {};
