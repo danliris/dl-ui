@@ -32,20 +32,7 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
     }
 
-    itemsColumns = [
-        { header: "No. Surat Jalan", value: "Product" },
-        { header: "No. Nota Intern", value: "Quantity" },
-        { header: "No. BP Besar", value: "AvailableQuantity" },
-        { header: "No. BP Kecil", value: "Weight" },
-        { header: "Kode Supplier", value: "WeightTotal" },
-        { header: "Keterangan", value: "Length" },
-        { header: "Mata Uang", value: "LengthTotal" },
-        { header: "Rate Bayar", value: "Remark" },
-        { header: "Rate Beli", value: "Notes" },
-        { header: "Saldo Akhir", value: "Notes" },
-        { header: "Jumlah", value: "Notes" },
-        { header: "Jumlah dalam Rupiah", value: "Notes" }
-    ]
+    itemsColumns = ["No. Disposisi"]
 
     get memoGarmentPurchasingLoader() {
         return MemoGarmentPurchasingLoader;
