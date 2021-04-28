@@ -3,7 +3,7 @@ import { Service } from '../service';
 import moment from 'moment';
 var MemoGarmentPurchasingLoader = require('../../../../loader/memo-garment-purchasing-loader');
 
-@inject(Service,  BindingEngine)
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly;
     @bindable data = {}
@@ -27,9 +27,13 @@ export class DataForm {
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+
+        if (!this.data.IsPosted) {
+            this.deleteCallback = this.context.deleteCallback;
+            this.editCallback = this.context.editCallback;
+            this.saveCallback = this.context.saveCallback;
+        }
+
     }
 
     itemsColumns = ["No. Disposisi"]
@@ -47,4 +51,4 @@ export class DataForm {
     get getMemoDate() {
         return moment(this.data.MemoDate || new Date()).format("DD-MMM-YYYY");
     }
-} 
+}

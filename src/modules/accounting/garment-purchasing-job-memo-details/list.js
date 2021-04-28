@@ -78,7 +78,7 @@ export class List {
             .then(result => {
                 alert("Data berhasil disimpan");
                 this.error = {};
-                this.tableList.refresh();
+                this.table.refresh();
                 this.selectedItems = [];
             })
             .catch(e => {

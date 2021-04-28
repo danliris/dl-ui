@@ -40,4 +40,9 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
+
+    getMemoById(id) {
+        var endpoint = `garment-purchasing/memo/${id}`;
+        return super.get(endpoint);
+    }
 }
