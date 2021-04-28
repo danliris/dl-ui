@@ -12,6 +12,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
+    {
+        route: 'inventory/inventory-weaving-documents',
+        name: 'inventory/inventory-weaving-documents',
+        moduleId: './modules/inventory/inventory-weaving-document/index',
+        nav: true,
+        title: 'Penerimaan Gudang Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',

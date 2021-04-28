@@ -61,11 +61,11 @@ export class DataForm {
             this.data.Unit = this.data.OrderType.Unit;
             this.selectedOrder = _selectedOrder;
             if (this.data.Unit && this.data.Unit.toUpperCase() == "DYEING") {
-                this.sppCodes = ["", "SPD", "SPW", "SPLD", "SPDT", "SPWT", "SPYD", "SPPC", "SPBD", "SPBW"];
+                this.sppCodes = ["", "SPD", "SPW", "SPLD", "SPDT", "SPWT", "SPYD", "SPPC", "SPBD", "SPBW", "SPDV"];
             } else if (this.data.Unit && this.data.Unit.toUpperCase() == "PRINTING") {
-                this.sppCodes = ["", "SPP", "SPDP", "SPTP", "SPSO", "SPPT", "SPPC", "SPBP"];
+                this.sppCodes = ["", "SPP", "SPDP", "SPTP", "SPSO", "SPPT", "SPPC", "SPBP","SPDV"];
             } else if (this.data.Unit) {
-                this.sppCodes = ["", "SPPC"];
+                this.sppCodes = ["", "SPPC", "SPDV"];
             } else {
                 this.sppCodes = [""];
             }
