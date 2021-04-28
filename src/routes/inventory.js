@@ -441,4 +441,18 @@ module.exports = [
         iconClass: "fa fa-dashboard",
       },
     },
+    {
+        route: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
+        name: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/report/monitoring/index",
+        nav: true,
+        title: "Monitoring Pengeluaran Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, A2: 1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+      },
 ]
