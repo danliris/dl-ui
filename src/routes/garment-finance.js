@@ -236,6 +236,32 @@ module.exports = [
     },
   },
   {
+    route: "/garment-finance/reports/garment-down-payment",
+    name: "garment-disposition-to-verification",
+    moduleId: "./modules/garment-finance/report/garment-down-payment/index",
+    nav: true,
+    title: "Laporan Uang Muka",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "ekspedisi disposisi",
+      permission: {
+        P1: 1,
+        P2: 1,
+        P3: 1,
+        P4: 1,
+        P5: 1,
+        P6: 1,
+        P7: 1,
+        PI: 1,
+        PG: 1,
+        PK: 1,
+        C9: 1,
+      },
+      iconClass: "fa fa-clone",
+    }
+  },
+  {
     route: "/garment-finance/payment-disposition-note",
     name: "payment-disposition-note",
     moduleId: "./modules/garment-finance/payment-disposition-note/index",
