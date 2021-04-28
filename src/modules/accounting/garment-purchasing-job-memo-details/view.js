@@ -24,6 +24,8 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        this.data.MemoNo = await this.service.getMemoById(this.data.MemoId);
+        
         if (this.data.isPosted) {
             this.hasPosting = false;
             this.editCallback = false;

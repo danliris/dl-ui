@@ -17,6 +17,7 @@ export class Edit {
   async activate(params) {
     let id = params.id;
     this.data = await this.service.getById(id);
+    this.data.MemoNo = await this.service.getMemoById(this.data.MemoId);
   }
 
   cancelCallback(event) {
