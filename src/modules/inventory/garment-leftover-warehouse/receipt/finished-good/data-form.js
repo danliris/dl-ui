@@ -88,7 +88,7 @@ export class DataForm {
                     var detail={};
                     var duplicate= this.data.DataItems.find(a=>a.ExpenditureGoodNo==item.ExpenditureGoodNo);
                     if(duplicate){
-                        var idx= this.data.Items.indexOf(duplicate);
+                        var idx= this.data.DataItems.indexOf(duplicate);
                         detail={
                             ExpenditureGoodItemId: item.ExpenditureGoodItemId,
                             Size: {
@@ -103,8 +103,17 @@ export class DataForm {
                             LeftoverComodity: item.LeftoverComodity,
                             Id: item.Id
                         }; 
+                        var dup= duplicate.dataDetails.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                        if(dup){
+                            var index= duplicate.dataDetails.indexOf(dup);
+                            dup.Quantity+=item.Quantity;
+                            duplicate.dataDetails[index]=dup;
+                        }
+                        else{
+                            duplicate.dataDetails.push(detail);
+                        }
+                        
                         duplicate.details.push(detail);
-                        duplicate.dataDetails.push(detail);
                         this.data.DataItems[idx]=duplicate;
                     }
                     else{
@@ -146,43 +155,42 @@ export class DataForm {
                     item.dataDetails.push(detail);
                     this.data.DataItems.push(item);
                 }
-                // if(this.data.DataItems.length>0){
-                //     var duplicate= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
-                    
-                //     if(duplicate){
-                //         var idx= this.data.Items.indexOf(duplicate);
-                //         duplicate.Quantity+=item.Quantity;
-                //         this.data.DataItems[idx]=duplicate;
-                //     }else{
-                //         item.Size={
-                //             Id: item.Size.Id,
-                //             Name: item.Size.Name
-                //         };
-                //         item.SizeName=item.Size.Name;
-                //         item.Quantity=item.Quantity;
-                //         item.Uom= item.Uom;
-                //         item.UomUnit= item.Uom.Unit;
-                //         item.Remark= item.Remark;
-                        
-                //         this.data.DataItems.push(item);
-                //     }
-                // }
-                // else{
-                //     item.Size={
-                //         Id: item.Size.Id,
-                //         Name: item.Size.Name
-                //     };
-                //     item.SizeName=item.Size.Name;
-                //     item.Quantity=item.Quantity;
-                //     item.Uom= item.Uom;
-                //     item.UomUnit= item.Uom.Unit;
-                //     item.Remark= item.Remark;
-                //     this.data.DataItems.push(item);
-                // }
-            
-                // item.SizeName = item.Size.Name;
-                // item.UomUnit = item.Uom.Unit;
+                
             }
+            // if(this.data.DataItems){
+            //     var duplicate= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                
+            //     if(duplicate){
+            //         var idx= this.data.Items.indexOf(duplicate);
+            //         duplicate.Quantity+=item.Quantity;
+            //         this.data.DataItems[idx]=duplicate;
+            //     }else{
+            //         item.Size={
+            //             Id: item.Size.Id,
+            //             Name: item.Size.Name
+            //         };
+            //         item.SizeName=item.Size.Name;
+            //         item.Quantity=item.Quantity;
+            //         item.Uom= item.Uom;
+            //         item.UomUnit= item.Uom.Unit;
+            //         item.Remark= item.Remark;
+                    
+            //         this.data.DataItems.push(item);
+            //     }
+            // }
+            // else{
+            //     item.Size={
+            //         Id: item.Size.Id,
+            //         Name: item.Size.Name
+            //     };
+            //     item.SizeName=item.Size.Name;
+            //     item.Quantity=item.Quantity;
+            //     item.Uom= item.Uom;
+            //     item.UomUnit= item.Uom.Unit;
+            //     item.Remark= item.Remark;
+            //     this.data.DataItems.push(item);
+            // }
+            console.log(this.data.DataItems)
         }
     }
 
