@@ -197,6 +197,20 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/invoice-all-user",
+        name: "garment-shipping/invoice-all-user",
+        moduleId: "modules/garment-shipping/invoice-all-user/index",
+        nav: true,
+        title: "Invoice Export Garment - (All User)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/generate-date",
         name: "garment-shipping/generate-date",
         moduleId: "modules/garment-shipping/monitoring/garment-shipping-generate-data/index",
