@@ -7,120 +7,7 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 
 @inject(Service)
 export class List {
-    columns = [
-        [
-          { field: "DispositionNoteNo", title: "No", rowspan: 2 },
-          {
-            field: "DispositionNoteDate", title: "Bukti", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, colspan: 2
-          },
-          { field: "DispositionNoteDueDate", title: "Disposisi", rowspan: 2 },
-          { field: "ProformaNo", title: "Supplier", rowspan: 2 },
-          { field: "SupplierName", title: "Umur Uang Muka", rowspan: 2 },
-          { title: "Saldo Awal", colspan: 4 },
-          { field: "CategoryName", title: "Kategori", rowspan: 2 },
-          { field: "PositionDescription", title: "Posisi", rowspan: 2 },
-          { field: "SendToPurchasingRemark", title: "Alasan Retur", rowspan: 2 },
-          {
-            field: "SendToVerificationDate", title: "Tanggal Pembelian Kirim", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, rowspan: 2
-          },
-          { title: "Verifikasi", colspan: 2 },
-          { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
-          { title: "Kasir", colspan: 5 },
-          { field: "ExternalPurchaseOrderNo", title: "PO Eksternal", rowspan: 2 },
-          {
-            field: "DispositionQuantity", title: "Qty Disposisi", rowspan: 2, formatter: (value, data) => {
-              return numeral(value).format("0,0.00")
-            }, align: "right"
-          },
-          { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
-          {
-            field: "DeliveryOrderQuantity", title: "Qty Surat Jalan", rowspan: 2, formatter: (value, data) => {
-              return numeral(value).format("0,0.00")
-            }, align: "right"
-          },
-          { field: "DeliveryOrderNo", title: "Nomor Surat Jalan", rowspan: 2 },
-          { field: "PaymentBillsNo", title: "Nomor BP Kecil", rowspan: 2 },
-          { field: "BillsNo", title: "Nomor BP Besar", rowspan: 2 },
-          { field: "CustomsNoteNo", title: "Nomor Beacukai", rowspan: 2 },
-          {
-            field: "CustomsNoteDate", title: "Tanggal Beacukai", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, rowspan: 2
-          },
-          { field: "UnitReceiptNoteNo", title: "Nomor Bon Terima", rowspan: 2 },
-          { field: "InternalNoteNo", title: "Nomor Nota Intern", rowspan: 2 },
-          {
-            field: "InternalNoteDate", title: "Tanggal Nota Intern", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, rowspan: 2
-          },
-          { field: "SendToVerificationby", title: "Staff", rowspan: 2 }
-        ],
-        [
-            {
-                field: "", title: "Tanggal", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-            {
-                field: "", title: "No", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-            {
-                field: "", title: "Nilai Disposisi", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-            {
-                field: "", title: "Nilai Bayar", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-            {
-                field: "", title: "Kurs", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-            {
-                field: "", title: "Rupiah", formatter: (value, data) => {
-                    return numeral(value).format("0,0.00")
-                }, align: "right"
-            },
-
-          {
-            field: "VerificationAcceptedDate", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, title: "Tgl Terima"
-          },
-          {
-            field: "VerifiedDate", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, title: "Tgl Kirim"
-          },
-          {
-            field: "CashierAcceptedDate", formatter: function (value, data, index) {
-              return value ? moment(value).format("DD MMM YYYY") : "";
-            }, title: "Tgl Terima"
-          },
-          {
-            field: "BankExpenditureNoteDate", title: "Tgl Bayar"
-          },
-          { field: "BankExpenditureNoteNo", title: "No Bukti Pengeluaran Bank" },
-          {
-            field: "PaidAmount", title: "Nominal Yang Dibayar", formatter: (value, data) => {
-              return numeral(value).format("0,0.00")
-            }, align: "right"
-          },
-          { field: "CurrencyCode", title: "Mata Uang" }
-        ]
-      ]
-
-    controlOptions = {
+   controlOptions = {
         label: {
             length: 4,
         },
@@ -145,6 +32,69 @@ export class List {
         this.isEmpty = true;
     }
 
+    activate(){
+      // console.log("Active");
+      var param = this.param;
+      this.service.search(param).then(response=>{
+        console.log("DummyData", response);
+        var data = response.data.map((item)=>{
+          var countDispo = item.DispositionExpenditures.length;
+          var countMemo = item.Memos.length;
+          var minDispoSpan = 0;
+          var maxDispoSpan = 0;
+          var minMemoSpan =0;
+          var maxMemoSpan =0;
+
+          var maxRow = countMemo > countDispo? countMemo : countDispo;
+          if(countMemo > countDispo){
+            maxRow = countMemo;
+            maxDispoSpan = Math.ceil(countMemo / countDispo);
+            minDispoSpan = countMemo % countDispo;
+            minDispoSpan = minDispoSpan == 0?maxDispoSpan: minDispoSpan;
+            minMemoSpan = 1;
+            maxMemoSpan = 1;
+          }else{
+            maxRow = countDispo;
+            maxDispoSpan = 1;
+            minDispoSpan = 1;
+            maxMemoSpan= Math.ceil(countDispo/countMemo);
+            minMemoSpan = countDispo % countMemo;
+            minMemoSpan = minMemoSpan == 0 ? maxMemoSpan : minMemoSpan;
+          }
+          
+          var itemDispositionExpenditures = item.DispositionExpenditures.map((dispo,index)=>{
+            if(countDispo === index + 1){
+              dispo._rowspan = countDispo==1? maxDispoSpan: minDispoSpan;
+              // dispo._rowspan = maxRow - ((index+1)*maxDispoSpan);              
+            }else{
+              dispo._rowspan = maxDispoSpan;
+            }
+            return dispo;
+          });
+
+          var itemMemos = item.Memos.map((memo,index1)=>{
+            if(countMemo === index1 + 1){
+              memo._rowspan = countMemo == 1? maxMemoSpan: minMemoSpan;
+              // memo._rowspan = maxRow - ((index1+1)*maxMemoSpan);              
+            }else{
+              memo._rowspan = maxMemoSpan;
+            }
+            return memo;
+          });
+
+          item.DispositionExpenditures = itemDispositionExpenditures;
+          item.Memos = itemMemos;
+          item._maxRow = maxRow;
+
+          return item;
+        });
+
+        console.log("After Process",data);
+        console.log("After Process string",JSON.stringify(data));
+        
+      });
+
+    }
     reset() {
         this.error = {};
         this.selectedDate = undefined;
