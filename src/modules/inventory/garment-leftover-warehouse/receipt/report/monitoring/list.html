@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Monitoring Penerimaan Gudang Sisa</h1>
+    <h1 class="page-header">Report Penerimaan Gudang Sisa - Fabric dan Accessories</h1>
     <form class="form-horizontal">
 
         <au-datepicker
@@ -40,7 +40,7 @@
             options.bind="tableOptions">
             
             <div slot="toolbar" class="btn-group">
-            <button class='btn btn-primary' click.delegate="XLS()">Cetak Excel</button>
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Cetak Excel</button>
             </div>
         </au-table>
         <hr/>
