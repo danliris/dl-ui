@@ -61,11 +61,25 @@ export class DataForm {
         }
     };
 
-    itemsColumns = [
+    itemsColumns =[
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
         { header: "Komoditi" },
+        { header: "Komoditi Description" },
+        { header: "Qty" },
+        { header: "Satuan" },
+        { header: "Price RO" },
+        { header: "Price" },
+        { header: "Mata Uang" },
+        { header: "Amount" },
+        { header: "Unit" },
+        { header: "" },
+    ]
+
+    itemsColumnsSM =[
+        { header: "RO No" },
+        { header: "SC No" },
         { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
