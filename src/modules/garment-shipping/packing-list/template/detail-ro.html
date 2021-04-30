@@ -17,13 +17,13 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary" if.bind="header.invoiceType!='SM'">
             <au-textbox
                 value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''"
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary" if.bind="header.invoiceType!='SM'">
             <au-textbox
                 value.bind="data.comodity.Name || data.comodity.name || ''"
                 read-only.bind="true">

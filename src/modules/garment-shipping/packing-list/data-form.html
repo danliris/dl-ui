@@ -189,7 +189,7 @@
                 <au-collection 
                     items.bind="data.items" 
                     errors.bind="error.Items" 
-                    columns.bind="itemsColumns"
+                    columns.bind="data.invoiceType=='SM' ? itemsColumnsSM : itemsColumns"
                     read-only.bind="readOnly" 
                     add.bind="addItems" 
                     remove.bind="removeItems"
