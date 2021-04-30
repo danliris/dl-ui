@@ -432,7 +432,7 @@ module.exports = [
       name: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
       moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/monitoring/index",
       nav: true,
-      title: "Report Penerimaan Gudang Sisa Fabric dan Aksesoris",
+      title: "Report Penerimaan Gudang Sisa Fabric dan Accessories",
       auth: true,
       settings: {
         group: "Inventory",
