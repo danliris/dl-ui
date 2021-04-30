@@ -53,4 +53,4 @@ jobs:
         app-name: 'dl-ui-uat'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_ef5639b6bf164840b3aa30b8bf4e0aa9 }}
-        package: .
+        package: ./dist
