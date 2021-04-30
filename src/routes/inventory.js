@@ -454,5 +454,21 @@ module.exports = [
           subGroup: "gudang sisa garment",
           iconClass: "fa fa-dashboard",
         },
-      },
+    },
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock",
+        name: "inventory/garment/leftover-warehouse/balance-stokc",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/index",
+        nav: true,
+        title: "Balance Stok Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, A2: 1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
+
+ 
 ]
