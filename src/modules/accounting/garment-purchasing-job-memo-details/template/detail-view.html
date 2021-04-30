@@ -13,9 +13,9 @@
             </au-autocomplete>
 
             <au-textbox label="Tanggal Memo" value.bind="getMemoDate" read-only.bind="true"></au-textbox>
-            <au-textbox label="Jenis Buku" value.bind="data.AccountingBookType" read-only.bind="true"></au-textbox>
-            <au-textbox label="Mata Uang" value.bind="data.GarmentCurrenciesCode" read-only.bind="true"></au-textbox>
-            <au-textbox label="Rate" value.bind="data.GarmentCurrenciesRate " read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Buku" value.bind="data.MemoNo.AccountingBook.Type" read-only.bind="true"></au-textbox>
+            <au-textbox label="Mata Uang" value.bind="data.MemoNo.Currency.Code" read-only.bind="true"></au-textbox>
+            <au-textbox label="Rate" value.bind="data.MemoNo.Currency.Rate " read-only.bind="true"></au-textbox>
 
             <au-multiline label="Keterangan" placeholder="Masukkan keterangan" value.bind="data.Remarks" read-only.bind="readOnly"></au-multiline>
         </fieldset>

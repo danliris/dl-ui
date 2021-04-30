@@ -67,6 +67,13 @@ export class List {
         }
     }
 
+    rowFormatter(data, index) {
+        if (data.IsPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
     create() {
         this.router.navigateToRoute('create');
     }

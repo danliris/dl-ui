@@ -17,14 +17,19 @@ export class Item {
     ]
 
     get filter(){
-        var filter={
-            UnitId: this.data.unitId, 
-            ExpenditureType:"SISA", 
-            IsReceived:false
+        var filter={};
+        if(this.data){
+            filter={
+                UnitId: this.data.unitId, 
+                ExpenditureType:"SISA", 
+                IsReceived:false
+            }
+            for(var item of this.context.context.items){
+                if(item)
+                    filter[`ExpenditureGoodNo == "${item.data.ExpenditureGoodNo}"`]=false;
+            }
         }
-        for(var item of this.context.context.items){
-            filter[`ExpenditureGoodNo == "${item.data.ExpenditureGoodNo}"`]=false;
-        }
+        
         return filter;
     }
 
@@ -46,21 +51,26 @@ export class Item {
 
     activate(context) {
         this.context = context;
-        this.data = context.data;
-        this.error = context.error;
-        this.options = context.context.options;
+        if( this.context){
+            this.data = context.data;
+            this.error = context.error;
+            this.options = context.context.options;
 
-        this.readOnly = context.options.readOnly;
-        this.isCreate = context.context.options.isCreate;
-        this.isEdit = context.context.options.isEdit;
-        this.itemOptions = {
-            isCreate: this.isCreate,
-            Id: this.data.Id || 0
+            this.readOnly = context.options.readOnly;
+            this.isCreate = context.context.options.isCreate;
+            this.isEdit = context.context.options.isEdit;
+            this.itemOptions = {
+                isCreate: this.isCreate,
+                Id: this.data.Id || 0
+            }
+            if(this.data){
+                this.selectedExpenditureGood={
+                    ExpenditureGoodNo:this.data.ExpenditureGoodNo,
+                    Id:this.data.ExpenditureGoodId
+                };
+                
+            }
         }
-        this.selectedExpenditureGood={
-            ExpenditureGoodNo:this.data.ExpenditureGoodNo,
-            Id:this.data.ExpenditureGoodId
-        };
     }
 
     selectedComodityChanged(newValue){
