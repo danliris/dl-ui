@@ -63,7 +63,8 @@ export class List {
     reset() {
         this.unit = undefined;
         this.type = "";
-        this.date = undefined;
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.error = {};
 
         this.flag = false;

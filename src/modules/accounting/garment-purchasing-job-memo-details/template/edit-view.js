@@ -45,7 +45,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.MemoDetailGarmentPurchasingDispositions.push({});
         };
     }
 

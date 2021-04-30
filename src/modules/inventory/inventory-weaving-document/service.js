@@ -7,7 +7,7 @@ const serviceUri = 'inventory-weaving';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "inventory");
+    super(http, aggregator, config, "inventory-azure");
   }
 
   search(info) {

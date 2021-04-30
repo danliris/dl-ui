@@ -68,7 +68,7 @@ export class Edit {
     this.service.update(this.data)
       .then((result) => {
         alert("Data berhasil diupdate");
-        this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+        this.router.navigateToRoute('view', { id: this.data.Id });
       })
       .catch((e) => {
         this.error = e;
