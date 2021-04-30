@@ -70,13 +70,13 @@
             </au-numeric>
         </td>
         <td style="text-align:center;">
-            <au-textbox value.bind="data.CurrencyRate"
+            <au-textbox value.bind="data.PurchasingRate"
                         read-only.bind="true"
                         options.bind="controlOptions">
             </au-textbox>
         </td>
         <td style="text-align:center;">
-            <au-numeric value.bind="data.MemoDetailGarmentPurchasingDetail.DPPAmount + data.MemoDetailGarmentPurchasingDetail.VATAmount - data.MemoDetailGarmentPurchasingDetail.IncomeTaxAmount"
+            <au-numeric value.bind="data.PurchaseAmount"
                         read-only.bind="true"
                         format="0,0.0000"
                         options.bind="controlOptions">
@@ -91,7 +91,7 @@
             </au-numeric>
         </td>
         <td style="text-align:center;">
-            <au-numeric value.bind="data.MemoAmount * data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0"
+            <au-numeric value.bind="data.MemoAmount * data.PaymentRate || 0"
                         read-only.bind="true"
                         format="0,0.0000"
                         options.bind="controlOptions">
