@@ -14,6 +14,7 @@ export class DetailFooter {
 
     activate(context) {
         this.context = context;
+        this.type= this.context.options.type;
     }
 
     get totalQuantity() {

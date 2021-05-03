@@ -12,6 +12,14 @@
                 value.bind="totalQuantity"
                 error.bind="error"
                 format="0"
+                if.bind="type=='DL'"
+                read-only.bind="true">
+            </au-numeric>
+            <au-numeric
+                value.bind="totalQuantity"
+                error.bind="error"
+                format="0.00"
+                if.bind="type!='DL'"
                 read-only.bind="true">
             </au-numeric>
         </td>
