@@ -51,7 +51,15 @@
                 value.bind="data.quantityPCS"
                 error.bind="error.QuantityPCS"
                 format="0"
-                read-only.bind="readOnly">
+                read-only.bind="readOnly"
+                if.bind="type=='DL'">
+            </au-numeric>
+            <au-numeric
+                value.bind="data.quantityPCS"
+                error.bind="error.QuantityPCS"
+                format="0.00"
+                read-only.bind="readOnly"
+                if.bind="type!='DL'">
             </au-numeric>
         </td>
         <td >
@@ -59,7 +67,16 @@
                 value.bind="totalQuantity"
                 error.bind="error.TotalQuantity"
                 format="0"
-                read-only.bind="true">
+                read-only.bind="true"
+                if.bind="type=='DL'">
+            </au-numeric>
+            
+            <au-numeric
+                value.bind="totalQuantity"
+                error.bind="error.TotalQuantity"
+                format="0.00"
+                read-only.bind="true"
+                if.bind="type!='DL'">
             </au-numeric>
         </td>
         <td>
@@ -136,7 +153,11 @@
                             </au-numeric>
                         </td>
                         <td>
-                            <au-numeric value.bind="data.cartonQuantity" format="0" read-only="true">
+                            <au-numeric value.bind="data.cartonQuantity" format="0" read-only="true" 
+                            if.bind="type=='DL'">
+                            </au-numeric>
+                            <au-numeric value.bind="data.cartonQuantity" format="0.00" read-only="true" 
+                            if.bind="type!='DL'">
                             </au-numeric>
                         </td>
                         <td>

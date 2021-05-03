@@ -31,8 +31,7 @@
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-              <button click.delegate="searchDummy()" class="btn btn-success">Cari Dummy</button>
-              <button click.delegate="search()" class="btn btn-success">Cari</button>              
+              <button click.delegate="search()" class="btn btn-success">Cari</button>
               <button click.delegate="reset()" class="btn btn-success">Reset</button>
             </div>
           </div>
@@ -119,41 +118,31 @@
                         </td>
                     </tr>
                     <!-- <tbody if.bind="!isEmpty"> -->
-                        <tbody if.bind="!isEmpty" repeat.for="items of data">
+                        <tbody if.bind="!isEmpty" repeat.for="item of data">
                             <!-- <tbody repeat.for="i of item.DispositionExpenditures.length"> -->
-                                <tr repeat.for="item of items">
-                                        <td>${item.Index}</td>                                        
-                                        <td>${item.BankExpenditureDate}</td>
-                                        <td>${item.BankExpenditureDate}</td>
-                                        <td>${item.BankExpenditureNo}</td>                                    
-                                        <td>${item.DispositionNo}</td>
-                                        <td>${item.SupplierName}</td>
-                                        <td>${item.DownPaymentDuration}</td>
-                                        <td>${item.InitialBalanceDispositionAmount}</td>
-                                        <td>${item.InitialBalancePaymentAmount}</td>
-                                        <td>${item.InitialBalanceCurrencyRate}</td>
-                                        <td>${item.InitialBalanceCurrencyAmount}</td>
-                                        <td>${item.DownPaymentDispositionAmount}</td>
-                                        <td>${item.DownPaymentDispositionPaymentAmount}</td>
-                                        <td>${item.DownPaymentCurrencyRate}</td>
-                                        <td>${item.DownPaymentCurrencyAmount}</td>
-                                        <td>${item.MemoNo}</td>
-                                        <td>${item.MemoDate}</td>
-                                        <td>${item.RealizationDownPaymentCurrencyTotal}</td>
-                                        <td>${item.RealizationDownPaymentCurrencyRate}</td>
-                                        <td>${item.RealizationDownPaymentCurrencyAmount}</td>
-                                        <td>${item.InternNoteDate}</td>
-                                        <td>${item.InternNoteNo}</td>
-                                        <td>${item.DeliveryOrderNo}</td>
-                                        <td>${item.PaymentNo}</td>
-                                        <td>${item.PaymentDescription}</td>
-                                        <td>${item.PaymentCurrencyCode}</td>
-                                        <td>${item.PaymentCurrencyRate}</td>
-                                        <td>${item.PaymentCurrencyAmount}</td>
-                                        <td>${item.DifferenceCurrencyRate}</td>
-                                        <td>${item.LastBalanceCurrencyCode}</td>
-                                        <td>${item.LastBalanceCurrencyRate}</td>
-                                        <td>${item.LastBalanceCurrencyAmount}</td>                                 
+                                <tr repeat.for="i of item.DispositionExpenditures.length">
+                                    <td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">Index</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].BankExpenditureDate}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].BankExpenditureNo}</td>                                    
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DispositionNo}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].SupplierName}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DownPaymentDuration}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].InitialBalanceDispositionAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].InitialBalancePaymentAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].InitialBalanceCurrencyRate}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].InitialBalanceCurrencyAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DownPaymentDispositionAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DownPaymentDispositionPaymentAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DownPaymentCurrencyRate}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].DownPaymentCurrencyAmount}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].LastBalanceCurrencyCode}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].LastBalanceCurrencyRate}</td>
+                                        <td rowspan="${item.DispositionExpenditures[i]._rowSpan}">${item.DispositionExpenditures[i].LastBalanceCurrencyAmount}</td>                                 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="16" rowspan="${item.DispositionExpenditures[i]._rowSpan}"></td>
                                 </tr>
                             <!-- </tbody> -->
                         </tbody>

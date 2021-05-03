@@ -15,11 +15,20 @@ export class Item {
     }
 
     get filter() {
-        var filter = {
-            BuyerCode: this.data.BuyerCodeFilter,
-            Section: this.data.SectionFilter,
-            "SCGarmentId!=null": true
-        };
+        var filter={};
+        if(this.header.invoiceType!="SM"){
+            filter = {
+                BuyerCode: this.data.BuyerCodeFilter,
+                Section: this.data.SectionFilter,
+                "SCGarmentId!=null": true
+            };
+        }
+        else{
+            filter = {
+                Section: this.data.SectionFilter,
+                "SCGarmentId!=null": true
+            };
+        }
         return filter;
     }
 
@@ -69,12 +78,13 @@ export class Item {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
+        this.header=context.context.options.header;
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
-            header: context.context.options.header,
+            header: this.header,
             item: this.data
         };
         if (this.data.roNo) {

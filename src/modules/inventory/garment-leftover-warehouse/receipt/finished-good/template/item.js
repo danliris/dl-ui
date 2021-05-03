@@ -68,7 +68,6 @@ export class Item {
                     ExpenditureGoodNo:this.data.ExpenditureGoodNo,
                     Id:this.data.ExpenditureGoodId
                 };
-                
             }
         }
     }
@@ -99,7 +98,6 @@ export class Item {
                     this.data.Buyer = exGood.Buyer;
                     this.data.BuyerName = exGood.Buyer.Name;
                     this.data.details=[];
-                    //this.data.DataItems=[];
                     for (const item of exGood.Items) {
                         this.data.details.push({
                             ExpenditureGoodItemId: item.Id,
@@ -111,7 +109,8 @@ export class Item {
                             Quantity: item.Quantity,
                             Uom: item.Uom,
                             UomUnit: item.Uom.Unit,
-                            Remark: item.Description
+                            Remark: item.Description,
+                            qty: item.Quantity,
                         });
 
                         if(this.data.dataDetails){
@@ -119,7 +118,7 @@ export class Item {
                             
                             if(duplicate){
                                 var idx= this.data.details.indexOf(duplicate);
-                                duplicate.Quantity+=item.Quantity;
+                                duplicate.qty+=item.Quantity;
                                 this.data.dataDetails[idx]=duplicate;
                             }else{
                                 item.Size={
@@ -128,6 +127,7 @@ export class Item {
                                 };
                                 item.SizeName=item.Size.Name;
                                 item.Quantity=item.Quantity;
+                                item.qty=item.Quantity;
                                 item.Uom= item.Uom;
                                 item.UomUnit= item.Uom.Unit;
                                 item.Remark= item.Description;
@@ -141,6 +141,7 @@ export class Item {
                             };
                             item.SizeName=item.Size.Name;
                             item.Quantity=item.Quantity;
+                            item.qty=item.Quantity;
                             item.Uom= item.Uom;
                             item.UomUnit= item.Uom.Unit;
                             item.Remark= item.Description;
