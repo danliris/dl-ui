@@ -54,6 +54,11 @@ export class DataForm {
         return UnitLoader;
     }
 
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+      }
+
     ShipmentModeOptions=["By Air", "By Sea"];
     
     unitView = (unit) => {

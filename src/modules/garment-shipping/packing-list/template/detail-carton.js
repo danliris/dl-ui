@@ -42,6 +42,7 @@ export class Detail {
             isCreate: this.isCreate,
             readOnly: this.readOnly,
             isEdit: this.isEdit,
+            type: this.type,
         };
 
         this.isShowing = true;

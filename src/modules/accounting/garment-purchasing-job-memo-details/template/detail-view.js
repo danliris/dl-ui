@@ -3,7 +3,7 @@ import { Service } from '../service';
 import moment from 'moment';
 var MemoGarmentPurchasingLoader = require('../../../../loader/memo-garment-purchasing-loader');
 
-@inject(Service,  BindingEngine)
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly;
     @bindable data = {}
@@ -26,26 +26,19 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        console.log(this.data);
+
         this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+
+        if (this.data.IsPosted) {
+            this.deleteCallback = undefined;
+            this.editCallback = undefined;
+            this.saveCallback = undefined;
+        }
+
     }
 
-    itemsColumns = [
-        { header: "No. Surat Jalan", value: "Product" },
-        { header: "No. Nota Intern", value: "Quantity" },
-        { header: "No. BP Besar", value: "AvailableQuantity" },
-        { header: "No. BP Kecil", value: "Weight" },
-        { header: "Kode Supplier", value: "WeightTotal" },
-        { header: "Keterangan", value: "Length" },
-        { header: "Mata Uang", value: "LengthTotal" },
-        { header: "Rate Bayar", value: "Remark" },
-        { header: "Rate Beli", value: "Notes" },
-        { header: "Saldo Akhir", value: "Notes" },
-        { header: "Jumlah", value: "Notes" },
-        { header: "Jumlah dalam Rupiah", value: "Notes" }
-    ]
+    itemsColumns = ["No. Disposisi"]
 
     get memoGarmentPurchasingLoader() {
         return MemoGarmentPurchasingLoader;
@@ -60,4 +53,4 @@ export class DataForm {
     get getMemoDate() {
         return moment(this.data.MemoDate || new Date()).format("DD-MMM-YYYY");
     }
-} 
+}

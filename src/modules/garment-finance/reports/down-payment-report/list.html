@@ -4,7 +4,7 @@
     <h1 class="page-header">Laporan Uang Muka</h1>
 
     <form class="form-horizontal">
-        <au-autocomplete 
+        <!-- <au-autocomplete 
             value.bind="info.supplier"
             label="Jenis Supplier"
             text="name"
@@ -12,10 +12,18 @@
             placeholder="Masukkan Nama Supplier"
             loader.one-time="supplierLoader"
         >
-        </au-autocomplete>
+        </au-autocomplete> -->
+
+        <au-dropdown label="Jenis Supplier"
+                     value.bind="info.SupplierType"
+                     error.bind="error.SupplierType"
+                     items.bind="supplierTypeOptions"
+                     options.bind="controlOptions">
+        </au-dropdown>
 
         <au-datepicker 
-            value.bind="info.startDate" 
+            value.bind="info.Date" 
+            error.bind="error.Date"
             label="Tanggal Sampai dengan" 
             options.bind="controlOptions">
         </au-datepicker>
@@ -23,7 +31,8 @@
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-              <button click.delegate="search()" class="btn btn-success">Cari</button>
+              <button click.delegate="searchDummy()" class="btn btn-success">Cari Dummy</button>
+              <button click.delegate="search()" class="btn btn-success">Cari</button>              
               <button click.delegate="reset()" class="btn btn-success">Reset</button>
             </div>
           </div>
@@ -104,17 +113,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr show.bind="isEmpty">
+                    <tr if.bind="isEmpty">
                         <td colspan="32">
                             <div class="alert alert-info">Tidak ada data</div>
                         </td>
                     </tr>
-                    <tr>
-
-                    </tr>
-                    <tr>
+                    <!-- <tbody if.bind="!isEmpty"> -->
+                        <tbody if.bind="!isEmpty" repeat.for="items of data">
+                            <!-- <tbody repeat.for="i of item.DispositionExpenditures.length"> -->
+                                <tr repeat.for="item of items">
+                                        <td>${item.Index}</td>                                        
+                                        <td>${item.BankExpenditureDate}</td>
+                                        <td>${item.BankExpenditureDate}</td>
+                                        <td>${item.BankExpenditureNo}</td>                                    
+                                        <td>${item.DispositionNo}</td>
+                                        <td>${item.SupplierName}</td>
+                                        <td>${item.DownPaymentDuration}</td>
+                                        <td>${item.InitialBalanceDispositionAmount}</td>
+                                        <td>${item.InitialBalancePaymentAmount}</td>
+                                        <td>${item.InitialBalanceCurrencyRate}</td>
+                                        <td>${item.InitialBalanceCurrencyAmount}</td>
+                                        <td>${item.DownPaymentDispositionAmount}</td>
+                                        <td>${item.DownPaymentDispositionPaymentAmount}</td>
+                                        <td>${item.DownPaymentCurrencyRate}</td>
+                                        <td>${item.DownPaymentCurrencyAmount}</td>
+                                        <td>${item.MemoNo}</td>
+                                        <td>${item.MemoDate}</td>
+                                        <td>${item.RealizationDownPaymentCurrencyTotal}</td>
+                                        <td>${item.RealizationDownPaymentCurrencyRate}</td>
+                                        <td>${item.RealizationDownPaymentCurrencyAmount}</td>
+                                        <td>${item.InternNoteDate}</td>
+                                        <td>${item.InternNoteNo}</td>
+                                        <td>${item.DeliveryOrderNo}</td>
+                                        <td>${item.PaymentNo}</td>
+                                        <td>${item.PaymentDescription}</td>
+                                        <td>${item.PaymentCurrencyCode}</td>
+                                        <td>${item.PaymentCurrencyRate}</td>
+                                        <td>${item.PaymentCurrencyAmount}</td>
+                                        <td>${item.DifferenceCurrencyRate}</td>
+                                        <td>${item.LastBalanceCurrencyCode}</td>
+                                        <td>${item.LastBalanceCurrencyRate}</td>
+                                        <td>${item.LastBalanceCurrencyAmount}</td>                                 
+                                </tr>
+                            <!-- </tbody> -->
+                        </tbody>
+                    <!-- </tbody> -->
+                    <!-- <tr>
                         <td class="text-right" colspan="6">TOTAL </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
                 <div style="margin-bottom: 1%" slot="toolbar" class="btn-group">
                     <button class='btn btn-primary' click.delegate="excel()">Cetak Excel</button>

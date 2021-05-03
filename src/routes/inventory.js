@@ -12,6 +12,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
+    {
+        route: 'inventory/inventory-weaving-documents',
+        name: 'inventory/inventory-weaving-documents',
+        moduleId: './modules/inventory/inventory-weaving-document/index',
+        nav: true,
+        title: 'Penerimaan Gudang Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
@@ -400,20 +414,6 @@ module.exports = [
         }
     },
     {
-        route: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
-        name: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
-        moduleId: "modules/inventory/garment-leftover-warehouse/reports/expenditure-leftover-report/index",
-        nav: true,
-        title: "Report Pengeluaran Gudang Sisa",
-        auth: true,
-        settings: {
-            group: "Inventory",
-            permission: { "C9": 1 },
-            subGroup: "gudang sisa garment",
-            iconClass: "fa fa-dashboard"
-        }
-    },
-    {
       route: "inventory/garment/leftover-warehouse/master/buyer",
       name: "inventory/garment/leftover-warehouse/master/buyer",
       moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
@@ -432,7 +432,7 @@ module.exports = [
       name: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
       moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/monitoring/index",
       nav: true,
-      title: "Monitoring Penerimaan Gudang Sisa",
+      title: "Report Penerimaan Gudang Sisa Fabric dan Aksesoris",
       auth: true,
       settings: {
         group: "Inventory",
@@ -442,11 +442,25 @@ module.exports = [
       },
     },
     {
+        route: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
+        name: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/expenditure-leftover-report/index",
+        nav: true,
+        title: "Report Pengeluaran Gudang Sisa - Fabric dan Accessories",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
         name: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
         moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/report/monitoring/index",
         nav: true,
-        title: "Monitoring Pengeluaran Gudang Sisa",
+        title: "Report Pengeluaran Gudang Sisa - Barang Jadi",
         auth: true,
         settings: {
           group: "Inventory",
@@ -454,5 +468,19 @@ module.exports = [
           subGroup: "gudang sisa garment",
           iconClass: "fa fa-dashboard",
         },
-      },
+    },
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock",
+        name: "inventory/garment/leftover-warehouse/balance-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/index",
+        nav: true,
+        title: "Balance Stok Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, A2: 1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
 ]

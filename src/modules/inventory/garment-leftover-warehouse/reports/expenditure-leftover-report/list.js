@@ -10,7 +10,7 @@ export class List {
         this.router = router;
     }
 
-    receiptTypeOptions = ['', 'FABRIC', 'ACCESSORIES'];
+    receiptTypeOptions = ['FABRIC', 'ACCESSORIES'];
 
     tableOptions = {
         search: false,

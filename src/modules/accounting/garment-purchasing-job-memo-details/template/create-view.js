@@ -3,7 +3,7 @@ import { Service } from '../service';
 import moment from 'moment';
 var MemoGarmentPurchasingLoader = require('../../../../loader/memo-garment-purchasing-loader');
 
-@inject(Service,  BindingEngine)
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly;
     @bindable packingReadOnly = false;
@@ -34,35 +34,30 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
     }
 
-    itemsColumns = [
-        { header: "No. Surat Jalan", value: "Product" },
-        { header: "No. Nota Intern", value: "Quantity" },
-        { header: "No. BP Besar", value: "AvailableQuantity" },
-        { header: "No. BP Kecil", value: "Weight" },
-        { header: "Kode Supplier", value: "WeightTotal" },
-        { header: "Keterangan", value: "Length" },
-        { header: "Mata Uang", value: "LengthTotal" },
-        { header: "Rate Bayar", value: "Remark" },
-        { header: "Rate Beli", value: "Notes" },
-        { header: "Saldo Akhir", value: "Notes" },
-        { header: "Jumlah", value: "Notes" },
-        { header: "Jumlah dalam Rupiah", value: "Notes" }
-    ]
+    itemsColumns = ["No. Disposisi"]
 
     get memoGarmentPurchasingLoader() {
         return MemoGarmentPurchasingLoader;
     }
 
+    @bindable memo;
+    memoChanged(newValue, oldValue) {
+        if (newValue)
+            this.data.MemoId = newValue.Id;
+        else
+            this.data.MemoId = 0;
+    }
+
     get addItems() {
         return (event) => {
-            this.data.MemoDetailGarmentPurchasingDetail.push({});
+            this.data.MemoDetailGarmentPurchasingDispositions.push({});
         };
     }
 
     get getMemoDate() {
-        if (this.data.Memo) {
-            return moment(this.data.Memo.MemoDate).format("DD-MMM-YYYY")
+        if (this.memo) {
+            return moment(this.memo.MemoDate).format("DD-MMM-YYYY")
         }
         return '';
     }
-} 
+}

@@ -14,23 +14,23 @@
             </au-autocomplete>
 
             <au-textbox label="Tanggal Memo" value.bind="getMemoDate" read-only.bind="true"></au-textbox>
-            <au-textbox label="Jenis Buku" value.bind="data.AccountingBookType" read-only.bind="true"></au-textbox>
-            <au-textbox label="Mata Uang" value.bind="data.GarmentCurrenciesCode" read-only.bind="true"></au-textbox>
-            <au-textbox label="Rate" value.bind="data.GarmentCurrenciesRate " read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Buku" value.bind="data.MemoNo.AccountingBook.Type" read-only.bind="true"></au-textbox>
+            <au-textbox label="Mata Uang" value.bind="data.MemoNo.Currency.Code" read-only.bind="true"></au-textbox>
+            <au-textbox label="Rate" value.bind="data.MemoNo.Currency.Rate " read-only.bind="true"></au-textbox>
 
             <au-multiline label="Keterangan" placeholder="Masukkan keterangan" value.bind="data.Remarks" read-only.bind="readOnly"></au-multiline>
         </fieldset>
 
 
         <au-collection 
-            items.bind="data.Items" 
-            errors.bind="error.Items" 
+            items.bind="data.MemoDetailGarmentPurchasingDispositions" 
+            errors.bind="error.MemoDetailGarmentPurchasingDispositions" 
             columns.bind="itemsColumns" 
             add.bind="addItems" 
             remove.bind="removeItems"
             read-only.bind="readOnly"
-            footer-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-footer"
-            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-item">
+            footer-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-footer"
+            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-disposition">
         </au-collection>
     </au-input-form>
 </template>

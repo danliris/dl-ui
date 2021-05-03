@@ -237,7 +237,7 @@ export class PurchasingDispositionItem {
         // console.log("loader",EPOLoader);
         this.filter = this.data.SupplierId && this.data.CurrencyId && this.data.Category && this.data.PaymentType ? 
                       { "SupplierId": this.data.SupplierId, 
-                        "CurrencyId":this.data.CurrencyId, 
+                        "CurrencyCode":this.data.CurrencyCode, 
                         "Category": this.data.Category, 
                         "PaymentType": this.data.PaymentType} : {};
         // console.log("filter",this.filter);

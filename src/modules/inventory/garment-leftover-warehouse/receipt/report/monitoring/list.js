@@ -47,12 +47,8 @@ export class List {
         { field: "Quantity", title: "Qty", sortable: false, width: '5%' },
         { field: "Uom.Unit", title: "Satuan", sortable: false, width: '5%' },
         { field: "CustomsNo", title: "Asal BC Masuk", sortable: false, width: '5%' },
-        { field: "CustomsType", title: "Tipe BC", sortable: false, width: '5%' },
-        {
-            field: "CustomsDate", title: "Tgl BC", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }, width: '5%'
-        },
+        { field: "CustomsType", title: "Tipe Beacukai", sortable: false, width: '5%' },
+        { field: "CustomsDate", title: "Tanggal Beacukai",sortable: false, width: '5%' },
     ];
 
     search() {
@@ -67,7 +63,8 @@ export class List {
     reset() {
         this.unit = undefined;
         this.type = "";
-        this.date = undefined;
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.error = {};
 
         this.flag = false;
@@ -85,14 +82,41 @@ export class List {
             size: info.limit,
             order: order,
             type: this.type,
-            dateFrom: moment(this.dateFrom).format("MM/DD/YYYY"),
-            dateTo:moment(this.dateTo).format("MM/DD/YYYY"),
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
         };
 
         return this.flag ?
             (
                 this.service.search(args)
                     .then(result => {
+                        result.data.forEach(s => {
+                            s.CustomsNo.toString = function () {
+                                var str = "<ul>";
+                                for(var no of s.CustomsNo){
+                                    str += `<li>${no}</li>`;
+                                }
+                                str += "</ul>";
+                                return str;
+                            }
+                            s.CustomsType.toString = function () {
+                                var str = "<ul>";
+                                for(var type of s.CustomsType){
+                                    str += `<li>${type}</li>`;
+                                }
+                                str += "</ul>";
+                                return str;
+                            }
+                            s.CustomsDate.toString = function () {
+                                var str = "<ul>";
+                                for(var date of s.CustomsDate){
+                                    str += `<li>${moment(date).format("DD MMM YYYY")}</li>`;
+                                }
+                                str += "</ul>";
+                                return str;
+                            }
+
+                        });
                         return {
                             total: result.info.total,
                             data: result.data
@@ -101,28 +125,13 @@ export class List {
             ) : { total: 0, data: [] };
     }
 
-    XLS() {
-        this.error = {};
-
-        if (!this.date || this.date == "Invalid Date")
-            this.error.date = "Tanggal harus diisi";
-
-        if (!this.unit)
-            this.error.unit = "Unit harus diisi";
-
-        if (Object.getOwnPropertyNames(this.error).length === 0) {
-            let args = {
-                unitId: this.unit ? this.unit.Id : "",
-                unitName: this.unit ? this.unit.Name : "",
-                type: this.type,
-                date: moment(this.date).format("MM/DD/YYYY")
-            };
-
-            this.service.pdf(args)
-                .catch(e => {
-                    alert(e.replace(e, "Error: ", ""));
-                });
-        }
+    ExportToExcel() {
+        let args = {
+            type: this.type,
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+        };
+        this.service.generateExcel(args);
     }
 
     get unitLoader() {

@@ -49,6 +49,9 @@ export class List {
                 this.data = result;
                 console.log(result);
 
+                this.grandTotalByUom = [];
+                this.grandTotal = 0;
+
                 var dataBySection = {};
                 var subTotalSection = {};
                 var subTotalSection1 = {};
@@ -100,9 +103,25 @@ export class List {
                             subTotalSection2[SECTION] = 0;
                             } 
                             subTotalSection2[SECTION] += data.ProfitUSD;
-              
-                        }    
-
+                        }
+                    //
+                    for (var data of result) {
+                        const uomIndex = this.grandTotalByUom.findIndex(uom => uom.uom == data.UOMUnit);
+                        if (uomIndex > -1) {
+                            this.grandTotalByUom[uomIndex].quantity += data.Quantity;
+                            this.grandTotalByUom[uomIndex].amount += data.Amount;
+                        } else {
+                            this.grandTotalByUom.push({
+                                uom: data.UOMUnit,
+                                quantity: data.Quantity,
+                                amount: data.Amount
+                            });
+                        }
+                        console.log(this.grandTotalByUom);
+                        this.grandTotal += data.Amount;
+                    }
+                    //
+                       
                var Sections = [];
                this.AmountTotal = 0;
                this.AmountTotal1 = 0;
@@ -126,7 +145,7 @@ export class List {
                this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.Sections = Sections;
 
-                });        
+                });  
     }
           
     ExportToExcel() {
