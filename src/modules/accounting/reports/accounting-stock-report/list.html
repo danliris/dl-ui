@@ -29,6 +29,7 @@
             <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
           </div>
         <br>
+    </form>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="poReport">
                 <thead align="center">
@@ -180,7 +181,7 @@
                         <td align="right">${item.EndingBalanceQty}</td>
                         <td align="right">${item.EndingBalancePrice}</td>
                     </tr>
-                    <tr class="active">
+                    <!-- <tr class="active">
                         <td class="text-center" colspan="7"><strong>T O T A L  . . . . . . . . . . . . . . .</strong></td>
                         <td class="text-right"><strong>${AmountTotal1}</strong></td>
                         <td></td>
@@ -221,11 +222,16 @@
                         <td class="text-right"><strong>${AmountTotal36}</strong></td>
                         <td class="text-right"><strong>${AmountTotal37}</strong></td>
                         <td class="text-right"><strong>${AmountTotal38}</strong></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
-    </form>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr/>
+   
 
     
 </template>

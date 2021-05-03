@@ -11,9 +11,10 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}?unitcode=${info.unitcode}&category=${info.category}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        // let endpoint = `${serviceUri}?unitcode=${info.unitcode}&category=${info.category}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        let endpoint = `${serviceUri}`;
        
-        return super.get(endpoint);
+        return super.list(endpoint, info);
     }
 
     generateExcel(args) {
