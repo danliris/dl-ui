@@ -483,4 +483,18 @@ module.exports = [
           iconClass: "fa fa-dashboard",
         },
     },
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock/report/fabric",
+        name: "inventory/garment/leftover-warehouse/balance-stock/report/fabric",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/report/fabric/index",
+        nav: true,
+        title: "Report Stock Gudang Sisa - FABRIC",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, A2: 1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
 ]
