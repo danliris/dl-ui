@@ -87,6 +87,7 @@ export class Item {
             header: this.header,
             item: this.data
         };
+        this.header=context.context.options.header;
         if (this.data.roNo) {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo

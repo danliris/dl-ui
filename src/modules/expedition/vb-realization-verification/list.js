@@ -60,8 +60,8 @@ export class List {
     ];
 
     tableOptions = {
-        showColumns: false,
-        search: false,
+        showColumns: true,
+        search: true,
         showToggle: false,
         sortable: false,
         pagination: true,
