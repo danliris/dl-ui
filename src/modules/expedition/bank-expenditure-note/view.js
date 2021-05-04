@@ -14,6 +14,11 @@ export class View {
             length: 4,
         },
     };
+    controlOptions1 = {
+        label: {
+            length: 4,
+        }
+    };
 
     sortingControlOptions = {
         label: {
