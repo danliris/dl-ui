@@ -226,6 +226,10 @@ export class List {
               dataItem.LastBalanceCurrencyCode = item.DispositionPayments[i].LastBalanceCurrencyCode;
               dataItem.LastBalanceCurrencyRate = item.DispositionPayments[i].LastBalanceCurrencyRate;
               dataItem.LastBalanceCurrencyAmount = item.DispositionPayments[i].LastBalanceCurrencyAmount;
+              dataItem.DispositionPaymentDate = moment(item.DispositionPayments[i].DispositionPaymentDate).format("DD MMM YYYY");
+              dataItem.DispositionPaymentId = item.DispositionPayments[i].DispositionPaymentId;
+              dataItem.DispositionPaymentNo = item.DispositionPayments[i].DispositionPaymentNo;
+              
             }
             else{
               dataItem.Index = "";
@@ -245,6 +249,9 @@ export class List {
               dataItem.LastBalanceCurrencyCode = "";
               dataItem.LastBalanceCurrencyRate = "";
               dataItem.LastBalanceCurrencyAmount = "";
+              dataItem.DispositionPaymentDate = "";
+              dataItem.DispositionPaymentId = "";
+              dataItem.DispositionPaymentNo = "";
             }
 
             if(i<countMemo){
@@ -255,6 +262,7 @@ export class List {
               dataItem.RealizationDownPaymentCurrencyAmount = item.MemoDocuments[i].RealizationDownPaymentCurrencyAmount;
               dataItem.InternNoteDate = item.MemoDocuments[i].InternNoteDate;
               dataItem.InternNoteNo = item.MemoDocuments[i].InternNoteNo;
+              dataItem.DeliveryOrderDate = item.MemoDocuments[i].DeliveryOrderDate;              
               dataItem.DeliveryOrderNo = item.MemoDocuments[i].DeliveryOrderNo;
               dataItem.PaymentNo = item.MemoDocuments[i].PaymentNo;
               dataItem.PaymentDescription = item.MemoDocuments[i].PaymentDescription;
@@ -270,6 +278,7 @@ export class List {
               dataItem.RealizationDownPaymentCurrencyAmount = "";
               dataItem.InternNoteDate = "";
               dataItem.InternNoteNo = "";
+              dataItem.DeliveryOrderDate = "";
               dataItem.DeliveryOrderNo = "";
               dataItem.PaymentNo = "";
               dataItem.PaymentDescription = "";
@@ -295,5 +304,30 @@ export class List {
 
     get supplierLoader() {
         return SupplierLoader;
+    }
+
+    excel() {
+      var supplierTypeNumeric = 0;
+      switch(this.info.SupplierType){
+        case "":
+          supplierTypeNumeric =1;
+          break;
+        case "Lokal":
+          supplierTypeNumeric=2;
+          break;
+        case "Import":
+          supplierTypeNumeric=3;
+          break;
+        default:
+          supplierTypeNumeric=0;
+      }
+      var param = {
+        supplierType : supplierTypeNumeric,
+        date : this.info.Date && this.info.Date != "Invalid Date" ? moment(this.info.Date).format('YYYY-MM-DD') : moment().format("YYYY-MM-DD")
+      }
+  
+      this.service.getXls(param);
+  
+      // this.getExcelData();
     }
 }
