@@ -12,6 +12,11 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
       }
+      getXls(info) {
+        let endpoint = `${serviceUri}/xls?supplierType=${info.supplierType}&date=${info.date}`;
+        return super.getXls(endpoint);
+      }
+    
     
     //   getXls(info) {
     //     let endpoint = `${serviceUri}/downloads/xls?billNo=${info.billNo}&paymentBill=${info.paymentBill}&category=${info.category}&startDate=${info.startDate}&endDate=${info.endDate}&isForeignCurrency=${false}&isImportSupplier=${true}`;
@@ -109,6 +114,7 @@ export class Service extends RestService {
                         "InternNoteDate":null,
                         "InternNoteNo":"NI21020079I",
                         "DeliveryOrderNo":"",
+                        "DeliveryOrderDate":"",
                         "PaymentNo":"BP210211095112000023",
                         "PaymentDescription":"BP210211095112000023 BP Desc",
                         "PaymentCurrencyCode":"USD",
@@ -125,6 +131,7 @@ export class Service extends RestService {
                         "InternNoteDate":"",
                         "InternNoteNo":"",
                         "DeliveryOrderNo":"",
+                        "DeliveryOrderDate":"",
                         "PaymentNo":"BP210106132136000006",
                         "PaymentDescription":"BP Desc",
                         "PaymentCurrencyCode":"USD",
@@ -141,6 +148,7 @@ export class Service extends RestService {
                         "InternNoteDate":null,
                         "InternNoteNo":"NK21020022I",
                         "DeliveryOrderNo":"",
+                        "DeliveryOrderDate":"",
                         "PaymentNo":"BP210211095112000023",
                         "PaymentDescription":"BP210211095112000023 BP Desc",
                         "PaymentCurrencyCode":"USD",
@@ -157,6 +165,7 @@ export class Service extends RestService {
                         "InternNoteDate":"",
                         "InternNoteNo":"",
                         "DeliveryOrderNo":"",
+                        "DeliveryOrderDate":"",
                         "PaymentNo":"BP210106132136000006",
                         "PaymentDescription":"BP Desc",
                         "PaymentCurrencyCode":"USD",
@@ -204,6 +213,7 @@ export class Service extends RestService {
                         "InternNoteDate":null,
                         "InternNoteNo":"NI21020080I",
                         "DeliveryOrderNo":"",
+                        "DeliveryOrderDate":"",
                         "PaymentNo":"BP210211095101000023",
                         "PaymentDescription":"BP210211095101000023 BP Desc",
                         "PaymentCurrencyCode":"EUR",
