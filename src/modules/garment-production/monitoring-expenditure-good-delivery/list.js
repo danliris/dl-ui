@@ -1,4 +1,4 @@
-import {inject} from 'aurelia-framework';
+import {inject, bindable} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
 import moment from 'moment';
@@ -15,9 +15,13 @@ export class List {
         this.context = context;
     }
     
+    @bindable UnitItem;
+
+    UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
+
     searching() {
         var info = {
-            unit : this.unit ? this.unit.Id : "",
+            unit : this.unit ? this.unit : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -35,6 +39,38 @@ export class List {
                  }
             });
     }
+
+    UnitItemChanged(newvalue){
+        // console.log(newvalue);
+        this.unit = 0;
+        this.unitname = "";
+        if (newvalue) {
+            if (newvalue === "KONFEKSI 2A") {
+                this.unit = 45;
+                this.unitname = "KONFEKSI 2A";
+            }
+            else if (newvalue === "KONFEKSI 2B") { 
+                this.unit = 46;
+                this.unitname = "KONFEKSI 2B";
+            }
+            else if (newvalue === "KONFEKSI 2C") {
+                this.unit = 47; 
+                this.unitname = "KONFEKSI 2C";
+            }else if(newvalue === "KONFEKSI 1A"){
+                this.unit = 51;
+                this.unitname = "KONFEKSI 1A";
+            }else if(newvalue === "KONFEKSI 1B"){
+                this.unit = 52;
+                this.unitname = "KONFEKSI 1B";
+            }else if(newvalue === ""){
+                this.unit = 0;
+                this.unitname = "";
+            }
+        }
+
+        // console.log(this.unit);
+    }
+    
     
     ExportToExcel() {
         var info = {
