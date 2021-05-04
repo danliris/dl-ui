@@ -145,15 +145,15 @@ export class List {
                 arg.dateTo.setMonth(arg.dateTo.getMonth() + 1);
             }
 
-            arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-            arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+            arg.dateFrom = moment(arg.dateFrom).format();
+            arg.dateTo = moment(arg.dateTo).format();
         } else {
             arg.dateFrom = new Date();
             arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
             arg.dateTo = new Date();
 
-            arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
-            arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+            arg.dateFrom = moment(arg.dateFrom).format();
+            arg.dateTo = moment(arg.dateTo).format();
         }
 
         return this.flag ? (
