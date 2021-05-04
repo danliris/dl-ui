@@ -27,10 +27,15 @@ export class List {
                 console.log(result);
                 for(var _data of result){
                     _data.qtyOrder=_data.qtyOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data.stocks=_data.stock.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data.loadingsQtyPcs=_data.loadingQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data.sewingOutsQtyPcs=_data.sewingOutQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data.remainsQty=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._beginingBalanceSewingQty=_data.beginingBalanceSewingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._qtySewingIn=_data.qtySewingIn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._qtySewingInTransfer=_data.qtySewingInTransfer.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._qtySewingOut=_data.qtySewingOut.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._wipSewingOut=_data.wipSewingOut.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._wipFinishingOut=_data.wipFinishingOut.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._qtySewingRetur=_data.qtySewingRetur.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._qtySewingAdj=_data.qtySewingAdj.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._endBalanceSewingQty=_data.endBalanceSewingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     this.data.push(_data);
 
                  }
@@ -61,57 +66,121 @@ export class List {
         this.dateTo = null;
         this.unit = null;
     }
-    get sumStock()
+    get sumBeginingBalanceSewingQty()
     {
         var sum=0;
         if(this.data)
         {
             for(var item of this.data)
             {
-                sum += item.stock;
+                sum += item.beginingBalanceSewingQty;
             }
         }
         
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
-    get sumsewingOutQtyPcs()
+    get sumSewingIn()
     {
         var sum=0;
         if(this.data)
         {
             for(var item of this.data)
             {
-                sum += item.sewingOutQtyPcs;
+                sum += item.qtySewingIn;
             }
         }
         
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
     
-    get sumloadingQtyPcs()
+    get sumSewingOut()
     {
         var sum=0;
         if(this.data)
         {
             for(var item of this.data)
             {
-                sum += item.loadingQtyPcs;
+                sum += item.qtySewingOut;
             }
         }
        
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
-    get sumRemainQty()
+    get sumSewingInTransfer()
     {
         var sum=0;
         if(this.data)
         {
             for(var item of this.data)
             {
-                sum += item.remainQty;
+                sum += item.qtySewingInTransfer;
             }
         }
        
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+    get sumWIPSewingOut()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.wipSewingOut;
+            }
+        }
+       
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+}
+    
+get sumWIPFinishingOut()
+{
+    var sum=0;
+    if(this.data)
+    {
+        for(var item of this.data)
+        {
+            sum += item.wipFinishingOut;
+        }
+    }
+   
+    return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+    
+get sumSewingRetur()
+{
+    var sum=0;
+    if(this.data)
+    {
+        for(var item of this.data)
+        {
+            sum += item.qtySewingRetur;
+        }
+    }
+   
+    return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+    get sumSewingAdj()
+{
+    var sum=0;
+    if(this.data)
+    {
+        for(var item of this.data)
+        {
+            sum += item.qtySewingAdj;
+        }
+    }
+   
+    return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+    get sumEndBalanceSewingQty() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.endBalanceSewingQty;
+            }
+        }
+       
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 }

@@ -27,9 +27,10 @@ export class List {
         },
         { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
         {
-            field: 'CreatedUtc',
+            field: 'Date',
             title: 'Tanggal',
             formatter: function(value, data, index) {
+                console.log("dateValue", value);
                 return moment(value).format('DD MMM YYYY');
             },
         },
