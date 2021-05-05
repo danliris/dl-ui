@@ -57,7 +57,7 @@ export class List {
                 for(var a of result.data){
                     //var bc=a.Invoice.toString();
                     //var doc=a.ExpanditurGoodId;
-                    var inv=a.InvoiceNo.toString();
+                    var inv=a.InvoiceNo;
                     var bon=a.ExpenditureGoodNo;
                     if(!this.rowCount[inv]){
                         this.rowCount[inv]=1;
