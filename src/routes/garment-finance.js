@@ -266,7 +266,7 @@ module.exports = [
     name: "garment-disposition-payment-expedition-report",
     moduleId: "./modules/garment-finance/reports/garment-disposition-payment-expedition/index",
     nav: true,
-    title: "Laporan Ekspedisi Bukti Pembayaran Disposisi",
+    title: "Laporan Ekspedisi Disposisi Pembayaran",
     auth: true,
     settings: {
       group: "g-finance",
