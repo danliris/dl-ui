@@ -23,7 +23,7 @@ export class List {
     }
 
     bind(context) {
-        console.log(context);
+        // console.log(context);
         this.context = context;
         this.isShowingMasuk = false;
         this.isShowingKeluar = false;
@@ -102,7 +102,7 @@ export class List {
                     
                         // this.info.total= result.info.total;
                         this.data = datas; 
-                        console.log(this.data)
+                        // console.log(this.data)
                     })
             }
         }
