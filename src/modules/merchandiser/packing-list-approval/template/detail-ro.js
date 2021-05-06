@@ -164,7 +164,7 @@ export class Item {
     get amount() {
         this.data.amount = 0;
         if (this.data.quantity && this.data.priceFOB) {
-            this.data.amount = this.data.quantity * this.data.priceFOB
+            this.data.amount = this.data.quantity * parseFloat(this.data.priceFOB.toFixed(2))
         }
         return this.data.amount;
     }
