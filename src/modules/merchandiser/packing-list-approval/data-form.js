@@ -160,16 +160,16 @@ export class DataForm {
                 var fob=0;
                 for(var material of ccg.CostCalculationGarment_Materials){
                     if(material.isFabricCM){
-                        fob+=material.CM_Price*1.05/ccg.Rate.Value;
+                        fob+=parseFloat((material.CM_Price*1.05/ccg.Rate.Value).toFixed(2));
                     }
                 }
                 if(isFabricCM){
-                    item.priceCMT=ccg.ConfirmPrice;
-                    item.priceFOB=ccg.ConfirmPrice+fob;
+                    item.priceCMT=parseFloat(ccg.ConfirmPrice.toFixed(2));
+                    item.priceFOB=parseFloat((ccg.ConfirmPrice+fob).toFixed(2));
                 }
                 else{
                     item.priceCMT=0;
-                    item.priceFOB=ccg.ConfirmPrice;
+                    item.priceFOB=parseFloat(ccg.ConfirmPrice.toFixed(2));
                 }
             }
         }

@@ -63,6 +63,7 @@ export class List {
                 for(var _data of result){
                       
                     _data.expenditureDate= moment(_data.expenditureDate).format("YYYY-MM-DD");
+                    _data.pebDate=  moment(_data.pebDate).format("DD MMM YYYY") == "01 Jan 1970" || moment(_data.pebDate).format("DD MMM YYYY") == "01 Jan 1900" ? "-" : moment(_data.pebDate).format("YYYY-MM-DD");
                     _data.prices=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data.qtys=_data.qty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data.nominals=(_data.qty * _data.price).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -74,7 +75,7 @@ export class List {
     
     ExportToExcel() {
         var info = {
-            unit : this.unit ? this.unit.Id : "",
+            unit : this.unit ? this.unit : 0,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             type:"bookkeeping"

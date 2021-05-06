@@ -50,42 +50,42 @@ export class List {
                 // console.log(result.info.total)
                 // console.log(this.info)
                
-                this.rowCount=[];
-                var rowDoc=[];
-                this.info.total=result.info.total;    
-                var index=0;    
-                for(var a of result.data){
-                    //var bc=a.Invoice.toString();
-                    //var doc=a.ExpanditurGoodId;
-                    var inv=a.InvoiceNo.toString();
-                    var bon=a.ExpenditureGoodNo;
-                    if(!this.rowCount[inv]){
-                        this.rowCount[inv]=1;
-                    }
-                    else{
-                        this.rowCount[inv]++;
-                    }
+                // this.rowCount=[];
+                // var rowDoc=[];
+                // this.info.total=result.info.total;    
+                // var index=0;    
+                // for(var a of result.data){
+                //     //var bc=a.Invoice.toString();
+                //     //var doc=a.ExpanditurGoodId;
+                //     var inv=a.InvoiceNo;
+                //     var bon=a.ExpenditureGoodNo;
+                //     if(!this.rowCount[inv]){
+                //         this.rowCount[inv]=1;
+                //     }
+                //     else{
+                //         this.rowCount[inv]++;
+                //     }
  
-                    if(!rowDoc[bon+inv]){
-                        index++;
-                        //a.count=index;
-                        rowDoc[bon+inv]=1;
-                    }
-                    else{
-                        rowDoc[bon+inv]++;
-                    }
-                }
-                for(var b of result.data){
-                    let bcno=result.data.find(o=> o.InvoiceNo + o.ExpenditureGoodNo==b.InvoiceNo + b.ExpenditureGoodNo);
-                    if(bcno){
-                        bcno.docspan=rowDoc[b.ExpenditureGoodNo+b.InvoiceNo];
-                    }
-                    let invc=result.data.find(o=> o.InvoiceNo ==b.InvoiceNo);
-                    if(invc){
-                        invc.rowspan=this.rowCount[b.InvoiceNo];
-                    }
+                //     if(!rowDoc[bon+inv]){
+                //         index++;
+                //         //a.count=index;
+                //         rowDoc[bon+inv]=1;
+                //     }
+                //     else{
+                //         rowDoc[bon+inv]++;
+                //     }
+                // }
+                // for(var b of result.data){
+                //     let bcno=result.data.find(o=> o.InvoiceNo + o.ExpenditureGoodNo==b.InvoiceNo + b.ExpenditureGoodNo);
+                //     if(bcno){
+                //         bcno.docspan=rowDoc[b.ExpenditureGoodNo+b.InvoiceNo];
+                //     }
+                //     let invc=result.data.find(o=> o.InvoiceNo ==b.InvoiceNo);
+                //     if(invc){
+                //         invc.rowspan=this.rowCount[b.InvoiceNo];
+                //     }
 
-                   }
+                //    }
 
                 for(var item of result.data){
                 
