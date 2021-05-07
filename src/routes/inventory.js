@@ -456,9 +456,9 @@ module.exports = [
         }
     },
     {
-        route: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
-        name: "inventory/garment/leftover-warehouse/report/expenditure-monitoring",
-        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/report/monitoring/index",
+        route: "inventory/garment/leftover-warehouse/expenditure/report/finished-good",
+        name: "inventory/garment/leftover-warehouse/expenditure/report/finished-good",
+        moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/report/finished-good/index",
         nav: true,
         title: "Report Pengeluaran Gudang Sisa - Barang Jadi",
         auth: true,
