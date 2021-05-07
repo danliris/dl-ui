@@ -17,6 +17,13 @@ export class DialogDetailView {
         this.NamaBarang = this.data[0].NamaBarang;
         this.KodeBarang = this.data[0].KodeBarang;
         this.PO = this.data[0].PO;
+        var Total = 0
+        for(var i in this.data){
+            // console.log(this.data[i])
+            Total += this.data[i].Qty;
+        }
+
+        this.totalQuantity = Total;
 
         // console.log(this.data);
         
