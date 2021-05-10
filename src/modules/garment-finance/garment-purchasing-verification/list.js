@@ -31,7 +31,11 @@ export class List {
             }
         },
         { field: 'Status', title: 'Dikirim ke?' },
-        { field: 'Amount', title: 'Total Bayar' },
+        { field: 'Amount', title: 'Total Bayar',
+        formatter: function (value, data, index) {
+            return numeral(value).format("0,000.00");
+          }
+        },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         {
             field: 'Status', title: 'Alasan', formatter: function (value, data, index) {
