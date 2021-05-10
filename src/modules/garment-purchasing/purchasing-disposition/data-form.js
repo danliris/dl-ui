@@ -165,7 +165,7 @@ export class DataForm {
 
     currencyView = (currency) => {
         // return currency.code+ " - " + currency.date.substring(0,10);
-        return currency.Code;
+        return currency.Code? currency.Code:currency.code;
 
     }
 
