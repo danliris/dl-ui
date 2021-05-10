@@ -65,6 +65,7 @@ export class PurchasingDispositionItem {
         // this.data.IsUseVat = false;
 
         this.vatValue = this.data.VatValue;
+        this.vatValueView = this.data.VatValueView;
         this.incomeTaxValue = this.data.IncomeTaxValue;
         this.dppValue = this.data.DPPValue ? this.data.DPPValue : 0;
         // console.log("epono not null")
@@ -142,6 +143,7 @@ export class PurchasingDispositionItem {
                 this.data.EPOId = this.selectedEPO.Id || this.data.EPOId;
                 this.data.EPONo = this.selectedEPO.Id ? this.selectedEPO.EPONo : this.data.EPONo;
                 this.data.IsUseVat = this.selectedEPO.Id ? this.selectedEPO.IsUseVat : this.data.IsUseVat;
+                this.data.IsPayVat = this.selectedEPO.Id ? this.selectedEPO.IsPayVat : this.data.IsPayVat;
                 this.data.IsUseIncomeTax = this.selectedEPO.Id ? this.selectedEPO.IsIncomeTax : this.data.IsUseIncomeTax;
                 this.data.DispositionAmountCreated = this.selectedEPO.Id ? this.selectedEPO.DispositionAmountCreated : this.data.DispositionAmountCreated;
                 this.data.DispositionPaidCreated = this.selectedEPO.Id ? this.selectedEPO.DispositionAmountPaid : this.data.DispositionAmountPaid;
@@ -187,7 +189,7 @@ export class PurchasingDispositionItem {
                         ProductName: item.Product ? item.Product.Name : "",
                         UnitId: item.Unit ? item.UnitId : 0,
                         UnitName: item.Unit ? item.UnitName : "",
-                        QTYOrder: item.DefaultQuantity,
+                        QTYOrder: item.DealQuantity,
                         QTYUnit: item.DefaultUom.Unit,
                         QTYRemains: qtyRemains - qtyRemains,
                         PricePerQTY: item.PricePerDealUnit,
@@ -206,14 +208,19 @@ export class PurchasingDispositionItem {
                     })
                     var ppn = 0;
                     var pph = 0;
+                    var ppnView = 0;
                     if (this.data.IsUseIncomeTax) {
                         pph = item.PricePerDealUnit * qtyRemains * (this.data.IncomeTax.Rate / 100);
                     }
-                    if (this.data.IsUseVat) {
+                    if (this.data.IsPayVAT) {
                         ppn = item.PricePerDealUnit * qtyRemains * 0.1;
+                    }
+                    if (this.data.IsUseVat) {
+                        ppnView = item.PricePerDealUnit * qtyRemains * 0.1;
                     }
                     this.incomeTaxValue += pph;
                     this.vatValue += ppn;
+                    this.vatValueView += ppnView;
                     this.dppValue += (item.PricePerDealUnit * qtyRemains);
                     // console.log("ppn",ppn);
                     // this.data.DPP+=item.PricePerDealUnit * qtyRemains;
@@ -222,6 +229,7 @@ export class PurchasingDispositionItem {
                 this.data.IncomeTaxValue = this.incomeTaxValue;
                 this.data.VatValue = this.vatValue;
                 this.data.DPPValue = this.dppValue;
+                this.data.VatValueView = this.vatValueView;
             }
             this.isShowing = true;
         }
@@ -260,23 +268,31 @@ export class PurchasingDispositionItem {
         console.log("getax");
         this.incomeTaxValue = 0;
         this.vatValue = 0;
+        this.vatValueView = 0;
+        
         this.dppValue = 0;
         console.log("before gettax", this.data);
         if (this.data.Details) {
             for (var detail of this.data.Details) {
                 var ppn = 0;
                 var pph = 0;
+                var ppnView = 0;
                 if (this.data.IsUseIncomeTax) {
                     pph = parseFloat(detail.PaidPrice) * (parseFloat(this.data.IncomeTax.Rate) / 100);
                 }
-                if (this.data.IsUseVat) {
+                if (this.data.IsPayVat) {
                     ppn = parseFloat(detail.PaidPrice) * 0.1;
+                }
+                if (this.data.IsUseVat) {
+                    ppnView = parseFloat(detail.PaidPrice) * 0.1;
                 }
                 this.incomeTaxValue += pph;
                 this.vatValue += ppn;
+                this.vatValueView += ppn;
                 this.dppValue += parseFloat(detail.PaidPrice);
                 this.data.IncomeTaxValue = this.incomeTaxValue;
                 this.data.VatValue = this.vatValue;
+                this.data.VatValueView = this.vatValueView;
                 this.data.DPPValue = this.dppValue;
             }
         }

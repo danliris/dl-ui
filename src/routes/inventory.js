@@ -430,9 +430,9 @@ module.exports = [
     {
       route: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
       name: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
-      moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/monitoring/index",
+      moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/fabric-accessories/index",
       nav: true,
-      title: "Report Penerimaan Gudang Sisa Fabric dan Aksesoris",
+      title: "Report Penerimaan Gudang Sisa Fabric dan Accessories",
       auth: true,
       settings: {
         group: "Inventory",
@@ -441,6 +441,20 @@ module.exports = [
         iconClass: "fa fa-dashboard",
       },
     },
+    {
+        route: "inventory/garment/leftover-warehouse/report/aval-receipt-monitoring",
+        name: "inventory/garment/leftover-warehouse/report/aval-receipt-monitoring",
+        moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/aval/index",
+        nav: true,
+        title: "Report Penerimaan Gudang Sisa Aval",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, A2: 1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+      },
     {
         route: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
         name: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",

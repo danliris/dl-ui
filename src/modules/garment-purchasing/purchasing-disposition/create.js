@@ -41,22 +41,29 @@ export class Create {
             this.data.IncomeTaxValue=0;
             this.data.DPP=0;
             this.data.VatValue=0;
+            this.data.VatValueView = 0;
             for(var item of this.data.Items){
                 // if(item.Details){
                 //     for(var detail of item.Details){
                         var pph=0;
                         var ppn=0;
+                        var ppnView =0;
                         if(item.IsUseIncomeTax){
                             // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
                             // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
                             pph = item.IncomeTaxValue;
                         }
-                        if(item.IsUseVat){
+                        if(item.IsPayVat){
                             // ppn=detail.PriceTotal*0.1;
                             ppn = item.VatValue
                         }
+                        if(item.IsUseVat){
+                            // ppn=detail.PriceTotal*0.1;
+                            ppnView = item.VatValue
+                        }
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
+                        this.data.VatValueView+=ppnView;                        
                         this.data.DPP+=item.DPPValue;
                         // if(this.data.IncomeTaxBy=="Supplier"){
                         //     this.data.Amount+=detail.PaidPrice+ppn;
