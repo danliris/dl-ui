@@ -177,10 +177,10 @@ export class PurchasingDispositionItem {
 
                 var details = [];
                 for (var item of this.selectedEPO.Items) {
-                    var qtyRemains = item.DefaultQuantity - item.DispositionQuantityCreated;
+                    var qtyRemains = item.DealQuantity - item.DispositionQuantityCreated;
                     var OverQty = 0;
                     if (qtyRemains < 0) {
-                        OverQty = (qtyRemains / item.DefaultQuantity) * 100;
+                        OverQty = (qtyRemains / item.DealQuantity) * 100;
                     } else {
                         OverQty = 0;
                     }
