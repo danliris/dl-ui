@@ -78,4 +78,8 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
+    monitoring() {
+      this.router.navigateToRoute('monitoring');
+    }
+
 }
