@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 
+const UnitLoader = require('../../../../../../loader/garment-units-loader');
 import moment from 'moment';
 
 @inject(Service)
@@ -12,7 +13,13 @@ export class List {
         this.flag = false;
         this.error = {};
     }
-
+    get unitLoader(){
+        return UnitLoader;
+    }
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`;
+    
+    }
     controlOptions = {
         label: {
             length: 4
@@ -30,21 +37,17 @@ export class List {
 
     columns = [
         { field: "index", title: "No", sortable: false, width: '2%' },
-        { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false, width: '5%' },
-        {
-            field: "Receipt", title: "Tgl Bon ", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }, width: '5%'
-        },
-        { field: "UnitFromCode", title: "Asal Barang", sortable: false, width: '5%' },
-        { field: "ExpenditureGoodNo", title: "No Bon Pengeluaran Barang", sortable: false, width: '15%' },
-         { field: "RONo", title: "RO", sortable: false, width: '5%' },
-        { field: "ComodityName", title: "Komoditi", sortable: false, width: '10%' },
-        { field: "Quantity", title: "Quantity", sortable: false, width: '5%' },
+        { field: "UnitCode", title: "Unit", sortable: false, width: '5%' },
+        
+        { field: "RO", title: "Nomor RO", sortable: false, width: '5%' },
+       { field: "ProductRemark", title: "Komoditi Gudang Sisa", sortable: false, width: '15%' },
+        { field: "BeginingbalanceQty", title: "Saldo Awal", sortable: false, width: '3%' },
+        { field: "QuantityReceipt", title: "Penerimaan", sortable: false, width: '3%' },
+        { field: "QuantityExpend", title: "Pengeluaran", sortable: false, width: '3%' },
+        { field: "EndbalanceQty", title: "Saldo Akhir", sortable: false, width: '3%' },
         { field: "UomUnit", title: "Satuan", sortable: false, width: '3%'},
-
+        
     ];
-
 
     search() {
         this.error = {};
@@ -59,7 +62,7 @@ export class List {
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
-
+        this.unit = {},
         this.flag = false;
         this.mdnTable.refresh();
     }
@@ -75,9 +78,10 @@ export class List {
             size: info.limit,
             order: order,
             dateFrom: moment(this.dateFrom).format("MM/DD/YYYY"),
-            dateTo:moment(this.dateTo).format("MM/DD/YYYY")
+            dateTo: moment(this.dateTo).format("MM/DD/YYYY"),
+            unit : this.unit ? this.unit.Id : "",
         };
-
+        console.log(args);
         return this.flag ?
             (
                 this.service.search(args)
@@ -85,6 +89,7 @@ export class List {
                         return {
                             total: result.info.total,
                             data: result.data
+                            
                         };
                     })
             ) : { total: 0, data: [] };
@@ -94,7 +99,8 @@ export class List {
         let args = {
            
             dateFrom: moment(this.dateFrom).format("MM/DD/YYYY"),
-            dateTo:moment(this.dateTo).format("MM/DD/YYYY")
+            dateTo: moment(this.dateTo).format("MM/DD/YYYY"),
+            unit : this.unit ? this.unit.Id : "",
         };
         this.service.xls(args);
     }

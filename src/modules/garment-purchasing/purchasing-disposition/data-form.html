@@ -162,6 +162,14 @@
             value.bind="data.VatValue"
             label="PPN"
             read-only.bind="true"
+            if.bind="false"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            value.bind="data.VatValueView"
+            label="PPN"
+            read-only.bind="true"
             if.bind="readOnly"
             options.bind="controlOptions">
         </au-numeric>

@@ -47,10 +47,10 @@ export class UnitDeliveryOrderItem {
     //ambil dr DOItems
     var doItems= await this.service.getDOItemsById(this.data.URNItemId);
     if(!this.data.Id){
-      this.data.Quantity=doItems.RemainingQuantity;
+      this.data.Quantity= this.data.Quantity? this.data.Quantity : doItems.RemainingQuantity;
   
-      this.data.ReturQuantity= doItems.RemainingQuantity/this.data.Conversion;
-      this.data.ReturQtyCheck=doItems.RemainingQuantity;
+      this.data.ReturQuantity= this.data.ReturQuantity? this.data.ReturQuantity: doItems.RemainingQuantity/this.data.Conversion;
+      this.data.ReturQtyCheck=this.data.ReturQtyCheck? this.data.ReturQtyCheck:doItems.RemainingQuantity;
 
     }
     else{

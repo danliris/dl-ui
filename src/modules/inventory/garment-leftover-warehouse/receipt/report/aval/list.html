@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Report Penerimaan Gudang Sisa - Barang Jadi</h1>
+    <h1 class="page-header">Report Penerimaan Gudang Sisa - Aval</h1>
     <form class="form-horizontal">
 
         <au-datepicker
@@ -16,7 +16,12 @@
             error.bind="error.date">
         </au-datepicker>
 
-       
+        <au-dropdown
+            value.bind="type"
+            label="Jenis Penerimaan"
+            options.bind="controlOptions"
+            items.bind="types">
+        </au-dropdown>
         
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
@@ -25,19 +30,15 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-    
-        <au-table
-            view-model.ref="mdnTable"
-            data.bind="loader"
-            columns.bind="columns"
-            sortable.bind="true"
-            page-size="25"
-            options.bind="tableOptions">
-            
-            <div slot="toolbar" class="btn-group">
-            <button class='btn btn-primary' click.delegate="XLS()">Cetak Excel</button>
-            </div>
-        </au-table>
+        <div class="btn-group pull-left">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <table ref="table" class="table table-bordered table-hover" border="1" id="myTable" ></table>
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <pagination if.bind="args.total>args.size" info.bind="args" change.delegate="changePage($event)" id="pager"></pagination>
         <hr/>
     </form>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Report Penerimaan Gudang Sisa - Barang Jadi</h1>
+    <h1 class="page-header">Report Stock Gudang Sisa - Barang Jadi</h1>
     <form class="form-horizontal">
 
         <au-datepicker
@@ -15,6 +15,15 @@
             options.bind="controlOptions"
             error.bind="error.date">
         </au-datepicker>
+        <au-autocomplete 
+        value.bind="unit" 
+        label="Unit" 
+        loader.bind="unitLoader"
+        placeholder="Cari Nama Unit" 
+        read-only.bind="readOnly" 
+        text.bind="unitView"
+        options.bind="controlOptions">
+    </au-autocomplete>
 
        
         
