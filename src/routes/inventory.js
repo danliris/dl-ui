@@ -540,11 +540,11 @@ module.exports = [
         },
     },
     {
-        route: "inventory/garment/leftover-warehouse/balance-stock",
-        name: "inventory/garment/leftover-warehouse/balance-stock",
-        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/index",
+        route: "inventory/garment/leftover-warehouse/balance-stock/report/finished-good",
+        name: "inventory/garment/leftover-warehouse/balance-stock/report/finished-good",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/report/finished-good/index",
         nav: true,
-        title: "Balance Stok Gudang Sisa",
+        title: "Report Stock Gudang Sisa - Barang Jadi",
         auth: true,
         settings: {
           group: "Inventory",
@@ -554,11 +554,11 @@ module.exports = [
         },
     },
     {
-        route: "inventory/garment/leftover-warehouse/balance-stock/report/finished-good",
-        name: "inventory/garment/leftover-warehouse/balance-stock/report/finished-good",
-        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/report/finished-good/index",
+        route: "inventory/garment/leftover-warehouse/balance-stock",
+        name: "inventory/garment/leftover-warehouse/balance-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/index",
         nav: true,
-        title: "Report Stock Gudang Sisa - Barang Jadi",
+        title: "Balance Stok Gudang Sisa",
         auth: true,
         settings: {
           group: "Inventory",
