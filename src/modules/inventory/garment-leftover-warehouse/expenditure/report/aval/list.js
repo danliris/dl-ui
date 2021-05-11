@@ -87,8 +87,6 @@ export class List {
             }
 
             for (var item of this.data) {
-                item.Weight= item.Weight==0 ? "-" : item.Weight;
-                item.Remark= !item.Remark ? "-" : item.Remark;
                 if (item.ExpenditureNo != null) {
                     item.row_count = temp[item.ExpenditureNo];
                 }
@@ -111,7 +109,7 @@ export class List {
             { field: "ExpenditureTo", title: "Tujuan", sortable: false},
             { field: "OtherDescription", title: "Keterangan Tujuan", sortable: false},
             { field: "LocalSalesNoteNo", title: "No Nota Jual Lokal", sortable: false },
-            { field: "AvalReceiptNo", title: "No Aval Komponen", sortable: false},
+            { field: "AvalReceiptNo", title: "No Penerimaan", sortable: false},
             { field: "ProductCode", title: "Kode Barang", sortable: false },
             { field: "ProductName", title: "Nama Barang", sortable: false },
             { field: "UnitCode", title: "Unit Asal", sortable: false },
@@ -130,7 +128,7 @@ export class List {
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         for (const rowIndex in this.data) {
-            if(this.data[rowIndex].ExpenditureNoteNo) {
+            if(this.data[rowIndex].ExpenditureNo) {
                 var rowSpan=this.data[rowIndex].row_count;
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "index", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ExpenditureNo", rowspan: rowSpan, colspan: 1 });
