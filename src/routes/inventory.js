@@ -27,6 +27,19 @@ module.exports = [
         }
     },
     {
+        route: 'inventory/inventory-weaving-out-documents',
+        name: 'inventory/inventory-weaving-out-documents',
+        moduleId: './modules/inventory/inventory-weaving-out-document/index',
+        nav: true,
+        title: 'Pengeluaran Gudang Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
         moduleId: './modules/inventory/inventory-document/index',
