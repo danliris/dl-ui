@@ -32,9 +32,9 @@ export class List {
 
     columns = [
         { field: "index", title: "No", sortable: false},
-        { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false },
+        { field: "ExpenditureNoteNo", title: "No Bon Terima", sortable: false },
         {
-            field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
+            field: "ExpenditureDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }, width: '5%'
         },
@@ -75,22 +75,22 @@ export class List {
             this.info.total = result.info.total;
             var count = 0;
             for (var item of this.data) {
-                if (!temp[item.ReceiptNoteNo]) {
+                if (!temp[item.ExpenditureNo]) {
                     count = 1;
-                    temp[item.ReceiptNoteNo] = count;
+                    temp[item.ExpenditureNo] = count;
                 }
                 else {
                     count++;
-                    temp[item.ReceiptNoteNo] = count;
-                    item.ReceiptNoteNo = null;
+                    temp[item.ExpenditureNo] = count;
+                    item.ExpenditureNo = null;
                 }
             }
 
             for (var item of this.data) {
                 item.Weight= item.Weight==0 ? "-" : item.Weight;
                 item.Remark= !item.Remark ? "-" : item.Remark;
-                if (item.ReceiptNoteNo != null) {
-                    item.row_count = temp[item.ReceiptNoteNo];
+                if (item.ExpenditureNo != null) {
+                    item.row_count = temp[item.ExpenditureNo];
                 }
             }
             this.fillTable();
@@ -101,23 +101,22 @@ export class List {
     fillTable() {
         const columns =[
             { field: "index", title: "No", sortable: false},
-            { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false },
+            { field: "ExpenditureNo", title: "No Bon Keluar", sortable: false },
             {
-                field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
+                field: "ExpenditureDate", title: "Tgl Bon Keluar", formatter: function (value, data, index) {
                     return moment(value).format("DD MMM YYYY");
                 }, width: '5%'
             },
             { field: "AvalType", title: "Jenis Aval", sortable: false},
-            { field: "Weight", title: "Berat", sortable: false},
-            { field: "Uom", title: "Satuan", sortable: false},
-            { field: "UnitCode", title: "Asal Barang", sortable: false },
-            { field: "RONo", title: "Nomor RO", sortable: false },
+            { field: "ExpenditureTo", title: "Tujuan", sortable: false},
+            { field: "OtherDescription", title: "Keterangan Tujuan", sortable: false},
+            { field: "LocalSalesNoteNo", title: "No Nota Jual Lokal", sortable: false },
+            { field: "AvalReceiptNo", title: "No Aval Komponen", sortable: false},
             { field: "ProductCode", title: "Kode Barang", sortable: false },
             { field: "ProductName", title: "Nama Barang", sortable: false },
-            { field: "Remark", title: "Keterangan", sortable: false},
+            { field: "UnitCode", title: "Unit Asal", sortable: false },
             { field: "Quantity", title: "Qty", sortable: false},
             { field: "UomUnit", title: "Satuan", sortable: false},
-            { field: "AvalComponentNo", title: "No Aval Komponen", sortable: false}
         ];
 
         var bootstrapTableOptions = {
@@ -131,15 +130,15 @@ export class List {
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         for (const rowIndex in this.data) {
-            if(this.data[rowIndex].ReceiptNoteNo) {
+            if(this.data[rowIndex].ExpenditureNoteNo) {
                 var rowSpan=this.data[rowIndex].row_count;
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "index", rowspan: rowSpan, colspan: 1 });
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ReceiptNoteNo", rowspan: rowSpan, colspan: 1 });
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ReceiptDate", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ExpenditureNo", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ExpenditureDate", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "AvalType", rowspan: rowSpan, colspan: 1 });
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "Weight", rowspan: rowSpan, colspan: 1 });
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "Uom", rowspan: rowSpan, colspan: 1 });
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "UnitCode", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "ExpenditureTo", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "OtherDescription", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "LocalSalesNoteNo", rowspan: rowSpan, colspan: 1 });
             }
         }
 
