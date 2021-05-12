@@ -134,7 +134,7 @@
         </au-numeric>
 
         <au-numeric
-            value.bind="vatVal"
+            value.bind="vatValView"
             label="PPN"
             read-only.bind="true"
             if.bind="!readOnly"
@@ -142,7 +142,7 @@
         </au-numeric>
 
         <au-numeric
-            value.bind="incomeTaxVal"
+            value.bind="incomeTaxValView"
             label="PPH"
             read-only.bind="true"
             if.bind="!readOnly"
@@ -158,13 +158,13 @@
             options.bind="controlOptions">
         </au-numeric>
 
-        <au-numeric
+        <!-- <au-numeric
             value.bind="data.VatValue"
             label="PPN"
             read-only.bind="true"
             if.bind="false"
             options.bind="controlOptions">
-        </au-numeric>
+        </au-numeric> -->
 
         <au-numeric
             value.bind="data.VatValueView"
@@ -175,7 +175,7 @@
         </au-numeric>
 
         <au-numeric
-            value.bind="data.IncomeTaxValue"
+            value.bind="data.IncomeTaxValueView"
             label="PPH"
             read-only.bind="true"
             if.bind="readOnly"

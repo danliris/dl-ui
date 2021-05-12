@@ -139,7 +139,7 @@ export class List {
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "AvalType", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "Weight", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "Uom", rowspan: rowSpan, colspan: 1 });
-               // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "confirmQty", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "UnitCode", rowspan: rowSpan, colspan: 1 });
             }
         }
 
