@@ -32,14 +32,14 @@ export class Create {
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
         var source = this.data.from;
-        var date = this.data.date;
+        //var date = this.data.date;
         var fileList = fileInput.files;
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
         } else {
             formData.append("fileUpload", fileList[0]);
-            formData.append("date", date);
+            //formData.append("date", date);
             formData.append("source", source);
 
  
