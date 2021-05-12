@@ -14,6 +14,13 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
+  
+  search1(info) {
+    var endpoint = `${serviceUri}/monitoring`;
+    return super.list(endpoint, info);
+
+    console.log(info);
+  }
 
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
