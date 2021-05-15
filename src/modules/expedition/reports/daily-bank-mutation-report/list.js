@@ -38,11 +38,12 @@ export class List {
         this.initialBalance = '';
         this.closingBalance = '';
 
-        let dateNow = new Date();
-        this.monthNow = dateNow.getMonth();
+        //let dateNow = new Date();
+        let dateNow = moment();
+        this.monthNow = dateNow.format("M");
         this.info.month = this.monthList[this.monthNow];
 
-        this.yearNow = dateNow.getFullYear();
+        this.yearNow = dateNow.format("YYYY");
         this.info.year = this.yearNow;
         for (var i = this.yearNow - 3; i <= this.yearNow; i++) {
             this.yearList.push(i);

@@ -85,8 +85,9 @@
                             show.bind="data.paymentTerm == 'LC'">
                         </au-numeric>
 
-                        <au-numeric label="Nett Nego (US$)" value.bind="data.nettNego" error.bind="error.nettNego"
-                            read-only.bind="readOnly" options.bind="controlOptions">
+                        <au-numeric label="Nett Nego (US$)" value.bind="NETTNEGO"
+                            options.bind="controlOptions"
+                            read-only="disabled">
                         </au-numeric>
 
                         <span show.bind="data.paymentTerm == 'LC'">

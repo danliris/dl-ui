@@ -2,7 +2,12 @@
     <tr>
         <require from="../../../../lib/number-format-value-converter"></require>
         <td>
-            <au-autocomplete 
+            <au-textbox value.bind="data.GarmentDeliveryOrderNo"
+                        read-only.bind="true"
+                        error.bind="error.GarmentDeliveryOrderNo"
+                        options.bind="controlOptions">
+            </au-textbox>
+            <!--<au-autocomplete 
                 value.bind="dataDebt" 
                 error.bind="error.GarmentDeliveryOrderNo"
                 loader.bind="garmenDebtLoader"
@@ -11,95 +16,86 @@
                 text="GarmentDeliveryOrderNo"
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
-            </au-autocomplete>
+            </au-autocomplete>-->
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.InternalNoteNo" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.InternalNoteNo"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.BillsNo" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.BillsNo"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.PaymentBills" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.PaymentBills"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.SupplierCode" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.SupplierCode"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td class="col">
-            <au-textbox 
+        <td>
+            <au-textbox value.bind="data.RemarksDetail"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+            </au-textbox>
+            <!--<au-textbox 
                 value.bind="data.RemarksDetail" 
                 error.bind="error.RemarksDetail"
                 read-only.bind="readOnly"
                 placeholder="Tambah keterangan" 
                 options.bind="controlOptions">
+            </au-textbox>-->
+        </td>
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.CurrencyCode"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyCode" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+        <td>
+            <au-numeric value.bind="data.PaymentRate"
+                        error.bind="error.PaymentRate"
+                        read-only.bind="readOnly"
+                        format="0,0"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td style="text-align:center;">
+            <au-textbox value.bind="data.PurchasingRate"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td class="col">
-            <au-numeric 
-                value.bind="data.PaymentRate" 
-                error.bind="error.PaymentRate"
-                read-only.bind="readOnly" 
-                format = "0,0"
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-numeric value.bind="data.PurchaseAmount"
+                        read-only.bind="true"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td style="text-align:center;" class="col">
-            <au-textbox 
-                value.bind="data.MemoDetailGarmentPurchasingDetail.CurrencyRate" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td style="text-align:center;" class="col">
-            <au-numeric
-                value.bind="data.MemoDetailGarmentPurchasingDetail.DPPAmount + data.MemoDetailGarmentPurchasingDetail.VATAmount - data.MemoDetailGarmentPurchasingDetail.IncomeTaxAmount"
-                read-only.bind="true" 
-                format = "0,0.0000"
-                options.bind="controlOptions">
+        <td>
+            <au-numeric value.bind="data.MemoAmount"
+                        error.bind="error.MemoAmount"
+                        read-only.bind="readOnly"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col">
-            <au-numeric 
-                value.bind="data.MemoAmount" 
-                error.bind="error.MemoAmount"
-                read-only.bind="readOnly"
-                format = "0,0.0000"
-                options.bind="controlOptions">
+        <td style="text-align:center;">
+            <au-numeric value.bind="data.MemoAmount * data.PaymentRate || 0"
+                        read-only.bind="true"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
             </au-numeric>
-        </td>
-        <td style="text-align:center;" class="col">
-            <au-numeric
-                value.bind="data.MemoAmount * data.MemoDetailGarmentPurchasingDetail.CurrencyRate || 0" 
-                read-only.bind="true" 
-                format = "0,0.0000"
-                options.bind="controlOptions">
-            </au-numeric>
-        </td>
-        <td class="col" if.bind="!options.readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>

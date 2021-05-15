@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -17,11 +17,15 @@ export class View {
 
     list() {
         this.router.navigateToRoute('list');
-    } 
+    }
+
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
 
     cancelCallback(event) {
-      this.list();
+        this.list();
     }
-    
+
 }
 

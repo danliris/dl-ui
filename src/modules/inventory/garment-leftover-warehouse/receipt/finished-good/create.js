@@ -6,6 +6,7 @@ import { activationStrategy } from 'aurelia-router';
 @inject(Router, Service)
 export class Create {
 
+    isCreate = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -27,10 +28,29 @@ export class Create {
     }
 
     saveCallback(event) {
-        if(this.data.Items){
-            for(var item of this.data.Items){
-                var dataItem= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
-                item.LeftoverComodity=dataItem.LeftoverComodity;
+        console.log(this.data);
+        this.data.Items=[];
+        if(this.data.DataItems){
+            for(var exGood of this.data.DataItems){
+                if(exGood.details){
+                    for(var detail of exGood.details){
+                        var dataItem={};
+                        dataItem.ExpenditureGoodId=exGood.ExpenditureGoodId;
+                        dataItem.ExpenditureGoodNo = exGood.ExpenditureGoodNo;
+                        dataItem.RONo = exGood.RONo;
+                        dataItem.Article = exGood.Article;
+                        dataItem.Comodity = exGood.Comodity;
+                        dataItem.Buyer = exGood.Buyer;
+                        dataItem.ExpenditureGoodItemId= detail.ExpenditureGoodItemId;
+                        dataItem.Size=detail.Size;
+                        dataItem.Quantity= detail.Quantity;
+                        dataItem.Uom= detail.Uom;
+                        dataItem.Remark= detail.Remark;
+                        var d= exGood.dataDetails.find(a=>a.Size.Id==detail.Size.Id && a.Uom.Id==detail.Uom.Id);
+                        dataItem.LeftoverComodity=d.LeftoverComodity;
+                        this.data.Items.push(dataItem);
+                    }
+                }
             }
         }
         this.service.create(this.data)

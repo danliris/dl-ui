@@ -9,7 +9,15 @@
       <h1 class="page-header">Monitoring Bon Pengiriman Barang Jadi</h1>
   
       <form class="form-horizontal">
-        <au-autocomplete 
+
+        <au-dropdown 
+        label="Unit" 
+        value.bind="UnitItem"
+        items.bind="UnitItems"
+        options.bind="controlOptions" >
+        </au-dropdown>
+
+        <!-- <au-autocomplete 
             value.bind="unit" 
             label="Unit" 
             loader.bind="unitLoader"
@@ -17,7 +25,7 @@
             read-only.bind="readOnly" 
             text.bind="unitView"
             options.bind="controlOptions">
-        </au-autocomplete>
+        </au-autocomplete> -->
   
         <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
@@ -43,10 +51,12 @@
                   <td>NO BON</td>
                   <td>TIPE PENGELUARAN</td>
                   <td>TGL</td>
+                  <td>TGL PEB</td>
                   <td>RO</td>
                   <td>BUYER & ARTICLE</td>
                   <td>COLOUR</td>
                   <td>NAMA</td>
+                  <td>UNIT</td>
                   <td>QTY</td>
                   <td>INVOICE</td>
               </tr>
@@ -58,15 +68,17 @@
                   <td class="text-left">${item.expenditureGoodNo}</td>
                   <td class="text-left">${item.expenditureGoodType}</td>
                   <td class="text-left">${item.expenditureDate}</td>
+                  <td class="text-left">${item.pebDate}</td>
                   <td class="text-center">${item.roNo}</td>
                   <td class="text-left">${item.buyerArticle}</td>
                   <td class="text-left">${item.colour}</td> 
                   <td class="text-left">${item.name}</td>
+                  <td class="text-left">${item.unitname}</td>
                   <td class="text-right">${item.qtys}</td>
                   <td class="text-left">${item.invoice}</td>
               </tr>
               <tr class="active">
-                <td class="text-center" colspan="7"><strong>T O T A L </strong></td>
+                <td class="text-center" colspan="9"><strong>T O T A L </strong></td>
                 <td class="text-right"><strong>${sumQty}</strong></td>        
                 <td class="text-right"><strong></strong></td>
             </tr>

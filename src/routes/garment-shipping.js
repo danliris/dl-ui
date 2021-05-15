@@ -197,6 +197,20 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/invoice-all-user",
+        name: "garment-shipping/invoice-all-user",
+        moduleId: "modules/garment-shipping/invoice-all-user/index",
+        nav: true,
+        title: "Invoice Export Garment - (All User)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/generate-date",
         name: "garment-shipping/generate-date",
         moduleId: "modules/garment-shipping/monitoring/garment-shipping-generate-data/index",
@@ -224,6 +238,8 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+
+    
     {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
@@ -672,11 +688,25 @@ module.exports = [
         }
     }, 
     {
+        route: "garment-shipping/report/detail-omzet-by-unit",
+        name: "garment-shipping/report/detail-omzet-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-detail-omzet-by-unit/index",
+        nav: true,
+        title: "Report Detail Omzet Garment Per Unit / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/recap-omzet-per-month",
         name: "garment-shipping/monitoring/recap-omzet-per-month",
         moduleId: "modules/garment-shipping/monitoring/recap-omzet-per-month/index",
         nav: true,
-        title: "Report Rekap Omzet / Bulan",
+        title: "Report Rekap Omzet Garment / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -752,6 +782,21 @@ module.exports = [
             group: "g-shipping",
             subGroup: "laporan",
             permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+
+    {
+        route: "garment-shipping/monitoring/cmt-sales",
+        name: "garment-shipping/monitoring/cmt-sales",
+        moduleId: "modules/garment-shipping/monitoring/garment-cmt-sales/index",
+        nav: true,
+        title: "Report Realisasi CMT Penjualan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "A3":1, "B1:":1, "B12":1,  "C9": 1, "C11": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },

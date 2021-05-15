@@ -31,18 +31,29 @@ export class items {
     AvalComponentNoView = (garmentAvalComponent) => {
         return `${garmentAvalComponent.AvalComponentNo}`
     }
-
-  
-
-   async activate(context) {
+    
+    @computedFrom("data.UnitFrom")
+    get avalLoaderFilter(){
+        var filter={
+            UnitId: (this.header.UnitFrom || {}).Id || 0,
+            "IsReceived==false":true
+        }
+        for(var item of this.context.context.items){
+            filter[`AvalComponentNo == "${item.data.AvalComponentNo}"`]=false;
+        }
+        return filter;
+    }
+    
+    async activate(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-
-        let result = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
-        this.data.Uom=result.data[0];
-   
+        this.header = context.context.options.header;
+        if(!this.data.Uom){
+            let result = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
+            this.data.Uom=result.data[0];
+        }
         if(this.data){
             this.selectedAvalComponent = this.data.AvalComponentNo;
             this.selectedUom = this.data.Uom;

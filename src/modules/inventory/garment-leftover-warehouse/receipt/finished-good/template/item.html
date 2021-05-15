@@ -1,38 +1,59 @@
 <template>
     <tr>
         <td>
-            <au-textbox
-                value.bind="data.SizeName"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.Quantity"
-                read-only.bind="true">
-            </au-numeric>
-        </td>
-        <td>
-            <au-textbox
-                value.bind="data.UomUnit"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-textbox
-                value.bind="data.Remark"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-autocomplete
-                value.bind="selectedComodity"
-                error.bind="error.LeftoverComodity"
-                loader.bind="leftoverComodityLoader"
-                read-only.bind="readOnly"
-                placeholder="leftoverComodity"
-                text.bind="leftoverComodityView">
+            <au-autocomplete 
+                placeholder="Pilih No Bon Pengeluaran Barang Jadi"
+                value.bind="selectedExpenditureGood" 
+                error.bind="error.ExpenditureGoodNo" 
+                loader.bind="expenditureGoodLoader"
+                text="ExpenditureGoodNo" 
+                read-only.bind="readOnly || data.Id" 
+                query.bind="filter"
+                view-model.ref="ExpenditureGoodViewModel">
             </au-autocomplete>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.RONo" 
+                read-only="true" 
+                show.bind="selectedExpenditureGood">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.Article" 
+                read-only="true" 
+                show.bind="selectedExpenditureGood">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.BuyerName || data.Buyer.Name" 
+                read-only="true" 
+                show.bind="selectedExpenditureGood">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.ComodityName || data.Comodity.Name" 
+                read-only="true" 
+                show.bind="selectedExpenditureGood">
+            </au-textbox>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+    <tr >
+        <td colspan="6">
+            <au-collection
+                items.bind="data.dataDetails"
+                columns.bind="itemsColumns"
+                read-only.bind="readOnly"
+                options.bind="itemOptions"
+                show.bind="data.ExpenditureGoodNo"
+                item-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/detail">
+        </au-collection>
         </td>
     </tr>
     

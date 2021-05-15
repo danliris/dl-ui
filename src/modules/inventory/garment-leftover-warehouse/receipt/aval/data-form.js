@@ -74,7 +74,8 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
-            checkedAll: this.context.isCreate == true ? false : true 
+            checkedAll: this.context.isCreate == true ? false : true,
+            header: this.data
         }
         this.selectedType=this.data.AvalType;
 
@@ -160,7 +161,7 @@ export class DataForm {
         if(this.data.ROList && !this.data.Id)
             this.data.ROList.splice(0);
 
-        if(!this.data.Id){
+        if(!this.data.Id && this.data.Items){
 
             this.data.Items.splice(0);
             this.data.TotalAval=0;
@@ -173,8 +174,14 @@ export class DataForm {
         if (this.data.Id) return;
 
         this.data.UnitFrom = newValue;
+        if(this.data.ROList){
+            this.data.ROList.splice(0);
+        }
+        if(!this.data.Id && this.data.Items){
 
-        this.data.ROList.splice(0);
+            this.data.Items.splice(0);
+            this.data.TotalAval=0;
+        }
     }
 
     get addItems() {

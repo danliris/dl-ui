@@ -55,7 +55,7 @@
                 add.bind="addItems" 
                 remove.bind="removeItems"
                 options.bind="Options"
-                show.bind="data.UnitFrom && isFabric"
+                if.bind="data.UnitFrom && isFabric"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/ro-fabric">
         </au-collection>
 
@@ -68,7 +68,7 @@
                 add.bind="addItemsAcc" 
                 remove.bind="removeItems"
                 options.bind="Options"
-                show.bind="isAccessories"
+                if.bind="isAccessories"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/accessories-item">
         </au-collection>
 
@@ -80,7 +80,7 @@
                 add.bind="addItemsComponent" 
                 remove.bind="removeItems"
                 options.bind="Options"
-                show.bind="isComponent"
+                if.bind="data.UnitFrom &&isComponent"
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/aval/template/component-item">
         </au-collection>
 

@@ -27,9 +27,9 @@ export class PurchasingDispositionDetail {
         this.data.Category.Name=this.data.Category.name||this.data.Category.Name;
         this.dataCategory=this.data.Category.Name;
     }
-    if(this.data.Unit){
-      this.data.Unit._id=this.data.UnitId;
-    }
+    // if(this.data.Unit){
+    //   this.data.Unit._id=this.data.UnitId;
+    // }
     this.data.PriceTotal=(parseFloat(this.data.DealQuantity)*parseFloat(this.data.PricePerDealUnit)).toLocaleString('en-EN', { minimumFractionDigits: 4 });
     // if(this.readOnly){
     //   this.data.PaidQuantity=this.data.PaidQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });

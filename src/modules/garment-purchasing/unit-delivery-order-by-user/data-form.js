@@ -171,6 +171,7 @@ export class DataForm {
             };
             return this.service.searchMoreDOItems(info)
                 .then((result) => {
+                    console.log(result)
                     let itemIds = this.data.Items.map(i => i.URNItemId);
                     return result.data.filter(data => data && itemIds.indexOf(data.URNItemId) < 0);
                 });
@@ -251,6 +252,7 @@ export class DataForm {
 
     storageChanged(newValue) {
         var selectedStorage = newValue;
+        console.log(newValue)
         if (selectedStorage) {
             this.data.Storage = selectedStorage;
         }
@@ -324,10 +326,8 @@ export class DataForm {
         this.dataItems = [];
 
         if(this.isTransfer){
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
+            var filter= JSON.stringify({RONo:this.RONoJob});
+            
             var info = {
               keyword: this.RONoJob,
               filter: filter
@@ -337,15 +337,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -445,11 +436,7 @@ export class DataForm {
                     })
             });
         }else{
-
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
+            var filter= JSON.stringify({RONo:this.RONo});
             var info = {
               keyword: this.RONo,
               filter: filter
@@ -459,15 +446,6 @@ export class DataForm {
             this.service.getGarmentEPOByRONo(info)
                 .then((epo)=>{
                     for(var a of epo.data){
-                        // if(ro.length==0){
-                        //     ro.push(a);
-                        // }
-                        // else{
-                        //     var dup=ro.find(b=>b.RONo==a.RONo);
-                        //     if(!dup){
-                        //         ro.push(a);
-                        //     }
-                        // }
                         if(a.RONo==this.data.RONo){
                             ro.push(a);break;
                         }
@@ -651,36 +629,41 @@ export class DataForm {
     // }
 
     RONoHeaderChanged(newValue) {
-        var selectedROHeader = newValue;
+        //var selectedROHeader = newValue;
         this.newProduct = {};
-        if (selectedROHeader == null) {
+        if (newValue == null) {
             this.context.RONoHeaderViewModel.editorValue = "";
             this.data.RONoHeader = null;
         }
-        else if (selectedROHeader) {
-            this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
-            this.newProduct.URNItemId = selectedROHeader.URNItemId;
-            this.newProduct.URNNo = selectedROHeader.URNNo;
-            this.newProduct.DODetailId = selectedROHeader.DODetailId;
-            this.newProduct.URNId = selectedROHeader.URNId;
-            this.newProduct.POItemId = selectedROHeader.POItemId;
-            this.newProduct.EPOItemId = selectedROHeader.EPOItemId;
-            this.newProduct.PRItemId = selectedROHeader.PRItemId;
-            this.newProduct.RONo = selectedROHeader.RONo;
-            this.newProduct.Article = selectedROHeader.Article;
-            this.newProduct.POSerialNumber = selectedROHeader.POSerialNumber;
-            this.newProduct.ProductId = selectedROHeader.ProductId;
-            this.newProduct.ProductCode = selectedROHeader.ProductCode;
-            this.newProduct.ProductName = selectedROHeader.ProductName;
-            this.newProduct.ProductRemark = `${selectedROHeader.POSerialNumber}; ${selectedROHeader.Article}; ${selectedROHeader.RONo}; ${selectedROHeader.ProductRemark}`;
-            this.newProduct.UomId = selectedROHeader.SmallUomId;
-            this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
-            this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
-            this.newProduct.DesignColor = selectedROHeader.DesignColor;
-            this.newProduct.DefaultDOQuantity = parseFloat(selectedROHeader.RemainingQuantity.toFixed(2));
-            this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
-            this.newProduct.IsSave = this.newProduct.Quantity > 0;
-            this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
+        else if (newValue) {
+            this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id, POSerialNumber : newValue.POSerialNumber, DOItemsId: newValue.DOItemsId}) })
+                    .then(result=>{
+                        var selectedROHeader= result.data[0];
+                        this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
+                        this.newProduct.URNItemId = selectedROHeader.URNItemId;
+                        this.newProduct.URNNo = selectedROHeader.URNNo;
+                        this.newProduct.DODetailId = selectedROHeader.DODetailId;
+                        this.newProduct.URNId = selectedROHeader.URNId;
+                        this.newProduct.POItemId = selectedROHeader.POItemId;
+                        this.newProduct.EPOItemId = selectedROHeader.EPOItemId;
+                        this.newProduct.PRItemId = selectedROHeader.PRItemId;
+                        this.newProduct.RONo = selectedROHeader.RONo;
+                        this.newProduct.Article = selectedROHeader.Article;
+                        this.newProduct.POSerialNumber = selectedROHeader.POSerialNumber;
+                        this.newProduct.ProductId = selectedROHeader.ProductId;
+                        this.newProduct.ProductCode = selectedROHeader.ProductCode;
+                        this.newProduct.ProductName = selectedROHeader.ProductName;
+                        this.newProduct.ProductRemark = `${selectedROHeader.POSerialNumber}; ${selectedROHeader.Article}; ${selectedROHeader.RONo}; ${selectedROHeader.ProductRemark}`;
+                        this.newProduct.UomId = selectedROHeader.SmallUomId;
+                        this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
+                        this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
+                        this.newProduct.DesignColor = selectedROHeader.DesignColor;
+                        this.newProduct.DefaultDOQuantity = parseFloat(selectedROHeader.RemainingQuantity.toFixed(2));
+                        this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
+                        this.newProduct.IsSave = this.newProduct.Quantity > 0;
+                        this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
+                    });
+            
         }
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -695,7 +678,7 @@ export class DataForm {
     }
 
     roNoView = (rono) => {
-        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber}`;
+        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity}`;
     }
 
     unitRequestView = (unitRequest) => {
@@ -734,33 +717,30 @@ export class DataForm {
         ],
     };
 
-    get roLoader() {
-        return (keyword) => {
-            var filter= JSON.stringify({'RONo.Contains("M")': "false", 'RONo.Contains("S")': "false", 'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            if(this.isRemain || this.isSample){
-                filter= JSON.stringify({'CreatedUtc > DateTime(2018, 12, 31)': "true"});
-            }
-            var info = {
-              keyword: keyword,
-              filter: filter
-            };
-            var ro=[];
-            return this.service.getGarmentEPOByRONo(info)
-            .then((epo)=>{
-                for(var a of epo.data){
-                    if(ro.length==0){
-                        ro.push(a);
-                    }
-                    else{
-                        var dup=ro.find(b=>b.RONo==a.RONo);
-                        if(!dup){
-                            ro.push(a);
-                        }
-                    }
-                }
-                return ro;
-            });
+    // get roLoader() {
+    //     return (keyword) => {
+    //         var filter= JSON.stringify({RONo:this.RONoJob});
+    //         var info = {
+    //           keyword: keyword,
+    //           filter: filter
+    //         };
+    //         var ro=[];
+    //         return this.service.getGarmentEPOByRONo(info)
+    //         .then((epo)=>{
+    //             for(var a of epo.data){
+    //                 if(ro.length==0){
+    //                     ro.push(a);
+    //                 }
+    //                 else{
+    //                     var dup=ro.find(b=>b.RONo==a.RONo);
+    //                     if(!dup){
+    //                         ro.push(a);
+    //                     }
+    //                 }
+    //             }
+    //             return ro;
+    //         });
                     
-        }
-    }
+    //     }
+    // }
 }

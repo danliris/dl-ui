@@ -358,14 +358,28 @@ module.exports = [
   {
     route:'accounting/memo-garment-puchasing',
     name:'memo-garment-puchasing',
-    moduleId: './modules/garment-finance/memo-garment-purchasing/index',
+    moduleId: './modules/accounting/memo-garment-purchasing/index',
     nav: true,
     title: 'Memorial Pembelian Job Garment',
     auth: true,
     settings: {
       group: "accounting",
       subGroup:"accounting garment",
-      permission: {"C9": 1},
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route:'accounting/reports/memo-garment-purchasing-report',
+    name:'memo-garment-puchasing-report',
+    moduleId: './modules/accounting/reports/memo-garment-purchasing-report/index',
+    nav: true,
+    title: 'Laporan Memo Pembelian Job Garment',  
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup:"accounting garment",
+      permission: { "B1": 1, "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },

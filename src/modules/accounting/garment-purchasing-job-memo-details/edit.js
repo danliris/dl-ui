@@ -17,6 +17,7 @@ export class Edit {
   async activate(params) {
     let id = params.id;
     this.data = await this.service.getById(id);
+    this.data.MemoNo = await this.service.getMemoById(this.data.MemoId);
   }
 
   cancelCallback(event) {
@@ -30,10 +31,16 @@ export class Edit {
 
     this.data.Items.map(item => {
       let itemError = {};
-      if (!item.GarmentDeliveryOrderNo) {
-        itemError.GarmentDeliveryOrderNo = 'Surat Jalan tidak boleh kosong';
+
+      if (!item.BillsNo) {
+        itemError.BillsNo = 'No. BP Besar tidak boleh kosong';
         isValid = false;
-      } 
+      }
+
+      if (!item.PaymentBills) {
+        itemError.PaymentBills = 'No. BP Kecil tidak boleh kosong';
+        isValid = false;
+      }
 
       if (!item.MemoAmount) {
         itemError.MemoAmount = 'Jumlah tidak boleh kosong';
@@ -53,42 +60,18 @@ export class Edit {
       Items.push(item);
       errorList.push(itemError);
     });
-    
+
     return { isValid, Items, errorList }
   }
 
-  saveCallback(event) {  
-    let valid = this.isValid();
-    this.error = { Items: valid.errorList };
-    const isValid = valid.isValid;
-    const Items = valid.Items;
-    if (isValid) {
-      if (Items.length > 0) {
-        const constructedData = {
-          Id: this.data.Id,
-          MemoId: this.data.MemoId,
-          MemoNo: this.data.MemoNo,
-          MemoDate: this.data.MemoDate,
-          AccountingBookId: this.data.AccountingBookId,
-          AccountingBookType: this.data.AccountingBookType,
-          GarmentCurrenciesId: this.data.GarmentCurrenciesId,
-          GarmentCurrenciesCode: this.data.GarmentCurrenciesCode,
-          GarmentCurrenciesRate: this.data.GarmentCurrenciesRate,
-          IsPosted: this.data.IsPosted,
-          Remarks: this.data.Remarks,
-          Items: Items
-        };
-        this.service.update(constructedData)
-          .then((result) => {
-              alert("Data berhasil diupdate");
-              this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
-          })
-          .catch((e) => {
-            this.error = e;
-          })
-      } else {
-        alert('Item tidak boleh kosong!')
-      }
-    }
+  saveCallback(event) {
+    this.service.update(this.data)
+      .then((result) => {
+        alert("Data berhasil diupdate");
+        this.router.navigateToRoute('view', { id: this.data.Id });
+      })
+      .catch((e) => {
+        this.error = e;
+      })
   }
 }
