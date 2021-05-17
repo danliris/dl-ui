@@ -8,13 +8,25 @@ export class StockItem {
 
     activate(context) {
 
-        
         this.context = context;
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        if(this.data.uom){
+       
+            this.selectedUom ={};
+            this.selectedUom.Unit = this.data.uom.unit;
+           
+        }
+
+        
+        if(this.data.gradeProduct){
+              this.selectedGrade ={};
+              this.selectedGrade.type = this.data.gradeProduct.type;
+              this.selectedGrade.code= this.data.gradeProduct.code;
+          }
         
         if (this.data.productionOrder && this.data.productionOrder.id) {
             this.selectedProductionOrder = {};
@@ -95,16 +107,20 @@ export class StockItem {
     }
 
     gradeFormatter = (grade) => {
-        console.log(grade)
-        return `${grade}`
+        return `${grade.type}`
     }
 
     
 
     @bindable selectedGrade;
-    selectedGradeChanged() {
-        if (this.selectedGrade && this.selectedGrade.Id) {
-            this.data.grade =this.selectedGrade.Code;
+    selectedGradeChanged(newValue) {
+    
+        if (this.selectedGrade && this.selectedGrade.type) {
+            this.data.grade =newValue.type;
+           
+            this.data.gradeProduct ={}
+            this.data.gradeProduct.type =newValue.type
+            this.data.gradeProduct.code =newValue.code
         }
     }
 
@@ -113,11 +129,18 @@ export class StockItem {
     }
     
     uomView = (uom) => {
+
         return uom.Unit
     }
+
+    @bindable selectedUom;
     selectedUomChanged(newValue){
-        console.log("newValue",newValue)
-        this.data.packagingUnit=newValue.Unit;
+        
+        if (this.selectedUom && this.selectedUom.Unit) {
+            this.data.uom = {};
+            this.data.packagingUnit = newValue.Unit;
+            this.data.uom.unit = newValue.Unit;
+        }
     }
    
 
