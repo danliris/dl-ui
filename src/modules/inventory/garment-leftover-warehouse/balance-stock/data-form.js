@@ -33,6 +33,8 @@ export class DataForm {
         { header: "Kode Barang", value: "ProductCode" },
         { header: "Komposisi", value: "Composition" },
         { header: "Konstruksi", value: "Construction" },
+        { header: "Yarn", value: "Yarn" },
+        { header: "Width", value: "Width" },
         { header: "Jumlah Stock", value: "Quantity" },
         { header: "Satuan", value: "Uom" }
     ];
