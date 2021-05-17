@@ -29,6 +29,9 @@ export class ItemAcc {
             this.selectedUom = this.data.Uom;
         }
     }
+    filter={
+        'PO_SerialNumber.Contains("PA")': "true"
+    };
 
     get unitLoader() {
         return UnitLoader;

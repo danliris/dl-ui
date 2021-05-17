@@ -15,7 +15,9 @@ export class ItemFabric {
         this.service = service;
         this.coreService = coreService;
     }
-
+    filter={
+        'PO_SerialNumber.Contains("PM")': "true"
+    };
     async activate(context) {
         this.context = context;
         this.data = context.data;
@@ -23,7 +25,7 @@ export class ItemFabric {
         this.options = context.options;
 
         if (this.data.Uom == null) {
-            let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: 'MTR' }) });
+            let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: 'MT' }) });
             this.data.Uom = {
                 Id: uomResult.data[0].Id,
                 Unit: uomResult.data[0].Unit
