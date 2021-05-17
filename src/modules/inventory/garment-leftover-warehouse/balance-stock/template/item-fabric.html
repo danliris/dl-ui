@@ -29,6 +29,18 @@
         </td>
 
         <td>
+            <au-textbox value.bind="data.Yarn" error.bind="error.Yarn"
+                read-only="true">
+            </au-textbox>
+        </td>
+
+        <td>
+            <au-textbox value.bind="data.Width" error.bind="error.Width"
+                read-only="true">
+            </au-textbox>
+        </td>
+
+        <td>
             <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0">
             </au-numeric>
         </td>

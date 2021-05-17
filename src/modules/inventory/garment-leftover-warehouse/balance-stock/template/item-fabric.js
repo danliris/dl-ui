@@ -52,6 +52,7 @@ export class ItemFabric {
             this.data.Unit = {
                 Id: newValue.Id,
                 Code: newValue.Code,
+                Name: newValue.Name
             }
         }
     }
@@ -61,6 +62,8 @@ export class ItemFabric {
         this.data.Product = null;
         this.data.Construction = null;
         this.data.Composition = null;
+        this.data.Yarn = null;
+        this.data.Width = null;
 
         if (newValue) {
             this.data.PONo = newValue.PO_SerialNumber;
@@ -72,6 +75,8 @@ export class ItemFabric {
             let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });
             this.data.Construction = garmentProductsResult.data[0].Const;
             this.data.Composition = garmentProductsResult.data[0].Composition;
+            this.data.Yarn = garmentProductsResult.data[0].Yarn;
+            this.data.Width = garmentProductsResult.data[0].Width;
         }
     }
 }

@@ -51,6 +51,7 @@ export class ItemAcc {
             this.data.Unit = {
                 Id: newValue.Id,
                 Code: newValue.Code,
+                Name: newValue.Name
             }
         }
     }
