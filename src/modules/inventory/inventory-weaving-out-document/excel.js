@@ -19,7 +19,8 @@ export class Create {
             length: 4,
         },
     };
-
+    
+    bonTypes = ["PACKING", "FINISHING", "PRINTING", "LAIN-LAIN","KOTOR","INSPECTING WEAVING"];
     list() {
         this.router.navigateToRoute('list');
     }
@@ -29,6 +30,7 @@ export class Create {
         if (this.filter) {
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+            this.info.bonType = this.filter.bonType;
         }
         this.service.generateExcelAll(this.info);
     }
