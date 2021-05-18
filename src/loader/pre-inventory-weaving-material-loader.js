@@ -1,16 +1,17 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'garment-external-purchase-orders/by-ro-loader';
+const resource = 'output-inventory-weaving/material-loader';
 
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("purchasing-azure");
+    var endpoint = config.getEndpoint("inventory-azure");
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
-            
-            
-            return results.data.filter((value, index, self) => self.map(x => x.RONo).indexOf(value.RONo) == index)
+            console.log(results);
+            return results.Data
+
+
         });
 }
