@@ -6,10 +6,22 @@
             </au-autocomplete>
         </td>
 
+        <td class="col-sm-2">
+            <au-autocomplete value.bind="selectedProduct" error.bind="error.Product" loader.bind="productLoader"
+                query.bind="productLoaderFilter" select.bind="productLoaderSelect" read-only.bind="readOnly || isEdit"
+                placeholder="Kode Barang" text="ProductCode" view-model.ref="selectedProductViewModel">
+            </au-autocomplete>
+        </td>
+
+        <td class="col-sm-2">
+            <au-textbox value.bind="data.Product.Name" read-only="true">
+            </au-textbox>
+        </td>
+
         <td class="col-sm-4">
             <au-autocomplete value.bind="selectedStock" error.bind="error.PONo" loader.bind="stockLoader"
                 query.bind="stockLoaderFilter" select.bind="stockLoaderSelect" read-only.bind="readOnly || isEdit"
-                placeholder="Stock" text="PONo" view-model.ref="selectedStockViewModel">
+                placeholder="Stock" text="PONo" view-model.ref="selectedStockViewModel" show.bind="data.Product">
             </au-autocomplete>
         </td>
 
