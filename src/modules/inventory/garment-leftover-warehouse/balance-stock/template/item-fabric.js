@@ -15,9 +15,7 @@ export class ItemFabric {
         this.service = service;
         this.coreService = coreService;
     }
-    filter={
-        'PO_SerialNumber.Contains("PM")': "true"
-    };
+    
     async activate(context) {
         this.context = context;
         this.data = context.data;
