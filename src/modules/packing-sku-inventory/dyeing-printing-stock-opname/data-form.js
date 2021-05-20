@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
-//let WarehouseBonAreaLoader = require("../../../loader/input-warehouses-bon-loader");
+
 
 @inject(Service)
 export class DataForm {
@@ -42,9 +42,7 @@ export class DataForm {
   types = [ "STOCK OPNAME"];
   detailOptions = {};
 
-  // areaMovementTextFormatter = (areaInput) => {
-  //   return `${areaInput.bonNo}`;
-  // };
+  
 
   @computedFrom("data.id")
   get isEdit() {
@@ -57,9 +55,7 @@ export class DataForm {
     return this.data && this.data.type == "STOCK OPNAME";
   }
 
-  // get bonWarehouseLoader() {
-  //   return WarehouseBonAreaLoader;
-  // }
+  
 
   bind(context) {
     this.context = context;
@@ -105,17 +101,7 @@ export class DataForm {
       this.data.warehousesProductionOrders || [];
     this.data.warehousesProductionOrders.push({});
   };
-  // selectedWarehouseChanged(n, o) {
-  //   if (n != o) {
-
-  //     this.service.getProductionOrderInputv2(n.id).then(result => {
-  //       this.data.warehousesProductionOrders = result;
-  //     });
-  //   }
-  // }
-
-
-
+  
   sppTextFormatter = (spp) => {
     return `${spp.productionOrder.no}`
   }
