@@ -2,6 +2,9 @@
     <div class="row">
         <div class="col-sm-12">
             <au-input-form title.bind="title" with.bind="context">
+                <au-textbox label="No Kwitansi" value.bind="data.receiptNo" error.bind="error.receiptNo" read-only.bind="readOnly"
+                    placeholder="No Kwitansi" read-only.bind="readOnly || isEdit" options.bind="controlOptions"> 
+                </au-textbox>
 
                 <div class="row">
                     <div class="col-sm-6">

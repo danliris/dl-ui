@@ -45,6 +45,11 @@ export class List {
         return `${unit.Code} - ${unit.Name}`
     }
 
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+    }
+
    searching() {
        {
         var info = {
