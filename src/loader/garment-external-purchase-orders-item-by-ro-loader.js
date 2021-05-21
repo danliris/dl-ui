@@ -9,6 +9,8 @@ module.exports = function (keyword, filter) {
     var endpoint = config.getEndpoint("purchasing-azure");
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
-            return results.data
+            
+            
+            return results.data.filter((value, index, self) => self.map(x => x.RONo).indexOf(value.RONo) == index)
         });
 }

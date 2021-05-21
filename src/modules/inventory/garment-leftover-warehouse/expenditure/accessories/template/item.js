@@ -8,6 +8,7 @@ export class Item {
     @bindable selectedUnit;
     @bindable selectedStock;
     @bindable selectedUom;
+    @bindable selectedProduct;
 
     constructor(service) {
         this.service = service;
@@ -34,6 +35,11 @@ export class Item {
         if (this.data.Stocks) {
             this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
         }
+        
+        if(this.data.Product){
+            this.selectedProduct=this.data.Product;
+            this.selectedProduct.ProductCode= (this.data.Product || {}).Code;
+        }
 
         if (this.data.Uom) {
             this.selectedUom = (this.data.Uom || {}).Unit || "";
@@ -56,8 +62,26 @@ export class Item {
         return ["PONo"];
     }
 
-    @computedFrom("data.Unit")
+    get productLoader() {
+        return StockLoader;
+    }
+
+    get productLoaderSelect() {
+        return ["ProductCode", "ProductName","ProductId"];
+    }
+
+    @computedFrom("data.Product")
     get stockLoaderFilter() {
+        return {
+            ReferenceType: "ACCESSORIES",
+            UnitId: (this.data.Unit || {}).Id || 0,
+            "Quantity > 0": true,
+            ProductId: (this.data.Product|| {}).Id || 0
+        };
+    }
+
+    @computedFrom("data.Unit")
+    get productLoaderFilter() {
         return {
             ReferenceType: "ACCESSORIES",
             UnitId: (this.data.Unit || {}).Id || 0,
@@ -68,7 +92,25 @@ export class Item {
     selectedUnitChanged(newValue) {
         this.data.Unit = newValue;
         this.selectedStockViewModel.editorValue = "";
+        this.selectedProductViewModel.editorValue = "";
         this.selectedStock = null;
+    }
+
+    selectedProductChanged(newValue, oldValue) {
+        this.data.PONo = null;
+        this.data.Stocks = null;
+        this.uomItems = [""];
+        this.selectedUom = null;
+        this.Product=null;
+        this.selectedStockViewModel.editorValue = "";
+        if (newValue) {
+            this.data.Product = {
+                Id:newValue.ProductId,
+                Name:newValue.ProductName,
+                Code:newValue.ProductCode
+            };
+
+        }
     }
 
     selectedStockChanged(newValue, oldValue) {
@@ -80,13 +122,17 @@ export class Item {
         if (newValue) {
             this.data.PONo = newValue.PONo;
 
-            this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" }) })
+            this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" , ProductId: (this.data.Product|| {}).Id || 0 ,  ReferenceType: "ACCESSORIES", UnitId: (this.data.Unit || {}).Id || 0, "Quantity > 0": true}) })
                 .then(result => {
                     if (result.statusCode == 200) {
-                        const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
-
-                        this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
-                        this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
+                        const uomUnits= result.data.filter((value, index, self) => self.map(x => x.Uom.Unit).indexOf(value.Uom.Unit) == index);
+                        
+                        // const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null && (i.data.Product || {}).Id==this.data.Product.Id).map(i => i.data.Uom.Unit);
+                        // console.log(uomUnits)
+                         this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
+                        // console.log(this.data.Stocks)
+                         this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
+                        // this.uomItems = this.uomItems.filter((value, index, self) => self.map(x => x.Unit).indexOf(value.Unit) == index)
                     }
                 });
         }
