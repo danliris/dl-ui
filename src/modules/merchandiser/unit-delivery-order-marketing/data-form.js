@@ -274,6 +274,11 @@ export class DataForm {
         return UnitSenderLoader;
     }
 
+    get unitSenderQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+    }
+
     roNoView = (rono) => {
         return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber}`;
     }

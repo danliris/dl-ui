@@ -21,6 +21,11 @@ export class List {
         return UnitLoader;
     }
 
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+    }
+    
     activate() {
        
     }

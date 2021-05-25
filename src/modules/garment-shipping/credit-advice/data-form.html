@@ -5,6 +5,11 @@
 
                 <div class="row">
                     <div class="col-sm-6">
+                        
+                        <au-textbox label="No Kwitansi" value.bind="data.receiptNo" error.bind="error.receiptNo" read-only.bind="readOnly"
+                            placeholder="No Kwitansi" read-only.bind="readOnly || isEdit" options.bind="controlOptions"> 
+                        </au-textbox>
+
                         <au-autocomplete label="Invoice No" value.bind="selectedShippingInvoice"
                             error.bind="error.invoiceNo" text="invoiceNo" loader.bind="shippingInvoiceLoader"
                             placeholder="Invoice No" read-only.bind="readOnly || isEdit" options.bind="controlOptions">

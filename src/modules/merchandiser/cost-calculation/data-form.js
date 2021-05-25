@@ -250,6 +250,11 @@ export class DataForm {
     return UnitLoader;
   }
 
+  get unitQuery(){
+    var result = { "Description" : "GARMENT" }
+    return result;   
+  }
+
   unitView = (unit) => {
     return `${unit.Code} - ${unit.Name}`
   }
