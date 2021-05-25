@@ -87,13 +87,13 @@ export class Item {
       let vatAmount = 0;
       if (this.data.IsGetPPn)
         vatAmount = this.data.Amount * 0.1;
-      this.data.Total = Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100;
+      this.data.Total = Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100
+      
     }
   }
 
   @bindable selectedIncomeTax;
   selectedIncomeTaxChanged(newValue, oldValue) {
-
     if (newValue) {
       this.data.IncomeTax = newValue;
       this.data.IncomeTax.Rate = this.data.IncomeTax.rate;
@@ -101,7 +101,9 @@ export class Item {
       this.calculateTotalAmount();
 
     } else {
-      this.data.IncomeTax = undefined;
+      this.data.IncomeTax = {};
+      this.data.IncomeTax.Rate = 0;
+      this.data.IncomeTax.Name = "";
       this.calculateTotalAmount();
     }
   }

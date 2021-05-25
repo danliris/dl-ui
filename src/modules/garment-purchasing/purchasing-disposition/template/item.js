@@ -196,7 +196,7 @@ export class PurchasingDispositionItem {
                         UnitId: item.Unit ? item.UnitId : 0,
                         UnitName: item.Unit ? item.UnitName : "",
                         QTYOrder: item.DealQuantity,
-                        QTYUnit: item.DefaultUom.Unit,
+                        QTYUnit: item.DealUom.Unit,
                         QTYRemains: qtyRemains - qtyRemains,
                         PricePerQTY: item.PricePerDealUnit,
                         PriceTotal: item.PricePerDealUnit * qtyRemains,

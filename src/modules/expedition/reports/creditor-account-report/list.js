@@ -116,13 +116,13 @@ export class List {
               Total: item.Total ? numeral(item.Total).format("0,000.00") : 0,
               Purchase: item.Mutation
                 ? numeral(item.Mutation > 0 ? item.Mutation : 0).format(
-                    "0,000.00"
-                  )
+                  "0,000.00"
+                )
                 : 0,
               Payment: item.Mutation
                 ? numeral(item.Mutation < 0 ? item.Mutation : 0).format(
-                    "0,000.00"
-                  )
+                  "0,000.00"
+                )
                 : 0,
               FinalBalance: numeral(this.purchase + this.payment).format(
                 "0,000.00"

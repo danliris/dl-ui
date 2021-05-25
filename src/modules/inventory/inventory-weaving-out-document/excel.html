@@ -1,10 +1,13 @@
 <template>
-    <h1 class="page-header">Download Pencatatan Keluar Gudang Barang Jadi</h1>
+    <h1 class="page-header">Download Pencatatan Keluar CSV Gudang Greige Weaving</h1>
     <form class="form-horizontal">
         <au-datepicker options.bind="controlOptions" label="Tanggal Awal" value.bind="filter.dateFrom">
         </au-datepicker>
         <au-datepicker options.bind="controlOptions" label="Tanggal Akhir" value.bind="filter.dateTo">
         </au-datepicker>
+        <au-dropdown options.bind="controlOptions" label="Zona" value.bind="filter.bonType"
+            error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="bonTypes">
+        </au-dropdown>
 
 
         <div class="btn-group col-md-offset-5">
