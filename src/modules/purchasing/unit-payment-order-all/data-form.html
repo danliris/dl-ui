@@ -7,7 +7,7 @@
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <!-- <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button> -->
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
         </div>
 
         <div class="row">
@@ -256,7 +256,7 @@
             options.one-way="filter"
             read-only.bind="readOnly"
             view-model.ref="ItemsCollection"
-            item-template="modules/purchasing/unit-payment-order/template/unit-payment-order-item">
+            item-template="modules/purchasing/unit-payment-order-all/template/unit-payment-order-item">
         </au-collection>
 
   </au-input-form>
