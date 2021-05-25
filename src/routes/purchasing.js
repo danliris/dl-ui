@@ -57,7 +57,7 @@ module.exports = [
     },
     {
         route: 'purchase-order-internal/monitoring',
-        name: 'po-internal-belum-po-external-monitoring',
+        name: 'po-internal-belum-unit-payment-order-monitoring',
         moduleId: './modules/purchasing/monitoring-po-internal-belum-po-external/index',
         nav: true,
         title: 'Monitoring Purchase Order Internal Belum Diproses Pembelian',
@@ -303,6 +303,20 @@ module.exports = [
             group: "purchasing",
             subGroup: "transaksi",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'unit-payment-order/all',
+        name: 'unit-payment-order-all',
+        moduleId: './modules/purchasing/unit-payment-order-all/index',
+        nav: true,
+        title: 'Surat Perintah Bayar All',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "transaksi",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

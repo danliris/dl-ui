@@ -47,7 +47,7 @@ export class List {
         var result = { "Description" : "GARMENT" }
         return result;   
     }
-    
+
    searching() {    
    {
     var info = {
