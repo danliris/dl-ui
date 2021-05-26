@@ -107,7 +107,8 @@ export class List {
               BankExpenditureNoteNo: item.BankExpenditureNoteNo,
               MemoNo: item.MemoNo,
               InvoiceNo: item.InvoiceNo,
-              PaymentDuration: item.PaymentDuration,
+              CorrectionNo: item.CorrectionNo,
+              PaymentDuration: item.PaymentDuration ? item.PaymentDuration : 0,
               DPP: item.DPP ? numeral(item.DPP).format("0,000.00") : 0,
               DPPCurrency: item.DPPCurrency
                 ? numeral(item.DPPCurrency).format("0,000.00")
@@ -133,7 +134,7 @@ export class List {
             var newData = {
               Date: null,
               InvoiceNo: item.InvoiceNo,
-              DPP: "null",
+              DPP: null,
               Purchase: numeral(subTotalPurchase).format("0,000.00"),
               Payment: numeral(subTotalPayment).format("0,000.00"),
               FinalBalance: numeral(this.purchase + this.payment).format(
