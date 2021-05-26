@@ -1,5 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
+import moment from "moment";
 
 @inject(Service)
 export class DataForm {
@@ -64,7 +65,7 @@ export class DataForm {
         this.data = context.data;
         this.error = context.error;
         if(this.data.BalanceStockDate == null) {
-            this.data.BalanceStockDate = new Date();
+            this.data.BalanceStockDate = new Date("2021 May 31");
         }
         if(this.data.Id) {
             this.selectedTypeOfGoods = this.data.TypeOfGoods;
