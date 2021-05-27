@@ -42,7 +42,7 @@ export class List {
         { field: "POSerialNumber", title: "Nomor PO", sortable: false, width: '5%' },
         { field: "Product.Name", title: "Nama Barang", sortable: false, width: '5%' },
         { field: "Product.Code", title: "Kode Barang", sortable: false, width: '5%' },
-        { field: "ProductRemark", title: "Keterangan Barang", sortable: false, width: '20%'},
+        { field: "Composition", title: "Komposisi", sortable: false, width: '20%'},
         { field: "FabricRemark", title: "Konstruksi" , sortable: false, width: '10%'},
         { field: "Quantity", title: "Qty", sortable: false, width: '5%' },
         { field: "Uom.Unit", title: "Satuan", sortable: false, width: '5%' },
