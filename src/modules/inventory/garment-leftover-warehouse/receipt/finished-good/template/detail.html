@@ -1,16 +1,10 @@
 <template>
     <tr>
-        <td>
+        <!-- <td>
             <au-textbox
                 value.bind="data.SizeName"
                 read-only.bind="true">
             </au-textbox>
-        </td>
-        <td>
-            <au-numeric
-                value.bind="data.qty"
-                read-only.bind="true">
-            </au-numeric>
         </td>
         <td>
             <au-textbox
@@ -23,7 +17,7 @@
                 value.bind="data.Remark"
                 read-only.bind="true">
             </au-textbox>
-        </td>
+        </td> -->
         <td>
             <au-autocomplete
                 value.bind="selectedComodity"
@@ -34,7 +28,15 @@
                 text.bind="leftoverComodityView">
             </au-autocomplete>
         </td>
-        
+        <td>
+            <au-numeric
+                value.bind="data.qty"
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
     </tr>
     
 </template>
