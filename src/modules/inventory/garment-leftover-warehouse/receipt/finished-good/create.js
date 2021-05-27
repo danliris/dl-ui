@@ -51,7 +51,6 @@ export class Create {
                         this.data.Items.push(dataItem);
                     }
                     if(quantity!=exGood.Quantity){
-                        console.log(quantity,exGood.Quantity)
                         same+=`- ${exGood.ExpenditureGoodNo} \n`;
                     }
                 }

@@ -23,10 +23,12 @@ export class Edit {
 
     saveCallback(event) {
         this.data.Items=[];
+        var same=[];
         if(this.data.DataItems){
             for(var exGood of this.data.DataItems){
-                if(exGood.details){
-                    for(var detail of exGood.details){
+                var quantity=0;
+                if(exGood.dataDetails){
+                    for(var detail of exGood.dataDetails){
                         var dataItem={};
                         dataItem.Id=detail.Id;
                         dataItem.ExpenditureGoodId=exGood.ExpenditureGoodId;
@@ -36,26 +38,31 @@ export class Edit {
                         dataItem.Comodity = exGood.Comodity;
                         dataItem.Buyer = exGood.Buyer;
                         dataItem.ExpenditureGoodItemId= detail.ExpenditureGoodItemId;
-                        dataItem.Size=detail.Size;
-                        dataItem.Quantity= detail.Quantity;
-                        dataItem.Uom= detail.Uom;
-                        dataItem.Remark= detail.Remark;
-                        var d= exGood.dataDetails.find(a=>a.Size.Id==detail.Size.Id && a.Uom.Id==detail.Uom.Id);
-                        dataItem.LeftoverComodity=d.LeftoverComodity || null;
+                        dataItem.Quantity= detail.qty;
+                        quantity+=detail.qty;
+                        dataItem.LeftoverComodity=detail.LeftoverComodity || null;
                         this.data.Items.push(dataItem);
                     }
                 }
                 else{
                     this.data.Items.push({});
                 }
+                if(quantity!=exGood.Quantity){
+                    same+=`- ${exGood.ExpenditureGoodNo} \n`;
+                }
             }
         }
-        this.service.update(this.data)
-            .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.Id });
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        if(same.length>0){
+            alert(`${same} \n Jumlah total Breakdown belum sama dengan jumlah per bon pengeluaran.`)
+        }
+        else{
+            this.service.update(this.data)
+                .then(result => {
+                    this.router.navigateToRoute('view', { id: this.data.Id });
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }
