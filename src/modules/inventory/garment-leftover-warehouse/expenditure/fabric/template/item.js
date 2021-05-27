@@ -80,7 +80,7 @@ export class Item {
         if (newValue) {
             this.data.PONo = newValue.PONo;
 
-            this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" }) })
+            this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" , UnitId:this.data.Unit.Id}) })
                 .then(result => {
                     if (result.statusCode == 200) {
                         const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
