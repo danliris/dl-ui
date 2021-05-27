@@ -29,7 +29,8 @@ export class DataForm {
         { header: "RO", value: "RO" },
         { header: "Artikel", value: "Article" },
         { header: "Buyer", value: "Buyer" },
-        { header: "Komoditi", value: "ComodityName" }
+        { header: "Komoditi", value: "ComodityName" },
+        { header: "Jumlah", value: "Quantity" }
     ];
 
     get unitLoader() {
@@ -178,6 +179,6 @@ export class DataForm {
     get removeItems() {
         return (event) => {
             this.error = null;
-     };
+        };
     }
 }

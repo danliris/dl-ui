@@ -30,10 +30,12 @@ export class Create {
     saveCallback(event) {
         console.log(this.data);
         this.data.Items=[];
+        var same=[];
         if(this.data.DataItems){
             for(var exGood of this.data.DataItems){
-                if(exGood.details){
-                    for(var detail of exGood.details){
+                var quantity=0;
+                if(exGood.dataDetails){
+                    for(var detail of exGood.dataDetails){
                         var dataItem={};
                         dataItem.ExpenditureGoodId=exGood.ExpenditureGoodId;
                         dataItem.ExpenditureGoodNo = exGood.ExpenditureGoodNo;
@@ -42,18 +44,26 @@ export class Create {
                         dataItem.Comodity = exGood.Comodity;
                         dataItem.Buyer = exGood.Buyer;
                         dataItem.ExpenditureGoodItemId= detail.ExpenditureGoodItemId;
-                        dataItem.Size=detail.Size;
-                        dataItem.Quantity= detail.Quantity;
-                        dataItem.Uom= detail.Uom;
-                        dataItem.Remark= detail.Remark;
-                        var d= exGood.dataDetails.find(a=>a.Size.Id==detail.Size.Id && a.Uom.Id==detail.Uom.Id);
-                        dataItem.LeftoverComodity=d.LeftoverComodity;
+                        dataItem.Quantity= detail.qty;
+                        dataItem.LeftoverComodity=detail.LeftoverComodity;
+                        quantity+=detail.qty;
+                        console.log(quantity)
                         this.data.Items.push(dataItem);
                     }
+                    if(quantity!=exGood.Quantity){
+                        console.log(quantity,exGood.Quantity)
+                        same+=`- ${exGood.ExpenditureGoodNo} \n`;
+                    }
                 }
+                
             }
+            
         }
-        this.service.create(this.data)
+        if(same.length>0){
+            alert(`${same} \n Jumlah total Breakdown belum sama dengan jumlah per bon pengeluaran.`)
+        }
+        else{
+            this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -61,5 +71,7 @@ export class Create {
             .catch(error => {
                 this.error = error;
             });
+        }
+        
     }
 }
