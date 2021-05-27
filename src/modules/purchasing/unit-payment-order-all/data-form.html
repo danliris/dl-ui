@@ -25,7 +25,8 @@
                     label="Tanggal Surat Perintah Bayar" 
                     value.bind="data.date" 
                     error.bind="error.date" 
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly || isEdit)"
+                    if.bind="(readOnly || isEdit)"
                     options.bind="controlOptions">
                 </au-datepicker>
 
