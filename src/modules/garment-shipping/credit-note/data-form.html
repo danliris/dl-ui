@@ -25,6 +25,14 @@
                      placeholder="Description" read-only.bind="readOnly || isEdit" options.bind="controlOptions"> 
                 </au-multiline>
 
+                <au-textbox label="No Kwitansi" value.bind="data.receiptNo" error.bind="error.receiptNo" read-only.bind="readOnly"
+                    placeholder="No Kwitansi" read-only.bind="readOnly || isEdit" options.bind="controlOptions"> 
+                </au-textbox>
+
+                <au-datepicker label="Tanggal Kwitansi" value.bind="data.receiptDate" error.bind="error.receiptDate" read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-datepicker>
+
                 <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"
                     options.bind="controlOptions">
                 </au-textbox>
