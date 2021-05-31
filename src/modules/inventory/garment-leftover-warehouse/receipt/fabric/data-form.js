@@ -29,7 +29,7 @@ export class DataForm {
     itemsColumns = [
         { header: "Kode Barang", value: "ProductCode" },
         { header: "Nama Barang", value: "ProductName" },
-        { header: "Keterangan Barang", value: "ProductRemark" },
+        { header: "Komposisi", value: "Composition" },
         { header: "Keterangan Fabric", value: "FabricRemark" },
         { header: "Jumlah", value: "Quantity" },
         { header: "Satuan", value: "UomUnit" },
@@ -112,11 +112,9 @@ export class DataForm {
                             this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
 
                             for (const item of dataUnitExpenditureNote.Items) {
-                                var fabricRemark;
 
                                 this.garmentCoreService.getProductById(item.ProductId)
                                     .then(product => {
-                                        fabricRemark = product.Remark;
                                         this.data.Items.push({
                                             UENItemId: item.Id,
                                             POSerialNumber: item.POSerialNumber,
@@ -127,8 +125,10 @@ export class DataForm {
                                             },
                                             ProductCode: item.ProductCode,
                                             ProductName: item.ProductName,
+                                            FabricRemark: product.Const + "; " + product.Yarn + "; " + product.Width,
+                                            Composition: product.Composition,
                                             ProductRemark: item.ProductRemark,
-                                            FabricRemark: fabricRemark,
+                                            BasicPrice: item.BasicPrice,
                                             Quantity: item.Quantity,
                                             Uom: {
                                                 Id: item.UomId,

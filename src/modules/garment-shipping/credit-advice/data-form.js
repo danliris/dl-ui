@@ -118,7 +118,7 @@ export class DataForm {
     }
 
     //
-    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discreapancyFee', 'data.creditInterest')
+    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
     get NETTNEGO() {
         // console.log(this.data.paymentTerm)
         if (this.data.paymentTerm === "TT/OA") {
