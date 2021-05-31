@@ -22,12 +22,22 @@ export class items {
   }
 
   get filter() {
-    var filter={
-        BuyerCode:this.data.BuyerCode,
+    if (this.context.context.options.data.invoiceNo.includes("SM",0) || this.context.context.options.data.invoiceNo.includes("DLR",0))
+    {
+    var filter={          
         Section: this.data.Section,
         "SCGarmentId!=null":true
-    };
-    return filter;
+      };
+    }
+    else
+    {
+      var filter={
+          BuyerCode:this.data.BuyerCode,
+          Section: this.data.Section,
+          "SCGarmentId!=null":true
+        };
+      }          
+  return filter;
 }
 
   activate(context) {
