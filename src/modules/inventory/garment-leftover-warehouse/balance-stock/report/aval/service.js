@@ -21,7 +21,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}/download-aval`;
+        var endpoint = `${serviceUri}/download-avals`;
         var query = '';
 
         if (info.dateFrom)
@@ -36,8 +36,12 @@ export class Service extends RestService {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
         }
+        if (info.typeAval && info.typeAval !== "") {
+            if (query === '') query = `typeAval=${info.typeAval}`;
+            else query = `${query}&typeAval=${info.typeAval}`;
+        }
         if (query !== '')
-            endpoint = `${serviceUri}/download-aval?${query}`;
+            endpoint = `${serviceUri}/download-avals?${query}`;
 
         return endpoint;
     }

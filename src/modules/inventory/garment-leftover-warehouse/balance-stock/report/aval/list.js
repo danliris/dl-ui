@@ -5,13 +5,12 @@ const UnitLoader = require('../../../../../../loader/garment-units-loader');
 import moment from 'moment';
 
 @inject(Service)
-
-export class List {
+export class List{
     constructor(service) {
         this.service = service;
 
         this.flag = false;
-        this.types = ["", "AVAL FABRIC", "AVAL KOMPONEN", "AVAL BAHAN PENOLONG"];
+        this.types = ["AVAL FABRIC", "AVAL KOMPONEN", "AVAL BAHAN PENOLONG"];
         this.error = {};
     }
     get unitLoader() {
@@ -78,8 +77,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             order: order,
-            dateFrom: moment(this.dateFrom).format("MM/DD/YYYY"),
-            dateTo: moment(this.dateTo).format("MM/DD/YYYY"),
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             unit: this.unit ? this.unit.Id : "",
             typeAval: this.typeAval
         };
@@ -98,10 +97,10 @@ export class List {
 
     XLS() {
         let args = {
-
-            dateFrom: moment(this.dateFrom).format("MM/DD/YYYY"),
-            dateTo: moment(this.dateTo).format("MM/DD/YYYY"),
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             unit: this.unit ? this.unit.Id : "",
+            typeAval: this.typeAval
         };
         this.service.xls(args);
     }

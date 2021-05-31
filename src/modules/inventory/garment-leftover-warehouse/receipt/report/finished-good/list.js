@@ -32,7 +32,7 @@ export class List {
         { field: "index", title: "No", sortable: false, width: '2%' },
         { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false, width: '5%' },
         {
-            field: "Receipt", title: "Tgl Bon ", formatter: function (value, data, index) {
+            field: "ReceiptDate", title: "Tgl Bon ", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }, width: '5%'
         },
