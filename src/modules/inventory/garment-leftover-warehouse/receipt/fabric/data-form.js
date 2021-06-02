@@ -29,6 +29,7 @@ export class DataForm {
     itemsColumns = [
         { header: "Kode Barang", value: "ProductCode" },
         { header: "Nama Barang", value: "ProductName" },
+        { header: "No PO", value: "POSerialNumber" },
         { header: "Komposisi", value: "Composition" },
         { header: "Keterangan Fabric", value: "FabricRemark" },
         { header: "Jumlah", value: "Quantity" },
