@@ -29,7 +29,8 @@ export class DataForm {
         { header: "RO", value: "RO" },
         { header: "Artikel", value: "Article" },
         { header: "Buyer", value: "Buyer" },
-        { header: "Komoditi", value: "ComodityName" }
+        { header: "Komoditi", value: "ComodityName" },
+        { header: "Jumlah", value: "Quantity" }
     ];
 
     get unitLoader() {
@@ -82,20 +83,11 @@ export class DataForm {
             };
             this.data.DataItems=[];
             for (const item of this.data.Items) {
-                item.details=[];
                 item.dataDetails=[];
                 let detail={
                     ExpenditureGoodItemId: item.ExpenditureGoodItemId,
-                    Size: {
-                        Id: item.Size.Id,
-                        Name: item.Size.Name
-                    },
-                    SizeName: item.Size.Name,
                     Quantity: item.Quantity,
                     qty:item.Quantity,
-                    Uom: item.Uom,
-                    UomUnit: item.Uom.Unit,
-                    Remark: item.Remark,
                     LeftoverComodity: item.LeftoverComodity,
                     Id: item.Id
                 }; 
@@ -103,26 +95,17 @@ export class DataForm {
                     var duplicate= this.data.DataItems.find(a=>a.ExpenditureGoodNo==item.ExpenditureGoodNo);
                     if(duplicate){
                         var idx= this.data.DataItems.indexOf(duplicate);
-                        var dup= duplicate.dataDetails.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
-                        if(dup){
-                            var index= duplicate.dataDetails.indexOf(dup);
-                            dup.qty+=detail.qty;
-                            duplicate.dataDetails[index]=dup;
-                        }
-                        else{
-                            duplicate.dataDetails.push(detail);
-                        }
-                        duplicate.details.push(detail);
+                        duplicate.Quantity+=item.Quantity;
+                        duplicate.dataDetails.push(detail);
+                        
                         this.data.DataItems[idx]=duplicate;
                     }
                     else{
-                        item.details.push(detail);
                         item.dataDetails.push(detail);
                         this.data.DataItems.push(item);
                     }
                 }
                 else{
-                    item.details.push(detail);
                     item.dataDetails.push(detail);
                     this.data.DataItems.push(item);
                 }
@@ -178,6 +161,6 @@ export class DataForm {
     get removeItems() {
         return (event) => {
             this.error = null;
-     };
+        };
     }
 }
