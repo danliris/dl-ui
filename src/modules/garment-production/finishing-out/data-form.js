@@ -49,9 +49,19 @@ export class DataForm {
             "Jumlah",
             "Satuan",
             "Warna"
-        ]
+        ],
+        
     }
-
+    
+    columnsSameSize=[
+        "Kode Barang",
+        "Keterangan",
+        "Size",
+        "Jumlah",
+        "Jumlah Keluar",
+        "Satuan",
+        "Warna"
+    ]
     
 
     bind(context) {
@@ -168,7 +178,8 @@ export class DataForm {
                                     item.FinishingInDate=finishingIn.FinishingInDate;
                                     item.FinishingInItemId=finishingInItem.Id;
                                     item.FinishingInId=finishingIn.Id;
-                                    item.Quantity=finishingInItem.RemainingQuantity;
+                                    item.Quantity=this.data.IsDifferentSize?finishingInItem.RemainingQuantity : 0;
+                                    item.qty=finishingInItem.RemainingQuantity;
                                     item.Product=finishingInItem.Product;
                                     item.Uom=finishingInItem.Uom;
                                     item.Size=finishingInItem.Size;
@@ -226,8 +237,12 @@ export class DataForm {
     changeChecked(){
         if(this.data.Items){
             for(var a of this.data.Items){
+                a.qty= a.FinishingInQuantity;
                 a.Quantity=a.FinishingInQuantity;
                 a.IsSave=false;
+                if(!this.data.IsDifferentSize){
+                    a.Quantity=0;
+                }
             }
         }
     }
