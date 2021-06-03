@@ -567,6 +567,20 @@ module.exports = [
         },
     },
     {
+        route: "inventory/garment/leftover-warehouse/balance-stock/report/aval",
+        name: "inventory/garment/leftover-warehouse/balance-stock/report/aval",
+        moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/report/aval/index",
+        nav: true,
+        title: "Report Stock Gudang Sisa - Aval",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, "PG":1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
+    {
         route: "inventory/garment/leftover-warehouse/balance-stock",
         name: "inventory/garment/leftover-warehouse/balance-stock",
         moduleId: "modules/inventory/garment-leftover-warehouse/balance-stock/index",
