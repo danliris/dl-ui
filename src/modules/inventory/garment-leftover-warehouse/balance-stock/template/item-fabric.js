@@ -66,9 +66,9 @@ export class ItemFabric {
         if (newValue) {
             this.data.PONo = newValue.PO_SerialNumber;
             this.data.Product = {
-                Id: newValue.Product.Id,
-                Code: newValue.Product.Code,
-                Name: newValue.Product.Name
+                Id: newValue.ProductId,
+                Code: newValue.ProductCode,
+                Name: newValue.ProductName
             }
             let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });
             this.data.Construction = garmentProductsResult.data[0].Const;
