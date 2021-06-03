@@ -34,6 +34,10 @@ export class MemoDetailPurchasedItem {
     if (this.data.MemoDetailGarmentPurchasingDetail) {
       this.dataDebt = this.data.MemoDetailGarmentPurchasingDetail;
     }
+
+    if (!this.readOnly && this.data.MemoAmount <= 0) {
+      this.data.MemoAmount = this.data.PurchaseAmount;
+    }
   }
 
   dataDebtChanged(newValue) {

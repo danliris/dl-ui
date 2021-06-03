@@ -65,6 +65,15 @@ export class Edit {
   }
 
   saveCallback(event) {
+
+    if (this.data.MemoDetailGarmentPurchasingDispositions && this.data.MemoDetailGarmentPurchasingDispositions.length > 0) {
+      for (var detail of this.data.MemoDetailGarmentPurchasingDispositions) {
+        if (detail.Disposition && detail.Disposition.MemoDetails && detail.Disposition.MemoDetails.lngth > 0) {
+          detail.Disposition.MemoDetails = detail.Disposition.MemoDetails.filter((element) => element.Select);
+        }
+      }
+    }
+    
     this.service.update(this.data)
       .then((result) => {
         alert("Data berhasil diupdate");
