@@ -3,10 +3,12 @@ import { Service } from './service';
 import moment from 'moment';
 import { Router } from "aurelia-router";
 import { activationStrategy } from "aurelia-router";
+import { Dialog } from "../../../components/dialog/dialog";
+import { FormDialog } from "./dialog/form-dialog";
 
 var COALoader = require('../../../loader/coa-loader');
 
-@inject(Service, Router)
+@inject(Service, Router, Dialog)
 export class Post {
   // @bindable title;
   @bindable readOnly;
@@ -30,9 +32,10 @@ export class Post {
   monthOptions = [];
   yearOptions = [];
 
-  constructor(service, router) {
+  constructor(service, router, dialog) {
     this.service = service;
     this.router = router;
+    this.dialog = dialog;
   }
 
   @bindable selectedMonth;
@@ -218,6 +221,11 @@ export class Post {
     this.data.transactions = [];
     this.selectedYear = (new Date()).getFullYear();
     this.selectedMonth = this.monthOptions[(new Date()).getMonth()];
+  }
+
+  showEditDialog(id) {
+    console.log(id);
+    this.dialog.show(FormDialog, id).then(() => this.search());
   }
 }
 
