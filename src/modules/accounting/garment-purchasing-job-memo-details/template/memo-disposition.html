@@ -18,12 +18,24 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td if.bind="!readOnly">
             <!-- <div if.bind="error.fulfillmentscount"
                  class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span>
             </div> -->
             <au-collection items.bind="data.Disposition.MemoDetails"
                            columns.bind="memoDetailsColumns"
+                           read-only.bind="readOnly"
+                           checkall.delegate="onCheckAll($event)"
+                           item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-item">
+            </au-collection>
+        </td>
+
+        <td if.bind="readOnly">
+            <!-- <div if.bind="error.fulfillmentscount"
+                 class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span>
+            </div> -->
+            <au-collection items.bind="data.Disposition.MemoDetails"
+                           columns.bind="memoDetailsColumnsView"
                            read-only.bind="readOnly"
                            item-template="modules/accounting/garment-purchasing-job-memo-details/template/memo-detail-purchased-item">
             </au-collection>
