@@ -1,7 +1,7 @@
 import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../../utils/rest-service';
 
-const serviceUri = 'garment/leftover-warehouse-stocks';
+const serviceUri = 'garment/leftover-warehouse-stocks/report';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -9,7 +9,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}/report-acc`;
+        let endpoint = `${serviceUri}/acc`;
         console.log(endpoint,info);
         return super.list(endpoint, info);
        

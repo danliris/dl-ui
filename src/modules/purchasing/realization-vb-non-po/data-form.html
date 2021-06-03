@@ -25,6 +25,15 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
+    <!-- <au-textbox
+        label="Keterangan"
+        value.bind="data.Description"
+        read-only.bind="readOnly"
+        options.bind="controlOptions",
+        error.bind = "error.Description"
+    >
+    </au-textbox> -->
+
     <div show.bind="vbNonPOType">
       <au-autocomplete show.bind="isVB || vbDocument || context.isEdit"
                        value.bind="vbDocument"

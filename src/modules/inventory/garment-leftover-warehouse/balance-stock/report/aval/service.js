@@ -9,10 +9,9 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}/finishedgood`;
-        console.log(endpoint,info);
+        let endpoint = `${serviceUri}/aval`;
         return super.list(endpoint, info);
-       
+
     }
 
     xls(info) {
@@ -22,12 +21,12 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}/download-finishedgood`;
+        var endpoint = `${serviceUri}/download-avals`;
         var query = '';
-        
+
         if (info.dateFrom)
             if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;    
+            else query = `${query}&dateFrom=${info.dateFrom}`;
 
         if (info.dateTo) {
             if (query === '') query = `dateTo=${info.dateTo}`;
@@ -37,8 +36,12 @@ export class Service extends RestService {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
         }
+        if (info.typeAval && info.typeAval !== "") {
+            if (query === '') query = `typeAval=${info.typeAval}`;
+            else query = `${query}&typeAval=${info.typeAval}`;
+        }
         if (query !== '')
-            endpoint = `${serviceUri}/download-finishedgood?${query}`;
+            endpoint = `${serviceUri}/download-avals?${query}`;
 
         return endpoint;
     }

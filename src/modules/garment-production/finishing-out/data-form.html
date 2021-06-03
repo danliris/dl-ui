@@ -85,6 +85,15 @@
         </au-autocomplete>
         
         <au-datepicker 
+            label="Tanggal Finishing In"
+            value.bind="data.FinishingInDate"
+            error.bind="error.FinishingInDate"
+            read-only.bind="true"
+            if.bind="isCreate"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
             label="Tanggal Finishing Out"
             value.bind="data.FinishingOutDate"
             error.bind="error.FinishingOutDate"

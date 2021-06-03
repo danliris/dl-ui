@@ -161,6 +161,7 @@ export class DataForm {
                 Promise.resolve(this.service.searchFinishingInComplete({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id ,"Items.Any(RemainingQuantity>0)":true}) }))
                     .then(result => {
                         for(var finishingIn of result.data){
+                            this.data.FinishingInDate=!this.data.FinishingInDate ? finishingIn.FinishingInDate : finishingIn.FinishingInDate<this.data.FinishingInDate ? finishingIn.FinishingInDate : this.data.FinishingInDate;
                             for(var finishingInItem of finishingIn.Items){
                                 var item={};
                                 if(finishingInItem.RemainingQuantity>0){
