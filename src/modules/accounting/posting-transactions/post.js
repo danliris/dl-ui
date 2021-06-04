@@ -6,6 +6,8 @@ import { activationStrategy } from "aurelia-router";
 import { Dialog } from "../../../components/dialog/dialog";
 import { FormDialog } from "./dialog/form-dialog";
 
+var ReferenceNoLoader = require('../../../loader/journal-transaction-reference-no-loader');
+var ReferenceTypeLoader = require('../../../loader/journal-transaction-reference-type-loader');
 var COALoader = require('../../../loader/coa-loader');
 
 @inject(Service, Router, Dialog)
@@ -36,6 +38,14 @@ export class Post {
     this.service = service;
     this.router = router;
     this.dialog = dialog;
+  }
+
+  get referenceNoLoader() {
+    return ReferenceNoLoader;
+  }
+
+  get referenceTypeLoader() {
+    return ReferenceTypeLoader;
   }
 
   @bindable selectedMonth;
@@ -183,8 +193,12 @@ export class Post {
     }
   }
 
+  @bindable referenceNo;
+  @bindable referenceType;
   async search() {
-    var result = await this.service.getUnpostedTransactions(this.selectedMonth.MonthNumber, this.selectedYear);
+    var referenceNo = this.referenceNo != null ? this.referenceNo.value : "";
+    var referenceType = this.referenceType != null ? this.referenceType.value : "";
+    var result = await this.service.getUnpostedTransactions(this.selectedMonth.MonthNumber, this.selectedYear, referenceNo, referenceType);
 
     this.data.transactions = [];
     for (var datum of result.data) {
@@ -221,6 +235,8 @@ export class Post {
     this.data.transactions = [];
     this.selectedYear = (new Date()).getFullYear();
     this.selectedMonth = this.monthOptions[(new Date()).getMonth()];
+    this.referenceNo = 0;
+    this.referenceType = 0;
   }
 
   showEditDialog(id) {
