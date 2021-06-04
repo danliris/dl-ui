@@ -251,6 +251,7 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
+                item.IsSave=item.Quantity>0;
                 if(item.IsSave){
                     if(this.data.IsDifferentSize){
                         if(item.Details){
