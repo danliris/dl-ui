@@ -73,7 +73,8 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, rowspan: 2
       },
-      { field: "SendToVerificationby", title: "Staff", rowspan: 2 }
+      { field: "SendToVerificationby", title: "Staff Ekspedisi", rowspan: 2 },
+      { field: "PurchaseBy", title: "Staff Pembelian", rowspan: 2 }
     ],
     [
       {
