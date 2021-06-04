@@ -30,8 +30,8 @@ export class List {
             { field: "index", title: "No", sortable: false},
             { field: "Construction", title: "Konstruksi", sortable: false},
             { field: "Grade", title: "Grade", sortable: false},
-            { field: "QuantityPiece", title: "Piece", sortable: false},
-            { field: "Quantity", title: "Meter", sortable: false},
+            { field: "QtyPiece", title: "Piece", sortable: false},
+            { field: "Qty", title: "Meter", sortable: false},
             { field: "", title: "Keterangan", sortable: false}
     ];
 
@@ -105,7 +105,7 @@ export class List {
                            
                         }
                         return {
-                            total: result.Total,
+                            total: result.TotalData,
                             data: result.Data
                         };
                     })
