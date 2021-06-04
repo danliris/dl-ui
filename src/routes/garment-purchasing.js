@@ -661,7 +661,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
+    {
+        route: 'garment/reports/garment-disposition-purchase-report',
+        name: 'garment-disposition-purchase-report',
+        moduleId: './modules/garment-purchasing/reports/garment-disposition-purchase-report/index',
+        nav: true,
+        title: 'Laporan Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "laporan",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'garment-purchase-order/reports/topten-supplier',
         name: 'garment-purchase-order-reports-topten-supplier',
