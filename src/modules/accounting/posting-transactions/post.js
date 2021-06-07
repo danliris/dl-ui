@@ -196,8 +196,9 @@ export class Post {
   @bindable referenceNo;
   @bindable referenceType;
   async search() {
-    var referenceNo = this.referenceNo != null ? this.referenceNo.value : "";
-    var referenceType = this.referenceType != null ? this.referenceType.value : "";
+    var referenceNo = this.referenceNo ? this.referenceNo.value : "";
+    var referenceType = this.referenceType ? this.referenceType.value : "";
+    console.log(referenceType);
     var result = await this.service.getUnpostedTransactions(this.selectedMonth.MonthNumber, this.selectedYear, referenceNo, referenceType);
 
     this.data.transactions = [];
