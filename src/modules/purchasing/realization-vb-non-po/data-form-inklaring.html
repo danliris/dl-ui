@@ -29,6 +29,7 @@
       options.bind="controlOptions"
     >
     </au-dropdown>
+    </au-textbox>
 
     <div show.bind="vbNonPOType">
       <au-autocomplete
@@ -103,6 +104,12 @@
         options.bind="controlOptions"
       >
       </au-numeric>
+
+      <au-multiline label="Keterangan"
+                    value.bind="data.Remark"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+      </au-multiline>
 
       <!-- Readonly: Dengan Nomor VB-->
       <!-- Free text: Tanpa Nomor VB-->

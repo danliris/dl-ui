@@ -33,6 +33,7 @@ export class Create {
         if(this.data && this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    item.IsSave=item.Details.length>0;
                     if(item.IsSave){
                         if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
                             this.data.FinishingInDate=item.FinishingInDate;
@@ -51,6 +52,7 @@ export class Create {
         if(this.data&& !this.data.IsDifferentSize){
             if(this.data.Items){
                 for(var item of this.data.Items){
+                    item.IsSave=item.Quantity>0;
                     if(item.IsSave){
                         if(this.data.FinishingInDate==null || this.data.FinishingInDate<item.FinishingInDate)
                             this.data.FinishingInDate=item.FinishingInDate;

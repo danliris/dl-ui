@@ -19,7 +19,6 @@ export class Item {
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        console.log(this.isEdit)
         if(this.isEdit){
             this.readOnly=false;
         }

@@ -9,11 +9,12 @@ export class Item {
     @bindable selectedExpenditureGood;
 
     itemsColumns = [
-        { header: "Size", value: "SizeName" },
+        // { header: "Size", value: "SizeName" },
+        // { header: "Jumlah", value: "Quantity" },
+        // { header: "Satuan", value: "UomUnit" },
+        // { header: "Keterangan", value: "Remark" },
+        { header: "Komoditi", value: "ComodityName" },
         { header: "Jumlah", value: "Quantity" },
-        { header: "Satuan", value: "UomUnit" },
-        { header: "Keterangan", value: "Remark" },
-        { header: "Komoditi", value: "ComodityName" }
     ]
 
     get filter(){
@@ -98,56 +99,60 @@ export class Item {
                     this.data.Buyer = exGood.Buyer;
                     this.data.BuyerName = exGood.Buyer.Name;
                     this.data.details=[];
+                    this.data.Quantity=0;
                     for (const item of exGood.Items) {
-                        this.data.details.push({
-                            ExpenditureGoodItemId: item.Id,
-                            Size: {
-                                Id: item.Size.Id,
-                                Name: item.Size.Size
-                            },
-                            SizeName: item.Size.Size,
-                            Quantity: item.Quantity,
-                            Uom: item.Uom,
-                            UomUnit: item.Uom.Unit,
-                            Remark: item.Description,
-                            qty: item.Quantity,
-                        });
-
-                        if(this.data.dataDetails){
-                            var duplicate= this.data.dataDetails.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
-                            
-                            if(duplicate){
-                                var idx= this.data.details.indexOf(duplicate);
-                                duplicate.qty+=item.Quantity;
-                                this.data.dataDetails[idx]=duplicate;
-                            }else{
-                                item.Size={
-                                    Id: item.Size.Id,
-                                    Name: item.Size.Size
-                                };
-                                item.SizeName=item.Size.Name;
-                                item.Quantity=item.Quantity;
-                                item.qty=item.Quantity;
-                                item.Uom= item.Uom;
-                                item.UomUnit= item.Uom.Unit;
-                                item.Remark= item.Description;
-                                this.data.dataDetails.push(item);
-                            }
-                        }
-                        else{
-                            item.Size={
-                                Id: item.Size.Id,
-                                Name: item.Size.Size
-                            };
-                            item.SizeName=item.Size.Name;
-                            item.Quantity=item.Quantity;
-                            item.qty=item.Quantity;
-                            item.Uom= item.Uom;
-                            item.UomUnit= item.Uom.Unit;
-                            item.Remark= item.Description;
-                            this.data.dataDetails.push(item);
-                        }
+                        this.data.Quantity+=item.Quantity;
                     }
+                    // for (const item of exGood.Items) {
+                    //     this.data.details.push({
+                    //         ExpenditureGoodItemId: item.Id,
+                    //         Size: {
+                    //             Id: item.Size.Id,
+                    //             Name: item.Size.Size
+                    //         },
+                    //         SizeName: item.Size.Size,
+                    //         Quantity: item.Quantity,
+                    //         Uom: item.Uom,
+                    //         UomUnit: item.Uom.Unit,
+                    //         Remark: item.Description,
+                    //         qty: item.Quantity,
+                    //     });
+
+                    //     if(this.data.dataDetails){
+                    //         var duplicate= this.data.dataDetails.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
+                            
+                    //         if(duplicate){
+                    //             var idx= this.data.details.indexOf(duplicate);
+                    //             duplicate.qty+=item.Quantity;
+                    //             this.data.dataDetails[idx]=duplicate;
+                    //         }else{
+                    //             item.Size={
+                    //                 Id: item.Size.Id,
+                    //                 Name: item.Size.Size
+                    //             };
+                    //             item.SizeName=item.Size.Name;
+                    //             item.Quantity=item.Quantity;
+                    //             item.qty=item.Quantity;
+                    //             item.Uom= item.Uom;
+                    //             item.UomUnit= item.Uom.Unit;
+                    //             item.Remark= item.Description;
+                    //             this.data.dataDetails.push(item);
+                    //         }
+                    //     }
+                    //     else{
+                    //         item.Size={
+                    //             Id: item.Size.Id,
+                    //             Name: item.Size.Size
+                    //         };
+                    //         item.SizeName=item.Size.Name;
+                    //         item.Quantity=item.Quantity;
+                    //         item.qty=item.Quantity;
+                    //         item.Uom= item.Uom;
+                    //         item.UomUnit= item.Uom.Unit;
+                    //         item.Remark= item.Description;
+                    //         this.data.dataDetails.push(item);
+                    //     }
+                    // }
                 });
             }
         } else {
@@ -161,5 +166,17 @@ export class Item {
             this.data.BuyerName = null;
             this.ExpenditureGoodViewModel.editorValue = "";
         }
+    }
+
+    get addDetails() {
+        return (event) => {
+            this.data.dataDetails.push({});
+        };
+    }
+
+    get removeDetails() {
+        return (event) => {
+            this.error = null;
+        };
     }
 }
