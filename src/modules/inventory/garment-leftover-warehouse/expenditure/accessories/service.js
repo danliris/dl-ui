@@ -37,6 +37,11 @@ class Service extends RestService {
         var endpoint = stockServiceUri;
         return super.list(endpoint, info);
     }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 const unitExpenditureNoteUri = 'garment-unit-expenditure-notes';
