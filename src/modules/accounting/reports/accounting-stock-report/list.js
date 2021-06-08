@@ -14,6 +14,15 @@ export class List {
 
     info = { page: 1,size:50};
 
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
+
     @bindable UnitItem;
     @bindable KtgrItem;
     
@@ -264,6 +273,9 @@ export class List {
                 this.unit = "";
                 this.unitname = "";
             }
+        }else{
+            this.unit = "";
+            this.unitname = "";
         }
     }
 
@@ -284,6 +296,9 @@ export class List {
                 this.category = "";
                 this.categoryname = "";
             }
+        }else{
+            this.unit = "";
+            this.unitname = "";
         }
     }
     changePage(e) {
