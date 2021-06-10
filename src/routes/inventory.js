@@ -72,6 +72,19 @@ module.exports = [
         }
     },
     {
+        route: 'inventory/reports/stock-greige-recap-report',
+        name: 'inventory/reports/stock-greige-recap-report',
+        moduleId: './modules/inventory/reports/stock-greige-recap-report/index',
+        nav: true,
+        title: 'Laporan Rekapitulasi Stock Grey',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
         moduleId: './modules/inventory/inventory-document/index',

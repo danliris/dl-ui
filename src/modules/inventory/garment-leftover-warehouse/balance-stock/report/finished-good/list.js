@@ -86,6 +86,11 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
+                        for(var data of result.data){
+                            if(data.index == 0){
+                                data.index = ""
+                            }
+                        };
                         return {
                             total: result.info.total,
                             data: result.data
