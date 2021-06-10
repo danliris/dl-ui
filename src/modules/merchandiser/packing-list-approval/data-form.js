@@ -163,13 +163,15 @@ export class DataForm {
                         fob+=parseFloat((material.CM_Price*1.05/ccg.Rate.Value).toFixed(2));
                     }
                 }
-                if(isFabricCM){
-                    item.priceCMT=parseFloat(ccg.ConfirmPrice.toFixed(2));
-                    item.priceFOB=parseFloat((ccg.ConfirmPrice+fob).toFixed(2));
-                }
-                else{
-                    item.priceCMT=0;
-                    item.priceFOB=parseFloat(ccg.ConfirmPrice.toFixed(2));
+                if(item.priceFOB == 0 && item.priceCMT == 0){
+                    if(isFabricCM){
+                        item.priceCMT=parseFloat(ccg.ConfirmPrice.toFixed(2));
+                        item.priceFOB=parseFloat((ccg.ConfirmPrice+fob).toFixed(2));
+                    }
+                    else{
+                        item.priceCMT=0;
+                        item.priceFOB=parseFloat(ccg.ConfirmPrice.toFixed(2));
+                    }
                 }
             }
         }
