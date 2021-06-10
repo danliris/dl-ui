@@ -37,7 +37,10 @@ export class ItemFinishedGood {
             this.selectedRo = this.data.RONo;
         }
     }
-
+    filter={
+        'RONo.Contains("M")': "false", 
+        'RONo.Contains("S")': "false"
+    };
         
     get unitLoader() {
         return UnitLoader;
@@ -57,6 +60,7 @@ export class ItemFinishedGood {
             this.data.Unit = {
                 Id: newValue.Id,
                 Code: newValue.Code,
+                Name: newValue.Name
             }
         }
     }

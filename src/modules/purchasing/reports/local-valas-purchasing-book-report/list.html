@@ -79,6 +79,8 @@
                     <td rowspan=2>No Invoice</td>
                     <td rowspan=2>No Faktur Pajak</td>
                     <td rowspan=2>No SPB/NI</td>
+                    <td rowspan=2>No. Nota Koreksi</td>
+                    <td rowspan=2>Tanggal Nota Koreksi</td>
                     <td rowspan=2>Kategori Pembelian</td>
                     <td rowspan=2>Kategori Pembukuan</td>
                     <td rowspan=2>Unit Pembelian</td>
@@ -108,6 +110,8 @@
                     <td>${report.InvoiceNo}</td>
                     <td>${report.VATNo}</td>
                     <td>${report.UPONo}</td>
+                    <td>${report.CorrectionNo}</td>
+                    <td>${report.CorrectionDate | dateFormat:'YYYY-MM-DD'}</td>
                     <td>${report.AccountingCategoryName}</td>
                     <td>${report.CategoryName}</td>
                     <td>${report.AccountingUnitName}</td>
@@ -123,7 +127,7 @@
                     <td class="text-right"><strong>${report.TotalCurrency | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="21" class="text-right">Jumlah</td>
+                    <td colspan="23" class="text-right">Jumlah</td>
                     <td class="text-right"><strong>${data.GrandTotal | numberFormat: '0,000.0000'}</strong></td>
                 </tr>
             </tbody>

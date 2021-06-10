@@ -40,6 +40,13 @@
                 show.bind="selectedExpenditureGood">
             </au-textbox>
         </td>
+        <td>
+            <au-numeric
+                value.bind="data.Quantity" 
+                read-only="true" 
+                show.bind="selectedExpenditureGood">
+            </au-numeric>
+        </td>
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
@@ -51,7 +58,10 @@
                 columns.bind="itemsColumns"
                 read-only.bind="readOnly"
                 options.bind="itemOptions"
+                add.bind="addDetails" 
+                remove.bind="removeDetails"
                 show.bind="data.ExpenditureGoodNo"
+                footer-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/item-footer" 
                 item-template="modules/inventory/garment-leftover-warehouse/receipt/finished-good/template/detail">
         </au-collection>
         </td>
