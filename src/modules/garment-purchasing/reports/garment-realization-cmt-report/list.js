@@ -35,20 +35,17 @@ export class List {
         
         this.service.search(args)
             .then(result=>{
-                // var datas=[];
-                // console.log(result)
-                // for(var _data of result.data){
-                //     //console.log(_data)
-
-                  
-                //     datas.push(_data);
-
-                //  }
-                //  this.info.total= result.info.total;
-                //  this.data = result.data;
-                // //console.log(this.data)
-                // console.log(result.info.total)
-                // console.log(this.info)
+                var datas=[];
+                console.log(result)
+                for(var _data of result.data){
+                    //console.log(_data)
+                    datas.push(_data);
+                 }
+                 this.info.total= result.info.total;
+                 this.data = result.data;
+                //console.log(this.data)
+                console.log(result.info.total)
+                console.log(this.info)
                
                 // this.rowCount=[];
                 // var rowDoc=[];
@@ -57,8 +54,10 @@ export class List {
                 // for(var a of result.data){
                 //     //var bc=a.Invoice.toString();
                 //     //var doc=a.ExpanditurGoodId;
+                //     var urt=a.count;
                 //     var inv=a.InvoiceNo;
                 //     var bon=a.ExpenditureGoodNo;
+                    
                 //     if(!this.rowCount[inv]){
                 //         this.rowCount[inv]=1;
                 //     }
@@ -66,25 +65,24 @@ export class List {
                 //         this.rowCount[inv]++;
                 //     }
  
-                //     if(!rowDoc[bon+inv]){
+                //     if(!rowDoc[bon+inv+urt]){
                 //         index++;
-                //         //a.count=index;
-                //         rowDoc[bon+inv]=1;
+                //         rowDoc[bon+inv+urt]=1;
                 //     }
+    
                 //     else{
-                //         rowDoc[bon+inv]++;
+                //         rowDoc[bon+inv+urt]++;
                 //     }
                 // }
                 // for(var b of result.data){
-                //     let bcno=result.data.find(o=> o.InvoiceNo + o.ExpenditureGoodNo==b.InvoiceNo + b.ExpenditureGoodNo);
+                //     let bcno=result.data.find(o=> o.Count + o.InvoiceNo + o.ExpenditureGoodNo==b.Count + b.InvoiceNo + b.ExpenditureGoodNo);
                 //     if(bcno){
-                //         bcno.docspan=rowDoc[b.ExpenditureGoodNo+b.InvoiceNo];
+                //         bcno.docspan=rowDoc[b.ExpenditureGoodNo+b.InvoiceNo+b.Count];
                 //     }
                 //     let invc=result.data.find(o=> o.InvoiceNo ==b.InvoiceNo);
                 //     if(invc){
                 //         invc.rowspan=this.rowCount[b.InvoiceNo];
                 //     }
-
                 //    }
 
                 for(var item of result.data){
