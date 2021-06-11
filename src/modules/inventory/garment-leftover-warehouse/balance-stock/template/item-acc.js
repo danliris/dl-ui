@@ -30,7 +30,7 @@ export class ItemAcc {
         }
     }
     filter={
-        'PO_SerialNumber.Contains("PA")': "true"
+        'PO_SerialNumber': "PA"
     };
 
     get unitLoader() {
@@ -61,13 +61,13 @@ export class ItemAcc {
         this.data.Product = null;
         this.data.Construction = null;
         this.data.Composition = null;
-
+        
         if (newValue) {
             this.data.PONo = newValue.PO_SerialNumber;
             this.data.Product = {
-                Id: newValue.Product.Id,
-                Code: newValue.Product.Code,
-                Name: newValue.Product.Name
+                Id: newValue.ProductId,
+                Code: newValue.ProductCode,
+                Name: newValue.ProductName
             }
             this.data.ProductRemark = newValue.Remark;
             let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });

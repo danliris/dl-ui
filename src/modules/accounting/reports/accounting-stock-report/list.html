@@ -16,10 +16,10 @@
               items.bind="KategoriItems"
               options.bind="controlOptions" >
       </au-dropdown>
-        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
         <div class="form-group">
-            <label for="contact" class="col-sm-6 control-label"></label>
+            <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
@@ -29,7 +29,7 @@
             <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
           </div>
         <br>
-    </form>
+    
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="poReport">
                 <thead align="center">
@@ -232,6 +232,6 @@
         <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>
    
-
+    </form>
     
 </template>

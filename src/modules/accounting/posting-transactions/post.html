@@ -2,6 +2,22 @@
   <au-input-form title="Posting Jurnal Transaksi"
                  with.bind="context"
                  options.bind="formOptions">
+    <au-autocomplete placeholder="pilih nomor referensi"
+                     label="Nomor Referensi"
+                     value.bind="referenceNo"
+                     loader.one-time="referenceNoLoader"
+                     text="value"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
+    <au-autocomplete placeholder="pilih nomor referensi"
+                     label="Jenis Referensi"
+                     value.bind="referenceType"
+                     loader.one-time="referenceTypeLoader"
+                     text="value"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
     <au-dropdown label="Bulan"
                  value.bind="selectedMonth"
                  items.bind="monthOptions"
@@ -85,7 +101,7 @@
                 <au-autocomplete value.bind="transaction.COA"
                                  loader.one-time="coaLoader"
                                  text="Code"
-                                 read-only.bind="transaction.isReadOnly"
+                                 read-only.bind="true"
                                  error.bind="transaction.error.invalidCOA">
                 </au-autocomplete>
               </td>
