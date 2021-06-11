@@ -184,7 +184,9 @@ export class DataForm {
                     Items.Conversion=item.CorrectionConversion;
                     Items.DOCurrency={};
                     Items.DOCurrency.Rate= item.DOCurrencyRate;
-                    dataItems.push(Items);
+                    if(Items.ReturQuantity>0){
+                        dataItems.push(Items);
+                    }
                 }
                 this.data.Items=dataItems;
             }
