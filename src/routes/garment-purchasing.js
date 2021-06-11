@@ -1017,4 +1017,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-closing-date',
+        name: 'garment-closing-date',
+        moduleId: './modules/garment-purchasing/garment-closing-date/index',
+        nav: true,
+        title: 'Closing Date',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
