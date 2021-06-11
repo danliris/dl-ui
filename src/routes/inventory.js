@@ -80,6 +80,21 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/report-stock-greige-weaving',
+        name: 'inventory/reports/report-stock-greige-weaving',
+        moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Kain Grey Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }

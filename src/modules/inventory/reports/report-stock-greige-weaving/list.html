@@ -2,13 +2,13 @@
     <h1 class="page-header">Laporan Bon Pengeluaran</h1>
 
     <form class="form-horizontal">
-        <au-datepicker options.bind="controlOptions" label="Tanggal Awal" value.bind="dateFrom">
+        <!-- <au-datepicker options.bind="controlOptions" label="Tanggal Awal" value.bind="dateFrom">
+        </au-datepicker> -->
+        <au-datepicker options.bind="controlOptions" label="Per Tanggal" value.bind="dateTo">
         </au-datepicker>
-        <au-datepicker options.bind="controlOptions" label="Tanggal Akhir" value.bind="dateTo">
-        </au-datepicker>
-        <au-dropdown options.bind="controlOptions" label="Tujuan" value.bind="destination"
+        <!-- <au-dropdown options.bind="controlOptions" label="Tujuan" value.bind="destination"
             error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="bonTypes">
-        </au-dropdown>
+        </au-dropdown> -->
         <!-- <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> -->
         <div class="form-group">
@@ -42,41 +42,49 @@
                 <thead align="center">
                     <tr>
                         <td rowspan="2">No</td>
-                        <td rowspan="2">NoBon</td>
                         <td rowspan="2">Konstruksi</td>
-                        <td rowspan="2">Grade</td>
-                        <td rowspan="2">Piece</td>
-                        <td rowspan="2">Jumlah Meter</td>
-                        <td rowspan="2">Jumlah Piece</td>
-                        <td colspan="2">Total</td>
-                        <td rowspan="2">Keterangan</td>
+                        <td rowspan="2">Saldo Awal</td>
+                        <td colspan="6">Pemasukan</td>
+                        <td colspan="6">Pengeluaran</td>
+                        <td rowspan="2">Saldo Akhir</td>
+                        
                     </tr>
                     <tr>
-                        <td>Meter</td>
-                        <td>Piece</td>
+                        <td>Produksi</td>
+                        <td>Recheking</td>
+                        <td>Ret Finishing</td>
+                        <td>Ret Print</td>
+                        <td>Ret Pack</td>
+                        <td>Lain-lain</td>
+                        <td>Packing</td>
+                        <td>Finishing</td>
+                        <td>Printing</td>
+                        <td>Inspecting</td>
+                        <td>Kotor</td>
+                        <td>Lain-lain</td>
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="IN of data">
-                        <!-- <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.count}</td>
-                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${IN.BCType}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BCNo}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td> -->
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.Number}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.BonNo}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.Construction}</td>
-                        <td >${IN.Grade}</td>
-                        <!-- <td if.bind="item.docspan" rowspan="${item.docspan}">${IN.BonNo}</td> -->
-                        <td >${IN.Piece}</td>
-                        <td >${IN.Quantity}</td>
-                        <td >${IN.QuantityPiece}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.QuantityTot}</td>
-                        <td if.bind="IN.docspan" rowspan="${IN.docspan}">${IN.QuantityPieceTot}</td>
-                        <td>${IN.Remark}</td>
-                        
-                        <!-- <td >${IN.Jumlah}</td> -->
-                        
-                        <!--<td>${SJ['Satuan Barang']}</td>-->
+                       
+                        <td>${IN.Nomor}</td>
+                        <td>${IN.Construction}</td>
+                        <td>${IN.BeginingBalance}</td>
+                        <td>${IN.ReceiptProduction}</td>
+                        <td>${IN.ReceiptRecheking}</td>
+                        <td>${IN.ReceiptFinishing}</td>
+                        <td>${IN.ReceiptPrinting}</td>
+                        <td>${IN.ReceiptPacking}</td>
+                        <td>${IN.ReceiptOther}</td>
+                        <td>${IN.ExpendPacking}</td>
+                        <td>${IN.ExpendFinishing}</td>
+                        <td>${IN.ExpendPrinting}</td>
+                        <td>${IN.ExpendInspecting}</td>
+                        <td>${IN.ExpendDirty}</td>
+                        <td>${IN.ExpendOther}</td>
+                        <td>${IN.EndingBalance}</td>
+                       
                     </tr>
                 </tbody>
             </table>
