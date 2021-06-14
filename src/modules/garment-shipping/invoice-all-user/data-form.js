@@ -49,7 +49,8 @@ export class DataForm {
             isEdit: this.context.isEdit,
             isUpdated: this.context.isUpdated,
             isUsed: this.context.isUsed,
-            itemData:this.data.items
+            itemData:this.data.items,
+            data:this.data,
         }
         this.isEdit = this.context.isEdit;
         this.isUpdated = this.context.isUpdated;
