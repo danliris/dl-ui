@@ -12,16 +12,32 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    
+
+    // {
+    //     route: 'inventory/inventory-weaving-documents',
+    //     name: 'inventory/inventory-weaving-documents',
+    //     moduleId: './modules/inventory/inventory-weaving-document/index',
+    //     nav: true,
+    //     title: 'Penerimaan Gudang Weaving',
+    //     auth: true,
+    //     settings: {
+    //         group: "Inventory",
+    //         permission: { "*": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
 
     {
         route: 'inventory/inventory-weaving-documents',
         name: 'inventory/inventory-weaving-documents',
-        moduleId: './modules/inventory/inventory-weaving-document/index',
+        moduleId: 'modules/inventory/inventory-weaving-document/index',
         nav: true,
         title: 'Penerimaan Gudang Weaving',
         auth: true,
         settings: {
             group: "Inventory",
+            subGroup: "Gudang Weaving",
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -29,12 +45,70 @@ module.exports = [
     {
         route: 'inventory/inventory-weaving-out-documents',
         name: 'inventory/inventory-weaving-out-documents',
-        moduleId: './modules/inventory/inventory-weaving-out-document/index',
+        moduleId: 'modules/inventory/inventory-weaving-out-document/index',
         nav: true,
         title: 'Pengeluaran Gudang Weaving',
         auth: true,
         settings: {
             group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'inventory/receipt-note-greige-out',
+        name: 'inventory/receipt-note-greige-out',
+        moduleId: 'modules/inventory/reports/receipt-note-greige-out/index',
+        nav: true,
+        title: 'Report Bon Pengeluaran Harian',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/stock-greige-recap-report',
+        name: 'inventory/reports/stock-greige-recap-report',
+        moduleId: './modules/inventory/reports/stock-greige-recap-report/index',
+        nav: true,
+        title: 'Laporan Rekapitulasi Stock Grey',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/inventory-weaving-detail-recap',
+        name: 'inventory/reports/inventory-weaving-detail-recap',
+        moduleId: './modules/inventory/reports/inventory-weaving-detail-recap/index',
+        nav: true,
+        title: 'Rincian Rekapitulasi',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/report-stock-greige-weaving',
+        name: 'inventory/reports/report-stock-greige-weaving',
+        moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Kain Grey Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }

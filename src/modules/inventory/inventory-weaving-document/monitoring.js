@@ -104,13 +104,24 @@ reset(){
                        
                     }
                     return {
-                        total: result.Count,
+                        total: result.Total,
                         data: result.Data
                     };
                 })
         ) : { total: 0, data: [] };
     } 
 
+    excel() {
+        this.info = {};
+  
+            this.info.fromList =  this.from;
+            this.info.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        
+
+        console.log(this.info);
+        this.service.generateExcelAll(this.info);
+    }
 
 
     list() {
