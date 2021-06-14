@@ -86,6 +86,20 @@ module.exports = [
         }
     },
     {
+        route: 'inventory/reports/inventory-weaving-detail-recap',
+        name: 'inventory/reports/inventory-weaving-detail-recap',
+        moduleId: './modules/inventory/reports/inventory-weaving-detail-recap/index',
+        nav: true,
+        title: 'Rincian Rekapitulasi',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'inventory/reports/report-stock-greige-weaving',
         name: 'inventory/reports/report-stock-greige-weaving',
         moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
