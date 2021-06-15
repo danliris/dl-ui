@@ -34,7 +34,12 @@ export class List {
         { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false, width: '5%' },
         {
             field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                if(value == null){
+                    return "-"
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
+               
             }, width: '5%'
         },
         { field: "UENNo", title: "No BUK", sortable: false, width: '5%' },
@@ -91,29 +96,40 @@ export class List {
                 this.service.search(args)
                     .then(result => {
                         result.data.forEach(s => {
-                            s.CustomsNo.toString = function () {
-                                var str = "<ul>";
-                                for(var no of s.CustomsNo){
-                                    str += `<li>${no}</li>`;
+                            if(s.CustomsNo != null && s.CustomsType != null && s.CustomsDate != null) {
+                                s.CustomsNo.toString = function () {
+                                    var str = "<ul>";
+                                    for(var no of s.CustomsNo){
+                                        str += `<li>${no}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
                                 }
-                                str += "</ul>";
-                                return str;
+                                s.CustomsType.toString = function () {
+                                    var str = "<ul>";
+                                    for(var type of s.CustomsType){
+                                        str += `<li>${type}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                                s.CustomsDate.toString = function () {
+                                    var str = "<ul>";
+                                    for(var date of s.CustomsDate){
+                                        str += `<li>${moment(date).format("DD MMM YYYY")}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+
                             }
-                            s.CustomsType.toString = function () {
-                                var str = "<ul>";
-                                for(var type of s.CustomsType){
-                                    str += `<li>${type}</li>`;
-                                }
-                                str += "</ul>";
-                                return str;
+
+                            if(moment(s.ReceiptDate).format("YYYY-MM-DD") == "0001-01-01") {
+                                s.ReceiptDate = null
                             }
-                            s.CustomsDate.toString = function () {
-                                var str = "<ul>";
-                                for(var date of s.CustomsDate){
-                                    str += `<li>${moment(date).format("DD MMM YYYY")}</li>`;
-                                }
-                                str += "</ul>";
-                                return str;
+
+                            if(s.index == 0){
+                                s.index = ""
                             }
 
                         });

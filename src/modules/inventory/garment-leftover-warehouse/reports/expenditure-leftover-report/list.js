@@ -24,8 +24,12 @@ export class List {
         { field: "ExpenditureNo", title: "Nomor Bon Keluar"},
         { 
             field: "ExpenditureDate", title: "Tanggal Bon",
-            formatter: (value, data) => {
-                return moment(value).format("DD-MMM-YYYY");
+            formatter: function (value, data, index) {
+                if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                    return "-";
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
             }
         },
         { field: "ExpenditureDestination", title: "Tujuan"},
@@ -43,11 +47,12 @@ export class List {
         { field: "BCType", title: "Tipe BC"},
         { 
             field: "BCDate", title: "Tgl BC",
-            formatter: (value, data) => {
-                if(value) {
-                    return moment(value).format("DD-MMM-YYYY");
+            formatter: function (value, data, index) {
+                if(moment(value).format("YYYY-MM-DD") == "0001-01-01" || value == null){
+                    return "-";
+                }else{
+                    return moment(value).format("DD MMM YYYY");
                 }
-                return "-";
             }
         },
     ]

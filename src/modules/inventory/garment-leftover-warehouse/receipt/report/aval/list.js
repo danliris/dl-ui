@@ -35,7 +35,7 @@ export class List {
         { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false },
         {
             field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                    return moment(value).format("DD MMM YYYY");
             }, width: '5%'
         },
         { field: "AvalType", title: "Jenis Aval", sortable: false},
@@ -92,7 +92,13 @@ export class List {
                 if (item.ReceiptNoteNo != null) {
                     item.row_count = temp[item.ReceiptNoteNo];
                 }
+
+                if(item.index == 0){
+                    item.index = ""
+                }
             }
+
+            console.log(this.data);
             this.fillTable();
         });
         
@@ -100,11 +106,21 @@ export class List {
 
     fillTable() {
         const columns =[
+            // { field: "index", title: "No", formatter: function(value, data, index) {
+            //     if(value == 0){
+            //         return "";
+            //     }
+            // }, sortable: false},
+
             { field: "index", title: "No", sortable: false},
             { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false },
             {
                 field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                    return moment(value).format("DD MMM YYYY");
+                    if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                        return "-";
+                    }else{
+                        return moment(value).format("DD MMM YYYY");
+                    }
                 }, width: '5%'
             },
             { field: "AvalType", title: "Jenis Aval", sortable: false},

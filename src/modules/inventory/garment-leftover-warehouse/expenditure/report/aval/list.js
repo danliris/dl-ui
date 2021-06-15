@@ -34,8 +34,12 @@ export class List {
         { field: "index", title: "No", sortable: false},
         { field: "ExpenditureNoteNo", title: "No Bon Terima", sortable: false },
         {
-            field: "ExpenditureDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            field: "ExpenditureDate", title: "Tgl Bon Terima", function (value, data, index) {
+                if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                    return "-";
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
             }, width: '5%'
         },
         { field: "AvalType", title: "Jenis Aval", sortable: false},
@@ -87,6 +91,9 @@ export class List {
             }
 
             for (var item of this.data) {
+                if(item.index == 0) {
+                    item.index = "";
+                }
                 if (item.ExpenditureNo != null) {
                     item.row_count = temp[item.ExpenditureNo];
                 }
@@ -102,7 +109,11 @@ export class List {
             { field: "ExpenditureNo", title: "No Bon Keluar", sortable: false },
             {
                 field: "ExpenditureDate", title: "Tgl Bon Keluar", formatter: function (value, data, index) {
-                    return moment(value).format("DD MMM YYYY");
+                    if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                        return "-";
+                    }else{
+                        return moment(value).format("DD MMM YYYY");
+                    }
                 }, width: '5%'
             },
             { field: "AvalType", title: "Jenis Aval", sortable: false},
