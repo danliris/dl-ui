@@ -39,6 +39,9 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, rowspan: 2
       },
+      {
+        field: "Remark", title: "Keterangan", rowspan: 2
+      },
       { title: "Verifikasi", colspan: 2 },
       { field: "VerifiedBy", title: "Verifikator", rowspan: 2 },
       { title: "Kasir", colspan: 5 },
@@ -70,7 +73,8 @@ export class List {
           return value ? moment(value).format("DD MMM YYYY") : "";
         }, rowspan: 2
       },
-      { field: "SendToVerificationby", title: "Staff", rowspan: 2 }
+      { field: "SendToVerificationby", title: "Staff Ekspedisi", rowspan: 2 },
+      { field: "PurchaseBy", title: "Staff Pembelian", rowspan: 2 }
     ],
     [
       {
