@@ -39,6 +39,7 @@ export class Create {
       },
     },
     { field: "BonNo", title: "No. Bon", sortable: false },
+    { field: "ReferenceNo", title: "Nota", sortable: false},
     { field: "Construction", title: "Konstruksi", sortable: false},
     { field: "Grade", title: "Grd", sortable: false},
     { field: "Piece", title: "Piece", sortable: false},
@@ -104,13 +105,24 @@ reset(){
                        
                     }
                     return {
-                        total: result.Count,
+                        total: result.Total,
                         data: result.Data
                     };
                 })
         ) : { total: 0, data: [] };
     } 
 
+    excel() {
+        this.info = {};
+  
+            this.info.fromList =  this.from;
+            this.info.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        
+
+        console.log(this.info);
+        this.service.generateExcelAll(this.info);
+    }
 
 
     list() {
