@@ -114,6 +114,37 @@ module.exports = [
         }
     },
     {
+
+        route: 'inventory/reports/report-last-stock-greige-weaving-type',
+        name: 'inventory/reports/report-last-stock-greige-weaving-type',
+        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-type/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Jenis',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+  
+  {
+
+        route: 'inventory/reports/balance-report-piece-weaving',
+        name: 'inventory/reports/balance-report-piece-weaving',
+        moduleId: './modules/inventory/reports/balance-report-piece-weaving/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Piece',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
         moduleId: './modules/inventory/inventory-document/index',

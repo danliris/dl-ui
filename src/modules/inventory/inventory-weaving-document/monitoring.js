@@ -39,6 +39,7 @@ export class Create {
       },
     },
     { field: "BonNo", title: "No. Bon", sortable: false },
+    { field: "ReferenceNo", title: "Nota", sortable: false},
     { field: "Construction", title: "Konstruksi", sortable: false},
     { field: "Grade", title: "Grd", sortable: false},
     { field: "Piece", title: "Piece", sortable: false},
