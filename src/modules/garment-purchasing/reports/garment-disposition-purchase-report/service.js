@@ -21,10 +21,10 @@ export class Service extends RestService {
         var dateFromString = null;
         var dateToString = null;
 
-        if(info.createdBy != null){
+        if(info.createdBy != null&& info.createdBy != undefined){
             username = info.createdBy.Username;
         }
-        if(info.supplierName!= null){
+        if(info.supplierName!= null&& info.supplierName != undefined){
             supplierId = info.supplierName.Id;
             supplierName = info.supplierName.name;
         }
@@ -51,12 +51,15 @@ export class Service extends RestService {
         var username =null;
         var supplierId =0;
         var supplierName = null;
-        if(info.createdBy != null){
+        var endpoint = `${serviceUri}/xlsx?`;
+        if(info.createdBy != null && info.createdBy != undefined){
             username = info.createdBy.Username;
+            endpoint +=`username=${args.username}`;
         }
-        if(info.supplierName!= null){
+        if(info.supplierName!= null && info.supplierName != undefined){
             supplierId = info.supplierName.Id;
             supplierName = info.supplierName.name;
+            endpoint += `&supplierId=${args.supplierId}&supplirName=${args.supplierName}`;
         }
         var args ={
             username: username,
@@ -65,7 +68,9 @@ export class Service extends RestService {
             dateFrom : info.dateFrom,
             dateTo : info.dateTo
         }
-        var endpoint = `${serviceUri}/xlsx?username=${args.username}&supplierId=${args.supplierId}&supplirName=${args.supplierName}&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}`;
-        return super.getXls(endpoint);
+        endpoint += `&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}`;
+        // var endpoint = `${serviceUri}`;
+        
+        return super.getXls(endpoint,args);
     }
 }
