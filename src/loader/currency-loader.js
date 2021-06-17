@@ -10,6 +10,9 @@ module.exports = function (keyword, filter) {
 
   return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
     .then(results => {
-      return results.data
+      return results.data.map(item=>{
+        item.Rate = item.Rate == null ? 1 : item.Rate;
+        return item;
+      })
     });
 }
