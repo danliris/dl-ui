@@ -149,6 +149,21 @@ module.exports = [
         }
     },
     {
+
+        route: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        name: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-grade/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Grade',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'inventory/reports/report-stock-greige-weaving',
         name: 'inventory/reports/report-stock-greige-weaving',
         moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
