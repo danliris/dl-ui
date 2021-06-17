@@ -160,7 +160,8 @@ export class DataForm {
                                                 Id: item.UomId,
                                                 Unit: item.UomUnit
                                             },
-                                            UomUnit: item.UomUnit
+                                            UomUnit: item.UomUnit,
+                                            BasicPrice : item.BasicPrice
                                         });
 
                                     });
