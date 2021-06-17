@@ -115,6 +115,7 @@ module.exports = [
         }
     },
     
+
     {
 
         route: 'inventory/reports/report-last-stock-greige-weaving-type',
@@ -130,6 +131,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
   
   {
 
