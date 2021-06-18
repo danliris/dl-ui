@@ -14,14 +14,25 @@ export class Item {
     }
 
     get filter() {
-        let section = this.context.context.options.header.section || {};
+      var filter={};
+      let section = this.context.context.options.header.section || {};
 
+      if (section.code === "C")
+      {
         var filter = {
-            BuyerCode: this.data.BuyerCode,
-            Section: section.code || section.Code,
-            "SCGarmentId!=null": true
-        };
-        return filter;
+          Section: section.code || section.Code,
+          "SCGarmentId!=null": true
+      };      
+      }
+      else 
+      {
+          var filter = {
+              BuyerCode: this.data.BuyerCode,
+              Section: section.code || section.Code,
+              "SCGarmentId!=null": true
+          };
+      }
+      return filter;
     }
 
     detailsColumns = [
