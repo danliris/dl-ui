@@ -113,7 +113,6 @@ export class DataForm {
                             this.data.ExpenditureDate = dataUnitExpenditureNote.ExpenditureDate;
 
                             for (const item of dataUnitExpenditureNote.Items) {
-
                                 this.garmentCoreService.getProductById(item.ProductId)
                                     .then(product => {
                                         this.data.Items.push({
