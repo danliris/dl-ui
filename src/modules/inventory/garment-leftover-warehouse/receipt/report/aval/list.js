@@ -92,6 +92,10 @@ export class List {
                 if (item.ReceiptNoteNo != null) {
                     item.row_count = temp[item.ReceiptNoteNo];
                 }
+
+                if(item.index == 0){
+                    item.index = ""
+                }
             }
             this.fillTable();
         });
@@ -104,7 +108,11 @@ export class List {
             { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false },
             {
                 field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                    return moment(value).format("DD MMM YYYY");
+                    if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                        return "-";
+                    }else{
+                        return moment(value).format("DD MMM YYYY");
+                    }
                 }, width: '5%'
             },
             { field: "AvalType", title: "Jenis Aval", sortable: false},
