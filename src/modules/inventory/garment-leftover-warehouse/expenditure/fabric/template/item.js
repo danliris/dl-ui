@@ -95,7 +95,7 @@ export class Item {
     selectedUomChanged(newValue) {
         if (newValue) {
             this.data.Stock = this.data.Stocks.find(d => d.Uom.Unit == newValue);
-
+            
             if (this.data.Stock) {
                 const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.Stock.Id) || { Quantity: 0 };
                 this.data.Stock.Quantity += existingItem.Quantity;
@@ -103,6 +103,7 @@ export class Item {
                 this.data.StockId = this.data.Stock.Id;
                 this.data.Quantity = this.data.Stock.Quantity;
                 this.data.Uom = this.data.Stock.Uom;
+                this.data.BasicPrice=this.data.Stock.BasicPrice;
             }
         } else {
             this.data.Stock = null;
