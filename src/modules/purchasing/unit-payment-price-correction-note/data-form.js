@@ -40,8 +40,27 @@ export class DataForm {
                 { header: "Barang" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
-                { header: "Harga Satuan" },
+                { header: "Harga Satuan SPB" },
+                { header: "Harga Satuan Koreksi" },
+                { header: "Nilai Koreksi" },
                 { header: "Harga Total" }
+            ],
+            onRemove: function () {
+                this.bind();
+            }
+        };
+
+        this.UpoItemTotal = {
+            columns: [
+                { header: "No. PO Eksternal" },
+                { header: "No. PR" },
+                { header: "Barang" },
+                { header: "Jumlah" },
+                { header: "Satuan" },
+                { header: "Harga Satuan SPB" },
+                { header: "Harga Total SPB" },
+                { header: "Harga Total Koreksi" },
+                { header: "Nilai Koreksi" }
             ],
             onRemove: function () {
                 this.bind();
@@ -76,6 +95,7 @@ export class DataForm {
         this.data.incomeTaxCorrectionDate = moment(this.data.incomeTaxCorrectionDate).format("DD MMM YYYY") == "01 Jan 0001" ? null : this.data.incomeTaxCorrectionDate;
         if (!this.readOnly) {
             this.UpoItem.columns.push({ header: "" });
+            this.UpoItemTotal.columns.push({ header: "" });
             this.hasView = false;
         }
 
@@ -103,6 +123,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.PricePerDealUnit;
                     unitPaymentPriceCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
                     unitPaymentPriceCorrectionNoteItem.currency = _paymentOrder.currency;
+                    unitPaymentPriceCorrectionNoteItem.pricePerDealUnit = unitReceiptNoteItem.pricePerDealUnit;
                     //FROM MONGO
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
@@ -231,6 +252,10 @@ export class DataForm {
                 }
             }
         }
+
+        console.log(this.correctionType);
+
+        this.ItemsCollection.bind();
     }
 
     resetErrorItems() {
@@ -252,4 +277,4 @@ export class DataForm {
     get supplierLoader() {
         return SupplierLoader;
     }
-} 
+}
