@@ -1,5 +1,6 @@
 <template>
-    <h1 class="page-header">Report Rekap Perediaan Gudang Sisa</h1>
+    <h1 class="page-header">Laporan Rekap Persediaan Gudang Sisa</h1>
+
     <form class="form-horizontal">
 
         <au-datepicker
@@ -19,23 +20,68 @@
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button> 
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-    
-        <au-table
-            view-model.ref="mdnTable"
-            data.bind="loader"
-            columns.bind="columns"
-            sortable.bind="true"
-            page-size="25"
-            options.bind="tableOptions">
-            
-            <div slot="toolbar" class="btn-group">
-            <button class='btn btn-primary' click.delegate="ExportToExcel()">Cetak Excel</button>
-            </div>
-        </au-table>
+
+         <div >
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover"  id="doReport" >
+                <thead align="center">
+                    <tr>
+                        <td rowspan="2" colspan="2">KETERANGAN</td>
+                        <td colspan="3">BARANG JADI</td>
+                        <td colspan="3">BAHAN BAKU</td>
+                        <td rowspan="1">ACCESSORIES</td>
+                        <td rowspan="2">JUMLAH</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">QTY</td>
+                        <td rowspan="1">SAT</td>
+                        <td rowspan="1">JUMLAH RP</td>
+                        <td rowspan="1">QTY</td>
+                        <td rowspan="1">SAT</td>
+                        <td rowspan="1">JUMLAH RP</td>
+                        <td rowspan="1">JUMLAH RP</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <!-- <td class="text-center" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.UnitName}</td> 
+                        <td class="text-center">${item.ProductName}</td>
+                        <td class="text-center">${item.ProductCode}</td>
+                        <td class="text-right">${item.UomUnit}</td>
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.BeginingBalanceQuantity}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.BeginingBalancePrice}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.QuantityReceipt}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.PriceReceipt}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.QuantityUnitExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.PriceUnitExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.QuantitySampleExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.PriceSampleExpend}</td> 
+
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.QuantityLocalExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.PriceLocalExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.QuantityOtherExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.PriceOtherExpend}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.EndBalanceQuantity}</td> 
+                        <td class="text-right" style="font-weight: ${item.UnitName.includes('TOTAL') ? 'bold' : '' }">${item.EndBalancePrice}</td> 
+
+                        -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
         <hr/>
     </form>
-</template>
+    
+</template> 

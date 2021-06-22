@@ -668,4 +668,18 @@ module.exports = [
           iconClass: "fa fa-dashboard",
         },
     },
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+        name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/recap-stock/index",
+        nav: true,
+        title: "Report Rekap Persediaan Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, "PG":1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
 ]
