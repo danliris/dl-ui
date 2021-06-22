@@ -33,7 +33,8 @@ export class DataForm {
                 { header: "No. PO Eksternal", value: "ePONo" },
                 { header: "No. PR", value: "pRNo" },
                 { header: "Barang", value: "product" },
-                { header: "Jumlah", value: "quantity" },
+                { header: "Jumlah SPB", value: "deliveredQuantity" },
+                { header: "Jumlah Koreksi", value: "quantity" },
                 { header: "Satuan", value: "uom" },
                 { header: "Harga Satuan", value: "pricePerDealUnitAfter" },
                 { header: "Harga Total", value: "priceTotalAfter" }
@@ -197,6 +198,7 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
                         unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
                         
+                        unitQuantityCorrectionNoteItem.deliveredQuantity = unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection || unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection || unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.pricePerDealUnit;

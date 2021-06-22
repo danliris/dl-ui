@@ -244,6 +244,7 @@ export class DataForm {
     get removeItems() {
         return (event) => {
             this.error = null;
+            this.updateMeasurements();
         };
     }
 
@@ -404,5 +405,48 @@ export class DataForm {
         return `${data.Name || data.name}`
     }
 
+    updateMeasurements() {
+        let measurementCartons = [];
+        for (const item of this.data.items) {
+            for (const detail of (item.details || [])) {
+                let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
+                if (!measurement) {
+                    measurementCartons.push({
+                        carton1: detail.carton1,
+                        carton2: detail.carton2,
+                        length: detail.length,
+                        width: detail.width,
+                        height: detail.height,
+                        cartonsQuantity: detail.cartonQuantity
+                    });
+                }
+            }
+        }
+
+        let measurements = [];
+        for (const measurementCarton of measurementCartons) {
+            let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
+            if (measurement) {
+                measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
+            } else {
+                measurements.push(Object.assign({}, measurementCarton));
+            }
+        }
+
+        this.data.measurements = this.data.measurements || [];
+        this.data.measurements.splice(0);
+
+        for (const mt of measurements) {
+            let measurement = (this.data.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
+            if (measurement) {
+                measurement.cartonsQuantity = mt.cartonsQuantity;
+                this.data.measurements.push(measurement);
+            } else {
+                this.data.measurements.push(mt);
+            }
+        }
+
+        this.data.measurements.forEach((m, i) => m.MeasurementIndex = i);
+    }
     
 }
