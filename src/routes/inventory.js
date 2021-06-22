@@ -668,4 +668,18 @@ module.exports = [
           iconClass: "fa fa-dashboard",
         },
     },
+    {
+        route: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+        name: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/flow-stock/index",
+        nav: true,
+        title: "Report FLow Persediaan Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, "PG":1},
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
 ]
