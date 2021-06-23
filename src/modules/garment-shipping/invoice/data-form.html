@@ -79,9 +79,10 @@
                 placeholder="Cari Jenis Fabric" options.bind="length4" view-model.ref="fabricTypeViewModel">
             </au-autocomplete>
             <au-autocomplete label="Bank Detail" value.bind="bankAccount" error.bind="error.BankAccount"
-                read-only.bind="readOnly || options.isUsed" loader.bind="accountBankLoader" text.bind="accountBankView"
+                read-only.bind="readOnly " loader.bind="accountBankLoader" text.bind="accountBankView"
                 placeholder="Cari Bank" query.bind="bankFilter" options.bind="length4">
             </au-autocomplete>
+            <!-- || options.isUsed -->
             <au-numeric label="Tempo Pembayaran (HARI)" value.bind="data.paymentDue" error.bind="error.PaymentDue"
                 read-only.bind="readOnly " options.bind="length4" format="0">
             </au-numeric>
