@@ -102,8 +102,8 @@ export class List {
                     _data._SubconOutQty = _data.SubconOutQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._SubconOutPrice = _data.SubconOutPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._BeginingBalanceExpenditureGood = _data.BeginingBalanceExpenditureGood.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data._BeginingBalanceExpenditureGoodPrice = _data.BeginingBalanceExpenditureGoodPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data._ExpenditureGoodRetur = _data.ExpenditureGoodRetur.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data._BeginingBalanceExpenditureGoodPrice = _data.BeginingBalanceExpenditureGoodPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._ExpenditureGoodRetur = _data.ExpenditureGoodRetur.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._ExpenditureGoodReturPrice = _data.ExpenditureGoodReturPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._SampleQty = _data.SampleQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._SamplePrice = _data.SamplePrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
@@ -116,8 +116,11 @@ export class List {
                     _data._EndBalanceExpenditureGood = _data.EndBalanceExpenditureGood.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._EndBalanceExpenditureGoodPrice = _data.EndBalanceExpenditureGoodPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._FinishingInExpenditure = _data.FinishingInExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data._FinishingInExpenditurepPrice = _data.FinishingInExpenditurepPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data._FareNew = _data.FareNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    //_data._FinishingInExpenditurepPrice = _data.FinishingInExpenditurepPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    //minta diganti priceusage+material usage
+                    _data._FinishingInExpenditurepPrice = ((_data.FinishingInExpenditure * _data.BasicPrice )+(_data.FinishingInExpenditure * _data.Fare) ).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                   
+                    _data._FareNew = _data.FareNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._LoadingNew = _data.LoadingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._CuttingNew = _data.CuttingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._SewingNew = _data.SewingNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
