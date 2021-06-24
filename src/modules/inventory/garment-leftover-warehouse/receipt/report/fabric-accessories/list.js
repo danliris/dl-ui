@@ -34,7 +34,11 @@ export class List {
         { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false, width: '5%' },
         {
             field: "ReceiptDate", title: "Tgl Bon Terima", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+                if(value == null){
+                    return "-"
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
             }, width: '5%'
         },
         { field: "UENNo", title: "No BUK", sortable: false, width: '5%' },
@@ -91,6 +95,7 @@ export class List {
                 this.service.search(args)
                     .then(result => {
                         result.data.forEach(s => {
+                        if(s.CustomsNo != null && s.CustomsType != null && s.CustomsDate != null) {
                             s.CustomsNo.toString = function () {
                                 var str = "<ul>";
                                 for(var no of s.CustomsNo){
@@ -115,6 +120,15 @@ export class List {
                                 str += "</ul>";
                                 return str;
                             }
+                        }
+
+                        if(moment(s.ReceiptDate).format("YYYY-MM-DD") == "0001-01-01") {
+                            s.ReceiptDate = null
+                        }
+
+                        if(s.index == 0){
+                            s.index = ""
+                        }
 
                         });
                         return {
