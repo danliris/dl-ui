@@ -20,6 +20,14 @@
         </td>
         <td class="col-sm-2">
             <au-numeric 
+                value.bind="data.deliveredQuantity" 
+                read-only.bind="true" 
+                options.bind="controlOptions"
+                format="0,000">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric 
                 value.bind="quantity" 
                 error.bind="error.quantity"
                 read-only.bind="options.readOnly" 
