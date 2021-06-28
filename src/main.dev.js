@@ -19,7 +19,7 @@ export async function configure(aurelia) {
         .feature('au-components')
         .feature('components')
         .feature('converters')
-  
+
         .plugin("aurelia-api", config => {
             var offset = new Date().getTimezoneOffset() / 60 * -1;
             var defaultConfig = {
