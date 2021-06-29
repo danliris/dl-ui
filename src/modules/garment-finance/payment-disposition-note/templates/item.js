@@ -37,8 +37,8 @@ export class Item {
     }
 
     TotalPaidPaymentChanged(e){
-        // console.log("Total Paid Changed",e);
-        this.data.DiffTotalPaidPayment = parseFloat(this.data.TotalPaid)-(parseFloat(e.srcElement.value)+parseFloat(this.data.TotalPaidPaymentBefore));
+        this.data.DiffTotalPaidPayment = parseFloat(this.data.TotalPaid.toFixed(4))-(parseFloat(e.srcElement.value)+parseFloat(this.data.TotalPaidPaymentBefore.toFixed(4)))
+        
     }
 
 }
