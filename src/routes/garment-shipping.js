@@ -114,7 +114,7 @@ module.exports = [
     {
         route: "garment-leftover-warehouse-buyer",
         name: "garment-leftover-warehouse-buyer",
-        moduleId: "./modules/master/garment-leftover-warehouse-buyer/index",
+        moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",        
         nav: true,
         title: "Buyer Gudang Sisa Garment",
         auth: true,
@@ -206,7 +206,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -702,11 +702,11 @@ module.exports = [
         }
     },
     {
-        route: "garment-shipping/monitoring/recap-omzet-per-month",
-        name: "garment-shipping/monitoring/recap-omzet-per-month",
-        moduleId: "modules/garment-shipping/monitoring/recap-omzet-per-month/index",
+        route: "garment-shipping/monitoring/garment-recap-omzet",
+        name: "garment-shipping/monitoring/garment-recap-omzet",
+        moduleId: "modules/garment-shipping/monitoring/garment-recap-omzet-report/index",
         nav: true,
-        title: "Report Rekap Omzet Garment / Bulan",
+        title: "Report Buku Penjualan Export Garment / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",

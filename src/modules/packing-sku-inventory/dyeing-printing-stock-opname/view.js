@@ -12,7 +12,7 @@ export class View {
 
   canEdit = true;
   async activate(params) {
-    console.log("Data params" ,params)
+    
     var id = params.id;
 
 

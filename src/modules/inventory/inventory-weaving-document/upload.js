@@ -32,14 +32,14 @@ export class Create {
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
         var source = this.data.from;
-        //var date = this.data.date;
+        var date = this.data.date;
         var fileList = fileInput.files;
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
         } else {
             formData.append("fileUpload", fileList[0]);
-            //formData.append("date", date);
+            formData.append("date", date);
             formData.append("source", source);
 
  
@@ -64,10 +64,18 @@ export class Create {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Tags, Keterangan");
                     }
                     else if (response.status == 201) {
+                        console.log(response);
                         alert("Data Berhasil Diupload");
                         this.list();
-
                     }
+                    else if (response.status == 500)
+                    {
+                        //var message = response.message;
+                        alert("Nota Sudah Pernah di Input atau Ada Kesalahan Penyimpanan");
+                    }
+
+                    console.log(response);
+                
                 })
         }
     }

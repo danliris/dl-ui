@@ -47,7 +47,7 @@ export class Create {
  
     if (errorIndex === 0) {
       
-      console.log("this.data",this.data)
+     
 
       this.service
         .create(this.data)

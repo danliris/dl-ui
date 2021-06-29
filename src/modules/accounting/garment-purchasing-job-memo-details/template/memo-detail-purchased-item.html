@@ -1,6 +1,12 @@
 <template>
     <tr>
         <require from="../../../../lib/number-format-value-converter"></require>
+        <td if.bind="!readOnly">
+            <au-checkbox 
+                value.bind="data.Select"
+                read-only.bind="readOnly">
+            </au-checkbox>
+        </td>
         <td>
             <au-textbox value.bind="data.GarmentDeliveryOrderNo"
                         read-only.bind="true"

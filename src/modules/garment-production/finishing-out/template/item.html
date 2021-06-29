@@ -1,13 +1,13 @@
 <template>
     <tr>
-        <td align='center' if.bind="options.isCreate || options.isEdit" class="bg-primary"  class="col-sm-1">
+        <!-- <td align='center' if.bind="options.isCreate || options.isEdit" class="bg-primary"  class="col-sm-1">
             <au-checkbox 
                 value.bind="data.IsSave" 
                 if.bind="options.isCreate || options.isEdit"
                 options.bind="controlOptions"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
-        </td>
+        </td> -->
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.Product.Code"
@@ -26,7 +26,14 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary" if.bind="!readOnly">
+            <au-numeric
+                value.bind="data.qty"
+                read-only.bind="true"
+                format="0">
+            </au-numeric>
+        </td>
+        <td class="bg-primary" >
             <au-numeric
                 value.bind="data.Quantity"
                 error.bind="error.Quantity"

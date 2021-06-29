@@ -32,8 +32,12 @@ export class List {
         { field: "index", title: "No", sortable: false, width: '2%' },
         { field: "ReceiptNoteNo", title: "No Bon Terima", sortable: false, width: '5%' },
         {
-            field: "Receipt", title: "Tgl Bon ", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            field: "ReceiptDate", title: "Tgl Bon ", formatter: function (value, data, index) {
+                if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                    return "-";
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
             }, width: '5%'
         },
         { field: "UnitFromCode", title: "Asal Barang", sortable: false, width: '5%' },
@@ -82,6 +86,11 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
+                        result.data.forEach(s=>{
+                            if(s.index == 0){
+                                s.index = "";
+                            }
+                        })
                         return {
                             total: result.info.total,
                             data: result.data

@@ -54,6 +54,7 @@
             <th rowspan="2">Nomor Bukti Pengeluaran Bank</th>
             <th rowspan="2">No SPB/NI</th>
             <th rowspan="2">No Invoice</th>
+            <th rowspan="2">No Koreksi</th>
             <th rowspan="2">Tempo Pembayaran</th>
             <th colspan="4">Nilai Invoice</th>
             <th colspan="2">Mutasi</th>
@@ -72,7 +73,7 @@
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="14">
+            <td colspan="15">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -81,13 +82,13 @@
               repeat.for="key of datum | keys"
               style="white-space: pre"
               class="key.toString().toLowerCase() == 'dpp' || key.toString().toLowerCase() == 'dppcurrency' || key.toString().toLowerCase() == 'ppn' || key.toString().toLowerCase() == 'total' || key.toString().toLowerCase() == 'purchase' || key.toString().toLowerCase() == 'payment' || key.toString().toLowerCase() == 'finalbalance' ? text-right : '';"
-              colspan="${key.toString().toLowerCase() == 'previous' ? 13 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 5 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}"
+              colspan="${key.toString().toLowerCase() == 'previous' ? 14 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 8 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}"
             >
               ${datum[key]}
             </td>
           </tr>
           <tr>
-            <td class="text-right" colspan="7">TOTAL</td>
+            <td class="text-right" colspan="8">TOTAL</td>
             <td class="text-right" colspan="4">${currency}</td>
             <td>${purchase}</td>
             <td>${payment}</td>

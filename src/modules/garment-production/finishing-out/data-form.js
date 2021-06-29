@@ -49,9 +49,19 @@ export class DataForm {
             "Jumlah",
             "Satuan",
             "Warna"
-        ]
+        ],
+        
     }
-
+    
+    columnsSameSize=[
+        "Kode Barang",
+        "Keterangan",
+        "Size",
+        "Jumlah",
+        "Jumlah Keluar",
+        "Satuan",
+        "Warna"
+    ]
     
 
     bind(context) {
@@ -161,13 +171,15 @@ export class DataForm {
                 Promise.resolve(this.service.searchFinishingInComplete({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id ,"Items.Any(RemainingQuantity>0)":true}) }))
                     .then(result => {
                         for(var finishingIn of result.data){
+                            this.data.FinishingInDate=!this.data.FinishingInDate ? finishingIn.FinishingInDate : finishingIn.FinishingInDate<this.data.FinishingInDate ? finishingIn.FinishingInDate : this.data.FinishingInDate;
                             for(var finishingInItem of finishingIn.Items){
                                 var item={};
                                 if(finishingInItem.RemainingQuantity>0){
                                     item.FinishingInDate=finishingIn.FinishingInDate;
                                     item.FinishingInItemId=finishingInItem.Id;
                                     item.FinishingInId=finishingIn.Id;
-                                    item.Quantity=finishingInItem.RemainingQuantity;
+                                    item.Quantity=this.data.IsDifferentSize?finishingInItem.RemainingQuantity : 0;
+                                    item.qty=finishingInItem.RemainingQuantity;
                                     item.Product=finishingInItem.Product;
                                     item.Uom=finishingInItem.Uom;
                                     item.Size=finishingInItem.Size;
@@ -225,8 +237,12 @@ export class DataForm {
     changeChecked(){
         if(this.data.Items){
             for(var a of this.data.Items){
+                a.qty= a.FinishingInQuantity;
                 a.Quantity=a.FinishingInQuantity;
                 a.IsSave=false;
+                if(!this.data.IsDifferentSize){
+                    a.Quantity=0;
+                }
             }
         }
     }
@@ -235,6 +251,7 @@ export class DataForm {
         var qty=0;
         if(this.data.Items){
             for(var item of this.data.Items){
+                item.IsSave=item.Quantity>0;
                 if(item.IsSave){
                     if(this.data.IsDifferentSize){
                         if(item.Details){

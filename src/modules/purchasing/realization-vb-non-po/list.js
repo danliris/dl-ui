@@ -46,6 +46,7 @@ export class List {
           : "Belum";
       },
     },
+    { field: "Remark", title: "Keterangan" },
   ];
 
   async activate(params) {

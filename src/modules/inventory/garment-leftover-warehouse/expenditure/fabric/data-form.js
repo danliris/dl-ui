@@ -103,6 +103,7 @@ export class DataForm {
                 noteNo: this.data.LocalSalesNoteNo
             };
 
+            this.selectedBuyer=this.data.Buyer;
         }
 
         // if (this.readOnly) {

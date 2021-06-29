@@ -8,7 +8,7 @@
 
         <td>
             <au-autocomplete value.bind="selectedPONo" error.bind="error.PONo" loader.bind="poLoader"
-                read-only.bind="readOnly" placeholder="PONo" text="PO_SerialNumber">
+                read-only.bind="readOnly" placeholder="PONo" text="PO_SerialNumber" query.bind="filter">
             </au-autocomplete>
         </td>
 
@@ -29,7 +29,19 @@
         </td>
 
         <td>
-            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0">
+            <au-textbox value.bind="data.Yarn" error.bind="error.Yarn"
+                read-only="true">
+            </au-textbox>
+        </td>
+
+        <td>
+            <au-textbox value.bind="data.Width" error.bind="error.Width"
+                read-only="true">
+            </au-textbox>
+        </td>
+
+        <td>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0.00">
             </au-numeric>
         </td>
 

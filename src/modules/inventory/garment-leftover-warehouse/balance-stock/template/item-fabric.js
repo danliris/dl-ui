@@ -15,7 +15,7 @@ export class ItemFabric {
         this.service = service;
         this.coreService = coreService;
     }
-
+    
     async activate(context) {
         this.context = context;
         this.data = context.data;
@@ -23,7 +23,7 @@ export class ItemFabric {
         this.options = context.options;
 
         if (this.data.Uom == null) {
-            let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: 'MTR' }) });
+            let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: 'MT' }) });
             this.data.Uom = {
                 Id: uomResult.data[0].Id,
                 Unit: uomResult.data[0].Unit
@@ -50,6 +50,7 @@ export class ItemFabric {
             this.data.Unit = {
                 Id: newValue.Id,
                 Code: newValue.Code,
+                Name: newValue.Name
             }
         }
     }
@@ -59,17 +60,21 @@ export class ItemFabric {
         this.data.Product = null;
         this.data.Construction = null;
         this.data.Composition = null;
+        this.data.Yarn = null;
+        this.data.Width = null;
 
         if (newValue) {
             this.data.PONo = newValue.PO_SerialNumber;
             this.data.Product = {
-                Id: newValue.Product.Id,
-                Code: newValue.Product.Code,
-                Name: newValue.Product.Name
+                Id: newValue.ProductId,
+                Code: newValue.ProductCode,
+                Name: newValue.ProductName
             }
             let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });
             this.data.Construction = garmentProductsResult.data[0].Const;
             this.data.Composition = garmentProductsResult.data[0].Composition;
+            this.data.Yarn = garmentProductsResult.data[0].Yarn;
+            this.data.Width = garmentProductsResult.data[0].Width;
         }
     }
 }

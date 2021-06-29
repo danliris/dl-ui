@@ -51,6 +51,7 @@ export class MemoDetailPurchasedItem {
     };
 
     memoDetailsColumns = [
+        '__check',
         { header: "No. Surat Jalan", value: "Product" },
         { header: "No. Nota Intern", value: "Quantity" },
         { header: "No. BP Besar", value: "AvailableQuantity" },
@@ -64,4 +65,26 @@ export class MemoDetailPurchasedItem {
         { header: "Jumlah", value: "Notes" },
         { header: "Jumlah dalam Rupiah", value: "Notes" }
     ]
+
+    memoDetailsColumnsView = [
+        { header: "No. Surat Jalan", value: "Product" },
+        { header: "No. Nota Intern", value: "Quantity" },
+        { header: "No. BP Besar", value: "AvailableQuantity" },
+        { header: "No. BP Kecil", value: "Weight" },
+        { header: "Kode Supplier", value: "WeightTotal" },
+        { header: "Keterangan", value: "Length" },
+        { header: "Mata Uang", value: "LengthTotal" },
+        { header: "Rate Bayar", value: "Remark" },
+        { header: "Rate Beli", value: "Notes" },
+        { header: "Saldo Akhir", value: "Notes" },
+        { header: "Jumlah", value: "Notes" },
+        { header: "Jumlah dalam Rupiah", value: "Notes" }
+    ]
+
+    onCheckAll(event) {
+        if (this.item.Disposition && this.item.Disposition.MemoDetails)
+            for (var item of this.Disposition.MemoDetails) {
+                item.Select = event.detail.target.checked;
+            }
+    }
 }

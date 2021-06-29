@@ -14,6 +14,15 @@ export class List {
 
     info = { page: 1,size:50};
 
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
+
     @bindable UnitItem;
     @bindable KtgrItem;
     
@@ -57,7 +66,7 @@ export class List {
                     // this.AmountTotal5 += _data.EndingBalanceQty;
 
 
-                    _data.PaymentMethod = _data.PaymentMethod == "FREE FROM BUYER" || _data.PaymentMethod == "CMT" || _data.PaymentMethod == "CMT/IMPORT"? "BY":"BL" 
+                    // _data.PaymentMethod = _data.PaymentMethod == "FREE FROM BUYER" || _data.PaymentMethod == "CMT" || _data.PaymentMethod == "CMT/IMPORT"? "BY":"BL" 
                     _data.BeginningBalanceQty = _data.BeginningBalanceQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                     _data.ReceiptQty = _data.ReceiptQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                     _data.ReceiptCorrectionQty = _data.ReceiptCorrectionQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -125,8 +134,9 @@ export class List {
     }
 
     UnitItemChanged(newvalue){
-        console.log(newvalue);
+        
         if (newvalue) {
+            console.log(newvalue)
             if (newvalue === "KONFEKSI 2A") {
                 this.unit = "C2A";
                 this.unitname = "KONFEKSI 2A";
@@ -148,6 +158,9 @@ export class List {
                 this.unit = "";
                 this.unitname = "";
             }
+        }else{
+            this.unit = "";
+            this.unitname = "";
         }
     }
 
@@ -168,6 +181,9 @@ export class List {
                 this.category = "";
                 this.categoryname = "";
             }
+        }else{
+            this.unit = "";
+            this.unitname = "";
         }
     }
 

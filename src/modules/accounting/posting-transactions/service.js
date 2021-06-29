@@ -56,8 +56,8 @@ export class Service extends RestService {
         return super.list(endpoint);
     }
 
-    getUnpostedTransactions(month, year) {
-        let endpoint = `${serviceUri}/unposted-transactions?month=${month}&year=${year}`;
+    getUnpostedTransactions(month, year, referenceNo, referenceType) {
+        let endpoint = `${serviceUri}/unposted-transactions?month=${month}&year=${year}&referenceNo=${referenceNo}&referenceType=${referenceType}&test=`;
         return super.list(endpoint);
     }
 }

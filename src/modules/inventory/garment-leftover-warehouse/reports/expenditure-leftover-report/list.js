@@ -25,15 +25,21 @@ export class List {
         { 
             field: "ExpenditureDate", title: "Tanggal Bon",
             formatter: (value, data) => {
-                return moment(value).format("DD-MMM-YYYY");
+                if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                    return "-";
+                }else{
+                    return moment(value).format("DD MMM YYYY");
+                }
             }
         },
         { field: "ExpenditureDestination", title: "Tujuan"},
         { field: "DescriptionOfPurpose", title: "Keterangan Tujuan"},
+        { field: "QtyKG", title: "Jumlah Keluar (KG)"},
+        { field: "Composition", title: "Komposisi"},
+        { field: "Const", title: "Konstruksi"},
         { field: "PONo", title: "Nomor PO"},
         { field: "Product.Name", title: "Nama Barang"},
         { field: "Product.Code", title: "Kode Barang"},
-        { field: "ProductRemark", title: "Keterangan Barang"},
         { field: "Quantity", title: "Qty"},
         { field: "Uom.Unit", title: "Satuan"},
         { field: "LocalSalesNoteNo", title: "No Nota Penjualan"},
@@ -43,7 +49,11 @@ export class List {
             field: "BCDate", title: "Tgl BC",
             formatter: (value, data) => {
                 if(value) {
-                    return moment(value).format("DD-MMM-YYYY");
+                    if(moment(value).format("YYYY-MM-DD") == "0001-01-01"){
+                        return "-";
+                    }else{
+                        return moment(value).format("DD MMM YYYY");
+                    }
                 }
                 return "-";
             }
