@@ -122,7 +122,7 @@ export class DataForm {
             let info = {
                 dateFrom: moment(this.data.dateFrom).format("MM/DD/YYYY"),
                 dateTo: moment(this.data.dateTo).format("MM/DD/YYYY"),
-                divisionId: this.data.Division.Id,
+                divisionCode: this.data.Division.Code,
                 // incomeTaxName: this.data.IncomeTax.name,
                 // incomeTaxRate: this.data.IncomeTax.rate,
                 currency: this.data.Bank.Currency.Code
