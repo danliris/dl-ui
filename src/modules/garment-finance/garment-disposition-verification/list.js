@@ -19,7 +19,7 @@ export class List {
             }
         },
         {
-            field: 'CreatedDate',
+            field: 'VerifiedDate',
             title: 'Tanggal Cek',
             formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');

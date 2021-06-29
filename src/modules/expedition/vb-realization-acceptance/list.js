@@ -120,6 +120,7 @@ export class List {
         this.roles[i].hasPermission = true;
         this.accessCount++;
         this.activeRole = this.roles[i];
+        this.changeTable(this.activeRole);
       }
     }
   }
