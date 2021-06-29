@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -15,13 +15,30 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-        this.data = await this.service.getById(id);
+        this.data = await this.service.getById(id)
+            .then((correctionNote) => {
+                return this.service.getUnitPaymentOrderById(correctionNote.uPOId)
+                    .then((unitPaymentOrder) => {
+                        console.log(correctionNote);
+
+                        for (let upoItem of unitPaymentOrder.items) {
+                            for (let upoDetail of upoItem.unitReceiptNote.items) {
+                                let correctionItem = correctionNote.items.find(item => item.uPODetailId == upoDetail.Id);
+
+                                if (correctionItem)
+                                    correctionItem.deliveredQuantity = upoDetail.deliveredQuantity;
+                            }
+                        }
+
+                        return correctionNote;
+                    })
+            });
         // if (this.data.items) {
         //     this.data.items.forEach(item => {
         //         item.showDetails = false
         //     })
         // }
-        
+
     }
 
     cancel(event) {

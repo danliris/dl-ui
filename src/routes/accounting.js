@@ -130,6 +130,19 @@ module.exports = [
     }
   },
   {
+    route: 'accounting/reports/other-expenditure-proof-report',
+    name: 'other-expenditure-proof-report',
+    moduleId: './modules/accounting/reports/other-expenditure-proof-report/index',
+    nav: true,
+    title: 'Laporan Bukti Pengeluaran Bank Lain - Lain',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-clone'
+    }
+  },
+  {
     route: 'balance-debt',
     name: 'balance-debt',
     moduleId: './modules/accounting/balance-debt/index',
