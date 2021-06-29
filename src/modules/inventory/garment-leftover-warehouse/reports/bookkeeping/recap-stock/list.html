@@ -51,17 +51,15 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td class="text-center">${item.Description}</td>
-                         
-                        <td class="text-center">${item.FinishedGoodQty}</td>
-                        <td class="text-right">${item.FinishedGoodUom}</td>
-                        <td class="text-right">${item.FinishedGoodPrice}</td>
-                        <td class="text-center">${item.FabricQty}</td>
-                        <td class="text-right">${item.FabricUom}</td>
-                        <td class="text-center">${item.FabricPrice}</td>
-                        
-                        <td class="text-right">${item.AccPrice}</td>
-                        
+                        <td class="text-left" style="font-weight: ${item.Description.includes('PENERIMAAN') || item.Description.includes('SALDO') || item.Description.includes('TOTAL') || item.Description.includes('PENGELUARAN') ? 'bold' : '' }">${item.Description}</td> 
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FinishedGoodQty}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FinishedGoodUom}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FinishedGoodPrice}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FabricQty}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FabricUom}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.FabricPrice}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.AccPrice}</td>                         
+                        <td class="text-right" style="font-weight: ${item.Description.includes('SALDO') || item.Description.includes('TOTAL')  ? 'bold' : '' }">${item.Nominal}</td>                         
                        
                     </tr>
                 </tbody>

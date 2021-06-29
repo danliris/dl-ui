@@ -15,8 +15,26 @@ export class Service extends RestService {
     }
 
     generateExcel(info) {
-        let endpoint = `${serviceUri}/download?${buildQueryString(info)}`;
+        var endpoint = this._getEndPoint(info);
+        console.log(endpoint, info);
         return super.getXls(endpoint);
     }
+    _getEndPoint(info) {
+        var endpoint = `${serviceUri}/download-recap-stock`;
+        var query = '';
+        
+        if (info.dateFrom)
+            if (query === '') query = `dateFrom=${info.dateFrom}`;
+            else query = `${query}&dateFrom=${info.dateFrom}`;    
 
+        if (info.dateTo) {
+            if (query === '') query = `dateTo=${info.dateTo}`;
+            else query = `${query}&dateTo=${info.dateTo}`;
+        }
+         
+        if (query !== '')
+            endpoint = `${serviceUri}/download-recap-stock?${query}`;
+
+        return endpoint;
+    }
 }
