@@ -3,7 +3,7 @@ import { Service } from './service';
 import moment from 'moment';
 const IncomeTaxLoader = require('../../../loader/vat-loader');
 const AccountBankLoader = require('../../../loader/account-banks-loader');
-const DivisionLoader = require('../../../loader/division-azure-loader');
+const DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Service)
 export class DataForm {
@@ -116,11 +116,13 @@ export class DataForm {
     loadItems() {
         if (this.data.dateFrom && this.data.dateFrom != 'Invalid Date'
             && this.data.dateTo && this.data.dateTo != 'Invalid Date'
+            && this.data.Division
             /*&& this.data.IncomeTax*/ && this.data.Bank) {
 
             let info = {
                 dateFrom: moment(this.data.dateFrom).format("MM/DD/YYYY"),
                 dateTo: moment(this.data.dateTo).format("MM/DD/YYYY"),
+                divisionId: this.data.Division.Id,
                 // incomeTaxName: this.data.IncomeTax.name,
                 // incomeTaxRate: this.data.IncomeTax.rate,
                 currency: this.data.Bank.Currency.Code
@@ -160,6 +162,10 @@ export class DataForm {
 
     get accountBankLoader() {
         return AccountBankLoader;
+    }
+
+    get divisionLoader() {
+        return DivisionLoader;
     }
 
     sortingOptions = ["", "Tanggal SPB"];
