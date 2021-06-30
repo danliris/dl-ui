@@ -60,7 +60,7 @@ export class UnitReceiptNoteItemTotal {
 
   get correctionAmount() {
     var priceTotalAfter = this.data.priceTotalAfter.replace(/[,]/g, '');
-    return (this.data.pricePerDealUnit * this.data.quantity) - (parseFloat(priceTotalAfter));
+    return priceTotalAfter - this.data.priceTotalBefore;
   }
 
   controlOptions = {
