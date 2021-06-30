@@ -159,4 +159,3 @@ export async function configure(aurelia) {
   offline.install();
   */
 }
-   

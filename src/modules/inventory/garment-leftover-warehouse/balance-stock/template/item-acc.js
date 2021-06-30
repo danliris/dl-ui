@@ -1,21 +1,22 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service, CoreService } from '../service';
+import { Service, CoreService,PurchasingService } from '../service';
 
 const UnitLoader = require('../../../../../loader/garment-units-loader');
 const POLoader = require('../../../../../loader/garment-external-purchase-orders-item-by-po-serial-number-loader');
 const UomLoader = require('../../../../../loader/uom-loader');
 
 
-@inject(Service, CoreService)
+@inject(Service, CoreService,PurchasingService)
 export class ItemAcc {
 
     @bindable selectedUnit;
     @bindable selectedPONo;
     @bindable selectedUom;
 
-    constructor(service, coreService) {
+    constructor(service, coreService,purchasingService) {
         this.service = service;
         this.coreService = coreService;
+        this.purchasingService=purchasingService;
     }
 
     async activate(context) {
@@ -73,6 +74,9 @@ export class ItemAcc {
             let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });
             this.data.Construction = garmentProductsResult.data[0].Const;
             this.data.Composition= garmentProductsResult.data[0].Composition;
+
+            let uenItem= await this.purchasingService.getBasicPrice(this.data.PONo);
+            this.data.BasicPrice= uenItem.BasicPrice || 0;
         }
     }
 
