@@ -15,23 +15,23 @@
                        options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete value.bind="incomeTax"
-                         error.bind="error.IncomeTax"
-                         label="Pasal PPH"
-                         placeholder="Cari PPH"
-                         loader.one-time="incomeTaxLoader"
-                         text.bind="incomeTaxView"
+        <au-autocomplete value.bind="data.Division"
+                         error.bind="error.Division"
+                         label="Divisi"
+                         placeholder="Cari Divisi"
+                         loader.one-time="divisionLoader"
+                         text="Name"
                          read-only.bind="readOnly || isEdit"
                          options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-textbox value.bind="data.IncomeTax.rate"
+        <!-- <au-textbox value.bind="data.IncomeTax.rate"
                     read-only="true"
                     label="Rate"
                     options.bind="controlOptions"
                     read-only="true"
                     show.bind="data.IncomeTax">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-autocomplete value.bind="bank"
                          error.bind="error.Bank"

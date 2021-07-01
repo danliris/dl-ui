@@ -27,6 +27,10 @@ export class DataForm {
         }
     };
 
+    filter= {      
+        "PEBNo!=null":true
+    }
+
     freightOptions = [
         "COLLECT",
         "PREPAID"
