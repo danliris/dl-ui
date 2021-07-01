@@ -19,7 +19,7 @@ export async function configure(aurelia) {
         .feature('au-components')
         .feature('components')
         .feature('converters')
-
+  
         .plugin("aurelia-api", config => {
             var offset = new Date().getTimezoneOffset() / 60 * -1;
             var defaultConfig = {
@@ -29,7 +29,6 @@ export async function configure(aurelia) {
                     'x-timezone-offset': offset
                 }
             }
-
 
             var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
             var auth = "https://com-danliris-service-auth-dev.azurewebsites.net/v1/";
