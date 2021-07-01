@@ -7,7 +7,7 @@
                     <div class="col-sm-6">
                         <au-autocomplete label="Invoice No" value.bind="selectedShippingInvoice"
                             error.bind="error.invoiceNo" text="invoiceNo" loader.bind="shippingInvoiceLoader"
-                            placeholder="Invoice No" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                            placeholder="Invoice No" query.bind="filter" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
                         </au-autocomplete>
 
                         <au-datepicker label="TGL" value.bind="data.date" error.bind="error.date"

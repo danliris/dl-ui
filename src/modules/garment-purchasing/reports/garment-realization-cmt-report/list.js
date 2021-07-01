@@ -150,4 +150,9 @@ export class List {
     unitView = (unit) => {
         return `${unit.Code}- ${unit.Name}`;
     }
+
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+      }
 }
