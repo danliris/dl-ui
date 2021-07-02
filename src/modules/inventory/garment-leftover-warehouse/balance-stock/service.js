@@ -51,6 +51,31 @@ class CoreService extends RestService {
         return super.list(endpoint, info);
     }
 }
+const serviceUriUEN = 'garment-unit-expenditure-notes'
 
+class PurchasingService extends RestService {
 
-export { Service, CoreService }
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    getBasicPrice(po) {
+        var endpoint = `${serviceUriUEN}/basic-price/${po}`;
+        return super.get(endpoint);
+    }
+}
+
+const serviceUriEGS = 'expenditure-goods';
+class ProductionService extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "garment-production");
+    }
+
+    getBasicPriceByRO(info) {
+        var endpoint = `${serviceUriEGS}/basic-price`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, CoreService,PurchasingService,ProductionService }
