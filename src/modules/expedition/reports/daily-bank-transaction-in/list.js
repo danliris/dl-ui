@@ -40,14 +40,16 @@ export class List {
             filter.referenceNo = this.info.code.Code;
         if(this.info.bank){
             filter.accountBankId = this.info.bank.Id;
-            filter.accountBankName = this.info.bank.toString();
+            filter.accountBankName =this.info.bank.AccountName+' - '+ this.info.bank.BankName+' - '+ this.info.bank.AccountName+' - '+this.info.bank.Currency.Code;            
         }
-        if(this.info.division)
+        if(this.info.division){
             filter.division = this.info.division.Name;
-        if(this.info.startDate)
-            filter.startDate = this.info.startDate;
-        if(this.info.endDate)
-            filter.endDate = this.info.endDate;
+        }
+        if(this.info.startDate != undefined)
+            filter.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
+        if(this.info.endDate != undefined)
+            filter.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
+        
         
         filter.filter = JSON.stringify(this.type);
 
@@ -108,14 +110,15 @@ export class List {
             filter.referenceNo = this.info.code.Code;
         if(this.info.bank){
             filter.accountBankId = this.info.bank.Id;
-            filter.accountBankName = this.info.bank.toString();            
+            filter.accountBankName =  this.info.bank.AccountName+' - '+ this.info.bank.BankName+' - '+ this.info.bank.AccountName+' - '+this.info.bank.Currency.Code;            
         }
-        if(this.info.division)
+        if(this.info.division){
             filter.division = this.info.division.Name;
-        if(this.info.startDate)
-            filter.startDate = this.info.startDate;
-        if(this.info.endDate)
-            filter.endDate = this.info.endDate;
+        }
+        if(this.info.startDate != undefined)
+            filter.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
+        if(this.info.endDate != undefined)
+            filter.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
         
         filter.filter = JSON.stringify(this.type);
         this.service.getXls(filter);
@@ -126,8 +129,8 @@ export class List {
         this.info.code = undefined;
         this.info.bank = undefined;
         this.info.division = undefined;
-        this.info.startDate =null;
-        this.info.endDate = null;
+        this.info.startDate =undefined;
+        this.info.endDate = undefined;
     }
 }
 export class KeysValueConverter {
