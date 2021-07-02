@@ -45,9 +45,9 @@ export class List {
         if(this.info.division){
             filter.division = this.info.division.Name;
         }
-        
+        if(this.info.startDate != undefined)
             filter.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
-        
+        if(this.info.endDate != undefined)
             filter.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
         
         
@@ -115,9 +115,9 @@ export class List {
         if(this.info.division){
             filter.division = this.info.division.Name;
         }
-        
+        if(this.info.startDate != undefined)
             filter.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
-        
+        if(this.info.endDate != undefined)
             filter.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
         
         filter.filter = JSON.stringify(this.type);
@@ -129,8 +129,8 @@ export class List {
         this.info.code = undefined;
         this.info.bank = undefined;
         this.info.division = undefined;
-        this.info.startDate =null;
-        this.info.endDate = null;
+        this.info.startDate =undefined;
+        this.info.endDate = undefined;
     }
 }
 export class KeysValueConverter {
