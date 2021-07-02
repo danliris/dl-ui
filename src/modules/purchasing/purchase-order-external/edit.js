@@ -7,6 +7,7 @@ import {Service} from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
 
     constructor(router, service) {
         this.router = router;
@@ -40,13 +41,15 @@ export class Edit {
                             delete detail.Id;
                         }
                 }
+                item.unit=this.data.unit;
             }
         }
+
         this.service.update(this.data).then(result => {
-            this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
+                this.cancel();
+            }).catch(e => {
+                this.error = e;
+            })
     }
 }
 

@@ -1,71 +1,34 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../utils/rest-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'delivery-orders/delivery-order-monitoring-all-router';
+const serviceUri = 'garment-delivery-orders/monitoring';
+const deliveryOrderServiceUri = 'garment-delivery-orders/loader';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(info) { 
-        var endpoint = `${serviceUri}`;
-        var query = '';
-        if (info.dateFrom && info.dateFrom !== "") {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
-        }
-        if (info.dateTo && info.dateTo !== "") {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
-        }
-        if (info.no && info.no !== "") {
-            if (query === '') query = `no=${info.no}`;
-            else query = `${query}&no=${info.no}`;
-        }
-        if (info.poEksNo && info.poEksNo !== "") {
-            if (query === '') query = `poEksNo=${info.poEksNo}`;
-            else query = `${query}&poEksNo=${info.poEksNo}`;
-        }
-        if (info.supplierId && info.supplierId !== "") {
-            if (query === '') query = `supplierId=${info.supplierId}`;
-            else query = `${query}&supplierId=${info.supplierId}`;
-        }
-        
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+    search(info) {
+        let endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
 
+    searchDeliveryOrder(info) {
+        var endpoint = `${deliveryOrderServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getById(id) {
+        var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
-    
-    generateExcel(info) {
-        var endpoint = `${serviceUri}`;
-        var query = '';
-        if (info.dateFrom) {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
-        }
-        if (info.dateTo) {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
-        }
-        if (info.no && info.no !== "") {
-            if (query === '') query = `no=${info.no}`;
-            else query = `${query}&no=${info.no}`;
-        }
-        if (info.poEksNo && info.poEksNo !== "") {
-            if (query === '') query = `poEksNo=${info.poEksNo}`;
-            else query = `${query}&poEksNo=${info.poEksNo}`;
-        }
-        if (info.supplierId) {
-            if (query === '') query = `supplierId=${info.supplierId}`;
-            else query = `${query}&supplierId=${info.supplierId}`;
-        }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+
+    getXls(info) {
+        var endpoint = `${serviceUri}/download?no=${info.no}&poEksNo=${info.poEksNo}&supplierId=${info.supplierId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }

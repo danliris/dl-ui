@@ -26,8 +26,7 @@
             <au-collection 
                 items.bind="data.fulfillments" 
                 errors.bind="error.fulfillments"
-                columns.bind="itemsColumns" 
-                remove.bind="removeItems"
+                columns.bind="itemsColumns"
                 options.bind="context.context.options"
                 read-only.bind="options.readOnly"
                 item-template="modules/purchasing/delivery-order/template/delivery-order-fulfillment">

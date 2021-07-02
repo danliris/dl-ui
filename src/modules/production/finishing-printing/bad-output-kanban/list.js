@@ -29,26 +29,26 @@ export class List {
                     return ""
                 }
             },
-            { field: "productionOrder.orderNo", title: "Order No" },
-            { field: "cart.cartNumber", title: "Nomor Kereta" },
+            { field: "ProductionOrder.OrderNo", title: "Order No" },
+            { field: "Cart.CartNumber", title: "Nomor Kereta" },
             { field: "stepIndexPerTotal", title: "Step Index", sortable: false },
-            { field: "selectedProductionOrderDetail.colorRequest", title: "Warna" },
-            { field: "instruction.name", title: "Instruksi" },
+            { field: "SelectedProductionOrderDetail.ColorRequest", title: "Warna" },
+            { field: "Instruction.Name", title: "Instruksi" },
             {
                 field: "completeStatus", title: "Status",
                 formatter: function (value, data, index) {
-                    return data.isInactive ? "INACTIVE" : data.isComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
+                    return data.IsInactive ? "INACTIVE" : data.IsComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                 }
             },
-            { field: "oldKanban.cart.cartNumber", title: "Nomor Kereta Lama" }
+            { field: "OldKanban.Cart.CartNumber", title: "Nomor Kereta Lama" }
         ];
     }
 
     rowFormatter(data, index) {
-        if (data.isInactive) {
+        if (data.IsInactive) {
             return { classes: "danger" }
         } else {
-            if (data.isComplete)
+            if (data.IsComplete)
                 return { classes: "success" };
             else {
                 if (data.isPending())
@@ -62,7 +62,7 @@ export class List {
     loadData = (info) => {
         var order = {};
         var filter = {
-            isBadOutput: true
+            IsBadOutput: true
         };
         if (info.sort)
             order[info.sort] = info.order;
@@ -70,53 +70,100 @@ export class List {
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            filter: JSON.stringify(filter),
             keyword: info.search,
+            filter: JSON.stringify(filter),
             order: order,
-            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "isInactive", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
         }
 
         return this.service.search(arg)
             .then(result => {
-                // modify display data
-                for (var kanban of result.data) {
-                    kanban.selectedProductionOrderDetail.colorRequest = kanban.selectedProductionOrderDetail.colorType ? kanban.selectedProductionOrderDetail.colorRequest + " - " + kanban.selectedProductionOrderDetail.colorType.name : kanban.selectedProductionOrderDetail.colorRequest;
-                    kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
-                    kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
-                    kanban.isPending = function () {
-                        return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; // used for custom sort
-                    };
-                    kanban.isDone = function () {
-                        return this.isComplete;
-                    };
-                    kanban.isIncomplete = function () {
-                        return !this.isComplete && this.currentStepIndex < this.instruction.steps.length;
+                let searchOldKanban = [];
+
+
+                if (result.data.length > 0) {
+                    for (let kanban of result.data) {
+                        if (kanban.OldKanbanId) {
+                            searchOldKanban.push(this.service.getById(kanban.OldKanbanId))
+                        }
                     }
                 }
 
-                if (info.sort === "isComplete") { //custom sort
-                    if (info.order === "desc")
-                        result.data.sort(this.desc());
-                    else
-                        result.data.sort(this.asc());
-                }
+                return Promise.all(searchOldKanban)
+                    .then((oldKanbanResults) => {
 
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
+                        // modify display data
+                        for (var kanban of result.data) {
+                            kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
+                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorTemplate : kanban.SelectedProductionOrderDetail.ColorRequest;
+                            kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
+                            kanban.stepIndexPerTotal = `${kanban.CurrentStepIndex}/${kanban.Instruction.Steps.length}`;
+                            kanban.isPending = function () {
+                                return !this.IsComplete && this.CurrentStepIndex >= this.Instruction.Steps.length && this.IsFulfilledOutput; // used for custom sort
+                            };
+                            kanban.isDone = function () {
+                                return this.IsComplete;
+                            };
+                            kanban.isIncomplete = function () {
+
+                                return ((!this.IsComplete && this.CurrentStepIndex < this.Instruction.Steps.length) || (!this.IsComplete && this.CurrentStepIndex == this.Instruction.Steps.length && !this.IsFulfilledOutput) || (!this.IsFulfilledOutput));
+                            }
+                        }
+
+                        if (info.sort === "IsComplete") { //custom sort
+                            if (info.order === "desc")
+                                result.data.sort(this.desc());
+                            else
+                                result.data.sort(this.asc());
+                        }
+
+                        return {
+                            total: result.info.total,
+                            data: result.data
+                        }
+
+                    })
             });
     }
 
+    // // modify display data
+    // for (var kanban of result.data) {
+    //     kanban.OldKanban = kanban.OldKanbanId ? this.service.getById(kanban.OldKanbanId).then((result) => result.data) : null;
+    //     kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
+    //     kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
+    //     kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
+    //     kanban.isPending = function () {
+    //         return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+    //     };
+    //     kanban.isDone = function () {
+    //         return this.IsComplete;
+    //     };
+    //     kanban.isIncomplete = function () {
+    //         return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+    //     }
+    // }
+
+    // if (info.sort === "IsComplete") { //custom sort
+    //     if (info.order === "desc")
+    //         result.data.sort(this.desc());
+    //     else
+    //         result.data.sort(this.asc());
+    // }
+
+    // console.log(result)
+    // return {
+    //     total: result.info.total,
+    //     data: result.data
+    // }
+
     asc() {
         return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
+            if (kanban1.IsComplete && !kanban2.IsComplete)
                 return -1;
-            if (!kanban1.isComplete && kanban2.isPending())
+            if (!kanban1.IsComplete && kanban2.isPending())
                 return -1;
-            if (!kanban1.isComplete && kanban2.isComplete)
+            if (!kanban1.IsComplete && kanban2.IsComplete)
                 return 1;
-            if (kanban1.isPending() && !kanban2.isComplete)
+            if (kanban1.isPending() && !kanban2.IsComplete)
                 return 1;
 
             return 0;
@@ -125,13 +172,13 @@ export class List {
 
     desc() {
         return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
+            if (kanban1.IsComplete && !kanban2.IsComplete)
                 return 1;
-            if (!kanban1.isComplete && kanban2.isPending())
+            if (!kanban1.IsComplete && kanban2.isPending())
                 return 1;
-            if (!kanban1.isComplete && kanban2.isComplete)
+            if (!kanban1.IsComplete && kanban2.IsComplete)
                 return -1;
-            if (kanban1.isPending() && !kanban2.isComplete)
+            if (kanban1.isPending() && !kanban2.IsComplete)
                 return -1;
 
             return 0;
@@ -143,10 +190,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
@@ -159,7 +206,7 @@ export class List {
         if (this.dataToBeCompleted.length > 0) {
             var updatePromise = [];
             for (var data of this.dataToBeCompleted) {
-                updatePromise.push(this.service.updateIsComplete(data._id));
+                updatePromise.push(this.service.updateIsComplete(data.Id));
             }
 
             Promise.all(updatePromise)

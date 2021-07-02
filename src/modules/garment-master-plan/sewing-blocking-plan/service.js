@@ -6,11 +6,12 @@ import { Config } from "aurelia-api";
 
 
 const serviceUri = 'sewing-blocking-plans';
+const serviceUriWeek='garment-master-plan/weekly-plans';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-master-plan");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
@@ -29,19 +30,19 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
     getBookingById(id) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `booking-orders/${id}`;
+        var _endpoint = config.getEndpoint("sales");
+        var _serviceUri = `sales/garment-booking-orders/${id}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {
@@ -49,12 +50,17 @@ export class Service extends RestService {
             });
     }
 
+    getWeeklyPlanById(id) {
+        var endpoint = `${serviceUriWeek}/${id}`;
+        return super.get(endpoint);
+    }
+
     getWeeklyPlan(filter){
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `weekly-plans`;
+        var _endpoint = config.getEndpoint("sales");
+        var _serviceUri = `garment-master-plan/weekly-plans`;
 
-        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter), order: JSON.stringify({"unit.code":1}) })
+        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })
             .then(result => {
                 return result.data;
             });
@@ -62,7 +68,7 @@ export class Service extends RestService {
 
     getWeek(filter){
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _endpoint = config.getEndpoint("sales");
         var _serviceUri = `weekly-plans-by-year`;
 
         return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })

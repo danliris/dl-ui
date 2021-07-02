@@ -49,16 +49,16 @@ export class View {
         this.dataExpedition = await this.service.getById(id);
 
         var arg = {
-            filter: JSON.stringify({ no: this.dataExpedition.UnitPaymentOrderNo }),
-            select: this.selectSPB,
+            filter: JSON.stringify({ UPONo: this.dataExpedition.UnitPaymentOrderNo })
         }
 
-        var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
+        var UnitPaymentOrder = await this.service.searchUPOByCode(arg);
         this.data = UnitPaymentOrder.data[0];
         this.data.VerifyDate = this.dataExpedition.VerifyDate;
-        this.data.useVat = this.dataExpedition.IncomeTax;
-        this.data.useIncomeTax = this.dataExpedition.Vat;
-        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
+        this.data.Vat = this.dataExpedition.IncomeTax;
+        this.data.IncomeTax = this.dataExpedition.Vat;
+        this.data.TotalPaid = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat);
+        console.log(this);
     }
 
     list() {
@@ -75,7 +75,8 @@ export class View {
 
         switch (arg.name) {
             case "Rincian Purchase Request":
-                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
+                // window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
+                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${data.purchaseRequestId}`);
                 break;
         }
     }

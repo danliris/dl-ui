@@ -4,14 +4,14 @@ import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/kanbans';
+const serviceUri = 'production/kanbans';
 const productionOrderServiceUri = 'sales/production-orders';
 const durationEstimationUri = 'master/fp-duration-estimations';
 
 export class Service extends RestService {
 
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "production");
+    super(http, aggregator, config, "production-azure");
   }
 
   search(info) {
@@ -25,12 +25,41 @@ export class Service extends RestService {
   }
 
   create(data) {
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
+    var endpoint = `${serviceUri}/create/carts`;
+    return super.post(endpoint, data);
+  }
+
+  createSingle(data) {
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
@@ -40,7 +69,7 @@ export class Service extends RestService {
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 
@@ -48,7 +77,7 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
   }
-  
+
   getProductionOrderDetails(orderNo) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production");
@@ -66,14 +95,20 @@ export class Service extends RestService {
       });
   }
 
+  getDurationEstimationByProcessType(processType) {
+    var endpoint = `master/fp-duration-estimations/by-process-type?processTypeCode=${processType}`;
+    return super.get(endpoint);
+  }
+
   getDurationEstimation(code, select) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
+    var endpoint = config.getEndpoint("production-azure");
     var filter = {
-      "processType.code": code
+      // "processType.code": code
     };
+    var keyword = code;
 
-    var promise = endpoint.find(durationEstimationUri, { select: select, filter: JSON.stringify(filter) });
+    var promise = endpoint.find(durationEstimationUri, { filter: JSON.stringify(filter), keyword: keyword });
     this.eventAggregator.publish('httpRequest', promise);
     return promise
       .catch(e => {
@@ -90,7 +125,7 @@ export class Service extends RestService {
   }
 
   getPdfById(id) {
-      var endpoint = `${serviceUri}/${id}`;
-      return super.getPdf(endpoint);
+    var endpoint = `${serviceUri}/pdf/${id}`;
+    return super.getPdf(endpoint);
   }
 }

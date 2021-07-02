@@ -9,7 +9,7 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isPosted)
+        if (data.IsPosted)
             return { classes: "success" }
         else
             return {}
@@ -21,31 +21,33 @@ export class List {
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.isPosted;
+                this.checkboxEnabled = !data.IsPosted;
                 return ""
             }
         },
-        { field: "no", title: "Nomor PO Eksternal" },
+        { field: "EPONo", title: "Nomor PO Eksternal" },
         {
-            field: "date", title: "Tanggal PO Eksternal", formatter: function (value, data, index) {
+            field: "OrderDate", title: "Tanggal PO Eksternal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
+        { field: "Supplier.Name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
         {
-            field: "isPosted", title: "Status Post",
+            field: "IsPosted", title: "Status Post",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
         },
         {
-            field: "isOverBudget", title: "Over Budget?",
+            field: "IsOverBudget", title: "Over Budget?",
             formatter: function (value, row, index) {
                 return value ? "YA" : "TIDAK";
             }
         },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {
@@ -56,22 +58,22 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
+            //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
-
+        
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
-                    var prNo = _data.items.map(function (item) {
-                        return `<li>${item.prNo}</li>`;
+                    var prNo = _data.Items.map(function (item) {
+                        return `<li>${item.PRNo}</li>`;
                     });
                     prNo = prNo.filter(function (elem, index, self) {
                         return index == self.indexOf(elem);
                     })
                     _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
-                    if (_data.isOverBudget) {
-                        if (_data.isApproved) {
+                    if (_data.IsOverBudget) {
+                        if (_data.IsApproved) {
                             _data.approveStatus = "SUDAH";
                         } else {
                             _data.approveStatus = "BELUM";
@@ -97,10 +99,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
@@ -108,7 +110,7 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-                return data.isPosted;
+                return data.IsPosted;
             default:
                 return true;
         }

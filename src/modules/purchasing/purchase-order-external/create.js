@@ -7,6 +7,7 @@ import {activationStrategy} from 'aurelia-router';
 export class Create {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
 
     constructor(router, service) {
         this.router = router;
@@ -50,7 +51,7 @@ export class Create {
                 item.unit=this.data.unit;
             }
         }
-        console.log(this.data)
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

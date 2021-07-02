@@ -16,7 +16,7 @@ export class Create {
 
     }
     bind() {
-        this.data = { items: [] };
+        this.data = { Items: [] };
         this.error = {};
     }
 
@@ -32,13 +32,18 @@ export class Create {
     }
 
     save(event) {
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode === 500) {
+                    alert("Gagal menyimpan, silakan coba lagi!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }

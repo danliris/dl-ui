@@ -17,6 +17,7 @@
                         <td>Tgl Purchase Request</td>
                         <td>Tgl PO Internal</td>
                         <td>Tgl Pembelian</td>
+                        <td>No SJ</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
                         <td>Keterangan Barang</td>
@@ -27,30 +28,27 @@
                         <td>+ /- Datang</td>
                         <td>Staff</td>
                         <td>kategori</td>
-                  
-                    
                     </tr>
-            
         </thead>
-    
         <tbody>
-                    <tr repeat.for="pr of dataReport"  >
+                    <tr repeat.for="pr of data"  >
                         <td>${$index + 1}</td>
-                        <td>${pr.supplier}</td>
-                        <td>${pr.refNo}</td>
-                        <td>${pr.tglpr | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.tglpo | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.poeDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.productcode}</td>
-                        <td>${pr.productname}</td>
-                        <td>${pr.productdescription}</td>
-                        <td>${pr.artikel}</td>
+                        <td>${pr.supplier.Name}</td>
+                        <td>${pr.poSerialNumber}</td>
+                        <td>${pr.prDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.poDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.epoDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.doNo}</td>
+                        <td>${pr.product.Code}</td>
+                        <td>${pr.product.Name}</td>
+                        <td>${pr.product.Remark}</td>
+                        <td>${pr.article}</td>
                         <td>${pr.roNo}</td>
-                        <td>${pr.purchaseRequestshipmentDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.tglll | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.keterangan}</td>
-                        <td>${pr._createdBy}</td>
-                        <td>${pr.kategori}</td>  
+                        <td>${pr.shipmentDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.doDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.ok_notOk}</td>
+                        <td>${pr.staff}</td>
+                        <td>${pr.product.Name}</td>  
                     </tr>
                 </tbody>
     </table>
@@ -62,7 +60,7 @@
      
         <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list(dateFrom,dateTo,kategori)" class='btn btn-default btn-sm'>Kembali</a>
+            <a click.delegate="list(dateFrom,dateTo)" class='btn btn-default btn-sm'>Kembali</a>
         </div>
     </form>
         

@@ -15,6 +15,7 @@
                 <au-numeric 
                     value.bind="data.quantity" 
                     error.bind="error.defaultQuantity"
+                    format = "0,0.00"
                     read-only.bind="options.readOnly" 
                     options.bind="controlOptions">
                 </au-numeric>

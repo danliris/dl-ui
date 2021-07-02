@@ -13,8 +13,8 @@
             <!--text.bind="textFormatter"-->
         <au-numeric  
             label="Tahun" 
-            value.bind="data.year"
-            error.bind="error.year"
+            value.bind="data.Year"
+            error.bind="error.Year"
             read-only.bind="isEdit"
             options.bind="controlOptions"
             format="0"
@@ -23,7 +23,7 @@
             
         <au-autocomplete 
             value.bind="selectedUnit" 
-            error.bind="error.unit"
+            error.bind="error.Unit"
             label="Unit Konveksi" 
             loader.one-time="unitLoader"
             text.bind = "unitView"
@@ -34,8 +34,8 @@
         </au-autocomplete>
         
         <au-collection 
-            items.bind="data.items"
-            errors.bind="error.items" 
+            items.bind="data.Items"
+            errors.bind="error.Items" 
             columns.bind="itemColumns"
             options.bind="controlOptions"
             read-only.bind="readOnly"

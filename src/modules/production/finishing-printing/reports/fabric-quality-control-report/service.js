@@ -3,16 +3,16 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/reports/fabric-quality-control-report';
-const fabricServiceUri = 'finishing-printing/quality-control/fabrics'
+const fabricServiceUri = 'finishing-printing/quality-control/defect'
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${fabricServiceUri}/reports`;
         return super.list(endpoint, info);
     }
 
@@ -22,7 +22,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${fabricServiceUri}/reports/downloads/xls`;
         var query = '';
 
         if (info.productionOrderNo) {
@@ -54,18 +54,18 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${endpoint}?${query}`;
 
         return endpoint;
     }
 
     getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${fabricServiceUri}/${id}`;
         return super.get(endpoint);
     }
 
     getByCode(code) {
-        var endpoint = `${serviceUri}?keyword=${code}`;
+        var endpoint = `${fabricServiceUri}?keyword=${code}`;
         return super.get(endpoint);
     }
 

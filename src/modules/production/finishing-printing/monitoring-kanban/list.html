@@ -2,12 +2,21 @@
 
 <h1 class="page-header">Monitoring Kanban</h1>
 <form class="form-horizontal">
-       <dropdown                       label="Reproses" value.bind="proses"      items.bind="reprosesOption"></dropdown>
-        <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        ></order-type-auto-suggest>
-        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    filter.one-way="filterOrder" if.bind="orderType" ></process-type-auto-suggest>
-        <textbox                    label="Nomor Order"             value.bind="orderNo"            ></textbox>
-        <datepicker                 label="Tanggal Awal"            value.bind="dateFrom"           ></datepicker>
-        <datepicker                 label="Tanggal Akhir"           value.bind="dateTo"             ></datepicker>
+        <au-dropdown                       label="Reproses" value.bind="proses"      items.bind="reprosesOption"></au-dropdown>
+
+        <au-autocomplete value.bind="orderType" error.bind="error.OrderType" label="Jenis Order" loader.bind="orderTypeLoader" 
+            key="Id" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
+        </au-autocomplete>
+
+        <au-autocomplete value.bind="processType" error.bind="error.processType" label="Jenis Proses" loader.bind="processTypeLoader" 
+            read-only.bind="(readOnly)" options.bind="auInputOptions" filter.one-way="filterOrder" if.bind="orderType">
+        </au-autocomplete>
+
+        <!-- <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        ></order-type-auto-suggest> -->
+        <!-- <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    filter.one-way="filterOrder" if.bind="orderType" ></process-type-auto-suggest> -->
+        <au-textbox                    label="Nomor Order"             value.bind="orderNo"            ></au-textbox>
+        <au-datepicker                 label="Tanggal Awal"            value.bind="dateFrom"           ></au-datepicker>
+        <au-datepicker                 label="Tanggal Akhir"           value.bind="dateTo"             ></au-datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">

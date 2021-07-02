@@ -8,7 +8,6 @@ export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
-
     totalData = 0;
     size = 5;
     items = [];
@@ -20,14 +19,29 @@ export class View {
     }
 
     async activate(params) {
+    
         var id = params.id;
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
+        this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        
         this.vat = this.data.vat;
-
         this.items = this.data.items;
         this.totalData = this.items.length;
+        for(var item in this.data.items)
+        { 
+            //this.data.deliveryOrder.totalAmount=item.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+        }
+        if(this.data.hasInternNote ===true)
+        {
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }else
+        {
+            this.hasEdit = true;
+            this.hasDelete = true;
+        }
     }
 
     cancel(event) {
@@ -35,7 +49,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

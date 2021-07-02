@@ -1,4 +1,4 @@
-module.exports = [ 
+module.exports = [
     {
         route: 'pr',
         name: 'purchase-request',
@@ -8,7 +8,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +22,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +36,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1, "B1": 1, "B4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,20 +50,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "transaksi",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
         route: 'purchase-order-internal/monitoring',
-        name: 'po-internal-belum-po-external-monitoring',
+        name: 'po-internal-belum-unit-payment-order-monitoring',
         moduleId: './modules/purchasing/monitoring-po-internal-belum-po-external/index',
         nav: true,
         title: 'Monitoring Purchase Order Internal Belum Diproses Pembelian',
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +78,23 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'receipt-spb-monitoring',
+        name: 'receipt-spb-monitoring',
+        moduleId: './modules/purchasing/unit-before-spb-monitoring/index',
+        nav: true,
+        title: 'Monitoring Bon Belum Buat SPB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -86,10 +107,24 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'vb-expedition-realitation-report',
+    //     name: 'vb-expedition-realitation-report',
+    //     moduleId: './modules/purchasing/reports/vb-expedition-realitation-report/index',
+    //     nav: true,
+    //     title: 'Laporan Ekspedisi Realisasi VB',
+    //     auth: true,
+    //     settings: {
+    //         group: "purchasing",
+    //         permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'po-external/all',
         name: 'purchase-order-external-kasei',
@@ -99,7 +134,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
+            subGroup: "transaksi",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +148,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1, "B1": 1, "B4": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,6 +162,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "monitoring",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -138,7 +176,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +190,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -164,7 +204,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -177,7 +218,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -190,6 +232,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "transaksi",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -203,7 +246,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -216,7 +260,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -229,7 +274,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -255,20 +301,50 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },    
-     {
+    },
+    {
+        route: 'unit-payment-order/all',
+        name: 'unit-payment-order-all',
+        moduleId: './modules/purchasing/unit-payment-order-all/index',
+        nav: true,
+        title: 'Surat Perintah Bayar All',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "transaksi",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po/monitoring/spb',
         name: 'surat-perintah-bayar-monitoring',
-        moduleId: './modules/purchasing/monitoring-surat-perintah-bayar/index',
+        moduleId: './modules/purchasing/monitoring-surat-perintah-bayar-new/index',
         nav: true,
         title: 'Monitoring Surat Perintah Bayar',
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'po/monitoring/tax',
+        name: 'incometax-vat-monitoring',
+        moduleId: './modules/purchasing/monitoring-ppn-pph/index',
+        nav: true,
+        title: 'Monitoring PPN & PPH',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -281,7 +357,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -294,7 +371,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -307,20 +385,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
         route: 'correction-quantity',
         name: 'unit-payment-quantity-koreksi',
-        moduleId: './modules/purchasing/monitoring-correction-quantity/index',
+        moduleId: './modules/purchasing/koreksi-jumlah/index',
         nav: true,
         title: 'Monitoring Koreksi Jumlah',
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -332,8 +412,8 @@ module.exports = [
         title: 'Generating Data',
         auth: true,
         settings: {
-            group: "purchasing",
-            //permission: {"C9" : 1 },
+            group: "purchasing",            
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -346,7 +426,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -359,6 +440,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "laporan",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -372,6 +454,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "laporan",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -385,12 +468,13 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
+            subGroup: "laporan",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
-        route: 'po/monitoring/price',
+        route: 'purchase-order/monitoring-price',
         name: 'purchase-order-monitoring-price',
         moduleId: './modules/purchasing/monitoring-price/index',
         nav: true,
@@ -398,20 +482,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            subGroup: "monitoring",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "W1": 1, "W2": 1, "B1": 1, "C5": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
         route: 'po/reports/ketepatan/staff',
         name: 'purchase-order-reports-ketepatan-staff',
-        moduleId: './modules/purchasing/reports/purchase-order-report/staff-report/index',
+        moduleId: './modules/purchasing/reports/purchase-order-report/staff-report-new/index',
         nav: true,
         title: 'Laporan Ketepatan kedatangan Barang per Staff',
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -424,7 +510,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "B1": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'report/local-valas-purchasing-book-report',
+        name: 'local-valas-purchasing-book-report',
+        moduleId: './modules/purchasing/reports/local-valas-purchasing-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Lokal Valas',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -437,7 +538,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"B1": 1, "C9": 1},
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "S4": 1, "C3": 1, "E": 1, "K": 1, "S1": 1, "S2": 1, "S3": 1, "U1": 1, "F1": 1, "F2": 1, "L3": 1, "LK": 1, "L8": 1, "L2": 1, "C2": 1, "A2": 1, "C1": 1, "B5": 1, "L1": 1, "B4": 1, "B3": 1, "C4": 1, "OJ": 1, "C9": 1, "A1": 1, "B9": 1, "A4": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "PI": 1, "P": 1, "FC": 1, "GU": 1, "GS": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1, "W1": 1, "W2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -451,6 +553,34 @@ module.exports = [
         settings: {
             group: "purchasing",
             //permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchasing-disposition',
+        name: 'purchasing-disposition',
+        moduleId: './modules/purchasing/purchasing-disposition/index',
+        nav: true,
+        title: 'Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "transaksi",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/reports/unit-payment-order-paid-status-report',
+        name: 'unit-payment-order-paid-status',
+        moduleId: './modules/expedition/reports/unit-payment-order-paid-status-report/index',
+        nav: true,
+        title: 'Laporan Status Bayar SPB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "laporan",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

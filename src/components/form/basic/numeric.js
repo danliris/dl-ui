@@ -16,6 +16,7 @@ export class Numeric {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) postfix;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) fraction;
 
     reactComponent = {};
     constructor(element) {
@@ -28,7 +29,7 @@ export class Numeric {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postfix || "" };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postfix || "", fraction: this.fraction };
         this.value = parseFloat((this.value||'0').toString());
         
         this.reactComponent = ReactDOM.render(

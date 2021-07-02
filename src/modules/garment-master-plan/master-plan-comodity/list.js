@@ -7,33 +7,29 @@ import moment from 'moment';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "code", title: "Kode Komoditas" },
-        { field: "name", title: "Nama Komoditas", }
+        { field: "Code", title: "Kode Komoditas", width: "25%" },
+        { field: "Name", title: "Nama Komoditas", }
     ];
 
     loader = (info) => {
         var order = {};
-        if (info.sort)
-            order[info.sort] = info.order;
-        var arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-            select:["code", "name"],
-            order: order
-        }
+    if (info.sort)
+      order[info.sort] = info.order;
 
-        return this.service.search(arg)
-            .then(result => {
-                var data = {}
-                data.total = result.info.total;
-                data.data = result.data;
-                // return data;
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    }
+
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
     }
 
     constructor(router, service) {
@@ -46,7 +42,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

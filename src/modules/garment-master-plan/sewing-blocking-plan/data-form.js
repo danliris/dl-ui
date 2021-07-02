@@ -26,14 +26,20 @@ export class DataForm {
             length: 5
         }
     }
-
-    filterBookingOrder = {
-        "isMasterPlan": false,
-        "isCanceled": false,
-        "orderQuantity":{
-            $gt:0
-        }
-    };
+    
+    get filterBookingOrder(){
+        var current=new Date();
+        var expired=new Date(current.getTime() + (86400000*45)).toLocaleDateString();
+        
+        var filter= {
+            "IsBlockingPlan": false,
+            "IsCanceled": false,
+            "OrderQuantity>0":true
+            
+        };
+        filter[`DeliveryDate > "${expired}"`]=true;
+        return filter;
+    } 
 
     months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     years = [];
@@ -53,6 +59,7 @@ export class DataForm {
         { header: "Efisiensi (%)" },
         { header: "EH Booking" },
         { header: "Sisa EH" },
+        { header: "WH Confirm" }
         //{ header: "Plan Working Hours" }
     ];
     previewColumns = [{ header: "Konveksi" }];
@@ -60,6 +67,7 @@ export class DataForm {
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
+        
         var year = (new Date()).getFullYear();
         this.years.push(year);
         for (var a = 1; a < 5; a++) {
@@ -72,56 +80,37 @@ export class DataForm {
     selectedBookingOrderChanged(newValue) {
         var _selectedData = newValue;
         if (_selectedData) {
-            this.data.bookingOrderNo = _selectedData.code;
-            this.data.bookingOrderId = _selectedData._id;
-            this.data.garmentBuyerId = _selectedData.garmentBuyerId;
-            this.data.garmentBuyerName = _selectedData.garmentBuyerName;
-            this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
-            if (!this.data._id) {
-                if(this.data && this.data.details && this.data.details.length > 0){
-                    for(var detail of this.data.details){
-                        let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                        let uniq = this.data.details.find(o => {
-                            if(o.weeklyPlanYear && o.unit && o.week){
-                                if( o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
-                                return o;
-                            }
-                        });
-                        let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
-                        if(uniq){
-                            if(item)
-                                item[detail.week.weekNumber]=uniq.remainingEH;
-                            else {
-                                let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
-                                if(item1){
-                                    item1[detail.week.weekNumber]=uniq.remainingEH;
-                                }
-                            }
+            this.data.BookingOrderNo = _selectedData.BookingOrderNo;
+            this.data.BookingOrderId = _selectedData.Id;
+            this.data.Buyer = {};
+            this.data.Buyer.Name = _selectedData.BuyerName;
+            this.data.Buyer.Code = _selectedData.BuyerCode;
+            this.data.Buyer.Id = _selectedData.BuyerId;
+            if (!this.data.Id) {
+               
+                this.data.BookingOrderDate = _selectedData.BookingOrderDate;
+                this.data.DeliveryDate = _selectedData.DeliveryDate;
+                this.data.OrderQuantity = _selectedData.OrderQuantity;
+                this.data.Remark = _selectedData.Remark;
+                this.data.booking = [];
+                if(_selectedData.Items){
+                    for(var bookItem of _selectedData.Items){
+                        if(!bookItem.IsCanceled){
+                            this.data.booking.push(bookItem);
                         }
                     }
-                    var count = this.data.details.length;
-                    for(var a = count; a >= 0; a--){
-                        this.data.details.splice((a-1), 1);
-                    }
                 }
-                this.data.bookingDate = _selectedData.bookingDate;
-                this.data.deliveryDate = _selectedData.deliveryDate;
-                this.data.quantity = _selectedData.orderQuantity;
-                this.data.remark = _selectedData.remark;
-                this.data.bookingItems = _selectedData.items;
-                this.options.buyerCode = this.data.garmentBuyerCode;
+                this.options.buyerCode = this.data.Buyer.Code;
             }
         } else {
-            delete this.data.bookingOrderNo;
-            delete this.data.bookingOrderId;
-            delete this.data.garmentBuyerId;
-            delete this.data.garmentBuyerName;
-            delete this.data.garmentBuyerCode;
-            delete this.data.quantity;
-            delete this.data.remark;
-            delete this.data.bookingDate;
-            delete this.data.deliveryDate;
-            this.data.bookingItems = [];
+            this.data.BookingOrderDate = null;
+            this.data.DeliveryDate = null;
+            this.data.OrderQuantity = 0;
+            this.data.Remark = "";
+            this.data.BookingOrderNo="";
+            this.data.BookingOrderId=null;
+            this.data.Buyer=null;
+            this.data.booking = [];
         }
     }
 
@@ -130,21 +119,12 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.booking = this.context.booking;
-        this.options.buyerCode = this.data.garmentBuyerCode;
-        if (this.data._id) {
-            this.bookingCode = `${this.data.bookingOrderNo} - ${this.data.garmentBuyerName}`;
-            this.options._id = this.data._id;
+        this.options.buyerCode = this.data.Buyer ? this.data.Buyer.Code : "";
+        if (this.data.Id) {
+            this.bookingCode = `${this.data.BookingOrderNo} - ${this.data.Buyer.Name}`;
+            this.options._id = this.data.Id;
             this.remaining=[];
-            // if(this.data.details){
-            //     for(var item of this.data.details){
-
-            //     }
-            // }
-            // this.selectedBookingOrder={
-            //     code:this.data.bookingOrderNo,
-            //     garmentBuyerName:this.data.garmentBuyerName
-            // };
-            this.selectedBookingOrder = await this.service.getBookingById(this.data.bookingOrderId);
+            this.selectedBookingOrder = await this.service.getBookingById(this.data.BookingOrderId);
             
         }
         if (!this.isView) {
@@ -153,23 +133,20 @@ export class DataForm {
             var year = (new Date()).getFullYear();
             var month = (new Date()).getMonth();
             var yr = {
-                year: { "$in": [year, year + 1] }
-            }
-            //this.previewWeeklyPlan = await this.service.getPreview(2018);
+                Year:year
+            };
+            var yr2 = {
+                Year:year+1
+            };
+            
             this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
-            
-            
-            // var weeklength=[];
-            // var o=[];
-            
-            
-            // console.log(this.previewWeeklyPlan);
+            this.previewWeeklyPlan2 = await this.service.getWeeklyPlan(yr2);
             
             let prev = [];//for preview year now
             let prev1 = []; //for preview next year
             let weekLength=0; 
             for (var a of this.previewWeeklyPlan) {
-                if (a.year === year) {
+                if (a.Year === year) {
                     prev.push(a);
                 }
             }
@@ -177,20 +154,20 @@ export class DataForm {
             this.columnPreview =[];
             if(prev.length>0){
                 this.columnPreview = [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
-                for (var i of prev[0].items) {
-                    this.columnPreview.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+                for (var i of prev[0].Items) {
+                    this.columnPreview.push({ field: i.WeekNumber, title: "W" + i.WeekNumber + " " + moment(i.EndDate).format("DD MMM") });
                 }
             }
-            for (var a of this.previewWeeklyPlan) {
-                if (a.year === year + 1) {
+            for (var a of this.previewWeeklyPlan2) {
+                if (a.Year === year + 1) {
                     prev1.push(a);
                 }
             }
             this.columnPreview1=[];
             if(prev1.length>0){
                 this.columnPreview1= [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
-                for (var i of prev1[0].items) {
-                    this.columnPreview1.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+                for (var i of prev1[0].Items) {
+                    this.columnPreview1.push({ field: i.WeekNumber, title: "W" + i.WeekNumber + " " + moment(i.EndDate).format("DD MMM") });
                 }
             }
             var options = {
@@ -215,15 +192,15 @@ export class DataForm {
             var total=[];
             for (var a of prev) {
                 let obj = {};
-                obj.year = a.year;
-                obj.unitCode = a.unit.code;
-                for (var b of a.items) {
-                    obj[b.weekNumber] = b.remainingEH;
-                    if(!total[b.weekNumber]){
-                        total[b.weekNumber]=b.remainingEH;
+                obj.year = a.Year;
+                obj.unitCode = a.Unit.Code;
+                for (var b of a.Items) {
+                    obj[b.WeekNumber] = b.RemainingEH;
+                    if(!total[b.WeekNumber]){
+                        total[b.WeekNumber]=b.RemainingEH;
                     }
                     else{
-                        total[b.weekNumber]+=b.remainingEH;
+                        total[b.WeekNumber]+=b.RemainingEH;
                     }
                 }
                 this.previewDataTable.push(obj);
@@ -242,15 +219,15 @@ export class DataForm {
             var total1=[];
             for (var a of prev1) {
                 let obj = {};
-                obj.year = a.year;
-                obj.unitCode = a.unit.code;
-                for (var b of a.items) {
-                    obj[b.weekNumber] = b.remainingEH;
-                    if(!total1[b.weekNumber]){
-                        total1[b.weekNumber]=b.remainingEH;
+                obj.year = a.Year;
+                obj.unitCode = a.Unit.Code;
+                for (var b of a.Items) {
+                    obj[b.WeekNumber] = b.RemainingEH;
+                    if(!total1[b.WeekNumber]){
+                        total1[b.WeekNumber]=b.RemainingEH;
                     }
                     else{
-                        total1[b.weekNumber]+=b.remainingEH;
+                        total1[b.WeekNumber]+=b.RemainingEH;
                     }
                 }
                 this.previewDataTable1.push(obj);
@@ -267,6 +244,7 @@ export class DataForm {
             this.previewDataTable1.push(x1);
             this.previewData1.push(x1);
         }
+            this.items=this.data.Items;
     }
 
 
@@ -277,20 +255,20 @@ export class DataForm {
         //this.previewDataTable = JSON.parse(JSON.stringify(this.previewData));
         //console.log(this.options);
         
-        if (this.data.details) {
+        if (this.data.Items) {
             var remEH=[];
-            for (let detail of this.data.details) {
-                if(detail.weeklyPlanYear && detail.unit && detail.week){
-                    let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                    let uniq = this.data.details.find(o => {
-                        if(o.weeklyPlanYear && o.unit && o.week){
-                            if( o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
+            for (let detail of this.data.Items) {
+                if(detail.Year && detail.Unit.Code && detail.WeekNumber){
+                    let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
+                    let uniq = this.data.Items.find(o => {
+                        if(o.Year && o.Unit.Code && o.WeekNumber){
+                            if( o.Year.toString() + o.Unit.Code.toString() + o.WeekNumber.toString()  == cat)
                             return o;
                         }
                     });
-                    let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
+                    let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.Unit.Code.toString()));
                     if(item){
-                        remEH[cat]=item[detail.week.weekNumber];
+                        remEH[cat]=item[detail.WeekNumber];
                     }
                     if(this.tempEH){
                         if(remEH[cat]){
@@ -300,20 +278,21 @@ export class DataForm {
                         }
                     }
                     else{
-                        let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
+                        let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.Unit.Code.toString()));
                         if(item1){
-                            remEH[cat]=item1[detail.week.weekNumber];
+                            remEH[cat]=item1[detail.WeekNumber];
                         }
                     }
                     if(remEH[cat]){
-                        if(remEH[cat]<uniq.remainingEH){
-                            remEH[cat]=uniq.remainingEH;
+                        if(remEH[cat]<uniq.RemainingEH){
+                            remEH[cat]=uniq.RemainingEH;
                         }
                     }
                     else{
-                        remEH[cat]=uniq.remainingEH;
+                        remEH[cat]=uniq.RemainingEH;
                     }
                 }
+                
                 if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
@@ -365,58 +344,56 @@ export class DataForm {
                     detail.oldVal={};
                 }
             }
-            //console.log(remEH);
-            
-            for (let detail of this.data.details) {
-                if(detail.weeklyPlanYear && detail.unit && detail.week){
-                    let category = detail.weeklyPlanYear.toString() + detail.unit.code.toString();
-                    let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                    //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+            for (let detail of this.data.Items) {
+                if(detail.Year && detail.Unit.Code && detail.WeekNumber){
+                    let category = detail.Year.toString() + detail.Unit.Code.toString();
+                    let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
+                    //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
                     // //console.log(category );
-                     detail.remainingEH= remEH[cat];
-                     detail.sisaEH=detail.remainingEH-detail.ehBooking;
-                     remEH[cat]-=detail.ehBooking;
+                     detail.RemainingEH= remEH[cat];
+                     detail.sisaEH=detail.RemainingEH-detail.EHBooking;
+                     remEH[cat]-=detail.EHBooking;
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                     //console.log(category);
                     if (item) {
-                        item[detail.week.weekNumber] = detail.sisaEH;
+                        item[detail.WeekNumber] = detail.sisaEH;
                         var total=[];
                         for( var a =0; a<this.previewData.length-1; a++){
-                            if(!total[detail.week.weekNumber]){
-                                total[detail.week.weekNumber]=this.previewData[a][detail.week.weekNumber];
+                            if(!total[detail.WeekNumber]){
+                                total[detail.WeekNumber]=this.previewData[a][detail.WeekNumber];
                             }
                             else{
-                                total[detail.week.weekNumber]+=this.previewData[a][detail.week.weekNumber];
+                                total[detail.WeekNumber]+=this.previewData[a][detail.WeekNumber];
                             }
                         }
                         let totalItem=this.previewData.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                        totalItem[detail.week.weekNumber]=total[detail.week.weekNumber];
+                        totalItem[detail.WeekNumber]=total[detail.WeekNumber];
                     }
                     else{
                         let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                         if (item1) {
-                            item1[detail.week.weekNumber] = detail.sisaEH;
+                            item1[detail.WeekNumber] = detail.sisaEH;
                             var total1=[];
                             for( var a =0; a<this.previewData1.length-1; a++){
-                                if(!total1[detail.week.weekNumber]){
-                                    total1[detail.week.weekNumber]=this.previewData1[a][detail.week.weekNumber];
+                                if(!total1[detail.WeekNumber]){
+                                    total1[detail.WeekNumber]=this.previewData1[a][detail.WeekNumber];
                                 }
                                 else{
-                                    total1[detail.week.weekNumber]+=this.previewData1[a][detail.week.weekNumber];
+                                    total1[detail.WeekNumber]+=this.previewData1[a][detail.WeekNumber];
                                 }
                             }
                             let totalItem1=this.previewData1.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                            totalItem1[detail.week.weekNumber]=total1[detail.week.weekNumber];
+                            totalItem1[detail.WeekNumber]=total1[detail.WeekNumber];
                         }
                     }
                 }
             }
             this.tempEH=[];
-            for(let eh of this.data.details){
-                if(eh.weeklyPlanYear && eh.unit && eh.week){
-                    let cat=eh.weeklyPlanYear.toString() + eh.unit.code.toString()+eh.week.weekNumber.toString();
+            for(let eh of this.data.Items){
+                if(eh.Year && eh.Unit.Code && eh.WeekNumber){
+                    let cat=eh.Year.toString() + eh.Unit.Code.toString()+eh.WeekNumber.toString();
                     if(!this.tempEH[cat]){
-                        this.tempEH[cat]=eh.remainingEH;
+                        this.tempEH[cat]=eh.RemainingEH;
                     }
                 }
             }
@@ -434,113 +411,113 @@ export class DataForm {
             this.previewDataTable = []
 
             if (event.detail) {
-                for (let detail of this.data.details) {
-                    if(event.detail.weeklyPlanYear && event.detail.unit && event.detail.week){
-                        let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                        let category = event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString();
+                for (let detail of this.data.Items) {
+                    if(event.detail.Year && event.detail.unit && event.detail.week){
+                        let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
+                        let category = event.detail.Year.toString() + event.detail.Unit.Code.toString();
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                         if (item) {
-                            item[event.detail.week.weekNumber] = event.detail.week.remainingEH;
+                            item[event.detail.WeekNumber] = event.detail.RemainingEH;
                             var total=[];
                             for( var a =0; a<this.previewData.length-1; a++){
-                                if(!total[event.detail.week.weekNumber]){
-                                    total[event.detail.week.weekNumber]=this.previewData[a][event.detail.week.weekNumber];
+                                if(!total[event.detail.WeekNumber]){
+                                    total[event.detail.WeekNumber]=this.previewData[a][event.detail.WeekNumber];
                                 }
                                 else{
-                                    total[event.detail.week.weekNumber]+=this.previewData[a][event.detail.week.weekNumber];
+                                    total[event.detail.WeekNumber]+=this.previewData[a][event.detail.WeekNumber];
                                 }
                             }
                             let totalItem=this.previewData.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                            totalItem[event.detail.week.weekNumber]=total[event.detail.week.weekNumber];
+                            totalItem[event.detail.WeekNumber]=total[event.detail.WeekNumber];
                         }
                         else{
                             let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                             if (item1) {
-                                item1[event.detail.week.weekNumber] = event.detail.week.remainingEH;
+                                item1[event.detail.WeekNumber] = event.detail.RemainingEH;
                                 var total1=[];
                                 for( var a =0; a<this.previewData1.length-1; a++){
-                                    if(!total1[event.detail.week.weekNumber]){
-                                        total1[event.detail.week.weekNumber]=this.previewData1[a][event.detail.week.weekNumber];
+                                    if(!total1[event.detail.WeekNumber]){
+                                        total1[event.detail.WeekNumber]=this.previewData1[a][event.detail.WeekNumber];
                                     }
                                     else{
-                                        total1[event.detail.week.weekNumber]+=this.previewData1[a][event.detail.week.weekNumber];
+                                        total1[event.detail.WeekNumber]+=this.previewData1[a][event.detail.WeekNumber];
                                     }
                                 }
                                 let totalItem1=this.previewData1.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                                totalItem1[event.detail.week.weekNumber]=total1[event.detail.week.weekNumber];
+                                totalItem1[event.detail.WeekNumber]=total1[event.detail.WeekNumber];
                             }
                         }
                     }
                 }
                     var remEH=[];
-                    for (let detail of this.data.details) {
-                        if(detail.weeklyPlanYear && detail.unit && detail.week && event.detail.weeklyPlanYear && event.detail.unit.code && event.detail.week.weekNumber){
-                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                            let uniq = this.data.details.find(o => (o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString())  == cat);
+                    for (let detail of this.data.Items) {
+                        if(detail.Year && detail.unit && detail.week && event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
+                            let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
+                            let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
+                            let uniq = this.data.Items.find(o => (o.Year.toString() + o.Unit.Code.toString() + o.WeekNumber.toString())  == cat);
                             if(cat===remCat){
-                                if(uniq.remainingEH<event.detail.remainingEH){
-                                    remEH[cat]=event.detail.remainingEH;
+                                if(uniq.RemainingEH<event.detail.RemainingEH){
+                                    remEH[cat]=event.detail.RemainingEH;
                                 }
                                 else{
-                                    remEH[cat]=uniq.remainingEH;
+                                    remEH[cat]=uniq.RemainingEH;
                                 }
                             }
                             else{
-                                remEH[cat]=uniq.remainingEH;
+                                remEH[cat]=uniq.RemainingEH;
                             }
                         }
                     }
-                    for (let detail of this.data.details) {
-                        if(detail.weeklyPlanYear && detail.unit && detail.week && event.detail.weeklyPlanYear && event.detail.unit.code && event.detail.week.weekNumber){
-                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                            //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                    for (let detail of this.data.Items) {
+                        if(detail.Year && detail.unit && detail.week && event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
+                            let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
+                            let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
+                            //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
                             // //console.log(category );
-                            // detail.remainingEH= remEH[cat];
+                            // detail.RemainingEH= remEH[cat];
                             // remEH[cat]-=detail.week.usedEH;
                             if(cat==remCat){
-                                detail.remainingEH=remEH[cat];
-                                detail.sisaEH=detail.remainingEH-detail.ehBooking;
-                                remEH[cat]-=detail.ehBooking;
+                                detail.RemainingEH=remEH[cat];
+                                detail.sisaEH=detail.RemainingEH-detail.EHBooking;
+                                remEH[cat]-=detail.EHBooking;
                                 //console.log(remEH[cat]);
                             }
                             
                         }
                     }
                 if(!this.data.detail){
-                    if(event.detail.weeklyPlanYear && event.detail.unit.code && event.detail.week.weekNumber){
-                        let category = event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString();
+                    if(event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
+                        let category = event.detail.Year.toString() + event.detail.Unit.Code.toString();
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                         if (item) {
-                            item[event.detail.week.weekNumber] = event.detail.remainingEH;
+                            item[event.detail.WeekNumber] = event.detail.RemainingEH;
                             var total=[];
                             for( var a =0; a<this.previewData.length-1; a++){
-                                if(!total[event.detail.week.weekNumber]){
-                                    total[event.detail.week.weekNumber]=this.previewData[a][event.detail.week.weekNumber];
+                                if(!total[event.detail.WeekNumber]){
+                                    total[event.detail.WeekNumber]=this.previewData[a][event.detail.WeekNumber];
                                 }
                                 else{
-                                    total[event.detail.week.weekNumber]+=this.previewData[a][event.detail.week.weekNumber];
+                                    total[event.detail.WeekNumber]+=this.previewData[a][event.detail.WeekNumber];
                                 }
                             }
                             let totalItem=this.previewData.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                            totalItem[event.detail.week.weekNumber]=total[event.detail.week.weekNumber];
+                            totalItem[event.detail.WeekNumber]=total[event.detail.WeekNumber];
                         }
                         else{
                             let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                             if (item1) {
-                                item1[event.detail.week.weekNumber] = event.detail.remainingEH;
+                                item1[event.detail.WeekNumber] = event.detail.RemainingEH;
                                 var total1=[];
                                 for( var a =0; a<this.previewData1.length-1; a++){
-                                    if(!total1[event.detail.week.weekNumber]){
-                                        total1[event.detail.week.weekNumber]=this.previewData1[a][event.detail.week.weekNumber];
+                                    if(!total1[event.detail.WeekNumber]){
+                                        total1[event.detail.WeekNumber]=this.previewData1[a][event.detail.WeekNumber];
                                     }
                                     else{
-                                        total1[event.detail.week.weekNumber]+=this.previewData1[a][event.detail.week.weekNumber];
+                                        total1[event.detail.WeekNumber]+=this.previewData1[a][event.detail.WeekNumber];
                                     }
                                 }
                                 let totalItem1=this.previewData1.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
-                                totalItem1[event.detail.week.weekNumber]=total1[event.detail.week.weekNumber];
+                                totalItem1[event.detail.WeekNumber]=total1[event.detail.WeekNumber];
                             }
                         }
                     }
@@ -560,82 +537,22 @@ export class DataForm {
     }
 
     bookingView = (booking) => {
-        return `${booking.code} - ${booking.garmentBuyerName}`
+        return `${booking.BookingOrderNo} - ${booking.BuyerName}`
     }
 
     get addDetails() {
         return (event) => {
             var newDetail = {
-                deliveryDate: "",
-                isConfirmed: false,
-                shSewing: 0,
-                quantity: 0,
-                remark: ""
+                IsConfirmed: false,
+                SMVSewing: 0,
+                OrderQuantity: 0,
+                Comodity:null,
+                Unit:null,
+                WeeklyPlanId:0,
+                Remark: ""
             };
-            this.data.details.push(newDetail);
+            this.data.Items.push(newDetail);
         };
     }
-    // async previewChange(event) {
-    //     var month = this.getMonth(this.preview.month);
-    //     var thisDate = new Date(`${this.preview.year}/${month - 1}/1`);
-    //     var nextDate = thisDate.setMonth(thisDate.getMonth() + 6);
-    //     var nextYear = new Date(nextDate).getFullYear();
-    //     var workingHour = this.service.getWorkingHour();
-    //     var weeklyPlan = this.service.getWeeklyPlan({"year" : {"$in" :[this.preview.year, nextYear]}});
-    //     var preview = this.service.getPreview(2018);
-    //     await Promise.all([workingHour, weeklyPlan, preview])
-    //         .then(result => {
-    //             var _workingHour = result[0];
-    //             var _weeklyPlan = result[1];
-    //             var _preview = result[2];
-    //             var datas=[];
-    //             console.log(_preview);
-    //             return this.previewData=result;
-    //         });
-    // }
-
-
-
-    // getMonth(month) {
-    //     var monthName = 0;
-    //     switch (month) {
-    //         case "Januari":
-    //             monthName = 1;
-    //             break;
-    //         case "Februari":
-    //             monthName = 2;
-    //             break;
-    //         case "Maret":
-    //             monthName = 3;
-    //             break;
-    //         case "April":
-    //             monthName = 4;
-    //             break;
-    //         case "Mei":
-    //             monthName = 5;
-    //             break;
-    //         case "Juni":
-    //             monthName = 6;
-    //             break;
-    //         case "Juli":
-    //             monthName = 7;
-    //             break;
-    //         case "Agustus":
-    //             monthName = 8;
-    //             break;
-    //         case "September":
-    //             monthName = 9;
-    //             break;
-    //         case "Oktober":
-    //             monthName = 10;
-    //             break;
-    //         case "November":
-    //             monthName = 11;
-    //             break;
-    //         case "Desember":
-    //             monthName = 12;
-    //             break;
-    //     }
-    //     return monthName;
-    // }
+    
 }

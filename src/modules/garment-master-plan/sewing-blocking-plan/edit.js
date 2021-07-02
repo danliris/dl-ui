@@ -22,62 +22,109 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data && this.data.bookingOrderId){
-            this.booking = {};
-            var bookingData = await this.service.getBookingById(this.data.bookingOrderId);
-            if(this.data.bookingDate !== bookingData.bookingDate)
-                this.booking["bookingDate"] = bookingData.booking;
-            if(this.data.quantity !== bookingData.orderQuantity)
-                this.booking["quantity"] = bookingData.orderQuantity;
-            if(this.data.deliveryDate !== bookingData.deliveryDate)
-                this.booking["deliveryDate"] = bookingData.deliveryDate;
-            if(this.data.remark !== bookingData.remark)
-                this.booking["remark"] = bookingData.remark;
-            var details = [];
-            for(var detail of this.data.bookingItems){
-                var bookingDetail = bookingData.items.find(item => item.code === detail.code);
-                if(bookingDetail){
-                    if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
-                        detail["bookingMasterPlanComodity"] = bookingDetail.masterPlanComodity;
-                        detail["bookingMasterPlanComodityId"] = bookingDetail.masterPlanComodityId;
+        this.data.booking=JSON.parse(this.data.BookingItems);
+        if(this.data && this.data.BookingOrderId){
+                this.booking = {};
+                this.newBookingItem=[];
+                var bookingData = await this.service.getBookingById(this.data.BookingOrderId);
+                if(moment(this.data.BookingDate).format("DD MMM YYYY") !== moment(bookingData.BookingDate).format("DD MMM YYYY"))
+                    this.booking["BookingDate"] = bookingData.BookingDate;
+                if(this.data.OrderQuantity !== bookingData.OrderQuantity)
+                    this.booking["OrderQuantity"] = bookingData.OrderQuantity;
+                if(moment(this.data.DeliveryDate).format("DD MMM YYYY") !== moment(bookingData.DeliveryDate).format("DD MMM YYYY"))
+                    this.booking["DeliveryDate"] = bookingData.DeliveryDate;
+                if(this.data.Remark !== bookingData.Remark)
+                    this.booking["Remark"] = bookingData.Remark;
+                var details = [];
+                var bookItems=[];
+                this.newBookingItem=[];
+                var index=0;
+                for(var detail of this.data.booking){
+                    var bookingDetail = bookingData.Items.find(item => item.Id === detail.Id);
+                    if(bookingDetail){
+                        if(bookingDetail.ComodityId !== detail.ComodityId){
+                            detail["bookingMasterPlanComodity"] ={ name: bookingDetail.ComodityName, code: bookingDetail.ComodityCode};
+                            detail["bookingMasterPlanComodityId"] = bookingDetail.ComodityId;
+                        }
+                        if(bookingDetail.ConfirmQuantity !== detail.ConfirmQuantity){
+                            detail["bookingQuantity"] = bookingDetail.ConfirmQuantity;
+                        }
+                        if(bookingDetail.Remark !== detail.Remark)
+                            detail["bookingRemark"] = bookingDetail.Remark;
+                        if(bookingDetail.DeliveryDate && detail.DeliveryDate && moment(bookingDetail.DeliveryDate).format("DD MMM YYYY") !== moment(detail.DeliveryDate).format("DD MMM YYYY"))
+                            detail["bookingDeliveryDate"] = moment(bookingDetail.DeliveryDate).format("DD MMM YYYY");//`${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
+                    
+                    this.newBookingItem.push(bookingDetail);
+                    }else{
+                        detail["deletedData"] = "Md telah menghapus detail ini"
                     }
-                    if(bookingDetail.quantity !== detail.quantity)
-                        detail["bookingQuantity"] = bookingDetail.quantity;
-                    if(bookingDetail.remark !== detail.remark)
-                        detail["bookingRemark"] = bookingDetail.remark;
-                    if(bookingDetail.deliveryDate && detail.deliveryDate && moment(bookingDetail.deliveryDate).format("DD MMM YYYY") !== moment(detail.deliveryDate).format("DD MMM YYYY"))
-                            detail["bookingDeliveryDate"] = moment(bookingDetail.deliveryDate).format("DD MMM YYYY");
-                }else{
-                    detail["deletedData"] = "Md telah menghapus detail ini"
+                    details.push(detail);
                 }
-                details.push(detail);
-            }
-            for(var item of bookingData.items){
-                var detail = this.data.bookingItems.find(detail => detail.code === item.code);
-                if(!detail){
-                    var newDetail= {
-                        code:item.code,
-                        masterPlanComodityId:item.masterPlanComodityId,
-                        masterPlanComodity:item.masterPlanComodity,
-                        quantity:item.quantity,
-                        remark:item.remark,
-                        deliveryDate:item.deliveryDate,
-                        newData:"Md telah menambah detail ini"
+                for(var item of bookingData.Items){
+                    var detail = this.data.booking.find(detail => detail.Id === item.Id);
+                    if(!detail){
+                        var newDetail= {
+                            Id:item.Id,
+                            ComodityId:item.ComodityId,
+                            ComodityName:item.ComodityName,
+                            ComodityCode:item.ComodityCode,
+                            ConfirmQuantity:item.ConfirmQuantity,
+                            Remark:item.Remark,
+                            DeliveryDate:item.DeliveryDate,
+                            newData:"Md telah menambah detail ini"
+                        }
+                        details.push(newDetail);
+                        this.newBookingItem.push(item);
                     }
-                    details.push(newDetail);
                 }
-            }
-            this.data.bookingItems = details;
+                this.data.booking = details;
 
         }
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
-        this.service.update(this.data).then(result => {
+        var booking=[];
+        if(this.newBookingItem){
+            for(var item of this.newBookingItem){
+                
+                var a={
+                    Id:item.Id,
+                    ComodityId:item.ComodityId,
+                    ComodityName:item.ComodityName,
+                    ComodityCode:item.ComodityCode,
+                    ConfirmQuantity:item.ConfirmQuantity,
+                    Remark:item.Remark,
+                    DeliveryDate:item.DeliveryDate
+                }
+                booking.push(a);
+            }
+        }
+        this.data.BookingItems=(JSON.stringify(booking));
+        if(!this.data.BookingOrderId){
+            this.data.BookingOrderId=0;
+        }
+        var dataTemp=this.data;
+        if(this.booking){
+            if(this.booking.BookingDate)
+                dataTemp.BookingDate=this.booking.BookingDate;
+            if(this.booking.OrderQuantity )
+                dataTemp.OrderQuantity=this.booking.OrderQuantity;
+            if(this.booking.DeliveryDate )
+                dataTemp.DeliveryDate=this.booking.DeliveryDate;
+            if(this.booking.Remark )
+                dataTemp.Remark=this.booking.Remark;
+        }
+        for(var dataItem of dataTemp.Items){
+            if(dataItem.LastModifiedUtc==null){
+                dataItem.LastModifiedUtc=new Date();
+            }
+        }
+        //dataTemp.BookingItems=(JSON.stringify(this.newBookingItem));
+        this.service.update(dataTemp).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;

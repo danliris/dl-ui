@@ -79,7 +79,12 @@
             placeholder=" "
             options.bind="auInputOptions">
         </au-multiline>
-
+        <au-textbox
+            if.bind="deliveryOrder"
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
         <au-collection 
             items.bind="data.items" 
             columns.bind="deliveryOrderItem.columns"

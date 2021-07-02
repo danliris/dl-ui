@@ -1,14 +1,18 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
 
-const serviceUri = 'purchase-requests/by-user';
+// const serviceUri = 'purchase-requests/by-user';
+const serviceUri = 'garment-purchase-requests';
+const costCalculationServiceUri = 'cost-calculation-garments';
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -26,3 +30,28 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     } 
 } 
+
+class SalesService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getCostCalculationByRONo(info) {
+        var endpoint = `${costCalculationServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    // getCostCalculationByRONo(roNo) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("sales");
+    //     var _serviceUri = costCalculationServiceUri;
+
+    //     return _endpoint.find(_serviceUri, { RO_Number: roNo })
+    //         .then(result => {
+    //             console.log(result)
+    //             return result.data[0];
+    //         });
+    // }
+}
+
+export { Service, SalesService }

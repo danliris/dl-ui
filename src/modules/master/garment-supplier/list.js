@@ -19,11 +19,30 @@ export class List {
       }
     },
     {
-      field: "useIncomeTax", title: "Kena PPN",
+      field: "usevat", title: "Kena PPN",
       formatter: function (value, row, index) {
         return value ? "YA" : "TIDAK";
       }
-    }
+    },
+    {
+      field: "usevat", title: "Kena PPN",
+      formatter: function (value, row, index) {
+        return value ? "YA" : "TIDAK";
+      }
+    },
+    {
+      field: "usetax", title: "Kena PPH",
+      formatter: function (value, row, index) {
+        return value ? "YA" : "TIDAK";
+      }
+    },    
+    { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
+      if(data.IncomeTaxes.name == "" || data.IncomeTaxes.name == null && data.IncomeTaxes.rate == 0){
+        return "-"
+      }else{
+        return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+      }
+    } },
   ];
 
   loader = (info) => {
@@ -35,7 +54,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["code","name","address","import","NPWP","useIncomeTax"],
+      select:["code","name","address","import","NPWP","usevat"],
       order: order
     }
 
@@ -58,7 +77,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

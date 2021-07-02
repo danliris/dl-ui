@@ -2,14 +2,15 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'purchase-price-corrections/by-user';
-const deliveryOrderServiceUri = 'delivery-orders';
+const serviceUri = 'garment-correction-notes/price';
+const deliveryOrderServiceUri = 'garment-delivery-orders';
+const deliveryOrderLoaderServiceUri = 'garment-delivery-orders/loader';
 const purchaseOrderExternalServiceUri = 'purchase-orders/externals/by-user';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -18,8 +19,7 @@ export class Service extends RestService {
     }
 
     searchDeliveryOrder(info) {
-        info.filter = JSON.stringify({ hasInvoice: true });
-        var endpoint = `${deliveryOrderServiceUri}`;
+        var endpoint = `${deliveryOrderLoaderServiceUri}`;
         return super.list(endpoint, info);
     }
 
@@ -49,17 +49,17 @@ export class Service extends RestService {
     }
 
     getPdfReturnNotePph(id) {
-        var endpoint = `purchase-price-corrections/return-note/pph/${id}`;
+        var endpoint = `${serviceUri}/return-note-pph/${id}`;
         return super.getPdf(endpoint);
     }
 
     getPdfReturnNotePpn(id) {
-        var endpoint = `purchase-price-corrections/return-note/ppn/${id}`;
+        var endpoint = `${serviceUri}/return-note-ppn/${id}`;
         return super.getPdf(endpoint);
     }
 
-    getPOExternalById(id) {
-        var endpoint = `${purchaseOrderExternalServiceUri}/${id}`;
+    getdeliveryOrderById(id) {
+        var endpoint = `${deliveryOrderServiceUri}/${id}`;
         return super.get(endpoint);
     }
 }

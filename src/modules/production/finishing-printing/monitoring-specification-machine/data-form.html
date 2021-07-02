@@ -8,7 +8,7 @@
         <fieldset>
             <au-datetimepicker label="Tanggal/Jam" value.bind="data.DateTimeInput " error.bind="error.DateTimeInput" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>
             <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="machine" loader.bind="machineLoader" placeholder="Cari machine"
-                key="Code" text="Name" query.bind="divisionFilter" read-only.bind="(readOnly)" options.bind="auInputOptions">
+                key="Code" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
             </au-autocomplete>
             <au-autocomplete value.bind="ProductionOrder" error.bind="error.ProductionOrder" label="No Surat Produksi Order" loader.bind="productionOrderLoader"
                 placeholder="Cari No Surat Produksi Order" key="OrderNo" text="OrderNo" read-only.bind="(readOnly)" options.bind="auInputOptions">

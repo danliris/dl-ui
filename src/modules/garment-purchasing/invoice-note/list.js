@@ -7,14 +7,15 @@ import moment from 'moment';
 export class List {
     context = ["Rincian", "Cetak Nota Pajak Pph", "Cetak Nota Pajak Ppn"];
     columns = [
-        { field: "no", title: "Nomor Invoice" },
+        { field: "invoiceNo", title: "Nomor Invoice" },
         {
-            field: "date", title: "Tanggal Invoice", formatter: function (value, data, index) {
+            field: "invoiceDate", title: "Tanggal Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
-        { field: "items", title: "List Nomor Surat Jalan", sortable: false }
+        { field: "supplier.Name", title: "Nama Supplier" },
+        { field: "items", title: "List Nomor Surat Jalan", sortable: false },
+        { field: "CreatedBy", title: "Admin Pembelian" }
     ];
 
     loader = (info) => {
@@ -25,7 +26,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.deliveryOrderNo", "useVat", "useIncomeTax", "isPayTax"],
+            select: ["InvoiceDate", "invoiceNo", "Supplier.Name", "Items.DeliveryOrderNo", "UseVat", "UseIncomeTax", "IsPayVat", "IsPayTax"],
             order: order
         }
 
@@ -38,7 +39,7 @@ export class List {
                     s.items.toString = function () {
                         var str = "<ul>";
                         for (var item of s.items) {
-                            str += `<li>${item.deliveryOrderNo}</li>`;
+                            str += `<li>${item.deliveryOrder.doNo}</li>`;
                         }
                         str += "</ul>";
                         return str;
@@ -62,13 +63,13 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak Nota Pajak Pph":
-                this.service.getPdfVatNote(data._id);
+                this.service.getPdfIncomeTaxNote(data.Id);
                 break;
             case "Cetak Nota Pajak Ppn":
-                this.service.getPdfIncomeTaxNote(data._id);
+                this.service.getPdfVatNote(data.Id);
                 break;
         }
     }
@@ -76,9 +77,9 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak Nota Pajak Pph":
-                return data.useVat && data.isPayTax;
-            case "Cetak Nota Pajak Ppn":
                 return data.useIncomeTax && data.isPayTax;
+            case "Cetak Nota Pajak Ppn":
+                return data.useVat && data.isPayVat;
             default:
                 return true;
         }

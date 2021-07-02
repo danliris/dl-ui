@@ -74,8 +74,8 @@ export class List {
     }
 
     fillValues() {
-        this.arg.unitId = this.filter.unit ? this.filter.unit._id : "";
-        this.arg.supplierId = this.filter.supplier ? this.filter.supplier._id : "";
+        this.arg.unitId = this.filter.unit ? this.filter.unit.Id : "";
+        this.arg.supplierId = this.filter.supplier ? this.filter.supplier.Id : "";
         this.arg.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -99,8 +99,13 @@ export class List {
             this.fillValues(),
             this.service.search(this.arg)
                 .then(result => {
+                    var index=0;
+                    for(var data of result.data){
+                        index++;
+                        data.index=index;
+                    }
                     return {
-                        total: result.info.length,
+                        total: result.info.total,
                         data: result.data
                     }
             })

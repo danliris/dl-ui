@@ -1,10 +1,9 @@
-
 <template>
   
         <h1 class="page-header">Monitoring Booking Order</h1>
         <form class="form-horizontal">
             <au-autocomplete 
-                value.bind="section.code" 
+                value.bind="section" 
                 label="Seksi" 
                 loader.bind="sectionLoader"
                 text.bind = "sectionView"
@@ -13,7 +12,7 @@
                 options.bind="controlOptions">
             </au-autocomplete>
             <au-autocomplete 
-                value.bind="code" 
+                value.bind="BookingOrderNo" 
                 label="Kode Booking" 
                 loader.bind="bookingOrderLoader"
                 text.bind = "bookingOrderView"
@@ -52,8 +51,12 @@
                 change.delegate="bookingOrderStateChanged($event)">
             </au-dropdown>
              
-            <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-            <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+            <au-datepicker label="Tanggal Booking Awal" value.bind="dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Booking Akhir" value.bind="dateTo"></au-datepicker>
+
+            
+            <au-datepicker label="Tanggal Pengiriman Awal" value.bind="dateDeliveryFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Pengiriman Akhir" value.bind="dateDeliveryTo"></au-datepicker>
 
             <div class="form-group">
                 <label for="contact" class="col-sm-6 control-label"></label>
@@ -70,50 +73,12 @@
            <br>
         </br>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="myTable">
-                <thead align="center">
-                    <tr>
-                        <td>Kode Booking</td>
-                        <td>Tanggal Booking</td>
-                        <td>Buyer</td>
-                        <td>Jumlah Order</td>
-                        <td>Tanggal Pengiriman(booking)</td>
-                        <td>Komoditi</td>
-                        <td>Jumlah Confirm</td>
-                        <td>Tanggal Pengiriman(confirm)</td>
-                        <td>Tanggal Confirm</td>
-                        <td>Keterangan</td>
-                        <td>Status Confirm</td>
-                        <td>Status Booking Order</td>    
-                        <td>Sisa Order (Belum Confirm)</td>         
-                        <td>Selisih Hari (dari Tanggal Pengiriman)</td>            
-                    </tr>
-                </thead>
-                <tbody>
-                 
-                    <tr repeat.for="item of data">
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.code}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingDate}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.buyer}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderQty}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.deliveryDateBooking}</td>
-                            <td class="text-left">${item.comodity}</td>
-                            <td class="text-right">${item.orderQty}</td>
-                            <td class="text-left">${item.deliveryDateConfirm}</td>
-                            <td class="text-left">${item.confirmDate}</td>
-                            <td class="text-left">${item.remark}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.confirmState}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingOrderState}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.remaining}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.diffDeliveryDateBooking}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+
         <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
             Tidak ada data.
         </div>
+        <pagination if.bind="args.total>args.size" info.bind="args" change.delegate="changePage($event)" id="pager"></pagination>
         <hr/>
         </form>
     </au-input-form> 

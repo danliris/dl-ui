@@ -1,9 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import {activationStrategy} from 'aurelia-router';
-import {Dialog} from '../../../../components/dialog/dialog';
-import {AlertView} from './custom-dialog-view/alert-view';
+import { activationStrategy } from 'aurelia-router';
+import { Dialog } from '../../../../components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 var moment = require("moment");
 
 @inject(Router, Service, Dialog)
@@ -58,25 +58,23 @@ export class Reprocess {
     message += "<div>Apakah anda yakin mau menyimpan kanban ini?</div>";
 
     for (var invalidStep of this.invalidSteps) {
-      message += "<div>" + invalidStep.no + ". " + invalidStep.process + "</div>";
+      message += "<div>" + invalidStep.no + ". " + invalidStep.Process + "</div>";
     }
 
     message += "<br>";
-    
+
     let removeData = ["length", "PPIC", "PREPARING"];
     let areas = Object.getOwnPropertyNames(this.range);
 
-    for(let j = 0; j < removeData.length; j++)
-    {
+    for (let j = 0; j < removeData.length; j++) {
       let index = areas.indexOf(removeData[j]);
       if (index >= 0) {
-        areas.splice( index, 1 );
+        areas.splice(index, 1);
       }
     }
 
-    for(let i = areas.length - 1; i >= 0; i--)
-    {
-      message += "<div>" + this.range[areas[i]].area + ": " + moment(this.range[areas[i]].startDate).format("DD MMM YYYY") + " - " + moment(this.range[areas[i]].endDate).format("DD MMM YYYY") + "</div>";
+    for (let i = areas.length - 1; i >= 0; i--) {
+      message += "<div>" + this.range[areas[i]].Area + ": " + moment(this.range[areas[i]].startDate).format("DD MMM YYYY") + " - " + moment(this.range[areas[i]].endDate).format("DD MMM YYYY") + "</div>";
     }
 
     return message;
@@ -84,35 +82,35 @@ export class Reprocess {
 
   validateStepsDurationEstimation() {
     if (this.data.durationEstimation) {
-      var deliveryDate = this.data.productionOrder.deliveryDate;
+      var deliveryDate = this.data.ProductionOrder.DeliveryDate;
       var sumDay = 0;
 
-      for (var i = this.data.durationEstimation.areas.length - 1; i >= 0; i--) {
-        var area = this.data.durationEstimation.areas[i];
+      for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+        var area = this.data.durationEstimation.Areas[i];
         var d = new Date(deliveryDate);
         d.setHours(0, 0, 0, 0);
-        sumDay += area.duration;
+        sumDay += area.Duration;
 
         d.setDate(d.getDate() - sumDay + 1);
         var start = new Date(d);
 
-        d.setDate(d.getDate() + (area.duration - 1));
+        d.setDate(d.getDate() + (area.Duration - 1));
         var end = new Date(d);
 
         this.range[area.name] = {
-          area: area.name,
+          area: area.Name,
           startDate: start,
           endDate: end
         };
       }
       var index = 1;
-      for (var step of this.data.instruction.steps) {
+      for (var step of this.data.Instruction.Steps) {
         var r = {};
-        if(step.processArea && step.processArea != "") {
-          r = this.range[step.processArea.toUpperCase().replace("AREA ", "")];
+        if (step.ProcessArea && step.ProcessArea != "") {
+          r = this.range[step.ProcessArea.toUpperCase().replace("AREA ", "")];
         }
-        if (r && Object.getOwnPropertyNames(r).length > 0 && step.deadline && (step.deadline < r.startDate || step.deadline > r.endDate)) {
-          this.invalidSteps.push({ no: index, process: step.process });
+        if (r && Object.getOwnPropertyNames(r).length > 0 && step.Deadline && (step.Deadline < r.startDate || step.Deadline > r.endDate)) {
+          this.invalidSteps.push({ no: index, process: step.Process });
         }
 
         index++;
@@ -128,7 +126,7 @@ export class Reprocess {
   save(event) {
     var stepsError = [];
     var hasError = false;
-    var instruction = this.data.instruction ? this.data.instruction.steps : [];
+    var instruction = this.data.Instruction ? this.data.Instruction.Steps : [];
 
     if (instruction.length != 0) {
       if (this.data.reprocess == this.data.SEBAGIAN) {
@@ -138,8 +136,12 @@ export class Reprocess {
       for (var step of instruction) {
         var stepErrors = {};
 
-        if (!step.process || step.process == "") {
-          stepErrors["process"] = "Process is required";
+        if (!step.Process || step.Process == "") {
+          stepErrors["Process"] = "Process harus diisi";
+        }
+
+        if (!step.Deadline || step.Deadline.toString().toUpperCase() == 'INVALID DATE') {
+          stepErrors["Deadline"] = "Deadline harus diisi";
         }
 
         stepsError.push(stepErrors);
@@ -153,50 +155,164 @@ export class Reprocess {
       }
 
       if (!hasError) {
-        event.event.toElement.disabled = true;
+        // event.event.toElement.disabled = true;
 
         var createPromise = [];
-        this.data.isBadOutput = true;
-        this.data.productionOrderId = this.data.productionOrder ? this.data.productionOrder._id : {};
-        this.data.instructionId = this.data.instruction ? this.data.instruction._id : {};
-        this.data.currentStepIndex = 0;
+        this.data.CurrentStepIndex = 0;
 
-        for (var cart of this.data.carts) {
-          this.data.cart = cart;
-          this.data.currentQty = cart.qty;
+        for (var cart of this.data.Carts) {
+          this.data.Cart = cart;
+          this.data.CurrentQty = cart.qty;
 
           if (cart.reprocess == this.data.LANJUT_PROSES) {
-            this.data.isReprocess = false;
-            this.data.instruction.steps = this.data.reprocessSteps.LanjutProses;
+            this.data.IsReprocess = false;
+
+            cart.IsReprocess = false;
+
+            cart.Instruction = {};
+            cart.Instruction.Code = this.data.Instruction.Code;
+            cart.Instruction.Name = this.data.Instruction.Name;
+            cart.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
+
+            delete cart.Instruction.Id;
+            delete cart.Instruction.IsDeleted;
+            delete cart.Instruction.Active;
+            delete cart.Instruction.CreatedUtc;
+            delete cart.Instruction.CreatedBy;
+            delete cart.Instruction.CreatedAgent;
+            delete cart.Instruction.LastModifiedUtc;
+            delete cart.Instruction.LastModifiedBy;
+            delete cart.Instruction.LastModifiedAgent;
+            for (let step of cart.Instruction.Steps) {
+              delete step.Id;
+              delete step.IsDeleted;
+              delete step.Active;
+              delete step.CreatedUtc;
+              delete step.CreatedBy;
+              delete step.CreatedAgent;
+              delete step.LastModifiedUtc;
+              delete step.LastModifiedBy;
+              delete step.LastModifiedAgent;
+
+              for (let stepIndicator of step.StepIndicators) {
+                delete stepIndicator.Id;
+                delete stepIndicator.IsDeleted;
+                delete stepIndicator.Active;
+                delete stepIndicator.CreatedUtc;
+                delete stepIndicator.CreatedBy;
+                delete stepIndicator.CreatedAgent;
+                delete stepIndicator.LastModifiedUtc;
+                delete stepIndicator.LastModifiedBy;
+                delete stepIndicator.LastModifiedAgent;
+              }
+            }
+
+            this.data.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
           }
           else if (cart.reprocess == this.data.REPROSES) {
-            this.data.isReprocess = true;
-            this.data.instruction.steps = this.data.reprocessSteps.Reproses;
+            this.data.IsReprocess = true;
+
+            cart.IsReprocess = true;
+
+            cart.Instruction = {};
+            cart.Instruction.Code = this.data.Instruction.Code;
+            cart.Instruction.Name = this.data.Instruction.Name;
+            cart.Instruction.Steps = this.data.reprocessSteps.Reproses;
+
+            delete cart.Instruction.Id;
+            delete cart.Instruction.IsDeleted;
+            delete cart.Instruction.Active;
+            delete cart.Instruction.CreatedUtc;
+            delete cart.Instruction.CreatedBy;
+            delete cart.Instruction.CreatedAgent;
+            delete cart.Instruction.LastModifiedUtc;
+            delete cart.Instruction.LastModifiedBy;
+            delete cart.Instruction.LastModifiedAgent;
+            for (let step of cart.Instruction.Steps) {
+              delete step.Id;
+              delete step.IsDeleted;
+              delete step.Active;
+              delete step.CreatedUtc;
+              delete step.CreatedBy;
+              delete step.CreatedAgent;
+              delete step.LastModifiedUtc;
+              delete step.LastModifiedBy;
+              delete step.LastModifiedAgent;
+
+              for (let stepIndicator of step.StepIndicators) {
+                delete stepIndicator.Id;
+                delete stepIndicator.IsDeleted;
+                delete stepIndicator.Active;
+                delete stepIndicator.CreatedUtc;
+                delete stepIndicator.CreatedBy;
+                delete stepIndicator.CreatedAgent;
+                delete stepIndicator.LastModifiedUtc;
+                delete stepIndicator.LastModifiedBy;
+                delete stepIndicator.LastModifiedAgent;
+              }
+            }
+
+            this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
           } else {
-            this.data.isReprocess = true;
+            this.data.IsReprocess = true;
           }
 
-          createPromise.push(this.service.create(this.data));
+          // createPromise.push(this.service.createSingle(this.data));
         }
 
-        if (createPromise.length <= 0) {
-          createPromise.push(this.service.create(this.data));
+        delete this.data.Instruction.Id;
+        delete this.data.Instruction.IsDeleted;
+        delete this.data.Instruction.Active;
+        delete this.data.Instruction.CreatedUtc;
+        delete this.data.Instruction.CreatedBy;
+        delete this.data.Instruction.CreatedAgent;
+        delete this.data.Instruction.LastModifiedUtc;
+        delete this.data.Instruction.LastModifiedBy;
+        delete this.data.Instruction.LastModifiedAgent;
+        for (let step of this.data.Instruction.Steps) {
+          delete step.Id;
+          delete step.IsDeleted;
+          delete step.Active;
+          delete step.CreatedUtc;
+          delete step.CreatedBy;
+          delete step.CreatedAgent;
+          delete step.LastModifiedUtc;
+          delete step.LastModifiedBy;
+          delete step.LastModifiedAgent;
+
+          for (let stepIndicator of step.StepIndicators) {
+            delete stepIndicator.Id;
+            delete stepIndicator.IsDeleted;
+            delete stepIndicator.Active;
+            delete stepIndicator.CreatedUtc;
+            delete stepIndicator.CreatedBy;
+            delete stepIndicator.CreatedAgent;
+            delete stepIndicator.LastModifiedUtc;
+            delete stepIndicator.LastModifiedBy;
+            delete stepIndicator.LastModifiedAgent;
+          }
         }
 
-        Promise.all(createPromise)
-          .then(responses => {
+        // if (createPromise.length <= 0) {
+        //   createPromise.push(this.service.create(this.data));
+        // }
+
+        // console.log(this.data);
+        this.service.create(this.data)
+          .then(result => {
             alert("Data berhasil dibuat");
-            this.router.navigateToRoute('reprocess', {}, { replace: true, trigger: true });
+            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
           })
           .catch(e => {
-            delete this.data.cart;
-            delete this.data.currentQty;
-            this.error = e;
-            event.event.toElement.disabled = false;
+            if (e.statusCode == 500) {
+              alert(e.error);
+            } else {
+              this.error = e;
+            }
           })
       }
       else {
-        this.error.steps = stepsError;
+        this.error.Steps = stepsError;
       }
     }
   }

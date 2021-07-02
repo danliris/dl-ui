@@ -1,9 +1,11 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 
-var InstructionLoader = require('../../../../loader/instruction-loader');
+var moment = require('moment');
+
+var InstructionLoader = require('../../../../loader/instruction-no-id-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
-var ProductionOrderLoader = require('../../../../loader/production-order-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -43,13 +45,13 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.carts = this.data.carts || [];
+        this.data.Carts = this.data.Carts || [];
 
-        if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0) {
-            this.productionOrderDetails = this.data.productionOrder.details;
+        if (this.data.ProductionOrder && this.data.ProductionOrder.Details && this.data.ProductionOrder.Details.length > 0) {
+            this.productionOrderDetails = this.data.ProductionOrder.Details;
             this._mapProductionOrderDetail();
 
-            if (this.data.countDoneStep == this.data.instruction.steps.length) {
+            if (this.data.countDoneStep == this.data.Instruction.Steps.length) {
                 this.options.disabledStepAdd = true;
             }
         }
@@ -59,7 +61,7 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        this.oldKanbanStatus = this.data.oldKanban && Object.getOwnPropertyNames(this.data.oldKanban).length > 0;
+        this.oldKanbanStatus = this.data.OldKanban && Object.getOwnPropertyNames(this.data.OldKanban).length > 0;
 
         if (this.isReprocess || this.oldKanbanStatus) {
             this.kereta = "Kereta Baru";
@@ -75,13 +77,15 @@ export class DataForm {
             this.data.LANJUT_PROSES = "Lanjut Proses";
             this.data.REPROSES = "Reproses";
 
-            this.query = { "currentStepIndex": { $ne: 0 }, "isComplete": false };
+            this.query = { "IsComplete": false };
             this.reprocess = [{ label: this.data.SEMUA, value: this.data.SEMUA }, { label: this.data.SEBAGIAN, value: this.data.SEBAGIAN }];
             this.options = { "isReprocess": this.isReprocess, reprocessClick: function (reprocess) { self.changeInstruction(reprocess); } };
             this.cartInfo.columns.splice(0, 0, { header: "", value: "reprocess" });
             this.options.reprocessStepsHide = true;
         }
 
+        //#region  old select
+        /*
         this.selectProductionOrder = [
             "_id",
             "material._id", "materialConstruction._id", "yarnMaterial._id",
@@ -136,6 +140,8 @@ export class DataForm {
             'isReproses', 'isInactive', 'productionOrder.orderType.name', 'productionOrder.orderType.code', 'productionOrder.orderTypeId',
             'productionOrder.details', 'productionOrder.uom', 'productionOrder.uomId',
         ];
+        */
+        //#endregion
     }
 
     controlOptions = {
@@ -149,13 +155,13 @@ export class DataForm {
 
     cartInfo = {
         columns: [
-            { header: "Nomor Kereta", value: "cartNumber" },
-            { header: "Panjang", value: "qty" },
-            { header: "Satuan", value: "uom" },
-            { header: "Jumlah PCS", value: "pcs" },
+            { header: "Nomor Kereta", value: "CartNumber" },
+            { header: "Panjang", value: "Qty" },
+            { header: "Satuan", value: "Uom" },
+            { header: "Jumlah PCS", value: "Pcs" },
         ],
         onAdd: function () {
-            this.data.carts.push({ cartNumber: "", qty: 0, uom: this.data.cart ? this.data.cart.uom ? this.data.cart.uom.unit : 'MTR' : 'MTR', pcs: 0 });
+            this.data.Carts.push({ CartNumber: "", Qty: 0, Uom: { Unit: "MTR" }, Pcs: 0 });
         }.bind(this),
         onRemove: function () {
 
@@ -165,82 +171,81 @@ export class DataForm {
     stepInfo = {
         columns: [
             { header: "No.", value: "index" },
-            { header: "Proses", value: "process" },
-            { header: "Mesin", value: "machine" },
-            { header: "Area", value: "proccessArea" },
-            { header: "Target Selesai", value: "deadline" }
+            { header: "Proses", value: "Process" },
+            { header: "Mesin", value: "Machine" },
+            { header: "Area", value: "ProccessArea" },
+            { header: "Target Selesai", value: "Deadline" }
         ],
         onAdd: function () {
             this.context.StepsCollection.bind();
-            this.data.instruction.steps = this.data.instruction.steps || [];
+            this.data.Instruction.Steps = this.data.Instruction.Steps || [];
             if (this.isReprocess || this.oldKanbanStatus) {
-                this.data.currentIndex++;
-                this.data.instruction.steps.splice(this.data.currentIndex, 0, {});
+                this.data.CurrentIndex++;
+                this.data.Instruction.Steps.splice(this.data.CurrentIndex, 0, {});
             }
             else
-                this.data.instruction.steps.push({});
+                this.data.Instruction.Steps.push({});
         }.bind(this),
         onRemove: function () {
             this.context.StepsCollection.bind();
 
             if (this.isReprocess || this.oldKanbanStatus)
-                this.data.currentIndex--;
+                this.data.CurrentIndex--;
         }.bind(this)
     };
 
-    kanbanChanged(newValue, oldValue) {
+    async kanbanChanged(newValue, oldValue) {
         var kanban = newValue;
 
         if (kanban) {
-            Object.assign(this.data, kanban);
+            let oldKanban = await this.service.getById(kanban.Id)
+            Object.assign(this.data, oldKanban);
 
+            this.cartNumber = this.data.Cart.CartNumber;
             this.data.reprocessSteps = {
                 "LanjutProses": [],
-                "Reproses": []
+                "Reproses": [],
+                "Original": []
             };
 
-            for (var i = this.data.currentStepIndex; i < this.data.instruction.steps.length; i++) {
-                this.data.reprocessSteps.LanjutProses.push(this.data.instruction.steps[i]);
+            this.data.reprocessSteps.Original = this.data.Instruction.Steps;
+            for (var i = this.data.CurrentStepIndex; i < this.data.Instruction.Steps.length; i++) {
+                this.data.reprocessSteps.LanjutProses.push(this.data.Instruction.Steps[i]);
             }
 
             this.data.reprocess = !this.data.reprocessStatus ? this.data.SEBAGIAN : true;
-            this.data.reprocessSteps.Reproses = this.data.instruction.steps;
+            // this.data.reprocessSteps.Reproses = this.data.Instruction.Steps;
 
-            this.data.oldKanban = kanban;
-            this.data.oldKanbanId = kanban._id;
+            for (var i = 0; i < this.data.CurrentStepIndex; i++) {
+                this.data.reprocessSteps.Reproses.push(this.data.Instruction.Steps[i]);
+            }
 
-            delete this.data.oldKanban._active;
-            delete this.data.oldKanban._type;
-            delete this.data.oldKanban._updateAgent;
-            delete this.data.oldKanban.updatedBy;
-            delete this.data.oldKanban.code;
-            delete this.data.oldKanban._version;
-            delete this.data.oldKanban._deleted;
+            this.data.OldKanbanId = oldKanban.Id;
 
-            delete this.data.cart;
-            delete this.data._id;
-            delete this.data._active;
-            delete this.data._type;
-            delete this.data._updateAgent;
-            delete this.data.updatedBy;
-            delete this.data.code;
-            delete this.data._version;
-            delete this.data._deleted;
+            delete this.data.Cart;
+            delete this.data.Id;
+            delete this.data.Active;
+            delete this.data.CreatedUtc;
+            delete this.data.CreatedBy;
+            delete this.data.CreatedAgent;
+            delete this.data.LastModifiedUtc;
+            delete this.data.LastModifiedBy;
+            delete this.data.LastModifiedAgent;
 
-            var currentStepIndex = this.data.currentStepIndex;
+            var currentStepIndex = this.data.CurrentStepIndex;
             var i = 1;
 
-            this.data.instruction.steps = this.data.instruction.steps.map(function (s) {
-                s.isNotDone = i <= currentStepIndex ? false : true;
+            this.data.Instruction.Steps = this.data.Instruction.Steps.map(function (s) {
+                s.IsNotDone = i <= currentStepIndex ? false : true;
                 i++;
                 return s;
             });
 
-            this.data.currentIndex = this.data.currentStepIndex - 1;
+            this.data.currentIndex = this.data.CurrentStepIndex - 1;
 
-            this.instruction = this.data.instruction;
+            this.instruction = this.data.Instruction;
 
-            this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
+            this.service.getDurationEstimation(this.data.ProductionOrder.ProcessType.Code, ["areas"])
                 .then((result) => {
                     if (result.data.length > 0) {
                         this.data.durationEstimation = result.data[0];
@@ -262,31 +267,33 @@ export class DataForm {
 
         var productionOrder = newValue;
         if (productionOrder) {
-            this.data.productionOrder = productionOrder;
+            this.data.ProductionOrder = productionOrder;
             this.productionOrderDetails = [];
 
-            for (var detail of productionOrder.details) {
+            for (var detail of productionOrder.Details) {
                 this.productionOrderDetails.push(detail);
             }
 
             this._mapProductionOrderDetail();
-            this.data.selectedProductionOrderDetail = {};
-            this.data.selectedProductionOrderDetail = {
-                code: this.productionOrderDetails[0].code,
-                colorRequest: this.productionOrderDetails[0].colorRequest,
-                colorTemplate: this.productionOrderDetails[0].colorTemplate,
-                colorTypeId: this.productionOrderDetails[0].colorTypeId,
-                quantity: this.productionOrderDetails[0].quantity,
+            this.data.SelectedProductionOrderDetail = {};
+            this.data.SelectedProductionOrderDetail = {
+                Code: this.productionOrderDetails[0].Code,
+                ColorRequest: this.productionOrderDetails[0].ColorRequest,
+                ColorTemplate: this.productionOrderDetails[0].ColorTemplate,
+                ColorTypeId: this.productionOrderDetails[0].ColorTypeId,
+                Quantity: this.productionOrderDetails[0].Quantity,
             };
 
-            for (var cart of this.data.carts) {
-                cart.uom = "MTR";
+            for (var cart of this.data.Carts) {
+                cart.Uom = {
+                    Unit: "MTR"
+                };
             }
 
-            this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
+            this.service.getDurationEstimationByProcessType(this.data.ProductionOrder.ProcessType.Code)
                 .then((result) => {
-                    if (result.data.length > 0) {
-                        this.data.durationEstimation = result.data[0];
+                    if (result) {
+                        this.data.durationEstimation = result
                     }
                     else {
                         delete this.data.durationEstimation;
@@ -296,19 +303,19 @@ export class DataForm {
                 });
         }
         else {
-            for (var cart of this.data.carts) {
-                cart.uom = '';
+            for (var cart of this.data.Carts) {
+                cart.Uom = null;
             }
-            delete this.data.productionOrder;
+            delete this.data.ProductionOrder;
             delete this.data.productionOrderId;
-            delete this.data.selectedProductionOrderDetail;
+            delete this.data.SelectedProductionOrderDetail;
             delete this.data.durationEstimation;
         }
     }
 
-    @computedFrom("data.productionOrder")
+    @computedFrom("data.ProductionOrder")
     get hasProductionOrder() {
-        return this.data.productionOrder;
+        return this.data.ProductionOrder;
     }
 
     get hasProductionOrderDetails() {
@@ -316,12 +323,12 @@ export class DataForm {
     }
 
     get hasColor() {
-        return this.data.selectedProductionOrderDetail;
+        return this.data.SelectedProductionOrderDetail;
     }
 
-    @computedFrom("data.instruction")
+    @computedFrom("data.Instruction")
     get hasInstruction() {
-        return this.data.instruction ? this.data.instruction.steps.length > 0 : false;
+        return this.data.Instruction ? this.data.Instruction.Steps.length > 0 : false;
     }
 
     get instructionLoader() {
@@ -337,8 +344,8 @@ export class DataForm {
     }
 
     kanbanView(kanban) {
-        if (kanban.productionOrder) {
-            return `${kanban.productionOrder.orderNo} - ${kanban.cart.cartNumber}`;
+        if (kanban.ProductionOrder) {
+            return `${kanban.ProductionOrder.OrderNo} - ${kanban.Cart.CartNumber}`;
         }
 
         else
@@ -348,34 +355,37 @@ export class DataForm {
     _mapProductionOrderDetail() {
         this.productionOrderDetails.map(detail => {
             detail.toString = function () {
-                return `${this.colorRequest}`;
+                return `${this.ColorRequest}`;
             }
             return detail;
         });
     }
 
     moveItemUp(event) {
-        var steps = this.data.instruction.steps;
-        if (steps && steps.length > 0 && steps[0].selectedIndex != null && steps[0].selectedIndex > 0 && (this.isReprocess || this.oldKanbanStatus ? !steps[steps[0].selectedIndex].isNotDone : true)) {
-            var selectedSteps = steps.splice(steps[0].selectedIndex, 1);
-            steps.splice(steps[0].selectedIndex - 1, 0, selectedSteps[0])
-            this.setCurrentIndex(steps[0].selectedIndex - 1);
+        var steps = this.data.Instruction.Steps;
+        if (steps && steps.length > 0 && steps[0].SelectedIndex != null && steps[0].SelectedIndex > 0 && (this.isReprocess || this.oldKanbanStatus ? !steps[steps[0].SelectedIndex].isNotDone : true)) {
+            var selectedSteps = steps.splice(steps[0].SelectedIndex, 1);
+            steps.splice(steps[0].SelectedIndex - 1, 0, selectedSteps[0])
+            this.setCurrentIndex(steps[0].SelectedIndex - 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     moveItemDown(event) {
-        var steps = this.data.instruction.steps;
-        var stepDoneLength = (this.isReprocess ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
-        if (steps && steps.length > 0 && steps[0].selectedIndex != null && steps[0].selectedIndex < steps.length - 1 - stepDoneLength) {
-            var selectedSteps = steps.splice(steps[0].selectedIndex, 1);
-            steps.splice(steps[0].selectedIndex + 1, 0, selectedSteps[0])
-            this.setCurrentIndex(steps[0].selectedIndex + 1);
+        var steps = this.data.Instruction.Steps;
+        // var stepDoneLength = (this.isReprocess ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
+        var stepDoneLength = (this.isReprocess && this.data.reprocess == this.data.SEMUA ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
+        if (steps && steps.length > 0 && steps[0].SelectedIndex != null && steps[0].SelectedIndex < steps.length - 1 - stepDoneLength) {
+            var selectedSteps = steps.splice(steps[0].SelectedIndex, 1);
+            steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
+            this.setCurrentIndex(steps[0].SelectedIndex + 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     setCurrentIndex(currentIndex) {
-        for (var step of this.data.instruction.steps) {
-            step.selectedIndex = currentIndex;
+        for (var step of this.data.Instruction.Steps) {
+            step.SelectedIndex = currentIndex;
         }
     }
 
@@ -384,24 +394,71 @@ export class DataForm {
             this.currentReprocess = undefined;
             this.data.reprocessStatus = false;
 
+            var reprocessString = this.cartNumber.split('/')[0];
+            var originalCartNumber = this.cartNumber.split('/').slice(1).join('/');
+            var extractNumber = null;
+            var reprocessCartNumber = "";
+            if (this.data.IsReprocess && reprocessString && reprocessString.charAt(0) == 'R') {
+                extractNumber = parseInt(reprocessString.replace(/\D/g, ""));
+                if (extractNumber) {
+                    var badOutputNumber = originalCartNumber.replace("/", " ");
+                    reprocessCartNumber = `R${extractNumber + 1}/${badOutputNumber}`
+                } else {
+                    var badOutputNumber = this.cartNumber.replace("/", " ");
+                    reprocessCartNumber = `R1/${badOutputNumber}`
+                }
+            } else {
+                var badOutputNumber = this.cartNumber.replace("/", " ");
+                reprocessCartNumber = `R1/${badOutputNumber}`
+            }
+
+            // var badOutputString = this.cartNumber.split('/')[0];
+            // var originalbadOutputCartNumber = this.cartNumber.split('/').slice(1).join('/');
+            // var extractbadOutputNumber = null;
+            // var badOutputCartNumber = "";
+            // if (badOutputString && badOutputString.charAt(0) == 'T') {
+            //     extractbadOutputNumber = parseInt(badOutputString.replace(/\D/g, ""));
+            //     if (extractbadOutputNumber) {
+            //         badOutputCartNumber = `T${extractbadOutputNumber + 1}/${originalbadOutputCartNumber}`
+            //     } else {
+            //         badOutputCartNumber = `T1/${this.cartNumber}`
+            //     }
+            // } else {
+            //     if (badOutputString.charAt(0) == 'R') {
+            //         var badOutputArray = originalbadOutputCartNumber.split(' ');
+            //         var remainingNumber = badOutputArray.slice(1).join(' ');
+            //         var prefixNumber = parseInt(badOutputArray[0].replace(/\D/g, ""));
+            //         if (prefixNumber && badOutputArray[0].charAt(0) == 'T') {
+            //             badOutputCartNumber = `${badOutputString}/T${prefixNumber + 1} ${remainingNumber}`
+            //         } else {
+            //             badOutputCartNumber = `T1/${this.cartNumber}`;
+            //         }
+            //     } else {
+            //         badOutputCartNumber = `T1/${this.cartNumber}`;
+            //     }
+            // }
+
             if (e.detail == this.data.SEBAGIAN) {
-                this.data.carts = [{ reprocess: this.data.LANJUT_PROSES, cartNumber: "", qty: 0, uom: 'MTR', pcs: 0 }, { reprocess: this.data.REPROSES, cartNumber: "", qty: 0, uom: 'MTR', pcs: 0 }];
+                // this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
+                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: this.cartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
                 this.options.reprocessSome = true;
                 this.options.reprocessStepsHide = true;
             }
             else {
-                this.data.carts = [{ cartNumber: "", qty: 0, uom: 'MTR', pcs: 0 }];
+                // this.data.Carts = [{ CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
+                this.data.Carts = [{ CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
                 this.options.reprocessSome = false;
                 this.options.reprocessStepsHide = false;
-                this.data.instruction.steps = this.data.reprocessSteps.Reproses;
+                // this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+                this.data.Instruction.Steps = this.data.reprocessSteps.Original;
             }
         }
     }
 
     instructionChanged(newValue, oldValue) {
-        this.data.instruction = newValue;
+        this.data.Instruction = newValue;
 
-        if(!this.isReprocess)
+        if (!this.isReprocess)
             this.generateDeadline();
     }
 
@@ -409,12 +466,17 @@ export class DataForm {
         if (reprocess != this.currentReprocess) {
             this.options.reprocessStepsHide = false;
             this.options.disabledStepAdd = false;
-            this.data.instruction.steps = this.data.reprocessSteps.Reproses;
+            // this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+            this.data.Instruction.Steps = this.data.reprocessSteps.Original;
 
             if (reprocess === this.data.LANJUT_PROSES) {
                 setTimeout(() => {
                     this.options.disabledStepAdd = true;
-                    this.data.instruction.steps = this.data.reprocessSteps.LanjutProses;
+                    this.data.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
+                }, 1);
+            } else {
+                setTimeout(() => {
+                    this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
                 }, 1);
             }
 
@@ -424,33 +486,56 @@ export class DataForm {
 
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
-            if (this.data.durationEstimation) {
-                var deliveryDate = this.data.productionOrder.deliveryDate;
+            if (this.data.durationEstimation.Areas) {
 
-                this.data.instruction.steps = this.data.instruction.steps.map((step) => {
-                    if (step.processArea && step.processArea != "") {
-                        var d = new Date(deliveryDate);
-                        var totalDay = 0;
+                // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
 
-                        for (var i = this.data.durationEstimation.areas.length - 1; i >= 0; i--) {
-                            var area = this.data.durationEstimation.areas[i];
-                            totalDay += area.duration;
+                var totalDay = 1;
+                for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                    var step = this.data.Instruction.Steps[i];
+                    if (step.ProcessArea && step.ProcessArea != "") {
+                        // var d = new Date(deliveryDate);
+                        // var totalDay = 0;
 
-                            if (area.name == step.processArea.toUpperCase().replace("AREA ", ""))
-                                break;
+                        // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                        //     var area = this.data.durationEstimation.Areas[i];
+                        //     totalDay += area.Duration;
+
+                        //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                        //         break;
+                        // }
+
+                        // d.setDate(d.getDate() - totalDay + 1);
+
+                        var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                        // if (i == this.data.Instruction.Steps.length - 1) {
+                        //     deadline = deadline.add(-1, 'days');
+                        // } else {
+                        //     deadline = 
+                        // }
+
+                        if (i == this.data.Instruction.Steps.length - 1) {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+
+                            if (durationEstimationArea)
+                                totalDay += durationEstimationArea.Duration;
                         }
+                        else {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
 
-                        d.setDate(d.getDate() - totalDay + 1);
-
-                        step.deadline = new Date(d);
+                            if (durationEstimationArea)
+                                totalDay += durationEstimationArea.Duration;
+                        }
+                        // deadline = deadline.add(totalDay * -1, 'days');
                     }
 
-                    return step;
-                });
+                    // return step;
+                }
+                // });
             }
             else {
-                this.data.instruction.steps = this.data.instruction.steps.map((step) => {
-                    step.deadline = null;
+                this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                    step.Deadline = null;
                     return step;
                 });
             }
@@ -458,27 +543,56 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation) {
-            var deliveryDate = this.data.productionOrder.deliveryDate;
+        if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
 
-            this.data.instruction.steps = this.data.instruction.steps.map((step) => {
-                if (step.processArea && step.processArea != "" && !step.deadline) {
-                    var d = new Date(deliveryDate);
-                    var totalDay = 0;
+            // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
 
-                    for (var i = this.data.durationEstimation.areas.length - 1; i >= 0; i--) {
-                        var area = this.data.durationEstimation.areas[i];
-                        totalDay += area.duration;
+            var totalDay = 1;
+            for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                var step = this.data.Instruction.Steps[i];
+                if (step.ProcessArea && step.ProcessArea != "") {
+                    // var d = new Date(deliveryDate);
+                    // var totalDay = 0;
 
-                        if (area.name == step.processArea.toUpperCase().replace("AREA ", ""))
-                            break;
+                    // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                    //     var area = this.data.durationEstimation.Areas[i];
+                    //     totalDay += area.Duration;
+
+                    //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                    //         break;
+                    // }
+
+                    // d.setDate(d.getDate() - totalDay + 1);
+
+                    var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                    // if (i == this.data.Instruction.Steps.length - 1) {
+                    //     deadline = deadline.add(-1, 'days');
+                    // } else {
+                    //     deadline = 
+                    // }
+
+                    if (i == this.data.Instruction.Steps.length - 1) {
+                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+
+                        if (durationEstimationArea)
+                            totalDay += durationEstimationArea.Duration;
                     }
+                    else {
+                        step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
 
-                    d.setDate(d.getDate() - totalDay + 1);
-
-                    step.deadline = new Date(d);
+                        if (durationEstimationArea)
+                            totalDay += durationEstimationArea.Duration;
+                    }
+                    // deadline = deadline.add(totalDay * -1, 'days');
                 }
 
+                // return step;
+            }
+            // });
+        }
+        else {
+            this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                step.Deadline = null;
                 return step;
             });
         }

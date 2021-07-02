@@ -39,7 +39,7 @@ export class DataForm {
 		};
 
 		this.types = ["", "PRODUKSI", "RE-GRADING", "TEST"];
-		this.unitQuery = { "division.name": "FINISHING & PRINTING" };
+		this.unitQuery = { "DivisionName":"DYEING & PRINTING" };
 	}
 
 	bind(context) {

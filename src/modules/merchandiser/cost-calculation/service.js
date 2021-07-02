@@ -10,10 +10,10 @@ const serviceUri = 'cost-calculation-garments';
 
 
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "merchandiser");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
@@ -67,12 +67,52 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getBuyerBrand(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garment-buyer-brands/byName';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
     getGarmentProducts(keyword, filter) {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garment-products';
+        const resource = 'master/garmentProducts';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
 
+    getGarmentProductConsts(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-const';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+    getGarmentProductWidths(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-width';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+    getGarmentProductYarns(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-yarn';
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;
@@ -83,7 +123,7 @@ export class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garment-products/read/distinct-product-description';
+        const resource = 'master/garmentProducts/distinct-product-description';
 
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
@@ -101,6 +141,39 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    postCC(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.post(endpoint, data);
+    }
+
+    unpostCC(data) {
+        var endpoint = `${serviceUri}/unpost/${data.Id}`;
+        return super.put(endpoint, data.reason);
+    }
+
+    getMaterials(info) {
+        var endpoint = `${serviceUri}/materials/by-prmasteritemids`;
+        return super.list(endpoint, info);
+    }
+
 };
 
+const serviceUriPurchaseRequest = 'garment-purchase-requests';
 
+class PurchasingService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    search(info) {
+        var endpoint = `${serviceUriPurchaseRequest}/dynamic`;
+        return super.list(endpoint, info);
+    }
+
+    searchItems(info) {
+        var endpoint = `${serviceUriPurchaseRequest}/items`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, PurchasingService }

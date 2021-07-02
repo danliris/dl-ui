@@ -2,12 +2,12 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = '/purchase-orders/externals/report/over-budget';
+const serviceUri = 'purchase-orders-externals-over-budget';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -15,8 +15,9 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    generateExcel(info) {
-        var endpoint = this._getEndPoint(info);
+    generateExcel(epono,  unit,  supplier,  status,   dateFrom, dateTo) {
+       
+        var endpoint = `${serviceUri}/download?epono=${epono}&unit=${unit}&supplier=${supplier}&status=${status}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.getXls(endpoint);
     }
 
@@ -30,20 +31,18 @@ export class Service extends RestService {
         if (info.dateTo)
             query = `${query}&dateTo=${info.dateTo}`;
 
-        if (info.buyerId)
-            query = `${query}&buyerId=${info.buyerId}`;
+        if (info.supplier)
+            query = `${query}&supplier=${info.supplier}`;
 
-        if (info.unitId)
-            query = `${query}&unitId=${info.unitId}`;
+        if (info.unit)
+            query = `${query}&unit=${info.unit}`;
+ 
 
-        if (info.categoryId)
-            query = `${query}&categoryId=${info.categoryId}`;
+        if (info.epono)
+            query = `${query}&epono=${info.epono}`;
 
-        if (info.prNo)
-            query = `${query}&prNo=${info.prNo}`;
-
-        if (info.isApproved) {
-            query = `${query}&isApproved=${info.isApproved}`;
+        if (info.status) {
+            query = `${query}&status=${info.status}`;
         }
 
         if (query !== '') {

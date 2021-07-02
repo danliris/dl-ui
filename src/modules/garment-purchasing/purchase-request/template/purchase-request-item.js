@@ -7,15 +7,19 @@ export class PurchaseRequestItem {
   }
 
   get category() {
-    return `${this.data.category.name}`;
+    return `${this.data.Category.Name}`;
   }
 
   get product() {
-    return `${this.data.product.code} - ${this.data.product.name}`;
+    return `${this.data.Product.Code} - ${this.data.Product.Name}`;
   }
 
   get uom() {
-    return `${this.data.product.uom.unit}`;
+    return `${this.data.Uom.Unit}`;
+  }
+
+  get quantity() {
+    return this.data.Quantity.toFixed(2);
   }
 
   controlOptions = {

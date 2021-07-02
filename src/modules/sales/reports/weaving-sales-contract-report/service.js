@@ -7,7 +7,7 @@ const serviceUri = 'sales/reports/weaving-sales-contract-report';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
@@ -21,21 +21,21 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/download`;
         var query = '';
-        if (info.buyerId) {
-            if (query === '') query = `buyerId=${info.buyerId}`;
-            else query = `${query}&buyerId=${info.buyerId}`;
+        if (info.buyerCode) {
+            if (query === '') query = `buyerCode=${info.buyerCode}`;
+            else query = `${query}&buyerCode=${info.buyerCode}`;
         }
 
-        if (info.comodityId) {
-            if (query === '') query = `comodityId=${info.comodityId}`;
-            else query = `${query}&comodityId=${info.comodityId}`;
+        if (info.comodityCode) {
+            if (query === '') query = `comodityCode=${info.comodityCode}`;
+            else query = `${query}&comodityCode=${info.comodityCode}`;
         }
 
-        if (info.salesContractNo) {
-            if (query === '') query = `salesContractNo=${info.salesContractNo}`;
-            else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        if (info.no) {
+            if (query === '') query = `no=${info.no}`;
+            else query = `${query}&no=${info.no}`;
         }
 
         if (info.dateFrom) {
@@ -47,7 +47,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${serviceUri}/download?${query}`;
 
         return endpoint;
     }

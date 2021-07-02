@@ -7,6 +7,7 @@
     <template replaceable part="input">
       <input ref="element" type.bind="type" value.bind="value" placeholder.bind="placeholder" class="form-control" if.bind="!readOnly"
         focus.trigger="onFocus($event)" blur.trigger="onBlur($event)" dynamic-attribute="options.bind: inputOptions" select-on-focus.one-way="select"
+        disabled.bind="disabled"
       />
       <p class="form-control-static" if.bind="readOnly">${value}</p>
     </template>

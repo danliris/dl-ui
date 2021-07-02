@@ -2,7 +2,7 @@ import { bindable } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 var BadOutputReasonLoader = require('../../../../../loader/bad-output-reason-loader');
-var MachineLoader = require('../../../../../loader/machine-loader');
+var MachineLoader = require('../../../../../loader/dyeing-printing-machines-loader');
 
 const resource = 'finishing-printing/daily-operations';
 
@@ -12,18 +12,21 @@ export class BadOutputItem {
     async activate(context) {
         this.data = context.data;
         this.error = typeof context.error === 'object' ? context.error : {};
+        console.log(this.error);
         this.options = context.options;
-        this.badOutputReason = this.data.badOutputReason;
+        this.badOutputReason = this.data.BadOutput;
         this.filter = context.context.options.reason;
+        console.log(this.filter);
         // this.machineFilter=context.context.options.machineCode;
-        this.machine = this.data.machine;
+        this.machine = this.data.Machine;
         // this.data.precentage = this.error && this.error.length ? this.data.length : this.data.precentage;
         // this.data.length = this.data.length && !this.error ? this.data.length : this.data.precentage;
-        this.data.length = this.data.hasOwnProperty("length") ? this.data.length : this.data.hasOwnProperty("precentage") ? this.data.precentage : 0;
+        this.data.Length = this.data.hasOwnProperty("Length") ? this.data.Length : this.data.hasOwnProperty("Precentage") ? this.data.Precentage : 0;
 
-        this.data.action = this.data.hasOwnProperty("action") ? this.data.action : this.filter.action;
+        this.data.Action = this.data.hasOwnProperty("Action") ? this.data.Action : this.filter.Action;
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("production");
+
         // var filterKanban={
         //     "kanban.code":this.machineFilter.kanban,
         //     _deleted:false,
@@ -52,13 +55,10 @@ export class BadOutputItem {
 
         // if(this.machineFilter)
         this.filterMachine = {
-            // code:{
-            //     $in:this.machineFilter.code
-            // }
-            "unit.division.name": "FINISHING & PRINTING"
+            "UnitDivisionName": "FINISHING & PRINTING"
         };
-        this.selectBadOutput = ["code", "reason", ""];
-        this.selectMachine = ["code", "name"];
+        this.selectBadOutput = ["Code", "Reason", ""];
+        this.selectMachine = ["Code", "Name"];
     }
 
     controlOptions = {
@@ -79,22 +79,21 @@ export class BadOutputItem {
 
     badOutputReasonChanged(newValue, oldValue) {
         if (newValue) {
-            this.data.badOutputReason = newValue;
-            this.data.badOutputReasonId = newValue._id;
+            this.data.BadOutput = newValue;
+            // this.data.BadOutputReason.BadOutputId=newValue.Id;
         } else {
-            this.data.badOutputReason = {};
-            delete this.data.badOutputReasonId;
+            this.data.BadOutput = {};
+            this.badOutputReason = {};
+            // delete this.data.BadOutputReason.Id;
         }
     }
 
     machineChanged(newValue, oldValue) {
         if (newValue) {
-            this.data.machine = newValue;
-            this.data.machineId = newValue._id;
+            this.data.Machine = newValue;
         } else {
-            this.data.machine = {};
-            delete this.data.machineId;
+            this.data.Machine = {};
+            // delete this.data.Machine.Id;
         }
     }
-
 }

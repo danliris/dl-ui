@@ -39,20 +39,22 @@ export class Create {
     this.invalidSteps = [];
     this.range = [];
 
-    if (this.validateStepsDurationEstimation()) {
-      if (this.invalidSteps.length > 0) {
-        this.dialog.show(AlertView, { message: this.generateMessage() })
-          .then(response => {
-            if (!response.wasCancelled) {
-              this.save();
-            }
-          });
-      }
-      else
-        this.save();
-    }
-    else
-      this.save();
+    // if (this.validateStepsDurationEstimation()) {
+    //   if (this.invalidSteps.length > 0) {
+    //     this.dialog.show(AlertView, { message: this.generateMessage() })
+    //       .then(response => {
+    //         if (!response.wasCancelled) {
+    //           this.save();
+    //         }
+    //       });
+    //   }
+    //   else
+    //     this.save();
+    // }
+    // else
+    //   this.save();
+
+    this.save();
   }
 
   generateMessage() {
@@ -83,7 +85,7 @@ export class Create {
   }
 
   validateStepsDurationEstimation() {
-    if (this.data.durationEstimation) {
+    if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
       var deliveryDate = this.data.ProductionOrder.DeliveryDate;
       var sumDay = 0;
 
@@ -112,7 +114,7 @@ export class Create {
           r = this.range[step.ProcessArea.toUpperCase().replace("AREA ", "")];
         }
         if (r && Object.getOwnPropertyNames(r).length > 0 && step.Deadline && (step.Deadline < r.startDate || step.Deadline > r.endDate)) {
-          this.invalidSteps.push({ no: index, process: step.process });
+          this.invalidSteps.push({ no: index, process: step.Process });
         }
 
         index++;

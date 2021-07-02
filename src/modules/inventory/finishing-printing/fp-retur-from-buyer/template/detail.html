@@ -4,10 +4,9 @@
             <au-autocomplete 
                 value.bind="productionOrder" 
                 loader.bind="productionOrderLoader"
-                text="orderNo"
+                text="OrderNo"
                 placeholder="cari nomor production order" 
-                error.bind="error.productionOrderNo"
-                key="_id"
+                error.bind="error.ProductionOrder"
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -15,8 +14,8 @@
 
             <au-collection 
                 title = "Data Barang"
-                items.bind="data.items" 
-                errors.bind="error.items" 
+                items.bind="data.Items" 
+                errors.bind="error.Items" 
                 columns.bind="itemColumns"
                 read-only.bind="options.readOnly"
                 if.bind = "hasProductionOrder"

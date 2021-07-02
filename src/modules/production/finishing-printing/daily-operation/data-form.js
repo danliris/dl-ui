@@ -2,7 +2,7 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
-var MachineLoader = require('../../../../loader/machines-loader');
+var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
 @inject(Service, BindingEngine, Element)
@@ -18,8 +18,8 @@ export class DataForm {
     @bindable step;
     @bindable kanban;
 
-    @bindable localInputDate;
-    @bindable localOutputDate;
+    @bindable localInputDate = undefined;
+    @bindable localOutputDate = undefined;
 
     auInputOptions = {
         label: {
@@ -66,8 +66,8 @@ export class DataForm {
         ],
         onAdd: function () {
             // this.context.ItemsCollection.bind()
-            this.data.badOutputReasons = this.data.badOutputReasons || [];
-            this.data.badOutputReasons.push({ badOutputReason: "", precentage: 0, description: "" });
+            this.data.BadOutputReasons = this.data.BadOutputReasons || [];
+            this.data.BadOutputReasons.push({ BadOutputReason: "", Precentage: 0, Description: "" });
         }.bind(this),
         onRemove: function () {
             console.log("bad output reason removed");
@@ -81,37 +81,39 @@ export class DataForm {
     }
 
     async bind(context) {
-        //console.log(context);
+
         this.context = context;
+        this.isCreateOutput = context.isCreateOutput;
         this.data = this.context.data;
+        console.log(this.data);
         this.error = this.context.error;
-        this.localInputDate = new Date(Date.parse(this.data.dateInput));
-        this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
+        this.localInputDate = new Date(Date.parse(this.data.DateInput));
+        this.localOutputDate = new Date(Date.parse(this.data.DateOutput));
         this.filterReason = {};
         var reason = {};
         var machineCodes = {};
-        if (this.data.machine) {
-            // reason = {
+        // if (this.data.machine) {
+        //     // reason = {
 
-            //         "machines" : {
-            //             "$elemMatch" : {
-            //                 "code" : this.data.machine.code
-            //             }
-            //         },
-            //         "action": this.data.action ? this.data.action : ""
+        //     //         "machines" : {
+        //     //             "$elemMatch" : {
+        //     //                 "code" : this.data.machine.code
+        //     //             }
+        //     //         },
+        //     //         "action": this.data.action ? this.data.action : ""
 
-            // }
-        }
+        //     // }
+        // }
         var _machineCode = [];
-        if (this.data.kanban && this.data.machine && this.output) {
+        if (this.data.Kanban && this.data.Machine && this.output) {
             var filterDaily = {
-                "kanban.code": this.data.kanban.code,
-                _deleted: false,
-                type: "input"
+                KanbanCode: this.data.Kanban.Code,
+                IsDeleted: false,
+                Type: "input"
             };
             var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
             var _machineCode = [];
-            _machineCode.push(this.data.machine.Code);
+            _machineCode.push(this.data.Machine.Code);
             for (var item of dailyOperations.data) {
                 if (_machineCode.length > 0) {
                     var dup = _machineCode.find(mc => mc == item.Machine.Code);
@@ -123,11 +125,22 @@ export class DataForm {
                 }
             }
             machineCodes = {
-                code: _machineCode,
-                kanban: this.data.kanban.code
+                Code: _machineCode,
+                Kanban: this.data.Kanban.Code
+            }
+
+            if (!this.data.Id && this.output && this.data.Kanban.Id != 0)
+                this.data.GoodOutput = Number(this.data.Kanban.Cart.Qty);
+
+
+        }
+        reason = {
+            "machines": {
+                "$elemMatch": {
+                    "code": this.data.Machine.Code
+                }
             }
         }
-
         this.filterReason = { reason: reason, machineCode: machineCodes };
 
         this.filterMachine = {
@@ -157,28 +170,29 @@ export class DataForm {
     }
 
     localInputDateChanged(newValue) {
-        this.data.dateInput = this.localInputDate;
+        if (this.localInputDate != null) {
+            this.data.DateInput = this.localInputDate;
+            this.data.TimeInput = this.data.DateInput.getTime();
+        }
+
     }
 
     localOutputDateChanged(newValue) {
-        this.data.dateOutput = this.localOutputDate;
+        if (this.localOutputDate != null) {
+            this.data.DateOutput = this.localOutputDate;
+            this.data.TimeOutput = this.data.DateOutput.getTime();
+        }
     }
 
-    // get isFilterKanban() {
-    //     this.filterKanban = {};
-    //     if (this.data.step) {
-    //         this.filterKanban = {
-    //             "instruction.steps": {
-    //                 "$elemMatch": {
-    //                     "process": this.data.step.process
-    //                 }
-    //             },
-    //             "isComplete": false,
-    //             "$where": "this.instruction.steps.length != this.currentStepIndex"
-    //         };
-    //     }
-    //     return this.filterKanban;
-    // }
+    get isFilterKanban() {
+        this.filterKanban = {};
+        if (this.data.Step) {
+            this.filterKanban = {
+                "CustomFilter#IntructionStepProcess": this.data.Step.Process
+            };
+        }
+        return this.filterKanban;
+    }
 
     get hasStep() {
         return this.data && this.data.Step;
@@ -193,11 +207,11 @@ export class DataForm {
     }
 
     get hasError() {
-        return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
+        return this.output && this.error && this.error.BadOutputReasons && typeof this.error.BadOutputReasons === "string";
     }
 
     get hasBadOutput() {
-        return this.data && this.data.machine.Id && this.data.machine.Id !== 0 && this.data.badOutput && this.data.badOutput > 0 && this.output;
+        return this.data && this.data.Machine && this.data.Machine.Id != 0 && this.data.BadOutput && this.data.BadOutput > 0 && this.output;
     }
 
     // get getFilterReason(){
@@ -250,54 +264,53 @@ export class DataForm {
         var selectedKanban = newValue;
 
         if (selectedKanban) {
-            debugger
             // this.data.kanbanId = selectedKanban._id;
             this.data.Kanban = selectedKanban;
-
-            if (this.Input && this.data.Kanban.Id != 0)
+            if (this.input && this.data.Kanban.Id != 0)
                 this.data.Input = Number(selectedKanban.Cart.Qty);
-            if (this.Output && this.data.Kanban.Id != 0)
+            if (this.output && this.data.Kanban.Id != 0)
                 this.data.GoodOutput = Number(selectedKanban.Cart.Qty);
 
-            // if (this.Output) {
-            //     var filterDaily = {
-            //         "kanban.code": this.data.kanban.code,
-            //         _deleted: false,
-            //         type: "input"
-            //     };
+            console.log(this.data.GoodOutput);
+            if (this.output) {
+                var filterDaily = {
+                    "KanbanCode": this.data.Kanban.Code,
+                    IsDeleted: false,
+                    Type: "input"
+                };
 
-            //     var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
-            //     var _machineCode = [];
-            //     _machineCode.push(this.data.machine.code);
-            //     for (var item of dailyOperations.data) {
-            //         if (_machineCode.length > 0) {
-            //             var dup = _machineCode.find(mc => mc == item.machine.code);
-            //             if (!dup)
-            //                 _machineCode.push(item.machine.code);
-            //         }
-            //         else {
-            //             _machineCode.push(item.machine.code);
-            //         }
-            //     }
+                var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+                var _machineCode = [];
+                _machineCode.push(this.data.machine.code);
+                for (var item of dailyOperations.data) {
+                    if (_machineCode.length > 0) {
+                        var dup = _machineCode.find(mc => mc == item.machine.code);
+                        if (!dup)
+                            _machineCode.push(item.machine.code);
+                    }
+                    else {
+                        _machineCode.push(item.machine.code);
+                    }
+                }
 
-            //     // var machineCode=[];
-            //     // if(this.data.step){
-            //     //     for(var mc of this.data.kanban.instruction.steps){
-            //     //         machineCode.push(mc.machine.code);
-            //     //         if(this.data.stepId==mc._id){
-            //     //             break;
-            //     //         }
-            //     //     }
-            //     // }
-            //     this.filterReason = {
-            //         reason: this.filterReason.reason,
-            //         machineCode: {
-            //             code: _machineCode,
-            //             kanban: this.data.kanban.code
-            //         }
-            //     };
+                // var machineCode=[];
+                // if(this.data.step){
+                //     for(var mc of this.data.kanban.instruction.steps){
+                //         machineCode.push(mc.machine.code);
+                //         if(this.data.stepId==mc._id){
+                //             break;
+                //         }
+                //     }
+                // }
+                this.filterReason = {
+                    reason: this.filterReason.reason,
+                    machineCode: {
+                        code: _machineCode,
+                        kanban: this.data.kanban.code
+                    }
+                };
 
-            // }
+            }
         }
         else {
             delete this.data.kanbanId;
@@ -309,8 +322,9 @@ export class DataForm {
         var selectedStep = newValue;
 
         if (selectedStep) {
-            // this.data.stepId = selectedStep._id;
+
             this.data.Step = selectedStep;
+            this.data.Step.StepId = selectedStep.Id;
         }
         else {
             delete this.data.Step.Id;
@@ -336,17 +350,21 @@ export class DataForm {
             }
         }
         else {
-            this.data.Machine = undefined;
+            this.data.Machine = {};
+            this.data.Kanban = {};
+            this.kanban = null;
+            this.data.GoodOutput = 0;
+            this.localOutputDate = null;
+            this.localInputDate = null;
+
             delete this.data.Machine.Id;
             this.filterReason = {};
         }
-        if (this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0) {
-            var count = this.data.badOutputReasons.length;
-            console.log(this.data.badOutputReasons);
+        if (this.data && this.data.BadOutputReasons && this.data.BadOutputReasons.length > 0) {
+            var count = this.data.BadOutputReasons.length;
             for (var a = count; a >= 0; a--) {
                 this.data.badOutputReasons.splice((a - 1), 1);
             }
-            console.log(this.data.badOutputReasons);
         }
         // console.log(this.ItemsCollection);
         // console.log(this.stepAU);
@@ -359,7 +377,8 @@ export class DataForm {
     }
 
     get stepLoader() {
-        return this.data.Machine ? this.data.Machine.MachineSteps : [];
+
+        return this.data.Machine && this.data.Machine.Steps ? this.data.Machine.Steps : [];
     }
 
     get kanbanLoader() {

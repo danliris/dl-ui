@@ -118,7 +118,24 @@ export class RestService {
       })
   }
 
-
+  patch(endpoint, data, info, header) {
+    var promise = this.endpoint.patch(endpoint, info, data);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        if (result)
+          return this.parseResult(result);
+        else
+          return Promise.resolve({});
+      })
+  }
 
   getXls(endpoint, header) {
     var request = {
@@ -142,6 +159,17 @@ export class RestService {
 
   }
 
+  getFile(endpoint, header) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+    return this._downloadFile(getRequest);
+
+  }
+
   _downloadFile(request) {
     return request
       .then(response => {
@@ -151,7 +179,11 @@ export class RestService {
           return response.json()
             .then(result => {
               this.publish(request);
-              return Promise.reject(new Error(result.error));
+              if (typeof result.error === 'string' || result.error instanceof String) {
+                return Promise.reject(new Error(result.error));
+              } else {
+                return Promise.reject(result.error);
+              }
             });
         }
       })

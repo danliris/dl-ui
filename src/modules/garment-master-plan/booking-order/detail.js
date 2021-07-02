@@ -14,23 +14,27 @@ export class Detail {
 
     async activate(params) {
         var id = params.id;
-        var datas = await this.service.getMasterPlanByBookingOrderNo(id);
-        this.data= datas.details;
-        this.data.bookingOrderId=datas.bookingOrderId;
+        this.id = id;
+        var filterBookingOrderId = { "BookingOrderId" : id}
+        var info = {filter : JSON.stringify(filterBookingOrderId)}
+        var datas = await this.service.getMasterPlanByBookingOrderId(info);
         this.total=0;
+        for(var a of datas){
+            this.data = a.Items;
+            this.BOId = a.BookingOrderId;
+        }
         for(var a of this.data){
-            a.confirm=a.isConfirmed ? "Ya" : "Tidak";
-            a.masterPlanComodity=a.masterPlanComodity? a.masterPlanComodity.name : "";
-            a.totalSH= a.shSewing+a.shCutting+a.shFinishing;
-            var endDate=moment(a.week.endDate).format("DD MMM YYYY");
-            var startDate=moment(a.week.startDate).format("DD MMM YYYY");
-            a.week=`W${a.week.weekNumber} - ${startDate} s/d ${endDate}`;
-            this.total+=a.quantity;
+            a.confirm=a.IsConfirm ? "Ya" : "Tidak";
+            var EndDate=moment(a.EndDate).format("DD MMM YYYY");
+            var StartDate=moment(a.StartDate).format("DD MMM YYYY");
+            a.week=`W${a.WeekNumber} - ${StartDate} s/d ${EndDate}`;
+            this.total+=a.OrderQuantity;
+            a.SMVSewing= a.SMVSewing.toFixed(2);
         }
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data.bookingOrderId });
+        this.router.navigateToRoute('view', { id: this.id});
     }
 
     

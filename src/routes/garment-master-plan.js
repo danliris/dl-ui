@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: '/garment-master-plan/max-wh-confirm',
+        name: 'max-wh-confirm,',
+        moduleId: './modules/garment-master-plan/max-wh-confirm/index',
+        nav: true,
+        title: 'Maksimal WH Confirm',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "B7": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/standard-minute-value',
         name: 'standard-hour',
         moduleId: './modules/garment-master-plan/standard-hour/index',
@@ -8,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "IE": 1,"C9": 1 },
+            permission: { "IE": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "C5": 1, "C9": 1 },
+            permission: { "PGA": 1, "B7": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "IE": 1, "C9": 1 },
+            permission: { "PGA": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "IE": 1, "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -60,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "C5": 1, "C9": 1 },
+            permission: { "PGA": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -99,7 +112,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "B7": 1,"C9": 1 },
+            permission: { "PGA": 1, "B7": 1,"C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-master-plan/booking-order-expired',
+        name: 'booking-order-expired',
+        moduleId: './modules/garment-master-plan/booking-order-expired/index',
+        nav: true,
+        title: 'Booking Order Expired',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1, "B7": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +138,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "B7": 1, "IE": 1,"C9": 1 },
+            permission: { "PGA": 1, "B7": 1, "IE": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,7 +151,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "B7": 1,"C9": 1 },
+            permission: { "B7": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +164,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "B7": 1, "C9": 1 },
+            permission: { "B7": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +177,7 @@ module.exports = [
       auth: true,
       settings: {
           group: "g-master-plan",
-          //permission: { "PGA": 1, "B7": 1, "IE": 1,"C9": 1 },
+          permission: { "PGA": 1, "B7": 1, "IE": 1,"C9": 1 },
           iconClass: 'fa fa-dashboard'
       }
   },
@@ -164,7 +190,7 @@ module.exports = [
       auth: true,
       settings: {
           group: "g-master-plan",
-          //permission: { "PGA": 1, "B7": 1,"C9": 1 },
+          permission: { "PGA": 1, "B7": 1,"C9": 1 },
           iconClass: 'fa fa-dashboard'
       }
   },
@@ -178,7 +204,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1,"B7": 1,"IE": 1,"C9": 1 },
+            permission: { "PGA": 1,"B7": 1,"IE": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -192,9 +218,101 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: '/garment-master-plan/over-schedule-monitoring',
+        name: 'over-schedule-monitoring',
+        moduleId: './modules/garment-master-plan/over-schedule-monitoring/index',
+        nav: true,
+        title: 'Monitoring Keterlambatan Jadwal Pengerjaan',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: '/garment-master-plan/weekly-working-schedule-monitoring',
+        name: 'weekly-working-schedule-monitoring',
+        moduleId: './modules/garment-master-plan/weekly-working-schedule-monitoring/index',
+        nav: true,
+        title: 'Monitoring Jadwal Pengerjaan Per Week',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/smv-garment-by-unit',
+        name: 'smv-garment-by-unit-report',
+        moduleId: './modules/merchandiser/report/smv-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display SMV Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/detail-cm-garment-by-unit',
+        name: 'detail-cm-garment-by-unit-report',
+        moduleId: './modules/merchandiser/report/detail-cm-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display Detail CM Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/pr-master-garment-validation-report',
+        name: 'pr-master-garment-validation-report',
+        moduleId: './modules/merchandiser/report/pr-master-garment-validation-report/index',
+        nav: true,
+        title: 'Display Approval PR Master Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            //permission: { "PG": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/cost-calculation-garment-validation-report',
+        name: 'cost-calculation-garment-validation-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-validation-report/index',
+        nav: true,
+        title: 'Display Approval Cost Calculation Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/cc-garment-embroidery-validation-report',
+        name: 'cc-garment-embroidery-validation-report',
+        moduleId: './modules/merchandiser/report/ccg-embroidery-approval-report/index',
+        nav: true,
+        title: 'Display Approval Cost Calculation Garment Embroidery Per Unit',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
-
 ]

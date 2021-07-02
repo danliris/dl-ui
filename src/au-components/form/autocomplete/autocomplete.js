@@ -18,6 +18,7 @@ export class Autocomplete {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) disabled;
 
   // autocomplete properties
   @bindable loader = []; // can be either array of suggestions or function returning Promise resolving to such array

@@ -1,6 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 
+var moment = require('moment');
+
 var InstructionLoader = require('../../../../loader/instruction-no-id-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
@@ -43,7 +45,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.carts = this.data.carts || [];
+        this.data.Carts = this.data.Carts || [];
 
         if (this.data.ProductionOrder && this.data.ProductionOrder.Details && this.data.ProductionOrder.Details.length > 0) {
             this.productionOrderDetails = this.data.ProductionOrder.Details;
@@ -199,17 +201,24 @@ export class DataForm {
             let oldKanban = await this.service.getById(kanban.Id)
             Object.assign(this.data, oldKanban);
 
+            this.cartNumber = this.data.Cart.CartNumber;
             this.data.reprocessSteps = {
                 "LanjutProses": [],
-                "Reproses": []
+                "Reproses": [],
+                "Original": []
             };
 
+            this.data.reprocessSteps.Original = this.data.Instruction.Steps;
             for (var i = this.data.CurrentStepIndex; i < this.data.Instruction.Steps.length; i++) {
                 this.data.reprocessSteps.LanjutProses.push(this.data.Instruction.Steps[i]);
             }
 
             this.data.reprocess = !this.data.reprocessStatus ? this.data.SEBAGIAN : true;
-            this.data.reprocessSteps.Reproses = this.data.Instruction.Steps;
+
+            for (var i = 0; i < this.data.CurrentStepIndex; i++) {
+                this.data.reprocessSteps.Reproses.push(this.data.Instruction.Steps[i]);
+            }
+
 
             this.data.OldKanbanId = oldKanban.Id;
 
@@ -281,11 +290,10 @@ export class DataForm {
                 };
             }
 
-            this.service.getDurationEstimation(this.data.ProductionOrder.ProcessType.Code, ["areas"])
+            this.service.getDurationEstimationByProcessType(this.data.ProductionOrder.ProcessType.Code)
                 .then((result) => {
-                    console.log(result);
-                    if (result.data.length > 0) {
-                        this.data.durationEstimation = result.data[0];
+                    if (result) {
+                        this.data.durationEstimation = result
                     }
                     else {
                         delete this.data.durationEstimation;
@@ -360,16 +368,20 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex - 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex - 1);
         }
+        this.context.StepsCollection.bind();
+        // console.log(steps);
     }
 
     moveItemDown(event) {
         var steps = this.data.Instruction.Steps;
-        var stepDoneLength = (this.isReprocess ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
+        var stepDoneLength = (this.isReprocess && this.data.reprocess == this.data.SEMUA ? this.data.reprocessSteps.LanjutProses.length : this.oldKanbanStatus ? this.data.countDoneStep : 0);
         if (steps && steps.length > 0 && steps[0].SelectedIndex != null && steps[0].SelectedIndex < steps.length - 1 - stepDoneLength) {
             var selectedSteps = steps.splice(steps[0].SelectedIndex, 1);
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex + 1);
         }
+        this.context.StepsCollection.bind();
+        // console.log(steps);
     }
 
     setCurrentIndex(currentIndex) {
@@ -383,23 +395,38 @@ export class DataForm {
             this.currentReprocess = undefined;
             this.data.reprocessStatus = false;
 
+            var reprocessString = this.cartNumber.split('/ ')[0];
+            var originalCartNumber = this.cartNumber.split('/ ').slice(1).join('/ ');
+            var extractNumber = null;
+            var reprocessCartNumber = "";
+            if (this.data.IsReprocess && reprocessString && reprocessString.charAt(0) == 'R') {
+                extractNumber = parseInt(reprocessString.replace(/\D/g, ""));
+                if (extractNumber) {
+                    reprocessCartNumber = `R${extractNumber + 1}/ ${originalCartNumber}`
+                } else {
+                    reprocessCartNumber = `R1/ ${this.cartNumber}`
+                }
+            } else {
+                reprocessCartNumber = `R1/ ${this.cartNumber}`
+            }
+
             if (e.detail == this.data.SEBAGIAN) {
-                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
+                this.data.Carts = [{ reprocess: this.data.LANJUT_PROSES, CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }, { reprocess: this.data.REPROSES, CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, Pcs: 0 }];
                 this.options.reprocessSome = true;
                 this.options.reprocessStepsHide = true;
             }
             else {
-                this.data.Carts = [{ CartNumber: "", Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
+                this.data.Carts = [{ CartNumber: reprocessCartNumber, Qty: 0, Uom: { Unit: 'MTR' }, pcs: 0 }];
                 this.options.reprocessSome = false;
                 this.options.reprocessStepsHide = false;
-                this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+                this.data.Instruction.Steps = this.data.reprocessSteps.Original;
             }
         }
     }
 
     instructionChanged(newValue, oldValue) {
         this.data.Instruction = newValue;
-
+        // console.log(this.data.Instruction);
         if (!this.isReprocess)
             this.generateDeadline();
     }
@@ -408,12 +435,16 @@ export class DataForm {
         if (reprocess != this.currentReprocess) {
             this.options.reprocessStepsHide = false;
             this.options.disabledStepAdd = false;
-            this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
+            this.data.Instruction.Steps = this.data.reprocessSteps.Original;
 
             if (reprocess === this.data.LANJUT_PROSES) {
                 setTimeout(() => {
                     this.options.disabledStepAdd = true;
                     this.data.Instruction.Steps = this.data.reprocessSteps.LanjutProses;
+                }, 1);
+            } else {
+                setTimeout(() => {
+                    this.data.Instruction.Steps = this.data.reprocessSteps.Reproses;
                 }, 1);
             }
 
@@ -423,29 +454,50 @@ export class DataForm {
 
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
-            if (this.data.durationEstimation) {
-                var deliveryDate = this.data.ProductionOrder.DeliveryDate;
+            if (this.data.durationEstimation.Areas) {
 
-                this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+
+                var totalDay = 1;
+                for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                    var step = this.data.Instruction.Steps[i];
                     if (step.ProcessArea && step.ProcessArea != "") {
-                        var d = new Date(deliveryDate);
-                        var totalDay = 0;
+                        // var d = new Date(deliveryDate);
+                        // var totalDay = 0;
 
-                        for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
-                            var area = this.data.durationEstimation.Areas[i];
-                            totalDay += area.Duration;
+                        // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                        //     var area = this.data.durationEstimation.Areas[i];
+                        //     totalDay += area.Duration;
 
-                            if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
-                                break;
+                        //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                        //         break;
+                        // }
+
+                        // d.setDate(d.getDate() - totalDay + 1);
+
+                        var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                        // if (i == this.data.Instruction.Steps.length - 1) {
+                        //     deadline = deadline.add(-1, 'days');
+                        // } else {
+                        //     deadline = 
+                        // }
+
+                        if (durationEstimationArea) {
+                            if (i == this.data.Instruction.Steps.length - 1) {
+                                step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                                totalDay += durationEstimationArea.Duration;
+                            }
+                            else {
+                                step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                                totalDay += durationEstimationArea.Duration;
+                            }
                         }
-
-                        d.setDate(d.getDate() - totalDay + 1);
-
-                        step.Deadline = new Date(d);
+                        // deadline = deadline.add(totalDay * -1, 'days');
                     }
 
-                    return step;
-                });
+                    // return step;
+                }
+                // });
             }
             else {
                 this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
@@ -457,27 +509,54 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation) {
-            var deliveryDate = this.data.ProductionOrder.DeliveryDate;
+        if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
 
-            this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
-                if (step.ProcessArea && step.ProcessArea != "" && !step.Deadline) {
-                    var d = new Date(deliveryDate);
-                    var totalDay = 0;
+            // this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
 
-                    for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
-                        var area = this.data.durationEstimation.Areas[i];
-                        totalDay += area.Duration;
+            var totalDay = 1;
+            for (var i = this.data.Instruction.Steps.length - 1; i > -1; i--) {
+                var step = this.data.Instruction.Steps[i];
+                if (step.ProcessArea && step.ProcessArea != "") {
+                    // var d = new Date(deliveryDate);
+                    // var totalDay = 0;
 
-                        if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
-                            break;
+                    // for (var i = this.data.durationEstimation.Areas.length - 1; i >= 0; i--) {
+                    //     var area = this.data.durationEstimation.Areas[i];
+                    //     totalDay += area.Duration;
+
+                    //     if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                    //         break;
+                    // }
+
+                    // d.setDate(d.getDate() - totalDay + 1);
+
+                    var durationEstimationArea = this.data.durationEstimation.Areas.find((area) => area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""));
+                    // if (i == this.data.Instruction.Steps.length - 1) {
+                    //     deadline = deadline.add(-1, 'days');
+                    // } else {
+                    //     deadline = 
+                    // }
+
+                    if (durationEstimationArea) {
+                        if (i == this.data.Instruction.Steps.length - 1) {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(-1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
+                        }
+                        else {
+                            step.Deadline = new Date(moment(this.data.ProductionOrder.DeliveryDate).add(totalDay * -1, 'days').format());
+                            totalDay += durationEstimationArea.Duration;
+                        }
                     }
-
-                    d.setDate(d.getDate() - totalDay + 1);
-
-                    step.Deadline = new Date(d);
+                    // deadline = deadline.add(totalDay * -1, 'days');
                 }
 
+                // return step;
+            }
+            // });
+        }
+        else {
+            this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
+                step.Deadline = null;
                 return step;
             });
         }

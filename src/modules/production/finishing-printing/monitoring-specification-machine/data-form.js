@@ -4,7 +4,7 @@ import { Service } from './service';
 
 
 
-var MachineLoader = require('../../../../loader/machines-loader');
+var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 @inject(Service)

@@ -20,7 +20,7 @@
             <template repeat.for="role of roles">
                 <div if.bind="role.hasPermission"
                     class="col-sm-${accessCount === 3 ? 4 : 6} tab ${activeRole.key === role.key ? 'active' : ''}"
-                    click.delegate="changeRole(role)">
+                    click.delegate="changeRole(role)" click.trigger="changeTable(role)">
                     ${role.label}
                 </div>
             </template>
@@ -53,7 +53,7 @@
                     value.bind="division"
                     loader.one-time="divisionLoader"
                     select.bind="selectDivision"
-                    text="name">
+                    text="Name">
                 </au-autocomplete>
             </div>
 
@@ -82,8 +82,19 @@
         <au-table
             view-model.ref="documentTable"
             data.bind="documentData"
+            columns.bind="columns2"
+            sortable.bind="true"
+            if.bind = "code";
+            selections.bind="selectedItems" 
+            options.bind="tableOptions">
+        </au-table>
+
+        <au-table
+            view-model.ref="documentTable"
+            data.bind="documentData"
             columns.bind="columns"
             sortable.bind="true"
+            if.bind = "!code";
             selections.bind="selectedItems" 
             options.bind="tableOptions">
         </au-table>

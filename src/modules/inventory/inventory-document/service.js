@@ -4,12 +4,11 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'inventory/inventory-documents';
+const serviceUri = 'inventory-documents';
 
 export class Service extends RestService {
-
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "inventory-azure");
     }
 
     search(info) {
@@ -28,12 +27,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 

@@ -54,13 +54,14 @@ export class View {
     ]
 
     async activate(params) {
-        this.orderNo = params.orderNo ? decodeURIComponent(params.orderNo) : "-";
+        console.log(params);
+        // this.orderNo = params.orderNo ? decodeURIComponent(params.orderNo) : 0;
 
         this.info = {
-            orderNo: params.orderNo
+            orderId: params.orderNo
         };
 
-        this.result = await this.service.kanbanDetail(this.info);
+        this.result = await this.service.getByOrderId(this.info);
         this.data = this.result.data;
         this.histories = this.result.histories;
 

@@ -6,8 +6,7 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "Code", title: "Code" },
-        { field: "Name", title: "Name" },
+        { field: "Size", title: "Size" },
     ];
 
     loader = (info) => {

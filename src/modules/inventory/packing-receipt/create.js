@@ -31,8 +31,9 @@ export class Create {
     }
 
     save(event) {
-        this.data.accepted = true;
-        this.data.date = moment().format("YYYY-MM-DD");
+        this.data.Accepted = true;
+        this.data.Date = moment().format("YYYY-MM-DD");
+
         this.service.create(this.data)
             .then((result) => {
                 alert("Data berhasil dibuat");

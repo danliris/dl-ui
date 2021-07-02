@@ -29,7 +29,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if (this.data.storageId) {
             this.selectedStorage = await this.service.getStorageById(this.data.storageId, this.storageFields);
         }
@@ -57,7 +56,7 @@ export class DataForm {
             this.data.storageName = this.selectedStorage.name;
         }
         else {
-            this.data.storageId = {};
+            this.data.storageId = 0;
             this.data.storageCode = "";
             this.data.storageName = "";
         }

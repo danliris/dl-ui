@@ -9,7 +9,7 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isApproved)
+        if (data.IsApproved)
             return { classes: "success" }
         else
             return {}
@@ -21,19 +21,21 @@ export class List {
         {
             field: "isApprove", title: "Approve", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = data.isOverBudget && !data.isApproved;
+                this.checkboxEnabled = data.IsOverBudget && !data.IsApproved;
                 return ""
             }
         },
-        { field: "no", title: "Nomor PO Eksternal" },
+        { field: "EPONo", title: "Nomor PO Eksternal" },
         {
-            field: "date", title: "Tanggal PO Eksternal", formatter: function (value, data, index) {
+            field: "OrderDate", title: "Tanggal PO Eksternal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
-        { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "Supplier.Name", title: "Nama Supplier" },
+        { field: "purchaseRequestNo", title: "Nomor Purchase Request" ,sortable:false},
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {
@@ -41,26 +43,26 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
-            filter: JSON.stringify({ "isOverBudget": true, "isApproved": false }),
+            filter: JSON.stringify({ "IsOverBudget": true, "IsPosted": true }),
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
+            //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
-                    var prNo = _data.items.map(function (item) {
-                        return `<li>${item.prNo}</li>`;
+                    var prNo = _data.Items.map(function (item) {
+                        return `<li>${item.PRNo}</li>`;
                     });
                     prNo = prNo.filter(function (elem, index, self) {
                         return index == self.indexOf(elem);
                     })
                     _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
-                    if (_data.isOverBudget) {
-                        if (_data.isApproved) {
+                    if (_data.IsOverBudget) {
+                        if (_data.IsApproved) {
                             _data.approveStatus = "SUDAH";
                         } else {
                             _data.approveStatus = "BELUM";
@@ -86,7 +88,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

@@ -7,23 +7,23 @@ export class FabricGradeTestEditor {
     constructor(dialogController) {
         this.dialogController = dialogController;
     }
-    pcsNo;
+    PcsNo;
     activate(data) {
         this.data = data;
-        this.pcsNo = this.data && this.data.pcsNo ? this.data.pcsNo : "";
-        this.pcsLength = this.data && this.data.length ? this.data.length : 0;
-        this.pcsWidth = this.data && this.data.width ? this.data.width : 0;
+        this.PcsNo = this.data && this.data.PcsNo ? this.data.PcsNo : "";
+        this.PcsLength = this.data && this.data.Length ? this.data.Length : 0;
+        this.PcsWidth = this.data && this.data.Width ? this.data.Width : 0;
     }
 
     saveCallback() {
-        var action = Promise.resolve(this.pcsNo);
+        var action = Promise.resolve(this.PcsNo);
 
         action
             .then(result => {
                 this.dialogController.ok({
-                    pcsNo: this.pcsNo,
-                    pcsLength: this.pcsLength,
-                    pcsWidth: this.pcsWidth
+                    PcsNo: this.PcsNo,
+                    PcsLength: this.PcsLength,
+                    PcsWidth: this.PcsWidth
                 });
             })
             .catch(error => {

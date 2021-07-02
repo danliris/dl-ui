@@ -12,28 +12,28 @@ export class NewProduct {
 
     get getTotLength(){
         var totLength = 0;
-        if(this.data && this.data.length && this.data.returQuantity){
-            totLength = Number(this.data.length) * Number(this.data.returQuantity);
+        if(this.data && this.data.Length && this.data.ReturnQuantity){
+            totLength = Number(this.data.Length) * Number(this.data.ReturnQuantity);
         }
         return totLength.toFixed(2);
     }
 
     get getTotWeight(){
         var totWeight = 0;
-        if(this.data && this.data.weight && this.data.returQuantity){
-            totWeight = Number(this.data.weight) * Number(this.data.returQuantity);
+        if(this.data && this.data.Weight && this.data.ReturnQuantity){
+            totWeight = Number(this.data.Weight) * Number(this.data.ReturnQuantity);
         }
         return totWeight.toFixed(2);
     }
 
     get getDesign(){
         var design = '';
-        if(this.data && this.data.designCode && this.data.designNumber)
-            design += `${this.data.designCode} - ${this.data.designNumber}`;
-        else if(this.data && this.data.designCode && !this.data.designNumber)
-            design += `${this.data.designCode}`;
-        else if(this.data && !this.data.designCode && this.data.designNumber)
-            design += `${this.data.designNumber}`;
+        if(this.data && this.data.DesignCode && this.data.DesignNumber)
+            design += `${this.data.DesignCode} - ${this.data.DesignNumber}`;
+        else if(this.data && this.data.DesignCode && !this.data.DesignNumber)
+            design += `${this.data.DesignCode}`;
+        else if(this.data && !this.data.DesignCode && this.data.DesignNumber)
+            design += `${this.data.DesignNumber}`;
         return design;
     }
 

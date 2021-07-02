@@ -13,7 +13,7 @@
         <au-autocomplete 
             value.bind="selectedBookingOrder" 
             error.bind="error.bookingOrderNo"
-            label="Kode Booking MD" 
+            label="Kode Booking Md" 
             loader.bind="bookingLoader"
             text.bind = "bookingView"
             placeholder="cari booking order" 
@@ -25,7 +25,7 @@
         </au-autocomplete>
 
         <au-textbox 
-            label="Kode Booking MD" 
+            label="Kode Booking Md" 
             value.bind="bookingCode" 
             read-only.bind="true"
             if.bind="isView"
@@ -34,36 +34,36 @@
 
         <au-datepicker 
             label="Tanggal Booking" 
-            value.bind="data.bookingDate"  
+            value.bind="data.BookingOrderDate"  
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
-        <div class="has-error" if.bind="booking.bookingDate">
+        <div class="has-error" if.bind="booking.BookingOrderDate">
             <au-datepicker 
                 label="Tanggal Booking Berubah" 
-                value.bind="booking.bookingDate"  
+                value.bind="booking.BookingOrderDate"  
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker>        
         </div>
         <au-textbox 
             label="Buyer" 
-            value.bind="data.garmentBuyerName" 
+            value.bind="data.Buyer.Name" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
 
         <numeric 
             label="Jumlah Order" 
-            value.bind="data.quantity" 
+            value.bind="data.OrderQuantity" 
             format="0"
             read-only.bind="true"
             options.bind="controlOptions">
         </numeric>
-        <div class="has-error" if.bind="booking.quantity!=null">
+        <div class="has-error" if.bind="booking.OrderQuantity!=null">
             <numeric 
                 label="Jumlah Order Berubah" 
-                value.bind="booking.quantity" 
+                value.bind="booking.OrderQuantity" 
                 format="0"
                 read-only.bind="true"
                 options.bind="controlOptions">
@@ -72,14 +72,14 @@
 
         <au-datepicker 
             label="Tanggal Pengiriman" 
-            value.bind="data.deliveryDate" 
+            value.bind="data.DeliveryDate" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
-        <div class="has-error" if.bind="booking.deliveryDate">
+        <div class="has-error" if.bind="booking.DeliveryDate">
             <au-datepicker 
                 label="Tanggal Pengiriman Berubah" 
-                value.bind="booking.deliveryDate"  
+                value.bind="booking.DeliveryDate"  
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker>        
@@ -87,45 +87,48 @@
         
         <au-multiline 
             label="Keterangan" 
-            value.bind="data.remark"
+            value.bind="data.Remark"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-multiline>
-        <div class="has-error" if.bind="booking.remark">
+        <div class="has-error" if.bind="booking.Remark">
             <au-multiline 
                 label="Keterangan Berubah" 
-                value.bind="booking.remark"
+                value.bind="booking.Remark"
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-multiline>       
         </div>
 
-        <label for="Detail Confirm Booking Order" if.bind="data.bookingOrderId">Detail Confirm Booking Order</label>
+        <label for="Detail Confirm Booking Order" if.bind="data.BookingOrderId">Detail Confirm Booking Order</label>
         <au-collection 
-            items.bind="data.bookingItems" 
+            items.bind="data.booking" 
             columns.bind="bookingItemColumns" 
             options.bind="options"
             read-only.bind="true"
-            if.bind="data.bookingOrderId"
+            if.bind="data.BookingOrderId"
             item-template="modules/garment-master-plan/sewing-blocking-plan/templates/detail">
         </au-collection>
 
-        <label for="Jadwal Pengerjaan" if.bind="data.bookingOrderId">Jadwal Pengerjaan :</label>
-        <au-layout error.bind="error.detail" if.bind="error.detail"></au-layout>
+        <label for="Jadwal Pengerjaan" if.bind="data.BookingOrderId">Jadwal Pengerjaan :</label>
+        <au-layout error.bind="error.details" if.bind="error.details"></au-layout>
+        
+    <div class="table-responsive">
         <au-collection 
-            items.bind="data.details" 
-            errors.bind="error.details" 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
             columns.bind="detailColumns" 
             add.bind="addDetails"  
             remove.bind="removeDetails"
+            change.delegate="detailsChanged($event)"
             options.bind="options"
             read-only.bind="readOnly"
-            if.bind="data.bookingOrderId"
-            change.delegate="detailsChanged($event)"
+            if.bind="data.BookingOrderId"
             item-template="modules/garment-master-plan/sewing-blocking-plan/templates/item"
             footer-template="modules/garment-master-plan/sewing-blocking-plan/templates/item-footer">
         </au-collection>
-        
+    </div>
+    
         <label for="Jadwal Pengerjaan" if.bind="!isView">Preview Remaining EH :</label>
         <au-table 
         view-model.ref="previewTable"

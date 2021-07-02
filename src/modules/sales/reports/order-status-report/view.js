@@ -82,11 +82,14 @@ export class View {
             orderType: this.orderType
         };
 
-        this.data = await this.service.detail(this.info);
+        this.data = await this.service.getMonthly(this.info);
 
         let orderTotal = 0, preTotal = 0, onTotal = 0, inspectingTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
 
+        let index = 1;
         for (let datum of this.data) {
+            datum.no = index;
+            index += 1;
 
             orderTotal += Number(datum.orderQuantity);
             datum.orderQuantity = numeral(datum.orderQuantity).format('0,000.00');
@@ -148,7 +151,7 @@ export class View {
         var data = arg.data;
         switch (arg.name) {
             case "Detail":
-                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${encodeURIComponent(data.orderNo)}`);
+                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${encodeURIComponent(data.orderId)}`);
                 break;
         }
     }

@@ -13,6 +13,15 @@
       <fieldset>
           <legend>Informasi PR</legend>
           
+          <au-textbox 
+              value.bind="data.poNo"
+              error.bind="error.poNo"
+              label="No. PO Internal"
+              show.bind="context.hasEdit"
+              read-only.bind="true"
+              options.bind="controlOptions">
+          </au-textbox>
+
           <au-autocomplete 
               value.bind="purchaseRequest" 
               error.bind="error.purchaseRequestId"

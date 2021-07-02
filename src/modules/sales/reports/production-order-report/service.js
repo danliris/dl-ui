@@ -3,12 +3,12 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'sales/reports/production-order-report';
-const serviceDetailsUri = 'sales/reports/production-order-report/details';
+//const serviceDetailsUri = 'sales/reports/production-order-report/details';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "sales");
     }
 
     getReport(info) {
@@ -16,8 +16,8 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getDetailReport(salesContractNo) {
-        var endpoint = `${serviceDetailsUri}?salesContractNo=${salesContractNo}`;
+    getDetailReport(id) {
+        var endpoint = `${serviceUri}/detail/${id}`;
         return super.get(endpoint);
     }
 
@@ -27,7 +27,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/download`;
         var query = '';
 
         if (info.salesContractNo) {
@@ -54,16 +54,16 @@ export class Service extends RestService {
             if (query === '') query = `accountId=${info.accountId}`;
             else query = `${query}&accountId=${info.accountId}`;
         }
-        if (info.sdate) {
-            if (query === '') query = `sdate=${info.sdate}`;
-            else query = `${query}&sdate=${info.sdate}`;
+        if (info.dateFrom) {
+            if (query === '') query = `dateFrom=${info.dateFrom}`;
+            else query = `${query}&dateFrom=${info.dateFrom}`;
         }
-        if (info.edate) {
-            if (query === '') query = `edate=${info.edate}`;
-            else query = `${query}&edate=${info.edate}`;
+        if (info.dateTo) {
+            if (query === '') query = `dateTo=${info.dateTo}`;
+            else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${serviceUri}/download?${query}`;
 
         return endpoint;
     }

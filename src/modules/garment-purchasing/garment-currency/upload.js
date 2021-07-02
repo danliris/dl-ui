@@ -1,7 +1,7 @@
 import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+var moment = require('moment');
 
 @inject(Router, Service)
 export class Create {
@@ -53,10 +53,10 @@ export class Create {
             e.file = "File Path harus dipilih";
             this.error = e;
         } else if (Object.getOwnPropertyNames(e) == 0) {
-            formData.append("date", this.data.date);
+            formData.append("date", moment(this.data.date).format("YYYY-MM-DD"));
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'garment-currency';
+            var endpoint = 'master/upload-garment-currencies';
             var request = {
                 method: 'POST',
                 headers: {

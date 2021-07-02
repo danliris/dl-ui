@@ -1,6 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+// var BuyerLoader = require('../../../loader/garment-buyers-loader');
+// var SectionLoader = require('../../../loader/garment-sections-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -11,6 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedBuyer;
     @bindable selectedSection;
+    @bindable beginingOrderQuantity;
 
     controlOptions = {
         label: {
@@ -20,11 +22,8 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"}, {header: "Tanggal Confirm"}, {header: "Keterangan"}];
-    // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
-    buyerFields=["name", "code"];
-    sectionFields=["name", "code"];
+    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"}, {header: "Tanggal Confirm"}, {header: "Keterangan"}];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -35,60 +34,51 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        console.log(this.data);
 
-        if (this.data.garmentBuyerId) {
-            this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
-            this.data.garmentBuyerId =this.selectedBuyer._id;
-            this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
-            this.data.garmentSectionId =this.selectedSection._id;
+        if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
+            this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
         }
 
-        if(this.data._id) {
-          if (this.data.canceledBookingOrder){
-            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.canceledBookingOrder;
-          }
+        this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
+        this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
+
+        var arg = {
+            page:  1,
+            size: 1,
         }
 
+        this.data.maxWH= await this.service.searchWHConfirm(arg)
+            .then(result => {
+                return result.data[0].UnitMaxValue + result.data[0].SKMaxValue;
+                
+            });
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
-
-    selectedBuyerChanged(newValue) {
-        var _selectedBuyer = newValue;
-        if (_selectedBuyer) {
-            this.data.buyer = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
-            
-        }
-    }
-
-
-    get buyerLoader() {
-        return BuyerLoader;
+        return (this.data.Id || '').toString() != '';
     }
 
     get addItems() {
         return (event) => {
             var newDetail=   {
-                code:this.data.code,
-                masterPlanComodity: this.data.masterPlanComodity,
-                quantity: 0,
-                isCanceled: false,
-                remark: ''
+                BookingOrderNo:this.data.BookingOrderNo,
+                Comodity: this.data.ComdodityName,
+                ConfirmQuantity: 0,
+                IsCanceled: false,
+                Remark: ''
             };
-            this.data.items.push(newDetail);
+            this.data.Items.push(newDetail);
         };
     }
 
     buyerView = (buyer) => {
-        return `${buyer.code} - ${buyer.name}`
+        return `${buyer.Code} - ${buyer.Name}`
     }
 
     sectionView = (section) => {
-      return `${section.code} - ${section.name}`
-  }
+      return `${section.Code} - ${section.Name}`
+    }
 
 } 

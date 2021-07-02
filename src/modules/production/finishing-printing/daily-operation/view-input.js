@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -13,15 +13,14 @@ export class ViewInput {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getData(id);
-        this.machine = this.data.machine;
-        this.step = this.data.step;
-        this.kanban = this.data.kanban;
+        this.machine = this.data.Machine;
+        this.step = this.data.Step;
+        this.kanban = this.data.Kanban;
+        if (this.data.DateOutput == null)
+            delete this.data.DateOutput;
 
-        if (this.data.dateOutput == null)
-            delete this.data.dateOutput;
-        
-        if (this.data.timeOutput == null)
-            delete this.data.timeOutput;
+        if (this.data.TimeOutput == null)
+            delete this.data.TimeOutput;
     }
 
     list() {
@@ -29,8 +28,13 @@ export class ViewInput {
     }
 
     edit() {
-        this.router.navigateToRoute('edit-input', { id: this.data._id });
+        this.router.navigateToRoute('edit-input', { id: this.data.Id });
     }
+
+    createOutput() {
+        this.router.navigateToRoute('create-output', { id: this.data.Id });
+    }
+
 
     // editOutput() {
     //     this.router.navigateToRoute('output', { id: this.data._id });

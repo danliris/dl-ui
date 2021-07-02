@@ -15,23 +15,17 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.isUseVat = this.data.useVat;
-        this.isUseIncomeTax = this.data.useIncomeTax;
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
+        this.deliveryOrder = await this.service.getDOById(this.data.DOId);
+        this.selectedSupplier=this.data.Supplier;
+        this.data.IncomeTax.toString = function () {
+            return [this.Name, this.Rate]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         }
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
-    }
-
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
     }
 }

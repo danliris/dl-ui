@@ -5,16 +5,17 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 import moment from 'moment';
 
-const serviceUri = 'purchase-orders/externals/by-user';
+const serviceUri = 'garment-external-purchase-orders';
+
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.list(endpoint, info);
     }
 
@@ -34,7 +35,7 @@ export class Service extends RestService {
     }
 
     post(data) {
-        var endpoint = 'purchase-orders/externals/post';
+        var endpoint = 'garment-external-purchase-orders/post';
         return super.post(endpoint, data);
     }
 
@@ -49,33 +50,33 @@ export class Service extends RestService {
     }
 
     searchByTags(keyword, category, shipmentDateFrom, shipmentDateTo) {
-        var endpoint = 'purchase-orders/by-tags';
+        var endpoint = 'garment-internal-purchase-orders/by-tags';
         var filter = {};
         if (keyword && shipmentDateFrom && shipmentDateTo) {
             filter = {
                 category: category,
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
-                tag: keyword
+                tags: keyword
             };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            return super.list(endpoint, filter);
         }
         else if (keyword) {
             filter = {
                 category: category,
-                tag: keyword
+                tags: keyword
             };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            return super.list(endpoint, filter);
         } else if (shipmentDateFrom && shipmentDateTo) {
             filter = {
                 category: category,
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
             };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            return super.list(endpoint, filter);
         } else {
             filter = { category: category };
-            return super.list(endpoint);
+            return super.list(endpoint,filter);
         }
     }
 
@@ -107,36 +108,54 @@ export class Service extends RestService {
         return super.get(endpoint, null, info);
     }
 
+
+
     cancel(id) {
-        var endpoint = `purchase-orders/externals/cancel/${id}`;
+        var endpoint = `garment-external-purchase-orders/cancel/${id}`;
         return super.put(endpoint);
     }
 
     unpost(id) {
-        var endpoint = `purchase-orders/externals/unpost/${id}`;
+        var endpoint = `${serviceUri}/unpost/${id}`;
         return super.put(endpoint);
     }
 
     close(id) {
-        var endpoint = `purchase-orders/externals/close/${id}`;
+        var endpoint = `garment-external-purchase-orders/close/${id}`;
         return super.put(endpoint);
     }
 
-    getPoId(id, select) {
-        var endpoint = `purchase-orders/${id}`;
+    getPoId(id) {
+        var endpoint = `garment-internal-purchase-orders/${id}`;
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = { select: select };
-        return super.get(endpoint, null, info);
+        //var info = { select: select };
+        return super.get(endpoint);
     }
 
     getKurs(code, date) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/kurs-budgets/by-code`;
+        var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
 
-        return _endpoint.find(_serviceUri,{code:code,date:date})
+        return _endpoint.find(_serviceUri)
             .then(result => {
                 return result.data;
             });
+    }
+
+    SmallUom(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/garmentProducts/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getUENById(id) {
+        var endpoint = `garment-unit-expenditure-notes/${id}`;
+        return super.get(endpoint);
     }
 }

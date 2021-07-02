@@ -2,19 +2,48 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'sales/reports/order-status-report';
+const serviceUri = 'order-status-reports';
 const historyServiceUri = 'sales/order-status-histories';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
-    search(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
+    getYearly(info) {
+        var endpoint = `${serviceUri}/yearly/?year=${parseInt(info.year)}&orderTypeId=${info.orderTypeId}`;
+        return super.get(endpoint);
     }
+
+    getYearlyXls(info) {
+        var endpoint = `${serviceUri}/yearly/downloads/xls?year=${parseInt(info.year)}&orderTypeId=${info.orderTypeId}`;
+        return super.getXls(endpoint);
+    }
+
+    getMonthly(info) {
+        var endpoint = `${serviceUri}/monthly/?year=${parseInt(info.year)}&month=${parseInt(info.month)}&orderTypeId=${info.orderTypeId}`;
+        return super.get(endpoint);
+    }
+
+    getMonthlyXls(info) {
+        var endpoint = `${serviceUri}/monthly/downloads/xls?year=${parseInt(info.year)}&month=${parseInt(info.month)}&orderTypeId=${info.orderTypeId}`;
+        return super.getXls(endpoint);
+    }
+
+    getByOrderId(info) {
+        var endpoint = `${serviceUri}/by-order-id/?orderId=${parseInt(info.orderId)}`;
+        return super.get(endpoint);
+    }
+
+    getByOrderIdXls(info) {
+        var endpoint = `${serviceUri}/by-order-id/downloads/xls?orderId=${parseInt(info.orderId)}`;
+        return super.getXls(endpoint);
+    }
+
+    // getByProductionOrderId(info) {
+    //     var endpoint = ``
+    // }
 
     detail(info) {
         var endpoint = `${serviceUri}/${info.year}/${info.month}/${info.orderType}`;

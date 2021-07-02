@@ -1,11 +1,13 @@
 import { bindable, inject, containerless, computedFrom, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from 'aurelia-templating-resources';
-import { Service } from "./service";
+import { Service, SalesService } from "./service";
 import { Dialog } from '../../../../../au-components/dialog/dialog';
 import { FabricGradeTestEditor } from './dialogs/fabric-grade-test-editor';
 
+let KanbanLoader = require("../../../../../loader/kanban-loader");
+
 @containerless()
-@inject(Service, Dialog, BindingSignaler, BindingEngine)
+@inject(Service, Dialog, BindingSignaler, BindingEngine, SalesService)
 export class DataForm {
     tableOptions = {
         pagination: false,
@@ -35,31 +37,32 @@ export class DataForm {
     @bindable data;
     @bindable error;
 
-    kanbanFields = ["code", "cart", "productionOrder", "selectedProductionOrderDetail"];
-    salesContractFields = ["pointSystem", "pointLimit"];
+    // kanbanFields = ["code", "cart", "productionOrder", "selectedProductionOrderDetail"];
+    // salesContractFields = ["pointSystem", "pointLimit"];
     pointSystemOptions = [4, 10];
     shiftOptions = [
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
 
-    constructor(service, dialog, bindingSignaler, bindingEngine) {
+    constructor(service, dialog, bindingSignaler, bindingEngine, salesService) {
         this.service = service;
         this.dialog = dialog;
+        this.salesService = salesService;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
         this.colChanged = this.colChanged.bind(this);
     }
 
     async bind(context) {
-        console.log(context.data);
+        // console.log(context.data);
         this.context = context;
         this.context._this = this;
-        // this.data = this.context.data;
+        this.data = this.context.data;
         // this.error = this.context.error;
-        this.data.fabricGradeTests = this.data.fabricGradeTests || [];
-        this.data.pointSystem = this.data.pointSystem || 10;
-        this.data.pointLimit = this.data.pointLimit || 0;
+        this.data.FabricGradeTests = this.data.FabricGradeTests || [];
+        this.data.PointSystem = this.data.PointSystem || 10;
+        this.data.PointLimit = this.data.PointLimit || 0;
 
         // this.cancelCallback = this.context.cancelCallback;
         // this.deleteCallback = this.context.deleteCallback;
@@ -67,21 +70,20 @@ export class DataForm {
         // this.saveCallback = this.context.saveCallback;
 
 
-        this.selectedPointSystem = this.data.pointSystem;
-        this.selectedPointLimit = this.data.pointLimit;
-        this.selectedFabricGradeTest = this.data.fabricGradeTests.length > 0 ? this.data.fabricGradeTests[0] : null;
+        this.selectedPointSystem = this.data.PointSystem;
+        this.selectedPointLimit = this.data.PointLimit;
+        this.selectedFabricGradeTest = this.data.FabricGradeTests.length > 0 ? this.data.FabricGradeTests[0] : null;
 
 
-        var kanbanId = this.data.kanbanId;
-        // var kanbanId = "58c8f8287b915900364dd2b0";
+        var kanbanId = this.data.KanbanId;
         if (kanbanId) {
-            this.selectedKanban = await this.service.getKanbanById(kanbanId, this.kanbanFields);
+            this.selectedKanban = await this.service.getKanbanById(kanbanId);
         }
     }
 
     testo = (info) => {
-        var count = this.data.fabricGradeTests.count
-        var data = this.data.fabricGradeTests;
+        var count = this.data.FabricGradeTests.count
+        var data = this.data.FabricGradeTests;
         var result = [];
 
         var grandTotal = {};
@@ -90,7 +92,7 @@ export class DataForm {
         grandTotal.aval = 0;
         grandTotal.sample = 0;
         data.reduce(function (res, value) {
-            let grade = value.grade;
+            let grade = value.Grade;
             if (!res[grade]) {
                 res[grade] = {
                     grade: grade,
@@ -101,14 +103,14 @@ export class DataForm {
                 };
                 result.push(res[grade])
             }
-            res[grade].initLength += value.initLength;
-            res[grade].width += value.width;
-            res[grade].aval += value.avalLength;
-            res[grade].sample += value.sampleLength;
+            res[grade].initLength += value.InitLength;
+            res[grade].width += value.Width;
+            res[grade].aval += value.AvalLength;
+            res[grade].sample += value.SampleLength;
 
-            grandTotal.initLength += value.initLength;
-            grandTotal.aval += value.avalLength;
-            grandTotal.sample += value.sampleLength;
+            grandTotal.initLength += value.InitLength;
+            grandTotal.aval += value.AvalLength;
+            grandTotal.sample += value.SampleLength;
             return res;
         }, {});
 
@@ -128,64 +130,64 @@ export class DataForm {
     ]
 
     errorChanged() {
-        if (this.error && this.error.fabricGradeTests) {
-            var index = this.data.fabricGradeTests.indexOf(this.selectedFabricGradeTest);
-            this.selectedFabricGradeTestError = this.error.fabricGradeTests[index];
+        if (this.error && this.error.FabricGradeTests) {
+            var index = this.data.FabricGradeTests.indexOf(this.selectedFabricGradeTest);
+            this.selectedFabricGradeTestError = this.error.FabricGradeTests[index];
         }
     }
-    @computedFrom("data.id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data.id || '').toString() !== '';
+        return (this.data.Id || '').toString() !== '';
     }
 
-    @computedFrom("selectedKanban.productionOrder.material", "selectedKanban.productionOrder.materialConstruction", "selectedKanban.productionOrder.materialWidth")
+    @computedFrom("productionOrder.Material", "productionOrder.MaterialConstruction", "productionOrder.MaterialWidth")
     get construction() {
-        if (!this.selectedKanban)
+        if (!this.productionOrder)
             return "-";
-        return `${this.selectedKanban.productionOrder.material.name} / ${this.selectedKanban.productionOrder.materialConstruction.name} / ${this.selectedKanban.productionOrder.materialWidth}`
+        return `${this.productionOrder.Material.Name} / ${this.productionOrder.MaterialConstruction.Name} / ${this.productionOrder.MaterialWidth}`
     }
 
-    @computedFrom("selectedKanban.productionOrder.orderNo")
+    @computedFrom("productionOrder.OrderNo")
     get sppNo() {
-        if (!this.selectedKanban)
+        if (!this.productionOrder)
             return "-";
-        return `${this.selectedKanban.productionOrder.orderNo}`
+        return `${this.productionOrder.OrderNo}`
     }
 
-    @computedFrom("selectedKanban.productionOrder.orderQuantity", "selectedKanban.productionOrder.uom.unit")
+    @computedFrom("productionOrder.OrderQuantity", "productionOrder.Uom.Unit")
     get orderQuantity() {
         if (!this.selectedKanban)
             return "-";
-        return `${this.selectedKanban.productionOrder.orderQuantity} ${this.selectedKanban.productionOrder.uom.unit}`
+        return `${this.productionOrder.OrderQuantity} ${this.productionOrder.Uom.Unit}`
     }
 
-    @computedFrom("selectedKanban.productionOrder.packingInstruction")
+    @computedFrom("productionOrder.PackingInstruction")
     get packingInstruction() {
-        if (!this.selectedKanban)
+        if (!this.productionOrder)
             return "-";
-        return `${this.selectedKanban.productionOrder.packingInstruction}`
+        return `${this.productionOrder.PackingInstruction}`
     }
 
-    @computedFrom("selectedKanban.selectedProductionOrderDetail.colorRequest")
+    @computedFrom("kanban.SelectedProductionOrderDetail.ColorRequest")
     get colorRequest() {
-        if (!this.selectedKanban)
+        if (!this.kanban)
             return "-";
-        return `${this.selectedKanban.selectedProductionOrderDetail.colorRequest}`
+        return `${this.kanban.SelectedProductionOrderDetail.ColorRequest}`
     }
 
-    @computedFrom("data.pointSystem")
+    @computedFrom("data.PointSystem")
     get criteriaColumns() {
-        if (this.data.pointSystem === 10)
+        if (this.data.PointSystem === 10)
             return ["Point", "1", "3", "5", "10"];
         else
             return ["Point", "1", "2", "3", "4"];
     }
 
-    @computedFrom("selectedKanban.productionOrder.salesContractNo")
+    // @computedFrom("selectedKanban.ProductionOrder.SalesContractNo")
 
     @computedFrom("selectedPointSystem")
     get fabricGradeTestMultiplier() {
-        if (this.data.pointSystem === 10)
+        if (this.data.PointSystem === 10)
             return { A: 1, B: 3, C: 5, D: 10 };
         else
             return { A: 1, B: 2, C: 3, D: 4 };
@@ -193,7 +195,7 @@ export class DataForm {
 
     scoreGrade(finalScore) {
 
-        if (this.data.pointSystem === 10) {
+        if (this.data.PointSystem === 10) {
             if (finalScore >= 2.71)
                 return "BS";
             else if (finalScore >= 1.31)
@@ -203,8 +205,8 @@ export class DataForm {
             else
                 return "A";
         }
-        else if (this.data.pointSystem === 4) {
-            if (finalScore <= this.data.pointLimit) {
+        else if (this.data.PointSystem === 4) {
+            if (finalScore <= this.data.PointLimit) {
                 return "OK";
             } else {
                 return "Not OK"
@@ -228,14 +230,15 @@ export class DataForm {
     selectedAvalLengthChanged() {
         if (!this.selectedFabricGradeTest)
             return;
-        this.selectedFabricGradeTest.avalLength = this.selectedAvalLength;
+        this.selectedFabricGradeTest.AvalLength = this.selectedAvalLength;
         this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
         this.totalTable.refresh();
     }
     selectedSampleLengthChanged() {
         if (!this.selectedFabricGradeTest)
             return;
-        this.selectedFabricGradeTest.sampleLength = this.selectedSampleLength;
+        this.selectedFabricGradeTest.SampleLength = this.selectedSampleLength;
         this.computeGrade(this.selectedFabricGradeTest);
         this.totalTable.refresh();
     }
@@ -243,12 +246,12 @@ export class DataForm {
         if (this.selectedPointSystem === 10) {
             this.selectedPointLimit = 0;
         }
-        this.data.pointSystem = this.selectedPointSystem;
+        this.data.PointSystem = this.selectedPointSystem;
         // this.selectedPointSystem=this.data.pointSystem;
-        this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
+        this.data.FabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
     }
     selectedPointLimitChanged() {
-        this.data.pointLimit = this.selectedPointLimit;
+        this.data.PointLimit = this.selectedPointLimit;
         this.computeGrade(this.selectedFabricGradeTest);
     }
 
@@ -257,26 +260,26 @@ export class DataForm {
             if (this.subs) {
                 this.subs.forEach(rowSub => rowSub.forEach(colSub => colSub.dispose()));
             }
-            this.selectedPcsNo = this.selectedFabricGradeTest.pcsNo;
-            this.selectedPcsLength = this.selectedFabricGradeTest.initLength;
-            this.selectedPcsWidth = this.selectedFabricGradeTest.width;
+            this.selectedPcsNo = this.selectedFabricGradeTest.PcsNo;
+            this.selectedPcsLength = this.selectedFabricGradeTest.InitLength;
+            this.selectedPcsWidth = this.selectedFabricGradeTest.Width;
 
-            this.selectedAvalLength = this.selectedFabricGradeTest.avalLength;
-            this.selectedSampleLength = this.selectedFabricGradeTest.sampleLength;
+            this.selectedAvalLength = this.selectedFabricGradeTest.AvalLength;
+            this.selectedSampleLength = this.selectedFabricGradeTest.SampleLength;
 
             this.subs = [];
 
-            if (this.error && this.error.fabricGradeTests) {
-                var index = this.data.fabricGradeTests.indexOf(this.selectedFabricGradeTest);
+            if (this.error && this.error.FabricGradeTests) {
+                var index = this.data.FabricGradeTests.indexOf(this.selectedFabricGradeTest);
                 this.selectedFabricGradeTestError = this.error.fabricGradeTests[index];
             }
-            if (this.selectedFabricGradeTest.criteria)
-                this.selectedFabricGradeTest.criteria.forEach(criterion => {
+            if (this.selectedFabricGradeTest.Criteria)
+                this.selectedFabricGradeTest.Criteria.forEach(criterion => {
                     var rowSubs = [];
-                    for (var col of Object.getOwnPropertyNames(criterion.score)) {
+                    for (var col of Object.getOwnPropertyNames(criterion.Score)) {
                         if (typeof criterion[col] === "object")
                             continue;
-                        var colSub = this.bindingEngine.propertyObserver(criterion.score, col).subscribe(this.colChanged);
+                        var colSub = this.bindingEngine.propertyObserver(criterion.Score, col).subscribe(this.colChanged);
                         rowSubs.push(colSub);
                     }
                     this.subs.push(rowSubs);
@@ -287,18 +290,19 @@ export class DataForm {
         if (!fabricGradeTest)
             return;
         var multiplier = this.fabricGradeTestMultiplier;
-        var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.A * multiplier.A) + (c.score.B * multiplier.B) + (c.score.C * multiplier.C) + (c.score.D * multiplier.D)) }, 0);
-        var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
-        var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
-        var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
-        var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
-        var grade = this.data.pointSystem === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
-        fabricGradeTest.score = score;
-        fabricGradeTest.finalLength = finalLength;
-        fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
-        fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
-        fabricGradeTest.grade = grade;
+        var score = fabricGradeTest.Criteria.reduce((p, c, i) => { return p + ((c.Score.A * multiplier.A) + (c.Score.B * multiplier.B) + (c.Score.C * multiplier.C) + (c.Score.D * multiplier.D)) }, 0);
+        var finalLength = fabricGradeTest.InitLength - fabricGradeTest.AvalLength - fabricGradeTest.SampleLength;
+        var finalArea = fabricGradeTest.InitLength * fabricGradeTest.Width;
+        var finalScoreTS = finalLength > 0 && this.data.PointSystem === 10 ? score / finalLength : 0;
+        var finalScoreFS = finalArea > 0 && this.data.PointSystem === 4 ? score * 100 / finalArea : 0;
+        var grade = this.data.PointSystem === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
+        fabricGradeTest.Score = score;
+        fabricGradeTest.FinalLength = finalLength;
+        fabricGradeTest.FinalArea = this.data.PointSystem === 4 ? finalArea : 0;
+        fabricGradeTest.FinalScore = this.data.PointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
+        fabricGradeTest.Grade = grade;
         this.totalTable.refresh();
+        this.fabricGradeTestTable.refresh();
     }
     colChanged(newValue, oldValue) {
         if (!this.selectedFabricGradeTest)
@@ -307,14 +311,14 @@ export class DataForm {
     }
     selectedPcsNoChanged() {
         if (this.selectedFabricGradeTest) {
-            this.selectedFabricGradeTest.pcsNo = this.selectedPcsNo;
+            this.selectedFabricGradeTest.PcsNo = this.selectedPcsNo;
             this.fabricGradeTestTable.refresh();
             this.totalTable.refresh();
         }
     }
     selectedPcsLengthChanged() {
         if (this.selectedFabricGradeTest) {
-            this.selectedFabricGradeTest.initLength = this.selectedPcsLength;
+            this.selectedFabricGradeTest.InitLength = this.selectedPcsLength;
             this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
             this.totalTable.refresh();
@@ -322,7 +326,7 @@ export class DataForm {
     }
     selectedPcsWidthChanged() {
         if (this.selectedFabricGradeTest) {
-            this.selectedFabricGradeTest.width = this.selectedPcsWidth;
+            this.selectedFabricGradeTest.Width = this.selectedPcsWidth;
             this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
             this.totalTable.refresh();
@@ -330,10 +334,10 @@ export class DataForm {
     }
 
     fabricGradeTestColumns = [
-        { field: "pcsNo", title: "Nomor Pcs" },
-        { field: "initLength", title: "Panjang (Meter)" },
-        { field: "width", title: "Lebar (Meter)" },
-        { field: "grade", title: "Grade" }
+        { field: "PcsNo", title: "Nomor Pcs" },
+        { field: "InitLength", title: "Panjang (Meter)" },
+        { field: "Width", title: "Lebar (Meter)" },
+        { field: "Grade", title: "Grade" }
     ];
     fabricGradeTestContextMenu = ["Hapus"];
     fabricGradeTestTable;
@@ -344,8 +348,8 @@ export class DataForm {
         var data = arg.data;
         switch (arg.name) {
             case "Hapus":
-                this.data.fabricGradeTests.splice(this.data.fabricGradeTests.indexOf(data), 1);
-                this.selectedFabricGradeTest = this.data.fabricGradeTests[0];
+                this.data.FabricGradeTests.splice(this.data.FabricGradeTests.indexOf(data), 1);
+                this.selectedFabricGradeTest = this.data.FabricGradeTests[0];
                 this.fabricGradeTestTable.refresh();
                 this.totalTable.refresh();
                 break;
@@ -354,29 +358,29 @@ export class DataForm {
     __fabricGradeTestCreateCallback() {
         if (!this.selectedKanban) {
             this.error = this.error || {};
-            this.error.kanbanId = "Harap isi kanban";
+            this.error.Kanban = "Harap isi kanban";
         }
         else {
             this.error = this.error || {};
-            this.error.kanbanId = null;
+            this.error.Kanban = null;
             this.__fabricGradeTestShowEditorDialog();
         }
     }
 
     __fabricGradeTestShowEditorDialog() {
-        if (this.selectedKanban)
+        if (this.kanban)
             this.dialog.show(FabricGradeTestEditor)
                 .then(response => {
                     if (!response.wasCancelled) {
-                        this.selectedFabricGradeTest = new FabricGradeTest(this.selectedKanban.productionOrder.orderType.name);
+                        this.selectedFabricGradeTest = new FabricGradeTest(this.kanban.ProductionOrder.OrderType.Name);
 
-                        this.selectedFabricGradeTest.pcsNo = response.output.pcsNo;
-                        this.selectedFabricGradeTest.initLength = response.output.pcsLength;
-                        this.selectedFabricGradeTest.width = response.output.pcsWidth;
+                        this.selectedFabricGradeTest.PcsNo = response.output.PcsNo;
+                        this.selectedFabricGradeTest.InitLength = response.output.PcsLength;
+                        this.selectedFabricGradeTest.Width = response.output.PcsWidth;
 
-                        this.data.fabricGradeTests.push(this.selectedFabricGradeTest);
+                        this.data.FabricGradeTests.push(this.selectedFabricGradeTest);
 
-                        this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
+                        this.data.FabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
                         this.fabricGradeTestTable.refresh();
                         this.totalTable.refresh();
                     }
@@ -389,8 +393,8 @@ export class DataForm {
     }
 
     fabricGradeTestLoader = (info) => {
-        var count = this.data.fabricGradeTests.count
-        var data = this.data.fabricGradeTests;
+        var count = this.data.FabricGradeTests.count
+        var data = this.data.FabricGradeTests;
         return {
             total: count,
             data: data
@@ -400,118 +404,149 @@ export class DataForm {
 
 
     @bindable selectedKanban;
+    @bindable productionOrder;
+    @bindable salesContract;
+    @bindable kanban;
     async selectedKanbanChanged(newValue, oldValue) {
-        if (this.selectedKanban && this.selectedKanban._id) {
-            this.data.kanbanId = this.selectedKanban._id;
-            if (this.selectedKanban.productionOrder.salesContractNo) {
-                await this.service.getSalesContractByNo(this.selectedKanban.productionOrder.salesContractNo, this.salesContractFields)
-                    .then((result) => {
-                        if (result.pointSystem === 4 || result.pointSystem === 10) {
-                            this.selectedPointSystem = this.data.pointSystem || 10;
-                            this.selectedPointLimit = this.data.pointLimit || 0;
-                        } else {
-                            this.selectedPointSystem = this.data.pointSystem || 10;
-                            this.selectedPointLimit = this.data.pointLimit || 0;
-                        }
-                    })
+        if (newValue) {
+            this.kanban = await this.service.getKanbanById(this.selectedKanban.Id);
+            // this.data.KanbanId = this.selectedKanban.Id;
+            this.productionOrder = await this.salesService.getProductionOrderById(this.kanban.ProductionOrder.Id);
+            this.salesContract = await this.salesService.getSalesContractById(this.productionOrder.FinishingPrintingSalesContract.Id);
+
+            this.data.Buyer = this.productionOrder.Buyer.Name;
+            this.data.BuyerAddress = this.productionOrder.Buyer.Address;
+            this.data.CartNo = this.kanban.Cart.CartNumber;
+            this.data.Color = this.kanban.SelectedProductionOrderDetail.ColorRequest;
+            this.data.Construction = `${this.productionOrder.Material.Name} / ${this.productionOrder.MaterialConstruction.Name} / ${this.productionOrder.MaterialWidth}`;
+            this.data.IsUsed = false;
+            this.data.KanbanCode = this.kanban.Code;
+            this.data.KanbanId = this.kanban.Id;
+            this.data.OrderQuantity = this.productionOrder.OrderQuantity;
+            this.data.PackingInstruction = this.productionOrder.PackingInstruction;
+            this.data.ProductionOrderNo = this.productionOrder.OrderNo;
+            this.data.ProductionOrderType = this.productionOrder.OrderType.Name;
+            this.data.Uom = this.productionOrder.Uom.Unit;
+
+            if (this.salesContract) {
+                // await this.salesService.getSalesContractByNo(this.selectedKanban.ProductionOrder.SalesContractNo)
+                //     .then((result) => {
+                if (this.salesContract.PointSystem === 4 || this.salesContract.PointSystem === 10) {
+                    this.selectedPointSystem = this.data.PointSystem || 10;
+                    this.selectedPointLimit = this.data.PointLimit || 0;
+                } else {
+                    this.selectedPointSystem = this.data.PointSystem || 10;
+                    this.selectedPointLimit = this.data.PointLimit || 0;
+                }
+                // })
             }
+            if(!this.data.Id){
+                
+                this.data.FabricGradeTests = [];
+                if(this.selectedFabricGradeTest){
+                    this.selectedPcsNo = null;
+                    this.selectedPcsLength = 0;
+                    this.selectedPcsWidth = 0;
+
+                    this.selectedFabricGradeTest.Criteria = [];
+                }
+                this.computeGrade(this.selectedFabricGradeTest);
+                this.fabricGradeTestTable.refresh();
+                this.totalTable.refresh();
+            }
+                
         }
         else
-            this.data.kanbanId = null;
+            this.data.KanbanId = null;
     }
 
     kanbanTextFormatter = (kanban) => {
-        return `${kanban.productionOrder.orderNo} / ${kanban.cart.cartNumber}`
+        return `${kanban.ProductionOrder.OrderNo} - ${kanban.Cart.CartNumber}`
     }
 
     get kanbanLoader() {
-        return (keyword) => {
-            var info = { keyword: keyword, select: this.kanbanFields };
-            return this.service.searchKanban(info)
-                .then(result => {
-                    return result.data;
-                });
-        }
+        return KanbanLoader;
     }
 }
 
 
 class FabricGradeTest {
     constructor(type) {
-        this.type = type || "PRINTING";
-        this.pcsNo = 'PCSNO';
-        this.grade = '';
-        this.width = 0;
+        this.Type = type || "PRINTING";
+        this.PcsNo = 'PCSNO';
+        this.Grade = '';
+        this.Width = 0;
 
-        this.initLength = 0;
-        this.avalLength = 0;
-        this.sampleLength = 0;
-        this.finalLength = 0;
+        this.InitLength = 0;
+        this.AvalLength = 0;
+        this.SampleLength = 0;
+        this.FinalLength = 0;
 
-        this.fabricGradeTest = 0;
-        this.finalGradeTest = 0;
+        this.FabricGradeTest = 0;
+        this.FinalGradeTest = 0;
 
-        this.fabricGradeTest = 0;
+        this.FabricGradeTest = 0;
 
-        this.criteria = [].concat(generalCriteria(), this.type === "PRINTING" ? printingCriteria() : finishingCriteria());
+        this.Criteria = [].concat(generalCriteria(), this.Type === "PRINTING" ? printingCriteria() : finishingCriteria());
     }
 }
 
 
 
 class FabricTestCriterion {
-    constructor(group, code, name, score) {
-        this.code = code || "";
-        this.group = group || "";
-        this.name = name || "";
-        this.score = score || {
+    constructor(group, code, name, score, index) {
+        this.Code = code || "";
+        this.Group = group || "";
+        this.Name = name || "";
+        this.Score = score || {
             A: 0,
             B: 0,
             C: 0,
             D: 0
         };
+        this.index = index || 0;
     }
 }
 var generalCriteria = () => [
-    new FabricTestCriterion("BENANG", "B001", "Slubs"),
-    new FabricTestCriterion("BENANG", "B002", "Neps"),
-    new FabricTestCriterion("BENANG", "B003", "Kontaminasi Fiber"),
-    new FabricTestCriterion("WEAVING", "W001", "Pakan Renggang"),
-    new FabricTestCriterion("WEAVING", "W002", "Pakan Rapat"),
-    new FabricTestCriterion("WEAVING", "W003", "Pakan Double"),
-    new FabricTestCriterion("WEAVING", "W004", "Pakan Tebal Tipis"),
-    new FabricTestCriterion("WEAVING", "W005", "Lusi Tebal Tipis"),
-    new FabricTestCriterion("WEAVING", "W006", "Lusi Putus"),
-    new FabricTestCriterion("WEAVING", "W007", "Lusi Double"),
-    new FabricTestCriterion("WEAVING", "W008", "Madal Sumbi"),
-    new FabricTestCriterion("WEAVING", "W009", "Salah Anyam / UP"),
-    new FabricTestCriterion("WEAVING", "W010", "Reed Mark"),
-    new FabricTestCriterion("WEAVING", "W011", "Temple Mark"),
-    new FabricTestCriterion("WEAVING", "W012", "Snarl"),
-    new FabricTestCriterion("PRODUKSI", "P001", "Sobek Tepi"),
-    new FabricTestCriterion("PRODUKSI", "P002", "Kusut Mati"),
-    new FabricTestCriterion("PRODUKSI", "P003", "Kusut / Krismak"),
-    new FabricTestCriterion("PRODUKSI", "P004", "Belang Kondensat"),
-    new FabricTestCriterion("PRODUKSI", "P005", "Belang Absorbsi"),
-    new FabricTestCriterion("PRODUKSI", "P006", "Flek Minyak / Dyest"),
-    new FabricTestCriterion("PRODUKSI", "P007", "Flek Oil Jarum"),
-    new FabricTestCriterion("PRODUKSI", "P008", "Bintik Htm, Mrh, Biru"),
-    new FabricTestCriterion("PRODUKSI", "P009", "Tepi Melipat"),
-    new FabricTestCriterion("PRODUKSI", "P010", "Lebar Tak Sama"),
-    new FabricTestCriterion("PRODUKSI", "P011", "Lubang / Pin Hole"),
-    new FabricTestCriterion("PRODUKSI", "P012", "Bowing"),
-    new FabricTestCriterion("PRODUKSI", "P013", "Skewing"),
+    new FabricTestCriterion("BENANG", "B001", "Slubs", null, 1),
+    new FabricTestCriterion("BENANG", "B002", "Neps", null, 2),
+    new FabricTestCriterion("BENANG", "B003", "Kontaminasi Fiber", null, 3),
+    new FabricTestCriterion("WEAVING", "W001", "Pakan Renggang", null, 4),
+    new FabricTestCriterion("WEAVING", "W002", "Pakan Rapat", null, 5),
+    new FabricTestCriterion("WEAVING", "W003", "Pakan Double", null, 6),
+    new FabricTestCriterion("WEAVING", "W004", "Pakan Tebal Tipis", null, 7),
+    new FabricTestCriterion("WEAVING", "W005", "Lusi Tebal Tipis", null, 8),
+    new FabricTestCriterion("WEAVING", "W006", "Lusi Putus", null, 9),
+    new FabricTestCriterion("WEAVING", "W007", "Lusi Double", null, 10),
+    new FabricTestCriterion("WEAVING", "W008", "Madal Sumbi", null, 11),
+    new FabricTestCriterion("WEAVING", "W009", "Salah Anyam / UP", null, 12),
+    new FabricTestCriterion("WEAVING", "W010", "Reed Mark", null, 13),
+    new FabricTestCriterion("WEAVING", "W011", "Temple Mark", null, 14),
+    new FabricTestCriterion("WEAVING", "W012", "Snarl", null, 15),
+    new FabricTestCriterion("PRODUKSI", "P001", "Sobek Tepi", null, 16),
+    new FabricTestCriterion("PRODUKSI", "P002", "Kusut Mati", null, 17),
+    new FabricTestCriterion("PRODUKSI", "P003", "Kusut / Krismak", null, 18),
+    new FabricTestCriterion("PRODUKSI", "P004", "Belang Kondensat", null, 19),
+    new FabricTestCriterion("PRODUKSI", "P005", "Belang Absorbsi", null, 20),
+    new FabricTestCriterion("PRODUKSI", "P006", "Flek Minyak / Dyest", null, 21),
+    new FabricTestCriterion("PRODUKSI", "P007", "Flek Oil Jarum", null, 22),
+    new FabricTestCriterion("PRODUKSI", "P008", "Bintik Htm, Mrh, Biru", null, 23),
+    new FabricTestCriterion("PRODUKSI", "P009", "Tepi Melipat", null, 24),
+    new FabricTestCriterion("PRODUKSI", "P010", "Lebar Tak Sama", null, 25),
+    new FabricTestCriterion("PRODUKSI", "P011", "Lubang / Pin Hole", null, 26),
+    new FabricTestCriterion("PRODUKSI", "P012", "Bowing", null, 27),
+    new FabricTestCriterion("PRODUKSI", "P013", "Skewing", null, 28),
 ];
 
 var printingCriteria = () => [
-    new FabricTestCriterion("PRODUKSI", "P201", "Meleset"),
-    new FabricTestCriterion("PRODUKSI", "P202", "Flek"),
-    new FabricTestCriterion("PRODUKSI", "P203", "Print Kosong / Bundas"),
-    new FabricTestCriterion("PRODUKSI", "P204", "Nyetrip")
+    new FabricTestCriterion("PRODUKSI", "P201", "Meleset", null, 29),
+    new FabricTestCriterion("PRODUKSI", "P202", "Flek", null, 30),
+    new FabricTestCriterion("PRODUKSI", "P203", "Print Kosong / Bundas", null, 31),
+    new FabricTestCriterion("PRODUKSI", "P204", "Nyetrip", null, 32)
 ];
 
 var finishingCriteria = () => [
-    new FabricTestCriterion("PRODUKSI", "P101", "Kotor Tanah / Debu"),
-    new FabricTestCriterion("PRODUKSI", "P102", "Kotor Hitam"),
-    new FabricTestCriterion("PRODUKSI", "P103", "Belang Kusut")
+    new FabricTestCriterion("PRODUKSI", "P101", "Kotor Tanah / Debu", null, 33),
+    new FabricTestCriterion("PRODUKSI", "P102", "Kotor Hitam", null, 34),
+    new FabricTestCriterion("PRODUKSI", "P103", "Belang Kusut", null, 35)
 ];

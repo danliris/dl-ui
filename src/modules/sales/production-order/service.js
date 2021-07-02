@@ -44,14 +44,10 @@ export class Service extends RestService {
     }
 
     getSCbyId(no) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("production");
-        var _serviceUri = `sales/finishing-printing-sales-contract-by-number/${no}`;
+        var _serviceUri = `sales/finishing-printing-sales-contracts`;
 
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
+        var endpoint = `${_serviceUri}/${no}`;
+        return super.get(endpoint);
     }
 
     close(data) {

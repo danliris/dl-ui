@@ -7,8 +7,8 @@ import moment from 'moment';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "year", title: "Tahun" },
-        { field: "unit.name", title: "Unit", }
+        { field: "Year", title: "Tahun" },
+        { field: "UnitName", title: "Unit", }
     ];
 
     loader = (info) => {
@@ -19,16 +19,15 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select:["year", "unit.name"],
+            select:["Id", "Year", "Unit"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
-                var data = {}
-                data.total = result.info.total;
-                data.data = result.data;
-                // return data;
+                for (let d of result.data) {
+                    d.UnitName = d.Unit.Name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -46,7 +45,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

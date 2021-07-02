@@ -23,5 +23,8 @@ export class View {
     {
       this.list();
     }
-}
 
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
+}

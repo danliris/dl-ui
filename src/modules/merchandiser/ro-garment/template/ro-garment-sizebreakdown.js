@@ -11,6 +11,7 @@ export class ROGarmentSizeBreakdown {
 
     RO_Garment_SizeBreakdown_DetailsInfo = {
         columns: [
+            { header: "No.", value: "SizeBreakdownDetailIndex" },
             { header: "Keterangan", value: "Information" },
             { header: "Size", value: "Size" },
             { header: "Quantity", value: "Quantity" },
@@ -18,6 +19,10 @@ export class ROGarmentSizeBreakdown {
         options: { readOnly: this.readOnly },
         onAdd: function () {
             this.data.RO_Garment_SizeBreakdown_Details.push({});
+            this.data.RO_Garment_SizeBreakdown_Details.forEach((m, i) => m.SizeBreakdownDetailIndex = i);
+        }.bind(this),
+        onRemove: function () {
+            this.data.RO_Garment_SizeBreakdown_Details.forEach((m, i) => m.SizeBreakdownDetailIndex = i);
         }.bind(this)
     };
 
@@ -35,6 +40,7 @@ export class ROGarmentSizeBreakdown {
         this.columns = this.context.context.columns;
         this.options = this.context.options;
         this.readOnly = this.options.readOnly;
+        this.error = this.context.error;
         this.RO_Garment_SizeBreakdown_DetailsInfo.options.readOnly = this.readOnly;
         this.shown = false;
     }

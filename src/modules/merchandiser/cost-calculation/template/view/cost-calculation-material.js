@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import numeral from 'numeral';
-const defaultNumberFormat = "0,0.00";
+const defaultNumberFormat = "0,0.000";
 
 export class CostCalculationMaterial {
 
@@ -16,8 +16,10 @@ export class CostCalculationMaterial {
         this.options = this.context.options;
         this.readOnly = true;
         this.data.Category.FullName = this.data.Category.SubCategory ? this.data.Category.Name + " - " + this.data.Category.SubCategory : this.data.Category.Name;
-        this.data.QuantityInUnit = numeral(this.data.Quantity).format(defaultNumberFormat) + " " + this.data.UOMQuantity.unit;
-        this.data.PricePerUnit = numeral(this.data.Price).format(defaultNumberFormat) + " / " + this.data.UOMPrice.unit;
-        this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
+        this.data.QuantityInUnit = numeral(this.data.Quantity).format(defaultNumberFormat) + " " + this.data.UOMQuantity.Unit;
+        this.data.PricePerUnit = this.data.Price.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2})+ " / " + this.data.UOMPrice.Unit;
+        this.data.Total = this.data.Total.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+        this.data.Product.Construction=this.data.Product.Const;
+        
     }
 }

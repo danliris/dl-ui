@@ -7,7 +7,6 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
-        console.log(data);
         if (data.isPosted)
             return { classes: "success" }
         else
@@ -16,6 +15,7 @@ export class List {
     context = ["Rincian"]
 
     columns = [
+        { field: "poNo" , title: "No. PO Internal"},
         { field: "DivisionName", title: "Divisi" },
         { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },

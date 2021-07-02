@@ -10,35 +10,29 @@
         <div class="form-group">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <au-textbox  
-                    value.bind="prNo"
-                    label="Nomor PR"
-                    placeholder="masukkan nomor PR"  >
-                </au-textbox>
-
+                
+                <au-autocomplete 
+                value.bind="epono" 
+                label="Nomor PO Eksternal"
+                placeholder="masukkan nomor PO Eksternal" 
+                loader.bind="poexternalLoader" 
+                key="EPONo"
+                text="EPONo">
+            </au-autocomplete>
                 <au-autocomplete 
                     value.bind="unit" 
                     label="Unit yang mengajukan" 
                     placeholder="cari unit" 
                     loader.bind="unitLoader" 
-                    key="code" 
-                    text="name">
+                    key="Code" 
+                    text="Name">
                 </au-autocomplete>
 
                 <au-autocomplete 
-                    value.bind="category" 
-                    label="Kategori" 
-                    placeholder="cari kategori" 
-                    loader.bind="categoryLoader" 
-                    key="code"
-                    text="name">
-                </au-autocomplete>
-                        
-                <au-autocomplete 
-                    value.bind="buyer" 
-                    label="Buyer" 
-                    placeholder="cari buyer" 
-                    loader.bind="buyerLoader" 
+                    value.bind="supplier" 
+                    label="Supplier" 
+                    placeholder="cari supplier" 
+                    loader.bind="supplierLoader" 
                     key="code" 
                     text="name">
                 </au-autocomplete>

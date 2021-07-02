@@ -7,6 +7,7 @@ export class List {
     context = ["Detail"];
     columns = [
         { field: "Name", title: "Ongkos" },
+        { field: "UnitName", title: "Unit" },
         { field: "Value", title: "Tarif" }
     ];
 
@@ -25,6 +26,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                result.data.forEach(data => {
+                    data.UnitName = data.Unit.Name;
+                });
                 return {
                     total: result.info.total,
                     data: result.data

@@ -130,7 +130,7 @@ NumericReact.defaultProps = {
         postFix: "",
         separator: ".",
         integer: 20,
-        fraction: 4,
+        fraction: 15,
         negative: true,
         positive: true,
         thousand: true,

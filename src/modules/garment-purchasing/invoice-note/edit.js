@@ -22,10 +22,15 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
+        this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
         this.vat = this.data.vat;
+
+        
+
         this.data.items.map((items) => {
             items.check = true;
         })
+        
     }
 
     cancel(event) {
@@ -33,15 +38,18 @@ export class Edit {
     }
 
     save(event) {
-        var itemToBeSaved = this.data.items.filter(function (item) {
-            return item.check
-        });
-        var _data = Object.assign({}, this.data);
-        _data.items = itemToBeSaved;
-        this.service.update(_data).then(result => {
+        // console.log(this.data);
+        // var itemToBeSaved = this.data.items.filter(function (item) {
+        //     return item.check
+        // });
+        // var _data = Object.assign({}, this.data);
+        // _data.items = itemToBeSaved;
+        // console.log(_data);
+        this.service.update( this.data).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;
         })
+
     }
 }

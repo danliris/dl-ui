@@ -12,6 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedBuyer;
     @bindable selectedSection;
+    @bindable beginingOrderQuantity;
 
     controlOptions = {
         label: {
@@ -22,10 +23,6 @@ export class DataForm {
         }
     }
     detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"},{header: "Tanggal Confirm"}, {header: "Keterangan"}];
-   // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
-
-    buyerFields=["name", "code"];
-    sectionFields=["name", "code"];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -37,37 +34,37 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (this.data.garmentBuyerId) {
-            this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
-            this.data.garmentBuyerId =this.selectedBuyer._id;
-            this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
-            this.data.garmentSectionId =this.selectedSection._id;
+        if (!this.data.BookingOrderDate) {
+            this.data.BookingOrderDate = new Date();
+        }
+        if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
+          this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
         }
 
-        if (!this.data.bookingDate) {
-            this.data.bookingDate = new Date();
+        var arg = {
+            page:  1,
+            size: 1,
         }
 
-        if(this.data._id) {
-          if (this.data.expiredBookingOrder || this.data.canceledBookingOrder){
-            this.data.beginingOrderQuantity = this.data.orderQuantity +
-              (this.data.expiredBookingOrder || 0) +
-              (this.data.canceledBookingOrder || 0);
-          }
-        }
+        this.data.maxWH= await this.service.searchWHConfirm(arg)
+            .then(result => {
+                return result.data[0].UnitMaxValue + result.data[0].SKMaxValue;
+                
+            });
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     selectedBuyerChanged(newValue) {
         var _selectedBuyer = newValue;
         if (_selectedBuyer) {
-            this.data.buyer = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
-            
+            this.data.Buyer = _selectedBuyer;
+            this.data.BuyerId = _selectedBuyer.Id ? _selectedBuyer.Id : "";
+            this.data.BuyerCode = _selectedBuyer.Code;
+            this.data.BuyerName = _selectedBuyer.Name;            
         }
     }
 
@@ -75,8 +72,9 @@ export class DataForm {
         var _selectedSection = newValue;
         if (_selectedSection) {
             this.data.section = _selectedSection;
-            this.data.garmentSectionId = _selectedSection._id ? _selectedSection._id : "";
-            
+            this.data.SectionId = _selectedSection.Id ? _selectedSection.Id : "";
+            this.data.SectionCode = _selectedSection.Code;
+            this.data.SectionName = _selectedSection.Name;            
         }
     }
 
@@ -91,21 +89,21 @@ export class DataForm {
     get addItems() {
         return (event) => {
             var newDetail=   {
-                code:this.data.code,
-                masterPlanComodity: this.data.masterPlanComodity,
-                quantity: 0,
-                remark: ''
+                BookingOrderNo:this.data.BookingOrderNo,
+                ComodityName: this.data.ComodityName,
+                ConfirmQuantity: 0,
+                Remark: ''
             };
-            this.data.items.push(newDetail);
+            this.data.Items.push(newDetail);
         };
     }
 
     buyerView = (buyer) => {
-        return `${buyer.code} - ${buyer.name}`
+        return `${buyer.Code} - ${buyer.Name}`
     }
 
     sectionView = (section) => {
-      return `${section.code} - ${section.name}`
+      return `${section.Code} - ${section.Name}`
   }
 
 } 

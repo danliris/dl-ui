@@ -3,13 +3,16 @@ import { Config } from "aurelia-api";
 
 const resource = 'master/currencies';
 
-module.exports = function(keyword, filter) {
+module.exports = function (keyword, filter) {
 
   var config = Container.instance.get(Config);
   var endpoint = config.getEndpoint("core");
 
-  return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
-        .then(results => {
-            return results.data
-        });
+  return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
+    .then(results => {
+      return results.data.map(item=>{
+        item.Rate = item.Rate == null ? 1 : item.Rate;
+        return item;
+      })
+    });
 }

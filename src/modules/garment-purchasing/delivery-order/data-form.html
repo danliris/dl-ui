@@ -2,32 +2,32 @@
     <au-input-form title.bind="title" with.bind="context">
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
-            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"  show.bind=!data.billNo     if.one-way="context.hasView">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)" show.bind=!data.billNo    if.one-way="context.hasDelete">Hapus</button>
         </div>
 
         <au-textbox 
             label="Nomor Surat Jalan" 
-            value.bind="data.no" 
-            error.bind="error.no" 
+            value.bind="data.doNo" 
+            error.bind="error.doNo" 
             placeholder="tambahkan nomor surat jalan" 
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker 
             label="Tgl. Surat Jalan" 
-            value.bind="data.supplierDoDate" 
-            error.bind="error.supplierDoDate" 
+            value.bind="data.doDate" 
+            error.bind="error.doDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker 
             label="Tgl. Tiba" 
-            value.bind="data.date" 
-            error.bind="error.date" 
+            value.bind="data.arrivalDate" 
+            error.bind="error.arrivalDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
@@ -40,7 +40,7 @@
             text.bind = "supplierView"
             placeholder="cari supplier" 
             key="code" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -48,7 +48,7 @@
             label="Jenis Supplier" 
             value.bind="supplierType" 
             read-only.bind="true"
-            if.bind="data.supplierId"
+            if.bind="data.supplier"
             options.bind="controlOptions">
         </au-textbox>
 
@@ -83,13 +83,22 @@
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-checkbox 
+        <!-- <au-checkbox 
             label="Apakah dikenakan Bea Cukai?" 
-            value.bind="data.useCustoms" 
-            error.bind="error.useCustoms" 
+            value.bind="data.isCustoms" 
+            error.bind="error.isCustoms" 
             read-only.bind="readOnly"
+            if.bind="!hasView"
             options.bind="controlOptions">
         </au-checkbox>
+
+        <au-textbox 
+            label="Apakah dikenakan Bea Cukai?" 
+            value.bind="isCustomsDisplay"
+            read-only.bind="true"
+            if.bind="hasView"
+            options.bind="controlOptions">
+        </au-textbox> -->
 
         <au-multiline 
             label="Keterangan" 
@@ -99,6 +108,28 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        <!-- <au-numeric 
+            label="Total Jumlah"
+            value.bind="data.totalQuantity" 
+            error.bind="error.totalQuantity"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric 
+            label="Total Nominal"
+            value.bind="data.totalAmount" 
+            error.bind="error.totalAmount"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-numeric> -->
+
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
+
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
@@ -107,10 +138,12 @@
             remove.bind="removeItems"
             options.one-way="filter"
             read-only.bind="readOnly"
-            if.bind="data.supplierId"
+            if.bind="data.supplier"
+            change.delegate="itemChanged($event)"
             view-model.ref="ItemsCollection"
             item-template="modules/garment-purchasing/delivery-order/template/delivery-order-item"
-            footer-template="modules/garment-purchasing/delivery-order/template/delivery-order-item-footer">
+            footer-template="modules/garment-purchasing/delivery-order/template/delivery-order-item-footer"
+            view-model.ref="ItemsCollection">
         </au-collection>
 
     </au-input-form>

@@ -29,13 +29,6 @@ export class Index {
                 nav: false,
                 title: "Buat"
               },
-              {
-                route: "copy/:id",
-                moduleId: "./copy",
-                name: "copy",
-                nav: false,
-                title: "Buat"
-              }
         ]);
 
         this.router = router;

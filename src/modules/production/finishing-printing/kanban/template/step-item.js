@@ -72,9 +72,10 @@ export class StepItem {
     }
 
     var index = this.context.context.items.indexOf(this.context);
+    // this.context.data.SelectedIndex = index + 1;
     if (this.context.context.items) {
       for (var stepItem of this.context.context.items) {
-        stepItem.data.selectedIndex = index;
+        stepItem.data.SelectedIndex = index;
       }
     }
 

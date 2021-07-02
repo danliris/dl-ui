@@ -1,17 +1,14 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
-import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/quality-control/fabrics';
-const kanbanServiceUri = 'finishing-printing/kanbans';
-const finishingPrintingSalesNoServiceUri = 'sales/finishing-printing-sales-contract-by-number'
+const serviceUri = 'finishing-printing//quality-control/defect';
+const kanbanServiceUri = 'production/kanbans';
+const finishingPrintingSalesContract = 'sales/finishing-printing-sales-contracts';
+const productionOrder = 'sales/production-orders';
 
 export class Service extends RestService {
 
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+    constructor(http, aggregator, config) {
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -30,12 +27,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
@@ -49,11 +46,9 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getKanbanById(id, select) {
+    getKanbanById(id) {
         var endpoint = `${kanbanServiceUri}/${id}`;
-        //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = { select: select };
-        return super.get(endpoint, null, info);
+        return super.get(endpoint);
     }
 
     getSalesContractByNo(salesContractNo, select) {
@@ -63,7 +58,23 @@ export class Service extends RestService {
     }
 
     getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+}
+
+export class SalesService extends RestService {
+    constructor(http, aggregator, config) {
+        super(http, aggregator, config, "sales");
+    }
+
+    getSalesContractById(id) {
+        var endpoint = `${finishingPrintingSalesContract}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getProductionOrderById(id) {
+        var endpoint = `${productionOrder}/${id}`;
+        return super.get(endpoint);
     }
 }

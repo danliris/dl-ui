@@ -143,7 +143,7 @@ export class DataForm {
         this.data.isInventory=false;
     }
 
-    deliveryOrderChanged(newValue, oldValue) {
+    async deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
         
         if (selectedDo) {
@@ -153,9 +153,10 @@ export class DataForm {
             var selectedItem = selectedDo.items || [];
             
             var _items = [];
+            var getEPO=[];
             for (var item of selectedItem) {
+                getEPO.push(this.service.getEPOById(item.purchaseOrderExternal._id));
                 for (var fulfillment of item.fulfillments) {
-                    
                     var _item = {};
                     if (fulfillment.purchaseOrder.purchaseRequest.unit._id == this.data.unitId) {
                         _item.product = fulfillment.product;
@@ -170,6 +171,7 @@ export class DataForm {
                         _item.doDetailId=fulfillment._id;
                         _item.prId=fulfillment.purchaseOrder.purchaseRequest._id;
                         _item.prNo=fulfillment.purchaseOrder.purchaseRequest.no;
+                        _item.epoId=item.purchaseOrderExternal._id;
                         //_item.pricePerDealUnit=
                         // _item.currency = fulfillment.purchaseOrder.currency;
                         // _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
@@ -196,7 +198,18 @@ export class DataForm {
                     }
                 }
             }
-            this.data.items = _items;
+            await Promise.all(getEPO).then(result=>{
+                for(var item of _items){
+                    var same= result.find(a=>a.Id==item.epoId);
+                    if(same){
+                        item.epoNo= same.no;
+                        item.incomeTaxBy=same.incomeTaxBy;
+                    }
+                }
+                this.data.items = _items;
+                console.log(this.data.items);
+            });
+            
         }
         else {
             this.data.items = [];

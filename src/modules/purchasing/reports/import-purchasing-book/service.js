@@ -12,13 +12,21 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(filter) { 
-        var endpoint = `${serviceUri}?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+    search(filter) {
+        // var endpoint = `${serviceUri}?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}&divisionId=${filter.divisionId}`;
         return super.get(endpoint);
     }
-    
+
     generateExcel(filter) {
-        var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        // var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}/download?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}&divisionId=${filter.divisionId}`;
         return super.getXls(endpoint);
+    }
+
+    printPdf(filter) {
+        // var endpoint = `${serviceUri}/pdf?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}/pdf?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}&divisionId=${filter.divisionId}`;
+        return super.getPdf(endpoint);
     }
 }

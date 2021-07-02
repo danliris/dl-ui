@@ -1,0 +1,96 @@
+<template>
+    <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-textbox
+            error.bind="error.ContractNo"
+            value.bind="data.ContractNo"
+            label="No Kontrak"
+            read-only.bind="true"
+            if.bind="data.ContractNo"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown 
+            label="Jenis Kontrak" 
+            value.bind="data.ContractType" 
+            error.bind="error.ContractType" 
+            read-only.bind="readOnly || data.IsUsed"
+            items.bind="ContractTypeOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+        
+        <au-datepicker 
+            label="Tanggal Kontrak"
+            value.bind="data.ContractDate"
+            error.bind="error.ContractDate"
+            read-only.bind="readOnly || data.IsUsed"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-textbox
+            error.bind="error.AgreementNo"
+            value.bind="AgreementNo"
+            label="No/Tgl Persetujuan"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete
+            value.bind="data.Supplier"
+            error.bind="error.Supplier"
+            label="Penerima"
+            loader.bind="supplierLoader"
+            text.bind="supplierView"
+            placeholder="cari supplier"
+            read-only.bind="readOnly || data.IsUsed || data.Id"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox
+            error.bind="error.JobType"
+            value.bind="JobType"
+            label="Jenis Pekerjaan"
+            read-only.bind="readOnly || data.IsUsed"
+            options.bind="controlOptions"
+            textstyle="upper-case">
+        </au-textbox>
+
+        <au-textbox
+            error.bind="error.BPJNo"
+            value.bind="BPJNo"
+            label="No/Tgl BPJ"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            error.bind="error.FinishedGoodType"
+            value.bind="FinishedGoodType"
+            label="Jenis Barang Jadi"
+            read-only.bind="readOnly || data.IsUsed"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-numeric
+            error.bind="error.Quantity"
+            value.bind="data.Quantity"
+            label="Jumlah (PCS)"
+            format="0"
+            read-only.bind="readOnly || data.IsUsed"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-datepicker 
+            label="Tanggal Jatuh Tempo"
+            value.bind="data.DueDate"
+            error.bind="error.DueDate"
+            read-only.bind="readOnly || data.IsUsed"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+    </au-input-form>
+    <div class="row"></div>
+</template>

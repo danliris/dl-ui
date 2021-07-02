@@ -18,7 +18,7 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
 
-    if(this.data.isUsed) {
+    if(this.data.IsUsed) {
       this.hasEdit = false;
       this.hasDelete = false;
     }
@@ -29,7 +29,7 @@ export class View {
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }
 
   delete(event) {

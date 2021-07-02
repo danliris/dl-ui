@@ -1,63 +1,20 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
+var moment = require("moment");
+var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
 @inject(Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isView = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
     @bindable isUseVat = false;
     @bindable isUseIncomeTax = false;
-
-    deliveryOrderFields = [
-        "_id",
-        "_createdBy",
-        "no",
-        "date",
-        "supplierDoDate",
-        "supplier.code",
-        "supplier._id",
-        "supplier.name",
-        "supplier.address",
-        "shipmentType",
-        "shipmentNo",
-        "items.purchaseOrderExternalId",
-        "items.purchaseOrderExternalNo",
-        "items.fulfillments.purchaseOrderId",
-        "items.fulfillments.purchaseOrderNo",
-        "items.fulfillments.purchaseRequestId",
-        "items.fulfillments.purchaseRequestNo",
-        "items.fulfillments.purchaseRequestRefNo",
-        "items.fulfillments.roNo",
-        "items.fulfillments.productId",
-        "items.fulfillments.product.code",
-        "items.fulfillments.product.name",
-        "items.fulfillments.product.price",
-        "items.fulfillments.product.currency._id",
-        "items.fulfillments.product.currency.code",
-        "items.fulfillments.product.currency.rate",
-        "items.fulfillments.product.currency.symbol",
-        "items.fulfillments.product.description",
-        "items.fulfillments.product.uomId",
-        "items.fulfillments.product.uom.unit",
-        "items.fulfillments.purchaseOrderQuantity",
-        "items.fulfillments.purchaseOrderQuantity",
-        "items.fulfillments.purchaseOrderUom._id",
-        "items.fulfillments.purchaseOrderUom.unit",
-        "items.fulfillments.purchaseOrderUom.unit",
-        "items.fulfillments.deliveredQuantity",
-        "items.fulfillments.realizationQuantity",
-        "items.fulfillments.remainsQuantity",
-        "items.fulfillments.pricePerDealUnit",
-        "items.fulfillments.currency._id",
-        "items.fulfillments.currency.code",
-        "items.fulfillments.currency.rate",
-        "items.fulfillments.currency.symbol",
-        "items.fulfillments.corrections"
-    ];
+    @bindable selectedSupplier;
 
     constructor(service) {
         this.service = service;
@@ -79,15 +36,15 @@ export class DataForm {
 
         this.deliveryOrderItem = {
             columns: [
-                { header: "Nomor PO Eksternal" },
-                { header: "Nomor PR" },
-                { header: "Nomor Ref PR", value: "purchaseRequestRefNo" },
-                { header: "Nomor RO", value: "roNo" },
-                { header: "Nama Barang" },
-                { header: "Jumlah" },
-                { header: "Satuan" },
-                { header: "Harga Satuan" },
-                { header: "Harga Total" },
+                "Nomor PO Eksternal",
+                "Nomor PR",
+                "Nomor Ref PR",
+                "Nomor RO",
+                "Nama Barang",
+                "Jumlah",
+                "Satuan",
+                "Harga Satuan",
+                "Harga Total"
             ],
             onRemove: function () {
                 this.bind();
@@ -111,103 +68,169 @@ export class DataForm {
         }
     }
 
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    supplierView = (supplier) => {
+        var code=supplier.code? supplier.code : supplier.Code;
+        var name=supplier.name? supplier.name : supplier.Name;
+        return `${code} - ${name}`
+    }
+
+    selectedSupplierChanged(newValue) {
+        var _selectedSupplier = newValue;
+        if (_selectedSupplier) {
+            this.filterDO={
+                "BillNo != null": true,
+                SupplierName:_selectedSupplier.name
+            };
+        }
+        else{
+            this.filterDO={};
+            this.selectedSupplier=null;
+            this.data.Items=[];
+            this.itemsTemp = [];
+            this.data.DONo=null;
+            this.data.Supplier=null;
+            this.context.supplierViewModel.editorValue = "";
+            this.context.doViewModel.editorValue = "";
+        }
+        this.context.doViewModel.editorValue = "";
+        this.deliveryOrder = null;
+        this.data.Items = [];
+        this.itemsTemp = [];
+        this.data.Supplier=null;
+    }
+
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, select: this.deliveryOrderFields };
+            var info = {
+                keyword: keyword,
+                filter: JSON.stringify(this.filterDO),
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName","doDate":"DODate" }),
+                search: JSON.stringify([ "DONo" ]),
+                order: {"DONo": "asc"}
+            };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
-                    return result.data;
+                    return result.data.map(data => {
+                        data.toString = function() { return `${this.doNo} - ${this.supplierName}`; };
+                        
+                        return data;
+                    });
                 });
         }
     }
 
+    doView = (DO) => {
+        return `${DO.doNo} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
+    }
+
 
     deliveryOrderChanged(newValue, oldValue) {
-        this.data.deliveryOrder = newValue;
-        this.data.items = [];
-        this.itemsTemp = [];
         this.collectionOptions.correction = false;
 
-        if (this.data.deliveryOrder) {
-            for (var item of this.data.deliveryOrder.items) {
-                for (var fulfillment of item.fulfillments) {
-                    var correction = fulfillment.corrections || [];
-
-                    if (correction.length > 0) {
+        if (newValue && newValue.Id) {
+            this.service.getdeliveryOrderById(newValue.Id)
+                .then(deliveryOrder => {
+                    if(deliveryOrder.isCorrection) {
                         this.collectionOptions.correction = true;
                         this.collectionOptions.pricePerUnitFirst = true;
-
-                        fulfillment.quantity = correction[correction.length - 1].correctionQuantity;
-                        fulfillment.pricePerUnit = correction[correction.length - 1].correctionPricePerUnit;
-                        fulfillment.priceTotal = correction[correction.length - 1].correctionPriceTotal;
-                    }
-                    else {
-                        fulfillment.quantity = fulfillment.deliveredQuantity;
-                        fulfillment.pricePerUnit = fulfillment.pricePerDealUnit;
-                        fulfillment.priceTotal = fulfillment.pricePerDealUnit * fulfillment.deliveredQuantity;
                     }
 
-                    var obj = {
-                        purchaseOrderExternalId: item.purchaseOrderExternalId,
-                        purchaseOrderExternalNo: item.purchaseOrderExternalNo,
-                        purchaseOrderInternalId: fulfillment.purchaseOrderId,
-                        purchaseOrderInternalNo: fulfillment.purchaseOrderNo,
-                        purchaseRequestId: fulfillment.purchaseRequestId,
-                        purchaseRequestNo: fulfillment.purchaseRequestNo,
-                        purchaseRequestRefNo: fulfillment.purchaseRequestRefNo,
-                        roNo: fulfillment.roNo,
-                        productId: fulfillment.productId,
-                        product: fulfillment.product,
-                        quantity: fulfillment.quantity,
-                        uomId: fulfillment.product.uomId,
-                        uom: fulfillment.purchaseOrderUom,
-                        pricePerUnit: fulfillment.pricePerUnit,
-                        priceTotal: fulfillment.priceTotal,
-                        currency: fulfillment.currency,
-                        currencyRate: fulfillment.currency.rate
-                    };
-                    this.data.items.push(obj);
-                }
-            }
-            this.itemsTemp = JSON.parse(JSON.stringify(this.data.items)); /* Clone Array */
+                    this.data.CorrectionDate = new Date(new Date().setHours(0, 0, 0, 0));
+
+                    this.data.DOId = deliveryOrder.Id;
+                    this.data.DONo = deliveryOrder.doNo;
+
+                    this.data.Supplier = deliveryOrder.supplier;
+
+                    this.data.Currency = deliveryOrder.docurrency;
+
+                    this.data.UseVat = deliveryOrder.useVat;
+                    this.data.UseIncomeTax = deliveryOrder.useIncomeTax;
+                    this.data.IncomeTax = deliveryOrder.incomeTax;
+
+                    this.data.Items = [];
+                    this.itemsTemp = [];
+                    for(let item of deliveryOrder.items) {
+                        for (let detail of item.fulfillments) {
+                            let correctionNoteItem = {};
+
+                            correctionNoteItem.DODetailId = detail.Id;
+    
+                            correctionNoteItem.EPOId = item.purchaseOrderExternal.Id;
+                            correctionNoteItem.EPONo = item.purchaseOrderExternal.no;
+    
+                            correctionNoteItem.PRId = detail.pRId;
+                            correctionNoteItem.PRNo = detail.pRNo;
+    
+                            correctionNoteItem.POId = detail.pOId;
+                            correctionNoteItem.POSerialNumber = detail.poSerialNumber;
+                            correctionNoteItem.RONo = detail.rONo;
+    
+                            correctionNoteItem.Product = detail.product;
+    
+                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection - detail.returQuantity).toFixed(2));
+    
+                            correctionNoteItem.Uom = detail.purchaseOrderUom;
+    
+                            correctionNoteItem.PricePerDealUnitBefore = detail.pricePerDealUnitCorrection;
+                            correctionNoteItem.PricePerDealUnitAfter = detail.pricePerDealUnitCorrection;
+                            correctionNoteItem.PriceTotalBefore = parseFloat((detail.priceTotalCorrection).toFixed(2));
+                            correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
+    
+                            this.data.Items.push(correctionNoteItem);
+                        }
+                    }
+                    this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
+
+                    if (this.error) {
+                        if(this.error.ItemsCount)
+                            this.error.ItemsCount = null;
+                        if(this.error.Items)
+                            this.error.Items = null;
+                    }
+                });
         }
+        else {
+            this.data.DOId = null;
+            this.data.Items = [];
+            this.itemsTemp = [];
+            this.context.doViewModel.editorValue = "";
 
-        if (this.data.deliveryOrder) {
-            var getListPOext = this.data.deliveryOrder.items.map(item => {
-                return this.service.getPOExternalById(item.purchaseOrderExternalId, ["no", "useIncomeTax", "useVat"]);
-            })
-
-            Promise.all(getListPOext)
-                .then((purchaseOrderExternals) => {
-                    this.isUseIncomeTax = purchaseOrderExternals
-                        .map((item) => item.useIncomeTax)
-                        .reduce((prev, curr, index) => {
-                            return prev || curr
-                        }, false);
-                    this.isUseVat = purchaseOrderExternals
-                        .map((item) => item.useVat)
-                        .reduce((prev, curr, index) => {
-                            return prev || curr
-                        }, false);
-                })
+            if (this.error) {
+                if(this.error.ItemsCount)
+                    this.error.ItemsCount = null;
+                if(this.error.Items)
+                    this.error.Items = null;
+            }
         }
     }
 
     correctionTypeChanged(newValue, oldValue) {
-        this.data.correctionType = newValue;
+        this.data.CorrectionType = newValue;
 
-        if (this.data.correctionType === "Harga Satuan") {
+        if (this.data.CorrectionType === "Harga Satuan") {
             this.collectionOptions.pricePerUnitReadOnly = false;
             this.collectionOptions.pricePerUnitFirst = true;
         }
         else
             this.collectionOptions.pricePerUnitReadOnly = true;
 
-        this.data.items = JSON.parse(JSON.stringify(this.itemsTemp));
+        this.data.Items = JSON.parse(JSON.stringify(this.itemsTemp));
+
+        if (this.error) {
+            if(this.error.ItemsCount)
+                this.error.ItemsCount = null;
+            if(this.error.Items)
+                this.error.Items = null;
+        }
     }
 
-    @computedFrom("data.deliveryOrder")
-    get hasDeliveryOrder() {
-        return this.data.deliveryOrder ? this.data.deliveryOrder.items.length > 0 : false;
+    @computedFrom("data.DOId")
+    get hasItems() {
+        return this.data.Items ? this.data.Items.length > 0 : false;
     }
 }

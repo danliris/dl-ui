@@ -9,7 +9,7 @@ const costCalculationGarmentServiceUri = "cost-calculation-garments";
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "merchandiser");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
@@ -42,6 +42,11 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    getCostCalculationGarment(info) {
+        var endpoint = `${costCalculationGarmentServiceUri}/dynamic`;
+        return super.list(endpoint, info);
+    }
+
     getCostCalculationGarmentById(id) {
         var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
         return super.get(endpoint);
@@ -63,5 +68,19 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    postRO(data) {
+        var endpoint = `${serviceUri}/post`;
+        return super.post(endpoint, data);
+    }
+
+    unpostRO(id) {
+        var endpoint = `${serviceUri}/unpost/${id}`;
+        return super.put(endpoint);
+    }
+
+    getFile(path, fileName) {
+        return super.getFile(`azure-documents/${path}?fileName=${fileName}`);
     }
 }

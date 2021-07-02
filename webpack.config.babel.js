@@ -65,6 +65,9 @@ const coreBundles = {
         'aurelia-templating-binding',
         'aurelia-templating-router',
         'aurelia-templating-resources'
+    ],
+    underscore:[
+        'underscore'
     ]
 }
 
@@ -76,7 +79,8 @@ let config = generateConfig(
         entry: {
             'app': ['./src/main' /* this is filled by the aurelia-webpack-plugin */],
             'aurelia-bootstrap': coreBundles.bootstrap,
-            'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1)
+            'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1),
+            'underscore':coreBundles.underscore
         },
         output: {
             path: outDir
@@ -114,7 +118,7 @@ let config = generateConfig(
             generateCoverage({ options: { 'force-sourcemap': true, esModules: true } })
         ]),
 
-    ENV === 'production' ?
-        uglify({ debug: false, mangle: { except: ['cb', '__webpack_require__'] } }) : {}
+    // ENV === 'production' ?
+    //     uglify({ debug: false, mangle: { except: ['cb', '__webpack_require__'] } }) : {}
 ) 
 module.exports = stripMetadata(config)

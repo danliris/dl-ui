@@ -8,8 +8,20 @@ module.exports = function(keyword, filter) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("purchasing-azure");
 
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10  })
         .then(results => {
-            return results.data
+            var data=[];
+            for (var a of results.data){
+                if(data.lengh==0){
+                    data.push(a);
+                }
+                else{
+                    var dup= data.find(c=>c.UnitPaymentOrderNo==a.UnitPaymentOrderNo);
+                    if(!dup){
+                        data.push(a);
+                    }
+                }
+            }
+            return data;
         });
 }

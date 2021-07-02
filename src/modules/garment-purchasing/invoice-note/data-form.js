@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var VatLoader = require('../../../loader/vat-loader');
 
 @inject(BindingEngine, Element, Service)
@@ -12,7 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable supplier;
     @bindable currency;
-    @bindable vat;
+    @bindable incomeTax;
     @bindable options = { readOnly: false };
 
     controlOptions = {
@@ -53,18 +53,38 @@ export class DataForm {
         this.service = service;
     }
 
+    @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        console.log(context);
+        if(this.data.Id)
+        {
+            this.readO=true;
+            //this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        }
+        if(this.data.supplier){
+            this.options.supplierCode = this.data.supplier.Code;      
+        }
+        this.options.useVat=this.data.useVat;
+        this.options.useIncomeTax=this.data.useIncomeTax;
+        if(this.data.useIncomeTax === true)
+        {
+            this.options.incomeTaxName=this.data.incomeTaxName;
+            this.options.incomeTaxId=this.data.incomeTaxId;
+        }
+        if(this.data.currency){
+            this.options.currencyCode = this.data.currency.Code;
+        }
+      
     }
-
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
-
+    
     // async supplierChanged(newValue) {
     //     var selectedSupplier = newValue;
     //     if (selectedSupplier) {
@@ -127,11 +147,12 @@ export class DataForm {
     //     this.resetErrorItems();
     // }
 
-    currencyChanged(newValue) {
+    currencyChanged(newValue,oldValue) {
         var selectedCurrency = newValue;
         if (selectedCurrency) {
-            if (selectedCurrency._id) {
+            if (selectedCurrency.Id) {
                 this.data.currency = selectedCurrency;
+                this.options.currencyCode = selectedCurrency.code;
             }
             else {
                 this.data.currency = null;
@@ -140,22 +161,32 @@ export class DataForm {
         else {
             this.data.currency = null;
         }
+        if(newValue!=oldValue)
+            this.data.items.splice(0);
         this.resetErrorItems();
     }
 
-    vatChanged(newValue) {
-        var selectedVat = newValue;
-        if (selectedVat) {
-            if (selectedVat._id) {
-                this.data.vat = selectedVat;
+    incomeTaxChanged(newValue,oldValue) {
+        var selectedIncomeTax = newValue;
+        if (selectedIncomeTax) {
+            if (selectedIncomeTax.Id) {
+                
+                this.data.incomeTax = selectedIncomeTax;
+                this.data.incomeTaxId = selectedIncomeTax.Id;
+                this.data.incomeTaxRate=selectedIncomeTax.rate;
+                this.data.incomeTaxName=selectedIncomeTax.name;
+                this.options.incomeTaxId = selectedIncomeTax.Id;
+                this.options.incomeTaxName=selectedIncomeTax.name;
             }
             else {
-                this.data.vat = null;
+                this.data.incomeTax = null;
             }
         }
         else {
-            this.data.vat = null;
+            this.data.incomeTax = null;
         }
+        if(newValue!=oldValue)
+             this.data.items.splice(0);
         this.resetErrorItems();
     }
 
@@ -164,7 +195,13 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+        if(this.data.Id)
+        {
+            return `${supplier.Code} - ${supplier.Name}`
+        }else
+        {
+            return `${supplier.code} - ${supplier.name}`
+        }
     }
 
     get currencyLoader() {
@@ -172,7 +209,13 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        if(this.data.Id)
+        {
+            return currency.Code
+        }else
+        {
+            return currency.code
+        }
     }
 
     get vatLoader() {
@@ -196,51 +239,75 @@ export class DataForm {
         this.data.vatNo = "";
         this.data.vatDate = "";
         this.context.vatVM.editorValue = "";
-        if (!this.data.useIncomeTax && !this.data.useVat) {
-            this.data.isPayTax = false
+        
+        this.options.useVat=selectedUseVat;
+        if (!this.data.useVat) {
+            this.data.isPayVat = false
         }
         if (this.context.error.useVat) {
             this.context.error.useVat = "";
         }
+        this.data.items.splice(0);
     }
 
     useIncomeTaxChanged(e) {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
-        if (!this.data.useIncomeTax && !this.data.useVat) {
+        this.data.incomeTaxName="";
+        this.data.incomeTaxId = 0;
+        this.data.incomeTaxRate=0;
+        //this.incomeTax={};
+
+        this.options.useIncomeTax=selectedUseIncomeTax;
+        if (!this.data.useIncomeTax) {
             this.data.isPayTax = false
         }
         if (this.context.error.useIncomeTax) {
             this.context.error.useIncomeTax = "";
         }
+            this.data.items.splice(0);
+            // this.data.incomeTax={};
+            // this.data.incomeTaxNo="";
+            // this.data.incomeTaxName="";
+            // this.data.incomeTaxId = 0;
+            // this.data.incomeTaxRate=0;
+            // this.options.incomeTaxId = null;
+        
+    }
+    isPayTaxChanged(e){
+        var selectedisPayTax = e.srcElement.checked || false;
+        this.options.isPayTax = selectedisPayTax;
     }
 
-    // onClickAllDataSource($event) {
-    //     for (var item of this.data.items) {
-    //         item.check = $event.detail.target.checked;
-    //     }
-    // }
-
+    isPayVatChanged(e){
+        var selectedisPayVat = e.srcElement.checked || false;
+        this.options.isPayVat = selectedisPayVat;
+    }
+      
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
-                this.options.supplierCode = selectedSupplier.code;
+                this.data.supplierId = selectedSupplier.Id;
+                this.options.supplierId = selectedSupplier.Id;
+                this.options.useVat=false;
+                this.options.useIncomeTax=false;
             }
             if (oldValue) {
                 this.data.supplier = {};
                 this.data.supplierId = null;
-                this.data.items = [];
+                this.data.items.splice(0);
             }
         } else {
             this.data.supplier = {};
             this.data.supplierId = null;
-            this.data.items = [];
+            this.data.items.splice(0);
         }
-        this.resetErrorItems();
+        if(newValue!=oldValue)
+            this.data.items.splice(0);
+        this.resetErrorItems(); 
     }
 
     @computedFrom("data.items.length")

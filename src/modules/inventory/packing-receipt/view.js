@@ -17,19 +17,19 @@ export class View {
         this.data = await this.service.getById(id);
 
         this.packingReadOnly = true;
-        this.packing = this.data;
-        this.packing.code = this.data.packingCode;
-        this.data.packing = this.data;
-        console.log(this.data)
+        this.Packing = this.data;
+        this.Packing.Code = this.data.PackingCode;
+        this.data.Packing = this.data;
+        this.data.Packing.OrderTypeName = this.data.Packing.OrderType
 
-        if (this.data.items.length > 0) {
+        if (this.data.Items.length > 0) {
             var delivered;
-            for (var item of this.data.items) {
+            for (var item of this.data.Items) {
                 var properties = Object.getOwnPropertyNames(item);
                 delivered = properties.find((property) => property.toString().toLowerCase() === "isdelivered");
 
                 if (delivered) {
-                    if (item.isDelivered || this.data.isVoid) {
+                    if (item.IsDelivered || this.data.IsVoid) {
                         this.isVoid = false;
                         break;
                     } else {
@@ -44,10 +44,10 @@ export class View {
     }
 
     update() {
-        delete this.data.packing;
-        this.data.isVoid = true;
+        delete this.data.Packing;
+        this.data.IsVoid = true;
         // remove total jumlah object
-        this.data.items = this.data.items.slice(0, -1);
+        this.data.Items = this.data.Items.slice(0, -1);
         this.service.update(this.data)
             .then((result) => {
                 this.router.navigateToRoute('list');
@@ -65,26 +65,26 @@ export class View {
     attached() {
 
         var total = {
-            product: "Total Jumlah",
-            quantity: 0,
-            availableQuantity: 0,
-            weightTotalAmount: 0,
-            weight: 0,
-            lengthTotalAmount: 0,
-            length: 0,
+            Product: "Total Jumlah",
+            Quantity: 0,
+            AvailableQuantity: 0,
+            WeightTotalAmount: 0,
+            Weight: 0,
+            LengthTotalAmount: 0,
+            Length: 0,
 
         };
 
-        for (var item of this.data.items) {
+        for (var item of this.data.Items) {
 
-            total.quantity += item.quantity;
-            total.availableQuantity += item.availableQuantity;
-            total.weight += item.weight;
-            total.length += item.length;
-            total.weightTotalAmount += item.weight * item.quantity;
-            total.lengthTotalAmount += item.length * item.quantity;
+            total.Quantity += item.Quantity;
+            total.AvailableQuantity += item.AvailableQuantity;
+            total.Weight += item.Weight;
+            total.Length += item.Length;
+            total.WeightTotalAmount += item.Weight * item.Quantity;
+            total.LengthTotalAmount += item.Length * item.Quantity;
         }
 
-        this.data.items.push(total);
+        this.data.Items.push(total);
     }
 }

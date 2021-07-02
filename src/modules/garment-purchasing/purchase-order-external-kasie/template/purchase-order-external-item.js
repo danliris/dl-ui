@@ -1,20 +1,25 @@
 import { bindable, computedFrom } from 'aurelia-framework'
 import { factories } from 'powerbi-client';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
+
 var UomLoader = require('../../../../loader/uom-loader');
 
+const resource = 'master/garmentProducts';
+const POresource= 'garment-internal-purchase-orders';
 export class PurchaseOrderItem {
   @bindable selectedDealUom;
   @bindable price;
-  activate(context) {
+  async activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.isUseVat = this.context.context.options.isUseVat || false;
     this.checkOverBudget = this.context.context.options.checkOverBudget;
     this.kurs = this.context.context.options.kurs;
     this.selectedDealUom = this.data.dealUom;
-    this.price = this.data.pricePerDealUnit;
+    this.price = this.data.PricePerDealUnit;
 
     if (!this.data.budgetUsed) {
       this.data.budgetUsed = 0;
@@ -22,12 +27,54 @@ export class PurchaseOrderItem {
     if (!this.data.totalBudget) {
       this.data.totalBudget = 0;
     }
-    this.checkIsOverBudget();
+    if(this.data.DealUom){
+      this.selectedDealUom=this.data.DealUom;
+    }
+
+    if(!this.data.SmallUom && this.data.Product){
+      if(this.data.Product.Id){
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+        var productUri=`${resource}/${this.data.Product.Id}`;
+        await endpoint.find(productUri)
+            .then((result) => {
+              var product=result.data;
+              this.data.SmallUom=product.UOM;
+            });
+      }
+    }
+    this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
+
+    if(!this.data.UsedBudget ){
+      this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
+    }
+    else{
+      this.data.budgetUsed=this.data.UsedBudget;
+    }
+    this.data.DefaultQuantity=parseFloat(this.data.DefaultQuantity).toFixed(2);
+    this.data.DealQuantity=parseFloat(this.data.DealQuantity).toFixed(2);
+    // if(this.data.Id){
+    //   if(this.data.POId){
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("purchasing-azure");
+    //     var pOUri=`${POresource}/${this.data.POId}`;
+    //     await endpoint.find(pOUri)
+    //         .then((result) => {
+    //           var PO=result.data;
+    //           this.data.Initial=PO.remainingBudget+this.data.;
+    //         });
+    //   }
+    // }
+    if(this.options.readOnly){
+      this.data.PricePerDealUnit=parseFloat(this.data.PricePerDealUnit).toFixed(4);
+    }
+    if(!this.options.readOnly)
+      this.checkIsOverBudget();
   }
 
   bind() {
     if (this.context.context.options.resetOverBudget == true) {
-      this.price = this.data.budgetPrice;
+      this.price = this.data.BudgetPrice;
       this.context.context.options.resetOverBudget = false;
       if (this.error) {
         if (this.error.overBudgetRemark) {
@@ -39,47 +86,68 @@ export class PurchaseOrderItem {
 
 
   checkIsOverBudget() {
-    if (this.context.context.options.checkOverBudget) {
-      var totalDealPrice = ((this.data.dealQuantity * this.price * this.kurs.rate) + this.data.budgetUsed).toFixed(4);
-      if (totalDealPrice > this.data.totalBudget) {
-        this.data.isOverBudget = true;
-      } else {
-        this.data.isOverBudget = false;
-        this.data.overBudgetRemark = "";
+    if(!this.options.readOnly)
+      if (this.context.context.options.checkOverBudget) {
+        this.data.UsedBudget=parseFloat(this.data.budgetUsed.toFixed(4));
+        //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
+        //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
+        var totalDealPrice = (this.data.remainingBudget-parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4);
+        //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
+        //this.data.RemainingBudget=totalDealPrice;
+
+        if (this.data.UENItemId) {
+          totalDealPrice = parseFloat((this.data.BudgetFromUEN - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
+        }
+        if (totalDealPrice <0) {
+          this.data.IsOverBudget = true;
+        } else {
+          this.data.IsOverBudget = false;
+          this.data.OverBudgetRemark = "";
+        }
       }
-    }
   }
 
   updatePrice() {
-    this.data.priceBeforeTax = this.price;
-    if (this.data.useIncomeTax) {
-      this.data.pricePerDealUnit = (100 * this.price) / 110;
-    } else {
-      this.data.pricePerDealUnit = this.price;
-    }
+    // if (this.data.UseIncomeTax) {
+    //   this.data.PricePerDealUnit = (100 * this.price) / 110;
+    // } else {
+    //   this.data.PricePerDealUnit = this.price;
+    // }
     this.checkIsOverBudget();
   }
 
   selectedDealUomChanged(newValue) {
-    if (newValue._id) {
-      this.data.dealUom = newValue;
+    if (newValue.Id) {
+      this.data.DealUom = newValue;
     }
   }
 
   get quantityConversion() {
-    return this.data.dealQuantity * this.data.conversion;
+    this.data.SmallQuantity=parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
+    return this.data.SmallQuantity;
   }
 
   conversionChanged(e) {
-    this.data.quantityConversion = this.data.dealQuantity * this.data.conversion;
+    this.data.SmallQuantity = parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
   }
 
   priceChanged(e) {
-    this.updatePrice();
+
+    if(e.detail)
+      this.data.budgetUsed=parseFloat(e.detail)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    else{
+      this.data.budgetUsed=parseFloat(this.data.PricePerDealUnit)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    }
+    this.checkIsOverBudget();
+  }
+
+  qtyChanged(e) {
+    this.data.budgetUsed=parseFloat(e.srcElement.value)* this.data.PricePerDealUnit * this.kurs.Rate;
+    this.checkIsOverBudget();
   }
 
   useIncomeTaxChanged(e) {
-    this.updatePrice();
+    this.checkIsOverBudget();
   }
 
   get uomLoader() {
@@ -87,15 +155,15 @@ export class PurchaseOrderItem {
   }
 
   uomView = (uom) => {
-    return uom.unit
+    return uom.Unit
   }
 
   get prNo() {
-    return `${this.data.prNo} - ${this.data.prRefNo} - ${this.data.artikel}`;
+    return `${this.data.PRNo} - ${this.data.PO_SerialNumber} - ${this.data.Article}`;
   }
 
   get product() {
-    return this.data.product.name;
+    return this.data.Product.Name;
   }
 
   controlOptions = {

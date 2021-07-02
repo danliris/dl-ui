@@ -5,26 +5,29 @@ import { Config } from "aurelia-api"
 export class DetailFooter {
   activate(context) {
     this.context = context;
+    console.log(context)
   }
 
   get itemSum() {
     var qty = this.context.items
-      .map((item) => item.data.quantity);
+      .map((item) => item.data.Quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
 
   get uom() {
-    var uom=[];
+   var uom;
     if(this.context.items.length>0){
-      uom = this.context.items
-      .map((item) => item.data.uom.unit);
-        return uom
-      .reduce((prev, curr, index) => { return curr });
+      if(this.context.items[0].data.Uom.Unit){
+          return this.context.items[0].data.Uom.Unit;
       }
       else{
+        uom="MTR";
         return uom;
       }
-    
+    }
+    else{
+      return uom;
+    }
   }
 }

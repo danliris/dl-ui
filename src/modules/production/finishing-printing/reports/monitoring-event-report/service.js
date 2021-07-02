@@ -2,13 +2,13 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/reports/monitoring-events';
+const serviceUri = 'finishing-printing/monitoring-event-reports';
 const machineServiceUri = 'finishing-printing/reports/monitoring-specification-machine/by-event';
 var moment = require('moment');
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -22,15 +22,15 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/download`;
         var query = '';
         if (info.machineId) {
             if (query === '') query = `machineId=${info.machineId}`;
             else query = `${query}&machineId=${info.machineId}`;
         }
-        if (info.machineEventCode) {
-            if (query === '') query = `machineEventCode=${info.machineEventCode}`;
-            else query = `${query}&machineEventCode=${info.machineEventCode}`;
+        if (info.machineEventId) {
+            if (query === '') query = `machineEventId=${info.machineEventId}`;
+            else query = `${query}&machineEventId=${info.machineEventId}`;
         }
         if (info.productionOrderNumber) {
             if (query === '') query = `productionOrderNumber=${info.productionOrderNumber}`;
@@ -45,23 +45,17 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${serviceUri}/download?${query}`;
 
         return endpoint;
     }
 
     getMachine(info) {
-        var time = info.time.split(":");
-        var date = info.date.toString();
-        var dateTime = new Date(date);
-
-        dateTime.setHours(time[0]);
-        dateTime.setMinutes(time[1]);
+        console.log(info);
         var query = '';
+        query = `id=${info.machineId}&productionOrderNumber=${info.productionOrderNumber}&dateTime=${info.date}`;
 
-        query = `machineId=${info.machineId}&productionOrderNumber=${info.productionOrderNumber}&date=${dateTime}`;
-
-        var endpoint = `${machineServiceUri}?${query}`;
+        var endpoint = `${serviceUri}/monitoringSpecMachine?${query}`;
         return super.get(endpoint);
     }
 }

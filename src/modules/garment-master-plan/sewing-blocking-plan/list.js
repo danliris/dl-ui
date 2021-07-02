@@ -9,17 +9,17 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.status === "Booking Dihapus")
+        if (data.Status === "Booking Dihapus")
             return { classes: "danger" };
-        else if(data.status === "Booking Dibatalkan")
+        else if(data.Status === "Booking Dibatalkan")
             return { classes: "danger" };
-        else if(data.status === "Booking Ada Perubahan")
+        else if(data.Status === "Booking Ada Perubahan")
             return { classes: "info" };
-        else if (data.status === "Booking Expired")
+        else if (data.Status === "Booking Expired")
             return { classes: "danger" };
-        else if (data.status === "Confirm Full")
+        else if (data.Status === "Confirm Full")
             return { classes: "success" };
-        else if (data.status === "Confirm Sebagian")
+        else if (data.Status === "Confirm Sebagian")
             return { classes: "warning" };
         else
             return {};
@@ -27,21 +27,25 @@ export class List {
 
     context = ["detail"]
 
+    options = {}
+
     columns = [
-        { field: "bookingOrderNo", title: "Nomor Booking" },
-        { field: "bookingDate", title: "Tanggal Booking", formatter: function (value, data, index) {
+        { field: "BookingOrderNo", title: "Nomor Booking" },
+        { field: "BookingOrderDate", title: "Tanggal Booking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "garmentBuyerName", title: "Buyer" },
-        { field: "quantity", title: "Jumlah Order" },
+        { field: "BuyerName", title: "Buyer", formatter: function (value, data, index) {
+                return data.Buyer.Name;
+            }},
+        { field: "OrderQuantity", title: "Jumlah Order" },
         {
-            field: "deliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
+            field: "DeliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "remark", title: "Keterangan" },
-        { field: "status", title: "status" },
+        { field: "Remark", title: "Keterangan" },
+        { field: "Status", title: "Status" },
     ];
 
     loader = (info) => {
@@ -52,7 +56,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select:["_id","bookingOrderNo", "garmentBuyerName", "quantity", "bookingDate", "deliveryDate", "remark", "status","details"],
+           // select:["_id","bookingOrderNo", "garmentBuyerName", "quantity", "bookingDate", "deliveryDate", "remark", "status","details"],
             order: order
         }
 
@@ -65,19 +69,18 @@ export class List {
                 for(var dt of result.data){
                     var flag=0;
                     var count=0;
-                    for(var item of dt.details){
-                        if(item.isConfirmed){
+                    for(var item of dt.Items){
+                        if(item.IsConfirm){
                             flag++;
                         }
                         count++;
                     }
-                    if(flag===count && dt.status=="Booking"){
-                        dt.status="Confirm Full";
+                    if(flag===count && dt.Status=="Booking"){
+                        dt.Status="Confirm Full";
                     }
-                    else if(flag>0 && dt.status=="Booking"){
-                        dt.status="Confirm Sebagian";
+                    else if(flag>0 && dt.Status=="Booking"){
+                        dt.Status="Confirm Sebagian";
                     }
-
                 }
                 return {
                     total: result.info.total,
@@ -92,12 +95,16 @@ export class List {
         this.router = router;
     }
 
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
+    }
+
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

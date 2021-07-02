@@ -9,13 +9,14 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["detail"];
   columns = [
-    { field: "code", title: "Mata Uang" },
-    { field: "rate", title: "Kurs" },
     {
       field: "date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY")
       }
     },
+    { field: "code", title: "Mata Uang" },
+    { field: "rate", title: "Kurs" },
+    
   ]
 
   loader = (info) => {
@@ -51,13 +52,13 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
 
   view(data) {
-    this.router.navigateToRoute('view', { id: data._id });
+    this.router.navigateToRoute('view', { id: data.Id });
   }
 
   upload() {

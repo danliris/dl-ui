@@ -6,57 +6,61 @@ import {activationStrategy} from 'aurelia-router';
 var moment = require('moment');
 
 @inject(Router, Service)
-export class Create {
+export class Edit {
     hasCancel = true;
     hasSave = true;
-
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
     async activate(params) {
+        
         var locale = 'id-ID';
         var moment = require('moment');
         this.item = "";
         moment.locale(locale);
         var id = params.id;
+       
         this.data = await this.service.getById(id);
-        var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
+        var supplierId=this.data.supplier._id ? this.data.supplier._id : this.data.supplier.Id;
+        var currencyCode=this.data.currency.code ? this.data.currency.code : this.data.currency.Code;
+        var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${supplierId}`, "currency" : `${currencyCode}` });
         var items = [];
+        this.data.deliveryOrders= this.data.items;
         for(var a of this.data.deliveryOrders){
             a["selected"] = true;
             a["isView"] = true;
-            var quantity = 0;
-            var totPrice = 0;
-            for(var b of a.items){
-                for(var c of b.fulfillments){
-                    quantity += c.deliveredQuantity;
-                    var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-                    totPrice += priceTemp;
-                }
-            }
-            a["quantity"] = quantity;
-            a["price"] = totPrice;
+            a["doNo"]=a.deliveryOrder.doNo;
+            a["doDate"]=a.deliveryOrder.doDate;
+            a["arrivalDate"]=a.deliveryOrder.arrivalDate;
+            a["quantity"] = a.quantity;
+            a["price"] = a.deliveryOrder.totalAmount;
+            a["doId"]=a.deliveryOrder.Id;
+           
             items.push(a);
         }
-        console.log(dataDelivery);
         for(var a of dataDelivery.data){
+            a["doId"]=a.Id;
             a["selected"] = false;
             a["isView"] = true;
             var quantity = 0;
             var totPrice = 0;
             for(var b of a.items){
                 for(var c of b.fulfillments){
-                    quantity += c.deliveredQuantity;
-                    var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
+                    quantity += c.doQuantity;
+                    var priceTemp = c.doQuantity * c.pricePerDealUnit;
                     totPrice += priceTemp;
                 }
-            }
+             }
             a["quantity"] = quantity;
             a["price"] = totPrice;
+            a.Id=0;
+            a._id=0;
             items.push(a);
         }
         this.data.deliveryOrders = items;
+
         this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
         this.data.validateDate = moment(this.data.validateDate).format("YYYY-MM-DD");
     }
@@ -94,12 +98,21 @@ export class Create {
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
-                if(a && a.selected){
+                if(a){
+                    var deliveryOrder={};
+                    deliveryOrder.doNo=a.doNo;
+                    deliveryOrder.Id=a.doId;
+                    deliveryOrder.doDate=a.doDate;
+                    deliveryOrder.totalAmount=a.totalAmount;
+                    deliveryOrder.arrivalDate=a.arrivalDate;
+                    a.deliveryOrder=deliveryOrder;
+                    //items.push({deliveryOrder : deliveryOrder});
                     items.push(a);
                     isSelectedData = true;
                 }
             }
             dataCustoms.deliveryOrders = items;
+            dataCustoms.items=items;
         }
         if(isSelectedData){
             this.service.update(dataCustoms)
@@ -109,7 +122,7 @@ export class Create {
                 })
                 .catch(e => {
                     this.error = e;
-                    if(e.deliveryOrders.lenght > 0){
+                    if(e.deliveryOrders.length > 0){
                         var itemErrors = [];
                         for(var a of this.data.deliveryOrders){
                             var error = {};

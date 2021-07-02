@@ -4,14 +4,15 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'customs';
-const deliveryOrderForCustoms = 'delivery-orders';
-const serviceUriUnitReceiptNotes = 'unit-receipt-notes/by-user';
+const serviceUri = 'garment-beacukai';
+const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
+const serviceUriUnitReceiptNotes = 'garment-delivery-orders/isReceived';
+const serviceUriPOMasterDistributions = 'garment-po-master-distributions';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config,  "purchasing-azure");
     }
 
     search(info) {
@@ -46,32 +47,31 @@ export class Service extends RestService {
 
     searchDeliveryOrder(info) {
         var endpoint = `${deliveryOrderForCustoms}`;
+        
         var filter = {
-                    "supplier.code" : info.supplier ? info.supplier : "",
-                    "useCustoms":true,
-                    "items" : {
-                        "$elemMatch" : {
-                            "fulfillments" :
-                            { 
-                                "$elemMatch" : {
-                                    "currency.code" : info.currency ? info.currency : ""
-                                }
-                            }
-                        }
-                    },
-                    "customsId" : { "$type": 10 },
-                    "_deleted" : false
-                };
+                    "supplierId" : info.supplier ? info.supplier : "",
+                     "docurrencycode" : info.currency ? info.currency : ""
+                    };
         var arc = {
                 filter : JSON.stringify(filter),
-                select : ["no","date","supplierDoDate","items"],
-                size: 200
+                select : ["doNo","doDate","arrivalDate","items"],
+                size: 200,
+                billNo : info.billNo || ""
             }
         return super.list(endpoint, arc);
     }
+   
+    isCreatedOfUnitReceiptNotes(Id) {
+        let a = "";
+        for (const i of Id) {
+            a += `Id=${i}&`;
+        }
+        var endpoint = `${serviceUriUnitReceiptNotes}?${a}`;
+        return super.get(endpoint);
+    }
 
-    isCreatedOfUnitReceiptNotes(info) {
-        var endpoint = `${serviceUriUnitReceiptNotes}`;
+    searchPOMasterDistributions(info) {
+        var endpoint = `${serviceUriPOMasterDistributions}`;
         return super.list(endpoint, info);
     }
 }

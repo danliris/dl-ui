@@ -29,7 +29,7 @@ export class CreateInput {
 
     save(event) {
         event.toElement.disabled = true;
-        this.data.type = "input";
+        this.data.Type = "input";
         this.service.create(this.data)
             .then(result => {
                 this.data = {};

@@ -21,7 +21,6 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.data.isSplit = true;
-        console.log(this.data);
         this.data.purchaseRequest=this.data;
 
         this.data.purchaseRequest.toString = function () {
@@ -72,12 +71,10 @@ export class Edit {
         delete newInternalPurchaseOrder.purchaseRequest;
         delete newInternalPurchaseOrder.toString();
         delete newInternalPurchaseOrder._id;
-        console.log(this.data._id);
         this.service.spliting(this.data._id, newInternalPurchaseOrder).then(result => {
             // console.log(this.data);
             this.cancel();
         }).catch(e => {
-            console.log(e);
             this.error = e;
         })
     }

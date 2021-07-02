@@ -1,12 +1,12 @@
-<template> 
+<template>
     <form class="form-horizontal">
         <div class="row">
-            <div  class="col-md-6" style="padding:0">
+            <div class="col-md-6" style="padding:0">
                 <fieldset>
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="machine"
-                        label="Mesin" 
-                        loader.bind="machineLoader" 
+                        label="Mesin"
+                        loader.bind="machineLoader"
                         text="Name"
                         read-only.bind="readOnly"
                         error.bind="error.machine"
@@ -15,23 +15,17 @@
                         query.bind="filterMachine">
                     </au-autocomplete> -->
 
-                    <au-autocomplete 
-                        value.bind="machine"
-                        label="Mesin" 
-                        loader.bind="machineLoader" 
-                        text="Name"
-                        read-only.bind="readOnly"
-                        error.bind="error.machine"
-                        options.bind="auInputOptions"
-                        query.bind="filterMachine">
+                    <au-autocomplete value.bind="machine" label="Mesin" loader.bind="machineLoader" text="Name"
+                        read-only.bind="readOnly || isCreateOutput" error.bind="error.Machine"
+                        options.bind="auInputOptions">
                     </au-autocomplete>
 
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="step"
                         error.bind="error.step"
                         label="Step / Proses"
                         read-only.bind="readOnly"
-                        loader.bind="stepLoader" 
+                        loader.bind="stepLoader"
                         text="process"
                         query.bind="isFilterStep"
                         options.bind="auInputOptions"
@@ -41,25 +35,18 @@
                         view-model.ref="stepAU">
                     </au-autocomplete> -->
 
-                    <au-autocomplete 
-                        value.bind="step"
-                        error.bind="error.step"
-                        label="Step / Proses"
-                        read-only.bind="readOnly"
-                        loader.bind="stepLoader" 
-                        text="Process"
-                        options.bind="auInputOptions"
-                        change.trigger="stepChanged(data.Step)"
-                        show.bind="hasMachine"
+                    <au-autocomplete value.bind="step" error.bind="error.Step" label="Step / Proses"
+                        read-only.bind="readOnly || isCreateOutput" loader.bind="stepLoader" text="Process"
+                        options.bind="auInputOptions" change.trigger="stepChanged(data.Step)" show.bind="hasMachine"
                         view-model.ref="stepAU">
                     </au-autocomplete>
 
-                    <!-- <au-autocomplete 
+                    <!-- <au-autocomplete
                         value.bind="kanban"
-                        error.bind="error.kanban"
-                        label="Nomor Order Produksi - Kereta" 
+                        error.bind="error.Kanban"
+                        label="Nomor Order Produksi - Kereta"
                         read-only.bind="readOnly"
-                        loader.bind="kanbanLoader" 
+                        loader.bind="kanbanLoader"
                         text.bind="kanbanView"
                         change.delegate="kanbanChanged(data.kanban)"
                         query.bind="isFilterKanban"
@@ -70,82 +57,71 @@
                         view-model.ref="kanbanAU">
                     </au-autocomplete> -->
 
-                    <au-autocomplete 
-                        value.bind="kanban"
-                        error.bind="error.kanban"
-                        label="Nomor Order Produksi - Kereta" 
-                        read-only.bind="readOnly"
-                        loader.bind="kanbanLoader" 
-                        text.bind="kanbanView"
-                        change.delegate="kanbanChanged(data.kanban)"
-                        options.bind="auInputOptions"
-                        change.trigger="kanbanChanged(data.kanban)"
-                        show.bind="hasStep"
-                        select.bind="selectKanban"
-                        view-model.ref="kanbanAU">
+                    <au-autocomplete value.bind="kanban" error.bind="error.Kanban" label="Nomor Order Produksi - Kereta"
+                        read-only.bind="readOnly || isCreateOutput" loader.bind="kanbanLoader" text.bind="kanbanView"
+                        query.bind="isFilterKanban" options.bind="auInputOptions" show.bind="hasStep"
+                        select.bind="selectKanban" view-model.ref="kanbanAU">
                     </au-autocomplete>
 
-                    <au-dropdown
-                        label="Shift"
-                        value.bind="data.Shift"
-                        error.bind="error.shift"
-                        read-only.bind="readOnly"
-                        items.bind="shiftOptions"
-                        options.bind="auDropdownInputOptions">
+                    <au-dropdown label="Shift" value.bind="data.Shift" error.bind="error.Shift"
+                        read-only.bind="readOnly" items.bind="shiftOptions" options.bind="auDropdownInputOptions">
                     </au-dropdown>
-                    
-                    <au-datetimepicker label="Tanggal Input" value.bind="localInputDate" error.bind="error.dateInput" options.bind="auInputOptions" read-only.bind="readOnlyInput" if.bind="input"></au-datetimepicker>
+
+                    <au-datetimepicker label="Tanggal Input" value.bind="localInputDate" error.bind="error.DateInput"
+                        options.bind="auInputOptions" read-only.bind="readOnlyInput" if.bind="input">
+                    </au-datetimepicker>
 
                     <div class="row" if.bind="input">
-                        <div class="col-sm-4" style="padding-left:25%">    
-                            <au-textbox    label="Input"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
+                        <div class="col-sm-4" style="padding-left:25%">
+                            <au-textbox label="Input" read-only="true" options.bind="auNumericInputOptions">
+                            </au-textbox>
                         </div>
-                        <div class="col-sm-3">    
-                            <au-numeric
-                                value.bind="data.Input"
-                                error.bind="error.Input"
-                                read-only.bind="readOnlyInput">
+                        <div class="col-sm-3">
+                            <au-numeric value.bind="data.Input" error.bind="error.Input" read-only.bind="readOnlyInput">
                             </au-numeric>
                         </div>
-                        <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.Kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></au-textbox>
+                        <div class="col-sm-2">
+                            <au-textbox value.bind="data.Kanban.cart.uom.unit" if.bind="hasKanban" read-only="true">
+                            </au-textbox>
                         </div>
                     </div>
 
-                    <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.dateOutput" options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output"></au-datetimepicker>
+                    <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.DateOutput"
+                        options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output">
+                    </au-datetimepicker>
 
                     <div class="row" if.bind="output">
-                        <div class="col-sm-4" style="padding-left:25%">    
-                            <au-textbox    label="Good Output"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
+                        <div class="col-sm-4" style="padding-left:25%">
+                            <au-textbox label="Good Output" read-only="true" options.bind="auNumericInputOptions">
+                            </au-textbox>
                         </div>
-                        <div class="col-sm-3"> 
-                            <au-numeric
-                                value.bind="data.GoodOutput"
-                                error.bind="error.GoodOutput"
+                        <div class="col-sm-3">
+                            <au-numeric value.bind="data.GoodOutput" error.bind="error.GoodOutput"
                                 read-only.bind="readOnlyOutput">
                             </au-numeric>
                         </div>
-                        <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.Kanban.Cart.Uom.Unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
+                        <div class="col-sm-2">
+                            <au-textbox value.bind="data.Kanban.Cart.Uom.Unit" if.bind="hasKanban" read-only="true">
+                            </au-textbox>
                         </div>
                     </div>
 
                     <div class="row" if.bind="output">
-                        <div class="col-sm-4" style="padding-left:25%">    
-                            <au-textbox    label="Bad Output"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
+                        <div class="col-sm-4" style="padding-left:25%">
+                            <au-textbox label="Bad Output" read-only="true" options.bind="auNumericInputOptions">
+                            </au-textbox>
                         </div>
-                        <div class="col-sm-3"> 
-                            <au-numeric
-                                value.bind="data.badOutput"
-                                error.bind="error.badOutput"
+                        <div class="col-sm-3">
+                            <au-numeric value.bind="data.BadOutput" error.bind="error.BadOutput"
                                 read-only.bind="readOnlyOutput">
                             </au-numeric>
                         </div>
-                        <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
+                        <div class="col-sm-2">
+                            <au-textbox value.bind="data.Kanban.Cart.Uom.Unit" if.bind="hasKanban" read-only="true">
+                            </au-textbox>
                         </div>
                     </div>
-                    
+
                     <!-- <au-dropdown
                         label="Tindakan untuk Bad Output"
                         value.bind="data.action"
@@ -157,8 +133,8 @@
                         options.bind="auDropdownInputOptions">
                     </au-dropdown> -->
 
-                   
-                    
+
+
                     <!--<au-multiline
                         label="Keterangan Bad Output"
                         value.bind="data.badOutputDescription"
@@ -170,29 +146,26 @@
                     </au-multiline>-->
                 </fieldset>
             </div>
-            <div  class="col-md-6" style="padding:0">
-                <au-textbox    label="Material"        value.bind="data.Kanban.ProductionOrder.Material.Name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Konstruksi"      value.bind="data.Kanban.ProductionOrder.MaterialConstruction.Name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Nomor Benang"    value.bind="data.Kanban.ProductionOrder.YarnMaterial.Name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.ProductionOrder.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Warna"           value.bind="data.Kanban.SelectedProductionOrderDetail.ColorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+            <div class="col-md-6" style="padding:0">
+                <au-textbox label="Material" value.bind="data.Kanban.ProductionOrder.Material.Name" if.bind="hasKanban"
+                    read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox label="Konstruksi" value.bind="data.Kanban.ProductionOrder.MaterialConstruction.Name"
+                    if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox label="Nomor Benang" value.bind="data.Kanban.ProductionOrder.YarnMaterial.Name"
+                    if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox label="Lebar Finish" value.bind="data.Kanban.ProductionOrder.FinishWidth"
+                    if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox label="Warna" value.bind="data.Kanban.SelectedProductionOrderDetail.ColorRequest"
+                    if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
             </div>
         </div>
-             <au-collection 
-                        items.bind="data.badOutputReasons"
-                        errors.bind="error.badOutputReasons" 
-                        columns.bind="badOutputInfo.columns" 
-                        add.bind="badOutputInfo.onAdd" 
-                        remove.bind="badOutputInfo.onRemove"
-                        title="Details Keterangan Bad Output"
-                        read-only.bind="readOnlyOutput"
-                        view-model.ref="ItemsCollection"
-                        options.one-way="filterReason || getFilterReason"
-                        if.bind="output"
-                        show.bind="hasBadOutput"
-                        item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
-                    </au-collection>
-                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
-        
+        <au-collection items.bind="data.BadOutputReasons" errors.bind="error.BadOutputReasons"
+            columns.bind="badOutputInfo.columns" add.bind="badOutputInfo.onAdd" remove.bind="badOutputInfo.onRemove"
+            title="Details Keterangan Bad Output" read-only.bind="readOnlyOutput" view-model.ref="ItemsCollection"
+            options.one-way="filterReason || getFilterReason" if.bind="output" show.bind="hasBadOutput"
+            item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
+        </au-collection>
+
+        <au-layout error.bind="error.BadOutputReasons" if.bind="hasError"></au-layout>
     </form>
 </template>

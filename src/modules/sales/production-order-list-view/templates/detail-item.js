@@ -4,10 +4,14 @@ import { Config } from "aurelia-api";
 var colorLoader = require('../../../../loader/color-type-loader');
 
 export class DetailItem {
+
+  @bindable ColorType;
+
   activate(item) {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
+    this.ColorType = this.data.ColorType;
   }
 
   controlOption = {
@@ -16,14 +20,25 @@ export class DetailItem {
     }
   }
 
-  setColorTypeId(newValue) {
-    if (newValue){
-      this.data.colorType = newValue;
-      this.data.colorTypeId = newValue._id;
-    }
-    else{
-      this.data.colorType = {};
-      this.data.colorTypeId = {};
+  // setColorTypeId(newValue) {
+  //   if (newValue) {
+  //     this.data.ColorType = newValue;
+  //     // this.data.colorTypeId = newValue.Id;
+  //   }
+  //   else {
+  //     this.data.ColorType = {};
+  //     // this.data.colorTypeId = {};
+  //     this.data.ColorType = null;
+  //   }
+  // }
+
+  ColorTypeChanged() {
+    if (this.ColorType) {
+      this.data.ColorType = this.ColorType;
+    } else {
+      this.data.ColorType = {};
+      // this.data.colorTypeId = {};
+      this.data.ColorType = null;
     }
   }
 

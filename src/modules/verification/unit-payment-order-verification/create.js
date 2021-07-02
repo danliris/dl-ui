@@ -13,6 +13,7 @@ export class Create {
         this.service = service;
         this.dialog = dialog;
         this.data = {};
+        this.data.VerifyDate = new Date();
         this.submitContext = {
             verifiedAlert: false,
             position: 0,
@@ -44,7 +45,9 @@ export class Create {
                     } else {
                         Data.SubmitPosition = 6;
                         Data.Remark = response.output.Remark;
+                        Data.Reason = response.output.Remark;
                     }
+                    console.log(Data)
                     this.service.create(Data).then(result => {
                         alert("Data berhasil dibuat");
                         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

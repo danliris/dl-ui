@@ -17,6 +17,16 @@
                 <au-autocomplete value.bind="category" label="Kategori" loader.bind="categoryLoader" placeholder="nama kategori" key="code">
                 </au-autocomplete>
 
+                <au-autocomplete 
+                value.bind="division" 
+                label="Divisi" 
+                loader.bind="divisionLoader"
+                placeholder="cari divisi" 
+                key="name"
+                text.bind="divisionView"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
                 <au-autocomplete value.bind="budget" label="Budget" loader.bind="budgetLoader" placeholder="nama budget" key="code">
                 </au-autocomplete>
 
@@ -33,10 +43,16 @@
                     key="code">
                 </au-autocomplete>-->
 
-                <au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
+                <au-datepicker label="Tanggal Awal PR" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
                 </au-datepicker>
 
-                <au-datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateMin">
+                <au-datepicker label="Tanggal Akhir PR" value.bind="dateTo" min.bind="dateMin">
+                </au-datepicker>
+
+                <au-datepicker label="Tanggal Awal PO" value.bind="dateFromPO" change.delegate="dateFromPOChanged($event)">
+                </au-datepicker>
+                                
+                <au-datepicker label="Tanggal Akhir PO" value.bind="dateToPO" min.bind="dateMin">
                 </au-datepicker>
 
                 <au-dropdown label="Status" value.bind="poState" items.bind="poStates">
@@ -59,16 +75,19 @@
                         <td rowspan="3">NO</td>
                         <td colspan="3">PURCHASE REQUEST</td>
                         <td rowspan="3">KATEGORI</td>
+                        <td rowspan="3">DIVISI</td>
                         <td rowspan="3">BUDGET</td>
                         <td rowspan="3">NAMA BARANG</td>
                         <td rowspan="3">KODE BARANG</td>
-                        <td rowspan="3">JUMLAH</td>
-                        <td rowspan="3">SATUAN</td>
-                        <td colspan="2">HARGA</td>
+                        <td rowspan="3">JUMLAH PR</td>
+                        <td rowspan="3">SATUAN PR</td>
+                        <td rowspan="3">JUMLAH PO</td>
+                        <td rowspan="3">SATUAN PO</td>
+                        <td colspan="3">HARGA</td>
                         <td colspan="2">SUPPLIER</td>
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                         <td colspan="5">PO EXTERN</td>
-                        <td colspan="3">SURAT JALAN</td>
+                        <td colspan="5">SURAT JALAN</td>
                         <td colspan="4">BON PENERIMAAN</td>
                         <td rowspan="3">TEMPO PEMBAYARAN</td>
                         <td colspan="2">INVOICE</td>
@@ -86,6 +105,7 @@
                         <td rowspan="2">NOMOR</td>
                         <td rowspan="2">SATUAN</td>
                         <td rowspan="2">TOTAL</td>
+                        <td rowspan="2">MATA UANG</td>
                         <td rowspan="2">KODE</td>
                         <td rowspan="2">NAMA</td>
                         <td rowspan="2">TANGGAL</td>
@@ -96,7 +116,8 @@
                         <td rowspan="2">TANGGAL</td>
                         <td rowspan="2">TANGGAL DATANG BARANG</td>
                         <td rowspan="2">NOMOR</td>
-                        <td rowspan="2">TANGGAL</td>
+                        <td colspan="2">JUMLAH</td>   
+                        <td rowspan="2">TANGGAL</td>                                            
                         <td rowspan="2">NOMOR</td>
                         <td colspan="2">JUMLAH</td>
                         <td rowspan="2">TANGGAL</td>
@@ -119,6 +140,8 @@
                     <tr>
                         <td>QTY</td>
                         <td>SAT</td>
+                        <td>QTY</td>
+                        <td>SAT</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,13 +151,17 @@
                         <td>${item.createdDatePR}</td>
                         <td>${item.prNo}</td>
                         <td>${item.category}</td>
+                        <td>${item.division}</td>
                         <td>${item.budget}</td>
                         <td>${item.productName}</td>
                         <td>${item.productCode}</td>
-                        <td align="right">${item.quantity}</td>
+                        <td align="right">${item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
                         <td>${item.uom}</td>
+                        <td align="right">${item.epoQty.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+                        <td>${item.Uomepo}</td>
                         <td align="right">${item.pricePerDealUnit}</td>
                         <td align="right">${item.priceTotal}</td>
+                        <td>${item.currencyCode}</td>
                         <td>${item.supplierCode}</td>
                         <td>${item.supplierName}</td>
                         <td>${item.receivedDatePO}</td>
@@ -146,6 +173,8 @@
                         <td>${item.doDate}</td>
                         <td>${item.doDeliveryDate}</td>
                         <td>${item.doNo}</td>
+                        <td align="right">${item.doQuantity}</td>
+                        <td>${item.doUom}</td>   
                         <td>${item.urnDate}</td>
                         <td>${item.urnNo}</td>
                         <td align="right">${item.urnQuantity}</td>

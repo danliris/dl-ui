@@ -53,22 +53,26 @@
   <require from="../../../lib/number-format-value-converter.js"></require>
   <require from="../../../lib/date-format-value-converter.js"></require>
   <au-input-form title.bind="title" with.bind="context">
+    <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)" if.one-way="hasUnpost">Unpost</button>
     <div class="row">
       <div class="col-md-10">
         <div class="col-md-4">
+          <au-textbox label="No Pre Sales Contract" options.bind="length4" value.bind="data.PreSCNo" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="RO" options.bind="length4" value.bind="data.RO_Number" read-only.bind="readOnly"></au-textbox>
-          <au-datepicker label="Tanggal" options.bind="length4" value.bind="data._CreatedUtc" read-only.bind="readOnly"></au-datepicker>
-          <au-textbox label="Konveksi" options.bind="length4" value.bind="data.Convection" read-only.bind="readOnly"></au-textbox>
+          <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.CreatedUtc" read-only.bind="readOnly"></au-datepicker>
+          <au-textbox label="Unit" options.bind="length4" value.bind="data.Unit.Name" read-only.bind="readOnly"></au-textbox>
         </div>
         <div class="col-md-4">
           <au-textbox label="Size Range" options.bind="length4" value.bind="data.SizeRange" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Seksi" options.bind="length4" value.bind="data.Section" read-only.bind="readOnly"></au-textbox>
-          <au-textbox label="Komoditi" options.bind="length4" value.bind="data.Commodity.name" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Komoditi" options.bind="length4" value.bind="data.Comodity.Name" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="Confirm Price" options.bind="length4" value.bind="data.ConfirmPrice" read-only.bind="readOnly"></au-textbox>          
         </div>
         <div class="col-md-4">
           <au-textbox label="Lead Time" options.bind="length4" value.bind="data.LeadTime" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Fabric (%)" options.bind="length4" value.bind="data.FabricAllowance" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Accessories (%)" options.bind="length4" value.bind="data.AccessoriesAllowance" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="FOB Price" options.bind="length4" value.bind="CM_Price" read-only.bind="readOnly"></au-textbox>                   
         </div>
       </div>
       <div class="col-md-2">
@@ -88,7 +92,7 @@
             <tbody>
               <tr>
                 <td class="label-td">Kuantitas</td>
-                <td>${data.Quantity + ' ' + data.UOM.unit}</td>
+                <td>${data.Quantity + ' ' + data.UOM.Unit}</td>
               </tr>
               <tr>
                 <td class="label-td">Deskripsi</td>
@@ -99,8 +103,12 @@
                 <td>${data.Article}</td>
               </tr>
               <tr>
-                <td class="label-td">Buyer</td>
-                <td>${data.Buyer.name}</td>
+                <td class="label-td">Buyer Agent</td>
+                <td>${data.Buyer.Name}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Buyer Brand</td>
+                <td>${data.BuyerBrand.Name}</td>
               </tr>
               <tr>
                 <td class="label-td">Delivery</td>
@@ -158,7 +166,7 @@
               </tr>
               <tr>
                 <td class="label-td">Confirm Price</td>
-                <td colspan="2">${data.ConfirmPriceWithRate | numberFormat:'0,0.00'}</td>
+                <td colspan="2">${data.ConfirmPriceWithRate | numberFormat:'0,0.0000'}</td>
               </tr>
             </tbody>
           </table>
@@ -205,5 +213,4 @@
       </div>
     </div>
   </au-input-form>
-  <button type="button" class="btn btn-default" click.delegate="copyCC()">Copy</button>
 </template>

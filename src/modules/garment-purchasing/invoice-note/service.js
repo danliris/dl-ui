@@ -4,14 +4,14 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'invoice-notes/by-user';
-const deliveryOrderUri = 'delivery-orders/no-invoice';
-const deliveryOrderUriRouter = 'basic-delivery-orders';
+const serviceUri = 'garment-invoices';
+// const deliveryOrderUri = 'garment-delivery-orders/no-invoice';
+// const deliveryOrderUriRouter = 'garment-delivery-orders';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -40,12 +40,12 @@ export class Service extends RestService {
     }
 
     getPdfVatNote(id) {
-        var endpoint = `invoice-notes/pdf/vat/${id}`;
+        var endpoint = `garment-invoices/pdf/vat/${id}`;
         return super.getPdf(endpoint);
     }
 
     getPdfIncomeTaxNote(id) {
-        var endpoint = `invoice-notes/pdf/income-tax/${id}`;
+        var endpoint = `garment-invoices/pdf/income-tax/${id}`;
         return super.getPdf(endpoint);
     }
 

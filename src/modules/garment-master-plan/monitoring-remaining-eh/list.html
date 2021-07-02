@@ -7,8 +7,8 @@
       value.bind="year" 
       label="Year" 
       loader.bind="yearLoader"
-      text.bind = "yearView"
-      placeholder="Tahun" 
+      text="year"
+      placeholder="Tahun"
       options.bind="controlOptions">
     </au-autocomplete>
 
@@ -18,6 +18,7 @@
       loader.bind="unitLoader"
       text.bind = "unitView"
       placeholder="Unit" 
+      select.bind="selectUnit"
       query.bind="filterUnit"
       options.bind="controlOptions">
     </au-autocomplete>
@@ -36,25 +37,6 @@
   <br>
   <br>
 
-  <div class="table-responsive" if.bind="data.length > 0">
-    <table class="table table-bordered table-hover" border="1" id="myTable">
-      <thead>
-        <tr>
-          <th class="text-center">UNIT</th>
-          <th class="text-center" repeat.for="plan of data">${plan.unit.code}</th>
-          <th class="text-center" if.bind="isTotal" width= "20%">Total Remaining EH</th>
-          <th class="text-center" >Head Count</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr repeat.for="week of weeks">
-          <td>${week.week}</td>
-          <td repeat.for="unit of week.units" css="background:${unit.background}">${unit.remainingEH}</td>
-          <td if.bind="isTotal">${week.eh}</td>
-          <td>${week.headCount}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
 
 </template>

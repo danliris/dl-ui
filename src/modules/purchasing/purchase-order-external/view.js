@@ -8,6 +8,7 @@ export class View {
     hasEdit = false;
     hasDelete = false;
     hasUnpost = false;
+    hasView = true;
 
     constructor(router, service) {
         this.router = router;
@@ -29,6 +30,9 @@ export class View {
                 if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
                     canClose=true;
                 }
+                if(b.priceBeforeTax){
+                    b.priceBeforeTax=b.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+                  }
             }
         }
         
@@ -52,6 +56,13 @@ export class View {
             this.hasClosePo = false;
             this.hasCancelPo = false;
         }
+
+        // if(this.data.IsCreateOnVBRequest){
+        //     this.hasUnpost = false;
+        // }
+        // else{
+        //     this.hasUnpost = true;
+        // }
     }
 
     cancel(event) {

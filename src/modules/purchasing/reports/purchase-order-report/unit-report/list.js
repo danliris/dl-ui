@@ -33,9 +33,9 @@ export class List {
             {
                 pricetotals= item.total;
                 item.percentage=(item.amount*100/item.total).toFixed(2);  
-                item.amount=item.amount.toLocaleString()+".00";
+                item.amount=item.amount.toLocaleString('en-EN', { minimumFractionDigits: 2 });
             }
-            this.pricetotals = pricetotals.toLocaleString() +".00";
+            this.pricetotals = pricetotals.toLocaleString('en-EN', { minimumFractionDigits: 2 });
             this.percentagetotal = 100;
         })
     }
@@ -59,9 +59,9 @@ export class List {
                 {
                     pricetotals= item.total;
                     item.percentage=(item.amount*100/item.total).toFixed(2);  
-                    item.amount=item.amount.toLocaleString()+".00";
+                    item.amount=item.amount.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                 }
-                this.pricetotals = pricetotals.toLocaleString() +".00";
+                this.pricetotals = pricetotals.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                 this.percentagetotal = 100;
             })
     }

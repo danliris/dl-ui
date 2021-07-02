@@ -2,17 +2,11 @@
     <h1 class="page-header">Detail Monitoring Ketepatan Kedatangan Barang </h1> 
     
     <form class="form-horizontal">
-    
-  <!--<div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-        </div>-->
            <div>
             <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
         </div>
          <div class="table-responsive">
         <table class="table table-bordered table-hover">
-             <!--<div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="doReport">-->
         <thead>
           <tr>
                         <td>No</td>
@@ -21,6 +15,7 @@
                         <td>Tgl Purchase Request</td>
                         <td>Tgl PO Internal</td>
                         <td>Tgl Pembelian</td>
+                        <td>No SJ</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
                         <td>Keterangan Barang</td>
@@ -30,31 +25,28 @@
                         <td>Tgl Datang</td>
                         <td>+ /- Datang</td>
                         <td>Staff</td>
-                        <td>kategori</td>
-                  
-                    
+                        <td>Kategori</td>
                     </tr>
-            
         </thead>
-    
         <tbody>
-                    <tr repeat.for="pr of dataReport"  >
+                    <tr repeat.for="pr of data"  >
                         <td>${$index + 1}</td>
-                        <td>${pr.supplier}</td>
-                        <td>${pr.refNo}</td>
-                        <td>${pr.tglpr | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.tglpo | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.poeDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.productcode}</td>
-                        <td>${pr.productname}</td>
-                        <td>${pr.productdescription}</td>
-                        <td>${pr.artikel}</td>
-                        <td>${pr.roNo}</td>
-                        <td>${pr.purchaseRequestshipmentDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.tglll | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.keterangan}</td>
-                        <td>${pr._createdBy}</td>
-                        <td>${pr.kategori}</td>  
+                        <td>${pr.SupplierName}</td>
+                        <td>${pr.POSerialNumber}</td>
+                        <td>${pr.PRDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.EPODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DONo}</td>
+                        <td>${pr.ProductCode}</td>
+                        <td>${pr.ProductName}</td>
+                        <td>${pr.ProductRemark}</td>
+                        <td>${pr.Article}</td>
+                        <td>${pr.RONo}</td>
+                        <td>${pr.ShipmentDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.OKStatus}</td>
+                        <td>${pr.Staff}</td>
+                        <td>${pr.ProductName}</td>  
                     </tr>
                 </tbody>
     </table>

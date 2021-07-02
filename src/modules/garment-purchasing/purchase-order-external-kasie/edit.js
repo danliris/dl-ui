@@ -20,56 +20,90 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
-        
-        var getUsedBudget = [];
-        var getPRById = [];
-        var listPR = this.data.items.map((item) => {
-            return item.prId.toString()
-        });
-        var listPrIds = listPR.filter(function (elem, index, self) {
-            return index == self.indexOf(elem);
-        })
-        listPrIds.map((id) => {
-            getPRById.push(this.service.getPRById(id, ["no", "items.refNo", "items.quantity", "items.budgetPrice", "items.product.code"]))
-        });
 
-        for (var item of this.data.items) {
-            getUsedBudget.push(this.service.getListUsedBudget(item.prNo, item.prRefNo, item.product.code, this.data.no))
+        var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
+        this.kurs=kurs[0];
+
+        if (!this.readOnly && (this.data.EPONo || "").includes("-R") && this.data.UENId) {
+            const uen = await this.service.getUENById(this.data.UENId);
+            this.kurs.Rate = this.data.BudgetRate || this.kurs.Rate;
+            for (const item of this.data.Items) {
+                const uenItem = uen.Items.find(i => i.Id == item.UENItemId);
+                item.BudgetFromUEN = (uenItem.Quantity / uenItem.Conversion) * uenItem.PricePerDealUnit * this.kurs.Rate;
+            }
+        } else {
+            this.data.BudgetRate = this.kurs.Rate;
         }
 
-        return Promise.all(getPRById)
-            .then((listPR) => {
-                return Promise.all(getUsedBudget)
-                    .then((listUsedBudget) => {
-                        listUsedBudget = [].concat.apply([], listUsedBudget);
-                        for (var item of this.data.items) {
-                            var pr = listPR.find((pr) => pr.no.toString() == item.prNo.toString());
-                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && prItem.refNo === item.prRefNo)
+        if(this.data.Currency){
+            this.selectedCurrency=this.data.Currency;
+        }
 
-                            var budgetUsed = 0;
-                            if (listUsedBudget.length > 0) {
-                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.refNo == item.refNo && budget.product == item.product.code);
-                                if (prevAmount) {
-                                    budgetUsed = budgetUsed + prevAmount.totalAmount;
-                                }
-                            }
-                            item.budgetUsed = budgetUsed;
-                            item.totalBudget = prItem.quantity * prItem.budgetPrice;
-                        }
+        if(this.data.Supplier){
+            this.selectedSupplier=this.data.Supplier;
+            this.data.SupplierId=this.data.Supplier.Id;
+            this.data.Supplier.usevat=this.data.IsUseVat ;
+            if(this.data.IsIncomeTax){
+                this.data.Supplier.usetax=true;
+            }
+            
+        }
+        
+    
 
-                        if (this.data.supplier) {
-                            this.selectedSupplier = this.data.supplier;
+        if(this.data.IncomeTax){
+            this.selectedIncomeTax=this.data.IncomeTax;
+        }
+
+        var getUsedBudget = [];
+        for(var item of this.data.Items){
+            getUsedBudget.push(this.service.getPoId(item.POId));
+        }
+        var pr=[];
+        var initial=[];
+        var remaining=[];
+        return Promise.all(getUsedBudget)
+            .then((listUsedBudget) => {
+                for(var item of this.data.Items){
+                    var Ipo= listUsedBudget.find(a=>a.Id==item.POId);
+                    var po= Ipo.Items[0];
+                    if(!initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]){
+                        initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]=po.RemainingBudget + item.UsedBudget;
+                    }
+                    else{
+                        initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]+= item.UsedBudget;
+                    }
+                    console.log(initial)
+                }
+                for(var a of this.data.Items){
+                    var filter= a.PRNo + a.Product.Id;
+                    a.Initial=initial[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                    if(pr.length==0){
+                        pr.push(a);
+                        //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
+                        //remaining[a.PRNo + a.Product.Id]=a.Initial;
+                        a.remainingBudget=a.Initial;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
+                    }
+                    else{
+                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && b.PO_SerialNumber==a.PO_SerialNumber);
+                        if(dup){
+                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
+                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
                         }
-                        if (this.data.currency) {
-                            this.selectedCurrency = this.data.currency;
+                        else{
+                            pr.push(a);
+                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
+                            a.remainingBudget=a.Initial;
+                            remaining[a.PRNo + a.Product.Id+ a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
                         }
-                        if (this.data.vat) {
-                            this.selectedVat = this.data.vat;
-                        }
-                        return this.data;
-                    })
-            })
+                    }
+                }
+                
+
+            });
+        
     }
 
     cancel(event) {

@@ -2,58 +2,62 @@
     <tr>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.weekNumber" 
+                format="0"
+                value.bind="data.WeekNumber" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-datepicker 
-                value.bind="data.startDate" 
+                value.bind="data.StartDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker>        
         </td>
         <td class="col-sm-1">
             <au-datepicker 
-                value.bind="data.endDate" 
+                value.bind="data.EndDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker> 
         </td>
         <td class="col-sm-1">
             <au-textbox 
-                value.bind="data.monthName"
+                value.bind="data.MonthName"
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.efficiency"
-                error.bind="error.efficiency" 
+                value.bind="data.Efficiency"
+                error.bind="error.Efficiency" 
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.operator"
-                error.bind="error.operator" 
+                value.bind="data.Operator"
+                error.bind="error.Operator" 
+                format="0"
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.workingHours"
-                error.bind="error.workingHours" 
+                format="0,000.00"
+                value.bind="data.WorkingHours"
+                error.bind="error.WorkingHours" 
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000.00"
                 value.bind="dataAhTotal"
                 read-only="true"
                 options.bind="controlOptions">
@@ -61,6 +65,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000"
                 value.bind="dataEhTotal"
                 read-only="true"
                 options.bind="controlOptions">
@@ -68,14 +73,24 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.usedEH"
+                format="0,000"
+                value.bind="data.UsedEH"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000"
                 value.bind="dataRemainingEH"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                format="0.00"
+                value.bind="data.WHConfirm"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>

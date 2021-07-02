@@ -1,20 +1,20 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'delivery-orders/no-invoice';
+const resource = 'garment-delivery-orders/no-invoice';
 
-module.exports = function(keyword, filter) {
+module.exports = function (keyword, filter) {
 
-  var config = Container.instance.get(Config);
-  var endpoint = config.getEndpoint("garment-purchasing");
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("purchasing-azure");
 
-  return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
-                .then(results => {
-                    return results.data.map(deliveryOrder => {
-                        deliveryOrder.toString = function () {
-                            return `${this.no}`;
-                        }
-                        return deliveryOrder;
-                    });
-                });
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
+        .then(results => {
+            return results.data.map(deliveryOrder => {
+                deliveryOrder.toString = function () {
+                    return `${this.no}`;
+                }
+                return deliveryOrder;
+            });
+        });
 }

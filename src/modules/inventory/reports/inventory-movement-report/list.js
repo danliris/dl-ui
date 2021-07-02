@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-var moment = require("moment");
+import moment from 'moment';
 
 var StorageLoader = require('../../../../loader/storage-loader');
 var ProductLoader = require('../../../../loader/product-loader');
@@ -36,22 +36,28 @@ export class List {
             }
         },
         { field: "productName", title: "Nama Barang" },
-        { field: "uom", title: "UOM" },
-        { field: "before", title: "Before" },
-        { field: "quantity", title: "Kuantiti" },
-        { field: "after", title: "After" },
+        { field: "uomUnit", title: "UOM" },
+        { field: "before", title: "Before", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        }  },
+        { field: "quantity", title: "Kuantiti", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        } },
+        { field: "after", title: "After" , formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        } },
         { field: "type", title: "Status" }
     ]
 
     bind() {
-
+        
     }
 
     fillValues() {
-        this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : undefined;
-        this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : undefined;
-        this.arg.storageId = this.selectedStorage ? this.selectedStorage._id : undefined;
-        this.arg.productId = this.selectedProduct ? this.selectedProduct._id : undefined;
+        this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        this.arg.storageCode = this.selectedStorage ? this.selectedStorage.code : null;
+        this.arg.productCode = this.selectedProduct ? this.selectedProduct.Code : null;
         this.arg.type = this.statusOpt;
     }
 
@@ -113,7 +119,7 @@ export class List {
     }
 
     productView = (product) => {
-        return `${product.code} - ${product.name}`;
+        return `${product.Code} - ${product.Name}`;
     }
 
     // autocomplete_change(e) {

@@ -1,7 +1,10 @@
 import { RestService } from '../../../utils/rest-service';
 
-const garmentProductSingleByNameServiceUri = 'master/garment-products/read-single/product-by-name';
+const garmentProductSingleByNameServiceUri = 'master/garmentProducts/byName';
 const uomServiceUri = 'master/uoms';
+const sectionServiceUri = 'master/garment-sections';
+const serviceMasterGarmentProductUri = 'master/garmentProducts';
+const categoryServiceUri = 'master/garment-categories';
 
 export class ServiceCore extends RestService {
 
@@ -29,4 +32,19 @@ export class ServiceCore extends RestService {
       })
   }
 
+  getGarmentProductsByIds(info) {
+    var endpoint = `${serviceMasterGarmentProductUri}/byId`;
+    return super.list(endpoint, { garmentProductList: info })
+      .then((result) => result.data);
+  }
+
+  getSection(id) {
+    var endpoint = `${sectionServiceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getCategoryId(id) {
+    var endpoint = `${categoryServiceUri}/${id}`;
+    return super.get(endpoint);
+  }
 }

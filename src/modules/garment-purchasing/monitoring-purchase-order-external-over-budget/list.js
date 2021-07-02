@@ -4,8 +4,8 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var Unit = require('../../../loader/unit-loader');
-var Buyer = require('../../../loader/garment-buyers-loader');
-var Category = require('../../../loader/garment-category-loader');
+var Supplier = require('../../../loader/garment-supplier-loader');
+var POEksternal = require('../../../loader/garment-purchase-order-external-loader');
 
 @inject(Router, Service)
 export class List {
@@ -29,11 +29,10 @@ export class List {
     Values() {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
-        this.arg.buyerId = this.buyer ? this.buyer._id : null;
-        this.arg.categoryId = this.category ? this.category._id : null;
-        this.arg.unitId = this.unit ? this.unit._id : null;
-        this.arg.prNo = this.prNo ? this.prNo : null;
-        this.arg.isApproved = this.isApproved ? this.isApproved.value : null;
+        this.arg.supplier = this.supplier ? this.supplier.Id : null;
+        this.arg.unit = this.unit ? this.unit.Id : null;
+        this.arg.epono = this.epono ? this.epono.EPONo : null;
+        this.arg.status = this.isApproved ? this.isApproved.name : null;
     }
 
 
@@ -59,7 +58,6 @@ export class List {
         { field: "prDate", title: "Tanggal Purchase Request", sortable: false },
         { field: "prRefNo", title: "No. Ref. Purchase Request", sortable: false },
         { field: "unit", title: "Unit", sortable: false },
-        { field: "category", title: "Kategori", sortable: false },
         { field: "productName", title: "Nama Barang", sortable: false },
         { field: "productCode", title: "Kode Barang", sortable: false },
         { field: "productDesc", title: "Keterangan Barang", sortable: false },
@@ -87,12 +85,11 @@ export class List {
             keyword: info.search,
             order: order
         };
-
         return this.listDataFlag ? (
             this.Values(),
             this.service.search(this.arg)
                 .then(result => {
-                    return {
+                            return {
                         total: result.info.total,
                         data: result.data,
                     }
@@ -101,8 +98,16 @@ export class List {
     }
 
     ExportToExcel() {
-        this.Values();
-        this.service.generateExcel(this.arg);
+        var info = {
+            status :  this.isApproved ? this.isApproved.name  : "",
+            epono : this.epono ? this.epono.EPONo : "",
+            supplier : this.supplier ? this.supplier.Id : "",
+            unit : this.unit ? this.unit.Id : "",
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+        }
+        this.service.generateExcel(info.epono,  info.unit,  info.supplier,  info.status,   info.dateFrom, info.dateTo)
+       
     }
 
     search() {
@@ -114,19 +119,18 @@ export class List {
         return Unit;
     }
 
-    get buyerLoader() {
-        return Buyer;
+    get supplierLoader() {
+        return Supplier;
     }
 
-    get categoryLoader() {
-        return Category;
+    get poexternalLoader() {
+        return POEksternal;
     }
 
     reset() {
-        this.unit = "";
-        this.category = "";
-        this.buyer = "";
-        this.prNo = "";
+        this.unit = ""; 
+        this.supplier = "";
+        this.epono = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.isApproved = this.statusApprove[0];

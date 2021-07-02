@@ -15,7 +15,6 @@ export class Preview {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    console.log(this.data);
   }
 
   controlOptions = {

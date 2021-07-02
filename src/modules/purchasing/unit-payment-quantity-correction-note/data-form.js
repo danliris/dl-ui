@@ -33,7 +33,8 @@ export class DataForm {
                 { header: "No. PO Eksternal", value: "ePONo" },
                 { header: "No. PR", value: "pRNo" },
                 { header: "Barang", value: "product" },
-                { header: "Jumlah", value: "quantity" },
+                { header: "Jumlah SPB", value: "deliveredQuantity" },
+                { header: "Jumlah Koreksi", value: "quantity" },
                 { header: "Satuan", value: "uom" },
                 { header: "Harga Satuan", value: "pricePerDealUnitAfter" },
                 { header: "Harga Total", value: "priceTotalAfter" }
@@ -190,17 +191,18 @@ export class DataForm {
                         }
                         unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                         unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
-                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection;
+                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.pricePerDealUnit;
 
                         unitQuantityCorrectionNoteItem.currency = newValue.currency;
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
-                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection;
+                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
                         
-                        unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection;
-                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection;
-                        unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection;
-                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection;
+                        unitQuantityCorrectionNoteItem.deliveredQuantity = unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection || unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection || unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection || unitReceiptNoteItem.pricePerDealUnit;
+                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection || unitReceiptNoteItem.PriceTotal;
                         
                         _items.push(unitQuantityCorrectionNoteItem);
                     })

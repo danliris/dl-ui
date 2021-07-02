@@ -13,17 +13,19 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
 
-    if (this.data.isReprocess) {
+    if (this.data.IsReprocess) {
       this.data.output = "Kanban Reproses";
-    } else if (this.data.oldKanban._id && !this.data.isReprocess) {
+    } else if (this.data.OldKanban && this.data.OldKanban.Id && !this.data.IsReprocess) {
       this.data.output = "Kanban Lanjut Proses";
     } else {
       this.data.output = "Kanban Baru";
     }
 
-    this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
-    this.productionOrder = this.data.productionOrder;
+    // this.data.Cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
+    this.productionOrder = this.data.ProductionOrder;
+    this.instruction = this.data.Instruction;
   }
 
   cancelCallback(event) {
@@ -31,7 +33,7 @@ export class View {
   }
 
   editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }
 
   deleteCallback(event) {

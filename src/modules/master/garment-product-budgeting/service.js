@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service'; 
 
-const serviceUri = 'master/garment-products';
+const serviceUri = 'master/garmentProducts';
 
 export class Service extends RestService {
 
@@ -22,16 +22,17 @@ export class Service extends RestService {
 
   create(data) {
     var endpoint = `${serviceUri}`;
+    console.log(data);
     return super.post(endpoint, data);
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 

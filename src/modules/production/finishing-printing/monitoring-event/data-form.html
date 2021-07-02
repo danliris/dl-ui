@@ -14,7 +14,7 @@
                     read-only.bind="(readOnly)"></au-datetimepicker>
 
                 <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="Mesin" loader.bind="machineLoader" placeholder="Cari machine"
-                    read-only.bind="(readOnly)" key="Code" text="Name" query.bind="divisionFilter" options.bind="auInputOptions">
+                    read-only.bind="(readOnly)" key="Code" text="Name" options.bind="auInputOptions">
                 </au-autocomplete>
 
                 <!-- <au-autocomplete value.bind="data.productionOrder" error.bind="error.productionOrder" change.delegate="productionOrderChanged($event)" label="Nomor Order Produksi" loader.bind="productionOrderLoader"
@@ -42,7 +42,7 @@
                 </machine-event-auto-suggest> -->
 
                 <au-autocomplete value.bind="data.MachineEvent" error.bind="error.MachineEvent" label="Event Mesin" loader.bind="machineEventLoader"
-                    placeholder="Cari Machine Event" filter.bind="machineCodeFilter" if.bind="hasMachine" read-only.bind="(readOnly)" key="Code" text="Name" options.bind="auInputOptions">
+                    placeholder="Cari Machine Event" if.bind="hasMachine" read-only.bind="(readOnly)" key="Code" text="Name" options.bind="auInputOptions">
                 </au-autocomplete>
 
                 <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="(readOnly)" options.bind="auInputOptions"></au-multiline>

@@ -148,10 +148,10 @@
 	float: left;
 }
 
-#kanbanArea #kanbanRow {
-	width: 3000px;
+/* #kanbanArea #kanbanRow {
+	width: 3500px;
 	height: 600px;
-}
+} */
 
 #kanbanArea {
 	overflow: auto;

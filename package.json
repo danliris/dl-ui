@@ -29,7 +29,7 @@
     "prebuild:dev": "npm run clean:dist",
     "build:dev": "cross-env NODE_ENV=development npm run webpack -- --progress --profile",
     "prebuild:prod": "npm run clean:dist",
-    "build:prod": "cross-env NODE_ENV=production npm run webpack -- --progress --profile",
+    "build:prod": "cross-env NODE_OPTIONS=--max_old_space_size=4096 NODE_ENV=production npm run webpack -- --progress --profile",
     "start": "npm run server:dev",
     "server": "npm run server:dev",
     "server:dev": "cross-env NODE_ENV=development npm run webpack-dev-server -- --inline --progress --profile --watch",
@@ -70,13 +70,16 @@
   "dependencies": {
     "aurelia-api": "^3.1.0",
     "aurelia-authentication": "^3.1.0",
+    "aurelia-bootstrap": "^0.1.20",
     "aurelia-bootstrapper-webpack": "^1.1.0",
     "aurelia-dialog": "1.0.0-beta.3.0.1",
     "aurelia-dragula": "1.4.4",
     "aurelia-event-aggregator": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-framework": "^1.0.7",
+    "aurelia-google-analytics": "^2.5.0",
     "aurelia-history-browser": "^1.0.0",
+    "aurelia-loader": "1.0.0",
     "aurelia-loader-webpack": "^1.0.3",
     "aurelia-logging-console": "^1.0.0",
     "aurelia-pal-browser": "^1.0.0",
@@ -105,6 +108,7 @@
     "react-bootstrap": "0.30.7",
     "react-dom": "15.4.1",
     "react-dynamic-number": "1.4.5",
+    "underscore": "^1.9.2",
     "xlsx": "^0.13.0"
   },
   "devDependencies": {

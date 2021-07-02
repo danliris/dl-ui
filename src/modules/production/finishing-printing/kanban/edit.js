@@ -28,7 +28,7 @@ export class Edit {
             }
           });
       });
-    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getOldById(this.data.OldKanbanId) : null;
     // this.data.Cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
 
     var currentIndex = 0, countDoneStep = 0;
@@ -78,20 +78,21 @@ export class Edit {
     this.invalidSteps = [];
     this.range = [];
 
-    if (this.validateStepsDurationEstimation()) {
-      if (this.invalidSteps.length > 0) {
-        this.dialog.show(AlertView, { message: this.generateMessage() })
-          .then(response => {
-            if (!response.wasCancelled) {
-              this.save();
-            }
-          });
-      }
-      else
-        this.save();
-    }
-    else
-      this.save();
+    // if (this.validateStepsDurationEstimation()) {
+    //   if (this.invalidSteps.length > 0) {
+    //     this.dialog.show(AlertView, { message: this.generateMessage() })
+    //       .then(response => {
+    //         if (!response.wasCancelled) {
+    //           this.save();
+    //         }
+    //       });
+    //   }
+    //   else
+    //     this.save();
+    // }
+    // else
+    //   this.save();
+    this.save();
   }
 
   generateMessage() {
@@ -122,7 +123,7 @@ export class Edit {
   }
 
   validateStepsDurationEstimation() {
-    if (this.data.durationEstimation) {
+    if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
       var deliveryDate = this.data.ProductionOrder.DeliveryDate;
       var sumDay = 0;
 

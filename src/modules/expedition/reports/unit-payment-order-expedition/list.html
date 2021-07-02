@@ -25,9 +25,10 @@
             value.bind="division"
             loader.one-time="divisionLoader"
             label="Divisi"
-            text="name"
+            text="code"
             options.bind="controlOptions"
             placeholder="Masukkan Nama Divisi"
+            text.bind = "divisionView"
             select.bind="selectDivision">
         </au-autocomplete>
 
@@ -68,5 +69,8 @@
         sortable="true"
         page-size="25"
         options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="xls()">Cetak</button>
+        </div>
     </au-table>
 </template>

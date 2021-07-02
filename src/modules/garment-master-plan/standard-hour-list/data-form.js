@@ -2,7 +2,6 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var moment = require('moment');
-// var StyleLoader = require('../../../loader/style-loader');
 var ComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader')
 
@@ -14,9 +13,6 @@ export class DataForm {
     @bindable title;
     @bindable selectedBuyer;
     @bindable selectedComodity;
-
-    buyerFields=["name", "code"];
-    comodityFields=["name", "code"];
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -38,7 +34,7 @@ export class DataForm {
             length: 4
         },
         control: {
-            length: 2
+            length: 3
         }
     }
 
@@ -46,115 +42,44 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        // if (this.data && this.data._id && this.data.styleId) {
-        //     this.selectedStyle = this.data.style;
-        // }
 
-        if (this.data.garmentBuyerId) {
-            this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
-            this.data.garmentBuyerId =this.selectedBuyer._id;
-        }
-
-        if (this.data.masterplanComodityId) {
-            this.selectedComodity = await this.service.getComodityById(this.data.masterplanComodityId, this.comodityFields);
-            this.data.masterplanComodityId =this.selectedComodity._id;
-        }
-
-        if (!this.data.date) {
-            this.data.date = new Date();
+        if (!this.data.SMVDate) {
+            this.data.SMVDate = new Date();
         }
         
     }
 
-    get hourCutting(){
-        var hours = 0;
-        if(this.data && this.data.shCutting && this.data.shCutting > 0)
-            hours = (this.data.shCutting / 60).toFixed(2);
-        return hours;
-    }
-
-    get hourSewing(){
-        var hours = 0;
-        if(this.data && this.data.shSewing && this.data.shSewing > 0)
-            hours = (this.data.shSewing / 60).toFixed(2);
-        return hours;
-    }
-
-    get hourFinishing(){
-        var hours = 0;
-        if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
-            hours = (this.data.shFinishing / 60).toFixed(2);
-        return hours;
-    }
-
-    get getTotalSHMinute(){
-        var hours = 0;
-        if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
-            hours += this.data.shFinishing;
-        if(this.data && this.data.shSewing && this.data.shSewing > 0)
-            hours += this.data.shSewing;
-        if(this.data && this.data.shCutting && this.data.shCutting > 0)
-            hours += this.data.shCutting;
-        return hours;
-    }
-
-    get getTotalSHHour(){
-        var hours = 0;
-        if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
-            hours += this.data.shFinishing;
-        if(this.data && this.data.shSewing && this.data.shSewing > 0)
-            hours += this.data.shSewing;
-        if(this.data && this.data.shCutting && this.data.shCutting > 0)
-            hours += this.data.shCutting;
-        if(hours > 0)
-            hours = (hours / 60).toFixed(2);
-        return hours;
-    }
-
-    // selectedStyleChanged(newValue) {
-    //     if (newValue) {
-    //         this.data.styleId = newValue._id;
-    //     }
-    //     else {
-    //         this.data.styleId = null;
-    //     }
-    // }
-
     selectedBuyerChanged(newValue) {
-        var _selectedBuyer = newValue;
-        if (_selectedBuyer) {
-            this.data.buyer = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";   
+        var selectedBuyer = newValue;
+        if (selectedBuyer) {
+            this.data.Buyer = selectedBuyer;
+            this.data.BuyerId = selectedBuyer.Id
+            this.data.BuyerName = selectedBuyer.Name;
+            this.data.BuyerCode = selectedBuyer.Code;
         }else{
-            delete this.data.garmentBuyerId;
+            this.data.Buyer = null;
         }
     }
 
     selectedComodityChanged(newValue) {
-        var _selectedComodity = newValue;
-        if (_selectedComodity) {
-            this.data.comodity = _selectedComodity;
-            this.data.masterplanComodityId = _selectedComodity._id ? _selectedComodity._id : "";
+        var selectedComodity = newValue;
+        if (selectedComodity) {
+            this.data.Comodity = selectedComodity;
+            this.data.ComodityId = selectedComodity.Id 
+            this.data.ComodityCode = selectedComodity.Code
+            this.data.ComodityName = selectedComodity.Name
         }else{
-            delete this.data.masterplanComodityId;
+            this.data.Comodity = null;
         }
     }
 
-    // styleView = (style) => {
-    //     return `${style.code} - ${style.name}`
-    // }
-
     buyerView = (buyer) => {
-        return `${buyer.code} - ${buyer.name}`
+        return `${buyer.Code} - ${buyer.Name}`
     }
 
     comodityView = (comodity) => {
-        return `${comodity.code} - ${comodity.name}`
+        return `${comodity.Code} - ${comodity.Name}`
     }
-    
-    // get styleLoader() {
-    //     return StyleLoader;
-    // }
 
     get comodityLoader() {
         return ComodityLoader;

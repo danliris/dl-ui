@@ -47,18 +47,26 @@ export class PurchaseOrderItem {
               this.data.conversion = 1;
         }
     }
+    // if(this.data.priceBeforeTax){
+    //     this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    //   }
+      if(this.data.dealQuantity){
+        this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
+      if(this.data.defaultQuantity){
+        this.data.defaultQuantity=this.data.defaultQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
   }
 
   updatePrice() {
     if (this.data.includePpn) {
-      this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
+      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / 110;
     } else {
-      this.data.pricePerDealUnit = this.data.priceBeforeTax;
+      this.data.pricePerDealUnit = parseFloat(this.data.priceBeforeTax);
     }
   }
 
   selectedDealUomChanged(newValue) {
-    console.log(newValue)
     if (newValue._id || newValue.Id ) {
       this.data.dealUom = newValue;
       if (newValue.Unit)
@@ -78,7 +86,20 @@ export class PurchaseOrderItem {
   }
 
   priceBeforeTaxChanged(e) {
-    this.updatePrice();
+    this.error={};
+    
+    if(this.data.priceBeforeTax%1>=0){
+      if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
+        this.updatePrice();
+      }
+      else{
+        this.error.price="Harga tidak boleh lebih dari 15 digit";
+      }
+    }
+    else {
+      this.error.price="Harga Barang Harus Diisi Dengan Angka";
+    }
+    
   }
 
   useIncomeTaxChanged(e) {

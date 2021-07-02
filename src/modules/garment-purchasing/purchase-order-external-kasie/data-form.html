@@ -17,8 +17,8 @@
             <div class="col-md-6">
                 <au-textbox 
                     label="No" 
-                    value.bind="data.no" 
-                    error.bind="error.no" 
+                    value.bind="data.EPONo" 
+                    error.bind="error.EPONo" 
                     read-only.bind="true"
                     if.bind="(readOnly || isEdit)"
                     options.bind="controlOptions">
@@ -26,7 +26,7 @@
         
                 <au-autocomplete 
                     value.bind="selectedSupplier" 
-                    error.bind="error.supplierId"
+                    error.bind="error.Supplier"
                     label="Supplier" 
                     loader.bind="supplierLoader"
                     text.bind = "supplierView"
@@ -40,14 +40,14 @@
                     label="Jenis Supplier" 
                     value.bind="supplierType" 
                     read-only.bind="true"
-                    if.bind="data.supplierId"
+                    if.bind="data.Supplier"
                     options.bind="controlOptions">
                 </au-textbox>
         
                 <au-datepicker 
                     label="Tgl. Order" 
-                    value.bind="data.date" 
-                    error.bind="error.date" 
+                    value.bind="data.OrderDate" 
+                    error.bind="error.OrderDate" 
                     read-only.bind="true"
                     if.bind="(readOnly || isEdit)"
                     options.bind="controlOptions">
@@ -55,15 +55,15 @@
         
                 <au-datepicker 
                     label="Tgl. Delivery" 
-                    value.bind="data.expectedDeliveryDate" 
-                    error.bind="error.expectedDeliveryDate" 
+                    value.bind="data.DeliveryDate" 
+                    error.bind="error.DeliveryDate" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
                 
                 <au-dropdown
                     label="Ongkos Kirim Ditanggung oleh"
-                    value.bind="data.freightCostBy"
+                    value.bind="data.FreightCostBy"
                     error.bind="error.freightCostBy"
                     read-only.bind="readOnly"
                     items.bind="freightCostByOptions"
@@ -72,17 +72,29 @@
         
                 <au-dropdown
                     label="Tipe Pembayaran"
-                    value.bind="data.paymentType"
+                    value.bind="data.PaymentType"
                     error.bind="error.paymentType"
                     read-only.bind="readOnly"
                     items.bind="typePaymentOptions"  
                     change.delegate="paymentTypeChanged($event)"
+                    if.bind="!supplierIsStorage"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-dropdown
+                    label="Tipe Pembayaran"
+                    value.bind="data.PaymentType"
+                    error.bind="error.paymentType"
+                    read-only.bind="readOnly"
+                    items.bind="typePaymentStorageOptions"  
+                    change.delegate="paymentTypeChanged($event)"
+                    if.bind="supplierIsStorage"
                     options.bind="controlOptions">
                 </au-dropdown>
         
                 <au-dropdown
                     label="Term Pembayaran"
-                    value.bind="data.paymentMethod"
+                    value.bind="data.PaymentMethod"
                     error.bind="error.paymentMethod"
                     read-only.bind="readOnly"
                     items.bind="termPaymentImportOptions"  
@@ -93,8 +105,8 @@
         
                 <au-dropdown
                     label="Term Pembayaran"
-                    value.bind="data.paymentMethod"
-                    error.bind="error.paymentMethod"
+                    value.bind="data.PaymentMethod"
+                    error.bind="error.PaymentMethod"
                     read-only.bind="readOnly"
                     items.bind="termPaymentLocalOptions"  
                     change.delegate="paymentMethodChanged($event)"
@@ -104,60 +116,76 @@
         
                 <numeric 
                     label="Tempo Pembayaran" 
-                    value.bind="data.paymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    value.bind="data.PaymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="true"
                     post-fix="hari" 
-                    if.bind="data.paymentType=='CASH' || data.paymentType=='T/T BEFORE'">
+                    if.bind="data.PaymentType=='CASH' || data.PaymentType=='T/T BEFORE'">
                 </numeric>
         
                 <numeric
                     label="Tempo Pembayaran" 
-                    value.bind="data.paymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    value.bind="data.PaymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="readOnly"
                     post-fix="hari" 
-                    if.bind="data.paymentType =='T/T AFTER'">
+                    if.bind="data.PaymentType =='T/T AFTER'">
                 </numeric>
         
                 <au-autocomplete 
                     value.bind="selectedCurrency" 
-                    error.bind="error.currency"
+                    error.bind="error.Currency"
                     label="Mata Uang" 
                     loader.bind="currencyLoader"
                     text.bind = "currencyView"
                     placeholder="cari mata uang" 
                     key="code" 
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly ||isEdit) "
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
                 <numeric 
                     label="Rate" 
-                    value.bind="data.currencyRate" 
+                    value.bind="data.CurrencyRate" 
                     error.bind="error.currencyRate" 
                     format="0"
                     read-only.bind="true">
                 </numeric>
                 
-                <au-autocomplete 
-                    value.bind="selectedVat" 
-                    error.bind="error.vat"
+                <!--<au-autocomplete 
+                    value.bind="selectedIncomeTax" 
+                    error.bind="error.IncomeTax"
                     label="Pph" 
-                    loader.bind="vatLoader"
-                    text.bind = "vatView"
+                    loader.bind="incomeTaxLoader"
+                    text.bind = "incomeTaxView"
                     placeholder="cari pph" 
                     key="" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
-                </au-autocomplete>
+                </au-autocomplete>-->
+                <au-checkbox 
+                    label="Apakah kena Pph?" 
+                    value.bind="data.Supplier.usetax"  
+                    if.bind="data.SupplierId"
+                    read-only.bind="true"
+                     options.bind="controlOptions">
+                </au-checkbox>
+                
+                <au-textbox 
+                    label="Pph" 
+                    value.bind="data.IncomeTax.Name" 
+                    read-only.bind="true"
+                    if.bind="data.Supplier.usetax"
+                    options.bind="controlOptions">
+                </au-textbox>
         
                 <numeric 
                     label="Rate Pph" 
-                    value.bind="data.vatRate" 
-                    error.bind="error.vatRate" 
+                    value.bind="data.IncomeTax.Rate" 
+                    error.bind="error.IncomeTaxRate" 
+                    if.bind="data.Supplier.usetax"
                     format="0"
                     read-only.bind="true"
                     post-fix="%">
@@ -165,19 +193,19 @@
         
                 <au-checkbox 
                     label="Apakah kena Ppn?" 
-                    value.bind="data.useIncomeTax" 
-                    error.bind="error.useIncomeTax" 
+                    value.bind="data.Supplier.usevat" 
+                    error.bind="error.IsUseVat" 
                     read-only.bind="true"
-                    change.delegate="useIncomeTaxChanged($event)"
-                    if.bind="data.supplierId"
+                    change.delegate="useVatChanged($event)"
+                    if.bind="data.SupplierId"
                     options.bind="controlOptions">
                 </au-checkbox>
                 
                 <au-dropdown
                     label="Kategori"
-                    value.bind="data.category"
+                    value.bind="data.Category"
                     error.bind="error.category"
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly || isEdit)"
                     items.bind="categoryOptions"
                     change.delegate="categoryChanged($event)"
                     options.bind="controlOptions">
@@ -185,7 +213,7 @@
         
                 <au-multiline 
                     label="Keterangan" 
-                    value.bind="data.remark"
+                    value.bind="data.Remark"
                     placeholder="tambah keterangan" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -195,8 +223,8 @@
                 <h4>Standar Kualitas</h4>
                 <au-dropdown
                     label="Jenis"
-                    value.bind="data.qualityStandard.qualityStandardType"
-                    error.bind="error.qualityStandard.qualityStandardType"
+                    value.bind="data.QualityStandardType"
+                    error.bind="error.QualityStandardType"
                     read-only.bind="readOnly"
                     items.bind="qualityStandardTypeOptions"
                     options.bind="controlOptions">
@@ -204,8 +232,8 @@
 
                 <au-textbox 
                     label="Shrinkage Test" 
-                    value.bind="data.qualityStandard.shrinkage" 
-                    error.bind="error.qualityStandard.shrinkage" 
+                    value.bind="data.Shrinkage" 
+                    error.bind="error.Shrinkage" 
                     placeholder="tambahkan shrinkage test"
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -213,8 +241,8 @@
 
                 <au-textbox 
                     label="Wet Rubbing Test" 
-                    value.bind="data.qualityStandard.wetRubbing" 
-                    error.bind="error.qualityStandard.wetRubbing" 
+                    value.bind="data.WetRubbing" 
+                    error.bind="error.WetRubbing" 
                     placeholder="tambahkan wet rubbing test" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -222,8 +250,8 @@
 
                 <au-textbox 
                     label="Dry Rubbing Test" 
-                    value.bind="data.qualityStandard.dryRubbing" 
-                    error.bind="error.qualityStandard.dryRubbing" 
+                    value.bind="data.DryRubbing" 
+                    error.bind="error.DryRubbing" 
                     placeholder="tambahkan dry rubbing test"
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -231,8 +259,8 @@
 
                 <au-textbox 
                     label="Washing Test" 
-                    value.bind="data.qualityStandard.washing" 
-                    error.bind="error.qualityStandard.washing" 
+                    value.bind="data.Washing" 
+                    error.bind="error.Washing" 
                     placeholder="tambahkan washing test" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -240,8 +268,8 @@
 
                 <au-textbox 
                     label="Dark Perspiration Test" 
-                    value.bind="data.qualityStandard.darkPerspiration" 
-                    error.bind="error.qualityStandard.darkPerspiration" 
+                    value.bind="data.DarkPerspiration" 
+                    error.bind="error.DarkPerspiration" 
                     placeholder="tambahkan dark perspiration test" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -249,8 +277,8 @@
 
                 <au-textbox 
                     label="Light Perspiration Test" 
-                    value.bind="data.qualityStandard.lightMedPerspiration" 
-                    error.bind="error.qualityStandard.lightMedPerspiration" 
+                    value.bind="data.LightMedPerspiration" 
+                    error.bind="error.LightMedPerspiration" 
                     placeholder="tambahkan light perspiration test" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
@@ -258,7 +286,8 @@
 
                 <au-multiline 
                     label="Piece Length " 
-                    value.bind="data.qualityStandard.pieceLength"
+                    value.bind="data.PieceLength"
+                    error.bind="error.PieceLength" 
                     read-only.bind="readOnly"
                     placeholder="tambahkan piece length " 
                     options.bind="controlOptions">
@@ -267,9 +296,9 @@
     </div>
 
         <hr/>
-         <div class="form-group" show.bind="!readOnly && data.currency"> 
+         <div class="form-group" show.bind="!readOnly && data.Currency && !isEdit"> 
             <div class="col-sm-3">
-                <au-textbox value.bind="keywords" placeholder="#nama unit #nama buyer #kategori (harus berurutan)"></au-textbox>
+                 <au-textbox value.bind="keywords" placeholder="#nama unit #nama buyer #kategori (harus berurutan)"></au-textbox>
             </div>
             <div class="col-sm-7">
                  <div class="col-sm-3">
@@ -287,14 +316,17 @@
             </div>
         </div>
 
+        <au-textbox error.bind="error.ItemsCount" read-only.bind="true"></au-textbox>
+
         <au-collection 
-            items.bind="data.items" 
-            errors.bind="error.items" 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
             title="Pilih PO Internal"
             columns.bind="items.columns"
             remove.bind="items.onRemove"
             options.bind="options"
             read-only.bind="readOnly" 
+            change.delegate="itemsChanged($event)"
             show.bind="isItem"
             view-model.ref="DetailsCollection"
             footer-template="modules/garment-purchasing/purchase-order-external/template/purchase-order-external-item-footer"

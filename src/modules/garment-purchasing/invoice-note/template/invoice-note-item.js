@@ -1,6 +1,7 @@
 import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
-var DeliveryOrderLoader = require('../../../../loader/garment-delivery-order-basic-loader')
+import { Currency } from '../../../master/product-budgeting/template/currency';
+var DeliveryOrderLoader = require('../../../../loader/garment-delivery-order-by-supplier-loader')
 
 @containerless()
 @inject(BindingEngine, Service)
@@ -23,97 +24,125 @@ export class DeliveryOrderItem {
     this.service = service;
   }
 
+  @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
+
   activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
-
-    if (this.data) {
-      this.deliveryOrder = { no: this.data.deliveryOrderNo }
+    console.log(context);
+    if(this.data.deliveryOrder){
+      // this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
     }
-
-  }
-
-  get total() {
-    if (this.data.items) {
-      if (this.data.items.length > 0) {
-        var qty = this.data.items
-          .map((item) => Number.isInteger(item.pricePerDealUnit * item.deliveredQuantity) ? item.pricePerDealUnit * item.deliveredQuantity : Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)))
-        return qty
-          .reduce((prev, curr, index) => { return prev + curr }, 0);
-      } else {
-        return 0;
+    if (this.data.Id) {
+      this.deliveryOrder =  this.data.deliveryOrder.doNo ;
+      //  this.data.deliveryOrder.totalAmount= this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+    }
+    this.filter={};
+    if (this.options.supplierId && this.options.currencyCode && !this.options.useIncomeTax) {
+      this.filter= {  
+        "IsInvoice": false,  
+        "supplierId": this.options.supplierId,
+        "IsDeleted" :false,
+        "DOCurrencyCode":this.options.currencyCode,
+        "useVat":this.options.useVat, 
+        "useIncomeTax":false,
+        "isPayVAT": this.options.isPayVat,
+        "isPayIncomeTax": this.options.isPayTax
+      };
+    }
+    else if(this.options.supplierId && this.options.currencyCode && this.options.useIncomeTax ){
+      if(this.options.incomeTaxId==undefined)
+      {
+        this.options.incomeTaxId ="";
+        this.options.incomeTaxName="";
       }
-    } else {
-      return 0;
+      this.filter= {  
+        "IsInvoice": false,  
+        "supplierId": this.options.supplierId,
+        "IsDeleted" :false,
+        "DOCurrencyCode":this.options.currencyCode,
+        "useVat":this.options.useVat,
+        "incomeTaxId":this.options.incomeTaxId,
+        "useIncomeTax":this.options.useIncomeTax  ,
+        "incomeTaxName":this.options.incomeTaxName,
+        "isPayVAT": this.options.isPayVat,
+        "isPayIncomeTax": this.options.isPayTax
+      }
+    }
+  
+    
+    for(var Do of this.context.context.items){
+      if(Do.data.deliveryOrder)
+        this.filter[`doNo == "${Do.data.deliveryOrder.doNo}"`]=false;
+
     }
   }
 
   deliveryOrderChanged(newValue, oldValue) {
-    if (this.deliveryOrder && this.deliveryOrder._id) {
-      var items = this.deliveryOrder.items.map(doItem => {
-        var fulfillment = doItem.fulfillments.map(doFulfillment => {
-          return {
-            purchaseOrderExternalId: doItem.purchaseOrderExternalId,
-            purchaseOrderExternalNo: doItem.purchaseOrderExternalNo,
-            purchaseOrderId: doFulfillment.purchaseOrderId,
-            purchaseOrderNo: doFulfillment.purchaseOrderNo,
-            purchaseRequestId: doFulfillment.purchaseRequestId,
-            purchaseRequestNo: doFulfillment.purchaseRequestNo,
-            purchaseRequestRefNo: doFulfillment.purchaseRequestRefNo,
-            roNo: doFulfillment.roNo,
-            productId: doFulfillment.productId,
+    this.data.details = []; 
+    if (this.deliveryOrder && this.deliveryOrder.Id) {
+    
+     for(var doItem of newValue.items){
+       for(var doFulfillment of doItem.fulfillments)
+       {
+          var details={
+            ePOId: doItem.purchaseOrderExternal.Id,
+            ePONo: doItem.purchaseOrderExternal.no,
+            pOId: doFulfillment.pOId,
+            pRItemId: doFulfillment.pRItemId,
+            pRNo: doFulfillment.pRNo,
+            pOSerialNumber: doFulfillment.poSerialNumber,
+            roNo: doFulfillment.rONo,
             product: doFulfillment.product,
-            purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,
-            purchaseOrderUom: doFulfillment.purchaseOrderUom,
-            deliveredQuantity: doFulfillment.deliveredQuantity,
+            uoms: doFulfillment.purchaseOrderUom,
+            doQuantity: doFulfillment.doQuantity,
             pricePerDealUnit: doFulfillment.pricePerDealUnit,
-            paymentMethod: doItem.paymentMethod,
-            paymentType: doItem.paymentType,
             paymentDueDays: doItem.paymentDueDays,
-          }
-        });
-        fulfillment = [].concat.apply([], fulfillment);
-        return fulfillment;
-      });
-      items = [].concat.apply([], items);
-
-      // this.data.deliveryOrder = this.deliveryOrder;
-      this.data.deliveryOrderId = this.deliveryOrder._id;
-      this.data.deliveryOrderNo = this.deliveryOrder.no;
-      this.data.deliveryOrderSupplierDoDate = this.deliveryOrder.supplierDoDate;
-      this.data.deliveryOrderDate = this.deliveryOrder.date;
-      this.data.items = items;
-      // if (oldValue) {
-      //   // this.deliveryOrder = {};
-      //   this.data.deliveryOrderDate = undefined;
-      //   this.data.deliveryOrderId = "";
-      //   this.data.deliveryOrderNo = "";
-      //   this.data.deliveryOrderSupplierDoDate = undefined;
-      //   this.data.items = [];
-      // }
+            paymentMethod: newValue.paymentMethod,
+            paymentType: newValue.paymentType,
+            useVat:doItem.useVat,
+            useIncomeTax: doItem.useIncomeTax,
+            dODetailId:doFulfillment.Id
+          };
+          
+            this.data.details.push(details);
+           
+        }
+      }
+      this.data.Id = this.deliveryOrder.Id;
+      this.data.doDate = this.deliveryOrder.doDate;
+      this.data.arrivalDate = this.deliveryOrder.arrivalDate;
+      // this.deliveryOrder.totalAmount=  this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.data.totalAmount=this.deliveryOrder.totalAmount;
+      this.data.deliveryOrder=this.deliveryOrder;
     }
     else {
 
-      this.data.deliveryOrderDate = undefined;
-      this.data.deliveryOrderId = "";
-      this.data.deliveryOrderNo = "";
-      this.data.deliveryOrderSupplierDoDate = undefined;
+      this.data.arrivalDate = undefined;
+      this.data.Id = "";
+      this.data.doNo = "";
+      this.data.currency="";
+      this.data.doDate = undefined;
       this.data.items = [];
     }
   }
 
-  get deliveryOrderLoader() {
+  get deliveryOrderLoader() { 
     return DeliveryOrderLoader;
   }
-
-  get filter() {
-    if (this.options.supplierCode) {
-      return { "hasInvoice": false, "supplier.code": this.options.supplierCode, "_deleted": false }
-    }
+  doView = (dOrder) => {
+    return`${dOrder.doNo}`
   }
+  
 
   toggle() {
     if (!this.isShowing)

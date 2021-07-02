@@ -1,6 +1,6 @@
 import { bindable } from 'aurelia-framework'
-var StepLoader = require('../../../../../loader/step-loader');
-var MachineLoader = require('../../../../../loader/machine-azure-loader');
+var StepLoader = require('../../../../../loader/step-no-id-loader');
+var MachineLoader = require('../../../../../loader/kanban-machines-azure-loader');
 
 export class StepItem {
 
@@ -15,7 +15,7 @@ export class StepItem {
     this.temp = Object.getOwnPropertyNames(this.step).length > 0 ? this.step : null;
     this.isShowing = false;
     this.options.disabledStepAdd = (context.context.options.disabledStepAdd) ? true : false;
-    this.options.isNotDone = !this.step.isNotDone;
+    this.options.isNotDone = !this.step.IsNotDone;
   }
   bind() {
     this.tdDeadline.addEventListener("click", (event) => {
@@ -33,9 +33,9 @@ export class StepItem {
     ];
   }
   stepIndicatorColumns = [
-    { header: "Indikator", value: "name" },
-    { header: "Nilai", value: "value" },
-    { header: "Satuan", value: "uom" },
+    { header: "Indikator", value: "Name" },
+    { header: "Nilai", value: "Value" },
+    { header: "Satuan", value: "Uom" },
   ];
 
   controlOptions = {
@@ -50,7 +50,7 @@ export class StepItem {
 
   tempChanged(newValue, oldValue) {
     if (!newValue) {
-      Object.assign(this.context.data, { process: "", stepIndicators: [] });
+      Object.assign(this.context.data, { Process: "", StepIndicators: [] });
     }
     else {
       Object.assign(this.context.data, newValue);
@@ -72,9 +72,10 @@ export class StepItem {
     }
 
     var index = this.context.context.items.indexOf(this.context);
+    // this.context.data.SelectedIndex=index+1;
     if (this.context.context.items) {
       for (var stepItem of this.context.context.items) {
-        stepItem.data.selectedIndex = index;
+        stepItem.data.SelectedIndex = index;
       }
     }
 
@@ -87,7 +88,7 @@ export class StepItem {
       this.tdButton.setAttribute("class", "active");
 
     this.context.context.selectedStep = { data: step, index: index, tdNumber: this.tdNumber, tdStep: this.tdStep, tdButton: this.tdButton, tdMachine: this.tdMachine, tdArea: this.tdArea, tdDeadline: this.tdDeadline };
-    this.query = { "steps.step.process": this.context.data.process ? this.context.data.process : "" };
+    this.query = { "Process": this.context.data.Process ? this.context.data.Process : "" };
   }
 
   toggle() {
@@ -107,9 +108,9 @@ export class StepItem {
 
   get stepIndicatorInfo() {
     var info = "";
-    if (this.step.stepIndicators && this.step.stepIndicators.length > 0) {
-      for (var stepIndicator of this.step.stepIndicators) {
-        info += stepIndicator.name + "=" + (stepIndicator.value ? stepIndicator.value : "0") + ",";
+    if (this.step.StepIndicators && this.step.StepIndicators.length > 0) {
+      for (var stepIndicator of this.step.StepIndicators) {
+        info += stepIndicator.Name + "=" + (stepIndicator.Value ? stepIndicator.Value : "0") + ",";
       }
       info = info.substring(0, info.length - 1);
     }

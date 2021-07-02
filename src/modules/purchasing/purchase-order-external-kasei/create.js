@@ -7,6 +7,7 @@ import {activationStrategy} from 'aurelia-router';
 export class Create {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
 
     constructor(router, service) {
         this.router = router;
@@ -50,7 +51,19 @@ export class Create {
                 item.unit=this.data.unit;
             }
         }
-        console.log(this.data)
+
+        var test=false;
+        for(var item of this.data.items){
+            for(var detail of item.details){
+                if(isNaN(detail.pricePerDealUnit)){
+                    test=true;
+                }
+            }
+        }
+
+        if(test==true){
+            alert("Harga Barang Harus Diisi Dengan Angka");
+        } else {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -63,5 +76,6 @@ export class Create {
                     this.error = e;
                 }
             })
+        }
     }
 }

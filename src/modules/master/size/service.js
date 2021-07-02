@@ -2,12 +2,12 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service'; 
 
-const serviceUri = "sizes";
+const serviceUri = "master/sizes";
  
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "merchandiser");
+    super(http, aggregator, config, "core");
   }
   
   search(info) {
@@ -25,8 +25,8 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getByCode(code) {
-    var endpoint = `${serviceUri}?keyword=${code}`;
+  getByCode(size) {
+    var endpoint = `${serviceUri}?keyword=${size}`;
     return super.get(endpoint);
   }
 

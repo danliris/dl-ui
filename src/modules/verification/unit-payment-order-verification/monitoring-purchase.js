@@ -37,13 +37,13 @@ export class List {
             "name": "Barang sudah diterima Unit parsial",
             "value": 6
         }, {
-            "name": "Barang sudah diterima Unit",
+            "name": "Barang sudah diterima Unit semua",
             "value": 7
         }, {
-            "name": "Sebagian sudah dibuat SPB",
+            "name": "Sudah dibuat SPB sebagian",
             "value": 8
         }, {
-            "name": "Complete",
+            "name": "Sudah dibuat SPB semua",
             "value": 9
         }];
 
@@ -64,39 +64,71 @@ export class List {
 
     }
 
+    prId = 0;
     activate(param) {
         var no = param.no;
-        console.log(param)
+        console.log(param);
         this.purchaseOrder = no;
+        this.prId = parseInt(param.no);
         this.search();
-
     }
 
     search() {
         var dateFormat = "DD MMM YYYY";
         var locale = 'id-ID';
         var moment = require('moment');
-        moment.locale(locale);
+        // moment.locale(locale);
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.mongoService.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
-            .then(data => {
-                this.isVerified(data).then(result => {
-                    var dataPR = [];
-                    var temp = {};
-                    for (var i of result) {
-                        for (var PR of data) {
-                            temp = PR;
-                            if (i.UnitPaymentOrderNo == PR["No Nota Intern"]) {
-                                temp.Position = i.Position;
-                            } else {
-                                temp.Position = 0;
-                            }
-                            dataPR.push(temp)
-                        }
-                    }
-                    this.data = dataPR
-                })
+        this.service.searchPR({ prId: this.prId })
+            .then(result => {
+                this.purchaseOrder = result.data.find((datum) => true).PurchaseRequestNo;
+                this.data = result.data.map(datum => {
+                    datum.PurchaseRequestDate = moment(new Date(datum.PurchaseRequestDate)).format(dateFormat);
+                    datum.InternalPurchaseOrderCreatedDate = moment(new Date(datum.InternalPurchaseOrderCreatedDate)).format(dateFormat);
+                    datum.ExternalPurchaseOrderCreatedDate = moment(new Date(datum.ExternalPurchaseOrderCreatedDate)).format(dateFormat);
+                    datum.PurchaseRequestDate = moment(new Date(datum.PurchaseRequestDate)).format(dateFormat);
+                    datum.ExternalPurchaseOrderExpectedDeliveryDate = moment(new Date(datum.ExternalPurchaseOrderExpectedDeliveryDate)).format(dateFormat);
+                    datum.DeliveryOrderDate = moment(new Date(datum.DeliveryOrderDate)).format(dateFormat);
+                    datum.DeliveryOrderArrivalDate = moment(new Date(datum.DeliveryOrderArrivalDate)).format(dateFormat);
+                    datum.UnitReceiptNoteDate = moment(new Date(datum.UnitReceiptNoteDate)).format(dateFormat);
+                    datum.UnitPaymentOrderInvoiceDate = moment(new Date(datum.UnitPaymentOrderInvoiceDate)).format(dateFormat);
+                    datum.UnitPaymentOrderDate = moment(new Date(datum.UnitPaymentOrderDate)).format(dateFormat);
+                    datum.UnitPaymentOrderDueDate = moment(new Date(datum.UnitPaymentOrderDueDate)).format(dateFormat);
+                    datum.UnitPaymentOrderVATDate = moment(new Date(datum.UnitPaymentOrderVATDate)).format(dateFormat);
+                    datum.UnitPaymentOrderIncomeTaxDate = moment(new Date(datum.UnitPaymentOrderIncomeTaxDate)).format(dateFormat);
+                    // datum.CorrectionDate = moment(new Date(datum.CorrectionDate)).format(dateFormat);
+                    let state = this.poStates.find(poState => {
+                        return poState.name == datum.InternalPurchaseOrderStatus
+                    });
+
+                    if (state)
+                        datum.Position = state.value;
+                    else
+                        datum.Position = 0;
+
+                    
+                    
+                    return datum;
+                });
+                
+                
+                // this.isVerified(data).then(result => {
+                //     var dataPR = [];
+                //     var temp = {};
+                //     for (var i of result) {
+                //         for (var PR of data) {
+                //             temp = PR;
+                //             if (i.UnitPaymentOrderNo == PR["No Nota Intern"]) {
+                //                 temp.Position = i.Position;
+                //             } else {
+                //                 temp.Position = 0;
+                //             }
+                //             dataPR.push(temp)
+                //         }
+                //     }
+                //     this.data = dataPR
+                // })
             })
     }
 

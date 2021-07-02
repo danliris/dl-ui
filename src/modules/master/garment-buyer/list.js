@@ -6,13 +6,13 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-    { field: "code", title: "Kode" },
-    { field: "name", title: "Nama" },
-    { field: "address", title: "Alamat" },
-    { field: "city", title: "Kota" },
-    { field: "country", title: "Negara" },
-    { field: "contact", title: "Kontak" },
-    { field: "tempo", title: "Tempo" },
+    { field: "Code", title: "Kode" },
+    { field: "Name", title: "Nama" },
+    { field: "Address", title: "Alamat" },
+    { field: "City", title: "Kota" },
+    { field: "Country", title: "Negara" },
+    { field: "Contact", title: "Kontak" },
+    { field: "Tempo", title: "Tempo" },
   ];
 
   loader = (info) => {
@@ -24,7 +24,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name", "address", "city", "country", "contact", "tempo"],
+      select: ["Code", "Name", "Address", "City", "Country", "Contact", "Tempo"],
       order: order
     }
 
@@ -49,7 +49,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

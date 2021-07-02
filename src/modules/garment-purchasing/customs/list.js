@@ -24,14 +24,14 @@ export class List {
     setColumns() {
         this.columns = [
             { field: "customsType", title: "Jenis Bea Cukai" },            
-            { field: "no", title: "No Bea Cukai" },
+            { field: "beacukaiNo", title: "No Bea Cukai" },
             {
-                field: "customsDate", title: "Tanggal Bea Cukai", formatter: (value, data) => {
+                field: "beacukaiDate", title: "Tanggal Bea Cukai", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "supplier", title: "Supplier" },
-            { field: "delyveryOrder", title: "List Nomor Surat Jalan" }
+            { field: "suppliername", title: "Supplier" },
+            { field: "deliveryOrder", title: "List Nomor Surat Jalan", sortable: false  }
         ];
     }
 
@@ -46,7 +46,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["no", "customsDate", "customsType", "supplier.name", "deliveryOrders"]
+            select: ["beacukaiNo", "beacukaiDate", "customsType", "suppliername", "items"]
         }
 
         return this.service.search(arg)
@@ -54,18 +54,18 @@ export class List {
                 var items = [];
                 for(var a of result.data){
                     var dOrder = ""
-                    if(a.deliveryOrders || a.deliveryOrders.length > 0){
-                        for(var b of a.deliveryOrders){
-                            dOrder+=`${b.no}` + "</br>";
+                    if(a.items || a.items.length > 0){
+                        for(var b of a.items){
+                            dOrder+=`${b.deliveryOrder.doNo}` + "</br>";
                         }
                     }
                     var data = {
-                        _id : a._id,
-                        no : a.no,
-                        customsType : a.customsType,
-                        customsDate : a.customsDate,
-                        supplier : a.supplier.name,
-                        delyveryOrder : dOrder
+                        _id : a.Id,
+                        beacukaiNo : a.beacukaiNo,
+                        customsType : a.customType,
+                        beacukaiDate : a.beacukaiDate,
+                        suppliername : a.supplier.Name,
+                        deliveryOrder : dOrder
                     }
                     items.push(data);
                 }

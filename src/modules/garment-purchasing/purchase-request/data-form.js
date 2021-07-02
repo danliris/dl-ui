@@ -24,20 +24,20 @@ export class DataForm {
     }
 
     itemsColumns = [
-        { header: "Nomor Referensi PR", value: "refNo" },
-        { header: "Barang", value: "product" },
-        { header: "Kategori", value: "category" },
-        { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "uom" },
-        { header: "Harga Budget", value: "budgetPrice" },
-        { header: "Keterangan", value: "remark" }
+        { header: "Nomor Referensi PR" },
+        { header: "Barang" },
+        { header: "Kategori" },
+        { header: "Jumlah" },
+        { header: "Satuan" },
+        { header: "Harga Budget" },
+        { header: "Keterangan" }
     ]
 
     get buyer() {
-		return `${this.data.buyer.code} - ${this.data.buyer.name}`;
+		return `${this.data.Buyer.Code} - ${this.data.Buyer.Name}`;
 	}
     
     get unit() {
-		return `${this.data.unit.code} - ${this.data.unit.name}`;
+		return `${this.data.Unit.Code} - ${this.data.Unit.Name}`;
 	}
 }

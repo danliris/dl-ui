@@ -1,10 +1,13 @@
-import {bindable} from 'aurelia-framework'
+import { bindable, inject } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
+import { Service } from "../service";
 
 var PackingLoader = require('../../../../../loader/packing-loader');
-const resource = 'inventory/products-by-production-orders';
+var ProductionLoader = require('../../../../../loader/production-order-loader');
+const resource = 'master/products';
 
+@inject(Service)
 export class FPReturToQCItem {
   @bindable selectedPacking;
 
@@ -20,6 +23,10 @@ export class FPReturToQCItem {
     { header: "Berat (Kg)", value: "weight" }
   ]
 
+  constructor(service) {
+    this.service = service;
+  }
+
   activate(context) {
     this.context = context;
     this.data = context.data;
@@ -27,9 +34,10 @@ export class FPReturToQCItem {
     this.options = context.options;
     this.isShowing = false;
     this.filter = this.context.context.options ? this.context.context.options : {};
+
     if (this.data) {
       this.selectedPacking = this.data;
-      if (this.data.details) {
+      if (this.data.Details) {
         this.isShowing = true;
       }
     }
@@ -37,54 +45,85 @@ export class FPReturToQCItem {
 
   //packingFilter=this.filter;
 
+
   get packingLoader() {
     return PackingLoader;
   }
 
+  get productionLoader() {
+    return ProductionLoader;
+  }
+
   async selectedPackingChanged(newValue) {
-    var items=[];
-    if(newValue){
-        if (newValue._id) {
-          this.data.packing=newValue;
-          this.data.code=newValue.code;
-          this.data.packingId=newValue._id;
-          this.data.packingCode=newValue.code;
-          this.data.productionOrderId=newValue.productionOrderId;
-          this.data.productionOrderNo=newValue.productionOrderNo;
 
-          var config = Container.instance.get(Config);
-          var endpoint = config.getEndpoint("inventory");
+    var items = [];
+    if (newValue) {
+      if (newValue.Id) {
+        this.data.ProductionOrder = newValue;
 
-          await endpoint.find(resource, { filter: JSON.stringify(newValue.productionOrderId)})
-            .then((result) => {
-              for(var item of result.info){
-                if(item.inventory.length>0){
-                  var data={
-                    productName:item.name,
-                    productId:item._id,
-                    designNumber:item.properties.designNumber,
-                    designCode:item.properties.designCode,
-                    remark:'',
-                    colorWay:item.properties.colorName,
-                    quantityBefore:item.inventory[0].quantity,
-                    returQuantity:0,
-                    uomId:item.uomId,
-                    uom:item.uom.unit ? item.uom.unit : item.uom,
-                    length:0,
-                    weight:0,
-                    storageId:item.inventory[0].storageId
-                  }
-                  items.push(data);
-                }
-              }
-              this.data.details=items;
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+        var productFilter = {
+          ProductionOrderNo: newValue.OrderNo
+        };
+        await this.service.getProductByProductionOrderNo(newValue.OrderNo)
+          .then((result) => {
+
+            var productIds = result.data.map(function (v) {
+              return v.Id;
             });
-            this.isShowing = true;
-        }
+            var product = result.data;
+            this.service.getInventoryItemsByProductId({ productIds })
+              .then((result) => {
+                if (result) {
+                  
+                  if (newValue.OrderType && newValue.OrderType.Name) {
+                    var inventoryData = {};
+                    if (newValue.OrderType.Name.toUpperCase() === 'PRINTING') {
+                      inventoryData = result.filter(function (v) {
+                        return v.storageName && v.storageName.toUpperCase() === 'GUDANG PRINTING';
+                      });
+                    } else {
+                      inventoryData = result.filter(function (v) {
+                        return v.storageName && v.storageName.toUpperCase() !== 'GUDANG PRINTING';
+                      });
+                    }
+                    for (var item of inventoryData) {
+                      var newProduct = product.find(function (v) {
+                        return v.Id == item.productId;
+                      });
+                      var data = {
+                        ProductName: item.productName,
+                        ProductId: item.productId,
+                        ProductCode: item.productCode,
+                        DesignNumber: newProduct.SPPProperties.DesignNumber,
+                        DesignCode: newProduct.SPPProperties.DesignCode,
+                        Remark: '',
+                        ColorWay: newProduct.SPPProperties.ColorName,
+                        QuantityBefore: item.quantity,
+                        ReturQuantity: 0,
+                        UOMId: item.uomId,
+                        UOMUnit: item.uom,
+                        Length: 0,
+                        Weight: 0,
+                        StorageId: item.storageId,
+                        StorageCode: item.storageCode,
+                        StorageName: item.storageName
+                      }
+                      items.push(data);
+                    }
+                    this.data.Details = items;
+                  }
+                }
+              });
+          });
+        this.isShowing = true;
       }
+    }
   }
 
   toggle() {
+
     if (!this.isShowing)
       this.isShowing = true;
     else
@@ -92,9 +131,18 @@ export class FPReturToQCItem {
   }
 
   packingLoaderView = (packing) => {
-    if(packing.code!="" && packing.productionOrderNo!="")
-      return `${packing.code} - ${packing.productionOrderNo}`;
-     //return packing.productionOrderNo
+    if (packing.Code && packing.ProductionOrderNo)
+      return `${packing.Code} - ${packing.ProductionOrderNo}`;
+    //return packing.productionOrderNo
+  }
+
+  productionLoaderView = (productionOrder) => {
+
+    if (productionOrder.OrderNo)
+      return `${productionOrder.OrderNo}`;
+    else if (productionOrder.ProductionOrder) {
+      return `${productionOrder.ProductionOrder.OrderNo}`
+    }
   }
 
   controlOptions = {

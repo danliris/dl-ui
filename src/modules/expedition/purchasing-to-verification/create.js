@@ -53,7 +53,8 @@ export class Create {
         };
 
         for (let unitPaymentOrder of this.data.UnitPaymentOrders) {
-            data.UnitPaymentOrders.push({
+            console.log(unitPaymentOrder)
+            var objectSave = {
                 No: unitPaymentOrder.no,
                 UPODate: unitPaymentOrder.date,
                 DueDate: unitPaymentOrder.dueDate,
@@ -63,14 +64,25 @@ export class Create {
                 DivisionCode: unitPaymentOrder.divisionCode,
                 DivisionName: unitPaymentOrder.divisionName,
                 IncomeTax: unitPaymentOrder.incomeTax,
+                IncomeTaxBy: unitPaymentOrder.incomeTaxBy,
                 Vat: unitPaymentOrder.vat,
-                IncomeTaxId: unitPaymentOrder.incomeTaxId,
-                IncomeTaxName: unitPaymentOrder.incomeTaxName,
-                IncomeTaxRate: unitPaymentOrder.incomeTaxRate,
                 TotalPaid: unitPaymentOrder.totalPaid,
                 Currency: unitPaymentOrder.currency,
                 Items: unitPaymentOrder.items,
-            });
+                CategoryCode: unitPaymentOrder.category.code,
+                CategoryId: unitPaymentOrder.category._id,
+                CategoryName: unitPaymentOrder.category.name,
+                InvoiceNo: unitPaymentOrder.invoiceNo,
+                PaymentMethod: unitPaymentOrder.paymentMethod,
+                URNNo: unitPaymentOrder.no,
+                URNId: unitPaymentOrder.UId
+            };
+            if (unitPaymentOrder.useIncomeTax) {
+                objectSave.IncomeTaxId = unitPaymentOrder.incomeTaxId;
+                objectSave.IncomeTaxName = unitPaymentOrder.incomeTaxName;
+                objectSave.IncomeTaxRate = unitPaymentOrder.incomeTaxRate;
+            }
+            data.UnitPaymentOrders.push(objectSave);
         }
 
         this.service.create(data)

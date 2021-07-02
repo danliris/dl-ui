@@ -1,13 +1,14 @@
-import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
+import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
 var PurchaseOrderExternalLoader = require('../../../../loader/garment-purchase-order-external-by-supplier-loader');
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(BindingEngine, Service)
 export class DeliveryOrderItem {
   @bindable selectedPurchaseOrderExternal;
 
   itemsColumns = [
+    { header: " "},
     { header: "Nomor PR" },
     { header: "Nomor Referensi PR" },
     { header: "Barang" },
@@ -23,22 +24,103 @@ export class DeliveryOrderItem {
     { header: "Catatan" }
   ]
 
-  constructor(service, bindingEngine) {
-    this.service = service;
+  constructor(bindingEngine, service) {
     this.bindingEngine = bindingEngine;
+    this.service = service;
   }
 
+  @computedFrom("data.purchaseOrderExternal.no")
+    get isEdit() {
+        return (this.data.purchaseOrderExternal.no || '').toString() != '';
+    }
+
   activate(context) {
+    
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.filter = this.context.context.options.supplierId ? { "supplierId": this.context.context.options.supplierId } : {};
-    this.isEdit = this.context.context.options.isEdit || false;
-    this.isShowing = false;
-    if (this.data) {
-      this.selectedPurchaseOrderExternal = { "_id": this.data.purchaseOrderExternalId, "no": this.data.purchaseOrderExternalNo };
+    console.log(context);
+    if(this.data && this.context.context.options.hasCreate){
+      if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
+          this.filter = 
+          {
+            "SupplierId": this.context.context.options.supplierId,
+            "CurrencyCode": this.context.context.items[0].data.currency.Code,
+            "PaymentType": this.context.context.items[0].data.paymentType,
+            "PaymentMethod": this.context.context.items[0].data.paymentMethod,
+            "IsUseVat": this.context.context.items[0].data.useVat,
+            "IsIncomeTax": this.context.context.items[0].data.useIncomeTax,
+            "IncomeTaxName": this.context.context.items[0].data.incomeTax.Name,
+            "IncomeTaxRate": this.context.context.items[0].data.incomeTax.Rate,
+            "IsPayVAT":this.context.context.items[0].data.isPayVAT,
+            "IsPayIncomeTax": this.context.context.items[0].data.isPayIncomeTax
+          } 
+          for(var item of this.context.context.items){
+            this.filter[`EPONo == "${item.data.purchaseOrderExternal.no}"`]=false;
+          }
+        console.log(this.filter);
+      }
+      else {
+        this.filter = this.context.context.options.supplierId ? 
+        { 
+          "SupplierId": this.context.context.options.supplierId
+        } : {};
+      }
+    } else {
+      if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
+        this.filter = 
+        {
+          "SupplierId": this.context.context.options.supplierId,
+          "CurrencyCode": this.context.context.items[0].data.currency.Code,
+          "PaymentType": this.context.context.options.paymentType,
+          "PaymentMethod": this.context.context.options.paymentMethod,
+          "IsUseVat": this.context.context.options.isUseVat,
+          "IsIncomeTax": this.context.context.options.isIncomeTax,
+          "IncomeTaxName": this.context.context.options.incomeTaxName,
+          "IncomeTaxRate": this.context.context.options.incomeTaxRate,
+          "IsPayVAT":this.context.context.items[0].data.isPayVAT,
+          "IsPayIncomeTax": this.context.context.items[0].data.isPayIncomeTax
+        } 
+        for(var item of this.context.context.items){
+          this.filter[`EPONo == "${item.data.purchaseOrderExternal.no}"`]=false;
+        }
+        console.log(this.filter);
+      }
+      
+      else {
+        this.filter = this.context.context.options.supplierId ? 
+        { 
+          "SupplierId": this.context.context.options.supplierId
+        } : {};
+      }
     }
+    
+    this.isShowing = false;
+    this.isSave = false;
+    
+    this.errorCount = 0;
+    if(this.error){
+      this.errorCount += 1;
+    }
+    
+    if (this.data){
+      if(this.context.context.options.hasCreate){
+        // if (this.data.fulfillments) {
+        //   this.isShowing = true;
+        // }
+      } else if(this.context.context.options.hasEdit || this.context.context.options.hasView){
+        //this.isShowing = true;
+        if (this.data.fulfillments) {
+          for(var fulfillments of this.data.fulfillments){
+            fulfillments.currency=this.data.currency;
+            fulfillments.errorCount=this.errorCount;
+          }
+        }
+      }
+      this.selectedPurchaseOrderExternal = this.data.purchaseOrderExternal;
+    }
+    this.context.filter = this.filter;
   }
 
   get purchaseOrderExternalLoader() {
@@ -46,109 +128,118 @@ export class DeliveryOrderItem {
   }
 
   async selectedPurchaseOrderExternalChanged(newValue) {
-    if (newValue === null) {
+    if (newValue == null) {
       this.data.fulfillments = [];
       this.error = {};
       this.isShowing = false;
-    } else if (newValue._id) {
-      this.data.purchaseOrderExternalNo = newValue.no;
-      this.data.purchaseOrderExternalId = newValue._id;
-      this.data.payment = newValue.paymentMethod;
-      var doFulfillments = this.data.fulfillments || [];
-      var poExternal = newValue || {};
-      var poCollection = poExternal.items.map((item) => { return item.poId })
-      poCollection = poCollection.filter(function (elem, index, self) {
-        return index == self.indexOf(elem);
-      })
-
-      var jobs = [];
-      for (var poId of poCollection) {
-        jobs.push(this.service.getPurchaseOrderById(poId, ["items.fulfillments", "items.currency", "items.pricePerDealUnit", "items.product", "_id", "items.dealQuantity", "items.realizationQuantity"]))
+    } else if (newValue.EPONo && this.context.context.options.hasCreate) {
+      this.data.fulfillments = [];
+      this.data.purchaseOrderExternal = newValue;
+      this.data.purchaseOrderExternal.no = newValue.EPONo;
+      this.data.purchaseOrderExternal.Id = newValue.Id;
+      this.data.paymentType = newValue.PaymentType;
+      this.data.paymentMethod = newValue.PaymentMethod;
+      this.data.paymentDueDays = newValue.PaymentDueDays;
+      this.data.currency = {};
+      this.data.currency.Id = newValue.Currency.Id;
+      this.data.currency.Code = newValue.Currency.Code;
+      this.data.useVat = newValue.IsUseVat;
+      this.data.useIncomeTax = newValue.IsIncomeTax;
+      this.data.isPayVAT = newValue.IsPayVAT;
+      this.data.isPayIncomeTax = newValue.IsPayIncomeTax;
+      this.data.incomeTax={};
+      if(this.data.useIncomeTax==true){
+        this.data.incomeTax.Id = newValue.IncomeTax.Id;
+        this.data.incomeTax.Name = newValue.IncomeTax.Name;
+        this.data.incomeTax.Rate = newValue.IncomeTax.Rate;
+      } else {
+        this.data.incomeTax={};
       }
 
-      Promise.all(jobs)
-        .then(purchaseOrders => {
-          var fulfillments = [];
-          for (var poExternalItem of poExternal.items) {
-            var poInternal = purchaseOrders.find(po => po._id.toString() === poExternalItem.poId.toString())
-            var poInternalItem = poInternal.items.find(poItem => poItem.product._id.toString() === poExternalItem.productId.toString())
-            if (poInternalItem) {
-              var correctionQty = [];
-              if (poInternalItem.fulfillments) {
-                poInternalItem.fulfillments.map((fulfillment) => {
-                  if (fulfillment.corrections) {
-                    fulfillment.corrections.map((correction) => {
-                      if (correction.correctionType == "Jumlah") {
-                        correctionQty.push((correction.oldCorrectionQuantity - correction.newCorrectionQuantity) < 0 ? (correction.oldCorrectionQuantity - correction.newCorrectionQuantity) * -1 : (correction.oldCorrectionQuantity - correction.newCorrectionQuantity))
-                      }
-                    })
-                  }
-                })
-              }
-              var isQuantityCorrection = correctionQty.length > 0;
-              if ((poInternalItem.dealQuantity - poInternalItem.realizationQuantity) > 0) {
-                var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity);
-                var remainingQuantity = poInternalItem.dealQuantity - poInternalItem.realizationQuantity;
-                if (isQuantityCorrection) {
-                  deliveredQuantity += correctionQty.reduce((prev, curr) => prev + curr);
-                  remainingQuantity += correctionQty.reduce((prev, curr) => prev + curr);
-                }
-                var fulfillment = {
-                  purchaseOrderId: poExternalItem.poId,
-                  purchaseOrderNo: poExternalItem.poNo,
-                  purchaseRequestId: poExternalItem.prId,
-                  purchaseRequestNo: poExternalItem.prNo,
-                  purchaseRequestRefNo: poExternalItem.prRefNo,
-                  productId: poExternalItem.productId,
-                  product: poExternalItem.product,
-                  purchaseOrderQuantity: poExternalItem.dealQuantity,
-                  purchaseOrderUom: poExternalItem.dealUom,
-                  currency: poInternalItem.currency,
-                  pricePerDealUnit: poInternalItem.pricePerDealUnit,
-                  remainsQuantity: remainingQuantity,
-                  deliveredQuantity: deliveredQuantity,
-                  quantityConversion: deliveredQuantity * (poExternalItem.conversion || 1),
-                  uomConversion: poExternalItem.uomConversion || poExternalItem.dealUom,
-                  conversion: poExternalItem.conversion,
-                  remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
-                };
-                fulfillments.push(fulfillment);
-              }
-              else if (isQuantityCorrection) {
-                var fulfillment = {
-                  purchaseOrderId: poExternalItem.poId,
-                  purchaseOrderNo: poExternalItem.poNo,
-                  purchaseRequestId: poExternalItem.prId,
-                  purchaseRequestNo: poExternalItem.prNo,
-                  purchaseRequestRefNo: poExternalItem.prRefNo,
-                  productId: poExternalItem.productId,
-                  product: poExternalItem.product,
-                  purchaseOrderQuantity: poExternalItem.dealQuantity,
-                  purchaseOrderUom: poExternalItem.dealUom,
-                  currency: poInternalItem.currency,
-                  pricePerDealUnit: poInternalItem.pricePerDealUnit,
-                  remainsQuantity: poExternalItem.dealQuantity + correctionQty[correctionQty.length - 1],
-                  deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
-                  quantityConversion: (doFulfillments[fulfillments.length] || {}).quantityConversion ? doFulfillments[fulfillments.length].quantityConversion : (poExternalItem.quantityConversion - (poInternalItem.realizationQuantity * poExternalItem.conversion || 1)) + (correctionQty.reduce((prev, curr) => prev + curr) * poExternalItem.conversion || 1),
-                  uomConversion: poExternalItem.uomConversion || poExternalItem.dealUom,
-                  conversion: poExternalItem.conversion,
-                  remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
-                };
-                fulfillments.push(fulfillment);
-              }
-            }
-          }
-          this.data.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
-          this.error = {};
-          this.isShowing = true;
-        })
-        .catch(e => {
-          this.data.fulfillments = [];
-          this.error = {};
-          this.isShowing = false;
-          this.selectedPurchaseOrderExternal = {};
-        })
+      for(var item of newValue.Items){
+        var filterGarmentCategory = {
+          "_IsDeleted": false,
+          "Name": item.Product.Name,
+        }
+        var info = { filter: JSON.stringify(filterGarmentCategory), size: 2147483647 };
+        var categoryProduct = await this.service.searchGarmentCategory(info);
+        var codeRequirmentTemp = "";
+        for (var data of categoryProduct){
+          codeRequirmentTemp = data.codeRequirement;
+        }
+
+        var fulfillment = {
+          ePOItemId : item.Id,
+          pOId : item.POId,
+          pONo : item.PONo,
+          pRId : item.PRId,
+          pRNo : item.PRNo,
+          poSerialNumber : item.PO_SerialNumber,
+          product : item.Product,
+          doQuantity : item.DOQuantity,
+          dealQuantity : item.DealQuantity,
+          conversion : item.Conversion,
+          smallQuantity : item.SmallQuantity,
+          pricePerDealUnit : item.PricePerDealUnit,
+          rONo : item.RONo,
+          currency : newValue.Currency,
+          product : item.Product,
+          codeRequirment : codeRequirmentTemp,
+          smallUom : item.SmallUom,
+          purchaseOrderUom : item.DealUom,
+          isSave : false,
+        };
+        this.data.fulfillments.push(fulfillment);
+      }
+        this.isShowing = true;
+        
+    } else if (newValue.EPONo && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
+      this.data.purchaseOrderExternal.no = newValue.EPONo;
+      this.data.purchaseOrderExternal.Id = newValue.Id;
+      this.data.paymentDueDays = newValue.PaymentDueDays;
+      this.data.currency = {};
+      this.data.currency.Id = newValue.Currency.Id;
+      this.data.currency.Code = newValue.Currency.Code;
+
+      for(var item of newValue.Items){
+        var filterGarmentCategory = {
+          "_IsDeleted": false,
+          "Name": item.Product.Name,
+        }
+        var info = { filter: JSON.stringify(filterGarmentCategory), size: 2147483647 };
+        var categoryProduct = await this.service.searchGarmentCategory(info);
+        var codeRequirmentTemp = "";
+        for (var data of categoryProduct){
+          codeRequirmentTemp = data.codeRequirement;
+        }
+
+        var fulfillment = {
+          ePOItemId : item.Id,
+          pOId : item.POId,
+          pONo : item.PONo,
+          pRId : item.PRId,
+          pRNo : item.PRNo,
+          poSerialNumber : item.PO_SerialNumber,
+          product : item.Product,
+          doQuantity : item.DOQuantity,
+          dealQuantity : item.DealQuantity,
+          conversion : item.Conversion,
+          smallQuantity : item.SmallQuantity,
+          pricePerDealUnit : item.PricePerDealUnit,
+          rONo : item.RONo,
+          currency : newValue.Currency,
+          product : item.Product,
+          codeRequirment : codeRequirmentTemp,
+          smallUom : item.SmallUom,
+          purchaseOrderUom : item.DealUom,
+        };
+        this.data.fulfillments.push(fulfillment);
+      }
+        this.isShowing = true;
     }
+    this.activate(this.context);
+    this.dataPassing ="passing data";
+    console.log("after change",this);
   }
 
   toggle() {
@@ -159,7 +250,12 @@ export class DeliveryOrderItem {
   }
 
   purchaseOrderExternalView = (purchaseOrderExternal) => {
-    return purchaseOrderExternal.no
+    if(purchaseOrderExternal.EPONo){
+      return purchaseOrderExternal.EPONo;
+    } else {
+      return purchaseOrderExternal.no;
+    }
+    
   }
 
   removeItems = function () {

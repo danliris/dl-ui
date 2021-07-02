@@ -96,51 +96,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="PO of data" class="${PO.Position == 6 ?'danger': PO.Position == 4 || PO.Position == 3 ?'success':'primary'}">
-                        <td>${PO['No']}</td>
-                        <td>${PO['Tanggal Purchase Request']}</td>
-                        <td>${PO['No Purchase Request']}</td>
-                        <td>${PO['Kategori']}</td>
-                        <td>${PO['Budget']}</td>
-                        <td>${PO['Nama Barang']}</td>
-                        <td>${PO['Kode Barang']}</td>
-                        <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
-                        <td>${PO['Satuan Barang']}</td>
-                        <td align="right">${(PO['Harga Barang']).toLocaleString()}</td>
-                        <td align="right">${(PO['Harga Total']).toLocaleString()}</td>
-                        <td>${PO['Kode Supplier']}</td>
-                        <td>${PO['Nama Supplier']}</td>
-                        <td>${PO['Tanggal Terima PO Internal']}</td>
-                        <td>${PO['Tanggal Terima PO Eksternal']}</td>
-                        <td>${PO['Tanggal Diminta Datang PR']}</td>
-                        <td>${PO['Tanggal Target Datang']}</td>
-                        <td>${PO['No PO Eksternal']}</td>
-                        <td>${PO['Tanggal Surat Jalan']}</td>
-                        <td>${PO['Tanggal Datang Barang']}</td>
-                        <td>${PO['No Surat Jalan']}</td>
-                        <td>${PO['Tanggal Bon Terima Unit']}</td>
-                        <td>${PO['No Bon Terima Unit']}</td>
-                        <td>${PO['Jumlah Diminta']}</td>
-                        <td>${PO['Satuan Diminta']}</td>
-                        <td>${PO['Tempo Pembayaran']}</td>
-                        <td>${PO['Tanggal Invoice']}</td>
-                        <td>${PO['No Invoice']}</td>
-                        <td>${PO['Tanggal Nota Intern']}</td>
-                        <td>${PO['No Nota Intern']}</td>
-                        <td>${PO['Nilai Nota Intern'].toLocaleString()}</td>
-                        <td>${PO['Tanggal Jatuh Tempo']}</td>
-                        <td>${PO['Tanggal PPN']}</td>
-                        <td>${PO['No PPN']}</td>
-                        <td>${PO['Nilai PPN'].toLocaleString()}</td>
-                        <td>${PO['Tanggal PPH']}</td>
-                        <td>${PO['No PPH']}</td>
-                        <td>${PO['Nilai PPH'].toLocaleString()}</td>
-                        <td>${PO['Tanggal Koreksi']}</td>
-                        <td>${PO['No Koreksi']}</td>
-                        <td>${PO['Nilai Koreksi']}</td>
-                        <td>${PO['Ket. Koreksi']}</td>
-                        <td>${PO['Keterangan']}</td>
-                        <td>${PO['Status']}</td>
+                    <tr repeat.for="PO of data" class="${ PO.Position == 4 || PO.Position == 3 || PO.Position == 9 ?'success':PO.Position == 8 || PO.Position == 6 ?'danger':'primary'}">
+                        
+                        <td>${PO.InternalPurchaseOrderNo}</td>
+                        <td>${PO.PurchaseRequestDate}</td>
+                        <td>${PO.PurchaseRequestNo}</td>
+                        <td>${PO.CategoryName}</td>
+                        <td>${PO.BudgetName}</td>
+                        <td>${PO.ProductName}</td>
+                        <td>${PO.ProductCode}</td>
+                        <td align="right">${(PO.OrderQuantity).toLocaleString()}</td>
+                        <td>${PO.UOMUnit}</td>
+                        <td align="right">${(PO.Price).toLocaleString()}</td>
+                        <td align="right">${(PO.PriceTotal).toLocaleString()}</td>
+                        <td>${PO.SupplierCode}</td>
+                        <td>${PO.SupplierName}</td>
+                        <td>${PO.InternalPurchaseOrderCreatedDate}</td>
+                        <td>${PO.ExternalPurchaseOrderCreatedDate}</td>
+                        <td>${PO.PurchaseRequestDate}</td>
+                        <td>${PO.ExternalPurchaseOrderExpectedDeliveryDate}</td>
+                        <td>${PO.ExternalPurchaseOrderNo}</td>
+                        <td>${PO.DeliveryOrderDate}</td>
+                        <td>${PO.DeliveryOrderArrivalDate}</td>
+                        <td>${PO.DeliveryOrderNo}</td>
+                        <td>${PO.UnitReceiptNoteDate}</td>
+                        <td>${PO.UnitReceiptNoteNo}</td>
+                        <td>${PO.UnitReceiptNoteQuantity}</td>
+                        <td>${PO.UnitReceiptNoteUomUnit}</td>
+                        <td>${PO.ExternalPurchaseOrderPaymentDueDays}</td>
+                        <td>${PO.UnitPaymentOrderInvoiceDate}</td>
+                        <td>${PO.UnitPaymentOrderInvoiceNo}</td>
+                        <td>${PO.UnitPaymentOrderDate}</td>
+                        <td>${PO.UnitPaymentOrderNo}</td>
+                        <td>${PO.UnitPaymentOrderTotalPrice.toLocaleString()}</td>
+                        <td>${PO.UnitPaymentOrderDueDate}</td>
+                        <td>${PO.UnitPaymentOrderVATDate}</td>
+                        <td>${PO.UnitPaymentOrderVATNo}</td>
+                        <td>${PO.UnitPaymentOrderVAT.toLocaleString()}</td>
+                        <td>${PO.UnitPaymentOrderIncomeTaxDate}</td>
+                        <td>${PO.UnitPaymentOrderIncomeTaxNo}</td>
+                        <td>${PO.UnitPaymentOrderIncomeTax.toLocaleString()}</td>
+                        <td>${PO.CorrectionDate}</td>
+                        <td>${PO.CorrectionNo}</td>
+                        <td>${PO.CorrectionNominal}</td>
+                        <td>${PO.CorrectionType}</td>
+                        <td>${PO.ExternalPurchaseOrderRemark}</td>
+                        <td>${PO.InternalPurchaseOrderStatus}</td>
                     </tr>
                 </tbody>
             </table>

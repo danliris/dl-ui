@@ -2,7 +2,7 @@
     <tr>
         <td  class="col-sm-2">
             <au-textbox 
-                value.bind="data.refNo"
+                value.bind="data.PO_SerialNumber"
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-textbox>
@@ -22,11 +22,11 @@
             </au-textbox>
         </td>
         <td class="col-sm-1">
-            <au-numeric 
-                value.bind="data.quantity" 
+            <au-textbox 
+                value.bind="quantity"
                 read-only.bind="true"
                 options.bind="controlOptions">
-            </au-numeric>
+            </au-textbox>
         </td>
         <td class="col-sm-1">
             <au-textbox 
@@ -37,17 +37,17 @@
         </td>
         <td class="col-sm-2">
             <au-numeric 
-                value.bind="data.budgetPrice" 
+                value.bind="data.BudgetPrice" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-2">
-            <au-textbox 
-                value.bind="data.remark" 
+            <au-multiline 
+                value.bind="data.ProductRemark" 
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-multiline>
         </td>
      </tr>
 </template>

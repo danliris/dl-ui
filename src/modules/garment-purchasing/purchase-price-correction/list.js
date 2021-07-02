@@ -12,16 +12,16 @@ export class List {
         this.context = ["Rincian", "Cetak PDF", "Cetak PDF Return Note PPn", "Cetak PDF Return Note PPh"];
 
         this.columns = [
-            { field: "no", title: "Nomor Koreksi Harga" },
-            { field: "correctionType", title: "Jenis Koreksi" },
+            { field: "CorrectionNo", title: "Nomor Koreksi Harga" },
+            { field: "CorrectionType", title: "Jenis Koreksi" },
             {
-                field: "date", title: "Tanggal Koreksi Harga",
+                field: "CorrectionDate", title: "Tanggal Koreksi Harga",
                 formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "deliveryOrder.supplier.name", title: "Supplier" },
-            { field: "deliveryOrder.no", title: "Nomor Surat Jalan" },
+            { field: "SupplierName", title: "Supplier" },
+            { field: "DONo", title: "Nomor Surat Jalan" },
         ];
     }
 
@@ -33,19 +33,19 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "Rincian": this.router.navigateToRoute('view', { id: data._id }); break;
-            case "Cetak PDF": this.service.getPdfById(data._id); break;
-            case "Cetak PDF Return Note PPn": this.service.getPdfReturnNotePpn(data._id); break;
-            case "Cetak PDF Return Note PPh": this.service.getPdfReturnNotePph(data._id); break;
+            case "Rincian": this.router.navigateToRoute('view', { id: data.Id }); break;
+            case "Cetak PDF": this.service.getPdfById(data.Id); break;
+            case "Cetak PDF Return Note PPn": this.service.getPdfReturnNotePpn(data.Id); break;
+            case "Cetak PDF Return Note PPh": this.service.getPdfReturnNotePph(data.Id); break;
         }
     }
 
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF Return Note PPn":
-                return data.useIncomeTax;
+                return data.UseVat;
             case "Cetak PDF Return Note PPh":
-                return data.useVat;
+                return data.UseIncomeTax;
             default:
                 return true;
         }
@@ -61,11 +61,14 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["no", "correctionType", "date", "deliveryOrder.supplier.name", "deliveryOrder.no", "returNoteNo", "useIncomeTax", "useVat"]
+            // select: ["no", "correctionType", "date", "deliveryOrder.supplier.name", "deliveryOrder.no", "returNoteNo", "useIncomeTax", "useVat"]
         }
 
         return this.service.search(arg)
             .then(result => {
+                for (const data of result.data) {
+                    data.SupplierName = data.Supplier.Name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data

@@ -1,5 +1,5 @@
 import {bindable} from 'aurelia-framework'
-var ProductLoader = require('../../../../loader/product-purchasing-loader');
+var ProductLoader = require('../../../../loader/product-purchasing-null-tags-loader');
 
 export class PurchaseRequestItem {
   @bindable dataProduct;
@@ -14,6 +14,10 @@ export class PurchaseRequestItem {
     if (this.data.product) {
       this.dataProduct = this.data.product;
     }
+    if(this.data.quantity){
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
+
   }
 
   get productLoader() {

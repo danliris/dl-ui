@@ -10,7 +10,7 @@
                         placeholder="cari nomor purchase order external" 
                         key="no"
                         query.bind="filter"
-                        read-only.bind="options.readOnly"
+                        read-only.bind="options.readOnly || isEdit"
                         options.bind="controlOptions">
                 </au-autocomplete>
             </div>
@@ -22,6 +22,7 @@
     </tr>
     <tr show.bind="isShowing">
         <td>
+                <div if.bind="error.fulfillmentscount" class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span></div>
             <au-collection 
                 items.bind="data.fulfillments" 
                 errors.bind="error.fulfillments"
@@ -29,6 +30,7 @@
                 remove.bind="removeItems"
                 options.bind="context.context.options"
                 read-only.bind="options.readOnly"
+                header-template="modules/garment-purchasing/delivery-order/template/delivery-order-fulfillment-header"
                 item-template="modules/garment-purchasing/delivery-order/template/delivery-order-fulfillment">
             </au-collection>
         </td>  

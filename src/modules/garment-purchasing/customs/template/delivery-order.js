@@ -14,15 +14,11 @@ export class DeliveryOrder {
   };
   
   valueChange(dataDeliveryOrder){
-      console.log(this.context);
-      console.log(dataDeliveryOrder);
       var selectedData = dataDeliveryOrder.srcElement.checked || false;
       if(selectedData){
         this.context.context.options += this.data.price;
-        console.log(this.context.context.options);
       }else{
         this.context.context.options -= this.data.price;
-        console.log(this.context.context.options);
       }
   }
 }

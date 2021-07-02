@@ -20,23 +20,21 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
     if(this.data.unit){
       this.selectedUnit=this.data.unit;
-      if(this.selectedUnit.division){
-        this.data.unit.name=this.selectedUnit.division.Name;
-      }
+      // if(this.selectedUnit.division){
+      // this.data.unit.name=this.selectedUnit.division.Name;
+      // }
     }
   }
 
   selectedUnitChanged(newdata) {
         var _selectedUnit = newdata;
         if (_selectedUnit){
-          console.log(_selectedUnit)
             this.data.unitId = _selectedUnit._id || _selectedUnit.Id || "" ;
             this.data.unit=_selectedUnit;
             this.data.unit._id=_selectedUnit._id || _selectedUnit.Id || "";

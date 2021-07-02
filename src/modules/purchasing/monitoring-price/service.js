@@ -2,27 +2,22 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-
-const serviceUri = 'purchase-orders/price';
+const serviceUri = 'purchase-order/monitoring-price';
 
 export class Service extends RestService {
-
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(dateFrom, dateTo, productName) {
-        var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}&productName=${productName}`;
-        return super.get(endpoint);
+    search(info) {
+        let endpoint = `${serviceUri}/display`;
+        console.log(info)
+        return super.list(endpoint, info);
     }
 
-    getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
-    }
-
-    generateExcel(dateFrom, dateTo, productName) {
-        var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}&productName=${productName}`;
+    generateExcel(info) {
+        console.log(info);
+        let endpoint = `${serviceUri}/display/download?product=${info.product}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 

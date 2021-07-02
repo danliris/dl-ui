@@ -4,7 +4,7 @@
       <au-textbox value.bind="cart.reprocess" read-only="true" options.bind="controlOptions"></au-textbox>
     </td>
     <td style="text-align:center;" class="col-sm-2">
-      <au-textbox value.bind="cart.CartNumber" error.bind="error.CartNumber" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+      <au-textbox value.bind="cart.CartNumber" error.bind="error.CartNumber" read-only.bind="options.readOnly || (contextOptions.isReprocess && !isLanjutProses)" options.bind="controlOptions"></au-textbox>
     </td>
     <td>
       <au-numeric value.bind="cart.Qty" error.bind="error.Qty" read-only.bind="options.readOnly" options.bind="controlOptions"></au-numeric>

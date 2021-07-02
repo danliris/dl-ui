@@ -10,6 +10,7 @@ export class View {
     hasCancelPo = false;
     hasUnpost = false;
     hasClosePo = false;
+    hasView = true;
 
     constructor(router, service) {
         this.router = router;
@@ -25,15 +26,17 @@ export class View {
         this.data = await this.service.getById(id);
         for(var a of this.data.items){
             for(var b of a.details){
-                if(b.doQuantity && b.doQuantity>0 ){
-                    isVoid=true;
+                if(b.doQuantity && b.doQuantity > 0 ){
+                    isVoid = true;
                 }
-                if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
-                    canClose=true;
+                if(b.doQuantity < b.dealQuantity){
+                    canClose = true;
                 }
+                if(b.priceBeforeTax){
+                    b.priceBeforeTax=b.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+                  }
             }
         }
-        
         
         if (!this.data.isPosted) {
             this.hasDelete = true;
@@ -43,7 +46,7 @@ export class View {
             this.hasUnpost = true;
             this.hasCancelPo = true;
         }
-        if (this.data.isPosted && !this.data.isClosed &&  canClose) {
+        if (this.data.isPosted && !this.data.isClosed && isVoid && canClose) {
             this.hasClosePo = true;
         }
 

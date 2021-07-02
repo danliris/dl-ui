@@ -9,19 +9,19 @@ export class List {
     context = ["detail"]
 
     columns = [
-        { field: "code", title: "Kode Penerimaan Packing" },
-        { field: "packingCode", title: "Kode Packing" },
-        { field: "storage.name", title: "Nama Gudang" },
+        { field: "Code", title: "Kode Penerimaan Packing" },
+        { field: "PackingCode", title: "Kode Packing" },
+        { field: "Storage.name", title: "Nama Gudang" },
         {
-            field: "date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "buyer", title: "Buyer" },
-        { field: "productionOrderNo", title: "Nomor Production Order" },
-        { field: "colorName", title: "Warna" },
-        { field: "construction", title: "Konstruksi" },
-        { field: "_createdBy", title: "Diterima Oleh" }
+        { field: "Buyer", title: "Buyer" },
+        { field: "ProductionOrderNo", title: "Nomor Production Order" },
+        { field: "ColorName", title: "Warna" },
+        { field: "Construction", title: "Konstruksi" },
+        { field: "CreatedBy", title: "Diterima Oleh" }
     ];
 
     loader = (info) => {
@@ -54,7 +54,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

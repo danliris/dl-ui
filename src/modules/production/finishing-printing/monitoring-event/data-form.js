@@ -3,7 +3,7 @@ import { Service } from './service';
 import { debug } from 'util';
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis')
-var MachineLoader = require('../../../../loader/machines-loader');
+var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var MachineEventLoader = require('../../../../loader/machine-event-loader');
 
@@ -13,8 +13,6 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-
-    machineCodeFilter = '';
     @bindable productionOrderDetails = [];
 
     @bindable localStartDate;
@@ -32,7 +30,7 @@ export class DataForm {
         }
     };
 
-    divisionFilter = { "UnitDivisionName": "FINISHING & PRINTING" };
+    divisionFilter = { "UnitDivisionName": "DYEING & PRINTINg" };
 
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
@@ -75,10 +73,9 @@ export class DataForm {
         delete this.data.MachineEvent;
         if (this.Machine) {
             this.data.Machine = this.Machine;
-            this.machineCodeFilter = this.Machine.Code;
-        }else{
-            this.Machine=null;
-            this.data.Machine={};
+        } else {
+            this.Machine = null;
+            this.data.Machine = {};
         }
     }
 
@@ -117,7 +114,7 @@ export class DataForm {
         else {
             delete this.data.ProductionOrderDetail;
             this.productionOrder = null;
-            this.data.ProductionOrder={};
+            this.data.ProductionOrder = {};
         }
     }
 
@@ -157,7 +154,7 @@ export class DataForm {
     }
 
     get machineEventLoader() {
-        return MachineEventLoader;
+        return this.Machine ? this.Machine.MachineEvents : [];
     }
 
 }

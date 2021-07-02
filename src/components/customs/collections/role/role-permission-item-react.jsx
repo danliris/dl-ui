@@ -26,7 +26,7 @@ export default class RolePermissionItemReact extends React.Component {
     handleUnitChange(event, unit) {
         var value = this.state.value;
         value.unit = unit;
-        value.unitId = unit._id;
+        value.unitId = unit.Id;
         this.handleValueChange(value);
     }
 

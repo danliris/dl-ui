@@ -20,17 +20,18 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.filterAccount = {
-            "roles": {
-                "$elemMatch": {
-                    "permissions": {
-                        "$elemMatch": {
-                            "unit.name": "PENJUALAN FINISHING & PRINTING"
-                        }
-                    }
-                }
-            }
-        }
+        // this.filterAccount = {
+        //     "roles": {
+        //         "$elemMatch": {
+        //             "permissions": {
+        //                 "$elemMatch": {
+        //                     "unit.name": "PENJUALAN FINISHING & PRINTING"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        this.filterAccount = {"roles.0.permissions.0.unit.name.toUpper()":"PENJUALAN FINISHING & PRINTING"};
     }
 
     tableOptions = {
@@ -40,13 +41,13 @@ export class List {
     }
 
     Values() {
-        this.arg.sdate = this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null;
-        this.arg.edate = this.edate ? moment(this.edate).format("YYYY-MM-DD") : null;
+        this.arg.dateFrom = this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null;
+        this.arg.dateTo = this.edate ? moment(this.edate).format("YYYY-MM-DD") : null;
         this.arg.salesContractNo = this.salesContractNo ? this.salesContractNo : null;
-        this.arg.orderNo = this.productionOrder ? this.productionOrder.orderNo : null;
-        this.arg.orderTypeId = this.orderType ? this.orderType._id : null;
-        this.arg.processTypeId = this.processType ? this.processType._id : null;
-        this.arg.buyerId = this.buyer ? this.buyer._id : null;
+        this.arg.orderNo = this.productionOrder ? this.productionOrder.OrderNo : null;
+        this.arg.orderTypeId = this.orderType ? this.orderType.Id : null;
+        this.arg.processTypeId = this.processType ? this.processType.Id : null;
+        this.arg.buyerId = this.buyer ? this.buyer.Id : null;
         this.arg.accountId = this.account ? this.account._id : null;
     }
 
@@ -70,10 +71,15 @@ export class List {
     // ]
 
     columns = [
-        { field: "no", title: "No.", sortable: false },
+        { field: "index", title: "No.", sortable: false },
         { field: "status", title: "Status" },
         { field: "detail", title: "Detail", sortable: false },
         { field: "orderNo", title: "No. SPP" },
+        { field: "NoSalesContract", title: "No Sales Kontrak"},
+        { field: "designNumber", title: "No Design"},
+        { field: "colorType", title: "Warna" },
+        { field: "Price", title : "Harga" },
+        { field: "CurrCode", title : "Mata Uang"},
         { field: "orderQuantity", title: "Panjang SPP (M)" },
         { field: "orderType", title: "Jenis Order" },
         { field: "processType", title: "Jenis Proses" },
@@ -85,8 +91,14 @@ export class List {
         { field: "buyer", title: "Buyer" },
         { field: "buyerType", title: "Tipe Buyer" },
         { field: "staffName", title: "Nama Sales" },
-        { field: "_createdDate", title: "Tanggal Terima Order" },
-        { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" }
+        { field: "_createdDate", title: "Tanggal Terima Order", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        }
     ]
 
     loader = (info) => {
@@ -106,6 +118,11 @@ export class List {
             this.Values(),
             this.service.getReport(this.arg)
                 .then(result => {
+                    var index=0;
+                    for(var data of result.data){
+                        index++;
+                        data.index=index;
+                    }
                     return {
                         total: result.info.total,
                         data: result.data,
@@ -152,7 +169,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-            window.open(`${window.location.origin}/#/sales/reports/production-order-reports/view/${encodeURIComponent(data.orderNo)}`);
+            window.open(`${window.location.origin}/#/sales/reports/production-order-reports/view/${encodeURIComponent(data.id)}`);
             // this.router.navigateToRoute('view', { id: data.orderNo });
                 break;
         }

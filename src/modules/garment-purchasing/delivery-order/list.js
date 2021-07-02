@@ -7,13 +7,13 @@ import moment from 'moment';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "no", title: "Nomor Surat Jalan" },
+        { field: "DONo", title: "Nomor Surat Jalan" },
         {
-            field: "supplierDoDate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
+            field: "DODate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
+        { field: "SupplierName", title: "Nama Supplier" },
         { field: "items", title: "List Nomor Eksternal PO", sortable: false }
     ];
 
@@ -25,7 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select:["supplierDoDate", "no", "supplier.name","items.purchaseOrderExternalNo"],
+            select:["doNo", "doDate", "supplier.Name","items.purchaseOrderExternal.no"],
             order: order
         }
 
@@ -38,18 +38,23 @@ export class List {
                     s.items.toString = function () {
                         var str = "<ul>";
                         for (var item of s.items) {
-                            str += `<li>${item.purchaseOrderExternalNo}</li>`;
+                            str += `<li>${item.purchaseOrderExternal.no}</li>`;
                         }
                         str += "</ul>";
                         return str;
                     }
                 });
                 // return data;
+                for (var _data of result.data) {
+                    _data.DONo = _data.doNo;
+                    _data.DODate = _data.doDate;
+                    _data.SupplierName = _data.supplier.Name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
                 }
-            });
+            })
     }
 
     constructor(router, service) {
@@ -62,7 +67,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

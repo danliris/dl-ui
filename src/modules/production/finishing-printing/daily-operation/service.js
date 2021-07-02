@@ -4,7 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/daily-operations';
 const productionOrderServiceUri = 'sales/production-orders';
-const kanbanServiceUri = 'finishing-printing/kanbans';
+const kanbanServiceUri = 'production/kanbans';
 
 export class Service extends RestService {
 
@@ -13,12 +13,17 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/by-selected-column`;
     return super.list(endpoint, info);
   }
 
   getData(id) {
     var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getColumnsToSearch() {
+    var endpoint = `${serviceUri}/filter-options`;
     return super.get(endpoint);
   }
 
@@ -28,12 +33,12 @@ export class Service extends RestService {
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint);
   }
 

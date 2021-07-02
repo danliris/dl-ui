@@ -40,7 +40,10 @@ export class List {
         { field: "prNo", title: "No PR" , sortable: false},
         { field: "category", title: "Kategori", sortable: false },
         { field: "productName", title: "Nama Barang", sortable: false },
-        { field: "quantity", title: "Jumlah", sortable: false },
+        // { field: "quantity", title: "Jumlah", sortable: false },
+        { field: "quantity", title: "Jumlah Diminta", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         { field: "uom", title: "Satuan", sortable: false },
         { field: "expectedDeliveryDatePO", title: "Tgl diminta datang PR", sortable: false, formatter: function (value, data, index) {
             

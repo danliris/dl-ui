@@ -16,21 +16,21 @@ export class List {
         { field: "storageName", title: "Storage" },
         { field: "productName", title: "Nama Barang" },
         {
-            field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            }
-        },
-        { field: "uom", title: "UOM" },
-        {
-            field: "totalLengthMtr", title: "Total Panjang (meter)", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            }
-        },
-        {
-            field: "totalLengthYds", title: "Total Panjang (yard)", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            }
+            field: "quantity", title: "Kuantiti", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
         }
+        },
+        { field: "uom", title: "UOM" }
+        // ,{
+        //     field: "totalLengthMtr", title: "Total Panjang (meter)", formatter: function (value, data, index) {
+        //         return numeral(value).format('0,000.00');
+        //     }
+        // },
+        // {
+        //     field: "totalLengthYds", title: "Total Panjang (yard)", formatter: function (value, data, index) {
+        //         return numeral(value).format('0,000.00');
+        //     }
+        // }
     ];
 
     tableOptions = {
@@ -66,8 +66,8 @@ export class List {
     }
 
     fillValues() {
-        this.arg.storageId = this.selectedStorage ? this.selectedStorage._id : undefined;
-        this.arg.productId = this.selectedProduct ? this.selectedProduct._id : undefined;
+        this.arg.storageCode = this.selectedStorage ? this.selectedStorage.code : null;
+        this.arg.productCode = this.selectedProduct ? this.selectedProduct.Code : null;
     }
 
     ExportToExcel() {
@@ -88,7 +88,7 @@ export class List {
     }
 
     productView = (product) => {
-        return `${product.code} - ${product.name}`;
+        return `${product.Code} - ${product.Name}`;
     }
 
     search() {
@@ -97,8 +97,8 @@ export class List {
     }
 
     reset() {
-        this.selectedStorage = undefined;
-        this.selectedProduct = undefined;
+        this.selectedStorage = null;
+        this.selectedProduct = null;
         this.listDataFlag = false;
         this.summaryTable.refresh();
     }

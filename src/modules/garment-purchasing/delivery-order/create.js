@@ -7,6 +7,9 @@ import { activationStrategy } from 'aurelia-router';
 export class Create {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
+    hasCreate = true;
+    hasEdit = false;
 
     constructor(router, service) {
         this.router = router;
@@ -17,6 +20,7 @@ export class Create {
     }
     bind() {
         this.data = { items: [] };
+        this.data.isCustoms=true;
         this.error = {};
     }
 
@@ -31,32 +35,23 @@ export class Create {
     }
 
     save(event) {
-        var payments = [this.data.items[0].payment];
-        var e = {};
-        var errorItems=[];
-        for (var data of this.data.items) {
-            if (payments.find(o => o != data.payment)) {
-                payments.push(data.payment)
-                e.purchaseOrderExternal = data.payment + " :semua Payment Method harus sama";
-                errorItems.push(e)
-            } else {
-                e.purchaseOrderExternal = data.payment + " :semua Payment Method harus sama";
-                errorItems.push(e)
-            }
+        if(this.data.items.length>0){
+            this.data.paymentType = this.data.items[0].paymentType;
+            this.data.paymentMethod = this.data.items[0].paymentMethod;
+            this.data.currency = this.data.items[0].currency;
+            this.data.useVat = this.data.items[0].useVat;
+            this.data.useIncomeTax = this.data.items[0].useIncomeTax;
+            this.data.isPayVAT = this.data.items[0].isPayVAT;
+            this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
+            this.data.incomeTax = this.data.items[0].incomeTax;
         }
-
-        if (payments.length == 1) {
-            this.error.items=[];
-            this.service.create(this.data)
-                .then(result => {
-                    alert("Data berhasil dibuat");
-                    this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                })
-                .catch(e => {
-                    this.error = e;
-                })
-        } else {
-            this.error.items = errorItems;
-        }
+        this.service.create(this.data)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
 }

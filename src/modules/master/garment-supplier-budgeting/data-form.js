@@ -1,8 +1,13 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
+import { Service } from "./service";
+var TaxLoader = require('../../../loader/income-tax-loader');
 
+@containerless()
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable selectedTax;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -19,9 +24,34 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
     }
+    
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
+    }
+
+    selectedtaxChanged(newValue) {
+        var _selectedIncomeTax = newValue || {};
+        if (_selectedIncomeTax.Id) {
+            this.data.IncomeTaxes = _selectedIncomeTax ? _selectedIncomeTax : null;
+        }
+        else {
+            this.data.IncomeTaxes = {};
+        }
+        this.resetErrorItems();
+    }
+
+    usetaxChanged(e) {
+        this.selectedTax = "";
+        this.data.IncomeTaxes = null;
+    }
+
+    get taxLoader() {
+        return TaxLoader;
+    }
+
+    taxView = (tax) => {
+        return `${tax.name} - ${tax.rate}`
     }
 } 

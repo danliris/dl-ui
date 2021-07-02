@@ -2,58 +2,64 @@
     <tr>
         <td>
             <au-textbox 
-                value.bind="data.purchaseOrderExternalNo"
+                value.bind="data.EPONo"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.purchaseRequestNo"
+                value.bind="data.PRNo"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.purchaseRequestRefNo" 
+                value.bind="data.POSerialNumber" 
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.roNo" 
+                value.bind="data.RONo" 
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.product.name"
+                value.bind="data.Product.Name"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.quantity"
+                value.bind="data.Quantity"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.uom.unit"
+                value.bind="data.Uom.Unit"
                 read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-numeric 
-                value.bind="data.pricePerUnit"
+                format = "0.[00000000000000000000]"
+                value.bind="data.PricePerDealUnitAfter"
                 read-only.bind="readOnly || pricePerUnitReadOnly"
-                error.bind="error.pricePerUnit">
+                error.bind="error.PricePerDealUnit">
             </au-numeric>
         </td>
         <td>
+            <au-textbox 
+                value.bind="priceTotal"
+                show.bind="readOnly || !pricePerUnitReadOnly"
+                read-only="true">
+            </au-textbox>
             <au-numeric 
                 value.bind="priceTotal"
-                read-only.bind="readOnly || !pricePerUnitReadOnly"
-                error.bind="error.priceTotal">
+                show.bind="!readOnly && pricePerUnitReadOnly"
+                error.bind="error.PriceTotal">
             </au-numeric>
         </td>
         <td if.bind="!readOnly">

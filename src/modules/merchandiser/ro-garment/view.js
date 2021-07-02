@@ -11,9 +11,39 @@ export class View {
         this.service = service;
     }
 
-    async activate(params) {
+    formOptions = {
+        saveText: "Unpost",
+    }
+
+    async activate(params, routeConfig, navigationInstruction) {
+        const instruction = navigationInstruction.getAllInstructions()[0];
+        const parentInstruction = instruction.parentInstruction;
+        const byUser = parentInstruction.config.settings.byUser;
+
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        if (this.data.IsPosted) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+        }
+        else {
+            this.saveCallback = null;
+        }
+
+        if(this.data.CostCalculationGarment){
+            if(this.data.CostCalculationGarment.IsValidatedROSample && this.data.CostCalculationGarment.IsValidatedROPPIC) {
+                this.editCallback = null;
+                this.deleteCallback = null;
+                this.saveCallback = null;
+            }
+        }
+
+        if (!byUser) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+            this.saveCallback = null;
+        }
     }
 
     list() {
@@ -29,9 +59,27 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.service.delete(this.data)
+        if (confirm("Delete?")) {
+            this.service.delete(this.data)
             .then(result => {
                 this.list();
             });
+        }
+    }
+
+    saveCallback(event) {
+        if (confirm("Unpost?")) {
+            this.service.unpostRO(this.data.Id)
+                .then(result => {
+                    this.list();
+                })
+                .catch(error => {
+                    if (typeof error === 'string') {
+                        alert(`Unpost dibatalkan : ${error}`);
+                    } else {
+                        alert(`Error : ${error.message}`);
+                    }
+                });
+        }
     }
 }

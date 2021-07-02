@@ -8,8 +8,8 @@ export class List {
     columns = [
     { field: "Code", title: "Kode Barang" },
     { field: "Name", title: "Nama Barang" },
-    { field: "UOM.Unit", title: "Satuan Default" },
-    { field: "Currency.Code", title: "Mata Uang" },
+    { field: "UomUnit", title: "Satuan Default" },
+    { field: "CurrencyCode", title: "Mata Uang" },
     { field: "Price", title: "Harga Barang" },
     { field: "Tags", title: "Tags" },
   ];
@@ -28,6 +28,10 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
+        for(var a of result.data){
+          a.UomUnit=a.UOM.Unit;
+          a.CurrencyCode=a.Currency.Code;
+        }
         return {
           total: result.info.total,
           data: result.data

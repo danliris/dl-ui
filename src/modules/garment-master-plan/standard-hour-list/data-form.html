@@ -4,24 +4,11 @@
         with.bind="context">
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
-            
         </div>
-            
-        <!-- <au-autocomplete 
-            value.bind="selectedStyle" 
-            error.bind="error.style"
-            label="Style" 
-            loader.one-time="styleLoader"
-            text.bind = "styleView"
-            placeholder="Cari Style" 
-            key="_id" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-autocomplete> -->
 
         <au-autocomplete 
             value.bind="selectedBuyer" 
-            error.bind="error.buyer"
+            error.bind="error.BuyerName"
             label="Buyer" 
             loader.one-time="buyerLoader"
             text.bind = "buyerView"
@@ -33,7 +20,7 @@
 
         <au-autocomplete 
             value.bind="selectedComodity" 
-            error.bind="error.comodity"                                                                                                                                                                                                                                                                                                               
+            error.bind="error.ComodityName"                                                                                                                                                                                                                                                                                                               
             label="Comodity" 
             loader.one-time="comodityLoader"
             text.bind = "comodityView"
@@ -45,7 +32,7 @@
 
         <au-datepicker 
             label="Tanggal Update"
-            value.bind="data.date"
+            value.bind="data.SMVDate"
             error.bind="error.date" 
             read-only.bind="true"
             options.bind="controlOptions">
@@ -53,71 +40,29 @@
 
         <au-numeric  
             label="Standard Minute Value Cutting" 
-            value.bind="data.shCutting"
-            error.bind="error.shCutting"
+            value.bind="data.SMVCutting"
+            error.bind="error.SMVCutting"
             read-only.bind="readOnly"
             options.bind="controlOptions2"
-            format="0">
+            format="0.00">
         </au-numeric>
-
-        <!-- <au-numeric  
-            label="(Jam)" 
-            value.bind="hourCutting"
-            read-only.bind="true"
-            options.bind="controlOptions2"
-            format="0.0">
-        </au-numeric> -->
 
         <au-numeric  
             label="Standard Minute Value Sewing" 
-            value.bind="data.shSewing"
-            error.bind="error.shSewing"
+            value.bind="data.SMVSewing"
+            error.bind="error.SMVSewing"
             read-only.bind="readOnly"
             options.bind="controlOptions2"
-            format="0">
+            format="0.00">
         </au-numeric>
-        
-        <!-- <au-numeric  
-            label="(Jam)" 
-            value.bind="hourSewing"
-            read-only.bind="true"
-            options.bind="controlOptions2"
-            format="0.0">
-        </au-numeric> -->
         
         <au-numeric  
             label="Standard Minute Value Finishing" 
-            value.bind="data.shFinishing"
-            error.bind="error.shFinishing"
+            value.bind="data.SMVFinishing"
+            error.bind="error.SMVFinishing"
             read-only.bind="readOnly"
             options.bind="controlOptions2"
-            format="0">
+            format="0.00">
         </au-numeric>
-        
-        <!-- <au-numeric  
-            label="(Jam)" 
-            value.bind="hourFinishing"
-            read-only.bind="true"
-            options.bind="controlOptions2"
-            format="0.0">
-        </au-numeric> -->
-        
-        <!-- <au-numeric  
-            label="Total SH" 
-            value.bind="getTotalSHMinute"
-            read-only.bind="true"
-            options.bind="controlOptions2"
-            format="0">
-        </au-numeric> -->
-        
-        <!-- <au-numeric  
-            label="(Jam)" 
-            value.bind="getTotalSHHour"
-            read-only.bind="true"
-            options.bind="controlOptions2"
-            format="0">
-        </au-numeric> -->
-
-    <!--<template replaceable part="actions"></template>-->
     </au-input-form>
 </template>

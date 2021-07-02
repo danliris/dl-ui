@@ -24,6 +24,16 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getOldById(id) {
+    var endpoint = `${serviceUri}/old/${id}`;
+    return super.get(endpoint);
+  }
+
+  getDurationEstimationByProcessType(processType) {
+    var endpoint = `master/fp-duration-estimations/by-process-type?processTypeCode=${processType}`;
+    return super.get(endpoint);
+  }
+
   create(data) {
     // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
     //   for (let step of data.Instruction.Steps) {

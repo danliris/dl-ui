@@ -1,27 +1,27 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
-
-const serviceUri = 'purchase-orders/kedatangan';
-const serviceUriDetail = 'purchase-orders/kedatangansub';
+const serviceUri = 'garment-delivery-orders/arrivalReport';
+const serviceUriDetail = 'garment-delivery-orders/arrivalReportDetail';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
-      search(dateFrom, dateTo , kategori) { 
-        var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}&kategori=${kategori}`;
+    search(info) { 
+        var endpoint = `${serviceUri}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
         return super.get(endpoint);
     }
- 
 
-     getDetail(supplier,dateFrom,dateTo,kategori) {
-   var endpoint = `${serviceUriDetail}?supplier=${supplier}&dateFrom=${dateFrom}&dateTo=${dateTo}&kategori=${kategori}`;
-   return super.get(endpoint);
-  }
+    getDetail(info) {
+        var endpoint = `${serviceUriDetail}?supplier=${info.supplierCode}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
+        return super.get(endpoint);
+    }
 
 
     getById(id) {
@@ -29,13 +29,13 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
     
-    generateExcel( dateFrom, dateTo, kategori) {
-        var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}&kategori=${kategori}`;
+    generateExcel(info) {
+        var endpoint = `${serviceUri}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
         return super.getXls(endpoint);
     }
 
-    generateExcel2( supplier,dateFrom, dateTo, kategori) {
-        var endpoint = `${serviceUriDetail}?supplier=${supplier}&dateFrom=${dateFrom}&dateTo=${dateTo}&kategori=${kategori}`;
+    generateExcel2(info) {
+        var endpoint = `${serviceUriDetail}/download?supplier=${info.supplierCode}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
         return super.getXls(endpoint);
     }
 }

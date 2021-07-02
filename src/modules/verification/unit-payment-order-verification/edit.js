@@ -53,17 +53,16 @@ export class Edit {
         this.dataExpedition = await this.service.getById(id);
 
         var arg = {
-            filter: JSON.stringify({ no: this.dataExpedition.UnitPaymentOrderNo }),
-            select: this.selectSPB,
+            filter: JSON.stringify({ UPONo: this.dataExpedition.UnitPaymentOrderNo })
         }
 
-        var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
+        var UnitPaymentOrder = await this.service.searchUPOByCode(arg);
         this.data = UnitPaymentOrder.data[0];
-        this.data.VerificationDate = new Date();
+        this.data.VerifyDate = new Date();
         this.data.Id = id;
-        this.data.useVat = this.dataExpedition.IncomeTax;
-        this.data.useIncomeTax = this.dataExpedition.Vat;
-        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
+        this.data.Vat = this.dataExpedition.IncomeTax;
+        this.data.IncomeTax = this.dataExpedition.Vat;
+        this.data.TotalPaid = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat);
     }
 
     cancel(event) {

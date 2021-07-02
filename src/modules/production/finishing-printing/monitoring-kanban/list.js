@@ -2,6 +2,10 @@ import {inject, computedFrom} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
+var moment = require('moment');
+var OrderTypeLoader = require("../../../../loader/order-type-loader");
+var ProcessTypeLoader = require("../../../../loader/process-type-loader");
+
 @inject(Router, Service)
 export class List {
     constructor(router, service) {
@@ -43,37 +47,41 @@ export class List {
     
     searching() {
         //var data = [];
-        this.service.getReport(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType,this.proses)
+        
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        var dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        this.service.getReport(dateFrom, dateTo, this.orderNo, this.orderType, this.processType,this.proses)
             .then(kanban => {
                 //this.data = data;
                 var dataTemp = [];
                 var hasil="";
+                
                 for(var a of kanban){
-					  if(a.isReprocess==true){
+					  if(a.IsReprocess==true){
                         hasil="Ya"; 
                     }else{
                         hasil="Tidak";
                     }
                     var temp = {
-                        "_createdDate" : a._createdDate,
-                        "orderNo" : a.orderNo,
-                        "orderType" : a.orderType,
-                        "processType" : a.processType,
-                        "color" : a.color,
-                        "handfeelStandard" : a.handlingStandard,
-                        "finishWidth" : a.finishWidth,
-                        "material" : a.material,
-                        "construction" : a.construction,
-                        "yarnNumber" : a.yarnNumber,
-                        "grade" : a.grade,
-                        "cartNumber" : a.cartNumber,
-                        "length" : a.length,
-                        "pcs" : a.pcs,
-                        "uom" : a.uom,
+                        "_createdDate" : a.CreatedUtc ? moment(a.CreatedUtc).format("DD MMM YYYY")  :null,
+                        "orderNo" : a.ProductionOrder.OrderNo,
+                        "orderType" : a.ProductionOrder.OrderType.Name,
+                        "processType" : a.ProductionOrder.ProcessType.Name,
+                        "color" : a.SelectedProductionOrderDetail.ColorRequest,
+                        "handfeelStandard" : a.ProductionOrder.HandlingStandard,
+                        "finishWidth" : a.ProductionOrder.FinishWidth,
+                        "material" : a.ProductionOrder.Material.Name,
+                        "construction" : a.ProductionOrder.MaterialConstruction.Name,
+                        "yarnNumber" : a.ProductionOrder.YarnMaterial.Name,
+                        "grade" : a.Grade,
+                        "cartNumber" : a.Cart.CartNumber,
+                        "length" : a.Cart.Qty,
+                        "pcs" : a.Cart.Pcs,
+                        "uom" : a.Cart.Uom.Unit,
 						  "isReprocess" :hasil,
-                        "isComplete" : a.isComplete ? "Complete" : a.currentStepIndex === a.steps.length ? "Pending" : "Incomplete" ,
-                        "currentStepIndex" : `${a.currentStepIndex} / ${a.steps.length}`,
-                        "step" : a.currentStepIndex === 0 ? " - " : a.steps[a.currentStepIndex - 1].process
+                        "isComplete" : a.IsComplete ? "Complete" : a.CurrentStepIndex === a.Instruction.Steps.length ? "Pending" : a.IsInactive ? "Inactive" : "Incomplete",
+                        "currentStepIndex" : `${a.CurrentStepIndex} / ${a.Instruction.Steps.length}`,
+                        "step" : a.CurrentStepIndex === 0 ? " - " : a.CurrentStepIndex > a.Instruction.Steps.length ? "REPROSES" : a.Instruction.Steps[a.CurrentStepIndex - 1].Process
                     }
                     dataTemp.push(temp);
                 }
@@ -82,7 +90,9 @@ export class List {
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType,this.proses);
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        var dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        this.service.generateExcel(dateFrom, dateTo, this.orderNo, this.orderType, this.processType,this.proses);
     }
 
     // orderTypeChanged(e){
@@ -113,5 +123,13 @@ export class List {
         if (_startDate > _endDate)
             this.dateTo = e.srcElement.value;
 
+    }
+
+    get orderTypeLoader() {
+        return OrderTypeLoader;
+    }
+
+    get processTypeLoader() {
+        return ProcessTypeLoader;
     }
 }

@@ -7,7 +7,7 @@
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+            <!-- <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button> -->
         </div>
 
         <div class="row">
@@ -26,6 +26,7 @@
                     value.bind="data.date" 
                     error.bind="error.date" 
                     read-only.bind="(readOnly || isEdit)"
+                    if.bind="(readOnly || isEdit)"
                     options.bind="controlOptions">
                 </au-datepicker>
 
@@ -102,6 +103,14 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
+
+                <au-datepicker 
+                    label="Tanggal PIB" 
+                    value.bind="data.pibDate" 
+                    error.bind="error.pibDate" 
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-datepicker>
           
                 <au-textbox 
                     label="No. PIB" 
@@ -110,21 +119,20 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-textbox>
-                <!--<au-datepicker 
-                    label="Tanggal Jatuh Tempo" 
-                    value.bind="data.dueDate" 
-                    error.bind="error.dueDate" 
-                    read-only.bind="readOnly"
-                    options.bind="controlOptions">
-                </au-datepicker>-->
-                        
-                <au-multiline 
-                    label="Keterangan" 
-                    value.bind="data.remark"
-                    placeholder="tambah keterangan" 
-                    read-only.bind="readOnly"
-                    options.bind="controlOptions">
-                </au-multiline>
+
+                <au-numeric label="Bea Masuk" value.bind="data.importDuty" error.bind="error.importDuty"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+                <au-numeric label="PPN" value.bind="data.totalVatAmount" error.bind="error.totalVatAmount"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+                <au-numeric label="PPH" value.bind="data.totalIncomeTaxAmount" error.bind="error.totalIncomeTaxAmount"
+                  read-only.bind="readOnly" options.bind="controlOptions" format="0.00">
+                </au-numeric>
+
+
             </div>
             <div class="col-md-6">  
                 <au-checkbox 
@@ -158,6 +166,17 @@
                     if.bind="data.useIncomeTax"
                     post-fix="%">
                 </numeric>
+
+                <au-dropdown
+                    label="PPH Ditanggung oleh"
+                    value.bind="data.incomeTaxBy"
+                    error.bind="error.incomeTaxBy"
+                    read-only.bind="(readOnly || isEdit)"
+                    change.delegate="incomeTaxByChanged($event)"
+                    show.bind="data.useIncomeTax"
+                    items.bind="IncomeTaxByOptions"
+                    options.bind="controlOptions">
+                </au-dropdown>
 
                 <au-textbox 
                     label="No. Faktur Pajak (PPH)" 
@@ -205,6 +224,19 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
+                <au-multiline label="Keterangan" value.bind="data.remark" placeholder="tambah keterangan" read-only.bind="readOnly"
+                  options.bind="controlOptions">
+                </au-multiline>
+                <au-dropdown
+                    label="Keterangan Nilai Import"
+                    value.bind="data.importInfo"
+                    error.bind="error.importInfo"
+                    read-only.bind="(readOnly || isEdit)"
+                    items.bind="importInfo"
+                    if.bind="isImport"
+                    show.bind="isImport"
+                    options.bind="controlOptions">
+                </au-dropdown>
             </div>
         </div>
 

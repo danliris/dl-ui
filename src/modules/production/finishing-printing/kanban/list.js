@@ -37,7 +37,7 @@ export class List {
             {
                 field: "completeStatus", title: "Status",
                 formatter: function (value, data, index) {
-                    return data.isInactive ? "INACTIVE" : data.isComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
+                    return data.IsInactive ? "INACTIVE" : data.IsComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                 }
             },
             { field: "OldKanban.Cart.CartNumber", title: "Nomor Kereta Lama" }
@@ -82,27 +82,28 @@ export class List {
                 if (result.data.length > 0) {
                     for (let kanban of result.data) {
                         if (kanban.OldKanbanId) {
-                            searchOldKanban.push(this.service.getById(kanban.OldKanbanId))
+                            searchOldKanban.push(this.service.getOldById(kanban.OldKanbanId))
                         }
                     }
                 }
 
                 return Promise.all(searchOldKanban)
                     .then((oldKanbanResults) => {
+                        // console.log(result);
                         // modify display data
                         for (var kanban of result.data) {
                             kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
-                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
-                            kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
-                            kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
+                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorTemplate : kanban.SelectedProductionOrderDetail.ColorRequest;
+                            kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
+                            kanban.stepIndexPerTotal = `${kanban.CurrentStepIndex}/${kanban.Instruction.Steps.length}`;
                             kanban.isPending = function () {
-                                return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+                                return !this.IsComplete && this.CurrentStepIndex >= this.Instruction.Steps.length; // used for custom sort
                             };
                             kanban.isDone = function () {
                                 return this.IsComplete;
                             };
                             kanban.isIncomplete = function () {
-                                return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+                                return !this.IsComplete && this.CurrentStepIndex < this.Instruction.Steps.length;
                             }
                         }
 

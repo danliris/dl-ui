@@ -3,21 +3,21 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-orders-internal/monitoring-not-posted';
+const serviceUri = 'internal-purchase-orders/monitoring-unprocessed';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(unitId, categoryId, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-        return super.get(endpoint);
+    search(info) {
+        let endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
     }
 
-    generateExcel(unitId, categoryId, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    getXls(info) {
+        var endpoint = `${serviceUri}/download?unitId=${info.unitId}&categoryId=${info.categoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 

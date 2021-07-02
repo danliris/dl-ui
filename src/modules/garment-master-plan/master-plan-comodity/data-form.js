@@ -8,6 +8,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable title;
+    @bindable error = {};
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;

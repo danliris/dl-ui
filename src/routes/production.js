@@ -74,7 +74,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/daily-operation-snapshot',
+        name: 'snapshot-dailies',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-snapshot/index',
+        nav: true,
+        title: 'Laporan Daily Operation',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -87,7 +100,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -100,7 +113,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -127,9 +140,36 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/daily-monitoring-event',
+        name: 'daily-monitoring-event',
+        moduleId: './modules/production/finishing-printing/daily-monitoring-event/index',
+        nav: true,
+        title: 'Monitoring Event Harian',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/monitoring-event-report',
+        name: 'daily-monitoring-event-report',
+        moduleId: './modules/production/finishing-printing/reports/daily-monitoring-event-report/index',
+        nav: true,
+        title: 'Laporan Monitoring Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
     },
     {
         route: 'production/finishing-printing/kanban',
@@ -153,7 +193,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -166,7 +206,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -179,7 +219,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -192,7 +232,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -205,7 +245,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -218,7 +258,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -231,7 +271,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -244,7 +284,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -257,7 +297,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -309,7 +349,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -322,7 +362,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -335,7 +375,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -348,7 +388,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -362,7 +402,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -376,7 +416,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -389,7 +429,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -402,10 +442,140 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/direct-labor-cost',
+        name: 'direct-labor-cost',
+        moduleId: './modules/production/finishing-printing/direct-labor-cost/index',
+        nav: true,
+        title: 'Biaya Upah Tenaga Kerja Langsung',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/color-receipt',
+        name: 'color-receipt',
+        moduleId: './modules/production/finishing-printing/color-receipt/index',
+        nav: true,
+        title: 'Resep Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/strike-off',
+        name: 'strike-off',
+        moduleId: './modules/production/finishing-printing/strike-off/index',
+        nav: true,
+        title: 'Strike Off',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/dyestuff-chemical-usage-receipt',
+        name: 'dyestuff-chemical-usage-receipt',
+        moduleId: './modules/production/finishing-printing/dyestuff-chemical-usage-receipt/index',
+        nav: true,
+        title: 'Resep Pemakaian Dyestuff & Chemical',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/loss-event',
+        name: 'losses-event',
+        moduleId: './modules/production/finishing-printing/loss-event/index',
+        nav: true,
+        title: 'Master Losses Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/event-organizer',
+        name: 'event-organizer',
+        moduleId: './modules/production/finishing-printing/event-organizer/index',
+        nav: true,
+        title: 'Master Pelaksana Event',
+        auth: true,
+        settings: {
+            group: "production",
+             permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/loss-event-category',
+        name: 'losses-event-category',
+        moduleId: './modules/production/finishing-printing/loss-event-category/index',
+        nav: true,
+        title: 'Master Kategori Losses Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/loss-event-remark',
+        name: 'loss-event-remark',
+        moduleId: './modules/production/finishing-printing/loss-event-remark/index',
+        nav: true,
+        title: 'Master Keterangan Loss Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
+    // {
+    //     route: 'production/finishing-printing/cost-calculation',
+    //     name: 'cost-calculation',
+    //     moduleId: './modules/production/finishing-printing/cost-calculation/index',
+    //     nav: true,
+    //     title: 'Cost Calculation Dyeing Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // }
+    // {
+    //     route: 'production/finishing-printing/operational-cost',
+    //     name: 'operational-cost',
+    //     moduleId: './modules/production/finishing-printing/operational-cost/index',
+    //     nav: true,
+    //     title: 'Biaya Operational',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // }
 ]
 
 

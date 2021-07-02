@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
 import { Service } from "../service";
-var ProductLoader = require('../../../../loader/product-loader');
+var ProductLoader = require('../../../../loader/product-purchasing-null-tags-loader');
 var UomLoader = require('../../../../loader/uom-loader');
 
 @containerless()
@@ -25,17 +25,18 @@ export class InventoryDocumentItem {
     this.options = context.options;
 
     if (!this.data.productId) {
-      this.data.productId = "";
+      this.data.productId = 0;
     } else {
       if (!this.data.selectedProduct) {
         this.selectedProduct = await this.service.getProductById(this.data.productId, this.productFields);
         this.data.selectedProduct = this.selectedProduct;
       } else {
         this.selectedProduct = this.data.selectedProduct;
+
       }
     }
     if (!this.data.uomId) {
-      this.data.uomId = "";
+      this.data.uomId = 0;
     } else {
       if (!this.data.selectedUom) {
         this.selectedUom = await this.service.getUomById(this.data.uomId);
@@ -44,25 +45,28 @@ export class InventoryDocumentItem {
         this.selectedUom = this.data.selectedUom;
       }
     }
+    if(this.data.quantity)
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 4 });
   }
 
   @bindable selectedProduct;
   selectedProductChanged(newValue, oldValue) {
-    if (this.selectedProduct && this.selectedProduct._id) {
-      this.selectedUom = this.selectedProduct.uom;
-      this.data.productId = this.selectedProduct._id;
-      this.data.productCode = this.selectedProduct.code;
-      this.data.productName = this.selectedProduct.name;
+    if (this.selectedProduct && this.selectedProduct.Id) {
+      if(!this.readOnly)
+        this.selectedUom = this.selectedProduct.UOM;
+      this.data.productId = this.selectedProduct.Id;
+      this.data.productCode = this.selectedProduct.Code;
+      this.data.productName = this.selectedProduct.Name;
     }
     else {
-      this.data.productId = "";
+      this.data.productId = 0;
       this.data.productCode = "";
       this.data.productName = "";
     }
   }
 
   productView = (product) => {
-    return `${product.code} - ${product.name}`;
+    return `${product.Code} - ${product.Name}`;
   }
 
   get productLoader() {
@@ -71,18 +75,18 @@ export class InventoryDocumentItem {
 
   @bindable selectedUom;
   selectedUomChanged(newValue, oldValue) {
-    if (this.selectedUom && this.selectedUom._id) {
-      this.data.uomId = this.selectedUom._id;
-      this.data.uom = this.selectedUom.unit;
+    if (this.selectedUom && this.selectedUom.Id) {
+      this.data.uomId = this.selectedUom.Id;
+      this.data.uom = this.selectedUom.Unit;
     }
     else {
-      this.data.uomId = "";
+      this.data.uomId = 0;
       this.data.uom = "";
     }
   }
 
   uomView = (uom) => {
-    return uom.unit;
+    return uom.Unit;
   }
 
   get uomLoader() {

@@ -11,32 +11,37 @@ export class List {
     @bindable kanban;
     @bindable step;
     @bindable machine;
+    @bindable orderNo;
+    @bindable stepProcess;
+    @bindable cartNo;
+    @bindable startDate;
+    @bindable endDate;
 
     data = [];
 
     columns = [
-        { field: "machine.name", title: "Mesin" },
-        { field: "step.process", title: "Step / Proses" },
-        { field: "shift", title: "Shift" },
-        { field: "kanban.productionOrder.orderNo", title: "No Order Produksi" },
-        { field: "kanban.cart.cartNumber", title: "No Kereta" },
+        { field: "Machine.Name", title: "Mesin" },
+        { field: "Step.Process", title: "Step / Proses" },
+        { field: "Shift", title: "Shift" },
+        { field: "Kanban.ProductionOrder.OrderNo", title: "No Order Produksi" },
+        { field: "Kanban.Cart.CartNumber", title: "No Kereta" },
         {
-            field: "dateInput", title: "Tanggal Input",
+            field: "DateInput", title: "Tanggal Input",
             formatter: (value, data) => {
                 var date = value ? moment(value).format("DD MMM YYYY") : "-";
                 return date;
             }
         },
-        { field: "input", title: "Input" },
+        { field: "Input", title: "Input" },
         {
-            field: "dateOutput", title: "Tanggal Output",
+            field: "DateOutput", title: "Tanggal Output",
             formatter: (value, data) => {
                 var date = value ? moment(value).format("DD MMM YYYY") : "-";
                 return date;
             }
         },
-        { field: "goodOutput", title: "Good Output" },
-        { field: "badOutput", title: "Bad Output" }
+        { field: "GoodOutput", title: "Good Output" },
+        { field: "BadOutput", title: "Bad Output" }
     ];
 
     searchList = ["Nomor SPP", "Kereta", "Proses", "Mesin"];
@@ -52,10 +57,15 @@ export class List {
         this.serviceCore = serviceCore;
         this.router = router;
 
+        this.endDate = new Date();
+        this.startDate = new Date().setDate(new Date().getDate() - 1);
+
         this.sppVisibility = false;
         this.cartVisiblity = false;
         this.processVisibility = false;
         this.machineVisibility = false;
+
+
 
         this.filter = {};
     }
@@ -64,38 +74,38 @@ export class List {
 
     }
 
-    selectedSearchChanged(newValue, oldValue) {
-        switch (newValue) {
-            case this.searchList[0]: {
-                this.sppVisibility = true;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[1]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = true;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break
-            }
-            case this.searchList[2]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = true;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[3]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = true;
-                break;
-            }
-        }
-    }
+    // selectedSearchChanged(newValue, oldValue) {
+    //     switch (newValue) {
+    //         case this.searchList[0]: {
+    //             this.sppVisibility = true;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[1]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = true;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break
+    //         }
+    //         case this.searchList[2]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = true;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[3]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = true;
+    //             break;
+    //         }
+    //     }
+    // }
 
     loader = (info) => {
         var order = {};
@@ -108,9 +118,17 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            columnToSearch: this.selectedSearch,
+            machine: this.machine,
+            orderNo: this.orderNo,
+            stepProcess: this.stepProcess,
+            cartNo: this.cartNo,
+            startDate: moment(this.startDate).format("YYYY-MM-DD"),
+            endDate: moment(this.endDate).format("YYYY-MM-DD"),
             filter: JSON.stringify(this.filter),
-            select: ["machine.name", "step.process", "shift", "kanban.productionOrder.orderNo", "kanban.cart.cartNumber", "dateInput", "input", "dateOutput", "goodOutput", "badOutput", "type"]
+            // select: ["machine.name", "step.process", "shift", "kanban.productionOrder.orderNo", "kanban.cart.cartNumber", "dateInput", "input", "dateOutput", "goodOutput", "badOutput", "type"]
         };
+
 
         return this.service.search(arg)
             .then(result => {
@@ -119,16 +137,29 @@ export class List {
                     data: result.data
                 }
             });
+
+        // console.log(info);
+        // return {
+        //     total: 0,
+        //     data: []
+        // }
+    }
+
+    search() {
+        this.dailyOperationTable.refresh();
     }
 
     contextClickCallback(event) {
+
         var arg = event.detail;
         var data = arg.data;
 
-        if (data.type === "input")
-            this.router.navigateToRoute('view-input', { id: data._id });
-        else
-            this.router.navigateToRoute('view-output', { id: data._id });
+        if (data.Type == "input") {
+            this.router.navigateToRoute('view-input', { id: data.Id });
+        }
+        else {
+            this.router.navigateToRoute('view-output', { id: data.Id });
+        }
     }
 
     back() {
@@ -145,7 +176,7 @@ export class List {
 
     get productionOrderLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, select: ["orderNo"] };
+            var info = { keyword: keyword, select: ["OrderNo"] };
             return this.service.productionOrder(info)
                 .then((result) => {
                     return result.data;
@@ -155,7 +186,7 @@ export class List {
 
     get kanbanLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, select: ["cart.cartNumber"] };
+            var info = { keyword: keyword, select: ["Cart.CartNumber"] };
             return this.service.kanban(info)
                 .then((result) => {
                     return result.data;
@@ -165,7 +196,7 @@ export class List {
 
     get machineLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, select: ["name"] };
+            var info = { keyword: keyword, select: ["Name"] };
             return this.serviceCore.machine(info)
                 .then((result) => {
                     return result.data;
@@ -175,7 +206,7 @@ export class List {
 
     get stepLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, select: ["process"] };
+            var info = { keyword: keyword, select: ["Process"] };
             return this.serviceCore.step(info)
                 .then((result) => {
                     return result.data;
@@ -190,7 +221,7 @@ export class List {
     productionOrderChanged(value) {
         if (value) {
             this.filter = {
-                "kanban.productionOrder.orderNo": value.orderNo
+                "Kanban.ProductionOrder.OrderNo": value.OrderNo
             };
         }
         else
@@ -202,7 +233,7 @@ export class List {
     kanbanChanged(value) {
         if (value) {
             this.filter = {
-                "kanban.cart.cartNumber": value.cart.cartNumber
+                "Kanban.Cart.CartNumber": value.Cart.CartNumber
             };
         }
         else
@@ -214,7 +245,7 @@ export class List {
     stepChanged(value) {
         if (value) {
             this.filter = {
-                "step.process": value.process
+                "Step.Process": value.Process
             };
         }
         else
@@ -223,15 +254,15 @@ export class List {
         this.dailyOperationTable.refresh();
     }
 
-    machineChanged(value) {
-        if (value) {
-            this.filter = {
-                "machine.name": value.name
-            };
-        }
-        else
-            this.filter = {};
+    // machineChanged(value) {
+    //     if (value) {
+    //         this.filter = {
+    //             "MachineName": value.Name
+    //         };
+    //     }
+    //     else
+    //         this.filter = {};
 
-        this.dailyOperationTable.refresh();
-    }
+    //     this.dailyOperationTable.refresh();
+    // }
 }

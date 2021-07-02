@@ -58,6 +58,10 @@ export class Numeric {
       (keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
       // Allow: Ctrl/cmd+X
       (keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+      // Allow: -(minus)
+      (keyCode == 189 && (e.ctrlKey === true || e.metaKey === true)) ||
+      // Allow: -(minus/numpad)
+      (keyCode == 109 && (e.ctrlKey === true || e.metaKey === true)) ||
       // Allow: home, end, left, right
       (keyCode >= 35 && keyCode <= 39)) {
       if (keyCode == 190 && this.value.split('.').length === 2) {
@@ -68,7 +72,7 @@ export class Numeric {
     }
 
     // Ensure that it is a number and stop the keypress
-    if ((e.shiftKey || (keyCode < 48 || keyCode > 57)) && (keyCode < 96 || keyCode > 105)) {
+    if ((e.shiftKey || (keyCode < 48 || keyCode > 57)) && (keyCode < 96 || keyCode > 105) && keyCode!=109 && keyCode!=189) {
       e.preventDefault();
     }
   }

@@ -11,32 +11,30 @@
 
     <au-autocomplete 
       value.bind="productionOrder" 
-      error.bind="error.productionOrder"
-      label="Nomor Order" 
+      error.bind="error.ProductionOrder"
+      label="Nomor Order"
       loader.bind="productionOrderLoader"
       read-only.bind="readOnly"
       options.bind="controlOptions"
-      select.bind="selectProductionOrder"
       if.bind="!isReprocess"
-      text="orderNo">
+      text="OrderNo">
     </au-autocomplete>
 
     <au-autocomplete 
       value.bind="kanban" 
-      error.bind="error.productionOrder"
+      error.bind="error.ProductionOrder"
       label="Nomor Order - Nomor Kereta Lama" 
       loader.bind="kanbanLoader"
       read-only.bind="readOnly"
       text.bind="kanbanView"
       options.bind="controlOptions"
-      select.bind="kanbanSelect"
       if.bind="isReprocess"
       query.bind="query">
     </au-autocomplete>
 
     <au-textbox 
       label="Jenis Order" 
-      value.bind="data.productionOrder.orderType.name"
+      value.bind="data.ProductionOrder.OrderType.Name"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -44,7 +42,7 @@
 
     <au-textbox 
       label="Jenis Proses" 
-      value.bind="data.productionOrder.processType.name"
+      value.bind="data.ProductionOrder.ProcessType.Name"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -52,7 +50,7 @@
 
     <au-textbox 
       label="Material" 
-      value.bind="data.productionOrder.material.name"
+      value.bind="data.ProductionOrder.Material.Name"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -60,7 +58,7 @@
 
     <au-textbox 
       label="Konstruksi" 
-      value.bind="data.productionOrder.materialConstruction.name"
+      value.bind="data.ProductionOrder.MaterialConstruction.Name"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -68,7 +66,7 @@
 
     <au-textbox 
       label="Nomor Benang" 
-      value.bind="data.productionOrder.yarnMaterial.name"
+      value.bind="data.ProductionOrder.YarnMaterial.Name"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -76,7 +74,7 @@
 
     <au-textbox 
       label="Standard Handfeel" 
-      value.bind="data.productionOrder.handlingStandard"
+      value.bind="data.ProductionOrder.HandlingStandard"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -84,7 +82,7 @@
 
     <au-textbox 
       label="Lebar Finish" 
-      value.bind="data.productionOrder.finishWidth"
+      value.bind="data.ProductionOrder.FinishWidth"
       read-only.bind="true"
       if.bind="hasProductionOrder"
       options.bind="controlOptions">
@@ -92,18 +90,18 @@
 
     <au-dropdown 
       label="Color" 
-      value.bind="data.selectedProductionOrderDetail" 
-      error.bind="error.selectedProductionOrderDetail" 
+      value.bind="data.SelectedProductionOrderDetail" 
+      error.bind="error.SelectedProductionOrderDetail" 
       read-only.bind="readOnly" 
       items.bind="productionOrderDetails"
       if.bind="hasProductionOrderDetails && !readOnly"
       options.bind="controlOptions">
     </au-dropdown>
-    <au-textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.selectedProductionOrderDetail.colorRequest ? true : false) : false" options.bind="controlOptions"></au-textbox>
+    <au-textbox label="Color" value.bind="data.SelectedProductionOrderDetail.ColorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.SelectedProductionOrderDetail.ColorRequest ? true : false) : false" options.bind="controlOptions"></au-textbox>
 
     <au-textbox 
       label="Jumlah" 
-      value.bind="data.selectedProductionOrderDetail.quantity" 
+      value.bind="data.SelectedProductionOrderDetail.Quantity" 
       read-only.bind="true"
       if.bind="hasColor"
       options.bind="controlOptions">
@@ -111,7 +109,7 @@
 
     <au-textbox
       label="Satuan"
-      value.bind="data.productionOrder.uom.unit" 
+      value.bind="data.SelectedProductionOrderDetail.Uom.Unit" 
       read-only.bind="true"
       if.bind="hasColor"
       options.bind="controlOptions">
@@ -119,16 +117,16 @@
 
     <au-textbox 
       label="Grade" 
-      value.bind="data.grade"
+      value.bind="data.Grade"
       read-only.bind="readOnly || isReprocess"
-      error.bind="error.grade"
+      error.bind="error.Grade"
       options.bind="controlOptions"
-      if.bind="isReprocess ? (data.grade ? true : false) : true">
+      if.bind="isReprocess ? (data.Grade ? true : false) : true">
     </au-textbox>
 
     <au-textbox 
       label="Keterangan" 
-      value.bind="data.output"
+      value.bind="data.Output"
       read-only.bind="true"
       if.bind="isView || isEdit"
       options.bind="controlOptions">
@@ -146,7 +144,8 @@
 
     <au-layout error.bind="error.cart"></au-layout>
     <au-collection 
-      items.bind="data.carts" 
+      items.bind="data.Carts"
+      errors.bind="error.Carts" 
       columns.bind="cartInfo.columns" 
       add.bind="!isReprocess ? cartInfo.onAdd : null" 
       remove.bind="cartInfo.onRemove"
@@ -163,7 +162,7 @@
 
     <au-textbox 
       label="Nomor Kereta"
-      value.bind="data.oldKanban.cart.cartNumber" 
+      value.bind="data.OldKanban.Cart.CartNumber" 
       read-only="true"
       if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions">
@@ -171,7 +170,7 @@
 
     <au-numeric 
       label="Panjang"
-      value.bind="data.oldKanban.cart.qty" 
+      value.bind="data.OldKanban.Cart.Qty" 
       read-only="true"
       if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions">
@@ -179,7 +178,7 @@
 
     <au-textbox 
       label="Satuan"
-      value.bind="data.oldKanban.cart.uom.unit" 
+      value.bind="data.OldKanban.Cart.Uom.Unit" 
       read-only="true"
       if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions">
@@ -187,7 +186,7 @@
 
     <au-numeric 
       label="Jumlah PCS"
-      value.bind="data.oldKanban.cart.pcs" 
+      value.bind="data.OldKanban.Cart.Pcs" 
       read-only="true"
       if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions"
@@ -200,7 +199,7 @@
 
     <au-textbox 
       label="Nomor Kereta"
-      value.bind="data.cart.cartNumber" 
+      value.bind="data.Cart.CartNumber" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
       options.bind="controlOptions">
@@ -208,7 +207,7 @@
 
     <au-numeric 
       label="Panjang"
-      value.bind="data.cart.qty" 
+      value.bind="data.Cart.Qty" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
       options.bind="controlOptions">
@@ -216,7 +215,7 @@
 
     <au-textbox 
       label="Satuan"
-      value.bind="data.cart.uom" 
+      value.bind="data.Cart.Uom.Unit" 
       read-only.bind="true"
       if.bind="isView || isEdit" 
       options.bind="controlOptions">
@@ -224,7 +223,7 @@
 
     <au-numeric 
       label="Jumlah PCS"
-      value.bind="data.cart.pcs" 
+      value.bind="data.Cart.Pcs" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
       options.bind="controlOptions"
@@ -239,13 +238,13 @@
 
     <au-autocomplete 
       value.bind="instruction" 
-      error.bind="error.instruction"
+      error.bind="error.Instruction"
       label="Instruksi" 
       loader.one-time="instructionLoader"
       placeholder="search instruction" 
+      key="Code"
       select.bind="selectInstruction"
-      key="code"
-      text="name"
+      text="Name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"
       options.bind="controlOptions"
       if.bind="isReprocess ? hasInstruction : hasProductionOrder">
@@ -257,11 +256,11 @@
         <tr>
           <td class="col-md-10">
             <au-collection 
-              items.bind="data.instruction.steps" 
+              items.bind="data.Instruction.Steps" 
               columns.bind="stepInfo.columns"
               add.bind="!options.disabledStepAdd ? stepInfo.onAdd : null" 
               remove.bind="stepInfo.onRemove"
-              errors.bind="error.steps"
+              errors.bind="error.Steps"
               title="Steps" 
               read-only.bind="readOnly"
               options.bind="options"

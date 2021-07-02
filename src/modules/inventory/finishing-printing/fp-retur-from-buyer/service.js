@@ -4,13 +4,13 @@ import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'inventory/fp-retur-fr-byr-docs';
-const productUri= 'inventory/product-shipment-by-production-order';
+const serviceUri = 'fp-return-from-buyers';
+const productUri = 'inventory/product-shipment-by-production-order';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "inventory-azure");
     }
 
     search(info) {
@@ -29,7 +29,7 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
@@ -42,7 +42,19 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
-        
+
+    }
+
+    getShipmentProducts(productionOrderId, buyerId) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("production-azure");
+        var _serviceUri = `finishing-printing/inventory/fp-shipment-documents/shipment-products`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+
     }
 
     getProductShipment(orderNo, buyer) {
@@ -53,5 +65,26 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
+    }
+}
+
+export class FinishingPrintingService extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "production-azure");
+    }
+
+    getShipmentProducts(productionOrderId, buyerId) {
+        var endpoint = `finishing-printing/inventory/fp-shipment-documents/shipment-products`;
+
+        var info = {
+            productionOrderId: productionOrderId,
+            buyerId: buyerId
+        }
+
+        return super.list(endpoint, info)
+            .then(result => {
+                return result.data;
+            });
     }
 }

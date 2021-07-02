@@ -17,7 +17,7 @@ export class Create {
   }
 
   created(owner, self) {
-    this.data = { items: [] }
+    this.data = { PackingDetails: [] }
   }
 
   cancel(event) {

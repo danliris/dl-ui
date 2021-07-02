@@ -16,7 +16,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { items: [] };
+        this.data = { Items: [] };
         this.error = {};
     }
 
@@ -31,16 +31,18 @@ export class Create {
     }
 
     save(event) {
-        
-    console.log(this.error);
-        this.data.accepted = true;
+
+        // this.data.accepted = true;
         //this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
-            .then((result) => {
+            .then(result => {
+                
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch((e) => {
+                
                 this.error = e;
             })
     }
