@@ -95,7 +95,7 @@ export class List {
     }
 
     accountBankView=(account)=>{
-        return account.toString();
+        return account.AccountName+' - '+ account.BankName+' - '+ account.AccountName+' - '+account.Currency.Code;
     }
 
     referenceNoView =(reference)=>{

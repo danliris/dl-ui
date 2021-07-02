@@ -742,6 +742,11 @@ module.exports = [
         settings: {
           group: "Inventory",
           permission: { C9: 1, "PG":1 },
+          iconClass: "fa fa-dashboard",      
+          subGroup: "gudang sisa garment",              
+        }
+    },
+    {
         route: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
         name: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
         moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/flow-stock/index",
@@ -754,5 +759,6 @@ module.exports = [
           subGroup: "gudang sisa garment",
           iconClass: "fa fa-dashboard",
         },
-    },
-]
+    }
+];
+    

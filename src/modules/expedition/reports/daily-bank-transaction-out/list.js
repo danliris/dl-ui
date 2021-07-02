@@ -82,7 +82,8 @@ export class List {
     }
 
     get accountBankLoader(){
-        return AccountBanksLoader;
+        return account.AccountName+' - '+ account.BankName+' - '+ account.AccountName+' - '+account.Currency.Code;
+        // return AccountBanksLoader;
     }
     get referenceNoLoader(){
         return ReferenceNoLoader;
