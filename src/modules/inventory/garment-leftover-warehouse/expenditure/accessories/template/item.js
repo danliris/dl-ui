@@ -149,6 +149,7 @@ export class Item {
                 this.data.StockId = this.data.Stock.Id;
                 this.data.Quantity = this.data.Stock.Quantity;
                 this.data.Uom = this.data.Stock.Uom;
+                this.data.BasicPrice=this.data.Stock.BasicPrice;
             }
         } else {
             this.data.Stock = null;

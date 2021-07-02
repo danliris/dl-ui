@@ -24,7 +24,7 @@ export class CartItem {
 
 
         // this.productionOrderListItem = this.dataForm.selectedPackaging.packagingProductionOrders;
-        this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT"];
+        this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
         this.packUnit = ["ROLL", "PIECE", "POTONGAN"];
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
