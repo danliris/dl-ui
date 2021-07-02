@@ -46,6 +46,7 @@ export class Create {
                         dataItem.ExpenditureGoodItemId= detail.ExpenditureGoodItemId;
                         dataItem.Quantity= detail.qty;
                         dataItem.LeftoverComodity=detail.LeftoverComodity;
+                        dataItem.BasicPrice=detail.BasicPrice;
                         quantity+=detail.qty;
                         console.log(quantity)
                         this.data.Items.push(dataItem);
