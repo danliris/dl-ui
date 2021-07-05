@@ -96,6 +96,7 @@ export class items {
             if(!this.error)
                 this.data.StockQuantity=stock.data[0].Quantity+ this.data.ExpenditureQuantity;
         }
+        console.log(this.context)
     }
 
     selectedStockChanged(newValue){
@@ -106,7 +107,6 @@ export class items {
             this.data.StockId=newValue.Id;
             this.data.RONo=newValue.RONo;
             this.data.StockQuantity=newValue.Quantity;
-            this.data.BasicPrice=newValue.BasicPrice;
             const existingItem = (this.context.context.options.existingItems || []).find(i => i.StockId == this.data.StockId) || { Quantity: 0 };
             
             this.data.StockQuantity += existingItem.Quantity;
@@ -115,6 +115,7 @@ export class items {
             this.data.StockId=0;
             this.data.RONo="";
             this.data.StockQuantity=0;
+            console.log(this.context)
             this.selectedStockViewModel.editorValue="";
         }
     }
