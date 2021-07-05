@@ -149,21 +149,6 @@ module.exports = [
         }
     },
     {
-
-        route: 'inventory/reports/report-last-stock-greige-weaving-grade',
-        name: 'inventory/reports/report-last-stock-greige-weaving-grade',
-        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-grade/index',
-        nav: true,
-        title: 'Laporan Saldo Akhir Gudang Greige - Grade',
-        auth: true,
-        settings: {
-            group: "Inventory",
-            subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'inventory/reports/report-stock-greige-weaving',
         name: 'inventory/reports/report-stock-greige-weaving',
         moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
@@ -733,15 +718,6 @@ module.exports = [
         },
     },
     {
-        route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
-        name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
-        moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/recap-stock/index",
-        nav: true,
-        title: "Report Rekap Persediaan Gudang Sisa",
-        auth: true,
-        settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
         route: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
         name: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
         moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/flow-stock/index",

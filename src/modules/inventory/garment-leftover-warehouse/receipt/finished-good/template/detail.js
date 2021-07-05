@@ -32,7 +32,6 @@ export class Detail {
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
-        console.log(this.data)
 
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;

@@ -3,7 +3,6 @@ import { Service } from './service';
 import moment from 'moment';
 const IncomeTaxLoader = require('../../../loader/vat-loader');
 const AccountBankLoader = require('../../../loader/account-banks-loader');
-const DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Service)
 export class DataForm {
@@ -57,8 +56,8 @@ export class DataForm {
             this.isEdit = true;
 
             let info = {
-                // incomeTaxName: this.data.IncomeTax.name,
-                // incomeTaxRate: this.data.IncomeTax.rate,
+                incomeTaxName: this.data.IncomeTax.name,
+                incomeTaxRate: this.data.IncomeTax.rate,
                 currency: this.data.Bank.Currency ? this.data.Bank.Currency.Code : this.data.Bank.currency.code
             };
 
@@ -88,16 +87,16 @@ export class DataForm {
         this.loadItems();
     }
 
-    // incomeTaxChanged(newV, olV) {
-    //     if (newV) {
-    //         this.data.IncomeTax = newV;
-    //     }
-    //     else {
-    //         this.data.IncomeTax = undefined;
-    //     }
+    incomeTaxChanged(newV, olV) {
+        if (newV) {
+            this.data.IncomeTax = newV;
+        }
+        else {
+            this.data.IncomeTax = undefined;
+        }
 
-    //     this.loadItems();
-    // }
+        this.loadItems();
+    }
 
     bankChanged(newV, olV) {
         if (newV) {
@@ -116,15 +115,13 @@ export class DataForm {
     loadItems() {
         if (this.data.dateFrom && this.data.dateFrom != 'Invalid Date'
             && this.data.dateTo && this.data.dateTo != 'Invalid Date'
-            && this.data.Division
-            /*&& this.data.IncomeTax*/ && this.data.Bank) {
+            && this.data.IncomeTax && this.data.Bank) {
 
             let info = {
                 dateFrom: moment(this.data.dateFrom).format("MM/DD/YYYY"),
                 dateTo: moment(this.data.dateTo).format("MM/DD/YYYY"),
-                divisionCode: this.data.Division.Code,
-                // incomeTaxName: this.data.IncomeTax.name,
-                // incomeTaxRate: this.data.IncomeTax.rate,
+                incomeTaxName: this.data.IncomeTax.name,
+                incomeTaxRate: this.data.IncomeTax.rate,
                 currency: this.data.Bank.Currency.Code
             };
 
@@ -140,9 +137,9 @@ export class DataForm {
         return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : bank.accountName ? `${bank.accountName} - ${bank.bankName} - ${bank.accountNumber} - ${bank.currency.code}` : '';
     }
 
-    // incomeTaxView = (incomeTax) => {
-    //     return `${incomeTax.name} - ${incomeTax.rate}`
-    // }
+    incomeTaxView = (incomeTax) => {
+        return `${incomeTax.name} - ${incomeTax.rate}`
+    }
 
     onClickAllDataSource($event) {
         for (let item of this.data.UnitPaymentOrders) {
@@ -156,16 +153,12 @@ export class DataForm {
             .reduce((p, c) => p + c.IncomeTax, 0);
     }
 
-    // get incomeTaxLoader() {
-    //     return IncomeTaxLoader;
-    // }
+    get incomeTaxLoader() {
+        return IncomeTaxLoader;
+    }
 
     get accountBankLoader() {
         return AccountBankLoader;
-    }
-
-    get divisionLoader() {
-        return DivisionLoader;
     }
 
     sortingOptions = ["", "Tanggal SPB"];

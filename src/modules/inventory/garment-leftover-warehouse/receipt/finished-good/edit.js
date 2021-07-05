@@ -41,7 +41,6 @@ export class Edit {
                         dataItem.Quantity= detail.qty;
                         quantity+=detail.qty;
                         dataItem.LeftoverComodity=detail.LeftoverComodity || null;
-                        dataItem.BasicPrice=detail.BasicPrice;
                         this.data.Items.push(dataItem);
                     }
                 }

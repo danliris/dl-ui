@@ -90,7 +90,6 @@ export class Item {
             if(newValue.Id!=oldValue.Id){
                 this.garmentProductionService.getExpenditureGoodById(newValue.Id)
                 .then(exGood => {
-                    console.log(exGood)
                     this.data.ExpenditureGoodId = exGood.Id;
                     this.data.ExpenditureGoodNo = exGood.ExpenditureGoodNo;
                     this.data.RONo = exGood.RONo;
@@ -101,12 +100,9 @@ export class Item {
                     this.data.BuyerName = exGood.Buyer.Name;
                     this.data.details=[];
                     this.data.Quantity=0;
-                    var price=0;
                     for (const item of exGood.Items) {
                         this.data.Quantity+=item.Quantity;
-                        price+=item.Price;
                     }
-                    this.data.BasicPrice=price/this.data.Quantity;
                     // for (const item of exGood.Items) {
                     //     this.data.details.push({
                     //         ExpenditureGoodItemId: item.Id,
@@ -174,7 +170,7 @@ export class Item {
 
     get addDetails() {
         return (event) => {
-            this.data.dataDetails.push({BasicPrice:this.data.BasicPrice});
+            this.data.dataDetails.push({});
         };
     }
 
