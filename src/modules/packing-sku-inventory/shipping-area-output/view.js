@@ -20,6 +20,7 @@ export class View {
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
         this.canEdit = this.data.type == "ADJ" || this.data.shippingProductionOrders.some(s => s.hasNextAreaDocument === false);
 
+        console.log(this.data.shippingProductionOrders);
 
     }
 
