@@ -65,17 +65,4 @@ class PurchasingService extends RestService {
     }
 }
 
-const serviceUriEGS = 'expenditure-goods';
-class ProductionService extends RestService {
-
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-production");
-    }
-
-    getBasicPriceByRO(info) {
-        var endpoint = `${serviceUriEGS}/basic-price`;
-        return super.list(endpoint, info);
-    }
-}
-
-export { Service, CoreService,PurchasingService,ProductionService }
+export { Service, CoreService,PurchasingService }

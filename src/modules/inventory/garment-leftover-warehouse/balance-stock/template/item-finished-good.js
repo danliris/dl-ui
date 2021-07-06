@@ -1,22 +1,21 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service, CoreService,ProductionService } from '../service';
+import { Service, CoreService } from '../service';
 
 const UnitLoader = require('../../../../../loader/garment-units-loader');
 const ROLoader = require('../../../../../loader/garment-external-purchase-orders-item-by-ro-loader');
 const LeftoverComodityLoader = require('../../../../../loader/garment-leftover-comodity-loader');
 
 
-@inject(Service, CoreService,ProductionService)
+@inject(Service, CoreService)
 export class ItemFinishedGood {
 
     @bindable selectedUnit;
     @bindable selectedLeftoverComodity;
     @bindable selectedRo;
 
-    constructor(service, coreService,productionService) {
+    constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        this.productionService=productionService;
     }
 
     async activate(context) {
@@ -57,14 +56,31 @@ export class ItemFinishedGood {
 
     selectedUnitChanged(newValue) {
         this.data.Unit = null;
-        this.data.RONo = null;
-        this.data.BasicPrice=0;
         if(newValue) {
             this.data.Unit = {
                 Id: newValue.Id,
                 Code: newValue.Code,
                 Name: newValue.Name
             }
+        }
+    }
+
+    async selectedPONoChanged(newValue, oldValue) {
+        this.data.PONo = null;
+        this.data.Product = null;
+        this.data.Construction = null;
+        this.data.Composition = null;
+
+        if (newValue) {
+            this.data.PONo = newValue.PO_SerialNumber;
+            this.data.Product = {
+                Id: newValue.Product.Id,
+                Code: newValue.Product.Code,
+                Name: newValue.Product.Name
+            }
+            let garmentProductsResult = await this.coreService.getGarmentProducts({ size: 1, filter: JSON.stringify({ Id: this.data.Product.Id }) });
+            this.data.Construction = garmentProductsResult.data[0].Const;
+            this.data.Composition= garmentProductsResult.data[0].Composition;
         }
     }
 
@@ -80,25 +96,10 @@ export class ItemFinishedGood {
         }
     }
 
-    async selectedRoChanged(newValue) {
+    selectedRoChanged(newValue) {
         this.data.RONo = null;
-        this.data.BasicPrice=0;
         if (newValue) {
             this.data.RONo = newValue.RONo;
-            if(this.data.Unit && this.data.RONo){
-                var filter= {
-                    UnitId:this.data.Unit.Id,
-                    RONo:this.data.RONo
-                };
-                var info = {
-                    keyword: null,
-                    filter: JSON.stringify(filter),
-                };
-                this.data.BasicPrice=await this.productionService.getBasicPriceByRO(info)
-                    .then((result) => {
-                        return result.data=="NaN" ? 0 : result.data;
-                    });
-            }
         }
     }
 }

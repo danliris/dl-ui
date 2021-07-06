@@ -300,20 +300,6 @@ module.exports = [
         }
     },
     {
-        route: '/garment/intern-note-all',
-        name: 'intern-note-all',
-        moduleId: './modules/garment-purchasing/intern-note-all/index',
-        nav: true,
-        title: 'Nota Intern All',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            subGroup: "transaksi",
-            permission: {  "C9": 1, "PG": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: '/garment/monitoring-intern-note',
         name: 'monitoring-intern-note',
         moduleId: './modules/garment-purchasing/monitoring-intern-note-new/index',

@@ -89,8 +89,7 @@ export class DataForm {
                     Quantity: item.Quantity,
                     qty:item.Quantity,
                     LeftoverComodity: item.LeftoverComodity,
-                    Id: item.Id,
-                    BasicPrice:item.BasicPrice
+                    Id: item.Id
                 }; 
                 if(this.data.DataItems.length>0){
                     var duplicate= this.data.DataItems.find(a=>a.ExpenditureGoodNo==item.ExpenditureGoodNo);
