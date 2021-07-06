@@ -976,6 +976,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
+            subGroup: "fitur",
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
@@ -989,6 +990,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
+            subGroup: "packing list",
             permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
@@ -1002,6 +1004,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
+            subGroup: "packing list",
             permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
@@ -1015,6 +1018,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-production",
+            subGroup: "packing list",
             permission: { "C9": 1, "FP": 1 },
             iconClass: 'fa fa-dashboard'
         }
