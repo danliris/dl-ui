@@ -97,7 +97,9 @@ export class List {
     }
     reset() {
         this.categoryName = null;
-        this.date  = null;
+        this.dateFrom = null;
+        this.dateTo = null;
         this.unit = null;
+        this.unitname = "";
     }
 }
