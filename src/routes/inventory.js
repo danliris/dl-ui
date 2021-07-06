@@ -62,7 +62,21 @@ module.exports = [
         name: 'inventory/receipt-note-greige-out',
         moduleId: 'modules/inventory/reports/receipt-note-greige-out/index',
         nav: true,
-        title: 'Report Bon Pengeluaran Harian',
+        title: 'Laporan Bon Pengeluaran Harian',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/report-recap-stock-type',
+        name: 'inventory/reports/report-recap-stock-type',
+        moduleId: './modules/inventory/reports/report-recap-stock-type/index',
+        nav: true,
+        title: 'Laporan Rekapitulasi Stock Grey - Jenis',
         auth: true,
         settings: {
             group: "Inventory",
@@ -76,7 +90,7 @@ module.exports = [
         name: 'inventory/reports/stock-greige-recap-report',
         moduleId: './modules/inventory/reports/stock-greige-recap-report/index',
         nav: true,
-        title: 'Laporan Rekapitulasi Stock Grey',
+        title: 'Laporan Rekapitulasi Stock Grey - Grade',
         auth: true,
         settings: {
             group: "Inventory",
@@ -85,12 +99,13 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    
     {
         route: 'inventory/reports/inventory-weaving-detail-recap',
         name: 'inventory/reports/inventory-weaving-detail-recap',
         moduleId: './modules/inventory/reports/inventory-weaving-detail-recap/index',
         nav: true,
-        title: 'Rincian Rekapitulasi',
+        title: 'Laporan Rekapan Pemasukan',
         auth: true,
         settings: {
             group: "Inventory",
@@ -99,20 +114,8 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'inventory/reports/report-stock-greige-weaving',
-        name: 'inventory/reports/report-stock-greige-weaving',
-        moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
-        nav: true,
-        title: 'Laporan Kain Grey Weaving',
-        auth: true,
-        settings: {
-            group: "Inventory",
-            subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    
+
     {
 
         route: 'inventory/reports/report-last-stock-greige-weaving-type',
@@ -128,6 +131,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
   
   {
 
@@ -136,6 +140,35 @@ module.exports = [
         moduleId: './modules/inventory/reports/balance-report-piece-weaving/index',
         nav: true,
         title: 'Laporan Saldo Akhir Gudang Greige - Piece',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+
+        route: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        name: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-grade/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Grade',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/report-stock-greige-weaving',
+        name: 'inventory/reports/report-stock-greige-weaving',
+        moduleId: './modules/inventory/reports/report-stock-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Kain Grey Weaving',
         auth: true,
         settings: {
             group: "Inventory",
@@ -695,6 +728,29 @@ module.exports = [
         settings: {
           group: "Inventory",
           permission: { C9: 1, "PG":1 },
+          subGroup: "gudang sisa garment",
+          iconClass: "fa fa-dashboard",
+        },
+    },
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+        name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/recap-stock/index",
+        nav: true,
+        title: "Report Rekap Persediaan Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, "PG":1 },
+        route: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+        name: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+        moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/flow-stock/index",
+        nav: true,
+        title: "Report FLow Persediaan Gudang Sisa",
+        auth: true,
+        settings: {
+          group: "Inventory",
+          permission: { C9: 1, "PG":1},
           subGroup: "gudang sisa garment",
           iconClass: "fa fa-dashboard",
         },

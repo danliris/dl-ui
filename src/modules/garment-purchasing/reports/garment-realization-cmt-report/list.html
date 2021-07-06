@@ -7,6 +7,7 @@
             loader.bind="unitLoader"
             placeholder="cari unit" 
             text.bind = "unitView"
+            query.bind="unitQuery"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -67,7 +68,7 @@
                         <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.UnitQty}</td>
                         <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.EGAmountIDR}</td>                         -->
                         
-                        <td>${item.Count}</td>
+                        <td>${$index+1}</td>
                         <td>${item.InvoiceNo}</td>
                         <td>${item.ExpenditureGoodNo}</td>
                         <td>${item.RONo}</td>
