@@ -14,10 +14,12 @@ export class DataForm {
 
     @bindable readOnly = false;
     @bindable isEdit = false;
+    @bindable isCreate = false;
     @bindable title;
     @bindable selectedUnit;
     @bindable selectedBuyer;
     @bindable selectedSalesNote;
+    @bindable manual;
 
     controlOptions = {
         label: {
@@ -103,7 +105,7 @@ export class DataForm {
                 noteNo: this.data.LocalSalesNoteNo
             };
 
-            this.selectedBuyer=this.data.Buyer;
+            this.selectedBuyer = this.data.Buyer;
         }
 
         // if (this.readOnly) {
@@ -147,5 +149,12 @@ export class DataForm {
         }
     }
 
-
+    manualChanged(newValue) {
+        if (!this.readOnly) {
+            if (this.context.selectedSalesNoteViewModel)
+                this.context.selectedSalesNoteViewModel.editorValue = "";
+            this.selectedSalesNote = null;
+            this.data.LocalSalesNoteNo = null;
+        }
+    }
 }
