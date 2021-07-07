@@ -32,18 +32,19 @@ export class Detail {
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
+        console.log(this.data)
 
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.Id = context.context.options.Id;
-        
-        this.selectedComodity=this.data.LeftoverComodity;
-        
+
+        this.selectedComodity = this.data.LeftoverComodity;
+
     }
 
-    selectedComodityChanged(newValue){
-        if(newValue){
-            this.data.LeftoverComodity=newValue;
+    selectedComodityChanged(newValue) {
+        if (newValue) {
+            this.data.LeftoverComodity = newValue;
         }
     }
 

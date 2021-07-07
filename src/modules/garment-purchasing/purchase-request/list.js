@@ -10,6 +10,7 @@ export class List {
 
   columns = [
     { field: "SectionName", title: "Seksi"},
+    // { field: "MDStaff", title: "Merchandiser"},
     { field: "PRNo", title: "Nomor PR" },
     {
       field: "Date", title: "Tanggal Validasi", formatter: function (value, data, index) {
