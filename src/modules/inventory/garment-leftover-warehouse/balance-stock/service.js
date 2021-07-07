@@ -41,11 +41,11 @@ class CoreService extends RestService {
         super(http, aggregator, config, "core");
     }
 
-    getUom(info) { 
+    getUom(info) {
         var endpoint = `${uomServiceUri}`;
         return super.list(endpoint, info);
     }
-    
+
     getGarmentProducts(info) {
         var endpoint = `${garmentProductsServiceUri}`;
         return super.list(endpoint, info);
@@ -65,4 +65,17 @@ class PurchasingService extends RestService {
     }
 }
 
-export { Service, CoreService,PurchasingService }
+const serviceUriEGS = 'expenditure-goods';
+class ProductionService extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "garment-production");
+    }
+
+    getBasicPriceByRO(info) {
+        var endpoint = `${serviceUriEGS}/basic-price`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, CoreService, PurchasingService, ProductionService }
