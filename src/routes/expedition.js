@@ -330,11 +330,37 @@ module.exports = [
     },
   },
   {
+    route: "/expedition/reports/daily-bank-transaction-in",
+    name: "reports/daily-bank-transaction-in",
+    moduleId: "./modules/expedition/reports/daily-bank-transaction-in/index",
+    nav: true,
+    title: "Laporan Transaksi Harian Bank Masuk",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { B9: 1, C9: 1, B4: 1, B1: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "/expedition/daily-bank-transaction-document-out",
     name: "daily-bank-transaction-document-out",
     moduleId: "./modules/expedition/daily-bank-transaction-document-out/index",
     nav: true,
     title: "Transaksi Harian Bank Keluar",
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { B9: 1, C9: 1, B4: 1, B1: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/expedition/reports/daily-bank-transaction-out",
+    name: "reports/daily-bank-transaction-out",
+    moduleId: "./modules/expedition/reports/daily-bank-transaction-out/index",
+    nav: true,
+    title: "Laporan Transaksi Harian Bank Keluar",
     auth: true,
     settings: {
       group: "finance",
