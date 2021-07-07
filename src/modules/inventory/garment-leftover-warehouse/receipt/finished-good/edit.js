@@ -22,41 +22,41 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.data.Items=[];
-        var same=[];
-        if(this.data.DataItems){
-            for(var exGood of this.data.DataItems){
-                var quantity=0;
-                if(exGood.dataDetails){
-                    for(var detail of exGood.dataDetails){
-                        var dataItem={};
-                        dataItem.Id=detail.Id;
-                        dataItem.ExpenditureGoodId=exGood.ExpenditureGoodId;
+        this.data.Items = [];
+        var same = [];
+        if (this.data.DataItems) {
+            for (var exGood of this.data.DataItems) {
+                var quantity = 0;
+                if (exGood.dataDetails) {
+                    for (var detail of exGood.dataDetails) {
+                        var dataItem = {};
+                        dataItem.Id = detail.Id;
+                        dataItem.ExpenditureGoodId = exGood.ExpenditureGoodId;
                         dataItem.ExpenditureGoodNo = exGood.ExpenditureGoodNo;
                         dataItem.RONo = exGood.RONo;
                         dataItem.Article = exGood.Article;
                         dataItem.Comodity = exGood.Comodity;
                         dataItem.Buyer = exGood.Buyer;
-                        dataItem.ExpenditureGoodItemId= detail.ExpenditureGoodItemId;
-                        dataItem.Quantity= detail.qty;
-                        quantity+=detail.qty;
-                        dataItem.LeftoverComodity=detail.LeftoverComodity || null;
-                        dataItem.BasicPrice=detail.BasicPrice;
+                        dataItem.ExpenditureGoodItemId = detail.ExpenditureGoodItemId;
+                        dataItem.Quantity = detail.qty;
+                        quantity += detail.qty;
+                        dataItem.LeftoverComodity = detail.LeftoverComodity || null;
+                        dataItem.BasicPrice = detail.BasicPrice;
                         this.data.Items.push(dataItem);
                     }
                 }
-                else{
+                else {
                     this.data.Items.push({});
                 }
-                if(quantity!=exGood.Quantity){
-                    same+=`- ${exGood.ExpenditureGoodNo} \n`;
+                if (quantity != exGood.Quantity) {
+                    same += `- ${exGood.ExpenditureGoodNo} \n`;
                 }
             }
         }
-        if(same.length>0){
+        if (same.length > 0) {
             alert(`${same} \n Jumlah total Breakdown belum sama dengan jumlah per bon pengeluaran.`)
         }
-        else{
+        else {
             this.service.update(this.data)
                 .then(result => {
                     this.router.navigateToRoute('view', { id: this.data.Id });

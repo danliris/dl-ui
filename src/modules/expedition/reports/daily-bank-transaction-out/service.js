@@ -13,7 +13,7 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
     getXls(args) {
-        let url =Object.entries(args).map(e => e.join('=')).join('&');
+        let url = Object.entries(args).map(e => e.join('=')).join('&');
         let endpoint = `${serviceUri}/xls-out?${url}`;
         return super.getXls(endpoint);
     }

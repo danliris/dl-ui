@@ -48,7 +48,7 @@ export class DataForm {
     //         return this.garmentProductionService.getExpenditureGood(info)
     //             .then((result) => {
     //                     return result.data;
-                    
+
     //             });
     //     }
     // }
@@ -57,7 +57,7 @@ export class DataForm {
         return `${unit.Code} - ${unit.Name}`;
     }
 
-    
+
     selectedUnitFromChanged(newValue) {
         if (this.data.Id) return;
 
@@ -81,40 +81,40 @@ export class DataForm {
                 Code: this.data.UnitFrom.Code,
                 Name: this.data.UnitFrom.Name
             };
-            this.data.DataItems=[];
+            this.data.DataItems = [];
             for (const item of this.data.Items) {
-                item.dataDetails=[];
-                let detail={
+                item.dataDetails = [];
+                let detail = {
                     ExpenditureGoodItemId: item.ExpenditureGoodItemId,
                     Quantity: item.Quantity,
-                    qty:item.Quantity,
+                    qty: item.Quantity,
                     LeftoverComodity: item.LeftoverComodity,
                     Id: item.Id,
-                    BasicPrice:item.BasicPrice
-                }; 
-                if(this.data.DataItems.length>0){
-                    var duplicate= this.data.DataItems.find(a=>a.ExpenditureGoodNo==item.ExpenditureGoodNo);
-                    if(duplicate){
-                        var idx= this.data.DataItems.indexOf(duplicate);
-                        duplicate.Quantity+=item.Quantity;
+                    BasicPrice: item.BasicPrice
+                };
+                if (this.data.DataItems.length > 0) {
+                    var duplicate = this.data.DataItems.find(a => a.ExpenditureGoodNo == item.ExpenditureGoodNo);
+                    if (duplicate) {
+                        var idx = this.data.DataItems.indexOf(duplicate);
+                        duplicate.Quantity += item.Quantity;
                         duplicate.dataDetails.push(detail);
-                        
-                        this.data.DataItems[idx]=duplicate;
+
+                        this.data.DataItems[idx] = duplicate;
                     }
-                    else{
+                    else {
                         item.dataDetails.push(detail);
                         this.data.DataItems.push(item);
                     }
                 }
-                else{
+                else {
                     item.dataDetails.push(detail);
                     this.data.DataItems.push(item);
                 }
-                
+
             }
             // if(this.data.DataItems){
             //     var duplicate= this.data.DataItems.find(a=>a.Size.Id==item.Size.Id && a.Uom.Id==item.Uom.Id);
-                
+
             //     if(duplicate){
             //         var idx= this.data.Items.indexOf(duplicate);
             //         duplicate.Quantity+=item.Quantity;
@@ -129,7 +129,7 @@ export class DataForm {
             //         item.Uom= item.Uom;
             //         item.UomUnit= item.Uom.Unit;
             //         item.Remark= item.Remark;
-                    
+
             //         this.data.DataItems.push(item);
             //     }
             // }
@@ -149,7 +149,7 @@ export class DataForm {
         }
     }
 
-    
+
 
     get addItems() {
         return (event) => {
