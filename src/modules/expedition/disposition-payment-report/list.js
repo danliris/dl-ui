@@ -20,11 +20,21 @@ export class List {
             title: 'Tanggal Bayar Disposisi',
             formatter: function (value, data, index) {
                 return value ? moment(value).format('DD MMM YYYY') : "-";
-            },
+            }
         },
         { field: 'DispositionNo', title: 'No. Disposisi' },
-        { field: 'DispositionDate', title: 'Tgl Disposisi' },
-        { field: 'DispositionDueDate', title: 'Tgl Jatuh Tempo' },
+        {
+            field: 'DispositionDate', title: 'Tgl Disposisi',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : "-";
+            }
+        },
+        {
+            field: 'DispositionDueDate', title: 'Tgl Jatuh Tempo',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : "-";
+            }
+        },
         { field: 'BankName', title: 'Bank Bayar' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         { field: 'SupplierName', title: 'Supplier' },
@@ -88,7 +98,7 @@ export class List {
         if (this.info.dispositionNote)
             arg.dispositionId = this.info.dispositionNote.Id;
         if (this.info.supplier)
-            arg.supplierId = this.info.supplier.Id;
+            arg.supplierId = this.info.supplier._id;
         if (this.info.division)
             arg.divisionId = this.info.division.Id;
         if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
@@ -165,20 +175,25 @@ export class List {
             this.error = {};
             this.flag = true;
             let arg = {
-                page: parseInt(info.offset / info.limit, 10) + 1,
-                size: info.limit,
-                order: order,
                 select: [],
             };
-    
+
             if (this.info.bankExpenditureNote)
                 arg.bankExpenditureId = this.info.bankExpenditureNote.Id;
+            else
+                arg.bankExpenditureId = 0;
             if (this.info.dispositionNote)
                 arg.dispositionId = this.info.dispositionNote.Id;
+            else
+                arg.dispositionId = 0;
             if (this.info.supplier)
                 arg.supplierId = this.info.supplier.Id;
+            else
+                arg.supplierId = 0;
             if (this.info.division)
                 arg.divisionId = this.info.division.Id;
+            else
+                arg.divisionId = 0;
 
             arg.startDate = moment(arg.startDate).format();
             arg.endDate = moment(arg.endDate).format();
