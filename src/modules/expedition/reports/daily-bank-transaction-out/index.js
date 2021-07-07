@@ -1,3 +1,4 @@
+
 export class Index {
     configureRouter(config, router) {
         config.map([

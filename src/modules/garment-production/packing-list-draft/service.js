@@ -48,7 +48,7 @@ class Service extends RestService {
     }
 
     getExcelByFilterCarton(id) {
-        var endpoint = `${serviceUri}/draft/${id}/carton/xls`;
+        var endpoint = `${serviceUri}/draft/${id}/carton`;
         return super.getXls(endpoint);
     }
 

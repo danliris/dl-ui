@@ -30,12 +30,13 @@ export async function configure(aurelia) {
                 }
             }
 
-            var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
+
+            var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";      
             var auth = "https://com-danliris-service-auth-dev.azurewebsites.net/v1/";
             var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
             var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
             var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites-dev.net/v1/";
-            var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";
+            var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";    
             var garmentPurchasing = "https://dl-purchasing-garment-webapi.azurewebsites.net/v1/";
             var inventory = "https://dl-inventory-webapi.azurewebsites.net/v1/";
             var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
@@ -52,6 +53,8 @@ export async function configure(aurelia) {
             var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
             var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
             var dyeing = "https://dyeing-printing-etl-service.azurewebsites.net/api/";
+
+
 
             config.registerEndpoint('auth', auth);
             config.registerEndpoint('core', core);
@@ -159,4 +162,3 @@ export async function configure(aurelia) {
     offline.install();
     */
 }
-

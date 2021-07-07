@@ -30,7 +30,8 @@ export class CartItem {
             this.selectedProductionOrder.MaterialConstruction = {};
             this.selectedProductionOrder.MaterialConstruction.Id = this.data.materialConstruction.id;
             this.selectedProductionOrder.MaterialConstruction.Name = this.data.materialConstruction.name;
-
+            
+            this.selectedProductionOrder.MaterialOrigin = this.data.materialOrigin;
             this.selectedProductionOrder.MaterialWidth = this.data.materialWidth;
             this.selectedProductionOrder.FinishWidth = this.data.finishWidth;
 
@@ -96,6 +97,7 @@ export class CartItem {
             this.data.materialConstruction.id = this.selectedProductionOrder.MaterialConstruction.Id;
             this.data.materialConstruction.name = this.selectedProductionOrder.MaterialConstruction.Name;
 
+            this.data.materialOrigin = this.selectedProductionOrder.MaterialOrigin;
             this.data.materialWidth = this.selectedProductionOrder.MaterialWidth;
             this.data.finishWidth = this.selectedProductionOrder.FinishWidth;
 
