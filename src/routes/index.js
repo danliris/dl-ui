@@ -24,6 +24,7 @@ let customs = require("./customs");
 let garmentShippingRoutes = require("./garment-shipping");
 let garmentSubconRoutes = require("./garment-subcon");
 let garmentFinance = require("./garment-finance");
+let dashboardDP = require('./dashboard-dp');
 
 export default [].concat(
   publicRoutes,
@@ -50,5 +51,6 @@ export default [].concat(
   garmentShippingRoutes,
   garmentSubconRoutes,
   packingSKUInventory,
-  customs
+  customs,
+  dashboardDP,
 );

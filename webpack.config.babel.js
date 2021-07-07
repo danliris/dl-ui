@@ -85,7 +85,7 @@ let config = generateConfig(
         output: {
             path: outDir
         },
-        stats: 'errors-only'
+        // stats: 'errors-only'
     },
 
     /**
@@ -98,7 +98,7 @@ let config = generateConfig(
 
     ENV === 'test' || ENV === 'development' ?
         envDev(ENV !== 'test' ? {} : { devtool: 'inline-source-map' }) :
-        envProd({ devtool: 'source-map' }),
+        envProd({ /*devtool: 'source-map'*/ }),
 
     aurelia({ root: rootDir, src: srcDir, title: title, baseUrl: baseUrl }),
 
@@ -119,7 +119,7 @@ let config = generateConfig(
             generateCoverage({ options: { 'force-sourcemap': true, esModules: true } })
         ]),
 
-    ENV === 'production' ?
-        uglify() : {}
+    // ENV === 'production' ?
+    //     uglify() : {}
 ) 
 module.exports = stripMetadata(config)
