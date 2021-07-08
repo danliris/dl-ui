@@ -195,8 +195,33 @@ export class List {
             else
                 arg.divisionId = 0;
 
-            arg.startDate = moment(arg.startDate).format();
-            arg.endDate = moment(arg.endDate).format();
+            if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
+                arg.startDate = this.info.startDate && this.info.startDate != 'Invalid Date' ? this.info.startDate : '';
+                arg.endDate = this.info.endDate && this.info.endDate != 'Invalid Date' ? this.info.endDate : '';
+
+                if (!arg.startDate) {
+                    arg.startDate = new Date(arg.endDate);
+                    arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+                }
+
+                if (!arg.endDate) {
+                    arg.endDate = new Date(arg.startDate);
+                    arg.endDate.setMonth(arg.endDate.getMonth() + 1);
+                }
+
+                arg.startDate = moment(arg.startDate).format();
+                arg.endDate = moment(arg.endDate).format();
+            } else {
+                arg.startDate = new Date();
+                arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+                arg.endDate = new Date();
+
+                arg.startDate = moment(arg.startDate).format();
+                arg.endDate = moment(arg.endDate).format();
+            }
+
+            // arg.startDate = moment(arg.startDate).format();
+            // arg.endDate = moment(arg.endDate).format();
             this.service.getXls(arg);
         } else {
             // console.log(this.info.startDate);
