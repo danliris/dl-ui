@@ -18,9 +18,9 @@ export class List {
     dateFrom = null;
     dateTo = null;
    
-    @bindable JnsInv;
+    // @bindable JnsInv;
    
-    OptionDate = ['','TGL INVOICE', 'TGL TRUCKING', 'TGL PEB'];
+    // OptionDate = ['','TGL INVOICE', 'TGL TRUCKING', 'TGL PEB'];
 
     get garmentbuyerLoader() {
         return GarmentBuyerLoader;
@@ -34,25 +34,24 @@ export class List {
        
     }
 
-    JnsInvChanged(newvalue) {
-        if (newvalue) {
-            if (newvalue === "TGL INVOICE") {
-                this.optionDate = "TGL INVOICE";
-            }
-            else if (newvalue === "TGL TRUCKING") {
-                this.optionDate = "TGL TRUCKING";
-            }
-            else {
-                this.optionDate = "TGL PEB"; 
-            }
-        }
-    }
+    // JnsInvChanged(newvalue) {
+    //     if (newvalue) {
+    //         if (newvalue === "TGL INVOICE") {
+    //             this.optionDate = "TGL INVOICE";
+    //         }
+    //         else if (newvalue === "TGL TRUCKING") {
+    //             this.optionDate = "TGL TRUCKING";
+    //         }
+    //         else {
+    //             this.optionDate = "TGL PEB"; 
+    //         }
+    //     }
+    // }
 
     searching() {
         {
         var info = {
-            buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
-            optionDate : this.optionDate ? this.optionDate : "",
+            buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",          
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -84,8 +83,7 @@ export class List {
     ExportToExcel() {
         {
             var info = {
-                buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
-                optionDate : this.optionDate ? this.optionDate : "",
+                buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",               
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }

@@ -396,7 +396,7 @@ module.exports = [
     {
         route: "garment-shipping/monitoring/shipment-garment",
         name: "garment-shipping/monitoring/shipment-garment",
-        moduleId: "modules/garment-shipping/monitoring/shipment-garment/index",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipment/index",
         nav: true,
         title: "Monitoring Shipment Garment",
         auth: true,
