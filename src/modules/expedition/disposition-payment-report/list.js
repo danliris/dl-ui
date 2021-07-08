@@ -5,7 +5,7 @@ import XLSX from 'xlsx';
 import { Service } from './service';
 const SupplierLoader = require('../../../loader/supplier-loader');
 const DivisionLoader = require('../../../loader/division-loader');
-const DispositionNoteLoader = require('../../../loader/purchase-dispositions-loader');
+const DispositionNoteLoader = require('../../../loader/purchase-dispositions-all-loader');
 const BankExpenditureNoteDPPAndPPNLoader = require('../../../loader/payment-disposition-loader');
 
 @inject(Service)
@@ -126,6 +126,7 @@ export class List {
             arg.endDate = moment(arg.endDate).format();
         }
 
+        console.log(arg)
         return this.flag ? (
             this.service.search(arg)
                 .then((result) => {
@@ -209,16 +210,17 @@ export class List {
                     arg.endDate.setMonth(arg.endDate.getMonth() + 1);
                 }
 
-                arg.startDate = moment(arg.startDate).format();
-                arg.endDate = moment(arg.endDate).format();
+                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
             } else {
                 arg.startDate = new Date();
                 arg.startDate.setMonth(arg.startDate.getMonth() - 1);
                 arg.endDate = new Date();
 
-                arg.startDate = moment(arg.startDate).format();
-                arg.endDate = moment(arg.endDate).format();
+                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
             }
+            console.log(arg)
 
             // arg.startDate = moment(arg.startDate).format();
             // arg.endDate = moment(arg.endDate).format();
