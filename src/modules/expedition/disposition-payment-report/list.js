@@ -242,6 +242,8 @@ export class List {
         this.info.invoice = undefined;
         this.info.supplier = undefined;
         this.info.division = undefined;
+        this.info.dispositionNote = undefined;
+        this.info.bankExpenditureNote = undefined;
         this.info.startDate = undefined;
         this.info.endDate = undefined;
         this.info.paymentMethod = "";
