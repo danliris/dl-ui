@@ -65,7 +65,7 @@ export class DataForm {
         this.data = context.data;
         this.error = context.error;
         if(this.data.BalanceStockDate == null) {
-            this.data.BalanceStockDate = new Date("2021 May 31");
+            this.data.BalanceStockDate = new Date("2018 Dec 31");
         }
         if(this.data.Id) {
             this.selectedTypeOfGoods = this.data.TypeOfGoods;

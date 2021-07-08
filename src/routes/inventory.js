@@ -12,7 +12,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    
+
 
     // {
     //     route: 'inventory/inventory-weaving-documents',
@@ -62,7 +62,21 @@ module.exports = [
         name: 'inventory/receipt-note-greige-out',
         moduleId: 'modules/inventory/reports/receipt-note-greige-out/index',
         nav: true,
-        title: 'Report Bon Pengeluaran Harian',
+        title: 'Laporan Bon Pengeluaran Harian',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'inventory/reports/report-recap-stock-type',
+        name: 'inventory/reports/report-recap-stock-type',
+        moduleId: './modules/inventory/reports/report-recap-stock-type/index',
+        nav: true,
+        title: 'Laporan Rekapitulasi Stock Grey - Jenis',
         auth: true,
         settings: {
             group: "Inventory",
@@ -76,7 +90,56 @@ module.exports = [
         name: 'inventory/reports/stock-greige-recap-report',
         moduleId: './modules/inventory/reports/stock-greige-recap-report/index',
         nav: true,
-        title: 'Laporan Rekapitulasi Stock Grey',
+        title: 'Laporan Rekapitulasi Stock Grey - Grade',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'inventory/reports/inventory-weaving-detail-recap',
+        name: 'inventory/reports/inventory-weaving-detail-recap',
+        moduleId: './modules/inventory/reports/inventory-weaving-detail-recap/index',
+        nav: true,
+        title: 'Laporan Rekapan Pemasukan',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+
+    {
+
+        route: 'inventory/reports/report-last-stock-greige-weaving-type',
+        name: 'inventory/reports/report-last-stock-greige-weaving-type',
+        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-type/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Jenis',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+
+    {
+
+        route: 'inventory/reports/balance-report-piece-weaving',
+        name: 'inventory/reports/balance-report-piece-weaving',
+        moduleId: './modules/inventory/reports/balance-report-piece-weaving/index',
+        nav: true,
+        title: 'Laporan Saldo Akhir Gudang Greige - Piece',
         auth: true,
         settings: {
             group: "Inventory",
@@ -86,11 +149,12 @@ module.exports = [
         }
     },
     {
-        route: 'inventory/reports/inventory-weaving-detail-recap',
-        name: 'inventory/reports/inventory-weaving-detail-recap',
-        moduleId: './modules/inventory/reports/inventory-weaving-detail-recap/index',
+
+        route: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        name: 'inventory/reports/report-last-stock-greige-weaving-grade',
+        moduleId: './modules/inventory/reports/report-last-stock-greige-weaving-grade/index',
         nav: true,
-        title: 'Rincian Rekapitulasi',
+        title: 'Laporan Saldo Akhir Gudang Greige - Grade',
         auth: true,
         settings: {
             group: "Inventory",
@@ -219,17 +283,17 @@ module.exports = [
         }
     },
     {
-      route: "inventory/finishing-printing/material-delivery-note",
-      name: "inventory/finishing-printing/material-delivery-note",
-      moduleId: "modules/inventory/finishing-printing/material-delivery-note/index",
-      nav: true,
-      title: "Bon Pengiriman Barang Spinning",
-      auth: true,
-      settings: {
-          group: "Inventory",
-          permission: { "C9": 1, "F1": 1, "F2": 1 },
-          iconClass: "fa fa-dashboard"
-      }
+        route: "inventory/finishing-printing/material-delivery-note",
+        name: "inventory/finishing-printing/material-delivery-note",
+        moduleId: "modules/inventory/finishing-printing/material-delivery-note/index",
+        nav: true,
+        title: "Bon Pengiriman Barang Spinning",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     },
     {
         route: "inventory/finishing-printing/material-delivery-note-weaving",
@@ -243,7 +307,7 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
-      },
+    },
     {
         route: "inventory/finishing-printing/reports/fp-shipment-document-report",
         name: "inventory/finishing-printing/reports/fp-shipment-document-report",
@@ -370,7 +434,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1 , "PG":1},
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -384,7 +448,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -398,7 +462,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -412,7 +476,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -439,12 +503,12 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
-{
+    {
         route: "inventory/garment/leftover-warehouse/expenditure/accessories",
         name: "inventory/garment/leftover-warehouse/expenditure/accessories",
         moduleId: "modules/inventory/garment-leftover-warehouse/expenditure/accessories/index",
@@ -453,7 +517,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -467,7 +531,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -481,7 +545,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -495,38 +559,38 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
     },
     {
-      route: "inventory/garment/leftover-warehouse/master/buyer",
-      name: "inventory/garment/leftover-warehouse/master/buyer",
-      moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
-      nav: true,
-      title: "Buyer Gudang Sisa Garment",
-      auth: true,
-      settings: {
-        group: "Inventory",
-        permission: { C9: 1, "PG":1 },
-        subGroup: "gudang sisa garment",
-        iconClass: "fa fa-dashboard",
-      },
+        route: "inventory/garment/leftover-warehouse/master/buyer",
+        name: "inventory/garment/leftover-warehouse/master/buyer",
+        moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
+        nav: true,
+        title: "Buyer Gudang Sisa Garment",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
+        },
     },
     {
-      route: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
-      name: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
-      moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/fabric-accessories/index",
-      nav: true,
-      title: "Report Penerimaan Gudang Sisa Fabric dan Accessories",
-      auth: true,
-      settings: {
-        group: "Inventory",
-        permission: { C9: 1, "PG":1 },
-        subGroup: "gudang sisa garment",
-        iconClass: "fa fa-dashboard",
-      },
+        route: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
+        name: "inventory/garment/leftover-warehouse/report/receipt-monitoring",
+        moduleId: "modules/inventory/garment-leftover-warehouse/receipt/report/fabric-accessories/index",
+        nav: true,
+        title: "Report Penerimaan Gudang Sisa Fabric dan Accessories",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
+        },
     },
     {
         route: "inventory/garment/leftover-warehouse/report/expenditure-finished-goods",
@@ -536,10 +600,10 @@ module.exports = [
         title: "Report Penerimaan Gudang Sisa - Barang Jadi",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1},
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -550,12 +614,12 @@ module.exports = [
         title: "Report Penerimaan Gudang Sisa Aval",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
-      },
+    },
     {
         route: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
         name: "inventory/garment/leftover-warehouse/reports/expenditure-leftover-report",
@@ -565,7 +629,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "PG":1 },
+            permission: { "C9": 1, "PG": 1 },
             subGroup: "gudang sisa garment",
             iconClass: "fa fa-dashboard"
         }
@@ -578,10 +642,10 @@ module.exports = [
         title: "Report Pengeluaran Gudang Sisa - Barang Jadi",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -592,10 +656,10 @@ module.exports = [
         title: "Report Pengeluaran Gudang Sisa - Aval",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -606,10 +670,10 @@ module.exports = [
         title: "Report Stock Gudang Sisa - FABRIC",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -620,10 +684,10 @@ module.exports = [
         title: "Report Stock Gudang Sisa - ACCESSORIES",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -634,10 +698,10 @@ module.exports = [
         title: "Report Stock Gudang Sisa - Barang Jadi",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -648,10 +712,10 @@ module.exports = [
         title: "Report Stock Gudang Sisa - Aval",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -662,10 +726,41 @@ module.exports = [
         title: "Balance Stok Gudang Sisa",
         auth: true,
         settings: {
-          group: "Inventory",
-          permission: { C9: 1, "PG":1 },
-          subGroup: "gudang sisa garment",
-          iconClass: "fa fa-dashboard",
+            group: "Inventory",
+            permission: { C9: 1, "PG": 1 },
+            subGroup: "gudang sisa garment",
+            iconClass: "fa fa-dashboard",
         },
     },
+   
+
+    {
+        route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+       name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
+       moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/recap-stock/index",
+       nav: true,
+       title: "Report Rekap Persediaan Gudang Sisa",
+       auth: true,
+       settings: {
+           group: "Inventory",
+           permission: { C9: 1, "PG": 1 },
+           subGroup: "gudang sisa garment",
+           iconClass: "fa fa-dashboard",
+       },
+   },
+{
+         route: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+           name: "inventory/garment/leftover-warehouse/reports/bookkeeping/flow-stock",
+           moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/flow-stock/index",
+           nav: true,
+           title: "Report FLow Persediaan Gudang Sisa",
+       auth: true,
+       settings: {
+           group: "Inventory",
+           permission: { C9: 1, "PG": 1 },
+           subGroup: "gudang sisa garment",
+           iconClass: "fa fa-dashboard",
+       },
+   },
+    
 ]

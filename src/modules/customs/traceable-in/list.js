@@ -3,6 +3,7 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 
 import moment from 'moment';
+import { sample } from 'underscore';
 
 var bcnoLoader = require('../../../loader/traceable-in-bc-loader');
 var roloader = require('../../../loader/traceable-in-ro-loader');
@@ -132,7 +133,7 @@ export class List {
                         var receipt = _data.ReceiptQty.toString();
                         var satreceipt = _data.SatuanReceipt.toString();
                         var satbuk = _data.SatuanBUK.toString();
-                        var ROJob = _data.ROJob.toString();
+                        var ro = _data.ROJob.toString();
                         var proQty = _data.ProduksiQty.toString();
                         var BjQty = _data.BJQty.toString();
                         var invo = _data.Invoice.toString();
@@ -141,20 +142,111 @@ export class List {
                         var EksporQty = _data.EksporQty.toString();
                         var SampleQty = _data.SampleQty.toString();
                         var Sisa = _data.Sisa.toString();
+                        var bum = _data.BUM.toString();
 
-                        _data.PEBDate = moment(_data.PEBDate).format("DD MMM YYYY") == "01 Jan 1970" || moment(_data.PEBDate).format("DD MMM YYYY") == "01 Jan 1900" ? "-" : moment(_data.PEBDate).format("DD MMM YYYY")
-                        if (!rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt]) {
-                            rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt] = 1;
+                        
+                        if(!rowDoc[bon]){
+                            rowDoc[bon] = 1
+                        }else{
+                            rowDoc[bon]++
                         }
-                        else{
-                          rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt]++;
+                        if(!rowDoc[ro + po]){
+                            rowDoc[ro + po] = 1
+                        }else{
+                            rowDoc[ro + po]++
                         }
-                        if (!rowDoc[bc + doc + date + bon]){
-                            rowDoc[bc + doc + date + bon] = 1
+                        if(!rowDoc[po]){
+                            rowDoc[po] = 1
+                        }else{
+                            rowDoc[po]++
                         }
-                        else{
-                            rowDoc[bc + doc + date + bon]++
+                        if(!rowDoc[ic]){
+                            rowDoc[ic] = 1
+                        }else{
+                            rowDoc[ic]++
                         }
+                        if(!rowDoc[iname]){
+                            rowDoc[iname] = 1
+                        }else{
+                            rowDoc[iname]++
+                        }
+                        if(!rowDoc[receipt + "bum" + po + ro]){
+                            rowDoc[receipt + "bum" + po + ro] = 1
+                        }else{
+                            rowDoc[receipt + "bum" + po + ro]++
+                        }
+                        if(!rowDoc[satreceipt]){
+                            rowDoc[satreceipt] = 1
+                        }else{
+                            rowDoc[satreceipt]++
+                        }
+                        if(!rowDoc[buk + QtyBuk + po]){
+                            rowDoc[buk + QtyBuk + po] = 1
+                        }else{
+                            rowDoc[buk + QtyBuk + po]++
+                        }
+                        if(!rowDoc[QtyBuk]){
+                            rowDoc[QtyBuk] = 1
+                        }else{
+                            rowDoc[QtyBuk]++
+                        }
+                        if(!rowDoc[Sisa + "sisa" + po + ro]){
+                            rowDoc[Sisa + "sisa" + po + ro] = 1
+                        }else{
+                            rowDoc[Sisa + "sisa" + po + ro]++
+                        }
+                        if(!rowDoc[satbuk]){
+                            rowDoc[satbuk] = 1
+                        }else{
+                            rowDoc[satbuk]++
+                        }
+                        if(!rowDoc[proQty + ro]){
+                            rowDoc[proQty + ro] = 1
+                        }else{
+                            rowDoc[proQty + ro]++
+                        }
+                        if(!rowDoc[BjQty + ro]){
+                            rowDoc[BjQty + ro] = 1
+                        }else{
+                            rowDoc[BjQty + ro]++
+                        }
+                        if(!rowDoc[invo + ro]){
+                            rowDoc[invo + ro] = 1
+                        }else{
+                            rowDoc[invo + ro]++
+                        }
+                        if(!rowDoc[peb + ro]){
+                            rowDoc[peb + ro] = 1
+                        }else{
+                            rowDoc[peb + ro]++
+                        }
+                        if(!rowDoc[pebDate + ro]){
+                            rowDoc[pebDate + ro] = 1
+                        }else{
+                            rowDoc[pebDate + ro]++
+                        }
+                        if(!rowDoc[EksporQty + ro]){
+                            rowDoc[EksporQty + ro] = 1
+                        }else{
+                            rowDoc[EksporQty + ro]++
+                        }
+                        if(!rowDoc[SampleQty + ro]){
+                            rowDoc[SampleQty + ro] = 1
+                        }else{
+                            rowDoc[SampleQty + ro]++
+                        }
+                        // if (!rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt]) {
+                        //     rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt] = 1;
+                        // }
+                        // else{
+                        //   rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt]++;
+                        // }
+                        // if (!rowDoc[bc + doc + date + bon]){
+                        //     rowDoc[bc + doc + date + bon] = 1
+                        // }
+                        // else{
+                        //     rowDoc[bc + doc + date + bon]++
+                        // }
 
                         if (!rowDoc[bc + doc + date]) {
  
@@ -163,139 +255,191 @@ export class List {
                         else {
                             rowDoc[bc + doc + date]++
                         }
-                        if (!rowDoc[doc + bc + bon + po + ic + iname ]) {
-                            rowDoc[doc + bc + bon + po + ic + iname ] = 1
-                        }else{
-                            rowDoc[doc + bc + bon + po + ic + iname ]++
-                        }
-                        if (!rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ]) {
-                            rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ] = 1
-                        } else {
-                            rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ]++
-                        }
-                        if (!rowDoc[doc + bc + bon + ROJob + po]) {
-                            rowDoc[doc + bc + bon +  ROJob + po] = 1
-                        } else {
-                            rowDoc[doc + bc + bon + ROJob + po]++
-                        }
-                        if (!rowDoc[doc + bc + bon + po  +  QtyBuk]){
-                            rowDoc[doc + bc + bon + po  + QtyBuk] = 1
-                        }else{
-                            rowDoc[doc + bc + bon + po  + QtyBuk]++
-                        }
-                        if (!rowDoc[doc + bc + bon + po +  Sisa]){
-                            rowDoc[doc + bc + bon + po +  Sisa] = 1
-                        }else{
-                            rowDoc[doc + bc + bon + po +  Sisa]++
-                        }
-                        // if (!rowDoc[doc + bc + bon  + ROJob + BjQty]){
-                        //     rowDoc[doc + bc + bon  + ROJob + BjQty] = 1
+                        // if (!rowDoc[doc + bc + bon + po + ic + iname ]) {
+                        //     rowDoc[doc + bc + bon + po + ic + iname ] = 1
                         // }else{
-                        //     rowDoc[doc + bc + bon  + ROJob + BjQty]++
+                        //     rowDoc[doc + bc + bon + po + ic + iname ]++
                         // }
-                        if (!rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]){
-                            rowDoc[doc + bc + bon  + ROJob + po + buk + proQty] = 1
-                        }else{
-                            rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]++
-                        }
-                        if (!rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty]){
-                            rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty] = 1
-                        }else{
-                            rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty]++
-                        }
-                        if (!rowDoc[doc + bc + bon + po  + satbuk]){
-                            rowDoc[doc + bc + bon + po  + satbuk] = 1
-                        }else{
-                            rowDoc[doc + bc + bon + po  + satbuk]++
-                        }
-                      //   if (!rowDoc[bon + po + ic + iname + satreceipt]) {
-                      //       rowDoc[bon + po + ic + iname + satreceipt] = 1
-                      //   } else {
-                      //       rowDoc[bon + po + ic + iname + satreceipt]++
-                      //   }
+                        // if (!rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ]) {
+                        //     rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ] = 1
+                        // } else {
+                        //     rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt + ROJob + buk ]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon + ROJob + po]) {
+                        //     rowDoc[doc + bc + bon +  ROJob + po] = 1
+                        // } else {
+                        //     rowDoc[doc + bc + bon + ROJob + po]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon + po  +  QtyBuk]){
+                        //     rowDoc[doc + bc + bon + po  + QtyBuk] = 1
+                        // }else{
+                        //     rowDoc[doc + bc + bon + po  + QtyBuk]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon + po +  Sisa]){
+                        //     rowDoc[doc + bc + bon + po +  Sisa] = 1
+                        // }else{
+                        //     rowDoc[doc + bc + bon + po +  Sisa]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]){
+                        //     rowDoc[doc + bc + bon  + ROJob + po + buk + proQty] = 1
+                        // }else{
+                        //     rowDoc[doc + bc + bon  + ROJob + po + buk + proQty]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty]){
+                        //     rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty] = 1
+                        // }else{
+                        //     rowDoc[doc + bc + bon + ROJob + invo + peb + EksporQty]++
+                        // }
+                        // if (!rowDoc[doc + bc + bon + po  + satbuk]){
+                        //     rowDoc[doc + bc + bon + po  + satbuk] = 1
+                        // }else{
+                        //     rowDoc[doc + bc + bon + po  + satbuk]++
+                        // }
 
                    
                     }
-                    //console.log(rowDoc)
                     for(var b of result.data){
-                        //console.log(b.BCType + b.BCNo);
-                        let bcno = result.data.find(o => o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName == b.BCType + b.BCNo + b.BonNo + b.PO + b.ItemCode + b.ItemName)
-                        //let bcno = result.data.find(o=> o.BCType + o.BCNo + o.PEB + o.ROJob + o.Invoice + o.BonNo + o.PO== b.BCType + b.BCNo + b.PEB +b.ROJob +b.Invoice+b.BonNo+b.PO)
-                        //console.log(bcno)
-                        if(bcno){
-                            //console.log(rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString() + b.ReceiptQty.toString() + b.SatuanReceipt.toString() + b.ROJob.toString() + b.ProduksiQty.toString() + b.BJQty.toString() + b.Invoice.toString() + b.PEB.toString() + b.PEBDate.toString() + b.EksporQty.toString() + b.SampleQty.toString()]);
-                            bcno.docspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString()]
-                            //bcno.docspan = rowDoc[b.PEB + b.Invoice + b.ROJob + b.BCNo + b.BonNo +b.BCType+b.PO ]        
+                        let bonno = result.data.find(o=>o.BonNo == b.BonNo);
+                        if(bonno) {
+                            bonno.bonspan = rowDoc[b.BonNo.toString()]
                         }
-                        //console.log(bcno.docspan);
-                        let bctipe = result.data.find(o => o.BCNo + o.BCType + o.BonNo + o.PO + o.ItemCode + o.ItemName + o.ReceiptQty + o.SatuanReceipt == b.BCNo + b.BCType + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt);
-                        if(bctipe){
-                            bctipe.rowspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt];
+                        let rojob = result.data.find(o=>o.ROJob + o.PO == b.ROJob + b.PO);
+                        if(rojob){
+                            rojob.rojobspan = rowDoc[b.ROJob.toString() + b.PO.toString()];
                         }
+                        let po = result.data.find(o=>o.PO == b.PO);
+                        if(po){
+                            po.pospan = rowDoc[b.PO.toString()];
+                        }
+                        let itemcode = result.data.find(o=>o.ItemCode == b.ItemCode);
+                        if(itemcode){
+                            itemcode.itemcodespan = rowDoc[b.ItemCode.toString()]
+                        }
+                        let itemname = result.data.find(o=>o.ItemName == b.ItemName);
+                        if(itemname){
+                            itemname.itemnamespan =  rowDoc[b.ItemName.toString()]
+                        }
+                        let qtyreceipt = result.data.find(o=>o.ReceiptQty + "bum" + o.PO + o.ROJob == b.ReceiptQty + "bum" + b.PO + b.ROJob);
+                        if(qtyreceipt){
+                            qtyreceipt.qtyreceiptspan = rowDoc[b.ReceiptQty.toString() + "bum" + b.PO.toString() + b.ROJob.toString()]
+                        }
+                        let satuanreceipt = result.data.find(o=>o.SatuanReceipt == b.SatuanReceipt);
+                        if(satuanreceipt){
+                            satuanreceipt.satuanreceiptspan = rowDoc[b.SatuanReceipt.toString()]
+                        }
+                        let nobuk = result.data.find(o=>o.BUK + o.QtyBUK + o.PO == b.BUK + b.QtyBUK + b.PO);
+                        if(nobuk){
+                            nobuk.nobukspan = rowDoc[b.BUK.toString() + b.QtyBUK.toString() + b.PO.toString()]
+                        }
+                        let qtybuk = result.data.find(o => o.QtyBUK == b.QtyBUK)
+                        if(qtybuk){
+                            qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString()]
+                        }
+                        let sisa = result.data.find(o => o.Sisa + "sisa" + o.PO + o.ROJob == b.Sisa + "sisa" + b.PO + b.ROJob)
+                        if(sisa){
+                            sisa.sisaspan = rowDoc[b.Sisa.toString() + "sisa" + b.PO.toString() + b.ROJob.toString()]
+                        }
+                        let satuanbuk = result.data.find(o => o.SatuanBUK == b.SatuanBUK)
+                        if(satuanbuk){
+                            satuanbuk.satuanbukspan = rowDoc[b.SatuanBUK.toString()]
+                        }
+                        let produksiQty = result.data.find(o => o.ProduksiQty + o.ROJob == b.ProduksiQty + b.ROJob)
+                        if(produksiQty){
+                            produksiQty.produksiQtyspan = rowDoc[b.ProduksiQty.toString() + b.ROJob.toString()]
+                        }
+
+                        let bjquantity = result.data.find(o => o.BJQty + o.ROJob == b.BJQty + b.ROJob)
+                        if(bjquantity){
+                            bjquantity.bjquantityspan = rowDoc[b.BJQty.toString() + b.ROJob.toString()]
+                        }
+
+                        let invoice = result.data.find(o => o.Invoice + o.ROJob == b.Invoice + b.ROJob)
+                        if(invoice){
+                            invoice.invoicespan = rowDoc[b.Invoice.toString() + b.ROJob.toString()]
+                        }
+
+                        let pebno = result.data.find(o => o.PEB + o.ROJob == b.PEB + b.ROJob )
+                        if(pebno){
+                            pebno.pebnospan = rowDoc[b.PEB.toString() + b.ROJob.toString()]
+                        }
+
+                        let pebdate = result.data.find(o=>o.PEBDate + o.ROJob == b.PEBDate + b.ROJob)
+                        if(pebdate){
+                            pebdate.pebdatespan = rowDoc[b.PEBDate.toString() + b.ROJob.toString()]
+                        }
+
+                        let eksporqty = result.data.find(o=>o.EksporQty + o.ROJob == b.EksporQty + b.ROJob)
+                        if(eksporqty){
+                            eksporqty.eksporqtyspan = rowDoc[b.EksporQty.toString() + b.ROJob.toString()]
+                        }
+
+                        let samppleqty = result.data.find(o=>o.SampleQty + o.ROJob == b.SampleQty + b.ROJob)
+                        if(samppleqty){
+                            samppleqty.samppleqtyspan = rowDoc[b.SampleQty.toString() + b.ROJob.toString()]
+                        }
+                        // let bcno = result.data.find(o => o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName == b.BCType + b.BCNo + b.BonNo + b.PO + b.ItemCode + b.ItemName)
+                        // if(bcno){
+                        //     bcno.docspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString()]       
+                        // }
+                        // let bctipe = result.data.find(o => o.BCNo + o.BCType + o.BonNo + o.PO + o.ItemCode + o.ItemName + o.ReceiptQty + o.SatuanReceipt == b.BCNo + b.BCType + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt);
+                        // if(bctipe){
+                        //     bctipe.rowspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt];
+                        // }
                         let bcno2 = result.data.find(o => o.BCType + o.BCNo + o.BCDate == b.BCType + b.BCNo + b.BCDate);
                         if (bcno2) {
-                            //console.log(rowDoc[b.BCNo + b.BCType + b.BonNo])
                             bcno2.bcnospan = rowDoc[b.BCType + b.BCNo + b.BCDate];
                         }
-                        let ro = result.data.find(o => o.BCType + o.BCNo + o.BCDate + o.BonNo == b.BCType + b.BCNo + b.BCDate + b.BonNo)
-                        if(ro){
-                            ro.rospan = rowDoc[b.BCType + b.BCNo + b.BCDate + b.BonNo];
-                        }
-                        let bcdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  +o.QtyBUK== b.BCNo + b.BCType + b.BonNo + b.PO  + b.QtyBUK)
-                        if (bcdoc) {
-                            bcdoc.qtybukspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.QtyBUK];
-                        }
-                        let sisadoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  + o.Sisa== b.BCNo + b.BCType + b.BonNo + b.PO  + b.Sisa)
-                        if (sisadoc) {
-                            sisadoc.sisaspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.Sisa];
-                        }
-                        let satbukdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  + o.SatuanBUK== b.BCNo + b.BCType + b.BonNo + b.PO  + b.SatuanBUK)
-                        if (satbukdoc) {
-                            satbukdoc.satbukspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.SatuanBUK];
-                        }
-                        let prodoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.PO + o.BUK + o.ProduksiQty == b.BCNo + b.BCType + b.BonNo+ b.ROJob + b.PO + b.BUK + b.ProduksiQty)
-                        if (prodoc) {
-                            // console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.BUK + b.ProduksiQty]);
-                            prodoc.prospan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.PO + b.BUK + b.ProduksiQty];
-                            //console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.ProduksiQty]);
-                        }
-                        // let bjdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.BJQty == b.BCNo + b.BCType + b.BonNo  + b.ROJob + b.BJQty)
-                        // if (bjdoc) {
-                        //     bjdoc.bjspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.BJQty];
-                        //     console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.BJQty]);
+                        // let ro = result.data.find(o => o.BCType + o.BCNo + o.BCDate + o.BonNo == b.BCType + b.BCNo + b.BCDate + b.BonNo)
+                        // if(ro){
+                        //     ro.rospan = rowDoc[b.BCType + b.BCNo + b.BCDate + b.BonNo];
                         // }
-                        let ekspordoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.Invoice + o.PEB + o.PEBDate + o.EksporQty== b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.PEBDate + b.EksporQty)
-                        if (ekspordoc) {
-                            //console.log(ekspordoc);
-                            ekspordoc.eksporspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.EksporQty];
-                            //console.log(b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.EksporQty)
-                            //console.log(rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.EksporQty])
-                        }
-                        let po = result.data.find(o => o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName + o.ReceiptQty + o.SatuanReceipt + o.ROJob + o.BUK == b.BCType + b.BCNo + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt + b.ROJob + b.BUK)
-                        if(po){
-                            po.docspanpo = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString() + b.ReceiptQty.toString() + b.SatuanReceipt.toString() + b.ROJob.toString() + b.BUK.toString()]
-                        }
-                        let rojob = result.data.find(o => o.BCType + o.BCNo + o.BonNo +  o.ROJob + o.PO == b.BCType + b.BCNo + b.BonNo +  b.ROJob + b.PO)
-                        if(rojob){
-                            rojob.rojobspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString()  + b.ROJob.toString() + b.PO.toString()]
-                        }
-
-                      //   let ekspor = result.data.find(o=>o.Invoice + o.EksporQty + o.BJQty + o.ProduksiQty + o.PO == b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty + b.PO)
-                      //   if(ekspor){
-                      //       ekspor.docsekspor = rowDoc[b.Invoice + b.EksporQty + b.BJQty + b.ProduksiQty + b.PO]
-                      //   }
-                      //   let bukspan = result.data.find(o => o.BonNo + o.PO + o.ItemCode + o.ItemName + o.SatuanReceipt == b.BonNo + b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt)
-                      //  // console.log(bukspan)
-                      //   if(bukspan){
-                      //       //console.log(b.BUK + b.QtyBUK + b.PO)
-                      //     bukspan.docspanpo2 = rowDoc[b.BonNo + b.PO + b.ItemCode + b.ItemName + b.SatuanReceipt]
-                      //       //b.docspanbuk = rowDoc[b.BUK + b.QtyBUK + b.PO]
-                      //   }
+                        // let bcdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  +o.QtyBUK== b.BCNo + b.BCType + b.BonNo + b.PO  + b.QtyBUK)
+                        // if (bcdoc) {
+                        //     bcdoc.qtybukspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.QtyBUK];
+                        // }
+                        // let sisadoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  + o.Sisa== b.BCNo + b.BCType + b.BonNo + b.PO  + b.Sisa)
+                        // if (sisadoc) {
+                        //     sisadoc.sisaspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.Sisa];
+                        // }
+                        // let satbukdoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.PO  + o.SatuanBUK== b.BCNo + b.BCType + b.BonNo + b.PO  + b.SatuanBUK)
+                        // if (satbukdoc) {
+                        //     satbukdoc.satbukspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.PO  + b.SatuanBUK];
+                        // }
+                        // let prodoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.PO + o.BUK + o.ProduksiQty == b.BCNo + b.BCType + b.BonNo+ b.ROJob + b.PO + b.BUK + b.ProduksiQty)
+                        // if (prodoc) {
+                        //     prodoc.prospan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.PO + b.BUK + b.ProduksiQty];
+                        // }
+                        // let ekspordoc = result.data.find(o => o.BCNo + o.BCType +o.BonNo + o.ROJob + o.Invoice + o.PEB + o.PEBDate + o.EksporQty== b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.PEBDate + b.EksporQty)
+                        // if (ekspordoc) {
+                        //     ekspordoc.eksporspan = rowDoc[b.BCNo + b.BCType + b.BonNo + b.ROJob + b.Invoice + b.PEB + b.EksporQty];
+                        // }
+                        // let po = result.data.find(o => o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName + o.ReceiptQty + o.SatuanReceipt + o.ROJob + o.BUK == b.BCType + b.BCNo + b.BonNo + b.PO + b.ItemCode + b.ItemName + b.ReceiptQty + b.SatuanReceipt + b.ROJob + b.BUK)
+                        // if(po){
+                        //     po.docspanpo = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString() + b.PO.toString() + b.ItemCode.toString() + b.ItemName.toString() + b.ReceiptQty.toString() + b.SatuanReceipt.toString() + b.ROJob.toString() + b.BUK.toString()]
+                        // }
+                        // let rojob = result.data.find(o => o.BCType + o.BCNo + o.BonNo +  o.ROJob + o.PO == b.BCType + b.BCNo + b.BonNo +  b.ROJob + b.PO)
+                        // if(rojob){
+                        //     rojob.rojobspan = rowDoc[b.BCNo.toString() + b.BCType.toString() + b.BonNo.toString()  + b.ROJob.toString() + b.PO.toString()]
+                        // }
 
                     }
-                
-                    console.log(result.data);
-                    //this.info.total= result.info.total;
+
+                    for(var t of result.data){
+                        t.PEBDate = moment(t.PEBDate).format("DD MMM YYYY") == "01 Jan 1970" || moment(t.PEBDate).format("DD MMM YYYY") == "01 Jan 1900" ? "-" : moment(t.PEBDate).format("DD MMM YYYY");
+                        t.ROJob = t.ROJob == "rojob-" ? "-" : t.ROJob;
+                        t.BUK = t.BUK == "buk-" ? "-" : t.BUK;
+                        t.SatuanBUK = t.SatuanBUK == "satbuk-" ? "-" : t.SatuanBUK;
+                        t.Invoice = t.Invoice == "invo-" ? "-" : t.Invoice;
+                        t.PEB = t.PEB == "peb-" ? "-" : t.PEB;
+                        t.QtyBUK = t.QtyBUK == "QtyBUK0" ? 0 : t.QtyBUK;
+                        t.Sisa = t.Sisa == "Sisa0" ? 0 : t.Sisa;
+                        t.ProduksiQty = t.ProduksiQty == "ProduksiQty0" ? 0 : t.ProduksiQty;
+                        t.BJQty = t.BJQty == "BJQty0" ? 0 : t.BJQty;
+                        t.EksporQty = t.EksporQty == "EksporQty0" ? 0 : t.EksporQty;
+                        t.SampleQty = t.SampleQty == "SampleQty0" ? 0 : t.SampleQty;
+
+                    }
+
                      this.data = result.data;
                      
                      console.log(this.data);
@@ -312,6 +456,7 @@ export class List {
                 let args = {
                     bcno : this.BCNo ? this.BCNo.BCNo : this.rojob? this.rojob.ROJob : this.itemcode? this.itemcode.ItemCode : "",
                     type : this.tipe ? this.tipe : "",
+                    tipebc : this.typebc ? this.typebc : "",
                     dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                     dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
                 };

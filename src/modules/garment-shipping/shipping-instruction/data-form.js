@@ -25,10 +25,9 @@ export class DataForm {
             length: 5
         }
     };
-
+  
     filter= {
-        IsUsed:false,
-        "PEBNo!=null":true
+        IsUsed:false
     }
     
     get forwarderLoader() {

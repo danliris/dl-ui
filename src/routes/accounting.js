@@ -130,6 +130,19 @@ module.exports = [
     }
   },
   {
+    route: 'accounting/reports/other-expenditure-proof-report',
+    name: 'other-expenditure-proof-report',
+    moduleId: './modules/accounting/reports/other-expenditure-proof-report/index',
+    nav: true,
+    title: 'Laporan Bukti Pengeluaran Bank Lain - Lain',
+    auth: true,
+    settings: {
+      group: "finance",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-clone'
+    }
+  },
+  {
     route: 'balance-debt',
     name: 'balance-debt',
     moduleId: './modules/accounting/balance-debt/index',
@@ -351,7 +364,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup:"accounting garment",
-      permission: {"C9": 1},
+      permission: {"C9": 1, "B1": 1, "B12": 1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -365,7 +378,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup:"accounting garment",
-      permission: { "B1": 1, "C9": 1 },
+      permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -379,7 +392,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup:"accounting garment",
-      permission: { "B1": 1, "C9": 1 },
+      permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -393,7 +406,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1 },
+      permission: { "C9": 1 , "B12": 1, "B1": 1},
       iconClass: "fa fa-dashboard",
     }
   },
@@ -407,7 +420,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1 },
+      permission: { "C9": 1, "B12": 1, "B1": 1},
       iconClass: "fa fa-dashboard",
     }
   }
