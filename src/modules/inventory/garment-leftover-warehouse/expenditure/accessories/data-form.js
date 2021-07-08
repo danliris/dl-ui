@@ -13,6 +13,7 @@ export class DataForm {
     }
 
     @bindable readOnly = false;
+    @bindable isCreate = false;
     @bindable isEdit = false;
     @bindable title;
     @bindable selectedUnit;
@@ -104,9 +105,9 @@ export class DataForm {
             });
 
             this.selectedBuyer = {
-               Id: this.data.Buyer.Id,
-               Code: this.data.Buyer.Code,
-               Name: this.data.Buyer.Name 
+                Id: this.data.Buyer.Id,
+                Code: this.data.Buyer.Code,
+                Name: this.data.Buyer.Name
             };
 
             this.selectedSalesNote = {
@@ -157,5 +158,12 @@ export class DataForm {
         }
     }
 
-
+    manualChanged(newValue) {
+        if (!this.readOnly) {
+            if (this.context.selectedSalesNoteViewModel)
+                this.context.selectedSalesNoteViewModel.editorValue = "";
+            this.selectedSalesNote = null;
+            this.data.LocalSalesNoteNo = null;
+        }
+    }
 }
