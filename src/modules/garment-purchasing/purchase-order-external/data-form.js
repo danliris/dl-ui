@@ -158,7 +158,7 @@ export class DataForm {
             this.data.IsIncomeTax = _selectedSupplier.usetax;
             this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
             this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
-            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate? _selectedSupplier.IncomeTax.rate: 0;
+            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate? _selectedSupplier.IncomeTaxes.rate: 0;
             this.data.IncomeTax.rate=this.data.IncomeTax.rate?this.data.IncomeTax.rate: 0;
             
         }
