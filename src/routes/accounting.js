@@ -420,7 +420,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1 "B12": 1, "B1": 1},
+      permission: { "C9": 1, "B12": 1, "B1": 1},
       iconClass: "fa fa-dashboard",
     }
   }
