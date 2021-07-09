@@ -732,6 +732,8 @@ module.exports = [
             iconClass: "fa fa-dashboard",
         },
     },
+   
+
     {
         route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",
         name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/recap-stock",

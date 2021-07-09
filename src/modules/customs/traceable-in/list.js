@@ -150,10 +150,10 @@ export class List {
                         }else{
                             rowDoc[bon]++
                         }
-                        if(!rowDoc[ro]){
-                            rowDoc[ro] = 1
+                        if(!rowDoc[ro + po]){
+                            rowDoc[ro + po] = 1
                         }else{
-                            rowDoc[ro]++
+                            rowDoc[ro + po]++
                         }
                         if(!rowDoc[po]){
                             rowDoc[po] = 1
@@ -170,35 +170,35 @@ export class List {
                         }else{
                             rowDoc[iname]++
                         }
-                        if(!rowDoc[receipt + bum]){
-                            rowDoc[receipt + bum] = 1
+                        if(!rowDoc[receipt + "bum" + po + ro]){
+                            rowDoc[receipt + "bum" + po + ro] = 1
                         }else{
-                            rowDoc[receipt + bum]++
+                            rowDoc[receipt + "bum" + po + ro]++
                         }
                         if(!rowDoc[satreceipt]){
                             rowDoc[satreceipt] = 1
                         }else{
                             rowDoc[satreceipt]++
                         }
-                        if(!rowDoc[buk + QtyBuk]){
-                            rowDoc[buk + QtyBuk] = 1
+                        if(!rowDoc[buk + QtyBuk + po]){
+                            rowDoc[buk + QtyBuk + po] = 1
                         }else{
-                            rowDoc[buk + QtyBuk]++
+                            rowDoc[buk + QtyBuk + po]++
                         }
                         if(!rowDoc[QtyBuk]){
                             rowDoc[QtyBuk] = 1
                         }else{
                             rowDoc[QtyBuk]++
                         }
-                        if(!rowDoc[buk + Sisa]){
-                            rowDoc[buk + Sisa] = 1
+                        if(!rowDoc[Sisa + "sisa" + po + ro]){
+                            rowDoc[Sisa + "sisa" + po + ro] = 1
                         }else{
-                            rowDoc[buk + Sisa]++
+                            rowDoc[Sisa + "sisa" + po + ro]++
                         }
-                        if(!rowDoc[satbuk + buk]){
-                            rowDoc[satbuk + buk] = 1
+                        if(!rowDoc[satbuk]){
+                            rowDoc[satbuk] = 1
                         }else{
-                            rowDoc[satbuk + buk]++
+                            rowDoc[satbuk]++
                         }
                         if(!rowDoc[proQty + ro]){
                             rowDoc[proQty + ro] = 1
@@ -303,9 +303,9 @@ export class List {
                         if(bonno) {
                             bonno.bonspan = rowDoc[b.BonNo.toString()]
                         }
-                        let rojob = result.data.find(o=>o.ROJob == b.ROJob);
+                        let rojob = result.data.find(o=>o.ROJob + o.PO == b.ROJob + b.PO);
                         if(rojob){
-                            rojob.rojobspan = rowDoc[b.ROJob.toString()];
+                            rojob.rojobspan = rowDoc[b.ROJob.toString() + b.PO.toString()];
                         }
                         let po = result.data.find(o=>o.PO == b.PO);
                         if(po){
@@ -319,29 +319,29 @@ export class List {
                         if(itemname){
                             itemname.itemnamespan =  rowDoc[b.ItemName.toString()]
                         }
-                        let qtyreceipt = result.data.find(o=>o.ReceiptQty + o.BUM == b.ReceiptQty + b.BUM);
+                        let qtyreceipt = result.data.find(o=>o.ReceiptQty + "bum" + o.PO + o.ROJob == b.ReceiptQty + "bum" + b.PO + b.ROJob);
                         if(qtyreceipt){
-                            qtyreceipt.qtyreceiptspan = rowDoc[b.ReceiptQty.toString() + b.BUM.toString()]
+                            qtyreceipt.qtyreceiptspan = rowDoc[b.ReceiptQty.toString() + "bum" + b.PO.toString() + b.ROJob.toString()]
                         }
                         let satuanreceipt = result.data.find(o=>o.SatuanReceipt == b.SatuanReceipt);
                         if(satuanreceipt){
                             satuanreceipt.satuanreceiptspan = rowDoc[b.SatuanReceipt.toString()]
                         }
-                        let nobuk = result.data.find(o=>o.BUK + o.QtyBUK == b.BUK + b.QtyBUK);
+                        let nobuk = result.data.find(o=>o.BUK + o.QtyBUK + o.PO == b.BUK + b.QtyBUK + b.PO);
                         if(nobuk){
-                            nobuk.nobukspan = rowDoc[b.BUK.toString() + b.QtyBUK.toString()]
+                            nobuk.nobukspan = rowDoc[b.BUK.toString() + b.QtyBUK.toString() + b.PO.toString()]
                         }
                         let qtybuk = result.data.find(o => o.QtyBUK == b.QtyBUK)
                         if(qtybuk){
                             qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString()]
                         }
-                        let sisa = result.data.find(o => o.BUK + o.Sisa == b.BUK + b.Sisa)
+                        let sisa = result.data.find(o => o.Sisa + "sisa" + o.PO + o.ROJob == b.Sisa + "sisa" + b.PO + b.ROJob)
                         if(sisa){
-                            sisa.sisaspan = rowDoc[b.BUK.toString() + b.Sisa.toString()]
+                            sisa.sisaspan = rowDoc[b.Sisa.toString() + "sisa" + b.PO.toString() + b.ROJob.toString()]
                         }
-                        let satuanbuk = result.data.find(o => o.SatuanBUK + o.BUK == b.SatuanBUK + b.BUK)
+                        let satuanbuk = result.data.find(o => o.SatuanBUK == b.SatuanBUK)
                         if(satuanbuk){
-                            satuanbuk.satuanbukspan = rowDoc[b.SatuanBUK.toString() + b.BUK.toString()]
+                            satuanbuk.satuanbukspan = rowDoc[b.SatuanBUK.toString()]
                         }
                         let produksiQty = result.data.find(o => o.ProduksiQty + o.ROJob == b.ProduksiQty + b.ROJob)
                         if(produksiQty){
