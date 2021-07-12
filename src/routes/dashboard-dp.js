@@ -1,10 +1,10 @@
 module.exports = [
     {
         route: "/dashboard-dp/main",
-        name: "Dashboard DP - Main",
+        name: "Dashboard DP - Unggah File",
         moduleId: "./modules/dashboard-dp/main/index",
         nav: true,
-        title: "Main",
+        title: "Unggah File",
         auth: true,
         settings: {
           group: "dashboard-dp",
