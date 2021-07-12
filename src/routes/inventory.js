@@ -177,6 +177,22 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
+    {
+        route: 'inventory/reports/report-expense-greige-weaving',
+        name: 'inventory/reports/report-expense-greige-weaving',
+        moduleId: './modules/inventory/reports/report-expense-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Rincian Pengeluaran',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
     {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
