@@ -45,12 +45,13 @@ export class List {
         if (this.info.division)
             filter.division = this.info.division.Name;
         if (this.info.startDate)
-            filter.startDate = this.info.startDate;
+            filter.startDate = moment(this.info.startDate).format("MM/DD/YYYY");
         if (this.info.endDate)
-            filter.endDate = this.info.endDate;
+            filter.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
 
         filter.filter = JSON.stringify(this.type);
 
+        console.log(filter)
         this.data = await this.service.search(filter)
             .then((result) => {
 
@@ -113,9 +114,9 @@ export class List {
         if (this.info.division)
             filter.division = this.info.division.Name;
         if (this.info.startDate)
-            filter.startDate = this.info.startDate;
+            filter.startDate = moment(this.info.startDate).format("MM/DD/YYYY");
         if (this.info.endDate)
-            filter.endDate = this.info.endDate;
+            filter.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
 
         filter.filter = JSON.stringify(this.type);
         this.service.getXls(filter);
