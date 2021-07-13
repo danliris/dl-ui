@@ -100,7 +100,7 @@ export class List {
     }
 
     referenceNoView = (reference) => {
-        return reference.Code;
+        return reference.ReferenceNo;
     }
 
     excel() {
