@@ -5,6 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Create {
+    @bindable infoArea;
     @bindable error = {};
 
     controlOptions = {
@@ -17,6 +18,8 @@ export class Create {
     };
 
     yearOptions = [];
+
+    yearLabel = null;
 
     areaOptions = [];
 
@@ -39,6 +42,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = {};
+        this.showMonth = true;
 
         let yearList = []
         for (var i = new Date().getFullYear(); i > 2010; i--) {
@@ -49,12 +53,9 @@ export class Create {
     
     async bind(context) {
         this.context = context;
-        this.info.area = "";
+        this.infoArea = "";
         this.info.month = this.monthOptions[new Date().getMonth()];
         this.info.year = new Date().getFullYear();
-        
-        console.log(this.areaOptions);
-        console.log(this.info.area);
     }
 
     async activate(context) {
@@ -67,13 +68,23 @@ export class Create {
                     areaList.push({ text: x.name, value: x.id});
                 });
                 this.areaOptions = areaList;
-                this.info.area = areaList[0];
+                this.infoArea = areaList[0];
             }
         });
     }
 
     list() {
         this.router.navigateToRoute('list');
+    }
+
+    infoAreaChanged(newValue) {
+        if (newValue.text === 'Yarn Dyeing') {
+            this.showMonth = false;
+            this.yearLabel = "Periode"
+        } else {
+            this.yearLabel = null;
+            this.showMonth = true;
+        }
     }
 
     cancelCallback(event) {
@@ -90,9 +101,9 @@ export class Create {
             this.error = e;
         } else {
             formData.append("file", fileList[0]);
-            formData.append("area", this.info.area.value);
+            formData.append("area", this.infoArea.value);
             formData.append("periode", this.info.month.value + "/" + this.info.year.value);
-            formData.append("areaName", this.info.area.text);
+            formData.append("areaName", this.infoArea.text);
             formData.append("monthName", this.info.month.text);
  
             var endpoint = 'UploadExcel';
