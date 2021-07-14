@@ -177,6 +177,22 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+
+    {
+        route: 'inventory/reports/report-expense-greige-weaving',
+        name: 'inventory/reports/report-expense-greige-weaving',
+        moduleId: './modules/inventory/reports/report-expense-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Rincian Pengeluaran',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
     {
         route: 'inventory/inventory-documents',
         name: 'inventory/inventory-documents',
@@ -762,5 +778,19 @@ module.exports = [
            iconClass: "fa fa-dashboard",
        },
    },
+   {
+            route: "inventory/garment/leftover-warehouse/reports/bookkeeping/bookkeeping-stock",
+              name: "inventory/garment/leftover-warehouse/reports/bookkeeping/bookkeeping-stock",
+              moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/bookkeeping-stock/index",
+              nav: true,
+              title: "Report Stock Gudang Sisa",
+          auth: true,
+          settings: {
+              group: "Inventory",
+              permission: { C9: 1, "PG": 1 },
+              subGroup: "gudang sisa garment",
+              iconClass: "fa fa-dashboard",
+          },
+      },
     
 ]

@@ -64,10 +64,10 @@ export class List {
 
         let validationError = false;
 
-        if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
-            this.error.bank = "Bank harus diisi";
-            validationError = true;
-        }
+        // if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
+        //     this.error.bank = "Bank harus diisi";
+        //     validationError = true;
+        // }
 
         if (!validationError) {
             this.error = {};
@@ -82,7 +82,10 @@ export class List {
 
             this.data = await this.service.search(params)
                 .then((result) => {
-                    this.isValas = this.info.bank.Currency.Code != "IDR" ? true : false;
+                    this.isValas = false;
+                    if(this.info.bank){
+                        this.isValas = this.info.bank.Currency.Code != "IDR" ? true : false;
+                    }
 
                     let resultDataSet = [];
                     // let sameDate = true;
@@ -104,7 +107,7 @@ export class List {
                     if (this.isValas)
                         for (let data of result.data) {
                             let date = moment(data.Date).format("DD-MMM-YYYY");
-
+                            
                             if (moment(previousDate).diff(moment(date), 'days') != 0 || index == result.data.length) {
                                 let dailyTotalDataSet = {
                                     DailyTotalTitle: "Total Harian",
@@ -250,10 +253,10 @@ export class List {
 
         let validationError = false;
 
-        if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
-            this.error.bank = "Bank harus diisi";
-            validationError = true;
-        }
+        // if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
+        //     this.error.bank = "Bank harus diisi";
+        //     validationError = true;
+        // }
 
         if (!validationError) {
             this.error = {};
@@ -281,10 +284,10 @@ export class List {
 
         let validationError = false;
 
-        if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
-            this.error.bank = "Bank harus diisi";
-            validationError = true;
-        }
+        // if (this.info && (!this.info.bank || this.info.bank.Id == null)) {
+        //     this.error.bank = "Bank harus diisi";
+        //     validationError = true;
+        // }
 
         if (!validationError) {
             this.error = {};
