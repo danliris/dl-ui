@@ -117,13 +117,6 @@ export class List {
 
             arg.startDate = moment(arg.startDate).format();
             arg.endDate = moment(arg.endDate).format();
-        } else {
-            arg.startDate = new Date();
-            arg.startDate.setMonth(arg.startDate.getMonth() - 1);
-            arg.endDate = new Date();
-
-            arg.startDate = moment(arg.startDate).format();
-            arg.endDate = moment(arg.endDate).format();
         }
 
         console.log(arg)
@@ -188,7 +181,7 @@ export class List {
             else
                 arg.dispositionId = 0;
             if (this.info.supplier)
-                arg.supplierId = this.info.supplier.Id;
+                arg.supplierId = this.info.supplier._id;
             else
                 arg.supplierId = 0;
             if (this.info.division)
@@ -196,7 +189,7 @@ export class List {
             else
                 arg.divisionId = 0;
 
-            if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
+            if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date') || (this.info.startDate && this.info.startDate != 'Invalid Date') && (this.info.endDate && this.info.endDate != 'Invalid Date')) {
                 arg.startDate = this.info.startDate && this.info.startDate != 'Invalid Date' ? this.info.startDate : '';
                 arg.endDate = this.info.endDate && this.info.endDate != 'Invalid Date' ? this.info.endDate : '';
 
@@ -212,15 +205,7 @@ export class List {
 
                 arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
                 arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
-            } else {
-                arg.startDate = new Date();
-                arg.startDate.setMonth(arg.startDate.getMonth() - 1);
-                arg.endDate = new Date();
-
-                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
-                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
             }
-            console.log(arg)
 
             // arg.startDate = moment(arg.startDate).format();
             // arg.endDate = moment(arg.endDate).format();
