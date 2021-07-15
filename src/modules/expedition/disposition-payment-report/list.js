@@ -188,7 +188,7 @@ export class List {
             else
                 arg.dispositionId = 0;
             if (this.info.supplier)
-                arg.supplierId = this.info.supplier.Id;
+                arg.supplierId = this.info.supplier._id;
             else
                 arg.supplierId = 0;
             if (this.info.division)
