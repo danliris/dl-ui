@@ -5,8 +5,10 @@ import { Service } from "./service";
 import moment from 'moment';
 import { sample } from 'underscore';
 
-var bcnoLoader = require('../../../loader/traceable-in-bc-loader');
-var roloader = require('../../../loader/traceable-in-ro-loader');
+// var bcnoLoader = require('../../../loader/traceable-in-bc-loader');
+var bcnoLoader = require('../../../loader/garment-beacukai-loader');
+// var roloader = require('../../../loader/traceable-in-ro-loader');
+var roloader = require('../../../loader/garment-unit-delivery-order-loader');
 var itemloader = require('../../../loader/traceable-in-item-loader');
 
 @inject(Service)
@@ -41,7 +43,7 @@ export class List {
     // }
     get filterQuery(){
         if(this.type === "No BC Masuk"){
-            var jenis = {"filter":"BCNo"}
+            var jenis = {"CustomsType": this.typebc }
         }else if(this.type === "RO Job"){
             var jenis = {"filter":"ROJob"}
         }
@@ -107,7 +109,7 @@ export class List {
         let args = {
             // page: this.info.page,
             // size: this.info.size,
-            bcno : this.BCNo ? this.BCNo.BCNo : this.rojob? this.rojob.ROJob : this.itemcode? this.itemcode.ItemCode : "",
+            bcno : this.BCNo ? this.BCNo.beacukaiNo : this.rojob ? this.rojob.RONo : this.itemcode? this.itemcode.ItemCode : "",
             type : this.tipe ? this.tipe : "",
             tipebc : this.typebc ? this.typebc : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
@@ -492,6 +494,14 @@ export class List {
         this.info.page = page;
         this.searching();
     }
+
+    garmentbeacukaiView = (gbcno) => {
+		return`${gbcno.beacukaiNo}`
+	  }
+
+      garmnetrojobview = (grojob) => {
+		return`${grojob.RONo}`
+	  }
 }
 
 
