@@ -23,7 +23,7 @@ export class List {
     columns = [
        
             
-            { field: "ProductOrderName", title: "No. SC", sortable: false},
+            { field: "", title: "No. SC", sortable: false},
             { field: "Construction", title: "Konstruksi", sortable: false},
             { field: "Grade", title: "Grade", sortable: false},
             { field: "", title: "Kg", sortable: false},
