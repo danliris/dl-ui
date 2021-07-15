@@ -215,25 +215,25 @@ export class List {
                         }else{
                             rowDoc[invo + ro]++
                         }
-                        if(!rowDoc[peb + ro]){
-                            rowDoc[peb + ro] = 1
+                        if(!rowDoc[peb + ro + invo]){
+                            rowDoc[peb + ro + invo] = 1
                         }else{
-                            rowDoc[peb + ro]++
+                            rowDoc[peb + ro + invo]++
                         }
-                        if(!rowDoc[pebDate + ro]){
-                            rowDoc[pebDate + ro] = 1
+                        if(!rowDoc[pebDate + ro + invo]){
+                            rowDoc[pebDate + ro + invo] = 1
                         }else{
-                            rowDoc[pebDate + ro]++
+                            rowDoc[pebDate + ro + invo]++
                         }
-                        if(!rowDoc[EksporQty + ro]){
-                            rowDoc[EksporQty + ro] = 1
+                        if(!rowDoc[EksporQty + ro + invo]){
+                            rowDoc[EksporQty + ro + invo] = 1
                         }else{
-                            rowDoc[EksporQty + ro]++
+                            rowDoc[EksporQty + ro + invo]++
                         }
-                        if(!rowDoc[SampleQty + ro]){
-                            rowDoc[SampleQty + ro] = 1
+                        if(!rowDoc[SampleQty + ro + invo]){
+                            rowDoc[SampleQty + ro + invo] = 1
                         }else{
-                            rowDoc[SampleQty + ro]++
+                            rowDoc[SampleQty + ro + invo]++
                         }
                         // if (!rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt]) {
                         //     rowDoc[doc + bc + bon + po + ic + iname + receipt + satreceipt] = 1;
@@ -358,24 +358,24 @@ export class List {
                             invoice.invoicespan = rowDoc[b.Invoice.toString() + b.ROJob.toString()]
                         }
 
-                        let pebno = result.data.find(o => o.PEB + o.ROJob == b.PEB + b.ROJob )
+                        let pebno = result.data.find(o => o.PEB + o.ROJob + o.Invoice == b.PEB + b.ROJob + b.Invoice)
                         if(pebno){
-                            pebno.pebnospan = rowDoc[b.PEB.toString() + b.ROJob.toString()]
+                            pebno.pebnospan = rowDoc[b.PEB.toString() + b.ROJob.toString() + b.Invoice.toString()]
                         }
 
-                        let pebdate = result.data.find(o=>o.PEBDate + o.ROJob == b.PEBDate + b.ROJob)
+                        let pebdate = result.data.find(o=>o.PEBDate + o.ROJob + o.Invoice == b.PEBDate + b.ROJob + b.Invoice)
                         if(pebdate){
-                            pebdate.pebdatespan = rowDoc[b.PEBDate.toString() + b.ROJob.toString()]
+                            pebdate.pebdatespan = rowDoc[b.PEBDate.toString() + b.ROJob.toString() + b.Invoice.toString()]
                         }
 
-                        let eksporqty = result.data.find(o=>o.EksporQty + o.ROJob == b.EksporQty + b.ROJob)
+                        let eksporqty = result.data.find(o=>o.EksporQty + o.ROJob + o.Invoice == b.EksporQty + b.ROJob + b.Invoice)
                         if(eksporqty){
-                            eksporqty.eksporqtyspan = rowDoc[b.EksporQty.toString() + b.ROJob.toString()]
+                            eksporqty.eksporqtyspan = rowDoc[b.EksporQty.toString() + b.ROJob.toString() + b.Invoice.toString()]
                         }
 
-                        let samppleqty = result.data.find(o=>o.SampleQty + o.ROJob == b.SampleQty + b.ROJob)
+                        let samppleqty = result.data.find(o=>o.SampleQty + o.ROJob + o.Invoice == b.SampleQty + b.ROJob + b.Invoice)
                         if(samppleqty){
-                            samppleqty.samppleqtyspan = rowDoc[b.SampleQty.toString() + b.ROJob.toString()]
+                            samppleqty.samppleqtyspan = rowDoc[b.SampleQty.toString() + b.ROJob.toString() + b.Invoice.toString()]
                         }
                         // let bcno = result.data.find(o => o.BCType + o.BCNo + o.BonNo + o.PO + o.ItemCode + o.ItemName == b.BCType + b.BCNo + b.BonNo + b.PO + b.ItemCode + b.ItemName)
                         // if(bcno){
