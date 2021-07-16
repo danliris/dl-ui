@@ -27,7 +27,7 @@ export class Item {
    if (this.options.readOnly == true) {
       this.itemColumns = [
         "Grade",
-        "Piece",
+        //"Piece",
         
         "Qty Piece Keluar",
         "Qty Keluar",
@@ -35,7 +35,7 @@ export class Item {
     } else {
       this.itemColumns = [
         "Grade",
-        "Piece",
+        //"Piece",
         "Qty Piece",
         "Qty Saldo",
         "Qty Piece Keluar",
