@@ -23,6 +23,8 @@ export class Create {
 
     areaOptions = [];
 
+    disabled = false;
+
     monthOptions = [
         { text: "Januari", value: 1 },
         { text: "Februari", value: 2 },
@@ -45,7 +47,7 @@ export class Create {
         this.showMonth = true;
 
         let yearList = []
-        for (var i = new Date().getFullYear(); i > 2010; i--) {
+        for (var i = 2021; i <= new Date().getFullYear() + 9; i++) {
             yearList.push({ text:i, value:i });
         }
         this.yearOptions = yearList
@@ -92,6 +94,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.disabled = true;
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
@@ -113,22 +116,25 @@ export class Create {
                 },
                 body: formData
             };
- 
-            this.service.endpoint.client.fetch(endpoint, request)
-                .then(response => {
-                    if (response.status == 200) {
-                        
-                        alert("Data Berhasil Diupload");
-                        this.list();
-                    }
-                    else if (response.status == 400) {
-                        response.json()
-                            .then(result => {
-                                alert(result.message);
-                            });
-                        // alert(response.data.message);
-                    }
-                })
+
+            var promise = this.service.endpoint.client.fetch(endpoint, request);
+            this.service.publish(promise);
+            return promise.then(response => {
+                if (response.status == 200) {
+                    alert("Data Berhasil Diupload");
+                    this.service.publish(promise);
+                    this.list();
+                }
+                else if (response.status == 400) {
+                    this.disabled = false;
+                    response.json()
+                        .then(result => {
+                            alert(result.message);
+                        });
+                    this.router.navigateToRoute('upload');
+                    this.service.publish(promise);
+                }
+            })
         }
     }
 
