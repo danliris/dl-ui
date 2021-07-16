@@ -63,6 +63,7 @@ export class List {
                     let newItem = item;
                     item.Index = index + 1;
                     item.DateFormatted = moment(item.Date).format('DD MMM YYYY');
+                    item.Nominal = numeral(item.Nominal).format('0,0.00');
                     return item;
                 })
 
@@ -99,7 +100,7 @@ export class List {
     }
 
     referenceNoView = (reference) => {
-        return reference.Code;
+        return reference.ReferenceNo;
     }
 
     excel() {
