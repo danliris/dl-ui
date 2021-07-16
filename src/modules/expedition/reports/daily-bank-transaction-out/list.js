@@ -45,9 +45,9 @@ export class List {
         if (this.info.division)
             filter.division = this.info.division.Name;
         if (this.info.startDate)
-            filter.startDate = this.info.startDate;
+            filter.startDate = moment(this.info.startDate).format("MM/DD/YYYY");
         if (this.info.endDate)
-            filter.endDate = this.info.endDate;
+            filter.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
 
         filter.filter = JSON.stringify(this.type);
 
@@ -63,6 +63,7 @@ export class List {
                     let newItem = item;
                     item.Index = index + 1;
                     item.DateFormatted = moment(item.Date).format('DD MMM YYYY');
+                    item.Nominal = numeral(item.Nominal).format('0,0.00');
                     return item;
                 })
 
@@ -99,7 +100,7 @@ export class List {
     }
 
     referenceNoView = (reference) => {
-        return reference.Code;
+        return reference.ReferenceNo;
     }
 
     excel() {
@@ -113,9 +114,9 @@ export class List {
         if (this.info.division)
             filter.division = this.info.division.Name;
         if (this.info.startDate)
-            filter.startDate = this.info.startDate;
+            filter.startDate = moment(this.info.startDate).format("MM/DD/YYYY");
         if (this.info.endDate)
-            filter.endDate = this.info.endDate;
+            filter.endDate = moment(this.info.endDate).format("MM/DD/YYYY");
 
         filter.filter = JSON.stringify(this.type);
         this.service.getXls(filter);
