@@ -38,7 +38,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -52,7 +52,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -67,7 +67,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -81,7 +81,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -95,7 +95,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -110,7 +110,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -127,7 +127,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -144,7 +144,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -159,7 +159,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -173,7 +173,7 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -188,7 +188,22 @@ module.exports = [
         settings: {
             group: "Inventory",
             subGroup: "Gudang Weaving",
-            permission: { "*": 1 },
+            permission: { C9: 1, W1: 1, W2: 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'inventory/reports/report-expense-recap-greige-weaving',
+        name: 'inventory/reports/report-expense-recap-greige-weaving',
+        moduleId: './modules/inventory/reports/report-expense-recap-greige-weaving/index',
+        nav: true,
+        title: 'Laporan Rekapitulasi Pengeluaran',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { C9: 1, W1: 1, W2: 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -805,6 +820,6 @@ module.exports = [
               subGroup: "gudang sisa garment",
               iconClass: "fa fa-dashboard",
           },
-    },
-     
+
+      },
 ]
