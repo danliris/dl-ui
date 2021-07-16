@@ -54,7 +54,7 @@ export class List {
             dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
 
         }
-        this.service.generateExcel(info);
+        this.service.xls(info);
     }
     @bindable category;
     

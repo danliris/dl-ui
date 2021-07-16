@@ -39,7 +39,7 @@ export class Service extends RestService {
             else query = `${query}&categoryName=${info.categoryName}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}/download-flow-stock?${query}`;
+            endpoint = `${serviceUri}/download-detail?${query}`;
 
         return endpoint;
     }
