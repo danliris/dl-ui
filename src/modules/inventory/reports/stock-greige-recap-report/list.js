@@ -30,8 +30,8 @@ export class List {
             { field: "index", title: "No", sortable: false},
             { field: "Construction", title: "Konstruksi", sortable: false},
             { field: "Grade", title: "Grade", sortable: false},
-            { field: "QtyPiece", title: "Piece", sortable: false},
-            { field: "Qty", title: "Meter", sortable: false},
+            { field: "QtyPiece", title: "Jml. Piece", sortable: false},
+            { field: "Qty", title: "Jml. Meter", sortable: false},
             { field: "", title: "Keterangan", sortable: false}
     ];
 

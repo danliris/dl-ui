@@ -133,21 +133,21 @@ module.exports = [
     },
 
 
-    {
+    // {
 
-        route: 'inventory/reports/balance-report-piece-weaving',
-        name: 'inventory/reports/balance-report-piece-weaving',
-        moduleId: './modules/inventory/reports/balance-report-piece-weaving/index',
-        nav: true,
-        title: 'Laporan Saldo Akhir Gudang Greige - Piece',
-        auth: true,
-        settings: {
-            group: "Inventory",
-            subGroup: "Gudang Weaving",
-            permission: { C9: 1, W1: 1, W2: 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    //     route: 'inventory/reports/balance-report-piece-weaving',
+    //     name: 'inventory/reports/balance-report-piece-weaving',
+    //     moduleId: './modules/inventory/reports/balance-report-piece-weaving/index',
+    //     nav: true,
+    //     title: 'Laporan Saldo Akhir Gudang Greige - Piece',
+    //     auth: true,
+    //     settings: {
+    //         group: "Inventory",
+    //         subGroup: "Gudang Weaving",
+    //         permission: { C9: 1, W1: 1, W2: 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
 
         route: 'inventory/reports/report-last-stock-greige-weaving-grade',
