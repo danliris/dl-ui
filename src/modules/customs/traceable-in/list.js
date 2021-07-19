@@ -333,17 +333,17 @@ export class List {
                         if(nobuk){
                             nobuk.nobukspan = rowDoc[b.BUK.toString() + b.QtyBUK.toString() + b.PO.toString()]
                         }
-                        let qtybuk = result.data.find(o => o.QtyBUK + "uombuk" == b.QtyBUK + "uombuk")
+                        let qtybuk = result.data.find(o => o.QtyBUK == b.QtyBUK)
                         if(qtybuk){
-                            qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString() + "uombuk"]
+                            qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString()]
                         }
                         let sisa = result.data.find(o => o.Sisa + "sisa" + o.PO + o.ROJob == b.Sisa + "sisa" + b.PO + b.ROJob)
                         if(sisa){
                             sisa.sisaspan = rowDoc[b.Sisa.toString() + "sisa" + b.PO.toString() + b.ROJob.toString()]
                         }
-                        let satuanbuk = result.data.find(o => o.SatuanBUK == b.SatuanBUK)
+                        let satuanbuk = result.data.find(o => o.SatuanBUK  + "uombuk" == b.SatuanBUK  + "uombuk")
                         if(satuanbuk){
-                            satuanbuk.satuanbukspan = rowDoc[b.SatuanBUK.toString()]
+                            satuanbuk.satuanbukspan = rowDoc[b.SatuanBUK.toString()  + "uombuk"]
                         }
                         let produksiQty = result.data.find(o => o.ProduksiQty + o.ROJob == b.ProduksiQty + b.ROJob)
                         if(produksiQty){
