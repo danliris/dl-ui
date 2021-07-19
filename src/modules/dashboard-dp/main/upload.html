@@ -23,7 +23,7 @@
         <hr/>
         <div class="btn-group pull-right">
             <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
-            <button class="btn btn-success" click.delegate="saveCallback()">Simpan</button>
+            <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()">Simpan</button>
         </div>
     </block>
 </template>

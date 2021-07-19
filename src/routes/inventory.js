@@ -794,6 +794,20 @@ module.exports = [
        },
    },
    {
+    route: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/detail",
+   name: "inventory/garment/leftover-warehouse/balance-stock/reports/bookkeeping/detail",
+   moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/detail/index",
+   nav: true,
+   title: "Report Detail Persediaan Gudang Sisa",
+   auth: true,
+   settings: {
+       group: "Inventory",
+       permission: { C9: 1, "PG": 1 },
+       subGroup: "gudang sisa garment",
+       iconClass: "fa fa-dashboard",
+   },
+},   
+{ 
             route: "inventory/garment/leftover-warehouse/reports/bookkeeping/bookkeeping-stock",
               name: "inventory/garment/leftover-warehouse/reports/bookkeeping/bookkeeping-stock",
               moduleId: "modules/inventory/garment-leftover-warehouse/reports/bookkeeping/bookkeeping-stock/index",
@@ -806,6 +820,6 @@ module.exports = [
               subGroup: "gudang sisa garment",
               iconClass: "fa fa-dashboard",
           },
+
       },
-    
 ]

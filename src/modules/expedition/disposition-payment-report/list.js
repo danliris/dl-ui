@@ -117,13 +117,6 @@ export class List {
 
             arg.startDate = moment(arg.startDate).format();
             arg.endDate = moment(arg.endDate).format();
-        } else {
-            arg.startDate = new Date();
-            arg.startDate.setMonth(arg.startDate.getMonth() - 1);
-            arg.endDate = new Date();
-
-            arg.startDate = moment(arg.startDate).format();
-            arg.endDate = moment(arg.endDate).format();
         }
 
         console.log(arg)
@@ -188,14 +181,16 @@ export class List {
             else
                 arg.dispositionId = 0;
             if (this.info.supplier)
+
                 arg.supplierId = this.info.supplier.Id;
+ 
             else
                 arg.supplierId = 0;
             if (this.info.division)
                 arg.divisionId = this.info.division.Id;
             else
                 arg.divisionId = 0;
-
+ 
             if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
                 arg.startDate = this.info.startDate && this.info.startDate != 'Invalid Date' ? this.info.startDate : '';
                 arg.endDate = this.info.endDate && this.info.endDate != 'Invalid Date' ? this.info.endDate : '';
