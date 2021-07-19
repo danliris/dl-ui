@@ -116,13 +116,19 @@ export class List {
     this.accessCount = 0;
 
     for (let i = this.roles.length - 1; i >= 0; i--) {
-      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-        this.roles[i].hasPermission = true;
-        this.accessCount++;
-        this.activeRole = this.roles[i];
-        this.changeTable(this.activeRole);
+
+      for (let code of this.roles[i].code) {
+        if (this.permissions.hasOwnProperty(code)) {
+          this.roles[i].hasPermission = true;
+          this.accessCount++;
+          this.activeRole = this.roles[i];
+          this.changeTable(this.activeRole);
+        }
       }
+
     }
+
+    console.log(this.activeRole);
   }
 
   changeRole(role) {
@@ -165,7 +171,7 @@ export class List {
       });
       return Promise.all(result.data).then((data) => {
         return {
-          total: result.info.total,
+          total: result.info.Count,
           data,
         };
       });
