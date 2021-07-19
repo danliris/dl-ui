@@ -1,5 +1,5 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var IncomeTaxLoader = require('../../../../loader/disposition-memo-loader');
+var DispositionLoader = require('../../../../loader/memo-disposition-loader');
 
 // @inject(BindingSignaler)
 export class Item {
@@ -29,10 +29,14 @@ export class Item {
     this.calculateTotalAmount();
   }
 
+  detailColumns = [
+    "No. Kas Bon", "Supplier", "Keterangan", "No. SPB", "No. BTU", "Valas", "Jumlah Beli (Rp)", "Valas", "Jumlah Bayar (Rp)"
+  ];
+
   IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
 
-  get incomeTaxLoader() {
-    return IncomeTaxLoader;
+  get dispositionLoader() {
+    return DispositionLoader;
   }
 
   incomeTaxView = (incomeTax) => {
@@ -88,7 +92,7 @@ export class Item {
       if (this.data.IsGetPPn)
         vatAmount = this.data.Amount * 0.1;
       this.data.Total = Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100
-      
+
     }
   }
 

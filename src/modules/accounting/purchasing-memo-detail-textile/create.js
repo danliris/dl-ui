@@ -39,6 +39,7 @@ export class Create {
     }
 
     save(event) {
+        this.data.Type = 1;
         this.service
             .create(this.data)
             .then((result) => {
