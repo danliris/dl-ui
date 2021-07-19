@@ -162,25 +162,25 @@ export class List {
                         }else{
                             rowDoc[po]++
                         }
-                        if(!rowDoc[ic]){
-                            rowDoc[ic] = 1
+                        if(!rowDoc[ic + po]){
+                            rowDoc[ic + po] = 1
                         }else{
-                            rowDoc[ic]++
+                            rowDoc[ic + po]++
                         }
-                        if(!rowDoc[iname]){
-                            rowDoc[iname] = 1
+                        if(!rowDoc[iname + po]){
+                            rowDoc[iname + po] = 1
                         }else{
-                            rowDoc[iname]++
+                            rowDoc[iname + po]++
                         }
                         if(!rowDoc[receipt + "bum" + po + ro]){
                             rowDoc[receipt + "bum" + po + ro] = 1
                         }else{
                             rowDoc[receipt + "bum" + po + ro]++
                         }
-                        if(!rowDoc[satreceipt]){
-                            rowDoc[satreceipt] = 1
+                        if(!rowDoc[satreceipt + "uomreceipt"]){
+                            rowDoc[satreceipt + "uomreceipt"] = 1
                         }else{
-                            rowDoc[satreceipt]++
+                            rowDoc[satreceipt + "uomreceipt"]++
                         }
                         if(!rowDoc[buk + QtyBuk + po]){
                             rowDoc[buk + QtyBuk + po] = 1
@@ -197,10 +197,10 @@ export class List {
                         }else{
                             rowDoc[Sisa + "sisa" + po + ro]++
                         }
-                        if(!rowDoc[satbuk]){
-                            rowDoc[satbuk] = 1
+                        if(!rowDoc[satbuk + "uombuk"]){
+                            rowDoc[satbuk + "uombuk"] = 1
                         }else{
-                            rowDoc[satbuk]++
+                            rowDoc[satbuk + "uombuk"]++
                         }
                         if(!rowDoc[proQty + ro]){
                             rowDoc[proQty + ro] = 1
@@ -313,29 +313,29 @@ export class List {
                         if(po){
                             po.pospan = rowDoc[b.PO.toString()];
                         }
-                        let itemcode = result.data.find(o=>o.ItemCode == b.ItemCode);
+                        let itemcode = result.data.find(o=>o.ItemCode + o.PO == b.ItemCode + b.PO);
                         if(itemcode){
-                            itemcode.itemcodespan = rowDoc[b.ItemCode.toString()]
+                            itemcode.itemcodespan = rowDoc[b.ItemCode.toString() + b.PO.toString()]
                         }
-                        let itemname = result.data.find(o=>o.ItemName == b.ItemName);
+                        let itemname = result.data.find(o=>o.ItemName + o.PO == b.ItemName + b.PO);
                         if(itemname){
-                            itemname.itemnamespan =  rowDoc[b.ItemName.toString()]
+                            itemname.itemnamespan =  rowDoc[b.ItemName.toString() + b.PO.toString()]
                         }
                         let qtyreceipt = result.data.find(o=>o.ReceiptQty + "bum" + o.PO + o.ROJob == b.ReceiptQty + "bum" + b.PO + b.ROJob);
                         if(qtyreceipt){
                             qtyreceipt.qtyreceiptspan = rowDoc[b.ReceiptQty.toString() + "bum" + b.PO.toString() + b.ROJob.toString()]
                         }
-                        let satuanreceipt = result.data.find(o=>o.SatuanReceipt == b.SatuanReceipt);
+                        let satuanreceipt = result.data.find(o=>o.SatuanReceipt + "uomreceipt" == b.SatuanReceipt + "uomreceipt");
                         if(satuanreceipt){
-                            satuanreceipt.satuanreceiptspan = rowDoc[b.SatuanReceipt.toString()]
+                            satuanreceipt.satuanreceiptspan = rowDoc[b.SatuanReceipt.toString() + "uomreceipt"]
                         }
                         let nobuk = result.data.find(o=>o.BUK + o.QtyBUK + o.PO == b.BUK + b.QtyBUK + b.PO);
                         if(nobuk){
                             nobuk.nobukspan = rowDoc[b.BUK.toString() + b.QtyBUK.toString() + b.PO.toString()]
                         }
-                        let qtybuk = result.data.find(o => o.QtyBUK == b.QtyBUK)
+                        let qtybuk = result.data.find(o => o.QtyBUK + "uombuk" == b.QtyBUK + "uombuk")
                         if(qtybuk){
-                            qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString()]
+                            qtybuk.qtybukspan = rowDoc[b.QtyBUK.toString() + "uombuk"]
                         }
                         let sisa = result.data.find(o => o.Sisa + "sisa" + o.PO + o.ROJob == b.Sisa + "sisa" + b.PO + b.ROJob)
                         if(sisa){
