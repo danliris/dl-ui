@@ -4,8 +4,8 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "vb-realization-documents/non-po";
-const serviceVBDocumentUri = "vb-request-documents";
+const serviceUri = "purchasing=-memo-detail-textiles";
+const serviceVBDocumentUri = "purchasing=-memo-detail-textiles";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -13,7 +13,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}/by-user`;
+    var endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
 
@@ -23,7 +23,7 @@ export class Service extends RestService {
   }
 
   getVBDocumentById(id) {
-    var endpoint = `${serviceVBDocumentUri}/non-po/${id}`;
+    var endpoint = `${serviceVBDocumentUri}/${id}`;
     return super.get(endpoint);
   }
 
