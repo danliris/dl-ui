@@ -1,5 +1,5 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var IncomeTaxLoader = require('../../../../loader/income-tax-loader');
+var IncomeTaxLoader = require('../../../../loader/disposition-memo-loader');
 
 // @inject(BindingSignaler)
 export class Item {

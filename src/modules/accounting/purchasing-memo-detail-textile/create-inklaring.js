@@ -22,8 +22,8 @@ export class Create {
 
   bind(params) {
     this.data = {};
-    this.data.Date = new Date();
-    this.data.Date.setHours(0, 0, 0, 0);
+    // this.data.Date = new Date();
+    // this.data.Date.setHours(0, 0, 0, 0);
     this.error = {};
   }
 

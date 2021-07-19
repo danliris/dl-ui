@@ -12,41 +12,20 @@ export class List {
     else return {};
   }
 
-  context = ["Detail", "Cetak Bukti Realisasi"];
+  context = ["Detail"];
 
   columns = [
-    { field: "DocumentNo", title: "No. Realisasi VB" },
-    { field: "VBRequestDocumentNo", title: "No. Permohonan VB" },
+    { field: "DocumentNo", title: "No. Memo" },
     {
       field: "Date",
-      title: "Tanggal Realisasi",
+      title: "Tanggal",
       formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       },
     },
-    {
-      field: "VBRequestDocumentRealizationEstimationDate",
-      title: "Tanggal Estimasi",
-      formatter: function (value, data, index) {
-        if (data.VBRequestDocumentNo)
-          return moment(value).format("DD MMM YYYY");
-        else return "-";
-      },
-    },
     // { field: "UnitLoad", title: "Beban Unit" },
-    { field: "CreatedBy", title: "Dibuat oleh" },
-    {
-      field: "Position",
-      title: "Status Verifikasi",
-      formatter: function (value, row, index) {
-        return value > 3 && value != 6
-          ? "Sudah"
-          : value == 6
-          ? "Ditolak"
-          : "Belum";
-      },
-    },
-    { field: "Remark", title: "Keterangan" },
+    { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "DivisionName", title: "Divisi" },
   ];
 
   async activate(params) {
@@ -83,7 +62,7 @@ export class List {
   }
 
   initTab() {
-    this.tabs = ["Realisasi VB Non PO", "Realisasi VB Inklaring Non PO"];
+    this.tabs = ["Rincian Memo Pembelian Textil Disposisi", "Rincian Memo Pembelian Textil Non Disposisi"];
 
     // Default tab is non-inklaring
     this.activeTab = this.tabs[0];
@@ -101,7 +80,7 @@ export class List {
 
   create(activeTab) {
     const createRoute =
-      activeTab === "Realisasi VB Non PO" ? "create" : "create-inklaring";
+      activeTab === "Rincian Memo Pembelian Textil Disposisi" ? "create" : "create-inklaring";
     this.router.navigateToRoute(createRoute);
   }
 
@@ -109,16 +88,13 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     const viewRoute =
-      activeTab === "Realisasi VB Non PO" ? "view" : "view-inklaring";
+      activeTab === "Rincian Memo Pembelian Textil Disposisi" ? "view" : "view-inklaring";
     switch (arg.name) {
       case "Detail":
         this.router.navigateToRoute(viewRoute, {
           id: data.Id,
           search: this.ressearch,
         });
-        break;
-      case "Cetak Bukti Realisasi":
-        this.service.getSalesReceiptPdfById(data.Id);
         break;
     }
   }
