@@ -42,7 +42,7 @@ export class Create {
     { field: "ReferenceNo", title: "Nota", sortable: false},
     { field: "Construction", title: "Konstruksi", sortable: false},
     { field: "Grade", title: "Grd", sortable: false},
-    { field: "Piece", title: "Piece", sortable: false},
+    //{ field: "Piece", title: "Piece", sortable: false},
     { field: "Quantity", title: "Jml. Meter", sortable: false},
     { field: "QuantityPiece", title: "Jml. Piece", sortable: false}
   ];
