@@ -14,6 +14,8 @@ export class List {
 
   context = ["Detail"];
 
+  type = 1;
+
   columns = [
     { field: "DocumentNo", title: "No. Memo" },
     {
@@ -43,6 +45,7 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
+      type: this.type,
       filter: JSON.stringify({ IsInklaring: this.IsInklaring }),
     };
 
@@ -73,6 +76,7 @@ export class List {
     if (tab !== this.activeTab) {
       this.activeTab = tab;
       this.IsInklaring = this.activeTab !== this.tabs[0] ? true : false;
+      this.type = this.activeTab !== this.tabs[0] ? 2 : 1;
 
       this.tableList.refresh();
     }

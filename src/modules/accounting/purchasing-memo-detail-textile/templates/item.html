@@ -2,11 +2,11 @@
   <tr>
     <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
-      <au-autocomplete value.bind="data.Disposition"
+      <au-autocomplete value.bind="disposition"
                        error.bind="error.Disposition"
                        loader.bind="dispositionLoader"
                        placeholder="cari disposisi"
-                       text="DocumentNo"
+                       text.bind="dispositionTextView"
                        read-only.bind="readOnly">
       </au-autocomplete>
     </td>
@@ -18,7 +18,7 @@
     </td>
   </tr>
   <tr>
-    <au-collection items.bind="data.Details"
+    <au-collection items.bind="data.Disposition.Details"
                    errors.bind="error.Details"
                    columns.bind="detailColumns"
                    add.bind="addDetails"

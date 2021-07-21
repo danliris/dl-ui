@@ -39,9 +39,9 @@ export class Item {
     return DispositionLoader;
   }
 
-  incomeTaxView = (incomeTax) => {
-
-    return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
+  dispositionTextView = (disposition) => {
+    console.log(disposition)
+    return disposition.Disposition.DocumentNo;
 
   }
 
@@ -65,6 +65,15 @@ export class Item {
     } else {
       delete this.data.IsGetPPn;
       this.calculateTotalAmount();
+    }
+  }
+
+  @bindable disposition;
+  dispositionChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.Disposition = newValue.Disposition;
+    } else {
+      this.data.Details = [];
     }
   }
 
