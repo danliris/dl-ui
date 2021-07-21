@@ -15,6 +15,7 @@
             if.bind="type == 'No BC Masuk'"
             options.bind="controlOptions" >
         </au-dropdown>
+
         <au-autocomplete 
         value.bind="BCNo"
         error.bind="error.Description"
@@ -23,14 +24,10 @@
         if.bind="type == 'No BC Masuk'"
         loader.bind="bcnoLoader"
         query.bind="filterQuery"
+        text.bind="garmentbeacukaiView"
         options.bind="controlOptions">
         </au-autocomplete >
-            <!--<au-textbox
-            value.bind="internNote" 
-                label="Nomor Nota Intern" 
-                options.bind="controlOptions"
-                placeholder="Cari Nomor Nota Intern"></au-textbox>-->
-
+<!-- 
                 <au-autocomplete
                 value.bind="rojob"
                 error.bind="error.Description"
@@ -40,6 +37,18 @@
                 loader.bind="rojobLoader"
                 query.bind="filterQuery"
                 options.bind="controlOptions">
+                </au-autocomplete> -->
+
+                <au-autocomplete
+                value.bind="rojob"
+                error.bind="error.Description"
+                read-only.bind="readOnly"
+                label="RO Job"
+                if.bind="type == 'RO Job'"
+                loader.bind="rojobLoader"
+                text.bind="garmnetrojobview"
+                options.bind="controlOptions"
+                >
                 </au-autocomplete>
 
                 <au-autocomplete
