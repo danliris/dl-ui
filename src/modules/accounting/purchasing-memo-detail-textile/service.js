@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "purchasing=-memo-detail-textiles";
+const serviceUri = "purchasing-memo-detail-textiles";
 const serviceVBDocumentUri = "purchasing=-memo-detail-textiles";
 
 export class Service extends RestService {

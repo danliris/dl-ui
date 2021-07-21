@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'purchasing-memo-detail-textiles/disposition-loader';
+const resource = 'purchasing-memo-detail-textiles/loader';
 
 module.exports = function (keyword, filter) {
 

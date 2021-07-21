@@ -436,5 +436,18 @@ module.exports = [
       permission: { "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
+  },
+  {
+    route: "accounting/purchasing-memo-textile",
+    name: "purchasing-memo-textile",
+    moduleId: "./modules/accounting/purchasing-memo-textile/index",
+    nav: true,
+    title: "Memo Pembelian Textile",
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
   }
 ];
