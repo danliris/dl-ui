@@ -80,6 +80,7 @@ export class Item {
           return result;
         });
 
+      if (dispoLoader)
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
           detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
