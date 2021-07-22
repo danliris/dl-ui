@@ -309,7 +309,7 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             subGroup: "transaksi",
-            permission: { "C9": 1, "PG": 1 },
+            permission: { "C9": 1, "PG": 7 },
             iconClass: 'fa fa-dashboard'
         }
     },
