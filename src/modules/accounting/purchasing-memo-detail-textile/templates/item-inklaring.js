@@ -27,6 +27,11 @@ export class Item {
     }
 
     this.calculateTotalAmount();
+    if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
+      this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
+    }
+    console.log(this.data)
+
   }
 
   detailColumns = [
