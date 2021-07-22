@@ -32,10 +32,48 @@
             options.bind="auInputOptions">
         </au-dropdown>
 
+        <au-dropdown 
+            label="Kategori" 
+            value.bind="data.Category" 
+            error.bind="error.Category" 
+            read-only.bind="readOnly || isEdit"
+            items.bind="categoryOptions"
+            if.bind="URNType=='GUDANG SISA'"
+            options.bind="auInputOptions">
+        </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="expenditure"
+            label="No Pengeluaran Gudang Sisa" 
+            loader.bind="fabricLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.ExpenditureNo"
+            options.bind="auInputOptions"
+            placeholder="cari no pengeluaran gudang sisa"
+            query.bind="filterExpend"
+            options.bind="auInputOptions"
+            if.bind="URNType=='GUDANG SISA' && data.Category=='FABRIC'"
+            text="ExpenditureNo">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="expenditure"
+            label="No Pengeluaran Gudang Sisa" 
+            loader.bind="accLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.ExpenditureNo"
+            options.bind="auInputOptions"
+            placeholder="cari no pengeluaran gudang sisa"
+            query.bind="filterExpend"
+            options.bind="auInputOptions"
+            if.bind="URNType=='GUDANG SISA' && data.Category!='FABRIC'"
+            text="ExpenditureNo">
+        </au-autocomplete>
+
         <au-textbox 
             label="No Bon Pengeluaran Unit" 
             value.bind="data.UENNo" 
-            if.bind="isDiffStorage"
+            if.bind="isDiffStorage && URNType!='GUDANG SISA'"
             read-only.bind="true"
             options.bind="auInputOptions">
         </au-textbox>
@@ -163,7 +201,7 @@
             error.bind="error.Supplier"
             placeholder="cari supplier"
             options.bind="auInputOptions"
-            show.bind="!isProcess && !isDiffStorage">
+            show.bind="!isProcess && !isDiffStorage && URNType!='GUDANG SISA'">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -174,7 +212,7 @@
             error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
-            show.bind="data.Supplier && data.Unit && !isProcess && !isDiffStorage"
+            show.bind="data.Supplier && data.Unit && !isProcess && !isDiffStorage && URNType!='GUDANG SISA'"
             text="doNo"
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">

@@ -20,7 +20,8 @@ export class DataForm {
     @bindable deliveryReturn;
     @bindable URNType;
 
-    typeOptions = ['PEMBELIAN','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA'];
+    categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR={
         IsUsed :false
@@ -272,6 +273,27 @@ export class DataForm {
             this.data.Article="";
             this.data.RONo="";
             this.supplier=null;
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
+        }
+        else if(this.data.URNType=="GUDANG SISA"){
+            this.isProcess=false;
+            this.deliveryReturn=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.deliveryOrder=null;
+            this.data.ReturnType="";
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
             this.data.UnitFrom=null;
             this.data.StorageFrom=null;
         }
