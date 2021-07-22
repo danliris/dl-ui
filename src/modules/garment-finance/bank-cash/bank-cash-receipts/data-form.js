@@ -113,7 +113,7 @@ export class DataForm {
 			let args = {
 				size: 10,
 				keyword: keyword,
-				filter: { "Code3": "4" }
+				filter: JSON.stringify({ "Code3": "4" }),
 			}
 
 			return this.service.getChartOfAccounts(args).then(result => {
