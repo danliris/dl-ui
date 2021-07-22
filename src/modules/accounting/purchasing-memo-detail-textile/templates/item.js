@@ -74,10 +74,16 @@ export class Item {
   async dispositionChanged(newValue, oldValue) {
     if (newValue) {
       this.data.Disposition = newValue.Disposition;
-      let unitPaymentOrder = await this.purchasingService.getUnitPaymentOrder(this.data.Disposition.Id)
+      let dispoLoader = await this.purchasingService.getUnitPaymentOrder(this.data.Disposition.Id)
         .then((result) => {
           console.log(result);
           return result;
+        });
+
+        this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
+          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
+          detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
+          return detail;
         })
     } else {
       this.data.Details = [];
