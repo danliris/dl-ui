@@ -42,7 +42,6 @@ export class Item {
   }
 
   dispositionTextView = (disposition) => {
-    console.log(disposition)
     return disposition.Disposition.DocumentNo;
 
   }
@@ -82,7 +81,7 @@ export class Item {
 
       if (dispoLoader)
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
-          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
+          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrders;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
           return detail;
         })

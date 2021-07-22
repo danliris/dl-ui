@@ -24,12 +24,12 @@
                        error.bind="error.UnitPaymentOrder"
                        loader.bind="incomeTaxLoader"
                        placeholder="cari spb"
-                       text.bind="incomeTaxView"
-                       read-only.bind="readOnly">
+                       text="UnitPaymentOrderNo"
+                       read-only.bind="true">
       </au-autocomplete>
     </td>
     <td>
-      <au-multiline value.bind="data.UnitReceiptNotes"
+      <au-multiline value.bind="data.UnitReceiptNoteNo"
                     read-only.bind="true"
                     options.bind="controlOptions">
       </au-multiline>
