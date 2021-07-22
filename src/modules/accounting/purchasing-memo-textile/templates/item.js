@@ -1,9 +1,9 @@
 import { inject, BindingEngine } from 'aurelia-framework';
 
-var CategoryDivisionLoader = require('../../../../loader/category-division-loader');
+var COALoader = require('../../../../loader/coa-loader');
 
 @inject(BindingEngine)
-export class MappingCategory {
+export class Item {
     constructor(bindingEngine) {
         this.bindingEngine = bindingEngine;
     }
@@ -15,11 +15,7 @@ export class MappingCategory {
         this.readOnly = context.options.readOnly;
     }
 
-    get categoryDivisionLoader() {
-        return CategoryDivisionLoader;
-    }
-
-    textView = (data) => {
-        return `${data.name} - ${data.divisionName}`;
+    get coaLoader() {
+        return COALoader;
     }
 }

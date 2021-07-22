@@ -125,7 +125,7 @@
       </button>
     </td>
   </tr>
-  <tr if.bind="isShowing">
+  <tr if.bind="isShowing || isEdit">
     <!-- <td show.bind="!readOnly"></td> -->
     <td colspan="14">
       <au-collection columns.bind="itemColumns" items.bind="data.ListItems" read-only.bind="readOnly"
