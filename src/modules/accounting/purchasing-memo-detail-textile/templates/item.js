@@ -1,10 +1,12 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
 var DispositionLoader = require('../../../../loader/memo-disposition-loader');
+import { PurchasingService } from "../purchasing-service";
 
-// @inject(BindingSignaler)
+@inject(PurchasingService)
 export class Item {
 
-  constructor() {
+  constructor(purchasingService) {
+    this.purchasingService = purchasingService;
   }
 
   activate(context) {
@@ -69,9 +71,21 @@ export class Item {
   }
 
   @bindable disposition;
-  dispositionChanged(newValue, oldValue) {
+  async dispositionChanged(newValue, oldValue) {
     if (newValue) {
       this.data.Disposition = newValue.Disposition;
+      let dispoLoader = await this.purchasingService.getUnitPaymentOrder(this.data.Disposition.Id)
+        .then((result) => {
+          console.log(result);
+          return result;
+        });
+
+      if (dispoLoader)
+        this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
+          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
+          detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
+          return detail;
+        })
     } else {
       this.data.Details = [];
     }
