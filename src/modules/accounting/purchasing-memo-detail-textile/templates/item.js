@@ -14,6 +14,9 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    console.log(this.data);
+
+    this.itemOptions = { detailReadOnly: true }
 
     // this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
@@ -81,8 +84,9 @@ export class Item {
 
       if (dispoLoader)
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
-          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrders;
+          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
+          detail.PurchaseAmount = dispoLoader.PurchaseAmount;
           return detail;
         })
     } else {

@@ -1,5 +1,5 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var DispositionLoader = require('../../../../loader/memo-unit-payment-order-loader');
+var UnitPaymentOrderLoader = require('../../../../loader/memo-unit-payment-order-loader');
 
 // @inject(BindingSignaler)
 export class Item {
@@ -12,6 +12,7 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    this.detailReadOnly = this.options.detailReadOnly;
 
     // this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
@@ -40,13 +41,24 @@ export class Item {
 
   IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
 
-  get dispositionLoader() {
-    return DispositionLoader;
+  get unitPaymentOrderLoader() {
+    return UnitPaymentOrderLoader;
   }
 
-  incomeTaxView = (incomeTax) => {
+  @bindable unitPaymentOrder;
+  unitPaymentOrderChanged(newVal, oldVal) {
+    if (newVal) {
+      this.data = newVal;
+      if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
+        this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
+      }
+    }
+  }
 
-    return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
+  unitPaymentOrderView = (unitPaymentOrder) => {
+
+    console.log(unitPaymentOrder);
+    return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo}`;
 
   }
 

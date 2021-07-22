@@ -91,6 +91,8 @@ export class DataForm {
             this.division = this.data.Division;
         }
 
+        this.supplierIsImport = this.data.SupplierIsImport;
+
     }
 
 
@@ -98,9 +100,12 @@ export class DataForm {
 
     @bindable division;
     divisionChanged(n, o) {
-        if (this.division) {
-            this.data.Division = this.division;
+        if (n) {
+            this.data.Division = n;
             this.itemOptions.DivisionId = this.data.Division.Id;
+            this.data.Items = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         } else {
             this.data.Division = null;
         }
@@ -108,13 +113,25 @@ export class DataForm {
 
     @bindable currency;
     currencyChanged(n, o) {
-        if (this.currency) {
-            this.data.Currency = this.currency;
+        if (n) {
+            this.data.Currency = n;
             this.itemOptions.CurrencyId = this.data.Currency.Id;
-
+            this.data.Items = [];
+            console.log("here")
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         } else {
             this.data.Currency = null;
         }
+    }
+
+    @bindable supplierIsImport;
+    supplierIsImportChanged(n, o) {
+        this.data.SupplierIsImport = n;
+        this.itemOptions.supplierIsImport = n;
+
+        if (this.context.ItemCollection)
+            this.context.ItemCollection.bind();
     }
 
     otherUnitSelected(event, data) {
@@ -134,7 +151,9 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.Items.push({ division: this.division, currency: this.currency, supplierIsImport: this.supplierIsImport })
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         };
     }
 
