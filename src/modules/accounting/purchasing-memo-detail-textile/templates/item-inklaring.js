@@ -1,5 +1,5 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var DispositionLoader = require('../../../../loader/memo-unit-payment-order-loader');
+var UnitPaymentOrderLoader = require('../../../../loader/memo-unit-payment-order-loader');
 
 // @inject(BindingSignaler)
 export class Item {
@@ -12,6 +12,7 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    this.detailReadOnly = this.options.detailReadOnly;
 
     // this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
@@ -40,8 +41,15 @@ export class Item {
 
   IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
 
-  get dispositionLoader() {
-    return DispositionLoader;
+  get unitPaymentOrderLoader() {
+    return UnitPaymentOrderLoader;
+  }
+
+  @bindable unitPaymentOrder;
+  unitPaymentOrderChanged(newVal, oldVal) {
+    if (newVal) {
+      this.data = newVal;
+    }
   }
 
   incomeTaxView = (incomeTax) => {
