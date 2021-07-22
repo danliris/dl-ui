@@ -23,9 +23,9 @@ export class View {
       this.list();
     }
 
-    // editCallback(event) {
-    //     this.router.navigateToRoute('edit', { id: this.data.Id });
-    // }
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
 
     // deleteCallback(event) {
     //     this.service.delete(this.data)
