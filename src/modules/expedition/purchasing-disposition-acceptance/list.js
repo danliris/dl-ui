@@ -17,14 +17,14 @@ export class List {
         {
             field: "dispositionDate",
             title: "Tgl Disposisi",
-            formatter: function(value, data, index) {
+            formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
         {
             field: "paymentDueDate",
             title: "Tgl Jatuh Tempo",
-            formatter: function(value, data, index) {
+            formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
@@ -35,7 +35,7 @@ export class List {
         {
             field: "payToSupplier",
             title: "Total Bayar ke Supplier",
-            formatter: function(value, data, index) {
+            formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
             align: 'right'
@@ -59,11 +59,16 @@ export class List {
         this.accessCount = 0;
 
         for (let i = this.roles.length - 1; i >= 0; i--) {
-            if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-                this.roles[i].hasPermission = true;
-                this.accessCount++;
-                this.activeRole = this.roles[i];
+
+            for (let code of this.roles[i].code) {
+                if (this.permissions.hasOwnProperty(code)) {
+                    this.roles[i].hasPermission = true;
+                    this.accessCount++;
+                    this.activeRole = this.roles[i];
+                    this.changeRole(this.activeRole);
+                }
             }
+
         }
     }
 

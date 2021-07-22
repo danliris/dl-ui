@@ -8,6 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B11": 1, "C9": 1, "PG": 1, "APG": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -21,6 +22,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B12": 1, "B11": 1, "PG": 1, "APG": 1, "B9": 1, "B4": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -34,6 +36,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B9": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -47,6 +50,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B12": 1, "B11": 1, "PG": 1, "APG": 1, "B9": 1, "B4": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -60,6 +64,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     },
@@ -74,6 +79,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     },
@@ -87,6 +93,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -100,6 +107,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     }
