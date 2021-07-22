@@ -84,7 +84,7 @@ export class Item {
 
       if (dispoLoader)
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
-          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrders;
+          detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
           detail.PurchaseAmount = dispoLoader.PurchaseAmount;
           return detail;

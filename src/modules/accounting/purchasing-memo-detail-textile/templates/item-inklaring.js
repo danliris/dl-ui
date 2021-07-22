@@ -49,12 +49,16 @@ export class Item {
   unitPaymentOrderChanged(newVal, oldVal) {
     if (newVal) {
       this.data = newVal;
+      if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
+        this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
+      }
     }
   }
 
-  incomeTaxView = (incomeTax) => {
+  unitPaymentOrderView = (unitPaymentOrder) => {
 
-    return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
+    console.log(unitPaymentOrder);
+    return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo}`;
 
   }
 
