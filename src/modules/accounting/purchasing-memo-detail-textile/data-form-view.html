@@ -11,7 +11,7 @@
       <au-datepicker label="Tanggal Memo"
                      value.bind="data.Date"
                      error.bind="error.Date"
-                     read-only.bind="readOnly"
+                     read-only.bind="true"
                      options.bind="controlOptions">
       </au-datepicker>
   
@@ -20,7 +20,7 @@
                        label="Divisi"
                        loader.one-time="divisionLoader"
                        text="Name"
-                       read-only.bind="readOnly"
+                       read-only.bind="true"
                        options.bind="controlOptions">
       </au-autocomplete>
   
@@ -29,7 +29,7 @@
                        error.bind="error.Currency"
                        loader.one-time="currencyLoader"
                        text="Code"
-                       read-only.bind="readOnly || isVB"
+                       read-only.bind="true || isVB"
                        options.bind="controlOptions">
       </au-autocomplete>
   
@@ -42,13 +42,13 @@
   
       <au-checkbox label="Import"
                    value.bind="supplierIsImport"
-                   read-only.bind="readOnly"
+                   read-only.bind="true"
                    options.bind="controlOptions">
       </au-checkbox>
   
       <au-multiline label="Keterangan"
                     value.bind="data.Remark"
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
       </au-multiline>
   
