@@ -92,7 +92,7 @@ export class DataForm {
         }
 
         this.supplierIsImport = this.data.SupplierIsImport;
-
+        // console.log(this.data);
     }
 
 
@@ -104,8 +104,9 @@ export class DataForm {
             this.data.Division = n;
             this.itemOptions.DivisionId = this.data.Division.Id;
             this.data.Items = [];
-            if (this.context.ItemCollection)
-                this.context.ItemCollection.bind();
+            if (o)
+                if (this.context.ItemCollection)
+                    this.context.ItemCollection.bind();
         } else {
             this.data.Division = null;
         }
@@ -117,9 +118,9 @@ export class DataForm {
             this.data.Currency = n;
             this.itemOptions.CurrencyId = this.data.Currency.Id;
             this.data.Items = [];
-            console.log("here")
-            if (this.context.ItemCollection)
-                this.context.ItemCollection.bind();
+            if (o)
+                if (this.context.ItemCollection)
+                    this.context.ItemCollection.bind();
         } else {
             this.data.Currency = null;
         }

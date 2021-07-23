@@ -40,6 +40,7 @@ export class Create {
 
   save(event) {
     this.data.IsInklaring = true;
+    this.data.Type = 2;
     this.service
       .create(this.data)
       .then((result) => {
