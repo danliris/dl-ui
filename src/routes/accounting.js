@@ -355,43 +355,43 @@ module.exports = [
     }
   },
   {
-    route:'master-pembukuan',
-    name:'master-pembukuan',
+    route: 'master-pembukuan',
+    name: 'master-pembukuan',
     moduleId: './modules/garment-finance/master-pembukuan/index',
     nav: true,
     title: 'Master Pembukuan',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
-      permission: {"C9": 1, "B1": 1, "B12": 1},
+      subGroup: "accounting garment",
+      permission: { "C9": 1, "B1": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
   {
-    route:'accounting/memo-garment-puchasing',
-    name:'memo-garment-puchasing',
+    route: 'accounting/memo-garment-puchasing',
+    name: 'memo-garment-puchasing',
     moduleId: './modules/accounting/memo-garment-purchasing/index',
     nav: true,
     title: 'Memorial Pembelian Job Garment',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
+      subGroup: "accounting garment",
       permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
   {
-    route:'accounting/reports/memo-garment-purchasing-report',
-    name:'memo-garment-puchasing-report',
+    route: 'accounting/reports/memo-garment-purchasing-report',
+    name: 'memo-garment-puchasing-report',
     moduleId: './modules/accounting/reports/memo-garment-purchasing-report/index',
     nav: true,
-    title: 'Laporan Memo Pembelian Job Garment',  
+    title: 'Laporan Memo Pembelian Job Garment',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
+      subGroup: "accounting garment",
       permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -406,7 +406,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1 , "B12": 1, "B1": 1},
+      permission: { "C9": 1, "B12": 1, "B1": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
@@ -420,7 +420,33 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1, "B12": 1, "B1": 1},
+      permission: { "C9": 1, "B12": 1, "B1": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/purchasing-memo-detail-textile",
+    name: "purchasing-memo-detail-textile",
+    moduleId: "./modules/accounting/purchasing-memo-detail-textile/index",
+    nav: true,
+    title: "Rincian Memo Pembelian Textile",
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/purchasing-memo-textile",
+    name: "purchasing-memo-textile",
+    moduleId: "./modules/accounting/purchasing-memo-textile/index",
+    nav: true,
+    title: "Memo Pembelian Textile",
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
   }

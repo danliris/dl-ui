@@ -1,0 +1,88 @@
+<template>
+	<div class="row">
+		<div class="col-md-12">
+			<au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+				<div class="col-md-8">
+
+					<au-textbox label="Nomor Kwitansi" value.bind="data.ReceiptNo"
+						error.bind="error.ReceiptNo" read-only.bind="true"
+						show.bind="readOnly || isEdit">
+					</au-textbox>
+
+					<au-datepicker label="Tgl Penerimaan" value.bind="data.ReceiptDate"
+						read-only.bind="readOnly" options.bind="controlOptions"
+						error.bind="error.ReceiptDate">
+					</au-datepicker>
+
+					<au-autocomplete value.bind="bankAccount" loader.one-time="bankLoader"
+						error.bind="error.Bank" text.bind="bankView" label="Bank"
+						read-only.bind="readOnly" options.bind="controlOptions"
+						placeholder="Pilih Bank">
+					</au-autocomplete>
+
+					<au-autocomplete value.bind="chartOfAccount"
+						loader.one-time="chartOfAccountLoader" error.bind="error.DebitCoa"
+						text.bind="chartOfAccountView" label="Debet" read-only.bind="readOnly"
+						options.bind="controlOptions" placeholder="Pilih Debet">
+					</au-autocomplete>
+
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<au-autocomplete value.bind="currencies"
+								loader.one-time="currenciesLoader"
+								error.bind="error.Currency" text.bind="currenciesView"
+								label="Kurs" read-only.bind="readOnly || isEdit"
+								options.bind="controlOptions" placeholder="Pilih Kurs">
+							</au-autocomplete>
+
+						</div>
+						<div class="col-md-6">
+							<au-numeric label="Rate" value.bind="rate"
+								error.bind="error.CurrencyRate" read-only.bind="true">
+							</au-numeric>
+						</div>
+
+					</div>
+
+					<au-dropdown label="Kode Penomoran" value.bind="numberingCode"
+						error.bind="error.NumberingCode" read-only.bind="readOnly || isEdit"
+						items.bind="(data.Currency.Code || data.Currency.code ) == 'IDR' ? numberingCodeOptionsIDR : numberingCodeOptionsNotIDR">
+					</au-dropdown>
+
+					<!--<au-dropdown label="Kode Penomoran" value.bind="numberingCode"
+						error.bind="error.NumberingCode" read-only.bind="readOnly"
+						if.bind="currecies.Code != 'IDR'"
+						items.bind="numberingCodeOptionsNotIDR">
+					</au-dropdown>-->
+
+					<au-dropdown label="Jenis Pemasukan" value.bind="data.IncomeType"
+						error.bind="error.IncomeType" read-only.bind="readOnly"
+						items.bind="incomeTypeOptions">
+					</au-dropdown>
+
+					<au-multiline label="Keterangan" value.bind="data.Remarks"
+						error.bind="error.Remarks" read-only.bind="readOnly"
+						placeholder="Tambah keterangan">
+					</au-multiline>
+				</div>
+
+				<div>
+					<div class="form-group has-error">
+						<p if.bind="error.ItemsCount" class="help-block text-center">
+							${error.ItemsCount}
+						</p>
+					</div>
+
+					<au-collection items.bind="data.Items" errors.bind="error.Items"
+						columns.bind="itemsColumns" read-only.bind="readOnly"
+						add.bind="addItems" remove.bind="removeItems" options.bind="Options"
+						item-template="modules/garment-finance/bank-cash/bank-cash-receipts/templates/item">
+					</au-collection>
+				</div>
+
+
+
+			</au-input-form>
+		</div>
+	</div>
+</template>

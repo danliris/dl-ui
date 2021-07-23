@@ -30,7 +30,6 @@ export async function configure(aurelia) {
                 }
             }
 
-
             var core = "https://com-dl-service-core.azurewebsites.net/v1/";
             var auth = "https://com-danliris-service-auth.azurewebsites.net/v1/";
             var production = "https://dl-production-webapi.azurewebsites.net/v1/";
@@ -53,8 +52,6 @@ export async function configure(aurelia) {
             var garmentProduction = "https://com-danliris-service-garment.azurewebsites.net/";
             var packingInventory = "https://com-danliris-service-packing-inventory.azurewebsites.net/v1/";
             var dyeing = "https://dyeing-printing-etl-service.azurewebsites.net/api/";
-
-
 
 
             config.registerEndpoint('auth', auth);

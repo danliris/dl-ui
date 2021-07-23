@@ -106,7 +106,7 @@ export class Create {
                     this.roles[i].hasPermission = true;
                     this.accessCount++;
                     this.activeRole = this.roles[i];
-                    this.changeTable(this.activeRole);
+                    this.changeRole(this.activeRole);
                 }
             }
 
