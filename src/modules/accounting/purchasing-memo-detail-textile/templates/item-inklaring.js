@@ -39,8 +39,8 @@ export class Item {
       this.data.Supplier = Object.assign({}, newVal.Supplier);
       this.data.PurchaseAmount = newVal.PurchaseAmount;
       this.data.UnitReceiptNotes = newVal.UnitReceiptNotes;
-      this.data.UnitPaymentOrder = Object.assign(newVal.UnitPaymentOrder)
-      this.data = Object.assign({}, newVal);
+      this.data.UnitPaymentOrder = Object.assign({}, newVal.UnitPaymentOrder)
+      // this.data = Object.assign({}, newVal);
       if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
         this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
       }

@@ -21,16 +21,16 @@ export class List {
             return ""
         }
     },
-    { field: 'MemoNo', title: 'No Memo' },
+    { field: 'MemoDetailDocumentNo', title: 'No Memo' },
     {
-        field: 'MemoDate',
+        field: 'MemoDetailDate',
         title: 'Tanggal',
         formatter: function (value, data, index) {
             return moment(value).format('DD MMM YYYY');
         },
     },
-    { field: 'AccountingBook.Type', title: 'Jenis Buku' },
-    { field: 'Currency.Code', title: 'Mata Uang' },
+    { field: 'AccountingBookType', title: 'Jenis Buku' },
+    { field: 'CurrencyCode', title: 'Mata Uang' },
     {
         field: 'TotalAmount',
         title: 'Nominal',
