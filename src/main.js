@@ -52,6 +52,7 @@ export async function configure(aurelia) {
             var finance = "https://com-danliris-service-finance-accounting-uat.azurewebsites.net/v1/";
             var garmentProduction = "https://com-danliris-service-garment-uat.azurewebsites.net/";
             var packingInventory = "https://com-danliris-service-packing-inventory-uat.azurewebsites.net/v1/";
+            var dyeing = "https://dyeing-printing-etl-service-dev.azurewebsites.net/api/";
 
 
 

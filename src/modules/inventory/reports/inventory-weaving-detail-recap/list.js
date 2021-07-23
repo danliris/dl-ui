@@ -29,8 +29,8 @@ export class List {
             { field: "Construction", title: "Konstruksi", sortable: false},
             { field: "", title: "Kg", sortable: false},
             { field: "", title: "Ball", sortable: false},
-            { field: "QtyPiece", title: "Piece", sortable: false},
-            { field: "Qty", title: "Meter", sortable: false},
+            { field: "QtyPiece", title: "Jml. Piece", sortable: false},
+            { field: "Qty", title: "Jml. Meter", sortable: false},
             { field: "", title: "Ket", sortable: false}
     ];
 
