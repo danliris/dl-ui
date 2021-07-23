@@ -34,7 +34,7 @@
 
         <au-dropdown 
             label="Kategori" 
-            value.bind="data.Category" 
+            value.bind="category" 
             error.bind="error.Category" 
             read-only.bind="readOnly || isEdit"
             items.bind="categoryOptions"
@@ -185,10 +185,10 @@
             label="Unit" 
             loader.bind="unitLoader" 
             text.bind="unitView"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly || isEdit || URNType=='GUDANG SISA'"
             error.bind="error.Unit"
             placeholder="cari unit"
-            show.bind= "!isProcess"
+            show.bind= "!isProcess || URNType=='GUDANG SISA'"
             options.bind="auInputOptions">
         </au-autocomplete>
        
@@ -236,7 +236,7 @@
             query.bind="filterUnit"
             placeholder="cari nama storage" 
             text.bind="storageView"
-            show.bind="data.DOId || data.DRId"
+            show.bind="data.DOId || data.DRId || data.ExpenditureId"
             if.bind="!isProcess"
             options.bind="auInputOptions">
         </au-autocomplete>
@@ -280,7 +280,7 @@
             read-only.bind="readOnly || isEdit"
             show.bind="!isProcess"
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-order-item"
-            if.bind="deliveryOrder">
+            if.bind="deliveryOrder && data.URNType!='GUDANG SISA'">
         </au-collection>
 
         <au-collection 
@@ -292,6 +292,15 @@
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item"
             if.bind="deliveryReturn"
             show.bind="isProcess">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            columns.bind="expenditureItem.columns"
+            errors.bind="error.Items"
+            read-only.bind="readOnly || isEdit"
+            item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/expenditure-item"
+            if.bind="expenditure && data.URNType=='GUDANG SISA'">
         </au-collection>
     </au-input-form>
 </template>
