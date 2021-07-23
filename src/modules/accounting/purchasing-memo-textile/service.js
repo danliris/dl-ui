@@ -47,8 +47,8 @@ export class Service extends RestService {
     }
 
     posting(data) {
-        let endpoint = `${serviceUri}/posting-transaction/${data.Id}`;
-        return super.put(endpoint);
+        let endpoint = `${serviceUri}/posting`;
+        return super.put(endpoint, data);
     }
 
     postingUpdateCOA(data) {

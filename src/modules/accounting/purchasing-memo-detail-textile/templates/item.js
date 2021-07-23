@@ -14,6 +14,9 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    console.log(this.data);
+
+    this.itemOptions = { detailReadOnly: true }
 
     // this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
@@ -27,6 +30,9 @@ export class Item {
       this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
       this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
     }
+
+    if (this.data.Disposition)
+      this.disposition = this.data.Disposition
 
     this.calculateTotalAmount();
   }
@@ -42,8 +48,8 @@ export class Item {
   }
 
   dispositionTextView = (disposition) => {
-    console.log(disposition)
-    return disposition.Disposition.DocumentNo;
+    
+    return disposition.DocumentNo ? disposition.DocumentNo : disposition.Disposition.DocumentNo;
 
   }
 
@@ -84,6 +90,7 @@ export class Item {
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
           detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
+          detail.PurchaseAmount = dispoLoader.PurchaseAmount;
           return detail;
         })
     } else {
