@@ -9,7 +9,7 @@ const VbLoader = require('../../../loader/vb-request-document-loader');
 
 @containerless()
 @inject(Service, BindingEngine, CoreService)
-export class DataForm {
+export class DataFormInklaringView {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
@@ -162,7 +162,6 @@ export class DataForm {
         if (n) {
             this.data.Division = n;
             this.itemOptions.DivisionId = this.data.Division.Id;
-            this.data.Details = [];
             if (this.context.ItemCollection)
                 this.context.ItemCollection.bind();
         } else {
@@ -175,7 +174,6 @@ export class DataForm {
         if (n) {
             this.data.Currency = n;
             this.itemOptions.CurrencyId = this.data.Currency.Id;
-            this.data.Details = [];
             console.log("here")
             if (this.context.ItemCollection)
                 this.context.ItemCollection.bind();

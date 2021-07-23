@@ -14,32 +14,19 @@ export class Item {
     this.readOnly = context.options.readOnly;
     this.detailReadOnly = this.options.detailReadOnly;
 
-    // this.selectedIncomeTax = this.data.IncomeTax || null;
-    this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
-    this.selectedAmount = this.data.Amount || 0;
-    this.selectedPPh = this.data.IsGetPPh;
-    this.selectedVat = this.data.IsGetPPn;
-
-    if (this.data.IncomeTax) {
-      this.selectedIncomeTax = this.data.IncomeTax;
-      this.selectedIncomeTax.name = this.data.IncomeTax.Name;
-      this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
-      this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
-    }
-
-    this.calculateTotalAmount();
     if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
       this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
     }
-    console.log(this.data)
+    console.log(this.data, "detail")
+
+    if (this.data.UnitPaymentOrder)
+      this.unitPaymentOrder = Object.assign({}, this.data.UnitPaymentOrder);
 
   }
 
   detailColumns = [
     "No. Kas Bon", "Supplier", "Keterangan", "No. SPB", "No. BTU", "Valas", "Jumlah Beli (Rp)", "Valas", "Jumlah Bayar (Rp)"
   ];
-
-  IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
 
   get unitPaymentOrderLoader() {
     return UnitPaymentOrderLoader;
@@ -48,7 +35,12 @@ export class Item {
   @bindable unitPaymentOrder;
   unitPaymentOrderChanged(newVal, oldVal) {
     if (newVal) {
-      this.data = newVal;
+      this.data.Expenditure = Object.assign({}, newVal.Expenditure);
+      this.data.Supplier = Object.assign({}, newVal.Supplier);
+      this.data.PurchaseAmount = newVal.PurchaseAmount;
+      this.data.UnitReceiptNotes = newVal.UnitReceiptNotes;
+      this.data.UnitPaymentOrder = Object.assign(newVal.UnitPaymentOrder)
+      this.data = Object.assign({}, newVal);
       if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
         this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
       }
@@ -57,7 +49,6 @@ export class Item {
 
   unitPaymentOrderView = (unitPaymentOrder) => {
 
-    console.log(unitPaymentOrder);
     return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo}`;
 
   }

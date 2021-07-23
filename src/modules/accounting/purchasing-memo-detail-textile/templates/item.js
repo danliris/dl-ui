@@ -31,6 +31,9 @@ export class Item {
       this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
     }
 
+    if (this.data.Disposition)
+      this.disposition = this.data.Disposition
+
     this.calculateTotalAmount();
   }
 
@@ -45,7 +48,8 @@ export class Item {
   }
 
   dispositionTextView = (disposition) => {
-    return disposition.Disposition.DocumentNo;
+    
+    return disposition.DocumentNo ? disposition.DocumentNo : disposition.Disposition.DocumentNo;
 
   }
 
