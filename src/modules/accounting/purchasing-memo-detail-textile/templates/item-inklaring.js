@@ -38,6 +38,7 @@ export class Item {
       this.data.Expenditure = Object.assign({}, newVal.Expenditure);
       this.data.Supplier = Object.assign({}, newVal.Supplier);
       this.data.PurchaseAmount = newVal.PurchaseAmount;
+      this.data.PurchaseAmountCurrency = newVal.PurchaseAmountCurrency;
       this.data.UnitReceiptNotes = newVal.UnitReceiptNotes;
       this.data.UnitPaymentOrder = Object.assign({}, newVal.UnitPaymentOrder)
       // this.data = Object.assign({}, newVal);
