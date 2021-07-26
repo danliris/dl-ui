@@ -12,7 +12,7 @@ export class List {
     else return {};
   }
 
-  context = ["Detail"];
+  context = ["Detail", "Cetak PDF"];
 
   type = 1;
 
@@ -99,6 +99,9 @@ export class List {
           id: data.Id,
           search: this.ressearch,
         });
+        break;
+      case "Cetak PDF":
+        this.service.getPDFById(data.Id);
         break;
     }
   }
