@@ -6,6 +6,7 @@ const serviceUri = "bank-cash-receipts";
 const coaUri = "master/chart-of-accounts";
 const coreBankUri = 'master/account-banks';
 const coreBudgetUri = 'master/budget-currencies';
+const ibCurrenciesUri = 'master/bi-currencies';
 
 class Service extends RestService {
 
@@ -64,6 +65,10 @@ class CoreService extends RestService {
 		return super.list(endpoint, info);
 	}
 
+	getIBCurrencies(info) {
+		let endpoint = `${ibCurrenciesUri}`;
+		return super.list(endpoint, info);
+	}
 }
 
 
