@@ -40,8 +40,8 @@ export class Item {
 		if (this.itemOptions.header.Currency) {
 			this.Currency = {
 				Id: this.itemOptions.header.Currency.Id,
-				Code: this.itemOptions.header.Currency.Code || this.itemOptions.header.Currency.code,
-				Rate: this.itemOptions.header.Currency.Rate || this.itemOptions.header.Currency.rate,
+				Code: this.itemOptions.header.Currency.Code,
+				Rate: this.itemOptions.header.Currency.Rate,
 			};
 
 		}
