@@ -18,6 +18,11 @@ export class Item {
       this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
     }
     console.log(this.data, "detail")
+    this.upoLoaderQuery = {
+      currencyCode: this.data.currency ? this.data.currency.Code : "",
+      divisionId: this.data.division ? this.data.division.Id : 0,
+      supplierIsImport: this.data.supplierIsImport
+    }
 
     if (this.data.UnitPaymentOrder)
       this.unitPaymentOrder = Object.assign({}, this.data.UnitPaymentOrder);
