@@ -14,7 +14,7 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
-    console.log(this.data);
+    console.log(this.data, "item");
 
     this.itemOptions = { detailReadOnly: true }
 
@@ -34,6 +34,12 @@ export class Item {
     if (this.data.Disposition)
       this.disposition = this.data.Disposition
 
+    this.dispositionLoaderQuery = {
+      currencyCode: this.data.currency ? this.data.currency.Code : "",
+      divisionId: this.data.division ? this.data.division.Id : 0,
+      supplierIsImport: this.data.supplierIsImport
+    }
+
     this.calculateTotalAmount();
   }
 
@@ -48,7 +54,7 @@ export class Item {
   }
 
   dispositionTextView = (disposition) => {
-    
+
     return disposition.DocumentNo ? disposition.DocumentNo : disposition.Disposition.DocumentNo;
 
   }
