@@ -134,7 +134,6 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            console.log(this.data, "add")
             this.data.Details.push({ division: this.division, currency: this.currency, supplierIsImport: this.supplierIsImport })
             if (this.context.ItemCollection)
                 this.context.ItemCollection.bind();
@@ -161,7 +160,7 @@ export class DataForm {
     divisionChanged(n, o) {
         if (n) {
             this.data.Division = n;
-            this.itemOptions.DivisionId = this.data.Division.Id;
+            this.itemOptions.divisionId = this.data.Division.Id;
             this.data.Details = [];
             if (this.context.ItemCollection)
                 this.context.ItemCollection.bind();
@@ -174,7 +173,7 @@ export class DataForm {
     currencyChanged(n, o) {
         if (n) {
             this.data.Currency = n;
-            this.itemOptions.CurrencyId = this.data.Currency.Id;
+            this.itemOptions.currencyCode = this.data.Currency.Code;
             this.data.Details = [];
             console.log("here")
             if (this.context.ItemCollection)
@@ -186,11 +185,12 @@ export class DataForm {
 
     @bindable supplierIsImport;
     supplierIsImportChanged(n, o) {
-        this.data.SupplierIsImport = n;
-        this.itemOptions.supplierIsImport = n;
-
-        if (this.context.ItemCollection)
-            this.context.ItemCollection.bind();
+        console.log(n);
+        console.log(o);
+        this.itemOptions.supplierIsImport = this.data.Currency.Id;
+        this.data.Details = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
     }
 
 }
