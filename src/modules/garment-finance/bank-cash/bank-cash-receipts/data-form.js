@@ -2,6 +2,7 @@ import { Router } from 'aurelia-router';
 import { CoreService, Service } from './service';
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Dialog } from '../../../../au-components/dialog/dialog';
+import moment from 'moment';
 
 @inject(Router, Service, CoreService, Dialog)
 export class DataForm {
@@ -10,6 +11,7 @@ export class DataForm {
 	@bindable data = {};
 	@bindable error = {};
 	@bindable numberingCode;
+	@bindable receiptDate;
 
 	formOptions = {
 		cancelText: "Kembali",
@@ -68,10 +70,10 @@ export class DataForm {
 
 		if (this.data) {
 			this.bankAccount = this.data.Bank || null;
-			this.chartOfAccount = this.data.DebitCoa || null;
-			this.currencies = this.data.Currency || null;
+			//this.chartOfAccount = this.data.DebitCoa || null;
+			//this.currencies = this.data.Currency || null;
 			this.numberingCode = this.data.NumberingCode || null;
-
+			this.receiptDate = this.data.ReceiptDate || null;
 		}
 	}
 
@@ -81,7 +83,49 @@ export class DataForm {
 
 	@bindable bankAccount;
 	bankAccountChanged(newValue, oldValue) {
-		this.data.Bank = newValue;
+		if (newValue && this.data.ReceiptDate) {
+			this.data.Bank = newValue;
+			let args = {
+				size: 10,
+				filter: JSON.stringify({ "Code": newValue.AccountCOA }),
+			}
+
+			this.service.getChartOfAccounts(args).then(result => {
+				if (result.data.length > 0) {
+					this.chartOfAccount = result.data[0];
+				} else {
+					this.dialog.prompt('COA Tidak ditemukan', 'Info');
+				}
+			});
+			var check = moment(this.data.ReceiptDate, 'YYYY/MM/DD');
+
+			var month = check.format('M');
+			let currencyId = 0;
+			if (newValue.Currency) {
+				currencyId = newValue.Currency.Id;
+			} else {
+				currencyId = this.data.Currency.Id;
+			}
+			let args2 = {
+				size: 10,
+				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month })
+			}
+
+			this.coreService.getIBCurrencies(args2).then(result => {
+				if (result.data.length > 0) {
+					this.currencies = result.data[0];
+				} else {
+					this.dialog.prompt('Kurs & Rate Tidak ditemukan', 'Info');
+				}
+			})
+
+		} else {
+			this.bankAccount = null;
+			if (this.data.ReceiptDate == null) {
+				this.dialog.prompt('Silahkan isi Tanggal Penerimaan', 'Info');
+			}
+		}
+
 	}
 
 	get bankLoader() {
@@ -124,14 +168,18 @@ export class DataForm {
 	}
 
 	currenciesView = (currency) => {
-		return currency.Code || currency.code;
+		return currency.Currency.Code;
 	}
 
 	@bindable currencies;
 	currenciesChanged(newValue, oldValue) {
 		if (newValue != this.data.Currency) {
-			this.data.Currency = newValue;
-			this.data.Items.splice(0);
+			this.data.Currency = {
+				Id: newValue.Currency.Id,
+				Code: newValue.Currency.Code,
+				Rate: newValue.Rate,
+			};
+
 		}
 	}
 
@@ -174,6 +222,17 @@ export class DataForm {
 
 	numberingCodeChanged(newValue, oldValue) {
 		this.data.NumberingCode = newValue;
+	}
+
+	receiptDateChanged(newValue, oldValue) {
+		if (newValue != this.data.ReceiptDate) {
+			this.data.ReceiptDate = newValue;
+			this.data.Bank = null;
+			this.data.Currency = null;
+			this.bankAccount = null;
+			this.currencies = null;
+
+		}
 	}
 
 
