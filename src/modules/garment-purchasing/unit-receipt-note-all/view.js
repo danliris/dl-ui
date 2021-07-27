@@ -66,7 +66,13 @@ export class View {
             }
             this.hasDelete = false;
         }
-        
+        else if(this.data.URNType=="GUDANG SISA"){
+            this.expenditure={
+                ExpenditureNo:this.data.ExpenditureNo
+            };
+
+            this.category=this.data.Category;
+        }
         this.hasDelete = false;
         this.hasEdit = false;
     }
