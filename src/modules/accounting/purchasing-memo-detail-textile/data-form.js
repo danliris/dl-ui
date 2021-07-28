@@ -113,14 +113,17 @@ export class DataForm {
     }
 
     @bindable currency;
-    currencyChanged(n, o) {
+    async currencyChanged(n, o) {
         if (n) {
+            let currency = await this.coreService.getCurrencyByCode(n.Code);
+
             this.data.Currency = n;
-            this.itemOptions.CurrencyId = this.data.Currency.Id;
-            this.data.Items = [];
-            if (o)
-                if (this.context.ItemCollection)
-                    this.context.ItemCollection.bind();
+            this.data.Currency.Rate = currency.Rate;
+            this.currency.Rate = currency.Rate;
+            this.itemOptions.currencyCode = this.data.Currency.Code;
+            this.data.Details = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         } else {
             this.data.Currency = null;
         }
