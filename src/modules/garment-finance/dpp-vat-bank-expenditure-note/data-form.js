@@ -65,6 +65,8 @@ export class DataForm {
         this.bankAccount = this.data.Bank || null;
         this.currency = this.data.Currency || null;
         this.supplier = this.data.Supplier || null;
+
+        this.sameCurrency = true;
     }
 
     onCheckAll(event) {
@@ -94,7 +96,10 @@ export class DataForm {
 
     @bindable bankAccount;
     bankAccountChanged(newValue, oldValue) {
-        this.data.Bank = newValue;
+      this.data.Bank = newValue;
+      if (newValue) {
+        this.bankCurrency = newValue.Currency.Code;
+      }
     }
 
     @bindable currency;
@@ -134,6 +139,12 @@ export class DataForm {
                     });
                     this.data.Items = this.data.Items.concat(items);
                 }
+            }
+            if (this.bankCurrency == "IDR" && this.data.Currency.Code != "IDR") {
+              this.sameCurrency = false;
+            }
+            else {
+              this.sameCurrency = true;
             }
         } else {
             this.data.Items = [];
