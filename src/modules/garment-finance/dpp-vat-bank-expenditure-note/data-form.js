@@ -67,6 +67,8 @@ export class DataForm {
         this.supplier = this.data.Supplier || null;
 
         this.sameCurrency = true;
+        this.bankCurrency = null;
+        this.currencyCodeValue = null;
     }
 
     onCheckAll(event) {
@@ -99,6 +101,12 @@ export class DataForm {
       this.data.Bank = newValue;
       if (newValue) {
         this.bankCurrency = newValue.Currency.Code;
+        if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null && !this.readOnly) {
+            this.sameCurrency = false;
+        }
+        else {
+            this.sameCurrency = true;
+        }
       }
     }
 
@@ -107,6 +115,7 @@ export class DataForm {
         this.data.Currency = newValue;
 
         if (newValue) {
+            this.currencyCodeValue = this.data.Currency.Code;
             if (this.supplier && !this.readOnly) {
                 let newItems = await this.purchasingService.dppVATBankExpenditureNotes({ supplierId: newValue.Id, currencyCode: this.currency.Code })
                     .then((items) => {
@@ -140,11 +149,11 @@ export class DataForm {
                     this.data.Items = this.data.Items.concat(items);
                 }
             }
-            if (this.bankCurrency == "IDR" && this.data.Currency.Code != "IDR") {
-              this.sameCurrency = false;
+            if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null && !this.readOnly) {
+                this.sameCurrency = false;
             }
             else {
-              this.sameCurrency = true;
+                this.sameCurrency = true;
             }
         } else {
             this.data.Items = [];
