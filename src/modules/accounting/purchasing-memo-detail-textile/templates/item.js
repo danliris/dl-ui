@@ -88,7 +88,6 @@ export class Item {
       this.data.Disposition = newValue.Disposition;
       let dispoLoader = await this.purchasingService.getUnitPaymentOrder(this.data.Disposition.Id)
         .then((result) => {
-          console.log(result);
           return result;
         });
 
@@ -97,6 +96,7 @@ export class Item {
           detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
           detail.PurchaseAmount = dispoLoader.PurchaseAmount;
+          detail.PurchaseAmountCurrency = dispoLoader.PurchaseAmountCurrency;
           return detail;
         })
     } else {

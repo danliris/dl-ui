@@ -55,7 +55,7 @@ export class Item {
 
   unitPaymentOrderView = (unitPaymentOrder) => {
 
-    return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo}`;
+    return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder ? unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo : ''}`;
 
   }
 

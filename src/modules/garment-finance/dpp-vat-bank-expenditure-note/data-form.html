@@ -30,7 +30,7 @@
         </au-autocomplete>
 
         <au-numeric value.bind="data.Currency.Rate"
-                    read-only.bind="true"
+                    read-only.bind="sameCurrency"
                     label="Rate"
                     options.bind="controlOptions"
                     format="0,000.0000">
