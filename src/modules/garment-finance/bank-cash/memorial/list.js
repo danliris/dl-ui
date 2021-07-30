@@ -15,7 +15,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "AccountingBookCode", title: "Kode Buku" },
+        { field: "AccountingBookType", title: "Kode Buku" },
     ];
 
     loader = (info) => {
@@ -32,6 +32,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                for(var a of result.data){
+                    a.AccountingBookType= a.AccountingBookCode + " - " + a.AccountingBookType;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
