@@ -21,7 +21,7 @@ export class View {
     let id = params.id;
     this.data = await this.service.getById(id);
 
-    if (this.data.Position > 1 && this.data.Position < 6) {
+    if (this.data.MemoIsCreated) {
       this.hasEdit = false;
       this.hasDelete = false;
     }
