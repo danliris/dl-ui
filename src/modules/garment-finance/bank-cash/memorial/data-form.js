@@ -72,9 +72,10 @@ export class DataForm {
     }
 
     accountingBookChanged(newValue){
+		console.log(newValue)
         this.data.AccountingBookId=newValue.Id;
         this.data.AccountingBookCode=newValue.Code;
-        this.AccountingBookType= newValue.Type;
+        this.data.AccountingBookType= newValue.Type;
     }
     
 	currenciesView = (currency) => {
