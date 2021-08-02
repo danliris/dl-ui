@@ -32,6 +32,18 @@ export class DataForm {
 		{ header: "" },
 	]
 
+	othersColumns = [
+		{ header: "No Account" },
+		{ header: "Nama Account" },
+		{ header: "Kurs" },
+		{ header: "Rate" },
+		{ header: "Jumlah" },
+		{ header: "Total IDR" },
+		{ header: "" },
+	]
+
+
+
 
 
 	constructor(router, service, dialog) {
@@ -76,6 +88,20 @@ export class DataForm {
 		};
 	}
 
+	get addOtherItems() {
+		return (event) => {
+			this.data.OtherItems.push({});
+
+		};
+	}
+
+	get removeOtherItems() {
+		return (event) => {
+			this.error = null;
+		};
+	}
+
+
 	get kwitansiLoader() {
 		return KwitansiLoader;
 	}
@@ -85,7 +111,6 @@ export class DataForm {
 	}
 
 	selectedKwitansiChanged(newValue, oldValue) {
-		console.log(newValue);
 		this.data.BankCashReceiptNo = newValue.ReceiptNo;
 		this.data.BankCashReceiptId = newValue.Id;
 		this.data.BankCashReceiptDate = newValue.ReceiptDate;
