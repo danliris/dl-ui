@@ -41,7 +41,7 @@
     </au-numeric>
 
     <au-checkbox label="Import"
-                 value.bind="data.SupplierIsImport"
+                 value.bind="supplierIsImport"
                  read-only.bind="readOnly"
                  options.bind="controlOptions">
     </au-checkbox>
@@ -65,6 +65,8 @@
                    remove.bind="onremove"
                    read-only.bind="readOnly"
                    options.bind="itemOptions"
+                   show.bind="division && currency"
+                   view-model.ref="ItemCollection"
                    item-template="modules/accounting/purchasing-memo-detail-textile/templates/item">
     </au-collection>
 

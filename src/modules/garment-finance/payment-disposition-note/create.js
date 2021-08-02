@@ -44,7 +44,9 @@ export class Create {
             SameCurrency: this.sameCurrency
         };
 
-
+        this.sameCurrencyValue = true;
+        this.bankCurrency = null;
+        this.currencyCodeValue = null;
     }
 
     determineActivationStrategy() {
@@ -179,6 +181,13 @@ export class Create {
                 };
                 await this.DispositionData(arg);
             }
+            this.bankCurrency = newVal.Currency.Code;
+            if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null){
+                this.sameCurrencyValue = false;
+            }
+            else{
+                this.sameCurrencyValue = true;
+            }
             //this.isExistBankAndSupplier = true;
             // this.currency = newVal.Currency.Code;
             // if (this.currency == "IDR") {
@@ -216,12 +225,12 @@ export class Create {
 
     @bindable selectedCurrency;
     async selectedCurrencyChanged(newVal) {
-        this.sameCurrency = false;
         this.data.CurrencyRate = 0;
         if (newVal) {
             this.data.CurrencyCode = newVal.code;
             this.data.CurrencyId = newVal.Id;
             this.data.CurrencyRate = newVal.rate;
+            this.currencyCodeValue = this.data.CurrencyCode;
             // if (newVal.Code == "IDR") {
             //     this.sameCurrency = true;
             //     this.data.CurrencyRate = 1;
@@ -237,7 +246,12 @@ export class Create {
                 };
                 await this.DispositionData(arg);
             }
-
+            if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null){
+                this.sameCurrencyValue = false;
+            }
+            else{
+                this.sameCurrencyValue = true;
+            }
             // if (!this.IDR || this.sameCurrency) {
             //     this.collection = {
             //         columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
