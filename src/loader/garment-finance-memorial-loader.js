@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = '/garment-memorials';
+const resource = 'garment-memorials';
 
 module.exports = function (keyword, filter) {
 
