@@ -7,16 +7,16 @@ export class DetailFooter {
         this.context = context;
     }
 
-    get debitSum() {
+    get amountSum() {
         var qty = this.context.items
-            .map((item) => item.data.Debit);
+            .map((item) => item.data.Amount);
         return qty
             .reduce((prev, curr, index) => { return prev + curr }, 0);
     }
 
-    get creditSum() {
+    get idrSum() {
         var qty = this.context.items
-            .map((item) => item.data.Credit);
+            .map((item) => item.data.Amount * item.data.Currency.Rate);
         return qty
             .reduce((prev, curr, index) => { return prev + curr }, 0);
     }

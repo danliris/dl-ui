@@ -1,24 +1,26 @@
 <template>
     <tr>
-      <td colspan="2" class="text-right" style="padding-right:10%">
+      <td colspan="5" class="text-right" style="padding-right:10%">
         Total
       </td>
       <td width="15%" colspan="1">
-        <numeric 
-            value.bind="debitSum" 
+        <au-numeric 
+            value.bind="amountSum" 
             error.bind="item.error" 
             read-only.bind="true" 
             options.bind="controlOption">
-        </numeric>
+        </au-numeric>
       </td>
       
       <td width="15%" colspan="1">
-        <numeric 
-            value.bind="creditSum" 
+        <au-numeric 
+            value.bind="idrSum" 
             error.bind="item.error" 
             read-only.bind="true" 
             options.bind="controlOption">
-        </numeric>
+        </au-numeric>
+      </td>
+      <td colspan="2" class="text-right" style="padding-right:10%">
       </td>
     </tr>
     </template>

@@ -5,7 +5,7 @@
                 value.bind="selectedInvoice"
                 loader.one-time="invoiceLoader" 
                 error.bind="error.Invoice"
-                text.bind="invoiceView" 
+                text="invoiceNo" 
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions" 
                 placeholder="Pilih No Invoice">
@@ -13,26 +13,49 @@
 		</td>
 		<td>
 			<au-textbox 
-                value.bind="data.COA.Name" 
-                error.bind="error.COA"
+                value.bind="data.Buyer.Code" 
+                error.bind="error.Buyer"
+                read-only.bind="true">
+			</au-autocomplete>
+		</td>
+		<td>
+			<au-textbox 
+                value.bind="data.Buyer.Name" 
+                error.bind="error.Buyer"
+                read-only.bind="true">
+			</au-autocomplete>
+		</td>
+		<td>
+			<au-textbox 
+                value.bind="data.Currency.Code" 
+                error.bind="error.Currency"
                 read-only.bind="true">
 			</au-autocomplete>
 		</td>
 		<td>
 			<au-numeric 
-                value.bind="data.Debit" 
-                error.bind="error.Debit"
-                read-only.bind="readOnly || data.Credit>0">
+                value.bind="data.Currency.Rate" 
+                error.bind="error.Currency"
+                read-only.bind="true">
 			</au-numeric>
 		</td>
 		<td>
 			<au-numeric 
-                value.bind="data.Credit" 
-                error.bind="error.Credit"
-                read-only.bind="readOnly || data.Debit>0">
+                value.bind="data.Amount" 
+                error.bind="error.Amount"
+                read-only.bind="readOnly">
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric 
+                value.bind="amountIDR" 
+                read-only.bind="true"
+                show.bind="selectedInvoice">
 			</au-numeric>
 		</td>
 
-        <td if.bind="!readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
 	</tr>
 </template>

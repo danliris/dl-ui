@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
-				<div class="col-md-8">
+				<div >
 
 					<au-autocomplete 
                         value.bind="selectedMemorial" 
@@ -10,6 +10,7 @@
 						error.bind="error.Memorial" 
                         text="MemorialNo" 
 						label="No Memorial"
+						query.bind="filter"
 						read-only.bind="readOnly || isEdit" 
                         options.bind="controlOptions"
 						placeholder="Pilih nomor memorial">
@@ -20,7 +21,6 @@
 						error.bind="error.MemorialDate">
 					</au-datepicker>
 
-				<div style="clear:both">
 					<div class="form-group has-error">
 						<p if.bind="error.ItemsCount" class="help-block text-center">
 							${error.ItemsCount}

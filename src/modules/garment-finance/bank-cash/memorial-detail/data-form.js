@@ -12,9 +12,20 @@ export class DataForm {
 	@bindable readOnly;
 	@bindable data = {};
 	@bindable error = {};
-	@bindable accountingBook;
-	@bindable currencies;
-    @bindable date;
+	@bindable selectedMemorial;
+
+	controlOptions = {
+        label: {
+            length: 3
+        },
+        control: {
+            length: 5
+        }
+    };
+
+	filter={
+		IsUsed:false
+	}
 
 	formOptions = {
 		cancelText: "Kembali",
@@ -34,6 +45,7 @@ export class DataForm {
 		{ header: "Rate" },
 		{ header: "Jumlah" },
 		{ header: "Total IDR" },
+		{ header: "" },
 	]
 
 	constructor(router, service, coreService, dialog) {
@@ -55,13 +67,13 @@ export class DataForm {
 			isCreate: this.context.isCreate,
 			isView: this.context.isView,
 			isEdit: this.context.isEdit,
-			header: this.data
 		}
 
 		if (this.data) {
 			this.selectedMemorial = this.data.MemorialId ? {
                 Id:this.data.MemorialId,
-                MemorialNo:this.data.MemorialNo
+                MemorialNo:this.data.MemorialNo,
+				Date: this.data.MemorialDate
             } : null;
 		}
 	}

@@ -11,11 +11,10 @@ export class List {
     columns = [
         { field: "MemorialNo", title: "No Memorial" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value) {
+            field: "MemorialDate", title: "Tanggal", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
-        },
-        { field: "AccountingBookCode", title: "Kode Buku" },
+        }
     ];
 
     loader = (info) => {

@@ -1,11 +1,10 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
+import { Container } from "aurelia-dependency-injection";
+import { Config } from "aurelia-api";
 
 const serviceUri = "garment-memorial-details";
-const coaUri = "master/chart-of-accounts";
-const coreBankUri = 'master/account-banks';
-const coreBudgetUri = 'master/budget-currencies';
 
 class Service extends RestService {
 
@@ -43,29 +42,38 @@ class Service extends RestService {
 		return super.delete(endpoint, data);
 	}
 
-	getChartOfAccounts(info) {
-		let endpoint = `${coaUri}`;
-		return super.list(endpoint, info);
-	}
 }
 
-const biCurrencyUri = 'master/bi-currencies';
+const garmentCurrencyUri = 'master/garment-currencies/by-code-before-date';
 class CoreService extends RestService {
 	constructor(http, aggregator, config, api) {
 		super(http, aggregator, config, "core");
 	}
 
-	getAccountBank(info) {
-		let endpoint = `${coreBankUri}`;
-		return super.list(endpoint, info);
-	}
+	getGarmentCurrencies(info) {
+		var resource = `master/garment-currencies/by-before-date`;
+		var config = Container.instance.get(Config);
+		var endpoint = config.getEndpoint("core");
 
-	getBICurrencies(info) {
-		let endpoint = `${biCurrencyUri}`;
-		return super.list(endpoint, info);
+		return endpoint.find(resource, info)
+		.then(results => {
+		return results.data;
+		});
 	}
 
 }
 
+const invoiceServiceUri = 'garment-shipping/invoices';
+class PackingInvService extends RestService {
+	constructor(http, aggregator, config, api) {
+		super(http, aggregator, config, "packing-inventory");
+	}
 
-export { Service, CoreService }
+	getInvoiceById(id) {
+		let endpoint = `${invoiceServiceUri}/${id}`;
+		return super.get(endpoint);
+	}
+
+}
+
+export { Service, CoreService,PackingInvService }

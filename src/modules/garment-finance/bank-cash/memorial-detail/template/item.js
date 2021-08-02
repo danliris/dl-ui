@@ -1,27 +1,20 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service } from '../service';
-var COALoader=require('../../../../../loader/chart-of-account-loader');
+import { Service,CoreService,PackingInvService } from '../service';
+import moment from 'moment';
 
-@inject(Service)
+var InvoiceLoader=require('../../../../../loader/garment-shipping-invoice-loader');
+
+@inject(Service,CoreService,PackingInvService)
 export class Item {
-	@bindable selectedNoAcc;
-	@bindable selectedSubAcc;
-	@bindable selectedAccUnit;
-	@bindable selectedAccBiaya;
-	@bindable coa;
+	@bindable selectedInvoice;
 
-	constructor(service) {
+	constructor(service,coreService,packingInvService) {
 		this.service = service;
+		this.coreService=coreService;
+		this.packingInvService=packingInvService;
 	}
 
-    filter= { "Code3": "4" };
-
-	toggle() {
-		if (!this.isShowing)
-			this.isShowing = true;
-		else
-			this.isShowing = !this.isShowing;
-	}
+    filter= { "Code": "USD" };
 
 	activate(context) {
 		this.context = context;
@@ -36,34 +29,59 @@ export class Item {
 			isCreate: this.isCreate,
 			readOnly: this.readOnly,
 			isEdit: this.isEdit,
-			header: context.context.options.header,
-			item: this.data,
 		};
 		
-		this.coa = this.data.COA || null;
+		this.selectedInvoice = this.data.InvoiceId ? {
+			id: this.data.InvoiceId,
+			buyerAgent: this.data.Buyer,
+			invoiceNo: this.data.InvoiceNo,
 
-		this.isShowing = false;
-		if (this.error && this.error.Details && this.error.Details.length > 0) {
-			this.isShowing = true;
+		}: null;
+
+	}
+
+	get invoiceLoader(){
+		return InvoiceLoader;
+	}
+
+	async selectedInvoiceChanged(newValue){
+		console.log(newValue);
+		if(newValue){
+			this.data.InvoiceNo=newValue.invoiceNo;
+			this.data.InvoiceId=newValue.id;
+			var date= moment(newValue.pebDate).format("YYYY-MM-DD");
+			this.data.Buyer={
+				Name:newValue.buyerAgent.name || newValue.buyerAgent.Name,
+				Code:newValue.buyerAgent.code || newValue.buyerAgent.Code,
+				Id:newValue.buyerAgent.id|| newValue.buyerAgent.Id,
+			};
+
+			var invoice= await this.packingInvService.getInvoiceById(this.data.InvoiceId);
+			this.data.Amount=0;
+			var cmtPrice=invoice.items.find(a=>a.cmtPrice>0);
+			if(cmtPrice){
+				for(var item of invoice.items){
+					this.data.Amount+=(item.price - item.cmtPrice)*item.quantity;
+				}
+				
+			}
+			let info = {
+				size: 10,
+				keyword: "USD",
+				filter: JSON.stringify({ "Code": "USD", "date": date}),
+			}
+			var currency= await this.coreService.getGarmentCurrencies(info);
+			this.data.Currency= currency[0];
 		}
-
 	}
 
-	chartOfAccountView = (coa) => {
-		if (coa.Id == 0) {
-			return "-";
+	get amountIDR(){
+		var qty=0;
+		if(this.data.Amount && this.data.Currency){
+			qty=this.data.Amount*this.data.Currency.Rate;
 		}
-		return coa.Code + " - " + coa.Name;
+		this.data.AmountIDR=qty;
+		return qty;
 	}
-
-
-	get chartOfAccountLoader() {
-		return COALoader;
-	}
-
-	coaChanged(newValue, oldValue) {
-		this.data.COA = newValue;
-	}
-
 
 }
