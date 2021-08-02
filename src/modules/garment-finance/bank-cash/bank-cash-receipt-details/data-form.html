@@ -22,10 +22,26 @@
 					</div>
 					<au-collection items.bind="data.Items" errors.bind="error.Items"
 						columns.bind="itemsColumns" read-only.bind="readOnly"
-						add.bind="addItems" remove.bind="removeItems" options.bind="Options"
+						title="Detail Invoice" add.bind="addItems" remove.bind="removeItems"
+						options.bind="Options"
 						item-template="modules/garment-finance/bank-cash/bank-cash-receipt-details/templates/item">
 					</au-collection>
 				</div>
+
+				<div>
+					<div class="form-group has-error">
+						<p if.bind="error.ItemsCount" class="help-block text-center">
+							${error.ItemsCount}
+						</p>
+					</div>
+					<au-collection items.bind="data.OtherItems" errors.bind="error.OtherItems"
+						columns.bind="othersColumns" read-only.bind="readOnly"
+						title="Detail Lain-Lain" add.bind="addOtherItems"
+						remove.bind="removeOtherItems" options.bind="Options"
+						item-template="modules/garment-finance/bank-cash/bank-cash-receipt-details/templates/other-item">
+					</au-collection>
+				</div>
+
 			</au-input-form>
 		</div>
 	</div>

@@ -5,6 +5,9 @@ import { RestService } from '../../../../utils/rest-service';
 const serviceUri = "bank-cash-receipt-details";
 const garmentCurrenciesUri = "master/garment-currencies";
 const garmentInvoiceUri = "garment-shipping/invoices";
+const coaUri = 'master/chart-of-accounts';
+const currenciesUri = "master/currencies";
+const ibCurrenciesUri = 'master/bi-currencies';
 
 class Service extends RestService {
 
@@ -41,6 +44,11 @@ class Service extends RestService {
 		let endpoint = `${serviceUri}/${data.Id}`;
 		return super.delete(endpoint, data);
 	}
+
+	getChartOfAccounts(info) {
+		let endpoint = `${coaUri}`;
+		return super.list(endpoint, info);
+	}
 }
 
 class CoreService extends RestService {
@@ -52,6 +60,17 @@ class CoreService extends RestService {
 		let endpoint = `${garmentCurrenciesUri}/by-before-date`;
 		return super.list(endpoint, info);
 	}
+
+	getCurrencies(info) {
+		let endpoint = `${currenciesUri}`;
+		return super.list(endpoint, info);
+	}
+
+	getIBCurrencies(info) {
+		let endpoint = `${ibCurrenciesUri}`;
+		return super.list(endpoint, info);
+	}
+
 
 }
 
