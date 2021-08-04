@@ -5,6 +5,9 @@ import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
 const serviceUri = "garment-memorial-details";
+const coaUri = "master/chart-of-accounts";
+const currenciesUri = "master/currencies";
+const ibCurrenciesUri = "master/bi-currencies";
 
 class Service extends RestService {
 
@@ -42,6 +45,11 @@ class Service extends RestService {
 		return super.delete(endpoint, data);
 	}
 
+	getChartOfAccounts(info) {
+		let endpoint = `${coaUri}`;
+		return super.list(endpoint, info);
+	}
+
 }
 
 const garmentCurrencyUri = 'master/garment-currencies/by-code-before-date';
@@ -56,9 +64,19 @@ class CoreService extends RestService {
 		var endpoint = config.getEndpoint("core");
 
 		return endpoint.find(resource, info)
-		.then(results => {
-		return results.data;
-		});
+			.then(results => {
+				return results.data;
+			});
+	}
+
+	getCurrencies(info) {
+		let endpoint = `${currenciesUri}`;
+		return super.list(endpoint, info);
+	}
+
+	getIBCurrencies(info) {
+		let endpoint = `${ibCurrenciesUri}`;
+		return super.list(endpoint, info);
 	}
 
 }
@@ -76,4 +94,4 @@ class PackingInvService extends RestService {
 
 }
 
-export { Service, CoreService,PackingInvService }
+export { Service, CoreService, PackingInvService }
