@@ -55,7 +55,7 @@ export class View {
         if (this.data.IsPosted && !isUsedSJ) {
             this.hasUnpost = true;
         }
-        if (this.data.IsCanceled || this.data.IsClosed) {
+        if (this.data.IsCanceled || this.data.IsClosed || this.data.IsUnpost) {
             this.hasUnpost = false;
         }
 

@@ -60,7 +60,7 @@ export class View {
         if (this.data.IsPosted==true && this.data.IsClosed==false && canClose && this.data.IsCanceled==false){
             this.hasClosePo=true;
         }
-        if (this.data.IsCanceled || this.data.IsClosed) {
+        if (this.data.IsCanceled || this.data.IsClosed || this.data.IsUnpost) {
             this.hasUnpost = false;
             this.hasCancelPo = false;
         }
