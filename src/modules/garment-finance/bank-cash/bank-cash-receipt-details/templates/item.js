@@ -87,7 +87,6 @@ export class Item {
 			this.coreService.getGarmentCurrencies(args)
 				.then(result => {
 					let currency = result.data.slice().pop();
-					console.log(currency);
 					this.data.Currency = {
 						Id: currency.Id,
 						Code: currency.Code,
@@ -106,7 +105,7 @@ export class Item {
 					if (invoice.cmtPrice > 0) {
 						isCmt = true;
 					}
-					totalAmount += invoice.cmtPrice;
+					totalAmount += invoice.cmtPrice * invoice.quantity;
 				}
 				if (isCmt == false) {
 					totalAmount = 0;
