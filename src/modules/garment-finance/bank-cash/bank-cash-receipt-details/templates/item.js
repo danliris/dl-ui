@@ -106,7 +106,7 @@ export class Item {
 					if (invoice.cmtPrice > 0) {
 						isCmt = true;
 					}
-					totalAmount += invoice.cmtPrice;
+					totalAmount += invoice.cmtPrice * invoice.quantity;
 				}
 				if (isCmt == false) {
 					totalAmount = 0;
