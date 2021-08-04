@@ -91,6 +91,8 @@ export class DataForm {
             this.division = this.data.Division;
         }
 
+        this.supplierIsImport = this.data.SupplierIsImport;
+        // console.log(this.data);
     }
 
 
@@ -98,23 +100,42 @@ export class DataForm {
 
     @bindable division;
     divisionChanged(n, o) {
-        if (this.division) {
-            this.data.Division = this.division;
+        if (n) {
+            this.data.Division = n;
             this.itemOptions.DivisionId = this.data.Division.Id;
+            this.data.Items = [];
+            if (o)
+                if (this.context.ItemCollection)
+                    this.context.ItemCollection.bind();
         } else {
             this.data.Division = null;
         }
     }
 
     @bindable currency;
-    currencyChanged(n, o) {
-        if (this.currency) {
-            this.data.Currency = this.currency;
-            this.itemOptions.CurrencyId = this.data.Currency.Id;
+    async currencyChanged(n, o) {
+        if (n) {
+            let currency = await this.coreService.getCurrencyByCode(n.Code);
 
+            this.data.Currency = n;
+            this.data.Currency.Rate = currency.Rate;
+            this.currency.Rate = currency.Rate;
+            this.itemOptions.currencyCode = this.data.Currency.Code;
+            this.data.Details = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         } else {
             this.data.Currency = null;
         }
+    }
+
+    @bindable supplierIsImport;
+    supplierIsImportChanged(n, o) {
+        this.data.SupplierIsImport = n;
+        this.itemOptions.supplierIsImport = n;
+
+        if (this.context.ItemCollection)
+            this.context.ItemCollection.bind();
     }
 
     otherUnitSelected(event, data) {
@@ -134,7 +155,9 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Items.push({})
+            this.data.Items.push({ division: this.division, currency: this.currency, supplierIsImport: this.supplierIsImport })
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         };
     }
 

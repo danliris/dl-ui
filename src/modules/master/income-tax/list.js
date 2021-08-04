@@ -10,6 +10,7 @@ export class List {
   columns = [
     { field: "name", title: "Nama" },
     { field: "rate", title: "Rate" },
+    { field: "COACodeCredit", title: "No. COA" }
   ];
 
   loader = (info) => {
