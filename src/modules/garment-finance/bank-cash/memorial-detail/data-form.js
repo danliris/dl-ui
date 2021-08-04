@@ -4,7 +4,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Dialog } from '../../../../au-components/dialog/dialog';
 import moment from 'moment';
 
-var MemorialLoader=require('../../../../loader/garment-finance-memorial-loader');
+var MemorialLoader = require('../../../../loader/garment-finance-memorial-loader');
 
 @inject(Router, Service, CoreService, Dialog)
 export class DataForm {
@@ -15,16 +15,16 @@ export class DataForm {
 	@bindable selectedMemorial;
 
 	controlOptions = {
-        label: {
-            length: 3
-        },
-        control: {
-            length: 5
-        }
-    };
+		label: {
+			length: 3
+		},
+		control: {
+			length: 5
+		}
+	};
 
-	filter={
-		IsUsed:false
+	filter = {
+		IsUsed: false
 	}
 
 	formOptions = {
@@ -33,9 +33,9 @@ export class DataForm {
 		deleteText: "Hapus",
 		editText: "Ubah",
 	}
-    get accountingBookLoader() {
-        return AccountingBookLoader;
-    }
+	get accountingBookLoader() {
+		return AccountingBookLoader;
+	}
 
 	itemsColumns = [
 		{ header: "No Invoice" },
@@ -47,6 +47,17 @@ export class DataForm {
 		{ header: "Total IDR" },
 		{ header: "" },
 	]
+
+	otherItemsColumns = [
+		{ header: "No Account" },
+		{ header: "Nama Account" },
+		{ header: "Kurs" },
+		{ header: "Rate" },
+		{ header: "Jumlah" },
+		{ header: "Total IDR" },
+		{ header: "" },
+	]
+
 
 	constructor(router, service, coreService, dialog) {
 		this.router = router;
@@ -67,22 +78,23 @@ export class DataForm {
 			isCreate: this.context.isCreate,
 			isView: this.context.isView,
 			isEdit: this.context.isEdit,
+			header: this.data
 		}
 
 		if (this.data) {
 			this.selectedMemorial = this.data.MemorialId ? {
-                Id:this.data.MemorialId,
-                MemorialNo:this.data.MemorialNo,
+				Id: this.data.MemorialId,
+				MemorialNo: this.data.MemorialNo,
 				Date: this.data.MemorialDate
-            } : null;
+			} : null;
 		}
 	}
 
-	selectedMemorialChanged(newValue){
-		if(newValue){
-			this.data.MemorialDate= newValue.Date;
-			this.data.MemorialId= newValue.Id;
-			this.data.MemorialNo= newValue.MemorialNo;
+	selectedMemorialChanged(newValue) {
+		if (newValue) {
+			this.data.MemorialDate = newValue.Date;
+			this.data.MemorialId = newValue.Id;
+			this.data.MemorialNo = newValue.MemorialNo;
 		}
 	}
 
@@ -101,5 +113,18 @@ export class DataForm {
 			this.error = null;
 		};
 	}
+
+	get addOtherItems() {
+		return (event) => {
+			this.data.OtherItems.push({});
+		};
+	}
+
+	get removeOtherItems() {
+		return (event) => {
+			this.error = null;
+		};
+	}
+
 
 }
