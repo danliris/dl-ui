@@ -126,7 +126,7 @@ module.exports = [
     },
     {
         route: '/garment-production/aval-product-alluser',
-        name: 'aval-product',
+        name: 'aval-product-alluser',
         moduleId: './modules/garment-production/aval-product-alluser/index',
         nav: true,
         title: 'Barang Aval (Semua User)',

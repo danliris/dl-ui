@@ -8,6 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B11": 1, "C9": 1, "PG": 1, "APG": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -21,6 +22,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B12": 1, "B11": 1, "PG": 1, "APG": 1, "B9": 1, "B4": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -34,6 +36,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B9": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -47,6 +50,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "B13": 1, "C9": 1, "B12": 1, "B11": 1, "PG": 1, "APG": 1, "B9": 1, "B4": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -60,6 +64,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     },
@@ -74,6 +79,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     },
@@ -87,6 +93,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -100,6 +107,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "ekspedisi ni",
       permission: { "C9": 1, "B4": 1, "B11": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -217,7 +225,7 @@ module.exports = [
     settings: {
       group: "g-finance",
       subGroup: "ekspedisi disposisi",
-      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "C9": 1, "PG":1,"APG":1 },
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "C9": 1, "PG": 1, "APG": 1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -288,7 +296,7 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  }
+  },
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
@@ -302,5 +310,63 @@ module.exports = [
   //         iconClass: 'fa fa-dashboard'
   //     }
   // },
+  {
+    route: "garment-finance/bank-cash/bank-cash-receipts",
+    name: "bank-cash-receipts",
+    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipts/index",
+    nav: true,
+    title: "Penerimaan Kas Bank",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/bank-cash/bank-cash-receipt-details",
+    name: "bank-cash-receipt-details",
+    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
+    nav: true,
+    title: "Rincian Penerimaan Kas Bank",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/memorials",
+    name: "memorials",
+    moduleId: "./modules/garment-finance/bank-cash/memorial/index",
+    nav: true,
+    title: "Memorial",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/bank-cash/memorial-detail",
+    name: "memorial-details",
+    moduleId: "./modules/garment-finance/bank-cash/memorial-detail/index",
+    nav: true,
+    title: "Rincian Memorial",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
+
 
 ]

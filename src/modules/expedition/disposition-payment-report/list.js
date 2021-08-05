@@ -5,7 +5,7 @@ import XLSX from 'xlsx';
 import { Service } from './service';
 const SupplierLoader = require('../../../loader/supplier-loader');
 const DivisionLoader = require('../../../loader/division-loader');
-const DispositionNoteLoader = require('../../../loader/purchase-dispositions-loader');
+const DispositionNoteLoader = require('../../../loader/purchase-dispositions-all-loader');
 const BankExpenditureNoteDPPAndPPNLoader = require('../../../loader/payment-disposition-loader');
 
 @inject(Service)
@@ -20,11 +20,21 @@ export class List {
             title: 'Tanggal Bayar Disposisi',
             formatter: function (value, data, index) {
                 return value ? moment(value).format('DD MMM YYYY') : "-";
-            },
+            }
         },
         { field: 'DispositionNo', title: 'No. Disposisi' },
-        { field: 'DispositionDate', title: 'Tgl Disposisi' },
-        { field: 'DispositionDueDate', title: 'Tgl Jatuh Tempo' },
+        {
+            field: 'DispositionDate', title: 'Tgl Disposisi',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : "-";
+            }
+        },
+        {
+            field: 'DispositionDueDate', title: 'Tgl Jatuh Tempo',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : "-";
+            }
+        },
         { field: 'BankName', title: 'Bank Bayar' },
         { field: 'CurrencyCode', title: 'Mata Uang' },
         { field: 'SupplierName', title: 'Supplier' },
@@ -88,7 +98,7 @@ export class List {
         if (this.info.dispositionNote)
             arg.dispositionId = this.info.dispositionNote.Id;
         if (this.info.supplier)
-            arg.supplierId = this.info.supplier.Id;
+            arg.supplierId = this.info.supplier._id;
         if (this.info.division)
             arg.divisionId = this.info.division.Id;
         if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
@@ -107,15 +117,9 @@ export class List {
 
             arg.startDate = moment(arg.startDate).format();
             arg.endDate = moment(arg.endDate).format();
-        } else {
-            arg.startDate = new Date();
-            arg.startDate.setMonth(arg.startDate.getMonth() - 1);
-            arg.endDate = new Date();
-
-            arg.startDate = moment(arg.startDate).format();
-            arg.endDate = moment(arg.endDate).format();
         }
 
+        console.log(arg)
         return this.flag ? (
             this.service.search(arg)
                 .then((result) => {
@@ -165,23 +169,56 @@ export class List {
             this.error = {};
             this.flag = true;
             let arg = {
-                page: parseInt(info.offset / info.limit, 10) + 1,
-                size: info.limit,
-                order: order,
                 select: [],
             };
-    
+
             if (this.info.bankExpenditureNote)
                 arg.bankExpenditureId = this.info.bankExpenditureNote.Id;
+            else
+                arg.bankExpenditureId = 0;
             if (this.info.dispositionNote)
                 arg.dispositionId = this.info.dispositionNote.Id;
+            else
+                arg.dispositionId = 0;
             if (this.info.supplier)
+
                 arg.supplierId = this.info.supplier.Id;
+ 
+            else
+                arg.supplierId = 0;
             if (this.info.division)
                 arg.divisionId = this.info.division.Id;
+            else
+                arg.divisionId = 0;
+ 
+            if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
+                arg.startDate = this.info.startDate && this.info.startDate != 'Invalid Date' ? this.info.startDate : '';
+                arg.endDate = this.info.endDate && this.info.endDate != 'Invalid Date' ? this.info.endDate : '';
 
-            arg.startDate = moment(arg.startDate).format();
-            arg.endDate = moment(arg.endDate).format();
+                if (!arg.startDate) {
+                    arg.startDate = new Date(arg.endDate);
+                    arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+                }
+
+                if (!arg.endDate) {
+                    arg.endDate = new Date(arg.startDate);
+                    arg.endDate.setMonth(arg.endDate.getMonth() + 1);
+                }
+
+                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
+            } else {
+                arg.startDate = new Date();
+                arg.startDate.setMonth(arg.startDate.getMonth() - 1);
+                arg.endDate = new Date();
+
+                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
+                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
+            }
+            console.log(arg)
+
+            // arg.startDate = moment(arg.startDate).format();
+            // arg.endDate = moment(arg.endDate).format();
             this.service.getXls(arg);
         } else {
             // console.log(this.info.startDate);
@@ -200,6 +237,8 @@ export class List {
         this.info.invoice = undefined;
         this.info.supplier = undefined;
         this.info.division = undefined;
+        this.info.dispositionNote = undefined;
+        this.info.bankExpenditureNote = undefined;
         this.info.startDate = undefined;
         this.info.endDate = undefined;
         this.info.paymentMethod = "";
