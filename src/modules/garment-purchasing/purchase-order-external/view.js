@@ -50,7 +50,7 @@ export class View {
             this.selectedIncomeTax=this.data.IncomeTax;
         }
 
-        if (!this.data.IsPosted && !isUsedSJ) {
+        if (!this.data.IsPosted && !isUsedSJ && !this.data.IsApproved) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
