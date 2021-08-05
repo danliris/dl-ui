@@ -116,6 +116,10 @@
               class="fa fa-building"
               if.bind="key.toUpperCase() == 'PS-INVENTORY'"
             ></i>
+            <i
+              class="fa fa-area-chart"
+              if.bind="key.toUpperCase() == 'G-DASHBOARD'"
+            ></i>
             <i class="fa fa-table" if.bind="key.toUpperCase() == 'CUSTOMS'"></i>
             <span if.bind="!minimized">${key.toUpperCase()}</span>
             <div class="pull-right" if.bind="value.size > 0 && !minimized">
