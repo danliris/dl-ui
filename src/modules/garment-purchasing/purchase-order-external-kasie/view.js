@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service, ServiceFinance } from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceFinance)
 export class View {
     hasCancel = true;
     hasEdit = false;
@@ -62,7 +62,7 @@ export class View {
         if (this.data.IsPosted==true && this.data.IsClosed==false && canClose && this.data.IsCanceled==false){
             this.hasClosePo=true;
         }
-        if (this.data.IsCanceled || this.data.IsClosed || this.data.IsUnpost || this.isVBWithPO) {
+        if (this.data.IsCanceled || this.data.IsClosed || this.data.IsUnpost || this.isVBWithPO || this.data.IsApproved) {
             this.hasUnpost = false;
             this.hasCancelPo = false;
         }
