@@ -87,7 +87,6 @@ export class Item {
 			this.coreService.getGarmentCurrencies(args)
 				.then(result => {
 					let currency = result.data.slice().pop();
-					console.log(currency);
 					this.data.Currency = {
 						Id: currency.Id,
 						Code: currency.Code,
