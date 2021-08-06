@@ -1,16 +1,15 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service, CoreService, PackingInventoryService } from '../service';
-const InvoiceLoader = require('../../../../../loader/garment-shipping-invoice-loader');
-const CurrencyLoader = require('../../../../../loader/garment-currency-loader');
+import { Service, CoreService, PackingInvService } from '../service';
+import moment from 'moment';
 
-@inject(Service, CoreService, PackingInventoryService)
-export class Item {
-	@bindable selectedInvoice;
+@inject(Service, CoreService, PackingInvService)
+export class OtherItem {
+	@bindable selectedAccount;
 
-	constructor(service, coreService, packingInventoryService) {
+	constructor(service, coreService, packingInvService) {
 		this.service = service;
 		this.coreService = coreService;
-		this.packingInventoryService = packingInventoryService;
+		this.packingInvService = packingInvService;
 	}
 
 	toggle() {
@@ -36,34 +35,67 @@ export class Item {
 			header: context.context.options.header,
 			item: this.data,
 		};
+		this.header = this.itemOptions.header;
 
 		this.isShowing = false;
 		if (this.error && this.error.Details && this.error.Details.length > 0) {
 			this.isShowing = true;
 		}
 		if (this.data) {
-			this.selectedInvoice = {
-				id: this.data.InvoiceId,
-				invoiceNo: this.data.InvoiceNo,
-			};
-
+			this.selectedAccount = this.data.Account;
 		}
 	}
 
-	invoiceView = (invoice) => {
-		return invoice.invoiceNo;
+	coaView = (coa) => {
+		return coa.Code;
 	}
 
-	get invoiceLoader() {
+	get coaLoader() {
 		return (keyword) => {
 			let args = {
 				size: 10,
 				keyword: keyword,
 			}
 
-			return this.packingInventoryService.getInvoices(args).then(result => {
+			return this.service.getChartOfAccounts(args).then(result => {
 				return result.data;
 			});
+		}
+	}
+
+	async selectedAccountChanged(newValue, oldValue) {
+		if (newValue != this.data.Account) {
+			this.data.Account = newValue;
+			let args = {
+				size: 10,
+				filter: JSON.stringify({
+					"Code": "USD"
+				})
+			};
+
+			let dataCurrencies = await this.coreService.getCurrencies(args);
+
+			console.log("dataCurrencies", dataCurrencies);
+			var check = moment(this.header.MemorialDate, 'YYYY/MM/DD');
+
+			var month = check.format('M');
+			console.log(month);
+
+			let args2 = {
+				size: 10,
+				filter: JSON.stringify({
+					"Month": month,
+					"Currency.Id": dataCurrencies.data[0].Id
+				})
+			};
+
+
+			let dataIbCurrencies = await this.coreService.getIBCurrencies(args2);
+			this.data.Currency = {
+				Id: dataCurrencies.data[0].Id,
+				Code: dataCurrencies.data[0].Code,
+				Rate: dataIbCurrencies.data[0].Rate
+			}
 		}
 	}
 
@@ -87,6 +119,7 @@ export class Item {
 			this.coreService.getGarmentCurrencies(args)
 				.then(result => {
 					let currency = result.data.slice().pop();
+					console.log(currency);
 					this.data.Currency = {
 						Id: currency.Id,
 						Code: currency.Code,
@@ -98,14 +131,14 @@ export class Item {
 			let totalAmount = 0;
 			let isCmt = false;
 
-			this.packingInventoryService.getInvoiceById(newValue.id).then(result => {
+			this.packingInvService.getInvoiceById(newValue.id).then(result => {
 				dataInvoice = Object.assign({}, result);
 
 				for (const invoice of dataInvoice.items) {
 					if (invoice.cmtPrice > 0) {
 						isCmt = true;
 					}
-					totalAmount += invoice.cmtPrice * invoice.quantity;
+					totalAmount += invoice.cmtPrice;
 				}
 				if (isCmt == false) {
 					totalAmount = 0;
@@ -121,7 +154,7 @@ export class Item {
 	}
 
 	get total() {
-		if (this.data.Amount != 0 && (this.data.Currency && this.data.Currency.Rate != 0)) {
+		if (this.data.Currency && this.data.Amount != 0) {
 			return this.data.Amount * this.data.Currency.Rate;
 		}
 		return 0;
