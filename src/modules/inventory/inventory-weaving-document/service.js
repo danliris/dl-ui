@@ -17,6 +17,7 @@ export class Service extends RestService {
   
   search1(info) {
     var endpoint = `${serviceUri}/monitoring`;
+    //var endpoint = `${serviceUri}/monitoring?bonType=${info.fromList}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
     return super.list(endpoint, info);
 
     console.log(info);
