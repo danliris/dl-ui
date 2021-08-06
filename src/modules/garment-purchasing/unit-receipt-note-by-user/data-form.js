@@ -528,10 +528,10 @@ export class DataForm {
             for(var expendItem of items){
                 var item={};
                 var stock= await this.inventoryService.getStockById(expendItem.StockId);
-                var prItem = await this.service.searchPR({ filter: JSON.stringify({ PO_SerialNumber: expendItem.PONo}) });
-                var prId=prItem.data[0].GarmentPRId;
-                console.log(prItem)
-                var pr= await this.service.getPRById(prId);
+                var epoItem = await this.service.searchEPO({ filter: JSON.stringify({ PO_SerialNumber: expendItem.PONo}), Keyword:expendItem.PONo });
+                var epoItemData=epoItem.data[0];
+                console.log(epoItemData)
+                
                 item.Conversion=1;
                 item.POSerialNumber=expendItem.PONo;
                 item.SmallQuantity=expendItem.Quantity;
@@ -544,8 +544,8 @@ export class DataForm {
                 item.OrderQuantity=0;
                 item.PricePerDealUnit=stock.BasicPrice;
                 item.ExpenditureItemId=expendItem.Id;
-                item.RONo=pr.RONo;
-                item.Product.Remark= expendItem.PONo + "; " + pr.RONo + "; " + pr.Article;
+                item.RONo=epoItemData.RONo;
+                item.Product.Remark= expendItem.PONo + "; " + epoItemData.RONo + "; " + epoItemData.Article;
 
                 this.data.Items.push(item);
                 
@@ -556,6 +556,11 @@ export class DataForm {
     categoryChanged(newValue){
         this.data.ExpenditureId=null;
         this.data.ExpenditureNo="";
+        this.expenditure=null;
+        this.unit=null;
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
         this.data.Category=newValue;
     }
 } 

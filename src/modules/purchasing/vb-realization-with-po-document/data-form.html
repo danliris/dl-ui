@@ -125,6 +125,14 @@
     >
     </au-autocomplete>
 
+    <au-multiline 
+      if.bind="data.Type != ''"
+      label="Keterangan"
+      value.bind="data.Remark"
+      read-only.bind="readOnly"
+      options.bind="controlOptions">
+    </au-multiline>
+
     <au-collection
       view-model.ref="ItemCollection"
       if.bind="(!isWithVB || vbRequestDocument) && data.Type != ''"
