@@ -37,7 +37,7 @@ export class DataForm {
     }
 
     // statusOptions = ["IN", "OUT"];
-    sourceTypes = ["Operasional", "Investasi", "Lain - lain"];
+    sourceTypes = ["Operasional", "Investasi", "Pendanaan", "Lain - lain"];
 
     get bankLoader() {
         return BankLoader;
@@ -60,7 +60,7 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.Code} / ${supplier.Name}`
+        return supplier.Code ? `${supplier.Code} / ${supplier.Name}` : ""
     }
 
     get buyerLoader() {
@@ -76,7 +76,7 @@ export class DataForm {
     }
 
     buyerView = (buyer) => {
-        return `${buyer.Code} / ${buyer.Name}`
+        return buyer.Code ? `${buyer.Code} / ${buyer.Name}` : ""
     }
 
     get isFrom() {

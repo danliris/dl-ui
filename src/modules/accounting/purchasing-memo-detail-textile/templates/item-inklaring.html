@@ -20,16 +20,17 @@
       </au-multiline>
     </td>
     <td>
-      <au-autocomplete value.bind="data.UnitPaymentOrder"
+      <au-autocomplete value.bind="unitPaymentOrder"
                        error.bind="error.UnitPaymentOrder"
-                       loader.bind="incomeTaxLoader"
+                       loader.bind="unitPaymentOrderLoader"
+                       query.bind="upoLoaderQuery"
                        placeholder="cari spb"
-                       text.bind="incomeTaxView"
-                       read-only.bind="readOnly">
+                       text.bind="unitPaymentOrderView"
+                       read-only.bind="readOnly || detailReadOnly">
       </au-autocomplete>
     </td>
     <td>
-      <au-multiline value.bind="data.UnitReceiptNotes"
+      <au-multiline value.bind="data.UnitReceiptNoteNo"
                     read-only.bind="true"
                     options.bind="controlOptions">
       </au-multiline>
