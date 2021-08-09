@@ -83,7 +83,7 @@ export class List {
             this.data = await this.service.search(params)
                 .then((result) => {
                     this.isValas = false;
-                    if(this.info.bank){
+                    if (this.info.bank) {
                         this.isValas = this.info.bank.Currency.Code != "IDR" ? true : false;
                     }
 
@@ -107,7 +107,7 @@ export class List {
                     if (this.isValas)
                         for (let data of result.data) {
                             let date = moment(data.Date).format("DD-MMM-YYYY");
-                            
+
                             if (moment(previousDate).diff(moment(date), 'days') != 0 || index == result.data.length) {
                                 let dailyTotalDataSet = {
                                     DailyTotalTitle: "Total Harian",
@@ -279,8 +279,10 @@ export class List {
             this.info.dateFrom = undefined;
         if (this.info.dateTo == 'Invalid Date')
             this.info.dateTo = undefined;
+
+        var bankId = 0;
         if (this.info.bank && this.info.bank.Id)
-            this.info.bankId = this.info.bank.Id;
+            bankId = this.info.bank.Id;
 
         let validationError = false;
 
@@ -295,7 +297,7 @@ export class List {
             // this.tableList.refresh();
 
             let params = {
-                bankId: this.info.bankId,
+                bankId: bankId,
                 month: this.monthList.indexOf(this.info.month) + 1,
                 year: this.info.year
             }
