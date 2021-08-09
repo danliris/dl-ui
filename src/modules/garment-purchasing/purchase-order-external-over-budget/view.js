@@ -1,16 +1,19 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service, ServiceFinance } from './service';
+// import { Service, ServiceFinance } from './service';
+import { Service } from './service';
 
-@inject(Router, Service, ServiceFinance)
+// @inject(Router, Service, ServiceFinance)
+@inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasUnpost = false;
+    // hasUnpost = false;
 
-    constructor(router, service, serviceFinance) {
+    // constructor(router, service, serviceFinance)
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.serviceFinance = serviceFinance;
+        // this.serviceFinance = serviceFinance;
     }
     
     async activate(params) {
@@ -18,7 +21,7 @@ export class View {
       var id = params.id;
       this.poExId = id;
       this.data = await this.service.getById(id);
-      this.IsVBWithPO = await this.serviceFinance.getVbWithPO(id);
+      // this.IsVBWithPO = await this.serviceFinance.getVbWithPO(id);
       if(this.data.Currency){
          this.selectedCurrency=this.data.Currency;
       }
@@ -30,21 +33,21 @@ export class View {
       if(this.data.IncomeTax){
          this.selectedIncomeTax=this.data.IncomeTax.Name+" - "+this.data.IncomeTax.Rate;
       }
-      if(this.data.IsApproved && !this.data.IsUnpost && !this.IsVBWithPO){
-         this.hasUnpost = true;
-      }  
+      // if(this.data.IsApproved && !this.data.IsUnpost && !this.IsVBWithPO){
+      //    this.hasUnpost = true;
+      // }  
     }
     
     cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    unpostPO(event) {
-      this.service.unpost(this.poExId).then(result => {
-          this.cancel();
-      }).catch(e => {
-          this.error = e;
-      })
-    }
+    // unpostPO(event) {
+    //   this.service.unpost(this.poExId).then(result => {
+    //       this.cancel();
+    //   }).catch(e => {
+    //       this.error = e;
+    //   })
+    // }
 
 }

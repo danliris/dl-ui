@@ -160,13 +160,13 @@ export class Service extends RestService {
     }
 }
 
-export class ServiceFinance extends RestService {
-  constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "finance");
-  }
+// export class ServiceFinance extends RestService {
+//   constructor(http, aggregator, config, endpoint) {
+//     super(http, aggregator, config, "finance");
+//   }
 
-  getVbWithPO(id){
-    var endpoint = `vb-request-documents/purchasing/${id}`;
-    return super.get(endpoint);
-  }
-}
+//   getVbWithPO(id){
+//     var endpoint = `vb-request-documents/purchasing/${id}`;
+//     return super.get(endpoint);
+//   }
+// }
