@@ -3,6 +3,7 @@
 
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.unpostPO($event)" if.one-way="context.hasUnpost">Unpost</button>
         </div>
 
         <div class="row">

@@ -107,11 +107,17 @@ export class DataForm {
     }
 
     @bindable currency;
-    currencyChanged(n, o) {
-        if (this.currency) {
-            this.data.Currency = this.currency;
-            this.itemOptions.CurrencyId = this.data.Currency.Id;
+    async currencyChanged(n, o) {
+        if (n) {
+            let currency = await this.coreService.getCurrencyByCode(n.Code);
 
+            this.data.Currency = n;
+            this.data.Currency.Rate = currency.Rate;
+            this.currency.Rate = currency.Rate;
+            this.itemOptions.currencyCode = this.data.Currency.Code;
+            this.data.Details = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         } else {
             this.data.Currency = null;
         }
@@ -134,7 +140,9 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            this.data.Details.push({})
+            this.data.Details.push({ division: this.division, currency: this.currency, supplierIsImport: this.supplierIsImport })
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
         };
     }
 
@@ -152,6 +160,43 @@ export class DataForm {
 
     get currencyLoader() {
         return CurrencyLoader;
+    }
+
+    @bindable division;
+    divisionChanged(n, o) {
+        if (n) {
+            this.data.Division = n;
+            this.itemOptions.divisionId = this.data.Division.Id;
+            this.data.Details = [];
+            if (this.context.ItemCollection)
+                this.context.ItemCollection.bind();
+        } else {
+            this.data.Division = null;
+        }
+    }
+
+    // @bindable currency;
+    // currencyChanged(n, o) {
+    //     if (n) {
+    //         this.data.Currency = n;
+    //         this.itemOptions.currencyCode = this.data.Currency.Code;
+    //         this.data.Details = [];
+    //         console.log("here")
+    //         if (this.context.ItemCollection)
+    //             this.context.ItemCollection.bind();
+    //     } else {
+    //         this.data.Currency = null;
+    //     }
+    // }
+
+    @bindable supplierIsImport;
+    supplierIsImportChanged(n, o) {
+        console.log(n);
+        console.log(o);
+        this.itemOptions.supplierIsImport = this.data.Currency.Id;
+        this.data.Details = [];
+        if (this.context.ItemCollection)
+            this.context.ItemCollection.bind();
     }
 
 }

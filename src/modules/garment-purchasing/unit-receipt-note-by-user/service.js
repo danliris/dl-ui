@@ -11,6 +11,7 @@ const UENserviceUri = 'garment-unit-expenditure-notes';
 const CorrectionServiceUri='garment-correction-quantity-notes';
 const PRItemServiceUri = 'garment-purchase-requests/items';
 const PRServiceUri = 'garment-purchase-requests';
+const EPOServiceUri = 'garment-external-purchase-orders';
 
 class Service extends RestService {
 
@@ -105,6 +106,11 @@ class Service extends RestService {
     getPRById(id){
         var endpoint = `${PRServiceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    searchEPO(info) {
+        var endpoint = `${EPOServiceUri}/by-po-serial-number-loader`;
+        return super.list(endpoint, info);
     }
 }
 

@@ -3,7 +3,7 @@
                    with.bind="context"
                    options.bind="formOptions">
 
-        <au-autocomplete value.bind="data.MemoDetail"
+        <au-autocomplete value.bind="memoDetail"
                          error.bind="error.MemoDetail"
                          label="Nomor Memo"
                          loader.bind="memoDetailLoader"
@@ -57,7 +57,6 @@
                        add.bind="addItems"
                        remove.bind="onremove"
                        read-only.bind="readOnly"
-                       footer-template="modules/accounting/purchasing-memo-textile/templates/item-footer"
                        item-template="modules/accounting/purchasing-memo-textile/templates/item">
         </au-collection>
 

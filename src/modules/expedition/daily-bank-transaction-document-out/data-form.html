@@ -175,7 +175,7 @@
                     error.bind="error.TransactionNominal"
                     read-only.bind="readOnly"
                     format="0,0.0000"
-                    show.bind="!readOnly && data.SourceType == 'Pendanaan'"
+                    show.bind="data.SourceType == 'Pendanaan'"
                     options.bind="controlOptions">
         </au-numeric>
 
