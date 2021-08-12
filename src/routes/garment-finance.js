@@ -325,6 +325,32 @@ module.exports = [
     }
   },
   {
+    route: "garment-finance/bank-cash/report/debtor-card-report",
+    name: "debtor-card-report",
+    moduleId: "./modules/garment-finance/bank-cash/report/debtor-card-report/index",
+    nav: true,
+    title: "Report Kartu Debitur",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/reports/export-sales-debtor-report",
+    name: "export-sales-debtor-report",
+    moduleId: "./modules/garment-finance/reports/export-sales-debtor-report/index",
+    nav: true,
+    title: "Laporan Debitur Penjualan Export",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+    {
     route: "garment-finance/bank-cash/bank-cash-receipt-details",
     name: "bank-cash-receipt-details",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
@@ -365,8 +391,5 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  },
-
-
-
+  }
 ]
