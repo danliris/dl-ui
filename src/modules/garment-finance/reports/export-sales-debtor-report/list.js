@@ -100,30 +100,24 @@ export class List {
 
     this.info.month = { text: "January", value: 1 };
     this.info.year = this.currentYear;
+    this.type = "";
 
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());
     }
   }
 
-  get supplierLoader() {
-    return SupplierLoader;
-  }
-
-  supplierView = (supplier) => {
-    return supplier.code + " - " + supplier.name;
-  };
+  
 
   loader = (info) => {
 
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
 
     let params = {
-      supplierId: supplierId,
+      
       month: this.info.month.value,
       year: this.info.year,
-      isForeignCurrency: true,
-      supplierIsImport: false
+      type: "" 
     };
 
 
@@ -150,7 +144,8 @@ export class List {
 
     let params = {
       month: this.info.month.value,
-      year: this.info.year
+      year: this.info.year,
+       type: ""   
     };
 
     this.service.getXls(params);
@@ -159,7 +154,7 @@ export class List {
 
   reset() {
     this.flag = false;
-    this.info.supplier = undefined;
+   
     this.data = [];
     this.tableList.refresh();
     this.info.year = moment().format("YYYY");
