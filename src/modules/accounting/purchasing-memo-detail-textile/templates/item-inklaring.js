@@ -46,6 +46,7 @@ export class Item {
       this.data.PurchaseAmountCurrency = newVal.PurchaseAmountCurrency;
       this.data.UnitReceiptNotes = newVal.UnitReceiptNotes;
       this.data.UnitPaymentOrder = Object.assign({}, newVal.UnitPaymentOrder)
+      this.data.Remark = newVal.Remark;
       // this.data = Object.assign({}, newVal);
       if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
         this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
