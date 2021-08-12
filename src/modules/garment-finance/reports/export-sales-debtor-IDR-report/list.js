@@ -107,24 +107,15 @@ export class List {
     }
   }
 
-  get supplierLoader() {
-    return SupplierLoader;
-  }
-
-  supplierView = (supplier) => {
-    return supplier.code + " - " + supplier.name;
-  };
-
+  
   loader = (info) => {
 
-    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
-
+   
     let params = {
-      supplierId: supplierId,
+    
       month: this.info.month.value,
       year: this.info.year,
-      isForeignCurrency: true,
-      supplierIsImport: false
+      type: "IDR"   
     };
 
 
@@ -149,9 +140,10 @@ export class List {
   excel() {
    
     let params = {
-      type: "IDR",
+     
       month: this.info.month.value,
-      year: this.info.year
+      year: this.info.year,
+      type: "IDR"
     };
 
     this.service.getXls(params);
