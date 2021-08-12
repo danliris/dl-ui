@@ -10,7 +10,7 @@ export class Service extends RestService {
 
   search(info) {
     let endpoint = `${serviceUri}/monitoring`;
-    console.log(endpoint);
+    console.log(info);
     return super.list(endpoint, info);
   }
 
