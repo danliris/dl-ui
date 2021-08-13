@@ -337,7 +337,7 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
-    {
+  {
     route: "garment-finance/bank-cash/bank-cash-receipt-details",
     name: "bank-cash-receipt-details",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
